@@ -1,4 +1,4 @@
 campus.api.net
 ==============
 
-KPIC Campus API
+KPI Campus API
