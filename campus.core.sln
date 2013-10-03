@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campus.Core", "Campus.Core.csproj", "{B993C7E9-DA2A-4090-9CDF-4A17B248AD63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Campus", "Test.Campus\Test.Campus.csproj", "{CFBF6614-11DA-44DF-A712-81EF2996D135}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,10 +13,6 @@ Global
 		{B993C7E9-DA2A-4090-9CDF-4A17B248AD63}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B993C7E9-DA2A-4090-9CDF-4A17B248AD63}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B993C7E9-DA2A-4090-9CDF-4A17B248AD63}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFBF6614-11DA-44DF-A712-81EF2996D135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFBF6614-11DA-44DF-A712-81EF2996D135}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFBF6614-11DA-44DF-A712-81EF2996D135}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFBF6614-11DA-44DF-A712-81EF2996D135}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

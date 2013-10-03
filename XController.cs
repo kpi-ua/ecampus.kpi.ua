@@ -1,9 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
 
 namespace Campus.Core
 {
+    /// <summary>
+    /// Base class for campus api-controllers
+    /// </summary>
     public abstract class XController : Controller
     {
         /// <summary>
@@ -22,7 +26,8 @@ namespace Campus.Core
                                method.ReturnType == typeof(ActionResult)
                            select IntrospectMethod(method)).ToList();
 
-            return Json(methods, JsonRequestBehavior.AllowGet);
+            return Result(methods);
+            //return Json(methods, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -32,6 +37,50 @@ namespace Campus.Core
         public virtual ActionResult Index()
         {
             return Introspect();
+        }
+
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            //If the exeption is already handled we do nothing
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+
+            Response.StatusCode = 500;
+            filterContext.Result = Result(filterContext.Exception.Message);
+
+            //Make sure that we mark the exception as handled
+            filterContext.ExceptionHandled = true;
+        }
+
+        /// <summary>
+        /// Return formatted result
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        protected JsonResult Result(object data, string status = Status.OK)
+        {
+            //var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
+
+            Result result;
+
+            try
+            {
+                result = new Result
+                {
+                    Status = status,
+                    Data = data
+                };
+            }
+            catch (Exception ex)
+            {
+                return Result(ex.Message, Status.Error);
+            }
+
+            //var json = JsonConvert.SerializeObject(result, settings);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         private static dynamic IntrospectMethod(MethodInfo method)
@@ -46,6 +95,5 @@ namespace Campus.Core
                         }).ToList()
                 };
         }
-
     }
 }
