@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 
 namespace Campus.Core
 {
@@ -14,7 +15,7 @@ namespace Campus.Core
         /// Method return information about another method supported by controller
         /// </summary>
         /// <returns></returns>
-        public virtual JsonResult Introspect()
+        public virtual ActionResult Introspect()
         {
             //Default Introspect implementation
 
@@ -60,10 +61,8 @@ namespace Campus.Core
         /// <param name="data"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        protected JsonResult Result(object data, string status = Status.OK)
+        protected ActionResult Result(object data, string status = Status.OK)
         {
-            //var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.MicrosoftDateFormat };
-
             Result result;
 
             try
@@ -79,8 +78,10 @@ namespace Campus.Core
                 return Result(ex.Message, Status.Error);
             }
 
-            //var json = JsonConvert.SerializeObject(result, settings);
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.IsoDateFormat };
+            var json = JsonConvert.SerializeObject(result, settings);
+            return Content(json, "application/json");
+            //return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         private static dynamic IntrospectMethod(MethodInfo method)
