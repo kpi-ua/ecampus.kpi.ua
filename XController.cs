@@ -49,7 +49,7 @@ namespace Campus.Core
             }
 
             Response.StatusCode = 500;
-            filterContext.Result = Result(filterContext.Exception.Message);
+            filterContext.Result = Result(filterContext.Exception.Message, Status.Error);
 
             //Make sure that we mark the exception as handled
             filterContext.ExceptionHandled = true;
