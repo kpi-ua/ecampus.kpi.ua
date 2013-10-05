@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PagedList;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 
 namespace Campus.Core
 {
@@ -11,6 +12,8 @@ namespace Campus.Core
     /// </summary>
     public abstract class XController : Controller
     {
+        public const string JsonMimeType = "application/json";
+
         /// <summary>
         /// Method return information about another method supported by controller
         /// </summary>
@@ -19,7 +22,7 @@ namespace Campus.Core
         {
             //Default Introspect implementation
 
-            var type = this.GetType();
+            var type = GetType();
 
             var methods = (from method in type.GetMethods()
                            where
@@ -28,7 +31,6 @@ namespace Campus.Core
                            select IntrospectMethod(method)).ToList();
 
             return Result(methods);
-            //return Json(methods, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -63,25 +65,31 @@ namespace Campus.Core
         /// <returns></returns>
         protected ActionResult Result(object data, string status = Status.OK)
         {
-            Result result;
+            String json;
 
             try
             {
-                result = new Result
+                var result = new Result
                 {
                     Status = status,
-                    Data = data
+                    Data = data,
+                    Paging = data is IPagedList ? new Paging((data as PagedList<dynamic>).GetMetaData()) : null
                 };
+
+                var settings = new JsonSerializerSettings
+                {
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                };
+
+                json = JsonConvert.SerializeObject(result, Formatting.Indented, settings);
+
             }
             catch (Exception ex)
             {
                 return Result(ex.Message, Status.Error);
             }
 
-            var settings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.IsoDateFormat };
-            var json = JsonConvert.SerializeObject(result, settings);
-            return Content(json, "application/json");
-            //return Json(result, JsonRequestBehavior.AllowGet);
+            return Content(json, JsonMimeType);
         }
 
         private static dynamic IntrospectMethod(MethodInfo method)
