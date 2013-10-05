@@ -5,7 +5,7 @@ using System.Data;
 namespace SDK.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class SdkUnitTest
     {
         [TestMethod]
         public void TestMethod1()
