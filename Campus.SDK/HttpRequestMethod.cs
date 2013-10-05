@@ -1,5 +1,6 @@
-﻿
-namespace SDK
+﻿using System;
+
+namespace Campus.SDK
 {
     /// <summary>
     /// An HTTP request made using telnet. The request, response headers and response body are highlighted.
@@ -54,10 +55,3 @@ namespace SDK
         PATCH
     }
 }
-
-
-
-
-
-
-
