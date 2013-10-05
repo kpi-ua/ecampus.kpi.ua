@@ -1,4 +1,3 @@
-campus.api.net
-==============
+###KPI Campus SDK
 
-KPI Campus API
+Install from NuGet at https://www.nuget.org/packages/campus.sdk/
