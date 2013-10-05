@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{B0E972
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campus.SDK", "Campus.SDK\Campus.SDK.csproj", "{C3EB4A34-B642-4C2C-8422-BEFC9A612DE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDK.Test", "Campus.SDK.Test\SDK.Test.csproj", "{5762C453-91B2-49E9-A7BA-F1D9FB26752E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campus.SDK.Test", "Campus.SDK.Test\Campus.SDK.Test.csproj", "{5762C453-91B2-49E9-A7BA-F1D9FB26752E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
