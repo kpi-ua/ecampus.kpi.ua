@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 
+
 namespace Campus.Core
 {
-    [Serializable]
     public class Result
     {
         public String Status { get; set; }
@@ -22,6 +22,7 @@ namespace Campus.Core
 
         public Result()
         {
+            Status = Campus.Core.Status.OK;
             TimeStamp = DateTime.Now;
             Guid = System.Guid.NewGuid().ToString();
             Paging = null;
