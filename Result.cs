@@ -1,15 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using System.Net;
 using System;
+using Newtonsoft.Json;
 
 
 namespace Campus.Core
 {
     public class Result
     {
-        public String Status { get; set; }
+        public HttpStatusCode StatusCode { get; set; }
         public DateTime TimeStamp { get; private set; }
         public String Guid { get; private set; }
-        
+
         /// <summary>
         /// Paging information. If null - information is complex object 
         /// </summary>
@@ -22,7 +23,7 @@ namespace Campus.Core
 
         public Result()
         {
-            Status = Campus.Core.Status.OK;
+            StatusCode = HttpStatusCode.OK;
             TimeStamp = DateTime.Now;
             Guid = System.Guid.NewGuid().ToString();
             Paging = null;
