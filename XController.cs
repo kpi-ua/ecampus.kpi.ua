@@ -4,6 +4,7 @@ using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
 using Newtonsoft.Json;
+using PagedList;
 
 namespace Campus.Core
 {
@@ -21,6 +22,11 @@ namespace Campus.Core
                 StatusCode = status,
                 Data = obj
             };
+
+            if (obj is IPagedList)
+            {
+                result.Paging = new Paging((obj as IPagedList));
+            }
 
             Response.StatusCode = Convert.ToInt32(result.StatusCode);
 
