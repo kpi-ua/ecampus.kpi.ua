@@ -52,6 +52,10 @@ namespace Campus.Core
 
             //Make sure that we mark the exception as handled
             filterContext.ExceptionHandled = true;
+
+            filterContext.HttpContext.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
+            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
+
         }
 
         /// <summary>
