@@ -4,9 +4,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace Campus.Core
 {
@@ -15,13 +13,12 @@ namespace Campus.Core
     /// </summary>
     public class ApiController : Controller
     {
+        protected const String MimeType = "application/json";
 
         /// <summary>
         /// Time stamp for controller creating;
         /// </summary>
         private readonly DateTime _timeStamp;
-
-        public const string JsonMimeType = "application/json";
 
         public ApiController()
         {
@@ -30,7 +27,7 @@ namespace Campus.Core
 
         public ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
         {
-            var result = new Result()
+            var result = new Result
             {
                 StatusCode = status,
                 Data = obj
@@ -51,10 +48,9 @@ namespace Campus.Core
 
             var json = JsonConvert.SerializeObject(result, settings);
 
-            var time = DateTime.Now - _timeStamp;
-            Response.Headers.Add("Executing-Time", time.ToString("g"));
+            Response.Headers.Add("Executing-Time", DateTime.Now.Subtract(_timeStamp).ToString("g"));
 
-            return Content(json, "application/json");
+            return Content(json, MimeType);
         }
 
         /// <summary>
@@ -64,24 +60,6 @@ namespace Campus.Core
         public ActionResult NotFound()
         {
             return Result(Request.Url, HttpStatusCode.NotFound);
-        }
-
-        protected override void OnException(ExceptionContext filterContext)
-        {
-            //If the exeption is already handled we do nothing
-            if (filterContext.ExceptionHandled)
-            {
-                return;
-            }
-
-            filterContext.Result = Result(filterContext.Exception.Message, HttpStatusCode.InternalServerError);
-
-            //Make sure that we mark the exception as handled
-            filterContext.ExceptionHandled = true;
-
-            filterContext.HttpContext.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
-            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
-
         }
 
         /// <summary>
@@ -104,6 +82,31 @@ namespace Campus.Core
             return Result(methods);
         }
 
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            //If the exeption is already handled we do nothing
+            if (filterContext.ExceptionHandled)
+            {
+                return;
+            }
+
+            var code = HttpStatusCode.InternalServerError;
+
+            if (filterContext.Exception is NotImplementedException)
+            {
+                code = HttpStatusCode.NotImplemented;
+            }
+
+            //NotImplemented
+            filterContext.Result = Result(filterContext.Exception.Message, code);
+
+            //Make sure that we mark the exception as handled
+            filterContext.ExceptionHandled = true;
+
+            filterContext.HttpContext.Response.StatusCode = Convert.ToInt32(code);
+            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
+        }
+
         protected static dynamic IntrospectMethod(MethodInfo method)
         {
             return new
@@ -115,22 +118,6 @@ namespace Campus.Core
                     Type = o.ParameterType.ToString()
                 }).ToList()
             };
-        }
-
-        /// <summary>
-        /// For handling all requests that not handled by other controllers
-        /// </summary>
-        /// <param name="application"></param>
-        public static void HandleHttpNotFound(HttpApplication application)
-        {
-            application.Response.Clear();
-
-            var routeData = new RouteData();
-            routeData.Values["controller"] = "XController";
-            routeData.Values["action"] = "NotFound";
-
-            IController controller = new ApiController();
-            controller.Execute(new RequestContext(new HttpContextWrapper(application.Context), routeData));
         }
     }
 }
