@@ -1,19 +1,32 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PagedList;
+using System;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using PagedList;
+using System.Web.Routing;
 
 namespace Campus.Core
 {
     /// <summary>
     /// Base class for campus api-controllers
     /// </summary>
-    public abstract class XController : Controller
+    public class ApiController : Controller
     {
+
+        /// <summary>
+        /// Time stamp for controller creating;
+        /// </summary>
+        private readonly DateTime _timeStamp;
+
         public const string JsonMimeType = "application/json";
+
+        public ApiController()
+        {
+            _timeStamp = DateTime.Now;
+        }
 
         public ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
         {
@@ -37,7 +50,20 @@ namespace Campus.Core
             };
 
             var json = JsonConvert.SerializeObject(result, settings);
+
+            var time = DateTime.Now - _timeStamp;
+            Response.Headers.Add("Executing-Time", time.ToString("g"));
+
             return Content(json, "application/json");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult NotFound()
+        {
+            return Result(Request.Url, HttpStatusCode.NotFound);
         }
 
         protected override void OnException(ExceptionContext filterContext)
@@ -78,7 +104,7 @@ namespace Campus.Core
             return Result(methods);
         }
 
-        private static dynamic IntrospectMethod(MethodInfo method)
+        protected static dynamic IntrospectMethod(MethodInfo method)
         {
             return new
             {
@@ -89,6 +115,22 @@ namespace Campus.Core
                     Type = o.ParameterType.ToString()
                 }).ToList()
             };
+        }
+
+        /// <summary>
+        /// For handling all requests that not handled by other controllers
+        /// </summary>
+        /// <param name="application"></param>
+        public static void HandleHttpNotFound(HttpApplication application)
+        {
+            application.Response.Clear();
+
+            var routeData = new RouteData();
+            routeData.Values["controller"] = "XController";
+            routeData.Values["action"] = "NotFound";
+
+            IController controller = new ApiController();
+            controller.Execute(new RequestContext(new HttpContextWrapper(application.Context), routeData));
         }
     }
 }
