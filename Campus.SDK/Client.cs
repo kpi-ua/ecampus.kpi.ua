@@ -5,16 +5,12 @@ using System.Threading.Tasks;
 namespace Campus.SDK
 {
     /// <summary>
-    /// 
+    /// ecampus client
     /// </summary>
     public class Client
     {
         public const string ApiEndpoint = "http://api.ecampus.kpi.ua/";
-
-        static Client()
-        {
-        }
-
+        
         public string SessionId { get; private set; }
 
         public Client()
@@ -24,10 +20,10 @@ namespace Campus.SDK
         }
 
         /// <summary>
-        /// 
+        /// Authenticate user in ecampus
         /// </summary>
-        /// <param name="login"></param>
-        /// <param name="password"></param>
+        /// <param name="login">User login</param>
+        /// <param name="password">User password</param>
         /// <returns>Session id</returns>
         public string Authenticate(string login, string password)
         {
@@ -43,7 +39,6 @@ namespace Campus.SDK
 
             return SessionId;
         }
-
 
         public Result Get(string url)
         {
