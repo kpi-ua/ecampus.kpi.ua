@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Specialized;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Authentication;
-using System.Web;
-using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Campus.SDK
 {
@@ -14,162 +9,85 @@ namespace Campus.SDK
     /// </summary>
     public class Client
     {
-        public static string ApiEndpoint { get; set; }
+        public const string ApiEndpoint = "http://api.ecampus.kpi.ua/";
 
         static Client()
         {
-            ApiEndpoint = "http://api.ecampus.kpi.ua/";
         }
 
-
-        private string _sessionId;
+        public string SessionId { get; private set; }
 
         public Client()
         {
             //_webClient = new WebClient();
-            _sessionId = String.Empty;
-        }
-
-        public string Authenticate(string login, string password)
-        {
-            var url = String.Format("{0}auth", ApiEndpoint);
-
-            _sessionId = CreateGetRequest(url, new NameValueCollection { { "login", login }, { "password", password } });
-
-            if (String.IsNullOrEmpty(_sessionId))
-            {
-                throw new AuthenticationException();
-            }
-
-            return _sessionId;
+            SessionId = String.Empty;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="query"></param>
-        /// <param name="arguments"></param>
-        /// <param name="method">Request method</param>
-        /// <returns></returns>
-        public Campus.Core.Result Call(string query, NameValueCollection arguments = null, HttpRequestMethod method = HttpRequestMethod.GET)
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns>Session id</returns>
+        public string Authenticate(string login, string password)
         {
-            var url = String.Format("{0}{1}", ApiEndpoint, query);
+            var url = String.Format("{0}user/auth?login={1}&password={2}", ApiEndpoint, login, password);
 
-            var json = String.Empty;
+            var result = Get(url);
+            SessionId = result.Data;
 
-            switch (method)
+            if (String.IsNullOrEmpty(SessionId))
             {
-                case HttpRequestMethod.GET:
-                    json = CreateGetRequest(url, arguments);
-                    break;
-                case HttpRequestMethod.HEAD:
-                    break;
-                case HttpRequestMethod.POST:
-                    json = CreatePostRequest(url, arguments);
-                    break;
-                case HttpRequestMethod.PUT:
-                    throw new NotImplementedException();
-                    break;
-                case HttpRequestMethod.DELETE:
-                    throw new NotImplementedException();
-                    break;
-                case HttpRequestMethod.TRACE:
-                    throw new NotImplementedException();
-                    break;
-                case HttpRequestMethod.OPTIONS:
-                    throw new NotImplementedException();
-                    break;
-                case HttpRequestMethod.CONNECT:
-                    throw new NotImplementedException();
-                    break;
-                case HttpRequestMethod.PATCH:
-                    throw new NotImplementedException();
-                    break;
-                default:
-                    throw new NotImplementedException();
-                    break;
+                throw new Exception("Access denied");
             }
 
-            var result = Campus.Core.Result.Parse(json);
-
-            return result;
+            return SessionId;
         }
 
-        private static string CreateGetRequest(String url, NameValueCollection collection)
+
+        public Result Get(string url)
         {
-            if (collection != null && collection.Count > 0)
-            {
-                var queryString = ConstructQueryString(collection);
-                url = String.Format("{0}?{1}", url, queryString);
-            }
-
-            var request = (HttpWebRequest)WebRequest.Create(url);
-
-
-            var response = request.GetResponse();
-            var responseStream = response.GetResponseStream();
-            string data;
-
-            using (var reader = new StreamReader(responseStream))
-            {
-                data = reader.ReadToEnd();
-            }
-
-            return data;
+            return Get(url, HttpMethod.Get, null);
         }
 
-        private static string CreatePostRequest(String url, NameValueCollection collection)
+        public Result Get(string url, HttpMethod method, byte[] bytes)
         {
-            // Here we create the request and write the POST data to it.
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "POST";
+            var client = new HttpClient();
+            Task<String> data = null;
 
-            if (collection != null && collection.Count > 0)
+            if (method == HttpMethod.Get)
             {
-                var queryString = ConstructQueryString(collection);
-
-                using (var writer = new StreamWriter(request.GetRequestStream()))
-                {
-                    writer.Write(queryString);
-                }
+                data = client.GetStringAsync(url);
+            }
+            else if (method == HttpMethod.Head)
+            {
+                throw new NotImplementedException();
+            }
+            else if (method == HttpMethod.Options)
+            {
+                throw new NotImplementedException();
+            }
+            else if (method == HttpMethod.Post)
+            {
+                var asyncResponse = client.PostAsync(new Uri(url), new ByteArrayContent(bytes));
+                data = asyncResponse.Result.Content.ReadAsStringAsync();
+            }
+            else if (method == HttpMethod.Put)
+            {
+                throw new NotImplementedException();
+            }
+            else if (method == HttpMethod.Trace)
+            {
+                throw new NotImplementedException();
+            }
+            else if (method == HttpMethod.Delete)
+            {
+                throw new NotImplementedException();
             }
 
-            var response = request.GetResponse();
-            var stream = response.GetResponseStream();
+            var json = data.Result;
 
-            string data;
-
-            using (var reader = new StreamReader(stream))
-            {
-                data = reader.ReadToEnd();
-            }
-
-            return data;
-        }
-
-        private static String ConstructQueryString(NameValueCollection collection)
-        {
-            var values = (from string name in collection
-                          select String.Concat(name, "=", HttpUtility.UrlEncode(collection[name])));
-
-            return String.Join("&", values);
-        }
-
-        public T Call<T>(string query, NameValueCollection arguments = null, HttpRequestMethod method = HttpRequestMethod.GET)
-        {
-            var result = Call(query, arguments, method);
-
-            var json = result.Data.ToString();
-
-            //if (typeof(T) == typeof(DataTable))
-            //{
-            //    return JsonConvert.DeserializeObject<DataTable>(json);
-            //}
-
-            //return (T)result.Data;
-
-            return JsonConvert.DeserializeObject<T>(json);
+            return Result.Parse(json);
         }
     }
-
 }
