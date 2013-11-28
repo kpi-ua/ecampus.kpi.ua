@@ -35,7 +35,10 @@ namespace Campus.Core
 
             if (obj is IPagedList)
             {
-                result.Paging = new Paging((obj as IPagedList));
+                var pagedList = obj as IPagedList<object>;
+
+                result.Paging = new Paging(pagedList);
+                result.Data = pagedList.ToList();
             }
 
             Response.StatusCode = Convert.ToInt32(result.StatusCode);
@@ -61,6 +64,16 @@ namespace Campus.Core
         {
             return Result(Request.Url, HttpStatusCode.NotFound);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Forbiden()
+        {
+            return Result("Access denied", HttpStatusCode.Forbidden);
+        }
+
 
         /// <summary>
         /// Method return information about another method supported by controller
