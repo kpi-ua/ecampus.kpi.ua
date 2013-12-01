@@ -73,8 +73,7 @@ namespace Campus.Core
         {
             return Result("Access denied", HttpStatusCode.Forbidden);
         }
-
-
+        
         /// <summary>
         /// Method return information about another method supported by controller
         /// </summary>
@@ -87,8 +86,10 @@ namespace Campus.Core
                            where
                                (method.ReturnType.BaseType == typeof(ActionResult) ||
                                 method.ReturnType == typeof(ActionResult))
-                               && method.Name != "Introspect"
                                && method.Name != "Result"
+                               && method.Name != "NotFound"
+                               && method.Name != "Forbiden"
+                               && method.Name != "Introspect"
                                && method.IsPublic
                            select IntrospectMethod(method)).ToList();
 
