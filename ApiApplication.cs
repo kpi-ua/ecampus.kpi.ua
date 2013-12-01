@@ -10,7 +10,7 @@ namespace Campus.Core
         public ApiApplication()
         {
             MvcHandler.DisableMvcResponseHeader = true;
-            Response.TrySkipIisCustomErrors = true;
+            
             this.EndRequest += Application_EndRequest;
         }
 

@@ -50,7 +50,7 @@ namespace Campus.Core
             };
 
             var json = JsonConvert.SerializeObject(result, settings);
-
+            
             Response.Headers.Add("Executing-Time", DateTime.Now.Subtract(_timeStamp).ToString("g"));
 
             return Content(json, MimeType);
