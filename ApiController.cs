@@ -46,7 +46,8 @@ namespace Campus.Core
             var settings = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                Formatting = Formatting.Indented
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
 
             var json = JsonConvert.SerializeObject(result, settings);
