@@ -2,6 +2,9 @@
 
 namespace Campus.SDK
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Client : AsyncClient
     {
         /// <summary>
@@ -16,15 +19,27 @@ namespace Campus.SDK
             return asyncResult.Result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public new Result Get(string url)
         {
-            var asyncResult = base.Get(url, HttpMethod.Get, null);
+            var asyncResult = base.Request(url, HttpMethod.Get, null);
             return asyncResult.Result;
         }
 
-        public new Result Get(string url, HttpMethod method, byte[] bytes)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="method"></param>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public new Result Request(string url, HttpMethod method, byte[] bytes)
         {
-            var asyncResult = base.Get(url, method, bytes);
+            var asyncResult = base.Request(url, method, bytes);
             return asyncResult.Result;
         }
     }
