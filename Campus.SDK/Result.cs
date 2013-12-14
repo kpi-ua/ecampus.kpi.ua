@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Net;
 
@@ -14,7 +13,7 @@ namespace Campus.SDK
         /// <summary>
         /// Paging information. If null - information is complex object 
         /// </summary>
-        public JObject Paging { get; set; }
+        public dynamic Paging { get; set; }
 
         /// <summary>
         /// 
