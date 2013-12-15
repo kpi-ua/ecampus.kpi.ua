@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="WebApplication.Site" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="/Content/SiteMaster.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery-2.0.3.intellisense.js"></script>
+    <script src="/Scripts/jquery-2.0.3.js"></script>
+    <script src="/Scripts/jquery-2.0.3.min.js"></script>
+    
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="main_form" class="container" runat="server">
+        <header class="row">
+            <div class="col-md-12">
+                <a id="logo" href="/"></a>
+                <div class="title">
+                    <h1>електронний кампус</h1>
+                    НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+                </div>
+            </div>
+        </header>
+
+        <div class="row">
+            <div class="col-md-12">
+                <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+            </div>
+       </div>
+
+        <footer class="row">
+            <div class="col-md-6">
+                &copy;Національний технічний університет України<br />
+                “Київський політехнічний інститут” <a href="#">www.kpi.ua</a><br />
+                Електронний кампус
+            </div>
+            <div class="col-md-6" style="text-align: right">
+                Розробник:  Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="#">www.kbis.kpi.ua</a>
+            </div>
+        </footer>
+    </form>
+
+</body>
+</html>
+

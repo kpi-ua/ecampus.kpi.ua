@@ -1,0 +1,82 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Inner.Master.cs" Inherits="WebApplication.Inner" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <link href="/Content/SiteMaster.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/jquery-2.0.3.intellisense.js"></script>
+    <script src="/Scripts/jquery-2.0.3.js"></script>
+    <script src="/Scripts/jquery-2.0.3.min.js"></script>
+</head>
+<body>
+    <form id="main_form" class="container" runat="server">
+        <header class="row">
+            <div class="col-md-12">
+                <a id="logo" href="/"></a>
+                <div class="title">
+                    <h1>електронний кампус</h1>
+                    НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+                </div>
+
+                <div id="user_block">
+                    <a href="/Authentication/Profile.aspx"><img src="/Images/home_grey.png" onmouseover="this.src='/Images/home_orange.png'" onmouseout="this.src='/Images/home_grey.png'" /></a>
+                    <a href="#"><img src="/Images/kabinet_grey.png" onmouseover="this.src='/Images/kabinet_orange.png'" onmouseout="this.src='/Images/kabinet_grey.png'" /></a>
+                    
+                    <asp:LinkButton ID="ExitLink" runat="server" PostBackUrl="/Authentication/Profile.aspx" OnClick="ExitLink_Click"><img src="/Images/exite_grey.png" onmouseover="this.src='/Images/exite_orange.png'" onmouseout="this.src='/Images/exite_grey.png'" /></asp:LinkButton>
+
+                    <div class="profile">
+                        Вітаємо Вас, <a href="/Authentication/Profile.aspx"><asp:Literal ID="UserName" runat="server"></asp:Literal></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="row">
+
+            <nav id="navigation" class="col-md-2">
+                <a href="/Authentication/Profile.aspx"><img src="/Images/profil.png" />мій профіль</a>
+                <a href="#"><img src="/Images/diary.png" />щоденнік</a>
+                <a href="#"><img src="/Images/contacts.png" />контакти</a>
+                <a href="#"><img src="/Images/dovidka.png" />довідка</a>
+                <a href="#"><img src="/Images/forum.png" />форум</a>
+                <a href="#"><img src="/Images/ogoloshenya.png" />дошка оголошень</a>
+                <a href="/Authentication/Messages.aspx"><img src="/Images/messages.png" />повідомлення</a>
+                <a href="/TimeTable/TimeTableMain.aspx"><img src="/Images/messages.png" />розклад</a>
+            </nav>
+
+            <div class="content col-md-8">
+                <div id="breadcrumbs">
+                    <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=">"></asp:SiteMapPath>
+                </div>
+                <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+            </div>
+
+            <div class="col-md-2">
+                <asp:ContentPlaceHolder ID="right_column" runat="server"></asp:ContentPlaceHolder>
+            </div>
+        </div>
+
+        <footer class="row">
+            <div class="col-md-6">
+                &copy;Національний технічний університет України<br />
+                “Київський політехнічний інститут” <a href="#">www.kpi.ua</a><br />
+                Електронний кампус
+            </div>
+            <div class="col-md-6" style="text-align: right">
+                Розробник:  Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="#">www.kbis.kpi.ua</a>
+            </div>
+        </footer>
+    </form>
+
+</body>
+</html>

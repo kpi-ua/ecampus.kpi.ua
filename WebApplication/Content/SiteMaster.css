@@ -1,0 +1,274 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    font: 12px/18px Corbel, sans-serif;
+    color: #999 !important;
+    height: 100%;
+}
+
+#wrapper {
+    width: 100%;
+    min-width: 1150px;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+.clear {
+    clear: both;
+}
+
+/*---------Header---------*/
+
+#logo {
+    background-image: url("/Images/logo.jpg");
+    display: inline-block;
+    float: left;
+    height: 44px;
+    margin-right: 50px;
+    width: 154px;
+}
+
+.profile {
+    float: right;
+    height: 15px;
+    margin-top: 15px;
+}
+
+.title {
+    float: left;
+    height: 44px;
+}
+
+header {
+    position: relative;
+    font-size: 10.42px !important;
+    border-top: 7px solid #488eb7;
+    padding: 20px 35px;
+}
+
+    header h1 {
+        font-size: 22.83px !important;
+        margin: 0;
+        padding: 0;
+        text-transform: uppercase !important;
+    }
+
+    header p {
+        font-size: 10.42px !important;
+    }
+
+
+    header #user_block {
+        text-align: right;
+        height: 44px;
+    }
+
+        header #user_block a {
+            color: #cc9900 !important;
+            text-decoration: none;
+        }
+
+            header #user_block a:hover {
+                text-decoration: underline;
+            }
+
+        header #user_block p {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        header #user_block img {
+            margin-left: 8px;
+        }
+/*---------Header---------*/
+
+/*---------Middle---------*/
+#middle {
+    width: 100%;
+    padding: 0 0 100px;
+    position: relative;
+}
+
+    #middle:after {
+        display: table;
+        clear: both;
+        content: '';
+    }
+
+#container {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+.content {
+}
+
+    .content h2 {
+        margin-top: 10px;
+        font-size: 18px;
+        color: #cc9900;
+    }
+
+    .content #profile {
+        padding: 24px 0 0 16px;
+        text-transform: uppercase;
+        color: #888888;
+    }
+
+        .content #profile li li span {
+            width: 128px;
+            display: inline-block;
+            text-align: right;
+            margin-right: 12px;
+            vertical-align: top;
+            font-size: 12px;
+            padding: 0;
+            line-height: 22px;
+        }
+
+        .content #profile li {
+            line-height: 30px;
+        }
+
+        .content #profile span {
+            font-size: 14px;
+            padding-top: 10px;
+        }
+
+        .content #profile li li {
+            font-size: 12px;
+            text-transform: none;
+            line-height: 22px;
+        }
+
+        .content #profile p {
+            display: inline-block;
+        }
+/*---------Middle---------*/
+
+/*---------breadcrumbs---------*/
+#breadcrumbs {
+    margin-top: 10px;
+}
+
+    #breadcrumbs #current {
+        color: #999;
+    }
+
+    #breadcrumbs a {
+        color: #b8b8b8;
+        text-decoration: none;
+    }
+
+        #breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+.breadcrumbs_marker {
+    background: #eddba6;
+    height: 7px;
+    width: 7px;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 0 4px 0 3px;
+}
+/*---------breadcrumbs---------*/
+
+/*---------Left Sidebar---------*/
+#navigation {
+    background: url(/Images/razdelitel.png) 0 0 repeat-x;
+    margin-top: 42px;
+}
+
+    #navigation a {
+        font-variant: small-caps;
+        font-size: 14px;
+        line-height: 36px;
+        background: url(/Images/razdelitel.png) 0 100% repeat-x;
+        position: relative;
+        padding-left: 27px;
+        color: #999;
+        text-decoration: none;
+        display: block;
+    }
+
+    #navigation img {
+        margin-right: 12px;
+        top: -5px;
+        left: 0;
+        display: inline-block;
+        position: absolute;
+        clip: rect(17px,auto, auto, auto);
+    }
+
+    #navigation a:hover img {
+        clip: rect(auto, auto,17px, auto);
+        top: 12px;
+    }
+
+    #navigation a:hover {
+        color: #488eb7;
+    }
+/*---------Left Sidebar---------*/
+
+/*---------Right Sidebar---------*/
+#right-sidebar {
+    background: url(/Images/razdelitel.png) 0 0 repeat-x;
+    margin-top: 42px;
+}
+
+
+
+    #right-sidebar a {
+        font-variant: small-caps;
+        font-size: 14px;
+        line-height: 36px;
+        background: url(/Images/razdelitel.png) 0 100% repeat-x;
+        position: relative;
+        padding-left: 27px;
+        color: #999;
+        text-decoration: none;
+        display: block;
+    }
+
+        #right-sidebar a:hover {
+            color: #488eb7;
+        }
+
+            #right-sidebar a:hover img {
+                clip: rect(17px,auto, auto, auto);
+                top: -5px;
+            }
+
+    #right-sidebar img {
+        margin-right: 12px;
+        left: 0;
+        display: inline-block;
+        position: absolute;
+        clip: rect(auto, auto,17px, auto);
+        top: 12px;
+        margin-top: 42px;
+    }
+
+
+/*---------Right Sidebar---------*/
+
+
+.container {
+    width: 100%;
+    min-width: 100%;
+}
+
+
+
+footer {
+    border-top: 2px solid #488EB7;
+    font-size: 8pt;
+    margin-top: 25px;
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
