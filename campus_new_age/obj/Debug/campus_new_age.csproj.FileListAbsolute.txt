@@ -1,0 +1,5 @@
+D:\SVN-KBIS\campus_new_age\campus_new_age\bin\campus_new_age.dll
+D:\SVN-KBIS\campus_new_age\campus_new_age\bin\campus_new_age.pdb
+D:\SVN-KBIS\campus_new_age\campus_new_age\obj\Debug\campus_new_age.dll
+D:\SVN-KBIS\campus_new_age\campus_new_age\obj\Debug\campus_new_age.pdb
+D:\SVN-KBIS\campus_new_age\campus_new_age\obj\Debug\campus_new_age.csprojResolveAssemblyReference.cache
