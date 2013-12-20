@@ -91,7 +91,7 @@ namespace campus_new_age.Authentication.Messages
             DialogContainer.Controls.Add(mainDiv);
 
             //start cycle
-            for (int i = 0; i < messages.Count; i++)
+            for (int i = messages.Count - 1; i >= 0; i--)
             {
                 Dictionary<string, object> kvMessage = (Dictionary<string, object>)messages[i];
                 AddNewMessage(kvMessage);
@@ -136,7 +136,7 @@ namespace campus_new_age.Authentication.Messages
 
         protected void AddNewMessage(Dictionary<string, object> kvMessage) {
 
-            HtmlGenericControl container = (HtmlGenericControl)DialogContainer.Controls[0].Controls[2];
+            HtmlGenericControl container = DialogContainer.Controls[0].Controls[2] as HtmlGenericControl;
 
             if (container != null)
             {
