@@ -76,7 +76,7 @@
                             <img src="/Images/forum.png" />форум</a></li>
                         <li><a href="#">
                             <img src="/Images/ogoloshenya.png" />дошка оголошень</a></li>
-                        <li><a href="/Authentication/Messages.aspx">
+                        <li><a href="/Authentication/Messages/AllDialogs.aspx">
                             <img src="/Images/messages.png" />повідомлення</a></li>
                         <li><a href="/TimeTable/TimeTableMain.aspx">
                             <img src="/Images/messages.png" />розклад</a></li>

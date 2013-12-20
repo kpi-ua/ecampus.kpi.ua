@@ -58,7 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Authentication\Authentication.aspx" />
-    <Content Include="Authentication\Messages.aspx" />
+    <Content Include="Authentication\Messages\Messages.aspx" />
+    <Content Include="Authentication\Messages\AllDialogs.aspx" />
     <Content Include="Authentication\Premission.aspx" />
     <Content Include="Authentication\Profile.aspx" />
     <Content Include="Content\Authentication.css" />
@@ -66,6 +67,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\AllDialogs.css" />
     <Content Include="Content\Profile.css" />
     <Content Include="Content\RNP_view.css" />
     <Content Include="Content\SiteMaster.css" />
@@ -135,12 +137,19 @@
     <Compile Include="Authentication\Authentication.aspx.designer.cs">
       <DependentUpon>Authentication.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Messages.aspx.cs">
+    <Compile Include="Authentication\Messages\Messages.aspx.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Messages.aspx.designer.cs">
+    <Compile Include="Authentication\Messages\Messages.aspx.designer.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Authentication\Messages\AllDialogs.aspx.cs">
+      <DependentUpon>AllDialogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Authentication\Messages\AllDialogs.aspx.designer.cs">
+      <DependentUpon>AllDialogs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Authentication\Premission.aspx.cs">
       <DependentUpon>Premission.aspx</DependentUpon>
