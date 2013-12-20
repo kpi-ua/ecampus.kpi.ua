@@ -126,8 +126,10 @@ namespace campus_new_age.Authentication.Messages
 
             Dictionary<string, object> answer = null;
 
-            answer = GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId="+Session["UserData"]+"&groupId="+Session["GroupId"]+"&text="+AnswerText.Text+"&subject="+Session["Subject"]);
-
+            if (AnswerText.Text != "")
+            {
+                answer = GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"] + "&text=" + AnswerText.Text + "&subject=" + Session["Subject"]);
+            }
             if (answer != null) {
                 AnswerText.Text = "";
             }
@@ -153,8 +155,8 @@ namespace campus_new_age.Authentication.Messages
                 text.InnerText = kvMessage["Text"].ToString();
                 date.InnerText = kvMessage["DateSent"].ToString();
 
-                messageDiv.Controls.Add(text);
                 messageDiv.Controls.Add(date);
+                messageDiv.Controls.Add(text);
                 container.Controls.Add(messageDiv);
             }
         }
