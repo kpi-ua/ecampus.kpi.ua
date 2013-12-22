@@ -51,7 +51,7 @@ namespace Campus.Core
             };
 
             var json = JsonConvert.SerializeObject(result, settings);
-            
+
             Response.Headers.Add("Executing-Time", DateTime.Now.Subtract(_timeStamp).ToString("g"));
 
             return Content(json, MimeType);
@@ -74,7 +74,7 @@ namespace Campus.Core
         {
             return Result("Access denied", HttpStatusCode.Forbidden);
         }
-        
+
         /// <summary>
         /// Method return information about another method supported by controller
         /// </summary>
@@ -124,13 +124,16 @@ namespace Campus.Core
 
         protected static dynamic IntrospectMethod(MethodInfo method)
         {
+            var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
+
             return new
             {
                 method.Name,
+                Method = isHttPost ? "POST" : "GET",
                 Parameters = method.GetParameters().Select(o => new
                 {
                     o.Name,
-                    Type = o.ParameterType.ToString()
+                    Type = o.ParameterType.ToString(),
                 }).ToList()
             };
         }
