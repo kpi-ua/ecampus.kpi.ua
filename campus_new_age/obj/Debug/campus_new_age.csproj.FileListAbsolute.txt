@@ -9,6 +9,6 @@ D:\Repository-KBIS\Bitbucket\current-campus-web\campus_new_age\obj\Debug\campus_
 D:\Repository-KBIS\Bitbucket\current-campus-web\campus_new_age\obj\Debug\campus_new_age.pdb
 D:\Repository-KBIS\Bitbucket\web-portal\campus_new_age\bin\campus_new_age.dll
 D:\Repository-KBIS\Bitbucket\web-portal\campus_new_age\bin\campus_new_age.pdb
-D:\Repository-KBIS\Bitbucket\web-portal\campus_new_age\obj\Debug\campus_new_age.csprojResolveAssemblyReference.cache
 D:\Repository-KBIS\Bitbucket\web-portal\campus_new_age\obj\Debug\campus_new_age.dll
 D:\Repository-KBIS\Bitbucket\web-portal\campus_new_age\obj\Debug\campus_new_age.pdb
+D:\Repository-KBIS\Bitbucket\web-portal\campus_new_age\obj\Debug\campus_new_age.csprojResolveAssemblyReference.cache

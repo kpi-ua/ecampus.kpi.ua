@@ -80,10 +80,10 @@ namespace campus_new_age.Authentication
             {
                 WebClient client = new WebClient();
 
-                WebProxy p = new WebProxy("10.13.100.13:3128", true);
-                p.Credentials = new NetworkCredential("kbis_user", "kbis13");
-                WebRequest.DefaultWebProxy = p;
-                client.Proxy = p;
+                //webproxy p = new webproxy("10.13.100.13:3128", true);
+                //p.credentials = new networkcredential("kbis_user", "kbis13");
+                //webrequest.defaultwebproxy = p;
+                //client.proxy = p;
 
                 var json = client.DownloadString(req);
 
@@ -94,7 +94,7 @@ namespace campus_new_age.Authentication
             }
             catch (Exception ex)
             {
-                return new Dictionary<string, string>();
+                return new Dictionary<string, string>(); 
             }
 
         }

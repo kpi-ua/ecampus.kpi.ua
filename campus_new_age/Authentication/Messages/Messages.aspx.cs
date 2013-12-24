@@ -8,6 +8,7 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using campus_new_age.Authentication;
 
 namespace campus_new_age.Authentication.Messages
 {
@@ -21,11 +22,13 @@ namespace campus_new_age.Authentication.Messages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserData"] != null)
+            {
                 Dictionary<string, object> answer = null;
                 ArrayList messages;
                 int page;
 
-                answer = GetData("http://api.ecampus.kpi.ua//message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 10);
+                answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 10);
 
                 if (answer != null)
                 {
@@ -36,6 +39,13 @@ namespace campus_new_age.Authentication.Messages
                     page = Convert.ToInt32(Paging["PageNumber"].ToString());
                     DialogRendering(messages, page, lastPage, firstPage);
                 }
+            }
+            else
+            {
+                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
+                SameCore.CreateErrorMessage(mainDiv);
+                DialogContainer.Controls.Add(mainDiv);
+            }
         }
 
         public Dictionary<string, object> GetData(string request)
@@ -59,16 +69,20 @@ namespace campus_new_age.Authentication.Messages
             }
         }
 
-        public void DialogRendering(ArrayList messages, int currentPage, bool IsLast, bool IsFirst) {
+        public void DialogRendering(ArrayList messages, int currentPage, bool IsLast, bool IsFirst)
+        {
 
             DialogContainer.Controls.Clear();
 
-            int upPage = currentPage-1;
-            int downPage = currentPage+1;
-            
-            if(IsFirst) {
+            int upPage = currentPage - 1;
+            int downPage = currentPage + 1;
+
+            if (IsFirst)
+            {
                 downPage = currentPage;
-            } else if(IsLast) {
+            }
+            else if (IsLast)
+            {
                 upPage = currentPage;
             }
 
@@ -79,7 +93,7 @@ namespace campus_new_age.Authentication.Messages
             //mainDiv.Attributes.Add("id", "imgBlock");
 
             HtmlGenericControl subject = new HtmlGenericControl("h4");
-            subject.Attributes.Add("id","subject");
+            subject.Attributes.Add("id", "subject");
             subject.InnerText = Session["subject"].ToString();
 
             HtmlGenericControl messageContainerDiv = new HtmlGenericControl("div");
@@ -114,29 +128,40 @@ namespace campus_new_age.Authentication.Messages
 
             //messageContainerDiv.Controls.Add(up);
 
-            
+
 
             //messageContainerDiv.Controls.Add(down);
 
-            
+
         }
 
         protected void AnswerBtn_Click(object sender, EventArgs e)
         {
 
-            Dictionary<string, object> answer = null;
-
-            if (AnswerText.Text != "")
+            if (Session["UserData"] != null)
             {
-                answer = GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"] + "&text=" + AnswerText.Text + "&subject=" + Session["Subject"]);
+                Dictionary<string, object> answer = null;
+
+                if (AnswerText.Text != "")
+                {
+                    answer = SameCore.GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"] + "&text=" + AnswerText.Text + "&subject=" + Session["Subject"]);
+                }
+                if (answer != null)
+                {
+                    AnswerText.Text = "";
+                }
             }
-            if (answer != null) {
-                AnswerText.Text = "";
+            else
+            {
+                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
+                SameCore.CreateErrorMessage(mainDiv);
+                DialogContainer.Controls.Add(mainDiv);
             }
 
         }
 
-        protected void AddNewMessage(Dictionary<string, object> kvMessage) {
+        protected void AddNewMessage(Dictionary<string, object> kvMessage)
+        {
 
             HtmlGenericControl container = DialogContainer.Controls[0].Controls[2] as HtmlGenericControl;
 
@@ -160,6 +185,5 @@ namespace campus_new_age.Authentication.Messages
                 container.Controls.Add(messageDiv);
             }
         }
-
     }
 }

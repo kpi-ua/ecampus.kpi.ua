@@ -1,0 +1,23 @@
+﻿body {
+}
+
+/*-------BulletinsContainer---*/
+#body_BulletinsContainer,#body_MyBulletinsContainer{margin-top: 42px;}
+/*-------BulletinsContainer---*/
+
+/*----ModearatorBtn--------*/
+#right_column_ModeratorMode,#right_column_CreateNewBulletin{margin-top:42px;}
+/*-------------------------*/
+
+/*---------inf_des---------*/
+.inf_des {border-bottom:1px solid #ddd;padding-bottom:3px;}
+.inf_des p{display:none;}
+.inf_des a{font:12px Verdana, Sans-serif;color:#999; text-align:right; text-decoration:none;display:block;margin-top:-13px;padding-bottom:5px;}
+.inf_des .poster{font:12px Verdana, Sans-serif;color:#ccc; text-align:right; text-decoration:none;display:block;}
+.inf_des .poster a{font:12px Verdana, Sans-serif;color:#ccc; text-align:right; text-decoration:none;display:inline;}
+.inf_des h4{display:inline-block;font:12px Verdana, Sans-serif;/*color:#999*/}
+.inf_des .date {color:#666;font: 12px Verdana, Sans-serif;padding-right:63px;display:inline;}
+/*forMyBulletins*/
+.inf_des .set_des{display:none; width:100%}
+.inf_des .set_des input[type=text]{width:100%; overflow-wrap:break-word;}
+/*---------inf_des---------*/

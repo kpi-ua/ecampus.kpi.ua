@@ -1,0 +1,38 @@
+﻿body {
+}
+
+.messageLink, .messageLink:hover
+{
+    text-decoration:none;
+    display:block;
+    border:solid 1px #999;
+    border-radius: 5px;
+    margin-bottom:5px;
+
+}
+
+#mainBlock
+{
+    margin:10px;
+    display:-webkit-inline-box;
+    display:-moz-inline-box;
+}
+/*#messageLink
+{
+    display:block;
+    border:solid 1px #999;
+}*/
+
+
+#infoBlock
+{
+    margin-left:50px;
+
+}
+
+#imgBlock
+{
+    max-width:45px;
+    
+}
+

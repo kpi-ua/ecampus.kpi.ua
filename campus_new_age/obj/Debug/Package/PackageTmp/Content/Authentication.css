@@ -1,0 +1,63 @@
+﻿body {
+}
+
+#main
+{
+    margin-left: auto;
+    margin-right: auto;
+   
+    /*position:relative;
+    margin-top:22%;
+    margin-bottom:23%;*/
+}
+
+#form
+{
+   
+   width: 200px;
+   height:210px; /*210px*/
+   margin-left:auto;
+   margin-right:auto;
+   margin-top:10%;
+   margin-bottom:auto;
+   clear:both;
+    
+}
+
+#body_User, #body_Pass, #divSaveIn, #divLink
+{
+    float:left;
+    width:200px;
+    margin-bottom:15px;
+}
+
+#divBtn
+{
+    float:left;
+    width:200px;
+    margin-bottom:0px;
+}
+
+
+#body_RegLink
+{
+    float:right;
+}
+
+#body_RePassLink
+{
+    float:left;
+}
+
+#body_Cancel
+{
+    float:right;
+    width:80px;
+}
+
+#body_Enter
+{
+    float:left;
+    width:80px;
+}
+
