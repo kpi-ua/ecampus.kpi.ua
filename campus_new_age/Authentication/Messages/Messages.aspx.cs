@@ -28,7 +28,7 @@ namespace campus_new_age.Authentication.Messages
                 ArrayList messages;
                 int page;
 
-                answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 10);
+                answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 10);
 
                 if (answer != null)
                 {
@@ -144,7 +144,7 @@ namespace campus_new_age.Authentication.Messages
 
                 if (AnswerText.Text != "")
                 {
-                    answer = SameCore.GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"] + "&text=" + AnswerText.Text + "&subject=" + Session["Subject"]);
+                    answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"] + "&text=" + AnswerText.Text + "&subject=" + Session["Subject"]);
                 }
                 if (answer != null)
                 {

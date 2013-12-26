@@ -18,7 +18,7 @@ namespace campus_new_age.Authentication
         {
             if (Session["UserData"] != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
+                Dictionary<string, object> answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
                 ArrayList Data;
 
                 if (answer != null)

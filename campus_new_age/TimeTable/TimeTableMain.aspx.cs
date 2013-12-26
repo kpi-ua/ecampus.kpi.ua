@@ -27,31 +27,31 @@ namespace campus_new_age.TimeTable
 
                 client = new WebClient();
                 client.Encoding = System.Text.Encoding.UTF8;
-                var json = client.DownloadString("http://api.ecampus.kpi.ua/User/GetCurrentUser?sessionId=" + sessionId);
+                var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
                 var serializer = new JavaScriptSerializer();
                 var objects = serializer.Deserialize<object>(json);
             }
-            
-            
+
+
         }
 
 
         protected void GetSubjects(int specialityId, int studyFormId, int course)
         {
             var json =
-                client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetSubjects?sessionId=" +
+                client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetSubjects?sessionId=" +
                                       Session["UserData"].ToString() + "&course=" + course.ToString(CultureInfo.InvariantCulture) + "&specialityId=" +
                                       specialityId + "&dcStudyFormId=" + studyFormId);
         }
 
-        protected void TimeTableFiller(Dictionary<string,List<string>> timeTableDictionary)
+        protected void TimeTableFiller(Dictionary<string, List<string>> timeTableDictionary)
         {
             foreach (string key in timeTableDictionary.Keys)
             {
                 for (int j = 0; j < timeTableDictionary[key].Count; j++)
                 {
                     Control cont = FindControl(key + j.ToString());
-                    Label lab = (Label) cont;
+                    Label lab = (Label)cont;
                     lab.Text = timeTableDictionary[key][j];
                 }
             }

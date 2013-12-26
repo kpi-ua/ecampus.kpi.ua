@@ -21,7 +21,7 @@ namespace campus_new_age.Authentication
                     string sessionId = Session["UserData"].ToString();
                     WebClient client = new WebClient();
                     client.Encoding = System.Text.Encoding.UTF8;
-                    var json = client.DownloadString("http://api.ecampus.kpi.ua/User/GetPermissions?sessionId=" + sessionId);
+                    var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint+"User/GetPermissions?sessionId=" + sessionId);
                     var serializer = new JavaScriptSerializer();
                     Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
                     ArrayList arr = (ArrayList)respDictionary["Data"];

@@ -23,13 +23,15 @@ namespace campus_new_age.Authentication
                 if ((Request.Cookies["Session"] != null) && (Request.Cookies["Session"].Value != "") && (Session["SaveIn"] != null) && (Convert.ToBoolean(Session["SaveIn"]) == true))
                 {
                     Response.Redirect("Profile.aspx");
-                } else {
+                }
+                else
+                {
                     User.Text = "Логін";
                     Pass.Attributes["type"] = "password";
                     Pass.Text = "Пароль";
                     SaveIn.Checked = false;
                 }
-                
+
             }
 
 
@@ -37,7 +39,7 @@ namespace campus_new_age.Authentication
 
         protected void Enter_Click(object sender, EventArgs e)
         {
-            String req = String.Format("http://api.ecampus.kpi.ua/User/Auth?login={0}&password={1}", User.Text, Pass.Text);
+            String req = String.Format("{2}User/Auth?login={0}&password={1}", User.Text, Pass.Text, Campus.SDK.Client.ApiEndpoint);
             Dictionary<string, string> respDictionary = GetJson(req);
 
             if (respDictionary.ContainsKey("Data"))
@@ -49,12 +51,14 @@ namespace campus_new_age.Authentication
                     myCookie.Expires = DateTime.Now.AddDays(1d);
                     Response.Cookies.Add(myCookie);
                     Session["SaveIn"] = true;
-                } else {
+                }
+                else
+                {
                     Session["SaveIn"] = false;
                 }
 
                 Session["UserData"] = respDictionary["Data"].ToString();
-                
+
                 Response.Redirect("Profile.aspx");
             }
             else
@@ -62,7 +66,7 @@ namespace campus_new_age.Authentication
                 Response.Write("<script type='text/javascript'>alert('" + "Помилка при авторизації!!!" + "');</script>");
                 //Response.Redirect("/Authentication/Authentication.aspx");
                 //Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "SCRIPT", string.Format("alert('Помилка при авторизації!!!\\n')"), true);
-                
+
             }
         }
 
@@ -80,10 +84,10 @@ namespace campus_new_age.Authentication
             {
                 WebClient client = new WebClient();
 
-                //webproxy p = new webproxy("10.13.100.13:3128", true);
-                //p.credentials = new networkcredential("kbis_user", "kbis13");
-                //webrequest.defaultwebproxy = p;
-                //client.proxy = p;
+                var proxy = new WebProxy("10.13.100.13:3128", true);
+                proxy.Credentials = new NetworkCredential("kbis_user", "kbis13");
+                WebRequest.DefaultWebProxy = proxy;
+                client.Proxy = proxy;
 
                 var json = client.DownloadString(req);
 
@@ -94,7 +98,7 @@ namespace campus_new_age.Authentication
             }
             catch (Exception ex)
             {
-                return new Dictionary<string, string>(); 
+                return new Dictionary<string, string>();
             }
 
         }
