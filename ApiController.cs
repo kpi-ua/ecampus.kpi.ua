@@ -13,6 +13,11 @@ namespace Campus.Core
     /// </summary>
     public class ApiController : Controller
     {
+        /// <summary>
+        /// Allow requests from other domains
+        /// </summary>
+        public static bool EnableCrossDomainRequest { get; set; }
+
         protected const String MimeType = "application/json";
 
         /// <summary>
@@ -53,6 +58,11 @@ namespace Campus.Core
             var json = JsonConvert.SerializeObject(result, settings);
 
             Response.Headers.Add("Executing-Time", DateTime.Now.Subtract(_timeStamp).ToString("g"));
+
+            if (EnableCrossDomainRequest || true)
+            {
+                Response.Headers.Add("Access-Control-Allow-Origin","*");
+            }
 
             return Content(json, MimeType);
         }
