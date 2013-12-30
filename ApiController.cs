@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Campus.Core.EventsArgs;
+using Newtonsoft.Json;
 using PagedList;
 using System;
 using System.Linq;
@@ -20,18 +21,27 @@ namespace Campus.Core
         private static void OnReseultExecuted(ApiController sender, string json)
         {
             var handler = ResultExecuted;
+
             if (handler != null)
             {
-                handler(sender, new JsonEventArgs(json));
+                handler(sender, new JsonEventArgs(json, sender.Request.Url));
             }
         }
 
-        private static void OnExceptionHandled(ApiController sender, Exception exception)
+        private static void OnExceptionHandled(ApiController sender, ExceptionContext exceptionContext)
         {
             var handler = ExceptionHandled;
+
             if (handler != null)
             {
-                handler(sender, new UnhandledExceptionEventArgs(exception, false));
+                Uri url = null;
+                
+                if (exceptionContext.HttpContext != null && exceptionContext.HttpContext.Request != null)
+                {
+                    url = exceptionContext.HttpContext.Request.Url;
+                }
+
+                handler(sender, new ExceptionEventsArgs(exceptionContext.Exception, url));
             }
         }
 
@@ -134,7 +144,7 @@ namespace Campus.Core
         protected override void OnException(ExceptionContext filterContext)
         {
             //Send exception for debug
-            OnExceptionHandled(this, filterContext.Exception);
+            OnExceptionHandled(this, filterContext);
 
             //If the exeption is already handled we do nothing
             if (filterContext.ExceptionHandled)
