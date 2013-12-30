@@ -13,6 +13,28 @@ namespace Campus.Core
     /// </summary>
     public class ApiController : Controller
     {
+        public static event EventHandler ExceptionHandled;
+
+        public static event EventHandler ResultExecuted;
+
+        private static void OnReseultExecuted(ApiController sender, string json)
+        {
+            var handler = ResultExecuted;
+            if (handler != null)
+            {
+                handler(sender, new JsonEventArgs(json));
+            }
+        }
+
+        private static void OnExceptionHandled(ApiController sender, Exception exception)
+        {
+            var handler = ExceptionHandled;
+            if (handler != null)
+            {
+                handler(sender, new UnhandledExceptionEventArgs(exception, false));
+            }
+        }
+
         /// <summary>
         /// Allow requests from other domains
         /// </summary>
@@ -57,11 +79,13 @@ namespace Campus.Core
 
             var json = JsonConvert.SerializeObject(result, settings);
 
+            OnReseultExecuted(this, json);
+
             Response.Headers.Add("Executing-Time", DateTime.Now.Subtract(_timeStamp).ToString("g"));
 
-            if (EnableCrossDomainRequest || true)
+            if (EnableCrossDomainRequest)
             {
-                Response.Headers.Add("Access-Control-Allow-Origin","*");
+                Response.Headers.Add("Access-Control-Allow-Origin", "*");
             }
 
             return Content(json, MimeType);
@@ -109,6 +133,9 @@ namespace Campus.Core
 
         protected override void OnException(ExceptionContext filterContext)
         {
+            //Send exception for debug
+            OnExceptionHandled(this, filterContext.Exception);
+
             //If the exeption is already handled we do nothing
             if (filterContext.ExceptionHandled)
             {
