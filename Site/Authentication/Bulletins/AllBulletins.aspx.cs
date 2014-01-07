@@ -12,7 +12,7 @@ namespace Site.Authentication.Bulletins
         {
             if (Session["UserData"] != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData("http://api.ecampus.kpi.ua/BulletinBoard/GetActual?sessionId="+Session["UserData"]);
+                Dictionary<string, object> answer = Helper.GetData("http://api.ecampus.kpi.ua/BulletinBoard/GetActual?sessionId="+Session["UserData"]);
                 ArrayList Bulletins;
 
                 if (answer != null) {
@@ -25,7 +25,7 @@ namespace Site.Authentication.Bulletins
                 HtmlGenericControl mainDiv = new HtmlGenericControl("div");
                 mainDiv.Attributes.Add("id", "mainBlock");
                 BulletinsContainer.Controls.Add(mainDiv);
-                SameCore.CreateErrorMessage(mainDiv);
+                Helper.CreateErrorMessage(mainDiv);
             }
 
         }

@@ -169,7 +169,7 @@ namespace Site.Authentication
                 {
                     Dictionary<string, object> answer = null;
 
-                    answer = SameCore.GetData("http://api.ecampus.kpi.ua//user/ChangePassword?sessionId=" + Session["UserData"].ToString() + "&old=" + OldPass.Text + "&password=" + NewPass.Text);
+                    answer = Helper.GetData("http://api.ecampus.kpi.ua//user/ChangePassword?sessionId=" + Session["UserData"].ToString() + "&old=" + OldPass.Text + "&password=" + NewPass.Text);
 
                     if (answer == null)
                     {

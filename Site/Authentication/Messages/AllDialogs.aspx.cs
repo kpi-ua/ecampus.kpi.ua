@@ -13,7 +13,7 @@ namespace Site.Authentication
         {
             if (Session["UserData"] != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
+                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
                 ArrayList Data;
 
                 if (answer != null)
@@ -31,7 +31,7 @@ namespace Site.Authentication
             else
             {
                 HtmlGenericControl mainDiv = new HtmlGenericControl("div");
-                SameCore.CreateErrorMessage(mainDiv);
+                Helper.CreateErrorMessage(mainDiv);
                 LinkContainer.Controls.Add(mainDiv);
             }
         }

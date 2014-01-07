@@ -13,7 +13,7 @@ namespace Site.Authentication.Bulletins
         {
             if (Session["UserData"] != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + Session["UserData"]);
+                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + Session["UserData"]);
                 ArrayList Bulletins;
 
                 if (answer != null)
@@ -27,7 +27,7 @@ namespace Site.Authentication.Bulletins
                 HtmlGenericControl mainDiv = new HtmlGenericControl("div");
                 mainDiv.Attributes.Add("id", "mainBlock");
                 MyBulletinsContainer.Controls.Add(mainDiv);
-                SameCore.CreateErrorMessage(mainDiv);
+                Helper.CreateErrorMessage(mainDiv);
             }
 
         }

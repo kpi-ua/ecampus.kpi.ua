@@ -16,7 +16,7 @@ namespace Site.Authentication
                 ArrayList users;
                 int page;
 
-                answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
+                answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
 
                 if (answer != null)
                 {
@@ -28,7 +28,7 @@ namespace Site.Authentication
             else
             {
                 HtmlGenericControl div = new HtmlGenericControl("div");
-                SameCore.CreateErrorMessage(div);
+                Helper.CreateErrorMessage(div);
                 MainDiv.Controls.Add(div);
             }
 

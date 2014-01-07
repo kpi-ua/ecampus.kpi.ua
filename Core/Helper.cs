@@ -6,7 +6,7 @@ using System.Web.UI.HtmlControls;
 
 namespace Core
 {
-    public class SameCore
+    public class Helper
     {
         public static Dictionary<string, object> GetData(string request)
         {
@@ -16,7 +16,7 @@ namespace Core
                 //var client = new Campus.SDK.Client();
                 //var result = client.Get(request);
                 
-                WebClient client = new WebClient();
+                var client = new WebClient();
                 client.Encoding = System.Text.Encoding.UTF8;
 
                 var json = client.DownloadString(request);
