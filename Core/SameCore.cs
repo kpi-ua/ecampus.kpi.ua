@@ -8,22 +8,26 @@ namespace Core
 {
     public class SameCore
     {
-        public static Dictionary<string, object> GetData(string request) {
+        public static Dictionary<string, object> GetData(string request)
+        {
             try
             {
+                //TODO: Replace by this:
+                //var client = new Campus.SDK.Client();
+                //var result = client.Get(request);
+                
                 WebClient client = new WebClient();
                 client.Encoding = System.Text.Encoding.UTF8;
 
                 var json = client.DownloadString(request);
                 var serializer = new JavaScriptSerializer();
-                Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
                 return respDictionary;
 
             }
             catch (Exception ex)
             {
-
                 return null;
             }
         }
