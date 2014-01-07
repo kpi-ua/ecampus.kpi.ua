@@ -7,15 +7,15 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="/Content/SiteMaster.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-theme.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-    <script src="/Scripts/bootstrap.js"></script>
-    <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/Scripts/jquery-2.0.3.intellisense.js"></script>
-    <script src="/Scripts/jquery-2.0.3.js"></script>
-    <script src="/Scripts/jquery-2.0.3.min.js"></script>
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery-2.0.3.intellisense.js"></script>
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/jquery-2.0.3.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server" style="height: 100%">
@@ -40,7 +40,7 @@
                     <asp:LinkButton ID="ExitLink" runat="server" PostBackUrl="/Authentication/Profile.aspx" OnClick="ExitLink_Click"><img src="/Images/exite_grey.png" onmouseover="this.src='/Images/exite_orange.png'" onmouseout="this.src='/Images/exite_grey.png'" /></asp:LinkButton>
 
                     <p>
-                        Вітаємо Вас, <a href="/Authentication/Profile.aspx">
+                        Вітаємо Вас, <a href="#">
                             <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
                     </p>
                 </div>
@@ -74,7 +74,7 @@
                             <img src="/Images/dovidka.png" />довідка</a></li>
                         <li><a href="#">
                             <img src="/Images/forum.png" />форум</a></li>
-                        <li><a href="/Authentication/Bulletins/AllBulletins.aspx">
+                        <li><a href="#">
                             <img src="/Images/ogoloshenya.png" />дошка оголошень</a></li>
                         <li><a href="/Authentication/Messages/AllDialogs.aspx">
                             <img src="/Images/messages.png" />повідомлення</a></li>
@@ -83,31 +83,27 @@
                     </ul>
                 </div>
                 <!-- .left-sidebar -->
-                <div id="right-sidebar">
-                    <asp:ContentPlaceHolder ID="right_column" runat="server"></asp:ContentPlaceHolder>
-                </div>
+                <asp:ContentPlaceHolder ID="right_column" runat="server"></asp:ContentPlaceHolder>
             </div>
             <!-- .middle-->
         </div>
         <!-- .wrapper -->
-        <div id="footer1">
-            <div id="footer">
-                <dl>
-                    <dt>©</dt>
-                    <dd>Національний технічний університет України
+        <div id="footer">
+            <dl>
+                <dt>©</dt>
+                <dd>Національний технічний університет України
                     <br />
-                        “Київський політехнічний інститут”   <a href="#">www.kpi.ua</a>
-                        <br />
-                        Електронний кампус</dd>
-                </dl>
-                <p>
-                    Розробник:  Конструкторське бюро<br />
-                    інформаційних систем<br />
-                    <a href="#">www.kbis.kpi.ua</a>
-                </p>
-            </div>
-            <!-- .footer -->
+                    “Київський політехнічний інститут”   <a href="#">www.kpi.ua</a>
+                    <br />
+                    Електронний кампус</dd>
+            </dl>
+            <p>
+                Розробник:  Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="#">www.kbis.kpi.ua</a>
+            </p>
         </div>
+        <!-- .footer -->
         <%--<div style="height:8px !important; background-color:aquamarine; width:100% !important; margin-left:-100px; margin-right:-100px;"></div>--%>
     </form>
 </body>

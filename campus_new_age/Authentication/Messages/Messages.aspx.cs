@@ -8,7 +8,6 @@ using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using campus_new_age.Authentication;
 
 namespace campus_new_age.Authentication.Messages
 {
@@ -22,13 +21,11 @@ namespace campus_new_age.Authentication.Messages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserData"] != null)
-            {
                 Dictionary<string, object> answer = null;
                 ArrayList messages;
                 int page;
 
-                answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
+                answer = GetData("http://localhost:49945//message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 10);
 
                 if (answer != null)
                 {
@@ -39,13 +36,6 @@ namespace campus_new_age.Authentication.Messages
                     page = Convert.ToInt32(Paging["PageNumber"].ToString());
                     DialogRendering(messages, page, lastPage, firstPage);
                 }
-            }
-            else
-            {
-                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
-                SameCore.CreateErrorMessage(mainDiv);
-                DialogContainer.Controls.Add(mainDiv);
-            }
         }
 
         public Dictionary<string, object> GetData(string request)
@@ -69,20 +59,16 @@ namespace campus_new_age.Authentication.Messages
             }
         }
 
-        public void DialogRendering(ArrayList messages, int currentPage, bool IsLast, bool IsFirst)
-        {
+        public void DialogRendering(ArrayList messages, int currentPage, bool IsLast, bool IsFirst) {
 
             DialogContainer.Controls.Clear();
 
-            int upPage = currentPage - 1;
-            int downPage = currentPage + 1;
-
-            if (IsFirst)
-            {
+            int upPage = currentPage-1;
+            int downPage = currentPage+1;
+            
+            if(IsFirst) {
                 downPage = currentPage;
-            }
-            else if (IsLast)
-            {
+            } else if(IsLast) {
                 upPage = currentPage;
             }
 
@@ -90,11 +76,10 @@ namespace campus_new_age.Authentication.Messages
             mainDiv.Attributes.Add("id", "mainBlock");
 
             HtmlGenericControl imgDiv = (HtmlGenericControl)Session["imgDiv"]; ;
-            mainDiv.Attributes.Add("id", "imgBlock");
+            //mainDiv.Attributes.Add("id", "imgBlock");
 
             HtmlGenericControl subject = new HtmlGenericControl("h4");
-            subject.Attributes.Add("id", "subject");
-            subject.Attributes.Add("class", "text-success");
+            subject.Attributes.Add("id","subject");
             subject.InnerText = Session["subject"].ToString();
 
             HtmlGenericControl messageContainerDiv = new HtmlGenericControl("div");
@@ -129,42 +114,29 @@ namespace campus_new_age.Authentication.Messages
 
             //messageContainerDiv.Controls.Add(up);
 
-
+            
 
             //messageContainerDiv.Controls.Add(down);
 
-
+            
         }
 
         protected void AnswerBtn_Click(object sender, EventArgs e)
         {
 
-            if (Session["UserData"] != null)
-            {
-                Dictionary<string, object> answer = null;
+            Dictionary<string, object> answer = null;
 
-                if (AnswerText.Text != "")
-                {
-                    answer = SameCore.GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"].ToString() + "&text=" + AnswerText.Text.ToString() + "&subject=" + Session["Subject"].ToString());
-                }
-                if (answer != null)
-                {
-                    AnswerText.Text = "";
-                    Response.Redirect("Messages.aspx");
-                }
-                
-            }
-            else
+            if (AnswerText.Text != "")
             {
-                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
-                SameCore.CreateErrorMessage(mainDiv);
-                DialogContainer.Controls.Add(mainDiv);
+                answer = GetData("http://localhost:49945/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"] + "&text=" + AnswerText.Text + "&subject=" + Session["Subject"]);
+            }
+            if (answer != null) {
+                AnswerText.Text = "";
             }
 
         }
 
-        protected void AddNewMessage(Dictionary<string, object> kvMessage)
-        {
+        protected void AddNewMessage(Dictionary<string, object> kvMessage) {
 
             HtmlGenericControl container = DialogContainer.Controls[0].Controls[2] as HtmlGenericControl;
 
@@ -172,27 +144,22 @@ namespace campus_new_age.Authentication.Messages
             {
 
                 HtmlGenericControl messageDiv = new HtmlGenericControl("div");
-                messageDiv.Attributes.Add("class", "messageBlock");
-                
-                HtmlGenericControl sender = new HtmlGenericControl("p");
-                sender.Attributes.Add("tid", "sender");
-                sender.Attributes.Add("class","text-primary");
+                messageDiv.Attributes.Add("id", "messageBlock");
 
                 HtmlGenericControl text = new HtmlGenericControl("p");
-                text.Attributes.Add("class", "messageText");
+                text.Attributes.Add("id", "text");
 
-                HtmlGenericControl date = new HtmlGenericControl("span");
-                date.Attributes.Add("class", "text-warning messageDate");
+                HtmlGenericControl date = new HtmlGenericControl("p");
+                date.Attributes.Add("id", "date");
 
-                sender.InnerText = kvMessage["SenderUserAccountFullName"].ToString();
                 text.InnerText = kvMessage["Text"].ToString();
                 date.InnerText = kvMessage["DateSent"].ToString();
 
                 messageDiv.Controls.Add(date);
-                messageDiv.Controls.Add(sender);
                 messageDiv.Controls.Add(text);
                 container.Controls.Add(messageDiv);
             }
         }
+
     }
 }

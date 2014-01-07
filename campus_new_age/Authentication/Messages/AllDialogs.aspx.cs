@@ -8,7 +8,6 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.Collections;
-using campus_new_age.Authentication;
 
 namespace campus_new_age.Authentication
 {
@@ -16,27 +15,22 @@ namespace campus_new_age.Authentication
     {
         protected void Page_Init(object sender, EventArgs e)
         {
-            if (Session["UserData"] != null)
+
+            Dictionary<string, object> answer = GetData("http://localhost:49945//message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
+            ArrayList Data;
+
+            if (answer != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
-                ArrayList Data;
 
-                if (answer != null)
+                Data = (ArrayList)answer["Data"];
+
+                for (int i = 0; i < Data.Count; i++)
                 {
-
-                    Data = (ArrayList)answer["Data"];
-
-                    for (int i = Data.Count - 1; i >= 0; i--)
-                    {
-                        Dictionary<string, object> kvData = (Dictionary<string, object>)Data[i];
-                        LinkButtonsRendering(kvData);
-                    }
+                    Dictionary<string, object> kvData = (Dictionary<string, object>)Data[i];
+                    LinkButtonsRendering(kvData);
                 }
-            } else {
-                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
-                SameCore.CreateErrorMessage(mainDiv);
-                LinkContainer.Controls.Add(mainDiv);
             }
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -63,6 +57,27 @@ namespace campus_new_age.Authentication
 
         }
 
+        public Dictionary<string, object> GetData(string request)
+        {
+            try
+            {
+                WebClient client = new WebClient();
+                client.Encoding = System.Text.Encoding.UTF8;
+
+                var json = client.DownloadString(request);
+                var serializer = new JavaScriptSerializer();
+                Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+
+                return respDictionary;
+
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
+        }
 
         public void LinkButtonsRendering(Dictionary<string, object> Data) {
 
@@ -71,7 +86,6 @@ namespace campus_new_age.Authentication
             LinkButton messageLink = new LinkButton();
             HtmlGenericControl mainDiv = new HtmlGenericControl("div");
             HtmlGenericControl imgDiv = new HtmlGenericControl("div");
-
             HtmlGenericControl infoDiv = new HtmlGenericControl("div");
             HtmlGenericControl subject = new HtmlGenericControl("h5");
             HtmlGenericControl last = new HtmlGenericControl("p");
@@ -97,7 +111,6 @@ namespace campus_new_age.Authentication
             mainDiv.Attributes.Add("class", ".form-inline");
 
             imgDiv.Attributes.Add("id", "imgBlock");
-            imgDiv.Attributes.Add("class", "imgBlock");
             //imgDiv.Attributes.Add("class", "col-md2");
 
             infoDiv.Attributes.Add("id", "infoBlock");
@@ -123,11 +136,6 @@ namespace campus_new_age.Authentication
 
             LinkContainer.Controls.Add(messageLink);
 
-        }
-
-        protected void NewMessage_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("NewMessage.aspx");
         }
 
 

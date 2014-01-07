@@ -18,7 +18,7 @@
     <script src="/Scripts/jquery-2.0.3.min.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server" style="height: 100%">
+    <form id="form1" runat="server" style="height:100%">
         <div id="wrapper">
             <div id="header">
                 <div id="logo">
@@ -40,36 +40,31 @@
                     <%--<p>Вітаємо Вас, <a href="#">Мелкумян Екатерина Юріївна</a></p>--%>
                 </div>
 
-            </div>
-            <!-- .header-->
+            </div><!-- .header-->
             <div id="middle">
                 <div id="container">
                     <div id="content">
                         <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
                     </div>
                 </div>
-            </div>
-            <!-- .middle-->
-        </div>
-        <!-- .wrapper -->
-        <div id="footer1">
-            <div id="footer">
-                <dl>
-                    <dt>©</dt>
-                    <dd>Національний технічний університет України
+            </div> <!-- .middle-->
+        </div><!-- .wrapper -->
+        <div id="footer">
+            <dl>
+                <dt>©</dt>
+                <dd>Національний технічний університет України
                     <br />
-                        “Київський політехнічний інститут”   <a href="#">www.kpi.ua</a>
-                        <br />
-                        Електронний кампус</dd>
-                </dl>
-                <p>
-                    Розробник:  Конструкторське бюро<br />
-                    інформаційних систем<br />
-                    <a href="#">www.kbis.kpi.ua</a>
-                </p>
-            </div>
-            <!-- .footer -->
+                    “Київський політехнічний інститут”   <a href="#">www.kpi.ua</a>
+                    <br />
+                    Електронний кампус</dd>
+            </dl>
+            <p>
+                Розробник:  Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="#">www.kbis.kpi.ua</a>
+            </p>
         </div>
+        <!-- .footer -->
     </form>
 </body>
 </html>
