@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Net;
+using PagedList;
 
 namespace Campus.SDK
 {
@@ -13,7 +14,7 @@ namespace Campus.SDK
         /// <summary>
         /// Paging information. If null - information is complex object 
         /// </summary>
-        public dynamic Paging { get; set; }
+        public IPagedList Paging { get; set; }
 
         /// <summary>
         /// 
