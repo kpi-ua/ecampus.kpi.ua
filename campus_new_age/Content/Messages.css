@@ -1,0 +1,18 @@
+﻿body {
+}
+
+/*----DialogContainer---*/
+#body_DialogContainer {margin-top:10px}
+#body_AnswerText {width:700px; margin-top:50px;}
+#body_AnswerBtn {margin-top:50px;}
+#imgBlock{ max-width:50px; max-height:90px; word-wrap:break-word; float:left;}
+#imgBlock img{ max-width:20px; max-height:40px;}
+#subject{padding-bottom:70px; border-bottom:1px solid #999;}
+.messageBlock{border-bottom: 1px solid #999;}
+.messageText{max-width:800px; word-wrap:break-word;}
+.messageDate{float:right; margin-top:0px; margin-left:100px;}
+/*----DialogContainer---*/
+
+/*----ReloadBtn--------*/
+#right_column_Reload {margin-top:42px}
+/*----ReloadBtn--------*/

@@ -1,8 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-    <siteMapNode url="" title=""  description="">
-      <siteMapNode url="~/Authentication/Profile" title="Профіль"  description="" />
-      <siteMapNode url="~/TimeTable/TimeTableMain" title="Розклад"  description="" />
-      <siteMapNode url="~/Authentication/Messages" title="Повідомлення"  description="" />
-    </siteMapNode>
-</siteMap>
