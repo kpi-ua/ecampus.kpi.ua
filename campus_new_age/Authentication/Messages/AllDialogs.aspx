@@ -12,4 +12,5 @@
     
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
+    <asp:Button ID="NewMessage" runat="server" Text="Нове Повідомлення"  CssClass=" btn btn-warning" OnClick="NewMessage_Click" />
 </asp:Content>

@@ -1,0 +1,160 @@
+body{
+	margin: 0px;
+}
+#timetable{
+	margin-left: 190px;
+	padding: 5px 0px 5px 5px;
+	
+}
+#timetable table{
+	display: inline-block;
+	margin-right: 4px; 
+}
+.invisible{
+	display: none;
+}
+#tableinput{
+	margin: 0px 0px 0px 0px;
+}
+#header{
+	margin-bottom: -11px;
+	background-color: #275f90;
+	color: #ccdce9;
+	display: inline-block;
+	border: 1px #204466 solid;
+	border-collapse: collapse;
+}
+#header p{
+
+	padding: 8px;
+	width: 180px;
+	display: inline-block;
+}
+#header p:nth-child(1){
+	margin: 0px 0px 0px 83px;
+	float: left;
+	text-align: center;
+}  
+#header p:nth-child(2){
+	border-left: 1px #204466 solid;
+	float: right;
+	text-align: center;
+	margin: 0px;
+}
+
+#header td:nth-child(1){
+	width: 236px;
+}
+
+#header td:nth-child(2){
+	width: 180px;
+}
+
+#timetable_dayname{
+	background-color: #275f90;
+	color: #ccdce9;
+	width: 14px;
+}
+p.vertical{
+	position: absolute;
+	margin-left: -20px;
+	color: #ccdce9;
+	padding: 0px;
+	-webkit-transform: rotate(270deg); 
+}
+.timetable_number{
+	background-color: #93afc7;
+	color: #ccdce9;
+}
+#timetable table{
+	margin-top: 5px;
+	border-collapse: collapse;
+}
+#timetable table, td{
+	border: 1px #204466 solid;
+}
+#timetable td{
+	text-align: center;
+	padding: 8px;
+}
+p.rightside{
+	text-align: right;
+	margin-right: 90px;
+}
+
+#timetable table:nth-child(2) tr:nth-child(2) td:nth-child(1){
+
+}
+
+p.tt_teacher_name, a.tt_lesson_name, p.tt_build_name {
+	margin: 0px;
+	padding: 0px;
+	cursor: default;
+}
+
+p.tt_teacher_name{
+	color: #204466;
+	}
+a.tt_lesson_name{
+
+	color: #204466;
+	text-decoration: none;
+}
+a.tt_lesson_name:visited{
+	text-decoration: none;
+	color: #204466;
+}
+a.tt_lesson_name:hover{
+	color: #ccdce9;
+}
+p.tt_build_name{
+
+}
+p.tt_noinfo{
+	color: #275f90;
+}
+#lesson{
+	width: 180px;
+}
+
+p.daynameFriday{
+	margin-left: -13px;
+	
+}
+p.daynameWednesday{
+	margin-left: -27px;
+	
+}
+
+#loading{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 50px;
+	height: 50px;
+	margin: -25px 0px 0px -25px;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  border: 1px #204466 solid;
+	width: 300px;
+  height: 120px;
+	background: #ccdce9;
+  padding: 2px 6px;
+}
+.tooltip p{
+	margin-left: 5px;
+	float: left;
+	width: 200px;
+}
+.tooltip img{
+	background-color: #FFFFFF;
+	margin-top: 15px;
+	margin-right: 5px;
+	padding-top: 10px;
+	float: right;
+	border: 1px black solid;
+	width: 80px;
+}

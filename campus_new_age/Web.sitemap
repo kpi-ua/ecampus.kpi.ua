@@ -1,8 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
-    <siteMapNode url="" title=""  description="">
-      <siteMapNode url="~/Authentication/Profile.aspx" title="Профіль"  description="" />
-      <siteMapNode url="~/TimeTable/TimeTableMain.aspx" title="Розклад"  description="" />
-      <siteMapNode url="~/Authentication/Messages.aspx" title="Повідомлення"  description="" />
+  <siteMapNode url="" title=""  description="">
+    <siteMapNode url="~/Authentication/Profile.aspx" title="Профіль"  description="" />
+    <siteMapNode url="~/TimeTable/TimeTableMain.aspx" title="Розклад"  description="" />
+    <siteMapNode url="~/Authentication/Messages/AllDialogs.aspx" title="Діалоги"  description="">
+      <siteMapNode url="~/Authentication/Messages/Messages.aspx" title="Повідомлення"  description="" />
     </siteMapNode>
+    <siteMapNode url="~/Authentication/Bulletins/AllBulletins.aspx" title="Оголошення"  description="">
+      <siteMapNode url="~/Authentication/Bulletins/MyBulletins.aspx" title="Мої оголошення"  description="">
+        <siteMapNode url="" title="Нове оголошення"  description="" />
+      </siteMapNode>
+    </siteMapNode>
+  </siteMapNode>
 </siteMap>
