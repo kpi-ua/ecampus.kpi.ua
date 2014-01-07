@@ -23,13 +23,15 @@ namespace campus_new_age.Authentication
                 if ((Request.Cookies["Session"] != null) && (Request.Cookies["Session"].Value != "") && (Session["SaveIn"] != null) && (Convert.ToBoolean(Session["SaveIn"]) == true))
                 {
                     Response.Redirect("Profile.aspx");
-                } else {
+                }
+                else
+                {
                     User.Text = "Логін";
                     Pass.Attributes["type"] = "password";
                     Pass.Text = "Пароль";
                     SaveIn.Checked = false;
                 }
-                
+
             }
 
 
@@ -37,7 +39,8 @@ namespace campus_new_age.Authentication
 
         protected void Enter_Click(object sender, EventArgs e)
         {
-            String req = String.Format("http://api.ecampus.kpi.ua/User/Auth?login={0}&password={1}", User.Text, Pass.Text);
+            String req = String.Format("{0}User/Auth?login={1}&password={2}", Campus.SDK.Client.ApiEndpoint, User.Text, Pass.Text);
+
             Dictionary<string, string> respDictionary = GetJson(req);
 
             if (respDictionary.ContainsKey("Data"))
@@ -49,7 +52,9 @@ namespace campus_new_age.Authentication
                     myCookie.Expires = DateTime.Now.AddDays(1d);
                     Response.Cookies.Add(myCookie);
                     Session["SaveIn"] = true;
-                } else {
+                }
+                else
+                {
                     Session["SaveIn"] = false;
                 }
 
@@ -63,7 +68,7 @@ namespace campus_new_age.Authentication
                 Response.Write("<script type='text/javascript'>alert('" + "Помилка при авторизації!!!" + "');</script>");
                 //Response.Redirect("/Authentication/Authentication.aspx");
                 //Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "SCRIPT", string.Format("alert('Помилка при авторизації!!!\\n')"), true);
-                
+
             }
         }
 
@@ -95,7 +100,7 @@ namespace campus_new_age.Authentication
             }
             catch (Exception ex)
             {
-                return new Dictionary<string, string>(); 
+                return new Dictionary<string, string>();
             }
 
         }

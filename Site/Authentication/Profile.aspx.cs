@@ -19,20 +19,20 @@ namespace campus_new_age.Authentication
             {
                 try
                 {
-                   
-                        string sessionId = Session["UserData"].ToString();
-                        WebClient client = new WebClient();
-                        client.Encoding = System.Text.Encoding.UTF8;
-                        var json = client.DownloadString("http://api.ecampus.kpi.ua/User/GetCurrentUser?sessionId=" + sessionId);
-                        var serializer = new JavaScriptSerializer();
-                        Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
-                        Dictionary<string, object> Data = (Dictionary<string, object>)respDictionary["Data"];
-                        Photo.ImageUrl = Data["Photo"].ToString();
-                        ParsePersonData(Data);
-                        ParseEmployees(Data);
-                        ParseProfiles(Data);
-                    
+                    string sessionId = Session["UserData"].ToString();
+                    WebClient client = new WebClient();
+                    client.Encoding = System.Text.Encoding.UTF8;
+                    var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
+                    var serializer = new JavaScriptSerializer();
+                    Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+
+                    Dictionary<string, object> Data = (Dictionary<string, object>)respDictionary["Data"];
+                    Photo.ImageUrl = Data["Photo"].ToString();
+                    ParsePersonData(Data);
+                    ParseEmployees(Data);
+                    ParseProfiles(Data);
+
                 }
                 catch (Exception ex)
                 {
@@ -41,12 +41,14 @@ namespace campus_new_age.Authentication
             }
         }
 
-        void ParsePersonData(Dictionary<string, object> Data) {
+        void ParsePersonData(Dictionary<string, object> Data)
+        {
 
             PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + Data["FullName"] + "</p>";
         }
 
-        void ParseEmployees(Dictionary<string, object> Data) {
+        void ParseEmployees(Dictionary<string, object> Data)
+        {
 
             ArrayList Personalitiess = (ArrayList)Data["Personalities"];
             ArrayList Employees = (ArrayList)Data["Employees"];
@@ -55,7 +57,8 @@ namespace campus_new_age.Authentication
             {
                 foreach (KeyValuePair<string, object> w in (Dictionary<string, object>)Personalitiess[i])
                 {
-                    if (w.Key == "SubdivisionId") {
+                    if (w.Key == "SubdivisionId")
+                    {
 
                     }
                     else if (w.Key == "SubdivisionName")
@@ -64,7 +67,7 @@ namespace campus_new_age.Authentication
                     }
                     else if (w.Key == "StudyGroupName")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" +"Група: " +w.Value + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + "Група: " + w.Value + "</p>";
                     }
                     else if (w.Key == "IsContract")
                     {
@@ -76,12 +79,14 @@ namespace campus_new_age.Authentication
                     {
                         WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + "Спеціальність: " + w.Value + "</p>";
                     }
-                
+
                 }
             }
 
-            for (int i = 0; i < Employees.Count; i++) {
-                foreach (KeyValuePair<string, object> w in (Dictionary<string, object>)Employees[i]) {
+            for (int i = 0; i < Employees.Count; i++)
+            {
+                foreach (KeyValuePair<string, object> w in (Dictionary<string, object>)Employees[i])
+                {
                     if (w.Key == "SubdivisionId")
                     {
 
@@ -92,32 +97,37 @@ namespace campus_new_age.Authentication
                     }
                     else if (w.Key == "Position")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">"+" Позиція: " + w.Value + "</b></p>";
+                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + " Позиція: " + w.Value + "</b></p>";
                     }
                     else if (w.Key == "AcademicDegree")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">"+"Академічний ступінь: " + w.Value + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + "Академічний ступінь: " + w.Value + "</p>";
                     }
                 }
             }
         }
 
-        void ParseProfiles(Dictionary<string, object> Data) {
+        void ParseProfiles(Dictionary<string, object> Data)
+        {
 
             ArrayList Profiles = (ArrayList)Data["Profiles"];
 
             SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
-            for (int i = 0; i < Profiles.Count; i++) {
+            for (int i = 0; i < Profiles.Count; i++)
+            {
 
-                foreach (KeyValuePair<string, object> pk in (Dictionary<string, object>)Profiles[i]) {
+                foreach (KeyValuePair<string, object> pk in (Dictionary<string, object>)Profiles[i])
+                {
 
                     string boolValue = "так";
 
-                    if (pk.Value.ToString().ToLower() == "false") {
+                    if (pk.Value.ToString().ToLower() == "false")
+                    {
                         boolValue = "ні";
                     }
 
-                    switch (pk.Key) {
+                    switch (pk.Key)
+                    {
 
                         case "SubsystemName":
                             {
@@ -188,7 +198,8 @@ namespace campus_new_age.Authentication
                         Session["UserPass"] = NewPass.Text;
                     }
                 }
-                else {
+                else
+                {
                     OldPassLabel.CssClass = "label label-primary";
                     OldPassLabel.Text = "Старий пароль";
                     NewPassLabel.CssClass = "label label-danger";
@@ -198,14 +209,15 @@ namespace campus_new_age.Authentication
                     ChangePass.Attributes.Add("style", "display:inline;");
                 }
             }
-            else {
+            else
+            {
                 OldPassLabel.CssClass = "label label-danger";
                 OldPassLabel.Text = "Старий пароль неправильний";
                 NewPassLabel.CssClass = "label label-primary";
                 NewPassLabel.Text = "Новий пароль";
                 NewPassCheakLabel.CssClass = "label label-primary";
                 NewPassCheakLabel.Text = "Повторіть новий пароль";
-                ChangePass.Attributes.Add("style","display:inline;");
+                ChangePass.Attributes.Add("style", "display:inline;");
             }
         }
 

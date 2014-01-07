@@ -7,45 +7,37 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace campus_new_age.Authentication.Messages {
-    
-    
-    public partial class Messages {
+namespace campus_new_age.Authentication {
+
+
+    public partial class NewMessage
+    {
         
         /// <summary>
-        /// DialogContainer control.
+        /// MainDiv control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel DialogContainer;
+        protected global::System.Web.UI.WebControls.Panel MainDiv;
         
         /// <summary>
-        /// AnswerText control.
+        /// UsersList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AnswerText;
+        protected global::System.Web.UI.WebControls.ListBox UsersList;
         
         /// <summary>
-        /// AnswerBtn control.
+        /// SendMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AnswerBtn;
-        
-        /// <summary>
-        /// Reload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Reload;
+        protected global::System.Web.UI.WebControls.Button SendMessage;
     }
 }

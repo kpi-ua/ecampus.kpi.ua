@@ -18,7 +18,7 @@ namespace campus_new_age.Authentication
         {
             if (Session["UserData"] != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
+                Dictionary<string, object> answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
                 ArrayList Data;
 
                 if (answer != null)
@@ -32,7 +32,9 @@ namespace campus_new_age.Authentication
                         LinkButtonsRendering(kvData);
                     }
                 }
-            } else {
+            }
+            else
+            {
                 HtmlGenericControl mainDiv = new HtmlGenericControl("div");
                 SameCore.CreateErrorMessage(mainDiv);
                 LinkContainer.Controls.Add(mainDiv);
@@ -64,7 +66,8 @@ namespace campus_new_age.Authentication
         }
 
 
-        public void LinkButtonsRendering(Dictionary<string, object> Data) {
+        public void LinkButtonsRendering(Dictionary<string, object> Data)
+        {
 
             ArrayList Users = (ArrayList)Data["Users"];
 
@@ -90,7 +93,7 @@ namespace campus_new_age.Authentication
             messageLink.PostBackUrl = Request.Url.AbsolutePath.ToString();
             messageLink.Attributes.Add("class", "messageLink");
             messageLink.Attributes.Add("cId", Data["GroupId"].ToString());
-            messageLink.Attributes.Add("subj",Data["Subject"].ToString());
+            messageLink.Attributes.Add("subj", Data["Subject"].ToString());
             messageLink.Click += messageLink_Click;
 
             mainDiv.Attributes.Add("id", "mainBlock");
