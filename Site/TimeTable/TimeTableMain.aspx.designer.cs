@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace campus_new_age.TimeTable {
+namespace Site.TimeTable {
     
     
     public partial class TimeTableMain {

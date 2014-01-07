@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Script.Serialization;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace campus_new_age.TimeTable
+namespace Site.TimeTable
 {
     public partial class TimeTableEdit : System.Web.UI.Page
     {

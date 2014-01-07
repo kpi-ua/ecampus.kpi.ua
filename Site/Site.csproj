@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>campus_new_age</RootNamespace>
-    <AssemblyName>campus_new_age</AssemblyName>
+    <RootNamespace>Site</RootNamespace>
+    <AssemblyName>Site</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -156,6 +156,7 @@
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Schedule\bin\loading.gif" />
     <Content Include="Schedule\bin\profile.png" />
+    <Content Include="Schedule\Default.aspx" />
     <Content Include="Schedule\index.html" />
     <Content Include="Schedule\scripts\jquery.min.js" />
     <Content Include="Schedule\scripts\schedulescr.js" />
@@ -230,7 +231,6 @@
     <Compile Include="Authentication\Profile.aspx.designer.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\SameCore.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -245,6 +245,13 @@
     </Compile>
     <Compile Include="RNP\RNP_view.aspx.designer.cs">
       <DependentUpon>RNP_view.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Schedule\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -295,6 +302,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileServer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{c4ebf4e3-1ea1-46ec-bb58-db4876272676}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

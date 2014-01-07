@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI.HtmlControls;
 
-namespace campus_new_age.Authentication
+namespace Core
 {
     public class SameCore
     {

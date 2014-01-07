@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace campus_new_age {
+namespace Site {
     
     
     public partial class SitePlusNav {

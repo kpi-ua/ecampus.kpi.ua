@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Core;
 
-namespace campus_new_age.Authentication.Bulletins
+namespace Site.Authentication.Bulletins
 {
     public partial class MyBulletins : System.Web.UI.Page
     {

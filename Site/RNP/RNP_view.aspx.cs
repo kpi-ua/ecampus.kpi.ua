@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
-namespace campus_new_age.RNP
+namespace Site.RNP
 {
     public partial class RNP_view : System.Web.UI.Page
     {

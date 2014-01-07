@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="campus_new_age.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Site.Site" %>
 
 <!DOCTYPE html>
 
@@ -18,9 +18,9 @@
     <script src="/Scripts/jquery-2.0.3.min.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server" style="height: 100%">
+    <form id="form" runat="server" style="height: 100%">
         <div id="wrapper">
-            <div id="header">
+            <header id="header">
                 <div id="logo">
                     <a href="#">
                         <img src="/Images/logo.png" /></a>
@@ -40,7 +40,7 @@
                     <%--<p>Вітаємо Вас, <a href="#">Мелкумян Екатерина Юріївна</a></p>--%>
                 </div>
 
-            </div>
+            </header>
             <!-- .header-->
             <div id="middle">
                 <div id="container">
@@ -53,21 +53,21 @@
         </div>
         <!-- .wrapper -->
         <div id="footer1">
-            <div id="footer">
+            <footer id="footer">
                 <dl>
                     <dt>©</dt>
                     <dd>Національний технічний університет України
                     <br />
-                        “Київський політехнічний інститут”   <a href="#">www.kpi.ua</a>
+                        “Київський політехнічний інститут”   <a href="http://kpi.ua/">www.kpi.ua</a>
                         <br />
                         Електронний кампус</dd>
                 </dl>
                 <p>
                     Розробник:  Конструкторське бюро<br />
                     інформаційних систем<br />
-                    <a href="#">www.kbis.kpi.ua</a>
+                    <a href="http://kbis.kpi.ua/">www.kbis.kpi.ua</a>
                 </p>
-            </div>
+            </footer>
             <!-- .footer -->
         </div>
     </form>

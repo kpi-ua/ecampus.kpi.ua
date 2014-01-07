@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace campus_new_age.RNP {
+namespace Site.RNP {
     
     
     public partial class RNP_view {

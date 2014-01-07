@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace campus_new_age.Authentication.Bulletins {
+namespace Site.Authentication.Bulletins {
     
     
     public partial class AllBulletins {

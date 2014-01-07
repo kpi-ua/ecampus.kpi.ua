@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SitePlusNav.master.cs" Inherits="campus_new_age.SitePlusNav" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SitePlusNav.master.cs" Inherits="Site.SitePlusNav" %>
 
 <!DOCTYPE html>
 

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace campus_new_age.Authentication {
+namespace Site.Authentication {
     
     
     public partial class Messages {

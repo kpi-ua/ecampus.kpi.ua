@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace campus_new_age.TimeTable
+namespace Site.TimeTable
 {
     public partial class TimeTableMain : System.Web.UI.Page
     {

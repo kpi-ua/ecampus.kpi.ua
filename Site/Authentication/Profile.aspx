@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/SitePlusNav.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="campus_new_age.Authentication.Success" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/SitePlusNav.Master" AutoEventWireup="true" CodeBehind="Profile.aspx.cs" Inherits="Site.Authentication.Success" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Профіль</title>
