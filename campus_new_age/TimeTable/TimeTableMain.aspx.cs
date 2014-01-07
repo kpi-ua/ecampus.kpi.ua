@@ -27,7 +27,7 @@ namespace campus_new_age.TimeTable
 
                 client = new WebClient();
                 client.Encoding = System.Text.Encoding.UTF8;
-                var json = client.DownloadString("http://api.ecampus.kpi.ua/User/GetCurrentUser?sessionId=" + sessionId);
+                var json = client.DownloadString("http://localhost:49945/User/GetCurrentUser?sessionId=" + sessionId);
                 var serializer = new JavaScriptSerializer();
                 var objects = serializer.Deserialize<object>(json);
             }
@@ -39,7 +39,7 @@ namespace campus_new_age.TimeTable
         protected void GetSubjects(int specialityId, int studyFormId, int course)
         {
             var json =
-                client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetSubjects?sessionId=" +
+                client.DownloadString("http://localhost:49945/TimeTable/GetSubjects?sessionId=" +
                                       Session["UserData"].ToString() + "&course=" + course.ToString(CultureInfo.InvariantCulture) + "&specialityId=" +
                                       specialityId + "&dcStudyFormId=" + studyFormId);
         }

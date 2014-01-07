@@ -37,7 +37,7 @@ namespace campus_new_age.Authentication
 
         protected void Enter_Click(object sender, EventArgs e)
         {
-            String req = String.Format("http://api.ecampus.kpi.ua/User/Auth?login={0}&password={1}", User.Text, Pass.Text);
+            String req = String.Format("http://localhost:49945/User/Auth?login={0}&password={1}", User.Text, Pass.Text);
             Dictionary<string, string> respDictionary = GetJson(req);
 
             if (respDictionary.ContainsKey("Data"))
@@ -54,8 +54,7 @@ namespace campus_new_age.Authentication
                 }
 
                 Session["UserData"] = respDictionary["Data"].ToString();
-                Session["UserPass"] = Pass.Text;
-
+                
                 Response.Redirect("Profile.aspx");
             }
             else
@@ -81,10 +80,10 @@ namespace campus_new_age.Authentication
             {
                 WebClient client = new WebClient();
 
-                WebProxy p = new WebProxy("10.13.100.13:3128", true);
-                p.Credentials = new NetworkCredential("kbis_user", "kbis13");
-                WebRequest.DefaultWebProxy = p;
-                client.Proxy = p;
+                //WebProxy p = new WebProxy("10.13.100.13:3128", true);
+                //p.Credentials = new NetworkCredential("kbis_user", "kbis13");
+                //WebRequest.DefaultWebProxy = p;
+                //client.Proxy = p;
 
                 var json = client.DownloadString(req);
 
@@ -95,7 +94,7 @@ namespace campus_new_age.Authentication
             }
             catch (Exception ex)
             {
-                return new Dictionary<string, string>(); 
+                return new Dictionary<string, string>();
             }
 
         }

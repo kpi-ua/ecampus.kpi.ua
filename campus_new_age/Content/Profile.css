@@ -1,13 +1,3 @@
 ﻿body {
 }
 
-#right_column_Photo
-{
-    max-height:200px;
-    max-width:200px;
-}
-
-#right_column_ChangePass
-{
-    display:none;
-}
