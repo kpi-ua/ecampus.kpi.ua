@@ -1,6 +1,11 @@
 ﻿body {
 }
 
+#body_LinkContainer
+{
+    margin-top:10px;
+}
+
 .messageLink, .messageLink:hover
 {
     text-decoration:none;
@@ -30,9 +35,21 @@
 
 }
 
-#imgBlock
+
+#right_column_NewMessage
 {
-    max-width:45px;
-    
+    margin-top:42px;
 }
 
+.imgBlock
+{
+    max-width:50px;
+    max-height:90px;
+    word-wrap:break-word;
+}
+
+.imgBlock img
+{
+    max-width:20px;
+    max-height:40px;
+}

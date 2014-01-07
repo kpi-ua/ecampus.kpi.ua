@@ -28,7 +28,7 @@ namespace campus_new_age.Authentication.Messages
                 ArrayList messages;
                 int page;
 
-                answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 10);
+                answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
 
                 if (answer != null)
                 {
@@ -90,10 +90,11 @@ namespace campus_new_age.Authentication.Messages
             mainDiv.Attributes.Add("id", "mainBlock");
 
             HtmlGenericControl imgDiv = (HtmlGenericControl)Session["imgDiv"]; ;
-            //mainDiv.Attributes.Add("id", "imgBlock");
+            mainDiv.Attributes.Add("id", "imgBlock");
 
             HtmlGenericControl subject = new HtmlGenericControl("h4");
             subject.Attributes.Add("id", "subject");
+            subject.Attributes.Add("class", "text-success");
             subject.InnerText = Session["subject"].ToString();
 
             HtmlGenericControl messageContainerDiv = new HtmlGenericControl("div");
@@ -144,12 +145,14 @@ namespace campus_new_age.Authentication.Messages
 
                 if (AnswerText.Text != "")
                 {
-                    answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"] + "&text=" + AnswerText.Text + "&subject=" + Session["Subject"]);
+                    answer = SameCore.GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"].ToString() + "&text=" + AnswerText.Text.ToString() + "&subject=" + Session["Subject"].ToString());
                 }
                 if (answer != null)
                 {
                     AnswerText.Text = "";
+                    Response.Redirect("Messages.aspx");
                 }
+                
             }
             else
             {
@@ -169,18 +172,24 @@ namespace campus_new_age.Authentication.Messages
             {
 
                 HtmlGenericControl messageDiv = new HtmlGenericControl("div");
-                messageDiv.Attributes.Add("id", "messageBlock");
+                messageDiv.Attributes.Add("class", "messageBlock");
+                
+                HtmlGenericControl sender = new HtmlGenericControl("p");
+                sender.Attributes.Add("tid", "sender");
+                sender.Attributes.Add("class","text-primary");
 
                 HtmlGenericControl text = new HtmlGenericControl("p");
-                text.Attributes.Add("id", "text");
+                text.Attributes.Add("class", "messageText");
 
-                HtmlGenericControl date = new HtmlGenericControl("p");
-                date.Attributes.Add("id", "date");
+                HtmlGenericControl date = new HtmlGenericControl("span");
+                date.Attributes.Add("class", "text-warning messageDate");
 
+                sender.InnerText = kvMessage["SenderUserAccountFullName"].ToString();
                 text.InnerText = kvMessage["Text"].ToString();
                 date.InnerText = kvMessage["DateSent"].ToString();
 
                 messageDiv.Controls.Add(date);
+                messageDiv.Controls.Add(sender);
                 messageDiv.Controls.Add(text);
                 container.Controls.Add(messageDiv);
             }

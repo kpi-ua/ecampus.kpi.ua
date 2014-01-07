@@ -17,8 +17,7 @@ namespace campus_new_age
         {
             if (!Page.IsPostBack)
             {
-                try
-                {
+                try {
 
                     if ((Convert.ToBoolean(Session["SaveIn"]) == true) && ((Request.Cookies["Session"] == null) || (Request.Cookies["Session"].Value == "")))
                     {
@@ -34,7 +33,7 @@ namespace campus_new_age
 
                         WebClient client = new WebClient();
                         client.Encoding = System.Text.Encoding.UTF8;
-                        var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
+                        var json = client.DownloadString("http://api.ecampus.kpi.ua/User/GetCurrentUser?sessionId=" + sessionId);
                         var serializer = new JavaScriptSerializer();
                         Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -42,9 +41,7 @@ namespace campus_new_age
                         UserName.Text += Data["FullName"];
                     }
 
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     UserName.Text = "Ошибка при загрузке страницы!!!";
                 }
             }

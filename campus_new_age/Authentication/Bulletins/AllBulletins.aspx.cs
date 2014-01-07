@@ -16,7 +16,7 @@ namespace campus_new_age.Authentication.Bulletins
         {
             if (Session["UserData"] != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetActual?sessionId="+Session["UserData"]);
+                Dictionary<string, object> answer = SameCore.GetData("http://api.ecampus.kpi.ua/BulletinBoard/GetActual?sessionId="+Session["UserData"]);
                 ArrayList Bulletins;
 
                 if (answer != null) {

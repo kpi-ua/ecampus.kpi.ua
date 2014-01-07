@@ -18,7 +18,7 @@ namespace campus_new_age.Authentication
         {
             if (Session["UserData"] != null)
             {
-                Dictionary<string, object> answer = SameCore.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
+                Dictionary<string, object> answer = SameCore.GetData("http://api.ecampus.kpi.ua//message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
                 ArrayList Data;
 
                 if (answer != null)
@@ -71,6 +71,7 @@ namespace campus_new_age.Authentication
             LinkButton messageLink = new LinkButton();
             HtmlGenericControl mainDiv = new HtmlGenericControl("div");
             HtmlGenericControl imgDiv = new HtmlGenericControl("div");
+
             HtmlGenericControl infoDiv = new HtmlGenericControl("div");
             HtmlGenericControl subject = new HtmlGenericControl("h5");
             HtmlGenericControl last = new HtmlGenericControl("p");
@@ -96,6 +97,7 @@ namespace campus_new_age.Authentication
             mainDiv.Attributes.Add("class", ".form-inline");
 
             imgDiv.Attributes.Add("id", "imgBlock");
+            imgDiv.Attributes.Add("class", "imgBlock");
             //imgDiv.Attributes.Add("class", "col-md2");
 
             infoDiv.Attributes.Add("id", "infoBlock");
@@ -121,6 +123,11 @@ namespace campus_new_age.Authentication
 
             LinkContainer.Controls.Add(messageLink);
 
+        }
+
+        protected void NewMessage_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NewMessage.aspx");
         }
 
 
