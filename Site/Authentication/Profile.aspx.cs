@@ -181,7 +181,7 @@ namespace Site.Authentication
                     }
                     else
                     {
-                        if (NewPassLabel.CssClass == "label label-danger")
+                        if (NewPassLabel.CssClass == "label label-danger" || OldPassLabel.CssClass == "label label-danger")
                         {
                             OldPassLabel.CssClass = "label label-primary";
                             OldPassLabel.Text = "Старий пароль";

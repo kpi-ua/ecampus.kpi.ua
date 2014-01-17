@@ -6,7 +6,7 @@
     margin-top:10px;
 }
 
-.messageLink, .messageLink:hover
+.messageLink
 {
     text-decoration:none;
     display:block;
@@ -14,6 +14,11 @@
     border-radius: 5px;
     margin-bottom:5px;
 
+}
+
+.messageLink:hover
+{
+    background-color:#e4e8ed;
 }
 
 #mainBlock
@@ -43,13 +48,17 @@
 
 .imgBlock
 {
-    max-width:50px;
-    max-height:90px;
+    max-width:80px;
+    max-height:100px;
     word-wrap:break-word;
 }
 
 .imgBlock img
 {
-    max-width:20px;
-    max-height:40px;
+    width:38px;
+    height:40px;
+    max-width:40px;
+    max-height:50px;
+    margin-right:2px;
+    margin-bottom:2px;
 }

@@ -83,7 +83,7 @@
   <ItemGroup>
     <Content Include="Authentication\Authentication.aspx" />
     <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
-    <Content Include="Authentication\Messages.aspx" />
+    <Content Include="Authentication\Messages\Messages.aspx" />
     <Content Include="Authentication\Messages\NewMessage.aspx" />
     <Content Include="Content\Bulletins.css" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
@@ -196,11 +196,11 @@
     <Compile Include="Authentication\Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Messages.aspx.cs">
+    <Compile Include="Authentication\Messages\Messages.aspx.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Messages.aspx.designer.cs">
+    <Compile Include="Authentication\Messages\Messages.aspx.designer.cs">
       <DependentUpon>Messages.aspx</DependentUpon>
     </Compile>
     <Compile Include="Authentication\Messages\AllDialogs.aspx.cs">
