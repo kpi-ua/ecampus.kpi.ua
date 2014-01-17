@@ -177,7 +177,7 @@ namespace Site.Authentication
 
                 HtmlGenericControl sender = new HtmlGenericControl("p");
                 sender.Attributes.Add("tid", "sender");
-                sender.Attributes.Add("class", "text-primary");
+                sender.Attributes.Add("class", "senderName text-primary");
 
                 HtmlGenericControl text = new HtmlGenericControl("p");
                 text.Attributes.Add("class", "messageText");
@@ -185,11 +185,17 @@ namespace Site.Authentication
                 HtmlGenericControl date = new HtmlGenericControl("span");
                 date.Attributes.Add("class", "text-warning messageDate");
 
+                Image senderPhoto = new Image();
+                senderPhoto.Attributes.Add("class", "senderPhoto");
+                senderPhoto.ImageUrl = kvMessage["SenderUserAccountPhoto"].ToString();
+
+                
                 sender.InnerText = kvMessage["SenderUserAccountFullName"].ToString();
                 text.InnerText = kvMessage["Text"].ToString();
                 date.InnerText = kvMessage["DateSent"].ToString();
 
                 messageDiv.Controls.Add(date);
+                messageDiv.Controls.Add(senderPhoto);
                 messageDiv.Controls.Add(sender);
                 messageDiv.Controls.Add(text);
                 container.Controls.Add(messageDiv);

@@ -62,3 +62,24 @@
     margin-right:2px;
     margin-bottom:2px;
 }
+
+.lastPhoto
+{
+    width:38px;
+    height:40px;
+    max-width:38px;
+    max-height:40px;
+    float:left;
+}
+
+.lastSender
+{
+    margin-bottom:5px;
+    margin-left:45px;
+}
+
+.lastText
+{
+    margin-left:45px;
+    max-width:490px;
+}

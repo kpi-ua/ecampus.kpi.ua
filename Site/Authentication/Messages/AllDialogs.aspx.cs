@@ -65,6 +65,7 @@ namespace Site.Authentication
         {
 
             ArrayList Users = (ArrayList)Data["Users"];
+            ArrayList UserData = new ArrayList();
 
             LinkButton messageLink = new LinkButton();
             HtmlGenericControl mainDiv = new HtmlGenericControl("div");
@@ -73,12 +74,18 @@ namespace Site.Authentication
             HtmlGenericControl infoDiv = new HtmlGenericControl("div");
             HtmlGenericControl subject = new HtmlGenericControl("h5");
             HtmlGenericControl last = new HtmlGenericControl("p");
+            Image lastPhoto = new Image();
+            HtmlGenericControl lastSender = new HtmlGenericControl("h6");
+            HtmlGenericControl lastText = new HtmlGenericControl("p");
             HtmlGenericControl date = new HtmlGenericControl("p");
 
 
             for (int j = 0; j < Users.Count || j > 4; j++)
             {
+
                 Dictionary<string, object> kvUsers = (Dictionary<string, object>)Users[j];
+                UserData.Add(kvUsers);
+
                 Image ownImg = new Image();
 
                 ownImg.ImageUrl = kvUsers["Photo"].ToString();
@@ -105,13 +112,31 @@ namespace Site.Authentication
             subject.Attributes.Add("class", "text-primary");
             last.Attributes.Add("id", "last");
             last.Attributes.Add("class", "text-success");
+
+            lastPhoto.Attributes.Add("class", "lastPhoto");
+            lastSender.Attributes.Add("class", "lastSender text-warning");
+            lastText.Attributes.Add("class", " lastText text-success");
+            
             date.Attributes.Add("id", "date");
             date.Attributes.Add("class", "text-warning");
 
             subject.InnerText = Data["Subject"].ToString();
-            last.InnerText = Data["LastMessageText"].ToString();
+            for (int i = 0; i < UserData.Count; i++) {
+                Dictionary<string, object> currUser = (Dictionary<string, object>)UserData[i];
+                if (currUser["UserAccountId"].ToString() == Data["LastSenderUserAccountId"].ToString())
+                {
+                    lastSender.InnerText = currUser["FullName"].ToString();
+                    lastPhoto.ImageUrl = currUser["Photo"].ToString();
+                    lastText.InnerText = Data["LastMessageText"].ToString();
+                }
+            }
+           
             date.InnerText = Data["LastMessageDate"].ToString();
 
+           
+            last.Controls.Add(lastPhoto);
+             last.Controls.Add(lastSender);
+            last.Controls.Add(lastText);
             infoDiv.Controls.Add(subject);
             infoDiv.Controls.Add(last);
             infoDiv.Controls.Add(date);
@@ -122,6 +147,8 @@ namespace Site.Authentication
             LinkContainer.Controls.Add(messageLink);
 
         }
+
+
 
         protected void NewMessage_Click(object sender, EventArgs e)
         {

@@ -150,12 +150,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\Campus_New_Age_Pub.pubxml" />
-    <Content Include="Schedule\bin\day.json" />
     <Content Include="Schedule\campus.info" />
     <Content Include="Schedule\campus.json" />
+    <None Include="Properties\PublishProfiles\pub 2014.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Schedule\bin\loading.gif" />
-    <Content Include="Schedule\bin\profile.png" />
     <Content Include="Schedule\Default.aspx" />
     <Content Include="Schedule\index.html" />
     <Content Include="Schedule\scripts\jquery.min.js" />
@@ -302,6 +300,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileServer\" />
+    <Folder Include="Schedule\bin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
