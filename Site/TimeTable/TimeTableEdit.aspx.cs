@@ -23,7 +23,7 @@ namespace Site.TimeTable
                 {
                     Encoding = System.Text.Encoding.UTF8
                 };
-                var json = _client.DownloadString("http://localhost:49945/User/GetCurrentUser?sessionId=" + _sessionId);
+                var json = _client.DownloadString("http://api.ecampus.kpi.ua/User/GetCurrentUser?sessionId=" + _sessionId);
                 _serializer = new JavaScriptSerializer();
                 var result = _serializer.Deserialize<Dictionary<string, object>>(json);
                 _data = result["Data"];
@@ -58,7 +58,7 @@ namespace Site.TimeTable
                     {
                         Encoding = System.Text.Encoding.UTF8
                     };
-                    var json = _client.DownloadString("http://localhost:49945/TimeTable/GetEmployees?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
+                    var json = _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetEmployees?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
                     _serializer = new JavaScriptSerializer();
                     var result = _serializer.Deserialize<Dictionary<string, object>>(json);
                     status = (int) result["StatusCode"];
@@ -71,7 +71,7 @@ namespace Site.TimeTable
                     {
                         Encoding = System.Text.Encoding.UTF8
                     };
-                    var json = _client.DownloadString("http://localhost:49945/TimeTable/GetTimeWorkers?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
+                    var json = _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetTimeWorkers?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
                     _serializer = new JavaScriptSerializer();
                     var result = _serializer.Deserialize<Dictionary<string, object>>(json);
                     status = (int)result["StatusCode"];
@@ -130,7 +130,7 @@ namespace Site.TimeTable
             {
                 Encoding = System.Text.Encoding.UTF8
             };
-            var json = _client.DownloadString("http://localhost:49945/TimeTable/GetFaculties?sessionId=" + _sessionId);
+            var json = _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetFaculties?sessionId=" + _sessionId);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -152,7 +152,7 @@ namespace Site.TimeTable
                 Encoding = System.Text.Encoding.UTF8
             };
             var json =
-                _client.DownloadString("http://localhost:49945/TimeTable/GetSubdivisions?sessionId=" + _sessionId +
+                _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetSubdivisions?sessionId=" + _sessionId +
                                        "&facultyId=" + facultylist.SelectedValue);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
@@ -174,7 +174,7 @@ namespace Site.TimeTable
             {
                 Encoding = System.Text.Encoding.UTF8
             };
-            var json = _client.DownloadString("http://localhost:49945/TimeTable/GetSpecialities?sessionId=" + _sessionId + "&subdivisionId=" + subdivisionlist.SelectedValue);
+            var json = _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetSpecialities?sessionId=" + _sessionId + "&subdivisionId=" + subdivisionlist.SelectedValue);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -196,7 +196,7 @@ namespace Site.TimeTable
             {
                 Encoding = System.Text.Encoding.UTF8
             };
-            var json = _client.DownloadString("http://localhost:49945/TimeTable/GetStudyForms?sessionId=" + _sessionId);
+            var json = _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetStudyForms?sessionId=" + _sessionId);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -219,7 +219,7 @@ namespace Site.TimeTable
             };
 
             var json =
-                _client.DownloadString("http://localhost:49945/TimeTable/GetSubjects?sessionId=" + _sessionId +
+                _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetSubjects?sessionId=" + _sessionId +
                                        "&course=" + courselist.SelectedValue + "&specialityId=" +
                                        specialitylist.SelectedValue + "&studyFormId=" +
                                        studyformlist.SelectedValue);
@@ -244,7 +244,7 @@ namespace Site.TimeTable
                 Encoding = System.Text.Encoding.UTF8
             };
             var json =
-                _client.DownloadString("http://localhost:49945/TimeTable/GetStudyGroups?sessionId=" + _sessionId +
+                _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetStudyGroups?sessionId=" + _sessionId +
                                       "&specialityId=" + specialitylist.SelectedValue);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
@@ -267,7 +267,7 @@ namespace Site.TimeTable
                 Encoding = System.Text.Encoding.UTF8
             };
             var json =
-                _client.DownloadString("http://localhost:49945/TimeTable/GetBuildings?sessionId=" + _sessionId);
+                _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/GetBuildings?sessionId=" + _sessionId);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -352,7 +352,7 @@ namespace Site.TimeTable
                 {
                     Encoding = System.Text.Encoding.UTF8
                 };
-                var json = _client.DownloadString("http://localhost:49945/TimeTable/SaveSubject?sessionId=" + _sessionId + "&timeworker=" + (workerradiolist.SelectedValue == "full" ? "false" : "true") + "&employeeId=" + employeelist.SelectedValue + "&studyGroup=" + studygrouplist.SelectedValue + "&subjectId=" + subjectlist.SelectedValue + "&buildingId=" + buildinglist.SelectedValue + "&timeId=" + lessonlist.SelectedValue + "&weekdayId=" + weekdaylist.SelectedValue + "&weeknum=" + weeknumlist.SelectedValue);
+                var json = _client.DownloadString("http://api.ecampus.kpi.ua/TimeTable/SaveSubject?sessionId=" + _sessionId + "&timeworker=" + (workerradiolist.SelectedValue == "full" ? "false" : "true") + "&employeeId=" + employeelist.SelectedValue + "&studyGroup=" + studygrouplist.SelectedValue + "&subjectId=" + subjectlist.SelectedValue + "&buildingId=" + buildinglist.SelectedValue + "&timeId=" + lessonlist.SelectedValue + "&weekdayId=" + weekdaylist.SelectedValue + "&weeknum=" + weeknumlist.SelectedValue);
                 _serializer = new JavaScriptSerializer();
                 var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
