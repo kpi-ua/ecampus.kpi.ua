@@ -152,6 +152,7 @@
     <None Include="Properties\PublishProfiles\Campus_New_Age_Pub.pubxml" />
     <Content Include="Schedule\campus.info" />
     <Content Include="Schedule\campus.json" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\pub 2014.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Schedule\Default.aspx" />
