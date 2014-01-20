@@ -18,9 +18,9 @@
     <script src="/Scripts/jquery-2.0.3.min.js"></script>
 </head>
 <body>
-    <form id="form" runat="server" style="height: 100%">
-        <div id="wrapper">
-            <header id="header">
+    <form id="form" class="container" runat="server">
+        <header id="header" class="row">
+            <div class="col-md-12">
                 <div id="logo">
                     <a href="#">
                         <img src="/Images/logo.png" /></a>
@@ -39,37 +39,31 @@
                     </a>--%>
                     <%--<p>Вітаємо Вас, <a href="#">Мелкумян Екатерина Юріївна</a></p>--%>
                 </div>
-
+                </div>
             </header>
-            <!-- .header-->
-            <div id="middle">
-                <div id="container">
+
+        <div id="wrapper" class="row">
+            <div id="middle" class="col-md-12">
                     <div id="content">
                         <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
                     </div>
-                </div>
             </div>
             <!-- .middle-->
         </div>
         <!-- .wrapper -->
-        <div id="footer1">
-            <footer id="footer">
-                <dl>
-                    <dt>©</dt>
-                    <dd>Національний технічний університет України
-                    <br />
-                        “Київський політехнічний інститут”   <a href="http://kpi.ua/">www.kpi.ua</a>
-                        <br />
-                        Електронний кампус</dd>
-                </dl>
-                <p>
-                    Розробник:  Конструкторське бюро<br />
-                    інформаційних систем<br />
+       
+        <footer class="row">
+            <div class="col-md-9">
+                    &copy;Національний технічний університет України<br />
+                    “Київський політехнічний інститут”   <a href="http://kpi.ua/">www.kpi.ua</a><br />
+                    Електронний кампус
+            </div>
+            <div class="col-md-3">
+                    Розробник:  Конструкторське бюро інформаційних систем<br />
                     <a href="http://kbis.kpi.ua/">www.kbis.kpi.ua</a>
-                </p>
-            </footer>
-            <!-- .footer -->
-        </div>
+            </div>
+        </footer>
+
     </form>
 </body>
 </html>

@@ -61,7 +61,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="X.PagedList">
-      <HintPath>..\packages\X.PagedList.1.20.0.1\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+      <HintPath>..\packages\X.PagedList.1.20.2.35\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

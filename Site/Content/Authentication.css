@@ -13,15 +13,7 @@
 
 #form
 {
-   
-   width: 200px;
-   height:210px; /*210px*/
-   margin-left:auto;
-   margin-right:auto;
-   margin-top:10%;
-   margin-bottom:auto;
-   clear:both;
-    
+ 
 }
 
 #body_User, #body_Pass, #divSaveIn, #divLink
