@@ -1,11 +1,17 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SitePlusNav.Master" AutoEventWireup="true" CodeBehind="NewMessage.aspx.cs" Inherits="Site.Authentication.NewMessage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <link href="../../Content/NewMessage.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <asp:Panel ID="MainDiv" runat="server">
-        <asp:ListBox ID="UsersList" runat="server" CssClass=".chzn-select"></asp:ListBox>
+        <div ID="UserListControl" class="input-prepend input-xxlarge">
+            <span ID="UserListControlName" class="input-group-addon text-info">Одержувачі:</span>
+            <asp:ListBox ID="UserList" runat="server" CssClass="chzn-container chzn-container-multi"
+                Height="20px" SelectionMode="Multiple">
+            </asp:ListBox>
+        </div>
     </asp:Panel>
 </asp:Content>
 

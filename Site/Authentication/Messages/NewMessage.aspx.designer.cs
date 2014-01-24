@@ -8,10 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace Site.Authentication {
-
-
-    public partial class NewMessage
-    {
+    
+    
+    public partial class NewMessage {
         
         /// <summary>
         /// MainDiv control.
@@ -23,13 +22,13 @@ namespace Site.Authentication {
         protected global::System.Web.UI.WebControls.Panel MainDiv;
         
         /// <summary>
-        /// UsersList control.
+        /// UserList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox UsersList;
+        protected global::System.Web.UI.WebControls.ListBox UserList;
         
         /// <summary>
         /// SendMessage control.

@@ -6,10 +6,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <asp:Panel ID="DialogContainer" runat="server"></asp:Panel>
-    <asp:TextBox ID="AnswerText" runat="server" Columns="30" TextMode="MultiLine" Rows="3"></asp:TextBox>
+    <asp:TextBox ID="AnswerText" runat="server" Columns="30" CssClass="form-control input-sm" TextMode="MultiLine" Rows="3"></asp:TextBox>
     <asp:Button ID="AnswerBtn" runat="server" Text="Відіслати" CssClass=" btn btn-primary"  OnClick="AnswerBtn_Click"/>
     
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
-    <asp:Button ID="Reload" runat="server" Text="Оновити"  CssClass=" btn btn-warning"  />
 </asp:Content>

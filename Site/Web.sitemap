@@ -5,6 +5,7 @@
     <siteMapNode url="~/TimeTable/TimeTableMain.aspx" title="Розклад"  description="" />
     <siteMapNode url="~/Authentication/Messages/AllDialogs.aspx" title="Діалоги"  description="">
       <siteMapNode url="~/Authentication/Messages/Messages.aspx" title="Повідомлення"  description="" />
+      <siteMapNode url="~/Authentication/Messages/NewMessage.aspx" title="Новий діалог"  description="" />
     </siteMapNode>
     <siteMapNode url="~/Authentication/Bulletins/AllBulletins.aspx" title="Оголошення"  description="">
       <siteMapNode url="~/Authentication/Bulletins/MyBulletins.aspx" title="Мої оголошення"  description="">

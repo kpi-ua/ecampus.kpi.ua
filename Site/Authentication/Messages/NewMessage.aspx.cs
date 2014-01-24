@@ -2,25 +2,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 using Core;
 
 namespace Site.Authentication
 {
     public partial class NewMessage : System.Web.UI.Page
     {
+        protected void Page_Init(Object sender, EventArgs e) {
+
+            UserList.TextChanged += ListBoxText_Changed; 
+            
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
+               
+
                 Dictionary<string, object> answer = null;
                 ArrayList users;
-                int page;
 
-                answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
+               
 
                 if (answer != null)
                 {
-                    Dictionary<string, object> Paging = (Dictionary<string, object>)answer["Paging"];
                     users = (ArrayList)answer["Data"];
 
                 }
@@ -34,8 +41,14 @@ namespace Site.Authentication
 
         }
 
+        protected void ListBoxText_Changed(object sender, EventArgs e) {
+            
+           
+        }
+
         protected void SendMessage_Click(object sender, EventArgs e)
         {
+           
 
         }
     }

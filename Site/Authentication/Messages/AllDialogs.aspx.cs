@@ -80,7 +80,7 @@ namespace Site.Authentication
             HtmlGenericControl date = new HtmlGenericControl("p");
 
 
-            for (int j = 0; j < Users.Count || j > 4; j++)
+            for (int j = 0; j < Users.Count && j < 4; j++)
             {
 
                 Dictionary<string, object> kvUsers = (Dictionary<string, object>)Users[j];

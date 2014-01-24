@@ -85,6 +85,7 @@
     <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
     <Content Include="Authentication\Messages\Messages.aspx" />
     <Content Include="Authentication\Messages\NewMessage.aspx" />
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\Bulletins.css" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
     <Content Include="Authentication\Messages\AllDialogs.aspx" />
@@ -96,7 +97,11 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\AllDialogs.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\chosen.css" />
     <Content Include="Content\Messages.css" />
+    <Content Include="Content\NewMessage.css" />
     <Content Include="Content\Profile.css" />
     <Content Include="Content\RNP_view.css" />
     <Content Include="Content\SiteMaster.css" />
@@ -149,6 +154,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Properties\PublishProfiles\Campus_New_Age_Pub.pubxml" />
     <Content Include="Schedule\campus.info" />
     <Content Include="Schedule\campus.json" />
@@ -162,6 +169,9 @@
     <Content Include="Schedule\scripts\script.js" />
     <Content Include="Schedule\scripts\TimeTable.js" />
     <Content Include="Schedule\styles\style.css" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\core.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Sources\RNP_view.css" />
