@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using PagedList;
 using System;
+using System.Collections;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -14,6 +15,8 @@ namespace Campus.Core
     /// </summary>
     public class ApiController : Controller
     {
+        protected const String MimeType = "application/json";
+
         public static event EventHandler ExceptionHandled;
 
         public static event EventHandler ResultExecuted;
@@ -49,9 +52,7 @@ namespace Campus.Core
         /// Allow requests from other domains
         /// </summary>
         public static bool EnableCrossDomainRequest { get; set; }
-
-        protected const String MimeType = "application/json";
-
+        
         /// <summary>
         /// Time stamp for controller creating;
         /// </summary>
@@ -72,10 +73,8 @@ namespace Campus.Core
 
             if (obj is IPagedList)
             {
-                var pagedList = obj as IPagedList<object>;
-
-                result.Paging = new Paging(pagedList);
-                result.Data = pagedList.ToList();
+                result.Paging = new Paging(obj as IPagedList);
+                result.Data = (obj as IEnumerable).Cast<Object>().ToList();
             }
 
             Response.StatusCode = Convert.ToInt32(result.StatusCode);
