@@ -9,46 +9,27 @@ namespace Site.Authentication
 {
     public partial class NewMessage : System.Web.UI.Page
     {
-        protected void Page_Init(Object sender, EventArgs e) {
-
-            UserList.TextChanged += ListBoxText_Changed; 
-            
-        }
+       
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-               
+            //if (!Page.IsPostBack)
+            //{
+                HtmlGenericControl hiddenField = new HtmlGenericControl("input");
+                
+                hiddenField.Attributes.Add("id", "hidden");
 
-                Dictionary<string, object> answer = null;
-                ArrayList users;
+                hiddenField.Attributes.Add("type", "hidden");
 
-               
+                hiddenField.Attributes.Add("value", Session["UserData"].ToString());
 
-                if (answer != null)
-                {
-                    users = (ArrayList)answer["Data"];
+                MainDiv.Controls.Add(hiddenField);
 
-                }
-            }
-            else
-            {
-                HtmlGenericControl div = new HtmlGenericControl("div");
-                Helper.CreateErrorMessage(div);
-                MainDiv.Controls.Add(div);
-            }
+                Subject.Text = "";
 
-        }
+                Text.Text = "";
 
-        protected void ListBoxText_Changed(object sender, EventArgs e) {
-            
-           
-        }
-
-        protected void SendMessage_Click(object sender, EventArgs e)
-        {
-           
+            //}
 
         }
     }
