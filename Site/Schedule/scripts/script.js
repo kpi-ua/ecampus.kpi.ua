@@ -1,7 +1,7 @@
 function login(){
     var con = new XMLHttpRequest();
 
-    con.open('POST',"http://api.ecampus.kpi.ua/user/Auth?login=123&password=123",false);
+    con.open('POST',"http://api.ecampus.kpi.ua/user/Auth?login=1&password=1",false);
     con.send();
     var obj = JSON.parse(con.responseText);
     return obj.Data;

@@ -465,11 +465,11 @@
       return true;
     };
 
-    AbstractChosen.default_multiple_text = "Select Some Options";
+    AbstractChosen.default_multiple_text = " "; // select some ...
 
-    AbstractChosen.default_single_text = "Select an Option";
+    AbstractChosen.default_single_text = " "; // select some ...
 
-    AbstractChosen.default_no_result_text = "No results match";
+    AbstractChosen.default_no_result_text = "no"; // no results ...
 
     return AbstractChosen;
 
@@ -1034,7 +1034,7 @@
 
       no_results_html = $('<li class="no-results">' + this.results_none_found + ' "<span></span>"</li>');
       no_results_html.find("span").first().html(terms);
-      return this.search_results.append(no_results_html);
+      return this.search_results.append(); //no_results_html --->must append
     };
 
     Chosen.prototype.no_results_clear = function() {
