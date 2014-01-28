@@ -31,7 +31,7 @@
 
     $(document).on("keyup", ".search-field .default", function () {
         if (!$(this).val()) {
-            $(".no-results").remove();
+            $(".chosen-results").empty();
             $(".chosen-results").append("<li class=\"no-results\">Почніть вводити одержувача...</li>");
         }
         if ($(this).val().length >= 2) {
@@ -59,7 +59,7 @@
 
                         if (same === "false" && sameCh === "false") {
                             $(".chosen-results").append("<li class=\"active-result\" data-option-array-index=" + key + " uid=" + value.UserAccountId + ">" + value.FullName + "</li>");
-                        } else {
+                        } else if (same === "false" && sameCh === "true" && $(".chosen-results").length < 1) {
                             $(".no-results").remove();
                             $(".chosen-results").append("<li class=\"no-results\">Немає співпадінь \"<span>" + $(".search-field input").val() + "</span>\"</li>");
                         }
