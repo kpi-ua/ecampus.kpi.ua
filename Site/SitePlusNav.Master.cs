@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Script.Serialization;
+using System.Web.UI.HtmlControls;
 
 namespace Site
 {
@@ -35,7 +36,18 @@ namespace Site
                         Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
                         Dictionary<string, object> Data = (Dictionary<string, object>)respDictionary["Data"];
+          
                         UserName.Text += Data["FullName"];
+
+                        HtmlGenericControl hiddenField = new HtmlGenericControl("input");
+
+                        hiddenField.Attributes.Add("id", "uhidden");
+
+                        hiddenField.Attributes.Add("type", "hidden");
+
+                        hiddenField.Attributes.Add("value", Data["UserAccountId"].ToString());
+
+                        form1.Controls.Add(hiddenField);
                     }
 
                 }

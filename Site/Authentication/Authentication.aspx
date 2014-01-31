@@ -17,10 +17,10 @@
                     <asp:CheckBox ID="SaveIn" runat="server" CssClass="css-checkbox" />
                     <asp:Label ID="SaveInLabel" runat="server" CssClass="text-muted input-sm" Text="Запам'ятати мене"></asp:Label>
                 </div>
-                <div class="form-group">
+                <%--<div class="form-group">
                     <asp:LinkButton ID="RePassLink" runat="server" CssClass="input-m">Забули пароль?</asp:LinkButton>
 
-                </div>
+                </div>--%>
                 <div class="form-group">
                     <asp:Button ID="Enter" runat="server" CssClass="btn btn-m btn-primary" Text="Вхід" OnClick="Enter_Click" />
                     <asp:Button ID="Cancel" runat="server" CssClass="btn btn-m btn-primary" Text="Відміна" OnClick="Cancel_Click" />

@@ -29,7 +29,7 @@ namespace Site.Authentication
                 ArrayList messages;
                 int page;
 
-                answer = Helper.GetData("http://api.ecampus.kpi.ua//message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
+                answer = Helper.GetData("http://api.ecampus.kpi.ua/message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
 
                 if (answer != null)
                 {

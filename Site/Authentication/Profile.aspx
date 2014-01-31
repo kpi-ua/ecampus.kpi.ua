@@ -7,7 +7,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <div style="max-width: 80%; /*background-color: cadetblue; */ float: left">
-        <h3 class="text-primary">Мій профіль</h3>
+        <%--<h3 class="text-primary">Мій профіль</h3>--%>
         <div style="margin-left: 15px;">
             <h4 class="text-muted">Персональні дані</h4>
             <asp:Literal ID="PersData" runat="server"></asp:Literal>

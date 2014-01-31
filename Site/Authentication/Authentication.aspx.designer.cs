@@ -49,15 +49,6 @@ namespace Site.Authentication {
         protected global::System.Web.UI.WebControls.Label SaveInLabel;
         
         /// <summary>
-        /// RePassLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton RePassLink;
-        
-        /// <summary>
         /// Enter control.
         /// </summary>
         /// <remarks>

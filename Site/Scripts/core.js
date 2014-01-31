@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     var sessionId = $("#hidden").val();
+    var user_id = $("#uhidden").val();
 
     $("select").chosen();
 
@@ -107,6 +108,21 @@
             });
 
         } else alert("Заповніть отримувачів та текст повідомлення!");
+    });
+
+
+    $("#user_block p a").mouseover(function (e) {
+        e = e || window.event;
+        var offset = $(this).offset();
+        var x = (e.pageX - offset.left-35);
+        var y = (e.pageY - offset.top + 35);
+        $("#block_user_name").text($(this).text());     
+        $(".ajax_block_img").attr("src", "http://api.ecampus.kpi.ua/Storage/GetUserProfileImage?userId="+user_id);
+        $("#ajax_block_profile").css({ "left":x, "top": y, "z-index": 1 }).fadeIn(300);
+    });
+
+    $("#user_block p a").mouseout(function () {
+        $("#ajax_block_profile").fadeOut(200);
     });
 
 });

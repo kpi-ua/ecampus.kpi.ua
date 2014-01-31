@@ -89,7 +89,6 @@
     <Content Include="Content\Bulletins.css" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
     <Content Include="Authentication\Messages\AllDialogs.aspx" />
-    <Content Include="Authentication\Premission.aspx" />
     <Content Include="Authentication\Profile.aspx" />
     <Content Include="Content\Authentication.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -121,6 +120,9 @@
     <Content Include="Images\Friday.PNG" />
     <Content Include="Images\godin.png" />
     <Content Include="Images\header_line.png" />
+    <Content Include="Images\help_box\help_box_bg.png" />
+    <Content Include="Images\help_box\help_box_bottom.png" />
+    <Content Include="Images\help_box\help_box_top.png" />
     <Content Include="Images\home.png" />
     <Content Include="Images\home_grey.png" />
     <Content Include="Images\home_orange.png" />
@@ -225,13 +227,6 @@
     </Compile>
     <Compile Include="Authentication\Messages\NewMessage.aspx.designer.cs">
       <DependentUpon>NewMessage.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Authentication\Premission.aspx.cs">
-      <DependentUpon>Premission.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Authentication\Premission.aspx.designer.cs">
-      <DependentUpon>Premission.aspx</DependentUpon>
     </Compile>
     <Compile Include="Authentication\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>

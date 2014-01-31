@@ -223,7 +223,7 @@ body {
         }
 
             #left-sidebar li a:hover {
-                color: #488eb7;
+                color: #999; /*#488eb7*/
             }
 /*---------Left Sidebar---------*/
 
@@ -334,4 +334,45 @@ footer {
 .auth-container {
     margin: 65px auto auto;
     width: 170px;
+}
+
+/* --- Ajax Block with Profile Information --- */
+#ajax_block_profile {
+  display: none;
+  position: absolute;
+  left: 80%;
+  right: 0;
+  width: 205px;
+}
+
+#ajax_block_profile_top {
+	width: 205px;
+	height: 38px;
+	background: url("../images/help_box/help_box_top.png") no-repeat;
+}
+#ajax_block_profile_main {
+	width: 205px;
+	padding-left: 25px;
+	text-align: left;
+	color: #195286;
+	font-size: 11px;
+	line-height: 18px;
+	font-family: Verdana, Tahoma, Sans-Serif;
+	background: url("../images/help_box/help_box_bg.png") repeat-y;
+}
+#ajax_block_profile_bottom {
+	width: 205px;
+	height: 38px;
+	background: url("../images/help_box/help_box_bottom.png") no-repeat;
+}
+.ajax_block_img {
+	display: block;
+	float: left;
+	margin: 3px 7px 5px 0;
+}
+#block_user_name
+{
+    max-width:160px;
+    overflow-wrap:break-word;
+
 }

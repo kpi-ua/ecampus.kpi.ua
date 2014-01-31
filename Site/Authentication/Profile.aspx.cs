@@ -29,6 +29,15 @@ namespace Site.Authentication
                     ParseEmployees(Data);
                     ParseProfiles(Data);
 
+                    var answer = Helper.GetData("http://api.ecampus.kpi.ua/User/GetEffectivePermissions?sessionId=" + sessionId);
+
+                    if (answer != null)
+                    {
+                        var DataArr = (ArrayList)answer["Data"];
+                        GetEffectivePremissions(DataArr);
+
+                    }
+                    else throw (new Exception("Права пользователя не получены!"));
                 }
                 catch (Exception ex)
                 {
@@ -40,7 +49,7 @@ namespace Site.Authentication
         void ParsePersonData(Dictionary<string, object> Data)
         {
 
-            PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + Data["FullName"] + "</p>";
+            PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + Data["FullName"] + "</p>";
         }
 
         void ParseEmployees(Dictionary<string, object> Data)
@@ -59,21 +68,21 @@ namespace Site.Authentication
                     }
                     else if (w.Key == "SubdivisionName")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + w.Value + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + w.Value + "</p>";
                     }
                     else if (w.Key == "StudyGroupName")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + "Група: " + w.Value + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Група: <i class=\"text-success\">" + w.Value + "</i></p>";
                     }
                     else if (w.Key == "IsContract")
                     {
                         var val = "ні";
                         if (w.Value.ToString().ToLower() == "true") { val = "так"; }
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + "Контрактна форма навчання: " + val + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Контрактна форма навчання: <i class=\"text-success\">" + val + "</i></p>";
                     }
                     else if (w.Key == "Specialty")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + "Спеціальність: " + w.Value + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Спеціальність: <i class=\"text-success\">" + w.Value + "</i></p>";
                     }
 
                 }
@@ -89,15 +98,15 @@ namespace Site.Authentication
                     }
                     else if (w.Key == "SubdivisionName")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\"><b>" + w.Value + "</b></p>";
+                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + w.Value + "</p>";
                     }
                     else if (w.Key == "Position")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + " Позиція: " + w.Value + "</b></p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + " Позиція: <i class=\"text-success\">" + w.Value + "</i></p>";
                     }
                     else if (w.Key == "AcademicDegree")
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-success\">" + "Академічний ступінь: " + w.Value + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Академічний ступінь: <i class=\"text-success\">" + w.Value + "</i></p>";
                     }
                 }
             }
@@ -109,45 +118,24 @@ namespace Site.Authentication
             ArrayList Profiles = (ArrayList)Data["Profiles"];
 
             SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
+
+
             for (int i = 0; i < Profiles.Count; i++)
             {
-
                 foreach (KeyValuePair<string, object> pk in (Dictionary<string, object>)Profiles[i])
                 {
-
-                    string boolValue = "так";
-
-                    if (pk.Value.ToString().ToLower() == "false")
-                    {
-                        boolValue = "ні";
-                    }
 
                     switch (pk.Key)
                     {
 
                         case "SubsystemName":
                             {
-                                SpecFunc.Text += "<p><b>" + "\"" + pk.Value + "\"" + "</b></p>";
+                                SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + pk.Value + "\"";
                                 break;
                             }
-                        case "IsCreate":
+                        case "ProfileName":
                             {
-                                SpecFunc.Text += "<p>" + "Право на створення " + boolValue + "</p>";
-                                break;
-                            }
-                        case "IsRead":
-                            {
-                                SpecFunc.Text += "<p>" + "Право на перегляд " + boolValue + "</p>";
-                                break;
-                            }
-                        case "IsUpdate":
-                            {
-                                SpecFunc.Text += "<p>" + "Право на зміну " + boolValue + "</p>";
-                                break;
-                            }
-                        case "IsDelete":
-                            {
-                                SpecFunc.Text += "<p>" + "Право на видалення " + boolValue + "</p>";
+                                SpecFunc.Text += "<i class=\"text-success\">" + "( " + pk.Value + " )" + "</i></p>";
                                 break;
                             }
                         default:
@@ -155,9 +143,68 @@ namespace Site.Authentication
                                 break;
                             }
                     }
+
                 }
             }
             SpecFunc.Text += "</div>";
+        }
+
+        protected void GetEffectivePremissions(ArrayList Data)
+        {
+            Dictionary<string, Premission> premDic = new Dictionary<string, Premission>();
+            for (int i = 0; i < Data.Count; i++)
+            {
+                Premission premObj = null;
+
+                foreach (KeyValuePair<string, object> pk in (Dictionary<string, object>)Data[i])
+                {
+
+                    bool prem = true;
+
+                    if (pk.Value.ToString().ToLower() == "false")
+                    {
+                        prem = false;
+                    }
+
+                    switch (pk.Key)
+                    {
+
+                        case "SubsystemName":
+                            {
+                                premObj = new Premission(pk.Value.ToString());
+                                break;
+                            }
+                        case "IsCreate":
+                            {
+                                premObj.create = prem;
+                                break;
+                            }
+                        case "IsRead":
+                            {
+                                premObj.read = prem;
+                                break;
+                            }
+                        case "IsUpdate":
+                            {
+                                premObj.update = prem;
+                                break;
+                            }
+                        case "IsDelete":
+                            {
+                                premObj.delete = prem;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+
+                }
+                if (premObj != null) premDic.Add(premObj.subsystem, premObj);
+                else throw (new Exception("Права пользователя не получены!"));
+            }
+            Session["UserPremissions"] = premDic;
         }
 
         protected void SavePass_Click(object sender, EventArgs e)

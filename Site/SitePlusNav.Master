@@ -46,8 +46,20 @@
 
                     <p>
                         Вітаємо Вас, <a href="/Authentication/Profile.aspx">
-                            <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
+                            <asp:Literal ID="UserName" runat="server"></asp:Literal>
+
+                        </a>
+                        
                     </p>
+                    <div id="ajax_block_profile" style="top: 75px; display: none;">
+                        <div id="ajax_block_profile_top"></div>
+                        <div id="ajax_block_profile_main">
+                            <img src="/Images/user_pic.png" width="40" class="ajax_block_img">
+                            <div id="block_user_name"></div>
+						<div class="clear"></div>
+                        </div>
+                        <div id="ajax_block_profile_bottom"></div>
+                    </div>
                 </div>
 
             </div>
