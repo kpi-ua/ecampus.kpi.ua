@@ -54,6 +54,7 @@ namespace Site.Authentication
                 }
 
                 Session["UserData"] = respDictionary["Data"].ToString();
+                Session["UserLogin"] = User.Text;
                 Session["UserPass"] = Pass.Text;
 
                 Response.Redirect("Profile.aspx");

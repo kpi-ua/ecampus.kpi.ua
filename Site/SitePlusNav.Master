@@ -49,14 +49,14 @@
                             <asp:Literal ID="UserName" runat="server"></asp:Literal>
 
                         </a>
-                        
+
                     </p>
                     <div id="ajax_block_profile" style="top: 75px; display: none;">
                         <div id="ajax_block_profile_top"></div>
                         <div id="ajax_block_profile_main">
                             <img src="/Images/user_pic.png" width="40" class="ajax_block_img">
                             <div id="block_user_name"></div>
-						<div class="clear"></div>
+                            <div class="clear"></div>
                         </div>
                         <div id="ajax_block_profile_bottom"></div>
                     </div>
@@ -83,6 +83,12 @@
                     <ul>
                         <li><a href="/Authentication/Profile.aspx">
                             <img src="/Images/profil.png" />мій профіль</a></li>
+                        <li><a href="/Authentication/Messages/AllDialogs.aspx">
+                            <img src="/Images/messages.png" />спілкування</a></li>
+                        <li><a href="/Authentication/Bulletins/AllBulletins.aspx">
+                            <img src="/Images/ogoloshenya.png" />дошка оголошень</a></li>
+                        <li><a href="/TimeTable/TimeTableMain.aspx">
+                            <img src="/Images/messages.png" />розклад</a></li>
                         <li><a href="#">
                             <img src="/Images/diary.png" />щоденнік</a></li>
                         <li><a href="#">
@@ -91,12 +97,7 @@
                             <img src="/Images/dovidka.png" />довідка</a></li>
                         <li><a href="#">
                             <img src="/Images/forum.png" />форум</a></li>
-                        <li><a href="/Authentication/Bulletins/AllBulletins.aspx">
-                            <img src="/Images/ogoloshenya.png" />дошка оголошень</a></li>
-                        <li><a href="/Authentication/Messages/AllDialogs.aspx">
-                            <img src="/Images/messages.png" />повідомлення</a></li>
-                        <li><a href="/TimeTable/TimeTableMain.aspx">
-                            <img src="/Images/messages.png" />розклад</a></li>
+
                     </ul>
                 </div>
                 <!-- .left-sidebar -->

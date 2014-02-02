@@ -18,13 +18,26 @@
         </div>
     </div>
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
     <%--<div id="right-sidebar">--%>
     <asp:Image ID="Photo" runat="server" />
     <%--<img src="/Images/user_pic.png" />--%>
     <ul>
-        <li><a href="#">
+        <li><a id="ShowImgLoadForm">
             <img src="/Images/foto.png" />завантажити фото</a></li>
+
+        <asp:Panel ID="LoadPhoto" runat="server">
+            <div class="input-group">
+                <asp:TextBox ID="File" runat="server" CssClass="form-control input-sm" ReadOnly="True"></asp:TextBox>
+                <div class="btn btn-primary btn-sm  upload">
+                    Обрати файл
+                    <input type="file" runat="server" id="InputFile" name="myFile" class="chose-file" />
+                </div>
+                <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="Завантажити" CssClass="btn btn-success btn-sm"></asp:Button>
+            </div>
+        </asp:Panel>
+
         <li><a id="ShowCPForm">
             <img src="/Images/parol.png" />змінити пароль</a></li>
 
@@ -55,6 +68,19 @@
             if ($("#right_column_ChangePass").css("display") == "none") {
                 $("#right_column_ChangePass").slideDown();
             } else { $("#right_column_ChangePass").slideUp(); }
+        });
+
+        $("#ShowImgLoadForm").click(function () {
+            if ($("#right_column_LoadPhoto").css("display") == "none") {
+                $("#right_column_File").val("Файл не обрано");
+                $("#right_column_UploadBtn").css("display","none");
+                $("#right_column_LoadPhoto").slideDown();
+            } else { $("#right_column_LoadPhoto").slideUp(); }
+        });
+
+        $("#right_column_InputFile").change(function () {
+            $("#right_column_File").val($(this).val());
+            $("#right_column_UploadBtn").css("display","block");
         });
     </script>
     <%--</div>--%>

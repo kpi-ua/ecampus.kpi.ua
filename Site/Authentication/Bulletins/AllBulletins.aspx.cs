@@ -12,6 +12,16 @@ namespace Site.Authentication.Bulletins
         {
             if (Session["UserData"] != null)
             {
+                Dictionary<string, Premission> UserPremDic = (Dictionary<string, Premission>)Session["UserPremissions"];
+
+                if (UserPremDic["Дошка оголошень"].create)
+                {
+                    ModeratorMode.Attributes.CssStyle.Add("display", "block");
+                }
+                else {
+                    ModeratorMode.Attributes.CssStyle.Add("display", "none");
+                }
+
                 Dictionary<string, object> answer = Helper.GetData("http://api.ecampus.kpi.ua/BulletinBoard/GetActual?sessionId="+Session["UserData"]);
                 ArrayList Bulletins;
 
@@ -68,7 +78,7 @@ namespace Site.Authentication.Bulletins
 
             bulletinDiv.Controls.Add(dateSpan);
             bulletinDiv.Controls.Add(subject);
-            bulletinDiv.Controls.Add(readLink);
+            //bulletinDiv.Controls.Add(readLink);
             bulletinDiv.Controls.Add(text);
             bulletinDiv.Controls.Add(publisher);
 

@@ -49,6 +49,42 @@ namespace Site.Authentication {
         protected global::System.Web.UI.WebControls.Image Photo;
         
         /// <summary>
+        /// LoadPhoto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel LoadPhoto;
+        
+        /// <summary>
+        /// File control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox File;
+        
+        /// <summary>
+        /// InputFile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputFile InputFile;
+        
+        /// <summary>
+        /// UploadBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button UploadBtn;
+        
+        /// <summary>
         /// ChangePass control.
         /// </summary>
         /// <remarks>

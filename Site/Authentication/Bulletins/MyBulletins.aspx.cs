@@ -91,7 +91,7 @@ namespace Site.Authentication.Bulletins
 
             bulletinDiv.Controls.Add(dateSpan);
             bulletinDiv.Controls.Add(subject);
-            bulletinDiv.Controls.Add(readLink);
+            //bulletinDiv.Controls.Add(readLink);
             bulletinDiv.Controls.Add(setDiv);
             bulletinDiv.Controls.Add(publisher);
 

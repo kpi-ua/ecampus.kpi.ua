@@ -12,8 +12,8 @@ namespace Site
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
+            //if (!Page.IsPostBack)
+            //{
                 try
                 {
 
@@ -25,6 +25,7 @@ namespace Site
                     }
                     else
                     {
+                        UserName.Text = "";
 
                         ExitLink.PostBackUrl = Request.Url.AbsoluteUri.ToString();
                         string sessionId = Session["UserData"].ToString();
@@ -55,7 +56,7 @@ namespace Site
                 {
                     UserName.Text = "Ошибка при загрузке страницы!!!";
                 }
-            }
+            //}
         }
 
         protected void ExitLink_Click(object sender, EventArgs e)

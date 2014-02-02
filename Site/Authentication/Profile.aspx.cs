@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using System.Web;
 using System.Web.Script.Serialization;
 using Core;
 
@@ -11,39 +13,43 @@ namespace Site.Authentication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
+            string pathToFiles = Server.MapPath("~/UploadedFiles");
+
+            try
             {
-                try
+
+                string sessionId = Session["UserData"].ToString();
+                WebClient client = new WebClient();
+                client.Encoding = System.Text.Encoding.UTF8;
+                var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
+                var serializer = new JavaScriptSerializer();
+                Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+
+                Dictionary<string, object> Data = (Dictionary<string, object>)respDictionary["Data"];
+                Photo.ImageUrl = Data["Photo"].ToString();
+
+                if (!Page.IsPostBack)
                 {
-
-                    string sessionId = Session["UserData"].ToString();
-                    WebClient client = new WebClient();
-                    client.Encoding = System.Text.Encoding.UTF8;
-                    var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
-                    var serializer = new JavaScriptSerializer();
-                    Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-
-                    Dictionary<string, object> Data = (Dictionary<string, object>)respDictionary["Data"];
-                    Photo.ImageUrl = Data["Photo"].ToString();
                     ParsePersonData(Data);
                     ParseEmployees(Data);
                     ParseProfiles(Data);
-
-                    var answer = Helper.GetData("http://api.ecampus.kpi.ua/User/GetEffectivePermissions?sessionId=" + sessionId);
-
-                    if (answer != null)
-                    {
-                        var DataArr = (ArrayList)answer["Data"];
-                        GetEffectivePremissions(DataArr);
-
-                    }
-                    else throw (new Exception("Права пользователя не получены!"));
                 }
-                catch (Exception ex)
+
+                var answer = Helper.GetData("http://api.ecampus.kpi.ua/User/GetEffectivePermissions?sessionId=" + sessionId);
+
+                if (answer != null)
                 {
-                    PersData.Text = "<h1>Ошибка при загрузке страницы!!!<h1>";
+                    var DataArr = (ArrayList)answer["Data"];
+                    GetEffectivePremissions(DataArr);
+
                 }
+                else throw (new Exception("Права пользователя не получены!"));
             }
+            catch (Exception ex)
+            {
+                PersData.Text = "<h1>Ошибка при загрузке страницы!!!<h1>";
+            }
+
         }
 
         void ParsePersonData(Dictionary<string, object> Data)
@@ -265,5 +271,24 @@ namespace Site.Authentication
         }
 
 
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+
+            HttpPostedFile file = InputFile.PostedFile;
+
+            var client = new Campus.SDK.Client();
+            client.Authenticate(Session["UserLogin"].ToString(), Session["UserPass"].ToString());
+
+            byte[] fileData = null;
+            using (var binaryReader = new BinaryReader(file.InputStream))
+            {
+                fileData = binaryReader.ReadBytes(file.ContentLength);
+
+            }
+
+            var result = client.UploadUserProfileImage(fileData);
+            //SpecFunc.Text += "<p>" + result + "</p>";
+
+        }
     }
 }

@@ -8,6 +8,8 @@
     <asp:Panel ID="MyBulletinsContainer" runat="server">
     </asp:Panel>
     <script type="text/javascript">
+        $(".showText").mouseover(function () { $(this).css("cursor", "pointer") });
+        $(".showText").mouseout(function () { $(this).css("cursor", "default") });
         $(".showText").click(function () {
             if ($(this).parent().find(".set_des").css("display") == "none") {
                 $(this).parent().find(".set_des").slideDown();
