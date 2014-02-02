@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Campus.SDK
@@ -29,7 +31,7 @@ namespace Campus.SDK
         /// </summary>
         public bool SessionIsActual
         {
-            get { return _authenticatedTime.AddMinutes(18) > DateTime.Now; }
+            get { return _authenticatedTime.AddMinutes(18) > DateTime.Now && !String.IsNullOrEmpty(SessionId); }
         }
 
         public Client()
@@ -47,15 +49,16 @@ namespace Campus.SDK
         {
             var url = String.Format("{0}?login={1}&password={2}", BuildUrl("User", "Auth"), login, password);
 
-            var result = Get(url);
-            SessionId = result.Data;
-
-            if (String.IsNullOrEmpty(SessionId))
+            try
             {
-                throw new Exception("Access denied");
+                var result = Get(url);
+                SessionId = result.Data;
+                _authenticatedTime = DateTime.Now;
             }
-
-            _authenticatedTime = DateTime.Now;
+            catch (Exception)
+            {
+                SessionId = String.Empty;
+            }
 
             return SessionId;
         }
@@ -71,20 +74,76 @@ namespace Campus.SDK
         }
 
         /// <summary>
+        /// Upload profile image for current user
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public string UploadUserProfileImage(byte[] bytes)
+        {
+            var file = new ByteArrayContent(bytes);
+
+            file.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+            {
+                FileName = "image.jpg",
+                Name = "file"
+            };
+
+            var content = new MultipartFormDataContent();
+            content.Add(new StringContent(this.SessionId), "sessionId");
+            content.Add(file, "file");
+
+            var url = BuildUrl("Storage", "UploadUserProfileImage");
+
+            var client = new HttpClient();
+
+            try
+            {
+                var response = client.PostAsync(url, content).Result;
+                var readAsStringTask = response.Content.ReadAsStringAsync();
+                var json = readAsStringTask.Result;
+                var result = Result.Parse(json);
+
+                return result.Data;
+            }
+            catch (Exception ex)
+            {
+                return String.Empty;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="form"></param>
+        /// <returns></returns>
+        public Result Post(string url, System.Collections.IDictionary form)
+        {
+            throw new NotImplementedException();
+
+            foreach (var item in form)
+            {
+
+            }
+
+            var json = "";
+            return Result.Parse(json);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="url"></param>
         /// <param name="method"></param>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public Result Request(string url, HttpMethod method, byte[] bytes)
+        public
+        Result Request(string url, HttpMethod method, byte[] bytes)
         {
             var handler = new HttpClientHandler();
 
             if (Proxy != null)
             {
-                //CookieContainer = cookies,
-                //UseCookies = true,
                 handler.UseDefaultCredentials = false;
                 handler.Proxy = Proxy;
                 handler.UseProxy = true;
@@ -129,7 +188,7 @@ namespace Campus.SDK
 
             return Result.Parse(json);
         }
-        
+
         #region Async
 
         /// <summary>
