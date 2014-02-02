@@ -127,6 +127,9 @@
     <Content Include="Images\foto.png" />
     <Content Include="Images\godin.png" />
     <Content Include="Images\header_line.png" />
+    <Content Include="Images\help_box\help_box_bg.png" />
+    <Content Include="Images\help_box\help_box_bottom.png" />
+    <Content Include="Images\help_box\help_box_top.png" />
     <Content Include="Images\home.png" />
     <Content Include="Images\home_grey.png" />
     <Content Include="Images\home_orange.png" />
