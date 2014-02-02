@@ -70,31 +70,6 @@ function Timetable(day) {
     };
 };
 
-function getUrlParameters(parameter, staticURL, decode) {
-    /*
-     Function: getUrlParameters
-     Description: Get the value of URL parameters either from 
-                  current URL or static URL
-     Author: Tirumal
-     URL: www.code-tricks.com
-    */
-    var currLocation = (staticURL.length) ? staticURL : window.location.search,
-        parArr = currLocation.split("?")[1].split("&"),
-        returnBool = true;
-
-    for (var i = 0; i < parArr.length; i++) {
-        parr = parArr[i].split("=");
-        if (parr[0] == parameter) {
-            return (decode) ? decodeURIComponent(parr[1]) : parr[1];
-            returnBool = true;
-        } else {
-            returnBool = false;
-        }
-    }
-
-    if (!returnBool) return false;
-};
-
 Timetable.prototype.load = function(getx) {
     var get = new Object();
     get = getx;
@@ -120,7 +95,6 @@ Timetable.prototype.draw = function(i) {
 var student = 'student';
 $(document).ready(function() {
     // inicializasiya
-    var sessionId = getUrlParameters('sessionId', '', true);
     var profiledata = profile(sessionId);
     if (profiledata.Data.Employees.length > 0) student = 'employee';
 
