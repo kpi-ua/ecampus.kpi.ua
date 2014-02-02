@@ -87,7 +87,7 @@
                             <img src="/Images/messages.png" />спілкування</a></li>
                         <li><a href="/Authentication/Bulletins/AllBulletins.aspx">
                             <img src="/Images/ogoloshenya.png" />дошка оголошень</a></li>
-                        <li><a href="/TimeTable/TimeTableMain.aspx">
+                        <li><a href="/TimeTable/TimeTableMain.aspx>">
                             <img src="/Images/messages.png" />розклад</a></li>
                         <li><a href="#">
                             <img src="/Images/diary.png" />щоденнік</a></li>
