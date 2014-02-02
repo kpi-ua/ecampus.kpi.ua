@@ -137,8 +137,7 @@ namespace Campus.SDK
         /// <param name="method"></param>
         /// <param name="bytes"></param>
         /// <returns></returns>
-        public
-        Result Request(string url, HttpMethod method, byte[] bytes)
+        public Result Request(string url, HttpMethod method, byte[] bytes)
         {
             var handler = new HttpClientHandler();
 
