@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Campus.SDK">
-      <HintPath>..\packages\campus.sdk.0.1.8.50\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
+    <Reference Include="Campus.SDK, Version=0.1.8.20243, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\campus.sdk.0.1.9.78\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.dll</HintPath>
@@ -39,8 +40,9 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -60,8 +62,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="X.PagedList">
-      <HintPath>..\packages\X.PagedList.1.20.2.35\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    <Reference Include="X.PagedList, Version=1.20.1.21688, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
