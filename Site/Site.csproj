@@ -38,9 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Campus.SDK, Version=0.1.8.20243, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\campus.sdk.0.1.9.78\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
+    <Reference Include="Campus.SDK">
+      <HintPath>..\packages\campus.sdk.0.1.8.50\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks">
@@ -49,9 +48,8 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
@@ -78,9 +76,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="X.PagedList, Version=1.20.1.21688, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    <Reference Include="X.PagedList">
+      <HintPath>..\packages\X.PagedList.1.20.2.35\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +89,7 @@
     <Content Include="Content\Bulletins.css" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
     <Content Include="Authentication\Messages\AllDialogs.aspx" />
+    <Content Include="Authentication\Premission.aspx" />
     <Content Include="Authentication\Profile.aspx" />
     <Content Include="Content\Authentication.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -107,6 +105,7 @@
     <Content Include="Content\Profile.css" />
     <Content Include="Content\RNP_view.css" />
     <Content Include="Content\SiteMaster.css" />
+    <Content Include="Content\timetable.css" />
     <Content Include="Default.aspx" />
     <Content Include="Images\blue_line.png" />
     <Content Include="Images\circles.png" />
@@ -120,12 +119,8 @@
     <Content Include="Images\footer.png" />
     <Content Include="Images\forum.png" />
     <Content Include="Images\foto.png" />
-    <Content Include="Images\Friday.PNG" />
     <Content Include="Images\godin.png" />
     <Content Include="Images\header_line.png" />
-    <Content Include="Images\help_box\help_box_bg.png" />
-    <Content Include="Images\help_box\help_box_bottom.png" />
-    <Content Include="Images\help_box\help_box_top.png" />
     <Content Include="Images\home.png" />
     <Content Include="Images\home_grey.png" />
     <Content Include="Images\home_orange.png" />
@@ -136,22 +131,18 @@
     <Content Include="Images\kurs_rob.png" />
     <Content Include="Images\lab.png" />
     <Content Include="Images\lect.png" />
+    <Content Include="Images\loading.gif" />
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\messages.png" />
-    <Content Include="Images\Monday.PNG" />
     <Content Include="Images\ogoloshenya.png" />
     <Content Include="Images\parol.png" />
     <Content Include="Images\pract.png" />
     <Content Include="Images\profil.png" />
     <Content Include="Images\razdelitel.png" />
     <Content Include="Images\samost.png" />
-    <Content Include="Images\Saturday.PNG" />
-    <Content Include="Images\Thursday.PNG" />
-    <Content Include="Images\Tuesday.PNG" />
     <Content Include="Images\user_pic.png" />
     <Content Include="Images\vsogo.png" />
-    <Content Include="Images\Wednesday.PNG" />
     <Content Include="Images\zaliki.png" />
     <Content Include="RNP\RNP_view.aspx" />
     <Content Include="packages.config" />
@@ -162,23 +153,16 @@
     <Content Include="Content\bootstrap-chosen.scss" />
     <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Properties\PublishProfiles\Campus_New_Age_Pub.pubxml" />
-    <Content Include="Schedule\campus.info" />
-    <Content Include="Schedule\campus.json" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\pub 2014.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Schedule\Default.aspx" />
-    <Content Include="Schedule\index.html" />
-    <Content Include="Schedule\scripts\jquery.min.js" />
-    <Content Include="Schedule\scripts\schedulescr.js" />
-    <Content Include="Schedule\scripts\script.js" />
-    <Content Include="Schedule\scripts\TimeTable.js" />
-    <Content Include="Schedule\styles\style.css" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\core.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\timetable.js" />
     <Content Include="Sources\RNP_view.css" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
     <Content Include="TimeTable\TimeTableMain.aspx" />
@@ -231,6 +215,13 @@
     <Compile Include="Authentication\Messages\NewMessage.aspx.designer.cs">
       <DependentUpon>NewMessage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Authentication\Premission.aspx.cs">
+      <DependentUpon>Premission.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Authentication\Premission.aspx.designer.cs">
+      <DependentUpon>Premission.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Authentication\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -252,13 +243,6 @@
     </Compile>
     <Compile Include="RNP\RNP_view.aspx.designer.cs">
       <DependentUpon>RNP_view.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Schedule\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
@@ -309,7 +293,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FileServer\" />
-    <Folder Include="Schedule\bin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
