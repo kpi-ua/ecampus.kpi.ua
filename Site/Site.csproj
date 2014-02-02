@@ -114,6 +114,8 @@
     <Content Include="Content\timetable.css" />
     <Content Include="Default.aspx" />
     <Content Include="Images\blue_line.png" />
+    <Content Include="Images\choice\NOT.png" />
+    <Content Include="Images\choice\OK.png" />
     <Content Include="Images\circles.png" />
     <Content Include="Images\contacts.png" />
     <Content Include="Images\diary.png" />
