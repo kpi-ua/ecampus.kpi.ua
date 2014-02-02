@@ -4,23 +4,21 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <title></title>
+    <script src="/Scripts/jquery-2.0.3.min.js"></script>
     <link href="/Content/SiteMaster.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-theme.css" rel="stylesheet" />
     <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.css" rel="stylesheet" />
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="/Content/chosen.css" rel="stylesheet" />
     <link href="/Content/bootstrap-chosen.css" rel="stylesheet" />
-    <script src="/Scripts/jquery-2.0.3.js"></script>
-    <script src="/Scripts/jquery-2.0.3.min.js"></script>
     <script src="/Scripts/jquery-2.0.3.intellisense.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
     <script src="/Scripts/chosen.jquery.min.js"></script>
     <script src="/Scripts/chosen.jquery.js"></script>
     <script src="/Scripts/core.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server" style="height: 100%">
@@ -46,20 +44,8 @@
 
                     <p>
                         Вітаємо Вас, <a href="/Authentication/Profile.aspx">
-                            <asp:Literal ID="UserName" runat="server"></asp:Literal>
-
-                        </a>
-
+                            <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
                     </p>
-                    <div id="ajax_block_profile" style="top: 75px; display: none;">
-                        <div id="ajax_block_profile_top"></div>
-                        <div id="ajax_block_profile_main">
-                            <img src="/Images/user_pic.png" width="40" class="ajax_block_img">
-                            <div id="block_user_name"></div>
-                            <div class="clear"></div>
-                        </div>
-                        <div id="ajax_block_profile_bottom"></div>
-                    </div>
                 </div>
 
             </div>
@@ -83,12 +69,6 @@
                     <ul>
                         <li><a href="/Authentication/Profile.aspx">
                             <img src="/Images/profil.png" />мій профіль</a></li>
-                        <li><a href="/Authentication/Messages/AllDialogs.aspx">
-                            <img src="/Images/messages.png" />спілкування</a></li>
-                        <li><a href="/Authentication/Bulletins/AllBulletins.aspx">
-                            <img src="/Images/ogoloshenya.png" />дошка оголошень</a></li>
-                        <li><a href="/TimeTable/TimeTableMain.aspx">
-                            <img src="/Images/messages.png" />розклад</a></li>
                         <li><a href="#">
                             <img src="/Images/diary.png" />щоденнік</a></li>
                         <li><a href="#">
@@ -97,7 +77,12 @@
                             <img src="/Images/dovidka.png" />довідка</a></li>
                         <li><a href="#">
                             <img src="/Images/forum.png" />форум</a></li>
-
+                        <li><a href="/Authentication/Bulletins/AllBulletins.aspx">
+                            <img src="/Images/ogoloshenya.png" />дошка оголошень</a></li>
+                        <li><a href="/Authentication/Messages/AllDialogs.aspx">
+                            <img src="/Images/messages.png" />повідомлення</a></li>
+                        <li><a href="/TimeTable/TimeTableMain.aspx?sessionId=<%= Session["UserData"] %>">
+                            <img src="/Images/messages.png" />розклад</a></li>
                     </ul>
                 </div>
                 <!-- .left-sidebar -->
