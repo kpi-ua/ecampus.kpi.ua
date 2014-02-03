@@ -7,7 +7,7 @@
     <link href='http://fonts.googleapis.com/css?family=Alegreya+Sans' rel='stylesheet' type='text/css'/>
     
     <script type="text/javascript">
-        var sessionId = '<%= Session["UserData"] %>';
+        var sessionId = '<%= SessionId %>';
     </script>
 	<script type="text/javascript" src="../Scripts/timetable.js"></script>
     <link rel="stylesheet" type="text/css" href="../Content/timetable.css"/>

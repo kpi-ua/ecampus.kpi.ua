@@ -1,7 +1,9 @@
+var ApiEndpoint = "http://api.ecampus.kpi.ua/";
+
 // indentificaniya
 function profile(sessionId) {
     var con = new XMLHttpRequest();
-    con.open('POST', "http://api.ecampus.kpi.ua/user/GetCurrentUser?sessionid=" + sessionId, false);
+    con.open('POST', ApiEndpoint + "user/GetCurrentUser?sessionid=" + sessionId, false);
     con.send();
     var obj = JSON.parse(con.responseText);
     return obj;
@@ -16,7 +18,7 @@ function Timetable(day) {
     this.dayweek = day;
     this.obj = [];
     this.obj2 = [];
-    this.tablehtml = function() {
+    this.tablehtml = function () {
         var output = "<table>";
         var tablesize = 7;
         for (var i = 0; i < tablesize; i++) {
@@ -70,7 +72,7 @@ function Timetable(day) {
     };
 };
 
-Timetable.prototype.load = function(getx) {
+Timetable.prototype.load = function (getx) {
     var get = new Object();
     get = getx;
     var number = get.LessonId - 1;
@@ -83,17 +85,16 @@ Timetable.prototype.load = function(getx) {
         this.obj[number] = get;
     else this.obj2[number] = get;
 };
-Timetable.prototype.draw = function(i) {
+
+Timetable.prototype.draw = function (i) {
     if ((i % 2) === 0)
         $('#tableinput').append('<tr class="timetableline_' + i + '"><td>' + this.tablehtml() + '</td></tr>');
     else
         $('.timetableline_' + (i - 1)).append('<td>' + this.tablehtml() + '</td>');
 };
 
-
-
 var student = 'student';
-$(document).ready(function() {
+$(document).ready(function () {
     // inicializasiya
     var profiledata = profile(sessionId);
     if (profiledata.Data.Employees.length > 0) student = 'employee';
@@ -105,12 +106,12 @@ $(document).ready(function() {
     var Wednesdaytimetable = new Timetable("Wednesday");
     var Saturdaytimetable = new Timetable("Saturday");
     var tables = [Mondaytimetable, Thursdaytimetable, Tuesdaytimetable, Fridaytimetable, Wednesdaytimetable, Saturdaytimetable];
-    var tableinit = [Mondaytimetable,Tuesdaytimetable,Wednesdaytimetable,Thursdaytimetable,Fridaytimetable,Saturdaytimetable];
+    var tableinit = [Mondaytimetable, Tuesdaytimetable, Wednesdaytimetable, Thursdaytimetable, Fridaytimetable, Saturdaytimetable];
 
 
     var con = new XMLHttpRequest();
-    con.open('POST', "http://api.ecampus.kpi.ua/timetable/GetTimeTable?sessionId=" + sessionId + "&profile=" + student, true);
-    con.onreadystatechange = function() {
+    con.open('POST', ApiEndpoint + "timetable/GetTimeTable?sessionId=" + sessionId + "&profile=" + student, true);
+    con.onreadystatechange = function () {
         if (con.readyState == 4) {
             if (con.status == 200) {
                 var obj = JSON.parse(con.responseText);
@@ -126,7 +127,7 @@ $(document).ready(function() {
                 $('#loading').addClass('invisible');
                 $('#tableinput').addClass('invisible');
                 var i = 0;
-                tables.forEach(function(value) {
+                tables.forEach(function (value) {
                     value.draw(i);
                     i++;
                 });
@@ -137,7 +138,7 @@ $(document).ready(function() {
         }
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var photohref;
-        $('.tt_teacher_name').hover(function(event) {
+        $('.tt_teacher_name').hover(function (event) {
             // hover
             var teachername = $(this).html();
             var lessonname = $('.tt_lesson_name').html();
@@ -156,12 +157,12 @@ $(document).ready(function() {
                 .appendTo('body')
                 .css('top', (event.pageY - 10) + 'px')
                 .css('left', (event.pageX + 20) + 'px')
-                //.fadeIn('slow');
-        }, function() {
+            //.fadeIn('slow');
+        }, function () {
             // hover out
             $(this).attr('title', photohref);
             $('.tooltip').remove();
-        }).mousemove(function(event) {
+        }).mousemove(function (event) {
             // move
         });
 

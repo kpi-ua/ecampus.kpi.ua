@@ -7,13 +7,13 @@ using Core;
 
 namespace Site.Authentication.Bulletins
 {
-    public partial class MyBulletins : System.Web.UI.Page
+    public partial class MyBulletins : Core.SitePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserData"] != null)
+            if (SessionId != null)
             {
-                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + Session["UserData"]);
+                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + SessionId);
                 ArrayList Bulletins;
 
                 if (answer != null)

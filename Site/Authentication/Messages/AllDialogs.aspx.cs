@@ -7,13 +7,13 @@ using Core;
 
 namespace Site.Authentication
 {
-    public partial class AllDialogs : System.Web.UI.Page
+    public partial class AllDialogs : Core.SitePage
     {
         protected void Page_Init(object sender, EventArgs e)
         {
-            if (Session["UserData"] != null)
+            if (SessionId != null)
             {
-                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + Session["UserData"].ToString());
+                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + SessionId.ToString());
                 ArrayList Data;
 
                 if (answer != null)

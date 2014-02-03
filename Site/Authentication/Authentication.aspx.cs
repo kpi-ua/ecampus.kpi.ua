@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Web;
+using Core;
 
 namespace Site.Authentication
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class WebForm1 : SitePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,7 +48,7 @@ namespace Site.Authentication
                     Session["SaveIn"] = false;
                 }
 
-                Session["UserData"] = client.SessionId;
+                SessionId = client.SessionId;
                 Session["UserLogin"] = User.Text;
                 Session["UserPass"] = Pass.Text;
 

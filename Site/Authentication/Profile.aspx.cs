@@ -1,32 +1,27 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Web;
 using System.Web.Script.Serialization;
-using Core;
 
 namespace Site.Authentication
 {
-    public partial class Success : System.Web.UI.Page
+    public partial class Success : Core.SitePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            string pathToFiles = Server.MapPath("~/UploadedFiles");
+            base.OnLoad(e);
 
             try
             {
+                var client = new Campus.SDK.Client();
+                var result = client.Get(Campus.SDK.Client.BuildUrl("User", "GetCurrentUser", "?sessionId=" + SessionId));
+                Photo.ImageUrl = result.Data.Photo;
 
-                string sessionId = Session["UserData"].ToString();
-                WebClient client = new WebClient();
-                client.Encoding = System.Text.Encoding.UTF8;
-                var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
                 var serializer = new JavaScriptSerializer();
-                Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-
-                Dictionary<string, object> Data = (Dictionary<string, object>)respDictionary["Data"];
-                Photo.ImageUrl = Data["Photo"].ToString();
+                var Data = (Dictionary<string, object>)serializer.Deserialize<Dictionary<string, object>>(result.Data.ToString());
 
                 if (!Page.IsPostBack)
                 {
@@ -35,15 +30,18 @@ namespace Site.Authentication
                     ParseProfiles(Data);
                 }
 
-                var answer = Helper.GetData("http://api.ecampus.kpi.ua/User/GetEffectivePermissions?sessionId=" + sessionId);
+                var answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + SessionId);
 
                 if (answer != null)
                 {
-                    var DataArr = (ArrayList)answer["Data"];
+                    var DataArr = (ArrayList) answer["Data"];
                     GetEffectivePremissions(DataArr);
 
                 }
-                else throw (new Exception("Права пользователя не получены!"));
+                else
+                {
+                    throw (new Exception("Права пользователя не получены!"));
+                }
             }
             catch (Exception ex)
             {
@@ -222,7 +220,7 @@ namespace Site.Authentication
                 {
                     Dictionary<string, object> answer = null;
 
-                    answer = Helper.GetData("http://api.ecampus.kpi.ua//user/ChangePassword?sessionId=" + Session["UserData"].ToString() + "&old=" + OldPass.Text + "&password=" + NewPass.Text);
+                    answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "user/ChangePassword?sessionId=" + SessionId.ToString() + "&old=" + OldPass.Text + "&password=" + NewPass.Text);
 
                     if (answer == null)
                     {

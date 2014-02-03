@@ -7,7 +7,7 @@ using Core;
 
 namespace Site.Authentication
 {
-    public partial class NewMessage : System.Web.UI.Page
+    public partial class NewMessage : Core.SitePage
     {
        
 
@@ -21,7 +21,7 @@ namespace Site.Authentication
 
                 hiddenField.Attributes.Add("type", "hidden");
 
-                hiddenField.Attributes.Add("value", Session["UserData"].ToString());
+                hiddenField.Attributes.Add("value", SessionId.ToString());
 
                 MainDiv.Controls.Add(hiddenField);
 

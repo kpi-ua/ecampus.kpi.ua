@@ -2,7 +2,7 @@
 
 namespace Site.RNP
 {
-    public partial class RNP_view : System.Web.UI.Page
+    public partial class RNP_view : Core.SitePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

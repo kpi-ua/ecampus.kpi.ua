@@ -13,7 +13,7 @@ using Core;
 
 namespace Site.Authentication
 {
-    public partial class Messages : System.Web.UI.Page
+    public partial class Messages : Core.SitePage
     {
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -23,13 +23,13 @@ namespace Site.Authentication
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserData"] != null)
+            if (SessionId != null)
             {
                 Dictionary<string, object> answer = null;
                 ArrayList messages;
                 int page;
 
-                answer = Helper.GetData("http://api.ecampus.kpi.ua/message/GetUserConversation?sessionId=" + Session["UserData"].ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
+                answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint +  "message/GetUserConversation?sessionId=" + SessionId.ToString() + "&GroupId=" + Session["GroupId"].ToString() + "&size=" + 100500);
 
                 if (answer != null)
                 {
@@ -140,13 +140,13 @@ namespace Site.Authentication
         protected void AnswerBtn_Click(object sender, EventArgs e)
         {
 
-            if (Session["UserData"] != null)
+            if (SessionId != null)
             {
                 Dictionary<string, object> answer = null;
 
                 if (AnswerText.Text != "")
                 {
-                    answer = Helper.GetData("http://api.ecampus.kpi.ua/message/SendMessage?sessionId=" + Session["UserData"] + "&groupId=" + Session["GroupId"].ToString() + "&text=" + AnswerText.Text.ToString() + "&subject=" + Session["Subject"].ToString());
+                    answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/SendMessage?sessionId=" + SessionId + "&groupId=" + Session["GroupId"].ToString() + "&text=" + AnswerText.Text.ToString() + "&subject=" + Session["Subject"].ToString());
                 }
                 if (answer != null)
                 {

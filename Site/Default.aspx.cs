@@ -2,7 +2,7 @@
 
 namespace Site
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Default : Core.SitePage
     {
         protected override void OnLoad(EventArgs e)
         {

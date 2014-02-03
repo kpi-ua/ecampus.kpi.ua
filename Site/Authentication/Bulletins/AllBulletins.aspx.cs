@@ -6,11 +6,11 @@ using Core;
 
 namespace Site.Authentication.Bulletins
 {
-    public partial class AllBulletins : System.Web.UI.Page
+    public partial class AllBulletins : Core.SitePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserData"] != null)
+            if (SessionId != null)
             {
                 Dictionary<string, Premission> UserPremDic = (Dictionary<string, Premission>)Session["UserPremissions"];
 
@@ -22,7 +22,7 @@ namespace Site.Authentication.Bulletins
                     ModeratorMode.Attributes.CssStyle.Add("display", "none");
                 }
 
-                Dictionary<string, object> answer = Helper.GetData("http://api.ecampus.kpi.ua/BulletinBoard/GetActual?sessionId="+Session["UserData"]);
+                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetActual?sessionId=" + SessionId);
                 ArrayList Bulletins;
 
                 if (answer != null) {

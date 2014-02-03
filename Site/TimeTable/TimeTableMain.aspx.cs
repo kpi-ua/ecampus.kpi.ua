@@ -2,7 +2,7 @@
 
 namespace Site.TimeTable
 {
-    public partial class TimeTableMain : System.Web.UI.Page
+    public partial class TimeTableMain : Core.SitePage
     {
         protected override void OnLoad(EventArgs e)
         {
@@ -11,7 +11,7 @@ namespace Site.TimeTable
             {
 
                 var client = new Campus.SDK.Client();
-                var url = Campus.SDK.Client.BuildUrl("User", "GetCurrentUser", "?sessionId=" + Session["UserData"]);
+                var url = Campus.SDK.Client.BuildUrl("User", "GetCurrentUser", "?sessionId=" + SessionId);
                 var result = client.Get(url);
                 var json = result.Data.ToString();
 
