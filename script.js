@@ -47,19 +47,28 @@ $(document).ready(function () {
 
     $("#txt-url").val(ApiEndpoint + 'Test');
 
-    _url = $("#txt-url").val();
-
     $("#btn-scaffold-controller").click(function(){
+        _url = $("#txt-url").val();
         _controller = _url.replace(ApiEndpoint, '');  //Check this logic !!!
         fillMethodList(_url);
     });
 
 
-    $("#btn-scaffold-method").click(function(){
+    $("#cmb-methods").change(function() {
         var method = $("#cmb-methods option:selected" ).text();
         scaffoldMethod(_url, _controller, method);
     });
 
+    $("#btn-auth").click(function(){
+        var login = $("#txt-login").val();
+        var password = $("#txt-password").val();
+
+        var url = ApiEndpoint + 'User/Auth?login=' + login + '&password=' + password;
+        $.getJSON(url, function (obj) {
+            var sessionId = obj.Data;
+            $("#txt-session-id").val(sessionId);
+        });
+    });
 });
 
 function getMethodInfo (array, method) {
@@ -130,6 +139,8 @@ function fillMethodList(url) {
                 .attr("value", method.Name)
                 .text(method.Name));
         });
+
+        $("#cmb-methods").change();
     })
 }
 

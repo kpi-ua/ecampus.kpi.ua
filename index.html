@@ -19,9 +19,38 @@
                 <h1>Campus API Scaffolder</h1>
             </div>
         </div>
+
+
+
         <div class="row">
             <div class="col-md-12">
                 <table class="table">
+                    <tr>
+                        <td colspan="2">
+                            <form class="form-horizontal" name="form-ligin" role="form">
+
+                                <div class="form-group">
+                                    <label for="txt-login" class="col-sm-1 control-label">Login: </label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="txt-login" />
+                                    </div>
+
+                                    <label for="txt-password" class="col-sm-1 control-label">Password: </label>
+                                    <div class="col-sm-2">
+                                        <input type="text" class="form-control" id="txt-password" />
+                                    </div>
+
+                                    <label for="txt-session-id" class="col-sm-2 control-label">Session Id: </label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="txt-session-id" />
+                                    </div>
+                                </div>
+                            </form>
+                        </td>
+                        <td>
+                            <input type="button" id="btn-auth" value="Auth" class="btn btn-primary" />
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             API Controller
@@ -41,7 +70,6 @@
                             <select id="cmb-methods" class="form-control"></select>
                         </td>
                         <td>
-                            <input type="button" value="Load" class="btn btn-default btn-sm" id="btn-scaffold-method" />
                         </td>
                     </tr>
                     <tr>
