@@ -1,41 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Net;
-using System.Web.Script.Serialization;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace Site.TimeTable
 {
     public partial class TimeTableMain : System.Web.UI.Page
     {
-
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
             try
             {
-                WebClient client = new WebClient();
 
-                //WebProxy p = new WebProxy("10.13.100.13:3128", true);
-                //p.Credentials = new NetworkCredential("kbis_user", "kbis13");
-                //WebRequest.DefaultWebProxy = p;
-                //client.Proxy = p;
+                var client = new Campus.SDK.Client();
+                var url = Campus.SDK.Client.BuildUrl("User", "GetCurrentUser", "?sessionId=" + Session["UserData"]);
+                var result = client.Get(url);
+                var json = result.Data.ToString();
 
-                String request = String.Format("{0}User/GetCurrentUser?sessionId={1}", Campus.SDK.Client.ApiEndpoint, Session["UserData"] ?? "null");
-
-                var json = client.DownloadString(request);
-
-                var serializer = new JavaScriptSerializer();
-
-                var answer = serializer.Deserialize<Dictionary<string, object>>(json);
+                //?
             }
             catch (Exception)
             {
                 Response.Redirect("/Authentication/Authentication.aspx");
             }
-           
         }
-
     }
 }

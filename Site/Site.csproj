@@ -93,19 +93,18 @@
     <Content Include="Authentication\Messages\Messages.aspx" />
     <Content Include="Authentication\Messages\NewMessage.aspx" />
     <Content Include="Content\bootstrap-chosen.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Bulletins.css" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
     <Content Include="Authentication\Messages\AllDialogs.aspx" />
     <Content Include="Authentication\Profile.aspx" />
     <Content Include="Content\Authentication.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\AllDialogs.css" />
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
-    <Content Include="Content\chosen.css" />
     <Content Include="Content\Messages.css" />
     <Content Include="Content\NewMessage.css" />
     <Content Include="Content\Profile.css" />
@@ -113,6 +112,8 @@
     <Content Include="Content\SiteMaster.css" />
     <Content Include="Content\timetable.css" />
     <Content Include="Default.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
     <Content Include="Images\blue_line.png" />
     <Content Include="Images\choice\NOT.png" />
     <Content Include="Images\choice\OK.png" />
@@ -157,29 +158,30 @@
     <Content Include="Images\zaliki.png" />
     <Content Include="RNP\RNP_view.aspx" />
     <Content Include="packages.config" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-chosen.scss" />
     <Content Include="Content\bootstrap-chosen.less" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\Campus_New_Age_Pub.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\pub 2014.pubxml" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <None Include="Properties\PublishProfiles\WebDeploy.pubxml" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\core.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
-    <Content Include="Scripts\jquery.min.js" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\timetable.js" />
     <Content Include="Sources\RNP_view.css" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
     <Content Include="TimeTable\TimeTableMain.aspx" />
     <Content Include="WebForm1.aspx" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.sitemap" />
   </ItemGroup>
@@ -240,6 +242,9 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RNP\RNP_view.aspx.cs">
       <DependentUpon>RNP_view.aspx</DependentUpon>
@@ -285,9 +290,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Site.Master" />
     <Content Include="SitePlusNav.Master" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -319,9 +324,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50091</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://ecampus.local:8080/</IISUrl>
+          <IISUrl>http://localhost:8080/</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://ecampus.local:8080/</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost:8080/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
