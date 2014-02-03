@@ -2,24 +2,67 @@
 <html>
 <head>
     <title>CAMPUS</title>
-    <link rel="stylesheet" type="text/css" href="/styles.css" />ß
+
+    <link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.0.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
 
-    <div>
-        API Method <input id="txt-url" type="text" style="width: 300px;" />
-        Controller Name <input id="txt-controller-name" type="text" style="width: 300px;" />
-        <input type="button" value="Load" id="btn-scaffold" />
-        <input type="button" value="Scaffold Controller" id="btn-scaffold-controller" />
-        <input type="button" value="Scaffold Method" id="btn-scaffold-method" />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Campus API Scaffolder</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <tr>
+                        <td>
+                            API Controller
+                        </td>
+                        <td>
+                            <input id="txt-url" type="text" class="form-control" />
+                        </td>
+                        <td>
+                            <input class="btn btn-default btn-sm" type="button" value="Load" id="btn-scaffold-controller" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Methods
+                        </td>
+                        <td>
+                            <select id="cmb-methods" class="form-control"></select>
+                        </td>
+                        <td>
+                            <input type="button" value="Load" class="btn btn-default btn-sm" id="btn-scaffold-method" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" id="out">
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <div class="form-group">
+                                <label for="message-box">Result</label>
+                                <textarea id="message-box" class="form-control" placeholder="result"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
     </div>
 
-    <div id="out">
-    </div>
-
-
-
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.0.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>

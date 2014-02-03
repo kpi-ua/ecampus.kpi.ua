@@ -1,81 +1,136 @@
 var ApiEndpoint = 'http://api.ecampus.kpi.ua/';
 
-$(document).ready(function () {
-
-    var url = '';
-    
-    url = ApiEndpoint + 'User/Auth?login=2&password=2';
-    url = ApiEndpoint + 'Test';
-
-    $("#txt-url").val(url);
-    $("#txt-controller-name").val('Test');
-
-    $("#btn-scaffold").click(function () {
-        var url = $("#txt-url").val();
-        scaffoldApi(url);
-    });
-
-    $("#btn-scaffold-controller").click(function(){
-        var url = $("#txt-url").val();
-        scaffoldController(url);
-    });
-
-    $("btn-scaffold-method").click(function(){
-        var url = $("#txt-url").val();
-        //scaffoldMethod(url);
-
-        //var controller =
-    });
-});
+var _url = ""; //URL of current controller
+var _controller; //Name of current controller
+var _html = "";
+var _method = "GET";
 
 function append(html){
-    $("#out").append(html);
+    _html += html;
 }
 
-function scaffoldMethod(controller, method) {
+function render(){
+    $("#out").html('');
+    $("#out").append(_html);
+    _html = '';
 
-    append('<form name="' + method.Name + '">');
-    append('<h2>' + method.Name + '</h2>');
-    append('<strong> HTTP Method' + method.Method + '</strong><br />');
-    var url = ApiEndpoint + controller + '/' + method.Name;
-    append('<strong>Url:</strong>&nbsp;<a href="' + url + '">' + url + '<br />');
+    $(".submit").click(function(){
+        var form = $(this).parent();
+        var url = _url + '/' + form.attr('Name') + '?' + form.serialize();
 
-    append('<table>');
-    $.each(method.Parameters, function( index, value ){
-        var parameter = value;
+        if (_method == 'GET'){
+            $.getJSON(url, function (obj) {
+                displayResult(obj);
+            });
+        }
 
-        createControl(parameter);
+        if (_method == 'POST'){
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: data,
+                success: function(obj){
+                    displayResult(obj);
+                },
+                dataType: dataType
+            });
+        }
+    });
+}
+
+function displayResult(result){
+    var json = JSON.stringify(result);
+    $("#message-box").val(json);
+}
+
+$(document).ready(function () {
+
+    $("#txt-url").val(ApiEndpoint + 'Test');
+
+    _url = $("#txt-url").val();
+
+    $("#btn-scaffold-controller").click(function(){
+        _controller = _url.replace(ApiEndpoint, '');  //Check this logic !!!
+        fillMethodList(_url);
     });
 
-    append('<table>');
 
-    append('<input type="submit" value="Debug">');
+    $("#btn-scaffold-method").click(function(){
+        var method = $("#cmb-methods option:selected" ).text();
+        scaffoldMethod(_url, _controller, method);
+    });
 
-    append('<span class="result-out"></span>');
+});
 
-    append('</form>');
+function getMethodInfo (array, method) {
+    var result = null;
+    array.forEach(function(value) {
+        if (value.Name == method){
+            result = value;
+        }
+    });
 
+    return result;
+};
 
-}
+function scaffoldMethod(url, controller, method) {
 
-function createControl(parameter) {
-    append('<tr>');
-    append('<td>' + parameter.Name +': </td><td><input type="text" value="" /><br />');
-    append('</tr>')
-}
-
-function scaffoldController(url) {
     $.getJSON(url, function (obj) {
-        var methods = obj.Data;
 
-        $.each( methods, function( index, value ){
-            var method = value;
-            var controllerName = $("#txt-controller-name").val();
-            scaffoldMethod(controllerName, method);
+        var methodInfo = getMethodInfo(obj.Data, method);
+        var methodUrl = ApiEndpoint + controller + '/' + method;
 
+        append('<h2>' + method + '</h2>');
+        append('<strong> HTTP Method: ' + methodInfo.Method + '</strong><br />');
+        append('<strong>Url:</strong>&nbsp;<a href="' + methodUrl + '">' + methodUrl + '</a><br /><br />');
+
+        append('<form class="form-horizontal" name="' + method + '" id="' + method + '" role="form">');
+
+
+        $.each(methodInfo.Parameters, function(index, parameter ){
+            createControl(parameter);
         });
 
-    });
+        append('<input type="button" class="btn btn-primary submit" value="Debug">');
+        append('</form>');
+
+        render();
+    })
+}
+
+function createControl(parameter){
+    var type = parameter.Type;
+
+    var controlId = parameter.Name;
+
+    append('<div class="form-group">');
+    append('<label for="' + controlId + '" class="col-sm-2 control-label">' + parameter.Name + '</label>');
+
+    append('<div class="col-sm-10">');
+
+    if (type == 'System.String'){
+        append('<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />');
+    } else if (type =='System.Int32'){
+        append('<input class="form-control" type="number" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />');
+    } else{
+        append('<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />');
+    }
+    append('</div>');
+    append('</div>');
+}
+
+function fillMethodList(url) {
+    $('#cmb-methods').html('');
+
+    $.getJSON(url, function (obj) {
+
+        $.each(obj.Data, function(index, method ){
+            $('#cmb-methods')
+                .append($("<option></option>")
+                .attr("value", method.Name)
+                .text(method.Name));
+        });
+    })
 }
 
 function scaffoldApi(url) {
@@ -109,10 +164,4 @@ function scaffoldApi(url) {
             console.log("complete");
        });
 
-}
-
-function buildControllerLink(controllerName){
-    var url = ApiEndpoint + controllerName;
-    var a = '<a href="' + url + '">' + controllerName + '</a>'
-    append(a);
 }
