@@ -57,6 +57,7 @@ $(document).ready(function () {
     $("#cmb-methods").change(function() {
         var method = $("#cmb-methods option:selected" ).text();
         scaffoldMethod(_url, _controller, method);
+        $("#message-box").val('');
     });
 
     $("#btn-auth").click(function(){
