@@ -152,8 +152,8 @@ function renderFormGroup(controlId, title, controlHtml){
 
     var html = '';
     html += '<div class="form-group">';
-    html += '<label for="' + controlId + '" class="col-sm-4 control-label">' + title + '</label>';
-    html += '<div class="col-sm-8">';
+    html += '<label for="' + controlId + '" class="col-md-4 control-label">' + title + '</label>';
+    html += '<div class="col-md-8">';
     html += controlHtml;
     html += '</div>';
     html += '</div>';
