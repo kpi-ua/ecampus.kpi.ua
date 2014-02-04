@@ -4,6 +4,7 @@ var _url = ""; //URL of current controller
 var _controller; //Name of current controller
 var _html = "";
 var _method = "GET";
+var _sessionId = "";
 
 function append(html){
     _html += html;
@@ -13,33 +14,81 @@ function render(){
     $("#out").html('');
     $("#out").append(_html);
 
+    $("#sessionId").val(_sessionId);
+
     _html = '';
 
     $(".submit").click(function(){
-        //var form = $(this).parent();
-
         var form = $(this).closest("form");
 
-        var url = _url + '/' + form.attr('Name') + '?' + form.serialize();
+        progressBar(true);
+        var controllerMethod = form.attr('Name');
 
         if (_method == 'GET'){
+            var url = _url + '/' + controllerMethod + '?' + form.serialize();
+
             $.getJSON(url, function (obj) {
                 displayResult(obj);
+                progressBar(false);
             });
         }
 
         if (_method == 'POST'){
+
+            var data = new FormData(document.getElementById($(form).attr("Id")));
+            var url = _url + '/' + controllerMethod;
+
             $.ajax({
-                type: "POST",
                 url: url,
+                type: _method,
                 data: data,
+                processData: false,
+                contentType: false,
                 success: function(obj){
                     displayResult(obj);
+                    progressBar(false);
                 },
-                dataType: dataType
+                error: function(jqXHR, textStatus, errorThrown) {
+                    displayResult(textStatus)
+                    progressBar(false);
+                }
             });
         }
     });
+}
+
+function ajaxLoad(url, callback){
+
+    progressBar(true);
+
+    var jqxhr = $.getJSON(url, function(result) {
+        callback(result);
+        console.log( "success" );
+    })
+        .done(function() {
+            console.log( "second success" );
+        })
+        .fail(function() {
+            alert('Error detected');
+            console.log( "error" );
+        })
+        .always(function() {
+            progressBar(false);
+            console.log("complete");
+        });
+
+    // Set another completion function for the request above
+    jqxhr.complete(function() {
+        console.log( "second complete" );
+    });
+}
+
+function progressBar(show){
+    if (show){
+        $("#progress").show();
+    }else{
+        $("#progress").hide();
+    }
 }
 
 function displayResult(result){
@@ -60,9 +109,11 @@ $(document).ready(function () {
         var password = $("#txt-password").val();
 
         var url = ApiEndpoint + 'User/Auth?login=' + login + '&password=' + password;
-        $.getJSON(url, function (obj) {
-            var sessionId = obj.Data;
-            $("#txt-session-id").val(sessionId);
+
+        ajaxLoad(url, function (obj) {
+            _sessionId = obj.Data;
+            $("#txt-session-id").val(_sessionId);
+            $("#sessionId").val(_sessionId);
         });
     });
 
@@ -70,7 +121,8 @@ $(document).ready(function () {
 });
 
 function loadControllerList() {
-    $.getJSON(ApiEndpoint, function (obj) {
+
+    ajaxLoad(ApiEndpoint, function (obj) {
 
         $.each(obj.Data.Controllers, function(index, controller ){
             $('#cmb-controllers')
@@ -105,16 +157,21 @@ function getMethodInfo (array, method) {
 
 function scaffoldMethod(url, controller, method) {
 
-    $.getJSON(url, function (obj) {
+    ajaxLoad(url, function (obj) {
 
         var methodInfo = getMethodInfo(obj.Data, method);
         var methodUrl = ApiEndpoint + controller + '/' + method;
 
-        append('<h2>' + method + '</h2>');
-        //append('<strong> HTTP Method: ' + methodInfo.Method + '</strong><br />');
-        //append('<strong>Url:</strong>&nbsp;<a href="' + methodUrl + '">' + methodUrl + '</a><br /><br />');
+        _method = methodInfo.Method;
 
-        append('<form class="form-horizontal" name="' + method + '" id="' + method + '" role="form">');
+        append('<h2>' + method + '</h2>');
+
+
+        //<FORM action="http://server.com/cgi/handle" enctype="multipart/form-data" method="post">
+
+        var enctype = _method == 'POST' ? ' enctype="multipart/form-data" ' : '';
+
+        append('<form class="form-horizontal" name="' + method + '" action="' + _method + '" id="' + methodInfo.Name + '" role="form"' + enctype + '>');
 
         append(renderFormGroup('', 'HTTP Method:', '<span class="label label-info">' + methodInfo.Method + '</span>' ));
         append(renderFormGroup('', 'Url', '<a href="' + methodUrl + '">' + methodUrl + '</a>'));
@@ -135,15 +192,21 @@ function createControl(parameter){
 
     var type = parameter.Type;
     var controlId = parameter.Name;
+    var controlType ='';
 
-    var controlHtml = '';
+    var controlHtml;
+
     if (type == 'System.String'){
-        controlHtml = '<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
+        controlType = 'text';
     } else if (type =='System.Int32'){
-        controlHtml = '<input class="form-control" type="number" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
+        controlType = 'number';
+    } else if (type =='System.Web.HttpPostedFileBase'){
+        controlType = 'file';
     } else{
-        controlHtml = '<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
+        controlType = 'text';
     }
+
+    controlHtml = '<input class="form-control" type="' + controlType + '" name="' + controlId + '" id = "' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
 
     append(renderFormGroup(controlId, parameter.Name, controlHtml));
 }
@@ -163,7 +226,8 @@ function renderFormGroup(controlId, title, controlHtml){
 function fillMethodList(url) {
     $('#cmb-methods').html('');
 
-    $.getJSON(url, function (obj) {
+    ajaxLoad(url, function (obj) {
+    //$.getJSON(url, function (obj) {
 
         $.each(obj.Data, function(index, method ){
             $('#cmb-methods')
