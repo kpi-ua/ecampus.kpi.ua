@@ -20,76 +20,58 @@
             </div>
         </div>
 
-
-
         <div class="row">
-            <div class="col-md-12">
-                <table class="table">
-                    <tr>
-                        <td colspan="2">
-                            <form class="form-horizontal" name="form-ligin" role="form">
-
-                                <div class="form-group">
-                                    <label for="txt-login" class="col-sm-1 control-label">Login: </label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="txt-login" />
-                                    </div>
-
-                                    <label for="txt-password" class="col-sm-1 control-label">Password: </label>
-                                    <div class="col-sm-2">
-                                        <input type="text" class="form-control" id="txt-password" />
-                                    </div>
-
-                                    <label for="txt-session-id" class="col-sm-2 control-label">Session Id: </label>
-                                    <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="txt-session-id" />
-                                    </div>
-                                </div>
-                            </form>
-                        </td>
-                        <td>
+            <div class="col-md-6">
+                <form class="form-horizontal" name="form-login" role="form">
+                    <div class="form-group">
+                        <label for="txt-login" class="col-sm-4 control-label">Login: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txt-login" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt-password" class="col-sm-4 control-label">Password: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txt-password" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt-session-id" class="col-sm-4 control-label">Session Id: </label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="txt-session-id" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="txt-session-id" class="col-sm-4 control-label"></label>
+                        <div class="col-sm-8 pull-right">
                             <input type="button" id="btn-auth" value="Auth" class="btn btn-primary" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            API Controller
-                        </td>
-                        <td>
-                            <input id="txt-url" type="text" class="form-control" />
-                        </td>
-                        <td>
-                            <input class="btn btn-default btn-sm" type="button" value="Load" id="btn-scaffold-controller" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Methods
-                        </td>
-                        <td>
-                            <select id="cmb-methods" class="form-control"></select>
-                        </td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3" id="out">
+                        </div>
+                    </div>
+                </form>
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <div class="form-group">
-                                <label for="message-box">Result</label>
-                                <textarea rows="10" id="message-box" class="form-control" placeholder="result"></textarea>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <form class="form-horizontal" name="form-login" role="form">
+                    <div class="form-group">
+                        <label for="cmb-controllers" class="col-sm-4 control-label">Controllers: </label>
+                        <div class="col-sm-8">
+                            <select id="cmb-controllers" class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cmb-methods" class="col-sm-4 control-label">Methods: </label>
+                        <div class="col-sm-8">
+                            <select id="cmb-methods" class="form-control"></select>
+                        </div>
+                    </div>
+                </form>
+
+                <div id="out">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label for="message-box">Result</label>
+                <textarea rows="25" id="message-box" class="form-control" placeholder="result"></textarea>
             </div>
         </div>
-
-
     </div>
 
 </body>

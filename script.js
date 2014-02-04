@@ -12,10 +12,14 @@ function append(html){
 function render(){
     $("#out").html('');
     $("#out").append(_html);
+
     _html = '';
 
     $(".submit").click(function(){
-        var form = $(this).parent();
+        //var form = $(this).parent();
+
+        var form = $(this).closest("form");
+
         var url = _url + '/' + form.attr('Name') + '?' + form.serialize();
 
         if (_method == 'GET'){
@@ -45,15 +49,6 @@ function displayResult(result){
 
 $(document).ready(function () {
 
-    $("#txt-url").val(ApiEndpoint + 'Test');
-
-    $("#btn-scaffold-controller").click(function(){
-        _url = $("#txt-url").val();
-        _controller = _url.replace(ApiEndpoint, '');  //Check this logic !!!
-        fillMethodList(_url);
-    });
-
-
     $("#cmb-methods").change(function() {
         var method = $("#cmb-methods option:selected" ).text();
         scaffoldMethod(_url, _controller, method);
@@ -70,7 +65,32 @@ $(document).ready(function () {
             $("#txt-session-id").val(sessionId);
         });
     });
+
+    loadControllerList();
 });
+
+function loadControllerList() {
+    $.getJSON(ApiEndpoint, function (obj) {
+
+        $.each(obj.Data.Controllers, function(index, controller ){
+            $('#cmb-controllers')
+                .append($("<option></option>")
+                .attr("value", controller)
+                .text(controller));
+        });
+
+        $('#cmb-controllers').change(function() {
+                var controller = $("#cmb-controllers option:selected" ).text();
+                $("#message-box").val('');
+                _url = ApiEndpoint + controller;
+                _controller = _url.replace(ApiEndpoint, '');  //Check this logic !!!
+                fillMethodList(_url);
+        });
+
+        $('#cmb-controllers').change();
+
+    });
+}
 
 function getMethodInfo (array, method) {
     var result = null;
@@ -91,42 +111,53 @@ function scaffoldMethod(url, controller, method) {
         var methodUrl = ApiEndpoint + controller + '/' + method;
 
         append('<h2>' + method + '</h2>');
-        append('<strong> HTTP Method: ' + methodInfo.Method + '</strong><br />');
-        append('<strong>Url:</strong>&nbsp;<a href="' + methodUrl + '">' + methodUrl + '</a><br /><br />');
+        //append('<strong> HTTP Method: ' + methodInfo.Method + '</strong><br />');
+        //append('<strong>Url:</strong>&nbsp;<a href="' + methodUrl + '">' + methodUrl + '</a><br /><br />');
 
         append('<form class="form-horizontal" name="' + method + '" id="' + method + '" role="form">');
 
+        append(renderFormGroup('', 'HTTP Method:', '<span class="label label-info">' + methodInfo.Method + '</span>' ));
+        append(renderFormGroup('', 'Url', '<a href="' + methodUrl + '">' + methodUrl + '</a>'));
 
         $.each(methodInfo.Parameters, function(index, parameter ){
             createControl(parameter);
         });
 
-        append('<input type="button" class="btn btn-primary submit" value="Debug">');
+        append(renderFormGroup('', '', '<input type="button" class="btn btn-primary submit" value="Debug">'));
+
         append('</form>');
 
         render();
-    })
+    });
 }
 
 function createControl(parameter){
-    var type = parameter.Type;
 
+    var type = parameter.Type;
     var controlId = parameter.Name;
 
-    append('<div class="form-group">');
-    append('<label for="' + controlId + '" class="col-sm-2 control-label">' + parameter.Name + '</label>');
-
-    append('<div class="col-sm-10">');
-
+    var controlHtml = '';
     if (type == 'System.String'){
-        append('<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />');
+        controlHtml = '<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
     } else if (type =='System.Int32'){
-        append('<input class="form-control" type="number" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />');
+        controlHtml = '<input class="form-control" type="number" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
     } else{
-        append('<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />');
+        controlHtml = '<input class="form-control" type="text" name="' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
     }
-    append('</div>');
-    append('</div>');
+
+    append(renderFormGroup(controlId, parameter.Name, controlHtml));
+}
+
+function renderFormGroup(controlId, title, controlHtml){
+
+    var html = '';
+    html += '<div class="form-group">';
+    html += '<label for="' + controlId + '" class="col-sm-4 control-label">' + title + '</label>';
+    html += '<div class="col-sm-8">';
+    html += controlHtml;
+    html += '</div>';
+    html += '</div>';
+    return html;
 }
 
 function fillMethodList(url) {
@@ -143,37 +174,4 @@ function fillMethodList(url) {
 
         $("#cmb-methods").change();
     })
-}
-
-function scaffoldApi(url) {
-
-    $.getJSON(url, function (obj) {
-
-        var data = obj.Data;
-
-        if (data.Controllers != null) {
-            
-            $("#out").html('<ul>');
-            for (var i=0; i < data.Controllers.length; i++) {
-                    var controllerName = data.Controllers[i];
-                    var controllerUrl = ApiEndpoint + controllerName;
-                    var a = '<li><a onclick="lo" href="#' + controllerUrl + '">' + controllerName + '</a></li>';
-                    append(a);
-            }          
-           append('</ul>');
-        }
-
-
-        //alert(JSON.stringify(data));        
-        console.log("success");
-    }).done(function () {
-            console.log("second success");
-       })
-       .fail(function () {
-            console.log("error");
-       })
-       .always(function () {
-            console.log("complete");
-       });
-
 }
