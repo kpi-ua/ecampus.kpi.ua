@@ -62,23 +62,53 @@
 
         <div class="row">
             <div class="col-md-6">
-                <form class="form-horizontal" name="form-login" role="form">
-                    <div class="form-group">
-                        <label for="cmb-controllers" class="col-md-4 control-label">Controllers: </label>
-                        <div class="col-md-8">
-                            <select id="cmb-controllers" class="form-control"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="cmb-methods" class="col-md-4 control-label">Methods: </label>
-                        <div class="col-md-8">
-                            <select id="cmb-methods" class="form-control"></select>
-                        </div>
-                    </div>
-                </form>
 
-                <div id="out">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><strong>Select method to debug</strong></div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" name="form-login" role="form">
+                            <div class="form-group">
+                                <label for="cmb-controllers" class="col-md-4 control-label">Controllers: </label>
+                                <div class="col-md-8">
+                                    <select id="cmb-controllers" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cmb-methods" class="col-md-4 control-label">Methods: </label>
+                                <div class="col-md-8">
+                                    <select id="cmb-methods" class="form-control"></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="txt-http-method" class="col-md-4 control-label">HTTP Method: </label>
+                                <div class="col-md-8">
+                                    <input id="txt-http-method" class="form-control" disabled />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="txt-method-url" class="col-md-4 control-label">Method URL: </label>
+                                <div class="col-md-8">
+                                    <input id="txt-method-url" class="form-control" disabled />
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
                 </div>
+
+
+
+                <div class="panel panel-default">
+                    <div id="method-title" class="panel-heading">...</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" name="" action="" id="out" role="form">
+                        </form>
+                    </div>
+                </div>
+
+
             </div>
             <div class="col-md-6">
                 <div class="panel panel-info">

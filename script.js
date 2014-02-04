@@ -3,7 +3,7 @@ var ApiEndpoint = 'http://api.ecampus.kpi.ua/';
 var _url = ""; //URL of current controller
 var _controller; //Name of current controller
 var _html = "";
-var _method = "GET";
+var _httpMethod = "GET";
 var _sessionId = "";
 
 function append(html){
@@ -24,23 +24,26 @@ function render(){
         progressBar(true);
         var controllerMethod = form.attr('Name');
 
-        if (_method == 'GET'){
+        if (_httpMethod == 'GET'){
             var url = _url + '/' + controllerMethod + '?' + form.serialize();
 
             $.getJSON(url, function (obj) {
                 displayResult(obj);
                 progressBar(false);
-            });
+            }).fail(function(){
+                    displayResult("Error detected")
+                    progressBar(false);
+                });
         }
 
-        if (_method == 'POST'){
+        if (_httpMethod == 'POST'){
 
             var data = new FormData(document.getElementById($(form).attr("Id")));
             var url = _url + '/' + controllerMethod;
 
             $.ajax({
                 url: url,
-                type: _method,
+                type: _httpMethod,
                 data: data,
                 processData: false,
                 contentType: false,
@@ -162,19 +165,21 @@ function scaffoldMethod(url, controller, method) {
         var methodInfo = getMethodInfo(obj.Data, method);
         var methodUrl = ApiEndpoint + controller + '/' + method;
 
-        _method = methodInfo.Method;
+        _httpMethod = methodInfo.Method;
 
-        append('<h2>' + method + '</h2>');
+        $("#method-title").html('<strong>' + method + '<strong>');
 
+        var form = $("#out");
+        form.attr("action", _url + controller + '/' + method);
+        form.attr("name", method);
 
-        //<FORM action="http://server.com/cgi/handle" enctype="multipart/form-data" method="post">
+        if (_httpMethod == "POST") {
+            form.attr("method", _httpMethod);
+            form.attr("enctype", "multipart/form-data");
+        }
 
-        var enctype = _method == 'POST' ? ' enctype="multipart/form-data" ' : '';
-
-        append('<form class="form-horizontal" name="' + method + '" action="' + _method + '" id="' + methodInfo.Name + '" role="form"' + enctype + '>');
-
-        append(renderFormGroup('', 'HTTP Method:', '<span class="label label-info">' + methodInfo.Method + '</span>' ));
-        append(renderFormGroup('', 'Url', '<a href="' + methodUrl + '">' + methodUrl + '</a>'));
+        $("#txt-http-method").val(methodInfo.Method);
+        $("#txt-method-url").val(methodUrl);
 
         $.each(methodInfo.Parameters, function(index, parameter ){
             createControl(parameter);
@@ -182,7 +187,7 @@ function scaffoldMethod(url, controller, method) {
 
         append(renderFormGroup('', '', '<input type="button" class="btn btn-primary submit" value="Debug">'));
 
-        append('</form>');
+        //append('</form>');
 
         render();
     });
