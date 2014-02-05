@@ -3,7 +3,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status?id=qje3l34uid1fggxm)](https://ci.appveyor.com/project/dois-campus-core)
 
 Campus core classes for implementing API modules.<br />
-Current version - 1.0.5.175
+Current version - 1.0.6.182
 
 
 ####Example 
