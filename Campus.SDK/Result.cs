@@ -14,6 +14,7 @@ namespace Campus.SDK
         /// <summary>
         /// Paging information. If null - information is complex object 
         /// </summary>
+        [JsonConverter(typeof(PagedListJsonConverter))]
         public IPagedList Paging { get; set; }
 
         /// <summary>

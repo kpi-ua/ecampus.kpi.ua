@@ -36,6 +36,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="PagedList.cs" />
+    <Compile Include="PagedListJsonConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result.cs" />
   </ItemGroup>
@@ -47,7 +49,7 @@
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\portable-net40+sl4+win8+wp71\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\GitHub\examples\ApiWebApplication\packages\Newtonsoft.Json.6.0.1\lib\portable-net40+sl5+wp80+win8+monotouch+monoandroid\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\portable-net40+sl5+wp80+win8+monotouch+monoandroid\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.IO">
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\portable-net40+sl5+win8+wp8\System.IO.dll</HintPath>
@@ -68,7 +70,7 @@
       <HintPath>..\packages\Microsoft.Bcl.1.1.6\lib\portable-net40+sl5+win8+wp8\System.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="X.PagedList">
-      <HintPath>..\..\..\GitHub\examples\ApiWebApplication\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
