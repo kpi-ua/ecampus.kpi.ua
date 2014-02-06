@@ -4,8 +4,8 @@
 }
 
 h1, h2, h3 {
-    font-family: 'Ubuntu', sans-serif;
-    font-weight: lighter !important;
+    font-family: 'Ubuntu',sans-serif;
+    font-weight: 400;
     text-transform: uppercase;
 }
 
@@ -156,12 +156,15 @@ input {
 }
 
 .dummy {
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-top: 55px;
+    padding: 20px;
     text-align: center;
 }
-
 
     .dummy h2 {
         color: #FF7719;
         font-size: 28pt;
-        margin-top: 100px;
+        margin-top: 25px;
+        margin-bottom: 15px;
     }
