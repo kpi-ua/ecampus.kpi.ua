@@ -1,0 +1,167 @@
+﻿body {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: lighter;
+}
+
+h1, h2, h3 {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: lighter !important;
+    text-transform: uppercase;
+}
+
+.content {
+    background-position: center center;
+    background-repeat: no-repeat;
+    min-height: 500px;
+}
+
+.featured-content {
+    background-image: url("/images/background.png");
+}
+
+a {
+    color: #ff7719;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #ff7719;
+        text-decoration: underline;
+    }
+
+header {
+    border-top: 5px solid #ff7719;
+    padding-top: 50px;
+    overflow: hidden;
+    font-weight: lighter;
+}
+
+    header h1, h2 {
+        font-size: 12pt;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: #7f7f7f;
+    }
+
+    header h1 {
+        font-size: 22pt;
+        font-weight: 500 !important;
+    }
+
+    header h2 {
+    }
+
+    header .col-md-9 {
+    }
+
+    header .logo {
+    }
+
+footer {
+    border-bottom: 5px solid #ff7719;
+    padding-bottom: 22px;
+    font-size: 9pt;
+    color: #999;
+}
+
+.navigation {
+    background-image: url("/Images/navigation.png");
+    display: inline-block;
+    height: 22px;
+    margin-top: 18px;
+    width: 22px;
+}
+
+    .navigation.home {
+    }
+
+    .navigation.logout {
+        background-position: 22px;
+    }
+
+.navigation-container {
+    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.4);
+    -ms-border-radius: 3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    padding: 50px;
+}
+
+    .navigation-container .btn {
+        background-color: #8bc081;
+    }
+
+    .navigation-container .btn-primary {
+        background-color: #ff7719;
+    }
+
+.login-container {
+    height: 290px;
+    margin: 100px auto auto;
+    font-size: 9pt;
+}
+
+    .login-container input[type="submit"] {
+        margin-bottom: 10px;
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    .login-container a {
+        color: #333;
+    }
+
+        .login-container a:hover {
+            color: #ff7719;
+            text-decoration: underline;
+        }
+
+    .login-container label {
+        font-weight: lighter;
+        margin-left: 5px;
+    }
+
+    .login-container input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+    .login-container .right {
+        float: right;
+    }
+
+input {
+}
+
+.btn {
+    -moz-min-width: 85px;
+    -ms-min-width: 85px;
+    -o-min-width: 85px;
+    -webkit-min-width: 85px;
+    min-width: 85px;
+    background-color: #999999;
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: #ff8633;
+    border-color: #ff8633;
+    color: #FFF;
+}
+
+
+.form-control:focus {
+    border-color: #ff8633;
+}
+
+.dummy {
+    text-align: center;
+}
+
+
+    .dummy h2 {
+        color: #FF7719;
+        font-size: 28pt;
+        margin-top: 100px;
+    }

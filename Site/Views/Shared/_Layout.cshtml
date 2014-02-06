@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Єдине інформаційне середовище</title>
+    <link rel="stylesheet" type="text/css" href="/Content/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/Content/screen.css" />
+    <link rel="stylesheet" type="text/css" href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700&subset=latin,cyrillic' />
+
+    <meta name="viewport" content="width=device-width" />
+
+</head>
+<body>
+
+    <div class="container">
+        <header class="row">
+            <div class="col-md-2">
+                <img alt="Электронный кампус кпи" src="/Images/logo.png" class="logo" />
+            </div>
+
+            <div class="col-md-9">
+                <h2>Національний технічний університет України</h2>
+                <h1>Єдине інформаційне середовище</h1>
+            </div>
+
+            <div class="col-md-1">
+                <a href="#" class="navigation home"></a>
+                <a href="#" class="navigation logout"></a>
+            </div>
+        </header>
+
+        <section class="row content featured-content">
+            @RenderBody()
+        </section>
+
+        <footer class="row">
+            <div class="col-md-9">
+                Національний технічний університет України<br />
+                “Київський політехнічний інститут” <a href="http://www.kpi.ua">www.kpi.ua</a><br />
+                Єдине інформаційне середовище<br />
+
+            </div>
+            <div class="col-md-3 text-right">
+                Розробник:  Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="http://www.kbis.kpi.ua">www.kbis.kpi.ua</a><br />
+            </div>
+        </footer>
+    </div>
+
+    <script src="Scripts/jquery-2.0.3.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+</body>
+</html>
