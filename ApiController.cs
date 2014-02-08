@@ -1,4 +1,6 @@
-﻿using Campus.Core.EventsArgs;
+﻿using System.Web;
+using System.Web.Routing;
+using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
 using PagedList;
 using System;
@@ -15,6 +17,8 @@ namespace Campus.Core
     /// </summary>
     public class ApiController : Controller
     {
+        private const string AccessDenied = "Access denied";
+
         protected const String MimeType = "application/json";
 
         public static event EventHandler ExceptionHandled;
@@ -38,7 +42,7 @@ namespace Campus.Core
             if (handler != null)
             {
                 Uri url = null;
-                
+
                 if (exceptionContext.HttpContext != null && exceptionContext.HttpContext.Request != null)
                 {
                     url = exceptionContext.HttpContext.Request.Url;
@@ -49,10 +53,28 @@ namespace Campus.Core
         }
 
         /// <summary>
+        /// Serialize object to JSON
+        /// </summary>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        private static string Serialize(object result)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+            var json = JsonConvert.SerializeObject(result, settings);
+            return json;
+        }
+
+        /// <summary>
         /// Allow requests from other domains
         /// </summary>
         public static bool EnableCrossDomainRequest { get; set; }
-        
+
         /// <summary>
         /// Time stamp for controller creating;
         /// </summary>
@@ -79,14 +101,7 @@ namespace Campus.Core
 
             Response.StatusCode = Convert.ToInt32(result.StatusCode);
 
-            var settings = new JsonSerializerSettings
-            {
-                DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                Formatting = Formatting.Indented,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
-
-            var json = JsonConvert.SerializeObject(result, settings);
+            var json = Serialize(result);
 
             OnReseultExecuted(this, json);
 
@@ -115,7 +130,16 @@ namespace Campus.Core
         /// <returns></returns>
         public ActionResult Forbiden()
         {
-            return Result("Access denied", HttpStatusCode.Forbidden);
+            return Result(AccessDenied, HttpStatusCode.Forbidden);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult OK()
+        {
+            return Result("OK", HttpStatusCode.OK);
         }
 
         /// <summary>
@@ -134,6 +158,8 @@ namespace Campus.Core
                                && method.Name != "NotFound"
                                && method.Name != "Forbiden"
                                && method.Name != "Introspect"
+                               && method.Name != "ValidateUser"
+                               && method.Name != "OK"
                                && method.IsPublic
                            select IntrospectMethod(method)).ToList();
 
@@ -152,10 +178,22 @@ namespace Campus.Core
             }
 
             var code = HttpStatusCode.InternalServerError;
+            var message = String.Empty;
 
             if (filterContext.Exception is NotImplementedException)
             {
                 code = HttpStatusCode.NotImplemented;
+            }
+
+            if (filterContext.Exception is HttpException)
+            {
+                var httpException = filterContext.Exception as HttpException;
+                var httpCode = httpException.GetHttpCode();
+
+                if (Enum.IsDefined(typeof(HttpStatusCode), httpCode))
+                {
+                    code = (HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), httpCode.ToString());
+                }
             }
 
             //NotImplemented
@@ -183,5 +221,19 @@ namespace Campus.Core
                 }).ToList()
             };
         }
+
+        /// <summary>
+        /// Validate sessionId token and user object. If either is null, then return 403 and "Access denied message"
+        /// </summary>
+        /// <param name="sessionId"></param>
+        /// <param name="user"></param>
+        protected virtual void ValidateUser(string sessionId, dynamic user)
+        {
+            if (String.IsNullOrEmpty(sessionId) || user == null)
+            {
+                throw new HttpException(Convert.ToInt32(HttpStatusCode.Forbidden), AccessDenied);
+            }
+        }
+
     }
 }
