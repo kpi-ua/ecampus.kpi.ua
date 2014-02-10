@@ -7,8 +7,6 @@ namespace Site
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            Response.Redirect("~/Authentication/Authentication.aspx");
         }
     }
 }

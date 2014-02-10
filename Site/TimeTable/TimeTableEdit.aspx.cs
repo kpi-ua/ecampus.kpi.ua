@@ -3,35 +3,28 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
+using Core;
 
 namespace Site.TimeTable
 {
     public partial class TimeTableEdit : Core.SitePage
     {
-        private WebClient _client;
+        //private WebClient _client;
         private JavaScriptSerializer _serializer;
         private string _sessionId;
         private object _data;
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            if (SessionId != null)
-            {
-                _sessionId = SessionId.ToString();
+            base.OnLoad(e);
 
-                _client = new WebClient
-                {
-                    Encoding = System.Text.Encoding.UTF8
-                };
-                var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + _sessionId);
-                _serializer = new JavaScriptSerializer();
-                var result = _serializer.Deserialize<Dictionary<string, object>>(json);
-                _data = result["Data"];
-            }
-            else
-            {
-                Response.Redirect("../Authentication/Authentication.aspx");
-            }
+            _sessionId = SessionId.ToString();
+
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + _sessionId);
+            _serializer = new JavaScriptSerializer();
+            var result = _serializer.Deserialize<Dictionary<string, object>>(json);
+            _data = result["Data"];
+
 
         }
 
@@ -54,11 +47,7 @@ namespace Site.TimeTable
             {
                 case "full":
                     {
-                        _client = new WebClient
-                        {
-                            Encoding = System.Text.Encoding.UTF8
-                        };
-                        var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetEmployees?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
+                        var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetEmployees?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
                         _serializer = new JavaScriptSerializer();
                         var result = _serializer.Deserialize<Dictionary<string, object>>(json);
                         status = (int)result["StatusCode"];
@@ -67,11 +56,7 @@ namespace Site.TimeTable
                     }
                 case "part":
                     {
-                        _client = new WebClient
-                        {
-                            Encoding = System.Text.Encoding.UTF8
-                        };
-                        var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetTimeWorkers?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
+                        var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetTimeWorkers?sessionId=" + _sessionId + "&pagenum=" + pagenum + "&pagelength=" + 50);
                         _serializer = new JavaScriptSerializer();
                         var result = _serializer.Deserialize<Dictionary<string, object>>(json);
                         status = (int)result["StatusCode"];
@@ -126,11 +111,8 @@ namespace Site.TimeTable
 
         protected void FacultyListLoad()
         {
-            _client = new WebClient
-            {
-                Encoding = System.Text.Encoding.UTF8
-            };
-            var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetFaculties?sessionId=" + _sessionId);
+
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetFaculties?sessionId=" + _sessionId);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -147,13 +129,8 @@ namespace Site.TimeTable
 
         protected void SubdivisionListLoad()
         {
-            _client = new WebClient
-            {
-                Encoding = System.Text.Encoding.UTF8
-            };
-            var json =
-                _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetSubdivisions?sessionId=" + _sessionId +
-                                       "&facultyId=" + facultylist.SelectedValue);
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetSubdivisions?sessionId=" + _sessionId + "&facultyId=" + facultylist.SelectedValue);
+
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -170,11 +147,8 @@ namespace Site.TimeTable
 
         protected void SpecialitiesLoad()
         {
-            _client = new WebClient
-            {
-                Encoding = System.Text.Encoding.UTF8
-            };
-            var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetSpecialities?sessionId=" + _sessionId + "&subdivisionId=" + subdivisionlist.SelectedValue);
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetSpecialities?sessionId=" + _sessionId + "&subdivisionId=" + subdivisionlist.SelectedValue);
+
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -192,11 +166,8 @@ namespace Site.TimeTable
 
         protected void StudyFormListLoad()
         {
-            _client = new WebClient
-            {
-                Encoding = System.Text.Encoding.UTF8
-            };
-            var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetStudyForms?sessionId=" + _sessionId);
+
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetStudyForms?sessionId=" + _sessionId);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -213,13 +184,7 @@ namespace Site.TimeTable
 
         protected void SubjectsLoad()
         {
-            _client = new WebClient
-            {
-                Encoding = System.Text.Encoding.UTF8
-            };
-
-            var json =
-                _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetSubjects?sessionId=" + _sessionId +
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetSubjects?sessionId=" + _sessionId +
                                        "&course=" + courselist.SelectedValue + "&specialityId=" +
                                        specialitylist.SelectedValue + "&studyFormId=" +
                                        studyformlist.SelectedValue);
@@ -239,11 +204,7 @@ namespace Site.TimeTable
 
         private void StudyGroupLoad()
         {
-            _client = new WebClient
-            {
-                Encoding = System.Text.Encoding.UTF8
-            };
-            var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetStudyGroups?sessionId=" + _sessionId + "&specialityId=" + specialitylist.SelectedValue);
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetStudyGroups?sessionId=" + _sessionId + "&specialityId=" + specialitylist.SelectedValue);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -260,12 +221,7 @@ namespace Site.TimeTable
 
         private void BuildingLoad()
         {
-            _client = new WebClient
-            {
-                Encoding = System.Text.Encoding.UTF8
-            };
-            var json =
-                _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetBuildings?sessionId=" + _sessionId);
+            var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetBuildings?sessionId=" + _sessionId);
             _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -346,11 +302,8 @@ namespace Site.TimeTable
                 subjectlist.SelectedValue != "" && buildinglist.SelectedValue != "" && lessonlist.SelectedValue != "" &&
                 weekdaylist.SelectedValue != "")
             {
-                _client = new WebClient
-                {
-                    Encoding = System.Text.Encoding.UTF8
-                };
-                var json = _client.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/SaveSubject?sessionId=" + _sessionId + "&timeworker=" + (workerradiolist.SelectedValue == "full" ? "false" : "true") + "&employeeId=" + employeelist.SelectedValue + "&studyGroup=" + studygrouplist.SelectedValue + "&subjectId=" + subjectlist.SelectedValue + "&buildingId=" + buildinglist.SelectedValue + "&timeId=" + lessonlist.SelectedValue + "&weekdayId=" + weekdaylist.SelectedValue + "&weeknum=" + weeknumlist.SelectedValue);
+
+                var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "TimeTable/SaveSubject?sessionId=" + _sessionId + "&timeworker=" + (workerradiolist.SelectedValue == "full" ? "false" : "true") + "&employeeId=" + employeelist.SelectedValue + "&studyGroup=" + studygrouplist.SelectedValue + "&subjectId=" + subjectlist.SelectedValue + "&buildingId=" + buildinglist.SelectedValue + "&timeId=" + lessonlist.SelectedValue + "&weekdayId=" + weekdaylist.SelectedValue + "&weeknum=" + weeknumlist.SelectedValue);
                 _serializer = new JavaScriptSerializer();
                 var result = _serializer.Deserialize<Dictionary<string, object>>(json);
 

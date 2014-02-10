@@ -57,9 +57,6 @@ namespace Site.Authentication
             else
             {
                 Response.Write("<script type='text/javascript'>alert('" + "Помилка при авторизації!!!" + "');</script>");
-                //Response.Redirect("/Authentication/Authentication.aspx");
-                //Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "SCRIPT", string.Format("alert('Помилка при авторизації!!!\\n')"), true);
-
             }
         }
 

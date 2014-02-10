@@ -13,17 +13,15 @@ namespace Site.Authentication
         {
             if (SessionId != null)
             {
-                Dictionary<string, object> answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + SessionId.ToString());
-                ArrayList Data;
+                var answer = Helper.GetData(Campus.SDK.Client.ApiEndpoint + "message/GetUserConversations?sessionId=" + SessionId.ToString());
 
                 if (answer != null)
                 {
-
-                    Data = (ArrayList)answer["Data"];
+                    ArrayList Data = (ArrayList)answer["Data"];
 
                     for (int i = Data.Count - 1; i >= 0; i--)
                     {
-                        Dictionary<string, object> kvData = (Dictionary<string, object>)Data[i];
+                        var kvData = (Dictionary<string, object>)Data[i];
                         LinkButtonsRendering(kvData);
                     }
                 }
@@ -36,13 +34,9 @@ namespace Site.Authentication
             }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-
-            }
-
+            base.OnLoad(e);
         }
 
         protected void messageLink_Click(object sender, EventArgs e)
@@ -116,12 +110,13 @@ namespace Site.Authentication
             lastPhoto.Attributes.Add("class", "lastPhoto");
             lastSender.Attributes.Add("class", "lastSender text-warning");
             lastText.Attributes.Add("class", " lastText text-success");
-            
+
             date.Attributes.Add("id", "date");
             date.Attributes.Add("class", "text-warning");
 
             subject.InnerText = Data["Subject"].ToString();
-            for (int i = 0; i < UserData.Count; i++) {
+            for (int i = 0; i < UserData.Count; i++)
+            {
                 Dictionary<string, object> currUser = (Dictionary<string, object>)UserData[i];
                 if (currUser["UserAccountId"].ToString() == Data["LastSenderUserAccountId"].ToString())
                 {
@@ -130,12 +125,12 @@ namespace Site.Authentication
                     lastText.InnerText = Data["LastMessageText"].ToString();
                 }
             }
-           
+
             date.InnerText = Data["LastMessageDate"].ToString();
 
-           
+
             last.Controls.Add(lastPhoto);
-             last.Controls.Add(lastSender);
+            last.Controls.Add(lastSender);
             last.Controls.Add(lastText);
             infoDiv.Controls.Add(subject);
             infoDiv.Controls.Add(last);
@@ -148,13 +143,9 @@ namespace Site.Authentication
 
         }
 
-
-
         protected void NewMessage_Click(object sender, EventArgs e)
         {
             Response.Redirect("NewMessage.aspx");
         }
-
-
     }
 }

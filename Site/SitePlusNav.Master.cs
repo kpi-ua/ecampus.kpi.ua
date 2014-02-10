@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Web.UI.HtmlControls;
+using Core;
 
 namespace Site
 {
-    public partial class SitePlusNav : System.Web.UI.MasterPage
+    public partial class SitePlusNav : SiteMasterPage
     {
         protected override void OnLoad(EventArgs e)
         {
@@ -17,9 +18,7 @@ namespace Site
 
                 if ((Convert.ToBoolean(Session["SaveIn"]) == true) && ((Request.Cookies["Session"] == null) || (Request.Cookies["Session"].Value == "")))
                 {
-
                     Response.Redirect("/Authentication/Authentication.aspx");
-
                 }
                 else
                 {
@@ -28,9 +27,9 @@ namespace Site
                     ExitLink.PostBackUrl = Request.Url.AbsoluteUri.ToString();
                     string sessionId = Session["UserData"].ToString();
 
-                    WebClient client = new WebClient();
-                    client.Encoding = System.Text.Encoding.UTF8;
-                    var json = client.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
+
+
+                    var json = Helper.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessionId);
                     var serializer = new JavaScriptSerializer();
                     Dictionary<string, object> respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -52,6 +51,7 @@ namespace Site
             }
             catch (Exception ex)
             {
+
                 UserName.Text = "Ошибка при загрузке страницы!!!";
             }
         }
@@ -60,8 +60,10 @@ namespace Site
         {
             if (Convert.ToBoolean(Session["SaveIn"]) == true)
             {
+                SessionId = String.Empty;
                 Response.Cookies["Session"].Value = null;
             }
+
             Response.Redirect("/Authentication/Authentication.aspx");
         }
     }
