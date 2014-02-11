@@ -12,14 +12,23 @@ namespace Campus.SDK
     /// </summary>
     public class Client
     {
+        public const string ApiEndpoint = "http://api.ecampus.kpi.ua/";
+
         /// <summary>
         /// 
         /// </summary>
         public static IWebProxy Proxy { get; set; }
 
-        public const string ApiEndpoint = "http://api.ecampus.kpi.ua/";
+        public static Func<String, HttpMethod, byte[], String> GetFromCache;
+        public static Action<String, HttpMethod, byte[], String> AddToCache;
 
         private DateTime _authenticatedTime;
+
+        public Client()
+        {
+            Proxy = null;
+            SessionId = String.Empty;
+        }
 
         /// <summary>
         /// 
@@ -32,11 +41,6 @@ namespace Campus.SDK
         public bool SessionIsActual
         {
             get { return _authenticatedTime.AddMinutes(18) > DateTime.Now && !String.IsNullOrEmpty(SessionId); }
-        }
-
-        public Client()
-        {
-            SessionId = String.Empty;
         }
 
         /// <summary>
@@ -120,14 +124,6 @@ namespace Campus.SDK
         public Result Post(string url, System.Collections.IDictionary form)
         {
             throw new NotImplementedException();
-
-            foreach (var item in form)
-            {
-
-            }
-
-            var json = "";
-            return Result.Parse(json);
         }
 
         /// <summary>
@@ -139,6 +135,16 @@ namespace Campus.SDK
         /// <returns></returns>
         public Result Request(string url, HttpMethod method, byte[] bytes)
         {
+            if (GetFromCache != null)
+            {
+                var value = GetFromCache(url, method, bytes);
+
+                if (!String.IsNullOrEmpty(value))
+                {
+                    return Result.Parse(value);
+                }
+            }
+
             var handler = new HttpClientHandler();
 
             if (Proxy != null)
@@ -184,6 +190,11 @@ namespace Campus.SDK
             }
 
             var json = result.Result;
+
+            if (AddToCache != null)
+            {
+                AddToCache(url, method, bytes, json);
+            }
 
             return Result.Parse(json);
         }
