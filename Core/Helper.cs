@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Http;
+using System.Web.Helpers;
 using System.Web.Script.Serialization;
 using System.Web.UI.HtmlControls;
 using NLog;
 
 namespace Core
 {
-    public class Helper
+    public static class Helper
     {
         private static WebClient _client;
 
@@ -19,9 +21,7 @@ namespace Core
                 //var client = new Campus.SDK.Client();
                 //var result = client.Get(request);
 
-                var client = CreateWebClient();
-
-                var json = client.DownloadString(url);
+                var json = DownloadString(url);
                 var serializer = new JavaScriptSerializer();
                 var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
@@ -36,9 +36,19 @@ namespace Core
         }
         public static string DownloadString(string url)
         {
-            var client = CreateWebClient();
-            var json = client.DownloadString(url);
-            return json;
+            var text = Cache.Get(url);
+
+            if (String.IsNullOrEmpty(text))
+            {
+                var client = CreateWebClient();
+                text = client.DownloadString(url);
+                Cache.Set(url, text);
+                return text;
+            }
+            else
+            {
+                return text;
+            }
         }
 
         private static WebClient CreateWebClient()

@@ -1,6 +1,8 @@
-﻿using Campus.SDK;
+﻿using System.Net.Http;
+using Campus.SDK;
 using System;
 using System.Net;
+using Core;
 
 namespace Site
 {
@@ -13,9 +15,14 @@ namespace Site
             {
                 Credentials = new NetworkCredential("kbis_user", "kbis13")
             };
+            
+            //Client.Proxy = proxy;
 
-            Client.Proxy = proxy;
+            Campus.SDK.Client.GetFromCache += Cache.Get;
+            Campus.SDK.Client.AddToCache += Cache.Set;
         }
+
+        
 
         protected void Session_Start(object sender, EventArgs e)
         {
