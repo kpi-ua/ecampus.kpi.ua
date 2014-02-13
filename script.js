@@ -95,7 +95,7 @@ function progressBar(show){
 }
 
 function displayResult(result){
-    var json = JSON.stringify(result);
+    var json = JSON.stringify(result, null, "\t");
     $("#message-box").val(json);
 }
 
