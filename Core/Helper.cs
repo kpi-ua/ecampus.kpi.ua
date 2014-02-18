@@ -36,19 +36,16 @@ namespace Core
         }
         public static string DownloadString(string url)
         {
-            var text = Cache.Get(url);
+            var text = Cache.Get(url, HttpMethod.Get, null);
 
             if (String.IsNullOrEmpty(text))
             {
                 var client = CreateWebClient();
                 text = client.DownloadString(url);
-                Cache.Set(url, text);
-                return text;
+                Cache.Set(url, HttpMethod.Get, null, text);
             }
-            else
-            {
-                return text;
-            }
+
+            return text;
         }
 
         private static WebClient CreateWebClient()

@@ -1,24 +1,27 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Helpers;
 
 namespace Core
 {
     public static class Cache
     {
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         private static readonly HashSet<string> _keys = new HashSet<string>();
         public static void Set(string url, HttpMethod method, byte[] form, string json)
         {
-            if (form != null)
+            var key = GenerateKey(url, method, form);
+
+            _logger.Info("set: " + key + " : " + json);
+
+            if (form != null || !url.Contains("GetCurrent"))
             {
                 return;
             }
-
-            var key = GenerateKey(url, method, form);
+            
             Set(key, json);
         }
 
@@ -46,15 +49,17 @@ namespace Core
             _keys.Clear();
         }
 
-        public static void Set(string key, string value)
+        private static void Set(string key, string value)
         {
             _keys.Add(key);
             WebCache.Set(key, value, 5);
         }
 
-        public static string Get(string key)
+        private static string Get(string key)
         {
             var data = WebCache.Get(key);
+
+            _logger.Info("get: " + key + " : " + data);
 
             if (data == null)
             {

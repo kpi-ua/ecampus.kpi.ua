@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Web;
+using Campus.SDK;
 using Core;
 
 namespace Site.Authentication
 {
     public partial class WebForm1 : SitePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             if (!Page.IsPostBack)
             {
 
@@ -28,7 +31,10 @@ namespace Site.Authentication
         protected void Enter_Click(object sender, EventArgs e)
         {
             var client = new Campus.SDK.Client();
-            client.Authenticate(User.Text, Pass.Text);
+            
+            var sessionId = client.Authenticate(User.Text, Pass.Text);
+
+            Logger.Info(String.Format("SessionId: {0}", sessionId));
 
             if (!String.IsNullOrEmpty(client.SessionId))
             {
