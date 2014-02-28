@@ -1,0 +1,159 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body,html{
+    height: 100%;
+}
+
+.row:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.pull-left{
+    float: left;
+}
+
+.pull-right{
+    float: right;
+}
+
+a, .btn{
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -o-transition: all .3s ease;
+}
+
+.btn:focus, .btn:active:focus{
+    outline: none !important;
+}
+
+/* =======LOGIN PAGE====== */
+
+.login-wrap{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: #349a64;
+}
+
+.login-box{
+    position: relative;
+    width: 300px;
+    margin: 180px auto 0 auto;
+    color: #fff;
+}
+
+.login-box a{
+    color: #afdfca;
+    text-decoration: underline;
+}
+
+.login-box a:hover{
+    color: #fff;
+}
+
+.login-logo{
+    width: 200px;
+    height: 115px;
+    margin: 0 auto 50px auto;
+    background: url("../img/logo_big.png") center no-repeat;
+}
+
+.login-box .form-group>label{
+    display: none;
+}
+
+.login-box .form-group>label{
+    display: inline-block \0/;
+}
+
+.login-box .form-group:last-child{
+    margin-top: 10px;
+}
+
+.login-form .btn-success{
+    border-color: #51b875;
+    background-color: #6fc48a;
+}
+
+.login-form .btn-success:hover{
+    border-color: #51b875;
+    background-color: #51b875;
+}
+
+.login-form input[type="checkbox"]{
+    display: none;
+}
+
+.login-form .checkbox+label{
+    font-weight: normal;
+    padding-bottom: 0;
+    cursor: pointer;
+}
+
+.login-form .checkbox{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    min-height: 16px;
+    margin: 0  4px 0 0;
+    padding: 0;
+    vertical-align: top;
+    background-image: url("../img/checkbox_sprite.png");
+    background-position: 16px;
+    cursor: pointer;
+}
+
+.remeber-me input[type="checkbox"]:checked+.checkbox{
+    background-position: 0;
+}
+
+@media screen and (max-width: 480px){
+    .login-box{
+        margin-top: 0;
+    }
+}
