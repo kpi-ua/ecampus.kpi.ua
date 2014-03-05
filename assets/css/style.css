@@ -44,6 +44,10 @@ table {
 
 body,html{
     height: 100%;
+    color: #111;
+    font-family: 'Open Sans', sans-serif !important;
+    font-size: 1em;
+    background: #fff;
 }
 
 .row:after{
@@ -60,11 +64,11 @@ body,html{
     float: right;
 }
 
-a, .btn{
+a:hover, .btn:hover{
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
-    -ms-transition: all .3s ease;
     -o-transition: all .3s ease;
+    transition: all .3s ease;
 }
 
 .btn:focus, .btn:active:focus{
@@ -74,16 +78,13 @@ a, .btn{
 /* =======LOGIN PAGE====== */
 
 .login-wrap{
-    position: absolute;
-    height: 100%;
-    width: 100%;
     background-color: #349a64;
 }
 
 .login-box{
     position: relative;
     width: 300px;
-    margin: 180px auto 0 auto;
+    margin: 60px auto 0 auto;
     color: #fff;
 }
 
@@ -98,9 +99,9 @@ a, .btn{
 
 .login-logo{
     width: 200px;
-    height: 115px;
-    margin: 0 auto 50px auto;
-    background: url("../img/logo_big.png") center no-repeat;
+    height: 123px;
+    margin: 0 auto 20px auto;
+    background: url("../img/logo-big.png") center no-repeat;
 }
 
 .login-box .form-group>label{
@@ -152,8 +153,548 @@ a, .btn{
     background-position: 0;
 }
 
+/*=== main pages ===*/
+
+.container{
+    width: 100%;
+    margin: auto;
+}
+
+.container:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.wrap{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -90px;
+    padding-bottom: 90px;
+}
+
+.header{
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    background: #fff;
+}
+
+.header:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.top-header:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.menu-toggle{
+    display: none;
+    height: 40px;
+    width: 40px;
+    color: #349a64;
+    margin: 10px 0 0 10px;
+    border: 1px solid #349a64;
+    border-radius: 4px;
+    font-size: 1.5em;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menu-toggle:hover{
+    color: #ffffff;
+    background: #349a64;
+}
+
+.menu-toggle i{
+    line-height: 40px;
+    font-size: 1.1em;
+}
+
+.header .logo-kpi{
+    width: 34px;
+    height: 48px;
+    padding: 0 46px;
+    margin-top: 6px;
+    background: url("../img/logo-kpi.png") center no-repeat;
+}
+
+.header .header-nav{
+    width: 1024px\9;
+    width: 100%;
+    padding: 15px 0;
+    background-color: #349a64;
+}
+
+.header .header-nav:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.header .text{
+    padding: 10px 0;
+    color: #006633;
+    text-align: right;
+}
+
+.header-logo{
+    width: 130px;
+    height: 80px;
+    margin-left: 20px;
+    background: url("../img/logo-small.png") center no-repeat;
+}
+
+.header-nav .navbar{
+    display: block;
+    margin: 0 20px 0 0;
+    line-height: 80px;
+}
+
+.navbar>li{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.navbar>li>a{
+    display: block;
+    height: 40px;
+    width: 40px;
+    color: #fff;
+    margin-left: 4px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.navbar>li>a>i{
+    font-size: 2em;
+    line-height: 40px;
+    vertical-align: top;
+}
+
+.navbar>li>a:hover{
+    background: #7ecca0;
+}
+
+.carousel{
+    position: relative;
+    height: 213px;
+    max-height: 213px;
+    padding: 0 40px;
+    overflow: hidden;
+}
+
+.carousel:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.carousel>.carousel-prev,
+.carousel>.carousel-next{
+    position: absolute;
+    width: 40px;
+    height: 100%;
+    color: #663300;
+    line-height: 40px;
+    text-align: center;
+    background-color: #f5ef97;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.carousel>.carousel-prev:hover,
+.carousel>.carousel-next:hover{
+    color: #c5a31b;
+    background: #feffc5;
+}
+
+.carousel>.carousel-prev>i,
+.carousel>.carousel-next>i{
+    line-height: 213px;
+}
+
+.carousel>.carousel-prev{
+    left: 0;
+}
+
+.carousel>.carousel-next{
+    right: 0;
+}
+
+.carousel-wrap{
+
+}
+
+.carousel .slide{
+    position: absolute;
+    top : 0;
+    left: 50px;
+    width: 280px;
+    height: 100%;
+}
+
+.slide-content{
+    height: 100%;
+}
+
+.slide-content>a{
+    position: relative;
+    display: block;
+    height: 100%;
+}
+
+.slide-content img{
+    width: 100%;
+}
+
+.slide-content:hover img{
+    opacity: 0.8;
+}
+
+.slide-content .slide-title{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 20px;
+    color: #663300;
+    background: #f5e556;
+    z-index: 2;
+}
+
+.content{
+    overflow: hidden;
+}
+
+.content .left-col{
+    display: block;
+    float: left;
+    width: 200px;
+    margin-top: 20px;
+}
+
+.content .md-col{
+    min-height: 35px;
+    padding: 0 10px;
+    margin: 20px 220px 0 200px;
+}
+
+.content .right-col{
+    position: relative;
+    float: right;
+    width: 220px;
+    margin: 20px 0 0 -220px;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.right-col.show{
+    right: 0 !important;
+    -webkit-transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.right-col.show .datepicker{
+    display: block !important;
+}
+
+.right-col.show .datepicker-toggle{
+    right: 0 !important;
+    border-right: none !important;
+}
+
+.left-nav{
+    margin: 0;
+    padding: 0;
+}
+
+.left-nav a{
+    display: block;
+    position: relative;
+    padding: 8px 18px 8px 12px;
+    color: #663300;
+    text-decoration: none;
+}
+
+.left-nav a:hover{
+    color: inherit;
+    text-decoration: none;
+}
+
+.left-nav>li>a{
+    border-bottom: 1px solid #fff;
+    background: #f5e556;
+    cursor: pointer;
+}
+
+.left-nav>li>a>.chevron{
+    display: block;
+    font-family: 'FontAwesome';
+    position: absolute;
+    height: 100%;
+    right: 8px;
+    top: 0;
+    padding: 10px 0;
+    font-size: 0.8em;
+    color: #663300;
+}
+
+.left-nav>li>a>.chevron.down:after{
+    display: inline-block;
+    content: "\f077";
+    text-shadow: none;
+}
+
+.left-nav>li>a>.chevron:after{
+    display: inline-block;
+    content: "\f078";
+    text-shadow: none;
+}
+
+.left-nav>li.dropmenu>a.active{
+    border-bottom: 1px solid #c5a31b;
+}
+
+.left-nav>li>a:hover{
+    background: #ffffae;
+    box-shadow: inset 9px 0 0 -4px #c5a31b;
+}
+
+.left-nav>li>a.active{
+    background: #ffffae;
+    box-shadow: inset 9px 0 0 -4px #c5a31b;
+    border-bottom: 1px solid #c5a31b;
+}
+
+.left-nav>li>.submenu{
+    display: none;
+    margin-left: 4px;
+    box-shadow: inset 5px 0 0 -4px #c5a31b;
+    background: #c5a31b;
+    overflow: hidden;
+}
+
+.left-nav>li>.submenu.show{
+    display: block;
+    height: auto;
+    border-bottom: 1px solid #fff;
+}
+
+.left-nav>li>ul>li>a{
+    padding-left: 20px;
+    border-bottom: 1px solid #c5a31b;
+    box-shadow: inset 5px 0 0 -4px #c5a31b;
+    background: #f5ef97;
+}
+
+.left-nav>li>ul>li>a:hover{
+    background: #feffc5;
+    box-shadow: inset 9px 0 0 -4px #e6c31c;
+}
+
+.datepicker-toggle{
+    display: none;
+    position: absolute;
+    width: 40px;
+    height: 35px;
+    left: -40px;
+    border: 1px solid #c5a31b;
+    color: #663300;
+    background: #f5e556;
+    text-align: center;
+    cursor: pointer;
+    z-index: 15;
+}
+
+.datepicker-toggle i{
+    line-height: 35px;
+}
+
+.datepicker-toggle:hover{
+    border: 1px solid #f5e556;
+    background: #f5ef97;
+}
+
+.footer{
+    position: relative;
+    height: 90px;
+    padding: 18px 0;
+    color: #fff;
+    background: #349a64;
+}
+
+.footer .text-left{
+    margin-left: 18px;
+}
+
+.footer .text-right{
+    margin-right: 18px;
+}
+
+.footer:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+@media screen and (max-width: 1024px){
+    .container{
+        width: 100% !important;
+    }
+
+    .header .header-nav{
+        padding: 15px 10px;
+    }
+
+}
+
+@media screen and (max-width: 960px){
+
+    .slide{
+        width: 240px !important;
+    }
+
+    .content .right-col{
+        float: right;
+        right: -220px;
+    }
+
+    .content .md-col {
+        margin: 20px 40px 0 200px;
+    }
+
+    .content .right-col .datepicker{
+        display: none;
+    }
+
+    .datepicker-toggle{
+        display: block;
+    }
+
+}
+
+@media screen and (max-width: 835px){
+    .slide{
+        width: 280px !important;
+    }
+}
+
+
+
+@media screen and (max-width: 768px){
+
+    .wrap{
+        margin-bottom: -50px !important;
+        padding-bottom: 50px !important;
+    }
+
+    .footer{
+        padding: 5px 0 !important;
+        height: 50px !important;
+        font-size: 0.7em;
+    }
+
+    .menu-toggle{
+        display: block;
+    }
+
+    .content .left-col{
+        float: none !important;
+        display: none;
+        width: 100%;
+    }
+
+    .content .md-col {
+        width: 100%;
+        margin: 20px 0 0 0 !important;
+    }
+
+    .content .right-col .datepicker{
+        display: none;
+    }
+
+    .footer>.text-left{
+        padding-left: 5px;
+    }
+
+    .footer>.text-right{
+        padding-rigth: 5px;
+    }
+}
+
+@media screen and (min-width: 768px){
+    .content .left-col{
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 520px){
+    .top-header .text{
+        display: none;
+    }
+}
+
 @media screen and (max-width: 480px){
+    .wrap{
+        margin-bottom: -106px !important;
+        padding-bottom: 106px !important;
+    }
+
+    .header{
+        font-size: 0.8em;
+        margin-bottom: 0;
+    }
+
+    .logo-kpi{
+        padding: 0 24px !important;
+    }
+
     .login-box{
+        margin-top: 10px;
+    }
+
+    .carousel{
+        display: none;
+    }
+
+    .content .right-col{
         margin-top: 0;
+    }
+
+    .content .left-col{
+        margin-top: 0;
+    }
+
+    .footer{
+        height: auto !important;
+    }
+
+    .footer>div{
+        float: none !important;
+        margin-bottom: 6px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 379px){
+    .header{
+        font-size: 0.67em;
+    }
+}
+
+@media screen and (max-width: 350px){
+    .login-box{
+        width: 270px;
     }
 }
