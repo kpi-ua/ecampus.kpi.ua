@@ -1,54 +1,46 @@
 ﻿body {
 }
 
-#body_UserList
-{
-    
-    min-width:600px;
-    max-width:600px;
+#body_UserList {
+    min-width: 600px;
+    max-width: 600px;
 }
 
-#UserListControl
-{
-    margin-top:20px;
+#UserListControl {
+    margin-top: 20px;
 }
 
-#UserListControlName
-{
-    position:relative;
-    min-width:600px !important;
-    max-width:600px !important;
-    width:600px !important;
-    max-height:10px !important;
-    height:20px !important;
-    display:compact;
-    border-right:1px solid #ccc !important;
-    border-bottom:0px;
+#UserListControlName {
+    position: relative;
+    min-width: 600px !important;
+    max-width: 600px !important;
+    width: 600px !important;
+    max-height: 10px !important;
+    height: 20px !important;
+    display: compact;
+    border-right: 1px solid #ccc !important;
+    border-bottom: 0px;
     border-radius: 5px 5px 0px 0px !important;
 }
 
-#SubjectDiv, #TextDiv
-{
-     min-width:600px !important;
-     max-width:600px !important;
-     margin-top:50px;
+#SubjectDiv, #TextDiv {
+    min-width: 600px !important;
+    max-width: 600px !important;
+    margin-top: 50px;
 }
 
-#SubjectName, #TextName
-{
-     border-right:1px solid #ccc !important;
-     border-bottom:0px;
-     border-radius: 5px 5px 0px 0px !important;
+#SubjectName, #TextName {
+    border-right: 1px solid #ccc !important;
+    border-bottom: 0px;
+    border-radius: 5px 5px 0px 0px !important;
 }
 
-#body_Subject, #body_Text
-{
+#body_Subject, #body_Text {
     border-radius: 0px 0px 5px 5px !important;
 }
 
-#SendMessage
-{
-    margin-top:50px;
-    margin-left:-20px;
-    height:40px;
+#SendMessage {
+    margin-top: 50px;
+    margin-left: -20px;
+    height: 40px;
 }
