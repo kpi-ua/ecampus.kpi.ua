@@ -1,5 +1,6 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -293,7 +294,7 @@ namespace Campus.SDK
         #endregion
 
         /// <summary>
-        /// Build URL for API method
+        /// Build URL for API method call
         /// </summary>
         /// <param name="controller">Contorller name</param>
         /// <param name="method">Method name</param>
@@ -302,6 +303,47 @@ namespace Campus.SDK
         public static string BuildUrl(string controller, string method, string arguments = "")
         {
             return String.Format("{0}{1}/{2}{3}", ApiEndpoint, controller, method, arguments);
+        }
+
+        /// <summary>
+        /// Build URL for API method call
+        /// </summary>
+        /// <param name="controller">Contorller name</param>
+        /// <param name="method">Method name</param>
+        /// <param name="arguments">Arguments</param>
+        /// <returns>Url for method call</returns>
+        public static string BuildUrl(string controller, string method, IEnumerable<KeyValuePair<string, object>> arguments)
+        {
+            string x = String.Empty;
+
+            if (arguments != null && arguments.Any())
+            {
+                x = "?" + String.Join("&", arguments.Select(o => String.Format("{0}={1}", o.Key, o.Value)));
+            }
+
+            return BuildUrl(controller, method, x);
+        }
+        
+        /// <summary>
+        /// Build URL for API method call
+        /// </summary>
+        /// <param name="controller">Contorller name</param>
+        /// <param name="method">Method name</param>
+        /// <param name="arguments">Arguments</param>
+        /// <returns>Url for method call</returns>
+        public static string BuildUrl(string controller, string method, Object arguments)
+        {
+            var type = arguments.GetType();
+
+            var properties = type.GetProperties();
+            var fields = type.GetFields();
+
+            var arr1 = properties.ToDictionary(o => o.Name, p => p.GetValue(arguments, null));
+            var arr2 = fields.ToDictionary(f => f.Name, f => f.GetValue(arguments));
+
+            var result = arr1.Union(arr2);
+
+            return BuildUrl(controller, method, result);
         }
     }
 }
