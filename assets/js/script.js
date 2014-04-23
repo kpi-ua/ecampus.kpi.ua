@@ -1,6 +1,20 @@
-$(function(){
-    $(document).ready(function(){
+$(document).ready(function(){
 
+    if (!("campus" in window)) {
+        window.campus = {};
+    }
+
+    jQuery(function () {
+        campus.datepickerHandler(jQuery);
+        campus.menuHandler(jQuery);
+        campus.calendarToggler(jQuery);
+        // campus.carousel(jQuery);
+        campus.carousel(jQuery);
+        campus.scrollTop(jQuery);
+    });
+
+
+    campus.datepickerHandler = function(){
         $('.datepicker').datepicker({
             altFormat: 'dd-mm-yy',  // Date Format used
             closeText: "Готово", // Display text for close link
@@ -16,6 +30,19 @@ $(function(){
             firstDay: 1 // Start with Monday
         })
 
+        $(".datepicker-toggle").on("click", function(){
+            $(".right-col").toggleClass("show");
+            $(".datepicker-messages").toggleClass("show");
+        });
+
+        var eventCount = $(".event").length;
+        if (eventCount>0) {
+            $(".datepicker-label").html(eventCount).show();
+        }
+
+    }
+
+    campus.menuHandler = function(){
         $(".left-nav li").on("click", function(){
             var $this = $(this).children("a"),
                 $chevron = $this.children(".chevron");
@@ -26,104 +53,157 @@ $(function(){
             $(this).children(".submenu").slideToggle(300);
         })
 
-        var carousel = function(){
-            var carWidth = $(".carousel").width(),
-                slideWidth = $(".slide").width(),
-                slidePos = 0,
-                spaceWidth,
-                slideCoords = [];
-
-            for(var i = 0; i< $(".slide").length; i++){
-                $(".slide")[i].id="slide"+i;
-            }
-            if ($(window).width()>=1500){
-                spaceWidth = (carWidth - slideWidth*5)/6;
-            }
-            if ($(window).width()>=1180){
-                spaceWidth = (carWidth - slideWidth*4)/5;
-            }
-            if ($(window).width()<1180){
-                spaceWidth = (carWidth - slideWidth*3)/4;
-            }
-            if ($(window).width()<=820){
-                spaceWidth = (carWidth - slideWidth*2)/3;
-            }
-            if ($(window).width()<=680){
-                spaceWidth = (carWidth - slideWidth)/2;
-            }
-            for(var i = 0; i< $(".slide").length; i++){
-                slideCoords.push(40+spaceWidth*(i+1)+slideWidth*i);
-                $("#slide"+i).css({left:slideCoords[i]+"px"});
-            }
-            console.log(slideCoords);
-
-            $(window).on("resize", function(){
-                carWidth = $(".carousel").width();
-                slideWidth = $(".slide").width();
-                if ($(window).width()>=1500){
-                    spaceWidth = (carWidth - slideWidth*5)/6;
-                }
-                if ($(window).width()>=1220){
-                    spaceWidth = (carWidth - slideWidth*4)/5;
-                }
-                if ($(window).width()<1220){
-                    spaceWidth = (carWidth - slideWidth*3)/4;
-                }
-                if ($(window).width()<=820){
-                    spaceWidth = (carWidth - slideWidth*2)/3;
-                }
-                if ($(window).width()<=680){
-                    spaceWidth = (carWidth - slideWidth)/2;
-                }
-
-                for(var i = 0; i< $(".slide").length; i++){
-                    slideCoords[i]=(40+spaceWidth*(i+1)+slideWidth*i);
-                    $("#slide"+i).css({left:slideCoords[i]+"px"});
-                }
-
-            })
-
-            $(".carousel-prev").on("click",function(){
-                console.log("prev");
-                var buf = slideCoords.shift();
-                slideCoords.push(buf);
-                for(var i = 0; i< $(".slide").length; i++){
-                    $("#slide"+i).animate({left:slideCoords[i]+"px"},200)
-                }
-                for(var i = 0; i< $(".slide").length; i++){
-                    if ($("#slide"+i).position().left == slidePos){
-                        console.log(i);
-                    }
-                }
-
-            });
-
-            $(".carousel-next").on("click",function(){
-                console.log("next");
-                for(var i = 0; i< $(".slide").length; i++){
-                    $("#slide"+i).css({left:slideCoords[i]+"px"});
-                }
-                var buf = slideCoords.pop();
-                slideCoords.unshift(buf);
-
-                for(var i = 0; i< $(".slide").length; i++){
-                    $("#slide"+i).animate({left:slideCoords[i]+"px"},200)
-                }
-
-            });
-
-
-        }
-
-        $(".datepicker-toggle").on("click", function(){
-            $(".right-col").toggleClass("show");
-        });
-
         $(".menu-toggle").on("click", function(){
             $(".left-col").slideToggle(300);
         })
-        carousel();
+    }
 
-    })
+    campus.carousel = function(){
+        var visibleSlideCount;
+
+        $(document).on("ready", function(){
+            carouselBuild();
+        })
+
+        $(window).on('resize', function() {
+            carouselBuild();
+        });
+
+        function carouselBuild () {
+
+            var carWidth = $(".carousel").width(),
+                slideWidth = $(".slide").width(),
+                slideCount = $(".slide").length,
+                position = 0;
+
+            $(".carousel-wrap").css({
+                left: 0
+            });
+
+            visibleSlideCount = parseInt(carWidth/slideWidth);
+
+            if (visibleSlideCount > slideCount){
+                visibleSlideCount = slideCount;
+            }
+
+            var space = (carWidth - slideWidth*visibleSlideCount)/(visibleSlideCount+1);
+
+            if (space<14) {
+                visibleSlideCount-=1;
+                space = (carWidth - slideWidth*visibleSlideCount)/(visibleSlideCount+1);
+            }
+
+            $(".carousel-progress").css({
+                paddingRight: space+"px"
+            })
+            
+            $(".carousel-wrap").css({
+                width: slideWidth*slideCount+space*(slideCount+1)
+            });
+            $(".slide").css({
+                marginRight: space
+            });
+            $(".slide:first-child").css({
+                marginLeft: space
+            });
+
+             //place points
+            $(".carousel-progress").empty();
+
+            for(var i = $(".slide").length - visibleSlideCount; i>=0;  i--){
+                $(".carousel-progress").prepend("<div class='circle' id='circle"+i+"'></div>");
+            }
+
+            for(var i = 1; i< $(".circle").length; i++){
+                $("#circle"+i).removeClass("active");
+            }
+
+            $("#circle0").addClass("active");
+
+            var flagCircle = true;
+
+            $(".circle").on("click", function(event) {
+                console.log($(this).attr("id"));
+                if (flagCircle) {
+                    flagCircle = false;
+                    // position = $(this).attr("id");
+                    console.log(position);
+                    // var wrapLeft = parseFloat($(".carousel-wrap").css("left"));
+                    // $(".carousel-wrap").css({left:wrapLeft - slideWidth - space+"px"});
+                    $(".circle").removeClass('active');
+                    $(this).addClass('active');
+                    setTimeout(function(){flagCircle = true},1100);
+                }
+            });
+
+            var flagPrev = true,
+                flagNext = true;
+
+            $(".carousel-prev").on("click",function(){
+                if (flagPrev) {
+                    if (position<slideCount - visibleSlideCount){
+                        flagPrev = false;
+                        position+=1;
+                        console.log(position);
+                        var wrapLeft = parseFloat($(".carousel-wrap").css("left"));
+                        $(".carousel-wrap").css({left:wrapLeft - slideWidth - space+"px"});
+                        $(".circle").removeClass('active');
+                        $("#circle"+position).addClass('active');
+                        setTimeout(function(){flagPrev = true},1100);
+                    }
+                }
+                
+            });
+
+            $(".carousel-next").on("click",function(){
+                if (flagNext) {
+                    if (position>0){
+                        flagNext = false;
+                        position-=1;
+                        console.log(position);
+                        var wrapLeft = parseFloat($(".carousel-wrap").css("left"));
+                        $(".carousel-wrap").css({left:wrapLeft + slideWidth + space+"px"});
+                        $(".circle").removeClass('active');
+                        $("#circle"+position).addClass('active');
+                        setTimeout(function(){flagNext = true},1100);
+                    }
+                }
+            });          
+        }
+    }
+
+    campus.scrollTop = function(){
+        $(window).on("scroll load", function(){
+            var $scrollTop = $(".scroll-top");
+            var scrollHeight = $(this).scrollTop();
+            if (scrollHeight>=($(document).height()/4)){
+                if (!($scrollTop.hasClass("show"))){
+                    $scrollTop.show();
+                    setTimeout(function(){
+                        $scrollTop.addClass("show")
+                    },200)
+                }
+            } else {
+                if ($scrollTop.hasClass("show")){
+                    $scrollTop.removeClass("show");
+                    setTimeout(function(){
+                        $scrollTop.hide();
+                    },200)
+                }
+            }
+        });
+
+        $(".scroll-top").on("click",function(){
+            $('html, body').animate({scrollTop: 0}, 500);
+        });
+    }
+
+    campus.calendarToggler = function(){
+         $(window).on("scroll load", function(){
+            var scrollHeight = $(this).scrollTop(),
+                rightCol = $(".right-col");
+
+        });
+    }
 
 })
