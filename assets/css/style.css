@@ -509,10 +509,10 @@ a:hover, .btn:hover{
 }
 
 .content .right-col{
-    position: fixed;
-    right: -220px;
-    top: 20px;   
-    width: 220px;
+    position: absolute;
+    right: 0px;
+    top: 410px;   
+    width: 0;
     color: #fff;
     /*-webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
@@ -529,6 +529,7 @@ a:hover, .btn:hover{
 
 .right-col.show{
     right: 0 !important;
+    width: 220px;
   /*  -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;

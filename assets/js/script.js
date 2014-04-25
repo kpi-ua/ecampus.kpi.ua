@@ -8,7 +8,6 @@ $(document).ready(function(){
         campus.datepickerHandler(jQuery);
         campus.menuHandler(jQuery);
         campus.calendarToggler(jQuery);
-        // campus.carousel(jQuery);
         campus.carousel(jQuery);
         campus.scrollTop(jQuery);
     });
@@ -40,6 +39,25 @@ $(document).ready(function(){
             $(".datepicker-label").html(eventCount).show();
         }
 
+        $(window).on('scroll load', function(event) {
+            var scrollHeight = $(this).scrollTop();
+            if (scrollHeight>410){
+                $(".right-col").css({
+                    position : "fixed",
+                    width : 220,
+                    top : 10,
+                    right : -220
+                })
+            } else {
+                $(".right-col").css({
+                    position: "absolute",
+                    right: 0,
+                    top: 410,   
+                    width: 0
+                })
+            }
+        });
+
     }
 
     campus.menuHandler = function(){
@@ -59,7 +77,8 @@ $(document).ready(function(){
     }
 
     campus.carousel = function(){
-        var visibleSlideCount;
+        var visibleSlideCount, 
+            autoSlide;
 
         $(document).on("ready", function(){
             carouselBuild();
@@ -70,7 +89,6 @@ $(document).ready(function(){
         });
 
         function carouselBuild () {
-
             var carWidth = $(".carousel").width(),
                 slideWidth = $(".slide").width(),
                 slideCount = $(".slide").length,
@@ -92,6 +110,8 @@ $(document).ready(function(){
                 visibleSlideCount-=1;
                 space = (carWidth - slideWidth*visibleSlideCount)/(visibleSlideCount+1);
             }
+
+            var step = space + slideWidth;
 
             $(".carousel-progress").css({
                 paddingRight: space+"px"
@@ -120,18 +140,17 @@ $(document).ready(function(){
 
             $("#circle0").addClass("active");
 
+            clearInterval(autoSlide);
+
             var flagCircle = true;
 
             $(".circle").on("click", function(event) {
-                console.log($(this).attr("id"));
                 if (flagCircle) {
                     flagCircle = false;
-                    // position = $(this).attr("id");
-                    console.log(position);
-                    // var wrapLeft = parseFloat($(".carousel-wrap").css("left"));
-                    // $(".carousel-wrap").css({left:wrapLeft - slideWidth - space+"px"});
+                    position = $(this).attr("id").replace( /^\D+/g, '');
                     $(".circle").removeClass('active');
                     $(this).addClass('active');
+                    $(".carousel-wrap").css({left: - (slideWidth + space)*position+"px"});
                     setTimeout(function(){flagCircle = true},1100);
                 }
             });
@@ -144,9 +163,7 @@ $(document).ready(function(){
                     if (position<slideCount - visibleSlideCount){
                         flagPrev = false;
                         position+=1;
-                        console.log(position);
-                        var wrapLeft = parseFloat($(".carousel-wrap").css("left"));
-                        $(".carousel-wrap").css({left:wrapLeft - slideWidth - space+"px"});
+                        $(".carousel-wrap").css({left: - (slideWidth + space)*position+"px"});
                         $(".circle").removeClass('active');
                         $("#circle"+position).addClass('active');
                         setTimeout(function(){flagPrev = true},1100);
@@ -160,15 +177,40 @@ $(document).ready(function(){
                     if (position>0){
                         flagNext = false;
                         position-=1;
-                        console.log(position);
-                        var wrapLeft = parseFloat($(".carousel-wrap").css("left"));
-                        $(".carousel-wrap").css({left:wrapLeft + slideWidth + space+"px"});
+                        $(".carousel-wrap").css({left: - (slideWidth + space)*position+"px"});
                         $(".circle").removeClass('active');
                         $("#circle"+position).addClass('active');
                         setTimeout(function(){flagNext = true},1100);
                     }
                 }
-            });          
+            }); 
+
+            var flagSliding = false;
+
+            function startAutoSlide(){
+                autoSlide = setInterval(function(){
+                    if(!flagSliding){
+                        position+=1;
+                        if (position > (slideCount - visibleSlideCount)) {
+                            position = 0;
+                        }
+                        $(".carousel-wrap").css({left: - (slideWidth + space)*position+"px"});
+                        $(".circle").removeClass('active');
+                        $("#circle"+position).addClass('active');
+                    }
+                },5000);
+            }
+
+            startAutoSlide();
+            
+            $(".carousel").on("mouseenter", function(){
+                clearInterval(autoSlide);
+                flagSliding = false;
+            });
+
+            $(".carousel").on("mouseleave", function(){
+                startAutoSlide();
+            }); 
         }
     }
 
