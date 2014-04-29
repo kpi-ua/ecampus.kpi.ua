@@ -25,9 +25,13 @@ namespace Campus.SDK
 
         private DateTime _authenticatedTime;
 
-        public Client()
+        static Client()
         {
             Proxy = null;
+        }
+
+        public Client()
+        {
             SessionId = String.Empty;
         }
 
