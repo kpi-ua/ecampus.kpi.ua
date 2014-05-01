@@ -34,7 +34,7 @@ namespace Site.Authentication
                 if (answer != null)
                 {
                     Dictionary<string, object> Paging = (Dictionary<string, object>)answer["Paging"];
-                    messages = (ArrayList)(answer["Data"] as Dictionary<string, object>)["Messages"];
+                    messages = (ArrayList)answer["Data"];
                     bool firstPage = Convert.ToBoolean(Paging["IsFirstPage"].ToString());
                     bool lastPage = Convert.ToBoolean(Paging["IsLastPage"].ToString());
                     page = Convert.ToInt32(Paging["PageNumber"].ToString());

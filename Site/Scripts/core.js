@@ -98,7 +98,7 @@ $(document).ready(function () {
         if ($(".search-choice").length > 0) $(".search-field").remove();
     });
 
-    function addNewDialog(conversation) {
+    function addNewDialog(messages, users) {
         var messageLink = $("<a/>");
         var mainDiv = $("<div/>");
         var imgDiv = $("<div/>");
@@ -110,13 +110,12 @@ $(document).ready(function () {
         var lastText = $("<p/>");
         var date = $("<p/>");
 
-        var users = conversation.Users;
         for (var j = 0; j < users.length; j++) {
             var user = users[j];
             $('<img />', { src: user.Photo }).appendTo(imgDiv);
         }
 
-        var lastMsg = conversation.Messages[0];
+        var lastMsg = messages[0];
         lastSender.text(lastMsg.SenderUserAccountFullName);
         lastPhoto.attr("src", lastMsg.SenderUserAccountPhoto);
         lastText.text(lastMsg.Text);
@@ -166,8 +165,11 @@ $(document).ready(function () {
                     $("#body_Subject").val("");
                     $("#body_Text").val("");
                     var getDialogUrl = ApiEndpoint + "message/GetUserConversation?sessionId=" + sessionId + "&groupId=" + groupId;
-                    $.getJSON(getDialogUrl, function (data, status) {
-                        addNewDialog(data.Data);
+                    $.getJSON(getDialogUrl, function (dialogData, status) {
+                        var getDialogUsersUrl = ApiEndpoint + "message/GetUserConversationParticipants?sessionId=" + sessionId + "&groupId=" + groupId;
+                        $.getJSON(getDialogUsersUrl, function (userData, status) {
+                            addNewDialog(dialogData.Data, userData.Data);
+                        });
                     });
                 });
             });

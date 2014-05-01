@@ -297,6 +297,7 @@
     </Compile>
     <Compile Include="SessionManager.asmx.cs">
       <DependentUpon>SessionManager.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
