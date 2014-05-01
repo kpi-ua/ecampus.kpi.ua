@@ -6,6 +6,13 @@ $(document).ready(function () {
 
     $("select").chosen();
 
+    $body = $("body");
+
+    $(document).on({
+        ajaxStart: function () { $body.addClass("loading"); },
+        ajaxStop: function () { $body.removeClass("loading"); }
+    });
+
     $(document).on("click", ".chosen-choices", function (e) {
         if ($(".search-field").length < 1) {
             $(".chosen-choices").append("<li class=\"search-field\"><input type=\"text\" value=\"\" class=\"default\" autocomplete=\"off\" style=\"width: 100%;\"></li>");
@@ -72,6 +79,8 @@ $(document).ready(function () {
                     $(".chosen-results").append("<li class=\"no-results\">Немає співпадінь \"<span>" + $(".search-field input").val() + "</span>\"</li>");
                 };
 
+            }).fail(function (error, text, status) {
+                alert(text + "," + status);
             });
 
         } else if ($(this).val().length == 1) {
@@ -89,6 +98,61 @@ $(document).ready(function () {
         if ($(".search-choice").length > 0) $(".search-field").remove();
     });
 
+    function addNewDialog(dialog) {
+        var messageLink = $("<a/>");
+        var mainDiv = $("<div/>");
+        var imgDiv = $("<div/>");
+        var infoDiv = $("<div/>");
+        var subject = $("<h5/>");
+        var last = $("<p/>");
+        var lastPhoto = $("<img/>");
+        var lastSender = $("<h6/>");
+        var lastText = $("<p/>");
+        var date = $("<p/>");
+
+        var users = [];
+        for (var j = 0; j < dialog.length; j++) {
+            var message = dialog[j];
+            var senderId = message.SenderUserAccountId;
+            if (users.indexOf(senderId) == -1) {
+                users.push(senderId);
+                $('<img />', { src: message.SenderUserAccountPhoto }).appendTo(imgDiv);
+                if (j == 0) {
+                    // last message
+                    lastSender.text(message.SenderUserAccountFullName);
+                    lastPhoto.attr("src", message.SenderUserAccountPhoto);
+                    lastText.text(message.Text);
+                }
+            }
+        }
+
+        var lastMsg = dialog[0];
+        messageLink.attr({ "class": "messageLink", "cId": lastMsg.MassageGroupId, "subj": lastMsg.Subject, "href": "" });
+        mainDiv.attr({ "id": "mainBlock", "class": ".form-inline" });
+        imgDiv.attr({ "id": "imgBlock", "class": "imgBlock" });
+        infoDiv.attr("id", "infoBlock");
+        subject.attr({ "id": "subject", "class": "text-primary" });
+        last.attr({ "id": "last", "class": "text-success" });
+        lastPhoto.attr("class", "lastPhoto");
+        lastSender.attr("class", "lastSender text-warning");
+        lastText.attr("class", " lastText text-success");
+        date.attr({ "id": "date", "class": "text-warning" });
+
+        subject.text(lastMsg.Subject);
+        date.text(dialog.LastMessageDate);
+
+        lastPhoto.appendTo(last);
+        lastSender.appendTo(last);
+        lastText.appendTo(last);
+        subject.appendTo(infoDiv);
+        last.appendTo(infoDiv);
+        date.appendTo(infoDiv);
+        imgDiv.appendTo(mainDiv);
+        infoDiv.appendTo(mainDiv);
+        mainDiv.appendTo(messageLink);
+        messageLink.prependTo($("#body_LinkContainer"));
+    };
+
     $(document).on("click", "#SendMessage", function (e) {
         if ($("#body_Text").val() != "" && $(".search-choice").length > 0) {
             var userList = "";
@@ -98,20 +162,24 @@ $(document).ready(function () {
             });
             var url = ApiEndpoint + "Message/CreateGroup?sessionId=" + sessionId + "&userIdList=" + userList + "&name=" + $("#body_Subject").val();
             $.getJSON(url, function (data, status) {
-                url = ApiEndpoint + "message/SendMessage?sessionId=" + sessionId + "&groupId=" + data.Data + "&text=" + $("#body_Text").val() + "&subject=" + $("#body_Subject").val();
+                var groupId = data.Data;
+                url = ApiEndpoint + "message/SendMessage?sessionId=" + sessionId + "&groupId=" + groupId + "&text=" + $("#body_Text").val() + "&subject=" + $("#body_Subject").val();
                 $.getJSON(url, function (data, status) {
                     console.log(status);
-                    alert("Діалог створено, повідомленні розіслано!");
+                    alert("Діалог створено, повідомлення розіслано!");
                     $(".chosen-choices").empty();
                     $(".chosen-choices").append("<li class=\"search-field\"><input type=\"text\" value=\"Оберіть одержувачів\" class=\"default\" autocomplete=\"off\" style=\"width: 100%;\"></li>");
                     $("#body_Subject").val("");
                     $("#body_Text").val("");
+                    var getDialogUrl = ApiEndpoint + "message/GetUserConversation?sessionId=" + sessionId + "&groupId=" + groupId;
+                    $.getJSON(getDialogUrl, function (data, status) {
+                        addNewDialog(data.Data);
+                    });
                 });
             });
 
         } else alert("Заповніть отримувачів та текст повідомлення!");
     });
-
 
     $("#user_block p a").mouseover(function (e) {
         e = e || window.event;

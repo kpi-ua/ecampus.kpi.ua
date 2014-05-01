@@ -37,15 +37,8 @@ namespace Site
 
                     UserName.Text += Data["FullName"];
 
-                    HtmlGenericControl hiddenField = new HtmlGenericControl("input");
-
-                    hiddenField.Attributes.Add("id", "uhidden");
-
-                    hiddenField.Attributes.Add("type", "hidden");
-
-                    hiddenField.Attributes.Add("value", Data["UserAccountId"].ToString());
-
-                    form1.Controls.Add(hiddenField);
+                    form1.Controls.Add(CreateHiddenInput("uhidden", Data["UserAccountId"].ToString()));
+                    form1.Controls.Add(CreateHiddenInput("hidden", SessionId.ToString()));
                 }
 
             }
@@ -65,6 +58,19 @@ namespace Site
             }
 
             Response.Redirect("/Authentication/Authentication.aspx");
+        }
+
+        private HtmlGenericControl CreateHiddenInput(string id, string value)
+        {
+            HtmlGenericControl hiddenField = new HtmlGenericControl("input");
+
+            hiddenField.Attributes.Add("id", id);
+
+            hiddenField.Attributes.Add("type", "hidden");
+
+            hiddenField.Attributes.Add("value", value);
+
+            return hiddenField;
         }
     }
 }

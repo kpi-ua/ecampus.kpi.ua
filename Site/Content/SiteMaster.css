@@ -374,5 +374,23 @@ footer {
 {
     max-width:160px;
     overflow-wrap:break-word;
+}
 
+.loadingDiv {
+    display:    none;
+    position:   fixed;
+    z-index:    32767;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) url(/Images/loading.gif) 50% 50% no-repeat;
+}
+
+body.loading {
+    overflow: hidden;
+}
+
+body.loading .loadingDiv {
+    display: block;
 }

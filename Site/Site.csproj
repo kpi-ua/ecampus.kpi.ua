@@ -133,7 +133,6 @@
     <Content Include="Authentication\Authentication.aspx" />
     <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
     <Content Include="Authentication\Messages\Messages.aspx" />
-    <Content Include="Authentication\Messages\NewMessage.aspx" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -227,6 +226,7 @@
     <Content Include="Scripts\jquery-2.1.0.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\timetable.js" />
+    <Content Include="SessionManager.asmx" />
     <Content Include="Sources\RNP_view.css" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
     <Content Include="TimeTable\TimeTableMain.aspx" />
@@ -270,13 +270,6 @@
     <Compile Include="Authentication\Messages\AllDialogs.aspx.designer.cs">
       <DependentUpon>AllDialogs.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Messages\NewMessage.aspx.cs">
-      <DependentUpon>NewMessage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Authentication\Messages\NewMessage.aspx.designer.cs">
-      <DependentUpon>NewMessage.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Authentication\Profile.aspx.cs">
       <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -301,6 +294,9 @@
     </Compile>
     <Compile Include="RNP\RNP_view.aspx.designer.cs">
       <DependentUpon>RNP_view.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SessionManager.asmx.cs">
+      <DependentUpon>SessionManager.asmx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>

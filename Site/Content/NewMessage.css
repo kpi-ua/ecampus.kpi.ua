@@ -6,10 +6,6 @@
     max-width: 600px;
 }
 
-#UserListControl {
-    margin-top: 20px;
-}
-
 #UserListControlName {
     position: relative;
     min-width: 600px !important;
@@ -26,7 +22,6 @@
 #SubjectDiv, #TextDiv {
     min-width: 600px !important;
     max-width: 600px !important;
-    margin-top: 50px;
 }
 
 #SubjectName, #TextName {
@@ -40,7 +35,6 @@
 }
 
 #SendMessage {
-    margin-top: 50px;
     margin-left: -20px;
     height: 40px;
 }

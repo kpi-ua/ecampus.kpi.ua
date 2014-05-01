@@ -104,6 +104,9 @@
             </div>
             <!-- .middle-->
         </div>
+
+        <div class="loadingDiv"></div>
+
         <!-- .wrapper -->
         <div id="footer1">
             <div id="footer">

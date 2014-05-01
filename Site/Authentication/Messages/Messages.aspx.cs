@@ -34,7 +34,7 @@ namespace Site.Authentication
                 if (answer != null)
                 {
                     Dictionary<string, object> Paging = (Dictionary<string, object>)answer["Paging"];
-                    messages = (ArrayList)answer["Data"];
+                    messages = (ArrayList)(answer["Data"] as Dictionary<string, object>)["Messages"];
                     bool firstPage = Convert.ToBoolean(Paging["IsFirstPage"].ToString());
                     bool lastPage = Convert.ToBoolean(Paging["IsLastPage"].ToString());
                     page = Convert.ToInt32(Paging["PageNumber"].ToString());
@@ -90,8 +90,7 @@ namespace Site.Authentication
             HtmlGenericControl mainDiv = new HtmlGenericControl("div");
             mainDiv.Attributes.Add("id", "mainBlock");
 
-            HtmlGenericControl imgDiv = (HtmlGenericControl)Session["imgDiv"]; ;
-            mainDiv.Attributes.Add("id", "imgBlock");
+            HtmlGenericControl imgDiv = GetImgDiv();
 
             HtmlGenericControl subject = new HtmlGenericControl("h4");
             subject.Attributes.Add("id", "subject");
@@ -135,6 +134,23 @@ namespace Site.Authentication
             //messageContainerDiv.Controls.Add(down);
 
 
+        }
+
+        private HtmlGenericControl GetImgDiv()
+        {
+            HtmlGenericControl imgDiv = new HtmlGenericControl("div");
+            String imgDivJson = HttpUtility.UrlDecode(Session["imgDiv"].ToString());
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var imgDivDescriptor = serializer.Deserialize<ImgDivDescriptor>(imgDivJson);
+            imgDiv.Attributes.Add("id", imgDivDescriptor.id);
+            imgDiv.Attributes.Add("class", imgDivDescriptor.className);
+            foreach (var imgSourceString in imgDivDescriptor.imgSources)
+            {
+                Image img = new Image();
+                img.ImageUrl = imgSourceString;
+                imgDiv.Controls.Add(img);
+            }
+            return imgDiv;
         }
 
         protected void AnswerBtn_Click(object sender, EventArgs e)
@@ -200,6 +216,13 @@ namespace Site.Authentication
                 messageDiv.Controls.Add(text);
                 container.Controls.Add(messageDiv);
             }
+        }
+
+        private class ImgDivDescriptor
+        {
+            public string id { get; set; }
+            public string className { get; set; }
+            public List<string> imgSources { get; set; }
         }
     }
 }

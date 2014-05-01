@@ -39,22 +39,6 @@ namespace Site.Authentication
             base.OnLoad(e);
         }
 
-        protected void messageLink_Click(object sender, EventArgs e)
-        {
-
-            LinkButton activeLink = sender as LinkButton;
-
-            if (activeLink != null)
-            {
-                Session["GroupId"] = activeLink.Attributes["cId"];
-                Session["imgDiv"] = activeLink.Controls[0].Controls[0];
-                Session["Subject"] = activeLink.Attributes["subj"];
-                Response.Redirect("Messages.aspx");
-            }
-
-        }
-
-
         public void LinkButtonsRendering(Dictionary<string, object> Data)
         {
 
@@ -90,7 +74,6 @@ namespace Site.Authentication
             messageLink.Attributes.Add("class", "messageLink");
             messageLink.Attributes.Add("cId", Data["GroupId"].ToString());
             messageLink.Attributes.Add("subj", Data["Subject"].ToString());
-            messageLink.Click += messageLink_Click;
 
             mainDiv.Attributes.Add("id", "mainBlock");
             mainDiv.Attributes.Add("class", ".form-inline");
@@ -143,9 +126,5 @@ namespace Site.Authentication
 
         }
 
-        protected void NewMessage_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("NewMessage.aspx");
-        }
     }
 }
