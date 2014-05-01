@@ -98,7 +98,7 @@ $(document).ready(function () {
         if ($(".search-choice").length > 0) $(".search-field").remove();
     });
 
-    function addNewDialog(dialog) {
+    function addNewDialog(conversation) {
         var messageLink = $("<a/>");
         var mainDiv = $("<div/>");
         var imgDiv = $("<div/>");
@@ -110,23 +110,17 @@ $(document).ready(function () {
         var lastText = $("<p/>");
         var date = $("<p/>");
 
-        var users = [];
-        for (var j = 0; j < dialog.length; j++) {
-            var message = dialog[j];
-            var senderId = message.SenderUserAccountId;
-            if (users.indexOf(senderId) == -1) {
-                users.push(senderId);
-                $('<img />', { src: message.SenderUserAccountPhoto }).appendTo(imgDiv);
-                if (j == 0) {
-                    // last message
-                    lastSender.text(message.SenderUserAccountFullName);
-                    lastPhoto.attr("src", message.SenderUserAccountPhoto);
-                    lastText.text(message.Text);
-                }
-            }
+        var users = conversation.Users;
+        for (var j = 0; j < users.length; j++) {
+            var user = users[j];
+            $('<img />', { src: user.Photo }).appendTo(imgDiv);
         }
 
-        var lastMsg = dialog[0];
+        var lastMsg = conversation.Messages[0];
+        lastSender.text(lastMsg.SenderUserAccountFullName);
+        lastPhoto.attr("src", lastMsg.SenderUserAccountPhoto);
+        lastText.text(lastMsg.Text);
+
         messageLink.attr({ "class": "messageLink", "cId": lastMsg.MassageGroupId, "subj": lastMsg.Subject, "href": "" });
         mainDiv.attr({ "id": "mainBlock", "class": ".form-inline" });
         imgDiv.attr({ "id": "imgBlock", "class": "imgBlock" });
@@ -139,7 +133,7 @@ $(document).ready(function () {
         date.attr({ "id": "date", "class": "text-warning" });
 
         subject.text(lastMsg.Subject);
-        date.text(dialog.LastMessageDate);
+        date.text(lastMsg.DateSent);
 
         lastPhoto.appendTo(last);
         lastSender.appendTo(last);
