@@ -13,6 +13,16 @@ namespace Site
         {
             AreaRegistration.RegisterAllAreas();
             Config.RegisterRoutes(RouteTable.Routes);
+			
+			var proxy = new WebProxy("10.13.100.13:3128", true)
+            {
+                Credentials = new NetworkCredential("kbis_user", "kbis13")
+            };
+            
+            //Client.Proxy = proxy;
+
+            Campus.SDK.Client.GetFromCache += Cache.Get;
+            Campus.SDK.Client.AddToCache += Cache.Set;
         }
     }
 }

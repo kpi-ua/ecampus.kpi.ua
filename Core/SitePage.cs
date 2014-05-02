@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using NLog;
 
 namespace Core
@@ -8,6 +9,13 @@ namespace Core
     public class SitePage : Page
     {
         protected Logger Logger = LogManager.GetCurrentClassLogger();
+
+        private CampusClient _campusClient;
+
+        protected CampusClient CampusClient
+        {
+            get { return _campusClient ?? (_campusClient = new CampusClient()); }
+        }
 
         protected String SessionId
         {
@@ -31,6 +39,14 @@ namespace Core
             {
                 Response.Redirect("~/Authentication/Authentication.aspx");
             }
+        }
+
+        public void CreateErrorMessage(HtmlGenericControl target)
+        {
+            target.Controls.Clear();
+            var error = new HtmlGenericControl("h2");
+            error.InnerText = "Помилка при завантаженні сторінки!!!";
+            target.Controls.Add(error);
         }
     }
 }

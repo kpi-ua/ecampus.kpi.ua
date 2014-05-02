@@ -1,0 +1,167 @@
+
+#timetable{
+    margin: auto;
+    border-collapse:collapse;
+    font-family: 'Alegreya Sans', sans-serif;
+}
+
+#timetable table{
+	border-collapse: collapse;
+	width: 500px;
+	height: 600px;
+	margin:0px 0px 0px 0px;
+	padding:0px;
+}
+#tableinput tr td table tr td{
+
+    border: 1px #204466 solid;
+}
+#tableinput tr td{
+    padding: 0px;
+    border: 1px #204466 solid;
+}
+#tableinput td{
+    border: 1px #204466 solid;
+}
+#timetable thead{
+    
+    border:1px #204466 solid;
+    margin:0px;
+	background-color: #275f90;
+	color: #ccdce9;
+}
+#timetable tbody{
+}
+.header_weeknumb{
+    font-size: 25px;
+    float: left;
+    width: 180px;
+}
+.header_weeknumb:nth-child(1){
+    margin-left: 135px;
+}
+
+.header_weeknumb:nth-child(2){
+    margin-left: 0px;
+}
+
+.header_weeknumb:nth-child(3){
+    margin-left: 140px;
+}
+
+.header_weeknumb:nth-child(4){
+    margin-left: 0px;
+}
+#header_week{
+    position:relative;
+    margin-top:5px;
+    height:35px;
+    width: 1000px;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 5px 5px 0px rgba(50, 50, 50, 0.75);
+}
+.invisible{
+	display: none;
+}
+#timetable_dayname{
+    
+	background-color: #275f90;
+	color: #ccdce9;
+	width: 40px;
+}
+p.vertical{
+	color: #ccdce9;
+    margin-left:4px;
+    width:20px;
+    height:20px;
+    font-size: 28px;
+    writing-mode:tb-rl;
+    white-space:nowrap;
+    display:block;
+    -moz-transform: rotate(270deg); /* Для Firefox */
+    -ms-transform: rotate(270deg); /* Для IE */
+    -o-transform: rotate(270deg); /* Для Opera */
+    transform: rotate(270deg);
+	-webkit-transform: rotate(270deg); 
+}
+.timetable_number{
+	background-color: #93afc7;
+	color: #ccdce9;
+}
+
+#timetable td{
+	text-align: center;
+}
+
+p.tt_teacher_name, a.tt_lesson_name, p.tt_build_name {
+	margin: 0px;
+	padding: 0px;
+	cursor: default;
+}
+
+p.tt_teacher_name{
+    color: #27537d;
+	}
+a.tt_lesson_name{
+    font-weight:bold;
+	color: #31679c;
+	text-decoration: none;
+}
+a.tt_lesson_name:visited{
+	text-decoration: none;
+	color: #204466;
+}
+a.tt_lesson_name:hover{
+	color: #3774af;
+}
+p.tt_build_name{
+    
+	color: #09151f;
+}
+p.tt_noinfo{
+    display:inline-block;
+    vertical-align:middle;
+    width: 100%;
+	color: #275f90;
+}
+#lesson{
+	width: 180px;
+    background-color: white;
+}
+
+#loading{
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 50px;
+	height: 50px;
+	margin: -25px 0px 0px -25px;
+}
+
+.tooltip {
+    border-radius: 6px;
+    display: none;
+    position: absolute;
+    border: 1px #204466 solid;
+	width: 400px;
+    background: #e5edf5;
+    padding: 2px 6px;
+}
+.tooltip p{
+	margin-left: 5px;
+	float: left;
+	width: 250px;
+}
+.tooltip img{
+	background-color: #FFFFFF;
+	margin-top: 8px;
+	margin-right: 5px;
+	padding-top: 0px;
+	float: right;
+	border: 1px black solid;
+	width: 80px;
+}
+td {
+    vertical-align: middle !important;
+}
