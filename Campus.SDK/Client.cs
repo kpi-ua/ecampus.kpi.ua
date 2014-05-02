@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+//using Newtonsoft.Json;
 
 namespace Campus.SDK
 {
@@ -81,6 +82,29 @@ namespace Campus.SDK
         {
             return Request(url, HttpMethod.Get, null);
         }
+
+        ///// <summary>
+        ///// Return deserialize Data object
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="controller"></param>
+        ///// <param name="method"></param>
+        ///// <param name="arguments"></param>
+        ///// <returns></returns>
+        //public T Get<T>(string controller, string method, object arguments = null)
+        //    where T : class
+        //{
+        //    var url = arguments == null ? BuildUrl(controller, method) : BuildUrl(controller, method, arguments);
+        //    var result = Get(url);
+
+        //    if (result.Data == null)
+        //    {
+        //        return null;
+        //    }
+
+        //    var model = JsonConvert.DeserializeObject<T>(result.Data.ToString());
+        //    return model;
+        //}
 
         /// <summary>
         /// Upload profile image for current user
@@ -327,7 +351,7 @@ namespace Campus.SDK
 
             return BuildUrl(controller, method, x);
         }
-        
+
         /// <summary>
         /// Build URL for API method call
         /// </summary>
