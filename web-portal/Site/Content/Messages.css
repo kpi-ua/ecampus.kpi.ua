@@ -1,0 +1,20 @@
+﻿body {
+}
+
+/*----DialogContainer---*/
+#body_DialogContainer {margin-top:10px}
+#body_AnswerText {width:810px; margin-top:50px;}
+#body_AnswerBtn {margin-top:10px;}
+#imgBlock{ max-width:80px; max-height:100px; word-wrap:break-word; float:left;}
+#imgBlock img{width:38px; height:40px; max-width:40px; max-height:50px; margin-left:2px; margin-bottom:2px;}
+#subject{padding-bottom:70px; /*border-bottom:1px solid #999;*/ margin-left:150px;}
+.messageBlock{border-bottom: 1px solid #999;}
+.messageText{max-width:800px; word-wrap:break-word; margin-left:50px;}
+.messageDate{float:right; margin-top:0px; margin-left:100px;}
+.senderPhoto{width:38px; height:40px; float:left; }
+.senderName{ margin-left: 50px; }
+/*----DialogContainer---*/
+
+/*----ReloadBtn--------*/
+#right_column_Reload {margin-top:42px}
+/*----ReloadBtn--------*/

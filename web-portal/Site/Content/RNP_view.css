@@ -1,0 +1,47 @@
+﻿body {
+}
+
+#StudyYear, #OutCaf, #OR, #NP, #StudyForm, #Course, #Spec, #ProfS
+{
+    height:30px;
+}
+
+#divStudyYear, #divOutCaf, #divOR, #divNP, #divStudyForm, #divCourse, #divSpec, #divProfS
+{
+    margin-top: 10px;
+    margin-left:30px;
+    width: 400px;
+}
+
+#divFilterButtons, #divGroups
+{
+    margin-top:6px;
+    margin-left:30px;
+    width: 400px;
+}
+
+#divDdlContainer
+{
+    float:left;
+}
+
+#GroupContainer
+{
+    height:189px;
+    width:400px;
+    border-radius:4px;
+    margin-left:0px;
+    background-color:#eee;
+    
+}
+
+#HeadContainer
+{
+    min-width:860px;
+}
+
+#BodyContainer
+{
+    margin-top:20px;
+    margin-left:30px;
+}

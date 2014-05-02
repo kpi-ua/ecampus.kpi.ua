@@ -1,0 +1,40 @@
+﻿body {
+}
+
+#body_UserList {
+    min-width: 600px;
+    max-width: 600px;
+}
+
+#UserListControlName {
+    position: relative;
+    min-width: 600px !important;
+    max-width: 600px !important;
+    width: 600px !important;
+    max-height: 10px !important;
+    height: 20px !important;
+    display: compact;
+    border-right: 1px solid #ccc !important;
+    border-bottom: 0px;
+    border-radius: 5px 5px 0px 0px !important;
+}
+
+#SubjectDiv, #TextDiv {
+    min-width: 600px !important;
+    max-width: 600px !important;
+}
+
+#SubjectName, #TextName {
+    border-right: 1px solid #ccc !important;
+    border-bottom: 0px;
+    border-radius: 5px 5px 0px 0px !important;
+}
+
+#body_Subject, #body_Text {
+    border-radius: 0px 0px 5px 5px !important;
+}
+
+#SendMessage {
+    margin-left: -20px;
+    height: 40px;
+}

@@ -1,0 +1,42 @@
+﻿body {
+}
+
+#right_column_Photo
+{
+    max-height:200px;
+    max-width:165px;
+}
+
+#right_column_ChangePass
+{
+    display:none;
+}
+
+#right_column_LoadPhoto
+{
+    display:none;
+}
+
+#right_column_UploadBtn
+{
+    width: 163px;
+}
+
+.upload
+{
+    width: 163px;
+    max-height: 30px;
+    overflow: hidden;
+}
+
+.chose-file
+{
+    display: block !important;
+    width: 163px !important;
+    height: 30px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    margin-left:-10px;
+    margin-top:-25px;
+    z-index:1;
+}

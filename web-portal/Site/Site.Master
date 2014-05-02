@@ -1,0 +1,68 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Site.Site" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    
+    <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="/Content/SiteMaster.css" rel="stylesheet" />
+    
+    <script src="/Scripts/jquery-2.1.0.min.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <form id="form" class="container" runat="server">
+        <header id="header" class="row">
+            <div class="col-md-12">
+                <div id="logo">
+                    <a href="#">
+                        <img src="/Images/logo.png" /></a>
+                </div>
+                <p>
+                    <span>електронний кампус</span><br />
+                    НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+                </p>
+                <div id="user_block">
+                    <%--<a href="#">
+                        <img src="/Images/home_grey.png" onmouseover="this.src='/Images/home_orange.png'" onmouseout="this.src='/Images/home_grey.png'" />
+                    </a><a href="#">
+                        <img src="/Images/kabinet_grey.png" onmouseover="this.src='/Images/kabinet_orange.png'" onmouseout="this.src='/Images/kabinet_grey.png'" />
+                    </a><a href="#">
+                        <img src="/Images/exite_grey.png" onmouseover="this.src='/Images/exite_orange.png'" onmouseout="this.src='/Images/exite_grey.png'" />
+                    </a>--%>
+                    <%--<p>Вітаємо Вас, <a href="#">Мелкумян Екатерина Юріївна</a></p>--%>
+                </div>
+                </div>
+            </header>
+
+        <div id="wrapper" class="row">
+            <div id="middle" class="col-md-12">
+                    <div id="content">
+                        <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+                    </div>
+            </div>
+            <!-- .middle-->
+        </div>
+        <!-- .wrapper -->
+       
+        <footer class="row">
+            <div class="col-md-9">
+                    &copy;Національний технічний університет України<br />
+                    “Київський політехнічний інститут”   <a href="http://kpi.ua/">www.kpi.ua</a><br />
+                    Електронний кампус
+            </div>
+            <div class="col-md-3">
+                    Розробник:  Конструкторське бюро інформаційних систем<br />
+                    <a href="http://kbis.kpi.ua/">www.kbis.kpi.ua</a>
+            </div>
+        </footer>
+
+    </form>
+</body>
+</html>
