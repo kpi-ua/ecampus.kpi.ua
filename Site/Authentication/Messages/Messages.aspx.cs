@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Linq;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI.HtmlControls;
@@ -18,7 +18,7 @@ namespace Site.Authentication
             if (SessionId != null)
             {
                 var result = CampusClient.GetUserConversation(SessionId, Convert.ToInt32(Session["GroupId"]), 100500);
-                
+
                 if (result != null)
                 {
                     var items = (result.Data as IEnumerable<Object>);

@@ -134,6 +134,9 @@
     <Content Include="Authentication\Messages\AllDialogs.aspx" />
     <Content Include="Authentication\Messages\Messages.aspx" />
     <Content Include="Authentication\Profile.aspx" />
+    <Content Include="Content\AllDialogs.css" />
+    <Content Include="Content\Authentication.css" />
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -142,8 +145,17 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Bulletins.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Messages.css" />
+    <Content Include="Content\NewMessage.css" />
+    <Content Include="Content\Profile.css" />
+    <Content Include="Content\RNP_view.css" />
     <Content Include="Content\screen.css" />
+    <Content Include="Content\SiteMaster.css" />
+    <Content Include="Content\timetable.css" />
     <Content Include="Default.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -153,19 +165,49 @@
     <Content Include="googleeefcd3aa17a745f9.html" />
     <Content Include="Images\background.png" />
     <Content Include="Images\blue_line.png" />
+    <Content Include="Images\choice\NOT.png" />
+    <Content Include="Images\choice\OK.png" />
     <Content Include="Images\circles.png" />
+    <Content Include="Images\contacts.png" />
+    <Content Include="Images\diary.png" />
+    <Content Include="Images\dovidka.png" />
+    <Content Include="Images\exams.png" />
+    <Content Include="Images\exit.png" />
     <Content Include="Images\exite_grey.png" />
     <Content Include="Images\exite_orange.png" />
+    <Content Include="Images\footer.png" />
+    <Content Include="Images\forum.png" />
+    <Content Include="Images\foto.png" />
+    <Content Include="Images\godin.png" />
     <Content Include="Images\header_line.png" />
+    <Content Include="Images\help_box\help_box_bg.png" />
+    <Content Include="Images\help_box\help_box_bottom.png" />
+    <Content Include="Images\help_box\help_box_top.png" />
+    <Content Include="Images\home.png" />
     <Content Include="Images\home_grey.png" />
     <Content Include="Images\home_orange.png" />
     <Content Include="Images\kabinet_grey.png" />
     <Content Include="Images\kabinet_orange.png" />
+    <Content Include="Images\kred_ects.png" />
+    <Content Include="Images\kurs_proj.png" />
+    <Content Include="Images\kurs_rob.png" />
+    <Content Include="Images\lab.png" />
     <Content Include="Images\lect.png" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\logo.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="Images\messages.png" />
     <Content Include="Images\navigation.png" />
+    <Content Include="Images\ogoloshenya.png" />
+    <Content Include="Images\parol.png" />
+    <Content Include="Images\pract.png" />
+    <Content Include="Images\profil.png" />
     <Content Include="Images\razdelitel.png" />
+    <Content Include="Images\samost.png" />
     <Content Include="Images\title.png" />
+    <Content Include="Images\user_pic.png" />
+    <Content Include="Images\vsogo.png" />
+    <Content Include="Images\zaliki.png" />
     <Content Include="RNP\RNP_view.aspx" />
     <Content Include="robots.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -173,8 +215,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\core.js" />
+    <Content Include="Scripts\timetable.js" />
     <Content Include="WebForm1.aspx" />
     <Content Include="NLog.config" />
+    <Content Include="Content\bootstrap-chosen.less" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="logs\info.log">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\default.pubxml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -185,7 +236,9 @@
     <Content Include="Sources\RNP_view.css" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
     <Content Include="TimeTable\TimeTableMain.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -298,14 +351,15 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Links.cshtml" />
-    <Content Include="Site.csproj.cp" />
     <Content Include="Site.Master" />
     <Content Include="SitePlusNav.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -339,6 +393,11 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />

@@ -20,10 +20,10 @@ namespace Site
         [WebMethod(EnableSession=true)]
         public void SetSessionValue(string key, string value)
         {
-            if (Session != null)
-            {
+            //if (Session != null)
+            //{
                 Session[key] = value;
-            }
+            //}
         }
     }
 }

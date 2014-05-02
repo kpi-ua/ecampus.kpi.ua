@@ -1,8 +1,8 @@
-﻿using NLog;
+﻿using System.Web;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Web.Helpers;
 
 namespace Core
 {
@@ -43,7 +43,8 @@ namespace Core
         {
             foreach (var key in _keys)
             {
-                WebCache.Remove(key);
+                //WebCache.Remove(key);
+                HttpContext.Current.Cache.Remove(key);
             }
 
             _keys.Clear();
@@ -52,12 +53,14 @@ namespace Core
         private static void Set(string key, string value)
         {
             _keys.Add(key);
-            WebCache.Set(key, value, 5);
+            //WebCache.Set(key, value, 5);
+            HttpContext.Current.Cache[key] = value;
         }
 
         private static string Get(string key)
         {
-            var data = WebCache.Get(key);
+            var data = HttpContext.Current.Cache[key];
+            //var data = WebCache.Get(key);
 
             _logger.Info("get: " + key + " : " + data);
 

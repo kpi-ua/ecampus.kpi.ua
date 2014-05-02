@@ -1,9 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SitePlusNav.Master" AutoEventWireup="true" CodeBehind="AllDialogs.aspx.cs" Inherits="Site.Authentication.AllDialogs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/SitePlusNav.Master" AutoEventWireup="true" CodeBehind="AllDialogs.aspx.cs" Inherits="Site.Authentication.AllDialogs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Повідомлення</title>
     <link href="../../Content/AllDialogs.css" rel="stylesheet" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <asp:Literal ID="Result" runat="server"></asp:Literal>
     <asp:Panel ID="LinkContainer" runat="server">
@@ -98,7 +99,7 @@
     </script>
 
 </asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
     <asp:Button ID="NewMessage" runat="server" Text="Нове Повідомлення" CssClass=" btn btn-warning" />
-
 </asp:Content>
