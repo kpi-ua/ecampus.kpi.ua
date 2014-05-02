@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache.cs" />
+    <Compile Include="Link.cs" />
     <Compile Include="Premission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CampusClient.cs" />

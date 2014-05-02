@@ -90,7 +90,7 @@ namespace Site.Authentication
                 {
                     lastSender.InnerText = currUser.FullName;
                     lastPhoto.ImageUrl = currUser.Photo;
-                    lastText.InnerText = conversation.LastSenderUserAccountId.ToString();
+                    lastText.InnerText = conversation.LastMessageText;
                 }
             }
 

@@ -1,4 +1,5 @@
-﻿using Campus.SDK;
+﻿using System.Linq;
+using Campus.SDK;
 using Newtonsoft.Json;
 using NLog;
 using System;
@@ -99,6 +100,7 @@ namespace Core
         public IEnumerable<Campus.Common.Conversation> GetUserConversations(string sessionId)
         {
             var result = Get<IEnumerable<Campus.Common.Conversation>>("Message", "GetUserConversations", new { sessionId, });
+            result = result.OrderByDescending(o => o.LastMessageDate);
             return result;
         }
     }
