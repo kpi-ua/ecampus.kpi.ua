@@ -1,5 +1,4 @@
 ﻿using System.Web;
-using System.Web.Routing;
 using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
 using PagedList;
@@ -20,6 +19,8 @@ namespace Campus.Core
         private const string AccessDenied = "Access denied";
 
         protected const String MimeType = "application/json";
+
+        public static bool UseJavaScriptStyleCamelcase { get; set; }
 
         public static event EventHandler ExceptionHandled;
 
@@ -59,12 +60,19 @@ namespace Campus.Core
         /// <returns></returns>
         private static string Serialize(object result)
         {
+            //CamelCasePropertyNamesContractResolver
+
             var settings = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
                 Formatting = Formatting.Indented,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             };
+
+            if (UseJavaScriptStyleCamelcase)
+            {
+                settings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+            }
 
             var json = JsonConvert.SerializeObject(result, settings);
             return json;
