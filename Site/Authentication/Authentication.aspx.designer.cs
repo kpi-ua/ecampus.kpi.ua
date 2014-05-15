@@ -19,7 +19,7 @@ namespace Site.Authentication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox User;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText User;
         
         /// <summary>
         /// Pass control.
@@ -28,42 +28,15 @@ namespace Site.Authentication {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Pass;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword Pass;
         
         /// <summary>
-        /// SaveIn control.
+        /// remember_me_chkbx control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox SaveIn;
-        
-        /// <summary>
-        /// SaveInLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label SaveInLabel;
-        
-        /// <summary>
-        /// Enter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Enter;
-        
-        /// <summary>
-        /// Cancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Cancel;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox remember_me_chkbx;
     }
 }

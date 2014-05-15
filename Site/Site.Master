@@ -6,62 +6,47 @@
 <head runat="server">
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    
+    <link href="/Content/MasterStyle.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
     <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
 
-    <link href="/Content/SiteMaster.css" rel="stylesheet" />
-    
     <script src="/Scripts/jquery-2.1.0.min.js"></script>
+    <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
     <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/script.js"></script>
 </head>
 <body>
-    <form id="form" class="container" runat="server">
-        <header id="header" class="row">
-            <div class="col-md-12">
-                <div id="logo">
-                    <a href="#">
-                        <img src="/Images/logo.png" /></a>
-                </div>
-                <p>
-                    <span>електронний кампус</span><br />
-                    НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
-                </p>
-                <div id="user_block">
-                    <%--<a href="#">
-                        <img src="/Images/home_grey.png" onmouseover="this.src='/Images/home_orange.png'" onmouseout="this.src='/Images/home_grey.png'" />
-                    </a><a href="#">
-                        <img src="/Images/kabinet_grey.png" onmouseover="this.src='/Images/kabinet_orange.png'" onmouseout="this.src='/Images/kabinet_grey.png'" />
-                    </a><a href="#">
-                        <img src="/Images/exite_grey.png" onmouseover="this.src='/Images/exite_orange.png'" onmouseout="this.src='/Images/exite_grey.png'" />
-                    </a>--%>
-                    <%--<p>Вітаємо Вас, <a href="#">Мелкумян Екатерина Юріївна</a></p>--%>
-                </div>
-                </div>
-            </header>
-
-        <div id="wrapper" class="row">
-            <div id="middle" class="col-md-12">
-                    <div id="content">
-                        <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
-                    </div>
+    <form id="form" class="wrap login-wrap" runat="server">
+        <div class="header">
+            <div class="logo-kpi pull-right">
             </div>
-            <!-- .middle-->
+            <div class="text pull-right">
+                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ
+                <br>
+                "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+            </div>
         </div>
-        <!-- .wrapper -->
-       
-        <footer class="row">
-            <div class="col-md-9">
-                    &copy;Національний технічний університет України<br />
-                    “Київський політехнічний інститут”   <a href="http://kpi.ua/">www.kpi.ua</a><br />
-                    Електронний кампус
+        <div class="login-box">
+            <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+        </div>
+        <div class="footer">
+            <div class="pull-left text-left">
+                Національний технічний університет України
+                <br>
+                “Київський політехнічний інститут”   www.kpi.ua
+                <br>
+                Електронний кампус
             </div>
-            <div class="col-md-3">
-                    Розробник:  Конструкторське бюро інформаційних систем<br />
-                    <a href="http://kbis.kpi.ua/">www.kbis.kpi.ua</a>
+            <div class="pull-right text-right">
+                Розробник:  Конструкторське бюро
+                <br>
+                інформаційних систем
+                <br>
+                www.kbis.kpi.ua
             </div>
-        </footer>
+        </div>
 
     </form>
 </body>

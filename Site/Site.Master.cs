@@ -1,13 +1,12 @@
 ﻿using System;
-using Core;
 
 namespace Site
 {
-    public partial class Site : SiteMasterPage
+    public partial class Site : System.Web.UI.MasterPage
     {
-        protected override void OnLoad(EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
+
         }
     }
 }

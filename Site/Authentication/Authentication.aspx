@@ -2,32 +2,47 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Authentication</title>
-    <link href="../Content/Authentication.css" rel="stylesheet" />
+    <%--<link href="../Content/Authentication.css" rel="stylesheet" />--%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     
-    <div class="auth-container form-horizontal" role="form">
-            
-                <div class="form-group">
-                    <asp:TextBox ID="User" runat="server" AutoCompleteType="Disabled" CssClass="form-control input-sm" Text="Логін"></asp:TextBox>
-                    <asp:TextBox ID="Pass" runat="server" CssClass="form-control input-sm" Text="Пароль"></asp:TextBox>
+    <div class="login-logo"></div>
+            <form class="login-form">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Логін</label>
+                            <input runat="server" ID="User" type="text" class="form-control" placeholder="Логін"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Пароль</label>
+                            <input runat="server" ID="Pass" type="password" class="form-control" placeholder="Пароль"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <asp:CheckBox ID="SaveIn" runat="server" CssClass="css-checkbox" />
-                    <asp:Label ID="SaveInLabel" runat="server" CssClass="text-muted input-sm" Text="Запам'ятати мене"></asp:Label>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="remeber-me pull-left">
+                            <input runat="server" id="remember_me_chkbx" type="checkbox"/>
+                            <%--<label for="remember-me-chkbx" class="checkbox"></label>--%>
+                            <label for="remember-me-chkbx">Запам’ятати мене</label>
+                        </div>
+                        <div class="forgot-pass pull-right">
+                            <a href="#">Забули пароль?</a>
+                        </div>
+                    </div>
                 </div>
-                <%--<div class="form-group">
-                    <asp:LinkButton ID="RePassLink" runat="server" CssClass="input-m">Забули пароль?</asp:LinkButton>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group text-center">
+                            <asp:Button  runat="server" class="btn btn-success" Text="Вхід" OnClick="Enter_Click"/>
+                        </div>
+                    </div>
+                </div>
+            </form>
 
-                </div>--%>
-                <div class="form-group">
-                    <asp:Button ID="Enter" runat="server" CssClass="btn btn-m btn-primary" Text="Вхід" OnClick="Enter_Click" />
-                    <asp:Button ID="Cancel" runat="server" CssClass="btn btn-m btn-primary" Text="Відміна" OnClick="Cancel_Click" />
-                </div>
-    </div>
-
-    <script type="text/javascript">
+   <%-- <script type="text/javascript">
         $(function () {
             $('input[type=text]').focus(function () {
                 $(this).val('');
@@ -36,5 +51,5 @@
                 $(this).val('');
             });
         });
-    </script>
+    </script>--%>
 </asp:Content>

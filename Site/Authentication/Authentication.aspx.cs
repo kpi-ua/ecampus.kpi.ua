@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Web;
-using Campus.SDK;
 using Core;
 
 namespace Site.Authentication
 {
     public partial class WebForm1 : SitePage
     {
-        protected override void OnLoad(EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            base.OnLoad(e);
-
             if (!Page.IsPostBack)
             {
 
@@ -20,10 +17,10 @@ namespace Site.Authentication
                 }
                 else
                 {
-                    User.Text = "Логін";
+                    User.Value = "Логін";
                     Pass.Attributes["type"] = "password";
-                    Pass.Text = "Пароль";
-                    SaveIn.Checked = false;
+                    Pass.Value = "Пароль";
+                    remember_me_chkbx.Checked = false;
                 }
             }
         }
@@ -31,14 +28,11 @@ namespace Site.Authentication
         protected void Enter_Click(object sender, EventArgs e)
         {
             var client = new Campus.SDK.Client();
-            
-            var sessionId = client.Authenticate(User.Text, Pass.Text);
-
-            Logger.Info(String.Format("SessionId: {0}", sessionId));
+            client.Authenticate(User.Value, Pass.Value);
 
             if (!String.IsNullOrEmpty(client.SessionId))
             {
-                if (SaveIn.Checked)
+                if (remember_me_chkbx.Checked)
                 {
                     var cookie = new HttpCookie("Session")
                     {
@@ -55,24 +49,20 @@ namespace Site.Authentication
                 }
 
                 SessionId = client.SessionId;
-                Session["UserLogin"] = User.Text;
-                Session["UserPass"] = Pass.Text;
+                Session["UserLogin"] = User.Value;
+                Session["UserPass"] = Pass.Value;
 
                 Response.Redirect("Profile.aspx");
             }
             else
             {
                 Response.Write("<script type='text/javascript'>alert('" + "Помилка при авторизації!!!" + "');</script>");
+                //Response.Redirect("/Authentication/Authentication.aspx");
+                //Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "SCRIPT", string.Format("alert('Помилка при авторизації!!!\\n')"), true);
+
             }
         }
 
-        protected void Cancel_Click(object sender, EventArgs e)
-        {
-            User.Text = "Логін";
-            Pass.Attributes["type"] = "password";
-            Pass.Text = "Пароль";
-            SaveIn.Checked = false;
-        }
     }
 
 }
