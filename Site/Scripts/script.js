@@ -15,19 +15,18 @@
 
     campus.datepickerHandler = function () {
         $('.datepicker').datepicker({
-            altFormat: 'dd-mm-yy',  // Date Format used
+            altFormat: 'dd-mm-yy', // Date Format used
             closeText: "Готово", // Display text for close link
             prevText: "Попередній", // Display text for previous month link
             nextText: "Наступний", // Display text for next month link
             currentText: "Сьогодні", // Display text for current month link
-            monthNames: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
-                "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"], // Names of months for drop-down and formatting
+            monthNames: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"], // Names of months for drop-down and formatting
             monthNamesShort: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"], // For formatting
             dayNames: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"], // For formatting
             dayNamesShort: ["Нед", "Пон", "Ввт", "Срд", "Чтв", "Птн", "Сбт"], // For formatting
             dayNamesMin: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"], // Column headings for days starting at Sunday
             firstDay: 1 // Start with Monday
-        })
+        });
 
         $(".datepicker-toggle").on("click", function () {
             $(".right-col").toggleClass("show");
@@ -35,6 +34,7 @@
         });
 
         var eventCount = $(".event").length;
+
         if (eventCount > 0) {
             $(".datepicker-label").html(eventCount).show();
         }
@@ -47,14 +47,14 @@
                     width: 220,
                     top: 10,
                     right: -220
-                })
+                });
             } else {
                 $(".right-col").css({
                     position: "absolute",
                     right: 0,
                     top: 410,
                     width: 0
-                })
+                });
             }
         });
 
@@ -69,11 +69,11 @@
                 $chevron.toggleClass("down");
             }
             $(this).children(".submenu").slideToggle(300);
-        })
+        });
 
         $(".menu-toggle").on("click", function () {
             $(".left-col").slideToggle(300);
-        })
+        });
     }
 
     campus.carousel = function () {
@@ -82,14 +82,14 @@
 
         $(document).on("ready", function () {
             carouselBuild();
-        })
+        });
 
         $(window).on('resize', function () {
             carouselBuild();
         });
 
         function carouselBuild() {
-            var carWidth = $(".carousel").width(),
+            var carouselWidth = $(".carousel").width(),
                 slideWidth = $(".slide").width(),
                 slideCount = $(".slide").length,
                 position = 0;
@@ -98,24 +98,31 @@
                 left: 0
             });
 
-            visibleSlideCount = parseInt(carWidth / slideWidth);
+
+            visibleSlideCount = parseInt(carouselWidth / slideWidth);
 
             if (visibleSlideCount > slideCount) {
                 visibleSlideCount = slideCount;
             }
 
-            var space = (carWidth - slideWidth * visibleSlideCount) / (visibleSlideCount + 1);
+            var space = (carouselWidth - (slideWidth * visibleSlideCount)) / (visibleSlideCount - 1);
 
-            if (space < 14) {
-                visibleSlideCount -= 1;
-                space = (carWidth - slideWidth * visibleSlideCount) / (visibleSlideCount + 1);
-            }
+            //alert('var space = (carouselWidth - (slideWidth * visibleSlideCount)) / (visibleSlideCount - 1);'+
+            //    'var ' + space + ' = (' + carouselWidth + '- (' + slideWidth + ' * ' + visibleSlideCount + ')) / (' + visibleSlideCount + ' - 1);');
 
-            var step = space + slideWidth;
+            //var space = (carouselWidth - slideWidth * visibleSlideCount) / (visibleSlideCount + 1);
 
-            $(".carousel-progress").css({
-                paddingRight: space + "px"
-            })
+            //if (space < 14) {
+            //    visibleSlideCount -= 1;
+            //    space = (carouselWidth - slideWidth * visibleSlideCount) / (visibleSlideCount + 1);
+            //    alert(space);
+            //}
+
+            //var step = space + slideWidth;
+
+            //$(".carousel-progress").css({
+            //    paddingRight: space + "px"
+            //});
 
             $(".carousel-wrap").css({
                 width: slideWidth * slideCount + space * (slideCount + 1)
@@ -123,9 +130,10 @@
             $(".slide").css({
                 marginRight: space
             });
-            $(".slide:first-child").css({
-                marginLeft: space
-            });
+
+            //$(".slide:first-child").css({
+            //    marginLeft: space
+            //});
 
             //place points
             $(".carousel-progress").empty();
@@ -166,7 +174,7 @@
                         $(".carousel-wrap").css({ left: -(slideWidth + space) * position + "px" });
                         $(".circle").removeClass('active');
                         $("#circle" + position).addClass('active');
-                        setTimeout(function () { flagPrev = true }, 1100);
+                        setTimeout(function () { flagPrev = true; }, 1100);
                     }
                 }
 
@@ -222,15 +230,15 @@
                 if (!($scrollTop.hasClass("show"))) {
                     $scrollTop.show();
                     setTimeout(function () {
-                        $scrollTop.addClass("show")
-                    }, 200)
+                        $scrollTop.addClass("show");
+                    }, 200);
                 }
             } else {
                 if ($scrollTop.hasClass("show")) {
                     $scrollTop.removeClass("show");
                     setTimeout(function () {
                         $scrollTop.hide();
-                    }, 200)
+                    }, 200);
                 }
             }
         });

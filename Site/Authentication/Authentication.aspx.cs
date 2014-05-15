@@ -10,17 +10,17 @@ namespace Site.Authentication
         {
             if (!Page.IsPostBack)
             {
-
-                if ((Request.Cookies["Session"] != null) && (Request.Cookies["Session"].Value != "") && (Session["SaveIn"] != null) && (Convert.ToBoolean(Session["SaveIn"]) == true))
+                if ((Request.Cookies["Session"] != null)
+                    && (Request.Cookies["Session"].Value != "")
+                    && (Session["SaveIn"] != null)
+                    && Convert.ToBoolean(Session["SaveIn"]))
                 {
                     Response.Redirect("Profile.aspx");
                 }
                 else
                 {
-                    User.Value = "Логін";
-                    Pass.Attributes["type"] = "password";
-                    Pass.Value = "Пароль";
-                    remember_me_chkbx.Checked = false;
+                    txPass.Attributes["type"] = "password";
+                    remember_me.Checked = false;
                 }
             }
         }
@@ -28,11 +28,11 @@ namespace Site.Authentication
         protected void Enter_Click(object sender, EventArgs e)
         {
             var client = new Campus.SDK.Client();
-            client.Authenticate(User.Value, Pass.Value);
+            client.Authenticate(txUser.Text, txPass.Text);
 
             if (!String.IsNullOrEmpty(client.SessionId))
             {
-                if (remember_me_chkbx.Checked)
+                if (remember_me.Checked)
                 {
                     var cookie = new HttpCookie("Session")
                     {
@@ -49,17 +49,14 @@ namespace Site.Authentication
                 }
 
                 SessionId = client.SessionId;
-                Session["UserLogin"] = User.Value;
-                Session["UserPass"] = Pass.Value;
+                Session["UserLogin"] = txUser.Text;
+                Session["UserPass"] = txPass.Text;
 
                 Response.Redirect("Profile.aspx");
             }
             else
             {
                 Response.Write("<script type='text/javascript'>alert('" + "Помилка при авторизації!!!" + "');</script>");
-                //Response.Redirect("/Authentication/Authentication.aspx");
-                //Page.ClientScript.RegisterClientScriptBlock(typeof(Page), "SCRIPT", string.Format("alert('Помилка при авторизації!!!\\n')"), true);
-
             }
         }
 

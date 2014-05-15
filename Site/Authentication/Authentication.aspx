@@ -2,31 +2,31 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Authentication</title>
-    <%--<link href="../Content/Authentication.css" rel="stylesheet" />--%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     
     <div class="login-logo"></div>
-            <form class="login-form">
+            <div class="login-form">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label>Логін</label>
-                            <input runat="server" ID="User" type="text" class="form-control" placeholder="Логін"/>
+                            <%--<input runat="server" ID="User" type="text" class="form-control" placeholder="Логін"/>--%>
+                            <asp:TextBox runat="server" ID="txUser" CssClass="form-control" ClientIDMode="Static" placeholder="Логін"></asp:TextBox>
                         </div>
                         <div class="form-group">
                             <label>Пароль</label>
-                            <input runat="server" ID="Pass" type="password" class="form-control" placeholder="Пароль"/>
+                            <asp:TextBox runat="server" ID="txPass" TextMode="Password" CssClass="form-control" ClientIDMode="Static" placeholder="Пароль"></asp:TextBox>
+                            <%--<input runat="server" ID="Pass" type="password" class="form-control" placeholder="Пароль"/>--%>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="remeber-me pull-left">
-                            <input runat="server" id="remember_me_chkbx" type="checkbox"/>
-                            <%--<label for="remember-me-chkbx" class="checkbox"></label>--%>
-                            <label for="remember-me-chkbx">Запам’ятати мене</label>
+                            <asp:CheckBox runat="server" ID="remember_me" ClientIDMode="Static"/>
+                            <label for="remember_me">Запам’ятати мене</label>
                         </div>
                         <div class="forgot-pass pull-right">
                             <a href="#">Забули пароль?</a>
@@ -40,16 +40,5 @@
                         </div>
                     </div>
                 </div>
-            </form>
-
-   <%-- <script type="text/javascript">
-        $(function () {
-            $('input[type=text]').focus(function () {
-                $(this).val('');
-            });
-            $('input[type=password]').focus(function () {
-                $(this).val('');
-            });
-        });
-    </script>--%>
+            </div>
 </asp:Content>

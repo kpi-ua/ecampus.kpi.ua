@@ -8,19 +8,16 @@
     </asp:ContentPlaceHolder>
     <link href="/Content/MasterStyle.css" rel="stylesheet" />
     <link href="/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-    <link href="/Content/bootstrap-theme.css" rel="stylesheet" />
     <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.css" rel="stylesheet" />
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="/Content/bootstrap-chosen.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
-    <link href="/Content/fonts/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
-    <script src="/Scripts/jquery-2.1.0.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel="stylesheet" />
+    <link href="/Content/font-awesome.min.css" rel="stylesheet" />
+
+    <script src="/Scripts/jquery-2.1.1.min.js"></script>
     <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
-    <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
     <script src="/Scripts/chosen.jquery.min.js"></script>
-    <script src="/Scripts/chosen.jquery.js"></script>
     <script src="/Scripts/core.js"></script>
     <script src="/Scripts/script.js"></script>
 </head>
@@ -43,35 +40,37 @@
                     </div>
                 </div>
                 <div class="header-nav container">
-                    <a href="">
-                        <div class="header-logo pull-left">
-                            <img src="/Images/logo-small.png" alt="campus small logo" />
-                        </div>
-                    </a>
-                    <div class="navbar pull-right">
-                        <ul>
-                            <li>
-                                <a href="/Authentication/Profile.aspx">
-                                    <i class="fa fa-home"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <i class="fa fa-briefcase"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <asp:LinkButton ID="ExitLink" runat="server" PostBackUrl="/Authentication/Profile.aspx" OnClick="ExitLink_Click">
-                                <i class="fa fa-sign-out"></i>
-                                </asp:LinkButton>
-                                <%-- <a href="">
-                                <i class="fa fa-sign-out"></i>
-                            </a>--%>
-                            </li>
-                        </ul>
-                        <div class="user-name">
-                            <a href="/Authentication/Profile.aspx">Вітаємо,
-                                <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
+                    <div class="green">
+                        <a href="">
+                            <div class="header-logo pull-left">
+                                <img src="/Images/logo-small.png" alt="campus small logo" />
+                            </div>
+                        </a>
+                        <div class="navbar pull-right">
+                            <ul>
+                                <li>
+                                    <a href="/Authentication/Profile.aspx">
+                                        <i class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-briefcase"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="ExitLink" runat="server" PostBackUrl="/Authentication/Profile.aspx" OnClick="ExitLink_Click">
+                                    <i class="fa fa-sign-out"></i>
+                                    </asp:LinkButton>
+                                    <%-- <a href="">
+                                    <i class="fa fa-sign-out"></i>
+                                </a>--%>
+                                </li>
+                            </ul>
+                            <div class="user-name">
+                                <a href="/Authentication/Profile.aspx">Вітаємо,
+                                    <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -81,12 +80,12 @@
                     <div class="carousel-progress">
                     </div>
                     <div class="carousel">
-                        <div class="carousel-prev btn">
+                        <%--<div class="carousel-prev btn">
                             <div class="prev-icon"></div>
                         </div>
                         <div class="carousel-next btn">
                             <div class="next-icon"></div>
-                        </div>
+                        </div>--%>
                         <div class="carousel-wrap">
                             <div class="slide">
                                 <div class="slide-content">
@@ -305,7 +304,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="md-col" style="height: 2000px">
+                    <div class="md-col" style="min-height: 1000px">
                         <div id="content" style="width: 100% !important;">
                             <!--Хлебные крошки-->
                             <div id="breadcrumbs">

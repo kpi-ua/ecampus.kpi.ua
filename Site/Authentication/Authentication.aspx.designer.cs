@@ -13,30 +13,30 @@ namespace Site.Authentication {
     public partial class WebForm1 {
         
         /// <summary>
-        /// User control.
+        /// txUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText User;
+        protected global::System.Web.UI.WebControls.TextBox txUser;
         
         /// <summary>
-        /// Pass control.
+        /// txPass control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword Pass;
+        protected global::System.Web.UI.WebControls.TextBox txPass;
         
         /// <summary>
-        /// remember_me_chkbx control.
+        /// remember_me control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox remember_me_chkbx;
+        protected global::System.Web.UI.WebControls.CheckBox remember_me;
     }
 }
