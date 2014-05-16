@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TimeTableEdit.aspx.cs" Inherits="Site.TimeTable.TimeTableEdit" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TimeTableEdit.aspx.cs" Inherits="Site.TimeTable.TimeTableEdit" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <asp:UpdatePanel ID="worker" runat="server" OnLoad="worker_Load">
         <ContentTemplate>
@@ -90,6 +89,4 @@
     </asp:UpdatePanel>
     <asp:Button ID="save" Text="Save"  runat="server" OnClick="save_Click"/><asp:Label ID="answer" runat="server"></asp:Label>
     
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
 </asp:Content>

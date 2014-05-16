@@ -28,7 +28,7 @@ namespace Site
 
         private void RedirectToProfile()
         {
-            Response.Redirect("~/Authentication/Profile.aspx");
+            Response.Redirect("~/Default.aspx");
         }
 
         protected void Enter_Click(object sender, EventArgs e)

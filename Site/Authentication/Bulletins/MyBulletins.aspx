@@ -1,10 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyBulletins.aspx.cs" Inherits="Site.Authentication.Bulletins.MyBulletins" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyBulletins.aspx.cs" Inherits="Site.Authentication.Bulletins.MyBulletins" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Мої оголошення</title>
-    <link href="../../Content/Bulletins.css" rel="stylesheet" />
+    <link href="/Content/Bulletins.css" rel="stylesheet" />
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <asp:Button ID="CreateNewBulletin" runat="server" Text="Створити оголошення" CssClass="btn btn-warning" />
+
+
     <asp:Panel ID="MyBulletinsContainer" runat="server">
     </asp:Panel>
     <script type="text/javascript">
@@ -16,8 +20,5 @@
             } else { $(this).parent().find(".set_des").slideUp(); }
         });
     </script>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
-    <asp:Button ID="CreateNewBulletin" runat="server" Text="Створити оголошення" CssClass="btn btn-warning"/>
 </asp:Content>
 

@@ -1,25 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Site.Login" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <link href="/Content/MasterStyle.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel='stylesheet' type='text/css' />
     <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
-
-    <script src="/Scripts/jquery-2.1.1.min.js"></script>
-    <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
-    <script src="/Scripts/bootstrap.js"></script>
-    <script src="/Scripts/bootstrap.min.js"></script>
-    <script src="/Scripts/script.js"></script>
-    
-    <title>Authentication</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Авторизація</title>
 </head>
 <body>
-    <form id="form" class="wrap login-wrap" runat="server">
-        <div class="header">
+    <div class="wrap login-wrap">
+        <header>
             <div class="logo-kpi pull-right">
             </div>
             <div class="text pull-right">
@@ -27,10 +20,23 @@
                 <br>
                 "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
             </div>
-        </div>
+        </header>
         <div class="login-box">
             <div class="login-logo"></div>
-            <div class="login-form">
+
+            <form runat="server" id="form" class="login-form">
+
+                <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
+                    <Scripts>
+                        <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
+                        <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
+                        <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
+                        <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
+                        <asp:ScriptReference Path="~/Scripts/core.js" />
+                        <asp:ScriptReference Path="~/Scripts/script.js" />
+                    </Scripts>
+                </asp:ScriptManager>
+
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group">
@@ -48,7 +54,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="remeber-me pull-left">
-                            <asp:CheckBox runat="server" ID="remember_me" ClientIDMode="Static"/>
+                            <asp:CheckBox runat="server" ID="remember_me" ClientIDMode="Static" />
                             <label for="remember_me">Запам’ятати мене</label>
                         </div>
                         <div class="forgot-pass pull-right">
@@ -59,41 +65,36 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="form-group text-center">
-                            <asp:Button  runat="server" class="btn btn-success" Text="Вхід" OnClick="Enter_Click"/>
+                            <asp:Button runat="server" class="btn btn-success" Text="Вхід" OnClick="Enter_Click" />
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-        <div class="footer">
-            <div class="pull-left text-left">
-                Національний технічний університет України
-                <br>
-                “Київський політехнічний інститут”   www.kpi.ua
-                <br>
-                Електронний кампус
+        <footer>
+            <div class="container">
+                <div class="text-left pull-left">
+                    Національний технічний університет України
+                    <br />
+                    “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a>
+                    <br />
+                    Електронний кампус
+                </div>
+                <div class="text-right pull-right">
+                    Розробник:  Конструкторське бюро
+                    <br />
+                    інформаційних систем
+                    <br />
+                    <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
+                </div>
             </div>
-            <div class="pull-right text-right">
-                Розробник:  Конструкторське бюро
-                <br>
-                інформаційних систем
-                <br>
-                www.kbis.kpi.ua
-            </div>
-        </div>
+        </footer>
+    </div>
 
-    </form>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+    <noscript><div><img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

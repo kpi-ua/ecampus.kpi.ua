@@ -1,31 +1,26 @@
 ﻿body {
 }
 
-#body_LinkContainer
-{
-    margin-top:10px;
+#body_LinkContainer {
+    margin-top: 10px;
 }
 
-.messageLink
-{
-    text-decoration:none;
-    display:block;
-    border:solid 1px #999;
+.messageLink {
+    text-decoration: none;
+    display: block;
+    border: solid 1px #999;
     border-radius: 5px;
-    margin-bottom:5px;
-
+    margin-bottom: 5px;
 }
 
-.messageLink:hover
-{
-    background-color:#e4e8ed;
-}
+    .messageLink:hover {
+        background-color: #e4e8ed;
+    }
 
-#mainBlock
-{
-    margin:10px;
-    display:-webkit-inline-box;
-    display:-moz-inline-box;
+#mainBlock {
+    margin: 10px;
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
 }
 /*#messageLink
 {
@@ -33,53 +28,47 @@
     border:solid 1px #999;
 }*/
 
+#new_message {
+}
 
-#infoBlock
-{
-    margin-left:50px;
-
+#infoBlock {
+    margin-left: 50px;
 }
 
 
-#right_column_NewMessage
-{
-    margin-top:42px;
+#right_column_NewMessage {
+    margin-top: 42px;
 }
 
-.imgBlock
-{
-    max-width:80px;
-    max-height:100px;
-    word-wrap:break-word;
+.imgBlock {
+    max-width: 80px;
+    max-height: 100px;
+    word-wrap: break-word;
 }
 
-.imgBlock img
-{
-    width:38px;
-    height:40px;
-    max-width:40px;
-    max-height:50px;
-    margin-right:2px;
-    margin-bottom:2px;
+    .imgBlock img {
+        width: 38px;
+        height: 40px;
+        max-width: 40px;
+        max-height: 50px;
+        margin-right: 2px;
+        margin-bottom: 2px;
+    }
+
+.lastPhoto {
+    width: 38px;
+    height: 40px;
+    max-width: 38px;
+    max-height: 40px;
+    float: left;
 }
 
-.lastPhoto
-{
-    width:38px;
-    height:40px;
-    max-width:38px;
-    max-height:40px;
-    float:left;
+.lastSender {
+    margin-bottom: 5px;
+    margin-left: 45px;
 }
 
-.lastSender
-{
-    margin-bottom:5px;
-    margin-left:45px;
-}
-
-.lastText
-{
-    margin-left:45px;
-    max-width:490px;
+.lastText {
+    margin-left: 45px;
+    max-width: 490px;
 }

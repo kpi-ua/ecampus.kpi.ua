@@ -44,6 +44,7 @@
             if (scrollHeight > 410) {
                 $(".right-col").css({
                     position: "fixed",
+                    display: "block",
                     width: 220,
                     top: 10,
                     right: -220
@@ -51,6 +52,7 @@
             } else {
                 $(".right-col").css({
                     position: "absolute",
+                    display: "none",
                     right: 0,
                     top: 410,
                     width: 0
@@ -77,8 +79,8 @@
     }
 
     campus.carousel = function () {
-        var visibleSlideCount,
-            autoSlide;
+        var visibleSlideCount;
+        var autoSlide;
 
         $(document).on("ready", function () {
             carouselBuild();
@@ -98,7 +100,6 @@
                 left: 0
             });
 
-
             visibleSlideCount = parseInt(carouselWidth / slideWidth);
 
             if (visibleSlideCount > slideCount) {
@@ -107,22 +108,6 @@
 
             var space = (carouselWidth - (slideWidth * visibleSlideCount)) / (visibleSlideCount - 1);
 
-            //alert('var space = (carouselWidth - (slideWidth * visibleSlideCount)) / (visibleSlideCount - 1);'+
-            //    'var ' + space + ' = (' + carouselWidth + '- (' + slideWidth + ' * ' + visibleSlideCount + ')) / (' + visibleSlideCount + ' - 1);');
-
-            //var space = (carouselWidth - slideWidth * visibleSlideCount) / (visibleSlideCount + 1);
-
-            //if (space < 14) {
-            //    visibleSlideCount -= 1;
-            //    space = (carouselWidth - slideWidth * visibleSlideCount) / (visibleSlideCount + 1);
-            //    alert(space);
-            //}
-
-            //var step = space + slideWidth;
-
-            //$(".carousel-progress").css({
-            //    paddingRight: space + "px"
-            //});
 
             $(".carousel-wrap").css({
                 width: slideWidth * slideCount + space * (slideCount + 1)
@@ -130,10 +115,6 @@
             $(".slide").css({
                 marginRight: space
             });
-
-            //$(".slide:first-child").css({
-            //    marginLeft: space
-            //});
 
             //place points
             $(".carousel-progress").empty();

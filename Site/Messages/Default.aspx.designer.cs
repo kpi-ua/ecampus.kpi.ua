@@ -13,6 +13,15 @@ namespace Site.Authentication {
     public partial class AllDialogs {
         
         /// <summary>
+        /// new_message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button new_message;
+        
+        /// <summary>
         /// Result control.
         /// </summary>
         /// <remarks>
@@ -29,14 +38,5 @@ namespace Site.Authentication {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel LinkContainer;
-        
-        /// <summary>
-        /// NewMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button NewMessage;
     }
 }

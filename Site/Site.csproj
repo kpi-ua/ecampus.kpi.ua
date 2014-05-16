@@ -131,9 +131,9 @@
     <Content Include="Login.aspx" />
     <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
-    <Content Include="Authentication\Messages\AllDialogs.aspx" />
-    <Content Include="Authentication\Messages\Messages.aspx" />
-    <Content Include="Authentication\Profile.aspx" />
+    <Content Include="Messages\Default.aspx" />
+    <Content Include="Messages\Dialog.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="Content\AllDialogs.css" />
     <Content Include="Content\Authentication.css" />
     <Content Include="Content\bootstrap-chosen.css" />
@@ -158,10 +158,8 @@
     <Content Include="Content\NewMessage.css" />
     <Content Include="Content\Profile.css" />
     <Content Include="Content\RNP_view.css" />
-    <Content Include="Content\screen.css" />
     <Content Include="Content\SiteMaster.css" />
     <Content Include="Content\timetable.css" />
-    <Content Include="Default.aspx" />
     <Content Include="EIR\CardEditEIR.aspx" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -257,7 +255,6 @@
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\timetable.js" />
-    <Content Include="WebForm1.aspx" />
     <Content Include="NLog.config" />
     <Content Include="Content\bootstrap-chosen.less" />
     <Content Include="Content\bootstrap-chosen.scss" />
@@ -297,28 +294,20 @@
     <Compile Include="Authentication\Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Messages\AllDialogs.aspx.cs">
-      <DependentUpon>AllDialogs.aspx</DependentUpon>
+    <Compile Include="Messages\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Messages\AllDialogs.aspx.designer.cs">
-      <DependentUpon>AllDialogs.aspx</DependentUpon>
+    <Compile Include="Messages\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Messages\Messages.aspx.cs">
-      <DependentUpon>Messages.aspx</DependentUpon>
+    <Compile Include="Messages\Dialog.aspx.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Messages\Messages.aspx.designer.cs">
-      <DependentUpon>Messages.aspx</DependentUpon>
+    <Compile Include="Messages\Dialog.aspx.designer.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Profile.aspx.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Authentication\Profile.aspx.designer.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -326,6 +315,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EIR\CardEditEIR.aspx.cs">
       <DependentUpon>CardEditEIR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -368,13 +358,6 @@
     </Compile>
     <Compile Include="TimeTable\TimeTableMain.aspx.designer.cs">
       <DependentUpon>TimeTableMain.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

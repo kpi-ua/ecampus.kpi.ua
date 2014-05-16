@@ -1,11 +1,14 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AllDialogs.aspx.cs" Inherits="Site.Authentication.AllDialogs" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Authentication.AllDialogs" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Повідомлення</title>
-    <link href="../../Content/AllDialogs.css" rel="stylesheet" />
+    <link href="/Content/AllDialogs.css" rel="stylesheet" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <asp:Button ID="new_message" runat="server" Text="Нове Повідомлення" CssClass="btn btn-warning" ClientIDMode="Static" />
+
+
     <asp:Literal ID="Result" runat="server"></asp:Literal>
     <asp:Panel ID="LinkContainer" runat="server">
 
@@ -92,14 +95,10 @@
                 SetSessionValue("GroupId", cId);
                 SetSessionValue("Subject", subj);
                 e.preventDefault();
-                window.open("Messages.aspx", "_self");
+                window.open("Dialog.aspx", "_self");
             });
 
         });
     </script>
 
-</asp:Content>
-
-<asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
-    <asp:Button ID="NewMessage" runat="server" Text="Нове Повідомлення" CssClass=" btn btn-warning" />
 </asp:Content>

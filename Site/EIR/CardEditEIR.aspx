@@ -1,6 +1,5 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEditEIR.aspx.cs" Inherits="Site.EIR.CardEditEIR" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-</asp:Content>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEditEIR.aspx.cs" Inherits="Site.EIR.CardEditEIR" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
      <link href="../Content/form-styles.css" rel="stylesheet" />
 <div class="row">
@@ -443,6 +442,4 @@
     </div>
 </div>
     <asp:Button ID="save" CssClass="btn btn-primary" runat="server" Text="Зберегти" OnClick="save_Click" />
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="right_column" runat="server">
 </asp:Content>

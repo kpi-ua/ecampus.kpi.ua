@@ -40,7 +40,7 @@ namespace Site
                     hiddenField.Attributes.Add("type", "hidden");
                     hiddenField.Attributes.Add("value", data["UserAccountId"].ToString());
 
-                    form1.Controls.Add(hiddenField);
+                    form.Controls.Add(hiddenField);
                 }
 
             }

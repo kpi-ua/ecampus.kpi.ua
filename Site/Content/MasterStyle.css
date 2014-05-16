@@ -87,6 +87,21 @@ a, .btn {
         outline: none !important;
     }
 
+.dummy {
+    color: #FFF;
+    text-align: center;
+    padding-top: 30px;
+}
+
+    footer a,
+    .dummy a {
+        color: #ECC103;
+    }
+
+        footer a:hover,
+        .dummy a:hover {
+            color: #FFF;
+        }
 /* =======LOGIN PAGE====== */
 
 .login-wrap {
@@ -166,9 +181,10 @@ a, .btn {
 
 /*=== main pages ===*/
 
-.container {
-    width: 1180px;
+.container, .container-fluid {
     margin: auto;
+    width: 100%;
+    padding: 0 !important;
 }
 
     .container:after {
@@ -183,16 +199,19 @@ a, .btn {
     height: 100%;
     margin: 0 auto -90px;
     padding-bottom: 90px;
+    width: 100%;
+    overflow: hidden;
 }
 
-.header {
+
+header {
     position: relative;
     width: 100%;
     margin-bottom: 10px;
     background: #fff;
 }
 
-    .header:after {
+    header:after {
         display: block;
         content: "";
         clear: both;
@@ -231,10 +250,10 @@ a, .btn {
         font-size: 1.1em;
     }
 
-.header {
+header {
 }
 
-    .header .logo-kpi {
+    header .logo-kpi {
         width: 64px;
         height: 48px;
         padding: 0 15px;
@@ -242,11 +261,11 @@ a, .btn {
         background: url("../Images/logo-kpi.png") center no-repeat;
     }
 
-    .header .header-nav {
+    header .header-nav {
         width: 1200px\9;
     }
 
-    .header .green {
+    header .green {
         background-color: #208843;
         width: 100%;
         padding-top: 16px;
@@ -254,13 +273,13 @@ a, .btn {
         height: 100px;
     }
 
-    .header .header-nav:after {
+    header .header-nav:after {
         display: block;
         content: "";
         clear: both;
     }
 
-    .header .text {
+    header .text {
         padding: 10px 0;
         color: #006633;
         text-align: right;
@@ -346,10 +365,9 @@ a, .btn {
     }
 
 .carousel-progress {
-    position: relative;
-    height: 8px;
-    margin: 2px 0 12px 0;
-    text-align: right;
+    float: right;
+    padding-right: 15px;
+    padding-top: 4px;
 }
 
     .carousel-progress .circle {
@@ -357,7 +375,7 @@ a, .btn {
         width: 8px;
         height: 8px;
         margin-right: 8px;
-        background: #cfbfa2;
+        background: #FFF;
         border-radius: 50%;
         cursor: pointer;
         vertical-align: top;
@@ -368,7 +386,7 @@ a, .btn {
     }
 
         .carousel-progress .circle.active {
-            background: #9c6604;
+            background: #CD9F04;
             -webkit-transition: opacity .3s ease;
             -moz-transition: opacity .3s ease;
             -o-transition: opacity .3s ease;
@@ -513,13 +531,16 @@ a, .btn {
     .content .left-col {
         display: block;
         float: left;
-        width: 200px;
+        width: 218px;
     }
 
     .content .md-col {
         min-height: 35px;
-        padding: 0 10px;
-        margin: 0 0 0 200px;
+        padding: 0;
+        margin: 0 0 0 218px;
+        overflow: hidden;
+        padding-left: 10px;
+        margin-bottom: 125px;
     }
 
     .content .right-col {
@@ -782,30 +803,30 @@ a, .btn {
     }
 
     .scroll-top.show {
+        -ms-opacity: 0.8;
         opacity: 0.8;
-        /* -webkit-transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    transition: all .3s ease;*/
+        margin-bottom: 85px;
     }
 
-.footer {
+footer {
     position: relative;
     height: 90px;
     padding: 18px 0;
     color: #fff;
     background: #208944;
+    overflow: hidden;
+    font-size: 10pt;
 }
 
-    .footer .text-left {
+    footer .text-left {
         margin-left: 18px;
     }
 
-    .footer .text-right {
+    footer .text-right {
         margin-right: 18px;
     }
 
-    .footer:after {
+    footer:after {
         display: block;
         content: "";
         clear: both;
@@ -829,8 +850,7 @@ a, .btn {
         width: 100% !important;
     }
 
-    .header .header-nav {
-        padding: 15px 10px 7px 10px;
+    header .header-nav {
         border-bottom: 1px solid #fff;
     }
 }
@@ -849,7 +869,7 @@ a, .btn {
         padding-bottom: 50px !important;
     }
 
-    .footer {
+    footer {
         padding: 5px 0 !important;
         height: 50px !important;
         font-size: 0.7em;
@@ -868,13 +888,14 @@ a, .btn {
     .content .md-col {
         width: 100%;
         margin: 10px 0 0 0;
+        padding: 0px;
     }
 
-    .footer .text-left {
+    footer .text-left {
         padding-left: 5px;
     }
 
-    .footer .text-right {
+    footer .text-right {
         padding-rigth: 5px;
     }
 }
@@ -897,7 +918,7 @@ a, .btn {
         padding-bottom: 106px !important;
     }
 
-    .header {
+    header {
         font-size: 0.8em;
         margin-bottom: 0;
     }
@@ -922,12 +943,12 @@ a, .btn {
         margin-top: 0;
     }
 
-    .footer {
+    footer {
         height: auto !important;
     }
 
-        .footer .text-left,
-        .footer .text-right {
+        footer .text-left,
+        footer .text-right {
             width: 100%;
             float: none !important;
             margin-bottom: 6px;
@@ -936,7 +957,7 @@ a, .btn {
 }
 
 @media screen and (max-width: 379px) {
-    .header {
+    header {
         font-size: 0.67em;
     }
 }
@@ -949,10 +970,6 @@ a, .btn {
 
 /*---------Right Sidebar---------*/
 #right-sidebar {
-    float: left;
-    width: 163px;
-    margin-left: -163px;
-    position: relative;
 }
 
     #right-sidebar img {
@@ -1000,8 +1017,7 @@ a, .btn {
 /*---------Right Sidebar---------*/
 
 #content {
-    float: left;
-    padding: 0 233px 0 50px;
+    overflow: hidden;
 }
 
     #content h2 {
@@ -1012,7 +1028,12 @@ a, .btn {
 
 /*---------breadcrumbs---------*/
 #breadcrumbs {
-    margin-top: 10px;
+    background: none repeat scroll 0 0 #208843;
+    color: #FFFFFF;
+    font-size: 9pt;
+    margin-bottom: 10px;
+    margin-top: 0;
+    padding: 2px 0 2px 15px;
 }
 
     #breadcrumbs #current {

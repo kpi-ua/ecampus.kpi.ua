@@ -19,7 +19,9 @@ function Timetable(day) {
     this.obj = [];
     this.obj2 = [];
     this.tablehtml = function () {
-        var output = "<table>";
+        var output = '<table class="table table-responsive">';
+        output += '<thead><tr><td></td><td></td><td class="header_weeknumb">I</td><td class="header_weeknumb">II</td></tr></thead>';
+
         var tablesize = 7;
         for (var i = 0; i < tablesize; i++) {
             if (this.obj[i]) {
@@ -30,8 +32,9 @@ function Timetable(day) {
                     building: this.obj[i].Building,
                     photo: this.obj[i].EmployeePhotoPath
                 }
-            } else
+            } else {
                 var timetable = false;
+            }
             output += "<tr>";
             //lessonname.length <= 35
             if (i == 0) {

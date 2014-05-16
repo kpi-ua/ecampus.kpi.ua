@@ -107,7 +107,7 @@ namespace Site.Authentication
                 if (answer != null)
                 {
                     AnswerText.Text = "";
-                    Response.Redirect("Messages.aspx");
+                    Response.Redirect("Dialog.aspx");
                 }
 
             }

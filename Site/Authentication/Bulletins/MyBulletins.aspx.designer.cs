@@ -13,15 +13,6 @@ namespace Site.Authentication.Bulletins {
     public partial class MyBulletins {
         
         /// <summary>
-        /// MyBulletinsContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel MyBulletinsContainer;
-        
-        /// <summary>
         /// CreateNewBulletin control.
         /// </summary>
         /// <remarks>
@@ -29,5 +20,14 @@ namespace Site.Authentication.Bulletins {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button CreateNewBulletin;
+        
+        /// <summary>
+        /// MyBulletinsContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel MyBulletinsContainer;
     }
 }
