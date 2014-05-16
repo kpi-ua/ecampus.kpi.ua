@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Site.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Site.SiteMaster" %>
 
 <!DOCTYPE html>
 
@@ -7,47 +7,342 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <link href="/Content/MasterStyle.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel='stylesheet' type='text/css'>
+    <link href="/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
     <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="/Content/bootstrap-chosen.css" rel="stylesheet" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel="stylesheet" />
+    <link href="/Content/font-awesome.min.css" rel="stylesheet" />
 
     <script src="/Scripts/jquery-2.1.1.min.js"></script>
     <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
-    <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/chosen.jquery.min.js"></script>
+    <script src="/Scripts/core.js"></script>
     <script src="/Scripts/script.js"></script>
 </head>
 <body>
-    <form id="form" class="wrap login-wrap" runat="server">
-        <div class="header">
-            <div class="logo-kpi pull-right">
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <div class="wrap">
+            <div class="header">
+                <div class="top-header">
+                    <div class="container">
+                        <div class="menu-toggle pull-left">
+                            <i class="fa fa-bars"></i>
+                        </div>
+                        <div class="logo-kpi pull-right"></div>
+                        <div class="text pull-right">
+                            НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ
+                        <br>
+                            "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+                        </div>
+                    </div>
+                </div>
+                <div class="header-nav container">
+                    <div class="green">
+                        <a href="/">
+                            <div class="header-logo pull-left">
+                                <img src="/Images/logo-small.png" alt="campus small logo" />
+                            </div>
+                        </a>
+                        <div class="navbar pull-right">
+                            <ul>
+                                <li>
+                                    <a href="/Authentication/Profile.aspx">
+                                        <i class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="fa fa-briefcase"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <asp:LinkButton ID="ExitLink" runat="server" PostBackUrl="~/Login.aspx?logout=true" OnClick="ExitLink_Click">
+                                    <i class="fa fa-sign-out"></i>
+                                    </asp:LinkButton>
+                                </li>
+                            </ul>
+                            <div class="user-name">
+                                <a href="/Authentication/Profile.aspx">Вітаємо,
+                                    <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="text pull-right">
-                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ
-                <br>
-                "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+            <div class="content">
+                <div class="container">
+                    <div class="carousel-progress">
+                    </div>
+                    <div class="carousel">
+                        <%--<div class="carousel-prev btn">
+                            <div class="prev-icon"></div>
+                        </div>
+                        <div class="carousel-next btn">
+                            <div class="next-icon"></div>
+                        </div>--%>
+                        <div class="carousel-wrap">
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="/Authentication/Messages/AllDialogs.aspx">
+                                        <img src="/Images/carousel-msg.jpg" alt="messages">
+                                        <div class="slide-title">
+                                            Повідомлення
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="/TimeTable/TimeTableMain.aspx">
+                                        <img src="/Images/carousel-schd.jpg" alt="schedule">
+                                        <div class="slide-title">
+                                            Розклад
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="">
+                                        <img src="/Images/carousel-cntct.jpg" alt="contacts">
+                                        <div class="slide-title">
+                                            Контакти
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="/TimeTable/TimeTableMain.aspx">
+                                        <img src="/Images/carousel-schd.jpg" alt="schedule">
+                                        <div class="slide-title">
+                                            Розклад1
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="">
+                                        <img src="/Images/carousel-cntct.jpg" alt="contacts">
+                                        <div class="slide-title">
+                                            Контакти1
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="/Authentication/Messages/AllDialogs.aspx">
+                                        <img src="/Images/carousel-msg.jpg" alt="messages">
+                                        <div class="slide-title">
+                                            Повідомлення1
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="">
+                                        <img src="/Images/carousel-cntct.jpg" alt="contacts">
+                                        <div class="slide-title">
+                                            Контакти2
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="slide">
+                                <div class="slide-content">
+                                    <a href="">
+                                        <img src="/Images/carousel-cntct.jpg" alt="contacts">
+                                        <div class="slide-title">
+                                            Контакти3
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="left-col">
+                        <ul class="left-nav">
+                            <li>
+                                <a>Мій профіль
+                                <div class="chevron"></div>
+                                </a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="">Робота з публічною інформацією
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Робота з закритою інформацією
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropmenu">
+                                <a>Дошка оголошень
+                                <div class="chevron"></div>
+                                </a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="/Authentication/Bulletins/AllBulletins.aspx">Перегляд доступних оголошень
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Редагування оголошень
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropmenu">
+                                <a>Спілкування
+                                <div class="chevron"></div>
+                                </a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="/Authentication/Messages/AllDialogs.aspx">Редагування групи спілкування
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Пошук групи спілкування
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Повідомлення в групі
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropmenu">
+                                <a>Електронні інформаційні ресурси
+                                <div class="chevron"></div>
+                                </a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="">Пошук ЕІР
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Перегляд ЕІР
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Додавання ЕІР
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropmenu">
+                                <a>Робота
+                                <div class="chevron"></div>
+                                </a>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="">Навчальна
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Методична
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Наукова
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Інноваційна
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Організаційна
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="">Виховна
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">Навчальний процес
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="right-col">
+                        <div class="datepicker-toggle">
+                            <i class="fa fa-calendar"></i>
+                            <div class="datepicker-label"></div>
+                        </div>
+                        <div class="datepicker"></div>
+                        <ul class="datepicker-messages hide">
+                            <div class="selected-date">
+                                У цей день:
+                            </div>
+                            <li class="event">
+                                <div class="event-time">
+                                    16:00
+                                </div>
+                                <div class="event-text">
+                                    Консультація ІП-01
+                                </div>
+                            </li>
+                            <li class="event">
+                                <div class="event-time">
+                                    16:00
+                                </div>
+                                <div class="event-text">
+                                    Консультація ІП-01
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="md-col" style="min-height: 1000px">
+                        <div id="content" style="width: 100% !important;">
+                            <!--Хлебные крошки-->
+                            <div id="breadcrumbs">
+                                <%--<a href="#">головна</a><div class="breadcrumbs_marker"></div>
+                            <span id="current" >мій профіль</span>--%>
+                                <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=">"></asp:SiteMapPath>
+                            </div>
+                            <!--Хлебные крошки-->
+                            <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+                        </div>
+                        <div id="right-sidebar">
+                            <asp:ContentPlaceHolder ID="right_column" runat="server"></asp:ContentPlaceHolder>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="login-box">
-            <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+            <div class="scroll-top">
+                <div class="box">
+                    <i class="fa fa-arrow-up"></i>
+                </div>
+                наверх
+            </div>
         </div>
         <div class="footer">
-            <div class="pull-left text-left">
-                Національний технічний університет України
-                <br>
-                “Київський політехнічний інститут”   www.kpi.ua
-                <br>
-                Електронний кампус
-            </div>
-            <div class="pull-right text-right">
-                Розробник:  Конструкторське бюро
-                <br>
-                інформаційних систем
-                <br>
-                www.kbis.kpi.ua
+            <div class="container">
+                <div class="text-left pull-left">
+                    Національний технічний університет України
+                    <br>
+                    “Київський політехнічний інститут”   www.kpi.ua
+                    <br>
+                    Електронний кампус
+                </div>
+                <div class="text-right pull-right">
+                    Розробник:  Конструкторське бюро
+                    <br>
+                    інформаційних систем
+                    <br>
+                    www.kbis.kpi.ua
+                </div>
             </div>
         </div>
-
     </form>
 </body>
 </html>

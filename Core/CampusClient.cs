@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Campus.SDK;
+﻿using Campus.SDK;
 using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Script.Serialization;

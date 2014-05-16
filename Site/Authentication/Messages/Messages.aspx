@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/SitePlusNav.Master" AutoEventWireup="true" CodeBehind="Messages.aspx.cs" Inherits="Site.Authentication.Messages" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Messages.aspx.cs" Inherits="Site.Authentication.Messages" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Діалог</title>

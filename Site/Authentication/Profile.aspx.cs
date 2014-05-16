@@ -21,22 +21,21 @@ namespace Site.Authentication
                 Photo.ImageUrl = result.Data.Photo;
 
                 var serializer = new JavaScriptSerializer();
-                var Data = (Dictionary<string, object>)serializer.Deserialize<Dictionary<string, object>>(result.Data.ToString());
+                var data = (Dictionary<string, object>)serializer.Deserialize<Dictionary<string, object>>(result.Data.ToString());
 
                 if (!Page.IsPostBack)
                 {
-                    ParsePersonData(Data);
-                    ParseEmployees(Data);
-                    ParseProfiles(Data);
+                    ParsePersonData(data);
+                    ParseEmployees(data);
+                    ParseProfiles(data);
                 }
 
                 var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + SessionId);
 
                 if (answer != null)
                 {
-                    var DataArr = (ArrayList) answer["Data"];
-                    GetEffectivePremissions(DataArr);
-
+                    var dataArr = (ArrayList)answer["Data"];
+                    GetEffectivePremissions(dataArr);
                 }
                 else
                 {
@@ -50,21 +49,19 @@ namespace Site.Authentication
 
         }
 
-        void ParsePersonData(Dictionary<string, object> Data)
+        private void ParsePersonData(Dictionary<string, object> data)
         {
-
-            PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + Data["FullName"] + "</p>";
+            PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + data["FullName"] + "</p>";
         }
 
-        void ParseEmployees(Dictionary<string, object> Data)
+        private void ParseEmployees(Dictionary<string, object> data)
         {
+            var personalitiess = (ArrayList)data["Personalities"];
+            var employees = (ArrayList)data["Employees"];
 
-            ArrayList Personalitiess = (ArrayList)Data["Personalities"];
-            ArrayList Employees = (ArrayList)Data["Employees"];
-
-            for (int i = 0; i < Personalitiess.Count; i++)
+            for (int i = 0; i < personalitiess.Count; i++)
             {
-                foreach (KeyValuePair<string, object> w in (Dictionary<string, object>)Personalitiess[i])
+                foreach (var w in (Dictionary<string, object>)personalitiess[i])
                 {
                     if (w.Key == "SubdivisionId")
                     {
@@ -92,9 +89,9 @@ namespace Site.Authentication
                 }
             }
 
-            for (int i = 0; i < Employees.Count; i++)
+            for (int i = 0; i < employees.Count; i++)
             {
-                foreach (KeyValuePair<string, object> w in (Dictionary<string, object>)Employees[i])
+                foreach (KeyValuePair<string, object> w in (Dictionary<string, object>)employees[i])
                 {
                     if (w.Key == "SubdivisionId")
                     {
@@ -116,22 +113,18 @@ namespace Site.Authentication
             }
         }
 
-        void ParseProfiles(Dictionary<string, object> Data)
+        private void ParseProfiles(Dictionary<string, object> data)
         {
-
-            ArrayList Profiles = (ArrayList)Data["Profiles"];
+            var profiles = (ArrayList)data["Profiles"];
 
             SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
 
-
-            for (int i = 0; i < Profiles.Count; i++)
+            for (int i = 0; i < profiles.Count; i++)
             {
-                foreach (KeyValuePair<string, object> pk in (Dictionary<string, object>)Profiles[i])
+                foreach (var pk in (Dictionary<string, object>)profiles[i])
                 {
-
                     switch (pk.Key)
                     {
-
                         case "SubsystemName":
                             {
                                 SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + pk.Value + "\"";
@@ -150,52 +143,48 @@ namespace Site.Authentication
 
                 }
             }
+
             SpecFunc.Text += "</div>";
         }
 
-        protected void GetEffectivePremissions(ArrayList Data)
+        private void GetEffectivePremissions(ArrayList data)
         {
-            Dictionary<string, Premission> premDic = new Dictionary<string, Premission>();
-            for (int i = 0; i < Data.Count; i++)
+            var premDic = new Dictionary<string, Permission>();
+
+            for (int i = 0; i < data.Count; i++)
             {
-                Premission premObj = null;
+                Permission premObj = null;
 
-                foreach (KeyValuePair<string, object> pk in (Dictionary<string, object>)Data[i])
+                foreach (var pk in (Dictionary<string, object>)data[i])
                 {
-
-                    bool prem = true;
-
-                    if (pk.Value.ToString().ToLower() == "false")
-                    {
-                        prem = false;
-                    }
+                    var prem = (pk.Value.ToString().ToLower() != "false");
 
                     switch (pk.Key)
                     {
 
                         case "SubsystemName":
                             {
-                                premObj = new Premission(pk.Value.ToString());
+                                premObj = new Permission(pk.Value.ToString());
                                 break;
                             }
                         case "IsCreate":
                             {
-                                premObj.create = prem;
+                                premObj.Create = prem;
                                 break;
                             }
                         case "IsRead":
                             {
-                                premObj.read = prem;
+                                premObj.Read = prem;
                                 break;
                             }
                         case "IsUpdate":
                             {
-                                premObj.update = prem;
+                                premObj.Update = prem;
                                 break;
                             }
                         case "IsDelete":
                             {
-                                premObj.delete = prem;
+                                premObj.Delete = prem;
                                 break;
                             }
                         default:
@@ -205,7 +194,7 @@ namespace Site.Authentication
                     }
 
                 }
-                if (premObj != null) premDic.Add(premObj.subsystem, premObj);
+                if (premObj != null) premDic.Add(premObj.Subsystem, premObj);
                 else throw (new Exception("Права пользователя не получены!"));
             }
             Session["UserPremissions"] = premDic;
@@ -218,9 +207,7 @@ namespace Site.Authentication
             {
                 if (NewPass.Text == NewPassCheak.Text)
                 {
-                    Dictionary<string, object> answer = null;
-
-                    answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "user/ChangePassword?sessionId=" + SessionId.ToString() + "&old=" + OldPass.Text + "&password=" + NewPass.Text);
+                    var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "user/ChangePassword?sessionId=" + SessionId.ToString() + "&old=" + OldPass.Text + "&password=" + NewPass.Text);
 
                     if (answer == null)
                     {
@@ -268,11 +255,9 @@ namespace Site.Authentication
             }
         }
 
-
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-
-            HttpPostedFile file = InputFile.PostedFile;
+            var file = InputFile.PostedFile;
 
             var client = new Campus.SDK.Client();
             client.Authenticate(Session["UserLogin"].ToString(), Session["UserPass"].ToString());
@@ -285,7 +270,6 @@ namespace Site.Authentication
             }
 
             var result = client.UploadUserProfileImage(fileData);
-            //SpecFunc.Text += "<p>" + result + "</p>";
 
         }
     }

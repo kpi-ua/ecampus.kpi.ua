@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/SitePlusNav.Master" AutoEventWireup="true" CodeBehind="MyBulletins.aspx.cs" Inherits="Site.Authentication.Bulletins.MyBulletins" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyBulletins.aspx.cs" Inherits="Site.Authentication.Bulletins.MyBulletins" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Мої оголошення</title>

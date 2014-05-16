@@ -2,20 +2,21 @@
 using System.Web;
 using Core;
 
-namespace Site.Authentication
+namespace Site
 {
-    public partial class WebForm1 : SitePage
+    public partial class Login : SitePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             if (!Page.IsPostBack)
             {
                 if ((Request.Cookies["Session"] != null)
                     && (Request.Cookies["Session"].Value != "")
-                    && (Session["SaveIn"] != null)
-                    && Convert.ToBoolean(Session["SaveIn"]))
+                    && SaveIn)
                 {
-                    Response.Redirect("Profile.aspx");
+                    RedirectToProfile();
                 }
                 else
                 {
@@ -25,6 +26,11 @@ namespace Site.Authentication
             }
         }
 
+        private void RedirectToProfile()
+        {
+            Response.Redirect("~/Authentication/Profile.aspx");
+        }
+
         protected void Enter_Click(object sender, EventArgs e)
         {
             var client = new Campus.SDK.Client();
@@ -32,6 +38,8 @@ namespace Site.Authentication
 
             if (!String.IsNullOrEmpty(client.SessionId))
             {
+                SaveIn = false;
+
                 if (remember_me.Checked)
                 {
                     var cookie = new HttpCookie("Session")
@@ -41,18 +49,14 @@ namespace Site.Authentication
                     };
 
                     Response.Cookies.Add(cookie);
-                    Session["SaveIn"] = true;
-                }
-                else
-                {
-                    Session["SaveIn"] = false;
+                    SaveIn = true;
                 }
 
                 SessionId = client.SessionId;
                 Session["UserLogin"] = txUser.Text;
                 Session["UserPass"] = txPass.Text;
 
-                Response.Redirect("Profile.aspx");
+                RedirectToProfile();
             }
             else
             {

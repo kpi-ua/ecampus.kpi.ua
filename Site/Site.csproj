@@ -128,7 +128,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Authentication\Authentication.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
     <Content Include="Authentication\Messages\AllDialogs.aspx" />
@@ -276,13 +276,12 @@
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\Config.cs" />
-    <Compile Include="Authentication\Authentication.aspx.cs">
-      <DependentUpon>Authentication.aspx</DependentUpon>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Authentication.aspx.designer.cs">
-      <DependentUpon>Authentication.aspx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Authentication\Bulletins\AllBulletins.aspx.cs">
       <DependentUpon>AllBulletins.aspx</DependentUpon>
@@ -356,13 +355,6 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="SitePlusNav.Master.cs">
-      <DependentUpon>SitePlusNav.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SitePlusNav.Master.designer.cs">
-      <DependentUpon>SitePlusNav.Master</DependentUpon>
-    </Compile>
     <Compile Include="TimeTable\TimeTableEdit.aspx.cs">
       <DependentUpon>TimeTableEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -390,7 +382,6 @@
     <Content Include="packages.config" />
     <Content Include="Views\Home\Links.cshtml" />
     <Content Include="Site.Master" />
-    <Content Include="SitePlusNav.Master" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

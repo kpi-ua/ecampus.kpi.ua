@@ -14,9 +14,9 @@ namespace Site.Authentication.Bulletins
         
             if (SessionId != null)
             {
-                var userPremDic = (Dictionary<string, Premission>)Session["UserPremissions"];
+                var userPremDic = (Dictionary<string, Permission>)Session["UserPremissions"];
 
-                if (userPremDic["Дошка оголошень"].create)
+                if (userPremDic["Дошка оголошень"].Create)
                 {
                     ModeratorMode.Attributes.CssStyle.Add("display", "block");
                 }
@@ -25,18 +25,17 @@ namespace Site.Authentication.Bulletins
                     ModeratorMode.Attributes.CssStyle.Add("display", "none");
                 }
 
-                Dictionary<string, object> answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetActual?sessionId=" + SessionId);
-                ArrayList Bulletins;
+                var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetActual?sessionId=" + SessionId);
 
                 if (answer != null)
                 {
-                    Bulletins = (ArrayList)answer["Data"];
-                    BulletinsRendering(Bulletins);
+                    var bulletins = (ArrayList)answer["Data"];
+                    BulletinsRendering(bulletins);
                 }
             }
             else
             {
-                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
+                var mainDiv = new HtmlGenericControl("div");
                 mainDiv.Attributes.Add("id", "mainBlock");
                 BulletinsContainer.Controls.Add(mainDiv);
                 CreateErrorMessage(mainDiv);
@@ -44,12 +43,11 @@ namespace Site.Authentication.Bulletins
 
         }
 
-        private void BulletinsRendering(ArrayList Bulletins)
+        private void BulletinsRendering(ArrayList bulletins)
         {
-
-            for (int i = 0; i < Bulletins.Count; i++)
+            for (int i = 0; i < bulletins.Count; i++)
             {
-                Dictionary<string, object> kvBulletin = (Dictionary<string, object>)Bulletins[i];
+                var kvBulletin = (Dictionary<string, object>)bulletins[i];
                 BulletinsContainer.Controls.Add(BulletinBlockRendering(kvBulletin));
             }
         }
@@ -57,28 +55,28 @@ namespace Site.Authentication.Bulletins
         private HtmlGenericControl BulletinBlockRendering(Dictionary<string, object> kvBulletin)
         {
 
-            HtmlGenericControl bulletinDiv = new HtmlGenericControl("div");
+            var bulletinDiv = new HtmlGenericControl("div");
             bulletinDiv.Attributes.Add("class", "inf_des");
 
-            HtmlGenericControl dateSpan = new HtmlGenericControl("span");
+            var dateSpan = new HtmlGenericControl("span");
             dateSpan.Attributes.Add("class", "date");
             dateSpan.InnerText = kvBulletin["DateCreate"].ToString();
 
-            HtmlGenericControl subject = new HtmlGenericControl("h4");
+            var subject = new HtmlGenericControl("h4");
             subject.Attributes.Add("class", "text-primary");
             subject.InnerText = kvBulletin["Subject"].ToString();
 
-            HtmlGenericControl readLink = new HtmlGenericControl("a");
+            var readLink = new HtmlGenericControl("a");
             readLink.Attributes.Add("class", "showText");
             readLink.InnerText = "[читати...]";
 
-            HtmlGenericControl text = new HtmlGenericControl("p");
+            var text = new HtmlGenericControl("p");
             text.Attributes.Add("class", "text-success");
             text.InnerText = kvBulletin["Text"].ToString();
 
-            HtmlGenericControl publisher = new HtmlGenericControl("span");
+            var publisher = new HtmlGenericControl("span");
             publisher.Attributes.Add("class", "poster");
-            HtmlGenericControl publisherName = new HtmlGenericControl("a");
+            var publisherName = new HtmlGenericControl("a");
             publisherName.InnerText = kvBulletin["CreatorUserFullName"] == null ? "Анонім" : kvBulletin["CreatorUserFullName"].ToString();
             publisher.Controls.Add(publisherName);
 

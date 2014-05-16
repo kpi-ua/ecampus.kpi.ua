@@ -19,7 +19,7 @@ namespace Site.TimeTable
             }
             catch (Exception)
             {
-                Response.Redirect("/Authentication/Authentication.aspx");
+                Response.Redirect("~/Login.aspx");
             }
         }
     }

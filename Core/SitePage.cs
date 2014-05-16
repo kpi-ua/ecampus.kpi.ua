@@ -17,16 +17,16 @@ namespace Core
             get { return _campusClient ?? (_campusClient = new CampusClient()); }
         }
 
+        protected bool SaveIn
+        {
+            get { return Session["SaveIn"] != null && Convert.ToBoolean(Session["SaveIn"]); }
+            set { Session["SaveIn"] = value; }
+        }
+
         protected String SessionId
         {
-            get
-            {
-                return Session["UserData"] == null ? null : Session["UserData"].ToString();
-            }
-            set
-            {
-                Session["UserData"] = value;
-            }
+            get { return Session["UserData"] == null ? null : Session["UserData"].ToString(); }
+            set { Session["UserData"] = value; }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -35,9 +35,9 @@ namespace Core
 
             var page = Path.GetFileName(Request.Url.AbsolutePath).ToLower();
 
-            if (String.IsNullOrEmpty(SessionId) && page != "authentication.aspx")
+            if (String.IsNullOrEmpty(SessionId) && page != "login.aspx")
             {
-                Response.Redirect("~/Authentication/Authentication.aspx");
+                Response.Redirect("~/Login.aspx");
             }
         }
 
