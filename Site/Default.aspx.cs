@@ -1,33 +1,54 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Web.Script.Serialization;
-using Core;
 
 namespace Site
 {
     public partial class Default : Core.SitePage
     {
-        protected override void OnLoad(EventArgs e)
+        protected override void OnLoad(EventArgs ea)
         {
-            base.OnLoad(e);
+            base.OnLoad(ea);
 
             try
             {
-                var client = new Campus.SDK.Client();
-                var result = client.Get(Campus.SDK.Client.BuildUrl("User", "GetCurrentUser", "?sessionId=" + SessionId));
-                Photo.ImageUrl = result.Data.Photo;
-
-                var serializer = new JavaScriptSerializer();
-                var data = (Dictionary<string, object>)serializer.Deserialize<Dictionary<string, object>>(result.Data.ToString());
+                Photo.ImageUrl = CurrentUser.Photo;
 
                 if (!Page.IsPostBack)
                 {
-                    ParsePersonData(data);
-                    ParseEmployees(data);
-                    ParseProfiles(data);
+                    PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + CurrentUser.FullName + "</p>";
+
+                    foreach (var e in CurrentUser.Employees)
+                    {
+                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + e.SubdivisionName + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + " Позиція: <i class=\"text-success\">" + e.Position + "</i></p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree + "</i></p>";
+
+                    }
+
+                    foreach (var p in CurrentUser.Personalities)
+                    {
+                        var val = p.IsContract ? "так" : "ні";
+
+                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + p.SubdivisionName + "</p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Група: <i class=\"text-success\">" + p.StudyGroupName + "</i></p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Контрактна форма навчання: <i class=\"text-success\">" + val + "</i></p>";
+                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
+                    }
+
+                    SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
+
+                    foreach (var p in CurrentUser.Profiles)
+                    {
+                        SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + p.SubsystemName + "\"";
+                        SpecFunc.Text += "<i class=\"text-success\">" + "( " + p.ProfileName + " )" + "</i></p>";
+                    }
+
+                    SpecFunc.Text += "</div>";
                 }
+
 
                 var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + SessionId);
 
@@ -48,103 +69,6 @@ namespace Site
 
         }
 
-        private void ParsePersonData(Dictionary<string, object> data)
-        {
-            PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + data["FullName"] + "</p>";
-        }
-
-        private void ParseEmployees(Dictionary<string, object> data)
-        {
-            var personalitiess = (ArrayList)data["Personalities"];
-            var employees = (ArrayList)data["Employees"];
-
-            for (int i = 0; i < personalitiess.Count; i++)
-            {
-                foreach (var w in (Dictionary<string, object>)personalitiess[i])
-                {
-                    if (w.Key == "SubdivisionId")
-                    {
-
-                    }
-                    else if (w.Key == "SubdivisionName")
-                    {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + w.Value + "</p>";
-                    }
-                    else if (w.Key == "StudyGroupName")
-                    {
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Група: <i class=\"text-success\">" + w.Value + "</i></p>";
-                    }
-                    else if (w.Key == "IsContract")
-                    {
-                        var val = "ні";
-                        if (w.Value.ToString().ToLower() == "true") { val = "так"; }
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Контрактна форма навчання: <i class=\"text-success\">" + val + "</i></p>";
-                    }
-                    else if (w.Key == "Specialty")
-                    {
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Спеціальність: <i class=\"text-success\">" + w.Value + "</i></p>";
-                    }
-
-                }
-            }
-
-            for (int i = 0; i < employees.Count; i++)
-            {
-                foreach (KeyValuePair<string, object> w in (Dictionary<string, object>)employees[i])
-                {
-                    if (w.Key == "SubdivisionId")
-                    {
-
-                    }
-                    else if (w.Key == "SubdivisionName")
-                    {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + w.Value + "</p>";
-                    }
-                    else if (w.Key == "Position")
-                    {
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + " Позиція: <i class=\"text-success\">" + w.Value + "</i></p>";
-                    }
-                    else if (w.Key == "AcademicDegree")
-                    {
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Академічний ступінь: <i class=\"text-success\">" + w.Value + "</i></p>";
-                    }
-                }
-            }
-        }
-
-        private void ParseProfiles(Dictionary<string, object> data)
-        {
-            var profiles = (ArrayList)data["Profiles"];
-
-            SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
-
-            for (int i = 0; i < profiles.Count; i++)
-            {
-                foreach (var pk in (Dictionary<string, object>)profiles[i])
-                {
-                    switch (pk.Key)
-                    {
-                        case "SubsystemName":
-                            {
-                                SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + pk.Value + "\"";
-                                break;
-                            }
-                        case "ProfileName":
-                            {
-                                SpecFunc.Text += "<i class=\"text-success\">" + "( " + pk.Value + " )" + "</i></p>";
-                                break;
-                            }
-                        default:
-                            {
-                                break;
-                            }
-                    }
-
-                }
-            }
-
-            SpecFunc.Text += "</div>";
-        }
 
         private void GetEffectivePremissions(ArrayList data)
         {
@@ -196,6 +120,7 @@ namespace Site
                 if (premObj != null) premDic.Add(premObj.Subsystem, premObj);
                 else throw (new Exception("Права пользователя не получены!"));
             }
+
             Session["UserPremissions"] = premDic;
         }
 
@@ -262,6 +187,7 @@ namespace Site
             client.Authenticate(Session["UserLogin"].ToString(), Session["UserPass"].ToString());
 
             byte[] fileData = null;
+
             using (var binaryReader = new BinaryReader(file.InputStream))
             {
                 fileData = binaryReader.ReadBytes(file.ContentLength);

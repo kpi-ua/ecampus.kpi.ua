@@ -128,6 +128,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\carousel-billboard.jpg" />
+    <Content Include="Images\carousel-support.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
     <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
@@ -148,8 +153,6 @@
     <Content Include="Content\Bulletins.css" />
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\form-styles.css" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
@@ -161,7 +164,6 @@
     <Content Include="Content\SiteMaster.css" />
     <Content Include="Content\timetable.css" />
     <Content Include="EIR\CardEditEIR.aspx" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
@@ -263,6 +265,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="SessionManager.asmx" />
     <Content Include="Sources\RNP_view.css" />
+    <Content Include="Support.aspx" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
     <Content Include="TimeTable\TimeTableMain.aspx" />
     <Content Include="Web.config">
@@ -344,6 +347,13 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Support.aspx.cs">
+      <DependentUpon>Support.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Support.aspx.designer.cs">
+      <DependentUpon>Support.aspx</DependentUpon>
     </Compile>
     <Compile Include="TimeTable\TimeTableEdit.aspx.cs">
       <DependentUpon>TimeTableEdit.aspx</DependentUpon>

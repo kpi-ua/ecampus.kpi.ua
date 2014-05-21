@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections.Generic;
-using System.Net;
-using System.Web.Script.Serialization;
+using System.Text;
 using System.Web.UI.HtmlControls;
-using Core;
 
 namespace Site
 {
@@ -21,26 +20,17 @@ namespace Site
                 }
                 else
                 {
-                    UserName.Text = "";
-
                     ExitLink.PostBackUrl = Request.Url.AbsoluteUri;
-                    
-                    var url = Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId;
-                    var json = CampusClient.DownloadString(url);
-
-                    var serializer = new JavaScriptSerializer();
-                    var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-
-                    var data = (Dictionary<string, object>)respDictionary["Data"];
-
-                    UserName.Text += data["FullName"];
+                    UserName.Text += CurrentUser.FullName;
 
                     var hiddenField = new HtmlGenericControl("input");
                     hiddenField.Attributes.Add("id", "uhidden");
                     hiddenField.Attributes.Add("type", "hidden");
-                    hiddenField.Attributes.Add("value", data["UserAccountId"].ToString());
+                    hiddenField.Attributes.Add("value", CurrentUser.UserAccountId.ToString());
 
                     form.Controls.Add(hiddenField);
+
+                    LoadCarousel();
                 }
 
             }
@@ -48,6 +38,23 @@ namespace Site
             {
                 UserName.Text = "Ошибка при загрузке страницы!!!";
             }
+        }
+
+        private void LoadCarousel()
+        {
+            var sb = new StringBuilder();
+
+            foreach (var link in this.TopLinks)
+            {
+                sb.AppendLine("<div class=\"slide\">");
+                sb.AppendLine("<div class=\"slide-content\">");
+                sb.AppendFormat("<a href=\"{0}\">", link.Url);
+                sb.AppendFormat("<img src=\"{0}\" alt=\"{1}\" />", link.Image, link.Title);
+                sb.AppendFormat("<div class=\"slide-title\">{0}</div>", link.Title);
+                sb.AppendLine("</a></div></div>");
+            }
+
+            carousel_wrap.InnerHtml = sb.ToString();
         }
 
         protected void ExitLink_Click(object sender, EventArgs e)
@@ -58,6 +65,21 @@ namespace Site
             }
 
             Response.Redirect("~/Login.aspx");
+        }
+
+        protected IEnumerable<Core.Link> TopLinks
+        {
+            get
+            {
+                return new List<Core.Link>()
+                    {
+                        new Link {Title = "Мій профіль", Image = CurrentUser.Photo, Url = "/"},
+                        new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Authentication/Bulletins/AllBulletins.aspx"},
+                        new Link {Title = "Спілкування", Image = "/Images/carousel-msg.jpg", Url = "/Messages"},
+                        new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg" ,Url = "/TimeTable/TimeTableMain.aspx"},
+                        new Link {Title = "Підтримка", Image = "/Images/carousel-support.jpg", Url = "/Support.aspx"},
+                    };
+            }
         }
     }
 }

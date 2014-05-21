@@ -103,5 +103,11 @@ namespace Core
             result = result.OrderByDescending(o => o.LastMessageDate);
             return result;
         }
+
+        public Campus.Common.User GetUser(string sessionId)
+        {
+            var result = Get<Campus.Common.User>("User", "GetCurrentUser", new { sessionId, });
+            return result;
+        }
     }
 }

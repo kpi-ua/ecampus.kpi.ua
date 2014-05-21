@@ -83,106 +83,38 @@
                 <div class="clear"></div>
             </div>
             <!--Хлебные крошки-->
-
+            
             <div class="carousel">
-                <div class="carousel-wrap">
+                <div runat="server" id="carousel_wrap" class="carousel-wrap">
+
+                    <%--<% foreach (var link in this.Links)
+                       { %>
+                    
                     <div class="slide">
                         <div class="slide-content">
-                            <a href="/Messages">
-                                <img src="/Images/carousel-msg.jpg" alt="messages">
+                            <a href="<%= link.Url %>">
+                                <img src="<%= link.Image %>" alt="<%= link.Title %>">
                                 <div class="slide-title">
-                                    Повідомлення
+                                    <%= link.Title %>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <a href="/TimeTable/TimeTableMain.aspx">
-                                <img src="/Images/carousel-schd.jpg" alt="schedule">
-                                <div class="slide-title">
-                                    Розклад
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <a href="">
-                                <img src="/Images/carousel-cntct.jpg" alt="contacts">
-                                <div class="slide-title">
-                                    Контакти
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <a href="/TimeTable/TimeTableMain.aspx">
-                                <img src="/Images/carousel-schd.jpg" alt="schedule">
-                                <div class="slide-title">
-                                    Розклад1
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <a href="">
-                                <img src="/Images/carousel-cntct.jpg" alt="contacts">
-                                <div class="slide-title">
-                                    Контакти1
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <a href="/Messages">
-                                <img src="/Images/carousel-msg.jpg" alt="messages">
-                                <div class="slide-title">
-                                    Повідомлення1
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <a href="">
-                                <img src="/Images/carousel-cntct.jpg" alt="contacts">
-                                <div class="slide-title">
-                                    Контакти2
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="slide">
-                        <div class="slide-content">
-                            <a href="">
-                                <img src="/Images/carousel-cntct.jpg" alt="contacts">
-                                <div class="slide-title">
-                                    Контакти3
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+
+                    <% } %>--%>
+                    
                 </div>
             </div>
             <div class="left-col">
                 <ul class="left-nav">
                     <li>
-                        <a>Мій профіль
-                                <div class="chevron"></div>
+                        <a>
+                            Мій профіль
+                            <div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li>
-                                <a href="#">Робота з публічною інформацією
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Робота з закритою інформацією
-                                </a>
-                            </li>
+                            <li><a href="#">Робота з публічною інформацією</a></li>
+                            <li><a href="#">Робота з закритою інформацією</a></li>
                         </ul>
                     </li>
                     <li class="dropmenu">
@@ -201,60 +133,39 @@
                         </ul>
                     </li>
                     <li class="dropmenu">
-                        <a>Спілкування
-                                <div class="chevron"></div>
+                        <a>
+                            Спілкування
+                            <div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li>
-                                <a href="/Messages">Повідомлення</a>
-                            </li>
-                            <li>
-                                <a href="#">Пошук групи спілкування</a>
-                            </li>
-                            <li>
-                                <a href="#">Повідомлення в групі</a>
-                            </li>
+                            <li><a href="/Messages">Повідомлення</a></li>
+                            <li><a href="#">Пошук групи спілкування</a></li>
+                            <li><a href="#">Повідомлення в групі</a></li>
                         </ul>
                     </li>
                     <li class="dropmenu">
-                        <a>Електронні інформаційні ресурси
-                                <div class="chevron"></div>
+                        <a>
+                            Електронні інформаційні ресурси
+                            <div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li>
-                                <a href="#">Пошук ЕІР</a>
-                            </li>
-                            <li>
-                                <a href="">Перегляд ЕІР</a>
-                            </li>
-                            <li>
-                                <a href="">Додавання ЕІР</a>
-                            </li>
+                            <li><a href="#">Пошук ЕІР</a></li>
+                            <li><a href="#">Створити ЕІР</a></li>
+                            <li><a href="#">Методичне забезпечення</a></li>
                         </ul>
                     </li>
                     <li class="dropmenu">
-                        <a>Робота
-                                <div class="chevron"></div>
+                        <a>
+                            Робота
+                            <div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li>
-                                <a href="#">Навчальна</a>
-                            </li>
-                            <li>
-                                <a href="#">Методична</a>
-                            </li>
-                            <li>
-                                <a href="#">Наукова</a>
-                            </li>
-                            <li>
-                                <a href="#">Інноваційна</a>
-                            </li>
-                            <li>
-                                <a href="#">Організаційна</a>
-                            </li>
-                            <li>
-                                <a href="#">Виховна</a>
-                            </li>
+                            <li><a href="#">Навчальна</a></li>
+                            <li><a href="#">Методична</a></li>
+                            <li><a href="#">Наукова</a></li>
+                            <li><a href="#">Інноваційна</a></li>
+                            <li><a href="#">Організаційна</a></li>
+                            <li><a href="#">Виховна</a></li>
                         </ul>
                     </li>
                     <li>
@@ -269,24 +180,14 @@
                 </div>
                 <div class="datepicker"></div>
                 <ul class="datepicker-messages hide">
-                    <div class="selected-date">
-                        У цей день:
-                    </div>
+                    <div class="selected-date">У цей день:</div>
                     <li class="event">
-                        <div class="event-time">
-                            16:00
-                        </div>
-                        <div class="event-text">
-                            Консультація ІП-01
-                        </div>
+                        <div class="event-time">16:00</div>
+                        <div class="event-text">Консультація ІП-01</div>
                     </li>
                     <li class="event">
-                        <div class="event-time">
-                            16:00
-                        </div>
-                        <div class="event-text">
-                            Консультація ІП-01
-                        </div>
+                        <div class="event-time">16:00</div>
+                        <div class="event-text">Консультація ІП-01</div>
                     </li>
                 </ul>
             </div>
@@ -303,7 +204,7 @@
             </div>
             наверх
         </div>
-
+        <asp:HiddenField runat="server" ID="uhidden" />
     </form>
 
     <footer>

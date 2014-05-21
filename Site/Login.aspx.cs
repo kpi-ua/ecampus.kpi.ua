@@ -12,9 +12,7 @@ namespace Site
 
             if (!Page.IsPostBack)
             {
-                if ((Request.Cookies["Session"] != null)
-                    && (Request.Cookies["Session"].Value != "")
-                    && SaveIn)
+                if ((Request.Cookies["Session"] != null) && (Request.Cookies["Session"].Value != "") && SaveIn)
                 {
                     RedirectToProfile();
                 }
