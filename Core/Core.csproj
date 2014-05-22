@@ -124,7 +124,6 @@
     <Compile Include="SitePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Slide.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
