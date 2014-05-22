@@ -4,6 +4,7 @@
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 
     <link href="/Content/MasterStyle.css" rel="stylesheet" />
     <link href="/Content/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
