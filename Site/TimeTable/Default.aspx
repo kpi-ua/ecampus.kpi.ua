@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TimeTableMain.aspx.cs" Inherits="Site.TimeTable.TimeTableMain" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.TimeTable.Default" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="head">
     <title>Розклад</title>

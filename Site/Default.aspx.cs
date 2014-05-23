@@ -72,7 +72,7 @@ namespace Site
 
         private void GetEffectivePremissions(ArrayList data)
         {
-            var premDic = new Dictionary<string, Permission>();
+            var permissionns = new Dictionary<string, Permission>();
 
             for (int i = 0; i < data.Count; i++)
             {
@@ -117,11 +117,11 @@ namespace Site
                     }
 
                 }
-                if (premObj != null) premDic.Add(premObj.Subsystem, premObj);
+                if (premObj != null) permissionns.Add(premObj.Subsystem, premObj);
                 else throw (new Exception("Права пользователя не получены!"));
             }
 
-            Session["UserPremissions"] = premDic;
+            Permissions = permissionns;
         }
 
         protected void SavePass_Click(object sender, EventArgs e)

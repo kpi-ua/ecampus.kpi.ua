@@ -8,9 +8,10 @@
 //------------------------------------------------------------------------------
 
 namespace Site.RNP {
-    
-    
-    public partial class RNP_view {
+
+
+    public partial class Default
+    {
         
         /// <summary>
         /// StudyYear control.

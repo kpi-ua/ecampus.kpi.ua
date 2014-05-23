@@ -1,13 +1,18 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Site.Login" %>
 <html>
 <head runat="server">
-    <link href="/Content/MasterStyle.css" rel="stylesheet" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin' rel='stylesheet' type='text/css' />
-    <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>Авторизація</title>    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    <title>Авторизація</title>
+    
+    <link  rel="stylesheet" href="/Content/site.css" />
+    <link  rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
+    <link  rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
+    <link  rel="stylesheet" href="/Content/bootstrap-theme.min.css" />
+    <link  rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <link  rel="stylesheet" href="/Content/bootstrap-chosen.css" />
+    <link  rel="stylesheet" href="/Content/font-awesome.min.css" />
+
 </head>
 <body>
     <div class="wrap login-wrap">

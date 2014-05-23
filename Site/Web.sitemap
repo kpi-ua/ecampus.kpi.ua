@@ -2,13 +2,13 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode url=""  description="">
     <siteMapNode url="~/Default.aspx" title="Профіль"  description="" />
-    <siteMapNode url="~/TimeTable/TimeTableMain.aspx" title="Розклад"  description="" />
+    <siteMapNode url="~/TimeTable/Default.aspx" title="Розклад"  description="" />
     <siteMapNode url="~/Messages/Default.aspx" title="Діалоги"  description="">
       <siteMapNode url="~/Messages/Dialog.aspx" title="Повідомлення"  description="" />
       <siteMapNode url="~/Messages/NewMessage.aspx" title="Новий діалог"  description="" />
     </siteMapNode>
-    <siteMapNode url="~/Authentication/Bulletins/AllBulletins.aspx" title="Оголошення"  description="">
-      <siteMapNode url="~/Authentication/Bulletins/MyBulletins.aspx" title="Мої оголошення"  description="">
+    <siteMapNode url="~/Bulletins/Default.aspx" title="Оголошення"  description="">
+      <siteMapNode url="~/Bulletins/MyBulletins.aspx" title="Мої оголошення"  description="">
         <siteMapNode url="" title="Нове оголошення"  description="" />
       </siteMapNode>
     </siteMapNode>

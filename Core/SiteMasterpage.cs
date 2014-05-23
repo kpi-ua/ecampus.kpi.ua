@@ -1,18 +1,10 @@
-﻿using NLog;
-using System;
+﻿using System;
 using System.Web.UI;
 
 namespace Core
 {
     public class SiteMasterPage : MasterPage
     {
-        private CampusClient _campusClient;
-
-        protected CampusClient CampusClient
-        {
-            get { return _campusClient ?? (_campusClient = new CampusClient()); }
-        }
-
         protected Campus.Common.User CurrentUser
         {
             get
@@ -21,7 +13,8 @@ namespace Core
 
                 if (user == null)
                 {
-                    user = CampusClient.GetUser(SessionId);
+                    var campusClient = new CampusClient();
+                    user = campusClient.GetUser(SessionId);
                     Session["current-user"] = user;
                 }
 
@@ -40,7 +33,5 @@ namespace Core
             get { return Session["UserData"] == null ? null : Session["UserData"].ToString(); }
             set { Session["UserData"] = value; }
         }
-
-        protected Logger Logger = LogManager.GetCurrentClassLogger();
     }
 }

@@ -69,6 +69,10 @@ body, html {
     float: right;
 }
 
+#moderator, #new_message {
+    margin-bottom: 10px;
+}
+
 a, .btn {
     -webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;
@@ -178,6 +182,143 @@ a, .btn {
 .remeber-me input[type="checkbox"]:checked + .checkbox {
     background-position: 0;
 }
+
+/*=== messages ===*/
+
+.messageLink {
+    text-decoration: none;
+    display: block;
+    border: solid 1px #999;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+    .messageLink:hover {
+        background-color: #e4e8ed;
+    }
+
+
+/*----DialogContainer---*/
+#body_DialogContainer {
+    margin-top: 10px;
+}
+
+#body_AnswerText {
+    width: 810px;
+    margin-top: 50px;
+}
+
+#body_AnswerBtn {
+    margin-top: 10px;
+}
+
+#imgBlock {
+    max-width: 80px;
+    max-height: 100px;
+    word-wrap: break-word;
+    float: left;
+}
+
+    #imgBlock img {
+        width: 38px;
+        height: 40px;
+        max-width: 40px;
+        max-height: 50px;
+        margin-left: 2px;
+        margin-bottom: 2px;
+    }
+
+#subject {
+    padding-bottom: 70px; /*border-bottom:1px solid #999;*/
+    margin-left: 150px;
+}
+
+.messageBlock {
+    border-bottom: 1px solid #999;
+}
+
+.messageText {
+    max-width: 800px;
+    word-wrap: break-word;
+    margin-left: 50px;
+}
+
+.messageDate {
+    float: right;
+    margin-top: 0px;
+    margin-left: 100px;
+}
+
+.senderPhoto {
+    width: 38px;
+    height: 40px;
+    float: left;
+}
+
+.senderName {
+    margin-left: 50px;
+}
+/*----DialogContainer---*/
+
+/*----ReloadBtn--------*/
+#right_column_Reload {
+    margin-top: 42px;
+}
+/*----ReloadBtn--------*/
+
+
+#mainBlock {
+    margin: 10px;
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+}
+
+#new_message {
+}
+
+#infoBlock {
+    margin-left: 50px;
+}
+
+
+#right_column_NewMessage {
+    margin-top: 42px;
+}
+
+.imgBlock {
+    max-width: 80px;
+    max-height: 100px;
+    word-wrap: break-word;
+}
+
+    .imgBlock img {
+        width: 38px;
+        height: 40px;
+        max-width: 40px;
+        max-height: 50px;
+        margin-right: 2px;
+        margin-bottom: 2px;
+    }
+
+.lastPhoto {
+    width: 38px;
+    height: 40px;
+    max-width: 38px;
+    max-height: 40px;
+    float: left;
+}
+
+.lastSender {
+    margin-bottom: 5px;
+    margin-left: 45px;
+}
+
+.lastText {
+    margin-left: 45px;
+    max-width: 490px;
+}
+
 
 /*=== main pages ===*/
 
@@ -364,6 +505,13 @@ header {
         clear: both;
     }
 
+    .carousel a {
+    }
+
+        .carousel a:hover {
+            text-decoration: none;
+        }
+
 .carousel-progress {
     float: right;
     padding-right: 15px;
@@ -412,6 +560,7 @@ header {
     cursor: pointer;
     z-index: 999;
 }
+
 
     .carousel .carousel-prev .prev-icon {
         position: absolute;
@@ -477,6 +626,8 @@ header {
     .carousel .slide:last-child {
         margin-right: 0 !important;
     }
+
+
 
 .slide-content {
     height: 100%;
@@ -729,6 +880,22 @@ header {
         text-align: center;
         font-size: 1em;
         line-height: 24px;
+    }
+
+.poster {
+    font: 12px Verdana, Sans-serif;
+    color: #ccc;
+    text-align: right;
+    text-decoration: none;
+    display: block;
+}
+
+    .poster a {
+        font: 12px Verdana, Sans-serif;
+        color: #ccc;
+        text-align: right;
+        text-decoration: none;
+        display: inline;
     }
 
 .datepicker-messages {

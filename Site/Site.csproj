@@ -134,12 +134,11 @@
     <Content Include="Images\carousel-billboard.jpg" />
     <Content Include="Images\carousel-support.jpg" />
     <Content Include="Login.aspx" />
-    <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
-    <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
+    <Content Include="Bulletins\Default.aspx" />
+    <Content Include="Bulletins\MyBulletins.aspx" />
     <Content Include="Messages\Default.aspx" />
     <Content Include="Messages\Dialog.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Content\AllDialogs.css" />
     <Content Include="Content\Authentication.css" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -150,14 +149,12 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
-    <Content Include="Content\Bulletins.css" />
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\form-styles.css" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
-    <Content Include="Content\MasterStyle.css" />
-    <Content Include="Content\Messages.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Content\NewMessage.css" />
     <Content Include="Content\Profile.css" />
     <Content Include="Content\RNP_view.css" />
@@ -237,7 +234,7 @@
     <Content Include="Images\user_pic.png" />
     <Content Include="Images\vsogo.png" />
     <Content Include="Images\zaliki.png" />
-    <Content Include="RNP\RNP_view.aspx" />
+    <Content Include="RNP\Default.aspx" />
     <Content Include="robots.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -264,10 +261,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="SessionManager.asmx" />
-    <Content Include="Sources\RNP_view.css" />
     <Content Include="Support.aspx" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
-    <Content Include="TimeTable\TimeTableMain.aspx" />
+    <Content Include="TimeTable\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -283,18 +279,18 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Bulletins\AllBulletins.aspx.cs">
-      <DependentUpon>AllBulletins.aspx</DependentUpon>
+    <Compile Include="Bulletins\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Bulletins\AllBulletins.aspx.designer.cs">
-      <DependentUpon>AllBulletins.aspx</DependentUpon>
+    <Compile Include="Bulletins\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Bulletins\MyBulletins.aspx.cs">
+    <Compile Include="Bulletins\MyBulletins.aspx.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Bulletins\MyBulletins.aspx.designer.cs">
+    <Compile Include="Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
     </Compile>
     <Compile Include="Messages\Default.aspx.cs">
@@ -330,12 +326,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RNP\RNP_view.aspx.cs">
-      <DependentUpon>RNP_view.aspx</DependentUpon>
+    <Compile Include="RNP\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="RNP\RNP_view.aspx.designer.cs">
-      <DependentUpon>RNP_view.aspx</DependentUpon>
+    <Compile Include="RNP\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="SessionManager.asmx.cs">
       <DependentUpon>SessionManager.asmx</DependentUpon>
@@ -362,12 +358,12 @@
     <Compile Include="TimeTable\TimeTableEdit.aspx.designer.cs">
       <DependentUpon>TimeTableEdit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TimeTable\TimeTableMain.aspx.cs">
-      <DependentUpon>TimeTableMain.aspx</DependentUpon>
+    <Compile Include="TimeTable\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TimeTable\TimeTableMain.aspx.designer.cs">
-      <DependentUpon>TimeTableMain.aspx</DependentUpon>
+    <Compile Include="TimeTable\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

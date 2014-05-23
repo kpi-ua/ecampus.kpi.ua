@@ -1,14 +1,10 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Authentication.AllDialogs" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>Повідомлення</title>
-    <link href="/Content/AllDialogs.css" rel="stylesheet" />
-</asp:Content>
+﻿<%@ Page Title="Спілкування" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Messages.Default" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <h1>Спілкування</h1>
+
     <asp:Button ID="new_message" runat="server" Text="Нове Повідомлення" CssClass="btn btn-warning" ClientIDMode="Static" />
-
-
+    
     <asp:Literal ID="Result" runat="server"></asp:Literal>
     <asp:Panel ID="LinkContainer" runat="server">
 

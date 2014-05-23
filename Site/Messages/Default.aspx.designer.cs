@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Site.Authentication {
+namespace Site.Messages {
     
     
-    public partial class AllDialogs {
+    public partial class Default {
         
         /// <summary>
         /// new_message control.

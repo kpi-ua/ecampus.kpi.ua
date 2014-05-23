@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -8,13 +9,28 @@ namespace Core
 {
     public class SitePage : Page
     {
-        protected Logger Logger = LogManager.GetCurrentClassLogger();
-
         private CampusClient _campusClient;
 
         protected CampusClient CampusClient
         {
             get { return _campusClient ?? (_campusClient = new CampusClient()); }
+        }
+
+        protected Dictionary<string, Permission> Permissions
+        {
+            get
+            {
+                if (Session["UserPremissions"] == null)
+                {
+                    Session["UserPremissions"] = new Dictionary<string, Permission>();
+                }
+
+                return Session["UserPremissions"] as Dictionary<string, Permission>;
+            }
+            set
+            {
+                Session["UserPremissions"] = value;
+            }
         }
 
         protected Campus.Common.User CurrentUser
@@ -57,7 +73,7 @@ namespace Core
             }
         }
 
-        public void CreateErrorMessage(HtmlGenericControl target)
+        protected void CreateErrorMessage(HtmlGenericControl target)
         {
             target.Controls.Clear();
             var error = new HtmlGenericControl("h2");

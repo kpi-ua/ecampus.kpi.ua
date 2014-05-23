@@ -10,6 +10,6 @@
 namespace Site.TimeTable {
     
     
-    public partial class TimeTableMain {
+    public partial class Default {
     }
 }

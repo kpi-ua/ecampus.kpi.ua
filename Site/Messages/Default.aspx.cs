@@ -1,12 +1,12 @@
-﻿using Campus.Common;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Campus.Common;
 
-namespace Site.Authentication
+namespace Site.Messages
 {
-    public partial class AllDialogs : Core.SitePage
+    public partial class Default : Core.SitePage
     {
         protected void Page_Init(object sender, EventArgs e)
         {

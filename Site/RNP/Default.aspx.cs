@@ -2,11 +2,11 @@
 
 namespace Site.RNP
 {
-    public partial class RNP_view : Core.SitePage
+    public partial class Default : Core.SitePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-
+            base.OnLoad(e);
         }
 
         protected void btnAudHour_Click(object sender, EventArgs e)

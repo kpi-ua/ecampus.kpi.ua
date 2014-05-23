@@ -7,27 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Site.Authentication.Bulletins {
+namespace Site.Bulletins {
     
     
-    public partial class MyBulletins {
+    public partial class Default {
         
         /// <summary>
-        /// CreateNewBulletin control.
+        /// moderator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CreateNewBulletin;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor moderator;
         
         /// <summary>
-        /// MyBulletinsContainer control.
+        /// bulletins control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel MyBulletinsContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl bulletins;
     }
 }

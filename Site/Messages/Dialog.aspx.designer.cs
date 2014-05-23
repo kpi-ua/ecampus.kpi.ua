@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Site.Authentication {
+namespace Site.Messages {
     
     
     public partial class Messages {

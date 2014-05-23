@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="RNP_view.aspx.cs" Inherits="Site.RNP.RNP_view" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Site.RNP.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
    <title>RNP_view</title>

@@ -1,13 +1,13 @@
-﻿using System.Linq;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Newtonsoft.Json.Linq;
 
-namespace Site.Authentication
+namespace Site.Messages
 {
     public partial class Messages : Core.SitePage
     {

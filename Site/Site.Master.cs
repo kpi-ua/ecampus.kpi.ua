@@ -67,16 +67,16 @@ namespace Site
             Response.Redirect("~/Login.aspx");
         }
 
-        protected IEnumerable<Core.Link> TopLinks
+        private IEnumerable<Core.Link> TopLinks
         {
             get
             {
-                return new List<Core.Link>()
+                return new List<Core.Link>
                     {
-                        new Link {Title = "Мій профіль", Image = CurrentUser.Photo, Url = "/"},
-                        new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Authentication/Bulletins/AllBulletins.aspx"},
+                        new Link {Title = "Мій профіль", Image = CurrentUser.Photo, Url = "/Default.aspx"},
+                        new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Bulletins"},
                         new Link {Title = "Спілкування", Image = "/Images/carousel-msg.jpg", Url = "/Messages"},
-                        new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg" ,Url = "/TimeTable/TimeTableMain.aspx"},
+                        new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg" ,Url = "/TimeTable"},
                         new Link {Title = "Підтримка", Image = "/Images/carousel-support.jpg", Url = "/Support.aspx"},
                     };
             }

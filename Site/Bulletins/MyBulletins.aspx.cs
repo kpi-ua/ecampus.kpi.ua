@@ -3,49 +3,46 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Core;
 
-namespace Site.Authentication.Bulletins
+namespace Site.Bulletins
 {
     public partial class MyBulletins : Core.SitePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+        
             if (SessionId != null)
             {
-                Dictionary<string, object> answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + SessionId);
-                ArrayList Bulletins;
+                var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + SessionId);
 
                 if (answer != null)
                 {
-                    Bulletins = (ArrayList)answer["Data"];
-                    BulletinsRendering(Bulletins);
+                    var bulletins = (ArrayList)answer["Data"];
+                    BulletinsRendering(bulletins);
                 }
             }
             else
             {
-                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
+                var mainDiv = new HtmlGenericControl("div");
                 mainDiv.Attributes.Add("id", "mainBlock");
                 MyBulletinsContainer.Controls.Add(mainDiv);
                 CreateErrorMessage(mainDiv);
             }
-
         }
 
-        private void BulletinsRendering(ArrayList Bulletins)
+        private void BulletinsRendering(ArrayList bulletins)
         {
-
-            for (int i = 0; i < Bulletins.Count; i++)
+            for (int i = 0; i < bulletins.Count; i++)
             {
-                Dictionary<string, object> kvBulletin = (Dictionary<string, object>)Bulletins[i];
+                var kvBulletin = (Dictionary<string, object>)bulletins[i];
                 MyBulletinsContainer.Controls.Add(BulletinBlockRendering(kvBulletin));
             }
         }
 
-        private HtmlGenericControl BulletinBlockRendering(Dictionary<string, object> kvBulletin)
+        private HtmlGenericControl BulletinBlockRendering(IReadOnlyDictionary<string, object> kvBulletin)
         {
-
-            HtmlGenericControl bulletinDiv = new HtmlGenericControl("div");
+            var bulletinDiv = new HtmlGenericControl("div");
             bulletinDiv.Attributes.Add("class", "inf_des");
 
             HtmlGenericControl dateSpan = new HtmlGenericControl("span");
