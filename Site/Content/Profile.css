@@ -1,23 +1,23 @@
 ﻿body {
 }
 
-#right_column_Photo
+#Photo
 {
     max-height:200px;
     max-width:165px;
 }
 
-#right_column_ChangePass
+#ChangePass
 {
     display:none;
 }
 
-#right_column_LoadPhoto
+#LoadPhoto
 {
     display:none;
 }
 
-#right_column_UploadBtn
+#UploadBtn
 {
     width: 163px;
 }

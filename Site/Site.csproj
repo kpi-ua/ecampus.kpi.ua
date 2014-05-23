@@ -73,13 +73,13 @@
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Extensions, Version=2.2.20.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.22.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives, Version=4.2.20.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.22.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.20\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web.DynamicData" />
@@ -128,13 +128,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Authentication\Authentication.aspx" />
-    <Content Include="Authentication\Bulletins\AllBulletins.aspx" />
-    <Content Include="Authentication\Bulletins\MyBulletins.aspx" />
-    <Content Include="Authentication\Messages\AllDialogs.aspx" />
-    <Content Include="Authentication\Messages\Messages.aspx" />
-    <Content Include="Authentication\Profile.aspx" />
-    <Content Include="Content\AllDialogs.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Images\carousel-billboard.jpg" />
+    <Content Include="Images\carousel-support.jpg" />
+    <Content Include="Login.aspx" />
+    <Content Include="Bulletins\Default.aspx" />
+    <Content Include="Bulletins\MyBulletins.aspx" />
+    <Content Include="Messages\Default.aspx" />
+    <Content Include="Messages\Dialog.aspx" />
+    <Content Include="Default.aspx" />
     <Content Include="Content\Authentication.css" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -145,18 +149,17 @@
     <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap\bootstrap.css" />
     <Content Include="Content\bootstrap\bootstrap.min.css" />
-    <Content Include="Content\Bulletins.css" />
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\Messages.css" />
+    <Content Include="Content\form-styles.css" />
+    <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="Content\site.css" />
     <Content Include="Content\NewMessage.css" />
     <Content Include="Content\Profile.css" />
     <Content Include="Content\RNP_view.css" />
-    <Content Include="Content\screen.css" />
     <Content Include="Content\SiteMaster.css" />
     <Content Include="Content\timetable.css" />
-    <Content Include="Default.aspx" />
     <Content Include="EIR\CardEditEIR.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -164,8 +167,13 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="googleeefcd3aa17a745f9.html" />
+    <Content Include="Images\animated-overlay.gif" />
     <Content Include="Images\background.png" />
     <Content Include="Images\blue_line.png" />
+    <Content Include="Images\carousel-cntct.jpg" />
+    <Content Include="Images\carousel-msg.jpg" />
+    <Content Include="Images\carousel-schd.jpg" />
+    <Content Include="Images\checkbox_sprite.png" />
     <Content Include="Images\choice\NOT.png" />
     <Content Include="Images\choice\OK.png" />
     <Content Include="Images\circles.png" />
@@ -195,6 +203,9 @@
     <Content Include="Images\lab.png" />
     <Content Include="Images\lect.png" />
     <Content Include="Images\loading.gif" />
+    <Content Include="Images\logo-big.png" />
+    <Content Include="Images\logo-kpi.png" />
+    <Content Include="Images\logo-small.png" />
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\messages.png" />
@@ -206,10 +217,24 @@
     <Content Include="Images\razdelitel.png" />
     <Content Include="Images\samost.png" />
     <Content Include="Images\title.png" />
+    <Content Include="Images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Images\ui-icons_222222_256x240.png" />
+    <Content Include="Images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\user_pic.png" />
     <Content Include="Images\vsogo.png" />
     <Content Include="Images\zaliki.png" />
-    <Content Include="RNP\RNP_view.aspx" />
+    <Content Include="RNP\Default.aspx" />
     <Content Include="robots.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -219,74 +244,69 @@
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\core.js" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\script.js" />
     <Content Include="Scripts\timetable.js" />
-    <Content Include="WebForm1.aspx" />
     <Content Include="NLog.config" />
     <Content Include="Content\bootstrap-chosen.less" />
     <Content Include="Content\bootstrap-chosen.scss" />
     <None Include="Properties\PublishProfiles\default.pubxml" />
-    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="SessionManager.asmx" />
-    <Content Include="Sources\RNP_view.css" />
+    <Content Include="Support.aspx" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
-    <Content Include="TimeTable\TimeTableMain.aspx" />
+    <Content Include="TimeTable\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\jquery-2.1.0.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\Config.cs" />
-    <Compile Include="Authentication\Authentication.aspx.cs">
-      <DependentUpon>Authentication.aspx</DependentUpon>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Authentication.aspx.designer.cs">
-      <DependentUpon>Authentication.aspx</DependentUpon>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Bulletins\AllBulletins.aspx.cs">
-      <DependentUpon>AllBulletins.aspx</DependentUpon>
+    <Compile Include="Bulletins\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Bulletins\AllBulletins.aspx.designer.cs">
-      <DependentUpon>AllBulletins.aspx</DependentUpon>
+    <Compile Include="Bulletins\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Bulletins\MyBulletins.aspx.cs">
+    <Compile Include="Bulletins\MyBulletins.aspx.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Bulletins\MyBulletins.aspx.designer.cs">
+    <Compile Include="Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Messages\AllDialogs.aspx.cs">
-      <DependentUpon>AllDialogs.aspx</DependentUpon>
+    <Compile Include="Messages\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Messages\AllDialogs.aspx.designer.cs">
-      <DependentUpon>AllDialogs.aspx</DependentUpon>
+    <Compile Include="Messages\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Messages\Messages.aspx.cs">
-      <DependentUpon>Messages.aspx</DependentUpon>
+    <Compile Include="Messages\Dialog.aspx.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Authentication\Messages\Messages.aspx.designer.cs">
-      <DependentUpon>Messages.aspx</DependentUpon>
+    <Compile Include="Messages\Dialog.aspx.designer.cs">
+      <DependentUpon>Dialog.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Authentication\Profile.aspx.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Authentication\Profile.aspx.designer.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -294,6 +314,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="EIR\CardEditEIR.aspx.cs">
       <DependentUpon>CardEditEIR.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -305,12 +326,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RNP\RNP_view.aspx.cs">
-      <DependentUpon>RNP_view.aspx</DependentUpon>
+    <Compile Include="RNP\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="RNP\RNP_view.aspx.designer.cs">
-      <DependentUpon>RNP_view.aspx</DependentUpon>
+    <Compile Include="RNP\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="SessionManager.asmx.cs">
       <DependentUpon>SessionManager.asmx</DependentUpon>
@@ -323,12 +344,12 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="SitePlusNav.Master.cs">
-      <DependentUpon>SitePlusNav.Master</DependentUpon>
+    <Compile Include="Support.aspx.cs">
+      <DependentUpon>Support.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SitePlusNav.Master.designer.cs">
-      <DependentUpon>SitePlusNav.Master</DependentUpon>
+    <Compile Include="Support.aspx.designer.cs">
+      <DependentUpon>Support.aspx</DependentUpon>
     </Compile>
     <Compile Include="TimeTable\TimeTableEdit.aspx.cs">
       <DependentUpon>TimeTableEdit.aspx</DependentUpon>
@@ -337,19 +358,12 @@
     <Compile Include="TimeTable\TimeTableEdit.aspx.designer.cs">
       <DependentUpon>TimeTableEdit.aspx</DependentUpon>
     </Compile>
-    <Compile Include="TimeTable\TimeTableMain.aspx.cs">
-      <DependentUpon>TimeTableMain.aspx</DependentUpon>
+    <Compile Include="TimeTable\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TimeTable\TimeTableMain.aspx.designer.cs">
-      <DependentUpon>TimeTableMain.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="TimeTable\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -357,7 +371,7 @@
     <Content Include="packages.config" />
     <Content Include="Views\Home\Links.cshtml" />
     <Content Include="Site.Master" />
-    <Content Include="SitePlusNav.Master" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

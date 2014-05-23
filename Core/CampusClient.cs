@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Campus.SDK;
+﻿using Campus.SDK;
 using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Script.Serialization;
@@ -12,6 +12,7 @@ namespace Core
 {
     public class CampusClient : Campus.SDK.Client
     {
+        private readonly JavaScriptSerializer _serializer = new JavaScriptSerializer();
         private T Get<T>(string controller, string method, object arguments = null)
             where T : class
         {
@@ -25,6 +26,21 @@ namespace Core
 
             var model = JsonConvert.DeserializeObject<T>(result.Data.ToString());
             return model;
+        }
+
+        private Dictionary<string, object> GetStringObject(string url)
+        {
+            try
+            {
+                var json = DownloadString(url);
+                var respDictionary = _serializer.Deserialize<Dictionary<string, object>>(json);
+                var data = (Dictionary<string, Object>)respDictionary["Data"];
+                return data;
+            }
+            catch
+            {
+                return new Dictionary<string, object>();
+            }
         }
 
         private WebClient _client;
@@ -102,6 +118,64 @@ namespace Core
             var result = Get<IEnumerable<Campus.Common.Conversation>>("Message", "GetUserConversations", new { sessionId, });
             result = result.OrderByDescending(o => o.LastMessageDate);
             return result;
+        }
+
+        public Campus.Common.User GetUser(string sessionId)
+        {
+            var result = Get<Campus.Common.User>("User", "GetCurrentUser", new { sessionId, });
+            return result;
+        }
+
+        public IEnumerable<Campus.Common.BulletinBoard> GetBulletinBoard(string sessionId)
+        {
+            var result = Get<IEnumerable<Campus.Common.BulletinBoard>>("BulletinBoard", "GetActual", new { sessionId, });
+            return result;
+        }
+
+        public Dictionary<string, Object> GetIrPurpose()
+        {
+            return GetStringObject(ApiEndpoint + "Ir/GetIrPurpose");
+        }
+
+        public Dictionary<string, object> GetIrForm()
+        {
+            return GetStringObject(ApiEndpoint + "Ir/GetIrForm");
+        }
+
+        public Dictionary<string, object> GetPublicationForm()
+        {
+            return GetStringObject(ApiEndpoint + "Ir/GetPublicationForm");
+        }
+
+        public Dictionary<string, object> GetContributionType()
+        {
+            return GetStringObject(Campus.SDK.Client.ApiEndpoint + "Ir/GetContributionType");
+        }
+
+        public Dictionary<string, object> GetStamp()
+        {
+
+            return GetStringObject(ApiEndpoint + "Ir/GetStamp");
+        }
+
+        public Dictionary<string, object> GetCountries()
+        {
+            return GetStringObject(ApiEndpoint + "Ir/GetCountries");
+        }
+
+        public Dictionary<string, object> GetLang()
+        {
+            return GetStringObject(ApiEndpoint + "Ir/GetLang");
+        }
+
+        public Dictionary<string, object> GetISType()
+        {
+            return GetStringObject(ApiEndpoint + "Ir/GetISType");
+        }
+
+        public Dictionary<string, object> GetPersonStatusType()
+        {
+            return GetStringObject(ApiEndpoint + "Ir/GetPersonStatusType");
         }
     }
 }

@@ -1,68 +1,220 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Site.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Site.SiteMaster" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    
-    <link href="/Content/bootstrap-theme.min.css" rel="stylesheet" />
-    <link href="/Content/bootstrap.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
 
-    <link href="/Content/SiteMaster.css" rel="stylesheet" />
-    
-    <script src="/Scripts/jquery-2.1.0.min.js"></script>
-    <script src="/Scripts/bootstrap.js"></script>
-    <script src="/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/Content/site.css" />
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
+    <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
+    <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+
 </head>
 <body>
-    <form id="form" class="container" runat="server">
-        <header id="header" class="row">
-            <div class="col-md-12">
-                <div id="logo">
-                    <a href="#">
-                        <img src="/Images/logo.png" /></a>
-                </div>
-                <p>
-                    <span>електронний кампус</span><br />
-                    НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
-                </p>
-                <div id="user_block">
-                    <%--<a href="#">
-                        <img src="/Images/home_grey.png" onmouseover="this.src='/Images/home_orange.png'" onmouseout="this.src='/Images/home_grey.png'" />
-                    </a><a href="#">
-                        <img src="/Images/kabinet_grey.png" onmouseover="this.src='/Images/kabinet_orange.png'" onmouseout="this.src='/Images/kabinet_grey.png'" />
-                    </a><a href="#">
-                        <img src="/Images/exite_grey.png" onmouseover="this.src='/Images/exite_orange.png'" onmouseout="this.src='/Images/exite_grey.png'" />
-                    </a>--%>
-                    <%--<p>Вітаємо Вас, <a href="#">Мелкумян Екатерина Юріївна</a></p>--%>
-                </div>
-                </div>
-            </header>
 
-        <div id="wrapper" class="row">
-            <div id="middle" class="col-md-12">
-                    <div id="content">
-                        <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+    <form id="form" class="wrap container" runat="server">
+        <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
+            <Scripts>
+                <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
+                <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
+                <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
+                <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
+                <asp:ScriptReference Path="~/Scripts/core.js" />
+                <asp:ScriptReference Path="~/Scripts/script.js" />
+            </Scripts>
+        </asp:ScriptManager>
+
+        <header>
+            <div class="top-header">
+                <div class="menu-toggle pull-left">
+                    <i class="fa fa-bars"></i>
+                </div>
+                <div class="logo-kpi pull-right"></div>
+                <div class="text pull-right">
+                    НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ
+                    <br />
+                    "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+                </div>
+            </div>
+            <div class="header-nav">
+                <div class="green">
+                    <a href="/Default.aspx">
+                        <div class="header-logo pull-left">
+                            <img src="/Images/logo-small.png" alt="campus small logo" />
+                        </div>
+                    </a>
+                    <div class="navbar pull-right">
+                        <ul>
+                            <li>
+                                <a href="/Default.aspx">
+                                    <i class="fa fa-home"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-briefcase"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <asp:LinkButton ID="ExitLink" runat="server" PostBackUrl="~/Login.aspx?logout=true" OnClick="ExitLink_Click">
+                                    <i class="fa fa-sign-out"></i>
+                                </asp:LinkButton>
+                            </li>
+                        </ul>
+                        <div class="user-name">
+                            <a href="/Default.aspx">Вітаємо,
+                                <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
+                        </div>
                     </div>
+                </div>
             </div>
-            <!-- .middle-->
-        </div>
-        <!-- .wrapper -->
-       
-        <footer class="row">
-            <div class="col-md-9">
-                    &copy;Національний технічний університет України<br />
-                    “Київський політехнічний інститут”   <a href="http://kpi.ua/">www.kpi.ua</a><br />
-                    Електронний кампус
+        </header>
+        <div class="content">
+            <!--Хлебные крошки-->
+            <div id="breadcrumbs">
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=">"></asp:SiteMapPath>
+                <div class="carousel-progress">
+                </div>
+                <div class="clear"></div>
             </div>
-            <div class="col-md-3">
-                    Розробник:  Конструкторське бюро інформаційних систем<br />
-                    <a href="http://kbis.kpi.ua/">www.kbis.kpi.ua</a>
-            </div>
-        </footer>
+            <!--Хлебные крошки-->
 
+            <div class="carousel">
+                <div runat="server" id="carousel_wrap" class="carousel-wrap">
+                </div>
+            </div>
+            <div class="left-col">
+                <ul class="left-nav">
+                    <li>
+                        <a>Мій профіль
+                            <div class="chevron"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="#">Робота з публічною інформацією</a></li>
+                            <li><a href="#">Робота з закритою інформацією</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropmenu">
+                        <a>
+                            Дошка оголошень
+                            <div class="chevron"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/Bulletins">Перегляд доступних оголошень
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">Редагування оголошень
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropmenu">
+                        <a>Спілкування
+                            <div class="chevron"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="/Messages">Повідомлення</a></li>
+                            <li><a href="#">Пошук групи спілкування</a></li>
+                            <li><a href="#">Повідомлення в групі</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropmenu">
+                        <a>Електронні інформаційні ресурси
+                            <div class="chevron"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="#">Пошук ЕІР</a></li>
+                            <li><a href="/EIR/CardEditEIR.aspx">Створити ЕІР</a></li>
+                            <li><a href="#">Методичне забезпечення</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropmenu">
+                        <a>Робота
+                            <div class="chevron"></div>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="#">Навчальна</a></li>
+                            <li><a href="#">Методична</a></li>
+                            <li><a href="#">Наукова</a></li>
+                            <li><a href="#">Інноваційна</a></li>
+                            <li><a href="#">Організаційна</a></li>
+                            <li><a href="#">Виховна</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Навчальний процес</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-col">
+                <div class="datepicker-toggle">
+                    <i class="fa fa-calendar"></i>
+                    <div class="datepicker-label"></div>
+                </div>
+                <div class="datepicker"></div>
+                <ul class="datepicker-messages hide">
+                    <div class="selected-date">У цей день:</div>
+                    <li class="event">
+                        <div class="event-time">16:00</div>
+                        <div class="event-text">Консультація ІП-01</div>
+                    </li>
+                    <li class="event">
+                        <div class="event-time">16:00</div>
+                        <div class="event-text">Консультація ІП-01</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="md-col" style="min-height: 1000px">
+                <div id="content">
+                    <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-top">
+            <div class="box">
+                <i class="fa fa-arrow-up"></i>
+            </div>
+            наверх
+        </div>
+        <asp:HiddenField runat="server" ID="uhidden" />
     </form>
+
+    <footer>
+        <div class="container">
+            <div class="text-left pull-left">
+                Національний технічний університет України
+                    <br />
+                “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a>
+                <br />
+                Електронний кампус
+            </div>
+            <div class="text-right pull-right">
+                Розробник:  Конструкторське бюро
+                    <br />
+                інформаційних систем
+                    <br />
+                <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+    <noscript>
+        <div>
+            <img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position: absolute; left: -9999px;" alt="" />
+        </div>
+    </noscript>
+    <!-- /Yandex.Metrika counter -->
+
 </body>
 </html>
