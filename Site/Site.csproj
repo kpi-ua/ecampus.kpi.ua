@@ -139,7 +139,6 @@
     <Content Include="Messages\Default.aspx" />
     <Content Include="Messages\Dialog.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Content\Authentication.css" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -155,12 +154,7 @@
     <Content Include="Content\form-styles.css" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Content\site.css" />
-    <Content Include="Content\NewMessage.css" />
-    <Content Include="Content\Profile.css" />
-    <Content Include="Content\RNP_view.css" />
-    <Content Include="Content\SiteMaster.css" />
-    <Content Include="Content\timetable.css" />
-    <Content Include="EIR\CardEditEIR.aspx" />
+    <Content Include="EIR\CardEdit.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
@@ -315,12 +309,12 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="EIR\CardEditEIR.aspx.cs">
-      <DependentUpon>CardEditEIR.aspx</DependentUpon>
+    <Compile Include="EIR\CardEdit.aspx.cs">
+      <DependentUpon>CardEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\CardEditEIR.aspx.designer.cs">
-      <DependentUpon>CardEditEIR.aspx</DependentUpon>
+    <Compile Include="EIR\CardEdit.aspx.designer.cs">
+      <DependentUpon>CardEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

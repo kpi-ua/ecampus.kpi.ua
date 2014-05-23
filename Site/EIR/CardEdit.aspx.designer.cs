@@ -10,7 +10,7 @@
 namespace Site.EIR {
     
     
-    public partial class CardEditEIR {
+    public partial class CardEdit {
         
         /// <summary>
         /// Label1 control.

@@ -14,19 +14,19 @@ namespace Site
 
             try
             {
-                if (SaveIn && ((Request.Cookies["Session"] == null) || (Request.Cookies["Session"].Value == "")))
+                if (SitePage.SaveIn && ((Request.Cookies["Session"] == null) || (Request.Cookies["Session"].Value == "")))
                 {
                     Response.Redirect("~/Login.aspx");
                 }
                 else
                 {
                     ExitLink.PostBackUrl = Request.Url.AbsoluteUri;
-                    UserName.Text += CurrentUser.FullName;
+                    UserName.Text += SitePage.CurrentUser.FullName;
 
                     var hiddenField = new HtmlGenericControl("input");
                     hiddenField.Attributes.Add("id", "uhidden");
                     hiddenField.Attributes.Add("type", "hidden");
-                    hiddenField.Attributes.Add("value", CurrentUser.UserAccountId.ToString());
+                    hiddenField.Attributes.Add("value", SitePage.CurrentUser.UserAccountId.ToString());
 
                     form.Controls.Add(hiddenField);
 
@@ -59,7 +59,7 @@ namespace Site
 
         protected void ExitLink_Click(object sender, EventArgs e)
         {
-            if (SaveIn)
+            if (SitePage.SaveIn)
             {
                 Response.Cookies["Session"].Value = null;
             }
@@ -73,7 +73,7 @@ namespace Site
             {
                 return new List<Core.Link>
                     {
-                        new Link {Title = "Мій профіль", Image = CurrentUser.Photo, Url = "/Default.aspx"},
+                        new Link {Title = "Мій профіль", Image = SitePage.CurrentUser.Photo, Url = "/Default.aspx"},
                         new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Bulletins"},
                         new Link {Title = "Спілкування", Image = "/Images/carousel-msg.jpg", Url = "/Messages"},
                         new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg" ,Url = "/TimeTable"},

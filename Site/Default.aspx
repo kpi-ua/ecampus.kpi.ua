@@ -1,9 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Default" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <title>Профіль</title>
-    <link href="/Content/Profile.css" rel="stylesheet" />
-</asp:Content>
+﻿<%@ Page Title="Профіль" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Default" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
 

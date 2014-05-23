@@ -1,11 +1,9 @@
-﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEditEIR.aspx.cs" Inherits="Site.EIR.CardEditEIR" %>
-
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <link href="../Content/form-styles.css" rel="stylesheet" />
-</asp:Content>
+﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEdit.aspx.cs" Inherits="Site.EIR.CardEdit" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    
+    <link href="../Content/form-styles.css" rel="stylesheet" />
+
     <h1>Створити ЕІР</h1>
     <div class="row">
         <div class="col-sm-12">

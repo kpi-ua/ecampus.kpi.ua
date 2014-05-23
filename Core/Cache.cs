@@ -1,8 +1,8 @@
-﻿using System.Web;
-using NLog;
+﻿using NLog;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Web;
 
 namespace Core
 {
@@ -11,6 +11,7 @@ namespace Core
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         private static readonly HashSet<string> _keys = new HashSet<string>();
+
         public static void Set(string url, HttpMethod method, byte[] form, string json)
         {
             var key = GenerateKey(url, method, form);

@@ -33,7 +33,7 @@ namespace Core
             }
         }
 
-        protected Campus.Common.User CurrentUser
+        public Campus.Common.User CurrentUser
         {
             get
             {
@@ -49,7 +49,7 @@ namespace Core
             }
         }
 
-        protected bool SaveIn
+        public bool SaveIn
         {
             get { return Session["SaveIn"] != null && Convert.ToBoolean(Session["SaveIn"]); }
             set { Session["SaveIn"] = value; }

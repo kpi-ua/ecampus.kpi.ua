@@ -1,12 +1,10 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.TimeTable.Default" %>
-
-<asp:Content runat="server" ContentPlaceHolderID="head">
-    <title>Розклад</title>
-    <link rel="stylesheet" type="text/css" href="/Content/timetable.css" />
-</asp:Content>
+﻿<%@ Page Title="Розклад" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.TimeTable.Default" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    
+    <h1>Розклад</h1>
+
+    <link rel="stylesheet" type="text/css" href="/Content/timetable.css" />
+
     <script type="text/javascript">
         var sessionId = '<%= SessionId %>';
     </script>

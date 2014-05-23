@@ -1,11 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Site.RNP.Default" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   <title>RNP_view</title>
-    <link href="../Content/RNP_view.css" rel="stylesheet" />
-</asp:Content>
+﻿<%@ Page Title="Навчальний процес" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Site.RNP.Default" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <h1>Навчальний процес</h1>
     <div style="height:100%;">
         <div class="btn-group-vertical">
 

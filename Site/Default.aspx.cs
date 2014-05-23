@@ -72,42 +72,41 @@ namespace Site
 
         private void GetEffectivePremissions(ArrayList data)
         {
-            var permissionns = new Dictionary<string, Permission>();
+            Permissions = new Dictionary<string, Permission>();
 
             for (int i = 0; i < data.Count; i++)
             {
-                Permission premObj = null;
+                Permission permission = null;
 
-                foreach (var pk in (Dictionary<string, object>)data[i])
+                foreach (var p in (Dictionary<string, object>)data[i])
                 {
-                    var prem = (pk.Value.ToString().ToLower() != "false");
+                    var prem = (p.Value.ToString().ToLower() != "false");
 
-                    switch (pk.Key)
+                    switch (p.Key)
                     {
-
                         case "SubsystemName":
                             {
-                                premObj = new Permission(pk.Value.ToString());
+                                permission = new Permission(p.Value.ToString());
                                 break;
                             }
                         case "IsCreate":
                             {
-                                premObj.Create = prem;
+                                permission.Create = prem;
                                 break;
                             }
                         case "IsRead":
                             {
-                                premObj.Read = prem;
+                                permission.Read = prem;
                                 break;
                             }
                         case "IsUpdate":
                             {
-                                premObj.Update = prem;
+                                permission.Update = prem;
                                 break;
                             }
                         case "IsDelete":
                             {
-                                premObj.Delete = prem;
+                                permission.Delete = prem;
                                 break;
                             }
                         default:
@@ -115,13 +114,17 @@ namespace Site
                                 break;
                             }
                     }
-
                 }
-                if (premObj != null) permissionns.Add(premObj.Subsystem, premObj);
-                else throw (new Exception("Права пользователя не получены!"));
-            }
 
-            Permissions = permissionns;
+                if (permission != null)
+                {
+                    Permissions.Add(permission.Subsystem, permission);
+                }
+                else
+                {
+                    throw (new Exception("Права пользователя не получены!"));
+                }
+            }
         }
 
         protected void SavePass_Click(object sender, EventArgs e)
@@ -153,6 +156,7 @@ namespace Site
                             NewPassCheakLabel.Text = "Повторіть новий пароль";
                             ChangePass.Attributes.Add("style", "display:none;");
                         }
+
                         Session["UserPass"] = NewPass.Text;
                     }
                 }
@@ -186,16 +190,14 @@ namespace Site
             var client = new Campus.SDK.Client();
             client.Authenticate(Session["UserLogin"].ToString(), Session["UserPass"].ToString());
 
-            byte[] fileData = null;
+            byte[] fileData;
 
             using (var binaryReader = new BinaryReader(file.InputStream))
             {
                 fileData = binaryReader.ReadBytes(file.ContentLength);
-
             }
 
-            var result = client.UploadUserProfileImage(fileData);
-
+            client.UploadUserProfileImage(fileData);
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 
 namespace Site.EIR
 {
-    public partial class CardEditEIR : Core.SitePage
+    public partial class CardEdit : Core.SitePage
     {
         
         private string _irId;
