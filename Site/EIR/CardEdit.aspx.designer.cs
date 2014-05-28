@@ -229,6 +229,24 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.RadioButtonList is_public;
         
         /// <summary>
+        /// UpdatePanel3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
+        
+        /// <summary>
+        /// idcontr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label idcontr;
+        
+        /// <summary>
         /// Label10 control.
         /// </summary>
         /// <remarks>
@@ -346,6 +364,15 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.Button add_contr;
         
         /// <summary>
+        /// delete_contr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button delete_contr;
+        
+        /// <summary>
         /// contributors_update control.
         /// </summary>
         /// <remarks>
@@ -355,13 +382,13 @@ namespace Site.EIR {
         protected global::System.Web.UI.UpdatePanel contributors_update;
         
         /// <summary>
-        /// contributors control.
+        /// contributorsgrid control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel contributors;
+        protected global::System.Web.UI.WebControls.GridView contributorsgrid;
         
         /// <summary>
         /// Label2 control.
@@ -463,6 +490,15 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.DropDownList grif_country;
         
         /// <summary>
+        /// UpdatePanel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
+        
+        /// <summary>
         /// Label32 control.
         /// </summary>
         /// <remarks>
@@ -533,6 +569,15 @@ namespace Site.EIR {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList org_country;
+        
+        /// <summary>
+        /// UpdatePanel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel2;
         
         /// <summary>
         /// Label28 control.

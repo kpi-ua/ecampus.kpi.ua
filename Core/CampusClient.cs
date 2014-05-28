@@ -134,48 +134,73 @@ namespace Core
 
         public Dictionary<string, Object> GetIrPurpose()
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetIrPurpose");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetIrPurpose");
         }
 
         public Dictionary<string, object> GetIrForm()
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetIrForm");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetIrForm");
         }
 
         public Dictionary<string, object> GetPublicationForm()
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetPublicationForm");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetPublicationForm");
         }
 
-        public Dictionary<string, object> GetContributionType()
+        public Dictionary<string, object> GetContributorType()
         {
-            return GetStringObject(Campus.SDK.Client.ApiEndpoint + "Ir/GetContributionType");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetContributorType");
         }
 
         public Dictionary<string, object> GetStamp()
         {
 
-            return GetStringObject(ApiEndpoint + "Ir/GetStamp");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetStamp");
         }
 
         public Dictionary<string, object> GetCountries()
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetCountries");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetCountries");
         }
 
         public Dictionary<string, object> GetLang()
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetLang");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetLang");
         }
 
         public Dictionary<string, object> GetISType()
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetISType");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetISType");
         }
 
         public Dictionary<string, object> GetPersonStatusType()
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetPersonStatusType");
+            return GetStringObject("http://localhost:49945/" + "Ir/GetPersonStatusType");
+        }
+
+        public Dictionary<string, object> GetFeature()
+        {
+            return GetStringObject("http://localhost:49945/" + "Ir/GetIrFeature");
+        }
+
+        public Dictionary<string, object> GetKind()
+        {
+            return GetStringObject("http://localhost:49945/" + "Ir/GetIrKind");
+        }
+
+        public Dictionary<string, object> GetCities(string countryId)
+        {
+            return GetStringObject("http://localhost:49945/" + "Ir/GetCities?countryId=" + countryId);
+        }
+
+        public Dictionary<string, object> GetStampOrg(string cityId)
+        {
+            return GetStringObject("http://localhost:49945/" + "Ir/GetStampOrg?cityId=" + cityId);
+        }
+
+        public Dictionary<string, object> GetPublishOrg(string cityId)
+        {
+            return GetStringObject("http://localhost:49945/" + "Ir/GetPublishOrg?cityId=" + cityId);
         }
     }
 }

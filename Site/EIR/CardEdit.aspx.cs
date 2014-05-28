@@ -1,14 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Mime;
 using System.Web.Script.Serialization;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace Site.EIR
 {
+    class Contributor
+    {
+        public int Id { get; set; }
+        public bool NotKpi { get; set; }
+        public string FullName { get; set; }
+        public string ContributionType { get; set; }
+        public string ContributionPart { get; set; }
+        public string Status { get; set; }
+    }
+
+    class ExtraLanguage
+    {
+         
+    }
+
     public partial class CardEdit : Core.SitePage
     {
         
         private string _irId;
+
+        static List<Contributor> contributorlist = new List<Contributor>();
+        static List<ExtraLanguage> extralangaugelist = new List<ExtraLanguage>(); 
 
         protected override void OnLoad(EventArgs e)
         {
@@ -56,7 +77,7 @@ namespace Site.EIR
                 public_form.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key));
             }
             
-            data = CampusClient.GetContributionType();
+            data = CampusClient.GetContributorType();
 
             foreach (var item in data)
             {
@@ -98,15 +119,25 @@ namespace Site.EIR
             {
                 person_type.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
+
+            data = CampusClient.GetFeature();
+
+            foreach (var item in data)
+            {
+                feature_type.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            }
+
+            data = CampusClient.GetKind();
+
+            foreach (var item in data)
+            {
+                public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            }
         }
 
         private void LoadPanels()
         {
-            //var serializer = new JavaScriptSerializer();
-
-            //var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetContributors");
-            //var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            //var Data = (Dictionary<string, Object>)respDictionary["Data"];
+            
         }
 
         private void FillValues()
@@ -157,84 +188,102 @@ namespace Site.EIR
             */
         }
 
+        #region Adding to the panel
+
+        //Contributors
+
         protected void add_person_Click(object sender, EventArgs e)
         {
+            if (idcontr.Text != "")
+            {
+                contributorlist[Convert.ToInt32(idcontr.Text)].FullName = person_name.Text != ""
+                    ? person_name.Text
+                    : not_kpi_surname.Text;
+                contributorlist[Convert.ToInt32(idcontr.Text)].NotKpi = person_accessory.SelectedValue == "yes";
+                contributorlist[Convert.ToInt32(idcontr.Text)].ContributionPart = contribution_part.Text;
+                contributorlist[Convert.ToInt32(idcontr.Text)].ContributionType = contribution_type.SelectedValue;
+                contributorlist[Convert.ToInt32(idcontr.Text)].Status = person_type.SelectedValue;
+                idcontr.Text = "";
+                add_contr.Text = "Додати";
+            }
+            else
+            {
+                contributorlist.Add(new Contributor
+                {
+                    Id = contributorlist.Count,
+                    NotKpi = person_accessory.SelectedValue == "yes",
+                    FullName = person_name.Text != "" ? person_name.Text : not_kpi_surname.Text,
+                    ContributionType = contribution_type.SelectedValue,
+                    ContributionPart = contribution_part.Text,
+                    Status = person_type.SelectedValue
+                });
+            }
 
+            GridLoad(sender,e);
 
             //clear values
+            delete_contr.Visible = false;
             person_accessory.SelectedValue = "yes";
             person_name.Text = "";
             contribution_part.Text = "";
+            not_kpi_surname.Text = "";
         }
 
-        protected void feature_type_SelectedIndexChanged(object sender, EventArgs e)
+        protected void delete_person_Click(object sender, EventArgs e)
         {
-            var serializer = new JavaScriptSerializer();
+            delete_contr.Visible = false;
+            var contr = contributorlist.Find(o => o.Id.Equals(Convert.ToInt32(idcontr.Text)));
+            contributorlist.Remove(contr);
 
-            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetIrKind");
-            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var Data = (Dictionary<string, Object>)respDictionary["Data"];
+            GridLoad(sender, e);
 
-            foreach (var item in Data)
-            {
-                public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            }
+            idcontr.Text = "";
+            add_contr.Text = "Додати";
+            person_name.Text = "";
+            person_type.SelectedValue = null;
+            person_accessory.SelectedValue = "yes";
+            contribution_type.SelectedValue = null;
+            contribution_part.Text = "";
+            not_kpi_surname.Text = "";
         }
 
-        protected void grif_country_SelectedIndexChanged(object sender, EventArgs e)
+        protected void CRowCommand(object sender, GridViewCommandEventArgs e)
         {
-            var serializer = new JavaScriptSerializer();
-
-            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetCities");
-            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var Data = (Dictionary<string, Object>)respDictionary["Data"];
-
-            foreach (var item in Data)
-            {
-                griff_city.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            }
+            delete_contr.Visible = true;
+            add_contr.Text = "Зберегти";
+            var num = Convert.ToInt32(e.CommandArgument);
+            idcontr.Text = num.ToString();
+            person_accessory.SelectedValue = contributorlist[num].NotKpi ? "yes" : "no";
+            person_name.Text = contributorlist[num].FullName;
+            contribution_type.SelectedValue = contributorlist[num].ContributionType;
+            contribution_part.Text = contributorlist[num].ContributionPart;
+            person_type.SelectedValue = contributorlist[num].Status;
+            not_kpi_surname.Text = contributorlist[num].FullName;
+            UpdatePanel3.Update();
         }
 
-        protected void griff_city_SelectedIndexChanged(object sender, EventArgs e)
+        protected void GridLoad(object sender, EventArgs e)
         {
-            var serializer = new JavaScriptSerializer();
-
-            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetStampOrg?cityId=" + griff_city.SelectedValue);
-            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var Data = (Dictionary<string, Object>)respDictionary["Data"];
-
-            foreach (var item in Data)
-            {
-                griff_org_name.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            }
+            contributorsgrid.DataSource = contributorlist;
+            contributorsgrid.DataBind();
+            contributors_update.Update();
         }
 
-        protected void org_country_SelectedIndexChanged(object sender, EventArgs e)
+
+        //ExtraLangs
+
+
+
+        #endregion
+
+        protected void feature_type_SelectedIndexChanged(object sender, EventArgs e)//узнать зависимость
         {
-            var serializer = new JavaScriptSerializer();
+            //var data = CampusClient.GetKind();
 
-            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetCities");
-            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var Data = (Dictionary<string, Object>)respDictionary["Data"];
-
-            foreach (var item in Data)
-            {
-                org_city.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            }
-        }
-
-        protected void org_city_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var serializer = new JavaScriptSerializer();
-
-            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetPublishOrg?cityId=" + griff_city.SelectedValue);
-            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var Data = (Dictionary<string, Object>)respDictionary["Data"];
-
-            foreach (var item in Data)
-            {
-                org_name.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            }
+            //foreach (var item in data)
+            //{
+            //    public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            //}
         }
 
         protected void save_Click(object sender, EventArgs e)
@@ -263,65 +312,51 @@ namespace Site.EIR
             respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
             id = (string)respDictionary["Data"];
 
-            AddContributors(id);
-            AddExtraLengs(id);
+            //AddContributors(id);
+            //AddExtraLengs(id);
 
         }
 
-        private void AddContributors(string id)
-        {
-            var serializer = new JavaScriptSerializer();
+        //private void AddContributors(string id)
+        //{
+        //    var serializer = new JavaScriptSerializer();
 
-            foreach (var control in contributors.Controls)
-            {
-                var label = (Label)control;
-                string notKpiId = "";
+        //    foreach (var control in contributors_place.Controls)
+        //    {
+        //        var label = (Label)control;
+        //        string notKpiId = "";
 
-                if (person_accessory.SelectedValue == "no")
-                {
-                    var json1 =
-                        CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddNotKPI?type=" +
-                                                    label.Attributes["ptype"] + "&surname=" +
-                                                    label.Attributes["surn"]);
-                    var respDictionary1 = serializer.Deserialize<Dictionary<string, object>>(json1);
-                    notKpiId = (string)respDictionary1["Data"];
-                }
-                //how to use eemployeeId???
-                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddContributor?irId=" + id +
-                                            "&contTypeId=" +
-                                            label.Attributes["ctype"] + "&name=" + label.Attributes["name"] +
-                                            "&notKPIId=" + notKpiId + "&contPercent=" + label.Attributes["cpart"]);
-            }
+        //        if (person_accessory.SelectedValue == "no")
+        //        {
+        //            var json1 =
+        //                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddNotKPI?type=" +
+        //                                            label.Attributes["ptype"] + "&surname=" +
+        //                                            label.Attributes["surn"]);
+        //            var respDictionary1 = serializer.Deserialize<Dictionary<string, object>>(json1);
+        //            notKpiId = (string)respDictionary1["Data"];
+        //        }
+        //        //how to use eemployeeId???
+        //        CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddContributor?irId=" + id +
+        //                                    "&contTypeId=" +
+        //                                    label.Attributes["ctype"] + "&name=" + label.Attributes["name"] +
+        //                                    "&notKPIId=" + notKpiId + "&contPercent=" + label.Attributes["cpart"]);
+        //    }
 
-        }
+        //}
 
-        private void AddExtraLengs(string id)
-        {
-            foreach (var control in contributors.Controls)
-            {
-                var label = (Label)control;
+        //private void AddExtraLengs(string id)
+        //{
+        //    foreach (var control in contributors_place.Controls)
+        //    {
+        //        var label = (Label)control;
 
-                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddExtraLang?irExtraId=" + id +
-                                            "&title=" + label.Attributes["name"] +
-                                            "&annotation=" + label.Attributes["annot"] + "&authors=" +
-                                            label.Attributes["author"] + "&langId=" + label.Attributes["lang"] +
-                                            "&keyWords=" + label.Attributes["kwords"]);
-            }
-        }
-
-        protected void add_contr_Click(object sender, EventArgs e)
-        {
-            var personLable = new Label();
-            personLable.Attributes.Add(ID, contributors.Controls.Count.ToString());
-            personLable.Attributes.Add("name", person_name.Text);
-            personLable.Attributes.Add("ctype", contribution_type.SelectedValue);
-            personLable.Attributes.Add("cpart", contribution_part.Text);
-            personLable.Attributes.Add("ptype", person_type.SelectedValue);
-            personLable.Attributes.Add("surn", not_kpi_surname.Text);
-
-            contributors.Controls.Add(personLable);
-            contributors_update.Update();
-        }
+        //        CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddExtraLang?irExtraId=" + id +
+        //                                    "&title=" + label.Attributes["name"] +
+        //                                    "&annotation=" + label.Attributes["annot"] + "&authors=" +
+        //                                    label.Attributes["author"] + "&langId=" + label.Attributes["lang"] +
+        //                                    "&keyWords=" + label.Attributes["kwords"]);
+        //    }
+        //}
 
         protected void add_land_Click(object sender, EventArgs e)
         {
@@ -336,5 +371,91 @@ namespace Site.EIR
             languages.Controls.Add(langLable);
             languages_update.Update();
         }
+
+        
+
+
+        #region Loading Dependencies
+
+        protected void griff_city_Load(object sender, EventArgs e)
+        {
+            if (grif_country.SelectedValue != null)
+            {
+                grif_country_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        protected void griff_org_name_Load(object sender, EventArgs e)
+        {
+            if (griff_city.SelectedValue != null)
+            {
+                griff_city_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        protected void grif_country_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            griff_city.Items.Clear();
+
+            var Data = CampusClient.GetCities(grif_country.SelectedValue);
+
+            foreach (var item in Data)
+            {
+                griff_city.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            }
+        }
+
+        protected void griff_city_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            griff_org_name.Items.Clear();
+            var Data = CampusClient.GetStampOrg(griff_city.SelectedValue);
+
+            foreach (var item in Data)
+            {
+                griff_org_name.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            }
+        }
+
+        protected void org_city_Load(object sender, EventArgs e)
+        {
+            if (org_country.SelectedValue != null)
+            {
+                org_country_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        protected void org_name_Load(object sender, EventArgs e)
+        {
+            if (org_city.SelectedValue != null)
+            {
+                org_city_SelectedIndexChanged(sender, e);
+            }
+        }
+
+        protected void org_country_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            org_city.Items.Clear();
+            var Data = CampusClient.GetCities(org_country.SelectedValue);
+
+            foreach (var item in Data)
+            {
+                org_city.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            }
+        }
+
+        protected void org_city_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            org_name.Items.Clear();
+            var Data = CampusClient.GetPublishOrg(griff_city.SelectedValue);
+
+            foreach (var item in Data)
+            {
+                org_name.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            }
+        }
+
+        #endregion
+
+
     }
 }

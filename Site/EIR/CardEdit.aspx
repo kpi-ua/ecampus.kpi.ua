@@ -131,10 +131,16 @@
                     </div>
                 </div>
             </div>
+            
+                    
+                
             <div class="form-horizontal">
+                <asp:UpdatePanel ID="UpdatePanel3" UpdateMode="Conditional" runat="server">
+                <ContentTemplate>
                 <div class="form-header">
                     Учасники
                 </div>
+                    <asp:Label runat="server" ID="idcontr" Visible="False" Enabled="True" ></asp:Label>
                 <div class="form-group">
                     <asp:Label ID="Label10" AssociatedControlID="person_accessory" CssClass="col-sm-3 control-label" runat="server">
                     Особа з КПІ*
@@ -190,13 +196,49 @@
                         <asp:TextBox ID="not_kpi_surname" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
-                <asp:Button ID="add_contr" CssClass="btn btn-primary" runat="server" Text="Додати" OnClick="add_contr_Click" />
+                
+                <asp:Button ID="add_contr" CssClass="btn btn-primary" runat="server" Text="Додати" OnClick="add_person_Click" />
+                <asp:Button ID="delete_contr" CssClass="btn btn-primary" runat="server" Visible="False" Text="Видалити" OnClick="delete_person_Click"/>
+                    </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="add_contr" EventName="Click" />
+                </Triggers>
+            </asp:UpdatePanel>
                 <hr />
                 members
             <asp:UpdatePanel ID="contributors_update" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <asp:Panel ID="contributors" runat="server" CssClass=""></asp:Panel>
+                <asp:GridView ID="contributorsgrid" runat="server" AutoGenerateColumns="False" OnRowCommand="CRowCommand" OnLoad="GridLoad" CellPadding="4" ForeColor="#333333" GridLines="None">
+                    <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
+                    <Columns>
+                        <asp:BoundField HeaderText="№" DataField="Id"></asp:BoundField>
+                        <asp:ButtonField CommandName="Select" Text="Вибрати" ButtonType="Button"></asp:ButtonField>
+                        <asp:BoundField HeaderText="Автор" DataField="FullName"></asp:BoundField>
+                    </Columns>
+                    <EditRowStyle BackColor="#2461BF"></EditRowStyle>
+
+                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"></FooterStyle>
+
+                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"></HeaderStyle>
+
+                    <PagerStyle HorizontalAlign="Center" BackColor="#2461BF" ForeColor="White"></PagerStyle>
+
+                    <RowStyle BackColor="#EFF3FB"></RowStyle>
+
+                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333"></SelectedRowStyle>
+
+                    <SortedAscendingCellStyle BackColor="#F5F7FB"></SortedAscendingCellStyle>
+
+                    <SortedAscendingHeaderStyle BackColor="#6D95E1"></SortedAscendingHeaderStyle>
+
+                    <SortedDescendingCellStyle BackColor="#E9EBEF"></SortedDescendingCellStyle>
+
+                    <SortedDescendingHeaderStyle BackColor="#4870BE"></SortedDescendingHeaderStyle>
+                </asp:GridView>
                 </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="add_contr" EventName="Click" />
+                </Triggers>
             </asp:UpdatePanel>
 
             </div>
@@ -251,41 +293,45 @@
                 </div>
                 <hr />
                 show if griff value = 7 
-            <asp:UpdatePanel runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
                     <div class="form-group">
                         <asp:Label ID="Label31" AssociatedControlID="grif_country" CssClass="col-sm-3 control-label" runat="server">
                     Країна*
                         </asp:Label>
                         <div class="col-sm-9">
                             <asp:DropDownList ID="grif_country" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="grif_country_SelectedIndexChanged">
-                                <asp:ListItem Value="Ranok" Selected="True">Украина</asp:ListItem>
-                                <asp:ListItem Value="Zvezda">Россия</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
                     <div class="form-group">
                         <asp:Label ID="Label32" AssociatedControlID="griff_city" CssClass="col-sm-3 control-label" runat="server">
                     Місто*
                         </asp:Label>
                         <div class="col-sm-9">
-                            <asp:DropDownList ID="griff_city" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="griff_city_SelectedIndexChanged">
+                            <asp:DropDownList ID="griff_city" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="griff_city_SelectedIndexChanged" OnLoad="griff_city_Load">
                             </asp:DropDownList>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <div class="form-group">
                         <asp:Label ID="Label33" AssociatedControlID="griff_org_name" CssClass="col-sm-3 control-label" runat="server">
                     Назва організації*
                         </asp:Label>
                         <div class="col-sm-9">
-                            <asp:DropDownList ID="griff_org_name" runat="server" CssClass="form-control">
+                            <asp:DropDownList ID="griff_org_name" runat="server" CssClass="form-control" OnLoad="griff_org_name_Load">
                             </asp:DropDownList>
                         </div>
                     </div>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="griff_city"  EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="grif_country" EventName="SelectedIndexChanged" />
-                    <asp:AsyncPostBackTrigger ControlID="griff_city" EventName="SelectedIndexChanged" />
                 </Triggers>
             </asp:UpdatePanel>
                 <hr />
@@ -299,47 +345,45 @@
                 </div>
                 <hr />
                 Видавництво:
-            <asp:UpdatePanel runat="server" UpdateMode="Conditional">
-                <ContentTemplate>
-
-
                     <div class="form-group">
                         <asp:Label ID="Label27" AssociatedControlID="org_country" CssClass="col-sm-3 control-label" runat="server">
                     Країна*
                         </asp:Label>
                         <div class="col-sm-9">
                             <asp:DropDownList ID="org_country" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="org_country_SelectedIndexChanged">
-                                <asp:ListItem Value="UA" Selected="True">Україна</asp:ListItem>
-                                <asp:ListItem Value="RU">Росія</asp:ListItem>
                             </asp:DropDownList>
                         </div>
                     </div>
+                <asp:UpdatePanel ID="UpdatePanel2" runat="server" UpdateMode="Conditional">
+                <ContentTemplate>
                     <div class="form-group">
                         <asp:Label ID="Label28" AssociatedControlID="org_city" CssClass="col-sm-3 control-label" runat="server">
                     Місто*
                         </asp:Label>
                         <div class="col-sm-9">
-                            <asp:DropDownList ID="org_city" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="org_city_SelectedIndexChanged">
-                                <asp:ListItem Value="Kyiv" Selected="True">Київ</asp:ListItem>
-                                <asp:ListItem Value="Moscow">Москва</asp:ListItem>
-                            </asp:DropDownList>
+                            <asp:DropDownList ID="org_city" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="org_city_SelectedIndexChanged" OnLoad="org_city_Load">
+                        </asp:DropDownList>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <div class="form-group">
                         <asp:Label ID="Label29" AssociatedControlID="org_name" CssClass="col-sm-3 control-label" runat="server">
                     Назва*
                         </asp:Label>
                         <div class="col-sm-9">
-                            <asp:DropDownList ID="org_name" runat="server" CssClass="form-control">
-                                <asp:ListItem Value="Ranok" Selected="True">Ранок</asp:ListItem>
-                                <asp:ListItem Value="Zvezda">Звезда</asp:ListItem>
+                            <asp:DropDownList ID="org_name" runat="server" CssClass="form-control" OnLoad="org_name_Load">
                             </asp:DropDownList>
                         </div>
                     </div>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="org_city" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
                 </ContentTemplate>
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="org_country" EventName="SelectedIndexChanged" />
-                    <asp:AsyncPostBackTrigger ControlID="org_city" EventName="SelectedIndexChanged" />
                 </Triggers>
             </asp:UpdatePanel>
 
