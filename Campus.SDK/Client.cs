@@ -5,7 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-//using Newtonsoft.Json;
 
 namespace Campus.SDK
 {
@@ -14,7 +13,17 @@ namespace Campus.SDK
     /// </summary>
     public class Client
     {
-        public const string ApiEndpoint = "http://api.ecampus.kpi.ua/";
+        /// <summary>
+        /// Set custom API endpoint
+        /// </summary>
+        /// <param name="url"></param>
+        public static void SetCustomEndpoint(string url)
+        {
+            ApiEndpoint = url;
+        }
+
+        public static string ApiEndpoint { get; private set; }
+
 
         /// <summary>
         /// 
@@ -28,6 +37,7 @@ namespace Campus.SDK
 
         static Client()
         {
+            ApiEndpoint = "http://api.ecampus.kpi.ua/";
             Proxy = null;
         }
 
@@ -250,7 +260,7 @@ namespace Campus.SDK
 
             _authenticatedTime = DateTime.Now;
 
-            return SessionId;
+            return await new Task<string>(() => SessionId);
         }
 
         /// <summary>
