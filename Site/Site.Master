@@ -61,7 +61,7 @@
             </div>
         </header>
 
-        <form class="content" runat="server">
+        <form class="content" id="form" runat="server">
 
             <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
                 <Scripts>
