@@ -204,26 +204,6 @@
     }
 
     campus.scrollTop = function () {
-        $(window).on("scroll load", function () {
-            var $scrollTop = $(".scroll-top");
-            var scrollHeight = $(this).scrollTop();
-            if (scrollHeight >= ($(document).height() / 4)) {
-                if (!($scrollTop.hasClass("show"))) {
-                    $scrollTop.show();
-                    setTimeout(function () {
-                        $scrollTop.addClass("show");
-                    }, 200);
-                }
-            } else {
-                if ($scrollTop.hasClass("show")) {
-                    $scrollTop.removeClass("show");
-                    setTimeout(function () {
-                        $scrollTop.hide();
-                    }, 200);
-                }
-            }
-        });
-
         $(".scroll-top").on("click", function () {
             $('html, body').animate({ scrollTop: 0 }, 500);
         });

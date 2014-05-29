@@ -893,38 +893,6 @@ header {
             padding-left: 55px;
         }
 
-.scroll-top {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    z-index: 10;
-    display: none;
-    color: #208843;
-    text-align: center;
-    font-size: 1em;
-    opacity: 0;
-    cursor: pointer;
-}
-
-    .scroll-top .box {
-        width: 50px;
-        height: 50px;
-        border: 1px solid #208843;
-        border-radius: 4px;
-        font-size: 2.3em;
-        line-height: 50px;
-    }
-
-    .scroll-top.show:hover {
-        opacity: 1;
-    }
-
-    .scroll-top.show {
-        margin-bottom: 85px;
-        -ms-opacity: .8;
-        opacity: .8;
-    }
-
 /* FORM EIR*/
 .eir {
 }

@@ -45,5 +45,10 @@ namespace Site.Controllers
             return Redirect("~/login");
         }
 
+        public ActionResult Support()
+        {
+            return View();
+        }
+
     }
 }

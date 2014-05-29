@@ -358,6 +358,7 @@
     <Content Include="Site.Master" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\System\Login.cshtml" />
+    <Content Include="Views\System\Support.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

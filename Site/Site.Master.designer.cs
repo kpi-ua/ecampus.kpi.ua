@@ -13,13 +13,13 @@ namespace Site {
     public partial class SiteMaster {
         
         /// <summary>
-        /// form control.
+        /// UserName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form;
+        protected global::System.Web.UI.WebControls.Literal UserName;
         
         /// <summary>
         /// script_manager control.
@@ -29,15 +29,6 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager script_manager;
-        
-        /// <summary>
-        /// UserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal UserName;
         
         /// <summary>
         /// SiteMapPath1 control.
@@ -65,14 +56,5 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder body;
-        
-        /// <summary>
-        /// uhidden control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField uhidden;
     }
 }

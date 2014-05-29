@@ -15,17 +15,7 @@
 </head>
 <body>
 
-    <form id="form" class="wrap container" runat="server">
-        <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
-            <Scripts>
-                <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
-                <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
-                <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
-                <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
-                <asp:ScriptReference Path="~/Scripts/core.js" />
-                <asp:ScriptReference Path="~/Scripts/script.js" />
-            </Scripts>
-        </asp:ScriptManager>
+    <div class="wrap container">
 
         <header>
             <div class="top-header">
@@ -70,7 +60,20 @@
                 </div>
             </div>
         </header>
-        <div class="content">
+
+        <form class="content" runat="server">
+
+            <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
+                <Scripts>
+                    <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
+                    <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/core.js" />
+                    <asp:ScriptReference Path="~/Scripts/script.js" />
+                </Scripts>
+            </asp:ScriptManager>
+
             <!--Хлебные крошки-->
             <div id="breadcrumbs">
                 <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=">"></asp:SiteMapPath>
@@ -88,7 +91,8 @@
                         <a href="/Default.aspx">Мій профіль</a>
                     </li>
                     <li class="dropmenu">
-                        <a>Дошка оголошень<div class="chevron"></div></a>
+                        <a>Дошка оголошень<div class="chevron"></div>
+                        </a>
                         <ul class="submenu">
                             <li>
                                 <a href="/Bulletins">Перегляд оголошень</a>
@@ -102,7 +106,8 @@
                         <a href="/TimeTable">Розклад</a>
                     </li>
                     <li class="dropmenu">
-                        <a>Спілкування<div class="chevron"></div></a>
+                        <a>Спілкування<div class="chevron"></div>
+                        </a>
                         <ul class="submenu">
                             <li><a href="/Messages">Повідомлення</a></li>
                             <li><a href="#">Пошук групи спілкування</a></li>
@@ -160,32 +165,25 @@
                     <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
                 </div>
             </div>
-        </div>
-        <div class="scroll-top">
-            <div class="box">
-                <i class="fa fa-arrow-up"></i>
+        </form>
+
+        <footer>
+            <div class="col-md-4 text-left">
+                Національний технічний університет України<br />
+                “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a><br />
+                Електронний кампус
             </div>
-            наверх
-        </div>
-        <asp:HiddenField runat="server" ID="uhidden" />
-    </form>
 
-    <footer>
-        <div class="col-md-4 text-left">
-            Національний технічний університет України<br />
-            “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a><br />
-            Електронний кампус
-        </div>
+            <div class="col-md-4"></div>
 
-        <div class="col-md-4"></div>
-
-        <div class="col-md-4 text-right">
-            Розробник:  Конструкторське бюро<br />
-            інформаційних систем<br />
-            <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
-        </div>
-    </footer>
-
+            <div class="col-md-4 text-right">
+                Розробник:  Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
+            </div>
+        </footer>
+    </div>
+    
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
     <noscript>

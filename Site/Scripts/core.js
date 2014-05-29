@@ -17,21 +17,13 @@ $(document).ready(function () {
         $(".chosen-results").empty();
         $(".chosen-choices").append("<li class=\"search-choice\"" + " uid=" + $(this).attr("uid") + "><span>" + $(this).text() + "</span><a class=\"search-choice-close\" data-option-array-index=" + $(this).attr("data-option-array-index") + "></a></li>");
         $(".search-field").remove();
-        //$(".chosen-drop").remove();
     });
 
     $(document).on("focus", ".search-field .default", function () {
-        //if ($(".chosen-drop").length == 0) {
-        //    $("#body_UserList_chosen").append("<div class=\"chosen-drop\"><ul class=\"chosen-results\"></ul></div>");
-        //}
         $(".no-results").remove();
         $(".chosen-results").append("<li class=\"no-results\">Почніть вводити одержувача...</li>");
     });
-
-    $(document).on("focusout", ".search-field .default", function () {
-        //$(".chosen-drop").remove();
-    });
-
+    
     $(document).on("keyup", ".search-field .default", function () {
         if (!$(this).val()) {
             $(".chosen-results").empty();
