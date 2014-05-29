@@ -1,7 +1,12 @@
 ﻿<%@ Page Title="Навчальний процес" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Site.RNP.Default" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <h1>Навчальний процес</h1>
+    
+    <div class="page-header">
+        <h1>Навчальний процес</h1>
+    </div>
+    
+
     <div style="height:100%;">
         <div class="btn-group-vertical">
 

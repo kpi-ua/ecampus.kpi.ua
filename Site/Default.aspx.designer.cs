@@ -13,6 +13,15 @@ namespace Site {
     public partial class Default {
         
         /// <summary>
+        /// carousel_wrap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl carousel_wrap;
+        
+        /// <summary>
         /// PersData control.
         /// </summary>
         /// <remarks>
@@ -40,13 +49,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Literal SpecFunc;
         
         /// <summary>
-        /// Photo control.
+        /// profile_photo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Photo;
+        protected global::System.Web.UI.WebControls.Image profile_photo;
         
         /// <summary>
         /// LoadPhoto control.

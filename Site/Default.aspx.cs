@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Text;
+using Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace Site
         {
             base.OnLoad(ea);
 
+            LoadCarousel();
+
             try
             {
-                Photo.ImageUrl = CurrentUser.Photo;
+                profile_photo.ImageUrl = CurrentUser.Photo;
 
                 if (!Page.IsPostBack)
                 {
@@ -69,6 +72,31 @@ namespace Site
 
         }
 
+        private void LoadCarousel()
+        {
+            var sb = new StringBuilder();
+
+            var links = new List<Core.Link>
+            {
+                new Link {Title = "Мій профіль", Image = CurrentUser.Photo, Url = "/Default.aspx"},
+                new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Bulletins"},
+                new Link {Title = "Спілкування", Image = "/Images/carousel-msg.jpg", Url = "/Messages"},
+                new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg", Url = "/TimeTable"},
+                new Link {Title = "Підтримка", Image = "/Images/carousel-support.jpg", Url = "/Support.aspx"},
+            };
+
+            foreach (var link in links)
+            {
+                sb.AppendLine("<div class=\"slide\">");
+                sb.AppendLine("<div class=\"slide-content\">");
+                sb.AppendFormat("<a href=\"{0}\">", link.Url);
+                sb.AppendFormat("<img src=\"{0}\" alt=\"{1}\" />", link.Image, link.Title);
+                sb.AppendFormat("<div class=\"slide-title\">{0}</div>", link.Title);
+                sb.AppendLine("</a></div></div>");
+            }
+
+            carousel_wrap.InnerHtml = sb.ToString();
+        }
 
         private void GetEffectivePremissions(ArrayList data)
         {
@@ -129,7 +157,7 @@ namespace Site
 
         protected void SavePass_Click(object sender, EventArgs e)
         {
-            var currentPass = Session["UserPass"].ToString();
+            var currentPass = UserPassword.ToString();
             if (OldPass.Text == currentPass)
             {
                 if (NewPass.Text == NewPassCheak.Text)
@@ -157,7 +185,7 @@ namespace Site
                             ChangePass.Attributes.Add("style", "display:none;");
                         }
 
-                        Session["UserPass"] = NewPass.Text;
+                        UserPassword = NewPass.Text;
                     }
                 }
                 else
@@ -187,8 +215,7 @@ namespace Site
         {
             var file = InputFile.PostedFile;
 
-            var client = new Campus.SDK.Client();
-            client.Authenticate(Session["UserLogin"].ToString(), Session["UserPass"].ToString());
+            CampusClient.Authenticate(UserLogin.ToString(), UserPassword.ToString());
 
             byte[] fileData;
 
@@ -197,7 +224,7 @@ namespace Site
                 fileData = binaryReader.ReadBytes(file.ContentLength);
             }
 
-            client.UploadUserProfileImage(fileData);
+            CampusClient.UploadUserProfileImage(fileData);
         }
     }
 }

@@ -42,9 +42,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\campus.common.1.0.16.285\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Campus.SDK, Version=0.1.14.39412, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\campus.sdk.0.1.14.130\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
+    <Reference Include="Campus.SDK">
+      <HintPath>..\packages\campus.sdk.0.1.17.145\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -133,7 +132,6 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Images\carousel-billboard.jpg" />
     <Content Include="Images\carousel-support.jpg" />
-    <Content Include="Login.aspx" />
     <Content Include="Bulletins\Default.aspx" />
     <Content Include="Bulletins\MyBulletins.aspx" />
     <Content Include="Messages\Default.aspx" />
@@ -151,7 +149,6 @@
     <Content Include="Content\chosen-sprite%402x.png" />
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\form-styles.css" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="EIR\CardEdit.aspx" />
@@ -266,13 +263,7 @@
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Bulletins\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -363,9 +354,9 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Home\Links.cshtml" />
     <Content Include="Site.Master" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
+    <Content Include="Views\System\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

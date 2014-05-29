@@ -10,6 +10,13 @@
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+    
+    <script src="/Scripts/jquery-2.1.1.min.js"></script>
+    <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/chosen.jquery.min.js"></script>
+    <script src="/Scripts/core.js"></script>
+    <script src="/Scripts/script.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
@@ -28,21 +35,18 @@
         @RenderBody()
 
         <footer>
-            <div class="container">
-                <div class="text-left pull-left">
-                    Національний технічний університет України
-                    <br />
-                    “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a>
-                    <br />
-                    Електронний кампус
-                </div>
-                <div class="text-right pull-right">
-                    Розробник:  Конструкторське бюро
-                    <br />
-                    інформаційних систем
-                    <br />
-                    <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
-                </div>
+            <div class="col-md-4 text-left">
+                Національний технічний університет України<br />
+                “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a><br />
+                Електронний кампус
+            </div>
+
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4 text-right">
+                Розробник:  Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
             </div>
         </footer>
     </div>

@@ -1,7 +1,11 @@
 ﻿<%@ Page Title="Спілкування" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Messages.Default" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <h1>Спілкування</h1>
+    
+    
+    <div class="page-header">
+        <h1>Спілкування</h1>
+    </div>
 
     <asp:Button ID="new_message" runat="server" Text="Нове Повідомлення" CssClass="btn btn-warning" ClientIDMode="Static" />
     

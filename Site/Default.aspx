@@ -1,8 +1,15 @@
 ﻿<%@ Page Title="Профіль" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Default" %>
 
+<asp:Content ID="carousel_content" ContentPlaceHolderID="carousel_container" runat="server">
+    <div class="carousel">
+        <div runat="server" id="carousel_wrap" class="carousel-wrap">
+        </div>
+    </div>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
 
-    <div class="col-md-7">
+    <div class="col-md-8">
         <h4 class="text-muted">Персональні дані</h4>
         <asp:Literal ID="PersData" runat="server"></asp:Literal>
         <h4 class="text-muted">Дані за місцем навчання (роботи)</h4>
@@ -11,8 +18,9 @@
         <asp:Literal ID="SpecFunc" runat="server"></asp:Literal>
     </div>
 
-    <div class="col-md-5" id="right-sidebar">
-        <asp:Image ID="Photo" runat="server" />
+    <div class="col-md-4" id="right-sidebar">
+        <asp:Image ID="profile_photo" runat="server" ClientIDMode="Static" />
+        <div class="clear"></div>
         <ul>
             <li><a id="ShowImgLoadForm">
                 <img src="/Images/foto.png" />завантажити фото</a></li>

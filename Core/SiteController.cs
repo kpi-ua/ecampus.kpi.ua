@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using NLog;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Core
 {
-    public class SitePage : Page
+    public class SiteController : Controller
     {
         private CampusClient _campusClient;
 
@@ -33,7 +33,7 @@ namespace Core
             }
         }
 
-        public Campus.Common.User CurrentUser
+        protected Campus.Common.User CurrentUser
         {
             get
             {
@@ -49,7 +49,7 @@ namespace Core
             }
         }
 
-        public bool SaveIn
+        protected bool SaveIn
         {
             get { return Session["SaveIn"] != null && Convert.ToBoolean(Session["SaveIn"]); }
             set { Session["SaveIn"] = value; }
@@ -71,26 +71,6 @@ namespace Core
         {
             get { return Session["UserPassword"] == null ? null : Session["UserPassword"].ToString(); }
             set { Session["UserPassword"] = value; }
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            var page = Path.GetFileName(Request.Url.AbsolutePath).ToLower();
-
-            if (String.IsNullOrEmpty(SessionId))
-            {
-                Response.Redirect("~/login");
-            }
-        }
-
-        protected void CreateErrorMessage(HtmlGenericControl target)
-        {
-            target.Controls.Clear();
-            var error = new HtmlGenericControl("h2");
-            error.InnerText = "Помилка при завантаженні сторінки!!!";
-            target.Controls.Add(error);
         }
     }
 }

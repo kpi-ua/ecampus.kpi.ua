@@ -23,6 +23,16 @@ ol, ul {
     list-style: none;
 }
 
+.page-header {
+    margin-top: 0 !important;
+}
+
+    .page-header h1 {
+        color: #CB9A34;
+        font-size: 25pt;
+        margin-top: 0;
+    }
+
 blockquote, q {
     quotes: none;
 }
@@ -378,7 +388,7 @@ header {
         height: 48px;
         background: url("/Images/logo-kpi.png") center no-repeat;
     }
-    
+
     header .green {
         padding-top: 16px;
         padding-bottom: 8px;
@@ -915,6 +925,121 @@ header {
         opacity: .8;
     }
 
+/* FORM EIR*/
+.eir {
+}
+
+    .eir .row {
+        font-size: 14px;
+    }
+
+        .eir .row:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+    .eir .form-control {
+        padding: 0 0 0 6px;
+        border-color: #dadada;
+        border-radius: 0;
+        background: #fff9d9;
+        height: 25px;
+        line-height: 25px;
+    }
+
+    .eir .chosen-container-single .chosen-single {
+        padding: 0 0 0 6px;
+        border-color: #dadada;
+        border-radius: 0;
+        background: #fff9d9;
+        height: 25px;
+        line-height: 25px;
+        box-shadow: none;
+    }
+
+    .eir .chosen-container-single.chosen-container-active.chosen-with-drop {
+        box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
+    }
+
+    .eir .chosen-container {
+        width: 100% !important;
+    }
+
+        .eir .chosen-container.chosen-with-drop .chosen-drop {
+            background: #fff9d9;
+            border-color: #dadada;
+            border-radius: 0;
+        }
+
+    .eir .chosen-container-single .chosen-single div b {
+        background-position: 0 3px;
+    }
+
+    .eir .chosen-container-single .chosen-search input {
+        padding: 0 0 0 6px;
+        border-color: #dadada;
+        border-radius: 0;
+        background: #fff9d9;
+        height: 25px;
+        line-height: 25px;
+    }
+
+    .eir textarea.form-control {
+        resize: vertical;
+    }
+
+    .eir .control-label {
+        font-weight: bold;
+    }
+
+    .eir .form-control:active,
+    .eir .form-control:focus {
+        border-color: #dadada;
+        box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
+    }
+
+    .eir .form-horizontal {
+        position: relative;
+        padding: 10px 10px 0 10px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #dadada;
+        border-radius: 0;
+        color: #5a441b;
+    }
+
+    .eir .form-header {
+        display: inline-block;
+        position: absolute;
+        background: #fff;
+        top: -8px;
+        left: 16px;
+        padding: 0 4px;
+        font-weight: bold;
+    }
+
+    .eir .form-horizontal:after {
+        display: block;
+        width: 100%;
+        clear: both;
+        content: "";
+    }
+
+    .eir .form-horizontal .form-group:after {
+        display: block;
+        width: 100%;
+        clear: both;
+        content: "";
+    }
+
+    .eir .form-horizontal .control-label {
+        text-align: left;
+        font-weight: bold;
+    }
+
+/*END FORM EIR*/
+
 #StudyYear, #OutCaf, #OR, #NP, #StudyForm, #Course, #Spec, #ProfS {
     height: 30px;
 }
@@ -1073,44 +1198,44 @@ header {
         background-color: #fff;
     }
 
-    #timetable #loading {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -25px 0 0 -25px;
-        width: 50px;
-        height: 50px;
+#loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    width: 50px;
+    height: 50px;
+}
+
+#timetable .tooltip {
+    position: absolute;
+    display: none;
+    padding: 2px 6px;
+    width: 400px;
+    border: 1px #9c6604 solid;
+    border-radius: 6px;
+    background: #e5edf5;
+}
+
+    #timetable .tooltip p {
+        float: left;
+        margin-left: 5px;
+        width: 250px;
     }
 
-    #timetable .tooltip {
-        position: absolute;
-        display: none;
-        padding: 2px 6px;
-        width: 400px;
-        border: 1px #9c6604 solid;
-        border-radius: 6px;
-        background: #e5edf5;
+    #timetable .tooltip img {
+        float: right;
+        margin-top: 8px;
+        margin-right: 5px;
+        padding-top: 0;
+        width: 80px;
+        border: 1px #000 solid;
+        background-color: #fff;
     }
 
-        #timetable .tooltip p {
-            float: left;
-            margin-left: 5px;
-            width: 250px;
-        }
-
-        #timetable .tooltip img {
-            float: right;
-            margin-top: 8px;
-            margin-right: 5px;
-            padding-top: 0;
-            width: 80px;
-            border: 1px #000 solid;
-            background-color: #fff;
-        }
-
-    #timetable td {
-        vertical-align: middle !important;
-    }
+#timetable td {
+    vertical-align: middle !important;
+}
 
 #Photo {
     max-width: 165px;
@@ -1150,19 +1275,14 @@ footer {
     position: relative;
     overflow: hidden;
     padding: 18px 0;
-    height: 90px;
     background: #208944;
     color: #fff;
     font-size: 10pt;
+    clear: both;
+    margin-top: 120px;
+    padding-left: 18px;
+    padding-right: 18px;
 }
-
-    footer .text-left {
-        margin-left: 18px;
-    }
-
-    footer .text-right {
-        margin-right: 18px;
-    }
 
     footer:after {
         display: block;
@@ -1192,9 +1312,16 @@ footer {
     }
 }
 
-@media screen and (max-width:960px) {
+@media screen and (max-width:991px) {
     .datepicker-toggle {
         display: block;
+    }
+
+    footer .text-left, footer .text-right {
+        float: none !important;
+        margin-bottom: 6px;
+        width: 100%;
+        text-align: center;
     }
 }
 
@@ -1206,7 +1333,6 @@ footer {
 
     footer {
         padding: 5px 0 !important;
-        height: 50px !important;
         font-size: .7em;
     }
 
@@ -1224,14 +1350,6 @@ footer {
         margin: 10px 0 0 0;
         padding: 0;
         width: 100%;
-    }
-
-    footer .text-left {
-        padding-left: 5px;
-    }
-
-    footer .text-right {
-        padding-rigth: 5px;
     }
 }
 
@@ -1282,12 +1400,12 @@ footer {
         height: auto !important;
     }
 
-        footer .text-left, footer .text-right {
+    /*footer .text-left, footer .text-right {
             float: none !important;
             margin-bottom: 6px;
             width: 100%;
             text-align: center;
-        }
+        }*/
 }
 
 @media screen and (max-width:379px) {
@@ -1303,15 +1421,22 @@ footer {
 }
 
 #right-sidebar {
+    padding-right: 0;
 }
 
     #right-sidebar img {
-        margin-top: 42px;
+    }
+
+    #right-sidebar #profile_photo {
+        float: right;
+        width: 200px;
     }
 
     #right-sidebar ul {
+        background: url("/Images/razdelitel.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+        float: right;
         margin-top: 42px;
-        background: url(/Images/razdelitel.png) 0 0 repeat-x;
+        width: 200px;
     }
 
     #right-sidebar li {

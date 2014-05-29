@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="Розклад" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.TimeTable.Default" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <h1>Розклад</h1>
+
+    <div class="page-header">
+        <h1>Розклад</h1>
+    </div>
 
     <link rel="stylesheet" type="text/css" href="/Content/timetable.css" />
 

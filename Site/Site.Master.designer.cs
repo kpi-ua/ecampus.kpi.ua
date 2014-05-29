@@ -31,15 +31,6 @@ namespace Site {
         protected global::System.Web.UI.ScriptManager script_manager;
         
         /// <summary>
-        /// ExitLink control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ExitLink;
-        
-        /// <summary>
         /// UserName control.
         /// </summary>
         /// <remarks>
@@ -58,13 +49,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.SiteMapPath SiteMapPath1;
         
         /// <summary>
-        /// carousel_wrap control.
+        /// carousel_container control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl carousel_wrap;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder carousel_container;
         
         /// <summary>
         /// body control.
