@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web;
+using System.Web.Security;
 using Core;
 using System.Web.Mvc;
 
@@ -7,7 +8,6 @@ namespace Site.Controllers
 {
     public class SystemController : SiteController
     {
-        // GET: System
         public ActionResult Login(Credential credential)
         {
             if (credential.IsNotEmpty)
@@ -17,19 +17,9 @@ namespace Site.Controllers
                 if (!String.IsNullOrEmpty(sessionId))
                 {
                     SessionId = sessionId;
-                    SaveIn = credential.RememberMe;
                     UserLogin = credential.Login;
                     UserPassword = credential.Password;
-
-                    if (SaveIn)
-                    {
-                        Response.Cookies.Add(new HttpCookie("Session")
-                        {
-                            Value = Session.SessionID,
-                            Expires = DateTime.Now.AddDays(1d)
-                        });
-                    }
-
+                    FormsAuthentication.SetAuthCookie(credential.Login, true);
                     return Redirect("~/Default.aspx");
                 }
 
@@ -41,7 +31,8 @@ namespace Site.Controllers
 
         public ActionResult Logout()
         {
-            Response.Cookies["Session"].Value = null;
+            Session.Clear();
+            HttpContext.Response.Cookies.Clear();
             return Redirect("~/login");
         }
 

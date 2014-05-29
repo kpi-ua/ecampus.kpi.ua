@@ -157,8 +157,7 @@ namespace Site
 
         protected void SavePass_Click(object sender, EventArgs e)
         {
-            var currentPass = UserPassword.ToString();
-            if (OldPass.Text == currentPass)
+            if (OldPass.Text == UserPassword)
             {
                 if (NewPass.Text == NewPassCheak.Text)
                 {
@@ -213,18 +212,12 @@ namespace Site
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            var file = InputFile.PostedFile;
-
-            CampusClient.Authenticate(UserLogin.ToString(), UserPassword.ToString());
-
-            byte[] fileData;
-
-            using (var binaryReader = new BinaryReader(file.InputStream))
+            using (var binaryReader = new BinaryReader(InputFile.PostedFile.InputStream))
             {
-                fileData = binaryReader.ReadBytes(file.ContentLength);
+                var fileData = binaryReader.ReadBytes(InputFile.PostedFile.ContentLength);
+                CampusClient.Authenticate(UserLogin, UserPassword);
+                CampusClient.UploadUserProfileImage(fileData);
             }
-
-            CampusClient.UploadUserProfileImage(fileData);
         }
     }
 }

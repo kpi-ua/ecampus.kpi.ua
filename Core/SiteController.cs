@@ -48,13 +48,7 @@ namespace Core
                 return user;
             }
         }
-
-        protected bool SaveIn
-        {
-            get { return Session["SaveIn"] != null && Convert.ToBoolean(Session["SaveIn"]); }
-            set { Session["SaveIn"] = value; }
-        }
-
+        
         protected String SessionId
         {
             get { return Session["UserData"] == null ? null : Session["UserData"].ToString(); }

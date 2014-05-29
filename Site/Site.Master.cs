@@ -18,22 +18,14 @@ namespace Site
 
             try
             {
-                if (SitePage.SaveIn && ((Request.Cookies["Session"] == null) || (Request.Cookies["Session"].Value == "")))
-                {
-                    Response.Redirect("~/login");
-                }
-                else
-                {
-                    UserName.Text += SitePage.CurrentUser.FullName;
+                UserName.Text += SitePage.CurrentUser.FullName;
 
-                    var hiddenField = new HtmlGenericControl("input");
-                    hiddenField.Attributes.Add("id", "uhidden");
-                    hiddenField.Attributes.Add("type", "hidden");
-                    hiddenField.Attributes.Add("value", SitePage.CurrentUser.UserAccountId.ToString());
+                var hiddenField = new HtmlGenericControl("input");
+                hiddenField.Attributes.Add("id", "uhidden");
+                hiddenField.Attributes.Add("type", "hidden");
+                hiddenField.Attributes.Add("value", SitePage.CurrentUser.UserAccountId.ToString());
 
-                    form.Controls.Add(hiddenField);
-                }
-
+                form.Controls.Add(hiddenField);
             }
             catch (Exception ex)
             {

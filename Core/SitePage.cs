@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using NLog;
@@ -11,12 +12,12 @@ namespace Core
     {
         private CampusClient _campusClient;
 
-        protected CampusClient CampusClient
+        public CampusClient CampusClient
         {
             get { return _campusClient ?? (_campusClient = new CampusClient()); }
         }
 
-        protected Dictionary<string, Permission> Permissions
+        public Dictionary<string, Permission> Permissions
         {
             get
             {
@@ -49,25 +50,19 @@ namespace Core
             }
         }
 
-        public bool SaveIn
-        {
-            get { return Session["SaveIn"] != null && Convert.ToBoolean(Session["SaveIn"]); }
-            set { Session["SaveIn"] = value; }
-        }
-
-        protected String SessionId
+        public String SessionId
         {
             get { return Session["UserData"] == null ? null : Session["UserData"].ToString(); }
             set { Session["UserData"] = value; }
         }
 
-        protected String UserLogin
+        public String UserLogin
         {
             get { return Session["UserLogin"] == null ? null : Session["UserLogin"].ToString(); }
             set { Session["UserLogin"] = value; }
         }
 
-        protected String UserPassword
+        public String UserPassword
         {
             get { return Session["UserPassword"] == null ? null : Session["UserPassword"].ToString(); }
             set { Session["UserPassword"] = value; }
@@ -77,9 +72,7 @@ namespace Core
         {
             base.OnLoad(e);
 
-            var page = Path.GetFileName(Request.Url.AbsolutePath).ToLower();
-
-            if (String.IsNullOrEmpty(SessionId))
+            if (String.IsNullOrEmpty(SessionId) || !Context.User.Identity.IsAuthenticated)
             {
                 Response.Redirect("~/login");
             }
