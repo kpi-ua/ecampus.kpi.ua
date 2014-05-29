@@ -1400,3 +1400,8 @@ footer {
         display: none;
     }
 }
+
+#irGroupName {
+    /*margin-left: 150px;*/
+    padding-bottom: 70px;
+}

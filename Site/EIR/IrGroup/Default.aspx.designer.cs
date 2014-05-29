@@ -13,6 +13,24 @@ namespace Site.EIR.IrGroup {
     public partial class Default {
         
         /// <summary>
+        /// new_group control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button new_group;
+        
+        /// <summary>
+        /// LinkContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel LinkContainer;
+        
+        /// <summary>
         /// out_json control.
         /// </summary>
         /// <remarks>
