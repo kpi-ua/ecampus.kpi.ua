@@ -31,12 +31,12 @@ namespace Site.Messages {
         protected global::System.Web.UI.WebControls.Literal Result;
         
         /// <summary>
-        /// LinkContainer control.
+        /// message_container control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel LinkContainer;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl message_container;
     }
 }

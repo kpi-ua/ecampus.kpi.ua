@@ -1,6 +1,10 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TimeTableEdit.aspx.cs" Inherits="Site.TimeTable.TimeTableEdit" %>
+﻿<%@ Page Language="C#" Title="Редагування розкладу" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="TimeTableEdit.aspx.cs" Inherits="Site.TimeTable.TimeTableEdit" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+
     <asp:UpdatePanel ID="worker" runat="server" OnLoad="worker_Load">
         <ContentTemplate>
             <label>Faculty:</label>

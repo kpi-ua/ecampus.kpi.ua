@@ -2,17 +2,17 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     
-    
     <div class="page-header">
-        <h1>Спілкування</h1>
+        <h1><%=Page.Title %></h1>
     </div>
+
 
     <asp:Button ID="new_message" runat="server" Text="Нове Повідомлення" CssClass="btn btn-warning" ClientIDMode="Static" />
     
     <asp:Literal ID="Result" runat="server"></asp:Literal>
-    <asp:Panel ID="LinkContainer" runat="server">
+    <div ID="message_container" runat="server">
 
-    </asp:Panel>
+    </div>
 
     <div class="modal fade" id="NewMessagePopup" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog" style="width: 650px;">

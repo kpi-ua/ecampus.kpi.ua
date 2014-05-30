@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Site.EIR.IrGroup {
+namespace Site.EIR {
     
     
-    public partial class Default {
+    public partial class GroupPage {
         
         /// <summary>
         /// new_group control.

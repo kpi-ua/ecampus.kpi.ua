@@ -1,5 +1,6 @@
 ﻿using Campus.SDK;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -99,7 +100,7 @@ namespace Core
             return _client;
         }
 
-        public Result GetUserConversation(string sessionId, int groupId, int size)
+        public IList<Campus.Common.Message> GetUserConversation(string sessionId, int groupId, int size, out PagedList.IPagedList paging)
         {
             var url = BuildUrl("Message", "GetUserConversation", new
             {
@@ -109,8 +110,10 @@ namespace Core
             });
 
             var result = Get(url);
+            paging = result.Paging;
 
-            return result;
+            IEnumerable<Campus.Common.Message> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Message>>(result.Data.ToString());
+            return messages.ToList();
         }
 
         public IEnumerable<Campus.Common.Conversation> GetUserConversations(string sessionId)
@@ -201,6 +204,22 @@ namespace Core
         public Dictionary<string, object> GetPublishOrg(string cityId)
         {
             return GetStringObject("http://localhost:49945/" + "Ir/GetPublishOrg?cityId=" + cityId);
+        }
+
+        public IEnumerable<JObject> GetAllPrivateIrGroups(string SessionId)
+        {
+            var url = BuildUrl("IrGroup", "GetAllPrivateIrGroups", new { SessionId });
+            var result = Get(url);
+            var inner = JsonConvert.DeserializeObject(result.Data.ToString());
+            var groups = ((IEnumerable<Object>)inner).Cast<JObject>().ToList();
+            return groups;
+        }
+
+        public bool ChangePassword(string sessionId, string oldPassword, string newPassword)
+        {
+            var url = BuildUrl("User", "ChangePassword", new { sessionId, old = oldPassword, password = newPassword });
+            var answer = GetData(url);
+            return answer == null;
         }
     }
 }

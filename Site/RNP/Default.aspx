@@ -3,9 +3,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     
     <div class="page-header">
-        <h1>Навчальний процес</h1>
+        <h1><%=Page.Title %></h1>
     </div>
-    
 
     <div style="height:100%;">
         <div class="btn-group-vertical">

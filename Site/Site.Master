@@ -4,6 +4,9 @@
 <head runat="server">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
 
     <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
@@ -94,12 +97,8 @@
                         <a>Дошка оголошень<div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li>
-                                <a href="/Bulletins">Перегляд оголошень</a>
-                            </li>
-                            <li>
-                                <a href="#">Редагування оголошень</a>
-                            </li>
+                            <li><a href="/Bulletins">Перегляд оголошень</a></li>
+                            <%--<li><a href="#">Редагування оголошень</a></li>--%>
                         </ul>
                     </li>
                     <li>
@@ -110,20 +109,21 @@
                         </a>
                         <ul class="submenu">
                             <li><a href="/Messages">Повідомлення</a></li>
-                            <li><a href="#">Пошук групи спілкування</a></li>
-                            <li><a href="#">Повідомлення в групі</a></li>
+                            <%--<li><a href="#">Пошук групи спілкування</a></li>
+                            <li><a href="#">Повідомлення в групі</a></li>--%>
                         </ul>
                     </li>
                     <li class="dropmenu">
                         <a>Електронні інформаційні ресурси<div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li><a href="#">Пошук ЕІР</a></li>
+                            <%--<li><a href="#">Пошук ЕІР</a></li>--%>
                             <li><a href="/EIR/CardEdit.aspx">Створити ЕІР</a></li>
-                            <li><a href="#">Методичне забезпечення</a></li>
+                            <li><a href="/EIR/Group.aspx">Групи ЕІР</a></li>
+                            <%--<li><a href="#">Методичне забезпечення</a></li>--%>
                         </ul>
                     </li>
-                    <li class="dropmenu">
+                    <%--<li class="dropmenu">
                         <a>Робота
                             <div class="chevron"></div>
                         </a>
@@ -135,7 +135,7 @@
                             <li><a href="#">Організаційна</a></li>
                             <li><a href="#">Виховна</a></li>
                         </ul>
-                    </li>
+                    </li>--%>
                     <li>
                         <a href="/RNP">Навчальний процес</a>
                     </li>

@@ -21,8 +21,6 @@ namespace Site
 
                 if (!Page.IsPostBack)
                 {
-                    PersData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + CurrentUser.FullName + "</p>";
-
                     foreach (var e in CurrentUser.Employees)
                     {
                         WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + e.SubdivisionName + "</p>";
@@ -65,10 +63,7 @@ namespace Site
                     throw (new Exception("Права пользователя не получены!"));
                 }
             }
-            catch (Exception ex)
-            {
-                PersData.Text = "<h1>Ошибка при загрузке страницы!!!<h1>";
-            }
+            catch { }
 
         }
 
@@ -161,60 +156,32 @@ namespace Site
             {
                 if (NewPass.Text == NewPassCheak.Text)
                 {
-                    var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "user/ChangePassword?sessionId=" + SessionId.ToString() + "&old=" + OldPass.Text + "&password=" + NewPass.Text);
-
-                    if (answer == null)
-                    {
-                        OldPassLabel.CssClass = "label label-danger";
-                        OldPassLabel.Text = "Помилка сервера";
-                        NewPassLabel.CssClass = "label label-danger";
-                        NewPassLabel.Text = "Помилка сервера";
-                        ChangePass.Attributes.Add("style", "display:inline;");
-                    }
-                    else
-                    {
-                        if (NewPassLabel.CssClass == "label label-danger" || OldPassLabel.CssClass == "label label-danger")
-                        {
-                            OldPassLabel.CssClass = "label label-primary";
-                            OldPassLabel.Text = "Старий пароль";
-                            NewPassLabel.CssClass = "label label-primary";
-                            NewPassLabel.Text = "Новий пароль";
-                            NewPassCheakLabel.CssClass = "label label-primary";
-                            NewPassCheakLabel.Text = "Повторіть новий пароль";
-                            ChangePass.Attributes.Add("style", "display:none;");
-                        }
-
-                        UserPassword = NewPass.Text;
-                    }
+                    CampusClient.ChangePassword(SessionId, OldPass.Text, NewPass.Text);
+                    ShowErrorMessage("OK");
+                    UserPassword = NewPass.Text;
                 }
                 else
                 {
-                    OldPassLabel.CssClass = "label label-primary";
-                    OldPassLabel.Text = "Старий пароль";
-                    NewPassLabel.CssClass = "label label-danger";
-                    NewPassLabel.Text = "Новий пароль не співпав";
-                    NewPassCheakLabel.CssClass = "label label-danger";
-                    NewPassCheakLabel.Text = "Новий пароль не співпав";
-                    ChangePass.Attributes.Add("style", "display:inline;");
+                    ShowErrorMessage("Новий пароль не співпав");
                 }
             }
             else
             {
-                OldPassLabel.CssClass = "label label-danger";
-                OldPassLabel.Text = "Старий пароль неправильний";
-                NewPassLabel.CssClass = "label label-primary";
-                NewPassLabel.Text = "Новий пароль";
-                NewPassCheakLabel.CssClass = "label label-primary";
-                NewPassCheakLabel.Text = "Повторіть новий пароль";
-                ChangePass.Attributes.Add("style", "display:inline;");
+                ShowErrorMessage("Старий пароль неправильний");
             }
+        }
+
+        private void ShowErrorMessage(string text)
+        {
+            error_message.Visible = true;
+            error_message_text.InnerText = text;
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            using (var binaryReader = new BinaryReader(InputFile.PostedFile.InputStream))
+            using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
             {
-                var fileData = binaryReader.ReadBytes(InputFile.PostedFile.ContentLength);
+                var fileData = binaryReader.ReadBytes(file_upload.PostedFile.ContentLength);
                 CampusClient.Authenticate(UserLogin, UserPassword);
                 CampusClient.UploadUserProfileImage(fileData);
             }

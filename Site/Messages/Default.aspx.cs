@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Campus.Common;
@@ -8,79 +9,38 @@ namespace Site.Messages
 {
     public partial class Default : Core.SitePage
     {
-        protected void Page_Init(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            if (SessionId != null)
-            {
-                var conversations = CampusClient.GetUserConversations(SessionId);
+            base.OnLoad(e);
 
-                if (conversations != null)
+            var conversations = CampusClient.GetUserConversations(SessionId);
+            var sb = new StringBuilder();
+            if (conversations != null)
+            {
+                foreach (var conversation in conversations)
                 {
-                    foreach (var conversation in conversations)
-                    {
-                        LinkButtonsRendering(conversation);
-                    }
+                    sb.AppendLine(LinkButtonsRendering(conversation));
                 }
             }
-            else
-            {
-                var mainDiv = new HtmlGenericControl("div");
-                CreateErrorMessage(mainDiv);
-                LinkContainer.Controls.Add(mainDiv);
-            }
+
+            message_container.InnerHtml = sb.ToString();
         }
 
-        private void LinkButtonsRendering(Conversation conversation)
+        private string LinkButtonsRendering(Conversation conversation)
         {
-            var messageLink = new LinkButton();
-            var mainDiv = new HtmlGenericControl("div");
-            var imgDiv = new HtmlGenericControl("div");
+            var link = String.Format("/messages/dialog.aspx?groupid={0}", conversation.GroupId);
 
-            var infoDiv = new HtmlGenericControl("div");
-            var subject = new HtmlGenericControl("h5");
-            var last = new HtmlGenericControl("p");
-            var lastPhoto = new Image();
-            var lastSender = new HtmlGenericControl("h6");
-            var lastText = new HtmlGenericControl("p");
-            var date = new HtmlGenericControl("p");
+            var images = new StringBuilder();
 
             for (int j = 0; j < conversation.Users.Count() && j < 4; j++)
             {
                 var user = conversation.Users.ElementAt(j);
-
-                var ownImg = new Image();
-                ownImg.ImageUrl = user.Photo;
-                imgDiv.Controls.Add(ownImg);
+                images.AppendFormat("<img src=\"{0}\" />", user.Photo);
             }
 
-            messageLink.PostBackUrl = Request.Url.AbsolutePath;
-            messageLink.Attributes.Add("class", "messageLink");
-
-
-            messageLink.Attributes.Add("cId", conversation.GroupId.ToString());
-            messageLink.Attributes.Add("subj", conversation.Subject);
-
-            mainDiv.Attributes.Add("id", "mainBlock");
-            mainDiv.Attributes.Add("class", ".form-inline");
-
-            imgDiv.Attributes.Add("id", "imgBlock");
-            imgDiv.Attributes.Add("class", "imgBlock");
-
-            infoDiv.Attributes.Add("id", "infoBlock");
-
-            subject.Attributes.Add("id", "subject");
-            subject.Attributes.Add("class", "text-primary");
-            last.Attributes.Add("id", "last");
-            last.Attributes.Add("class", "text-success");
-
-            lastPhoto.Attributes.Add("class", "lastPhoto");
-            lastSender.Attributes.Add("class", "lastSender text-warning");
-            lastText.Attributes.Add("class", " lastText text-success");
-
-            date.Attributes.Add("id", "date");
-            date.Attributes.Add("class", "text-warning");
-
-            subject.InnerText = conversation.Subject;
+            var lastSender = String.Empty;
+            var lastPhoto = String.Empty;
+            var lastText = String.Empty;
 
             for (int i = 0; i < conversation.Users.Count(); i++)
             {
@@ -88,25 +48,27 @@ namespace Site.Messages
 
                 if (currUser.UserAccountId == conversation.LastSenderUserAccountId)
                 {
-                    lastSender.InnerText = currUser.FullName;
-                    lastPhoto.ImageUrl = currUser.Photo;
-                    lastText.InnerText = conversation.LastMessageText;
+                    lastSender = currUser.FullName;
+                    lastPhoto = currUser.Photo;
+                    lastText = conversation.LastMessageText;
                 }
             }
 
-            date.InnerText = conversation.LastMessageDate.ToString();
+            var sb = new StringBuilder();
+            sb.AppendFormat(@"
+            <a href=""{6}"" class=""chat-message chat-message-info"">
+                <h4>{0}</h4>
+                <div class=""image-block"">{1}</div>                
+                <div id=""last"" class=""chat-content text-success"">
+                    <img class=""lastPhoto"" src=""{2}"" />
+                    <h6 class=""lastSender text-warning"">{3}</h6>    
+                    <p class=""lastText text-success"">{4}</p>
+                    <p class=""text-warning"">{5}</p>
+                </div>
+                <div class=""clear""></div>
+            </a>", conversation.Subject, images, lastPhoto, lastSender, lastText, conversation.LastMessageDate.ToString("f"), link);
 
-            last.Controls.Add(lastPhoto);
-            last.Controls.Add(lastSender);
-            last.Controls.Add(lastText);
-            infoDiv.Controls.Add(subject);
-            infoDiv.Controls.Add(last);
-            infoDiv.Controls.Add(date);
-            mainDiv.Controls.Add(imgDiv);
-            mainDiv.Controls.Add(infoDiv);
-            messageLink.Controls.Add(mainDiv);
-
-            LinkContainer.Controls.Add(messageLink);
+            return sb.ToString();
         }
     }
 }

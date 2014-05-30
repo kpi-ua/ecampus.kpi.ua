@@ -3,7 +3,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
 
     <div class="page-header">
-        <h1>Розклад</h1>
+        <h1><%=Page.Title %></h1>
     </div>
 
     <link rel="stylesheet" type="text/css" href="/Content/timetable.css" />

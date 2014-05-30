@@ -22,13 +22,31 @@ namespace Site {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl carousel_wrap;
         
         /// <summary>
-        /// PersData control.
+        /// error_message control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal PersData;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl error_message;
+        
+        /// <summary>
+        /// error_message_text control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl error_message_text;
+        
+        /// <summary>
+        /// profile_photo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image profile_photo;
         
         /// <summary>
         /// WorkData control.
@@ -49,40 +67,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Literal SpecFunc;
         
         /// <summary>
-        /// profile_photo control.
+        /// file_upload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image profile_photo;
-        
-        /// <summary>
-        /// LoadPhoto control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel LoadPhoto;
-        
-        /// <summary>
-        /// File control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox File;
-        
-        /// <summary>
-        /// InputFile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputFile InputFile;
+        protected global::System.Web.UI.WebControls.FileUpload file_upload;
         
         /// <summary>
         /// UploadBtn control.
@@ -94,24 +85,6 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Button UploadBtn;
         
         /// <summary>
-        /// ChangePass control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ChangePass;
-        
-        /// <summary>
-        /// OldPassLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label OldPassLabel;
-        
-        /// <summary>
         /// OldPass control.
         /// </summary>
         /// <remarks>
@@ -121,15 +94,6 @@ namespace Site {
         protected global::System.Web.UI.WebControls.TextBox OldPass;
         
         /// <summary>
-        /// NewPassLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewPassLabel;
-        
-        /// <summary>
         /// NewPass control.
         /// </summary>
         /// <remarks>
@@ -137,15 +101,6 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox NewPass;
-        
-        /// <summary>
-        /// NewPassCheakLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NewPassCheakLabel;
         
         /// <summary>
         /// NewPassCheak control.

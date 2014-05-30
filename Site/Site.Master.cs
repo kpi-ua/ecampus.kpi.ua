@@ -18,7 +18,7 @@ namespace Site
 
             try
             {
-                UserName.Text += SitePage.CurrentUser.FullName;
+                UserName.Text = SitePage.CurrentUser.FullName;
 
                 var hiddenField = new HtmlGenericControl("input");
                 hiddenField.Attributes.Add("id", "uhidden");

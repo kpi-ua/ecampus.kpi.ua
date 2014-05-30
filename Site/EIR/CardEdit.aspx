@@ -1,10 +1,9 @@
 ﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEdit.aspx.cs" Inherits="Site.EIR.CardEdit" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-
     
     <div class="page-header">
-        <h1>Створити ЕІР</h1>
+        <h1><%=Page.Title %></h1>
     </div>
 
     <div class="row eir">

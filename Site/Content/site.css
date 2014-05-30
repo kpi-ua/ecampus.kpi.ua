@@ -69,8 +69,30 @@ body, html {
     float: right;
 }
 
+.support-modal-link {
+    cursor: pointer;
+    display: block;
+    font-size: 9pt;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#support-modal {
+    color: #000000;
+}
+
+    #support-modal a,
+    .nav-tabs > li > a {
+        color: #208843;
+    }
+
 #moderator, #new_message {
     margin-bottom: 10px;
+}
+
+a, .btn, textarea, input {
+    -ms-border-radius: 0 !important;
+    border-radius: 0 !important;
 }
 
 a, .btn {
@@ -115,6 +137,10 @@ a, .btn {
     width: 300px;
     color: #fff;
 }
+
+    .login-box input[type="submit"] {
+        width: 100%;
+    }
 
     .login-box a {
         color: #afdfca;
@@ -180,18 +206,164 @@ a, .btn {
     background-position: 0;
 }
 
-.messageLink {
+/* PROFILE */
+.profile {
+}
+
+    .profile .tab-pane {
+        padding: 10px;
+    }
+
+    .profile .pic {
+        height: 150px;
+        width: 150px;
+    }
+
+    .profile .name {
+        position: absolute;
+        padding-left: 200px;
+        font-size: 30px;
+    }
+
+    .profile .dropdown {
+        position: absolute;
+    }
+
+    .profile .change {
+        position: relative;
+        bottom: 20px;
+        padding: 1px;
+        color: white;
+        text-decoration: none;
+    }
+
+
+        .profile .change:hover {
+            text-decoration: none;
+            background-color: black;
+            color: white;
+        }
+
+/* END PROFILE */
+
+/*MESSAGES*/
+.chat-message {
+    margin: 20px 0;
+    padding: 20px;
+    border-left: 3px solid #eee;
     display: block;
-    margin-bottom: 5px;
-    border: solid 1px #999;
-    -ms-border-radius: 5px;
-    border-radius: 5px;
     text-decoration: none;
 }
 
-    .messageLink:hover {
-        background-color: #e4e8ed;
+    .chat-message h4 {
+        margin-bottom: 15px;
     }
+
+    .chat-message:hover {
+        text-decoration: none;
+    }
+
+    .chat-message .image-block {
+        float: left;
+        width: 100px;
+    }
+
+        .chat-message .image-block img {
+            height: 40px;
+            width: 40px;
+        }
+
+
+    .chat-message .chat-content {
+        float: left;
+        margin-left: 25px;
+    }
+
+    .chat-message .last {
+    }
+
+    .chat-message:hover {
+        background-color: #F4FDF0;
+    }
+
+    .chat-message.new {
+    }
+
+    .chat-message h4 {
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .chat-message p:last-child {
+        margin-bottom: 0;
+    }
+
+    .chat-message code {
+        background-color: #fff;
+        border-radius: 3px;
+    }
+
+.chat-message-success {
+    background-color: #F4FDF0;
+    border-color: #3C763D;
+}
+
+    .chat-message-success h4 {
+        color: #3C763D;
+    }
+
+.chat-message-danger {
+    background-color: #fdf7f7;
+    border-color: #d9534f;
+}
+
+    .chat-message-danger h4 {
+        color: #d9534f;
+    }
+
+.chat-message-warning {
+    background-color: #fcf8f2;
+    border-color: #f0ad4e;
+}
+
+    .chat-message-warning h4 {
+        color: #f0ad4e;
+    }
+
+.chat-message-info {
+    background-color: #f4f8fa;
+    border-color: #5bc0de;
+}
+
+    .chat-message-info h4 {
+        color: #5bc0de;
+    }
+
+.chat-message-default {
+    background-color: #EEE;
+    border-color: #B4B4B4;
+}
+
+    .chat-message-default h4 {
+        color: #000;
+    }
+
+.chat-message-notice {
+    background-color: #FCFCDD;
+    border-color: #BDBD89;
+}
+
+    .chat-message-notice h4 {
+        color: #444;
+    }
+
+/*END MESSAGES*/
+
+.alert-message {
+}
+
+.alert-message-info {
+}
 
 #body_DialogContainer {
     margin-top: 10px;
@@ -206,26 +378,7 @@ a, .btn {
     margin-top: 10px;
 }
 
-#imgBlock {
-    float: left;
-    max-width: 80px;
-    max-height: 100px;
-    -ms-word-wrap: break-word;
-    word-wrap: break-word;
-}
-
-    #imgBlock img {
-        margin-bottom: 2px;
-        margin-left: 2px;
-        max-width: 40px;
-        max-height: 50px;
-        width: 38px;
-        height: 40px;
-    }
-
 #subject {
-    margin-left: 150px;
-    padding-bottom: 70px;
 }
 
 .messageBlock {
@@ -1396,13 +1549,11 @@ footer {
     }
 
     #right-sidebar #profile_photo {
-        float: right;
         width: 200px;
     }
 
     #right-sidebar ul {
-        background: url("/Images/razdelitel.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
-        float: right;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI0AAAABAQMAAADZ4r9FAAAABlBMVEWZmZmZmZlYwozHAAAAAXRSTlMAQObYZgAAACFJREFUeF4dx7ENAAAIAjBHRk6QVzjNcLgJYycbQTDMY/Em9wP6ZdaHlQAAAABJRU5ErkJggg==') /*/Images/razdelitel.png*/ repeat-x scroll 0 0 rgba(0, 0, 0, 0);
         margin-top: 42px;
         width: 200px;
     }
