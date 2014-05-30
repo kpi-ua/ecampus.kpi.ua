@@ -652,6 +652,24 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.TextBox public_year;
         
         /// <summary>
+        /// langtextupdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel langtextupdate;
+        
+        /// <summary>
+        /// idlang control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label idlang;
+        
+        /// <summary>
         /// Label9 control.
         /// </summary>
         /// <remarks>
@@ -751,22 +769,31 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.Button add_land;
         
         /// <summary>
-        /// languages_update control.
+        /// delete_lang control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel languages_update;
+        protected global::System.Web.UI.WebControls.Button delete_lang;
         
         /// <summary>
-        /// languages control.
+        /// language_update control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel languages;
+        protected global::System.Web.UI.UpdatePanel language_update;
+        
+        /// <summary>
+        /// langgrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView langgrid;
         
         /// <summary>
         /// Label34 control.

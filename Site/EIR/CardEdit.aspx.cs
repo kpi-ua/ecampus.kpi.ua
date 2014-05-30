@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Web.Script.Serialization;
@@ -6,27 +7,42 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
+
 namespace Site.EIR
 {
     class Contributor
     {
         public int Id { get; set; }
         public bool NotKpi { get; set; }
+        public string eEmployeeId { get; set; }
+        public string DataBaseId { get; set; }
         public string FullName { get; set; }
         public string ContributionType { get; set; }
         public string ContributionPart { get; set; }
         public string Status { get; set; }
     }
 
-    class ExtraLanguage
+    internal class ExtraLanguage
     {
-         
+        public int Id { get; set; }
+        public string DataBaseId { get; set; }
+        public string LangId { get; set; }
+        public string LangText { get; set; }
+        public string Annot { get; set; }
+        public string KeyWords { get; set; }
+        public string Name { get; set; }
+        public string Authors { get; set; }
     }
 
+
+    /// <summary>
+    /// for edit is needed Session["EirEdit"] & Session["EirId"]
+    /// </summary>
     public partial class CardEdit : Core.SitePage
     {
         
         private string _irId;
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
 
         static List<Contributor> contributorlist = new List<Contributor>();
         static List<ExtraLanguage> extralangaugelist = new List<ExtraLanguage>(); 
@@ -34,23 +50,16 @@ namespace Site.EIR
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+
+            if(Page.IsPostBack) return;
         
             LoadAllList();
 
-            switch (Request.QueryString["type"])
+            if ((string) Session["EirEdit"] == "true")
             {
-                case "add":
-                    {
-                        break;
-                    }
-                case "edit":
-                    {
-                        _irId = Request.QueryString["id"];
-                        FillValues();
-                        break;
-                    }
+                _irId = (string) Session["EirId"];
+                FillValues();
             }
-
 
         }
 
@@ -133,16 +142,16 @@ namespace Site.EIR
             {
                 public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
-        }
 
-        private void LoadPanels()
-        {
-            
+            grif_country_SelectedIndexChanged(null, null);
+            griff_city_SelectedIndexChanged(null, null);
+
+            org_country_SelectedIndexChanged(null, null);
+            org_city_SelectedIndexChanged(null, null);
         }
 
         private void FillValues()
         {
-            var serializer = new JavaScriptSerializer();
 
             var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetIr?sessionId=" + SessionId + "&id=" + _irId);
             var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
@@ -196,22 +205,22 @@ namespace Site.EIR
         {
             if (idcontr.Text != "")
             {
-                contributorlist[Convert.ToInt32(idcontr.Text)].FullName = person_name.Text != ""
-                    ? person_name.Text
-                    : not_kpi_surname.Text;
-                contributorlist[Convert.ToInt32(idcontr.Text)].NotKpi = person_accessory.SelectedValue == "yes";
-                contributorlist[Convert.ToInt32(idcontr.Text)].ContributionPart = contribution_part.Text;
-                contributorlist[Convert.ToInt32(idcontr.Text)].ContributionType = contribution_type.SelectedValue;
-                contributorlist[Convert.ToInt32(idcontr.Text)].Status = person_type.SelectedValue;
+                PersonEnable();
                 idcontr.Text = "";
                 add_contr.Text = "Додати";
             }
             else
             {
+                int id = 1;
+                if (contributorlist.Count != 0)
+                {
+                    id = contributorlist[contributorlist.Count - 1].Id + 1;
+                }
+
                 contributorlist.Add(new Contributor
                 {
-                    Id = contributorlist.Count,
-                    NotKpi = person_accessory.SelectedValue == "yes",
+                    Id = id,
+                    NotKpi = person_accessory.SelectedValue == "no",
                     FullName = person_name.Text != "" ? person_name.Text : not_kpi_surname.Text,
                     ContributionType = contribution_type.SelectedValue,
                     ContributionPart = contribution_part.Text,
@@ -229,10 +238,25 @@ namespace Site.EIR
             not_kpi_surname.Text = "";
         }
 
+        protected void PersonEnable()
+        {
+            person_accessory.Enabled = true;
+            person_name.Enabled = true;
+            contribution_type.Enabled = true;
+            contribution_part.Enabled = true;
+            person_type.Enabled = true;
+            not_kpi_surname.Enabled = true;
+        }
+
         protected void delete_person_Click(object sender, EventArgs e)
         {
+            PersonEnable();
             delete_contr.Visible = false;
             var contr = contributorlist.Find(o => o.Id.Equals(Convert.ToInt32(idcontr.Text)));
+            if (contr.DataBaseId != null)
+            {
+                //delete
+            }
             contributorlist.Remove(contr);
 
             GridLoad(sender, e);
@@ -247,18 +271,25 @@ namespace Site.EIR
             not_kpi_surname.Text = "";
         }
 
-        protected void CRowCommand(object sender, GridViewCommandEventArgs e)
+        protected void contributorsgrid_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             delete_contr.Visible = true;
-            add_contr.Text = "Зберегти";
-            var num = Convert.ToInt32(e.CommandArgument);
+            add_contr.Text = "Створити";
+            var num = Convert.ToInt32(contributorsgrid.SelectedRow.Cells[0].Text);
             idcontr.Text = num.ToString();
-            person_accessory.SelectedValue = contributorlist[num].NotKpi ? "yes" : "no";
-            person_name.Text = contributorlist[num].FullName;
-            contribution_type.SelectedValue = contributorlist[num].ContributionType;
-            contribution_part.Text = contributorlist[num].ContributionPart;
-            person_type.SelectedValue = contributorlist[num].Status;
-            not_kpi_surname.Text = contributorlist[num].FullName;
+            var cont = contributorlist.Find(o => o.Id == num);
+            person_accessory.SelectedValue = cont.NotKpi ? "no" : "yes";
+            person_accessory.Enabled = false;
+            person_name.Text = cont.FullName;
+            person_name.Enabled = false;
+            contribution_type.SelectedValue = cont.ContributionType;
+            contribution_type.Enabled = false;
+            contribution_part.Text = cont.ContributionPart;
+            contribution_part.Enabled = false;
+            person_type.SelectedValue = cont.Status;
+            person_type.Enabled = false;
+            not_kpi_surname.Text = cont.FullName;
+            not_kpi_surname.Enabled = false;
             UpdatePanel3.Update();
         }
 
@@ -272,7 +303,103 @@ namespace Site.EIR
 
         //ExtraLangs
 
+        protected void add_lang_Click(object sender, EventArgs e)
+        {
+            if (idlang.Text != "")
+            {
+                LangEnable();
+                idlang.Text = "";
+                add_land.Text = "Додати";
+            }
+            else
+            {
+                int id = 1;
+                if (extralangaugelist.Count != 0)
+                {
+                    id = extralangaugelist[extralangaugelist.Count - 1].Id + 1;
+                }
 
+                extralangaugelist.Add(new ExtraLanguage
+                {
+                    Id = id,
+                    LangId = language.SelectedValue,
+                    LangText = language.SelectedItem.Text,
+                    Annot = annotation.Text,
+                    KeyWords = lang_keywords.Text,
+                    Name = lang_name.Text,
+                    Authors = lang_authors.Text
+
+                });
+            }
+
+            EXGridLoad(sender, e);
+
+            //clear values
+            delete_lang.Visible = false;
+            language.SelectedValue = null;
+            annotation.Text = "";
+            lang_keywords.Text = "";
+            lang_name.Text = "";
+            lang_authors.Text = "";
+        }
+
+        protected void LangEnable()
+        {
+            language.Enabled = true;
+            annotation.Enabled = true;
+            lang_keywords.Enabled = true;
+            lang_name.Enabled = true;
+            lang_authors.Enabled = true;
+
+        }
+
+        protected void delete_lang_Click(object sender, EventArgs e)
+        {
+            delete_contr.Visible = false;
+            var lang = extralangaugelist.Find(o => o.Id.Equals(Convert.ToInt32(idlang.Text)));
+            if (lang.DataBaseId != null)
+            {
+                //delete
+            }
+            extralangaugelist.Remove(lang);
+
+            EXGridLoad(sender, e);
+
+            idlang.Text = "";
+            add_land.Text = "Додати";
+            language.SelectedValue = null;
+            annotation.Text = "";
+            lang_keywords.Text = "";
+            lang_name.Text = "";
+            lang_authors.Text = "";
+        }
+
+        protected void langgrid_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            delete_lang.Visible = true;
+            add_land.Text = "Створити";
+            var num = Convert.ToInt32(langgrid.SelectedRow.Cells[0].Text);
+            idlang.Text = num.ToString();
+            var lang = extralangaugelist.Find(o => o.Id == num);
+            language.SelectedValue = lang.LangId;
+            language.Enabled = false;
+            annotation.Text = lang.Annot;
+            annotation.Enabled = false;
+            lang_keywords.Text = lang.KeyWords;
+            lang_keywords.Enabled = false;
+            lang_name.Text = lang.Name;
+            lang_name.Enabled = false;
+            lang_authors.Text = lang.Authors;
+            lang_authors.Enabled = false;
+            langtextupdate.Update();
+        }
+
+        protected void EXGridLoad(object sender, EventArgs e)
+        {
+            langgrid.DataSource = extralangaugelist;
+            langgrid.DataBind();
+            language_update.Update();
+        }
 
         #endregion
 
@@ -286,112 +413,121 @@ namespace Site.EIR
             //}
         }
 
+        #region Save Operations
+
         protected void save_Click(object sender, EventArgs e)
         {
-            var serializer = new JavaScriptSerializer();
+            if (_irId != null)
+            {
+                var json =
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId + 
+                                                "&irId=" + _irId + "&name=" +
+                                                name.Text + "&description=" + short_description.Text +
+                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Now +
+                                                "&accessStart=" + access_begin.Text + "&accessEnd=" + access_end.Text +
+                                                "&docNumber=" + doc_number.Text +
+                                                "&docDate=" + doc_date.Text + "&dcIrFormId=" + form_type.SelectedValue +
+                                                "&dcIrKindId=" +
+                                                public_kind.SelectedValue + "&dcIrPurposeId=" +
+                                                purpose_type.SelectedValue + "&isPublic=" +
+                                                (is_public.SelectedValue == "public" ? "true" : "false"));
+                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
-            var json =
-                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddIr?sessionId=" + SessionId + "&name=" +
-                                            name.Text + "&description=" + short_description.Text +
-                                            "&dateCreate=" + DateTime.Now + "&datePublish=" + date.Text +
-                                            "&accessStart=" + access_begin.Text + "&accessEnd=" + access_end.Text +
-                                            "&docNumber=" + doc_number.Text +
-                                            "&docDate=" + doc_date.Text);
-            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var id = (string)respDictionary["Data"];
+                json =
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/UpdateIrExtra?sessionId=" + SessionId +
+                                                "&irId=" + _irId + "&publFormId=" +
+                                                public_form.SelectedValue + "&publishOrgId=" + org_name.SelectedValue +
+                                                "&stampId=" + griff.SelectedValue + "&stampOrgId=" + griff_org_name +
+                                                "&title=" + long_deskription.Text + "&publicYear=" + public_year.Text +
+                                                "&pages=" + page_number.Text + "&edition=" + edition.Text +
+                                                "&libLocation=" +
+                                                lib_location.Text);
 
-            json =
-                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddIrExtra?sessionId=" + SessionId +
-                                            "&irId=" + id + "&publFormId=" +
-                                            public_form.SelectedValue + "&publishOrgId=" + org_name.SelectedValue +
-                                            "&stampId=" + griff.SelectedValue + "&stampOrgId=" + griff_org_name +
-                                            "&title=" + long_deskription.Text + "&publicYear=" + public_year.Text +
-                                            "&pages=" + page_number.Text + "&edition=" + edition.Text + "&libLocation=" +
-                                            lib_location.Text);
+                respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
 
-            respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            id = (string)respDictionary["Data"];
+                AddContributors(_irId);
+                AddExtraLengs(_irId);
+            }
+            else
+            {
+                var json =
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddIr?sessionId=" + SessionId +
+                                                "&name=" +
+                                                name.Text + "&description=" + short_description.Text +
+                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Now +
+                                                "&accessStart=" + access_begin.Text + "&accessEnd=" + access_end.Text +
+                                                "&docNumber=" + doc_number.Text +
+                                                "&docDate=" + doc_date.Text + "&dcIrFormId=" + form_type.SelectedValue +
+                                                "&dcIrKindId=" +
+                                                public_kind.SelectedValue + "&dcIrPurposeId=" +
+                                                purpose_type.SelectedValue + "&isPublic=" +
+                                                (is_public.SelectedValue == "public" ? "true" : "false"));
+                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                var id = (string) respDictionary["Data"];
 
-            //AddContributors(id);
-            //AddExtraLengs(id);
+                json =
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddIrExtra?sessionId=" + SessionId +
+                                                "&irId=" + id + "&publFormId=" +
+                                                public_form.SelectedValue + "&publishOrgId=" + org_name.SelectedValue +
+                                                "&stampId=" + griff.SelectedValue + "&stampOrgId=" + griff_org_name +
+                                                "&title=" + long_deskription.Text + "&publicYear=" + public_year.Text +
+                                                "&pages=" + page_number.Text + "&edition=" + edition.Text +
+                                                "&libLocation=" +
+                                                lib_location.Text);
 
+                respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+
+                AddContributors(id);
+                AddExtraLengs(id);
+
+            }
         }
 
-        //private void AddContributors(string id)
-        //{
-        //    var serializer = new JavaScriptSerializer();
-
-        //    foreach (var control in contributors_place.Controls)
-        //    {
-        //        var label = (Label)control;
-        //        string notKpiId = "";
-
-        //        if (person_accessory.SelectedValue == "no")
-        //        {
-        //            var json1 =
-        //                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddNotKPI?type=" +
-        //                                            label.Attributes["ptype"] + "&surname=" +
-        //                                            label.Attributes["surn"]);
-        //            var respDictionary1 = serializer.Deserialize<Dictionary<string, object>>(json1);
-        //            notKpiId = (string)respDictionary1["Data"];
-        //        }
-        //        //how to use eemployeeId???
-        //        CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddContributor?irId=" + id +
-        //                                    "&contTypeId=" +
-        //                                    label.Attributes["ctype"] + "&name=" + label.Attributes["name"] +
-        //                                    "&notKPIId=" + notKpiId + "&contPercent=" + label.Attributes["cpart"]);
-        //    }
-
-        //}
-
-        //private void AddExtraLengs(string id)
-        //{
-        //    foreach (var control in contributors_place.Controls)
-        //    {
-        //        var label = (Label)control;
-
-        //        CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddExtraLang?irExtraId=" + id +
-        //                                    "&title=" + label.Attributes["name"] +
-        //                                    "&annotation=" + label.Attributes["annot"] + "&authors=" +
-        //                                    label.Attributes["author"] + "&langId=" + label.Attributes["lang"] +
-        //                                    "&keyWords=" + label.Attributes["kwords"]);
-        //    }
-        //}
-
-        protected void add_land_Click(object sender, EventArgs e)
+        private void AddContributors(string id)
         {
-            var langLable = new Label();
-            langLable.Attributes.Add(ID, languages.Controls.Count.ToString());
-            langLable.Attributes.Add("lang", language.SelectedValue);
-            langLable.Attributes.Add("annot", annotation.Text);
-            langLable.Attributes.Add("kwords", lang_keywords.Text);
-            langLable.Attributes.Add("name", lang_name.Text);
-            langLable.Attributes.Add("author", lang_authors.Text);
+            if (_irId == null)
+            {
+                var json =
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" +
+                                                SessionId);
+                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                var userid = ((Dictionary<string, object>) respDictionary["Data"])["UserAccountId"].ToString();
 
-            languages.Controls.Add(langLable);
-            languages_update.Update();
+                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
+                                            SessionId + "&irId=" + id +
+                                            "&contTypeId=1&contPercent=100&notKPI=false&userAcountId=" + userid);
+            }
+
+            foreach (var cont in contributorlist)
+            {
+                if (cont.DataBaseId == null)
+                {
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
+                                                SessionId + "&irId=" + id + "&contTypeId=" +
+                                                cont.ContributionType + "&contPercent=" +
+                                                cont.ContributionPart + "&notKPI=" +
+                                                cont.NotKpi +
+                                                "&eEmployeeId=" + cont.eEmployeeId + "&name" + cont.FullName + "&status" +
+                                                cont.Status);
+                }
+            }
         }
 
-        
-
+        private void AddExtraLengs(string id)
+        {
+            foreach (var lang in extralangaugelist)
+            {
+                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddExtraLang?irId=" + id +
+                                            "&title=" + lang.Name +
+                                            "&annotation=" + lang.Annot + "&authors=" +
+                                            lang.Authors + "&langId=" + lang.LangId +
+                                            "&keyWords=" + lang.KeyWords);
+            }
+        }
+  
+        #endregion 
 
         #region Loading Dependencies
-
-        protected void griff_city_Load(object sender, EventArgs e)
-        {
-            if (grif_country.SelectedValue != null)
-            {
-                grif_country_SelectedIndexChanged(sender, e);
-            }
-        }
-
-        protected void griff_org_name_Load(object sender, EventArgs e)
-        {
-            if (griff_city.SelectedValue != null)
-            {
-                griff_city_SelectedIndexChanged(sender, e);
-            }
-        }
 
         protected void grif_country_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -403,6 +539,8 @@ namespace Site.EIR
             {
                 griff_city.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
+
+            griff_city_SelectedIndexChanged(sender, e);
         }
 
         protected void griff_city_SelectedIndexChanged(object sender, EventArgs e)
@@ -416,22 +554,6 @@ namespace Site.EIR
             }
         }
 
-        protected void org_city_Load(object sender, EventArgs e)
-        {
-            if (org_country.SelectedValue != null)
-            {
-                org_country_SelectedIndexChanged(sender, e);
-            }
-        }
-
-        protected void org_name_Load(object sender, EventArgs e)
-        {
-            if (org_city.SelectedValue != null)
-            {
-                org_city_SelectedIndexChanged(sender, e);
-            }
-        }
-
         protected void org_country_SelectedIndexChanged(object sender, EventArgs e)
         {
             org_city.Items.Clear();
@@ -441,12 +563,14 @@ namespace Site.EIR
             {
                 org_city.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
+
+            org_city_SelectedIndexChanged(sender, e);
         }
 
         protected void org_city_SelectedIndexChanged(object sender, EventArgs e)
         {
             org_name.Items.Clear();
-            var Data = CampusClient.GetPublishOrg(griff_city.SelectedValue);
+            var Data = CampusClient.GetPublishOrg(org_city.SelectedValue);
 
             foreach (var item in Data)
             {
@@ -455,7 +579,6 @@ namespace Site.EIR
         }
 
         #endregion
-
 
     }
 }
