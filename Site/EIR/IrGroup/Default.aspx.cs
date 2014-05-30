@@ -13,7 +13,7 @@ namespace Site.EIR.IrGroup
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            //SessionId = "95ea473f-f51c-401e-bf58-a828d744a85b";
+            SessionId = "21326282-1132-4c62-be72-22fc7c44fd3b";
             if (SessionId != null)
             {
                 var client = new Campus.SDK.Client();
@@ -29,7 +29,7 @@ namespace Site.EIR.IrGroup
 
                     foreach (var group in groups)
                     {
-                        LinkButtonsRendering(group);
+                        IrGroupListRendering(group);
                     }
                 }
 
@@ -42,7 +42,7 @@ namespace Site.EIR.IrGroup
             }
         }
 
-        private void LinkButtonsRendering(JObject group)
+        private void IrGroupListRendering(JObject group)
         {
             var groupLink = new LinkButton();
             var mainDiv = new HtmlGenericControl("div");
@@ -51,7 +51,7 @@ namespace Site.EIR.IrGroup
             
 
             groupLink.PostBackUrl = Request.Url.AbsolutePath;
-            //groupLink.Attributes.Add("class", "messageLink");
+            groupLink.Attributes.Add("class", "irGroupLink");
             groupLink.Attributes.Add("irGroupId", group["IrGroupId"].ToString());
 
             mainDiv.Attributes.Add("id", "mainBlock");
