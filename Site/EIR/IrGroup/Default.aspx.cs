@@ -13,7 +13,7 @@ namespace Site.EIR.IrGroup
 
         protected void Page_Init(object sender, EventArgs e)
         {
-            SessionId = "21326282-1132-4c62-be72-22fc7c44fd3b";
+            AutoLogin();
             if (SessionId != null)
             {
                 var client = new Campus.SDK.Client();
@@ -40,6 +40,14 @@ namespace Site.EIR.IrGroup
                 CreateErrorMessage(mainDiv);
                 LinkContainer.Controls.Add(mainDiv);
             }
+        }
+
+        public void AutoLogin()
+        {
+            //TODO debuging staff - delete!!!!!!!
+            var client = new Campus.SDK.Client();
+            client.Authenticate("123", "123");
+            SessionId = client.SessionId;
         }
 
         private void IrGroupListRendering(JObject group)
@@ -69,6 +77,22 @@ namespace Site.EIR.IrGroup
             groupLink.Controls.Add(mainDiv);
 
             LinkContainer.Controls.Add(groupLink);
+        }
+
+        protected void NewGroup_Click(object sender, EventArgs e)
+        {
+            if (SessionId != null)
+            {
+                Session["group_level"] = "private";
+                Response.Redirect("NewIrGroup.aspx");
+            }
+            else
+            {
+                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
+                CreateErrorMessage(mainDiv);
+                LinkContainer.Controls.Add(mainDiv);
+            }
+
         }
 
 
