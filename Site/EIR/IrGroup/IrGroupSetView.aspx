@@ -1,9 +1,7 @@
-﻿<%@ Page Title="Групи ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.EIR.IrGroup.Default" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="IrGroupSetView.aspx.cs" Inherits="Site.EIR.IrGroup.IrGroupSetView" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="server">
     <asp:Button ID="new_group" runat="server" Text="Нова група" CssClass="btn btn-warning" ClientIDMode="Static" OnClick="NewGroup_Click" />
-    <asp:Panel ID="SubdivisionIrContainer" runat="server">
-        <div id="out_json" runat="server"></div>
+    <asp:Panel ID="LinkContainer" runat="server">
     </asp:Panel>
 
     <script type="text/javascript">
@@ -22,11 +20,11 @@
 
 
             $(document).on("click", ".irGroupLink", function (e) {
-                var irGroupId = $(this).attr("subdivisionIrId");
+                var irGroupId = $(this).attr("irGroupId");
 
-                SetSessionValue("subdivisionIrId", irGroupId);
+                SetSessionValue("irGroupId", irGroupId);
                 e.preventDefault();
-                window.open("IrGroupSetView.aspx", "_self");
+                window.open("IrGroupView.aspx", "_self");
             });
 
         });

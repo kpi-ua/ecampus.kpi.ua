@@ -48,18 +48,23 @@ namespace Site.EIR.IrGroup
         }
 
 
-        protected void feature_type_SelectedIndexChanged(object sender, EventArgs e)
+        //protected void feature_type_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    var serializer = new JavaScriptSerializer();
+
+        //    var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetIrKind");
+        //    var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+        //    var Data = (Dictionary<string, Object>)respDictionary["Data"];
+
+        //    foreach (var item in Data)
+        //    {
+        //        public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+        //    }
+        //}
+
+        protected void is_public_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            var serializer = new JavaScriptSerializer();
-
-            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetIrKind");
-            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var Data = (Dictionary<string, Object>)respDictionary["Data"];
-
-            foreach (var item in Data)
-            {
-                public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            }
+            Label37.Text = "hhfjfw";
         }
     }
 }

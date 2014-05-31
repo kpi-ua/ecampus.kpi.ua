@@ -10,7 +10,7 @@
 namespace Site.EIR.IrGroup {
     
     
-    public partial class Default {
+    public partial class IrGroupSetView {
         
         /// <summary>
         /// new_group control.
@@ -22,21 +22,12 @@ namespace Site.EIR.IrGroup {
         protected global::System.Web.UI.WebControls.Button new_group;
         
         /// <summary>
-        /// SubdivisionIrContainer control.
+        /// LinkContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel SubdivisionIrContainer;
-        
-        /// <summary>
-        /// out_json control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl out_json;
+        protected global::System.Web.UI.WebControls.Panel LinkContainer;
     }
 }
