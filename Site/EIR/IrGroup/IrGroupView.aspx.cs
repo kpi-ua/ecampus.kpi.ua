@@ -77,6 +77,21 @@ namespace Site.EIR.IrGroup
             LinkContainer.Controls.Add(groupLink);
         }
 
+        protected void EditGroup_Click(object sender, EventArgs e)
+        {
+            if (SessionId != null)
+            {
+                Response.Redirect("NewIrGroup.aspx" +
+                    "?type=edit");
+            }
+            else
+            {
+                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
+                CreateErrorMessage(mainDiv);
+                LinkContainer.Controls.Add(mainDiv);
+            }
+
+        }
 
     }
 

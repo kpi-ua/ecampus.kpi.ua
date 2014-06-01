@@ -67,6 +67,15 @@ namespace Site.EIR.IrGroup {
         protected global::System.Web.UI.WebControls.TextBox short_description;
         
         /// <summary>
+        /// PrivacyUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel PrivacyUpdatePanel;
+        
+        /// <summary>
         /// Label25 control.
         /// </summary>
         /// <remarks>
@@ -94,13 +103,13 @@ namespace Site.EIR.IrGroup {
         protected global::System.Web.UI.WebControls.Label Label37;
         
         /// <summary>
-        /// feature_type control.
+        /// subdivisionList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList feature_type;
+        protected global::System.Web.UI.WebControls.DropDownList subdivisionList;
         
         /// <summary>
         /// save control.
@@ -110,5 +119,23 @@ namespace Site.EIR.IrGroup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button save;
+        
+        /// <summary>
+        /// cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button cancel;
+        
+        /// <summary>
+        /// deleteBTN control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button deleteBTN;
     }
 }

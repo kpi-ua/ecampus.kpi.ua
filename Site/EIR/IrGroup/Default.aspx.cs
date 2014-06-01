@@ -17,7 +17,7 @@ namespace Site.EIR.IrGroup
             if (SessionId != null)
             {
                 IrGroupListRendering(-1, "Приватні");
-                IrGroupListRendering(10193, "10193");
+                IrGroupListRendering(10193, "Кафедра технiчної кiбернетики ФІОТ");
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Site.EIR.IrGroup
             mainDiv.Attributes.Add("id", "mainBlock");
             mainDiv.Attributes.Add("class", ".form-inline");
 
-            name.Attributes.Add("id", "irGroupName");
+            name.Attributes.Add("id", "irGroupSubdivisionName");
             name.Attributes.Add("class", "text-primary");
 
 

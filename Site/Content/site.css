@@ -378,7 +378,7 @@ header {
         height: 48px;
         background: url("/Images/logo-kpi.png") center no-repeat;
     }
-    
+
     header .green {
         padding-top: 16px;
         padding-bottom: 8px;
@@ -1403,7 +1403,7 @@ footer {
 
 #irGroupName {
     /*margin-left: 150px;*/
-    padding-bottom: 70px;
+    /*padding-bottom: 70px;*/
 }
 
 .irGroupLink {
@@ -1418,3 +1418,31 @@ footer {
     .irGroupLink:hover {
         background-color: #e4e8ed;
     }
+
+.irGroupSubdivisionLink {
+    display: block;
+    margin-bottom: 5px;
+    border: solid 1px #999;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+    .irGroupSubdivisionLink:hover {
+        background-color: #e4e8ed;
+    }
+
+#irGroupSubdivisionName {
+    /*margin-left: 150px;*/
+    /*padding-bottom: 70px;*/
+}
+
+.irGroupDescription {
+    margin-left: 150px;
+}
+
+#irGroupMainBlock {
+    /*display: -moz-inline-box;
+    display: -webkit-inline-box;*/
+    margin: 10px;
+}

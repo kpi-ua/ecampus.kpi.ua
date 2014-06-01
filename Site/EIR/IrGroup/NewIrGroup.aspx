@@ -11,7 +11,6 @@
                 <div class="form-horizontal">
                     <div class="form-header">
                         Загальні відомості
-                   
                     </div>
                     <div class="form-group">
                         <asp:Label ID="Label1" AssociatedControlID="name" CssClass="col-sm-3 control-label" runat="server">
@@ -36,32 +35,29 @@
                         Приватність
                    
                     </div>
-                    <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                    <asp:UpdatePanel ID="PrivacyUpdatePanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <div class="form-group">
                                 <asp:Label ID="Label25" AssociatedControlID="is_public" CssClass="col-sm-3 control-label" runat="server">
                                     Характер взаємодії*
                                 </asp:Label>
                                 <div class="col-sm-9">
-                                    <asp:RadioButtonList ID="is_public" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedChanged="is_public_OnSelectedIndexChanged">
-                                        <asp:ListItem Value="public" Selected="True">Публічний</asp:ListItem>
-                                        <asp:ListItem Value="private">Приватний</asp:ListItem>
+                                    <asp:RadioButtonList ID="is_public" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="is_public_OnSelectedIndexChanged">
+                                        <asp:ListItem Value="private" Selected="True" Text="Приватний"></asp:ListItem>
+                                        <asp:ListItem Value="public" Text="Публічний"></asp:ListItem>
                                     </asp:RadioButtonList>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <asp:Label ID="Label37" AssociatedControlID="feature_type" CssClass="col-sm-3 control-label" runat="server">
-                                    Тип функціонального призначення*
+                                <asp:Label ID="Label37" AssociatedControlID="subdivisionList" CssClass="col-sm-3 control-label" runat="server">
+                                    Підрозділ
                                 </asp:Label>
                                 <div class="col-sm-9">
-                                    <asp:DropDownList ID="feature_type" runat="server" CssClass="form-control" AutoPostBack="True">
+                                    <asp:DropDownList ID="subdivisionList" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                                 </div>
                             </div>
                         </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="is_public" EventName="OnSelectedChanged" />
-                        </Triggers>
                     </asp:UpdatePanel>
 
 
@@ -70,6 +66,9 @@
             </div>
         </div>
         <asp:Button ID="save" CssClass="btn btn-primary" runat="server" Text="Зберегти" OnClick="save_Click" />
+        <asp:Button ID="cancel" CssClass="btn btn-primary" runat="server" Text="Відмінити" PostBackUrl="~/EIR/IrGroup/Default.aspx" />
+        <asp:Button ID="deleteBTN" CssClass="btn btn-primary" runat="server" Text="Видалити" OnClick="delete_Click" Visible="false"/>
+
     </asp:Panel>
 
 </asp:Content>

@@ -65,12 +65,13 @@ namespace Site.EIR.IrGroup
             groupLink.Attributes.Add("class", "irGroupLink");
             groupLink.Attributes.Add("irGroupId", group["IrGroupId"].ToString());
 
-            mainDiv.Attributes.Add("id", "mainBlock");
+            mainDiv.Attributes.Add("id", "irGroupMainBlock");
             mainDiv.Attributes.Add("class", ".form-inline");
 
             name.Attributes.Add("id", "irGroupName");
             name.Attributes.Add("class", "text-primary");
 
+            description.Attributes.Add("class", "irGroupDescription");
 
             name.InnerText = group["Name"].ToString();
             description.InnerText = group["Description"].ToString();
@@ -86,7 +87,7 @@ namespace Site.EIR.IrGroup
         {
             if (SessionId != null)
             {
-                //Session["group_level"] = "private";
+                Session["groupEditMode"] = "create";
                 Response.Redirect("NewIrGroup.aspx");
             }
             else
