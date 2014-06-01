@@ -125,7 +125,7 @@
                         <ul class="submenu">
                             <%--<li><a href="#">Пошук ЕІР</a></li>--%>
                             <li><a href="/EIR/CardEdit.aspx">Створити ЕІР</a></li>
-                            <li><a href="/EIR/Group.aspx">Групи ЕІР</a></li>
+                            <li><a href="/EIR/IrGroup">Групи ЕІР</a></li>
                             <%--<li><a href="#">Методичне забезпечення</a></li>--%>
                         </ul>
                     </li>

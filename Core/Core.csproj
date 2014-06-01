@@ -114,6 +114,7 @@
     <Compile Include="Cache.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="Credential.cs" />
+    <Compile Include="IrGroup.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -132,7 +132,10 @@
     <Content Include="apple-touch-icon-iphone.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
-    <Content Include="EIR\Group.aspx" />
+    <Content Include="EIR\IrGroup\Default.aspx" />
+    <Content Include="EIR\IrGroup\IrGroupSetView.aspx" />
+    <Content Include="EIR\IrGroup\IrGroupView.aspx" />
+    <Content Include="EIR\IrGroup\NewIrGroup.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Images\carousel-billboard.jpg" />
@@ -265,12 +268,33 @@
     <Compile Include="Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\Group.aspx.cs">
-      <DependentUpon>Group.aspx</DependentUpon>
+    <Compile Include="EIR\IrGroup\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\Group.aspx.designer.cs">
-      <DependentUpon>Group.aspx</DependentUpon>
+    <Compile Include="EIR\IrGroup\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\IrGroup\IrGroupSetView.aspx.cs">
+      <DependentUpon>IrGroupSetView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIR\IrGroup\IrGroupSetView.aspx.designer.cs">
+      <DependentUpon>IrGroupSetView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\IrGroup\IrGroupView.aspx.cs">
+      <DependentUpon>IrGroupView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIR\IrGroup\IrGroupView.aspx.designer.cs">
+      <DependentUpon>IrGroupView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\IrGroup\NewIrGroup.aspx.cs">
+      <DependentUpon>NewIrGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIR\IrGroup\NewIrGroup.aspx.designer.cs">
+      <DependentUpon>NewIrGroup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Messages\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

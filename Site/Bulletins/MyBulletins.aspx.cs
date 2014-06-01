@@ -11,24 +11,15 @@ namespace Site.Bulletins
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-        
-            if (SessionId != null)
-            {
-                var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + SessionId);
 
-                if (answer != null)
-                {
-                    var bulletins = (ArrayList)answer["Data"];
-                    BulletinsRendering(bulletins);
-                }
-            }
-            else
+            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "BulletinBoard/GetMyBulletins?sessionId=" + SessionId);
+
+            if (answer != null)
             {
-                var mainDiv = new HtmlGenericControl("div");
-                mainDiv.Attributes.Add("id", "mainBlock");
-                MyBulletinsContainer.Controls.Add(mainDiv);
-                CreateErrorMessage(mainDiv);
+                var bulletins = (ArrayList)answer["Data"];
+                BulletinsRendering(bulletins);
             }
+
         }
 
         private void BulletinsRendering(ArrayList bulletins)

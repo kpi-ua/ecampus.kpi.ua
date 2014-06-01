@@ -78,12 +78,5 @@ namespace Core
             }
         }
 
-        protected void CreateErrorMessage(HtmlGenericControl target)
-        {
-            target.Controls.Clear();
-            var error = new HtmlGenericControl("h2");
-            error.InnerText = "Помилка при завантаженні сторінки!!!";
-            target.Controls.Add(error);
-        }
     }
 }

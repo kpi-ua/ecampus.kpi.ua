@@ -1055,6 +1055,28 @@ header {
         }
 
 /* FORM EIR*/
+
+
+
+#irGroupName {
+    /*margin-left: 150px;*/
+    padding-bottom: 70px;
+}
+
+.irGroupLink {
+    display: block;
+    margin-bottom: 5px;
+    border: solid 1px #999;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+    .irGroupLink:hover {
+        background-color: #e4e8ed;
+    }
+
+
 .eir {
 }
 
@@ -1651,9 +1673,4 @@ footer {
     .user-name {
         display: none;
     }
-}
-
-#irGroupName {
-    /*margin-left: 150px;*/
-    padding-bottom: 70px;
 }
