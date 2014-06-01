@@ -207,6 +207,14 @@ a, .btn {
 }
 
 /* PROFILE */
+
+@media (max-width: 768px) {
+    .profile .nav-tabs li {
+        text-align: center;
+        width: 100%;
+    }
+}
+
 .profile {
 }
 
@@ -1449,7 +1457,7 @@ footer {
 @media screen and (max-width:768px) {
     .wrap {
         margin-bottom: -50px !important;
-        padding-bottom: 50px !important;
+        /*padding-bottom: 50px !important;*/
     }
 
     footer {
@@ -1489,7 +1497,7 @@ footer {
 @media screen and (max-width:480px) {
     .wrap {
         margin-bottom: -106px !important;
-        padding-bottom: 106px !important;
+        /*padding-bottom: 106px !important;*/
     }
 
     header {

@@ -4,7 +4,10 @@
     
     <link href="../Content/form-styles.css" rel="stylesheet" />
 
-    <h1>Створити ЕІР</h1>
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+
     <div class="row">
         <div class="col-sm-12">
             <div class="form-horizontal">

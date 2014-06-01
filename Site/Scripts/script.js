@@ -72,7 +72,7 @@
             }
             $(this).children(".submenu").slideToggle(300);
         });
-
+        
         $(".menu-toggle").on("click", function () {
             $(".left-col").slideToggle(300);
         });

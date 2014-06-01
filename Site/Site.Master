@@ -2,19 +2,25 @@
 
 <html>
 <head runat="server">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
-    
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
 
-    <link rel="stylesheet" href="/Content/site.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
+    <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon-iphone.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone-retina-display.png" />
+
 </head>
 <body>
 
@@ -183,7 +189,7 @@
             </div>
         </footer>
     </div>
-    
+
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
     <noscript>

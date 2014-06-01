@@ -3,7 +3,7 @@
 <asp:Content ID="body_content" ContentPlaceHolderID="body" runat="server">
     
     <div class="page-header">
-        <h1>Підтримка</h1>
+        <h1><%=Page.Title %></h1>
     </div>
 
 </asp:Content>

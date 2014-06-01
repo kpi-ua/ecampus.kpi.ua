@@ -127,6 +127,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon-ipad.png" />
+    <Content Include="apple-touch-icon-iphone-retina-display.png" />
+    <Content Include="apple-touch-icon-iphone.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="EIR\Group.aspx" />
