@@ -214,6 +214,7 @@
     <Content Include="Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\vsogo.png" />
     <Content Include="Images\zaliki.png" />
+    <Content Include="MZSearch\Default.aspx" />
     <Content Include="RNP\Default.aspx" />
     <Content Include="robots.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -233,6 +234,7 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\MZ.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\timetable.js" />
     <Content Include="NLog.config" />
@@ -327,6 +329,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MZSearch\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MZSearch\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RNP\Default.aspx.cs">

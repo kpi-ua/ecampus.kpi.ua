@@ -1,10 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MZSearch.aspx.cs" Inherits="Site.MZSearch.MZSearch" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.MZSearch.Default" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="server">
-    <link rel="stylesheet" href="../Content/MZ.css" />
-    <script src="../Scripts/jquery-ui-1.10.4.js"></script>
-    <script src="../Scripts/MZ.js"></script>
+
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+    
+    <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
+    <script src="/Scripts/MZ.js"></script>
 
     <h2>Пошук методичного забзпечення</h2>
     <div id="disc_cred_radio" class="row">
@@ -81,8 +85,9 @@
             </div>
         </div>
 
-        
-        <input type="hidden" class="popup-link-1" /> <!-- use for call popUP by fake click -->
+
+        <input type="hidden" class="popup-link-1" />
+        <!-- use for call popUP by fake click -->
         <div class="popup-box" id="popup-box-1">
             <div class="close">X</div>
             <div class="top">
@@ -90,7 +95,7 @@
                 <div class="popContainer">
                 </div>
             </div>
-            <div class="bottom"> 
+            <div class="bottom">
             </div>
         </div>
 

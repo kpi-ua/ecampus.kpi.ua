@@ -10,7 +10,7 @@
 namespace Site.MZSearch {
     
     
-    public partial class MZSearch {
+    public partial class Default {
         
         /// <summary>
         /// inpDisc control.

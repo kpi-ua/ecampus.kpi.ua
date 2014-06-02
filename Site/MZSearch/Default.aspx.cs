@@ -10,7 +10,7 @@ using System.Web.UI.WebControls;
 namespace Site.MZSearch
 {
 
-    public partial class MZSearch : Core.SitePage
+    public partial class Default : Core.SitePage
     {
        
         protected void Page_Load(object sender, EventArgs e)
