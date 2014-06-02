@@ -10,6 +10,7 @@ namespace Site.EIR.IrGroup
 {
     public partial class IrGroupView : Core.SitePage
     {
+        private int irGroupId;
 
         protected override void OnLoad(EventArgs e)
         {
@@ -17,7 +18,8 @@ namespace Site.EIR.IrGroup
 
             if (SessionId != null)
             {
-                var content = GetGroupContentByID(Convert.ToInt32(Session["irGroupId"]));
+                irGroupId = Convert.ToInt32(Session["irGroupId"]);
+                var content = GetGroupContentByID(irGroupId);
                 foreach(var ir in content) {
                     LinkButtonsRendering(ir);
                 }
@@ -82,7 +84,7 @@ namespace Site.EIR.IrGroup
             if (SessionId != null)
             {
                 Response.Redirect("NewIrGroup.aspx" +
-                    "?type=edit");
+                    "?type=edit&irGroupId=" + irGroupId);
             }
             else
             {

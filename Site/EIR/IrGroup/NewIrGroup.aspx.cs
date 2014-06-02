@@ -11,6 +11,8 @@ namespace Site.EIR.IrGroup
 {
     public partial class NewIrGroupPage : Core.SitePage
     {
+        private int irGroupId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //TODO debuging staff - delete!!!!!!!
@@ -24,6 +26,8 @@ namespace Site.EIR.IrGroup
                     {
                         page_title.InnerText = "Редагувати ЕІР";
                         deleteBTN.Visible = true;
+                        irGroupId = Convert.ToInt32(Request.QueryString["irGroupId"]);
+                        FillValues();
                         break;
                     }
             }
@@ -34,7 +38,27 @@ namespace Site.EIR.IrGroup
 
         private void FillValues()
         {
-            throw new NotImplementedException();
+            if (!Page.IsPostBack)
+            {
+                var client = new Campus.SDK.Client();
+                var serializer = new JavaScriptSerializer();
+                var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "IrGroup/GetIrGroupData?sessionId=" + SessionId + "&irGroupId=" + irGroupId);
+                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                var data = (Dictionary<string, object>)respDictionary["Data"];
+
+                name.Text = data["Name"].ToString();
+                if (data["Description"] != null)
+                {
+                    short_description.Text = data["Description"].ToString();
+                }
+                if (data["DcSubdivisionId"] != null)
+                {
+                    var dcSubdivisionId = Convert.ToInt32(data["DcSubdivisionId"]);
+                    is_public.SelectedValue = "public";
+                    UpdatePrivatePanel();
+                    subdivisionList.SelectedValue = dcSubdivisionId.ToString();
+                }
+            }
         }
 
         protected void save_Click(object sender, EventArgs e)
@@ -47,21 +71,40 @@ namespace Site.EIR.IrGroup
                 if (name.Text != "")
                 {
                     var client = new Campus.SDK.Client();
-                    var groupName = name.Text.ToString();
-                    var description = short_description.Text.ToString();
+                    var groupName = name.Text;
+                    var description = short_description.Text;
+                    int subdivisionId;
                     string url;
-                    if (is_public.SelectedValue == "private")
+                    
+                    if ("edit" == Request.QueryString["type"])
                     {
-                        url = Campus.SDK.Client.BuildUrl("IrGroup", "CreatePrivateIrGroup", new { SessionId, groupName, description });
+                        if (is_public.SelectedValue == "private")
+                        {
+                            subdivisionId = -1; 
+                        }
+                        else
+                        {
+                            subdivisionId = Convert.ToInt32(subdivisionList.SelectedValue);
+                        }
+                        url = Campus.SDK.Client.BuildUrl("IrGroup", "UpdateIrGroup", new { SessionId, irGroupId ,subdivisionId, groupName, description });
                     }
                     else
                     {
-                        var subdivisionId = Convert.ToInt32(subdivisionList.SelectedValue);
-                        url = Campus.SDK.Client.BuildUrl("IrGroup", "CreateIrGroup", new { SessionId, subdivisionId, groupName, description });
+                        if (is_public.SelectedValue == "private")
+                        {
+                            url = Campus.SDK.Client.BuildUrl("IrGroup", "CreatePrivateIrGroup", new { SessionId, groupName, description });
+                        }
+                        else
+                        {
+                            subdivisionId = Convert.ToInt32(subdivisionList.SelectedValue);
+                            url = Campus.SDK.Client.BuildUrl("IrGroup", "CreateIrGroup", new { SessionId, subdivisionId, groupName, description });
+                        }
                     }
+
                     var result = client.Get(url);
 
                     Response.Redirect("Default.aspx");
+                    
                 }
                 else
                 {
@@ -86,7 +129,20 @@ namespace Site.EIR.IrGroup
 
         protected void delete_Click(object sender, EventArgs e)
         {
-            UpdatePrivatePanel();
+            if (SessionId != null)
+            {
+                    var client = new Campus.SDK.Client();
+                    var url = Campus.SDK.Client.BuildUrl("IrGroup", "DeleteIrGroup", new { SessionId, irGroupId});
+                    var result = client.Get(url);
+                    Response.Redirect("Default.aspx");
+
+            }
+            else
+            {
+                HtmlGenericControl mainDiv = new HtmlGenericControl("div");
+                CreateErrorMessage(mainDiv);
+                LinkContainer.Controls.Add(mainDiv);
+            }
         }
 
         private void UpdatePrivatePanel()
