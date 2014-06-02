@@ -100,35 +100,30 @@
                         <a href="/Default.aspx">Мій профіль</a>
                     </li>
                     <li class="dropmenu">
-                        <a>Дошка оголошень<div class="chevron"></div>
+                        <a>ЄІР<div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li><a href="/Bulletins">Перегляд оголошень</a></li>
-                            <%--<li><a href="#">Редагування оголошень</a></li>--%>
+                            <li><a href="№">Пошук</a></li>
+                            <li><a href="/EIR/CardEdit.aspx">Створення</a></li>
                         </ul>
                     </li>
                     <li>
-                        <a href="/TimeTable">Розклад</a>
+                        <a href="/MZSearch/MZSearch.aspx">Методичне забезпечення
+                         </a>
+                    </li>
+                    <li >
+                        <a href="/RNP/Default.aspx">РНП
+                        </a>
                     </li>
                     <li class="dropmenu">
-                        <a>Спілкування<div class="chevron"></div>
+                        <a>Групи ЄІР<div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li><a href="/Messages">Повідомлення</a></li>
-                            <%--<li><a href="#">Пошук групи спілкування</a></li>
-                            <li><a href="#">Повідомлення в групі</a></li>--%>
+                            <li><a href="/EIR/IrGroup">Перегляд</a></li>
+                            <li><a href="#">Створення</a></li>
                         </ul>
                     </li>
-                    <li class="dropmenu">
-                        <a>Електронні інформаційні ресурси<div class="chevron"></div>
-                        </a>
-                        <ul class="submenu">
-                            <%--<li><a href="#">Пошук ЕІР</a></li>--%>
-                            <li><a href="/EIR/CardEdit.aspx">Створити ЕІР</a></li>
-                            <li><a href="/EIR/IrGroup">Групи ЕІР</a></li>
-                            <%--<li><a href="#">Методичне забезпечення</a></li>--%>
-                        </ul>
-                    </li>
+                     
                     <%--<li class="dropmenu">
                         <a>Робота
                             <div class="chevron"></div>
@@ -142,9 +137,9 @@
                             <li><a href="#">Виховна</a></li>
                         </ul>
                     </li>--%>
-                    <li>
+                   <%-- <li>
                         <a href="/RNP">Навчальний процес</a>
-                    </li>
+                    </li>--%>
                 </ul>
             </div>
             <div class="right-col">
