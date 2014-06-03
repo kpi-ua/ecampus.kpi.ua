@@ -18,7 +18,8 @@ namespace Site.MZSearch
 
             if (irEdit.Attributes["value"] != null && irEdit.Attributes["Value"].ToString() != "")
             {
-                Session["IrEdit"] = irEdit.Attributes["value"].ToString();
+                Session["EirEdit"] = true;
+                Session["EirId"] = irEdit.Attributes["value"].ToString();
                 Response.Redirect("~/EIR/CardEdit.aspx");
             }
 
