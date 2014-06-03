@@ -104,7 +104,7 @@ $(document).on("click", "#body_sb", function () {
     var url = ApiEndpoint;
     if ($("#body_isdisc").attr("value") == "True") {
         $(".subtitle").text("Дисципліни");
-        url += "MZSearch/GetDisc?rtpttId=" + $("#body_spec").attr("value");
+        url += "MZSearch/GetDisc?rtpttId=" + $("#body_spec").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
         $.getJSON(url, function (data, status) {
             if (data.Data.length > 0) {
                 $.each(data.Data, function (key, value) {
@@ -114,7 +114,7 @@ $(document).on("click", "#body_sb", function () {
         });
     } else if ($("#body_isdisc").attr("value") == "False") {
         $(".subtitle").text("Кредитного модуля");
-        url += "MZSearch/GetCred?rtpttId=" + $("#body_spec").attr("value");
+        url += "MZSearch/GetCred?rtpttId=" + $("#body_spec").attr("value") + "&sfId=" + $("#body_stdfrm").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
         $.getJSON(url, function (data, status) {
             if (data.Data.length > 0) {
                 $.each(data.Data, function (key, value) {

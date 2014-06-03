@@ -121,6 +121,15 @@ namespace Site.MZSearch {
         protected global::System.Web.UI.HtmlControls.HtmlInputHidden isdisc;
         
         /// <summary>
+        /// disc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden disc;
+        
+        /// <summary>
         /// spec control.
         /// </summary>
         /// <remarks>

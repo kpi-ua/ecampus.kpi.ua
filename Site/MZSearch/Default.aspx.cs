@@ -211,6 +211,7 @@ namespace Site.MZSearch
                 }
 
                 spec.Attributes["Value"] = SList.SelectedValue.ToString();
+                disc.Attributes["Value"] = DiscList.SelectedValue.ToString();
 
                 if (inpDisc.Checked)
                 {

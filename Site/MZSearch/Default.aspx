@@ -101,6 +101,7 @@
 
         <input id="session" type="hidden" runat="server" />
         <input id="isdisc" type="hidden" runat="server" />
+        <input id="disc" type="hidden" runat="server"/>
         <input id="spec" type="hidden" runat="server" />
         <input id="stdfrm" type="hidden" runat="server" />
         <input id="irEdit" type="hidden" runat="server" />
