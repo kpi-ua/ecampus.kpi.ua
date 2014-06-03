@@ -103,6 +103,7 @@
         <input id="isdisc" type="hidden" runat="server" />
         <input id="spec" type="hidden" runat="server" />
         <input id="stdfrm" type="hidden" runat="server" />
+        <input id="irEdit" type="hidden" runat="server" />
 
     </div>
 </asp:Content>

@@ -23,7 +23,7 @@ function window_resize() {
     $(".popContainer").css("max-height", containerHeight);
     $(".popContainer").css("min-height", containerHeight);
 
-    console.log(page_h-200);
+    console.log(page_h - 200);
 }
 
 
@@ -155,7 +155,7 @@ $(document).on("click", "#itemcontainer div p", function () {
         loadDiscRows(parentUl, obj);
         parentDiv.append("<input type=\"button\" value=\"Детальніше\" did=\"" + obj.attr("did") + "\" class=\"btn-success col-lg-4 col-lg-offset-8\"/><br>");
         //--------------------ir for disc-----------------------------------------------------
-        getIrForDisc(obj);
+        getIrForDorC(obj, $("#ircontainer"));
 
     } else if ($("#body_isdisc").attr("value") == "False") {
 
@@ -166,7 +166,7 @@ $(document).on("click", "#itemcontainer div p", function () {
 
         //--------------------ir for cred------------------------------------------------------------
 
-        getIrforCred(obj);
+        getIrForDorC(obj, $("#ircontainer"));
     }
 });
 
@@ -200,26 +200,31 @@ var loadDiscRows = function (parentUl, obj) {
 
 }
 
-var getIrForDisc = function (obj) {
+var getIrForDorC = function (obj, parent) {
 
     var url = ApiEndpoint;
 
-    url += "MZSearch/GetIrD?rtdiscId=" + obj.attr("did");
+    if ($("#body_isdisc").attr("value") == "True") {
+        url += "MZSearch/GetIrD?rtdiscId=" + obj.attr("did");
+    } else if ($("#body_isdisc").attr("value") == "False") {
+        url += "MZSearch/GetIrC?ccredId=" + obj.attr("cid");
+    }
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
             var prev = null;
             $.each(data.Data, function (key, value) {
                 if (prev != value.kind) {
-                    $("#ircontainer").append("<div class=\"ironediv\"><div class=\"col-md-12 kind\">" + value.kind + "</div><br></div>");
-                    $("#ircontainer .ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
+                    parent.append("<div class=\"ironediv\"><div class=\"col-md-12 kind\">" + value.kind + "</div><br></div>");
+                    parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
                 } else {
-                    $("#ircontainer .ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
+                    parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
                 }
             });
         }
     });
 }
+
 
 var loadCredRows = function (parentUl, obj) {
 
@@ -240,34 +245,13 @@ var loadCredRows = function (parentUl, obj) {
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Термін" + "</span><span class=\"col-md-6\">" + value.cTerm + "</span></li>");
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Актуальність" + "</span><span class=\"col-md-6\">" + value.cAct + "</span></li>");
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Дата зміни актуальності" + "</span><span class=\"col-md-6\">" + value.cCreateDate + "</span></li>");
-                
+
             });
             $("#itemcontainer .itemcol").slideDown("slow");
         }
 
     });
 }
-
-var getIrforCred = function (obj) {
-
-    var url = ApiEndpoint;
-
-    url += "MZSearch/GetIrC?ccredId=" + obj.attr("cid");
-
-    $.getJSON(url, function (data, status) {
-        if (data.Data.length > 0) {
-            var prev = null;
-            $.each(data.Data, function (key, value) {
-                if (prev != value.kind) {
-                    $("#ircontainer").append("<div><div class=\"col-md-12 kind\">" + value.kind + "</div><br></div>");
-                    $("#ircontainer div").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
-                } else {
-                    $("#ircontainer div").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
-                }
-            });
-        }
-    });
-};
 
 
 $(document).on("click", ".ironediv p", function () {
@@ -300,8 +284,8 @@ $(document).on("click", ".ironediv p", function () {
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Гриф" + "</span><span class=\"col-md-6\">" + value.stamp + "</span></li>");
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Бібліографічний опис" + "</span><span class=\"col-md-6\">" + value.bibliog + "</span></li>");
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Анотація" + "</span><span class=\"col-md-6\">" + value.Annotation + "</span></li>");
-                parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwwwvvvwww" + "</a></li>");
-                parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + $(this).attr("iid") + "\" class=\"btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + $(this).attr("iid") + "\" class=\"btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
+                parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwww.AlexFrostField" + "</a></li>");
+                parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + $(this).attr("iid") + "\" class=\"edit btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + $(this).attr("iid") + "\" class=\"delete btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
             });
             $(".ironediv .ircol").slideDown("slow");
         }
@@ -310,35 +294,120 @@ $(document).on("click", ".ironediv p", function () {
 
 });
 
+var getCredForDisc = function (obj, parent) {
 
-$(document).on("click", "#itemcontainer div input", function() {
+    var url = ApiEndpoint;
+
+    url += "MZSearch/GetDiscDetailC?rtdiscId=" + obj.attr("did");
+
+
+    $.getJSON(url, function (data, status) {
+        if (data.Data.length > 0) {
+            $.each(data.Data, function (key, value) {
+                parent.append("<div class=\"oneitem\" ><p class=\"itemrow\"" + "\">" + value.NameFull + "</p></div>");
+            });
+        }
+    });
+
+};
+
+var getRNPForDorC = function (obj, parent) {
+    var url = ApiEndpoint;
+
+    if ($("#body_isdisc").attr("value") == "True") {
+        url += "MZSearch/GetDiscDetailD?rtdiscId=" + obj.attr("did");
+    } else if ($("#body_isdisc").attr("value") == "False") {
+        url += "MZSearch/GetCredDetailR?ccredId=" + obj.attr("cid");
+    }
+
+    $.getJSON(url, function (data, status) {
+        if (data.Data.length > 0) {
+            $.each(data.Data, function (key, value) {
+                parent.append("<div class=\"oneitem\" ><p class=\"itemrow\"" + "\">" + value.NameFull + "</p></div>");
+            });
+        }
+    });
+};
+
+
+$(document).on("click", "#itemcontainer div input", function () {
     var obj = $(this);
     var popContainer = $(".popContainer");
 
     popContainer.children().remove();
 
-    popContainer.append("<ul class=\"itemcol col-md-5\"></ul>");
-    var parentUl = popContainer.children("ul");
+
+    popContainer.append("<ul id=\"dul\" class=\"itemcol col-md-5\"></ul>");
+    popContainer.append("<div class =\"row\"><div class=\"col-md-5 col-md-offset-1\">" +
+        "<div class=\" col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
+        "Електронні інформаційні ресурси" +
+        "</div>" +
+        "<div id=\"irpop\" class=\"itemcol col-md-12\">" +
+        "</div></div></div>");
+
+    var irpopHeight = $(".itemcol").height() - 127;
+    $("#irpop").css("max-height", irpopHeight);
+    $("#irpop").css("min-height", irpopHeight);
+    var parentUl = popContainer.children("#dul");
+
 
     if ($("#body_isdisc").attr("value") == "True") {
 
         //-----------------------for disc---------------------------------
-        loadDiscRows(parentUl, obj);
 
+        loadDiscRows(parentUl, obj);
         //--------------------ir for disc-----------------------------------------------------
-        
+        getIrForDorC(obj, $("#irpop"));
+
+        //----------------cred for disc------------------------------------------------------
+        popContainer.append("<div class =\"row inrow\"><div class=\"col-md-5\">" +
+            "<div class=\" col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
+            "Кредитні модулі" +
+            "</div>" +
+            "<div id=\"cpop\" class=\"itemcol col-md-12\">" +
+            "</div></div></div>");
+
+        getCredForDisc(obj, $("#cpop"));
+
+        //--------------------rnp for disc----------------------------------------------------
+        popContainer.children(".inrow").append("<div class=\"col-md-5 col-md-offset-1\">" +
+            "<div class=\" col-md-12 label label-warning  margin\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
+            "Рядки РНП" +
+            "</div>" +
+            "<div id=\"rnppop\" class=\"itemcol col-md-12 margin\">" +
+            "</div></div>");
+
+        getRNPForDorC(obj, $("#rnppop"));
+
 
     } else if ($("#body_isdisc").attr("value") == "False") {
 
-        loadCredRows(parentUl, obj);
+        //-----------------------for cred---------------------------------
+
+        loadDiscRows(parentUl, obj);
+        //--------------------ir for cred-----------------------------------------------------
+        getIrForDorC(obj, $("#irpop"));
+
+        //--------------------rnp for cred----------------------------------------------------
+        popContainer.children(".inrow").append("<div class=\"col-md-5 col-md-offset-1\">" +
+            "<div class=\" col-md-12 label label-warning  margin\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
+            "Рядки РНП" +
+            "</div>" +
+            "<div id=\"rnppop\" class=\"itemcol col-md-12 margin\">" +
+            "</div></div>");
+
+        getRNPForDorC(obj, $("#rnppop"));
 
     }
 
-
+    //call popUP
     $(".popup-link-1").click();
-
-
 
 });
 
+$(document).on("click", ".edit", function() {
+    $("#body_irEdit").attr("Value", $(this).attr("iid"));
+    $(".popContainer").append("<input class=\"hinput\" type=\"submit\"/>");
+    $(".hinput").click();
+});
 

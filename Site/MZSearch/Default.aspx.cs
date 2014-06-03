@@ -16,6 +16,12 @@ namespace Site.MZSearch
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            if (irEdit.Attributes["value"] != null && irEdit.Attributes["Value"].ToString() != "")
+            {
+                Session["IrEdit"] = irEdit.Attributes["value"].ToString();
+                Response.Redirect("~/EIR/CardEdit.aspx");
+            }
+
             if (!Page.IsPostBack)
             {
 
@@ -105,65 +111,7 @@ namespace Site.MZSearch
             }
         }
 
-        //protected void LeftDivRendering()
-        //{
-        //    var container = new HtmlGenericControl("div");
-        //    container.Attributes.Add("class", "col-md-12 ldc");
-
-        //    MZContainerRendering(container);
-
-        //    leftDiv.Controls.Add(container);
-        //}
-
-        //protected void MZContainerRendering(HtmlGenericControl parent)
-        //{
-        //    Dictionary<string, object> answer = null;
-
-        //    if (inpDisc.Checked)
-        //    {
-        //        answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetDisc?rtpttId="+spec.Attributes["Value"].ToString());
-        //    }
-        //    else
-        //    {
-        //        answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetCred?rtpttId=" + spec.Attributes["Value"].ToString());
-        //    }
-
-        //    if (answer != null && inpDisc.Checked)
-        //    {
-        //        var dataArr = (ArrayList)answer["Data"];
-        //        RenderDisc(dataArr, parent);
-        //    } else if (answer != null && inpCred.Checked) {
-        //        var dataArr = (ArrayList)answer["Data"];
-        //        //RenderCred(dataArr, parent);
-        //    }
-
-        //}
-
-        //protected void RenderDisc(ArrayList data, HtmlGenericControl parent)
-        //{
-        //    for (int i = 0; i < data.Count; i++)
-        //    {
-        //        var lb = new LinkButton();
-        //        lb.PostBackUrl = Request.Url.AbsolutePath;
-                
-        //        lb.Attributes.Add("class", "clink");
-        //        var title = new HtmlGenericControl("p");
-        //        title.Attributes.Add("class", "itemrow");
-
-        //        foreach (var e in (Dictionary<string, object>) data[i])
-        //        {
-        //            if (e.Key.ToString() == "Name") //Change to NameFull
-        //            {
-        //                title.InnerText = e.Value.ToString();
-        //            }
-        //            else lb.Attributes.Add("did",e.Value.ToString());
-
-        //        }
-                
-        //        lb.Controls.Add(title);
-        //        parent.Controls.Add(lb);
-        //    }
-        //}
+        
 
       
         protected void inpDisc_OnCheckedChanged(object sender, EventArgs e)
@@ -225,11 +173,11 @@ namespace Site.MZSearch
 
             if (inpDisc.Checked)
             {
-                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityD?discId=" + DiscList.SelectedValue.ToString());
+                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityD?sessionId"+CampusClient.SessionId+"&discId=" + DiscList.SelectedValue.ToString());
             }
             else
             {
-                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityC?credId=" + DiscList.SelectedValue.ToString());
+                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityC?sessionId" + CampusClient.SessionId + "&credId=" + DiscList.SelectedValue.ToString());
             }
 
             SList.Items.Clear();
@@ -286,12 +234,6 @@ namespace Site.MZSearch
             }
         }
 
-        //protected void sb_OnClick(object sender, EventArgs e)
-        //{
-        //    sTitle.Visible = true;
-        //    sresult.Visible = true;
-
-        //    //LeftDivRendering();
-        //}
+        
     }
 }

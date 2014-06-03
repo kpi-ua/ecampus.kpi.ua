@@ -223,15 +223,15 @@ a, .btn {
 
 .lirow {
     border-bottom: dotted 1px darkgoldenrod;
-    margin-left: 1px;
-    margin-right: -2px;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
 }
 
 .itemcol, .ircol {
     background-color: whitesmoke;
 }
 
-.itemrow, .irrow {
+.itemrow, .irrow, .irpoprow {
     border-bottom: solid 1px darkgreen;
     padding-left: 5px;
     margin-top: 5px;
@@ -284,8 +284,22 @@ a, .btn {
 }
 
 .popContainer {
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
     margin-top: 10px;
+}
+
+#irpop, #cpop, #rnppop {
+    overflow-y: auto;
+}
+
+.inrow {
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+}
+
+.margin {
+    margin-left: 10px;
 }
 
 .popup-box {
