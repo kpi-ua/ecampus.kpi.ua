@@ -354,6 +354,7 @@
                         <asp:TextBox ID="lib_location" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
+                </div>
                 <hr />
                 Видавництво:
                     <div class="form-group">
@@ -535,6 +536,5 @@
             </div>
 
         </div>
-    </div>
     <asp:Button ID="save" CssClass="btn btn-primary" runat="server" Text="Зберегти" OnClick="save_Click" />
 </asp:Content>

@@ -62,7 +62,8 @@ namespace Site.EIR
             {
                 if (Session["EirId"] == null)
                 {
-                    ShowError("Помилка при загрузці сторінки.");
+                    ShowError("Помилка при завантаженні сторінки.");
+                    return;
                 }
                 _irId = Session["EirId"].ToString();
                 FillValues();
@@ -195,8 +196,8 @@ namespace Site.EIR
             respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
             data = (Dictionary<string, object>)respDictionary["Data"];
 
-            //try
-            //{
+            try
+            {
                 public_form.SelectedValue = data["DcPublicationFormId"].ToString();
                 org_country.SelectedValue = data["publishCountry"].ToString();
                 org_country_SelectedIndexChanged(null, null);
@@ -209,11 +210,11 @@ namespace Site.EIR
                 griff_city.SelectedValue = data["stampCity"].ToString();
                 griff_city_SelectedIndexChanged(null, null);
                 griff_org_name.SelectedValue = data["DcStampOrgId"].ToString();
-            //}
-            //catch (Exception)
-            //{
-            //    throw new Exception("Error while loading");
-            //}
+            }
+            catch (Exception)
+            {
+                throw new Exception("Error while loading");
+            }
 
             long_deskription.Text = data["TitleBibliographic"].ToString();
             public_year.Text = data["PublicationYear"].ToString();
