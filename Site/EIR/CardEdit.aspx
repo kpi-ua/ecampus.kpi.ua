@@ -5,6 +5,14 @@
     <div class="page-header">
         <h1><%=Page.Title %></h1>
     </div>
+    
+    <asp:UpdatePanel ID="errUpdate" UpdateMode="Conditional"  runat="server">
+        <ContentTemplate>
+        <asp:Panel ID="errpanel" runat="server" BorderStyle="Solid" Visible="False" BorderColor="Red" BorderWidth="5px" BackColor="#FF0000">
+            <asp:Label ID="errlabel" runat="server" Text=""></asp:Label>
+        </asp:Panel>
+        </ContentTemplate>
+    </asp:UpdatePanel>
 
     <div class="row">
         <div class="col-sm-12">
@@ -17,7 +25,7 @@
                     Назва ЕІР*
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:TextBox ID="name" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="name" runat="server" MaxLength="255" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">
@@ -35,9 +43,9 @@
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:TextBox ID="date" runat="server" CssClass="form-control"></asp:TextBox>
+                        <ajaxToolkit:CalendarExtender ID="date_calendar" TargetControlID="date" runat="server"/>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <asp:Label ID="Label18" AssociatedControlID="access_begin" CssClass="col-sm-3 control-label" runat="server">
                     Початок доступу*
@@ -61,7 +69,7 @@
                     № документу
                 </asp:Label>
                 <div class="col-sm-3">
-                    <asp:TextBox ID="doc_number" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="doc_number" MaxLength="10" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
                 <asp:Label ID="Label21" AssociatedControlID="doc_date" CssClass="col-sm-3 control-label" runat="server">
                     Дата документу
@@ -172,7 +180,7 @@
                         </div>
                         <div class="form-group">
                             <asp:Label ID="Label13" AssociatedControlID="contribution_part" CssClass="col-sm-3 control-label" runat="server">
-                    Частка внеску
+                    Частка внеску*
                             </asp:Label>
                             <div class="col-sm-9">
                                 <asp:TextBox ID="contribution_part" runat="server" CssClass="form-control"></asp:TextBox>
@@ -194,7 +202,7 @@
                     Прізвище*
                             </asp:Label>
                             <div class="col-sm-9">
-                                <asp:TextBox ID="not_kpi_surname" runat="server" CssClass="form-control"></asp:TextBox>
+                                <asp:TextBox ID="not_kpi_surname" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
 
@@ -253,7 +261,7 @@
                     Бібліографічний опис*
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:TextBox ID="long_deskription" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:TextBox>
+                        <asp:TextBox ID="long_deskription" MaxLength="255" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">
@@ -261,7 +269,7 @@
                     Кількість сторінок
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:TextBox ID="page_number" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="page_number" TextMode="Number" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">
@@ -343,7 +351,7 @@
                     Положення в бібліотеці
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:TextBox ID="lib_location" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="lib_location" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
                 <hr />
@@ -395,7 +403,7 @@
                     Тираж
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:TextBox ID="edition" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="edition" TextMode="Number" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
                 <div class="form-group">
@@ -403,7 +411,7 @@
                     Рік видання
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:TextBox ID="public_year" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="public_year" MaxLength="4" TextMode="Number" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
 
@@ -432,7 +440,7 @@
                     Анотація
                             </asp:Label>
                             <div class="col-sm-9">
-                                <asp:TextBox ID="annotation" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:TextBox>
+                                <asp:TextBox ID="annotation" MaxLength="1000" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:TextBox>
                             </div>
                         </div>
                         <div class="form-group">
@@ -440,7 +448,7 @@
                     Ключові слова
                             </asp:Label>
                             <div class="col-sm-9">
-                                <asp:TextBox ID="lang_keywords" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                                <asp:TextBox ID="lang_keywords" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
                             </div>
                         </div>
 
@@ -450,7 +458,7 @@
                     Назва
                 </asp:Label>
                 <div class="col-sm-9">
-                    <asp:TextBox ID="lang_name" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                    <asp:TextBox ID="lang_name" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
                 </div>
             </div>
                         <div class="form-group">
@@ -458,7 +466,7 @@
                     Автор
                             </asp:Label>
                             <div class="col-sm-9">
-                                <asp:TextBox ID="lang_authors" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                                <asp:TextBox ID="lang_authors" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
                             </div>
                         </div>
                         <asp:Button ID="add_land" CssClass="btn btn-primary" runat="server" Text="Додати" OnClick="add_lang_Click" />
@@ -521,7 +529,7 @@
                     Значення
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:TextBox ID="is_name" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="is_name" MaxLength="25" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
             </div>
