@@ -33,7 +33,7 @@ namespace Site.EIR
         private void FillValues()
         {
 
-            Client.SetCustomEndpoint("http://localhost:49945/");
+            //Client.SetCustomEndpoint("http://localhost:49945/");
 
             var json =
                 CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIr?sessionId=" + SessionId + "&id=" + _irId);
