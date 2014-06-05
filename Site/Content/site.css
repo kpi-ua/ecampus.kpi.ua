@@ -293,6 +293,13 @@ a, .btn {
     overflow-y: auto;
 }
 
+#irpop div p:hover {
+    cursor: default !important;
+    background-color: whitesmoke !important;
+    color: #000000;
+
+}
+
 .inrow {
     margin-left: 0px !important;
     margin-right: 0px !important;
