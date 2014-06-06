@@ -58,6 +58,15 @@ namespace Site {
         protected global::System.Web.UI.WebControls.ContentPlaceHolder carousel_container;
         
         /// <summary>
+        /// individual_plan control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl individual_plan;
+        
+        /// <summary>
         /// body control.
         /// </summary>
         /// <remarks>

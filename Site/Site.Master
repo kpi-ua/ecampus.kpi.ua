@@ -53,7 +53,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="http://stat.campus.kpi.ua/">
                                     <i class="fa fa-briefcase"></i>
                                 </a>
                             </li>
@@ -107,17 +107,11 @@
                             <li><a href="/EIR/CardEdit.aspx">Створення</a></li>
                         </ul>
                     </li>
+                    <li><a href="/EIR/IrGroup">Групи ЄІР</a></li>
                     <li><a href="/MZSearch">Методичне забезпечення</a></li>
-                    <li><a href="/RNP">РНП</a>
-                    </li>
-                    <li class="dropmenu">
-                        <a>Групи ЄІР<div class="chevron"></div>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="/EIR/IrGroup">Перегляд</a></li>
-                            <li><a href="#">Створення</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/RNP">РНП</a></li>
+                    <li runat="server" id="individual_plan"><a href="#">Індивідуальний план викладча</a></li>
+                    <li><a href="#">Поточний контроль</a></li>
                     
                     <li><a href="/Bulletins">Дошка оголошень</a></li>
                     <li><a href="/Messages">Спілкування</a></li>

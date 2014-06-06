@@ -99,7 +99,7 @@
                         Тип функціонального призначення*
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:Label ID="feature_type" runat="server" CssClass="form-control" >
+                        <asp:Label ID="feature_type" runat="server" CssClass="form-control">
                         </asp:Label>
                     </div>
                 </div>
@@ -133,17 +133,17 @@
             </div>
 
 
-            <hr/>
+            <hr />
             <div class="form-group">
                 <asp:Label ID="Label6" AssociatedControlID="members" CssClass="col-sm-3 control-label" runat="server">
                     Учасники
-                    </asp:Label>
-                    <div class="col-sm-9">
-                        <asp:Label ID="members"  CssClass="form-control" runat="server"></asp:Label>
+                </asp:Label>
+                <div class="col-sm-9">
+                    <asp:Label ID="members" CssClass="form-control" runat="server"></asp:Label>
                 </div>
-           
+
             </div>
-            <hr/>
+            <hr />
             <div class="form-horizontal">
                 <div class="form-header">
                     Додаткові поля опису
@@ -153,7 +153,7 @@
                         Бібліографічний опис*
                     </asp:Label>
                     <div class="col-sm-9">
-                        <asp:Label ID="long_deskription"  runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:Label>
+                        <asp:Label ID="long_deskription" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:Label>
                     </div>
                 </div>
                 <div class="form-group">
@@ -244,41 +244,41 @@
                     </div>
                 </div>
             </div>
-      <hr/>
+            <hr />
             <div class="form-group">
                 <asp:Label ID="Label7" AssociatedControlID="extralangs" CssClass="col-sm-3 control-label" runat="server">
                     Анотації
-                    </asp:Label>
-                </div>
-                    <div class="col-sm-9">
-                        <asp:Label ID="extralangs" AssociatedControlID="public_year" CssClass="form-control" runat="server"></asp:Label>
-                    </div>
+                </asp:Label>
             </div>
-        <hr/>
-            <div class="form-horizontal">
-                <div class="form-header">
-                    Класифікаційні індекси
-                </div>
-                <div class="form-group">
-                    <asp:Label ID="Label34" AssociatedControlID="is_type" CssClass="col-sm-3 control-label" runat="server">
+            <div class="col-sm-9">
+                <asp:Label ID="extralangs" AssociatedControlID="public_year" CssClass="form-control" runat="server"></asp:Label>
+            </div>
+        </div>
+        <hr />
+        <div class="form-horizontal">
+            <div class="form-header">
+                Класифікаційні індекси
+            </div>
+            <div class="form-group">
+                <asp:Label ID="Label34" AssociatedControlID="is_type" CssClass="col-sm-3 control-label" runat="server">
                         Тип
+                </asp:Label>
+                <div class="col-sm-9">
+                    <asp:Label ID="is_type" runat="server" CssClass="form-control">
                     </asp:Label>
-                    <div class="col-sm-9">
-                        <asp:Label ID="is_type" runat="server" CssClass="form-control">
-                        </asp:Label>
-                    </div>
                 </div>
-                <div class="form-group">
-                    <asp:Label ID="Label35" AssociatedControlID="is_name" CssClass="col-sm-3 control-label" rows="3" TextMode="multiline" runat="server">
+            </div>
+            <div class="form-group">
+                <asp:Label ID="Label35" AssociatedControlID="is_name" CssClass="col-sm-3 control-label" rows="3" TextMode="multiline" runat="server">
                         Значення
-                    </asp:Label>
-                    <div class="col-sm-9">
-                        <asp:Label ID="is_name" runat="server" CssClass="form-control"></asp:Label>
-                    </div>
+                </asp:Label>
+                <div class="col-sm-9">
+                    <asp:Label ID="is_name" runat="server" CssClass="form-control"></asp:Label>
                 </div>
             </div>
         </div>
     </div>
+    
     <asp:Button ID="edit" CssClass="btn btn-primary" runat="server" Text="Перейти на редагування" />
 
 </asp:Content>
