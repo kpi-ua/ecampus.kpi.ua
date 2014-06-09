@@ -1,4 +1,5 @@
-﻿using Campus.SDK;
+﻿using System.Collections;
+using Campus.SDK;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -221,5 +222,68 @@ namespace Core
             var answer = GetData(url);
             return answer == null;
         }
+
+        public IList<Permission> GetPermissions(string sessionId)
+        {
+            var answer = GetData(Campus.SDK.Client.ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + sessionId);
+            var data = (ArrayList)answer["Data"];
+
+            var permissions = new List<Permission>();
+
+            for (var i = 0; i < data.Count; i++)
+            {
+                Permission permission = null;
+
+                foreach (var p in (Dictionary<string, object>)data[i])
+                {
+                    var prem = (p.Value.ToString().ToLower() != "false");
+
+                    switch (p.Key)
+                    {
+                        case "SubsystemName":
+                            {
+                                permission = new Permission(p.Value.ToString());
+                                break;
+                            }
+                        case "IsCreate":
+                            {
+                                permission.Create = prem;
+                                break;
+                            }
+                        case "IsRead":
+                            {
+                                permission.Read = prem;
+                                break;
+                            }
+                        case "IsUpdate":
+                            {
+                                permission.Update = prem;
+                                break;
+                            }
+                        case "IsDelete":
+                            {
+                                permission.Delete = prem;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                }
+
+                if (permission != null)
+                {
+                    permissions.Add(permission);
+                }
+                else
+                {
+                    throw (new Exception("Права пользователя не получены!"));
+                }
+            }
+
+            return permissions;
+        }
+
     }
 }

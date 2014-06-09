@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Linq;
+using Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,19 +50,8 @@ namespace Site
 
                     SpecFunc.Text += "</div>";
                 }
+                
 
-
-                var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + SessionId);
-
-                if (answer != null)
-                {
-                    var dataArr = (ArrayList)answer["Data"];
-                    GetEffectivePremissions(dataArr);
-                }
-                else
-                {
-                    throw (new Exception("Права пользователя не получены!"));
-                }
             }
             catch { }
 
@@ -91,63 +81,6 @@ namespace Site
             }
 
             carousel_wrap.InnerHtml = sb.ToString();
-        }
-
-        private void GetEffectivePremissions(ArrayList data)
-        {
-            Permissions = new Dictionary<string, Permission>();
-
-            for (int i = 0; i < data.Count; i++)
-            {
-                Permission permission = null;
-
-                foreach (var p in (Dictionary<string, object>)data[i])
-                {
-                    var prem = (p.Value.ToString().ToLower() != "false");
-
-                    switch (p.Key)
-                    {
-                        case "SubsystemName":
-                            {
-                                permission = new Permission(p.Value.ToString());
-                                break;
-                            }
-                        case "IsCreate":
-                            {
-                                permission.Create = prem;
-                                break;
-                            }
-                        case "IsRead":
-                            {
-                                permission.Read = prem;
-                                break;
-                            }
-                        case "IsUpdate":
-                            {
-                                permission.Update = prem;
-                                break;
-                            }
-                        case "IsDelete":
-                            {
-                                permission.Delete = prem;
-                                break;
-                            }
-                        default:
-                            {
-                                break;
-                            }
-                    }
-                }
-
-                if (permission != null)
-                {
-                    Permissions.Add(permission.Subsystem, permission);
-                }
-                else
-                {
-                    throw (new Exception("Права пользователя не получены!"));
-                }
-            }
         }
 
         protected void SavePass_Click(object sender, EventArgs e)

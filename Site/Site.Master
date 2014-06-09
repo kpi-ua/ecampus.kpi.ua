@@ -110,7 +110,7 @@
                     <li><a href="/EIR/IrGroup">Групи ЄІР</a></li>
                     <li><a href="/MZSearch">Методичне забезпечення</a></li>
                     <li><a href="/RNP">РНП</a></li>
-                    <li runat="server" id="individual_plan"><a href="#">Індивідуальний план викладча</a></li>
+                    <li runat="server" id="individual_plan" Visible="False"><a href="/IndividualTeachersPlan.aspx">Індивідуальний план викладча</a></li>
                     <li><a href="#">Поточний контроль</a></li>
                     
                     <li><a href="/Bulletins">Дошка оголошень</a></li>

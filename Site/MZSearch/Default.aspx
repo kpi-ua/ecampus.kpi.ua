@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.MZSearch.Default" %>
+﻿<%@ Page Title="Методичне забезпечення" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.MZSearch.Default" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="server">
@@ -6,11 +6,10 @@
     <div class="page-header">
         <h1><%=Page.Title %></h1>
     </div>
-    
+
     <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
     <script src="/Scripts/MZ.js"></script>
 
-    <h2>Пошук методичного забзпечення</h2>
     <div id="disc_cred_radio" class="row">
         <div class="col-md-2 ">
             <asp:RadioButton ID="inpDisc" type="radio" GroupName="dcgroup" value="Disc" Checked="True" runat="server" AutoPostBack="True" OnCheckedChanged="inpDisc_OnCheckedChanged" />
@@ -21,7 +20,6 @@
             Кредитний модуль
         </div>
     </div>
-
 
     <div id="serarchForm">
 
@@ -101,7 +99,7 @@
 
         <input id="session" type="hidden" runat="server" />
         <input id="isdisc" type="hidden" runat="server" />
-        <input id="disc" type="hidden" runat="server"/>
+        <input id="disc" type="hidden" runat="server" />
         <input id="spec" type="hidden" runat="server" />
         <input id="stdfrm" type="hidden" runat="server" />
         <input id="irEdit" type="hidden" runat="server" />

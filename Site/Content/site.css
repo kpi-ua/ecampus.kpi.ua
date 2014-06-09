@@ -23,14 +23,18 @@ ol, ul {
     list-style: none;
 }
 
+.page-frame {
+    height: 100%;
+}
+
 .page-header {
     margin-top: 0 !important;
 }
 
     .page-header h1 {
+        margin-top: 0;
         color: #CB9A34;
         font-size: 25pt;
-        margin-top: 0;
     }
 
 blockquote, q {
@@ -70,11 +74,11 @@ body, html {
 }
 
 .support-modal-link {
-    cursor: pointer;
     display: block;
-    font-size: 9pt;
     margin-bottom: 10px;
     text-align: center;
+    font-size: 9pt;
+    cursor: pointer;
 }
 
 #support-modal {
@@ -163,7 +167,7 @@ a, .btn {
 }
 
 .login-box .form-group > label {
-    display: inline-block \0/;
+    display: inline-block;
 }
 
 .login-box .form-group:last-child {
@@ -208,8 +212,8 @@ a, .btn {
 /*MZSEARCH*/
 #disc_cred_radio {
     margin-top: 10px;
-    margin-bottom: 10px;
     margin-right: 5px;
+    margin-bottom: 10px;
 }
 
 .chosen-container .chosen-drop {
@@ -222,9 +226,9 @@ a, .btn {
 }
 
 .lirow {
-    border-bottom: dotted 1px darkgoldenrod;
-    margin-left: 0px !important;
     margin-right: 0px !important;
+    margin-left: 0px !important;
+    border-bottom: dotted 1px darkgoldenrod;
 }
 
 .itemcol, .ircol {
@@ -232,9 +236,9 @@ a, .btn {
 }
 
 .itemrow, .irrow, .irpoprow {
-    border-bottom: solid 1px darkgreen;
-    padding-left: 5px;
     margin-top: 5px;
+    padding-left: 5px;
+    border-bottom: solid 1px darkgreen;
 }
 
     .irrow:hover {
@@ -251,17 +255,17 @@ a, .btn {
     }
 
 .itemrow_a, .irrow_a {
-    background-color: darkgreen;
-    padding-left: 5px;
     margin-top: 5px;
-    opacity: 0.9;
+    padding-left: 5px;
+    background-color: darkgreen;
     color: whitesmoke;
+    opacity: 0.9;
     cursor: pointer;
 }
 
 .kind {
-    color: green;
     margin-left: -20px;
+    color: green;
 }
 
 .clink:hover {
@@ -273,10 +277,10 @@ a, .btn {
 }
 
 .subtitle {
-    font-weight: bold;
-    color: grey;
     margin-top: 5px;
     margin-bottom: 5px;
+    color: grey;
+    font-weight: bold;
 }
 
 .oneitem {
@@ -284,8 +288,8 @@ a, .btn {
 }
 
 .popContainer {
-    overflow-y: auto;
     overflow-x: hidden;
+    overflow-y: auto;
     margin-top: 10px;
 }
 
@@ -293,16 +297,15 @@ a, .btn {
     overflow-y: auto;
 }
 
-#irpop div p:hover {
-    cursor: default !important;
-    background-color: whitesmoke !important;
-    color: #000000;
-
-}
+    #irpop div p:hover {
+        background-color: whitesmoke !important;
+        color: #000000;
+        cursor: default !important;
+    }
 
 .inrow {
-    margin-left: 0px !important;
     margin-right: 0px !important;
+    margin-left: 0px !important;
 }
 
 .margin {
@@ -311,25 +314,25 @@ a, .btn {
 
 .popup-box {
     position: absolute;
+    z-index: 9999999;
+    display: none;
     border-radius: 5px;
     background: #fff;
-    display: none;
     box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
-    font-family: Arial, sans-serif;
-    z-index: 9999999;
     font-size: 14px;
+    font-family: Arial, sans-serif;
 }
 
     .popup-box .close {
         position: absolute;
         top: 0px;
         right: 0px;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
-        cursor: pointer;
-        color: #434343;
         padding: 20px;
+        color: #434343;
+        font-weight: bold;
         font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
     }
 
         .popup-box .close:hover {
@@ -337,8 +340,8 @@ a, .btn {
         }
 
     .popup-box h2 {
-        padding: 0;
         margin: 0;
+        padding: 0;
         font-size: 18px;
     }
 
@@ -347,21 +350,21 @@ a, .btn {
     }
 
     .popup-box .bottom {
-        background: #eee;
-        border-top: 1px solid #e5e5e5;
         padding: 20px;
-        border-bottom-left-radius: 5px;
+        border-top: 1px solid #e5e5e5;
         border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background: #eee;
     }
 
 #blackout {
-    background: rgba(0,0,0,0.3);
     position: absolute;
     top: 0;
-    overflow: hidden;
-    z-index: 999999;
     left: 0;
+    z-index: 999999;
     display: none;
+    overflow: hidden;
+    background: rgba(0,0,0,0.3);
 }
 
 /* END MZSEARCH */
@@ -370,8 +373,8 @@ a, .btn {
 
 @media (max-width: 768px) {
     .profile .nav-tabs li {
-        text-align: center;
         width: 100%;
+        text-align: center;
     }
 }
 
@@ -383,8 +386,8 @@ a, .btn {
     }
 
     .profile .pic {
-        height: 150px;
         width: 150px;
+        height: 150px;
     }
 
     .profile .name {
@@ -407,19 +410,19 @@ a, .btn {
 
 
         .profile .change:hover {
-            text-decoration: none;
             background-color: black;
             color: white;
+            text-decoration: none;
         }
 
 /* END PROFILE */
 
 /*MESSAGES*/
 .chat-message {
+    display: block;
     margin: 20px 0;
     padding: 20px;
     border-left: 3px solid #eee;
-    display: block;
     text-decoration: none;
 }
 
@@ -437,8 +440,8 @@ a, .btn {
     }
 
         .chat-message .image-block img {
-            height: 40px;
             width: 40px;
+            height: 40px;
         }
 
 
@@ -467,13 +470,13 @@ a, .btn {
     }
 
     .chat-message code {
-        background-color: #fff;
         border-radius: 3px;
+        background-color: #fff;
     }
 
 .chat-message-success {
-    background-color: #F4FDF0;
     border-color: #3C763D;
+    background-color: #F4FDF0;
 }
 
     .chat-message-success h4 {
@@ -481,8 +484,8 @@ a, .btn {
     }
 
 .chat-message-danger {
-    background-color: #fdf7f7;
     border-color: #d9534f;
+    background-color: #fdf7f7;
 }
 
     .chat-message-danger h4 {
@@ -490,8 +493,8 @@ a, .btn {
     }
 
 .chat-message-warning {
-    background-color: #fcf8f2;
     border-color: #f0ad4e;
+    background-color: #fcf8f2;
 }
 
     .chat-message-warning h4 {
@@ -499,8 +502,8 @@ a, .btn {
     }
 
 .chat-message-info {
-    background-color: #f4f8fa;
     border-color: #5bc0de;
+    background-color: #f4f8fa;
 }
 
     .chat-message-info h4 {
@@ -508,8 +511,8 @@ a, .btn {
     }
 
 .chat-message-default {
-    background-color: #EEE;
     border-color: #B4B4B4;
+    background-color: #EEE;
 }
 
     .chat-message-default h4 {
@@ -517,8 +520,8 @@ a, .btn {
     }
 
 .chat-message-notice {
-    background-color: #FCFCDD;
     border-color: #BDBD89;
+    background-color: #FCFCDD;
 }
 
     .chat-message-notice h4 {
@@ -1246,27 +1249,27 @@ header {
 
         .eir .row:after {
             display: block;
-            content: "";
             clear: both;
+            content: "";
         }
 
     .eir .form-control {
         padding: 0 0 0 6px;
+        height: 25px;
         border-color: #dadada;
         border-radius: 0;
         background: #fff9d9;
-        height: 25px;
         line-height: 25px;
     }
 
     .eir .chosen-container-single .chosen-single {
         padding: 0 0 0 6px;
+        height: 25px;
         border-color: #dadada;
         border-radius: 0;
         background: #fff9d9;
-        height: 25px;
-        line-height: 25px;
         box-shadow: none;
+        line-height: 25px;
     }
 
     .eir .chosen-container-single.chosen-container-active.chosen-with-drop {
@@ -1278,9 +1281,9 @@ header {
     }
 
         .eir .chosen-container.chosen-with-drop .chosen-drop {
-            background: #fff9d9;
             border-color: #dadada;
             border-radius: 0;
+            background: #fff9d9;
         }
 
     .eir .chosen-container-single .chosen-single div b {
@@ -1289,10 +1292,10 @@ header {
 
     .eir .chosen-container-single .chosen-search input {
         padding: 0 0 0 6px;
+        height: 25px;
         border-color: #dadada;
         border-radius: 0;
         background: #fff9d9;
-        height: 25px;
         line-height: 25px;
     }
 
@@ -1312,35 +1315,35 @@ header {
 
     .eir .form-horizontal {
         position: relative;
-        padding: 10px 10px 0 10px;
         margin-top: 10px;
         margin-bottom: 15px;
+        padding: 10px 10px 0 10px;
         border: 1px solid #dadada;
         border-radius: 0;
         color: #5a441b;
     }
 
     .eir .form-header {
-        display: inline-block;
         position: absolute;
-        background: #fff;
         top: -8px;
         left: 16px;
+        display: inline-block;
         padding: 0 4px;
+        background: #fff;
         font-weight: bold;
     }
 
     .eir .form-horizontal:after {
         display: block;
-        width: 100%;
         clear: both;
+        width: 100%;
         content: "";
     }
 
     .eir .form-horizontal .form-group:after {
         display: block;
-        width: 100%;
         clear: both;
+        width: 100%;
         content: "";
     }
 
@@ -1584,15 +1587,15 @@ header {
 
 footer {
     position: relative;
+    clear: both;
     overflow: hidden;
+    margin-top: 120px;
     padding: 18px 0;
+    padding-right: 18px;
+    padding-left: 18px;
     background: #208944;
     color: #fff;
     font-size: 10pt;
-    clear: both;
-    margin-top: 120px;
-    padding-left: 18px;
-    padding-right: 18px;
 }
 
     footer:after {
@@ -1743,9 +1746,8 @@ footer {
     }
 
     #right-sidebar ul {
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI0AAAABAQMAAADZ4r9FAAAABlBMVEWZmZmZmZlYwozHAAAAAXRSTlMAQObYZgAAACFJREFUeF4dx7ENAAAIAjBHRk6QVzjNcLgJYycbQTDMY/Em9wP6ZdaHlQAAAABJRU5ErkJggg==') /*/Images/razdelitel.png*/ repeat-x scroll 0 0 rgba(0, 0, 0, 0);
-        margin-top: 42px;
         width: 200px;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI0AAAABAQMAAADZ4r9FAAAABlBMVEWZmZmZmZlYwozHAAAAAXRSTlMAQObYZgAAACFJREFUeF4dx7ENAAAIAjBHRk6QVzjNcLgJYycbQTDMY/Em9wP6ZdaHlQAAAABJRU5ErkJggg==') margin-top: 42px;
     }
 
     #right-sidebar li {
