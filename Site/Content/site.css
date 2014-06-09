@@ -1747,7 +1747,8 @@ footer {
 
     #right-sidebar ul {
         width: 200px;
-        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI0AAAABAQMAAADZ4r9FAAAABlBMVEWZmZmZmZlYwozHAAAAAXRSTlMAQObYZgAAACFJREFUeF4dx7ENAAAIAjBHRk6QVzjNcLgJYycbQTDMY/Em9wP6ZdaHlQAAAABJRU5ErkJggg==') margin-top: 42px;
+        background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI0AAAABAQMAAADZ4r9FAAAABlBMVEWZmZmZmZlYwozHAAAAAXRSTlMAQObYZgAAACFJREFUeF4dx7ENAAAIAjBHRk6QVzjNcLgJYycbQTDMY/Em9wP6ZdaHlQAAAABJRU5ErkJggg==');
+        margin-top: 42px;
     }
 
     #right-sidebar li {
