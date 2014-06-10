@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Web;
-using System.Web.Security;
-using Core;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Site.Controllers
 {
@@ -12,6 +12,8 @@ namespace Site.Controllers
         {
             if (credential.IsNotEmpty)
             {
+                ClearSessionData();
+
                 var sessionId = CampusClient.Authenticate(credential.Login, credential.Password);
 
                 if (!String.IsNullOrEmpty(sessionId))
@@ -31,9 +33,13 @@ namespace Site.Controllers
 
         public ActionResult Logout()
         {
-            Session.Clear();
-            HttpContext.Response.Cookies.Clear();
             return Redirect("~/login");
+        }
+
+        private void ClearSessionData()
+        {
+            Session.Clear();
+            HttpContext.Response.Cookies.Clear();   
         }
 
         public ActionResult Support()
