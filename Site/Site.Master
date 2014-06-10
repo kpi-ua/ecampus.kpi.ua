@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
 
+
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
 
@@ -34,8 +35,10 @@
                 <div class="logo-kpi pull-right"></div>
                 <div class="text pull-right">
                     НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ
+                   
                     <br />
                     "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+               
                 </div>
             </div>
             <div class="header-nav">
@@ -63,6 +66,7 @@
                         </ul>
                         <div class="user-name">
                             <a href="/Default.aspx">Вітаємо,
+                               
                                 <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
                         </div>
                     </div>
@@ -148,20 +152,129 @@
                 </ul>
             </div>
             <div class="right-col">
-                <div class="datepicker-toggle">
-                    <i class="fa fa-calendar"></i>
+                <div class="datepicker-toggle" onclick="getPlanner('events'); getPlanner('events-day');">
+                    <i id="counter" class="fa fa-calendar"></i>
+                    <script>
+                        ($("#counter").load(function () {
+                            var date = curr();
+                            var sessionId = $("#sssid").val();
+
+                            $.getJSON("http://localhost:49945/Calendar/GetAllForUserDateCount?sessionId=" + sessionId + "&date=" + date, function (data) {
+                                $("#counter").innerHTML = data["Date"];
+                            });
+                        }));
+                    </script>
                     <div class="datepicker-label"></div>
                 </div>
                 <div class="datepicker"></div>
+
+                <script>
+
+                    var ddate;
+
+                    function curr() {
+                        var fullDate = new Date();
+                        var twoDigitMonth = fullDate.getMonth() + 1;
+                        twoDigitMonth += "";
+                        if (twoDigitMonth.length == 1) twoDigitMonth = "0" + twoDigitMonth;
+                        var twoDigitDate = fullDate.getDate() + "";
+                        if (twoDigitDate.length == 1) twoDigitDate = "0" + twoDigitDate;
+                        var currentDate = twoDigitMonth + "/" + twoDigitDate + "/" + fullDate.getFullYear();
+                        return currentDate;
+                    }
+
+                    function addPlanner(time, task, date, id) {
+                        console.log("add start");
+                        console.log($.ddate);
+                        var sessionId = $("#sssid").val();
+
+                        if (task == undefined) {
+                            task = $("#tasktime").val();
+                        }
+                        if (time == undefined) {
+                            time = $("#tasktext").val();
+                        }
+
+                        if (date == "ex3b1") {
+                            id = date;
+                            date = undefined;
+                        }
+
+                        if (date == undefined) {
+                            date = curr();
+                        }
+
+                        $.getJSON("http://localhost:49945/Calendar/AddNewPlanner?sessionId=" + sessionId + "&task=" + task + "&date=" + date + "&time=" + time, function () {
+                            getPlanner(date, id);
+                        });
+                    }
+
+                    function getPlanner(date, id) {
+                        var sessionId = $("#sssid").val();
+                        if (id == undefined) {
+                            id = date;
+                            date = undefined;
+                        }
+
+                        if (date == undefined) {
+                            date = curr();
+                        }
+
+                        $.getJSON("http://localhost:49945/Calendar/GetAllForUserDate?sessionId=" + sessionId + "&date=" + date, function (data) {
+                            var items = "";
+                            if (data["Data"].length == 0)
+                                document.getElementById(id).innerHTML = "<li class='event'>Події відсутні</li>";
+                            else {
+                                for (var i = 0; i < data["Data"].length; i++) {
+                                    items += ("<li class='event'>" +
+                                        "<span class='event-time'>" + data["Data"][i].TimeTask + "</span>" +
+                                        "<span class='event-text'>" + data["Data"][i].Task + "</span>" +
+                                        "</li>");
+                                }
+                                document.getElementById(id).innerHTML = items;
+                            }
+                        });
+                    }
+
+                    $(".datepicker").datepicker({
+                        onSelect: function (date) {
+                            console.log('ok');
+                            $.ddate = date;
+                            console.log($.ddate);
+                            getPlanner(date, 'events-day');
+                        }
+                    });
+                </script>
+
                 <ul class="datepicker-messages hide">
-                    <div class="selected-date">У цей день:</div>
-                    <li class="event">
-                        <div class="event-time">16:00</div>
-                        <div class="event-text">Консультація ІП-01</div>
+                    <li>
+                        <div class="selected-date">
+                            У цей день: 
+                        <span id="add1" style="width: 24px; height: 24px; float: right;"><a href="#addtoday" onclick="if($('#addtoday').css('display')!='block')$('#addtoday').css('display', 'block');else $('#addtoday').css('display', 'none');">+</a></span>
+                            <div id="addtoday" style="display: none">
+                                Час: &nbsp;&nbsp;&nbsp;<input type='time' style="color: black; width: 100px; height: 30px;" id='tasktime1' /><br />
+                                Подія:
+                            <input type='text' style="color: black; width: 130px; height: 30px;" id='tasktext1' /><br />
+                                <span class='ui-datepicker-buttonpane' style="width: 35px; height: 25px;" onclick='addPlanner($("#tasktime1").val(), $("#tasktext1").val(), "ex3b1");'><a href="#add" onclick="$('#addtoday').css('display', 'none');">Додати</a></span>
+                            </div>
+                        </div>
+                        <ul class="datepicker-messages" id="events">
+                            <li class="event"></li>
+                        </ul>
                     </li>
-                    <li class="event">
-                        <div class="event-time">16:00</div>
-                        <div class="event-text">Консультація ІП-01</div>
+                    <li>
+                        <div class="selected-date">
+                            У обраний день:
+                        <span id="add2" style="width: 24px; height: 24px; float: right"><a href="#addday" onclick="if($('#addday').css('display')!='block')$('#addday').css('display', 'block');else $('#addday').css('display', 'none');">+</a></span>
+                            <div id="addday" style="display: none">
+                                Час: &nbsp;&nbsp;&nbsp;<input type='time' style="color: black; width: 100px; height: 30px;" id='tasktime2' /><br />
+                                Подія:
+                            <input type='text' style="color: black; width: 130px; height: 30px;" id='tasktext2' /><br />
+                                <span class='ui-datepicker-buttonpane' style="width: 35px; height: 25px;" onclick='addPlanner($("#tasktime2").val(), $("#tasktext2").val(), $.ddate, "ex3b2");'><a href="#add" onclick="$('#addday').css('display', 'none');">Додати</a></span>
+                            </div>
+                        </div>
+                        <ul class="datepicker-messages" id="events-day">
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -178,6 +291,7 @@
                 Національний технічний університет України<br />
                 “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a><br />
                 Електронний кампус
+           
             </div>
 
             <div class="col-md-4"></div>
