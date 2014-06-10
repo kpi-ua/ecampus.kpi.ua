@@ -1,4 +1,5 @@
-﻿using Campus.SDK;
+﻿using System.Collections;
+using Campus.SDK;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -137,73 +138,73 @@ namespace Core
 
         public Dictionary<string, Object> GetIrPurpose()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetIrPurpose");
+            return GetStringObject(ApiEndpoint + "Ir/GetIrPurpose");
         }
 
         public Dictionary<string, object> GetIrForm()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetIrForm");
+            return GetStringObject(ApiEndpoint + "Ir/GetIrForm");
         }
 
         public Dictionary<string, object> GetPublicationForm()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetPublicationForm");
+            return GetStringObject(ApiEndpoint + "Ir/GetPublicationForm");
         }
 
         public Dictionary<string, object> GetContributorType()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetContributorType");
+            return GetStringObject(ApiEndpoint + "Ir/GetContributorType");
         }
 
         public Dictionary<string, object> GetStamp()
         {
 
-            return GetStringObject("http://localhost:49945/" + "Ir/GetStamp");
+            return GetStringObject(ApiEndpoint + "Ir/GetStamp");
         }
 
         public Dictionary<string, object> GetCountries()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetCountries");
+            return GetStringObject(ApiEndpoint + "Ir/GetCountries");
         }
 
         public Dictionary<string, object> GetLang()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetLang");
+            return GetStringObject(ApiEndpoint + "Ir/GetLang");
         }
 
         public Dictionary<string, object> GetISType()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetISType");
+            return GetStringObject(ApiEndpoint + "Ir/GetISType");
         }
 
         public Dictionary<string, object> GetPersonStatusType()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetPersonStatusType");
+            return GetStringObject(ApiEndpoint + "Ir/GetPersonStatusType");
         }
 
         public Dictionary<string, object> GetFeature()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetIrFeature");
+            return GetStringObject(ApiEndpoint + "Ir/GetIrFeature");
         }
 
         public Dictionary<string, object> GetKind()
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetIrKind");
+            return GetStringObject(ApiEndpoint + "Ir/GetIrKind");
         }
 
         public Dictionary<string, object> GetCities(string countryId)
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetCities?countryId=" + countryId);
+            return GetStringObject(ApiEndpoint + "Ir/GetCities?countryId=" + countryId);
         }
 
         public Dictionary<string, object> GetStampOrg(string cityId)
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetStampOrg?cityId=" + cityId);
+            return GetStringObject(ApiEndpoint + "Ir/GetStampOrg?cityId=" + cityId);
         }
 
         public Dictionary<string, object> GetPublishOrg(string cityId)
         {
-            return GetStringObject("http://localhost:49945/" + "Ir/GetPublishOrg?cityId=" + cityId);
+            return GetStringObject(ApiEndpoint + "Ir/GetPublishOrg?cityId=" + cityId);
         }
 
         public IEnumerable<JObject> GetAllPrivateIrGroups(string SessionId)
@@ -221,5 +222,68 @@ namespace Core
             var answer = GetData(url);
             return answer == null;
         }
+
+        public IList<Permission> GetPermissions(string sessionId)
+        {
+            var answer = GetData(Campus.SDK.Client.ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + sessionId);
+            var data = (ArrayList)answer["Data"];
+
+            var permissions = new List<Permission>();
+
+            for (var i = 0; i < data.Count; i++)
+            {
+                Permission permission = null;
+
+                foreach (var p in (Dictionary<string, object>)data[i])
+                {
+                    var prem = (p.Value.ToString().ToLower() != "false");
+
+                    switch (p.Key)
+                    {
+                        case "SubsystemName":
+                            {
+                                permission = new Permission(p.Value.ToString());
+                                break;
+                            }
+                        case "IsCreate":
+                            {
+                                permission.Create = prem;
+                                break;
+                            }
+                        case "IsRead":
+                            {
+                                permission.Read = prem;
+                                break;
+                            }
+                        case "IsUpdate":
+                            {
+                                permission.Update = prem;
+                                break;
+                            }
+                        case "IsDelete":
+                            {
+                                permission.Delete = prem;
+                                break;
+                            }
+                        default:
+                            {
+                                break;
+                            }
+                    }
+                }
+
+                if (permission != null)
+                {
+                    permissions.Add(permission);
+                }
+                else
+                {
+                    throw (new Exception("Права пользователя не получены!"));
+                }
+            }
+
+            return permissions;
+        }
+
     }
 }

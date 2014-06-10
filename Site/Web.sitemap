@@ -3,6 +3,9 @@
   <siteMapNode url=""  description="">
     <siteMapNode url="~/Default.aspx" title="Профіль"  description="" />
     <siteMapNode url="~/TimeTable/Default.aspx" title="Розклад"  description="" />
+    <siteMapNode url="~/Support.aspx" title="Підтримка"  description="" />
+    <siteMapNode url="~/MZSearch/Default.aspx" title="Методичне забезпечення"  description="" />
+    <siteMapNode url="~/IndividualTeachersPlan.aspx" title="Індивідуальний план викладча"  description="" />
     <siteMapNode url="~/Messages/Default.aspx" title="Діалоги"  description="">
       <siteMapNode url="~/Messages/Dialog.aspx" title="Повідомлення"  description="" />
       <siteMapNode url="~/Messages/NewMessage.aspx" title="Новий діалог"  description="" />

@@ -8,11 +8,6 @@
 
     <div style="height:100%;">
         <div class="btn-group-vertical">
-
-            <h2>
-                <span class="label label-primary">РНП</span>
-            </h2>
-
             <div id="HeadContainer" class="btn-group">
                 <div id="divDdlContainer" class="btn-group-vertical">
                     <div id="divStudyYear" class="input-group">

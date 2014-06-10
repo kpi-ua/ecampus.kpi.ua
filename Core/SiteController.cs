@@ -16,20 +16,18 @@ namespace Core
             get { return _campusClient ?? (_campusClient = new CampusClient()); }
         }
 
-        protected Dictionary<string, Permission> Permissions
+        public Dictionary<string, Permission> Permissions
         {
             get
             {
                 if (Session["UserPremissions"] == null)
                 {
-                    Session["UserPremissions"] = new Dictionary<string, Permission>();
+
+                    var permissions = CampusClient.GetPermissions(SessionId);
+                    Session["UserPremissions"] = permissions.ToDictionary(o => o.Subsystem, o => o);
                 }
 
                 return Session["UserPremissions"] as Dictionary<string, Permission>;
-            }
-            set
-            {
-                Session["UserPremissions"] = value;
             }
         }
 

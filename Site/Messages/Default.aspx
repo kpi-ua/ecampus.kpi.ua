@@ -6,7 +6,6 @@
         <h1><%=Page.Title %></h1>
     </div>
 
-
     <asp:Button ID="new_message" runat="server" Text="Нове Повідомлення" CssClass="btn btn-warning" ClientIDMode="Static" />
     
     <asp:Literal ID="Result" runat="server"></asp:Literal>
