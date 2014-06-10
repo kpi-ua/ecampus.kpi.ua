@@ -144,7 +144,7 @@
                             var date = curr();
                             var sessionId = $("#sssid").val();
 
-                            $.getJSON("http://localhost:49945/Calendar/GetAllForUserDateCount?sessionId=" + sessionId + "&date=" + date, function (data) {
+                            $.getJSON("http://api.ecampus.kpi.ua/Calendar/GetAllForUserDateCount?sessionId=" + sessionId + "&date=" + date, function (data) {
                                 $("#counter").innerHTML = data["Date"];
                             });
                         }));
@@ -189,7 +189,7 @@
                             date = curr();
                         }
 
-                        $.getJSON("http://localhost:49945/Calendar/AddNewPlanner?sessionId=" + sessionId + "&task=" + task + "&date=" + date + "&time=" + time, function () {
+                        $.getJSON("http://api.ecampus.kpi.ua/Calendar/AddNewPlanner?sessionId=" + sessionId + "&task=" + task + "&date=" + date + "&time=" + time, function () {
                             getPlanner(date, id);
                         });
                     }
@@ -205,7 +205,7 @@
                             date = curr();
                         }
 
-                        $.getJSON("http://localhost:49945/Calendar/GetAllForUserDate?sessionId=" + sessionId + "&date=" + date, function (data) {
+                        $.getJSON("http://api.ecampus.kpi.ua/Calendar/GetAllForUserDate?sessionId=" + sessionId + "&date=" + date, function (data) {
                             var items = "";
                             if (data["Data"].length == 0)
                                 document.getElementById(id).innerHTML = "<li class='event'>Події відсутні</li>";
