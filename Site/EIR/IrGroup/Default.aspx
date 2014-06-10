@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="Групи ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.EIR.IrGroup.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="server">
+    
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+
     <asp:Button ID="new_group" runat="server" Text="Нова група" CssClass="btn btn-warning" ClientIDMode="Static" OnClick="NewGroup_Click" />
     <asp:Panel ID="SubdivisionIrContainer" runat="server">
         <div id="out_json" runat="server"></div>

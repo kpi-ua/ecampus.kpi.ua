@@ -56,10 +56,10 @@ namespace Site.Messages
 
             var sb = new StringBuilder();
             sb.AppendFormat(@"
-            <a href=""{6}"" class=""chat-message chat-message-info"">
+            <a href=""{6}"" class=""list-item list-item-info"">
                 <h4>{0}</h4>
                 <div class=""image-block"">{1}</div>                
-                <div id=""last"" class=""chat-content text-success"">
+                <div id=""last"" class=""list-item-content text-success"">
                     <img class=""lastPhoto"" src=""{2}"" />
                     <h6 class=""lastSender text-warning"">{3}</h6>    
                     <p class=""lastText text-success"">{4}</p>

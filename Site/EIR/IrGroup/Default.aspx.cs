@@ -9,14 +9,9 @@ namespace Site.EIR.IrGroup
         protected void Page_Init(object sender, EventArgs e)
         {
             AutoLogin();
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
 
             IrGroupListRendering(-1, "Приватні");
-            IrGroupListRendering(10193, "10193");
+            IrGroupListRendering(10193, "Кафедра технiчної кiбернетики ФІОТ");
         }
 
         public void AutoLogin()
@@ -40,7 +35,7 @@ namespace Site.EIR.IrGroup
             mainDiv.Attributes.Add("id", "mainBlock");
             mainDiv.Attributes.Add("class", ".form-inline");
 
-            name.Attributes.Add("id", "irGroupName");
+            name.Attributes.Add("id", "irGroupSubdivisionName");
             name.Attributes.Add("class", "text-primary");
 
 

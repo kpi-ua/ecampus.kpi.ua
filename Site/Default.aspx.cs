@@ -13,7 +13,7 @@ namespace Site
             base.OnLoad(ea);
 
             LoadCarousel();
-
+            
             try
             {
                 profile_photo.ImageUrl = CurrentUser.Photo;

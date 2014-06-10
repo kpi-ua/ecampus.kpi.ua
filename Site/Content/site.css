@@ -418,7 +418,7 @@ a, .btn {
 /* END PROFILE */
 
 /*MESSAGES*/
-.chat-message {
+.list-item {
     display: block;
     margin: 20px 0;
     padding: 20px;
@@ -426,105 +426,105 @@ a, .btn {
     text-decoration: none;
 }
 
-    .chat-message h4 {
+    .list-item h4 {
         margin-bottom: 15px;
     }
 
-    .chat-message:hover {
+    .list-item:hover {
         text-decoration: none;
     }
 
-    .chat-message .image-block {
+    .list-item .image-block {
         float: left;
         width: 100px;
     }
 
-        .chat-message .image-block img {
+        .list-item .image-block img {
             width: 40px;
             height: 40px;
         }
 
 
-    .chat-message .chat-content {
+    .list-item .list-item-content {
         float: left;
         margin-left: 25px;
     }
 
-    .chat-message .last {
+    .list-item .last {
     }
 
-    .chat-message:hover {
+    .list-item:hover {
         background-color: #F4FDF0;
     }
 
-    .chat-message.new {
+    .list-item.new {
     }
 
-    .chat-message h4 {
+    .list-item h4 {
         margin-top: 0;
         margin-bottom: 5px;
     }
 
-    .chat-message p:last-child {
+    .list-item p:last-child {
         margin-bottom: 0;
     }
 
-    .chat-message code {
+    .list-item code {
         border-radius: 3px;
         background-color: #fff;
     }
 
-.chat-message-success {
+.list-item-success {
     border-color: #3C763D;
     background-color: #F4FDF0;
 }
 
-    .chat-message-success h4 {
+    .list-item-success h4 {
         color: #3C763D;
     }
 
-.chat-message-danger {
+.list-item-danger {
     border-color: #d9534f;
     background-color: #fdf7f7;
 }
 
-    .chat-message-danger h4 {
+    .list-item-danger h4 {
         color: #d9534f;
     }
 
-.chat-message-warning {
+.list-item-warning {
     border-color: #f0ad4e;
     background-color: #fcf8f2;
 }
 
-    .chat-message-warning h4 {
+    .list-item-warning h4 {
         color: #f0ad4e;
     }
 
-.chat-message-info {
+.list-item-info {
     border-color: #5bc0de;
     background-color: #f4f8fa;
 }
 
-    .chat-message-info h4 {
+    .list-item-info h4 {
         color: #5bc0de;
     }
 
-.chat-message-default {
+.list-item-default {
     border-color: #B4B4B4;
     background-color: #EEE;
 }
 
-    .chat-message-default h4 {
+    .list-item-default h4 {
         color: #000;
     }
 
-.chat-message-notice {
+.list-item-notice {
     border-color: #BDBD89;
     background-color: #FCFCDD;
 }
 
-    .chat-message-notice h4 {
+    .list-item-notice h4 {
         color: #444;
     }
 
@@ -1227,12 +1227,6 @@ header {
 }
 
 .irGroupLink {
-    display: block;
-    margin-bottom: 5px;
-    border: solid 1px #999;
-    -ms-border-radius: 5px;
-    border-radius: 5px;
-    text-decoration: none;
 }
 
     .irGroupLink:hover {
@@ -1836,4 +1830,32 @@ footer {
     .user-name {
         display: none;
     }
+}
+
+.irGroupSubdivisionLink {
+    display: block;
+    margin-bottom: 5px;
+    border: solid 1px #999;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+    .irGroupSubdivisionLink:hover {
+        background-color: #e4e8ed;
+    }
+
+#irGroupSubdivisionName {
+    /*margin-left: 150px;*/
+    /*padding-bottom: 70px;*/
+}
+
+.irGroupDescription {
+    margin-left: 150px;
+}
+
+#irGroupMainBlock {
+    /*display: -moz-inline-box;
+    display: -webkit-inline-box;*/
+    margin: 10px;
 }

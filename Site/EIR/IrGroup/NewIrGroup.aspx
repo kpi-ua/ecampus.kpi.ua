@@ -1,21 +1,18 @@
 ﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewIrGroup.aspx.cs" Inherits="Site.EIR.IrGroup.NewIrGroupPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="server">
-    
+
     <div class="page-header">
         <h1><%=Page.Title %></h1>
     </div>
-
-    <link href="/Content/form-styles.css" rel="stylesheet" />
-
+    
     <asp:Panel ID="LinkContainer" runat="server">
-        
+
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-horizontal">
                     <div class="form-header">
                         Загальні відомості
-                   
                     </div>
                     <div class="form-group">
                         <asp:Label ID="Label1" AssociatedControlID="name" CssClass="col-sm-3 control-label" runat="server">
@@ -40,40 +37,37 @@
                         Приватність
                    
                     </div>
-                    <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                    <asp:UpdatePanel ID="PrivacyUpdatePanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
                             <div class="form-group">
                                 <asp:Label ID="Label25" AssociatedControlID="is_public" CssClass="col-sm-3 control-label" runat="server">
                                     Характер взаємодії*
                                 </asp:Label>
                                 <div class="col-sm-9">
-                                    <asp:RadioButtonList ID="is_public" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="IsPublicSelectedIndexChanged">
-                                        <asp:ListItem Value="public" Selected="True">Публічний</asp:ListItem>
-                                        <asp:ListItem Value="private">Приватний</asp:ListItem>
+                                    <asp:RadioButtonList ID="is_public" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="is_public_OnSelectedIndexChanged">
+                                        <asp:ListItem Value="private" Selected="True" Text="Приватний"></asp:ListItem>
+                                        <asp:ListItem Value="public" Text="Публічний"></asp:ListItem>
                                     </asp:RadioButtonList>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <asp:Label ID="Label37" AssociatedControlID="feature_type" CssClass="col-sm-3 control-label" runat="server">
-                                    Тип функціонального призначення*
+                                <asp:Label ID="Label37" AssociatedControlID="subdivisionList" CssClass="col-sm-3 control-label" runat="server">
+                                    Підрозділ
                                 </asp:Label>
                                 <div class="col-sm-9">
-                                    <asp:DropDownList ID="feature_type" runat="server" CssClass="form-control" AutoPostBack="True">
+                                    <asp:DropDownList ID="subdivisionList" runat="server" CssClass="form-control">
                                     </asp:DropDownList>
                                 </div>
                             </div>
                         </ContentTemplate>
-                        <Triggers>
-                            <asp:AsyncPostBackTrigger ControlID="is_public" EventName="SelectedIndexChanged" />
-                        </Triggers>
                     </asp:UpdatePanel>
-
-
-
                 </div>
             </div>
         </div>
         <asp:Button ID="save" CssClass="btn btn-primary" runat="server" Text="Зберегти" OnClick="save_Click" />
+        <asp:Button ID="cancel" CssClass="btn btn-primary" runat="server" Text="Відмінити" PostBackUrl="~/EIR/IrGroup/Default.aspx" />
+        <asp:Button ID="deleteBTN" CssClass="btn btn-primary" runat="server" Text="Видалити" OnClick="delete_Click" Visible="false" />
+
     </asp:Panel>
 
 </asp:Content>

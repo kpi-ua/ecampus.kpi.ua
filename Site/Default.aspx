@@ -24,7 +24,7 @@
 
         <div class="tab-content">
             <div class="tab-pane active" id="inbox">
-                <h4><%=CurrentUser.FullName %></h4>
+                <h4><%=this.CurrentUser.FullName %></h4>
 
                 <div class="col-lg-3">
                     <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />

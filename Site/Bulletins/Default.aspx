@@ -3,7 +3,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     
     <div class="page-header">
-        <h1><%=Page.Title %></h1>
+        <h1><%=this.Title %></h1>
     </div>
 
     <a runat="server" id="moderator" href="/Bulletins/MyBulletins.aspx" class="btn btn-warning" ClientIDMode="Static">Режим Модератора</a>

@@ -10,12 +10,14 @@ namespace Site.EIR.IrGroup
 {
     public partial class IrGroupView : Core.SitePage
     {
+        private int irGroupId;
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            var content = GetGroupContentByID(Convert.ToInt32(Session["irGroupId"]));
-
+            irGroupId = Convert.ToInt32(Session["irGroupId"]);
+            var content = GetGroupContentByID(irGroupId);
             foreach (var ir in content)
             {
                 LinkButtonsRendering(ir);
@@ -70,6 +72,10 @@ namespace Site.EIR.IrGroup
             LinkContainer.Controls.Add(groupLink);
         }
 
+        protected void EditGroup_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("NewIrGroup.aspx?type=edit&irGroupId=" + irGroupId);
+        }
 
     }
 

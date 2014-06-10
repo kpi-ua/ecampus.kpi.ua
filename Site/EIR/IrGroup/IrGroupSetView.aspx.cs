@@ -53,15 +53,16 @@ namespace Site.EIR.IrGroup
 
 
             groupLink.PostBackUrl = Request.Url.AbsolutePath;
-            groupLink.Attributes.Add("class", "irGroupLink");
+            groupLink.Attributes.Add("class", "irGroupLink list-item list-item-info");
             groupLink.Attributes.Add("irGroupId", group["IrGroupId"].ToString());
 
-            mainDiv.Attributes.Add("id", "mainBlock");
+            mainDiv.Attributes.Add("id", "irGroupMainBlock");
             mainDiv.Attributes.Add("class", ".form-inline");
 
             name.Attributes.Add("id", "irGroupName");
             name.Attributes.Add("class", "text-primary");
 
+            description.Attributes.Add("class", "irGroupDescription");
 
             name.InnerText = group["Name"].ToString();
             description.InnerText = group["Description"].ToString();
@@ -75,7 +76,7 @@ namespace Site.EIR.IrGroup
 
         protected void NewGroup_Click(object sender, EventArgs e)
         {
-            //Session["group_level"] = "private";
+            Session["groupEditMode"] = "create";
             Response.Redirect("NewIrGroup.aspx");
         }
     }
