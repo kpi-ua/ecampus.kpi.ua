@@ -1,13 +1,11 @@
 ﻿using System;
 using System.CodeDom.Compiler;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Campus.SDK;
 
 
 namespace Site.EIR
@@ -43,8 +41,8 @@ namespace Site.EIR
     public partial class CardEdit : Core.SitePage
     {
         
-        private static string _irId;
-        readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
+        private string _irId;
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
 
         static List<Contributor> contributorlist = new List<Contributor>();
         static List<ExtraLanguage> extralangaugelist = new List<ExtraLanguage>(); 
@@ -53,29 +51,16 @@ namespace Site.EIR
         {
             base.OnLoad(e);
 
-
             if(Page.IsPostBack) return;
         
             LoadAllList();
 
-            if (Session["EirEdit"] != null && (bool)Session["EirEdit"])
+            if ((string) Session["EirEdit"] == "true")
             {
-                if (Session["EirId"] == null)
-                {
-                    ShowError("Помилка при завантаженні сторінки.");
-                    return;
-                }
-                _irId = Session["EirId"].ToString();
+                _irId = (string) Session["EirId"];
                 FillValues();
             }
 
-        }
-
-        private void ShowError(string errText)
-        {
-            errlabel.Text = errText;
-            errpanel.Visible = true;
-            errUpdate.Update();
         }
 
         private void LoadAllList()
@@ -168,7 +153,7 @@ namespace Site.EIR
         private void FillValues()
         {
 
-            var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIr?sessionId=" + SessionId + "&id=" + _irId);
+            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetIr?sessionId=" + SessionId + "&id=" + _irId);
             var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
             var data = (Dictionary<string, object>)respDictionary["Data"];
 
@@ -180,18 +165,9 @@ namespace Site.EIR
             access_end.Text = data["DateAccessEnd"].ToString();
             doc_number.Text = data["DocNumber"].ToString();
             doc_date.Text = data["DocDate"].ToString();
-            try
-            {
-                public_kind.SelectedValue = data["DcIrKindId"].ToString();
-                form_type.SelectedValue = data["DcIrFormId"].ToString();
-                purpose_type.SelectedValue = data["DcIrPurposeId"].ToString();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Error while loading");
-            }
+            //...
 
-            json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIrExtra?sessionId=" + SessionId + "&irId=" +
+            json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetIrExtra?sessionId=" + SessionId + "&id=" +
                                             _irId);
             respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
             data = (Dictionary<string, object>)respDictionary["Data"];
@@ -199,16 +175,8 @@ namespace Site.EIR
             try
             {
                 public_form.SelectedValue = data["DcPublicationFormId"].ToString();
-                org_country.SelectedValue = data["publishCountry"].ToString();
-                org_country_SelectedIndexChanged(null, null);
-                org_city.SelectedValue = data["publishCity"].ToString();
-                org_city_SelectedIndexChanged(null, null);
-                org_name.SelectedValue = data["DcPublishOrgId"].ToString();
+                //org_name.SelectedValue = Data["DcPublishOrgId"].ToString();
                 griff.SelectedValue = data["DcStampId"].ToString();
-                grif_country.SelectedValue = data["stampCountry"].ToString();
-                grif_country_SelectedIndexChanged(null, null);
-                griff_city.SelectedValue = data["stampCity"].ToString();
-                griff_city_SelectedIndexChanged(null, null);
                 griff_org_name.SelectedValue = data["DcStampOrgId"].ToString();
             }
             catch (Exception)
@@ -216,69 +184,17 @@ namespace Site.EIR
                 throw new Exception("Error while loading");
             }
 
-            long_deskription.Text = data["TitleBibliographic"].ToString();
+            long_deskription.Text = data["Title"].ToString();
             public_year.Text = data["PublicationYear"].ToString();
             page_number.Text = data["PagesQuantity"].ToString();
             edition.Text = data["Edition"].ToString();
             lib_location.Text = data["LibraryLocation"].ToString();
 
-
-            json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIsNumber?irExtraId=" +
-                                          data["IrExtraId"].ToString());
+            /*json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/GetContributors?sessionId=" + SessionId + "&id=" +
+                                           irId);
             respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            data = (Dictionary<string, object>)respDictionary["Data"];
-
-            if (data != null)
-            {
-                is_type.SelectedValue = data["typeId"].ToString();
-                is_name.Text = data["name"].ToString();
-            }
-
-            json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetContributors?sessionId=" + SessionId + "&irId=" +
-                                           _irId);
-            respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var newdata = (ArrayList)respDictionary["Data"];
-
-            foreach (var item in newdata)
-            {
-
-                var nItem = (Dictionary<string, object>) item;
-
-                contributorlist.Add(new Contributor
-                {
-                    DataBaseId = nItem["IrContributorId"].ToString(),
-                    Id = contributorlist.Count == 0 ? 1 : contributorlist[contributorlist.Count-1].Id + 1,
-                    NotKpi = Convert.ToBoolean(nItem["notKpi"]),
-                    FullName = (string)nItem["surname"] == "" ? (string)nItem["name"] : (string)nItem["surname"],
-                    Status = nItem["status"] != null ? nItem["status"].ToString() : null ,
-                    eEmployeeId = nItem["eemployee"] != null ? nItem["eemployee"].ToString() : null,
-                    ContributionPart = nItem["ContributionPercent"].ToString(),
-                    ContributionType = nItem["DcContributorTypeId"].ToString()
-                });
-            }
-
-            json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetExtraLangs?irId=" +
-                                           _irId);
-            respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            newdata = (ArrayList)respDictionary["Data"];
-
-            foreach (var item in newdata)
-            {
-                var nItem = (Dictionary<string, object>) item;
-
-                extralangaugelist.Add(new ExtraLanguage
-                {
-                    DataBaseId = nItem["IrExtraLangId"].ToString(),
-                    Id = extralangaugelist.Count == 0 ? 1 : extralangaugelist[extralangaugelist.Count - 1].Id + 1,
-                    Annot = (string)nItem["Annotation"],
-                    KeyWords = (string)nItem["Keywords"],
-                    Authors = (string)nItem["Authors"],
-                    LangId = nItem["DcLanguageId"].ToString(),
-                    LangText = (string)nItem["Name"],
-                    Name = (string)nItem["Title"]
-                });
-            }
-
+            Data = (Dictionary<string, object>)respDictionary["Data"];
+            */
         }
 
         #region Adding to the panel
@@ -299,29 +215,6 @@ namespace Site.EIR
                 if (contributorlist.Count != 0)
                 {
                     id = contributorlist[contributorlist.Count - 1].Id + 1;
-                }
-
-                if (contribution_type.SelectedValue == null || contribution_part.Text == "")
-                {
-                    ShowError("Не заповнені всі поля з зірочкою");
-                    return;
-                }
-
-                if (person_accessory.SelectedValue == "yes")
-                {
-                    if (person_name.Text == "")
-                    {
-                        ShowError("Не заповнені всі поля з зірочкою");
-                        return;
-                    }
-                }
-                else
-                {
-                    if (person_type.SelectedValue == null || not_kpi_surname == null)
-                    {
-                        ShowError("Не заповнені всі поля з зірочкою");
-                        return;
-                    }
                 }
 
                 contributorlist.Add(new Contributor
@@ -362,10 +255,7 @@ namespace Site.EIR
             var contr = contributorlist.Find(o => o.Id.Equals(Convert.ToInt32(idcontr.Text)));
             if (contr.DataBaseId != null)
             {
-                var json =
-                   CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteContributor?sessionId=" + SessionId +
-                                               "&contributorId="+contr.DataBaseId);
-                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                //delete
             }
             contributorlist.Remove(contr);
 
@@ -429,12 +319,6 @@ namespace Site.EIR
                     id = extralangaugelist[extralangaugelist.Count - 1].Id + 1;
                 }
 
-                if (language.SelectedValue == null)
-                {
-                    ShowError("Не заповнені всі поля з зірочкою");
-                    return;
-                }
-
                 extralangaugelist.Add(new ExtraLanguage
                 {
                     Id = id,
@@ -475,10 +359,7 @@ namespace Site.EIR
             var lang = extralangaugelist.Find(o => o.Id.Equals(Convert.ToInt32(idlang.Text)));
             if (lang.DataBaseId != null)
             {
-                var json =
-                   CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteExtraLang?sessionId=" + SessionId +
-                                               "&extraLangId=" + lang.DataBaseId);
-                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                //delete
             }
             extralangaugelist.Remove(lang);
 
@@ -536,18 +417,10 @@ namespace Site.EIR
 
         protected void save_Click(object sender, EventArgs e)
         {
-
-            if (access_begin.Text == null || public_kind.SelectedValue == null || purpose_type.SelectedValue == null ||
-                is_public.SelectedValue == null || griff.SelectedValue == null || long_deskription.Text == "")
-            {
-                ShowError("Не заповнені всі поля з зірочкою");
-                return;
-            }
-
             if (_irId != null)
             {
                 var json =
-                    CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId + 
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId + 
                                                 "&irId=" + _irId + "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
                                                 "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Now +
@@ -557,17 +430,11 @@ namespace Site.EIR
                                                 "&dcIrKindId=" +
                                                 public_kind.SelectedValue + "&dcIrPurposeId=" +
                                                 purpose_type.SelectedValue + "&isPublic=" +
-                                                (is_public.SelectedValue == "public" ? "1" : "0"));
+                                                (is_public.SelectedValue == "public" ? "true" : "false"));
                 var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var id = respDictionary["Data"].ToString();
-                if (id == "false")
-                {
-                    ShowError("Увага. Помилка при оновленні данних.");
-                    return;
-                }
 
                 json =
-                    CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIrExtra?sessionId=" + SessionId +
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/UpdateIrExtra?sessionId=" + SessionId +
                                                 "&irId=" + _irId + "&publFormId=" +
                                                 public_form.SelectedValue + "&publishOrgId=" + org_name.SelectedValue +
                                                 "&stampId=" + griff.SelectedValue + "&stampOrgId=" + griff_org_name +
@@ -577,24 +444,6 @@ namespace Site.EIR
                                                 lib_location.Text);
 
                 respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var extraId = respDictionary["Data"].ToString();
-                if (extraId == "false")
-                {
-                    ShowError("Увага. Помилка при оновленні данних.");
-                    return;
-                }
-
-                json =
-                   CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIsNumber?sessionId=" + SessionId +
-                                               "&irId=" + _irId + "&isType=" + is_type.SelectedValue +
-                                               "&isNumber=" + is_name.Text);
-                respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var isId = respDictionary["Data"].ToString();
-                if (isId == "false")
-                {
-                    ShowError("Увага. Помилка при оновленні данних.");
-                    return;
-                }
 
                 AddContributors(_irId);
                 AddExtraLengs(_irId);
@@ -602,7 +451,7 @@ namespace Site.EIR
             else
             {
                 var json =
-                    CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddIr?sessionId=" + SessionId +
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddIr?sessionId=" + SessionId +
                                                 "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
                                                 "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Now +
@@ -612,55 +461,26 @@ namespace Site.EIR
                                                 "&dcIrKindId=" +
                                                 public_kind.SelectedValue + "&dcIrPurposeId=" +
                                                 purpose_type.SelectedValue + "&isPublic=" +
-                                                (is_public.SelectedValue == "public" ? "1" : "0"));
+                                                (is_public.SelectedValue == "public" ? "true" : "false"));
                 var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var id = respDictionary["Data"].ToString();
-                if (id == "")
-                {
-                    ShowError("Увага. Помилка при збереженні данних.");
-                    return;
-                }
+                var id = (string) respDictionary["Data"];
 
                 json =
-                    CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddIrExtra?sessionId=" + SessionId +
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddIrExtra?sessionId=" + SessionId +
                                                 "&irId=" + id + "&publFormId=" +
                                                 public_form.SelectedValue + "&publishOrgId=" + org_name.SelectedValue +
-                                                "&stampId=" + griff.SelectedValue + "&stampOrgId=" + griff_org_name.SelectedValue +
+                                                "&stampId=" + griff.SelectedValue + "&stampOrgId=" + griff_org_name +
                                                 "&title=" + long_deskription.Text + "&publicYear=" + public_year.Text +
                                                 "&pages=" + page_number.Text + "&edition=" + edition.Text +
                                                 "&libLocation=" +
                                                 lib_location.Text);
 
                 respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var extraId = respDictionary["Data"].ToString();
-                if (extraId == "")
-                {
-                    ShowError("Увага. Помилка при збереженні данних.");
-                    return;
-                }
-
-
-                if (is_type.SelectedValue != null && is_name.Text != "")
-                {
-                    json =
-                        CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddIsNumber?sessionId=" + SessionId +
-                                                    "&irExtraId=" + extraId + "&isType=" + is_type.SelectedValue +
-                                                    "&isNumber=" + is_name.Text);
-                    respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                    var isId = respDictionary["Data"].ToString();
-                    if (isId == "")
-                    {
-                        ShowError("Увага. Помилка при збереженні данних.");
-                        return;
-                    }
-                }
 
                 AddContributors(id);
                 AddExtraLengs(id);
 
-                
             }
-            ShowError("Данні успішно збережені.");
         }
 
         private void AddContributors(string id)
@@ -668,61 +488,40 @@ namespace Site.EIR
             if (_irId == null)
             {
                 var json =
-                    CampusClient.DownloadString(Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" +
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" +
                                                 SessionId);
                 var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
                 var userid = ((Dictionary<string, object>) respDictionary["Data"])["UserAccountId"].ToString();
 
-                json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
+                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
                                             SessionId + "&irId=" + id +
                                             "&contTypeId=1&contPercent=100&notKPI=false&userAcountId=" + userid);
-                respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var answer = respDictionary["Data"].ToString();
-                if (answer == "false")
-                {
-                    ShowError("Увага. Помилка при збереженні данних.");
-                    return;
-                }
             }
 
-            foreach (var cont in contributorlist) // DO NOT MAKE TO LINQ!!!!!
+            foreach (var cont in contributorlist)
             {
                 if (cont.DataBaseId == null)
                 {
-                    var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
+                    CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
                                                 SessionId + "&irId=" + id + "&contTypeId=" +
                                                 cont.ContributionType + "&contPercent=" +
                                                 cont.ContributionPart + "&notKPI=" +
                                                 cont.NotKpi +
-                                                "&eEmployeeId=" + cont.eEmployeeId + "&name=" + cont.FullName + "&status=" +
+                                                "&eEmployeeId=" + cont.eEmployeeId + "&name" + cont.FullName + "&status" +
                                                 cont.Status);
-                    var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                    var answer = respDictionary["Data"].ToString();
-                    if (answer == "false")
-                    {
-                        ShowError("Увага. Помилка при збереженні данних.");
-                        return;
-                    }
                 }
             }
         }
 
         private void AddExtraLengs(string id)
         {
-            foreach (var lang in extralangaugelist) // DO NOT MAKE TO LINQ!!!!!
+            foreach (var lang in extralangaugelist)
             {
-                var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddExtraLang?sessionId="+SessionId + "&irId=" + id +
+                CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Ir/AddExtraLang?irId=" + id +
                                             "&title=" + lang.Name +
                                             "&annotation=" + lang.Annot + "&authors=" +
                                             lang.Authors + "&langId=" + lang.LangId +
                                             "&keyWords=" + lang.KeyWords);
-                var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var answer = respDictionary["Data"].ToString();
-                if (answer == "false")
-                {
-                    ShowError("Увага. Помилка при збереженні данних.");
-                    return;
-                }
             }
         }
   

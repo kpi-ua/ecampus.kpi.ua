@@ -28,6 +28,14 @@ namespace Site
 
                 form.Controls.Add(hiddenField);
 
+                var hiddenField1 = new HtmlGenericControl("input");
+                hiddenField1.Attributes.Add("id", "sssid");
+                hiddenField1.Attributes.Add("type", "hidden");
+                hiddenField1.Attributes.Add("value", SitePage.SessionId);
+
+                form.Controls.Add(hiddenField1);
+
+
                 individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
             }
             catch (Exception ex)
