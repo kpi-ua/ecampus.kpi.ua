@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
 
-
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
 
@@ -35,10 +34,8 @@
                 <div class="logo-kpi pull-right"></div>
                 <div class="text pull-right">
                     НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ
-                   
                     <br />
                     "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
-               
                 </div>
             </div>
             <div class="header-nav">
@@ -56,7 +53,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="http://stat.campus.kpi.ua/">
                                     <i class="fa fa-briefcase"></i>
                                 </a>
                             </li>
@@ -66,7 +63,6 @@
                         </ul>
                         <div class="user-name">
                             <a href="/Default.aspx">Вітаємо,
-                               
                                 <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
                         </div>
                     </div>
@@ -104,35 +100,24 @@
                         <a href="/Default.aspx">Мій профіль</a>
                     </li>
                     <li class="dropmenu">
-                        <a>Дошка оголошень<div class="chevron"></div>
+                        <a>ЄІР<div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li><a href="/Bulletins">Перегляд оголошень</a></li>
-                            <%--<li><a href="#">Редагування оголошень</a></li>--%>
+                            <li><a href="#">Пошук</a></li>
+                            <li><a href="/EIR/CardEdit.aspx">Створення</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/TimeTable">Розклад</a>
-                    </li>
-                    <li class="dropmenu">
-                        <a>Спілкування<div class="chevron"></div>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="/Messages">Повідомлення</a></li>
-                            <%--<li><a href="#">Пошук групи спілкування</a></li>
-                            <li><a href="#">Повідомлення в групі</a></li>--%>
-                        </ul>
-                    </li>
-                    <li class="dropmenu">
-                        <a>Електронні інформаційні ресурси<div class="chevron"></div>
-                        </a>
-                        <ul class="submenu">
-                            <%--<li><a href="#">Пошук ЕІР</a></li>--%>
-                            <li><a href="/EIR/CardEdit.aspx">Створити ЕІР</a></li>
-                            <li><a href="/EIR/IrGroup">Групи ЕІР</a></li>
-                            <%--<li><a href="#">Методичне забезпечення</a></li>--%>
-                        </ul>
-                    </li>
+                    <li><a href="/EIR/IrGroup">Групи ЄІР</a></li>
+                    <li><a href="/MZSearch">Методичне забезпечення</a></li>
+                    <li><a href="/RNP">РНП</a></li>
+                    <li runat="server" id="individual_plan" Visible="False"><a href="/IndividualTeachersPlan.aspx">Індивідуальний план викладча</a></li>
+                    <li><a href="#">Поточний контроль</a></li>
+                    
+                    <li><a href="/Bulletins">Дошка оголошень</a></li>
+                    <li><a href="/Messages">Спілкування</a></li>
+                    <li><a href="/TimeTable">Розклад</a></li>
+                    <li><a href="/Support.aspx">Підтримка</a></li>
+                     
                     <%--<li class="dropmenu">
                         <a>Робота
                             <div class="chevron"></div>
@@ -146,9 +131,9 @@
                             <li><a href="#">Виховна</a></li>
                         </ul>
                     </li>--%>
-                    <li>
+                   <%-- <li>
                         <a href="/RNP">Навчальний процес</a>
-                    </li>
+                    </li>--%>
                 </ul>
             </div>
             <div class="right-col">
@@ -291,7 +276,6 @@
                 Національний технічний університет України<br />
                 “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a><br />
                 Електронний кампус
-           
             </div>
 
             <div class="col-md-4"></div>

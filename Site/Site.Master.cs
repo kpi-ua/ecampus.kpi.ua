@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Linq;
+using Core;
 using System;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -34,6 +35,8 @@ namespace Site
 
                 form.Controls.Add(hiddenField1);
 
+
+                individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
             }
             catch (Exception ex)
             {
