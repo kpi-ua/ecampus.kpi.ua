@@ -290,7 +290,7 @@ $(document).on("click", ".ironediv p", function () {
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Гриф" + "</span><span class=\"col-md-6\">" + value.stamp + "</span></li>");
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Бібліографічний опис" + "</span><span class=\"col-md-6\">" + value.bibliog + "</span></li>");
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Анотація" + "</span><span class=\"col-md-6\">" + value.Annotation + "</span></li>");
-                    parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwww.AlexFrostField" + "</a></li>");
+                    //parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwww.AlexFrostField" + "</a></li>");
                     parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + callObj.attr("iid") + "\" class=\"edit btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + callObj.attr("iid") + "\" class=\"delete btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
                     
                     count++;
