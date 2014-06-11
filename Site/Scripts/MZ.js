@@ -263,9 +263,11 @@ $(document).on("click", ".ironediv p", function () {
     $(".dlete").remove();
     $(".ironediv div").remove();
 
-    $(this).attr("class", "irrow_a");
+    var callObj = $(this);
 
-    var parentDiv = $(this).parent();
+    callObj.attr("class", "irrow_a");
+
+    var parentDiv = callObj.parent();
 
     parentDiv.append("<ul class=\"ircol\"></ul>");
     console.log(parentDiv);
@@ -276,7 +278,7 @@ $(document).on("click", ".ironediv p", function () {
     $(".ircol").css("display", "none");
 
     var url = ApiEndpoint;
-    url += "MZSearch/GetOneIr?irlevelId=" + $(this).attr("iid");
+    url += "MZSearch/GetOneIr?irlevelId=" + callObj.attr("iid");
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -289,7 +291,8 @@ $(document).on("click", ".ironediv p", function () {
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Бібліографічний опис" + "</span><span class=\"col-md-6\">" + value.bibliog + "</span></li>");
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Анотація" + "</span><span class=\"col-md-6\">" + value.Annotation + "</span></li>");
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwww.AlexFrostField" + "</a></li>");
-                    parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + $(this).attr("iid") + "\" class=\"edit btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + $(this).attr("iid") + "\" class=\"delete btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
+                    parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + callObj.attr("iid") + "\" class=\"edit btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + callObj.attr("iid") + "\" class=\"delete btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
+                    
                     count++;
                 }
             });
@@ -321,7 +324,7 @@ var getRNPForDorC = function (obj, parent) {
     var url = ApiEndpoint;
 
     if ($("#body_isdisc").attr("value") == "True") {
-        url += "MZSearch/GetDiscDetailD?rtdiscId=" + obj.attr("did");
+        url += "MZSearch/GetDiscDetailR?rtdiscId=" + obj.attr("did");
     } else if ($("#body_isdisc").attr("value") == "False") {
         url += "MZSearch/GetCredDetailR?ccredId=" + obj.attr("cid");
     }
