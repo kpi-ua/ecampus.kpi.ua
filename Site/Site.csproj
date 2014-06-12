@@ -159,6 +159,7 @@
     <Content Include="apple-touch-icon-iphone.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="EIR\CardView.aspx" />
     <Content Include="EIR\IrGroup\Default.aspx" />
     <Content Include="EIR\IrGroup\IrGroupSetView.aspx" />
     <Content Include="EIR\IrGroup\IrGroupView.aspx" />
@@ -271,6 +272,7 @@
     <None Include="Properties\PublishProfiles\default.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="EIR\Search.aspx" />
     <Content Include="SessionManager.asmx" />
     <Content Include="Support.aspx" />
     <Content Include="TimeTable\TimeTableEdit.aspx" />
@@ -297,6 +299,13 @@
     </Compile>
     <Compile Include="Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\CardView.aspx.cs">
+      <DependentUpon>CardView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIR\CardView.aspx.designer.cs">
+      <DependentUpon>CardView.aspx</DependentUpon>
     </Compile>
     <Compile Include="EIR\IrGroup\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -379,6 +388,13 @@
     </Compile>
     <Compile Include="RNP\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIR\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
     <Compile Include="SessionManager.asmx.cs">
       <DependentUpon>SessionManager.asmx</DependentUpon>

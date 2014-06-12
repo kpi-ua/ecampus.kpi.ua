@@ -103,7 +103,7 @@
                         <a>ЄІР<div class="chevron"></div>
                         </a>
                         <ul class="submenu">
-                            <li><a href="#">Пошук</a></li>
+                            <li><a href="/EIR/Search.aspx">Пошук(hand made)</a></li>
                             <li><a href="/EIR/CardEdit.aspx">Створення</a></li>
                         </ul>
                     </li>
