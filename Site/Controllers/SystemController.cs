@@ -12,8 +12,6 @@ namespace Site.Controllers
         {
             if (credential.IsNotEmpty)
             {
-                ClearSessionData();
-
                 var sessionId = CampusClient.Authenticate(credential.Login, credential.Password);
 
                 if (!String.IsNullOrEmpty(sessionId))
@@ -33,13 +31,10 @@ namespace Site.Controllers
 
         public ActionResult Logout()
         {
-            return Redirect("~/login");
-        }
-
-        private void ClearSessionData()
-        {
             Session.Clear();
-            HttpContext.Response.Cookies.Clear();   
+            HttpContext.Response.Cookies.Clear();
+            FormsAuthentication.SignOut();
+            return Redirect("~/login");
         }
 
         public ActionResult Support()
