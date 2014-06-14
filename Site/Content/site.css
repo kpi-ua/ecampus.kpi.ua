@@ -216,6 +216,10 @@ a, .btn {
     margin-bottom: 10px;
 }
 
+.chosen-container{
+    position:absolute;
+}
+
 .chosen-container .chosen-drop {
     position: relative !important; /*absolute*/
     z-index: 100;
@@ -1858,4 +1862,109 @@ footer {
     /*display: -moz-inline-box;
     display: -webkit-inline-box;*/
     margin: 10px;
+}
+
+.row{
+    font-size: 14px;
+}
+
+.row:after{
+    display: block;
+    content: "";
+    clear: both;
+}
+
+.form-control{
+    padding: 0 0 0 6px;
+    border-color: #dadada;
+    border-radius: 0;
+    background: #fff9d9;
+    height: 25px;
+    line-height: 25px;
+}
+
+.chosen-container-single .chosen-single{
+    padding: 0 0 0 6px;
+    border-color: #dadada;
+    border-radius: 0;
+    background: #fff9d9;
+    height: 25px;
+    line-height: 25px;
+    box-shadow: none;
+}
+
+.chosen-container-single.chosen-container-active.chosen-with-drop {
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
+}
+
+.chosen-container.chosen-with-drop .chosen-drop {
+    background: #fff9d9;
+    border-color: #dadada;
+    border-radius: 0;
+}
+
+.chosen-container-single .chosen-single div b {
+    background-position: 0 3px;
+}
+
+.chosen-container-single .chosen-search input {
+    padding: 0 0 0 6px;
+    border-color: #dadada;
+    border-radius: 0;
+    background: #fff9d9;
+    height: 25px;
+    line-height: 25px;
+}
+
+textarea.form-control{
+    resize: vertical;
+}
+
+.control-label{
+    font-weight: bold;
+}
+
+.form-control:active,
+.form-control:focus{
+    border-color: #dadada;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.2);
+}
+
+.form-horizontal{
+    position: relative;
+    padding: 10px 10px 0 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #dadada;
+    border-radius: 0;
+    color: #5a441b;
+}
+
+.form-header{
+    display: inline-block;
+    position: absolute;
+    background: #fff;
+    top: -8px;
+    left: 16px;
+    padding: 0 4px;
+    font-weight: bold;
+}
+
+.form-horizontal:after{
+    display: block;
+    width: 100%;
+    clear: both;
+    content: "";
+}
+
+.form-horizontal .form-group:after{
+    display: block;
+    width: 100%;
+    clear: both;
+    content: "";
+}
+
+.form-horizontal .control-label{
+    text-align: left;
+    font-weight: bold;
 }
