@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     if (!("campus" in window)) {
         window.campus = {};
     }
@@ -10,22 +9,30 @@
         campus.calendarToggler(jQuery);
         campus.carousel(jQuery);
         campus.scrollTop(jQuery);
+        campus.eirFormControls(jQuery);
     });
 
 
     campus.datepickerHandler = function () {
-        $('.datepicker').datepicker({
-            altFormat: 'dd-mm-yy', // Date Format used
-            closeText: "Готово", // Display text for close link
-            prevText: "Попередній", // Display text for previous month link
-            nextText: "Наступний", // Display text for next month link
-            currentText: "Сьогодні", // Display text for current month link
-            monthNames: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"], // Names of months for drop-down and formatting
-            monthNamesShort: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"], // For formatting
-            dayNames: ["Неділя", "Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота"], // For formatting
-            dayNamesShort: ["Нед", "Пон", "Ввт", "Срд", "Чтв", "Птн", "Сбт"], // For formatting
-            dayNamesMin: ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"], // Column headings for days starting at Sunday
-            firstDay: 1 // Start with Monday
+        jQuery(function($){
+        $.datepicker.regional['ua'] = {clearText: 'Очистити', clearStatus: '',
+            closeText: 'Закрити', closeStatus: '',
+            prevText: '&lt;&lt;',  prevStatus: '',
+            nextText: '&gt;&gt;', nextStatus: '',
+            currentText: 'Сьогодні', currentStatus: '',
+            monthNames: ['Січень','Лютий','Березень','Квітень','Травень','Червень',
+            'Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'],
+            monthNamesShort: ['Січ','Лют','Бер','Кві','Тра','Чер',
+            'Лип','Сер','Вер','Жов','Лис','Гру'],
+            monthStatus: '', yearStatus: '',
+            weekHeader: 'Не', weekStatus: '',
+            dayNames: ['неділя','понеділок','вівторок','середа','четвер','пятниця','суббота'],
+            dayNamesShort: ['нед','пнд','вів','срд','чтв','птн','сбт'],
+            dayNamesMin: ['Нд','Пн','Вт','Ср','Чт','Пт','Сб'],
+            dayStatus: 'DD', dateStatus: 'D, M d',
+            dateFormat: 'dd.mm.yy', firstDay: 1, 
+            initStatus: '', isRTL: false};
+            $.datepicker.setDefaults($.datepicker.regional['ua']);
         });
 
         $(".datepicker-toggle").on("click", function () {
@@ -59,6 +66,12 @@
                 });
             }
         });
+
+        
+        $('#body_date').datepicker({ showOptions: { direction: "up" } });
+        $('#body_access_begin').datepicker({ showOptions: { direction: "up" } });
+        $('#body_access_end').datepicker({ showOptions: { direction: "up" } });
+        $('#body_doc_date').datepicker({ showOptions: { direction: "up" } });
 
     }
 
@@ -214,6 +227,35 @@
             var scrollHeight = $(this).scrollTop(),
                 rightCol = $(".right-col");
 
+        });
+    }
+
+    campus.eirFormControls = function(){
+        if($('.list').find('tr').length>0){
+            $('.list').closest('.row').before('<hr>');
+        }
+        console.log($('.list').find('tr').length);
+        $('#body_person_accessory_1').on('change', function() {
+                $('#non-kpi-person').slideDown(300);
+        });
+        $('#body_person_accessory_0').on('change', function() {
+            $('#non-kpi-person').slideUp(300);
+        });
+        $('#body_griff').on('change', function() {
+            console.log($(this).val());
+            if ($(this).val()==7){
+                $('#griff-7-block').slideDown('300');
+            } else {
+                $('#griff-7-block').slideUp('300');
+            }
+        });
+        if ($('#body_langgrid').find('tr').length>0) {
+            $('#additional-annotations').show();
+        }
+        $('#body_delete_lang').on('click', function() {
+            if ($('#body_langgrid').find('tr').length==0) {
+                $('#additional-annotations').hide();
+            } 
         });
     }
 

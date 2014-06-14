@@ -193,69 +193,77 @@
                             </div>
                         </div>
 
-                        if not from kpi
-                        <div class="form-group">
-                            <asp:Label ID="Label39" AssociatedControlID="person_type" CssClass="col-sm-3 control-label" runat="server">
-                                Статус*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:DropDownList ID="person_type" runat="server" CssClass="form-control">
-                                </asp:DropDownList>
+                        <div id="non-kpi-person">
+                            <div class="form-group">
+                                <asp:Label ID="Label39" AssociatedControlID="person_type" CssClass="col-sm-3 control-label" runat="server">
+                                    Статус*
+                                </asp:Label>
+                                <div class="col-sm-9">
+                                    <asp:DropDownList ID="person_type" runat="server" CssClass="form-control">
+                                    </asp:DropDownList>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <asp:Label ID="Label38" AssociatedControlID="not_kpi_surname" CssClass="col-sm-3 control-label" runat="server">
+                                    Прізвище*
+                                </asp:Label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox ID="not_kpi_surname" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
+                                </div>
                             </div>
                         </div>
+                        
                         <div class="form-group">
-                            <asp:Label ID="Label38" AssociatedControlID="not_kpi_surname" CssClass="col-sm-3 control-label" runat="server">
-                                Прізвище*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:TextBox ID="not_kpi_surname" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
+                            <asp:Button ID="add_contr" CssClass="btn btn-success" runat="server" Text="Додати" OnClick="add_person_Click" />
+                            <asp:Button ID="delete_contr" CssClass="btn btn-danger" runat="server" Visible="False" Text="Видалити" OnClick="delete_person_Click" />
                         </div>
-
-                        <asp:Button ID="add_contr" CssClass="btn btn-success" runat="server" Text="Додати" OnClick="add_person_Click" />
-                        <asp:Button ID="delete_contr" CssClass="btn btn-danger" runat="server" Visible="False" Text="Видалити" OnClick="delete_person_Click" />
+                        
                     </ContentTemplate>
                     
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="add_contr" EventName="Click" />
                     </Triggers>   
                 </asp:UpdatePanel>
-                <hr />
-                members
-                <asp:UpdatePanel ID="contributors_update" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <asp:GridView ID="contributorsgrid" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="contributorsgrid_OnSelectedIndexChanged" OnLoad="GridLoad" CellPadding="4" ForeColor="#333333" GridLines="None">
-                            <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
-                            <Columns>
-                                <asp:BoundField HeaderText="№" DataField="Id"></asp:BoundField>
-                                <asp:ButtonField CommandName="Select" Text="Вибрати" ButtonType="Button"></asp:ButtonField>
-                                <asp:BoundField HeaderText="Контрибьютор" DataField="FullName"></asp:BoundField>
-                            </Columns>
-                            <EditRowStyle BackColor="#2461BF"></EditRowStyle>
+                
+                <div class="row">
+                    <div class="col-sm-6 col-md-offset-3">
+                        <asp:UpdatePanel ID="contributors_update" runat="server" UpdateMode="Conditional">
+                            <ContentTemplate>
+                                <asp:GridView ID="contributorsgrid" CssClass="list" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="contributorsgrid_OnSelectedIndexChanged" OnLoad="GridLoad" CellPadding="4" ForeColor="#5a441b" GridLines="None">
+                                    <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
+                                    <Columns>
+                                        <asp:BoundField HeaderText="№" DataField="Id"></asp:BoundField>
+                                        <asp:BoundField HeaderText="Контрибьютор" DataField="FullName"></asp:BoundField>
+                                        <asp:ButtonField CommandName="Select" Text="Вибрати" ButtonType="Button" ControlStyle-CssClass="btn btn-primary"></asp:ButtonField>
+                                    </Columns>
+                                    <EditRowStyle BackColor="#ffffff"></EditRowStyle>
 
-                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"></FooterStyle>
+                                    <FooterStyle BackColor="#ffffff" Font-Bold="True" ForeColor="White"></FooterStyle>
 
-                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"></HeaderStyle>
+                                    <HeaderStyle BackColor="#ffffff" Font-Bold="True" ForeColor="White"></HeaderStyle>
 
-                            <PagerStyle HorizontalAlign="Center" BackColor="#2461BF" ForeColor="White"></PagerStyle>
+                                    <PagerStyle HorizontalAlign="Center" BackColor="#2461BF" ForeColor="White"></PagerStyle>
 
-                            <RowStyle BackColor="#EFF3FB"></RowStyle>
+                                    <RowStyle BackColor="#ffffff"></RowStyle>
 
-                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333"></SelectedRowStyle>
+                                    <SelectedRowStyle BackColor="#ffffff" Font-Bold="True" ForeColor="#000000"></SelectedRowStyle>
 
-                            <SortedAscendingCellStyle BackColor="#F5F7FB"></SortedAscendingCellStyle>
+                                    <SortedAscendingCellStyle BackColor="#ffffff"></SortedAscendingCellStyle>
 
-                            <SortedAscendingHeaderStyle BackColor="#6D95E1"></SortedAscendingHeaderStyle>
+                                    <SortedAscendingHeaderStyle BackColor="#ffffff"></SortedAscendingHeaderStyle>
 
-                            <SortedDescendingCellStyle BackColor="#E9EBEF"></SortedDescendingCellStyle>
+                                    <SortedDescendingCellStyle BackColor="#ffffff"></SortedDescendingCellStyle>
 
-                            <SortedDescendingHeaderStyle BackColor="#4870BE"></SortedDescendingHeaderStyle>
-                        </asp:GridView>
-                    </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="add_contr" EventName="Click" />
-                    </Triggers>
-                </asp:UpdatePanel>
+                                    <SortedDescendingHeaderStyle BackColor="#ffffff"></SortedDescendingHeaderStyle>
+                                </asp:GridView>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="add_contr" EventName="Click" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>  
+                
             </div>
         </div>
     </div>      
@@ -307,8 +315,9 @@
                         </asp:DropDownList>
                     </div>
                 </div>
-                <hr />
-                show if griff value = 7 
+                
+                <div id="griff-7-block">
+                    <hr />
                     <div class="form-group">
                         <asp:Label ID="Label31" AssociatedControlID="grif_country" CssClass="col-sm-3 control-label" runat="server">
                     Країна*
@@ -318,47 +327,48 @@
                             </asp:DropDownList>
                         </div>
                     </div>
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <div class="form-group">
-                            <asp:Label ID="Label32" AssociatedControlID="griff_city" CssClass="col-sm-3 control-label" runat="server">
-                    Місто*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:DropDownList ID="griff_city" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="griff_city_SelectedIndexChanged">
-                                </asp:DropDownList>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group">
+                                <asp:Label ID="Label32" AssociatedControlID="griff_city" CssClass="col-sm-3 control-label" runat="server">
+                        Місто*
+                                </asp:Label>
+                                <div class="col-sm-9">
+                                    <asp:DropDownList ID="griff_city" runat="server" CssClass="form-control" AutoPostBack="True" OnSelectedIndexChanged="griff_city_SelectedIndexChanged">
+                                    </asp:DropDownList>
+                                </div>
                             </div>
-                        </div>
-                    </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="grif_country" EventName="SelectedIndexChanged" />
-                    </Triggers>
-                </asp:UpdatePanel>
-                <asp:UpdatePanel runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <div class="form-group">
-                            <asp:Label ID="Label33" AssociatedControlID="griff_org_name" CssClass="col-sm-3 control-label" runat="server">
-                    Назва організації*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:DropDownList ID="griff_org_name" runat="server" CssClass="form-control">
-                                </asp:DropDownList>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="grif_country" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                    <asp:UpdatePanel runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <div class="form-group">
+                                <asp:Label ID="Label33" AssociatedControlID="griff_org_name" CssClass="col-sm-3 control-label" runat="server">
+                        Назва організації*
+                                </asp:Label>
+                                <div class="col-sm-9">
+                                    <asp:DropDownList ID="griff_org_name" runat="server" CssClass="form-control">
+                                    </asp:DropDownList>
+                                </div>
                             </div>
-                        </div>
-                    </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="griff_city" EventName="SelectedIndexChanged" />
-                        <asp:AsyncPostBackTrigger ControlID="grif_country" EventName="SelectedIndexChanged" />
-                    </Triggers>
-                </asp:UpdatePanel>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="griff_city" EventName="SelectedIndexChanged" />
+                            <asp:AsyncPostBackTrigger ControlID="grif_country" EventName="SelectedIndexChanged" />
+                        </Triggers>
+                    </asp:UpdatePanel>
 
-                <hr />
-                <div class="form-group">
-                    <asp:Label ID="Label26" AssociatedControlID="lib_location" CssClass="col-sm-3 control-label" runat="server">
-                    Положення в бібліотеці
-                    </asp:Label>
-                    <div class="col-sm-9">
-                        <asp:TextBox ID="lib_location" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
+                    <hr />
+                    <div class="form-group">
+                        <asp:Label ID="Label26" AssociatedControlID="lib_location" CssClass="col-sm-3 control-label" runat="server">
+                        Положення в бібліотеці
+                        </asp:Label>
+                        <div class="col-sm-9">
+                            <asp:TextBox ID="lib_location" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -474,64 +484,67 @@
                                 <asp:TextBox ID="lang_keywords" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
                             </div>
                         </div>
-
-                        show if exists at least one list item
-                        <div class="form-group">
-                            <asp:Label ID="Label7" AssociatedControlID="lang_name" CssClass="col-sm-3 control-label" runat="server">
-                                Назва
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:TextBox ID="lang_name" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                        <div id="additional-annotations">
+                             <div class="form-group">
+                                <asp:Label ID="Label7" AssociatedControlID="lang_name" CssClass="col-sm-3 control-label" runat="server">
+                                    Назва
+                                </asp:Label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox ID="lang_name" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <asp:Label ID="Label36" AssociatedControlID="lang_authors" CssClass="col-sm-3 control-label" runat="server">
+                                    Автор
+                                </asp:Label>
+                                <div class="col-sm-9">
+                                    <asp:TextBox ID="lang_authors" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <asp:Label ID="Label36" AssociatedControlID="lang_authors" CssClass="col-sm-3 control-label" runat="server">
-                                Автор
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:TextBox ID="lang_authors" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
-                            </div>
+                            <asp:Button ID="add_land" CssClass="btn btn-success" runat="server" Text="Додати" OnClick="add_lang_Click" />
+                            <asp:Button ID="delete_lang" CssClass="btn btn-danger" Visible="False" runat="server" Text="Видалити" OnClick="delete_lang_Click" />
                         </div>
-                        <asp:Button ID="add_land" CssClass="btn btn-success" runat="server" Text="Додати" OnClick="add_lang_Click" />
-                        <asp:Button ID="delete_lang" CssClass="btn btn-success" Visible="False" runat="server" Text="Видалити" OnClick="delete_lang_Click" />
-                        <hr />
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                languages list
-                <asp:UpdatePanel ID="language_update" runat="server" UpdateMode="Conditional">
-                    <ContentTemplate>
-                        <asp:GridView ID="langgrid" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="langgrid_OnSelectedIndexChanged" OnLoad="EXGridLoad" CellPadding="4" ForeColor="#333333" GridLines="None">
-                            <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
-                            <Columns>
-                                <asp:BoundField HeaderText="№" DataField="Id"></asp:BoundField>
-                                <asp:ButtonField CommandName="Select" Text="Вибрати" ButtonType="Button"></asp:ButtonField>
-                                <asp:BoundField HeaderText="Мова" DataField="LangText"></asp:BoundField>
-                            </Columns>
-                            <EditRowStyle BackColor="#2461BF"></EditRowStyle>
+                <div class="col-sm-6 col-md-offset-3">
+                    <asp:UpdatePanel ID="language_update" runat="server" UpdateMode="Conditional">
+                        <ContentTemplate>
+                            <asp:GridView CssClass="list" ID="langgrid" runat="server" AutoGenerateColumns="False" OnSelectedIndexChanged="langgrid_OnSelectedIndexChanged" OnLoad="EXGridLoad" CellPadding="4" ForeColor="#333333" GridLines="None">
+                                <AlternatingRowStyle BackColor="White"></AlternatingRowStyle>
+                                <Columns>
+                                    <asp:BoundField HeaderText="№" DataField="Id"></asp:BoundField>
+                                    <asp:BoundField HeaderText="Мова" DataField="LangText"></asp:BoundField>
+                                    <asp:ButtonField CommandName="Select" Text="Вибрати" ButtonType="Button" ControlStyle-CssClass="btn btn-primary"></asp:ButtonField>
+                                </Columns>
+                                <EditRowStyle BackColor="#ffffff"></EditRowStyle>
 
-                            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"></FooterStyle>
+                                <FooterStyle BackColor="#ffffff" Font-Bold="True" ForeColor="White"></FooterStyle>
 
-                            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White"></HeaderStyle>
+                                <HeaderStyle BackColor="#ffffff" Font-Bold="True" ForeColor="White"></HeaderStyle>
 
-                            <PagerStyle HorizontalAlign="Center" BackColor="#2461BF" ForeColor="White"></PagerStyle>
+                                <PagerStyle HorizontalAlign="Center" BackColor="#ffffff" ForeColor="White"></PagerStyle>
 
-                            <RowStyle BackColor="#EFF3FB"></RowStyle>
+                                <RowStyle BackColor="#ffffff"></RowStyle>
 
-                            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333"></SelectedRowStyle>
+                                <SelectedRowStyle BackColor="#ffffff" Font-Bold="True" ForeColor="#ffffff"></SelectedRowStyle>
 
-                            <SortedAscendingCellStyle BackColor="#F5F7FB"></SortedAscendingCellStyle>
+                                <SortedAscendingCellStyle BackColor="#ffffff"></SortedAscendingCellStyle>
 
-                            <SortedAscendingHeaderStyle BackColor="#6D95E1"></SortedAscendingHeaderStyle>
+                                <SortedAscendingHeaderStyle BackColor="#ffffff"></SortedAscendingHeaderStyle>
 
-                            <SortedDescendingCellStyle BackColor="#E9EBEF"></SortedDescendingCellStyle>
+                                <SortedDescendingCellStyle BackColor="#ffffff"></SortedDescendingCellStyle>
 
-                            <SortedDescendingHeaderStyle BackColor="#4870BE"></SortedDescendingHeaderStyle>
-                        </asp:GridView>
-                    </ContentTemplate>
-                    <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="add_contr" EventName="Click" />
-                    </Triggers>
-                </asp:UpdatePanel>
+                                <SortedDescendingHeaderStyle BackColor="#ffffff"></SortedDescendingHeaderStyle>
+                            </asp:GridView>
+                        </ContentTemplate>
+                        <Triggers>
+                            <asp:AsyncPostBackTrigger ControlID="add_contr" EventName="Click" />
+                        </Triggers>
+                    </asp:UpdatePanel>
+                </div>
+                
             </div>
         </div>
     </div>

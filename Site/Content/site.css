@@ -218,6 +218,10 @@ a, .btn {
 
 .chosen-container{
     position:absolute;
+    width: auto !important;
+    display: block;
+    left: 15px;
+    right: 15px;
 }
 
 .chosen-container .chosen-drop {
@@ -998,6 +1002,10 @@ header {
 .right-col .datepicker {
     display: none;
     border-bottom: 1px solid #fff;
+}
+
+.ui-datepicker .ui-widget{
+    height: 240px;
 }
 
 .right-col.show {
@@ -1964,7 +1972,65 @@ textarea.form-control{
     content: "";
 }
 
+.form-group > .btn{
+    margin-left: 15px;
+}
+
 .form-horizontal .control-label{
     text-align: left;
     font-weight: bold;
+}
+
+input[type="radio"]{
+    display: inline-block;
+    vertical-align: top;
+    margin: 1px 8px 0 0;
+}
+
+input[type="radio"]+label{
+    margin-right: 15px;
+}
+
+table tr{
+    height: 29px;
+}
+
+table tr td {
+    vertical-align: middle;
+}
+
+#non-kpi-person{
+    display: none;
+}
+
+.list{
+    width: 100%;
+    color: #5a441b;
+    margin-bottom: 20px;
+}
+
+.list:before{
+    display: block;
+}
+
+.list tr{
+    border-bottom: 1px solid #dadada;
+}
+
+.list tr td,
+.list tr th{
+    color: #5a441b;
+    vertical-align: middle;
+}
+
+.list tr td .btn{
+    margin: 2px 0;
+}
+
+#griff-7-block{
+    display: none;
+}
+
+#additional-annotations{
+    display: none;
 }
