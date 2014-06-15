@@ -53,7 +53,7 @@ namespace Site.EIR
         {
             base.OnLoad(e);
 
-            Client.SetCustomEndpoint("http://localhost:49945/");
+            //Client.SetCustomEndpoint("http://localhost:49945/");
 
             if(Page.IsPostBack) return;
         

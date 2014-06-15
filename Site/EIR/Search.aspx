@@ -6,7 +6,7 @@
     <input id="irEdit" type="hidden" runat="server" />
     <script type="text/javascript">
         $(document).ready(function() {
-            var url = 'http://localhost:49945/';
+            var url = ApiEndpoint;
             url += "Ir/GetIr?sessionId=" + $("body #sssid").attr("value");
             $.getJSON(url, function(data, status) {
                 if (data.Data.length > 0) {
