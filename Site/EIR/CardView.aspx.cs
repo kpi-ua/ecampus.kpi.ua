@@ -41,32 +41,32 @@ namespace Site.EIR
             var data = (Dictionary<string, object>) respDictionary["Data"];
 
 
-            name.Text = data["NameShort"].ToString();
-            short_description.Text = data["Description"].ToString();
-            date.Text = data["DatePublish"].ToString();
-            access_begin.Text = data["DateAccessStart"].ToString();
-            access_end.Text = data["DateAccessEnd"].ToString();
-            doc_number.Text = data["DocNumber"].ToString();
-            doc_date.Text = data["DocDate"].ToString();
-            public_kind.Text = data["DcIrKindName"].ToString();
-            form_type.Text = data["DcIrFormName"].ToString();
-            purpose_type.Text = data["DcIrPurposeName"].ToString();
+            name.Text = Convert.ToString(data["NameShort"]);
+            short_description.Text = Convert.ToString(data["Description"]);
+            date.Text = Convert.ToString(data["DatePublish"]);
+            access_begin.Text = Convert.ToString(data["DateAccessStart"]);
+            access_end.Text = Convert.ToString(data["DateAccessEnd"]);
+            doc_number.Text = Convert.ToString(data["DocNumber"]);
+            doc_date.Text = Convert.ToString(data["DocDate"]);
+            public_kind.Text = Convert.ToString(data["DcIrKindName"]);
+            form_type.Text = Convert.ToString(data["DcIrFormName"]);
+            purpose_type.Text = Convert.ToString(data["DcIrPurposeName"]);
 
             json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIrExtra?sessionId=" + SessionId + "&irId=" +
                                                _irId);
             respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
             data = (Dictionary<string, object>) respDictionary["Data"];
 
-            public_form.Text = data["DcPublicationFormName"].ToString();
-            org_name.Text = data["DcPublishOrgName"].ToString();
-            griff.Text = data["DcStampName"].ToString();
-            griff_org_name.Text = data["DcStampOrgName"].ToString();
+            public_form.Text = Convert.ToString(data["DcPublicationFormName"]);
+            org_name.Text = Convert.ToString(data["DcPublishOrgName"]);
+            griff.Text = Convert.ToString(data["DcStampName"]);
+            griff_org_name.Text = Convert.ToString(data["DcStampOrgName"]);
 
-            long_deskription.Text = data["TitleBibliographic"].ToString();
-            public_year.Text = data["PublicationYear"].ToString();
-            page_number.Text = data["PagesQuantity"].ToString();
-            edition.Text = data["Edition"].ToString();
-            lib_location.Text = data["LibraryLocation"].ToString();
+            long_deskription.Text = Convert.ToString(data["TitleBibliographic"]);
+            public_year.Text = Convert.ToString(data["PublicationYear"]);
+            page_number.Text = Convert.ToString(data["PagesQuantity"]);
+            edition.Text = Convert.ToString(data["Edition"]);
+            lib_location.Text = Convert.ToString(data["LibraryLocation"]);
 
 
             json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIsNumber?irExtraId=" +
@@ -76,8 +76,8 @@ namespace Site.EIR
 
             if (data != null)
             {
-                is_type.Text = data["typeName"].ToString();
-                is_name.Text = data["name"].ToString();
+                is_type.Text = Convert.ToString(data["typeName"]);
+                is_name.Text = Convert.ToString(data["name"]);
             }
 
             json =
@@ -126,5 +126,12 @@ namespace Site.EIR
             errpanel.Visible = true;
             errUpdate.Update();
         }
+
+        protected void edit_OnClick(object sender, EventArgs e)
+        {
+            Session["EirEdit"] = true;
+            Response.Redirect("CardEdit.aspx");
+        }
+
     }
 }

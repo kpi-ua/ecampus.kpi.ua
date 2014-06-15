@@ -187,9 +187,9 @@ namespace Core
             return GetStringObject(ApiEndpoint + "Ir/GetIrFeature");
         }
 
-        public Dictionary<string, object> GetKind()
+        public Dictionary<string, object> GetKind(string id)
         {
-            return GetStringObject(ApiEndpoint + "Ir/GetIrKind");
+            return GetStringObject(ApiEndpoint + "Ir/GetIrKind?featureId=" + id);
         }
 
         public Dictionary<string, object> GetCities(string countryId)

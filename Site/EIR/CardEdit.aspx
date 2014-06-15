@@ -1,7 +1,9 @@
 ﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEdit.aspx.cs" Inherits="Site.EIR.CardEdit" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <div class="page-header">
         <h1><%=Page.Title %></h1>
     </div>
@@ -174,7 +176,19 @@
                                 <asp:TextBox ID="person_name" runat="server" CssClass="form-control"></asp:TextBox>
                             </div>
                         </div>
-
+                        <%--<script type="text/javascript">
+                            $("#body_person_name").keydown(function() {
+                                if (document.getElementById("body_person_name").value.length > 3) {
+                                    var url = "http://localhost:49945/";
+                                    url += "Ir/GetPersonName?sessionId=" + $("body #sssid").attr("value") + "&name=" + document.getElementById("body_person_name").value;
+                                    $.getJSON(url, function (data, status) {
+                                        if (data.Data.length > 0) {
+                                            console.log(data.Data);
+                                        }
+                                    });
+                                }
+                            });
+                        </script>--%>
                         <div class="form-group">
                             <asp:Label ID="Label12" AssociatedControlID="contribution_type" CssClass="col-sm-3 control-label" runat="server">
                                 Тип внеску*

@@ -278,7 +278,7 @@
                 </div>
             </div>
         </div>
-    </div>
-    <asp:Button ID="edit" CssClass="btn btn-primary" runat="server" Text="Перейти на редагування" />
+  
+    <asp:Button ID="edit" CssClass="btn btn-primary" OnClick="edit_OnClick" runat="server" Text="Перейти на редагування" />
 
 </asp:Content>

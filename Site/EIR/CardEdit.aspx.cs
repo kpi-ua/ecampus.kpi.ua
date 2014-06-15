@@ -53,6 +53,7 @@ namespace Site.EIR
         {
             base.OnLoad(e);
 
+            Client.SetCustomEndpoint("http://localhost:49945/");
 
             if(Page.IsPostBack) return;
         
@@ -151,12 +152,7 @@ namespace Site.EIR
                 feature_type.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
 
-            data = CampusClient.GetKind();
-
-            foreach (var item in data)
-            {
-                public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            }
+            feature_type_SelectedIndexChanged(null, null);
 
             grif_country_SelectedIndexChanged(null, null);
             griff_city_SelectedIndexChanged(null, null);
@@ -173,18 +169,18 @@ namespace Site.EIR
             var data = (Dictionary<string, object>)respDictionary["Data"];
 
 
-            name.Text = data["NameShort"].ToString();
-            short_description.Text = data["Description"].ToString();
-            date.Text = data["DatePublish"].ToString();
-            access_begin.Text = data["DateAccessStart"].ToString();
-            access_end.Text = data["DateAccessEnd"].ToString();
-            doc_number.Text = data["DocNumber"].ToString();
-            doc_date.Text = data["DocDate"].ToString();
+            name.Text = Convert.ToString(data["NameShort"]);
+            short_description.Text = Convert.ToString(data["Description"]);
+            date.Text = Convert.ToString(data["DatePublish"]);
+            access_begin.Text = Convert.ToString(data["DateAccessStart"]);
+            access_end.Text = Convert.ToString(data["DateAccessEnd"]);
+            doc_number.Text = Convert.ToString(data["DocNumber"]);
+            doc_date.Text = Convert.ToString(data["DocDate"]);
             try
             {
-                public_kind.SelectedValue = data["DcIrKindId"].ToString();
-                form_type.SelectedValue = data["DcIrFormId"].ToString();
-                purpose_type.SelectedValue = data["DcIrPurposeId"].ToString();
+                public_kind.SelectedValue = Convert.ToString(data["DcIrKindId"]);
+                form_type.SelectedValue = Convert.ToString(data["DcIrFormId"]);
+                purpose_type.SelectedValue = Convert.ToString(data["DcIrPurposeId"]);
             }
             catch (Exception)
             {
@@ -198,29 +194,29 @@ namespace Site.EIR
 
             try
             {
-                public_form.SelectedValue = data["DcPublicationFormId"].ToString();
-                org_country.SelectedValue = data["publishCountry"].ToString();
+                public_form.SelectedValue = Convert.ToString(data["DcPublicationFormId"]);
+                org_country.SelectedValue = Convert.ToString(data["publishCountry"]);
                 org_country_SelectedIndexChanged(null, null);
-                org_city.SelectedValue = data["publishCity"].ToString();
+                org_city.SelectedValue = Convert.ToString(data["publishCity"]);
                 org_city_SelectedIndexChanged(null, null);
-                org_name.SelectedValue = data["DcPublishOrgId"].ToString();
-                griff.SelectedValue = data["DcStampId"].ToString();
-                grif_country.SelectedValue = data["stampCountry"].ToString();
+                org_name.SelectedValue = Convert.ToString(data["DcPublishOrgId"]);
+                griff.SelectedValue = Convert.ToString(data["DcStampId"]);
+                grif_country.SelectedValue = Convert.ToString(data["stampCountry"]);
                 grif_country_SelectedIndexChanged(null, null);
-                griff_city.SelectedValue = data["stampCity"].ToString();
+                griff_city.SelectedValue = Convert.ToString(data["stampCity"]);
                 griff_city_SelectedIndexChanged(null, null);
-                griff_org_name.SelectedValue = data["DcStampOrgId"].ToString();
+                griff_org_name.SelectedValue = Convert.ToString(data["DcStampOrgId"]);
             }
             catch (Exception)
             {
                 throw new Exception("Error while loading");
             }
 
-            long_deskription.Text = data["TitleBibliographic"].ToString();
-            public_year.Text = data["PublicationYear"].ToString();
-            page_number.Text = data["PagesQuantity"].ToString();
-            edition.Text = data["Edition"].ToString();
-            lib_location.Text = data["LibraryLocation"].ToString();
+            long_deskription.Text = Convert.ToString(data["TitleBibliographic"]);
+            public_year.Text = Convert.ToString(data["PublicationYear"]);
+            page_number.Text = Convert.ToString(data["PagesQuantity"]);
+            edition.Text = Convert.ToString(data["Edition"]);
+            lib_location.Text = Convert.ToString(data["LibraryLocation"]);
 
 
             json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIsNumber?irExtraId=" +
@@ -230,8 +226,8 @@ namespace Site.EIR
 
             if (data != null)
             {
-                is_type.SelectedValue = data["typeId"].ToString();
-                is_name.Text = data["name"].ToString();
+                is_type.SelectedValue = Convert.ToString(data["typeId"]);
+                is_name.Text = Convert.ToString(data["name"]);
             }
 
             json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetContributors?sessionId=" + SessionId + "&irId=" +
@@ -471,7 +467,8 @@ namespace Site.EIR
 
         protected void delete_lang_Click(object sender, EventArgs e)
         {
-            delete_contr.Visible = false;
+            LangEnable();
+            delete_lang.Visible = false;
             var lang = extralangaugelist.Find(o => o.Id.Equals(Convert.ToInt32(idlang.Text)));
             if (lang.DataBaseId != null)
             {
@@ -522,14 +519,16 @@ namespace Site.EIR
 
         #endregion
 
-        protected void feature_type_SelectedIndexChanged(object sender, EventArgs e)//узнать зависимость
+        protected void feature_type_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //var data = CampusClient.GetKind();
+            var data = CampusClient.GetKind(feature_type.SelectedValue);
 
-            //foreach (var item in data)
-            //{
-            //    public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
-            //}
+            public_kind.Items.Clear();
+
+            foreach (var item in data)
+            {
+                public_kind.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
+            }
         }
 
         #region Save Operations
@@ -598,6 +597,8 @@ namespace Site.EIR
 
                 AddContributors(_irId);
                 AddExtraLengs(_irId);
+
+                ChangeNameFull(_irId);
             }
             else
             {
@@ -658,7 +659,7 @@ namespace Site.EIR
                 AddContributors(id);
                 AddExtraLengs(id);
 
-                
+                ChangeNameFull(id);
             }
             ShowError("Данні успішно збережені.");
         }
@@ -675,7 +676,7 @@ namespace Site.EIR
 
                 json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
                                             SessionId + "&irId=" + id +
-                                            "&contTypeId=1&contPercent=100&notKPI=false&userAcountId=" + userid);
+                                            "&contTypeId=7&contPercent=100&notKPI=false&userAcountId=" + userid);
                 respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
                 var answer = respDictionary["Data"].ToString();
                 if (answer == "false")
@@ -723,6 +724,17 @@ namespace Site.EIR
                     ShowError("Увага. Помилка при збереженні данних.");
                     return;
                 }
+            }
+        }
+
+        private void ChangeNameFull(string id)
+        {
+            var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/ChangeNameFull?sessionId=" + SessionId + "&irId=" + id);
+            var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+            var answer = respDictionary["Data"].ToString();
+            if (answer == "false")
+            {
+                ShowError("Увага. Помилка при збереженні данних.");
             }
         }
   
