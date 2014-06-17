@@ -30,8 +30,9 @@
             $(document).on("click", ".irGroupLink", function (e) {
                 var irGroupId = $(this).attr("irGroupId");
 
+                SetSessionValue("irGroupId", irGroupId);
                 e.preventDefault();
-                window.open("IrGroupView.aspx?irGroupId=" + irGroupId, "_self");
+                window.open("IrGroupView.aspx", "_self");
             });
 
         });

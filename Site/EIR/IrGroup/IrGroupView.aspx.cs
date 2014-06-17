@@ -16,7 +16,7 @@ namespace Site.EIR.IrGroup
         {
             base.OnLoad(e);
 
-            irGroupId = Convert.ToInt32(Request.QueryString["irGroupId"]);
+            irGroupId = Convert.ToInt32(Session["irGroupId"]);
 
             var urlGroup = Campus.SDK.Client.BuildUrl("IrGroup", "GetIrGroupData", new { SessionId, irGroupId });
             var resultGroup = CampusClient.Get(urlGroup);
