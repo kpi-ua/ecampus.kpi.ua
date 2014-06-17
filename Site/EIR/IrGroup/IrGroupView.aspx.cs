@@ -16,7 +16,13 @@ namespace Site.EIR.IrGroup
         {
             base.OnLoad(e);
 
-            irGroupId = Convert.ToInt32(Session["irGroupId"]);
+            irGroupId = Convert.ToInt32(Request.QueryString["irGroupId"]);
+
+            var urlGroup = Campus.SDK.Client.BuildUrl("IrGroup", "GetIrGroupData", new { SessionId, irGroupId });
+            var resultGroup = CampusClient.Get(urlGroup);
+            var innerGroup = JsonConvert.DeserializeObject(resultGroup.Data.ToString());
+            group_name.InnerText = innerGroup["Name"];
+
             var content = GetGroupContentByID(irGroupId);
             foreach (var ir in content)
             {

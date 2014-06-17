@@ -4,6 +4,8 @@
     
     <div class="page-header">
         <h1><%=Page.Title %></h1>
+        <h2 id="group_name" runat="server"></h2>
+
     </div>
 
     <asp:Button ID="add_ir" runat="server" Text="Додати ЕІР" CssClass="btn btn-warning" ClientIDMode="Static" />

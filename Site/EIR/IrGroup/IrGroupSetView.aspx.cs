@@ -10,22 +10,30 @@ namespace Site.EIR.IrGroup
 {
     public partial class IrGroupSetView : Core.SitePage
     {
+        private int subdivisionId;
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            var subdivisionId = Convert.ToInt32(Session["subdivisionIrId"]);
-            Session.Remove("subdivisionIrId");
+            subdivisionId = Convert.ToInt32(Request.QueryString["subdivisionId"]);
 
             string url;
+            string urlSubdivision;
 
             if (subdivisionId == -1)
             {
                 url = Campus.SDK.Client.BuildUrl("IrGroup", "GetAllPrivateIrGroups", new { SessionId });
+                subdivision_name.InnerText = "Приватні";
             }
             else
             {
                 url = Campus.SDK.Client.BuildUrl("IrGroup", "GetAllIrGroups", new { SessionId, subdivisionId });
+
+                urlSubdivision = Campus.SDK.Client.BuildUrl("Subdivision", "GetSubdivisionData", new { SessionId, dcSubdivisionId = subdivisionId });
+                var resultSubdivision = CampusClient.Get(urlSubdivision);
+                var innerSubdivision = JsonConvert.DeserializeObject(resultSubdivision.Data.ToString());
+                subdivision_name.InnerText = innerSubdivision["Name"];
             }
 
             var result = CampusClient.Get(url);

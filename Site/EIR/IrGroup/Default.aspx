@@ -28,10 +28,8 @@
 
             $(document).on("click", ".irGroupLink", function (e) {
                 var irGroupId = $(this).attr("subdivisionIrId");
-
-                SetSessionValue("subdivisionIrId", irGroupId);
                 e.preventDefault();
-                window.open("IrGroupSetView.aspx", "_self");
+                window.open("IrGroupSetView.aspx?subdivisionId=" + irGroupId, "_self");
             });
 
         });
