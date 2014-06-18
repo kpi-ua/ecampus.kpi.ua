@@ -216,7 +216,7 @@ a, .btn {
     margin-bottom: 10px;
 }
 
-.chosen-container{
+/*.chosen-container{
     position:absolute;
     width: auto !important;
     display: block;
@@ -225,9 +225,9 @@ a, .btn {
 }
 
 .chosen-container .chosen-drop {
-    position: relative !important; /*absolute*/
+    position: relative !important;
     z-index: 100;
-}
+}*/
 
 #inpDiscOrCred {
     max-height: 45px !important;
@@ -972,6 +972,7 @@ header {
 
 .content {
     overflow: hidden;
+    
 }
 
     .content .left-col {
@@ -1004,7 +1005,7 @@ header {
     border-bottom: 1px solid #fff;
 }
 
-.ui-datepicker .ui-widget{
+.ui-datepicker .ui-widget {
     height: 240px;
 }
 
@@ -1793,6 +1794,7 @@ footer {
 
 #content {
     overflow: hidden;
+    min-height: 500px;
 }
 
     #content h2 {
@@ -1872,7 +1874,7 @@ footer {
     margin: 10px;
 }
 
-.row{
+/*.row{
     font-size: 14px;
 }
 
@@ -1980,18 +1982,18 @@ textarea.form-control{
     text-align: left;
     font-weight: bold;
 }
-
-input[type="radio"]{
+*/
+input[type="radio"] {
     display: inline-block;
     vertical-align: top;
     margin: 1px 8px 0 0;
 }
 
-input[type="radio"]+label{
-    margin-right: 15px;
-}
+    input[type="radio"] + label {
+        margin-right: 15px;
+    }
 
-table tr{
+/*table tr{
     height: 29px;
 }
 
@@ -2026,11 +2028,11 @@ table tr td {
 .list tr td .btn{
     margin: 2px 0;
 }
-
-#griff-7-block{
+*/
+#griff-7-block {
     display: none;
 }
 
-#additional-annotations{
+#additional-annotations {
     display: none;
 }
