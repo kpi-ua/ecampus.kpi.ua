@@ -25,6 +25,11 @@
             });
         };
 
+        function httpGet(url) {
+            $.getJSON(url, function (data, status) {
+                alert(status);
+            });
+        }
 
 
         $(document).ready(function () {

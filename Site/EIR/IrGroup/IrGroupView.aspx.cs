@@ -53,6 +53,7 @@ namespace Site.EIR.IrGroup
             var nameShort = new HtmlGenericControl("h5");
             var nameFull = new HtmlGenericControl("h6");
             var description = new HtmlGenericControl("p");
+            var deleteButton = new Button();
 
 
             groupLink.PostBackUrl = Request.Url.AbsolutePath;
@@ -74,12 +75,18 @@ namespace Site.EIR.IrGroup
             nameFull.InnerText = group["NameFull"].ToString();
             description.InnerText = group["Description"].ToString();
 
+            deleteButton.Text = "Видалити";
+            var irId = group["IrId"].ToString();
+            var url = Campus.SDK.Client.BuildUrl("IrGroup", "DeleteIrFromGroup", new { SessionId, irGroupId, irId });
+            deleteButton.OnClientClick = "httpGet(\"" + url + "\");";
+
             mainDiv.Controls.Add(nameShort);
             mainDiv.Controls.Add(nameFull);
             mainDiv.Controls.Add(description);
             groupLink.Controls.Add(mainDiv);
 
             LinkContainer.Controls.Add(groupLink);
+            LinkContainer.Controls.Add(deleteButton);
         }
 
         protected void EditGroup_Click(object sender, EventArgs e)
