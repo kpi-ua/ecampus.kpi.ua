@@ -26,7 +26,7 @@ namespace Site.EIR.IrGroup
                     {
                         Page.Title = "Редагувати ЕІР";
                         deleteBTN.Visible = true;
-                        irGroupId = Convert.ToInt32(Request.QueryString["irGroupId"]);
+                        irGroupId = Convert.ToInt32(Session["irGroupId"]);
                         FillValues();
                         break;
                     }

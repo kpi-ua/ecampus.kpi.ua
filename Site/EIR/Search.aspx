@@ -18,9 +18,15 @@
         };
 
 
+        function httpGet(url) {
+            $.getJSON(url, function (data, status) {
+                alert(status);
+            });
+        }
+
         $(document).ready(function () {
             $(document).on("click", ".irLink", function (e) {
-                var irGroupId = $(this).attr("irGroupId");
+                var irGroupId = $(this).attr("IrId");
 
                 SetSessionValue("EirId", irGroupId);
                 e.preventDefault();

@@ -56,14 +56,18 @@ namespace Site.EIR.IrGroup
 
 
             groupLink.PostBackUrl = Request.Url.AbsolutePath;
-            //groupLink.Attributes.Add("class", "messageLink");
+            groupLink.Attributes.Add("class", "irLink");
             groupLink.Attributes.Add("IrId", group["IrId"].ToString());
 
-            mainDiv.Attributes.Add("id", "mainBlock");
+            mainDiv.Attributes.Add("id", "irGroupMainBlock");
             mainDiv.Attributes.Add("class", ".form-inline");
 
             nameShort.Attributes.Add("id", "irGroupName");
             nameShort.Attributes.Add("class", "text-primary");
+
+
+            description.Attributes.Add("class", "irGroupDescription");
+            nameFull.Attributes.Add("class", "irGroupDescription");
 
 
             nameShort.InnerText = group["NameShort"].ToString();
@@ -80,7 +84,14 @@ namespace Site.EIR.IrGroup
 
         protected void EditGroup_Click(object sender, EventArgs e)
         {
-            Response.Redirect("NewIrGroup.aspx?type=edit&irGroupId=" + irGroupId);
+            //Session.Add("irGroupId", irGroupId);
+            Response.Redirect("NewIrGroup.aspx?type=edit");
+        }
+
+        protected void AddIr_Click(object sender, EventArgs e)
+        {
+            //Session.Add("irGroupId", irGroupId);
+            Response.Redirect("/EIR/Search.aspx?type=group");
         }
 
     }

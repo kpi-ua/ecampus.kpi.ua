@@ -8,7 +8,7 @@ namespace Site.EIR.IrGroup
     {
         protected void Page_Init(object sender, EventArgs e)
         {
-            AutoLogin();
+            //AutoLogin();
 
             IrGroupListRendering(-1, "Приватні");
             IrGroupListRendering(10193, "Кафедра технiчної кiбернетики ФІОТ");

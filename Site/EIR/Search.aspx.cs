@@ -16,12 +16,23 @@ namespace Site
 {
     public partial class Search : Core.SitePage
     {
+        bool isGroup;
+        Client client;
+        string addGroupUrl;
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            var client = new Campus.SDK.Client();
+            if(Request.QueryString["type"] != null) {
+                isGroup = (Request.QueryString["type"].Equals("group"));
+                var irGroupId = Session["irGroupId"].ToString();
+                addGroupUrl = Campus.SDK.Client.BuildUrl("IrGroup", "AddIrToGroup", new { SessionId, irGroupId }) + "&irId=";
+            }
+
+            client = new Campus.SDK.Client();
             var url = Campus.SDK.Client.BuildUrl("Ir", "GetIr", new { SessionId });
+            
             var result = client.Get(url);
 
             var inner = JsonConvert.DeserializeObject(result.Data.ToString());
@@ -48,7 +59,7 @@ namespace Site
 
             irLink.PostBackUrl = Request.Url.AbsolutePath;
             irLink.Attributes.Add("class", "irLink list-item list-item-info");
-            irLink.Attributes.Add("irGroupId", group["IrId"].ToString());
+            irLink.Attributes.Add("IrId", group["IrId"].ToString());
 
             mainDiv.Attributes.Add("id", "irGroupMainBlock");
             //mainDiv.Attributes.Add("class", ".form-inline");
@@ -62,12 +73,25 @@ namespace Site
             nameFull.InnerText = group["NameFull"].ToString();
             description.InnerText = group["IrId"].ToString();
 
+            
+
             mainDiv.Controls.Add(nameShort);
             mainDiv.Controls.Add(nameFull);
             mainDiv.Controls.Add(description);
+            
             irLink.Controls.Add(mainDiv);
 
             LinkContainer.Controls.Add(irLink);
+
+            if (isGroup)
+            {
+                var addToGroupButton = new Button();
+                addToGroupButton.Text = "Додати до групи";
+                var url = addGroupUrl + group["IrId"].ToString();
+                //var url = "\"http://localhost:49945/\"";
+                addToGroupButton.OnClientClick = "httpGet(\"" + url + "\");";
+                LinkContainer.Controls.Add(addToGroupButton);
+            }
         }
 
     }
