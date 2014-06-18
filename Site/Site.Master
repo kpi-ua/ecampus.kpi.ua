@@ -100,14 +100,14 @@
                         <a href="/Default.aspx">Мій профіль</a>
                     </li>
                     <li class="dropmenu">
-                        <a>ЄІР<div class="chevron"></div>
+                        <a>ЕІР<div class="chevron"></div>
                         </a>
                         <ul class="submenu">
                             <li><a href="/EIR/Search.aspx">Пошук(hand made)</a></li>
                             <li><a href="/EIR/CardEdit.aspx">Створення</a></li>
                         </ul>
                     </li>
-                    <li><a href="/EIR/IrGroup">Групи ЄІР</a></li>
+                    <li><a href="/EIR/IrGroup">Групи ЕІР</a></li>
                     <li><a href="/MZSearch">Методичне забезпечення</a></li>
                     <li><a href="/RNP">РНП</a></li>
                     <li runat="server" id="individual_plan" Visible="False"><a href="/IndividualTeachersPlan.aspx">Індивідуальний план викладча</a></li>
