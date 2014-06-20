@@ -86,10 +86,11 @@ namespace Site
             if (isGroup)
             {
                 var addToGroupButton = new Button();
+                addToGroupButton.UseSubmitBehavior = false;
                 addToGroupButton.Text = "Додати до групи";
                 var url = addGroupUrl + group["IrId"].ToString();
                 //var url = "\"http://localhost:49945/\"";
-                addToGroupButton.OnClientClick = "httpGet(\"" + url + "\");";
+                addToGroupButton.OnClientClick = "httpGet(\"" + url + "\"); return false;";
                 LinkContainer.Controls.Add(addToGroupButton);
             }
         }
