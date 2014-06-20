@@ -11,11 +11,11 @@
     <script src="/Scripts/MZ.js"></script>
 
     <div id="disc_cred_radio" class="row">
-        <div class="col-md-2 ">
+        <div class="col-md-4">
             <asp:RadioButton ID="inpDisc" type="radio" GroupName="dcgroup" value="Disc" Checked="True" runat="server" AutoPostBack="True" OnCheckedChanged="inpDisc_OnCheckedChanged" />
             Дисципліна
         </div>
-        <div class="col-md-3 ">
+        <div class="col-md-8">
             <asp:RadioButton ID="inpCred" type="radio" GroupName="dcgroup" value="Cred" runat="server" OnCheckedChanged="inpCred_OnCheckedChanged" AutoPostBack="True" />
             Кредитний модуль
         </div>
@@ -25,14 +25,14 @@
 
         <div id="DCdiv" runat="server">
             <span id="NameDisc" runat="server" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть дисципліну</span>
-            <div class="input-group col-md-9 col-md-offset-3">
+            <div class="input-group col-md-9">
                 <asp:DropDownList ID="DiscList" runat="server" class="form-control" placeholder="Почніть вводити назву дисципліни" AutoPostBack="true" OnSelectedIndexChanged="DiscList_OnSelectedIndexChanged"></asp:DropDownList>
             </div>
         </div>
 
-        <div id="Sdiv" runat="server" style="margin-top: -40px;">
+        <div id="Sdiv" runat="server">
             <span id="NameSpec" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть спеціальність</span>
-            <div class="input-group col-md-9 col-md-offset-3">
+            <div class="input-group col-md-9">
                 <asp:DropDownList ID="SList" runat="server" class="form-control" placeholder="Почніть вводити назву спеціальності" AutoPostBack="true" OnSelectedIndexChanged="SList_OnSelectedIndexChanged"></asp:DropDownList>
             </div>
         </div>
