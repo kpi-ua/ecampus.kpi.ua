@@ -61,6 +61,7 @@ namespace Site.EIR
 
             if (Session["EirEdit"] != null && (bool)Session["EirEdit"])
             {
+                Session["EirEdit"] = false;
                 if (Session["EirId"] == null)
                 {
                     ShowError("Помилка при завантаженні сторінки.");
@@ -549,7 +550,7 @@ namespace Site.EIR
                     CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId + 
                                                 "&irId=" + _irId + "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
-                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Now +
+                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Today +
                                                 "&accessStart=" + access_begin.Text + "&accessEnd=" + access_end.Text +
                                                 "&docNumber=" + doc_number.Text +
                                                 "&docDate=" + doc_date.Text + "&dcIrFormId=" + form_type.SelectedValue +
@@ -606,7 +607,7 @@ namespace Site.EIR
                     CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddIr?sessionId=" + SessionId +
                                                 "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
-                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Now +
+                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Today +
                                                 "&accessStart=" + access_begin.Text + "&accessEnd=" + access_end.Text +
                                                 "&docNumber=" + doc_number.Text +
                                                 "&docDate=" + doc_date.Text + "&dcIrFormId=" + form_type.SelectedValue +
