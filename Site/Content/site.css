@@ -1311,8 +1311,9 @@ header {
     }
 
     .eir .control-label {
-        font-weight: bold;
-    }
+
+    margin-left: 30px;
+    widt
 
     .eir .form-control:active,
     .eir .form-control:focus {

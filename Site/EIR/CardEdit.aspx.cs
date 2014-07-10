@@ -21,6 +21,7 @@ namespace Site.EIR
         public string FullName { get; set; }
         public string ContributionType { get; set; }
         public string ContributionPart { get; set; }
+        public string ContributorFullText { get; set; }
         public string Status { get; set; }
     }
 
@@ -328,6 +329,7 @@ namespace Site.EIR
                     FullName = person_name.Text != "" ? person_name.Text : not_kpi_surname.Text,
                     ContributionType = contribution_type.SelectedValue,
                     ContributionPart = contribution_part.Text,
+                    ContributorFullText = (person_name.Text != "" ? person_name.Text : not_kpi_surname.Text) + ", " + contribution_type.SelectedItem.Text + ", " + contribution_part.Text + "%",
                     Status = person_type.SelectedValue
                 });
             }
@@ -440,7 +442,7 @@ namespace Site.EIR
                     Annot = annotation.Text,
                     KeyWords = lang_keywords.Text,
                     Name = lang_name.Text,
-                    Authors = lang_authors.Text
+                    Authors = lang_authors.Text,
 
                 });
             }

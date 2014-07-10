@@ -4,7 +4,7 @@ $(document).ready(function () {
     var sessionId = $("#hidden").val();
     var user_id = $("#uhidden").val();
 
-    $("select").chosen();
+    //$("select").chosen();
 
     $(document).on("click", ".chosen-choices", function (e) {
         if ($(".search-field").length < 1) {

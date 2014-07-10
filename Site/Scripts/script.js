@@ -3,6 +3,10 @@
         window.campus = {};
     }
 
+ 
+      
+
+
     jQuery(function () {
         campus.datepickerHandler(jQuery);
         campus.menuHandler(jQuery);
@@ -68,12 +72,10 @@
         });
 
         
-        $('#body_date').datepicker({ showOptions: { direction: "up" } });
-        $('#body_access_begin').datepicker({ showOptions: { direction: "up" } });
-        $('#body_access_end').datepicker({ showOptions: { direction: "up" } });
-        $('#body_doc_date').datepicker({ showOptions: { direction: "up" } });
+        
 
     }
+
 
     campus.menuHandler = function () {
         $(".left-nav li").on("click", function () {
