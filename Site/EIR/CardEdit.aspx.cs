@@ -17,6 +17,7 @@ namespace Site.EIR
         public int Id { get; set; }
         public bool NotKpi { get; set; }
         public string eEmployeeId { get; set; }
+        public string UserAccauntId { get; set; }
         public string DataBaseId { get; set; }
         public string FullName { get; set; }
         public string ContributionType { get; set; }

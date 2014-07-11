@@ -1,10 +1,9 @@
 ﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEdit.aspx.cs" Inherits="Site.EIR.CardEdit" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <%--<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>--%>
-    <script src="../Scripts/jquery.autocomplete.js"></script>
+    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
     <div class="page-header">
         <h1><%= Page.Title %></h1>
     </div>
@@ -18,35 +17,39 @@
 
         .members-text { font-size: 14px; }
 
-        .autocomplete-suggestions {
-            -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-            -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-            background: #FFF;
-            border: 1px solid #999;
-            box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);
-            cursor: default;
-            overflow: auto;
-        }
-
-        .autocomplete-suggestion {
-            overflow: hidden;
-            padding: 2px 5px;
-            white-space: nowrap;
-        }
-
-        .autocomplete-selected { background: #F0F0F0; }
-
-        .autocomplete-suggestions strong {
-            color: #3399FF;
-            font-weight: normal;
-        }
     </style>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
+            $("#access_begin").datepicker();
+            $("#date").datepicker();
+            $("#access_end").datepicker();
+            $("#doc_date").datepicker();
+
             $("#body_page_number").keyup(function() {
                 $("#body_page_quantity").val($("#body_page_number").val() / 24);
                 console.log($("#body_page_number").val() / 24);
             });
+                $("#body_person_name").autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: ApiEndpoint + "Ir/GetPersonName?session=" + $("#sssid").val() + "&name=" + $("#body_person_name").val(),
+                            success: function(data) { // modify your response here.
+                                response($.map(data.Data, function(value, key) {
+                                    return {
+                                        value: value.Name,
+                                        data: value.Id,
+                                        acs: value.Accessority
+                                    };
+                                }));
+                            }
+                        });
+                    },
+                    minLength: 3, // set the min characters to type to initiate ajax call
+                    select: function(event, ui) {
+                        console.log(ui.item.data);
+                        $("#body_person_name_id").val(ui.item.data);
+                    }
+                });
             
         });
     </script>
@@ -622,4 +625,5 @@
     </div>
     <hr />
     <asp:Button ID="save" CssClass="btn btn-success" runat="server" Text="Зберегти" OnClick="save_Click" />
+    <asp:Label runat="server" ID="person_name_id" Visible="False" Text="kjhhkjhk"></asp:Label>
 </asp:Content>
