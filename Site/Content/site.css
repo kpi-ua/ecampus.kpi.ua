@@ -972,7 +972,6 @@ header {
 
 .content {
     overflow: hidden;
-    
 }
 
     .content .left-col {
@@ -1311,9 +1310,8 @@ header {
     }
 
     .eir .control-label {
-
-    margin-left: 30px;
-    widt
+        margin-left: 30px;
+    }
 
     .eir .form-control:active,
     .eir .form-control:focus {
