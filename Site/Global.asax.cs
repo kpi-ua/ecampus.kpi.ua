@@ -1,5 +1,4 @@
 ﻿using Core;
-using System.Net;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -10,15 +9,14 @@ namespace Site
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            Config.RegisterRoutes(RouteTable.Routes);
+            Configuration.RegisterRoutes(RouteTable.Routes);
 
-            var proxy = new WebProxy("10.13.100.13:3128", true)
+            if (Core.Configuration.Current.ProxyEnabled)
             {
-                Credentials = new NetworkCredential("kbis_user", "kbis13")
-            };
+                Campus.SDK.Client.Proxy = Core.Configuration.Current.Proxy;
+            }
 
-            //Client.Proxy = proxy;
-            //Campus.SDK.Client.SetCustomEndpoint("http://localhost:49945/");
+            Campus.SDK.Client.SetCustomEndpoint(Core.Configuration.Current.ApiEndpoint);
 
             Campus.SDK.Client.GetFromCache += Cache.Get;
             Campus.SDK.Client.AddToCache += Cache.Set;

@@ -5,6 +5,7 @@ namespace Site.Controllers
 {
     public class HomeController : SiteController
     {
+        [OutputCache(Duration = Core.Configuration.OutputCacheDuration, VaryByParam = "*")]
         public ActionResult Index()
         {
             return View();

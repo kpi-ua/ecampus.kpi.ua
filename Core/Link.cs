@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
 
 namespace Core
 {
     public class Link
     {
-        public string Title { get; set; }
-        public string Image { get; set; }
-        public string Description { get; set; }
-        public string Url { get; set; }
+        public String Title { get; set; }
+        public String Image { get; set; }
+        public String Description { get; set; }
+        public String Url { get; set; }
     }
 }

@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using Campus.SDK;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,6 +14,7 @@ namespace Core
     public class CampusClient : Campus.SDK.Client
     {
         private readonly JavaScriptSerializer _serializer = new JavaScriptSerializer();
+
         private T Get<T>(string controller, string method, object arguments = null)
             where T : class
         {
@@ -46,6 +46,24 @@ namespace Core
         }
 
         private WebClient _client;
+
+        private WebClient CreateWebClient()
+        {
+            if (_client == null)
+            {
+                _client = new WebClient
+                {
+                    Encoding = System.Text.Encoding.UTF8
+                };
+
+                if (Campus.SDK.Client.Proxy != null)
+                {
+                    _client.Proxy = Campus.SDK.Client.Proxy;
+                }
+            }
+
+            return _client;
+        }
 
         public Dictionary<String, object> GetData(string url)
         {
@@ -81,24 +99,6 @@ namespace Core
             }
 
             return text;
-        }
-
-        private WebClient CreateWebClient()
-        {
-            if (_client == null)
-            {
-                _client = new WebClient
-                {
-                    Encoding = System.Text.Encoding.UTF8
-                };
-
-                if (Campus.SDK.Client.Proxy != null)
-                {
-                    _client.Proxy = Campus.SDK.Client.Proxy;
-                }
-            }
-
-            return _client;
         }
 
         public IList<Campus.Common.Message> GetUserConversation(string sessionId, int groupId, int size, out PagedList.IPagedList paging)
@@ -207,15 +207,6 @@ namespace Core
             return GetStringObject(ApiEndpoint + "Ir/GetPublishOrg?cityId=" + cityId);
         }
 
-        public IEnumerable<JObject> GetAllPrivateIrGroups(string SessionId)
-        {
-            var url = BuildUrl("IrGroup", "GetAllPrivateIrGroups", new { SessionId });
-            var result = Get(url);
-            var inner = JsonConvert.DeserializeObject(result.Data.ToString());
-            var groups = ((IEnumerable<Object>)inner).Cast<JObject>().ToList();
-            return groups;
-        }
-
         public bool ChangePassword(string sessionId, string oldPassword, string newPassword)
         {
             var url = BuildUrl("User", "ChangePassword", new { sessionId, old = oldPassword, password = newPassword });
@@ -284,6 +275,5 @@ namespace Core
 
             return permissions;
         }
-
     }
 }
