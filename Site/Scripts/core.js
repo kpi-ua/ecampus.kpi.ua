@@ -1,4 +1,9 @@
-﻿var ApiEndpoint = "http://api.ecampus.kpi.ua/";
+﻿
+var ApiEndpoint;
+
+$(document).ready(function() {
+    ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
+});
 
 $(document).ready(function () {
     var sessionId = $("#hidden").val();

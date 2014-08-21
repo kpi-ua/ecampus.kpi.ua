@@ -256,15 +256,6 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.RadioButtonList is_public;
         
         /// <summary>
-        /// UpdatePanel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel3;
-        
-        /// <summary>
         /// idcontr control.
         /// </summary>
         /// <remarks>
@@ -310,42 +301,6 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.TextBox person_name;
         
         /// <summary>
-        /// Label12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label12;
-        
-        /// <summary>
-        /// contribution_type control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList contribution_type;
-        
-        /// <summary>
-        /// Label13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label13;
-        
-        /// <summary>
-        /// contribution_part control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox contribution_part;
-        
-        /// <summary>
         /// Label39 control.
         /// </summary>
         /// <remarks>
@@ -382,40 +337,40 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.TextBox not_kpi_surname;
         
         /// <summary>
-        /// add_contr control.
+        /// Label12 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button add_contr;
+        protected global::System.Web.UI.WebControls.Label Label12;
         
         /// <summary>
-        /// delete_contr control.
+        /// contribution_type control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button delete_contr;
+        protected global::System.Web.UI.WebControls.DropDownList contribution_type;
         
         /// <summary>
-        /// contributors_update control.
+        /// Label13 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel contributors_update;
+        protected global::System.Web.UI.WebControls.Label Label13;
         
         /// <summary>
-        /// contributorsgrid control.
+        /// contribution_part control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView contributorsgrid;
+        protected global::System.Web.UI.WebControls.TextBox contribution_part;
         
         /// <summary>
         /// Label2 control.
@@ -607,24 +562,6 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.DropDownList org_country;
         
         /// <summary>
-        /// Label40 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label40;
-        
-        /// <summary>
-        /// DropDownList1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
-        
-        /// <summary>
         /// UpdatePanel2 control.
         /// </summary>
         /// <remarks>
@@ -704,24 +641,6 @@ namespace Site.EIR {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox public_year;
-        
-        /// <summary>
-        /// langtextupdate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel langtextupdate;
-        
-        /// <summary>
-        /// idlang control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label idlang;
         
         /// <summary>
         /// Label9 control.
@@ -814,42 +733,6 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.TextBox lang_authors;
         
         /// <summary>
-        /// add_land control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button add_land;
-        
-        /// <summary>
-        /// delete_lang control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button delete_lang;
-        
-        /// <summary>
-        /// language_update control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel language_update;
-        
-        /// <summary>
-        /// langgrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView langgrid;
-        
-        /// <summary>
         /// Label34 control.
         /// </summary>
         /// <remarks>
@@ -902,5 +785,14 @@ namespace Site.EIR {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label person_name_id;
+        
+        /// <summary>
+        /// json_text control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label json_text;
     }
 }

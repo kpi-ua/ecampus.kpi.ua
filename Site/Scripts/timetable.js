@@ -1,4 +1,7 @@
-var ApiEndpoint = "http://api.ecampus.kpi.ua/";
+var ApiEndpoint;
+$(document).ready(function() {
+    ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
+});
 
 // indentificaniya
 function profile(sessionId) {

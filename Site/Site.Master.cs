@@ -16,7 +16,7 @@ namespace Site
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
+            
             try
             {
                 UserName.Text = SitePage.CurrentUser.FullName;

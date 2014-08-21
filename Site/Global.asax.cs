@@ -18,6 +18,7 @@ namespace Site
 
             Campus.SDK.Client.SetCustomEndpoint(Core.Configuration.Current.ApiEndpoint);
 
+
             Campus.SDK.Client.GetFromCache += Cache.Get;
             Campus.SDK.Client.AddToCache += Cache.Set;
         }

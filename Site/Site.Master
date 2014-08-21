@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Site.SiteMaster" %>
+<%@ Import Namespace="Campus.SDK" %>
 
 <html>
 <head runat="server">
@@ -24,7 +25,7 @@
 
 </head>
 <body>
-
+    <label id ="ApiEndpoint" style="display:none"><%=Client.ApiEndpoint %></label>
     <div class="wrap container">
 
         <header>
@@ -145,7 +146,7 @@
                             var date = curr();
                             var sessionId = $("#sssid").val();
 
-                            $.getJSON("http://api.ecampus.kpi.ua/Calendar/GetAllForUserDateCount?sessionId=" + sessionId + "&date=" + date, function (data) {
+                            $.getJSON(ApiEndpoint + "Calendar/GetAllForUserDateCount?sessionId=" + sessionId + "&date=" + date, function (data) {
                                 $("#counter").innerHTML = data["Date"];
                             });
                         }));
@@ -190,7 +191,7 @@
                             date = curr();
                         }
 
-                        $.getJSON("http://api.ecampus.kpi.ua/Calendar/AddNewPlanner?sessionId=" + sessionId + "&task=" + task + "&date=" + date + "&time=" + time, function () {
+                        $.getJSON(ApiEndpoint + "Calendar/AddNewPlanner?sessionId=" + sessionId + "&task=" + task + "&date=" + date + "&time=" + time, function () {
                             getPlanner(date, id);
                         });
                     }
@@ -206,7 +207,7 @@
                             date = curr();
                         }
 
-                        $.getJSON("http://api.ecampus.kpi.ua/Calendar/GetAllForUserDate?sessionId=" + sessionId + "&date=" + date, function (data) {
+                        $.getJSON(ApiEndpoint + "Calendar/GetAllForUserDate?sessionId=" + sessionId + "&date=" + date, function (data) {
                             var items = "";
                             if (data["Data"].length == 0)
                                 document.getElementById(id).innerHTML = "<li class='event'>Події відсутні</li>";

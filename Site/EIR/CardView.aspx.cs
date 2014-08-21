@@ -32,6 +32,8 @@ namespace Site.EIR
 
         private void FillValues()
         {
+
+
             var json =
                 CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetIr?sessionId=" + SessionId + "&id=" + _irId);
             var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);

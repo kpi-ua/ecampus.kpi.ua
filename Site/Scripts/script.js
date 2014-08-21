@@ -237,12 +237,13 @@
             $('.list').closest('.row').before('<hr>');
         }
         console.log($('.list').find('tr').length);
-        $('#body_person_accessory_1').on('change', function() {
-                $('#non-kpi-person').slideDown(300);
-        });
-        $('#body_person_accessory_0').on('change', function() {
-            $('#non-kpi-person').slideUp(300);
-        });
+        //$('#body_person_accessory_1').on('change', function() {
+        //    $('#non-kpi-person').slideDown(300);
+        //    $('#person_name_div').slideUp(300);
+        //});
+        //$('#body_person_accessory_0').on('change', function() {
+        //    $('#non-kpi-person').slideUp(300);
+        //});
         $('#body_griff').on('change', function() {
             console.log($(this).val());
             if ($(this).val()==7){
