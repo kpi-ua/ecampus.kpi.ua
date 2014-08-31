@@ -991,7 +991,7 @@ header {
 
     .content .right-col {
         position: absolute;
-        top: 410px;
+        top: 210px;
         right: 0;
         z-index: 999;
         width: 0;
@@ -1146,6 +1146,33 @@ header {
     text-align: center;
     cursor: pointer;
 }
+
+#datepicker-show-events {
+    position: absolute;
+    left: -60px;
+    top: 61px;
+    z-index: 15;
+    width: 60px;
+    height: 30px;
+    background: #208843;    
+    box-shadow: 0 0 1px #fff;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    -webkit-border-radius: 10px;
+    -webkit-border-top-left-radius: 0px;
+    -webkit-border-top-right-radius: 0px;
+    -moz-border-radius: 10px;
+    -moz-border-radius-topleft: 0px;
+    -moz-border-radius-topright: 0px;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;   
+}
+
+#datepicker-show-events:hover {
+        background: #3bb578;
+    }
 
     .datepicker-toggle i {
         position: relative;
@@ -2034,4 +2061,32 @@ table tr td {
 
 #additional-annotations {
     display: none;
+}
+
+.add-pop-btn {
+    
+}
+
+.div-canvas {
+    top: 50%;
+    left: 50%;
+    width:60px;
+    height:60px;
+    margin-top: -30px; /*set to a negative number 1/2 of your height*/
+    margin-left: -30px; /*set to a negative number 1/2 of your width*/    
+    position:absolute;
+}
+
+.div-canvas-small {
+    top: 50%;
+    left: 50%;
+    width:30px;
+    height:30px;
+    margin-top: -15px; /*set to a negative number 1/2 of your height*/
+    margin-left: -15px; /*set to a negative number 1/2 of your width*/    
+    position:absolute;
+}
+
+.popup-data {
+    width: 200px;
 }

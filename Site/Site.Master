@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Site.SiteMaster" %>
+
 <%@ Import Namespace="Campus.SDK" %>
 
 <html>
@@ -6,7 +7,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    
+
     <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
     <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
@@ -14,7 +15,8 @@
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
-    
+    <link rel="stylesheet" href="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.css" />
+
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
@@ -22,10 +24,10 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon-iphone.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone-retina-display.png" />
-
 </head>
 <body>
-    <label id ="ApiEndpoint" style="display:none"><%=Client.ApiEndpoint %></label>
+    <label id="ApiEndpoint" style="display: none"><%=Client.ApiEndpoint %></label>
+    <label id="CampusSessionId" style="display: none"><%=SitePage.SessionId %></label>
     <div class="wrap container">
 
         <header>
@@ -81,6 +83,8 @@
                     <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
                     <asp:ScriptReference Path="~/Scripts/core.js" />
+                    <asp:ScriptReference Path="https://github.com/makeusabrew/bootbox/releases/download/v4.3.0/bootbox.min.js" />
+                    <asp:ScriptReference Path="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.js" />
                     <asp:ScriptReference Path="~/Scripts/script.js" />
                 </Scripts>
             </asp:ScriptManager>
@@ -92,7 +96,31 @@
                 </div>
                 <div class="clear"></div>
             </div>
-            <!--Хлебные крошки-->
+            <!--Хлебные крошки-->            
+            <div id="planner-popup" style="display: none;">
+                <canvas class="div-canvas" id="spinner-popup"></canvas>
+                <br /> 
+                <div id="back-popup-content" class="pop-content" style="visibility: hidden;">               
+                <span class="input-group" style="width: 280px; display: inline-block;">
+                    Заголовок: <br />
+                    <input type="text" class="form-control" id="tasktitle" value="">                    
+                </span>
+                <span class="input-group clockpicker" style="width: 280px; display: inline-block;">
+                    Час:<br />
+                    <input type="text" class="form-control" id="tasktime" value="" data-default="00:00">                    
+                </span>
+                <script type="text/javascript">
+                    $('#tasktime').clockpicker({
+                        autoclose: true,
+                    });
+                </script>
+                <br />
+                <br />
+                Подія:
+                <br />
+                <textarea class="input-group" name="tasktext" rows="5" style="color: black; width: 565px; height: 100px;" id="tasktext"></textarea><br />
+                </div>
+            </div>
 
             <asp:ContentPlaceHolder runat="server" ID="carousel_container"></asp:ContentPlaceHolder>
 
@@ -112,14 +140,14 @@
                     <li><a href="/EIR/IrGroup">Групи ЕІР</a></li>
                     <li><a href="/MZSearch">Методичне забезпечення</a></li>
                     <li><a href="/RNP">РНП</a></li>
-                    <li runat="server" id="individual_plan" Visible="False"><a href="/IndividualTeachersPlan.aspx">Індивідуальний план викладча</a></li>
+                    <li runat="server" id="individual_plan" visible="False"><a href="/IndividualTeachersPlan.aspx">Індивідуальний план викладча</a></li>
                     <li><a href="#">Поточний контроль</a></li>
-                    
+
                     <li><a href="/Bulletins">Дошка оголошень</a></li>
                     <li><a href="/Messages">Спілкування</a></li>
                     <li><a href="/TimeTable">Розклад</a></li>
                     <li><a href="/Support.aspx">Підтримка</a></li>
-                     
+
                     <%--<li class="dropmenu">
                         <a>Робота
                             <div class="chevron"></div>
@@ -133,137 +161,39 @@
                             <li><a href="#">Виховна</a></li>
                         </ul>
                     </li>--%>
-                   <%-- <li>
+                    <%-- <li>
                         <a href="/RNP">Навчальний процес</a>
                     </li>--%>
                 </ul>
             </div>
             <div class="right-col">
-                <div class="datepicker-toggle" onclick="getPlanner('events'); getPlanner('events-day');">
-                    <i id="counter" class="fa fa-calendar"></i>
-                    <script>
-                        ($("#counter").load(function () {
-                            var date = curr();
-                            var sessionId = $("#sssid").val();
-
-                            $.getJSON(ApiEndpoint + "Calendar/GetAllForUserDateCount?sessionId=" + sessionId + "&date=" + date, function (data) {
-                                $("#counter").innerHTML = data["Date"];
-                            });
-                        }));
-                    </script>
+                <script>
+                    var plan = new Planner($("#CampusSessionId").html());
+                    
+                </script>
+                <div class="datepicker-toggle" id="datepicker-toggle-button">
+                    <i id="counter" class="fa fa-calendar"></i>                    
                     <div class="datepicker-label"></div>
                 </div>
+                <div class="btn-sm glyphicon glyphicon-list" id="datepicker-show-events" onclick="plan.togglePopover();"></div>
                 <div class="datepicker"></div>
 
                 <script>
-
-                    var ddate;
-
-                    function curr() {
-                        var fullDate = new Date();
-                        var twoDigitMonth = fullDate.getMonth() + 1;
-                        twoDigitMonth += "";
-                        if (twoDigitMonth.length == 1) twoDigitMonth = "0" + twoDigitMonth;
-                        var twoDigitDate = fullDate.getDate() + "";
-                        if (twoDigitDate.length == 1) twoDigitDate = "0" + twoDigitDate;
-                        var currentDate = twoDigitMonth + "/" + twoDigitDate + "/" + fullDate.getFullYear();
-                        return currentDate;
-                    }
-
-                    function addPlanner(time, task, date, id) {
-                        console.log("add start");
-                        console.log($.ddate);
-                        var sessionId = $("#sssid").val();
-
-                        if (task == undefined) {
-                            task = $("#tasktime").val();
-                        }
-                        if (time == undefined) {
-                            time = $("#tasktext").val();
-                        }
-
-                        if (date == "ex3b1") {
-                            id = date;
-                            date = undefined;
-                        }
-
-                        if (date == undefined) {
-                            date = curr();
-                        }
-
-                        $.getJSON(ApiEndpoint + "Calendar/AddNewPlanner?sessionId=" + sessionId + "&task=" + task + "&date=" + date + "&time=" + time, function () {
-                            getPlanner(date, id);
-                        });
-                    }
-
-                    function getPlanner(date, id) {
-                        var sessionId = $("#sssid").val();
-                        if (id == undefined) {
-                            id = date;
-                            date = undefined;
-                        }
-
-                        if (date == undefined) {
-                            date = curr();
-                        }
-
-                        $.getJSON(ApiEndpoint + "Calendar/GetAllForUserDate?sessionId=" + sessionId + "&date=" + date, function (data) {
-                            var items = "";
-                            if (data["Data"].length == 0)
-                                document.getElementById(id).innerHTML = "<li class='event'>Події відсутні</li>";
-                            else {
-                                for (var i = 0; i < data["Data"].length; i++) {
-                                    items += ("<li class='event'>" +
-                                        "<span class='event-time'>" + data["Data"][i].TimeTask + "</span>" +
-                                        "<span class='event-text'>" + data["Data"][i].Task + "</span>" +
-                                        "</li>");
-                                }
-                                document.getElementById(id).innerHTML = items;
-                            }
-                        });
-                    }
-
+                    $.ddate = "";
                     $(".datepicker").datepicker({
-                        onSelect: function (date) {
-                            console.log('ok');
-                            $.ddate = date;
-                            console.log($.ddate);
-                            getPlanner(date, 'events-day');
-                        }
+                        onSelect: function (date, inst) {
+                            $.ddate = date;                                                        
+                            plan.RenderTimeLabels($.ddate);                                                        
+                        }                        
                     });
                 </script>
 
-                <ul class="datepicker-messages hide">
-                    <li>
-                        <div class="selected-date">
-                            У цей день: 
-                        <span id="add1" style="width: 24px; height: 24px; float: right;"><a href="#addtoday" onclick="if($('#addtoday').css('display')!='block')$('#addtoday').css('display', 'block');else $('#addtoday').css('display', 'none');">+</a></span>
-                            <div id="addtoday" style="display: none">
-                                Час: &nbsp;&nbsp;&nbsp;<input type='time' style="color: black; width: 100px; height: 30px;" id='tasktime1' /><br />
-                                Подія:
-                            <input type='text' style="color: black; width: 130px; height: 30px;" id='tasktext1' /><br />
-                                <span class='ui-datepicker-buttonpane' style="width: 35px; height: 25px;" onclick='addPlanner($("#tasktime1").val(), $("#tasktext1").val(), "ex3b1");'><a href="#add" onclick="$('#addtoday').css('display', 'none');">Додати</a></span>
-                            </div>
-                        </div>
-                        <ul class="datepicker-messages" id="events">
-                            <li class="event"></li>
-                        </ul>
+                <%--<ul class="datepicker-messages hide">
+                    <li>                       
                     </li>
-                    <li>
-                        <div class="selected-date">
-                            У обраний день:
-                        <span id="add2" style="width: 24px; height: 24px; float: right"><a href="#addday" onclick="if($('#addday').css('display')!='block')$('#addday').css('display', 'block');else $('#addday').css('display', 'none');">+</a></span>
-                            <div id="addday" style="display: none">
-                                Час: &nbsp;&nbsp;&nbsp;<input type='time' style="color: black; width: 100px; height: 30px;" id='tasktime2' /><br />
-                                Подія:
-                            <input type='text' style="color: black; width: 130px; height: 30px;" id='tasktext2' /><br />
-                                <span class='ui-datepicker-buttonpane' style="width: 35px; height: 25px;" onclick='addPlanner($("#tasktime2").val(), $("#tasktext2").val(), $.ddate, "ex3b2");'><a href="#add" onclick="$('#addday').css('display', 'none');">Додати</a></span>
-                            </div>
-                        </div>
-                        <ul class="datepicker-messages" id="events-day">
-                        </ul>
+                    <li>                        
                     </li>
-                </ul>
+                </ul>--%>
             </div>
 
             <div class="md-col">
