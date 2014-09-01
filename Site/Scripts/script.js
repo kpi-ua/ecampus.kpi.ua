@@ -528,7 +528,9 @@ Planner = function (session, input) {
         Messages: {
             InputForm: '<div id="planner-popup"><br /> <div id="back-popup-content"> <span class="input-group" style="width: 280px; display: inline-block;"> Заголовок: <br /> <input type="text" class="form-control" id="tasktitle3" value=""> </span> <span class="input-group clockpicker" style="width: 280px; display: inline-block;"> Час:<br /> <input type="text" class="form-control" id="tasktime3" value="" data-default="00:00"> </span> <script type="text/javascript"> $(\'#tasktime3\').clockpicker({ autoclose: true, donetext: "OK" }); </script> <br /> <br /> Подія: <br /> <textarea class="input-group" name="tasktext3" rows="5" style="color: black; width: 565px; height: 100px;" id="tasktext3"></textarea><br /> </div> </div>',
             EventList: ''
-        }
+        },
+        ArchiveLastState: false,
+        Page: 0
     };
 
     var ManipulateHtml = function (string, tag) {
@@ -565,7 +567,7 @@ Planner = function (session, input) {
         },
 
         // controller, date, time, task, callback, beforeCall, archive - show unactive events
-        MakeAPICall: function (controller, date, time, task, archive, callback, beforeCall) {
+        MakeAPICall: function (controller, date, time, task, archive, callback, beforeCall, page) {
             var result;
             var callString = ApiEndpoint + "Calendar/" + controller + "?sessionId=" + Members.SessionId;
             if (task == undefined && callback == undefined) {
@@ -591,6 +593,8 @@ Planner = function (session, input) {
                 callString += "&time=" + time;
             if (archive != undefined)
                 callString += "&actuality=" + archive;
+            if (page != undefined)
+                callString += "&page=" + page;
 
             $.ajax(callString, {
                 success: function (data) {
@@ -637,37 +641,39 @@ Planner = function (session, input) {
     }
 
     // Render list of events for date
-    this.RenderTimeLabels = function (date, archive) {
+    this.RenderTimeLabels = function (date, archive, page) {        
         date = Members.Date(date);
-
-        if (archive == undefined || archive == false)
-            archive = "1";
-        else if (+archive == 0 || archive == true)
-            archive = "0";
-
+        if (page == undefined) page = 0;
+        if (archive == undefined || archive == false) archive = "1";
+        else if (+archive == 0 || archive == true) archive = "0";
+        Members.Page = page;
 
         var callback = function (data) {
             var title = "";
             this.items = "<div class='popup-data'><ul><li><hr></li>";
             if (data["Data"].length == 0) {
                 items += '<li>Немає запланованих подій</li><li><hr></li>'
-            } else
+            } else {                
                 for (var i = 0; i < data["Data"].length; i++) {
-                    items += nano("<li class='event'><div class='event-time' onclick='plan.ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"" + +archive + "\");'>{TimeTask} -- {Title}</div></li>", data["Data"][i]);
+                    items += nano("<li class='event'><div class='event-time' onclick='plan.ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'>{TimeTask} -- {Title}</div></li>", data["Data"][i]);
                     items += '<li><hr></li>';
                     if (title == "")
                         title = data["Data"][i].DateTask;
                 }
+            }
             if (DateTimeOperations.dateComparer(date, Members.Today()) >= 0) {
                 if (+archive != 0) {
                     items += '<li><div class="event-time" onclick="plan.AddNew($.ddate);">Додати</div></li>';
                     items += '<li><hr></li>';
                 }
-                if (+archive != 0)
+                if (+archive != 0) {
+                    Members.ArchiveLastState = false;
                     items += '<li><div class="event-time" onclick="plan.RenderTimeLabels($.ddate, true);">Архів</div></li>';
+                }
                 else {
+                    Members.ArchiveLastState = true;
                     items += '<li><div class="event-time" onclick="plan.RenderTimeLabels($.ddate, false);">Актуальні</div></li>';
-                    title += " (Архів)"
+                    title += " (Архів)";
                 }
             }
             items += '</ul></div>';
@@ -696,13 +702,13 @@ Planner = function (session, input) {
             }
         }
 
-        GetForDate(date, archive, callback, beforeCall);
+        GetForDate(date, archive, callback, beforeCall, page);
     };
 
     var _renderTimeLabels = this.RenderTimeLabels;
 
-    var GetForDate = function (date, archive, callback, beforeCall) {
-        return APICalls.MakeAPICall("GetAllForUserDate", date, undefined, undefined, archive, callback, beforeCall);
+    var GetForDate = function (date, archive, callback, beforeCall, page) {
+        return APICalls.MakeAPICall("GetAllForUserDate", date, undefined, undefined, archive, callback, beforeCall, page);
     };
     var GetTimeLabelsForDate = function (date, callback) {
         date = Members.Date(date);
@@ -822,14 +828,39 @@ Planner = function (session, input) {
         _renderTimeLabels(date, false);
     };
 
-    var _togglePopover = function (date) {
-        if ($('.popover').html() == undefined || $('.popover').html() == "") {
-            plan.RenderTimeLabels();
-        }
-        else {
+    var _togglePopover = function (date, archive, page) {
+        if (page == undefined)
+            page = 0;
+
+        if (page == Members.Page) {
+            if ($('.popover').html() == undefined || $('.popover').html() == "") {
+                date = Members.Date(date);
+                if (archive == undefined)
+                    archive = Members.ArchiveLastState;
+
+                if (+page < 0)
+                    page = 0;
+
+                _renderTimeLabels(date, archive, page);
+            }
+            else {
+                $("#" + values.popover_toggle_id).popover('destroy');
+                if ($('.popover').html() != undefined)
+                    $('.popover').html("");
+            }
+        } else {
             $("#" + values.popover_toggle_id).popover('destroy');
             if ($('.popover').html() != undefined)
                 $('.popover').html("");
+
+            date = Members.Date(date);
+            if (archive == undefined)
+                archive = Members.ArchiveLastState;
+
+            if (+page < 0)
+                page = 0;
+
+            _renderTimeLabels(date, archive, page);
         }
     }
 

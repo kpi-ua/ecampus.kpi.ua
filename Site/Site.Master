@@ -169,13 +169,40 @@
             <div class="right-col">
                 <script>
                     var plan = new Planner($("#CampusSessionId").html());
+                    $.page = 0;                    
                     
+                    var toggleNavigation = function(state)
+                    {                        
+                        if (state == true || state == "1" || state == undefined) state = "0";
+                        else state = "1";
+
+                        var arr = ["#datepicker-show-events", "#datepicker-prev-events", "#datepicker-next-events"];
+                        var hoverInCallback = function () {};
+                        var hoverOutCallback = function () {};
+
+                        $('#datepicker-toggle-navigation').attr('onclick', '');
+                        $("#datepicker-toggle-navigation").attr("onclick", "toggleNavigation(" + state + ");");
+                        $("#datepicker-toggle-navigation").toggleClass("glyphicon-chevron-down");
+                        $("#datepicker-toggle-navigation").toggleClass("glyphicon-chevron-up");                        
+                        if (state == "1") {
+                            $("#datepicker-toggle-navigation").css("top", "123");
+                            for (var i = 0; i < arr.length; i++)
+                                $(arr[i]).fadeIn();
+                        } else {
+                            for (var i = 0; i < arr.length + 1; i++)
+                                $(arr[arr.length - i]).fadeOut();
+                            $("#datepicker-toggle-navigation").css("top", "53");                            
+                        }                        
+                    }
                 </script>
                 <div class="datepicker-toggle" id="datepicker-toggle-button">
                     <i id="counter" class="fa fa-calendar"></i>                    
                     <div class="datepicker-label"></div>
                 </div>
-                <div class="btn-sm glyphicon glyphicon-list" id="datepicker-show-events" onclick="plan.togglePopover();"></div>
+                <div class="btn-sm glyphicon glyphicon-chevron-left" id="datepicker-prev-events" onclick="plan.togglePopover($.ddate, undefined, --$.page);" style="display: none;"></div>
+                <div class="btn-sm glyphicon glyphicon-chevron-right" id="datepicker-next-events" onclick="plan.togglePopover($.ddate, undefined, ++$.page);" style="display: none;"></div>
+                <div class="btn-sm glyphicon glyphicon-list" id="datepicker-show-events" onclick="plan.togglePopover($.ddate, undefined, $.page);" style="display: none;"></div>
+                <div class="btn-sm glyphicon glyphicon-chevron-down" id="datepicker-toggle-navigation" onclick="toggleNavigation(0);"></div>
                 <div class="datepicker"></div>
 
                 <script>
