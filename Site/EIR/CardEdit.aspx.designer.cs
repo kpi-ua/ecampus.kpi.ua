@@ -778,21 +778,21 @@ namespace Site.EIR {
         protected global::System.Web.UI.WebControls.Button save;
         
         /// <summary>
-        /// person_name_id control.
+        /// persons_json control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label person_name_id;
+        protected global::System.Web.UI.WebControls.HiddenField persons_json;
         
         /// <summary>
-        /// json_text control.
+        /// langs_json control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label json_text;
+        protected global::System.Web.UI.WebControls.HiddenField langs_json;
     }
 }
