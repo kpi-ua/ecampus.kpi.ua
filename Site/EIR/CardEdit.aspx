@@ -495,8 +495,8 @@
                             </div>
                        <%-- </div>--%>
                         <div class="button-group">
-                            <button ID="add_land" class="btn btn-success" >Додати</button>
-                            <button ID="clear_lang" class="btn btn-danger" >Видалити</button>
+                            <input type="button" id="add_lang" class="btn btn-success" value="Додати" />
+                            <input type="button" class="btn btn-danger" id="clear_lang" value="Видалити" />
                         </div>
                  <input id="lang_id_value" style="display: none"/>
 
@@ -547,6 +547,7 @@
     </div>
     <hr />
     <asp:Button ID="save" CssClass="btn btn-success" runat="server" Text="Зберегти" OnClick="save_Click" />
-    <asp:Label runat="server" ID="person_name_id" Visible="False" Text="kjhhkjhk"></asp:Label>
-    <asp:Label runat="server" ID="json_text" Visible="False" Text="  "></asp:Label>
+    <input id="person_name_id" style="display:none" >
+    <asp:HiddenField runat="server" ID="persons_json" />
+    <asp:HiddenField runat="server" ID="langs_json" />
 </asp:Content>

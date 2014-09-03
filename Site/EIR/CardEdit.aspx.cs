@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Campus.SDK;
+using System.Globalization;
 
 
 namespace Site.EIR
@@ -32,6 +33,9 @@ namespace Site.EIR
             if(Page.IsPostBack) return;
         
             LoadAllList();
+
+            //Session["EirEdit"] = true;
+            //Session["EirId"] = 48965;
 
             if (Session["EirEdit"] != null && (bool)Session["EirEdit"])
             {
@@ -98,6 +102,9 @@ namespace Site.EIR
                 grif_country.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
                 org_country.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
+
+            grif_country.SelectedValue = "226";
+            org_country.SelectedValue = "226";
             
             data = CampusClient.GetLang();
 
@@ -205,30 +212,30 @@ namespace Site.EIR
                 is_name.Text = Convert.ToString(data["name"]);
             }
 
-            json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetContributors?sessionId=" + SessionId + "&irId=" +
-                                           _irId);
-            respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            var newdata = (ArrayList)respDictionary["Data"];
+            //json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetContributors?sessionId=" + SessionId + "&irId=" +
+            //                               _irId);
+            //respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+            //var newdata = (ArrayList)respDictionary["Data"];
 
-            foreach (var item in newdata)
-            {
+            //foreach (var item in newdata)
+            //{
 
-                var nItem = (Dictionary<string, object>) item;
+            //    var nItem = (Dictionary<string, object>) item;
 
-                //
-            }
+            //    //
+            //}
 
-            json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetExtraLangs?irId=" +
-                                           _irId);
-            respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-            newdata = (ArrayList)respDictionary["Data"];
+            //json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/GetExtraLangs?irId=" +
+            //                               _irId);
+            //respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+            //newdata = (ArrayList)respDictionary["Data"];
 
-            foreach (var item in newdata)
-            {
-                var nItem = (Dictionary<string, object>) item;
+            //foreach (var item in newdata)
+            //{
+            //    var nItem = (Dictionary<string, object>) item;
 
-                //
-            }
+            //    //
+            //}
 
         }
 
@@ -263,10 +270,10 @@ namespace Site.EIR
                     CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId + 
                                                 "&irId=" + _irId + "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
-                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Today +
-                                                "&accessStart=" + access_begin.Text + "&accessEnd=" + access_end.Text +
+                                                "&dateCreate=" + (date.Text != "" ? (DateTime.ParseExact(date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&datePublish=" + DateTime.Today +
+                                                "&accessStart=" + (access_begin.Text != "" ? (DateTime.ParseExact(access_begin.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&accessEnd=" + (access_end.Text != "" ? (DateTime.ParseExact(access_end.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") +
                                                 "&docNumber=" + doc_number.Text +
-                                                "&docDate=" + doc_date.Text + "&dcIrFormId=" + form_type.SelectedValue +
+                                                "&docDate=" + (doc_date.Text != "" ? (DateTime.ParseExact(doc_date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&dcIrFormId=" + form_type.SelectedValue +
                                                 "&dcIrKindId=" +
                                                 public_kind.SelectedValue + "&dcIrPurposeId=" +
                                                 purpose_type.SelectedValue + "&isPublic=" +
@@ -310,7 +317,7 @@ namespace Site.EIR
                 }
 
                 AddContributors(_irId);
-                AddExtraLengs(_irId);
+                AddExtraLangs(_irId);
 
                 ChangeNameFull(_irId);
             }
@@ -320,10 +327,10 @@ namespace Site.EIR
                     CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddIr?sessionId=" + SessionId +
                                                 "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
-                                                "&dateCreate=" + date.Text + "&datePublish=" + DateTime.Today +
-                                                "&accessStart=" + access_begin.Text + "&accessEnd=" + access_end.Text +
+                                                "&dateCreate=" + (date.Text != "" ? (DateTime.ParseExact(date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&datePublish=" + DateTime.Today +
+                                                "&accessStart=" + (access_begin.Text != "" ? (DateTime.ParseExact(access_begin.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&accessEnd=" + (access_end.Text != "" ? (DateTime.ParseExact(access_end.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") +
                                                 "&docNumber=" + doc_number.Text +
-                                                "&docDate=" + doc_date.Text + "&dcIrFormId=" + form_type.SelectedValue +
+                                                "&docDate=" + (doc_date.Text != "" ? (DateTime.ParseExact(doc_date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&dcIrFormId=" + form_type.SelectedValue +
                                                 "&dcIrKindId=" +
                                                 public_kind.SelectedValue + "&dcIrPurposeId=" +
                                                 purpose_type.SelectedValue + "&isPublic=" +
@@ -371,7 +378,7 @@ namespace Site.EIR
                 }
 
                 AddContributors(id);
-                AddExtraLengs(id);
+                AddExtraLangs(id);
 
                 ChangeNameFull(id);
             }
@@ -386,7 +393,7 @@ namespace Site.EIR
                     CampusClient.DownloadString(Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" +
                                                 SessionId);
                 var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                var userid = ((Dictionary<string, object>) respDictionary["Data"])["UserAccountId"].ToString();
+                var userid = ((Dictionary<string, object>)respDictionary["Data"])["UserAccountId"].ToString();
 
                 json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" +
                                             SessionId + "&irId=" + id +
@@ -400,12 +407,68 @@ namespace Site.EIR
                 }
             }
 
-            //
+            //parsing json
+            var arrayPersons = serializer.Deserialize<ArrayList>(persons_json.Value);
+            foreach(var item in arrayPersons)
+            {
+                var part = (Dictionary<string, object>)item;
+
+                string newjson = "";
+
+                if (part.ContainsKey("id"))
+                {
+                    //change delete method to edit method
+                }
+                else
+                if (part.ContainsKey("name_id") && part.ContainsKey("name_acs"))
+                {
+                    //change delete method to edit method
+                    if (part["name_acs"] == "empl")
+                    {
+                        newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId + "&irId=" + id + "&notKPI=" + (!Convert.ToBoolean(part["kpi"])).ToString() + "&contTypeId=" + part["part_type"] + "&contPercent=" + part["part_percent"] + "&name=" + part["name"] + "&status=" + (part.ContainsKey("per_type") ? part["per_type"] : "") + "&eEmployeeId=" + part["name_id"]);
+                    }
+                    else
+                    {
+                        newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId + "&irId=" + id + "&notKPI=" + (!Convert.ToBoolean(part["kpi"])).ToString() + "&contTypeId=" + part["part_type"] + "&contPercent=" + part["part_percent"] + "&name=" + part["name"] + "&status=" + (part.ContainsKey("per_type") ? part["per_type"] : "") + "&userAcountId=" + part["name_id"]);
+                    }
+                }
+                else
+                {
+                    newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId + "&irId=" + id + "&notKPI=" + (!Convert.ToBoolean(part["kpi"])).ToString() + "&contTypeId=" + part["part_type"] + "&contPercent=" + part["part_percent"] + "&name=" + part["name"] + "&status=" + (part.ContainsKey("per_type") ? part["per_type"] : ""));
+                }
+
+                var answer = serializer.Deserialize<Dictionary<string, object>>(newjson)["Data"].ToString();
+                if (answer == "false")
+                {
+                    ShowError("Увага. Помилка при збереженні данних.");
+                    return;
+                }
+            }
         }
 
-        private void AddExtraLengs(string id)
+        private void AddExtraLangs(string id)
         {
-            //
+            var arrayPersons = serializer.Deserialize<ArrayList>(langs_json.Value);
+            foreach (var item in arrayPersons)
+            {
+                var part = (Dictionary<string, object>)item;
+                string newjson = "";
+                if (part.ContainsKey("id"))
+                {
+                    //change delete method to edit method
+                }
+                else
+                {
+                    newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddExtraLang?sessionId=" + SessionId + "&irId=" + id + "&langId=" + part["lang"] + "&annotation=" + part["annot"] + "&title=" + part["name"] + "&keyWords=" + part["key_words"] + "&authors=" + part["authors"]);
+                }
+
+                var answer = serializer.Deserialize<Dictionary<string, object>>(newjson)["Data"].ToString();
+                if (answer == "false")
+                {
+                    ShowError("Увага. Помилка при збереженні данних.");
+                    return;
+                }
+            }
         }
 
         private void ChangeNameFull(string id)
@@ -473,6 +536,12 @@ namespace Site.EIR
         }
 
         #endregion
+
+
+        private void ShowAlert (string msg)
+        {
+            ScriptManager.RegisterStartupScript(this, GetType(), "displayalertmessage", "ShowAlert(" + msg + ");", true);
+        }
 
     }
 }

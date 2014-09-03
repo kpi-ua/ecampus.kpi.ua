@@ -63,7 +63,8 @@ $(document).ready(function () {
         },
         minLength: 3,
         select: function(event, ui) {
-            $("#body_person_name_id").val(ui.item.data);
+            $("#person_name_id").val(ui.item.data);
+            $("#person_name_id").attr["acs"] = ui.item.acs;
         }
     });
 
@@ -91,7 +92,9 @@ $(document).ready(function () {
                     kpi: true,
                     name: document.getElementById("body_person_name").value,
                     part_type: document.getElementById("body_contribution_type")[document.getElementById("body_contribution_type").selectedIndex].value,
-                    part_percent: document.getElementById("body_contribution_part").value
+                    part_percent: document.getElementById("body_contribution_part").value,
+                    name_id: $("#person_name_id").val(),
+                    name_acs: $("#person_name_id").attr["acs"]
                 };
             } else {
                 persons[document.getElementById("person_id_value").value] = {
@@ -99,7 +102,7 @@ $(document).ready(function () {
                     name: document.getElementById("body_not_kpi_surname").value,
                     per_type: document.getElementById("body_person_type")[document.getElementById("body_person_type").selectedIndex].value,
                     part_type: document.getElementById("body_contribution_type")[document.getElementById("body_contribution_type").selectedIndex].value,
-                    part_percent: document.getElementById("body_contribution_part").value
+                    part_percent: document.getElementById("body_contribution_part").value,
                 };
             }
         } else {
@@ -108,7 +111,9 @@ $(document).ready(function () {
                     kpi: true,
                     name: document.getElementById("body_person_name").value,
                     part_type: document.getElementById("body_contribution_type")[document.getElementById("body_contribution_type").selectedIndex].value,
-                    part_percent: document.getElementById("body_contribution_part").value
+                    part_percent: document.getElementById("body_contribution_part").value,
+                    name_id: $("#person_name_id").val(),
+                    name_acs: $("#person_name_id").attr["acs"]
                 };
             } else {
                 persons[persons.length] = {
@@ -116,7 +121,7 @@ $(document).ready(function () {
                     name: document.getElementById("body_not_kpi_surname").value,
                     per_type: document.getElementById("body_person_type")[document.getElementById("body_person_type").selectedIndex].value,
                     part_type: document.getElementById("body_contribution_type")[document.getElementById("body_contribution_type").selectedIndex].value,
-                    part_percent: document.getElementById("body_contribution_part").value
+                    part_percent: document.getElementById("body_contribution_part").value,
                 };
             }
         }
@@ -164,31 +169,32 @@ $(document).ready(function () {
             document.getElementById("body_person_type").selectedIndex = persons[person_id].per_type;
             document.getElementById("body_contribution_type").selectedIndex = persons[person_id].part_type;
         });
+        document.getElementById("body_persons_json").value = JSON.stringify(persons);
     }
     
     //языки---
     //сохранить
     $("#add_lang").click(function () {
-        if (document.getElementById("language").value == 0 || document.getElementById("lang_name").value == "") {
+        if (document.getElementById("body_language").value == 0 || document.getElementById("body_lang_name").value == "") {
             alert("Необхідно заповнити всі поля у розділі \"Анотації\"");
             return false;
         }
         if (changes_flag_l == true) {
             changes_flag_l = false;
                 langs[document.getElementById("lang_id_value").value] = {
-                    lang: document.getElementById("language").value,
-                    annot: document.getElementById("annotation").value,
-                    key_words: document.getElementById("lang_keywords").value,
-                    name: document.getElementById("lang_name").value,
-                    authors: document.getElementById("lang_authors").value
+                    lang: document.getElementById("body_language").value,
+                    annot: document.getElementById("body_annotation").value,
+                    key_words: document.getElementById("body_lang_keywords").value,
+                    name: document.getElementById("body_lang_name").value,
+                    authors: document.getElementById("body_lang_authors").value
                 };
         } else {
             langs[langs.length] = {
-                lang: document.getElementById("language").value,
-                annot: document.getElementById("annotation").value,
-                key_words: document.getElementById("lang_keywords").value,
-                name: document.getElementById("lang_name").value,
-                authors: document.getElementById("lang_authors").value
+                lang: document.getElementById("body_language").value,
+                annot: document.getElementById("body_annotation").value,
+                key_words: document.getElementById("body_lang_keywords").value,
+                name: document.getElementById("body_lang_name").value,
+                authors: document.getElementById("body_lang_authors").value
                 };
             }
         load_langs();
@@ -196,11 +202,11 @@ $(document).ready(function () {
     });
     //очистить
     $("#clear_lang").click(function () {
-        document.getElementById("language").value = 0;
-        document.getElementById("annotation").value = "";
-        document.getElementById("lang_keywords").value = "";
-        document.getElementById("lang_name").value = "";
-        document.getElementById("lang_authors").value = "";
+        document.getElementById("body_language").value = "--";
+        document.getElementById("body_annotation").value = "";
+        document.getElementById("body_lang_keywords").value = "";
+        document.getElementById("body_lang_name").value = "";
+        document.getElementById("body_lang_authors").value = "";
         return false;
     });
 
@@ -209,7 +215,7 @@ $(document).ready(function () {
         $("#langs").html("");
         for (var i = 0; i < langs.length; i++) {
             if (langs[i] == undefined) continue;
-            $("#langs").append('<div class="col-sm-3"></div><div class="col-sm-9"><a lang_id="' + i + '" class="delete_lang_button">[x]</a>            <a lang_id="' + i + '" class="select_lang_button">'+document.getElementById("language")[langs[i].lang].text + ',' + langs[i].name + '</a></div>');
+            $("#langs").append('<div class="col-sm-3"></div><div class="col-sm-9"><a lang_id="' + i + '" class="delete_lang_button">[x]</a>            <a lang_id="' + i + '" class="select_lang_button">' + document.getElementById("body_language")[langs[i].lang].text + ',' + langs[i].name + '</a></div>');
         }
         //удалить
         $(".delete_lang_button").click(function () {
@@ -221,16 +227,16 @@ $(document).ready(function () {
         $(".select_lang_button").click(function () {
             changes_flag_l = true;
             var lang_id = this.getAttribute("lang_id");
-            document.getElementById("language").value = langs[lang_id].lang;
-            document.getElementById("annotation").value = langs[lang_id].annot;
-            document.getElementById("lang_keywords").value = lang[lang_id].key_words;
-            document.getElementById("lang_name").value = langs[lang_id].name;
-            document.getElementById("lang_authors").value = langs[lang_id].authors;
+            document.getElementById("body_language").value = langs[lang_id].lang;
+            document.getElementById("body_annotation").value = langs[lang_id].annot;
+            document.getElementById("body_lang_keywords").value = langs[lang_id].key_words;
+            document.getElementById("body_lang_name").value = langs[lang_id].name;
+            document.getElementById("body_lang_authors").value = langs[lang_id].authors;
         });
+        document.getElementById("body_langs_json").value = JSON.stringify(langs);
     }
 
-    $("#body_save").click(function() {
-        $("#body_json_text").attr("persons", $.toJSON(persons));
-        $("#body_json_text").attr("langs", $.toJSON(langs));
-    });
+    function ShowAlert(message) {
+        alert(message);
+    }
 });
