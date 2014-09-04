@@ -8,10 +8,10 @@ $(document).ready(function () {
     
     ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
 
-    $("#access_begin").datepicker();
-    $("#date").datepicker();
-    $("#access_end").datepicker();
-    $("#doc_date").datepicker();
+    $("#body_access_begin").datepicker();
+    $("#body_date").datepicker();
+    $("#body_access_end").datepicker();
+    $("#body_doc_date").datepicker();
 
     if ($("#irId").text() == "") {
         var url = ApiEndpoint + "Ir/GetContributors?sessionId=" + $("#sssid").val() + "&irId=" + document.getElementById("irId").innerHTML;
