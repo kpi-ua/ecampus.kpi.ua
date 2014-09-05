@@ -79,11 +79,11 @@
             <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
                 <Scripts>
                     <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
+                    <%--<asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />--%>
                     <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
                     <asp:ScriptReference Path="~/Scripts/core.js" />
-                    <asp:ScriptReference Path="https://github.com/makeusabrew/bootbox/releases/download/v4.3.0/bootbox.min.js" />
+                    <asp:ScriptReference Path="https://github.com/makeusabrew/bootbox/releases/download/v4.3.0/bootbox.min.js" />  <%--we should save this scripts and their css to the project--%>
                     <asp:ScriptReference Path="http://weareoutman.github.io/clockpicker/dist/bootstrap-clockpicker.min.js" />
                     <asp:ScriptReference Path="~/Scripts/script.js" />
                 </Scripts>

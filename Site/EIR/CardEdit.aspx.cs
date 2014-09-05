@@ -9,6 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Campus.SDK;
 using System.Globalization;
+using System.Drawing;
 
 
 namespace Site.EIR
@@ -42,7 +43,7 @@ namespace Site.EIR
                 Session["EirEdit"] = false;
                 if (Session["EirId"] == null)
                 {
-                    ShowError("Помилка при завантаженні сторінки.");
+                    ShowError("Помилка при завантаженні сторінки.", false);
                     return;
                 }
                 _irId = Session["EirId"].ToString();
@@ -51,8 +52,13 @@ namespace Site.EIR
 
         }
 
-        private void ShowError(string errText)
+        private void ShowError(string errText, bool notbad)
         {
+            if(notbad)
+            {
+                errlabel.BackColor = System.Drawing.Color.Lime;
+                errlabel.BorderColor = System.Drawing.Color.Lime;
+            }
             errlabel.Text = errText;
             errpanel.Visible = true;
             errUpdate.Update();
@@ -260,14 +266,14 @@ namespace Site.EIR
             if (access_begin.Text == null || public_kind.SelectedValue == null || purpose_type.SelectedValue == null ||
                 is_public.SelectedValue == null || griff.SelectedValue == null || long_deskription.Text == "")
             {
-                ShowError("Не заповнені всі поля з зірочкою");
+                ShowError("Не заповнені всі поля з зірочкою", false);
                 return;
             }
 
             if (_irId != null)
             {
                 var json =
-                    CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId + 
+                    CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId +
                                                 "&irId=" + _irId + "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
                                                 "&dateCreate=" + (date.Text != "" ? (DateTime.ParseExact(date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&datePublish=" + DateTime.Today +
@@ -282,7 +288,7 @@ namespace Site.EIR
                 var id = respDictionary["Data"].ToString();
                 if (id == "false")
                 {
-                    ShowError("Увага. Помилка при оновленні данних.");
+                    ShowError("Увага. Помилка при оновленні данних.", false);
                     return;
                 }
 
@@ -300,7 +306,7 @@ namespace Site.EIR
                 var extraId = respDictionary["Data"].ToString();
                 if (extraId == "false")
                 {
-                    ShowError("Увага. Помилка при оновленні данних.");
+                    ShowError("Увага. Помилка при оновленні данних.", false);
                     return;
                 }
 
@@ -312,7 +318,7 @@ namespace Site.EIR
                 var isId = respDictionary["Data"].ToString();
                 if (isId == "false")
                 {
-                    ShowError("Увага. Помилка при оновленні данних.");
+                    ShowError("Увага. Помилка при оновленні данних.", false);
                     return;
                 }
 
@@ -320,6 +326,8 @@ namespace Site.EIR
                 AddExtraLangs(_irId);
 
                 ChangeNameFull(_irId);
+                Session["EirId"] = _irId;
+                Response.Redirect("CardView.aspx");
             }
             else
             {
@@ -339,7 +347,7 @@ namespace Site.EIR
                 var id = respDictionary["Data"].ToString();
                 if (id == "")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.");
+                    ShowError("Увага. Помилка при збереженні данних.", false);
                     return;
                 }
 
@@ -357,7 +365,7 @@ namespace Site.EIR
                 var extraId = respDictionary["Data"].ToString();
                 if (extraId == "")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.");
+                    ShowError("Увага. Помилка при збереженні данних.", false);
                     return;
                 }
 
@@ -372,7 +380,7 @@ namespace Site.EIR
                     var isId = respDictionary["Data"].ToString();
                     if (isId == "")
                     {
-                        ShowError("Увага. Помилка при збереженні данних.");
+                        ShowError("Увага. Помилка при збереженні данних.", false);
                         return;
                     }
                 }
@@ -381,8 +389,10 @@ namespace Site.EIR
                 AddExtraLangs(id);
 
                 ChangeNameFull(id);
+                Session["EirId"] = id;
+                Response.Redirect("CardView.aspx");
             }
-            ShowError("Данні успішно збережені.");
+            ShowError("Данні успішно збережені.", true);
         }
 
         private void AddContributors(string id)
@@ -402,7 +412,7 @@ namespace Site.EIR
                 var answer = respDictionary["Data"].ToString();
                 if (answer == "false")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.");
+                    ShowError("Увага. Помилка при збереженні данних.", false);
                     return;
                 }
             }
@@ -417,9 +427,16 @@ namespace Site.EIR
 
                 if (part.ContainsKey("id"))
                 {
-                    //change delete method to edit method
+                    var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteContributor?sessionId=" +
+                                            SessionId + "&contributorId=" + part["id"]);
+                    var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                    if (respDictionary["Data"].ToString() != "true")
+                    {
+                        ShowError("Увага. Помилка при збереженні данних.", false);
+                        return;
+                    }
                 }
-                else
+                
                 if (part.ContainsKey("name_id") && part.ContainsKey("name_acs"))
                 {
                     //change delete method to edit method
@@ -440,7 +457,7 @@ namespace Site.EIR
                 var answer = serializer.Deserialize<Dictionary<string, object>>(newjson)["Data"].ToString();
                 if (answer == "false")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.");
+                    ShowError("Увага. Помилка при збереженні данних.", false);
                     return;
                 }
             }
@@ -455,17 +472,21 @@ namespace Site.EIR
                 string newjson = "";
                 if (part.ContainsKey("id"))
                 {
-                    //change delete method to edit method
+                    var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteExtraLang?sessionId=" +
+                                            SessionId + "&extraLangId=" + part["id"]);
+                    var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                    if (respDictionary["Data"].ToString() != "true")
+                    {
+                        ShowError("Увага. Помилка при збереженні данних.", false);
+                        return;
+                    }
                 }
-                else
-                {
-                    newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddExtraLang?sessionId=" + SessionId + "&irId=" + id + "&langId=" + part["lang"] + "&annotation=" + part["annot"] + "&title=" + part["name"] + "&keyWords=" + part["key_words"] + "&authors=" + part["authors"]);
-                }
+                newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddExtraLang?sessionId=" + SessionId + "&irId=" + id + "&langId=" + part["lang"] + "&annotation=" + part["annot"] + "&title=" + part["name"] + "&keyWords=" + part["key_words"] + "&authors=" + part["authors"]);
 
                 var answer = serializer.Deserialize<Dictionary<string, object>>(newjson)["Data"].ToString();
                 if (answer == "false")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.");
+                    ShowError("Увага. Помилка при збереженні данних.", false);
                     return;
                 }
             }
@@ -478,7 +499,7 @@ namespace Site.EIR
             var answer = respDictionary["Data"].ToString();
             if (answer == "false")
             {
-                ShowError("Увага. Помилка при збереженні данних.");
+                ShowError("Увага. Помилка при збереженні данних.", false);
             }
         }
   
@@ -538,10 +559,6 @@ namespace Site.EIR
         #endregion
 
 
-        private void ShowAlert (string msg)
-        {
-            ScriptManager.RegisterStartupScript(this, GetType(), "displayalertmessage", "ShowAlert(" + msg + ");", true);
-        }
 
     }
 }

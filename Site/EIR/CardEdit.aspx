@@ -28,6 +28,9 @@
                 <asp:Label ID="errlabel" runat="server" Text=""></asp:Label>
             </asp:Panel>
         </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="save" EventName="click" />
+        </Triggers>
     </asp:UpdatePanel>
 
     <div class="row">
@@ -239,8 +242,8 @@
                         
 
                         <div class="button-group">
-                            <button ID="add_contr" class="btn btn-success" >Зберегти</button>
-                            <button ID="clear_contr" class="btn btn-danger" >Очистити</button>
+                            <input id="add_contr" type="button" class="btn btn-success" value="Зберегти" />
+                            <input id="clear_contr" type="button" class="btn btn-danger" value="Очистити" />
                         </div>
                 <br />
 

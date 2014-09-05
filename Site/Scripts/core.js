@@ -1,8 +1,11 @@
 ﻿
 var ApiEndpoint;
 
-$(document).ready(function() {
-    ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
+$(document).ready(function () {
+    if (document.getElementById("ApiEndpoint") != null)
+    {
+        ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
+    }
 });
 
 $(document).ready(function () {

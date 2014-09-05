@@ -81,6 +81,10 @@
                 </div>
 
             </div>
+            </div>
+        </div>
+            <div class="row">
+        <div class="col-sm-12">
             <div class="form-horizontal">
                 <div class="form-header">
                     Ознаки класифікацій
@@ -131,18 +135,27 @@
                     </div>
                 </div>
             </div>
-
-
+            </div>
+                </div>
+            
             <hr/>
-            <div class="form-group">
-                <asp:Label ID="Label6" AssociatedControlID="members" CssClass="col-sm-3 control-label" runat="server">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-horizontal">
+                <div class="form-header">
                     Учасники
-                    </asp:Label>
+                    </div>
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
                     <div class="col-sm-9">
                         <asp:Label ID="members"  CssClass="form-control" runat="server"></asp:Label>
                 </div>
+                    
            
             </div>
+                </div>
+            </div>
+        </div>
             <hr/>
             <div class="form-horizontal">
                 <div class="form-header">
@@ -193,7 +206,6 @@
                     </div>
                 </div>
                 <hr />
-                show if griff value = 7 
                 <div class="form-group">
                     <asp:Label ID="Label33" AssociatedControlID="griff_org_name" CssClass="col-sm-3 control-label" runat="server">
                         Назва організації*

@@ -8,12 +8,28 @@ $(document).ready(function () {
     
     ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
 
+    //load saved values from cookies
+    var persons_cookies = getCookie("persons");
+    var lags_cookies = getCookie("langs");
+    if (persons_cookies != "")
+    {
+        persons = JSON.parse(persons_cookies);
+    }
+    load_members();
+
+    if (lags_cookies != "")
+    {
+        langs = JSON.parse(lags_cookies);
+    }
+    load_langs();
+
+    //load all datepickers
     $("#body_access_begin").datepicker();
     $("#body_date").datepicker();
     $("#body_access_end").datepicker();
     $("#body_doc_date").datepicker();
 
-    if ($("#irId").text() == "") {
+    if ($("#irId").text() != "") {
         var url = ApiEndpoint + "Ir/GetContributors?sessionId=" + $("#sssid").val() + "&irId=" + document.getElementById("irId").innerHTML;
         $.getJSON(url, function(data, status) {
             if (data.Data.length > 0) {
@@ -79,7 +95,7 @@ $(document).ready(function () {
             $("#non-kpi-person").slideDown(300);
         }
     });
-//сохранить
+    //сохранить
     $("#add_contr").click(function() {
         if ((document.getElementById("body_person_accessory_0").checked && document.getElementById("body_person_name").value == "") || (document.getElementById("body_person_accessory_1").checked && (document.getElementById("body_not_kpi_surname").value == "" || document.getElementById("body_person_type").selectedIndex == 0)) || document.getElementById("body_contribution_type").selectedIndex == 0 || document.getElementById("body_contribution_part").value == "") {
             alert("Необхідно заповнити всі поля у розділі \"Учасники\"");
@@ -128,7 +144,7 @@ $(document).ready(function () {
         load_members();
         return false;
     });
-//очистить
+    //очистить
     $("#clear_contr").click(function() {
         document.getElementById("body_person_name").value = "";
         document.getElementById("body_contribution_part").value = "";
@@ -139,7 +155,7 @@ $(document).ready(function () {
         return false;
     });
 
-//вывести список
+    //вывести список
     function load_members() {
         $("#members").html("");
         for (var i = 0; i < persons.length; i++) {
@@ -169,7 +185,9 @@ $(document).ready(function () {
             document.getElementById("body_person_type").selectedIndex = persons[person_id].per_type;
             document.getElementById("body_contribution_type").selectedIndex = persons[person_id].part_type;
         });
-        document.getElementById("body_persons_json").value = JSON.stringify(persons);
+        var json = JSON.stringify(persons);
+        document.getElementById("body_persons_json").value = json;
+        setCookie("persons", json, 2);
     }
     
     //языки---
@@ -181,13 +199,13 @@ $(document).ready(function () {
         }
         if (changes_flag_l == true) {
             changes_flag_l = false;
-                langs[document.getElementById("lang_id_value").value] = {
-                    lang: document.getElementById("body_language").value,
-                    annot: document.getElementById("body_annotation").value,
-                    key_words: document.getElementById("body_lang_keywords").value,
-                    name: document.getElementById("body_lang_name").value,
-                    authors: document.getElementById("body_lang_authors").value
-                };
+            langs[document.getElementById("lang_id_value").value] = {
+                lang: document.getElementById("body_language").value,
+                annot: document.getElementById("body_annotation").value,
+                key_words: document.getElementById("body_lang_keywords").value,
+                name: document.getElementById("body_lang_name").value,
+                authors: document.getElementById("body_lang_authors").value
+            };
         } else {
             langs[langs.length] = {
                 lang: document.getElementById("body_language").value,
@@ -195,8 +213,8 @@ $(document).ready(function () {
                 key_words: document.getElementById("body_lang_keywords").value,
                 name: document.getElementById("body_lang_name").value,
                 authors: document.getElementById("body_lang_authors").value
-                };
-            }
+            };
+        }
         load_langs();
         return false;
     });
@@ -233,10 +251,36 @@ $(document).ready(function () {
             document.getElementById("body_lang_name").value = langs[lang_id].name;
             document.getElementById("body_lang_authors").value = langs[lang_id].authors;
         });
-        document.getElementById("body_langs_json").value = JSON.stringify(langs);
+        var json = JSON.stringify(langs);
+        document.getElementById("body_langs_json").value = json;
+        setCookie("langs", json, 2);
     }
 
     function ShowAlert(message) {
         alert(message);
     }
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+
+    $("#body_save").click(function () {
+        setCookie("persons", "", 1);
+        setCookie("langs", "", 1);
+    });
 });
+
