@@ -276,10 +276,10 @@ namespace Site.EIR
                     CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateIr?sessionId=" + SessionId +
                                                 "&irId=" + _irId + "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
-                                                "&dateCreate=" + (date.Text != "" ? (DateTime.ParseExact(date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&datePublish=" + DateTime.Today +
-                                                "&accessStart=" + (access_begin.Text != "" ? (DateTime.ParseExact(access_begin.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&accessEnd=" + (access_end.Text != "" ? (DateTime.ParseExact(access_end.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") +
+                                                "&dateCreate=" + (date.Text != "" ? (DateTime.ParseExact(date.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") + "&datePublish=" + DateTime.Today +
+                                                "&accessStart=" + (access_begin.Text != "" ? (DateTime.ParseExact(access_begin.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") + "&accessEnd=" + (access_end.Text != "" ? (DateTime.ParseExact(access_end.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") +
                                                 "&docNumber=" + doc_number.Text +
-                                                "&docDate=" + (doc_date.Text != "" ? (DateTime.ParseExact(doc_date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&dcIrFormId=" + form_type.SelectedValue +
+                                                "&docDate=" + (doc_date.Text != "" ? (DateTime.ParseExact(doc_date.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") + "&dcIrFormId=" + form_type.SelectedValue +
                                                 "&dcIrKindId=" +
                                                 public_kind.SelectedValue + "&dcIrPurposeId=" +
                                                 purpose_type.SelectedValue + "&isPublic=" +
@@ -335,10 +335,10 @@ namespace Site.EIR
                     CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddIr?sessionId=" + SessionId +
                                                 "&name=" +
                                                 name.Text + "&description=" + short_description.Text +
-                                                "&dateCreate=" + (date.Text != "" ? (DateTime.ParseExact(date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&datePublish=" + DateTime.Today +
-                                                "&accessStart=" + (access_begin.Text != "" ? (DateTime.ParseExact(access_begin.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&accessEnd=" + (access_end.Text != "" ? (DateTime.ParseExact(access_end.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") +
+                                                "&dateCreate=" + (date.Text != "" ? (DateTime.ParseExact(date.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") + "&datePublish=" + DateTime.Today +
+                                                "&accessStart=" + (access_begin.Text != "" ? (DateTime.ParseExact(access_begin.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") + "&accessEnd=" + (access_end.Text != "" ? (DateTime.ParseExact(access_end.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") +
                                                 "&docNumber=" + doc_number.Text +
-                                                "&docDate=" + (doc_date.Text != "" ? (DateTime.ParseExact(doc_date.Text, "dd.mm.yy", CultureInfo.InvariantCulture)).ToString() : "") + "&dcIrFormId=" + form_type.SelectedValue +
+                                                "&docDate=" + (doc_date.Text != "" ? (DateTime.ParseExact(doc_date.Text, "dd.mm.yyyy", CultureInfo.InvariantCulture)).ToString() : "") + "&dcIrFormId=" + form_type.SelectedValue +
                                                 "&dcIrKindId=" +
                                                 public_kind.SelectedValue + "&dcIrPurposeId=" +
                                                 purpose_type.SelectedValue + "&isPublic=" +
