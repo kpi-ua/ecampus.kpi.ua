@@ -9,7 +9,7 @@
         <h1><%= Page.Title %></h1>
     </div>
     
-    <label id="irId" style="display: none"><%=_irId %></label>
+    <label id="irId" style="display: none"><%= _irId %></label>
 
     <style type="text/css">
         label { font-weight: normal; }
@@ -51,7 +51,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label3" AssociatedControlID="short_description" CssClass="col-sm-3 control-label" runat="server">
-                        Реферат (Анотація)
+                        Реферат
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:TextBox ID="short_description" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:TextBox>
@@ -84,7 +84,6 @@
                 <hr />
                 <div class="form-header">
                     Протокол
-               
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label20" AssociatedControlID="doc_number" CssClass="col-sm-2 control-label" runat="server">
@@ -173,97 +172,97 @@
     <div class="row">
         <div class="col-sm-12">
             <div id="form_members" class="form-horizontal">
-                        <div class="form-header">
-                            Учасники
+                <div class="form-header">
+                    Учасники*
                        
-                        </div>
-                        <asp:Label runat="server" ID="idcontr" Visible="False" Enabled="True"></asp:Label>
-                        <div class="form-group">
-                            <asp:Label ID="Label10" AssociatedControlID="person_accessory" CssClass="col-sm-3 control-label" runat="server">
-                                Особа з КПІ*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:RadioButtonList ID="person_accessory" Width="200px" CellSpacing="50" runat="server" RepeatDirection="Horizontal">
-                                    <asp:ListItem Value="yes" Selected="True">Так    </asp:ListItem>
-                                    <asp:ListItem Value="no">Ні</asp:ListItem>
-                                </asp:RadioButtonList>
-                            </div>
-                        </div>
+                </div>
+                <asp:Label runat="server" ID="idcontr" Visible="False" Enabled="True"></asp:Label>
+                <div class="form-group">
+                    <asp:Label ID="Label10" AssociatedControlID="person_accessory" CssClass="col-sm-3 control-label" runat="server">
+                        Особа з КПІ
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:RadioButtonList ID="person_accessory" Width="200px" CellSpacing="50" runat="server" RepeatDirection="Horizontal">
+                            <asp:ListItem Value="yes" Selected="True">Так    </asp:ListItem>
+                            <asp:ListItem Value="no">Ні</asp:ListItem>
+                        </asp:RadioButtonList>
+                    </div>
+                </div>
 
-                        <div id="person_name_div" class="form-group">
-                            <asp:Label ID="Label11" AssociatedControlID="person_name" CssClass="col-sm-3 control-label" runat="server">
-                                ПІБ*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:TextBox ID="person_name" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                        </div>
+                <div id="person_name_div" class="form-group">
+                    <asp:Label ID="Label11" AssociatedControlID="person_name" CssClass="col-sm-3 control-label" runat="server">
+                        ПІБ
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:TextBox ID="person_name" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                </div>
                 
                 <div id="non-kpi-person" style="display: none">
-                            <div class="form-group">
-                                <asp:Label ID="Label39" AssociatedControlID="person_type" CssClass="col-sm-3 control-label" runat="server">
-                                    Статус*
-                                </asp:Label>
-                                <div class="col-sm-9">
-                                    <asp:DropDownList ID="person_type" runat="server" CssClass="form-control">
-                                        <asp:ListItem>--</asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <asp:Label ID="Label38" AssociatedControlID="not_kpi_surname" CssClass="col-sm-3 control-label" runat="server">
-                                    Прізвище*
-                                </asp:Label>
-                                <div class="col-sm-9">
-                                    <asp:TextBox ID="not_kpi_surname" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <asp:Label ID="Label39" AssociatedControlID="person_type" CssClass="col-sm-3 control-label" runat="server">
+                            Статус
+                        </asp:Label>
+                        <div class="col-sm-9">
+                            <asp:DropDownList ID="person_type" runat="server" CssClass="form-control">
+                                <asp:ListItem>--</asp:ListItem>
+                            </asp:DropDownList>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <asp:Label ID="Label38" AssociatedControlID="not_kpi_surname" CssClass="col-sm-3 control-label" runat="server">
+                            Прізвище
+                        </asp:Label>
+                        <div class="col-sm-9">
+                            <asp:TextBox ID="not_kpi_surname" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
 
-                        <div class="form-group">
-                            <asp:Label ID="Label12" AssociatedControlID="contribution_type" CssClass="col-sm-3 control-label" runat="server">
-                                Тип внеску*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:DropDownList ID="contribution_type" runat="server" CssClass="form-control">
-                                    <asp:ListItem>--</asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <asp:Label ID="Label13" AssociatedControlID="contribution_part" CssClass="col-sm-3 control-label" runat="server">
-                                Частка внеску*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:TextBox ID="contribution_part" runat="server" CssClass="form-control"></asp:TextBox>
-                            </div>
-                        </div>
+                <div class="form-group">
+                    <asp:Label ID="Label12" AssociatedControlID="contribution_type" CssClass="col-sm-3 control-label" runat="server">
+                        Тип внеску
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:DropDownList ID="contribution_type" runat="server" CssClass="form-control">
+                            <asp:ListItem>--</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="Label13" AssociatedControlID="contribution_part" CssClass="col-sm-3 control-label" runat="server">
+                        Частка внеску
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:TextBox ID="contribution_part" runat="server" CssClass="form-control"></asp:TextBox>
+                    </div>
+                </div>
                 <input id="person_id_value" style="display: none"/>
                         
 
-                        <div class="button-group">
-                            <input id="add_contr" type="button" class="btn btn-success" value="Зберегти" />
-                            <input id="clear_contr" type="button" class="btn btn-danger" value="Очистити" />
-                        </div>
+                <div class="button-group">
+                    <input id="add_contr" type="button" class="btn btn-success" value="Зберегти" />
+                    <input id="clear_contr" type="button" class="btn btn-danger" value="Очистити" />
+                </div>
                 <br />
 
-                            <hr />
-                           </div>
+                <hr />
+            </div>
         </div>
     </div>
-                    <div class="row">
+    <div class="row">
         <div class="col-sm-12">
             <div class="form-horizontal">
-                            <div class="form-header">
-                                Список учасників
+                <div class="form-header">
+                    Список учасників
                            
-                            </div>
-                            <div id="members" class="form-group">
+                </div>
+                <div id="members" class="form-group">
                                     
-                            </div>
                 </div>
             </div>
-                        </div>
+        </div>
+    </div>
 
 
  
@@ -363,14 +362,14 @@
                         </Triggers>
                     </asp:UpdatePanel>
 
-                    <hr />
-                    <div class="form-group">
-                        <asp:Label ID="Label26" AssociatedControlID="lib_location" CssClass="col-sm-3 control-label" runat="server">
-                            Положення в бібліотеці
-                        </asp:Label>
-                        <div class="col-sm-9">
-                            <asp:TextBox ID="lib_location" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
-                        </div>
+                    <hr/>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="Label26" AssociatedControlID="lib_location" CssClass="col-sm-3 control-label" runat="server">
+                        Положення в бібліотеці
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:TextBox ID="lib_location" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
                     </div>
                 </div>
             </div>
@@ -449,77 +448,78 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="form-horizontal">
-                        <div class="form-header">
-                            Анотації
-                       
-                        </div>
-                        <div class="form-group">
-                            <asp:Label ID="Label9" AssociatedControlID="language" CssClass="col-sm-3 control-label" runat="server">
-                                Мова*
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:DropDownList ID="language" runat="server" CssClass="form-control">
-                                    <asp:ListItem>--</asp:ListItem>
-                                </asp:DropDownList>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <asp:Label ID="Label6" AssociatedControlID="annotation" CssClass="col-sm-3 control-label" rows="3" TextMode="multiline" runat="server">
-                                Анотація
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:TextBox ID="annotation" MaxLength="1000" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:TextBox>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <asp:Label ID="Label8" AssociatedControlID="lang_keywords" CssClass="col-sm-3 control-label" runat="server">
-                                Ключові слова
-                            </asp:Label>
-                            <div class="col-sm-9">
-                                <asp:TextBox ID="lang_keywords" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
-                            </div>
-                        </div>
-                        <%--<div id="additional-annotations">--%><%--Нет смысла вообще скрывать эти поля, пользователь может ввести название 2 раза и не помрет--%>
-                            <div class="form-group">
-                                <asp:Label ID="Label7" AssociatedControlID="lang_name" CssClass="col-sm-3 control-label" runat="server">
-                                    Назва*
-                                </asp:Label>
-                                <div class="col-sm-9">
-                                    <asp:TextBox ID="lang_name" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <asp:Label ID="Label36" AssociatedControlID="lang_authors" CssClass="col-sm-3 control-label" runat="server">
-                                    Автор
-                                </asp:Label>
-                                <div class="col-sm-9">
-                                    <asp:TextBox ID="lang_authors" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
-                                </div>
-                            </div>
-                       <%-- </div>--%>
-                        <div class="button-group">
-                            <input type="button" id="add_lang" class="btn btn-success" value="Додати" />
-                            <input type="button" class="btn btn-danger" id="clear_lang" value="Видалити" />
-                        </div>
-                 <input id="lang_id_value" style="display: none"/>
+                <div class="form-header">
+                    <div id="annotation_header">
+                        Анотації (основною мовою)*
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="Label9" AssociatedControlID="language" CssClass="col-sm-3 control-label" runat="server">
+                        Мова
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:DropDownList ID="language" runat="server" CssClass="form-control">
+                            <asp:ListItem>--</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="Label6" AssociatedControlID="annotation" CssClass="col-sm-3 control-label" rows="3" TextMode="multiline" runat="server">
+                        Анотація
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:TextBox ID="annotation" MaxLength="1000" runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="Label8" AssociatedControlID="lang_keywords" CssClass="col-sm-3 control-label" runat="server">
+                        Ключові слова
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:TextBox ID="lang_keywords" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                    </div>
+                </div>
+                <%--<div id="additional-annotations">--%><%--Нет смысла вообще скрывать эти поля, пользователь может ввести название 2 раза и не помрет--%>
+                <div class="form-group">
+                    <asp:Label ID="Label7" AssociatedControlID="lang_name" CssClass="col-sm-3 control-label" runat="server">
+                        Назва*
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:TextBox ID="lang_name" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <asp:Label ID="Label36" AssociatedControlID="lang_authors" CssClass="col-sm-3 control-label" runat="server">
+                        Автор
+                    </asp:Label>
+                    <div class="col-sm-9">
+                        <asp:TextBox ID="lang_authors" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
+                    </div>
+                </div>
+                <%-- </div>--%>
+                <div class="button-group">
+                    <input type="button" id="add_lang" class="btn btn-success" value="Додати" />
+                    <input type="button" class="btn btn-danger" id="clear_lang" value="Видалити" />
+                </div>
+                <input id="lang_id_value" style="display: none"/>
 
             </div>
         </div>
-        </div>
+    </div>
     <hr />
     <div class="row">
         <div class="col-sm-12">
             <div class="form-horizontal">
-                        <div class="form-header">
-                            Список анотацій
+                <div class="form-header">
+                    Список анотацій
                        
-                        </div>
-                    <div id="langs" class="form-group">
+                </div>
+                <div id="langs" class="form-group">
                         
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
     <hr />
     <div class="row">
         <div class="col-sm-12">
@@ -550,7 +550,7 @@
     </div>
     <hr />
     <asp:Button ID="save" CssClass="btn btn-success" runat="server" Text="Зберегти" OnClick="save_Click" />
-    <input id="person_name_id" style="display:none" >
+    <input id="person_name_id" style="display: none" >
     <asp:HiddenField runat="server" ID="persons_json" />
     <asp:HiddenField runat="server" ID="langs_json" />
 </asp:Content>

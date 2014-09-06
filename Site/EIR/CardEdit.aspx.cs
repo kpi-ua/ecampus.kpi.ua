@@ -30,6 +30,13 @@ namespace Site.EIR
         {
             base.OnLoad(e);
 
+            var json = CampusClient.DownloadString(Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId);
+            var answer = (Dictionary<string,object>)serializer.Deserialize<Dictionary<string, object>>(json)["Data"];
+            var Employees = (ArrayList)answer["Employees"];
+            if (Employees.Count == 0)
+            {
+                throw new Exception("You have no rights to be there =(");
+            }
 
             if(Page.IsPostBack) return;
         
@@ -427,22 +434,54 @@ namespace Site.EIR
 
                 if (part.ContainsKey("id"))
                 {
-                    var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteContributor?sessionId=" +
-                                            SessionId + "&contributorId=" + part["id"]);
-                    var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                    if (respDictionary["Data"].ToString() != "true")
+                    if (!part.ContainsKey("name") && !part.ContainsKey("part_percent"))
                     {
-                        ShowError("Увага. Помилка при збереженні данних.", false);
-                        return;
+                        var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteContributor?sessionId=" +
+                                                               SessionId + "&contributorId=" + part["id"]);
+                        var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                        if (respDictionary["Data"].ToString() != "true")
+                        {
+                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateContributor?sessionId=" +
+                                                               SessionId + "&id=" + part["id"] + "&notKPI=" +
+                                                               (!Convert.ToBoolean(part["kpi"])).ToString() +
+                                                               "&contTypeId=" + part["part_type"] + "&contPercent=" +
+                                                               part["part_percent"] + "&name=" + part["name"] +
+                                                               (part.ContainsKey("per_type")
+                                                                   ? "&status=" + part["per_type"]
+                                                                   : "") +
+                                                               (part.ContainsKey("name_id") &&
+                                                                part.ContainsKey("name_acs")
+                                                                   ? (part["name_acs"] == "empl"
+                                                                       ? "&eEmployeeId=" + part["name_id"]
+                                                                       : "&userAcountId=" + part["name_id"])
+                                                                   : ""));
+                        var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                        if (respDictionary["Data"].ToString() != "true")
+                        {
+                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            return;
+                        }
                     }
                 }
                 
                 if (part.ContainsKey("name_id") && part.ContainsKey("name_acs"))
                 {
-                    //change delete method to edit method
                     if (part["name_acs"] == "empl")
                     {
-                        newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId + "&irId=" + id + "&notKPI=" + (!Convert.ToBoolean(part["kpi"])).ToString() + "&contTypeId=" + part["part_type"] + "&contPercent=" + part["part_percent"] + "&name=" + part["name"] + "&status=" + (part.ContainsKey("per_type") ? part["per_type"] : "") + "&eEmployeeId=" + part["name_id"]);
+                        newjson =
+                            CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId +
+                                                        "&irId=" + id + "&notKPI=" +
+                                                        (!Convert.ToBoolean(part["kpi"])).ToString() + "&contTypeId=" +
+                                                        part["part_type"] + "&contPercent=" + part["part_percent"] +
+                                                        "&name=" + part["name"] + "&status=" +
+                                                        (part.ContainsKey("per_type") ? part["per_type"] : "") +
+                                                        "&eEmployeeId=" + part["name_id"]);
                     }
                     else
                     {
@@ -451,7 +490,7 @@ namespace Site.EIR
                 }
                 else
                 {
-                    newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId + "&irId=" + id + "&notKPI=" + (!Convert.ToBoolean(part["kpi"])).ToString() + "&contTypeId=" + part["part_type"] + "&contPercent=" + part["part_percent"] + "&name=" + part["name"] + "&status=" + (part.ContainsKey("per_type") ? part["per_type"] : ""));
+                    newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId + "&irId=" + id + "&notKPI=true&contTypeId=" + part["part_type"] + "&contPercent=" + part["part_percent"] + "&name=" + part["name"] + "&status=" + (part.ContainsKey("per_type") ? part["per_type"] : ""));
                 }
 
                 var answer = serializer.Deserialize<Dictionary<string, object>>(newjson)["Data"].ToString();
