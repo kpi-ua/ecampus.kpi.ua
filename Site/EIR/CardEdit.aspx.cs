@@ -14,7 +14,7 @@ using System.Drawing;
 
 namespace Site.EIR
 {
-    
+
 
 
     /// <summary>
@@ -22,7 +22,7 @@ namespace Site.EIR
     /// </summary>
     public partial class CardEdit : Core.SitePage
     {
-        
+
         public static string _irId;
         readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -31,15 +31,15 @@ namespace Site.EIR
             base.OnLoad(e);
 
             var json = CampusClient.DownloadString(Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId);
-            var answer = (Dictionary<string,object>)serializer.Deserialize<Dictionary<string, object>>(json)["Data"];
+            var answer = (Dictionary<string, object>)serializer.Deserialize<Dictionary<string, object>>(json)["Data"];
             var Employees = (ArrayList)answer["Employees"];
             if (Employees.Count == 0)
             {
                 throw new Exception("You have no rights to be there =(");
             }
 
-            if(Page.IsPostBack) return;
-        
+            if (Page.IsPostBack) return;
+
             LoadAllList();
 
             //Session["EirEdit"] = true;
@@ -61,7 +61,7 @@ namespace Site.EIR
 
         private void ShowError(string errText, bool notbad)
         {
-            if(notbad)
+            if (notbad)
             {
                 errlabel.BackColor = System.Drawing.Color.Lime;
                 errlabel.BorderColor = System.Drawing.Color.Lime;
@@ -86,28 +86,28 @@ namespace Site.EIR
             {
                 form_type.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
-            
+
             data = CampusClient.GetPublicationForm();
 
             foreach (var item in data)
             {
                 public_form.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key));
             }
-            
+
             data = CampusClient.GetContributorType();
 
             foreach (var item in data)
             {
                 contribution_type.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
-            
+
             data = CampusClient.GetStamp();
 
             foreach (var item in data)
             {
                 griff.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
-            
+
             data = CampusClient.GetCountries();
 
             foreach (var item in data)
@@ -118,21 +118,21 @@ namespace Site.EIR
 
             grif_country.SelectedValue = "226";
             org_country.SelectedValue = "226";
-            
+
             data = CampusClient.GetLang();
 
             foreach (var item in data)
             {
                 language.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
-            
+
             data = CampusClient.GetISType();
 
             foreach (var item in data)
             {
                 is_type.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
-            
+
             data = CampusClient.GetPersonStatusType();
 
             foreach (var item in data)
@@ -426,9 +426,9 @@ namespace Site.EIR
 
             //parsing json
             var arrayPersons = serializer.Deserialize<ArrayList>(persons_json.Value);
-            foreach(var item in arrayPersons)
+            foreach (var item in arrayPersons)
             {
-                var part = (Dictionary<string, object>)item;
+                var part = (Dictionary<string, string>)item;
 
                 string newjson = "";
 
@@ -436,9 +436,10 @@ namespace Site.EIR
                 {
                     if (!part.ContainsKey("name") && !part.ContainsKey("part_percent"))
                     {
-                        var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteContributor?sessionId=" +
-                                                               SessionId + "&contributorId=" + part["id"]);
+                        var url = Client.ApiEndpoint + "Ir/DeleteContributor?sessionId=" + SessionId + "&contributorId=" + part["id"];
+                        var json = CampusClient.DownloadString(url);
                         var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+
                         if (respDictionary["Data"].ToString() != "true")
                         {
                             ShowError("Увага. Помилка при збереженні данних.", false);
@@ -449,7 +450,7 @@ namespace Site.EIR
                     {
                         var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateContributor?sessionId=" +
                                                                SessionId + "&id=" + part["id"] + "&notKPI=" +
-                                                               (!Convert.ToBoolean(part["kpi"])).ToString() +
+                                                               (!Convert.ToBoolean(part["kpi"])) +
                                                                "&contTypeId=" + part["part_type"] + "&contPercent=" +
                                                                part["part_percent"] + "&name=" + part["name"] +
                                                                (part.ContainsKey("per_type")
@@ -469,7 +470,7 @@ namespace Site.EIR
                         }
                     }
                 }
-                
+
                 if (part.ContainsKey("name_id") && part.ContainsKey("name_acs"))
                 {
                     if (part["name_acs"] == "empl")
@@ -541,8 +542,8 @@ namespace Site.EIR
                 ShowError("Увага. Помилка при збереженні данних.", false);
             }
         }
-  
-        #endregion 
+
+        #endregion
 
         #region Loading Dependencies
 

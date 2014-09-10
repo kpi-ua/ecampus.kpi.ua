@@ -185,13 +185,13 @@
                         $("#datepicker-toggle-navigation").toggleClass("glyphicon-chevron-down");
                         $("#datepicker-toggle-navigation").toggleClass("glyphicon-chevron-up");                        
                         if (state == "1") {
-                            $("#datepicker-toggle-navigation").css("top", "123");
+                            $("#datepicker-toggle-navigation").css("top", 123);
                             for (var i = 0; i < arr.length; i++)
                                 $(arr[i]).fadeIn();
                         } else {
                             for (var i = 0; i < arr.length + 1; i++)
                                 $(arr[arr.length - i]).fadeOut();
-                            $("#datepicker-toggle-navigation").css("top", "53");                            
+                            $("#datepicker-toggle-navigation").css("top", 53);                            
                         }                        
                     }
                 </script>

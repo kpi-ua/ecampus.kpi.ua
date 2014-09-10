@@ -38,7 +38,7 @@ namespace Site
 
                 individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
             }
-            catch (Exception ex)
+            catch
             {
                 UserName.Text = "Ошибка при загрузке страницы!!!";
             }

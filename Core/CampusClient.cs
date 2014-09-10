@@ -82,7 +82,7 @@ namespace Core
             catch (Exception ex)
             {
                 var logger = LogManager.GetCurrentClassLogger();
-                logger.ErrorException("Helper:GetData", ex);
+                logger.Error("Helper:GetData", ex);
                 return null;
             }
         }

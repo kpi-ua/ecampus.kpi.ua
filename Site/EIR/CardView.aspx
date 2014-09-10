@@ -258,15 +258,18 @@
             </div>
       <hr/>
             <div class="form-group">
-                <asp:Label ID="Label7" AssociatedControlID="extralangs" CssClass="col-sm-3 control-label" runat="server">
-                    Анотації
-                    </asp:Label>
-                </div>
-                    <div class="col-sm-9">
-                        <asp:Label ID="extralangs" AssociatedControlID="public_year" CssClass="form-control" runat="server"></asp:Label>
+                <div>
+                    <asp:Label ID="Label7" AssociatedControlID="extralangs" CssClass="col-sm-3 control-label" runat="server">
+                        Анотації
+                        </asp:Label>
                     </div>
+                <div class="col-sm-9">
+                    <asp:Label ID="extralangs" AssociatedControlID="public_year" CssClass="form-control" runat="server"></asp:Label>
+                </div>
+                
             </div>
         <hr/>
+        <div>
             <div class="form-horizontal">
                 <div class="form-header">
                     Класифікаційні індекси
