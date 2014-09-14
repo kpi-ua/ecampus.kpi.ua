@@ -169,6 +169,7 @@
     <Content Include="apple-touch-icon-ipad.png" />
     <Content Include="apple-touch-icon-iphone-retina-display.png" />
     <Content Include="apple-touch-icon-iphone.png" />
+    <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="EIR\CardView.aspx" />
@@ -260,6 +261,8 @@
     <Content Include="robots.txt" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\bootbox.min.js" />
+    <Content Include="Scripts\bootstrap-clockpicker.min.js" />
     <Content Include="Scripts\CardEdit.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
@@ -276,6 +279,7 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
+    <Content Include="Scripts\jquery.eventsource.js" />
     <Content Include="Scripts\MZ.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\timetable.js" />
