@@ -11,15 +11,18 @@ namespace Campus.Core.Interfaces
     public interface IMessage
     {
         string Id { get; }
+        string AuthorId { get; }
+
         string Data { get; }
 
-        [JsonIgnore]
+        string Output { get; }
+
         string EventType { get; }
 
-        [JsonIgnore]
         string Retry { get; set; }
 
-        [JsonIgnore]
         string Comment { get; }
+
+        string ToEventStream();
     }
 }

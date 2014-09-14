@@ -16,4 +16,14 @@ namespace Campus.Core.EventsArgs
 
         public int SubscriberCount { get; private set; }
     }
+
+    public class SubscriberEventArgs<T> : SubscriberEventArgs
+    {
+        public T Subscriber { get; private set; }
+        public SubscriberEventArgs(T subscriber ,int subscriberCount = 1)
+            : base(subscriberCount)
+        {
+            Subscriber = subscriber;
+        }
+    }
 }

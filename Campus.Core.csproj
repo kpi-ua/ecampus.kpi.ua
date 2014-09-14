@@ -81,7 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiApplication.cs" />
-    <Compile Include="Common\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="EventsArgs\ApiEventArgs.cs" />
     <Compile Include="EventsArgs\ExceptionEventsArgs.cs" />
     <Compile Include="Paging.cs" />

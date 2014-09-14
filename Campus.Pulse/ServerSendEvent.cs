@@ -12,22 +12,56 @@ using System.Threading.Tasks;
 using System.Web;
 using Campus.Core.Common.BaseClasses;
 using Campus.Core.Common.Extensions;
+using Campus.Core;
+using System.Net;
 
 
 namespace Campus.Pulse
 {
-    public abstract class ServerSendEvent : IServerSentEvent
+    public abstract class ServerSendEvent : ApiController, IServerSentEvent
     {
+        #region Events
+
+        /// <summary>
+        /// Invokes when new subscriber was added
+        /// </summary>
         public event EventHandler<SubscriberEventArgs> SubscriberAdded;
+
+        /// <summary>
+        /// Invokes on subscriber removing
+        /// </summary>
         public event EventHandler<SubscriberEventArgs> SubscriberRemoved;
 
-        protected List<Client> mClients = new List<Client>();
-        protected object mLock = new object();
-        protected IMessageHistory mMessageHistory = null;
-        protected IMessageIdGenerator mIdGenerator = null;
+        /// <summary>
+        /// Invokes on heartbeat
+        /// </summary>
+        public event Action OnHeartbeat;
+
+        /// <summary>
+        /// Invokes on message send
+        /// </summary>
+        public event EventHandler<MessageEventArgs> OnMessageSend;
+        #endregion
+
+
+        #region Members
+
+        protected List<Client> _Clients = new List<Client>();
+        protected object _Lock = new object();
+        protected IMessageHistory _MessageHistory = null;
+        protected IMessageIdGenerator _IdGenerator = null;
         protected static readonly slf4net.ILogger _logger = slf4net.LoggerFactory.GetLogger(typeof(ServerSendEvent));
-        protected int mHeartbeatInterval = 0;
-        protected Timer mHeartbeatTimer = null;
+        protected int _HeartbeatInterval = 0;
+        protected Timer _HeartbeatTimer = null;
+
+        #endregion        
+
+        #region Abstract Methods        
+
+        public abstract int GetClientId(string sessionId);
+        #endregion
+
+        #region Emuns
 
         public enum MessageIdGenerator
         {
@@ -36,11 +70,15 @@ namespace Campus.Pulse
             UnixTime = 3
         }
 
-        public abstract int GetClientId(string sessionId);
-
-        private IMessageIdGenerator GetMessageIdGenerator(MessageIdGenerator messageGeneratorType)
+        public enum ContentType
         {
-            switch(messageGeneratorType)
+            Text = 1,
+            JSON = 2,
+        }
+
+        protected IMessageIdGenerator GetMessageIdGenerator(MessageIdGenerator messageGeneratorType)
+        {
+            switch (messageGeneratorType)
             {
                 case MessageIdGenerator.Guid:
                     return GuidIdGenerator.Instance;
@@ -53,12 +91,26 @@ namespace Campus.Pulse
             return null;
         }
 
+        protected string GetContentType(ContentType type)
+        {
+            switch (type)
+            {
+                case ContentType.Text:
+                    return "text/event-stream";
+                case ContentType.JSON:
+                    return "application/json";
+            }
+            return null;
+        }
+
+        #endregion
+
         protected ServerSendEvent(bool generateMessageIds = false, MessageIdGenerator? idGenerator = null, int heartbeatInterval = 0)
         {
-            mHeartbeatInterval = heartbeatInterval;
-            mMessageHistory = MessageHistory.Instance;
+            _HeartbeatInterval = heartbeatInterval;
+            _MessageHistory = MessageHistory.Instance;
             if (generateMessageIds && idGenerator.HasValue)
-                mIdGenerator = GetMessageIdGenerator(idGenerator.Value);
+                _IdGenerator = GetMessageIdGenerator(idGenerator.Value);
 
             SetupHeartbeat(heartbeatInterval);
         }
@@ -71,14 +123,14 @@ namespace Campus.Pulse
             if (idGenerator == null)
                 throw new ArgumentException("idGenerator can not be null.");
 
-            mMessageHistory = messageHistory;
-            mIdGenerator = idGenerator;
-            mHeartbeatInterval = heartbeatInterval;
+            _MessageHistory = messageHistory;
+            _IdGenerator = idGenerator;
+            _HeartbeatInterval = heartbeatInterval;
 
             SetupHeartbeat(heartbeatInterval);
         }
 
-        public virtual HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null)
+        public virtual HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, ContentType type = ContentType.Text)
         {
             HttpResponseMessage response = request.CreateResponse();
             response.Headers.Add("Access-Control-Allow-Origin", "*");
@@ -90,29 +142,29 @@ namespace Campus.Pulse
 
                 AddClient(client);
 
-            }, "text/event-stream");
+            }, GetContentType(type));
             return response;
         }
 
         protected virtual void AddClient(Client client)
         {
             int count = 0;
-            lock (mLock)
+            lock (_Lock)
             {
-                if (mClients.Any(c => c.Id == client.Id))
+                if (_Clients.Any(c => c.Id == client.Id))
                 {
-                    var oldClient = mClients.First(c => c.Id == client.Id);
-                    mClients.Remove(oldClient);
+                    var oldClient = _Clients.First(c => c.Id == client.Id);
+                    _Clients.Remove(oldClient);
                 }
-                mClients.Add(client);
-                count = mClients.Count;
+                _Clients.Add(client);
+                count = _Clients.Count;
             }
 
             OnSubscriberAdded(count);
 
             // Send all messages since LastMessageId
             IMessage nextMessage = null;
-            while ((nextMessage = mMessageHistory.GetNextMessage(client.LastMessageId)) != null)
+            while ((nextMessage = _MessageHistory.GetNextMessage(client.LastMessageId)) != null)
                 client.Send(nextMessage);
         }
 
@@ -167,9 +219,9 @@ namespace Campus.Pulse
 
         protected void Send(Message msg, int[] clientIds = null)
         {
-            lock (mLock)
+            lock (_Lock)
             {
-                SendAndRemoveDisconneced(mClients, msg, clientIds);
+                SendAndRemoveDisconneced(_Clients, msg, clientIds);
             }
         }
 
@@ -179,20 +231,22 @@ namespace Campus.Pulse
 
             int removed = 0;
             int count = 0;
-            lock (mLock)
+            lock (_Lock)
             {
                 if (clientIds == null)
                     clientsToSendTo.ForEach(c => c.Send(msg));
                 else
                 {
-                    clientIds.ForEachAsync((target) => 
+                    clientIds.ForEachAsync((target) =>
                     {
                         clientsToSendTo.Single(c => c.Id == target).Send(msg);
                     });
                 }
-                removed = mClients.RemoveAll(c => !c.IsConnected);
-                count = mClients.Count;
+                removed = _Clients.RemoveAll(c => !c.IsConnected);
+                count = _Clients.Count;
             }
+
+            Task.Run(() => { OnMessageSend(this, new MessageEventArgs(msg)); });
 
             if (removed > 0)
                 OnSubscriberRemoved(count);
@@ -206,12 +260,12 @@ namespace Campus.Pulse
         protected void CheckMessage(Message msg)
         {
             // Add id?
-            if (string.IsNullOrWhiteSpace(msg.Id) && mIdGenerator != null && !Message.IsOnlyComment(msg))
-                msg.Id = mIdGenerator.GetNextId();
+            if (string.IsNullOrWhiteSpace(msg.Id) && _IdGenerator != null && !Message.IsOnlyComment(msg))
+                msg.Id = _IdGenerator.GetNextId();
 
             // Add retry?
-            if (mHeartbeatTimer != null)
-                msg.Retry = mHeartbeatInterval.ToString();
+            if (_HeartbeatTimer != null)
+                msg.Retry = _HeartbeatInterval.ToString();
         }
 
         protected void OnSubscriberAdded(int subscriberCount)
@@ -234,12 +288,15 @@ namespace Campus.Pulse
         {
             if (heartbeatInterval > 0)
             {
-                mHeartbeatTimer = new Timer(TimerCallback, null, 1000, heartbeatInterval);
+                _HeartbeatTimer = new Timer(TimerCallback, null, 1000, heartbeatInterval);
             }
         }
 
         private void TimerCallback(object state)
         {
+            if (OnHeartbeat != null)
+                OnHeartbeat.AsyncInvoke();
+
             Send(new Message() { Comment = "heartbeat" });
         }
     }

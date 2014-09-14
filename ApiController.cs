@@ -26,7 +26,7 @@ namespace Campus.Core
 
         public static event EventHandler ResultExecuted;
 
-        private static void OnReseultExecuted(ApiController sender, string json)
+        protected static void OnReseultExecuted(ApiController sender, string json)
         {
             var handler = ResultExecuted;
 
@@ -58,7 +58,7 @@ namespace Campus.Core
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        private static string Serialize(object result)
+        protected static string Serialize(object result)
         {
             //CamelCasePropertyNamesContractResolver
 
@@ -93,7 +93,7 @@ namespace Campus.Core
             _timeStamp = DateTime.Now;
         }
 
-        public ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
+        public virtual ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
         {
             var result = new Result
             {

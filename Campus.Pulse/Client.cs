@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Campus.Pulse;
+using System.Net;
 
 namespace Campus.Pulse
 {
@@ -31,6 +33,10 @@ namespace Campus.Pulse
             Id = (id.HasValue)? id.Value : -1;
         }
 
+        /// <summary>
+        /// Send message to user represented by this instance of Client
+        /// </summary>
+        /// <param name="msg">Message</param>
         public void Send(IMessage msg)
         {
             try
@@ -39,9 +45,9 @@ namespace Campus.Pulse
                 if (IsRetrySent)
                     msg.Retry = null;
 
-                var text = msg.ToString();
+                var text = msg.ToEventStream();
                 StreamWriter.WriteLine(text);
-                StreamWriter.Flush();
+                StreamWriter.FlushAsync();
 
                 if (!Message.IsOnlyComment(msg))
                     LastMessageId = msg.Id;
@@ -60,6 +66,6 @@ namespace Campus.Pulse
             {
                 IsConnected = false;
             }
-        }
+        }        
     }
 }

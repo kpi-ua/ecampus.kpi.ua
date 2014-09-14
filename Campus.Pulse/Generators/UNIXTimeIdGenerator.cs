@@ -8,7 +8,7 @@ using Campus.Core.Common.BaseClasses;
 
 namespace Campus.Core.Common.Generators
 {
-    class UnixTimeIdGenerator : ASingleton<UnixTimeIdGenerator>, IMessageIdGenerator
+    public class UnixTimeIdGenerator : ASingleton<UnixTimeIdGenerator>, IMessageIdGenerator
     {
         private UnixTimeIdGenerator()
         {
@@ -17,7 +17,12 @@ namespace Campus.Core.Common.Generators
 
         public string GetNextId()
         {
-            return ((int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds).ToString();
+            return ((int)ToUnixTime(DateTime.UtcNow)).ToString();
+        }
+
+        public double ToUnixTime(DateTime time)
+        {
+            return (time - new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
         public DateTime ParseUnixTime(IMessage msg)

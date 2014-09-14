@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
+using Campus.Pulse;
 
 namespace Campus.Core.Interfaces
 {
@@ -23,6 +25,6 @@ namespace Campus.Core.Interfaces
         /// </summary>
         /// <param name="request">The incomming request from the client.</param>
         /// <returns>The response to send back to the client.</returns>
-        HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null);
+        HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, Campus.Pulse.ServerSendEvent.ContentType type = ServerSendEvent.ContentType.Text);
     }
 }

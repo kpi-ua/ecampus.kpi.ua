@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Campus.Core.Interfaces;
 using System.Net.Http;
 using System.IO;
+using Campus.Core.EventsArgs;
 
 namespace Campus.Pulse
 {
@@ -21,6 +22,8 @@ namespace Campus.Pulse
         public PulseController(IMessageHistory messageHistory, IMessageIdGenerator idGenerator, int heartbeatInterval = 0)
             : base(messageHistory, idGenerator, heartbeatInterval)
         { }
+
+        public abstract HttpResponseMessage Get(HttpRequestMessage request, string sessionId);
 
         /// <summary>
         /// Sends data to all subscribers fulfilling the criteria.
@@ -44,10 +47,10 @@ namespace Campus.Pulse
         /// <param name="criteria">The criteria to be fulfilled to get the data.</param>
         public void Send(string data, string eventType, string messageId, Func<ClientInfo, bool> criteria) { Send(new Message() { EventType = eventType, Data = data, Id = messageId }, criteria); }
 
-        public virtual HttpResponseMessage AddSubscriber(HttpRequestMessage request, ClientInfo clientInfo, string sessionId = null)
+        public virtual HttpResponseMessage AddSubscriber(HttpRequestMessage request, ClientInfo clientInfo, ContentType contentType = ContentType.Text)
         {
             HttpResponseMessage response = request.CreateResponse();
-            response.Content = new PushStreamContentWithClientInfomation<ClientInfo>(OnStreamAvailable, "text/event-stream", clientInfo);
+            response.Content = new PushStreamContentWithClientInfomation<ClientInfo>(OnStreamAvailable, GetContentType(contentType), clientInfo);
             return response;
         }
 
@@ -70,10 +73,10 @@ namespace Campus.Pulse
 
         private void Send(Message msg, Func<ClientInfo, bool> criteria)
         {
-            lock (mLock)
+            lock (_Lock)
             {
                 // Only send message to clients fullfilling the criteria
-                var filtered = mClients
+                var filtered = _Clients
                                 .Where(c => c is ClientWithInformation<ClientInfo>)
                                     .Where(c =>
                                     {
