@@ -118,6 +118,7 @@ namespace Site.EIR.IrGroup
             var client = new Campus.SDK.Client();
             var url = Campus.SDK.Client.BuildUrl("IrGroup", "DeleteIrGroup", new { SessionId, irGroupId });
             var result = client.Get(url);
+            
             Response.Redirect("Default.aspx");
 
         }
@@ -136,7 +137,7 @@ namespace Site.EIR.IrGroup
                 if (subdivisionList.Items.Count == 0)
                 {
                     var serializer = new JavaScriptSerializer();
-
+                    
                     var client = new Campus.SDK.Client();
                     var url = Campus.SDK.Client.BuildUrl("IrGroup", "GetModeratedSubdivisions", new { SessionId });
                     var result = client.Get(url);
