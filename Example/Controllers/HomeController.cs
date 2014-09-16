@@ -6,10 +6,15 @@ using System.Web.Mvc;
 
 namespace Example.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Campus.Core.ApiController
     {
         // GET: Home
         public ActionResult Index()
+        {
+            return base.Introspect();
+        }
+
+        public ActionResult Test()
         {
             return Content("It works!");
         }
