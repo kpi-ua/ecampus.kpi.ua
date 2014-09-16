@@ -87,6 +87,7 @@ namespace Site
             {
                 if (NewPass.Text == NewPassCheak.Text)
                 {
+                    
                     CampusClient.ChangePassword(SessionId, OldPass.Text, NewPass.Text);
                     ShowErrorMessage("OK");
                     UserPassword = NewPass.Text;

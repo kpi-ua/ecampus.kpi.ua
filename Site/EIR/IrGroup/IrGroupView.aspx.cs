@@ -99,6 +99,7 @@ namespace Site.EIR.IrGroup
 
         protected void AddIr_Click(object sender, EventArgs e)
         {
+            
             //Session.Add("irGroupId", irGroupId);
             Response.Redirect("/EIR/Search.aspx?type=group");
         }
