@@ -449,9 +449,7 @@
         <div class="col-sm-12">
             <div class="form-horizontal">
                 <div class="form-header">
-                    <div id="annotation_header">
-                        Анотації (основною мовою)*
-                    </div>
+                    <div id="annotation_header">Анотації (основною мовою)*</div>
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label9" AssociatedControlID="language" CssClass="col-sm-3 control-label" runat="server">
@@ -482,7 +480,7 @@
                 <%--<div id="additional-annotations">--%><%--Нет смысла вообще скрывать эти поля, пользователь может ввести название 2 раза и не помрет--%>
                 <div class="form-group">
                     <asp:Label ID="Label7" AssociatedControlID="lang_name" CssClass="col-sm-3 control-label" runat="server">
-                        Назва*
+                        Назва
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:TextBox ID="lang_name" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
@@ -498,7 +496,7 @@
                 </div>
                 <%-- </div>--%>
                 <div class="button-group">
-                    <input type="button" id="add_lang" class="btn btn-success" value="Додати" />
+                    <input type="button" id="add_lang" class="btn btn-success" value="Зберегти" />
                     <input type="button" class="btn btn-danger" id="clear_lang" value="Видалити" />
                 </div>
                 <input id="lang_id_value" style="display: none"/>

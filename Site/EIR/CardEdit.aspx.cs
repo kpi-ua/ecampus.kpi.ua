@@ -509,25 +509,48 @@ namespace Site.EIR
             foreach (var item in arrayPersons)
             {
                 var part = (Dictionary<string, object>)item;
-                string newjson = "";
                 if (part.ContainsKey("id"))
                 {
-                    var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteExtraLang?sessionId=" +
-                                            SessionId + "&extraLangId=" + part["id"]);
-                    var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
-                    if (respDictionary["Data"].ToString() != "true")
+                    if (!part.ContainsKey("name"))
+                    {
+                        var json = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/DeleteExtraLang?sessionId=" +
+                                                               SessionId + "&extraLangId=" + part["id"]);
+                        var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                        if (respDictionary["Data"].ToString() != "true")
+                        {
+                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        var json =
+                            CampusClient.DownloadString(Client.ApiEndpoint + "Ir/UpdateExtraLang?sessionId=" + SessionId +
+                                                        "&id=" + part["id"] + "&langId=" + part["lang"] + "&annotation=" +
+                                                        part["annot"] + "&title=" + part["name"] + "&keyWords=" +
+                                                        part["key_words"] + "&authors=" + part["authors"]);
+                        var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
+                        if (respDictionary["Data"].ToString() != "true")
+                        {
+                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    var json =
+                        CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddExtraLang?sessionId=" + SessionId +
+                                                    "&irId=" +
+                                                    id + "&langId=" + part["lang"] + "&annotation=" + part["annot"] +
+                                                    "&title=" + part["name"] + "&keyWords=" + part["key_words"] +
+                                                    "&authors=" + part["authors"]);
+                    var answer = serializer.Deserialize<Dictionary<string, object>>(json)["Data"].ToString();
+                    if (answer == "false")
                     {
                         ShowError("Увага. Помилка при збереженні данних.", false);
                         return;
                     }
-                }
-                newjson = CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddExtraLang?sessionId=" + SessionId + "&irId=" + id + "&langId=" + part["lang"] + "&annotation=" + part["annot"] + "&title=" + part["name"] + "&keyWords=" + part["key_words"] + "&authors=" + part["authors"]);
-
-                var answer = serializer.Deserialize<Dictionary<string, object>>(newjson)["Data"].ToString();
-                if (answer == "false")
-                {
-                    ShowError("Увага. Помилка при збереженні данних.", false);
-                    return;
                 }
             }
         }
