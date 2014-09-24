@@ -83,7 +83,7 @@ $(document).ready(function() {
     });
 
 
-    //человеки----
+    //человеки---- 
     $("#body_person_accessory").change(function() {
         if (document.getElementById("body_person_accessory_0").checked) {
             $("#person_name_div").slideDown(300);
@@ -94,13 +94,17 @@ $(document).ready(function() {
         }
     });
     //сохранить
-    $("#add_contr").click(function() {
-        if ((document.getElementById("body_person_accessory_0").checked && document.getElementById("body_person_name").value == "") || (document.getElementById("body_person_accessory_1").checked && (document.getElementById("body_not_kpi_surname").value == "" || document.getElementById("body_person_type").selectedIndex == 0)) || document.getElementById("body_contribution_type").selectedIndex == 0 || document.getElementById("body_contribution_part").value == "") {
+    $("#add_contr").click(function () {
+        if (changes_flag == true) {
+            $("#add_contr").val("Додати учасника");
+            $("#clear_contr").val("Очистити");
+        }
+        if ((document.getElementById("body_person_accessory_0").checked && document.getElementById("body_person_name").value == "") || (document.getElementById("body_person_accessory_1").checked && (document.getElementById("body_not_kpi_surname").value == "" || document.getElementById("body_person_type").selectedIndex == 0)) || document.getElementById("body_contribution_type").selectedIndex == 0) {
             alert("Необхідно заповнити всі поля у розділі \"Учасники\"");
             return false;
         }
         if (document.getElementById("body_person_accessory_0").checked && $("#person_name_id").val() == "") {
-            alert("Введеного вами імені немає в базі даних КПИ. Зверніться за допосмогою у розділ \"Підтримка\".");
+            alert("Введеного вами імені немає в базі даних КПІ. Зверніться за допосмогою у розділ \"Підтримка\".");
             return false;
         }
 
@@ -158,7 +162,12 @@ $(document).ready(function() {
         return false;
     });
     //очистить
-    $("#clear_contr").click(function() {
+    $("#clear_contr").click(function () {
+        if (changes_flag == true) {
+            changes_flag = false;
+            $("#add_contr").val("Додати учасника");
+            $("#clear_contr").val("Очистити");
+        }
         document.getElementById("body_person_name").value = "";
         document.getElementById("body_contribution_part").value = "";
         document.getElementById("body_not_kpi_surname").value = "";
@@ -176,9 +185,9 @@ $(document).ready(function() {
             if (persons[i] == undefined) continue;
             if (persons[i].selected == true) {
                 persons[i].selected = false;
-                $("#members").append('<div class="col-sm-3"></div><div class="col-sm-9"><a person_id="' + i + '" class="delete_person_button"><b>[x]</b></a>            <a person_id="' + i + '" class="select_person_button"><b>' + persons[i].name + ',' + document.getElementById("body_contribution_type")[persons[i].part_type].text + ',' + persons[i].part_percent + '%' + '</b></a></div>');
+                $("#members").append('<div class="col-sm-3"></div><div class="col-sm-9"><a person_id="' + i + '" class="delete_person_button"><b>[x]</b></a>            <a person_id="' + i + '" class="select_person_button"><b>' + persons[i].name + ',' + document.getElementById("body_contribution_type")[persons[i].part_type].text + (persons[i].part_percent != "" ? ',' + persons[i].part_percent + '%': "") + '</b></a></div>');
             } else {
-                $("#members").append('<div class="col-sm-3"></div><div class="col-sm-9"><a person_id="' + i + '" class="delete_person_button">[x]</a>            <a person_id="' + i + '" class="select_person_button">' + persons[i].name + ',' + document.getElementById("body_contribution_type")[persons[i].part_type].text + ',' + persons[i].part_percent + '%' + '</a></div>');
+                $("#members").append('<div class="col-sm-3"></div><div class="col-sm-9"><a person_id="' + i + '" class="delete_person_button">[x]</a>            <a person_id="' + i + '" class="select_person_button">' + persons[i].name + ',' + document.getElementById("body_contribution_type")[persons[i].part_type].text + (persons[i].part_percent != "" ? ',' + persons[i].part_percent + '%' : "") + '</a></div>');
             }
 
         }
@@ -189,7 +198,9 @@ $(document).ready(function() {
 
         });
         //выбрать
-        $(".select_person_button").click(function() {
+        $(".select_person_button").click(function () {
+            $("#add_contr").val("Зберегти");
+            $("#clear_contr").val("Відмінити");
             changes_flag = true;
             var person_id = this.getAttribute("person_id");
             if (persons[person_id].kpi) {
@@ -214,8 +225,12 @@ $(document).ready(function() {
 
     //языки---
     //сохранить
-    $("#add_lang").click(function() {
-        if (document.getElementById("body_language").value == 0 || document.getElementById("body_lang_name").value == "") {
+    $("#add_lang").click(function () {
+        if (changes_flag_l == true) {
+            $("#add_lang").val("Додати мову");
+            $("#clear_lang").val("Очистити");
+        }
+        if (document.getElementById("body_language").value == '--') {
             alert("Необхідно заповнити всі поля у розділі \"Анотації\"");
             return false;
         }
@@ -239,15 +254,20 @@ $(document).ready(function() {
                 main: $("#annotation_header").text() == "Анотації (основною мовою)*" ? true : false
             };
         }
-        if ($("#annotation_header").text() == "Анотації (основною мовою)*") {
-            $("#annotation_header").text("Анотації (іншою мовою)*");
+        if ($("#annotation_header").text() == "Анотації (основною мовою)") {
+            $("#annotation_header").text("Анотації (іншою мовою)");
         }
         load_langs();
         $("#clear_lang").click();
         return false;
     });
     //очистить
-    $("#clear_lang").click(function() {
+    $("#clear_lang").click(function () {
+        if (changes_flag_l == true) {
+            changes_flag_l = false;
+            $("#add_lang").val("Додати мову");
+            $("#clear_lang").val("Очистити");
+        }
         document.getElementById("body_language").value = "--";
         document.getElementById("body_annotation").value = "";
         document.getElementById("body_lang_keywords").value = "";
@@ -281,11 +301,13 @@ $(document).ready(function() {
             load_langs();
         });
         //выбрать
-        $(".select_lang_button").click(function() {
+        $(".select_lang_button").click(function () {
+            $("#add_lang").val("Зберегти");
+            $("#clear_lang").val("Відмінити");
             changes_flag_l = true;
             var lang_id = this.getAttribute("lang_id");
-            if (langs[lang_id].main == true) $("#annotation_header").text("Анотації (основною мовою)*");
-            else $("#annotation_header").text("Анотації (іншою мовою)*");
+            if (langs[lang_id].main == true) $("#annotation_header").text("Анотації (основною мовою)");
+            else $("#annotation_header").text("Анотації (іншою мовою)");
             document.getElementById("body_language").value = langs[lang_id].lang;
             document.getElementById("body_annotation").value = langs[lang_id].annot;
             document.getElementById("body_lang_keywords").value = langs[lang_id].key_words;

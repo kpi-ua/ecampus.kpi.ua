@@ -43,7 +43,7 @@ namespace Site.EIR
             LoadAllList();
 
             //Session["EirEdit"] = true;
-            //Session["EirId"] = 48965;
+            //Session["EirId"] = 48978;
 
             if (Session["EirEdit"] != null && (bool)Session["EirEdit"])
             {
@@ -428,7 +428,7 @@ namespace Site.EIR
             var arrayPersons = serializer.Deserialize<ArrayList>(persons_json.Value);
             foreach (var item in arrayPersons)
             {
-                var part = (Dictionary<string, string>)item;
+                var part = (Dictionary<string, object>)item;
 
                 string newjson = "";
 
@@ -473,8 +473,9 @@ namespace Site.EIR
 
                 if (part.ContainsKey("name_id") && part.ContainsKey("name_acs"))
                 {
-                    if (part["name_acs"] == "empl")
+                    if ((string)part["name_acs"] == "empl")
                     {
+                        
                         newjson =
                             CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId +
                                                         "&irId=" + id + "&notKPI=" +

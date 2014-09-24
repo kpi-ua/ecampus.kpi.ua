@@ -173,7 +173,7 @@
         <div class="col-sm-12">
             <div id="form_members" class="form-horizontal">
                 <div class="form-header">
-                    Учасники*
+                    Учасники
                        
                 </div>
                 <asp:Label runat="server" ID="idcontr" Visible="False" Enabled="True"></asp:Label>
@@ -191,7 +191,7 @@
 
                 <div id="person_name_div" class="form-group">
                     <asp:Label ID="Label11" AssociatedControlID="person_name" CssClass="col-sm-3 control-label" runat="server">
-                        ПІБ
+                        ПІБ*
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:TextBox ID="person_name" runat="server" CssClass="form-control"></asp:TextBox>
@@ -201,7 +201,7 @@
                 <div id="non-kpi-person" style="display: none">
                     <div class="form-group">
                         <asp:Label ID="Label39" AssociatedControlID="person_type" CssClass="col-sm-3 control-label" runat="server">
-                            Статус
+                            Статус*
                         </asp:Label>
                         <div class="col-sm-9">
                             <asp:DropDownList ID="person_type" runat="server" CssClass="form-control">
@@ -211,7 +211,7 @@
                     </div>
                     <div class="form-group">
                         <asp:Label ID="Label38" AssociatedControlID="not_kpi_surname" CssClass="col-sm-3 control-label" runat="server">
-                            Прізвище
+                            Прізвище*
                         </asp:Label>
                         <div class="col-sm-9">
                             <asp:TextBox ID="not_kpi_surname" MaxLength="255" runat="server" CssClass="form-control"></asp:TextBox>
@@ -221,7 +221,7 @@
 
                 <div class="form-group">
                     <asp:Label ID="Label12" AssociatedControlID="contribution_type" CssClass="col-sm-3 control-label" runat="server">
-                        Тип внеску
+                        Тип внеску*
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:DropDownList ID="contribution_type" runat="server" CssClass="form-control">
@@ -241,7 +241,7 @@
                         
 
                 <div class="button-group">
-                    <input id="add_contr" type="button" class="btn btn-success" value="Зберегти" />
+                    <input id="add_contr" type="button" class="btn btn-success" value="Додати учасника" />
                     <input id="clear_contr" type="button" class="btn btn-danger" value="Очистити" />
                 </div>
                 <br />
@@ -449,11 +449,11 @@
         <div class="col-sm-12">
             <div class="form-horizontal">
                 <div class="form-header">
-                    <div id="annotation_header">Анотації (основною мовою)*</div>
+                    <div id="annotation_header">Анотації (основною мовою)</div>
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label9" AssociatedControlID="language" CssClass="col-sm-3 control-label" runat="server">
-                        Мова
+                        Мова*
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:DropDownList ID="language" runat="server" CssClass="form-control">
@@ -488,7 +488,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label36" AssociatedControlID="lang_authors" CssClass="col-sm-3 control-label" runat="server">
-                        Автор
+                        Автори
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:TextBox ID="lang_authors" MaxLength="255" runat="server" CssClass="form-control" Rows="2" TextMode="multiline"></asp:TextBox>
@@ -496,8 +496,8 @@
                 </div>
                 <%-- </div>--%>
                 <div class="button-group">
-                    <input type="button" id="add_lang" class="btn btn-success" value="Зберегти" />
-                    <input type="button" class="btn btn-danger" id="clear_lang" value="Видалити" />
+                    <input type="button" id="add_lang" class="btn btn-success" value="Додати мову" />
+                    <input type="button" class="btn btn-danger" id="clear_lang" value="Очистити" />
                 </div>
                 <input id="lang_id_value" style="display: none"/>
 
