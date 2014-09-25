@@ -1,9 +1,6 @@
 ﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEdit.aspx.cs" Inherits="Site.EIR.CardEdit" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">    
     <script src="../Scripts/CardEdit.js"></script>
     <div class="page-header">
         <h1><%= Page.Title %></h1>

@@ -1,4 +1,6 @@
-﻿var persons = [];
+﻿/// <reference path="jquery-autocomplete-ui.js" />
+/// <reference path="jquery-autocomplete-ui.js" />
+var persons = [];
 var langs = [];
 var changes_flag = false;
 var changes_flag_l = false;
@@ -60,26 +62,28 @@ $(document).ready(function() {
         console.log($("#body_page_number").val() / 24);
     });
 
-    $("#body_person_name").autocomplete({
-        source: function(request, response) {
-            $.ajax({
-                url: ApiEndpoint + "Ir/GetPersonName?session=" + $("#sssid").val() + "&name=" + $("#body_person_name").val(),
-                success: function(data) {
-                    response($.map(data.Data, function(value, key) {
-                        return {
-                            value: value.Name,
-                            data: value.Id,
-                            acs: value.Accessority
-                        };
-                    }));
-                }
-            });
-        },
-        minLength: 3,
-        select: function(event, ui) {
-            $("#person_name_id").val(ui.item.data);
-            $("#person_name_id").attr["acs"] = ui.item.acs;
-        }
+    $.getScript("/Scripts/jquery-autocomplete-ui.js", function () {
+        $("#body_person_name").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: ApiEndpoint + "Ir/GetPersonName?session=" + $("#sssid").val() + "&name=" + $("#body_person_name").val(),
+                    success: function (data) {
+                        response($.map(data.Data, function (value, key) {
+                            return {
+                                value: value.Name,
+                                data: value.Id,
+                                acs: value.Accessority
+                            };
+                        }));
+                    }
+                });
+            },
+            minLength: 3,
+            select: function (event, ui) {
+                $("#person_name_id").val(ui.item.data);
+                $("#person_name_id").attr["acs"] = ui.item.acs;
+            }
+        });
     });
 
 
