@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="Створити ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardEdit.aspx.cs" Inherits="Site.EIR.CardEdit" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">    
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <link href="../Content/jquery-ui.min.autocomplete.css" rel="stylesheet" />
+    <script src="../Scripts/jquery-ui.min.autocomplete.js"></script>
+    <link href="../Content/CardEdit.css" rel="stylesheet" />
     <script src="../Scripts/CardEdit.js"></script>
     <div class="page-header">
         <h1><%= Page.Title %></h1>
@@ -21,13 +24,8 @@
 
     <asp:UpdatePanel ID="errUpdate" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
-            <asp:Panel ID="errpanel" runat="server" BorderStyle="Solid" Visible="False" BorderColor="Red" BorderWidth="5px" BackColor="#FF0000">
-                <asp:Label ID="errlabel" runat="server" Text=""></asp:Label>
-            </asp:Panel>
-        </ContentTemplate>
-        <Triggers>
-            <asp:AsyncPostBackTrigger ControlID="save" EventName="click" />
-        </Triggers>
+            <asp:HiddenField ID="errorField" runat="server" Value=""/>
+            </ContentTemplate>
     </asp:UpdatePanel>
 
     <div class="row">

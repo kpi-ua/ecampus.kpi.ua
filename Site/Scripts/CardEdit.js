@@ -1,5 +1,4 @@
-﻿/// <reference path="jquery-autocomplete-ui.js" />
-/// <reference path="jquery-autocomplete-ui.js" />
+﻿/// <reference path="jquery-ui.min.autocomplete.js" />
 var persons = [];
 var langs = [];
 var changes_flag = false;
@@ -62,32 +61,30 @@ $(document).ready(function() {
         console.log($("#body_page_number").val() / 24);
     });
 
-    $.getScript("/Scripts/jquery-autocomplete-ui.js", function () {
-        $("#body_person_name").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: ApiEndpoint + "Ir/GetPersonName?session=" + $("#sssid").val() + "&name=" + $("#body_person_name").val(),
-                    success: function (data) {
-                        response($.map(data.Data, function (value, key) {
-                            return {
-                                value: value.Name,
-                                data: value.Id,
-                                acs: value.Accessority
-                            };
-                        }));
-                    }
-                });
-            },
-            minLength: 3,
-            select: function (event, ui) {
-                $("#person_name_id").val(ui.item.data);
-                $("#person_name_id").attr["acs"] = ui.item.acs;
-            }
-        });
+    $("#body_person_name").autocomplete({
+        source: function(request, response) {
+            $.ajax({
+                url: ApiEndpoint + "Ir/GetPersonName?session=" + $("#sssid").val() + "&name=" + $("#body_person_name").val(),
+                success: function(data) {
+                    response($.map(data.Data, function(value, key) {
+                        return {
+                            value: value.Name,
+                            data: value.Id,
+                            acs: value.Accessority
+                        };
+                    }));
+                }
+            });
+        },
+        minLength: 3,
+        select: function(event, ui) {
+            $("#person_name_id").val(ui.item.data);
+            $("#person_name_id").attr["acs"] = ui.item.acs;
+        }
     });
 
 
-    //человеки---- 
+//человеки---- 
     $("#body_person_accessory").change(function() {
         if (document.getElementById("body_person_accessory_0").checked) {
             $("#person_name_div").slideDown(300);
@@ -98,7 +95,7 @@ $(document).ready(function() {
         }
     });
     //сохранить
-    $("#add_contr").click(function () {
+    $("#add_contr").click(function() {
         if (changes_flag == true) {
             $("#add_contr").val("Додати учасника");
             $("#clear_contr").val("Очистити");
@@ -166,7 +163,7 @@ $(document).ready(function() {
         return false;
     });
     //очистить
-    $("#clear_contr").click(function () {
+    $("#clear_contr").click(function() {
         if (changes_flag == true) {
             changes_flag = false;
             $("#add_contr").val("Додати учасника");
@@ -186,10 +183,10 @@ $(document).ready(function() {
     function load_members() {
         $("#members").html("");
         for (var i = 0; i < persons.length; i++) {
-            if (persons[i] == undefined) continue;
+            if (!persons[i].hasOwnProperty("name")) continue;
             if (persons[i].selected == true) {
                 persons[i].selected = false;
-                $("#members").append('<div class="col-sm-3"></div><div class="col-sm-9"><a person_id="' + i + '" class="delete_person_button"><b>[x]</b></a>            <a person_id="' + i + '" class="select_person_button"><b>' + persons[i].name + ',' + document.getElementById("body_contribution_type")[persons[i].part_type].text + (persons[i].part_percent != "" ? ',' + persons[i].part_percent + '%': "") + '</b></a></div>');
+                $("#members").append('<div class="col-sm-3"></div><div class="col-sm-9"><a person_id="' + i + '" class="delete_person_button"><b>[x]</b></a>            <a person_id="' + i + '" class="select_person_button"><b>' + persons[i].name + ',' + document.getElementById("body_contribution_type")[persons[i].part_type].text + (persons[i].part_percent != "" ? ',' + persons[i].part_percent + '%' : "") + '</b></a></div>');
             } else {
                 $("#members").append('<div class="col-sm-3"></div><div class="col-sm-9"><a person_id="' + i + '" class="delete_person_button">[x]</a>            <a person_id="' + i + '" class="select_person_button">' + persons[i].name + ',' + document.getElementById("body_contribution_type")[persons[i].part_type].text + (persons[i].part_percent != "" ? ',' + persons[i].part_percent + '%' : "") + '</a></div>');
             }
@@ -202,7 +199,7 @@ $(document).ready(function() {
 
         });
         //выбрать
-        $(".select_person_button").click(function () {
+        $(".select_person_button").click(function() {
             $("#add_contr").val("Зберегти");
             $("#clear_contr").val("Відмінити");
             changes_flag = true;
@@ -229,7 +226,7 @@ $(document).ready(function() {
 
     //языки---
     //сохранить
-    $("#add_lang").click(function () {
+    $("#add_lang").click(function() {
         if (changes_flag_l == true) {
             $("#add_lang").val("Додати мову");
             $("#clear_lang").val("Очистити");
@@ -266,7 +263,7 @@ $(document).ready(function() {
         return false;
     });
     //очистить
-    $("#clear_lang").click(function () {
+    $("#clear_lang").click(function() {
         if (changes_flag_l == true) {
             changes_flag_l = false;
             $("#add_lang").val("Додати мову");
@@ -285,14 +282,14 @@ $(document).ready(function() {
     function load_langs() {
         $("#langs").html("");
         for (var i = 0; i < langs.length; i++) {
-            if (langs[i] == undefined) continue;
+            if (!langs[i].hasOwnProperty("lang")) continue;
             if (langs[i].selected == true) {
                 langs[i].selected = false;
                 $("#langs").append('<div class="col-sm-3"></div><div class="col-sm-9"><a lang_id="' + i + '" class="delete_lang_button"><b>[x]</b></a>            <a lang_id="' + i + '" class="select_lang_button"><b>' + document.getElementById("body_language")[langs[i].lang].text + ',' + langs[i].name + '</b></a></div>');
             } else {
                 $("#langs").append('<div class="col-sm-3"></div><div class="col-sm-9"><a lang_id="' + i + '" class="delete_lang_button">[x]</a>            <a lang_id="' + i + '" class="select_lang_button">' + document.getElementById("body_language")[langs[i].lang].text + ',' + langs[i].name + '</a></div>');
             }
-            
+
         }
         //удалить
         $(".delete_lang_button").click(function() {
@@ -305,7 +302,7 @@ $(document).ready(function() {
             load_langs();
         });
         //выбрать
-        $(".select_lang_button").click(function () {
+        $(".select_lang_button").click(function() {
             $("#add_lang").val("Зберегти");
             $("#clear_lang").val("Відмінити");
             changes_flag_l = true;

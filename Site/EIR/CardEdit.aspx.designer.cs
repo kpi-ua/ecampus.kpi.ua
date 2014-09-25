@@ -22,22 +22,13 @@ namespace Site.EIR {
         protected global::System.Web.UI.UpdatePanel errUpdate;
         
         /// <summary>
-        /// errpanel control.
+        /// errorField control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel errpanel;
-        
-        /// <summary>
-        /// errlabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label errlabel;
+        protected global::System.Web.UI.WebControls.HiddenField errorField;
         
         /// <summary>
         /// Label1 control.
