@@ -54,8 +54,6 @@ namespace Campus.Pulse
 
             if (!String.IsNullOrEmpty(EventType)) sb.Append("event: ").AppendLine(EventType);
 
-            if (!String.IsNullOrEmpty(Title)) sb.Append("title: ").AppendLine(Title); ;
-
             if (Data != null) sb.Append("data: ").AppendLine(Output);
 
             if (!String.IsNullOrEmpty(Retry)) sb.Append("retry: ").AppendLine(Retry);
@@ -87,7 +85,12 @@ namespace Campus.Pulse
                    msg.Data == null &&
                    String.IsNullOrEmpty(msg.Retry) &&
                    !String.IsNullOrEmpty(msg.Comment);
-        }        
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this.ToString().Equals(obj.ToString());
+        }
     }
 
     public class TMessage : Message, IMessage

@@ -10,7 +10,7 @@ using Campus.Core.EventsArgs;
 using System.Web.Mvc;
 using System.Reflection;
 using Campus.Core.Common.Extensions;
-using Campus.Pulse.Common.Attributes;
+using Campus.Core.Common.Attributes;
 
 namespace Campus.Pulse
 {
@@ -45,13 +45,27 @@ namespace Campus.Pulse
 
         #region Abstracts
 
-
         /// <summary>
         /// Gets the user.
         /// </summary>
         /// <param name="sessionId">The session identifier.</param>
-        /// <returns></returns>        
-        public abstract ClientInfo GetUser(string sessionId);                
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public virtual ClientInfo GetUser(string sessionId)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets the client identifier.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
+        /// <returns></returns>
+        /// <exception cref="System.NotImplementedException"></exception>
+        public override int GetClientId(string sessionId)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
@@ -66,6 +80,7 @@ namespace Campus.Pulse
         /// <returns>Message stream</returns>
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.HttpGet]
+        [Description("Get request. Returns new event-stream.")]
         public virtual HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
         {
             return AddSubscriber(request, sessionId, ContentType.Text);

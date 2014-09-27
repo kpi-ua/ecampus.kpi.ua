@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
+using Campus.Core.Common.Attributes;
 
 namespace Campus.Core
 {
@@ -217,11 +218,13 @@ namespace Campus.Core
         protected static dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
+            var isDescription = AbstractAttribute.HasAttribute(method, typeof(DescriptionAttribute));
 
             return new
             {
                 method.Name,
                 Method = isHttPost ? "POST" : "GET",
+                Description = isDescription ? ((DescriptionAttribute)method.GetCustomAttributes().First(o => (string)o.TypeId == "DescriptionAttribute")).Description : null,
                 Parameters = method.GetParameters().Select(o => new
                 {
                     o.Name,

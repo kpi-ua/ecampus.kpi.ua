@@ -7,7 +7,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using Campus.Pulse;
-using Campus.Pulse.Common.Attributes;
+using Campus.Core.Common.Attributes;
 
 namespace Campus.Core.Interfaces
 {

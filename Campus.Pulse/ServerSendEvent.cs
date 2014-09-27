@@ -14,10 +14,9 @@ using Campus.Core.Common.BaseClasses;
 using Campus.Core.Common.Extensions;
 using Campus.Core;
 using System.Net;
-using System.ComponentModel;
 using System.Reflection;
 using System.Web.Mvc;
-using Campus.Pulse.Common.Attributes;
+using Campus.Core.Common.Attributes;
 
 
 namespace Campus.Pulse
@@ -431,7 +430,7 @@ namespace Campus.Pulse
                            where
                                method.ReturnType == typeof(HttpResponseMessage)
                                && method.IsPublic
-                               && !NonSerializableMethodAttribute.HasAttribute(method)
+                               && !NonSerializableMethodAttribute.HasAttribute(method, typeof(NonSerializableMethodAttribute))
                            select IntrospectMethod(method)).ToList();
 
             var executingAssembly = Assembly.GetExecutingAssembly();
@@ -457,12 +456,14 @@ namespace Campus.Pulse
         protected static dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
-
+            var isDescription = AbstractAttribute.HasAttribute(method, typeof(DescriptionAttribute));
+            
             return new
             {
                 method.Name,
                 Method = isHttPost ? "POST" : "GET",
-                Parameters = method.GetParameters().Where(p => !NonSerializableParameterAttribute.HasAttribute(p)).Select(o => new
+                Description = isDescription ? ((DescriptionAttribute)method.GetCustomAttributes().First(o => (string)o.TypeId == "DescriptionAttribute")).Description : null,
+                Parameters = method.GetParameters().Where(p => !AbstractAttribute.HasAttribute(p, typeof(NonSerializableParameterAttribute))).Select(o => new
                 {
                     o.Name,
                     Type = o.ParameterType.ToString(),

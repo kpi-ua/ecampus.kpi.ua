@@ -70,7 +70,6 @@
   <ItemGroup>
     <Compile Include="BaseClasses\ASingleton.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="Common\Attributes\SerializationAttributes.cs" />
     <Compile Include="Common\Exceptions\ArchitectureException.cs" />
     <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Common\Extensions\DelegateExtensions.cs" />
