@@ -22,16 +22,11 @@ namespace Campus.Core
 
         public Result()
         {
-            ControllerResult();
-        }
-
-        protected virtual void ControllerResult()
-        {
             StatusCode = HttpStatusCode.OK;
             TimeStamp = DateTime.Now;
             Guid = System.Guid.NewGuid().ToString();
             Paging = null;
-        }
+        }        
 
         public static Result Parse(string json)
         {

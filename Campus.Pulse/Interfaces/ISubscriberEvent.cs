@@ -7,6 +7,7 @@ using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using Campus.Pulse;
+using Campus.Pulse.Common.Attributes;
 
 namespace Campus.Core.Interfaces
 {
@@ -25,6 +26,7 @@ namespace Campus.Core.Interfaces
         /// </summary>
         /// <param name="request">The incomming request from the client.</param>
         /// <returns>The response to send back to the client.</returns>
+        [NonSerializableMethodAttribute]
         HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, Campus.Pulse.ServerSendEvent.ContentType type = ServerSendEvent.ContentType.Text);
     }
 }

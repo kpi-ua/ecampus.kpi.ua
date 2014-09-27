@@ -11,9 +11,9 @@ namespace Campus.Core.Interfaces
     public interface IMessage
     {
         string Id { get; }
-        string AuthorId { get; }
+        string AuthorId { get; set; }
 
-        string Data { get; }
+        object Data { get; }
 
         string Output { get; }
 

@@ -14,11 +14,15 @@ using Campus.Core.Common.BaseClasses;
 using Campus.Core.Common.Extensions;
 using Campus.Core;
 using System.Net;
+using System.ComponentModel;
+using System.Reflection;
+using System.Web.Mvc;
+using Campus.Pulse.Common.Attributes;
 
 
 namespace Campus.Pulse
 {
-    public abstract class ServerSendEvent : ApiController, IServerSentEvent
+    public abstract class ServerSendEvent : System.Web.Http.ApiController, IServerSentEvent
     {
         #region Events
 
@@ -34,7 +38,7 @@ namespace Campus.Pulse
 
         /// <summary>
         /// Invokes on heartbeat
-        /// </summary>
+        /// </summary>        
         public event Action OnHeartbeat;
 
         /// <summary>
@@ -43,22 +47,31 @@ namespace Campus.Pulse
         public event EventHandler<MessageEventArgs> OnMessageSend;
         #endregion
 
-
         #region Members
 
-        protected List<Client> _Clients = new List<Client>();
-        protected object _Lock = new object();
-        protected IMessageHistory _MessageHistory = null;
-        protected IMessageIdGenerator _IdGenerator = null;
-        protected static readonly slf4net.ILogger _logger = slf4net.LoggerFactory.GetLogger(typeof(ServerSendEvent));
-        protected int _HeartbeatInterval = 0;
-        protected Timer _HeartbeatTimer = null;
+        internal List<Client> _Clients = new List<Client>();
+        internal object _Lock = new object();
+        internal IMessageHistory _MessageHistory = null;
+        private IMessageIdGenerator _IdGenerator = null;        
+        private int _HeartbeatInterval = 0;
+        private Timer _HeartbeatTimer = null;
 
         #endregion        
 
-        #region Abstract Methods        
+        #region Properties
 
-        public abstract int GetClientId(string sessionId);
+        /// <summary>
+        /// Allow requests from other domains
+        /// </summary>
+        /// value = true
+        public static bool EnableCrossDomainRequest { get; set; }               
+
+        #endregion
+
+        #region Abstract Methods
+
+        public abstract int GetClientId(string sessionId);        
+
         #endregion
 
         #region Emuns
@@ -105,7 +118,17 @@ namespace Campus.Pulse
 
         #endregion
 
+        #region c'tors
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServerSendEvent"/> class.
+        /// </summary>
+        /// <param name="generateMessageIds">if set to <c>true</c> [generate message ids].</param>
+        /// <param name="idGenerator">The identifier generator.</param>
+        /// <param name="heartbeatInterval">The heartbeat interval.</param>
         protected ServerSendEvent(bool generateMessageIds = false, MessageIdGenerator? idGenerator = null, int heartbeatInterval = 0)
+            :this()
         {
             _HeartbeatInterval = heartbeatInterval;
             _MessageHistory = MessageHistory.Instance;
@@ -115,7 +138,20 @@ namespace Campus.Pulse
             SetupHeartbeat(heartbeatInterval);
         }
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ServerSendEvent"/> class.
+        /// </summary>
+        /// <param name="messageHistory">The message history.</param>
+        /// <param name="idGenerator">The identifier generator.</param>
+        /// <param name="heartbeatInterval">The heartbeat interval.</param>
+        /// <exception cref="System.ArgumentException">
+        /// messageHistory can not be null.
+        /// or
+        /// idGenerator can not be null.
+        /// </exception>
         protected ServerSendEvent(IMessageHistory messageHistory, IMessageIdGenerator idGenerator, int heartbeatInterval = 0)
+            :this()
         {
             if (messageHistory == null)
                 throw new ArgumentException("messageHistory can not be null.");
@@ -130,53 +166,18 @@ namespace Campus.Pulse
             SetupHeartbeat(heartbeatInterval);
         }
 
-        public virtual HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, ContentType type = ContentType.Text)
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="ServerSendEvent"/> class from being created.
+        /// </summary>
+        private ServerSendEvent()
         {
-            HttpResponseMessage response = request.CreateResponse();
-            response.Headers.Add("Access-Control-Allow-Origin", "*");
-            response.Headers.Add("Cache-Control", "no-cache, must-revalidate");
-            response.Content = new PushStreamContent((stream, content, context) =>
-            {
-                string lastMessageId = GetLastMessageId(content);
-                Client client = new Client(GetClientId(sessionId), stream, lastMessageId);
-
-                AddClient(client);
-
-            }, GetContentType(type));
-            return response;
+            EnableCrossDomainRequest = true;
         }
 
-        protected virtual void AddClient(Client client)
-        {
-            int count = 0;
-            lock (_Lock)
-            {
-                if (_Clients.Any(c => c.Id == client.Id))
-                {
-                    var oldClient = _Clients.First(c => c.Id == client.Id);
-                    _Clients.Remove(oldClient);
-                }
-                _Clients.Add(client);
-                count = _Clients.Count;
-            }
+        #endregion
 
-            OnSubscriberAdded(count);
-
-            // Send all messages since LastMessageId
-            IMessage nextMessage = null;
-            while ((nextMessage = _MessageHistory.GetNextMessage(client.LastMessageId)) != null)
-                client.Send(nextMessage);
-        }
-
-        protected string GetLastMessageId(HttpContent content)
-        {
-            string id = string.Empty;
-            IEnumerable<string> values = new List<string>();
-            if (content.Headers.TryGetValues(@"Last-Event-ID", out values))
-                id = values.FirstOrDefault();
-
-            return id;
-        }
+        #region Send
 
         /// <summary>
         /// Sends a message to all subscribers.
@@ -184,7 +185,7 @@ namespace Campus.Pulse
         /// <param name="eventType">The type of message.</param>
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">Id of the message.</param>
-        public virtual void Send(string data, string eventType = null, string messageId = null)
+        public virtual void Send(string eventType = null, object data = null, string messageId = null)
         {
             Send(new Message() { EventType = eventType, Data = data, Id = messageId });
         }
@@ -196,7 +197,7 @@ namespace Campus.Pulse
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">Id of the message.</param>
         /// <param name="clientIds">Array of client id</param>
-        public virtual void Send(string data, string eventType = null, string messageId = null, int[] clientIds = null)
+        public virtual void Send(string eventType = null, object data = null, string messageId = null, int[] clientIds = null)
         {
             Send(new Message() { EventType = eventType, Data = data, Id = messageId });
         }
@@ -208,7 +209,7 @@ namespace Campus.Pulse
         /// <param name="eventType">The type of message.</param>
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">Id of the message.</param>
-        public virtual void Send(int? clientId, string data, string eventType = null, string messageId = null)
+        public virtual void Send(int? clientId, string eventType = null, string data = null, string messageId = null)
         {
             int[] clientIds = null;
             if (clientId.HasValue)
@@ -225,6 +226,13 @@ namespace Campus.Pulse
             }
         }
 
+
+        /// <summary>
+        /// Sends the and remove disconnected.
+        /// </summary>
+        /// <param name="clientsToSendTo">The clients to send to.</param>
+        /// <param name="msg">The MSG.</param>
+        /// <param name="clientIds">The client ids.</param>
         protected void SendAndRemoveDisconneced(List<Client> clientsToSendTo, Message msg, int[] clientIds = null)
         {
             CheckMessage(msg);
@@ -239,7 +247,7 @@ namespace Campus.Pulse
                 {
                     clientIds.ForEachAsync((target) =>
                     {
-                        clientsToSendTo.Single(c => c.Id == target).Send(msg);
+                        clientsToSendTo.Single(c => c.Id == target.ToString()).Send(msg);
                     });
                 }
                 removed = _Clients.RemoveAll(c => !c.IsConnected);
@@ -250,14 +258,113 @@ namespace Campus.Pulse
 
             if (removed > 0)
                 OnSubscriberRemoved(count);
-
-            if (Message.IsOnlyComment(msg))
-                _logger.Trace("Comment: " + msg.Comment + " sent to " + count.ToString() + " clients.");
-            else
-                _logger.Info("Message: " + msg.Data + " sent to " + count.ToString() + " clients.");
         }
 
-        protected void CheckMessage(Message msg)
+        #endregion
+
+        #region Events
+
+        internal void OnSubscriberAdded(int subscriberCount)
+        {
+            if (SubscriberAdded != null)
+                SubscriberAdded(this, new SubscriberEventArgs(subscriberCount));
+        }
+
+        internal protected void OnSubscriberRemoved(int subscriberCount)
+        {
+            if (SubscriberRemoved != null)
+                SubscriberRemoved(this, new SubscriberEventArgs(subscriberCount));
+        }
+
+        #endregion        
+
+
+        /// <summary>
+        /// Makes a client a subscriber of this event.
+        /// </summary>
+        /// <param name="request">The incomming request from the client.</param>
+        /// <param name="sessionId"></param>
+        /// <param name="type"></param>
+        /// <returns>
+        /// The response to send back to the client.
+        /// </returns>
+        public virtual HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, ContentType type = ContentType.Text)
+        {
+            HttpResponseMessage response = request.CreateResponse();
+            AddHeaders(response);
+            response.Content = new PushStreamContent((stream, content, context) =>
+            {
+                string lastMessageId = GetLastMessageId(content);
+                Client client = new Client(GetClientId(sessionId), stream, lastMessageId);
+
+                AddClient(client);
+
+            }, GetContentType(type));
+            return response;
+        }
+
+
+        /// <summary>
+        /// Adds cross-domain headers.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        internal virtual void AddHeaders(HttpResponseMessage response)
+        {
+            if(EnableCrossDomainRequest)
+                response.Headers.Add("Access-Control-Allow-Origin", "*");
+            response.Headers.Add("Cache-Control", "no-cache, must-revalidate");
+        }
+
+
+        /// <summary>
+        /// Adds the client.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        internal virtual void AddClient(Client client)
+        {
+            int count = 0;
+            lock (_Lock)
+            {
+                if (_Clients.Any(c => c.Id == client.Id))
+                {
+                    var oldClient = _Clients.First(c => c.Id == client.Id);
+                    _Clients.Remove(oldClient);
+                }
+                _Clients.Add(client);
+                count = _Clients.Count;
+
+
+                OnSubscriberAdded(count);
+
+                // Send all messages since LastMessageId
+                IMessage nextMessage = null;
+                while ((nextMessage = _MessageHistory.GetNextMessage(client.LastMessageId)) != null)
+                    client.Send(nextMessage);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets the last message identifier.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <returns></returns>
+        internal protected string GetLastMessageId(HttpContent content)
+        {
+            string id = string.Empty;
+            IEnumerable<string> values = new List<string>();
+            if (content.Headers.TryGetValues(@"Last-Event-ID", out values))
+                id = values.FirstOrDefault();
+
+            return id;
+        }
+
+
+        /// <summary>
+        /// Checks the message.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        internal void CheckMessage(Message msg)
         {
             // Add id?
             if (string.IsNullOrWhiteSpace(msg.Id) && _IdGenerator != null && !Message.IsOnlyComment(msg))
@@ -268,23 +375,12 @@ namespace Campus.Pulse
                 msg.Retry = _HeartbeatInterval.ToString();
         }
 
-        protected void OnSubscriberAdded(int subscriberCount)
-        {
-            _logger.Info("Subscriber added. No of subscribers: " + subscriberCount);
 
-            if (SubscriberAdded != null)
-                SubscriberAdded(this, new SubscriberEventArgs(subscriberCount));
-        }
-
-        protected void OnSubscriberRemoved(int subscriberCount)
-        {
-            _logger.Info("Subscriber removed. No of subscribers: " + subscriberCount);
-
-            if (SubscriberRemoved != null)
-                SubscriberRemoved(this, new SubscriberEventArgs(subscriberCount));
-        }
-
-        protected void SetupHeartbeat(int heartbeatInterval)
+        /// <summary>
+        /// Setups the heartbeat.
+        /// </summary>
+        /// <param name="heartbeatInterval">The heartbeat interval.</param>
+        internal void SetupHeartbeat(int heartbeatInterval)
         {
             if (heartbeatInterval > 0)
             {
@@ -292,12 +388,86 @@ namespace Campus.Pulse
             }
         }
 
+
+        /// <summary>
+        /// Timer's callback.
+        /// </summary>
+        /// <param name="state">The state.</param>
         private void TimerCallback(object state)
         {
             if (OnHeartbeat != null)
-                OnHeartbeat.AsyncInvoke();
+                OnHeartbeat();
 
             Send(new Message() { Comment = "heartbeat" });
         }
+
+
+        /// <summary>
+        /// Validates the user.
+        /// </summary>
+        /// <param name="sessionId">The session identifier.</param>
+        /// <param name="user">The user.</param>
+        /// <exception cref="System.Web.HttpException">Access denied</exception>
+        [NonSerializableMethod]
+        protected virtual void ValidateUser(string sessionId, dynamic user)
+        {
+            if (String.IsNullOrEmpty(sessionId) || user == null)
+            {
+                throw new HttpException(Convert.ToInt32(HttpStatusCode.Forbidden), "Access denied");
+            }
+        }
+
+
+        /// <summary>
+        /// Introspects this instance.
+        /// </summary>
+        /// <returns></returns>
+        [NonSerializableMethod]
+        public virtual HttpResponseMessage Introspect()
+        {
+            //Default Introspect implementation
+
+            var methods = (from method in GetType().GetMethods()
+                           where
+                               method.ReturnType == typeof(HttpResponseMessage)
+                               && method.IsPublic
+                               && !NonSerializableMethodAttribute.HasAttribute(method)
+                           select IntrospectMethod(method)).ToList();
+
+            var executingAssembly = Assembly.GetExecutingAssembly();
+
+            var name = executingAssembly.GetName();
+            
+            return Request.CreateResponse(HttpStatusCode.OK, new
+            {
+                StatusCode = HttpStatusCode.OK,
+                TimeStamp = DateTime.Now,
+                Guid = Guid.NewGuid(),
+                ApiVersion = name.Version.ToString(),
+                Methods = methods
+            });
+        }
+
+
+        /// <summary>
+        /// Introspects the method.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns></returns>
+        protected static dynamic IntrospectMethod(MethodInfo method)
+        {
+            var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
+
+            return new
+            {
+                method.Name,
+                Method = isHttPost ? "POST" : "GET",
+                Parameters = method.GetParameters().Where(p => !NonSerializableParameterAttribute.HasAttribute(p)).Select(o => new
+                {
+                    o.Name,
+                    Type = o.ParameterType.ToString(),
+                }).ToList()
+            };
+        } 
     }
 }

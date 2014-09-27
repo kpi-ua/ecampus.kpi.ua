@@ -13,8 +13,12 @@ namespace Campus.Core.Interfaces
         /// </summary>
         /// <param name="messageId"></param>
         /// <returns>Returns the next message. \nReturns NULL if then given id was the last message or its not possible to calculate next message.</returns>
-        IMessage GetNextMessage(string messageId);
+        IMessage GetNextMessage(string messageId = null);
 
+        /// <summary>
+        /// Add message to queue
+        /// </summary>
+        /// <param name="message"></param>
         void Add(IMessage message);
     }
 }

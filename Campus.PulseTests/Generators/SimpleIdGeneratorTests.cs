@@ -26,11 +26,11 @@ namespace Campus.Core.Common.Generators.Tests
         {
             LinkedList<string> listResult = new LinkedList<string>();
             LinkedList<string> listExpected = new LinkedList<string>();
-            for (int i = int.Parse(SimpleIdGenerator.Instance.GetNextId()); i <= 10; i++)
+            for (int i = int.Parse(SimpleIdGenerator.Instance.GetLastId()); i <= 10; i++)
             {
                 var id = SimpleIdGenerator.Instance.GetNextId();
                 listResult.AddLast(id);
-                listExpected.AddLast(i.ToString());
+                listExpected.AddLast((i + 1).ToString());
             }
 
             Assert.AreEqual(listResult.Zip(listExpected, (r, e) =>
@@ -45,7 +45,7 @@ namespace Campus.Core.Common.Generators.Tests
             LinkedList<string> listResult = new LinkedList<string>();
             LinkedList<string> listExpected = new LinkedList<string>();
             LinkedList<Task> tasks = new LinkedList<Task>();
-            for (int i = int.Parse(SimpleIdGenerator.Instance.GetNextId()); i <= 10; i++)
+            for (int i = int.Parse(SimpleIdGenerator.Instance.GetLastId()); i <= 10; i++)
             {
                 tasks.AddLast(Task.Run(() =>
                 {
@@ -53,7 +53,7 @@ namespace Campus.Core.Common.Generators.Tests
                     lock (this)
                     {
                         listResult.AddLast(id);
-                        listExpected.AddLast(i.ToString());
+                        listExpected.AddLast((i + 1).ToString());
                     }
                 }));
             }

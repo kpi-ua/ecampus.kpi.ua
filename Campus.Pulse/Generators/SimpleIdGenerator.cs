@@ -9,7 +9,7 @@ using Campus.Core.Common.BaseClasses;
 
 namespace Campus.Core.Common.Generators
 {
-    public class SimpleIdGenerator : ASingleton<SimpleIdGenerator>, IMessageIdGenerator
+    public class SimpleIdGenerator : AbstractSingleton<SimpleIdGenerator>, IMessageIdGenerator
     {
         #region Members       
 
@@ -17,14 +17,35 @@ namespace Campus.Core.Common.Generators
 
         #endregion
 
+
+        /// <summary>
+        /// Prevents a default instance of the <see cref="SimpleIdGenerator"/> class from being created.
+        /// </summary>
         private SimpleIdGenerator()
         {
             mCounter = 0;
         }
 
+
+        /// <summary>
+        /// Generate a new id for the given message.
+        /// </summary>
+        /// <returns>
+        /// The generated id.
+        /// </returns>
         public string GetNextId()
         {            
             return Interlocked.Increment(ref mCounter).ToString();
+        }
+
+
+        /// <summary>
+        /// Gets the last identifier.
+        /// </summary>
+        /// <returns></returns>
+        public string GetLastId()
+        {
+            return mCounter.ToString();
         }
     }
 }

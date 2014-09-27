@@ -33,6 +33,13 @@ namespace Campus.Core.Common.Generators
 
         #endregion
 
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemplateEngine{T}"/> class.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="template">The template.</param>
+        /// <param name="identifier">The identifier.</param>
         public TemplateEngine(T obj, string template, string[] identifier)
         {
             _obj = obj;
@@ -43,11 +50,20 @@ namespace Campus.Core.Common.Generators
             BuildTemplate();
         }
 
+
+        /// <summary>
+        /// Gets the properties.
+        /// </summary>
         private void GetProperties()
         {
             _properties = _obj.GetType().GetProperties().ToList();
         }
 
+
+        /// <summary>
+        /// Builds the template.
+        /// </summary>
+        /// <returns></returns>
         public string BuildTemplate()
         {            
             var mc = Regex.Matches(Template, RegExp);
@@ -73,6 +89,5 @@ namespace Campus.Core.Common.Generators
             Task.WaitAll(tasks.ToArray());
             return Result = template.ToString();
         }
-
     }
 }

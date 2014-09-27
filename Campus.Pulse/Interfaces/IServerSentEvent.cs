@@ -16,6 +16,6 @@ namespace Campus.Core.Interfaces
         /// <param name="eventType">The type of message.</param>
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">Id of the message.</param>
-        void Send(string eventType = null, string data = null, string messageId = null);
+        void Send(string eventType = null, object data = null, string messageId = null);
     }
 }

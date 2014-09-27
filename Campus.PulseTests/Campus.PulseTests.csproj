@@ -54,12 +54,16 @@
     <Compile Include="Generators\SimpleIdGeneratorTests.cs" />
     <Compile Include="Generators\TemplateEngineTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendQueueTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Campus.Pulse\Campus.Pulse.csproj">
       <Project>{254B3C56-12FC-4DCD-958D-A984A0214A73}</Project>
       <Name>Campus.Pulse</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

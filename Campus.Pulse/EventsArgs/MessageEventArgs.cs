@@ -10,6 +10,11 @@ namespace Campus.Core.EventsArgs
 {
     public class MessageEventArgs : EventArgs
     {
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageEventArgs"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public MessageEventArgs(IMessage message)
         {
             this.Message = message;

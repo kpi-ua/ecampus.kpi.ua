@@ -32,13 +32,14 @@ namespace Campus.Core.Common.Extensions
                 select Task.Run(() => body(item)));
         }
 
+
         /// <summary>
-        /// 
+        /// ForEach asynchronous.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="source"></param>
+        /// <param name="source">The source.</param>
         /// <param name="dop">Sets how many paralel threads to use</param>
-        /// <param name="body"></param>
+        /// <param name="body">The body.</param>
         /// <returns></returns>
         public static Task ForEachAsync<T>(this IEnumerable<T> source, int dop, Func<T, Task> body)
         {
