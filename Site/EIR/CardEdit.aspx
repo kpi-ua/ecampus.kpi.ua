@@ -21,12 +21,16 @@
         .members-text { font-size: 14px; }
 
     </style>
-
+    <div id="err_trigger">
     <asp:UpdatePanel ID="errUpdate" UpdateMode="Conditional" runat="server">
         <ContentTemplate>
-            <asp:HiddenField ID="errorField" runat="server" Value=""/>
-            </ContentTemplate>
+            <asp:HiddenField ID="errorField" runat="server" Value="" />
+           </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="save" EventName="Click"/>
+        </Triggers>
     </asp:UpdatePanel>
+        </div>
 
     <div class="row">
         <div class="col-sm-12">

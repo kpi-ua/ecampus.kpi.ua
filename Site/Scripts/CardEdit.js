@@ -22,6 +22,11 @@ $(document).ready(function() {
     }
     load_langs();
 
+    // копирование названия и авторов в анотации
+    $("#body_name").keyup(function () {
+        $("#body_lang_name").val($("#body_name").val());
+    });
+        
     //load all datepickers
     $("#body_access_begin").datepicker();
     $("#body_date").datepicker();
@@ -109,7 +114,7 @@ $(document).ready(function() {
             return false;
         }
 
-        if (document.getElementById("body_person_accessory_0").checked) {
+        if (changes_flag != true && document.getElementById("body_person_accessory_0").checked) {
             for (var i = 0; i < persons.length; i++) {
                 if (persons[i].name_id == $("#person_name_id").val()) {
                     alert("Введений запис уже існує.");
@@ -194,7 +199,14 @@ $(document).ready(function() {
         }
         //удалить
         $(".delete_person_button").click(function() {
-            delete persons[this.getAttribute("person_id")];
+            delete persons[this.getAttribute("person_id")].name_acs;
+            delete persons[this.getAttribute("person_id")].name_id;
+            delete persons[this.getAttribute("person_id")].name;
+            delete persons[this.getAttribute("person_id")].id;
+            delete persons[this.getAttribute("person_id")].kpi;
+            delete persons[this.getAttribute("person_id")].part_percent;
+            delete persons[this.getAttribute("person_id")].part_type;
+            delete persons[this.getAttribute("person_id")].per_type;
             load_members();
 
         });
@@ -216,6 +228,8 @@ $(document).ready(function() {
             document.getElementById("person_id_value").value = person_id;
             document.getElementById("body_person_type").selectedIndex = persons[person_id].per_type;
             document.getElementById("body_contribution_type").selectedIndex = persons[person_id].part_type;
+            $("#person_name_id").val(persons[person_id].name_id);
+            $("#person_name_id").attr["acs"] = persons[person_id].name_acs;
             persons[person_id].selected = true;
             load_members();
         });
@@ -243,7 +257,7 @@ $(document).ready(function() {
                 key_words: document.getElementById("body_lang_keywords").value,
                 name: document.getElementById("body_lang_name").value,
                 authors: document.getElementById("body_lang_authors").value,
-                main: $("#annotation_header").text() == "Анотації (основною мовою)*" ? true : false
+                main: $("#annotation_header").text() == "Анотації (основною мовою)" ? true : false
             };
         } else {
             langs[langs.length] = {
@@ -252,7 +266,7 @@ $(document).ready(function() {
                 key_words: document.getElementById("body_lang_keywords").value,
                 name: document.getElementById("body_lang_name").value,
                 authors: document.getElementById("body_lang_authors").value,
-                main: $("#annotation_header").text() == "Анотації (основною мовою)*" ? true : false
+                main: $("#annotation_header").text() == "Анотації (основною мовою)" ? true : false
             };
         }
         if ($("#annotation_header").text() == "Анотації (основною мовою)") {
@@ -312,6 +326,7 @@ $(document).ready(function() {
             document.getElementById("body_language").value = langs[lang_id].lang;
             document.getElementById("body_annotation").value = langs[lang_id].annot;
             document.getElementById("body_lang_keywords").value = langs[lang_id].key_words;
+            document.getElementById("lang_id_value").value = lang_id;
             document.getElementById("body_lang_name").value = langs[lang_id].name;
             document.getElementById("body_lang_authors").value = langs[lang_id].authors;
             langs[lang_id].selected = true;
@@ -326,10 +341,6 @@ $(document).ready(function() {
         var d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
-    }
-
-    function getCookie(cname) {
         var name = cname + "=";
         var ca = document.cookie.split(';');
         for (var i = 0; i < ca.length; i++) {
@@ -343,6 +354,9 @@ $(document).ready(function() {
     $("#body_save").click(function() {
         setCookie("persons", "", 1);
         setCookie("langs", "", 1);
+        //обработка ошибок
+        
     });
+
 });
 
