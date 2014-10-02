@@ -76,6 +76,7 @@
     <Compile Include="Common\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
+    <Compile Include="EventsArgs\BeatEventArgs.cs" />
     <Compile Include="EventsArgs\SubscriberEventArgs.cs" />
     <Compile Include="Generators\GuidIdGenerator.cs" />
     <Compile Include="Generators\TemplateEngine.cs" />
@@ -97,7 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Pulse.cd" />
     <None Include="packages.config" />
+    <None Include="Pulse.dgml" />
+    <None Include="Pulse.xps" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Campus.Core.csproj">

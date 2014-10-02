@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Campus.Core.Interfaces;
-using System.Net.Http;
-using System.IO;
-using Campus.Core.EventsArgs;
-using System.Web.Mvc;
-using System.Reflection;
+﻿using Campus.Core.Common.Attributes;
+using Campus.Core.Common.Exceptions;
 using Campus.Core.Common.Extensions;
-using Campus.Core.Common.Attributes;
+using Campus.Core.EventsArgs;
+using Campus.Core.Interfaces;
+using System;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
 
 namespace Campus.Pulse
 {
@@ -18,7 +14,7 @@ namespace Campus.Pulse
     /// Functionality for handling and sending a Server-Sent Events from ASP.NET WebApi.
     /// </summary>
     /// <typeparam name="ClientInfo">Type to carry additional information for each client/subscriber.</typeparam>
-    public abstract class PulseController<ClientInfo> : ServerSendEvent, IGet
+    public abstract class PulseController<ClientInfo> : ServerSendEvent, IGet where ClientInfo : class
     {
         #region c'tors
 
@@ -31,6 +27,7 @@ namespace Campus.Pulse
         public PulseController(bool generateMessageIds = false, MessageIdGenerator? idGenerator = null, int heartbeatInterval = 0)
             : base(generateMessageIds, idGenerator, heartbeatInterval)
         { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="PulseController{ClientInfo}"/> class.
         /// </summary>
@@ -41,7 +38,51 @@ namespace Campus.Pulse
             : base(messageHistory, idGenerator, heartbeatInterval)
         { }
 
-        #endregion
+        #endregion c'tors
+
+        #region Events
+
+        public new event EventHandler<SubscriberEventArgs<Client>> SubscriberAdded;
+
+        internal void OnSubscriberAdded(int subscriberCount, Client client)
+        {
+            if (SubscriberAdded != null)
+                SubscriberAdded(this, new SubscriberEventArgs<Client>(client, subscriberCount));
+        }
+
+        public new event EventHandler<SubscriberEventArgs<Client>> SubscriberRemoved;
+
+        internal void OnSubscriberRemoved(int subscriberCount, Client client)
+        {
+            if (SubscriberRemoved != null)
+                SubscriberRemoved(this, new SubscriberEventArgs<Client>(client, subscriberCount));
+        }
+
+        public new event EventHandler<BeatEventArgs<ClientInfo>> OnHeartbeat;
+
+        internal void OnHBeat(object state, ClientInfo client)
+        {
+            if (OnHeartbeat != null)
+                OnHeartbeat(this, new BeatEventArgs<ClientInfo>(state, client));
+        }
+
+        internal override void TimerCallback(object state)
+        {
+            _Clients.ForEachAsync((c) =>
+            {
+                OnHBeat(state, ((ClientWithInformation<ClientInfo>)c).Info);
+            });
+
+            Send(new Message() { Comment = "heartbeat" });
+        }
+
+        #endregion Events
+
+#if DEBUG
+
+        public HttpRequestMessage RequestM { get { return Request; } set { Request = value; } }
+
+#endif
 
         #region Abstracts
 
@@ -53,7 +94,7 @@ namespace Campus.Pulse
         /// <exception cref="System.NotImplementedException"></exception>
         public virtual ClientInfo GetUser(string sessionId)
         {
-            throw new NotImplementedException();
+            throw new ArchitectureException("You must override GetUser method in client code");
         }
 
         /// <summary>
@@ -67,10 +108,9 @@ namespace Campus.Pulse
             throw new NotImplementedException();
         }
 
-        #endregion
+        #endregion Abstracts
 
         #region Get
-
 
         /// <summary>
         /// Get request.
@@ -86,7 +126,6 @@ namespace Campus.Pulse
             return AddSubscriber(request, sessionId, ContentType.Text);
         }
 
-
         /// <summary>
         /// Gets request.
         /// </summary>
@@ -98,7 +137,8 @@ namespace Campus.Pulse
         {
             return Introspect();
         }
-        #endregion
+
+        #endregion Get
 
         #region Send
 
@@ -107,14 +147,22 @@ namespace Campus.Pulse
         /// </summary>
         /// <param name="data">The data to send.</param>
         /// <param name="criteria">The criteria to be fulfilled to get the data.</param>
-        public void Send(object data, Func<ClientInfo, bool> criteria) { Send(new Message() { Data = data }, criteria); }
+        public void Send(object data, Func<ClientInfo, bool> criteria)
+        {
+            Send(new Message() { Data = data }, criteria);
+        }
+
         /// <summary>
         /// Sends data to all subscribers fulfilling the criteria.
         /// </summary>
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">The id of the message.</param>
         /// <param name="criteria">The criteria to be fulfilled to get the data.</param>
-        public void Send(object data, string eventType, Func<ClientInfo, bool> criteria) { Send(new Message() { EventType = eventType, Data = data }, criteria); }
+        public void Send(object data, string eventType, Func<ClientInfo, bool> criteria)
+        {
+            Send(new Message() { EventType = eventType, Data = data }, criteria);
+        }
+
         /// <summary>
         /// Sends data to all subscribers fulfilling the criteria.
         /// </summary>
@@ -122,10 +170,12 @@ namespace Campus.Pulse
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">The id of the message.</param>
         /// <param name="criteria">The criteria to be fulfilled to get the data.</param>
-        public void Send(object data, string eventType, string messageId, Func<ClientInfo, bool> criteria) { Send(new Message() { EventType = eventType, Data = data, Id = messageId }, criteria); }
+        public void Send(object data, string eventType, string messageId, Func<ClientInfo, bool> criteria)
+        {
+            Send(new Message() { EventType = eventType, Data = data, Id = messageId }, criteria);
+        }
 
-        #endregion
-
+        #endregion Send
 
         /// <summary>
         /// Adds the subscriber.
@@ -151,11 +201,9 @@ namespace Campus.Pulse
                 string lastMessageId = GetLastMessageId(content);
                 ClientWithInformation<ClientInfo> client = new ClientWithInformation<ClientInfo>(stream, lastMessageId, info);
                 AddClient(client);
-
             }, GetContentType(contentType), clientInfo);
             return response;
         }
-
 
         /// <summary>
         /// Adds the subscriber.
@@ -169,7 +217,6 @@ namespace Campus.Pulse
         {
             return this.AddSubscriber(request, GetUser(sessionId), type);
         }
-
 
         /// <summary>
         /// Sends the specified MSG.
@@ -191,9 +238,7 @@ namespace Campus.Pulse
 
                 SendAndRemoveDisconneced(filtered, msg);
             }
-
         }
-
 
         /// <summary>
         /// Adds the client.
@@ -204,19 +249,17 @@ namespace Campus.Pulse
             if (client is ClientWithInformation<ClientInfo>)
             {
                 var clientWithInfo = client as ClientWithInformation<ClientInfo>;
-                int count = 0;
                 lock (_Lock)
                 {
                     if (_Clients.Any(c => ((ClientWithInformation<ClientInfo>)c).Info.Equals(clientWithInfo.Info)))
                     {
                         var oldClient = _Clients.First(c => ((ClientWithInformation<ClientInfo>)c).Id == clientWithInfo.Id);
                         _Clients.Remove(oldClient);
+                        OnSubscriberRemoved(_Clients.Count, client);
                     }
                     _Clients.Add(client);
-                    count = _Clients.Count;
+                    OnSubscriberAdded(_Clients.Count, client);
                 }
-
-                OnSubscriberAdded(count);
 
                 // Send all messages since LastMessageId
                 IMessage nextMessage = null;
@@ -225,12 +268,11 @@ namespace Campus.Pulse
                 do
                 {
                     nextMessage = _MessageHistory.GetNextMessage();
-                    if(nextMessage != null && nextMessage.AuthorId.Equals(client.Id))
+                    if (nextMessage != null && nextMessage.AuthorId.Equals(client.Id))
                         client.Send(nextMessage);
                     else
                         canGet = false;
-
-                }while(canGet);
+                } while (canGet);
             }
             else
             {
@@ -238,10 +280,8 @@ namespace Campus.Pulse
             }
         }
 
-
-        internal protected class PushStreamContentWithClientInfomation<Data> : PushStreamContent
+        protected internal class PushStreamContentWithClientInfomation<Data> : PushStreamContent
         {
-
             /// <summary>
             /// Initializes a new instance of the <see cref="PushStreamContentWithClientInfomation`1"/> class.
             /// </summary>
@@ -254,7 +294,6 @@ namespace Campus.Pulse
                 this.Info = clientInfo;
             }
 
-
             /// <summary>
             /// Gets the information.
             /// </summary>
@@ -264,4 +303,34 @@ namespace Campus.Pulse
             public Data Info { get; private set; }
         }
     }
+
+#if DEBUG
+
+    public class TestUser
+    {
+        public int Id;
+        public TestUser(int id)
+        {
+            Id = id;
+        }
+    }
+
+    public class TestClass : PulseController<TestUser>
+    {
+        public override TestUser GetUser(string sessionId)
+        {
+            return new TestUser(int.Parse(sessionId));
+        }
+
+        public override int GetClientId(string sessionId)
+        {
+            return int.Parse(sessionId);
+        }
+
+        public TestClass() : base(true, ServerSendEvent.MessageIdGenerator.Simple, 5000)
+        {
+        }
+    }
+
+#endif
 }

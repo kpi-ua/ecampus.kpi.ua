@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Campus.Core.Common.Exceptions
 {
+    /// <summary>
+    /// There's no way to generate compilation errors from code.
+    /// So this exception can help to show that class user do not implement something correctly.
+    /// </summary>
     [Serializable]
     public class ArchitectureException : Exception
     {

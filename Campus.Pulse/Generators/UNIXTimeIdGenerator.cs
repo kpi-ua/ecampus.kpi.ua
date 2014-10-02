@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Campus.Core.Interfaces;
 using Campus.Core.Common.BaseClasses;
+using Campus.Core.Common.Extensions;
 
 namespace Campus.Core.Common.Generators
 {
@@ -28,7 +29,7 @@ namespace Campus.Core.Common.Generators
         /// </returns>
         public string GetNextId()
         {
-            return ((int)ToUnixTime(DateTime.UtcNow)).ToString();
+            return ((int)DateTime.UtcNow.ToUnixTime()).ToString();
         }
 
 

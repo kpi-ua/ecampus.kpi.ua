@@ -24,7 +24,7 @@ namespace Campus.Core.Interfaces
         /// <summary>
         /// Makes a client a subscriber of this event.
         /// </summary>
-        /// <param name="request">The incomming request from the client.</param>
+        /// <param name="request">The incoming request from the client.</param>
         /// <returns>The response to send back to the client.</returns>
         [NonSerializableMethodAttribute]
         HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, Campus.Pulse.ServerSendEvent.ContentType type = ServerSendEvent.ContentType.Text);

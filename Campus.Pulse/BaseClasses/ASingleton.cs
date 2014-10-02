@@ -1,16 +1,11 @@
-﻿using Campus.Core.Interfaces;
+﻿using Campus.Core.Common.Exceptions;
+using Campus.Core.Common.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Campus.Core.Common.Extensions;
-using Campus.Core.Common.Exceptions;
 
 namespace Campus.Core.Common.BaseClasses
 {
-
     /// <summary>
     /// Base class for singleton pattern.
     /// After inheriting this the only thing you should do is to mark your constructor as private
@@ -25,7 +20,6 @@ namespace Campus.Core.Common.BaseClasses
 
         protected AbstractSingleton()
         {
-            VerifyChild();
         }
 
         /// <summary>
@@ -34,19 +28,19 @@ namespace Campus.Core.Common.BaseClasses
         /// <typeparam name="R"></typeparam>
         /// <returns></returns>
         private static R Construct<R>()
-        {            
-            return (R)typeof(R).Construct();            
+        {
+            VerifyChild();
+            return (R)typeof(R).Construct();
         }
-
 
         /// <summary>
         /// Verifies the child.
         /// </summary>
         /// <exception cref="Campus.Core.Common.BaseClasses.AbstractSingleton`1.ArchitectureException">You're trying to use type that should be a singleton but has public constructor</exception>
-        private void VerifyChild()
+        private static void VerifyChild()
         {
-            if (typeof(T).GetConstructors(BindingFlags.Public).Any())
+            if (typeof(T).GetConstructors(BindingFlags.Public | BindingFlags.Instance).Any())
                 throw new ArchitectureException("You're trying to use type that should be a singleton but has public constructor");
-        }        
+        }
     }
 }

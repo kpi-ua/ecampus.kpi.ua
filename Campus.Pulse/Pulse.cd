@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Campus.Core.Common.BaseClasses.AbstractSingleton&lt;T&gt;">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAgAAAAAAAAAAAAAAAAAACQAAAAAAAAAA=</HashCode>
+      <FileName>BaseClasses\ASingleton.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Pulse.Client">
+    <Position X="6.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAABAAGAAAAAAgAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Pulse.ClientWithInformation&lt;Data&gt;">
+    <Position X="6.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Pulse.Message">
+    <Position X="3.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAEBEgAAIAQAEAAAAApAAABAAAAAAAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Campus.Pulse.TMessage">
+    <Position X="3.5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Campus.Pulse.MessageTemplate&lt;T&gt;">
+    <Position X="13.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Pulse.MessageHistory">
+    <Position X="0.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQABAAAA=</HashCode>
+      <FileName>MessageHistory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Campus.Pulse.PulseController&lt;ClientInfo&gt;">
+    <Position X="6.5" Y="7.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Campus.Pulse.PulseController&lt;ClientInfo&gt;.PushStreamContentWithClientInfomation&lt;Data&gt;" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>PulseController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAIAQBAAEAAAAAAAEQAAAABEAADAAQAAAg=</HashCode>
+      <FileName>PulseController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Campus.Pulse.SendQueue&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="7.75" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Campus.Pulse.SendQueue&lt;T&gt;.MessageConditionPair" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>SendQueue.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AGMACEAAAAAAABAwCAAAAAQAAARAAAAACAQAAEBQIAg=</HashCode>
+      <FileName>SendQueue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Campus.Pulse.ServerSendEvent">
+    <Position X="9.75" Y="6.25" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Campus.Pulse.ServerSendEvent.MessageIdGenerator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ServerSendEvent.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="Campus.Pulse.ServerSendEvent.ContentType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ServerSendEvent.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AQAgCAAAAAAoAYEBBEIAAQAAgMQAAAEhCAATAAQEAGg=</HashCode>
+      <FileName>ServerSendEvent.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Campus.Core.Common.Exceptions.ArchitectureException">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Exceptions\ArchitectureException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.Common.Extensions.DateTimeExtensions">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Common\Extensions\DateTimeExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.Common.Extensions.DelegateExtensions">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Extensions\DelegateExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.Common.Extensions.IEnumerableExtensions">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Common\Extensions\IEnumerableExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.Common.Extensions.ObjectExtensions">
+    <Position X="15.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAEICAAAAAAABA=</HashCode>
+      <FileName>Common\Extensions\ObjectExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.Common.Extensions.TypeExtensions">
+    <Position X="11.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Common\Extensions\TypeExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.EventsArgs.BeatEventArgs">
+    <Position X="0.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>EventsArgs\BeatEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.EventsArgs.BeatEventArgs&lt;T&gt;">
+    <Position X="0.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>EventsArgs\BeatEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.EventsArgs.MessageEventArgs">
+    <Position X="11.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAQA=</HashCode>
+      <FileName>EventsArgs\MessageEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.EventsArgs.SubscriberEventArgs">
+    <Position X="3.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EventsArgs\SubscriberEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.EventsArgs.SubscriberEventArgs&lt;T&gt;" Collapsed="true">
+    <Position X="3.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EventsArgs\SubscriberEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.Common.Generators.GuidIdGenerator">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Generators\GuidIdGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Campus.Core.Common.Generators.SimpleIdGenerator">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Generators\SimpleIdGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Campus.Core.Common.Generators.TemplateEngine&lt;T&gt;">
+    <Position X="10" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAAACAAEAEAAEAAAAAAAAAQAAAACAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Generators\TemplateEngine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Campus.Core.Common.Generators.UnixTimeIdGenerator">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Generators\UnixTimeIdGenerator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Campus.Core.Interfaces.IGet">
+    <Position X="11.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IGet.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Campus.Core.Interfaces.IMessage">
+    <Position X="13.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAEAAAAAABAAAAIAAAEAAAAAhAAABAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMessage.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Campus.Core.Interfaces.IMessageHistory">
+    <Position X="15" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Interfaces\IMessageHistory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Campus.Core.Interfaces.IMessageIdGenerator">
+    <Position X="13.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMessageIdGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Campus.Core.Interfaces.IServerSentEvent" Collapsed="true">
+    <Position X="0.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IServerSentEvent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Campus.Core.Interfaces.ISubscriberEvent">
+    <Position X="0.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAAAAAAEAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ISubscriberEvent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

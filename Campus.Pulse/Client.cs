@@ -81,7 +81,6 @@ namespace Campus.Pulse
                         msg.AuthorId = this.Id;
                         MessageHistory.Instance.Add(msg);
                     }
-                    //IsConnected = false;
                 }
             }
         }        

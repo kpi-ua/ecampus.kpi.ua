@@ -28,17 +28,17 @@ namespace Campus.Pulse
         /// <summary>
         /// Invokes when new subscriber was added
         /// </summary>
-        public event EventHandler<SubscriberEventArgs> SubscriberAdded;
+        public virtual event EventHandler<SubscriberEventArgs> SubscriberAdded;
 
         /// <summary>
         /// Invokes on subscriber removing
         /// </summary>
-        public event EventHandler<SubscriberEventArgs> SubscriberRemoved;
+        public virtual event EventHandler<SubscriberEventArgs> SubscriberRemoved;
 
         /// <summary>
         /// Invokes on heartbeat
         /// </summary>        
-        public event Action OnHeartbeat;
+        public virtual event EventHandler<BeatEventArgs> OnHeartbeat;
 
         /// <summary>
         /// Invokes on message send
@@ -51,11 +51,11 @@ namespace Campus.Pulse
         internal List<Client> _Clients = new List<Client>();
         internal object _Lock = new object();
         internal IMessageHistory _MessageHistory = null;
-        private IMessageIdGenerator _IdGenerator = null;        
+        private IMessageIdGenerator _IdGenerator = null;
         private int _HeartbeatInterval = 0;
         private Timer _HeartbeatTimer = null;
 
-        #endregion        
+        #endregion
 
         #region Properties
 
@@ -63,13 +63,13 @@ namespace Campus.Pulse
         /// Allow requests from other domains
         /// </summary>
         /// value = true
-        public static bool EnableCrossDomainRequest { get; set; }               
+        public static bool EnableCrossDomainRequest { get; set; }
 
         #endregion
 
         #region Abstract Methods
 
-        public abstract int GetClientId(string sessionId);        
+        public abstract int GetClientId(string sessionId);
 
         #endregion
 
@@ -127,7 +127,7 @@ namespace Campus.Pulse
         /// <param name="idGenerator">The identifier generator.</param>
         /// <param name="heartbeatInterval">The heartbeat interval.</param>
         protected ServerSendEvent(bool generateMessageIds = false, MessageIdGenerator? idGenerator = null, int heartbeatInterval = 0)
-            :this()
+            : this()
         {
             _HeartbeatInterval = heartbeatInterval;
             _MessageHistory = MessageHistory.Instance;
@@ -150,7 +150,7 @@ namespace Campus.Pulse
         /// idGenerator can not be null.
         /// </exception>
         protected ServerSendEvent(IMessageHistory messageHistory, IMessageIdGenerator idGenerator, int heartbeatInterval = 0)
-            :this()
+            : this()
         {
             if (messageHistory == null)
                 throw new ArgumentException("messageHistory can not be null.");
@@ -253,7 +253,7 @@ namespace Campus.Pulse
                 count = _Clients.Count;
             }
 
-            Task.Run(() => { OnMessageSend(this, new MessageEventArgs(msg)); });
+            Task.Run(() => { if (OnMessageSend != null)OnMessageSend(this, new MessageEventArgs(msg)); });
 
             if (removed > 0)
                 OnSubscriberRemoved(count);
@@ -263,19 +263,25 @@ namespace Campus.Pulse
 
         #region Events
 
-        internal void OnSubscriberAdded(int subscriberCount)
+        internal virtual void OnSubscriberAdded(int subscriberCount)
         {
             if (SubscriberAdded != null)
                 SubscriberAdded(this, new SubscriberEventArgs(subscriberCount));
         }
 
-        internal protected void OnSubscriberRemoved(int subscriberCount)
+        internal virtual void OnSubscriberRemoved(int subscriberCount)
         {
             if (SubscriberRemoved != null)
                 SubscriberRemoved(this, new SubscriberEventArgs(subscriberCount));
         }
 
-        #endregion        
+        internal virtual void OnHBeat(object state)
+        {
+            if (OnHeartbeat != null)
+                OnHeartbeat(this, new BeatEventArgs(state));
+        }
+
+        #endregion
 
 
         /// <summary>
@@ -309,7 +315,7 @@ namespace Campus.Pulse
         /// <param name="response">The response.</param>
         internal virtual void AddHeaders(HttpResponseMessage response)
         {
-            if(EnableCrossDomainRequest)
+            if (EnableCrossDomainRequest)
                 response.Headers.Add("Access-Control-Allow-Origin", "*");
             response.Headers.Add("Cache-Control", "no-cache, must-revalidate");
         }
@@ -392,10 +398,9 @@ namespace Campus.Pulse
         /// Timer's callback.
         /// </summary>
         /// <param name="state">The state.</param>
-        private void TimerCallback(object state)
+        internal virtual void TimerCallback(object state)
         {
-            if (OnHeartbeat != null)
-                OnHeartbeat();
+            OnHBeat(state);
 
             Send(new Message() { Comment = "heartbeat" });
         }
@@ -436,7 +441,7 @@ namespace Campus.Pulse
             var executingAssembly = Assembly.GetExecutingAssembly();
 
             var name = executingAssembly.GetName();
-            
+
             return Request.CreateResponse(HttpStatusCode.OK, new
             {
                 StatusCode = HttpStatusCode.OK,
@@ -457,7 +462,7 @@ namespace Campus.Pulse
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
             var isDescription = AbstractAttribute.HasAttribute(method, typeof(DescriptionAttribute));
-            
+
             return new
             {
                 method.Name,
@@ -469,6 +474,6 @@ namespace Campus.Pulse
                     Type = o.ParameterType.ToString(),
                 }).ToList()
             };
-        } 
+        }
     }
 }
