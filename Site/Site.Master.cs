@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web.UI.WebControls;
 using Core;
 using System;
 using System.Web.UI;
@@ -8,15 +11,15 @@ namespace Site
 {
     public partial class SiteMaster : MasterPage
     {
+        public int A;
         protected SitePage SitePage
         {
             get { return this.Page as SitePage; }
         }
-
+        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
             try
             {
                 UserName.Text = SitePage.CurrentUser.FullName;
@@ -35,13 +38,62 @@ namespace Site
 
                 form.Controls.Add(hiddenField1);
 
-
-                individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
+               // individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
             }
             catch
             {
                 UserName.Text = "Ошибка при загрузке страницы!!!";
             }
+        }
+        
+        public void carousel_profile_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+
+        public void carousel_date_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+
+        public void carousel_teachers_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+
+        public void carousel_methodologicalsupport_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+
+        public void carousel_eip_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/EIR/IrGroup/Default.aspx");
+        }
+
+        public void carousel_plan_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/TimeTable/Default.aspx");
+        }
+
+        public void carousel_billboard_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Bulletins/Default.aspx");
+        }
+
+        public void carousel_communion_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+
+        public void carousel_studygroups_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+
+        public void carousel_currentcontrol_button_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Default.aspx");
         }
 
     }

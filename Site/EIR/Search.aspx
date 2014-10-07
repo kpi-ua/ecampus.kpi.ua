@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Site.Search" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="carousel_container" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <div id="panel"></div>
     <input id="irEdit" type="hidden" runat="server" />

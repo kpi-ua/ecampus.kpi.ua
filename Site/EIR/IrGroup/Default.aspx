@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="Групи ЕІР" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.EIR.IrGroup.Default" %>
 
+<asp:Content ID="breadcrumbs_content" ContentPlaceHolderID="breadcrumbs" runat="server">
+    <li><a href="/Default.aspx">Домашня</a></li>
+    <li class="active">ЕIR</li>
+</asp:Content>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="server">
     
     <div class="page-header">

@@ -1,5 +1,10 @@
 ﻿<%@ Page Title="Дошка оголошень" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Bulletins.Default" %>
 
+<asp:Content ID="breadcrumbs_content" ContentPlaceHolderID="breadcrumbs" runat="server">
+    <li><a href="/Default.aspx">Домашня</a></li>
+    <li class="active">Дошка оголошень</li>
+</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     
     <div class="page-header">

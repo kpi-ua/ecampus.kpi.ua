@@ -13,33 +13,6 @@ namespace Site {
     public partial class Default {
         
         /// <summary>
-        /// carousel_wrap control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl carousel_wrap;
-        
-        /// <summary>
-        /// error_message control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl error_message;
-        
-        /// <summary>
-        /// error_message_text control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl error_message_text;
-        
-        /// <summary>
         /// profile_photo control.
         /// </summary>
         /// <remarks>

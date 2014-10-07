@@ -387,10 +387,11 @@ a, .btn {
 }
 
 .profile {
+    margin-right: 20px;
 }
 
     .profile .tab-pane {
-        padding: 10px;
+        padding: 0px;
     }
 
     .profile .pic {
@@ -399,30 +400,28 @@ a, .btn {
     }
 
     .profile .name {
-        position: absolute;
-        padding-left: 200px;
+        padding-left: 30px;
         font-size: 30px;
     }
 
     .profile .dropdown {
-        position: absolute;
+        /*position: absolute;*/
     }
 
     .profile .change {
-        position: relative;
+        /*position: relative;*/
         bottom: 20px;
         padding: 1px;
         color: white;
         text-decoration: none;
     }
 
-
-        .profile .change:hover {
-            background-color: black;
-            color: white;
-            text-decoration: none;
-        }
-
+    .profile .change:hover {
+        background-color: black;
+        color: white;
+        text-decoration: none;
+    }
+    
 /* END PROFILE */
 
 /*MESSAGES*/
@@ -655,13 +654,13 @@ a, .btn {
     }
 
 .wrap {
-    overflow: hidden;
+    /*overflow: hidden;
     margin: 0 auto -90px;
     padding-bottom: 90px;
     min-height: 100%;
     width: 100%;
     height: auto !important;
-    height: 100%;
+    height: 100%;*/
 }
 
 header {
@@ -2156,3 +2155,4 @@ table tr td {
 .popup-data {
     width: 200px;
 }
+

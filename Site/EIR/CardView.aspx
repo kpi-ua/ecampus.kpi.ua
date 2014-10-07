@@ -1,7 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CardView.aspx.cs" Inherits="Site.EIR.CardView" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="carousel_container" runat="server">
-</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
 
     <div class="page-header">

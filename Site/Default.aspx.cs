@@ -78,7 +78,7 @@ namespace Site
                 sb.AppendLine("</a></div></div>");
             }
 
-            carousel_wrap.InnerHtml = sb.ToString();
+            //carousel_wrap.InnerHtml = sb.ToString();
         }
 
         protected void SavePass_Click(object sender, EventArgs e)
@@ -105,8 +105,8 @@ namespace Site
 
         private void ShowErrorMessage(string text)
         {
-            error_message.Visible = true;
-            error_message_text.InnerText = text;
+            //error_message.Visible = true;
+            //error_message_text.InnerText = text;
         }
 
         protected void btnUpload_Click(object sender, EventArgs e)
