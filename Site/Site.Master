@@ -29,7 +29,7 @@
 <body>
     <script type="text/javascript">
         image = "<%=this.SitePage.CurrentUser.Photo%>";
-        text = "<%=this.SitePage.CurrentUser.FullName +","+ this.SitePage.CurrentUser.Employees.First().Position + ","+ this.SitePage.CurrentUser.Employees.First().AcademicDegree%>";
+        text = "<%=this.SitePage.CurrentUser.FullName +","+ this.Position + ","+ this.AcademicDegree%>";
         head = "";
     </script>
 
