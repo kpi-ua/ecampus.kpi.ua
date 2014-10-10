@@ -171,12 +171,14 @@
     <Content Include="apple-touch-icon-iphone.png" />
     <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\CardEdit.css" />
+    <Content Include="Content\CreatePage.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="Content\site2.css" />
     <Content Include="EIR\CardView.aspx" />
+    <Content Include="EIR\CreatePage.aspx" />
     <Content Include="EIR\IrGroup\Default.aspx" />
     <Content Include="EIR\IrGroup\IrGroupSetView.aspx" />
     <Content Include="EIR\IrGroup\IrGroupView.aspx" />
@@ -281,6 +283,7 @@
     <Content Include="robots.txt" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\APIlib.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-clockpicker.min.js" />
     <Content Include="Scripts\CardEdit.js" />
@@ -296,6 +299,7 @@
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\webdeploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\CreatePage.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
@@ -346,6 +350,12 @@
     </Compile>
     <Compile Include="EIR\CardView.aspx.designer.cs">
       <DependentUpon>CardView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\CreatePage.aspx.cs">
+      <DependentUpon>CreatePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\CreatePage.aspx.designer.cs">
+      <DependentUpon>CreatePage.aspx</DependentUpon>
     </Compile>
     <Compile Include="EIR\IrGroup\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
