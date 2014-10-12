@@ -2,15 +2,13 @@
     $("a").tooltip();
 });
 
-
-
 var image;
 var text;
 var head;
 
  $(document).ready(function() {
      $("[rel=drevil]").popover({
-         delay: 1000,
+         delay: 300,
          animation: 'false',
          placement : 'left',
          html: 'true',

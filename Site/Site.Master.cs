@@ -74,7 +74,7 @@ namespace Site
 
         public void carousel_teachers_button_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Default.aspx");
+            Response.Redirect("~/EIR/Search.aspx");
         }
 
         public void carousel_methodologicalsupport_button_Click(object sender, EventArgs e)
@@ -84,7 +84,7 @@ namespace Site
 
         public void carousel_eip_button_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/EIR/IrGroup/Default.aspx");
+            Response.Redirect("~/EIR/Default.aspx");
         }
 
         public void carousel_plan_button_Click(object sender, EventArgs e)
