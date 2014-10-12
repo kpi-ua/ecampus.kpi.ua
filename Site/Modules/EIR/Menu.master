@@ -1,0 +1,14 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Menu.master.cs" Inherits="Site.EIR.Menu" %>
+
+<asp:Content ID="breadcrumbs_content" ContentPlaceHolderID="breadcrumbs" runat="server">
+    <li><a href="/Default.aspx">Домашня</a></li>
+    <li class="active">EIR</li>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <asp:HiddenField runat="server" ID="ssid" Value="82314dc9-d8f0-4373-9487-e03250046fd6"/>
+    <asp:HiddenField runat="server" ID="api" Value="http://dev.api.ecampus.kpi.ua/"/>
+    меню будет тут
+    <asp:ContentPlaceHolder runat="server" ID="newhead"></asp:ContentPlaceHolder>
+    <asp:ContentPlaceHolder runat="server" ID="newbody"></asp:ContentPlaceHolder>
+</asp:Content>

@@ -177,8 +177,7 @@
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="Content\site2.css" />
-    <Content Include="Modules\EIR\CardView.aspx" />
-    <Content Include="Modules\EIR\CreatePage.aspx" />
+    <Content Include="Modules\EIR\Create.aspx" />
     <Content Include="Modules\EIR\Default.aspx" />
     <Content Include="Modules\EIR\IrGroup\Default.aspx" />
     <Content Include="Modules\EIR\IrGroup\IrGroupSetView.aspx" />
@@ -225,7 +224,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Content\site.css" />
-    <Content Include="Modules\EIR\CardEdit.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -298,6 +296,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Modules\EIR\Menu.master" />
     <None Include="Properties\PublishProfiles\webdeploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\CreatePage.js" />
@@ -345,19 +344,12 @@
     <Compile Include="Modules\Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\EIR\CardView.aspx.cs">
-      <DependentUpon>CardView.aspx</DependentUpon>
+    <Compile Include="Modules\EIR\Create.aspx.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\EIR\CardView.aspx.designer.cs">
-      <DependentUpon>CardView.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\EIR\CreatePage.aspx.cs">
-      <DependentUpon>CreatePage.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\EIR\CreatePage.aspx.designer.cs">
-      <DependentUpon>CreatePage.aspx</DependentUpon>
+    <Compile Include="Modules\EIR\Create.aspx.designer.cs">
+      <DependentUpon>Create.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\EIR\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -394,6 +386,13 @@
     <Compile Include="Modules\EIR\IrGroup\NewIrGroup.aspx.designer.cs">
       <DependentUpon>NewIrGroup.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Modules\EIR\Menu.master.cs">
+      <DependentUpon>Menu.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\EIR\Menu.master.designer.cs">
+      <DependentUpon>Menu.master</DependentUpon>
+    </Compile>
     <Compile Include="Modules\IndividualTeachersPlan\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -423,13 +422,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Modules\EIR\CardEdit.aspx.cs">
-      <DependentUpon>CardEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\EIR\CardEdit.aspx.designer.cs">
-      <DependentUpon>CardEdit.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
