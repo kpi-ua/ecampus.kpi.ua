@@ -179,6 +179,7 @@
     <Content Include="Content\site2.css" />
     <Content Include="EIR\CardView.aspx" />
     <Content Include="EIR\CreatePage.aspx" />
+    <Content Include="EIR\Default.aspx" />
     <Content Include="EIR\IrGroup\Default.aspx" />
     <Content Include="EIR\IrGroup\IrGroupSetView.aspx" />
     <Content Include="EIR\IrGroup\IrGroupView.aspx" />
@@ -353,9 +354,17 @@
     </Compile>
     <Compile Include="EIR\CreatePage.aspx.cs">
       <DependentUpon>CreatePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="EIR\CreatePage.aspx.designer.cs">
       <DependentUpon>CreatePage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EIR\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EIR\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="EIR\IrGroup\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
