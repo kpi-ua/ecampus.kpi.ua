@@ -62,10 +62,10 @@ namespace Site
             var links = new List<Core.Link>
             {
                 new Link {Title = "Мій профіль", Image = CurrentUser.Photo, Url = "/Default.aspx"},
-                new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Bulletins"},
-                new Link {Title = "Спілкування", Image = "/Images/carousel-msg.jpg", Url = "/Messages"},
-                new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg", Url = "/TimeTable"},
-                new Link {Title = "Підтримка", Image = "/Images/carousel-support.jpg", Url = "/Support.aspx"},
+                new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Modules/Bulletins"},
+                new Link {Title = "Спілкування", Image = "/Images/carousel-msg.jpg", Url = "/Modules/Messages"},
+                new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg", Url = "/Modules/TimeTable"},
+                new Link {Title = "Підтримка", Image = "/Images/carousel-support.jpg", Url = "/Modules/Support.aspx"},
             };
 
             foreach (var link in links)

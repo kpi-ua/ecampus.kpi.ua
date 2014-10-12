@@ -74,7 +74,7 @@ namespace Site
 
         public void carousel_teachers_button_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/EIR/Search.aspx");
+            Response.Redirect("~/Modules/EIR/Search.aspx");
         }
 
         public void carousel_methodologicalsupport_button_Click(object sender, EventArgs e)
@@ -84,17 +84,17 @@ namespace Site
 
         public void carousel_eip_button_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/EIR/Default.aspx");
+            Response.Redirect("~/Modules/EIR");
         }
 
         public void carousel_plan_button_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/TimeTable/Default.aspx");
+            Response.Redirect("~/Modules/TimeTable");
         }
 
         public void carousel_billboard_button_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Bulletins/Default.aspx");
+            Response.Redirect("~/Modules/Bulletins");
         }
 
         public void carousel_communion_button_Click(object sender, EventArgs e)
