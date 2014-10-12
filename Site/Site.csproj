@@ -177,12 +177,13 @@
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="Content\site2.css" />
-    <Content Include="EIR\CardView.aspx" />
-    <Content Include="EIR\CreatePage.aspx" />
-    <Content Include="EIR\IrGroup\Default.aspx" />
-    <Content Include="EIR\IrGroup\IrGroupSetView.aspx" />
-    <Content Include="EIR\IrGroup\IrGroupView.aspx" />
-    <Content Include="EIR\IrGroup\NewIrGroup.aspx" />
+    <Content Include="Modules\EIR\CardView.aspx" />
+    <Content Include="Modules\EIR\CreatePage.aspx" />
+    <Content Include="Modules\EIR\Default.aspx" />
+    <Content Include="Modules\EIR\IrGroup\Default.aspx" />
+    <Content Include="Modules\EIR\IrGroup\IrGroupSetView.aspx" />
+    <Content Include="Modules\EIR\IrGroup\IrGroupView.aspx" />
+    <Content Include="Modules\EIR\IrGroup\NewIrGroup.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -198,17 +199,17 @@
     <Content Include="Images\carousel-profile-button.png" />
     <Content Include="Images\carousel-studygroups-button.png" />
     <Content Include="Images\carousel-support.jpg" />
-    <Content Include="Bulletins\Default.aspx" />
-    <Content Include="Bulletins\MyBulletins.aspx" />
+    <Content Include="Modules\Bulletins\Default.aspx" />
+    <Content Include="Modules\Bulletins\MyBulletins.aspx" />
     <Content Include="Images\carousel-teachers-button.png" />
     <Content Include="Images\header-exit-button.png" />
     <Content Include="Images\header-home-button.png" />
     <Content Include="Images\header-over-line-icon.png" />
     <Content Include="Images\header-portfolio-button.png" />
     <Content Include="Images\header-question-button.png" />
-    <Content Include="IndividualTeachersPlan.aspx" />
-    <Content Include="Messages\Default.aspx" />
-    <Content Include="Messages\Dialog.aspx" />
+    <Content Include="Modules\IndividualTeachersPlan\Default.aspx" />
+    <Content Include="Modules\Messages\Default.aspx" />
+    <Content Include="Modules\Messages\Dialog.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -224,7 +225,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Content\site.css" />
-    <Content Include="EIR\CardEdit.aspx" />
+    <Content Include="Modules\EIR\CardEdit.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -278,8 +279,8 @@
     <Content Include="Images\ui-icons_ffffff_256x240.png" />
     <Content Include="Images\vsogo.png" />
     <Content Include="Images\zaliki.png" />
-    <Content Include="MZSearch\Default.aspx" />
-    <Content Include="RNP\Default.aspx" />
+    <Content Include="Modules\MZSearch\Default.aspx" />
+    <Content Include="Modules\RNP\Default.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -316,11 +317,11 @@
     <None Include="Properties\PublishProfiles\default.pubxml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="EIR\Search.aspx" />
+    <Content Include="Modules\EIR\Search.aspx" />
     <Content Include="SessionManager.asmx" />
-    <Content Include="Support.aspx" />
-    <Content Include="TimeTable\TimeTableEdit.aspx" />
-    <Content Include="TimeTable\Default.aspx" />
+    <Content Include="Modules\Support\Default.aspx" />
+    <Content Include="Modules\TimeTable\Edit.aspx" />
+    <Content Include="Modules\TimeTable\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -330,81 +331,88 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\SystemController.cs" />
-    <Compile Include="Bulletins\Default.aspx.cs">
+    <Compile Include="Modules\Bulletins\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Bulletins\Default.aspx.designer.cs">
+    <Compile Include="Modules\Bulletins\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Bulletins\MyBulletins.aspx.cs">
+    <Compile Include="Modules\Bulletins\MyBulletins.aspx.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Bulletins\MyBulletins.aspx.designer.cs">
+    <Compile Include="Modules\Bulletins\MyBulletins.aspx.designer.cs">
       <DependentUpon>MyBulletins.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\CardView.aspx.cs">
+    <Compile Include="Modules\EIR\CardView.aspx.cs">
       <DependentUpon>CardView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\CardView.aspx.designer.cs">
+    <Compile Include="Modules\EIR\CardView.aspx.designer.cs">
       <DependentUpon>CardView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\CreatePage.aspx.cs">
+    <Compile Include="Modules\EIR\CreatePage.aspx.cs">
       <DependentUpon>CreatePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\CreatePage.aspx.designer.cs">
+    <Compile Include="Modules\EIR\CreatePage.aspx.designer.cs">
       <DependentUpon>CreatePage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\IrGroup\Default.aspx.cs">
+    <Compile Include="Modules\EIR\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\IrGroup\Default.aspx.designer.cs">
+    <Compile Include="Modules\EIR\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\IrGroup\IrGroupSetView.aspx.cs">
+    <Compile Include="Modules\EIR\IrGroup\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\EIR\IrGroup\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EIR\IrGroup\IrGroupSetView.aspx.cs">
       <DependentUpon>IrGroupSetView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\IrGroup\IrGroupSetView.aspx.designer.cs">
+    <Compile Include="Modules\EIR\IrGroup\IrGroupSetView.aspx.designer.cs">
       <DependentUpon>IrGroupSetView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\IrGroup\IrGroupView.aspx.cs">
+    <Compile Include="Modules\EIR\IrGroup\IrGroupView.aspx.cs">
       <DependentUpon>IrGroupView.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\IrGroup\IrGroupView.aspx.designer.cs">
+    <Compile Include="Modules\EIR\IrGroup\IrGroupView.aspx.designer.cs">
       <DependentUpon>IrGroupView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\IrGroup\NewIrGroup.aspx.cs">
+    <Compile Include="Modules\EIR\IrGroup\NewIrGroup.aspx.cs">
       <DependentUpon>NewIrGroup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\IrGroup\NewIrGroup.aspx.designer.cs">
+    <Compile Include="Modules\EIR\IrGroup\NewIrGroup.aspx.designer.cs">
       <DependentUpon>NewIrGroup.aspx</DependentUpon>
     </Compile>
-    <Compile Include="IndividualTeachersPlan.aspx.cs">
-      <DependentUpon>IndividualTeachersPlan.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="IndividualTeachersPlan.aspx.designer.cs">
-      <DependentUpon>IndividualTeachersPlan.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Messages\Default.aspx.cs">
+    <Compile Include="Modules\IndividualTeachersPlan\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Messages\Default.aspx.designer.cs">
+    <Compile Include="Modules\IndividualTeachersPlan\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Messages\Dialog.aspx.cs">
+    <Compile Include="Modules\Messages\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\Messages\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\Messages\Dialog.aspx.cs">
       <DependentUpon>Dialog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Messages\Dialog.aspx.designer.cs">
+    <Compile Include="Modules\Messages\Dialog.aspx.designer.cs">
       <DependentUpon>Dialog.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
@@ -415,36 +423,36 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="EIR\CardEdit.aspx.cs">
+    <Compile Include="Modules\EIR\CardEdit.aspx.cs">
       <DependentUpon>CardEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\CardEdit.aspx.designer.cs">
+    <Compile Include="Modules\EIR\CardEdit.aspx.designer.cs">
       <DependentUpon>CardEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MZSearch\Default.aspx.cs">
+    <Compile Include="Modules\MZSearch\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="MZSearch\Default.aspx.designer.cs">
+    <Compile Include="Modules\MZSearch\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RNP\Default.aspx.cs">
+    <Compile Include="Modules\RNP\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="RNP\Default.aspx.designer.cs">
+    <Compile Include="Modules\RNP\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="EIR\Search.aspx.cs">
+    <Compile Include="Modules\EIR\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="EIR\Search.aspx.designer.cs">
+    <Compile Include="Modules\EIR\Search.aspx.designer.cs">
       <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
     <Compile Include="SessionManager.asmx.cs">
@@ -458,25 +466,25 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="Support.aspx.cs">
-      <DependentUpon>Support.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Support.aspx.designer.cs">
-      <DependentUpon>Support.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TimeTable\TimeTableEdit.aspx.cs">
-      <DependentUpon>TimeTableEdit.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="TimeTable\TimeTableEdit.aspx.designer.cs">
-      <DependentUpon>TimeTableEdit.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="TimeTable\Default.aspx.cs">
+    <Compile Include="Modules\Support\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="TimeTable\Default.aspx.designer.cs">
+    <Compile Include="Modules\Support\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TimeTable\Edit.aspx.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\TimeTable\Edit.aspx.designer.cs">
+      <DependentUpon>Edit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\TimeTable\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\TimeTable\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
   </ItemGroup>

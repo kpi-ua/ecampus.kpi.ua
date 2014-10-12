@@ -106,7 +106,7 @@ $(document).on("click", "#body_sb", function () {
     var url = ApiEndpoint;
     if ($("#body_isdisc").attr("value") == "True") {
         $(".subtitle").text("Дисципліни");
-        url += "MZSearch/GetDisc?rtpttId=" + $("#body_spec").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
+        url += "Modules/MZSearch/GetDisc?rtpttId=" + $("#body_spec").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
         $.getJSON(url, function (data, status) {
             if (data.Data.length > 0) {
                 $.each(data.Data, function (key, value) {
@@ -116,7 +116,7 @@ $(document).on("click", "#body_sb", function () {
         });
     } else if ($("#body_isdisc").attr("value") == "False") {
         $(".subtitle").text("Кредитного модуля");
-        url += "MZSearch/GetCred?rtpttId=" + $("#body_spec").attr("value") + "&sfId=" + $("#body_stdfrm").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
+        url += "Modules/MZSearch/GetCred?rtpttId=" + $("#body_spec").attr("value") + "&sfId=" + $("#body_stdfrm").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
         $.getJSON(url, function (data, status) {
             if (data.Data.length > 0) {
                 $.each(data.Data, function (key, value) {
@@ -176,7 +176,7 @@ var loadDiscRows = function (parentUl, obj) {
 
     var url = ApiEndpoint;
 
-    url += "MZSearch/GetOneDisc?rtdiscId=" + obj.attr("did");
+    url += "Modules/MZSearch/GetOneDisc?rtdiscId=" + obj.attr("did");
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -207,9 +207,9 @@ var getIrForDorC = function (obj, parent) {
     var url = ApiEndpoint;
 
     if ($("#body_isdisc").attr("value") == "True") {
-        url += "MZSearch/GetIrD?rtdiscId=" + obj.attr("did");
+        url += "Modules/MZSearch/GetIrD?rtdiscId=" + obj.attr("did");
     } else if ($("#body_isdisc").attr("value") == "False") {
-        url += "MZSearch/GetIrC?ccredId=" + obj.attr("cid");
+        url += "Modules/MZSearch/GetIrC?ccredId=" + obj.attr("cid");
     }
 
     $.getJSON(url, function (data, status) {
@@ -232,7 +232,7 @@ var loadCredRows = function (parentUl, obj) {
 
     var url = ApiEndpoint;
 
-    url += "MZSearch/GetOneCred?ccredId=" + obj.attr("cid");
+    url += "Modules/MZSearch/GetOneCred?ccredId=" + obj.attr("cid");
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -280,7 +280,7 @@ $(document).on("click", ".ironediv p", function () {
     $(".ircol").css("display", "none");
 
     var url = ApiEndpoint;
-    url += "MZSearch/GetOneIr?irlevelId=" + callObj.attr("iid");
+    url += "Modules/MZSearch/GetOneIr?irlevelId=" + callObj.attr("iid");
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -309,7 +309,7 @@ var getCredForDisc = function (obj, parent) {
 
     var url = ApiEndpoint;
 
-    url += "MZSearch/GetDiscDetailC?rtdiscId=" + obj.attr("did");
+    url += "Modules/MZSearch/GetDiscDetailC?rtdiscId=" + obj.attr("did");
 
 
     $.getJSON(url, function (data, status) {
@@ -326,9 +326,9 @@ var getRNPForDorC = function (obj, parent) {
     var url = ApiEndpoint;
 
     if ($("#body_isdisc").attr("value") == "True") {
-        url += "MZSearch/GetDiscDetailR?rtdiscId=" + obj.attr("did");
+        url += "Modules/MZSearch/GetDiscDetailR?rtdiscId=" + obj.attr("did");
     } else if ($("#body_isdisc").attr("value") == "False") {
-        url += "MZSearch/GetCredDetailR?ccredId=" + obj.attr("cid");
+        url += "Modules/MZSearch/GetCredDetailR?ccredId=" + obj.attr("cid");
     }
 
     $.getJSON(url, function (data, status) {

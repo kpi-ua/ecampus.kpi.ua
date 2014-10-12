@@ -108,18 +108,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Doska\Bulletin.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Credential.cs" />
-    <Compile Include="Doska\GroupInfo.cs" />
-    <Compile Include="Doska\Static.cs" />
     <Compile Include="IrGroup.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CampusClient.cs" />
-    <Compile Include="Doska\SimpleInfo.cs" />
     <Compile Include="SiteController.cs" />
     <Compile Include="SitePage.cs">
       <SubType>ASPXCodeBehind</SubType>
