@@ -20,5 +20,15 @@ namespace Campus.Core.Common.Attributes
         {
             get { return _description; }
         }
+
+        private static DescriptionAttribute _instance = null;
+        public static DescriptionAttribute Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = new DescriptionAttribute(null);
+                return _instance;
+            }
+        }
     }
 }

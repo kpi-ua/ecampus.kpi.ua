@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -18,16 +19,16 @@ namespace Campus.Core.Common.Attributes
             {
                 return GetType().Name;
             }
-        }
+        }                
 
         /// <summary>
         /// Determines whether the specified method has attribute.
         /// </summary>
         /// <param name="method">The method.</param>
         /// <returns></returns>
-        public static bool HasAttribute(MethodInfo method, Type attribute = null)
+        public bool HasAttribute(MethodInfo method, Type attribute = null)
         {
-            if(attribute == null) attribute = typeof(AbstractAttribute);
+            if (attribute == null) attribute = this.GetType();
             return method.GetCustomAttributes().Any(a =>
             {
                 return a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name;
@@ -41,12 +42,12 @@ namespace Campus.Core.Common.Attributes
         /// <param name="property">The property.</param>
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
-        public static bool HasAttribute(PropertyInfo property, Type attribute = null)
+        public bool HasAttribute(PropertyInfo property, Type attribute = null)
         {
-            if (attribute == null) attribute = typeof(AbstractAttribute);
-            return property.GetCustomAttributes().Any(a => 
-            { 
-                return a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name; 
+            if (attribute == null) attribute = this.GetType();
+            return property.GetCustomAttributes().Any(a =>
+            {
+                return a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name;
             });
         }
 
@@ -57,9 +58,9 @@ namespace Campus.Core.Common.Attributes
         /// <param name="type">The type.</param>
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
-        public static bool HasAttribute(TypeInfo type, Type attribute = null)
-        {
-            if (attribute == null) attribute = typeof(AbstractAttribute);
+        public bool HasAttribute(TypeInfo type, Type attribute = null)
+        {            
+            if (attribute == null) attribute = this.GetType();            
             return type.GetCustomAttributes().Any(a => a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name);
         }
 
@@ -70,9 +71,9 @@ namespace Campus.Core.Common.Attributes
         /// <param name="parameter">The parameter.</param>
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
-        public static bool HasAttribute(ParameterInfo parameter, Type attribute = null)
+        public bool HasAttribute(ParameterInfo parameter, Type attribute = null)
         {
-            if (attribute == null) attribute = typeof(AbstractAttribute);
+            if (attribute == null) attribute = this.GetType();
             return parameter.GetCustomAttributes().Any(a => a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name);
         }
 
@@ -84,9 +85,9 @@ namespace Campus.Core.Common.Attributes
         /// <param name="field">The field.</param>
         /// <param name="attribute">The attribute.</param>
         /// <returns></returns>
-        public static bool HasAttribute(FieldInfo field, Type attribute = null)
+        public bool HasAttribute(FieldInfo field, Type attribute = null)
         {
-            if (attribute == null) attribute = typeof(AbstractAttribute);
+            if (attribute == null) attribute = this.GetType();
             return field.GetCustomAttributes().Any(a => a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name);
         }
     }

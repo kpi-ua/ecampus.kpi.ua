@@ -68,7 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseClasses\ASingleton.cs" />
+    <Compile Include="BaseClasses\AbstractSingleton.cs" />
+    <Compile Include="BaseClasses\GenericFactory.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Common\Exceptions\ArchitectureException.cs" />
     <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IMessageHistory.cs" />
     <Compile Include="Interfaces\IMessageIdGenerator.cs" />
+    <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IServerSentEvent.cs" />
     <Compile Include="Interfaces\ISubscriberEvent.cs" />
     <Compile Include="Message.cs" />
@@ -102,12 +104,6 @@
     <None Include="packages.config" />
     <None Include="Pulse.dgml" />
     <None Include="Pulse.xps" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Campus.Core.csproj">
-      <Project>{b993c7e9-da2a-4090-9cdf-4a17b248ad63}</Project>
-      <Name>Campus.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

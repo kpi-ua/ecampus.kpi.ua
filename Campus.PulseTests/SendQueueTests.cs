@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Campus.Pulse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Campus.Core;
 using Campus.Core.Interfaces;
 using Campus.Core.Common.Extensions;
 using System.Collections.Concurrent;

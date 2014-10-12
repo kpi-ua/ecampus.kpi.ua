@@ -218,7 +218,7 @@ namespace Campus.Core
         protected static dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
-            var isDescription = AbstractAttribute.HasAttribute(method, typeof(DescriptionAttribute));
+            var isDescription = DescriptionAttribute.Instance.HasAttribute(method);
 
             return new
             {
