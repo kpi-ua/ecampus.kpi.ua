@@ -2,8 +2,8 @@
 var apiEndpoint;
 
 $(document).ready(function () {
-    ssid = document.getElementById("ssid").value;
-    apiEndpoint = document.getElementById("api").value;
+    ssid = document.getElementById("body_ssid").value;
+    apiEndpoint = document.getElementById("body_api").value;
 });
 
 window.API = {
