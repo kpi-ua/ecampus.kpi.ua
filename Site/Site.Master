@@ -1,7 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Site.SiteMaster" %>
 
-<%@ Import Namespace="Campus.SDK" %>
-
 <html>
 <head runat="server">
 
@@ -76,6 +74,7 @@
         </header>
 
         <form class="content" id="form" runat="server">
+            <asp:HiddenField runat="server" ID="CampusSessionId" ClientIDMode="Static" />
 
             <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
                 <Scripts>

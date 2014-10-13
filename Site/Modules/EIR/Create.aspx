@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Modules/EIR/Menu.master" AutoEventWireup="true" CodeBehind="Create.aspx.cs" Inherits="Site.Modules.EIR.Create" %>
+﻿<%@ Page Title="Створення IР" Language="C#" MasterPageFile="~/Modules/EIR/Menu.master" AutoEventWireup="true" CodeBehind="Create.aspx.cs" Inherits="Site.Modules.EIR.Create" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="newhead" runat="server">
     <link href="/Content/jquery.ambiance.css" rel="stylesheet" />
@@ -37,8 +37,8 @@
                         </select>
                         <input type="text" value="" id="contrib_percent" />%
                         <div></div>
-                        <input class="btn btn-danger" type="button" id="add_person" value="Добавить" />
-                        <input class="btn btn-danger" type="button" id="clear_person" value="Очистить" />
+                        <input class="btn btn-default" type="button" id="add_person" value="Добавить" />
+                        <input class="btn btn-default" type="button" id="clear_person" value="Очистить" />
                         <label id="info_lable"></label>
                     </div>
                     <hr />
@@ -56,15 +56,17 @@
                     <br />
                     <div class="langs-list"></div>
                     <div class="info-block">
+                        <div id="lang_name_label">Введите основной язык</div>
                         <div>
                             <br />
                             <select id="lang">
                                 <option disabled value="--">--</option>
                             </select>
-                            <input type="text" value="" id="title" />
+                            <input type="text" value="title" id="title" />
                             <input type="text" value="" id="annotation" />
-                            <input type="button" id="add_lang" value="Добавить" />
-                            <input type="button" id="clear_lang" value="Добавить" />
+                            <input type="button" class="btn btn-default" id="add_lang" value="Добавить" />
+                            <input type="button" class="btn btn-default" id="clear_lang" value="Добавить" />
+
                         </div>
                     </div>
                 </td>
