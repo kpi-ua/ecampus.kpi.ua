@@ -22,8 +22,11 @@
                     </div>
                     <div class="persons-block">
                         <br/>
-                        <input type="radio" value="kpi" id="kpi" checked/>Особа з КПИ
-                        <input type="radio" value="notkpi" id="notkpi"/>Стороння особа
+                        <input type="hidden" value="" id="person_id"/>
+                        <div id="persons_radio">
+                            <input type="radio" value="kpi" id="kpi" checked/>Особа з КПИ
+                            <input type="radio" value="notkpi" id="notkpi"/>Стороння особа
+                        </div>
                         <input type="text" value="ПИБ" id="name" />
                         <input type="hidden" id="kpi_person_info" value="" role=""/>
                         <input type="text" value="ПИБ" style="display: none" id="surname" />
@@ -54,15 +57,17 @@
                     <br/>
                     <div class="langs-list"></div>
                     <div class="info-block">
+                        <div id="lang_name_label">Введите основной язык</div>
                         <div>
                             <br/>
                             <select id="lang">
                                 <option disabled value="--">--</option>
                             </select>
-                            <input type="text" value="" id="title" />
+                            <input type="text" value="title" id="title" />
                             <input type="text" value="" id="annotation" />
+                            <input type="text" value="" id="keywords" />
                             <input type="button" id="add_lang" value="Добавить"/>
-                            <input type="button" id="clear_lang" value="Добавить"/>
+                            <input type="button" id="clear_lang" value="Очистить"/>
                         </div>
                     </div>
                 </td>
