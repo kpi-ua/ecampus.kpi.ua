@@ -37,7 +37,7 @@ input, select {
     float: right;
 }
 
-hr, #type, #lang, #title, #annotation {
+hr, #type, #lang, #title, #annotation, #keywords {
     width: 100%;
 }
 
