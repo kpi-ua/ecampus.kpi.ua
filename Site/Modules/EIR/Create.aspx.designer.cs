@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Site.EIR {
+namespace Site.Modules.EIR {
     
     
     public partial class Create {

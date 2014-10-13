@@ -3,10 +3,6 @@
         window.campus = {};
     }
 
-
-
-
-
     jQuery(function () {
         campus.datepickerHandler(jQuery);
         campus.menuHandler(jQuery);
@@ -57,10 +53,6 @@
             }
         });
 
-        //if (eventCount > 0) {
-        //    $(".datepicker-label").html(eventCount).show();
-        //}
-
         $(window).on('scroll load', function (event) {
             var scrollHeight = $(this).scrollTop();
             //if (scrollHeight > 410) {
@@ -71,20 +63,7 @@
                 top: 210,
                 right: -220
             });
-            //} else {
-            //    $(".right-col").css({
-            //        position: "absolute",
-            //        display: "none",
-            //        right: 0,
-            //        top: 410,
-            //        width: 0
-            //    });
-            //}
         });
-
-
-
-
     }
 
 
