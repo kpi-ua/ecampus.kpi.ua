@@ -43,14 +43,14 @@ namespace Site.EIR
             LoadAllList();
 
             //Session["EirEdit"] = true;
-            //Session["EirId"] = 48965;
+            //Session["EirId"] = 48978;
 
             if (Session["EirEdit"] != null && (bool)Session["EirEdit"])
             {
                 Session["EirEdit"] = false;
                 if (Session["EirId"] == null)
                 {
-                    ShowError("Помилка при завантаженні сторінки.", false);
+                    ShowError("Помилка при завантаженні сторінки.");
                     return;
                 }
                 _irId = Session["EirId"].ToString();
@@ -59,15 +59,9 @@ namespace Site.EIR
 
         }
 
-        private void ShowError(string errText, bool notbad)
+        private void ShowError(string errText)
         {
-            if (notbad)
-            {
-                errlabel.BackColor = System.Drawing.Color.Lime;
-                errlabel.BorderColor = System.Drawing.Color.Lime;
-            }
-            errlabel.Text = errText;
-            errpanel.Visible = true;
+            errorField.Value = errText;
             errUpdate.Update();
         }
 
@@ -125,6 +119,7 @@ namespace Site.EIR
             {
                 language.Items.Add(new ListItem(Convert.ToString(item.Value), item.Key.ToString()));
             }
+            language.SelectedValue = "2";
 
             data = CampusClient.GetISType();
 
@@ -273,7 +268,7 @@ namespace Site.EIR
             if (access_begin.Text == null || public_kind.SelectedValue == null || purpose_type.SelectedValue == null ||
                 is_public.SelectedValue == null || griff.SelectedValue == null || long_deskription.Text == "")
             {
-                ShowError("Не заповнені всі поля з зірочкою", false);
+                ShowError("Не заповнені всі поля з зірочкою");
                 return;
             }
 
@@ -295,7 +290,7 @@ namespace Site.EIR
                 var id = respDictionary["Data"].ToString();
                 if (id == "false")
                 {
-                    ShowError("Увага. Помилка при оновленні данних.", false);
+                    ShowError("Увага. Помилка при оновленні данних.");
                     return;
                 }
 
@@ -313,7 +308,7 @@ namespace Site.EIR
                 var extraId = respDictionary["Data"].ToString();
                 if (extraId == "false")
                 {
-                    ShowError("Увага. Помилка при оновленні данних.", false);
+                    ShowError("Увага. Помилка при оновленні данних.");
                     return;
                 }
 
@@ -325,7 +320,7 @@ namespace Site.EIR
                 var isId = respDictionary["Data"].ToString();
                 if (isId == "false")
                 {
-                    ShowError("Увага. Помилка при оновленні данних.", false);
+                    ShowError("Увага. Помилка при оновленні данних.");
                     return;
                 }
 
@@ -354,7 +349,7 @@ namespace Site.EIR
                 var id = respDictionary["Data"].ToString();
                 if (id == "")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.", false);
+                    ShowError("Увага. Помилка при збереженні данних.");
                     return;
                 }
 
@@ -372,7 +367,7 @@ namespace Site.EIR
                 var extraId = respDictionary["Data"].ToString();
                 if (extraId == "")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.", false);
+                    ShowError("Увага. Помилка при збереженні данних.");
                     return;
                 }
 
@@ -387,7 +382,7 @@ namespace Site.EIR
                     var isId = respDictionary["Data"].ToString();
                     if (isId == "")
                     {
-                        ShowError("Увага. Помилка при збереженні данних.", false);
+                        ShowError("Увага. Помилка при збереженні данних.");
                         return;
                     }
                 }
@@ -399,7 +394,7 @@ namespace Site.EIR
                 Session["EirId"] = id;
                 Response.Redirect("CardView.aspx");
             }
-            ShowError("Данні успішно збережені.", true);
+            ShowError("Данні успішно збережені.");
         }
 
         private void AddContributors(string id)
@@ -419,7 +414,7 @@ namespace Site.EIR
                 var answer = respDictionary["Data"].ToString();
                 if (answer == "false")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.", false);
+                    ShowError("Увага. Помилка при збереженні данних.");
                     return;
                 }
             }
@@ -428,7 +423,7 @@ namespace Site.EIR
             var arrayPersons = serializer.Deserialize<ArrayList>(persons_json.Value);
             foreach (var item in arrayPersons)
             {
-                var part = (Dictionary<string, string>)item;
+                var part = (Dictionary<string, object>)item;
 
                 string newjson = "";
 
@@ -442,7 +437,7 @@ namespace Site.EIR
 
                         if (respDictionary["Data"].ToString() != "true")
                         {
-                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            ShowError("Увага. Помилка при збереженні данних.");
                             return;
                         }
                     }
@@ -465,7 +460,7 @@ namespace Site.EIR
                         var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
                         if (respDictionary["Data"].ToString() != "true")
                         {
-                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            ShowError("Увага. Помилка при збереженні данних.");
                             return;
                         }
                     }
@@ -473,8 +468,9 @@ namespace Site.EIR
 
                 if (part.ContainsKey("name_id") && part.ContainsKey("name_acs"))
                 {
-                    if (part["name_acs"] == "empl")
+                    if ((string)part["name_acs"] == "empl")
                     {
+                        
                         newjson =
                             CampusClient.DownloadString(Client.ApiEndpoint + "Ir/AddContributor?sessionId=" + SessionId +
                                                         "&irId=" + id + "&notKPI=" +
@@ -497,7 +493,7 @@ namespace Site.EIR
                 var answer = serializer.Deserialize<Dictionary<string, object>>(newjson)["Data"].ToString();
                 if (answer == "false")
                 {
-                    ShowError("Увага. Помилка при збереженні данних.", false);
+                    ShowError("Увага. Помилка при збереженні данних.");
                     return;
                 }
             }
@@ -518,7 +514,7 @@ namespace Site.EIR
                         var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
                         if (respDictionary["Data"].ToString() != "true")
                         {
-                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            ShowError("Увага. Помилка при збереженні данних.");
                             return;
                         }
                     }
@@ -532,7 +528,7 @@ namespace Site.EIR
                         var respDictionary = serializer.Deserialize<Dictionary<string, object>>(json);
                         if (respDictionary["Data"].ToString() != "true")
                         {
-                            ShowError("Увага. Помилка при збереженні данних.", false);
+                            ShowError("Увага. Помилка при збереженні данних.");
                             return;
                         }
                     }
@@ -548,7 +544,7 @@ namespace Site.EIR
                     var answer = serializer.Deserialize<Dictionary<string, object>>(json)["Data"].ToString();
                     if (answer == "false")
                     {
-                        ShowError("Увага. Помилка при збереженні данних.", false);
+                        ShowError("Увага. Помилка при збереженні данних.");
                         return;
                     }
                 }
@@ -562,7 +558,7 @@ namespace Site.EIR
             var answer = respDictionary["Data"].ToString();
             if (answer == "false")
             {
-                ShowError("Увага. Помилка при збереженні данних.", false);
+                ShowError("Увага. Помилка при збереженні данних.");
             }
         }
 

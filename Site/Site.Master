@@ -27,7 +27,7 @@
 </head>
 <body>
     <label id="ApiEndpoint" style="display: none"><%=Client.ApiEndpoint %></label>
-    <label id="CampusSessionId" style="display: none"><%=SitePage.SessionId %></label>
+    <%--<label id="CampusSessionId" style="display: none"><%=SitePage.SessionId %></label>--%>
     <div class="wrap container">
 
         <header>

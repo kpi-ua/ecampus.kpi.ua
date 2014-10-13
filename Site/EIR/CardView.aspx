@@ -41,7 +41,7 @@
 
                 <div class="form-group">
                     <asp:Label ID="Label4" AssociatedControlID="date" CssClass="col-sm-3 control-label" runat="server">
-                        Дата для рейтингу*
+                        Дата для рейтингу
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="date" runat="server" CssClass="form-control"></asp:Label>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label18" AssociatedControlID="access_begin" CssClass="col-sm-3 control-label" runat="server">
-                        Початок доступу*
+                        Початок доступу
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="access_begin" runat="server" CssClass="form-control"></asp:Label>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label23" AssociatedControlID="purpose_type" CssClass="col-sm-3 control-label" runat="server">
-                        Тип цільового призначення*
+                        Тип цільового призначення
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="purpose_type" runat="server" CssClass="form-control">
@@ -100,7 +100,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label37" AssociatedControlID="feature_type" CssClass="col-sm-3 control-label" runat="server">
-                        Тип функціонального призначення*
+                        Тип функціонального призначення
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="feature_type" runat="server" CssClass="form-control" >
@@ -109,7 +109,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label22" AssociatedControlID="public_kind" CssClass="col-sm-3 control-label" runat="server">
-                        Вид ЕІР*
+                        Вид ЕІР
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="public_kind" runat="server" CssClass="form-control">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label25" AssociatedControlID="is_public" CssClass="col-sm-3 control-label" runat="server">
-                        Характер взаємодії*
+                        Характер взаємодії
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="is_public" CssClass="form-control" runat="server"></asp:Label>
@@ -163,7 +163,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label2" AssociatedControlID="long_deskription" CssClass="col-sm-3 control-label" runat="server">
-                        Бібліографічний опис*
+                        Бібліографічний опис
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="long_deskription"  runat="server" CssClass="form-control" Rows="3" TextMode="multiline"></asp:Label>
@@ -198,7 +198,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label5" AssociatedControlID="griff" CssClass="col-sm-3 control-label" runat="server">
-                        Гриф*
+                        Гриф
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="griff" runat="server" CssClass="form-control">
@@ -208,7 +208,7 @@
                 <hr />
                 <div class="form-group">
                     <asp:Label ID="Label33" AssociatedControlID="griff_org_name" CssClass="col-sm-3 control-label" runat="server">
-                        Назва організації*
+                        Назва організації
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="griff_org_name" runat="server" CssClass="form-control">
@@ -232,7 +232,7 @@
                 </div>
                 <div class="form-group">
                     <asp:Label ID="Label29" AssociatedControlID="org_name" CssClass="col-sm-3 control-label" runat="server">
-                        Назва*
+                        Назва
                     </asp:Label>
                     <div class="col-sm-9">
                         <asp:Label ID="org_name" runat="server" CssClass="form-control">
