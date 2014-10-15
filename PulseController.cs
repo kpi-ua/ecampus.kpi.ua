@@ -1,4 +1,4 @@
-﻿using Campus.Core.BaseClasses;
+﻿using Campus.Core.Common.BaseClasses;
 using Campus.Core.Common.Attributes;
 using Campus.Core.Common.Exceptions;
 using Campus.Core.Common.Extensions;
@@ -39,7 +39,7 @@ namespace Campus.Pulse
             : base(messageHistory, idGenerator, heartbeatInterval)
         { }
 
-        #endregion c'tors        
+        #endregion c'tors
 
         #region Factory
 
@@ -47,12 +47,26 @@ namespace Campus.Pulse
         /// Represents a basic pulse class
         /// </summary>
         [NonSerializableClass]
-        public class PulseObject : PulseController<ClientInfo>
+        public class PulseObject<ClientInfo> : PulseController<ClientInfo>, IPulseObject where ClientInfo: class
         {
-            public PulseObject(bool generateMessageIds = true, MessageIdGenerator? idGenerator = ServerSendEvent.MessageIdGenerator.Simple, int heartbeatInterval = 5000)
+            public int Id { get { return typeof(ClientInfo).GetHashCode(); } }
+
+            private Func<ClientInfo> _getUser = null;
+
+            internal PulseObject(Func<ClientInfo> getFunc, bool generateMessageIds = true, MessageIdGenerator? idGenerator = ServerSendEvent.MessageIdGenerator.Simple, int heartbeatInterval = 5000)
                 : base(generateMessageIds, idGenerator, heartbeatInterval)
             {
+                _getUser = getFunc;
+            }
 
+            public override bool Equals(object obj)
+            {
+                return this.GetHash().Equals(obj.GetHash());
+            }
+
+            public override ClientInfo GetUser(string sessionId)
+            {
+                return _getUser();
             }
         }
 
@@ -62,7 +76,7 @@ namespace Campus.Pulse
         /// <value>
         /// The factory.
         /// </value>
-        public static GenericFactory<PulseObject> Factory { get { return GenericFactory<PulseObject>.Instance; } }
+        public static PulseFactory<PulseObject<ClientInfo>> Factory { get { return PulseFactory<PulseObject<ClientInfo>>.Instance; } }
 
         #endregion
 
@@ -71,7 +85,7 @@ namespace Campus.Pulse
         public new event EventHandler<SubscriberEventArgs<Client>> SubscriberAdded;
 
         internal void OnSubscriberAdded(int subscriberCount, Client client)
-        {
+        {            
             if (SubscriberAdded != null)
                 SubscriberAdded(this, new SubscriberEventArgs<Client>(client, subscriberCount));
         }
@@ -212,7 +226,7 @@ namespace Campus.Pulse
         /// <param name="contentType">Type of the content.</param>
         /// <returns>Response message</returns>
         private HttpResponseMessage AddSubscriber(HttpRequestMessage request, ClientInfo clientInfo, ContentType contentType = ContentType.Text)
-        {
+        {            
             HttpResponseMessage response = request.CreateResponse();
             AddHeaders(response);
             response.Content = new PushStreamContentWithClientInfomation<ClientInfo>((stream, content, context) =>
@@ -329,7 +343,7 @@ namespace Campus.Pulse
             /// </value>
             public Data Info { get; private set; }
         }
-    }    
+    }
 
 #if DEBUG
 

@@ -17,12 +17,11 @@ using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
 using Campus.Core.Common.Attributes;
-using Campus.Core.BaseClasses;
 
 
 namespace Campus.Pulse
 {
-    public abstract class ServerSendEvent : System.Web.Http.ApiController, IServerSentEvent
+    public abstract class ServerSendEvent : System.Web.Http.ApiController, IServerSentEvent, IDisposable
     {
         #region Events
 
@@ -45,6 +44,24 @@ namespace Campus.Pulse
         /// Invokes on message send
         /// </summary>
         public event EventHandler<MessageEventArgs> OnMessageSend;
+
+        internal virtual void OnSubscriberAdded(int subscriberCount)
+        {
+            if (SubscriberAdded != null)
+                SubscriberAdded(this, new SubscriberEventArgs(subscriberCount));
+        }
+
+        internal virtual void OnSubscriberRemoved(int subscriberCount)
+        {
+            if (SubscriberRemoved != null)
+                SubscriberRemoved(this, new SubscriberEventArgs(subscriberCount));
+        }
+
+        internal virtual void OnHBeat(object state)
+        {
+            if (OnHeartbeat != null)
+                OnHeartbeat(this, new BeatEventArgs(state));
+        }
         #endregion
 
         #region Members
@@ -127,13 +144,15 @@ namespace Campus.Pulse
         /// <param name="generateMessageIds">if set to <c>true</c> [generate message ids].</param>
         /// <param name="idGenerator">The identifier generator.</param>
         /// <param name="heartbeatInterval">The heartbeat interval.</param>
-        protected ServerSendEvent(bool generateMessageIds = false, MessageIdGenerator? idGenerator = null, int heartbeatInterval = 0)
+        protected ServerSendEvent(bool generateMessageIds = true, MessageIdGenerator? idGenerator = null, int heartbeatInterval = 5000)
             : this()
-        {
+        {            
             _HeartbeatInterval = heartbeatInterval;
             _MessageHistory = MessageHistory.Instance;
             if (generateMessageIds && idGenerator.HasValue)
                 _IdGenerator = GetMessageIdGenerator(idGenerator.Value);
+            else if (generateMessageIds)
+                _IdGenerator = GetMessageIdGenerator(MessageIdGenerator.Simple); 
 
             SetupHeartbeat(heartbeatInterval);
         }
@@ -174,6 +193,39 @@ namespace Campus.Pulse
         {
             EnableCrossDomainRequest = true;
         }
+
+        #endregion
+
+        #region Factory
+
+        /// <summary>
+        /// Represents a basic pulse class
+        /// </summary>
+        [NonSerializableClass]
+        public class PulseObject : ServerSendEvent, IPulseObject
+        {
+            public int Id { get { return "simplePulseObject".GetHashCode(); } }
+            private Func<int> _getId = null;
+
+            internal PulseObject(Func<int> getId, bool generateMessageIds = true, MessageIdGenerator? idGenerator = ServerSendEvent.MessageIdGenerator.Simple, int heartbeatInterval = 5000)
+                : base(generateMessageIds, idGenerator, heartbeatInterval)
+            {
+                _getId = getId;
+            }
+
+            public override int GetClientId(string sessionId)
+            {
+                return _getId();
+            }
+        }
+
+        /// <summary>
+        /// Factory to create pulse objects to use in classes that are not derived from <see cref="ServerSendEvent"/>
+        /// </summary>
+        /// <value>
+        /// The factory.
+        /// </value>
+        public static PulseFactory<PulseObject> Factory { get { return PulseFactory<PulseObject>.Instance; } }
 
         #endregion
 
@@ -258,28 +310,6 @@ namespace Campus.Pulse
 
             if (removed > 0)
                 OnSubscriberRemoved(count);
-        }
-
-        #endregion
-
-        #region Events
-
-        internal virtual void OnSubscriberAdded(int subscriberCount)
-        {
-            if (SubscriberAdded != null)
-                SubscriberAdded(this, new SubscriberEventArgs(subscriberCount));
-        }
-
-        internal virtual void OnSubscriberRemoved(int subscriberCount)
-        {
-            if (SubscriberRemoved != null)
-                SubscriberRemoved(this, new SubscriberEventArgs(subscriberCount));
-        }
-
-        internal virtual void OnHBeat(object state)
-        {
-            if (OnHeartbeat != null)
-                OnHeartbeat(this, new BeatEventArgs(state));
         }
 
         #endregion        
@@ -474,6 +504,13 @@ namespace Campus.Pulse
                     Type = o.ParameterType.ToString(),
                 }).ToList()
             };
+        }
+
+        void IDisposable.Dispose()
+        {
+            this._HeartbeatTimer.Dispose();
+            this._Clients = null;
+            this._MessageHistory = null;            
         }
     }
 }

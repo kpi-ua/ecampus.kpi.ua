@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Campus.Core.Common.Extensions;
 
-namespace Campus.Core.BaseClasses
+namespace Campus.Core.Common.BaseClasses
 {
     public class GenericFactory<T> : AbstractSingleton<GenericFactory<T>>, IFactory<T>
     {

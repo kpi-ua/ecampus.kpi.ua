@@ -126,7 +126,9 @@
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IMessageHistory.cs" />
     <Compile Include="Interfaces\IMessageIdGenerator.cs" />
+    <Compile Include="Interfaces\IPulseObject.cs" />
     <Compile Include="Interfaces\IServerSentEvent.cs" />
+    <Compile Include="Interfaces\ISingleton.cs" />
     <Compile Include="Interfaces\ISubscriberEvent.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -134,6 +136,8 @@
     <Compile Include="Pulse\Message.cs" />
     <Compile Include="Pulse\MessageHistory.cs" />
     <Compile Include="PulseController.cs" />
+    <Compile Include="Pulse\PulseCollection.cs" />
+    <Compile Include="Pulse\PulseFactory.cs" />
     <Compile Include="Pulse\SendQueue.cs" />
     <Compile Include="Pulse\ServerSendEvent.cs" />
     <Compile Include="Result.cs" />

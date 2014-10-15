@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,7 +34,7 @@ namespace Campus.Core.Common.Extensions
             settings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
 
             var json = JsonConvert.SerializeObject(result, settings);
-            return json;           
+            return json;
         }
 
         public static T FromJson<T>(this string s)
@@ -111,6 +112,32 @@ namespace Campus.Core.Common.Extensions
             xmlSerializer.Serialize(xmlWriter, objectToSerialize);
 
             return stringWriter.ToString();
-        } 
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static int GetHash(this object obj)
+        {
+            if (obj == null) throw new ArgumentNullException();            
+
+            var props = obj.GetType().GetProperties(BindingFlags.GetField | BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+
+            unchecked
+            {
+                int hash = 17;
+                props.ForEach((prop) =>
+                {
+                    var val = prop.GetValue(obj, null);
+                    hash = (val != null) ? hash * 23 + val.GetHashCode() : hash;
+                });
+                return hash;
+            }
+        }
     }
 }

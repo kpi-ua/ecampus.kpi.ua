@@ -1,5 +1,6 @@
 ﻿using Campus.Core.Common.Exceptions;
 using Campus.Core.Common.Extensions;
+using Campus.Core.Interfaces;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -20,7 +21,8 @@ namespace Campus.Core.Common.BaseClasses
         {
             get
             {
-                OnGettingInstance();
+                if(OnGettingInstance != null)
+                    OnGettingInstance();
                 return _instance.Value;
             }
         }

@@ -1,4 +1,4 @@
-﻿using Campus.Core.BaseClasses;
+﻿using Campus.Core.Common.BaseClasses;
 using Campus.Core.EventsArgs;
 using MoreLinq;
 using System;

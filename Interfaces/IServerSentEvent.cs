@@ -17,5 +17,15 @@ namespace Campus.Core.Interfaces
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">Id of the message.</param>
         void Send(string eventType = null, object data = null, string messageId = null);
+
+        /// <summary>
+        /// Invokes on heartbeat
+        /// </summary> 
+        event EventHandler<BeatEventArgs> OnHeartbeat;
+
+        /// <summary>
+        /// Invokes on message send
+        /// </summary>
+        event EventHandler<MessageEventArgs> OnMessageSend;
     }
 }
