@@ -68,6 +68,11 @@ namespace Campus.Pulse
             {
                 return _getUser();
             }
+
+            public override int GetClientId(string sessionId)
+            {
+                return GetUser(sessionId).GetHash();
+            }
         }
 
         /// <summary>
@@ -76,7 +81,7 @@ namespace Campus.Pulse
         /// <value>
         /// The factory.
         /// </value>
-        public static PulseFactory<PulseObject<ClientInfo>> Factory { get { return PulseFactory<PulseObject<ClientInfo>>.Instance; } }
+        public static PulseFactory<ClientInfo> Factory { get { return PulseFactory<ClientInfo>.Instance; } }
 
         #endregion
 
@@ -357,7 +362,7 @@ namespace Campus.Pulse
     }
 
     [NonSerializableClass]
-    public class TestClass : PulseController<TestUser>
+    public class TestClass
     {
         public override TestUser GetUser(string sessionId)
         {
@@ -369,9 +374,25 @@ namespace Campus.Pulse
             return int.Parse(sessionId);
         }
 
-        public TestClass()
-            : base(true, ServerSendEvent.MessageIdGenerator.Simple, 5000)
+        private IPulseObject _pulser;
+
+        public TestClass()            
         {
+            var user = GetUser("123");
+
+            PulseController<TestUser>.Factory.Register(() => { return GetUser("123"); });
+            _pulser.OnHeartbeat += (sender, e) => 
+            {
+                _pulser.Send(data: "some message", clientIds: new[]{user.Id});
+            };            
+        }
+
+        [System.Web.Http.AcceptVerbs("GET", "POST")]
+        [System.Web.Http.HttpGet]
+        [Description("Get request. Returns new event-stream.")]
+        public virtual HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
+        {
+            return _pulser.AddSubscriber(request, sessionId, ServerSendEvent.ContentType.Text);
         }
     }
 

@@ -225,7 +225,7 @@ namespace Campus.Pulse
         /// <value>
         /// The factory.
         /// </value>
-        public static PulseFactory<PulseObject> Factory { get { return PulseFactory<PulseObject>.Instance; } }
+        public static PulseFactory Factory { get { return PulseFactory.Instance; } }
 
         #endregion
 
