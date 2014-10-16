@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Reflection;
@@ -34,7 +35,7 @@ namespace Campus.Core.Common.Extensions
 
         public static T FromJson<T>(this string s)
         {
-            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            var serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
 
             return serializer.Deserialize<T>(s);
         }

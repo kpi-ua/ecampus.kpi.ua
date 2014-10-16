@@ -1,23 +1,18 @@
-﻿using Campus.Core.EventsArgs;
-using Campus.Core.Interfaces;
+﻿using Campus.Core.Common.Attributes;
+using Campus.Core.Common.Extensions;
 using Campus.Core.Common.Generators;
+using Campus.Core.EventsArgs;
+using Campus.Core.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
-using System.Text;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Campus.Core.Common.BaseClasses;
-using Campus.Core.Common.Extensions;
-using Campus.Core;
-using System.Net;
-using System.Reflection;
-using System.Web.Mvc;
-using Campus.Core.Common.Attributes;
-
+using System.Web.Http;
 
 namespace Campus.Pulse
 {

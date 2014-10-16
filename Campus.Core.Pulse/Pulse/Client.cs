@@ -1,4 +1,5 @@
-﻿using Campus.Core.Interfaces;
+﻿using System.ServiceModel;
+using Campus.Core.Interfaces;
 using System;
 using System.IO;
 using System.Web;
@@ -62,7 +63,7 @@ namespace Campus.Pulse
                     IsConnected = false;
                 }                
             }
-            catch (System.ServiceModel.CommunicationException)
+            catch (CommunicationException)
             {
                 IsConnected = false;
             }

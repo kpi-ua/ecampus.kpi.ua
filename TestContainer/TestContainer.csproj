@@ -99,6 +99,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Campus.Core.Pulse\Campus.Core.Pulse.csproj">
+      <Project>{b94e14f0-bdce-4353-8b69-17350a946973}</Project>
+      <Name>Campus.Core.Pulse</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Campus.Core\Campus.Core.csproj">
       <Project>{b993c7e9-da2a-4090-9cdf-4a17b248ad63}</Project>
       <Name>Campus.Core</Name>
