@@ -362,7 +362,7 @@ namespace Campus.Pulse
     }
 
     [NonSerializableClass]
-    public class TestClass
+    public class TestClass : PulseController<TestUser>
     {
         public override TestUser GetUser(string sessionId)
         {
@@ -372,27 +372,24 @@ namespace Campus.Pulse
         public override int GetClientId(string sessionId)
         {
             return int.Parse(sessionId);
-        }
-
-        private IPulseObject _pulser;
+        }        
 
         public TestClass()            
         {
             var user = GetUser("123");
-
-            PulseController<TestUser>.Factory.Register(() => { return GetUser("123"); });
-            _pulser.OnHeartbeat += (sender, e) => 
+            
+            OnHeartbeat += (sender, e) => 
             {
-                _pulser.Send(data: "some message", clientIds: new[]{user.Id});
+                Send(data: "some message", clientIds: new[]{user.Id});
             };            
         }
 
         [System.Web.Http.AcceptVerbs("GET", "POST")]
         [System.Web.Http.HttpGet]
         [Description("Get request. Returns new event-stream.")]
-        public virtual HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
+        public override HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
         {
-            return _pulser.AddSubscriber(request, sessionId, ServerSendEvent.ContentType.Text);
+            return AddSubscriber(request, sessionId, ServerSendEvent.ContentType.Text);
         }
     }
 
