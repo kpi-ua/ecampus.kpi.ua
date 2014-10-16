@@ -1,12 +1,7 @@
-﻿using Campus.Core.Common.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
+using Campus.Core.Attributes;
 
-namespace Campus.Core.Interfaces
+namespace Campus.Core.Pulse.Interfaces
 {
     public interface IGet
     {

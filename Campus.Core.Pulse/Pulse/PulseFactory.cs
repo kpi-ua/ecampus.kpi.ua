@@ -1,13 +1,10 @@
-﻿using Campus.Core.Common.BaseClasses;
-using Campus.Core.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Campus.Core.Common.Extensions;
+using Campus.Core.Pulse.Common.BaseClasses;
+using Campus.Core.Pulse.Interfaces;
 
-namespace Campus.Pulse
+namespace Campus.Core.Pulse.Pulse
 {
     public class PulseFactory : AbstractSingleton<PulseFactory>
     {
@@ -62,7 +59,7 @@ namespace Campus.Pulse
         {
             var id = "simplePulseObject".GetHashCode();
             if (!_collection.Any(o => o.Equals(id)))                
-            _collection.Add(new Campus.Pulse.ServerSendEvent.PulseObject(getId));
+            _collection.Add(new ServerSendEvent.PulseObject(getId));
         }        
     }
 
@@ -119,7 +116,7 @@ namespace Campus.Pulse
         {
             var id = GetID();
             if (!_collection.Any(o => o.Equals(id)))
-                _collection.Add(new Campus.Pulse.PulseController<T>.PulseObject<T>(getTObject));
+                _collection.Add(new PulseController<T>.PulseObject<T>(getTObject));
         }
     }
 }

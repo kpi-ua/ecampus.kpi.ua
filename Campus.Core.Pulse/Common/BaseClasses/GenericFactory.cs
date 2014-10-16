@@ -1,13 +1,10 @@
-﻿using Campus.Core.Common.BaseClasses;
-using Campus.Core.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Campus.Core.Common.Extensions;
+using Campus.Core.Pulse.Interfaces;
 
-namespace Campus.Core.Common.BaseClasses
+namespace Campus.Core.Pulse.Common.BaseClasses
 {
     public class GenericFactory<T> : AbstractSingleton<GenericFactory<T>>, IFactory<T>
     {

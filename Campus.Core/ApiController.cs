@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using Campus.Core.Common.Attributes;
+using Campus.Core.Attributes;
 using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
 using PagedList;

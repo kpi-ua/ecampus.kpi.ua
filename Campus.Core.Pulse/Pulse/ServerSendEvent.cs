@@ -1,8 +1,9 @@
-﻿using Campus.Core.Common.Attributes;
+﻿using Campus.Core.Attributes;
 using Campus.Core.Common.Extensions;
 using Campus.Core.Common.Generators;
-using Campus.Core.EventsArgs;
-using Campus.Core.Interfaces;
+using Campus.Core.Pulse.EventsArgs;
+using Campus.Core.Pulse.Interfaces;
+using Campus.Pulse;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,10 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Http;
 
-namespace Campus.Pulse
+namespace Campus.Core.Pulse.Pulse
 {
-    public abstract class ServerSendEvent : ApiController, IServerSentEvent, IDisposable
+    public abstract class ServerSendEvent : System.Web.Http.ApiController, IServerSentEvent, IDisposable
     {
         #region Events
 
@@ -141,13 +141,13 @@ namespace Campus.Pulse
         /// <param name="heartbeatInterval">The heartbeat interval.</param>
         protected ServerSendEvent(bool generateMessageIds = true, MessageIdGenerator? idGenerator = null, int heartbeatInterval = 5000)
             : this()
-        {            
+        {
             _HeartbeatInterval = heartbeatInterval;
             _MessageHistory = MessageHistory.Instance;
             if (generateMessageIds && idGenerator.HasValue)
                 _IdGenerator = GetMessageIdGenerator(idGenerator.Value);
             else if (generateMessageIds)
-                _IdGenerator = GetMessageIdGenerator(MessageIdGenerator.Simple); 
+                _IdGenerator = GetMessageIdGenerator(MessageIdGenerator.Simple);
 
             SetupHeartbeat(heartbeatInterval);
         }
@@ -307,7 +307,7 @@ namespace Campus.Pulse
                 OnSubscriberRemoved(count);
         }
 
-        #endregion        
+        #endregion
 
         /// <summary>
         /// Makes a client a subscriber of this event.
@@ -463,17 +463,10 @@ namespace Campus.Pulse
                                && !NonSerializableMethodAttribute.Instance.HasAttribute(method, typeof(NonSerializableMethodAttribute))
                            select IntrospectMethod(method)).ToList();
 
-            var executingAssembly = Assembly.GetExecutingAssembly();
-
-            var name = executingAssembly.GetName();
-
-            return Request.CreateResponse(HttpStatusCode.OK, new
+            return Request.CreateResponse(HttpStatusCode.OK, new Result
             {
                 StatusCode = HttpStatusCode.OK,
-                TimeStamp = DateTime.Now,
-                Guid = Guid.NewGuid(),
-                ApiVersion = name.Version.ToString(),
-                Methods = methods
+                Data = methods
             });
         }
 
@@ -505,7 +498,7 @@ namespace Campus.Pulse
         {
             this._HeartbeatTimer.Dispose();
             this._Clients = null;
-            this._MessageHistory = null;            
+            this._MessageHistory = null;
         }
     }
 }

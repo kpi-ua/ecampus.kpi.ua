@@ -1,14 +1,11 @@
-﻿using Campus.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Text;
-using System.Threading.Tasks;
-using Campus.Core.Common.Generators;
 using Campus.Core.Common.Extensions;
+using Campus.Core.Common.Generators;
+using Campus.Core.Pulse.Interfaces;
 using Newtonsoft.Json;
 
-namespace Campus.Pulse
+namespace Campus.Core.Pulse.Pulse
 {
     [JsonObject]
     public class Message : IMessage

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Campus.Core.Common.Exceptions
+namespace Campus.Core.Pulse.Common.Exceptions
 {
     /// <summary>
     /// There's no way to generate compilation errors from code.

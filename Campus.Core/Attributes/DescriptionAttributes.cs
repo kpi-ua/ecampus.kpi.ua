@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Campus.Core.Common.Attributes
+namespace Campus.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
     public sealed class DescriptionAttribute : AbstractAttribute
     {
-        string _description;
-   
+        private readonly string _description;
+
         public DescriptionAttribute(string description)
         {
             _description = description;

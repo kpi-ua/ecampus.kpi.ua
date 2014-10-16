@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace Campus.Core.Common.Attributes
+namespace Campus.Core.Attributes
 {
     public abstract class AbstractAttribute : Attribute
     {

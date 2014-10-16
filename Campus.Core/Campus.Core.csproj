@@ -66,9 +66,7 @@
     <Compile Include="Attributes\SerializationAttributes.cs" />
     <Compile Include="Attributes\DescriptionAttributes.cs" />
     <Compile Include="EventsArgs\ApiEventArgs.cs" />
-    <Compile Include="EventsArgs\BeatEventArgs.cs" />
     <Compile Include="EventsArgs\ExceptionEventsArgs.cs" />
-    <Compile Include="EventsArgs\SubscriberEventArgs.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result.cs" />

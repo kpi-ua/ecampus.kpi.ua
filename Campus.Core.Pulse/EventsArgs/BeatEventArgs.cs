@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Campus.Core.EventsArgs
+namespace Campus.Core.Pulse.EventsArgs
 {
     public class BeatEventArgs : EventArgs
     {

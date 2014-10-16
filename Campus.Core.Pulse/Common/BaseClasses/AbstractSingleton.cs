@@ -1,10 +1,10 @@
-﻿using Campus.Core.Common.Exceptions;
-using Campus.Core.Common.Extensions;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using Campus.Core.Common.Extensions;
+using Campus.Core.Pulse.Common.Exceptions;
 
-namespace Campus.Core.Common.BaseClasses
+namespace Campus.Core.Pulse.Common.BaseClasses
 {
     /// <summary>
     /// Base class for singleton pattern.

@@ -1,15 +1,11 @@
-﻿using Campus.Core.EventsArgs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net.Http;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
-using Campus.Pulse;
-using Campus.Core.Common.Attributes;
+using Campus.Core.Attributes;
+using Campus.Core.EventsArgs;
+using Campus.Core.Pulse.EventsArgs;
+using Campus.Core.Pulse.Pulse;
 
-namespace Campus.Core.Interfaces
+namespace Campus.Core.Pulse.Interfaces
 {
     public interface ISubscriberEvent
     {
@@ -26,7 +22,7 @@ namespace Campus.Core.Interfaces
         /// </summary>
         /// <param name="request">The incoming request from the client.</param>
         /// <returns>The response to send back to the client.</returns>
-        [NonSerializableMethodAttribute]
-        HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, Campus.Pulse.ServerSendEvent.ContentType type = ServerSendEvent.ContentType.Text);
+        [NonSerializableMethod]
+        HttpResponseMessage AddSubscriber(HttpRequestMessage request, string sessionId = null, ServerSendEvent.ContentType type = ServerSendEvent.ContentType.Text);
     }
 }

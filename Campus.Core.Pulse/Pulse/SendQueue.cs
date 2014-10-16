@@ -1,12 +1,12 @@
-﻿using Campus.Core.EventsArgs;
-using MoreLinq;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using Campus.Core.Pulse.EventsArgs;
+using MoreLinq;
 
-namespace Campus.Pulse
+namespace Campus.Core.Pulse.Pulse
 {
     /// <summary>
     /// Hight level wrapper that encapsulates message preparation and condition check.

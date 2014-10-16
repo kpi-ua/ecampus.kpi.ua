@@ -1,12 +1,8 @@
-﻿using Campus.Core.EventsArgs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Campus.Core.EventsArgs;
+using Campus.Core.Pulse.EventsArgs;
 
-namespace Campus.Core.Interfaces
+namespace Campus.Core.Pulse.Interfaces
 {
     public interface IServerSentEvent : ISubscriberEvent
     {                

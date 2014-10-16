@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Campus.Pulse;
-using Campus.Core.Interfaces;
+using Campus.Core.Pulse.Interfaces;
 
-namespace Campus.Core.EventsArgs
+namespace Campus.Core.Pulse.EventsArgs
 {
     public class MessageEventArgs : EventArgs
     {

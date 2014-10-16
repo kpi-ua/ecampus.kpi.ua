@@ -1,10 +1,11 @@
-﻿using System.ServiceModel;
-using Campus.Core.Interfaces;
-using System;
+﻿using System;
 using System.IO;
+using System.ServiceModel;
 using System.Web;
+using Campus.Core.Pulse.Interfaces;
+using Campus.Pulse;
 
-namespace Campus.Pulse
+namespace Campus.Core.Pulse.Pulse
 {
     public class Client
     {
@@ -28,7 +29,7 @@ namespace Campus.Pulse
         /// <param name="stream">The stream.</param>
         public Client(int? id, Stream stream)
         {
-            StreamWriter streamwriter = new StreamWriter(stream);
+            var streamwriter = new StreamWriter(stream);
             this.StreamWriter = streamwriter;
             IsConnected = true;
             Id = ((id.HasValue)? id.Value : -1).ToString();

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Campus.Core.EventsArgs
+namespace Campus.Core.Pulse.EventsArgs
 {
     public class SubscriberEventArgs : EventArgs
     {

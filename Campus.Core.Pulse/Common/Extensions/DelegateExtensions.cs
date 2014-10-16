@@ -16,7 +16,7 @@ namespace Campus.Core.Common.Extensions
         /// <returns></returns>
         public static Task AsyncInvoke(this Action target)
         {
-            return Task.Run(() => target());
+            return Task.Run(target);
         }
 
 

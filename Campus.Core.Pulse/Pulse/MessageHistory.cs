@@ -1,11 +1,11 @@
-﻿using Campus.Core.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Campus.Core.Common.BaseClasses;
+using Campus.Core.Pulse.Common.BaseClasses;
+using Campus.Core.Pulse.Interfaces;
 
 namespace Campus.Pulse
 {

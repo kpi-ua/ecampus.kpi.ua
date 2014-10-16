@@ -1,5 +1,7 @@
 ﻿using Campus.Core.EventsArgs;
-using Campus.Core.Interfaces;
+using Campus.Core.Pulse.EventsArgs;
+using Campus.Core.Pulse.Interfaces;
+using Campus.Core.Pulse.Pulse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Concurrent;

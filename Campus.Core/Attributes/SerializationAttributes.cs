@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Campus.Core.Common.Attributes
+namespace Campus.Core.Attributes
 {
     /// <summary>
     /// Indicates that marked method wouldn't be serialized

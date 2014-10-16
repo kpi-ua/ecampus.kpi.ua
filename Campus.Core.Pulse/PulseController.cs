@@ -1,15 +1,18 @@
-﻿using System.Web.Mvc;
-using Campus.Core.Common.Attributes;
-using Campus.Core.Common.Exceptions;
-using Campus.Core.Common.Extensions;
-using Campus.Core.EventsArgs;
-using Campus.Core.Interfaces;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Web.Http;
+using Campus.Core.Attributes;
+using Campus.Core.Common.Extensions;
+using Campus.Core.EventsArgs;
+using Campus.Core.Pulse.Common.Exceptions;
+using Campus.Core.Pulse.EventsArgs;
+using Campus.Core.Pulse.Interfaces;
+using Campus.Core.Pulse.Pulse;
+using Campus.Pulse;
 
-namespace Campus.Pulse
+namespace Campus.Core.Pulse
 {
     /// <summary>
     /// Functionality for handling and sending a Server-Sent Events from ASP.NET WebApi.
@@ -240,12 +243,12 @@ namespace Campus.Pulse
 
                 if (content is PushStreamContentWithClientInfomation<ClientInfo>)
                 {
-                    PushStreamContentWithClientInfomation<ClientInfo> contentWithInfo = content as PushStreamContentWithClientInfomation<ClientInfo>;
+                    var contentWithInfo = content as PushStreamContentWithClientInfomation<ClientInfo>;
                     info = contentWithInfo.Info;
                 }
 
                 string lastMessageId = GetLastMessageId(content);
-                ClientWithInformation<ClientInfo> client = new ClientWithInformation<ClientInfo>(stream, lastMessageId, info);
+                var client = new ClientWithInformation<ClientInfo>(stream, lastMessageId, info);
                 AddClient(client);
             }, GetContentType(contentType), clientInfo);
             return response;
@@ -308,12 +311,11 @@ namespace Campus.Pulse
                 }
 
                 // Send all messages since LastMessageId
-                IMessage nextMessage = null;
                 bool canGet = true;
 
                 do
                 {
-                    nextMessage = _MessageHistory.GetNextMessage();
+                    var nextMessage = _MessageHistory.GetNextMessage();
                     if (nextMessage != null && nextMessage.AuthorId.Equals(client.Id))
                         client.Send(nextMessage);
                     else
