@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
+using Campus.Core.Common.Attributes;
 
 namespace Campus.Core
 {
@@ -26,7 +27,7 @@ namespace Campus.Core
 
         public static event EventHandler ResultExecuted;
 
-        private static void OnReseultExecuted(ApiController sender, string json)
+        protected static void OnReseultExecuted(ApiController sender, string json)
         {
             var handler = ResultExecuted;
 
@@ -58,7 +59,7 @@ namespace Campus.Core
         /// </summary>
         /// <param name="result"></param>
         /// <returns></returns>
-        private static string Serialize(object result)
+        protected static string Serialize(object result)
         {
             //CamelCasePropertyNamesContractResolver
 
@@ -93,7 +94,7 @@ namespace Campus.Core
             _timeStamp = DateTime.Now;
         }
 
-        public ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
+        public virtual ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
         {
             var result = new Result
             {
@@ -217,11 +218,13 @@ namespace Campus.Core
         protected static dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
+            var isDescription = DescriptionAttribute.Instance.HasAttribute(method);
 
             return new
             {
                 method.Name,
                 Method = isHttPost ? "POST" : "GET",
+                Description = isDescription ? ((DescriptionAttribute)method.GetCustomAttributes().First(o => (string)o.TypeId == "DescriptionAttribute")).Description : null,
                 Parameters = method.GetParameters().Select(o => new
                 {
                     o.Name,
