@@ -26,7 +26,7 @@ namespace Campus.Core
             TimeStamp = DateTime.Now;
             Guid = System.Guid.NewGuid().ToString();
             Paging = null;
-        }
+        }        
 
         public static Result Parse(string json)
         {
