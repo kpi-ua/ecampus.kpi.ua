@@ -1,4 +1,5 @@
-﻿using Campus.Core.Common.Attributes;
+﻿using System.Web.Mvc;
+using Campus.Core.Common.Attributes;
 using Campus.Core.Common.Exceptions;
 using Campus.Core.Common.Extensions;
 using Campus.Core.EventsArgs;
@@ -156,8 +157,8 @@ namespace Campus.Pulse
         /// <param name="request">The request.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <returns>Message stream</returns>
-        [System.Web.Http.AcceptVerbs("GET", "POST")]
-        [System.Web.Http.HttpGet]
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
         [Description("Get request. Returns new event-stream.")]
         public virtual HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
         {
@@ -169,8 +170,8 @@ namespace Campus.Pulse
         /// </summary>
         /// <param name="request">The request.</param>
         /// <returns>Information about controller's methods</returns>
-        [System.Web.Http.AcceptVerbs("GET", "POST")]
-        [System.Web.Http.HttpGet]
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
         [NonSerializableMethod]
         public virtual HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request)
         {
@@ -383,8 +384,8 @@ namespace Campus.Pulse
             };            
         }
 
-        [System.Web.Http.AcceptVerbs("GET", "POST")]
-        [System.Web.Http.HttpGet]
+        [AcceptVerbs("GET", "POST")]
+        [HttpGet]
         [Description("Get request. Returns new event-stream.")]
         public override HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
         {

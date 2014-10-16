@@ -1,4 +1,5 @@
 ﻿using System.Web;
+using Campus.Core.Common.Attributes;
 using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
 using PagedList;
@@ -8,7 +9,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web.Mvc;
-using Campus.Core.Common.Attributes;
 
 namespace Campus.Core
 {

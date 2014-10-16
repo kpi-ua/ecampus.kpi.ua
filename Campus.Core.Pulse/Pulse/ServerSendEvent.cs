@@ -21,7 +21,7 @@ using Campus.Core.Common.Attributes;
 
 namespace Campus.Pulse
 {
-    public abstract class ServerSendEvent : System.Web.Http.ApiController, IServerSentEvent, IDisposable
+    public abstract class ServerSendEvent : ApiController, IServerSentEvent, IDisposable
     {
         #region Events
 
