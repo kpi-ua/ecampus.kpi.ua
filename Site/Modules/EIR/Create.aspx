@@ -19,7 +19,7 @@
         <table>
             <tr>
                 <td>
-                    <span id="expand_persons" class="glyphicon glyphicon-expand">Учасники</span>
+                    <span id="expand_persons" class="glyphicon glyphicon-user">Учасники</span>
                     <div class="persons-list">
                     </div>
                     <div class="persons-block">
