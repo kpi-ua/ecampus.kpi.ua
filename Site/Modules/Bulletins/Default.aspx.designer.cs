@@ -13,13 +13,31 @@ namespace Site.Modules.Bulletins {
     public partial class Default {
         
         /// <summary>
-        /// output_box control.
+        /// output_box1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox output_box;
+        protected global::System.Web.UI.WebControls.TextBox output_box1;
+        
+        /// <summary>
+        /// get_actual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button get_actual;
+        
+        /// <summary>
+        /// output_box2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox output_box2;
         
         /// <summary>
         /// get_group_list control.
@@ -31,6 +49,15 @@ namespace Site.Modules.Bulletins {
         protected global::System.Web.UI.WebControls.Button get_group_list;
         
         /// <summary>
+        /// output_box3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox output_box3;
+        
+        /// <summary>
         /// get_faculty_list control.
         /// </summary>
         /// <remarks>
@@ -40,13 +67,22 @@ namespace Site.Modules.Bulletins {
         protected global::System.Web.UI.WebControls.Button get_faculty_list;
         
         /// <summary>
-        /// get_actual control.
+        /// output_box4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button get_actual;
+        protected global::System.Web.UI.WebControls.TextBox output_box4;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
         /// input_box control.
@@ -65,6 +101,24 @@ namespace Site.Modules.Bulletins {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button add_buletin;
+        
+        /// <summary>
+        /// output_box6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox output_box6;
+        
+        /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
         /// moderator control.
