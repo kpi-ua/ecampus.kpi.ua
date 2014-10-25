@@ -2,6 +2,7 @@
 using System.Text;
 using Campus.Common;
 using Campus.SDK;
+using Core.Doska;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NLog;
@@ -350,6 +351,52 @@ namespace Core
             var r = resp.Split(new[] { "\"Data\":" }, StringSplitOptions.RemoveEmptyEntries);
             r[1] = r[1].Substring(0, r[1].Length - 1);
             return r[1];
+        }
+
+        public IEnumerable<Bulletin> DeskGetActualBulletins(string sessionId)
+        {
+            return Get<IEnumerable<Bulletin>>("BulletinBoard", "DeskGetActualBulletins", new { sessionId });
+        }
+
+        public IEnumerable<SimpleInfo> DeskGetAllowedProfiles()
+        {
+            return Get<IEnumerable<SimpleInfo>>("BulletinBoard", "DeskGetProfileTypesList");
+        }
+
+        public IEnumerable<SimpleInfo> DeskGetFacultyTypesList()
+        {
+            return Get<IEnumerable<SimpleInfo>>("BulletinBoard", "DeskGetFacultyTypesList");
+        }
+
+        public IEnumerable<GroupInfo> DeskGetGroupTypesList(int subdivisionId)
+        {
+            return Get<IEnumerable<GroupInfo>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
+        }
+
+        public string DeskAddBulletein(string sessionId, string sub, string txt)
+        {
+            var url = BuildUrl("BulletinBoard", "DeskAddBulletein", new { sessionId, sub, txt });
+            return (GetData(url) ?? new object()).ToString();
+            /*
+            var arg = "sessionId=" + SessionId + "&subject=" + subject + "&text=" + text;
+            return Get<string>("BulletinBoard", "DeskAddBulletein", new {subject, text});            
+            var request = (HttpWebRequest)WebRequest.Create("URL");
+            var postData = "thing1=hello";
+            postData += "&thing2=world";
+            var data = Encoding.ASCII.GetBytes(postData);
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+            using (var stream = request.GetRequestStream()){
+                stream.Write(data, 0, data.Length);}
+            var response = (HttpWebResponse)request.GetResponse();
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+             */
+        }
+
+        public string DeskIsModerator(string sessionId)
+        {
+            return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
         }
     }
 }

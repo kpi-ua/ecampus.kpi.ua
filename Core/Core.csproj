@@ -108,14 +108,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bulletin.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Credential.cs" />
+    <Compile Include="GroupInfo.cs" />
     <Compile Include="IrGroup.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Permission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CampusClient.cs" />
+    <Compile Include="SimpleInfo.cs" />
     <Compile Include="SiteController.cs" />
     <Compile Include="SitePage.cs">
       <SubType>ASPXCodeBehind</SubType>

@@ -42,8 +42,41 @@ namespace Site.Modules.Bulletins
 
             bulletins.InnerHtml = sb.ToString();
         }
+        protected void get_profile_type(object sender, EventArgs e)
+        {
+            output_box2.Text = CampusClient.DeskGetAllowedProfiles().ToStringList(info => info.Name);
+        }
 
 
+        protected void get_group_list_click(object sender, EventArgs e)
+        {
+            output_box4.Text = CampusClient.DeskGetGroupTypesList(10193).ToStringList(info => info.Name + "/n" + info.CreationYear);
+        }
+
+        protected void get_actual_click(object sender, EventArgs e)
+        {
+            output_box1.Text = CampusClient.DeskGetActualBulletins(SessionId).ToStringList(info => info.Subject + "/n" + info.Text);
+        }
+
+        protected void get_faculty_list_click(object sender, EventArgs e)
+        {
+            output_box3.Text = CampusClient.DeskGetFacultyTypesList().ToStringList(info => info.Name);
+        }
+
+        protected void add_buletin_click(object sender, EventArgs e)
+        {
+            input_box.Text = "REQUEST RESULT: " +
+                             CampusClient.DeskAddBulletein(SessionId, "test sub", input_box.Text);
+        }
+
+
+        protected void get_moderator(object sender, EventArgs e)
+        {
+            output_box6.Text = CampusClient.DeskIsModerator(SessionId).ToString();
+        }
+
+
+        /*
         protected void get_group_list_click(object sender, EventArgs e)
         {
             var result = CampusClient.MakeRequest<List<SimpleInfo>>(CampusClient.BuildUrl("bulletinboard", "deskgetprofiletypeslist"));
@@ -72,39 +105,7 @@ namespace Site.Modules.Bulletins
             output_box.Text = result;
         }
 
-        public string ToStringList<T>(IEnumerable<T> list, Func<T, string> func)
-        {
-            return list.Aggregate("", (current, item) => current + (func(item) + "\n"));
-        }
-    }
-
-    /// <summary>
-    /// Внутренний класс обьявления из доски обьявлений
-    /// </summary>
-    [Serializable]
-    public class Bulletin
-    {
-        public int BulletinId = -1; // -1 указывает что объявление только создается, в противном случае оно редактируется по ИД
-        public string Subject = "";
-        public string Text = "";
-        public string CreatorName = "";
-        public int CreatorId = 0;
-        public DateTime CreationDate = new DateTime(1000, 1, 1);
-        public DateTime ModifiedDate = new DateTime(1000, 1, 1);
-        public bool Editable = false; // Поле показывает можно ли редактировать объявление для юзера который запросил вывод этого объявления
-        public int? GroupId = -1;
-        public int? ProfileId = -1;
-        public int? SubdivisionId = -1;
-        public int? ProfilePermissionId = -1;
-    }
-
-    /// <summary>
-    /// Класс отображающий информацию о типах (включает в себя уникальный ид и имя)
-    /// Пример: (1, Науковець), (2, Декан), (3, Студент)...
-    /// </summary>
-    public class SimpleInfo
-    {
-        public int Id;
-        public String Name;
+        
+         */
     }
 }
