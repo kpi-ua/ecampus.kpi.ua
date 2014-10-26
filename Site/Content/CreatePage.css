@@ -9,7 +9,7 @@ table {
 }
 
 
-#name, #type, #lang, #title, #annotation, #surname, #person_type {
+#name, #lang, #title, #annotation, #surname, #person_type {
     display: block;
 }
 
@@ -25,7 +25,7 @@ input, select {
     width: 100%;
 }
 
-#contrib_type {
+#contrib_type, #type {
     width: 75%;
 }
 
@@ -37,7 +37,7 @@ input, select {
     float: right;
 }
 
-hr, #type, #lang, #title, #annotation, #keywords {
+hr, #lang, #title, #annotation, #keywords {
     width: 100%;
 }
 

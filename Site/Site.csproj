@@ -177,6 +177,10 @@
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="Content\site2.css" />
+    <Content Include="Content\tree\32px.png" />
+    <Content Include="Content\tree\40px.png" />
+    <Content Include="Content\tree\style.css" />
+    <Content Include="Content\tree\throbber.gif" />
     <Content Include="Modules\EIR\Create.aspx" />
     <Content Include="Modules\EIR\Default.aspx" />
     <Content Include="Modules\EIR\IrGroup\Default.aspx" />
@@ -306,6 +310,7 @@
     <Content Include="Scripts\jquery-ui.min.autocomplete.js" />
     <Content Include="Scripts\jquery.ambiance.js" />
     <Content Include="Scripts\jquery.eventsource.js" />
+    <Content Include="Scripts\jstree.js" />
     <Content Include="Scripts\MZ.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\site.js" />

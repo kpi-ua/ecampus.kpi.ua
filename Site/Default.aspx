@@ -20,6 +20,7 @@
 
                     <div class="col-lg-3">
                         <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
+                        <button id="popoverData" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
                     </div>
 
                     <div class="col-lg-9">
