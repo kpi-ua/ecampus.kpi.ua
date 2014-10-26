@@ -113,6 +113,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Credential.cs" />
     <Compile Include="GroupInfo.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="IrGroup.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Permission.cs" />
