@@ -496,9 +496,14 @@ namespace Campus.Core.Pulse.Pulse
 
         void IDisposable.Dispose()
         {
-            this._HeartbeatTimer.Dispose();
+            if (this._HeartbeatTimer != null) 
+            {
+                this._HeartbeatTimer.Dispose();
+            }
+            
             this._Clients = null;
             this._MessageHistory = null;
+            
         }
     }
 }
