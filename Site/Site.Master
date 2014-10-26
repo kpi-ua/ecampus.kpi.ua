@@ -36,7 +36,7 @@
         head = "";
     </script>
 
-    <label id="ApiEndpoint" style="display: none"><%=Core.CampusClient.ApiEndpoint %></label>
+    <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
 
     <div class="wrap container">
 

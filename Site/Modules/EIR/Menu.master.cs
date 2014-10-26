@@ -9,8 +9,6 @@ namespace Site.Modules.EIR
         {
             base.OnLoad(e);
 
-            api.Value = Core.CampusClient.ApiEndpoint;
-            ssid.Value = (this.Page as SitePage).SessionId;
         }
     }
 }

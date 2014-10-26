@@ -8,8 +8,6 @@ namespace Site.Modules.EIR
         {
             base.OnLoad(e);
 
-            ssid.Value = CampusClient.SessionId;
-            api.Value = Core.CampusClient.ApiEndpoint;
         }
     }
 }

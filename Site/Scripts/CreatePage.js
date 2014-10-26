@@ -1,7 +1,46 @@
 ﻿var personList = [];
 var langsList = [];
 
-$(document).ready(function() {
+$(document).ready(function () {
+    //tabs
+    $("#create_tab").addClass("active");
+    
+    //tree
+    API.getData(["Ir", "GetIrKinds"], {}, function (data) {
+        var html = "<ul>";
+        $.each(data, function (key, value) {
+            if (value.kinds.length > 0) {
+                html += "<li value='" + value.id + "'>" + value.name;
+                html += "<ul>";
+                for (var item in value.kinds) {
+                    html += "<li value='" + value.kinds[item].id + "'>" + value.kinds[item].name + "</li>";
+                }
+                html += "</ul>";
+                html += "</li>";
+            }
+        });
+        html += "</ul>";
+        $("#search_tree").append(html);
+        $.jstree.defaults.core.themes.icons = false;
+        $("#search_tree").jstree();
+    });
+
+    $("#tree_select").click(function() {
+        var array = $("#search_tree").jstree().get_bottom_selected(true);
+        if (array.length > 0) {
+            $("#type > optgroup > option[value='" + array[0].li_attr.value + "']").attr('selected', true).trigger('chosen:updated');
+        } else {
+            $.ambiance({
+                message: "Виберіть пункт у дереві",
+                type: "error",
+                fade: false
+            });
+        }
+        $("#search_tree").jstree().deselect_all();
+        $("#search_tree").jstree().close_all();
+    });
+
+
     //loading values
     API.getData(["Ir", "GetPersonStatusType"], {}, function(data) {
         $.each(data, function(key, value) {
@@ -15,6 +54,20 @@ $(document).ready(function() {
         });
     });
 
+    API.getData(["Ir", "GetIrKinds"], {}, function (data) {
+        var html = "";
+        $.each(data, function (key, value) {
+            if (value.kinds.length > 0) {
+                html += "<optgroup label='" + value.name + "' value='" + value.id + "'>";
+                for (var item in value.kinds) {
+                    html += "<option value='" + value.kinds[item].id + "'>" + value.kinds[item].name + "</option>";
+                }
+                html += "</optgroup>";
+            }
+        });
+        $("#type").append(html);
+        $("#type").chosen();
+    });
 
 
 
@@ -72,8 +125,23 @@ $(document).ready(function() {
                 $("#contrib_percent").focus();
                 return false;
             } else {
-                $("#contrib_percent").val(num);
-                return true;
+                var percent = 0;
+                for (var i in personList) {
+                    if (personList[i].ctype == $("#contrib_type").val()) {
+                        percent += personList[i].percent*1;
+                    }
+                }
+                if (percent + num > 100) {
+                    $.ambiance({
+                        message: "Процентний внесок усіх учасників не може бути більшим ніж 100%",
+                        type: "error",
+                        fade: false
+                    });
+                    return false;
+                } else {
+                    $("#contrib_percent").val(num);
+                    return true;
+                }
             }
         }
         return true;
@@ -144,6 +212,7 @@ $(document).ready(function() {
         $("#person_type").val("--");
         $("#contrib_type").val("--");
         $("#contrib_percent").val("");
+        $("#person_id").val("");
         for (var i in personList) {
             personList[i].selected = false;
         }
@@ -213,7 +282,7 @@ $(document).ready(function() {
     });
 
     $("#expand_persons").click(function() {
-        expand("#expand_persons", ".persons-block");
+        $(".persons-block").toggle();
     });
 
     $("#expand_info").click(function() {
@@ -236,8 +305,11 @@ $(document).ready(function() {
     });
 
     $("#add_person").click(function () {
-        if (document.getElementById("kpi").checked && !editPersons) {
+        if (document.getElementById("kpi").checked) {
             for (var i in personList) {
+                if (editPersons && i == $("#person_id").val()) {
+                    continue;
+                }
                 if (personList[i].id == $("#kpi_person_info").val()) {
                     $.ambiance({
                         message: "Невозможно добавить одного человека дважды",
@@ -328,14 +400,20 @@ $(document).ready(function() {
     }
     
     function clearLangs() {
+        changeSelectedLang();
         $("#lang").val("--");
         $("#title").val("");
         $("#annotation").val("");
         $("#keywords").val("");
+        $("#authors").val("");
+        $("#lang_id").val("");
     }
 
     function chechSameLang(id) {
         for (var i in langsList) {
+            if (editLangs && i == $("#lang_id").val()) {
+                continue;
+            }
             if (langsList[i].lang == id) {
                 $.ambiance({
                     message: "Невозможно добавить язык два раза",
@@ -353,7 +431,7 @@ $(document).ready(function() {
         for (var i in langsList) {
             var html = "<div>";
             html += "<a lang_id='" + i + "' class='delete_lang'>";
-            if (editLangs) {
+            if (langsList[i].selected) {
                 html += "<b>[x]</b>";
                 html += "</a><a lang_id = '" + i + "' class='edit_lang'><b>[Редагувати]</b></a>";
             } else {
@@ -380,6 +458,25 @@ $(document).ready(function() {
             langsList = reloadArray(langsList);
             loadLangs();
         });
+        $(".edit_lang").click(function () {
+            editLangs = true;
+            changeButtonNames(editLangs, "#add_lang", "#clear_lang");
+            var id = this.getAttribute("lang_id");
+            $("#lang_id").val(id);
+            $("#lang").val(langsList[id].lang);
+            $("#title").val(langsList[id].title);
+            $("#annotation").val(langsList[id].annotation);
+            $("#keywords").val(langsList[id].keywords);
+            changeLangType(langsList[id].clang);
+            langsList[id].selected = true;
+            loadLangs();
+        });
+    }
+
+    function changeSelectedLang() {
+        for (var item in langsList) {
+            langsList[item].selected = false;
+        }
     }
 
 
@@ -387,16 +484,26 @@ $(document).ready(function() {
     //события
     $("#add_lang").click(function() {
         if (checkInput("#title") && checkSelect("#lang") && chechSameLang($("#lang").val())) {
-            var obj = {
-                lang: $("#lang").val(),
-                title: $("#title").val(),
-                annotation: $("#annotation").val(),
-                keywords: $("#keywords").val(),
-                clang: mainLang
-            };
-            langsList.push(obj);
-            if (mainLang) {
-                mainLang = false;
+            if (editLangs) {
+                var i = $("#lang_id").val();
+                langsList[i].lang = $("#lang").val();
+                langsList[i].title = $("#title").val();
+                langsList[i].annotation = $("#annotation").val();
+                langsList[i].keywords = $("#keywords").val();
+                editLangs = false;
+                changeButtonNames(editLangs, "#add_lang", "#clear_lang");
+            } else {
+                var obj = {
+                    lang: $("#lang").val(),
+                    title: $("#title").val(),
+                    annotation: $("#annotation").val(),
+                    keywords: $("#keywords").val(),
+                    clang: mainLang
+                };
+                langsList.push(obj);
+                if (mainLang) {
+                    mainLang = false;
+                }
             }
             changeLangType(mainLang);
         } else {
@@ -411,7 +518,98 @@ $(document).ready(function() {
         loadLangs();
     });
 
-    $("#clear_lang").click(function() {
+    $("#clear_lang").click(function () {
+        editLangs = false;
+        changeButtonNames(editLangs, "#add_lang", "#clear_lang");
         clearLangs();
+        changeLangType(mainLang);
+        loadLangs();
+    });
+    
+
+    //saving
+    $("#save").click(function() {
+        //check mainlang
+        var mainLangExist = false;
+        for (var i in langsList) {
+            if (langsList[i].clang == true) {
+                mainLangExist = true;
+            }
+        }
+        if (mainLangExist == false) {
+            $.ambiance({
+                message: "Ви не ввели основну мову",
+                type: "error",
+                fade: false
+            });
+        }
+
+        API.getData(["Ir", "AddIr"], {            
+            kindId: $("#type").val(),
+            isPublic: document.getElementById("public").checked ? 1 : 0
+        }, function (data) {
+            console.log("data", data);
+            if (data == -1) {
+                $.ambiance({
+                    message: "Помилка при збереженні",
+                    type: "error",
+                    fade: false
+                });
+                return;
+            } else {
+                var irId = data;
+
+                for (var i in personList) {
+                    var obj = personList[i];
+                    obj.irId = irId;
+                    API.getData(["Ir", "AddContributor"], obj, function (data) {
+                        if (data == -1) {
+                            $.ambiance({
+                                message: "Помилка при авторів",
+                                type: "error",
+                                fade: false
+                            });
+                            return;
+                        }
+                    });
+                }
+
+                API.getUser(function (data) {
+                    var user = data;
+                    
+                    API.getData(["Ir", "AddContributor"], {
+                            kpi: true,
+                            irId: irId,
+                            id: user.UserAccountId,
+                            role: "creator",
+                            name: user.FullName
+                        }, function (data) {
+                        if (data == -1) {
+                            $.ambiance({
+                                message: "Помилка при збереженні авторів",
+                                type: "error",
+                                fade: false
+                            });
+                            return;
+                        }
+                    });
+                });
+
+                for (var i in langsList) {
+                    var obj = langsList[i];
+                    obj.irId = irId;
+                    API.getData(["Ir", "AddExtraLang"], obj, function (data) {
+                        if (data == -1) {
+                            $.ambiance({
+                                message: "Помилка при збереженні мов перекладу",
+                                type: "error",
+                                fade: false
+                            });
+                            return;
+                        }
+                    });
+                }
+            }
+        });
     });
 });
