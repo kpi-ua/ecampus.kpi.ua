@@ -50,12 +50,14 @@ namespace Site.Modules.Bulletins
 
         protected void get_group_list_click(object sender, EventArgs e)
         {
-            output_box4.Text = CampusClient.DeskGetGroupTypesList(10193).ToStringList(info => info.Name + "/n" + info.CreationYear);
+            output_box4.Text = CampusClient.DeskGetGroupTypesList(10193).ToStringList(info => info.Name + "\n" + info.CreationYear);
         }
 
         protected void get_actual_click(object sender, EventArgs e)
         {
-            output_box1.Text = CampusClient.DeskGetActualBulletins(SessionId).ToStringList(info => info.Subject + "/n" + info.Text);
+            output_box1.Text =
+                CampusClient.DeskGetActualBulletins(SessionId)
+                    .ToStringList(info => "Sub: " + info.Subject + "\n" + "Text: " + info.Text);
         }
 
         protected void get_faculty_list_click(object sender, EventArgs e)
@@ -66,7 +68,9 @@ namespace Site.Modules.Bulletins
         protected void add_buletin_click(object sender, EventArgs e)
         {
             input_box.Text = "REQUEST RESULT: " +
-                             CampusClient.DeskAddBulletein(SessionId, "test sub", input_box.Text);
+                             ((CampusClient.DeskAddBulletein(SessionId, "test sub", input_box.Text) == "0")
+                                 ? "Success"
+                                 : "Fail");
         }
 
 
