@@ -32,8 +32,9 @@ namespace Core
                 return null;
             }
 
-            var model = JsonConvert.DeserializeObject<T>(result.Data.ToString());
-            return model;
+            if (result.Data.ToString() == "True" || result.Data.ToString() == "False")
+                return result.Data.ToString();
+            return JsonConvert.DeserializeObject<T>(result.Data.ToString());
         }
 
         private Dictionary<string, object> GetStringObject(string url)
@@ -375,8 +376,7 @@ namespace Core
 
         public string DeskAddBulletein(string sessionId, string sub, string txt)
         {
-            var url = BuildUrl("BulletinBoard", "DeskAddBulletein", new { sessionId, sub, txt });
-            return (GetData(url) ?? new object()).ToString();
+            return Get<string>("BulletinBoard", "DeskAddBulletin", new { sessionId, subject = sub, text = txt });
             /*
             var arg = "sessionId=" + SessionId + "&subject=" + subject + "&text=" + text;
             return Get<string>("BulletinBoard", "DeskAddBulletein", new {subject, text});            
