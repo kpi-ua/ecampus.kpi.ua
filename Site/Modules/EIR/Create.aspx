@@ -40,7 +40,7 @@
                             <option disabled selected value="--">Посада</option>
                         </select>
                         <select id="contrib_type">
-                            <option disabled selected value="--">Тип внеску</option>
+                            <option selected value="--">Тип внеску</option>
                         </select>
                         <input type="text" value="" id="contrib_percent" placeholder="%" />%
                         <div></div>
