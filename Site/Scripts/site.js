@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
-    $("a").tooltip();
+    $("a").popover({
+        delay: 1000
+    });
 });
 
 var image;
