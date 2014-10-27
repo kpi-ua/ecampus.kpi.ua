@@ -15,4 +15,6 @@ var head;
          content: '<div><img class="portrait" src="'+image+'" />'+text+'</div>',
          trigger: 'hover'
      });
+
+     $('#popoverData').popover();
  });
