@@ -177,6 +177,7 @@ $(document).ready(function () {
             var id = this.getAttribute("person_id");
             delete personList[id];
             personList = reloadArray(personList);
+            clearPersons();
             loadPersons();
         });
         $(".edit-person").click(function() {
