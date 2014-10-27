@@ -114,7 +114,7 @@ $(document).ready(function () {
     }
 
     function checkPersent() {
-        if ($("#contrib_percent").val() != "") {
+        if ($("#contrib_percent").val() != "" || editPersons) {
             var num = parseFloat($("#contrib_percent").val());
             if (num < 0 || num > 100 || isNaN(num)) {
                 $.ambiance({
