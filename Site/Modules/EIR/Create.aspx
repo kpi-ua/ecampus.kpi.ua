@@ -29,7 +29,7 @@
                     <div class="persons-block">
                         <br />
                         <div id="persons_radio">
-                        <input type="radio" value="kpi" id="kpi" checked />Особа з КПИ
+                        <input type="radio" value="kpi" id="kpi" checked />Особа з КПІ
                         <input type="radio" value="notkpi" id="notkpi" />Стороння особа
                             </div>
                         <input type="text" value="" id="name" placeholder="ПІБ автора" />
@@ -42,7 +42,7 @@
                         <select id="contrib_type">
                             <option disabled selected value="--">Тип внеску</option>
                         </select>
-                        <input type="text" value="" id="contrib_percent" placeholder="Процент вкладу" />%
+                        <input type="text" value="" id="contrib_percent" placeholder="%" />%
                         <div></div>
                         <input class="btn btn-default" type="button" id="add_person" value="Добавить" />
                         <input class="btn btn-default" type="button" id="clear_person" value="Очистить" />
@@ -57,7 +57,7 @@
                     <br />
                     <div>
                         <select id="type">
-                            <option disabled selected value="--">Тип </option>
+                            <option disabled selected value="--">Вид</option>
                         </select>
                         <input id="view_tree" class="btn btn-default btn-lg" type="button" value="Дерево" data-toggle="modal" data-target="#myModal"/>
                     </div>
@@ -82,16 +82,16 @@
                     <br />
                     <div class="langs-list"></div>
                     <div class="info-block">
-                        <div id="lang_name_label">Введите основной язык</div>
+                        <div id="lang_name_label">Введіть основну мову</div>
                         <div>
                             <br />
                             <select id="lang">
-                                <option disabled value="--">--</option>
+                                <option disabled value="--">Введіть мову</option>
                             </select>
                             <input type="hidden" id="lang_id"/>
                             <input type="text" value="" id="title" placeholder="Назва" />
                             <input type="text" value="" id="annotation" placeholder="Аннотації"/>
-                            <input type="text" id="" value="keywords" placeholder="Ключові слова"/>
+                            <input type="text" id="keywords" value="" placeholder="Ключові слова"/>
                             <input type="button" class="btn btn-default" id="add_lang" value="Добавить" />
                             <input type="button" class="btn btn-default" id="clear_lang" value="Очистить" />
 
