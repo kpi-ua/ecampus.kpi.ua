@@ -11,6 +11,7 @@
             <li class="active"><a href="#tab1" data-toggle="tab">Персональні дані</a></li>
             <li><a href="#tab2" data-toggle="tab">Додаткові функції</a></li>
             <li><a href="#tab3" data-toggle="tab">Редагування профайлу</a></li>
+            <li><a href="#tab4" data-toggle="tab">Погодження</li>
         </ul>
 
         <div class="tab-content">
@@ -29,8 +30,10 @@
                     </div>
 
                     <div class="col-lg-9">
+
                         <h5 class="text-muted">Дані за місцем навчання/роботи</h5>
                         <asp:Literal ID="WorkData" runat="server"></asp:Literal>
+
                     </div>
                 <!--#endregion -->
             </div>
@@ -66,6 +69,30 @@
                     <asp:Button ID="SavePass" runat="server" Text="Зберегти" CssClass="btn btn-success btn-sm" OnClick="SavePass_Click" />
                 <!--#endregion -->
             </div>
+
+            <div class="tab-pane" id="tab4"> 
+            <!--#region content  -->
+                <h4>Погодження про розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет</h4>
+                <div id="okay_alert" class="alert alert-warning" role="alert" style="display: none;">
+                    Вами було підписано погодження про розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет
+                </div>
+                <div id="no_alert" class="alert alert-info" role="alert" style="display: none;">
+                    Вами було відмовлено можливість розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет
+                    <input class="form-control" placeholder="Причина відмови">
+                    <button type="submit" class="btn btn-default">Підтверджую</button>
+                </div>
+                <h5>Текст</h5>
+                <button type="button" class="btn btn-warning" onclick="
+                    document.getElementById('okay_alert').style.display = 'block';
+                    document.getElementById('no_alert').style.display = 'none';
+                ">Погоджуюсь</button>
+                <button type="button" class="btn btn-info" onclick="
+                    document.getElementById('okay_alert').style.display = 'none';
+                    document.getElementById('no_alert').style.display = 'block';
+                ">Відмовляюсь</button>
+            <!--#endregion -->
+            </div>
+
         </div>
     </div>
 </asp:Content>
