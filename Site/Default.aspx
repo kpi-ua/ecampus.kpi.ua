@@ -19,8 +19,13 @@
                     <h4><%=this.CurrentUser.FullName %></h4>
 
                     <div class="col-lg-3">
-                        <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
-                        <button id="popoverData" type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
+                        
+                        <a data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
+                               
+                            <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
+
+                        </a>
+
                     </div>
 
                     <div class="col-lg-9">

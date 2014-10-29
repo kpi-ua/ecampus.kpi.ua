@@ -171,6 +171,7 @@
     <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\CardEdit.css" />
     <Content Include="Content\CreatePage.css" />
+    <Content Include="Content\EIRView.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
@@ -209,6 +210,7 @@
     <Content Include="Images\header-over-line-icon.png" />
     <Content Include="Images\header-portfolio-button.png" />
     <Content Include="Images\header-question-button.png" />
+    <Content Include="Modules\EIR\View.aspx" />
     <Content Include="Modules\IndividualTeachersPlan\Default.aspx" />
     <Content Include="Modules\Messages\Default.aspx" />
     <Content Include="Modules\Messages\Dialog.aspx" />
@@ -286,9 +288,9 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\APIlib.js" />
+    <Content Include="Scripts\async.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-clockpicker.min.js" />
-    <Content Include="Scripts\CardEdit.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\core.js" />
@@ -303,6 +305,7 @@
     <None Include="Properties\PublishProfiles\webdeploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\CreatePage.js" />
+    <Content Include="Scripts\EIRView.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
@@ -396,6 +399,13 @@
     </Compile>
     <Compile Include="Modules\EIR\Menu.master.designer.cs">
       <DependentUpon>Menu.master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EIR\View.aspx.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\EIR\View.aspx.designer.cs">
+      <DependentUpon>View.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\IndividualTeachersPlan\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>

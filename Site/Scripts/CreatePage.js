@@ -30,16 +30,19 @@ $(document).ready(function () {
         if (array.length > 0) {
             $("#type > optgroup > option[value='" + array[0].li_attr.value + "']").attr('selected', true).trigger('chosen:updated');
         } else {
-            $.ambiance({
-                message: "Виберіть пункт у дереві",
-                type: "error",
-                fade: false
-            });
+            alert("Виберіть пункт у дереві!");
+            return;
         }
-        $("#search_tree").jstree().deselect_all();
+        $('#myModal').modal('toggle');
         $("#search_tree").jstree().close_all();
     });
 
+    $("#search_tree").on('changed.jstree', function (e, data) {
+        if (data.node.children.length > 0) {
+            $("#search_tree").jstree().open_node(data.node);
+            $("#search_tree").jstree().deselect_node(data.node);
+        }
+    });
 
     //loading values
     API.getData(["Ir", "GetPersonStatusType"], {}, function(data) {
@@ -93,11 +96,11 @@ $(document).ready(function () {
 
     function changeButtonNames(flag, saveButton, cancelButton) {
         if (flag) {
-            $(saveButton).val("Сохранить");
-            $(cancelButton).val("Отменить");
+            $(saveButton).val("Зберегти");
+            $(cancelButton).val("Відмінити");
         } else {
-            $(saveButton).val("Добавить");
-            $(cancelButton).val("Очистить");
+            $(saveButton).val("Додати");
+            $(cancelButton).val("Відмінити");
         }
     }
 
@@ -114,14 +117,10 @@ $(document).ready(function () {
     }
 
     function checkPersent() {
-        if ($("#contrib_percent").val() != "" || !editPersons) {
+    if (document.getElementById("contrib_percent").value != "" && !editPersons && checkSelect("#contrib_type")) {
             var num = parseFloat($("#contrib_percent").val());
             if (num < 0 || num > 100 || isNaN(num)) {
-                $.ambiance({
-                    message: "Введите правильный процент в разделе Учасники",
-                    type: "error",
-                    fade: false
-                });
+                alert("Введіть правильний відсоток в розділі Учасники");
                 $("#contrib_percent").focus();
                 return false;
             } else {
@@ -132,11 +131,7 @@ $(document).ready(function () {
                     }
                 }
                 if (percent + num > 100) {
-                    $.ambiance({
-                        message: "Процентний внесок усіх учасників не може бути більшим ніж 100%",
-                        type: "error",
-                        fade: false
-                    });
+                    alert("Відсотковий внесок усіх учасників не може бути більшим ніж 100%");
                     return false;
                 } else {
                     $("#contrib_percent").val(num);
@@ -195,7 +190,7 @@ $(document).ready(function () {
                 $("#surname").val(per.surname);
                 $("#person_type").val(per.ptype);
             }
-            $("#contrib_type").val(per.ctype);
+            $("#contrib_type").val(per.ctype == null ? "--" : per.ctype);
             $("#contrib_percent").val(per.percent);
             for (var i in personList) {
                 personList[i].selected = false;
@@ -241,7 +236,7 @@ $(document).ready(function () {
             personList[i].surname = $("#surname").val();
             personList[i].ptype = $("#person_type").val();
         }
-        personList[i].ctype = $("#contrib_type").val();
+        personList[i].ctype = $("#contrib_type").val() != "--" ? $("#contrib_type").val() : null;
         if (checkPersent()) {
             personList[i].percent = ($("#contrib_percent").val() != "" ? $("#contrib_percent").val() : null);
         } else {
@@ -312,11 +307,7 @@ $(document).ready(function () {
                     continue;
                 }
                 if (personList[i].id == $("#kpi_person_info").val()) {
-                    $.ambiance({
-                        message: "Невозможно добавить одного человека дважды",
-                        type: "error",
-                        fade: false
-                    });
+                    alert("Неможливо два рази додати одного учасника");
                     return;
                 }
             }
@@ -335,16 +326,12 @@ $(document).ready(function () {
                     id: $("#kpi_person_info").val(),
                     role: $("#kpi_person_info").attr("role"),
                     name: $("#name").val(),
-                    ctype: $("#contrib_type").val(),
+                    ctype: $("#contrib_type").val() != "--" ? $("#contrib_type").val() : null,
                     percent: ($("#contrib_percent").val() != "" ? $("#contrib_percent").val() : null)
                 };
                 personList.push(obj1);
             } else {
-                $.ambiance({
-                    message: "Проверьте правильность заполнения полей в разделе Учасники",
-                    type: "error",
-                    fade: false
-                });
+                alert("Перевірте правильнісь заповнення полів у розділі Учасники");
                 return;
             }
         } else {
@@ -353,16 +340,12 @@ $(document).ready(function () {
                     kpi: false,
                     surname: $("#surname").val(),
                     ptype: $("#person_type").val(),
-                    ctype: $("#contrib_type").val(),
+                    ctype: $("#contrib_type").val() != "--" ? $("#contrib_type").val() : null,
                     percent: ($("#contrib_percent").val() != "" ? $("#contrib_percent").val() : null)
                 };
                 personList.push(obj2);
             } else {
-                $.ambiance({
-                    message: "Проверьте правильность заполнения полей",
-                    type: "error",
-                    fade: false
-                });
+                alert("Перевірте правильнісь заповнення полів у розділі Учасники");
                 return;
             }
         }
@@ -394,9 +377,9 @@ $(document).ready(function () {
     //функции
     function changeLangType(main) {
         if (main) {
-            $("#lang_name_label").html("Введите основной язык");
+            $("#lang_name_label").html("Введіть основну мову");
         } else {
-            $("#lang_name_label").html("Введите дополнительный язык");
+            $("#lang_name_label").html("Введіть додаткову мову");
         }
     }
     
@@ -406,7 +389,6 @@ $(document).ready(function () {
         $("#title").val("");
         $("#annotation").val("");
         $("#keywords").val("");
-        $("#authors").val("");
         $("#lang_id").val("");
     }
 
@@ -416,11 +398,7 @@ $(document).ready(function () {
                 continue;
             }
             if (langsList[i].lang == id) {
-                $.ambiance({
-                    message: "Невозможно добавить язык два раза",
-                    type: "error",
-                    fade: false
-                });
+                alert("Неможливо додати одну мову двічі");
                 return false;
             }
         }
@@ -508,11 +486,7 @@ $(document).ready(function () {
             }
             changeLangType(mainLang);
         } else {
-            $.ambiance({
-                message: "Проверьте правильность заполнения полей в разделе Языки",
-                type: "error",
-                fade: false
-            });
+            alert("Перевірте правильність заповнення полів у розділі Мови");
             return;
         }
         clearLangs();
@@ -529,7 +503,8 @@ $(document).ready(function () {
     
 
     //saving
-    $("#save").click(function() {
+    $("#save").click(function () {
+        $("#save").prop("disabled", true);
         //check mainlang
         var mainLangExist = false;
         for (var i in langsList) {
@@ -538,78 +513,65 @@ $(document).ready(function () {
             }
         }
         if (mainLangExist == false) {
-            $.ambiance({
-                message: "Ви не ввели основну мову",
-                type: "error",
-                fade: false
-            });
+            alert("Ви не ввели основну мову");
         }
 
         API.getData(["Ir", "AddIr"], {            
             kindId: $("#type").val(),
             isPublic: document.getElementById("public").checked ? 1 : 0
         }, function (data) {
-            console.log("data", data);
             if (data == -1) {
-                $.ambiance({
-                    message: "Помилка при збереженні",
-                    type: "error",
-                    fade: false
-                });
+                alert("Помилка при збереженні");
                 return;
             } else {
                 var irId = data;
 
-                for (var i in personList) {
-                    var obj = personList[i];
-                    obj.irId = irId;
-                    API.getData(["Ir", "AddContributor"], obj, function (data) {
-                        if (data == -1) {
-                            $.ambiance({
-                                message: "Помилка при авторів",
-                                type: "error",
-                                fade: false
+                async.series([
+                    function(callback) {
+                        for (var i in langsList) {
+                            var obj = langsList[i];
+                            obj.irId = irId;
+                            API.getData(["Ir", "AddExtraLang"], obj, function (data) {
+                                if (data == -1) {
+                                    alert("Помилка при збереженні мов перекладу");
+                                }
+                                callback();
                             });
-                            return;
                         }
-                    });
-                }
+                    },
+                    function(callback) {
+                        for (var i in personList) {
+                            var obj = personList[i];
+                            obj.irId = irId;
+                            API.getData(["Ir", "AddContributor"], obj, function (data) {
+                                if (data == -1) {
+                                    alert("Помилка при авторів");
+                                }
+                                callback();
+                            });
+                        }
+                    },
+                function(callback) {
+                    API.getUser(function (data) {
+                        var user = data;
 
-                API.getUser(function (data) {
-                    var user = data;
-                    
-                    API.getData(["Ir", "AddContributor"], {
+                        API.getData(["Ir", "AddContributor"], {
                             kpi: true,
                             irId: irId,
                             id: user.UserAccountId,
                             role: "creator",
                             name: user.FullName
                         }, function (data) {
-                        if (data == -1) {
-                            $.ambiance({
-                                message: "Помилка при збереженні авторів",
-                                type: "error",
-                                fade: false
-                            });
-                            return;
-                        }
+                            if (data == -1) {
+                                alert("Помилка при збереженні авторів");
+                            }
+                            callback();
+                        });
                     });
-                });
-
-                for (var i in langsList) {
-                    var obj = langsList[i];
-                    obj.irId = irId;
-                    API.getData(["Ir", "AddExtraLang"], obj, function (data) {
-                        if (data == -1) {
-                            $.ambiance({
-                                message: "Помилка при збереженні мов перекладу",
-                                type: "error",
-                                fade: false
-                            });
-                            return;
-                        }
-                    });
-                }
+                },
+                function(callback) {
+                    document.location.href = "View.aspx?id="+irId;
+                }]);
             }
         });
     });
