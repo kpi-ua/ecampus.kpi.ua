@@ -45,8 +45,8 @@
                         </select>
                         <input type="text" value="" id="contrib_percent" placeholder="%" />%
                         <div></div>
-                        <input class="btn btn-default" type="button" id="add_person" value="Добавить" />
-                        <input class="btn btn-default" type="button" id="clear_person" value="Очистить" />
+                        <input class="btn btn-default" type="button" id="add_person" value="Додати" />
+                        <input class="btn btn-default" type="button" id="clear_person" value="Відмінити" />
                         <label id="info_lable"></label>
                     </div>
                     <hr />
@@ -93,8 +93,8 @@
                             <input type="text" value="" id="title" placeholder="Назва" />
                             <input type="text" value="" id="annotation" placeholder="Аннотації"/>
                             <input type="text" id="keywords" value="" placeholder="Ключові слова"/>
-                            <input type="button" class="btn btn-default" id="add_lang" value="Добавить" />
-                            <input type="button" class="btn btn-default" id="clear_lang" value="Очистить" />
+                            <input type="button" class="btn btn-default" id="add_lang" value="Додати" />
+                            <input type="button" class="btn btn-default" id="clear_lang" value="Відмінити" />
 
                         </div>
                     </div>
