@@ -10,6 +10,7 @@
     <link href="/Content/jquery-ui.min.autocomplete.css" rel="stylesheet" />
     <link href="../../Content/tree/style.css" rel="stylesheet" />
     
+    <script src="../../Scripts/async.js"></script>
     <script src="/Scripts/chosen.jquery.js"></script>
     <script src="/Scripts/APIlib.js"></script>
     <script src="/Scripts/jquery.ambiance.js"></script>
@@ -22,7 +23,7 @@
     <div class="main-block">
         <table>
             <tr>
-                <td>
+                <td class="main">
                     <span id="expand_persons" class="glyphicon glyphicon-user">Учасники</span>
                     <div class="persons-list">
                     </div>
@@ -51,8 +52,8 @@
                     <hr />
                     <span id="expand_info" class="glyphicon glyphicon-expand">Основна Информация</span>
                     <div>
-                        <input type="radio" value="public" id="public" checked />Публичный
-                            <input type="radio" value="private" id="private" />Приватный
+                        <input type="radio" value="public" id="public" checked />Публічний
+                            <input type="radio" value="private" id="private" />Приватний
                     </div>
                     <br />
                     <div>
@@ -74,7 +75,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Відмінити</button>
-                                    <button id="tree_select" type="button" class="btn btn-primary" data-dismiss="modal">Вибрати</button>
+                                    <button id="tree_select" type="button" class="btn btn-primary">Вибрати</button>
                                 </div>
                             </div>
                         </div>
@@ -100,8 +101,14 @@
                     <input type="button" id="save" class="btn btn-primary" value="Зберегти"/>
                 </td>
                 <td>
-                    <div class="file-block">
+                    <div class="right-block">
+                    <div class="files-block">
+                        <input type="text" placeholder="какой-то текст"/>
+                        <br/>
+                        <input type="button" value='кнопка1'/>
+                        <input type="button" value='кнопка2'/>
                     </div>
+                </div>
                 </td>
             </tr>
         </table>

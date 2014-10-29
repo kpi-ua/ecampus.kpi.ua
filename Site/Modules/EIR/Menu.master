@@ -10,6 +10,7 @@
     <ul class="nav nav-tabs">
         <li id="search_tab"><a href="/Modules/EIR/Default.aspx">Пошук</a></li>
         <li id="create_tab"><a href="/Modules/EIR/Create.aspx">Створити</a></li>
+        <li id="view_tab" style="display: none"><a href="/Modules/EIR/Create.aspx">Перегляд</a></li>
     </ul>
     <asp:ContentPlaceHolder runat="server" ID="newhead"></asp:ContentPlaceHolder>
     <asp:ContentPlaceHolder runat="server" ID="newbody"></asp:ContentPlaceHolder>

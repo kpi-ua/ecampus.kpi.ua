@@ -5,9 +5,12 @@
 }
 
 table {
-    width:50%;
+    width:100%;
 }
 
+td.main {
+    width: 70%;
+}
 
 #name, #lang, #title, #annotation, #surname, #person_type {
     display: block;
