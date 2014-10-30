@@ -1,4 +1,4 @@
-var ApiEndpoint = 'http://dev.api.ecampus.kpi.ua/';
+var ApiEndpoint = 'http://campus-api.azurewebsites.net/';
 
 var _url = ""; //URL of current controller
 var _controller; //Name of current controller
