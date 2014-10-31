@@ -78,17 +78,34 @@
                 </div>
                 <div id="no_alert" class="alert alert-info" role="alert" style="display: none;">
                     Вами було відмовлено можливість розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет
-                    <input class="form-control" placeholder="Причина відмови">
-                    <button type="submit" class="btn btn-default">Підтверджую</button>
                 </div>
-                <h5>Текст</h5>
-                <button type="button" class="btn btn-warning" onclick="
+                <div id="purpose_alert" class="alert alert-info" role="alert" style="display: none;">
+                    <input class="form-control" placeholder="Причина відмови">
+                    <button type="button" class="btn btn-default" onclick="
+                        document.getElementById('okay_alert').style.display = 'none';
+                        document.getElementById('purpose_alert').style.display = 'none';
+                        document.getElementById('no_alert').style.display = 'block';
+                        document.getElementById('text').style.display = 'none';
+                        document.getElementById('okay_button').style.display = 'okay';
+                        document.getElementById('no_button').style.display = 'none';
+                    ">Підтверджую</button>
+                </div>
+                <h5 id="text">Текст</h5>
+                <button id="okay_button" type="button" class="btn btn-warning" onclick="
                     document.getElementById('okay_alert').style.display = 'block';
+                    document.getElementById('purpose_alert').style.display = 'none';
                     document.getElementById('no_alert').style.display = 'none';
+                    document.getElementById('text').style.display = 'none';
+                    document.getElementById('okay_button').style.display = 'none';
+                    document.getElementById('no_button').style.display = 'block';
                 ">Погоджуюсь</button>
-                <button type="button" class="btn btn-info" onclick="
+                <button id="no_button" type="button" class="btn btn-info" onclick="
                     document.getElementById('okay_alert').style.display = 'none';
-                    document.getElementById('no_alert').style.display = 'block';
+                    document.getElementById('purpose_alert').style.display = 'block';
+                    document.getElementById('no_alert').style.display = 'none';
+                    document.getElementById('text').style.display = 'block';
+                    document.getElementById('okay_button').style.display = 'block';
+                    document.getElementById('no_button').style.display = 'none';
                 ">Відмовляюсь</button>
             <!--#endregion -->
             </div>
