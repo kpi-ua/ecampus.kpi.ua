@@ -87,7 +87,8 @@
                         document.getElementById('no_alert').style.display = 'block';
                         document.getElementById('text').style.display = 'none';
                         document.getElementById('okay_button').style.display = 'okay';
-                        document.getElementById('no_button').style.display = 'none';
+                        document.getElementById('no_button').style.display = 'none
+                        var a = '<%= DenyPublication() %>';
                     ">Підтверджую</button>
                 </div>
                 <h5 id="text">Текст</h5>
@@ -98,6 +99,7 @@
                     document.getElementById('text').style.display = 'none';
                     document.getElementById('okay_button').style.display = 'none';
                     document.getElementById('no_button').style.display = 'block';
+                    var a = '<%= AcceptPublication() %>';
                 ">Погоджуюсь</button>
                 <button id="no_button" type="button" class="btn btn-info" onclick="
                     document.getElementById('okay_alert').style.display = 'none';
