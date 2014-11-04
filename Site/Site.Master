@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-    
-
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
 
     <link rel="stylesheet" href="/Content/site.css" />
@@ -110,82 +108,82 @@
                         <table class="site-carousel-table">
                             <tr>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-profile-button.png" ID="carousel_profile_button" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Default.aspx"><img src="/Images/carousel-profile-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-date-button.png" ID="carousel_date_button" runat="server" OnClick="carousel_date_button_Click" />
+                                    <a href="/Modules/TimeTable/"><img src="/Images/carousel-date-button.png" /></a>
                                 </td>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-teachers-button.png" ID="carousel_teachers_button" runat="server" OnClick="carousel_teachers_button_Click" />
+                                    <a href="/Modules/EIR/Search.aspx"><img src="/Images/carousel-teachers-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-methodologicalsupport-button.png" ID="carousel_methodologicalsupport_button" runat="server" OnClick="carousel_methodologicalsupport_button_Click" />
+                                    <a href="/Modules/MZSearch/"><img src="/Images/carousel-methodologicalsupport-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td rowspan="2">
-                                    <asp:ImageButton src="/Images/carousel-eip-button.png" ID="carousel_eip_button" runat="server" OnClick="carousel_eip_button_Click" />
+                                    <a href="/Modules/EIR/"><img src="/Images/carousel-eip-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td rowspan="2">
-                                    <asp:ImageButton src="/Images/carousel-plan-button.png" ID="carousel_plan_button" runat="server" OnClick="carousel_plan_button_Click" />
+                                    <a href="/Modules/IndividualTeachersPlan/"><img src="/Images/carousel-plan-button.png"></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-billboard-button.png" ID="carousel_billboard_button" runat="server" OnClick="carousel_billboard_button_Click" />
+                                    <a href="/Modules/Bulletins/"><img src="/Images/carousel-billboard-button.png"></a>
                                 </td>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-communion-button.png" ID="carousel_communion_button" runat="server" OnClick="carousel_communion_button_Click" />
+                                    <a href="/Modules/Messages/"><img src="/Images/carousel-communion-button.png"></a>
                                 </td>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-studygroups-button.png" ID="carousel_studygroups_button" runat="server" OnClick="carousel_studygroups_button_Click" />
+                                    <a href="#"><img src="/Images/carousel-studygroups-button.png"></a>
                                 </td>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-currentcontrol-button.png" ID="carousel_currentcontrol_button" runat="server" OnClick="carousel_currentcontrol_button_Click" />
+                                    <a href="#"><img src="/Images/carousel-currentcontrol-button.png"></a>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="item">
-                        <table class="site-carousel-table">
+                         <table class="site-carousel-table">
                             <tr>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-profile-button.png" ID="ImageButton11" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Default.aspx"><img src="/Images/carousel-profile-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-date-button.png" ID="ImageButton12" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Modules/TimeTable/"><img src="/Images/carousel-date-button.png" /></a>
                                 </td>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-teachers-button.png" ID="ImageButton13" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Modules/EIR/Search.aspx"><img src="/Images/carousel-teachers-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-methodologicalsupport-button.png" ID="ImageButton14" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Modules/MZSearch/"><img src="/Images/carousel-methodologicalsupport-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td rowspan="2">
-                                    <asp:ImageButton src="/Images/carousel-eip-button.png" ID="ImageButton15" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Modules/EIR/"><img src="/Images/carousel-eip-button.png" /></a>
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td rowspan="2">
-                                    <asp:ImageButton src="/Images/carousel-plan-button.png" ID="ImageButton16" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Modules/IndividualTeachersPlan/"><img src="/Images/carousel-plan-button.png"></a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-billboard-button.png" ID="ImageButton17" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Modules/Bulletins/"><img src="/Images/carousel-billboard-button.png"></a>
                                 </td>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-communion-button.png" ID="ImageButton18" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="/Modules/Messages/"><img src="/Images/carousel-communion-button.png"></a>
                                 </td>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-studygroups-button.png" ID="ImageButton19" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="#"><img src="/Images/carousel-studygroups-button.png"></a>
                                 </td>
                                 <td colspan="2">
-                                    <asp:ImageButton src="/Images/carousel-currentcontrol-button.png" ID="ImageButton20" runat="server" OnClick="carousel_profile_button_Click" />
+                                    <a href="#"><img src="/Images/carousel-currentcontrol-button.png"></a>
                                 </td>
                             </tr>
                         </table>

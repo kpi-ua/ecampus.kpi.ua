@@ -11,7 +11,7 @@
             <li class="active"><a href="#tab1" data-toggle="tab">Персональні дані</a></li>
             <li><a href="#tab2" data-toggle="tab">Додаткові функції</a></li>
             <li><a href="#tab3" data-toggle="tab">Редагування профайлу</a></li>
-            <li><a href="#tab4" data-toggle="tab">Погодження</li>
+            <li><a href="#tab4" data-toggle="tab">Погодження</a></li>
         </ul>
 
         <div class="tab-content">
