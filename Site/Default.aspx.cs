@@ -118,5 +118,16 @@ namespace Site
                 CampusClient.UploadUserProfileImage(fileData);
             }
         }
+
+        public Object DenyPublication()
+        {
+            return null;
+        }
+
+        public Object AcceptPublication()
+        {
+            return null;
+        }
+
     }
 }
