@@ -119,13 +119,17 @@ namespace Site
             }
         }
 
+
+        protected global::System.Web.UI.WebControls.TextBox DenyPublicationPurpose;
         public Object DenyPublication()
         {
+            CampusClient.DenyPublication(SessionId, DenyPublicationPurpose.Text);
             return null;
         }
 
         public Object AcceptPublication()
         {
+            CampusClient.AcceptPublication(SessionId);
             return null;
         }
 

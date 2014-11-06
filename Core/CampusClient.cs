@@ -398,5 +398,15 @@ namespace Core
         {
             return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
         }
+
+        public void AcceptPublication(string sessionId)
+        {
+            Get<string>("User", "AcceptDataPublication", new { sessionId });
+        }
+        public void DenyPublication(string sessionId, string purpose)
+        {
+            Get<string>("User", "DenyDataPublication", new { sessionId , purpose });
+        }
+
     }
 }
