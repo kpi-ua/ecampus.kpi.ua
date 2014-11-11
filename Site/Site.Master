@@ -1,6 +1,4 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Site.SiteMaster" %>
-
-<%@ Import Namespace="Campus.SDK" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="Site.SiteMaster" %>
 
 <html>
 <head runat="server">
@@ -8,15 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
-    <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
+
+    <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-clockpicker.min.css" />
-
+    <link rel="stylesheet" href="/Content/site2.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
@@ -26,17 +25,19 @@
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone-retina-display.png" />
 </head>
 <body>
-    <label id="ApiEndpoint" style="display: none"><%=Client.ApiEndpoint %></label>
-    <%--<label id="CampusSessionId" style="display: none"><%=SitePage.SessionId %></label>--%>
-    <div class="wrap container" >
+    <script type="text/javascript">
+        image = "<%=this.SitePage.CurrentUser.Photo%>";
+        text = "<%=this.SitePage.CurrentUser.FullName +","+ this.Position + ","+ this.AcademicDegree%>";
+        head = "";
+    </script>
+
+    <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
+
+    <div class="wrap container">
 
         <header>
-            <div class="top-header">
-                <div class="menu-toggle pull-left">
-                    <i class="fa fa-bars"></i>
-                </div>
-                <div class="logo-kpi pull-right"></div>
-                <div class="text pull-right">
+            <div class="row site-tile center-block">
+                <div class="site-tile-text col-md-12">
                     НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
                 </div>
             </div>
@@ -64,7 +65,7 @@
                             </li>
                         </ul>
                         <div class="user-name">
-                            <a href="/Default.aspx">Вітаємо,
+                            <a href="#" rel="drevil">Вітаємо,
                                 <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
                         </div>
                     </div>
@@ -73,186 +74,159 @@
         </header>
 
         <form class="content" id="form" runat="server">
+            <asp:HiddenField runat="server" ID="CampusSessionId" ClientIDMode="Static" />
 
             <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
                 <Scripts>
                     <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
                     <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
-                    <asp:ScriptReference Path="~/Scripts/bootstrap.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
                     <asp:ScriptReference Path="~/Scripts/core.js" />
                     <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
                     <asp:ScriptReference Path="~/Scripts/bootstrap-clockpicker.min.js" />
                     <asp:ScriptReference Path="~/Scripts/script.js" />
+                    <asp:ScriptReference Path="~/Scripts/site.js" />
                 </Scripts>
             </asp:ScriptManager>
+            
+            <script type="text/javascript">
+                $('#popoverData').popover();
+            </script>
 
+            <!--Carousel-->
+            <div id="carousel-menu" class="carousel slide site-carousel " data-ride="carousel" data-interval="false">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-menu" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-menu" data-slide-to="1"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <table class="site-carousel-table">
+                            <tr>
+                                <td colspan="2">
+                                    <a href="/Default.aspx"><img src="/Images/carousel-profile-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td>
+                                    <a href="/Modules/TimeTable/"><img src="/Images/carousel-date-button.png" /></a>
+                                </td>
+                                <td>
+                                    <a href="/Modules/EIR/Search.aspx"><img src="/Images/carousel-teachers-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td colspan="2">
+                                    <a href="/Modules/MZSearch/"><img src="/Images/carousel-methodologicalsupport-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td rowspan="2">
+                                    <a href="/Modules/EIR/"><img src="/Images/carousel-eip-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td rowspan="2">
+                                    <a href="/Modules/IndividualTeachersPlan/"><img src="/Images/carousel-plan-button.png"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="/Modules/Bulletins/"><img src="/Images/carousel-billboard-button.png"></a>
+                                </td>
+                                <td>
+                                    <a href="/Modules/Messages/"><img src="/Images/carousel-communion-button.png"></a>
+                                </td>
+                                <td colspan="2">
+                                    <a href="#"><img src="/Images/carousel-studygroups-button.png"></a>
+                                </td>
+                                <td colspan="2">
+                                    <a href="#"><img src="/Images/carousel-currentcontrol-button.png"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="item">
+                         <table class="site-carousel-table">
+                            <tr>
+                                <td colspan="2">
+                                    <a href="/Default.aspx"><img src="/Images/carousel-profile-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td>
+                                    <a href="/Modules/TimeTable/"><img src="/Images/carousel-date-button.png" /></a>
+                                </td>
+                                <td>
+                                    <a href="/Modules/EIR/Search.aspx"><img src="/Images/carousel-teachers-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td colspan="2">
+                                    <a href="/Modules/MZSearch/"><img src="/Images/carousel-methodologicalsupport-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td rowspan="2">
+                                    <a href="/Modules/EIR/"><img src="/Images/carousel-eip-button.png" /></a>
+                                </td>
+                                <td rowspan="2" class="site-carousel-vseparator"></td>
+                                <td rowspan="2">
+                                    <a href="/Modules/IndividualTeachersPlan/"><img src="/Images/carousel-plan-button.png"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="/Modules/Bulletins/"><img src="/Images/carousel-billboard-button.png"></a>
+                                </td>
+                                <td>
+                                    <a href="/Modules/Messages/"><img src="/Images/carousel-communion-button.png"></a>
+                                </td>
+                                <td colspan="2">
+                                    <a href="#"><img src="/Images/carousel-studygroups-button.png"></a>
+                                </td>
+                                <td colspan="2">
+                                    <a href="#"><img src="/Images/carousel-currentcontrol-button.png"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Test -->
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-menu" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-menu" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
             <!--Хлебные крошки-->
-            <div id="breadcrumbs">
-                <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=">"></asp:SiteMapPath>
-                <div class="carousel-progress">
+            <div class="row site-breadcrumbs">
+                <ol class="breadcrumb">
+                    <asp:ContentPlaceHolder ID="breadcrumbs" runat="server"></asp:ContentPlaceHolder>
+                </ol>
+            </div>
+            <!--================-->
+            <asp:Panel runat="server" ID="bodyPanel" />
+            <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
+
+            <footer class="row site-footer">
+                <div class="col-md-6 pull-left" style="text-align: left">
+                    @ Національний технічний університет України<br>
+                    &nbsp;&nbsp;&nbsp;
+                    “Київський політехнічний інститут”<br>
+                    &nbsp;&nbsp;&nbsp;
+                    <a class="orange">www.kpi.ua</a> Електронний кампус
                 </div>
-                <div class="clear"></div>
-            </div>
-            <!--Хлебные крошки-->            
-            <div id="planner-popup" style="display: none;">
-                <canvas class="div-canvas" id="spinner-popup"></canvas>
-                <br /> 
-                <div id="back-popup-content" class="pop-content" style="visibility: hidden;">               
-                <span class="input-group" style="width: 280px; display: inline-block;">
-                    Заголовок: <br />
-                    <input type="text" class="form-control" id="tasktitle" value="">                    
-                </span>
-                <span class="input-group clockpicker" style="width: 280px; display: inline-block;">
-                    Час:<br />
-                    <input type="text" class="form-control" id="tasktime" value="" data-default="00:00">                    
-                </span>
-                <script type="text/javascript">
-                    $('#tasktime').clockpicker({
-                        autoclose: true,
-                    });
-                </script>
-                <br />
-                <br />
-                Подія:
-                <br />
-                <textarea class="input-group" name="tasktext" rows="5" style="color: black; width: 565px; height: 100px;" id="tasktext"></textarea><br />
+                <div class="col-md-6 pull-right" style="text-align: right">
+                    Розробник:  Конструкторське бюро<br>
+                    інформаційних систем<br>
+                    <a class="orange">www.kbis.kpi.ua</a>
                 </div>
-            </div>
-
-            <asp:ContentPlaceHolder runat="server" ID="carousel_container"></asp:ContentPlaceHolder>
-
-            <div class="left-col">
-                <ul class="left-nav">
-                    <li>
-                        <a href="/Default.aspx">Мій профіль</a>
-                    </li>
-                    <li class="dropmenu">
-                        <a>ЕІР<div class="chevron"></div>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="/EIR/Search.aspx">Пошук(hand made)</a></li>
-                            <li><a href="/EIR/CardEdit.aspx">Створення</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/EIR/IrGroup">Групи ЕІР</a></li>
-                    <li><a href="/MZSearch">Методичне забезпечення</a></li>
-                    <li><a href="/RNP">РНП</a></li>
-                    <li runat="server" id="individual_plan" visible="False"><a href="/IndividualTeachersPlan.aspx">Індивідуальний план викладча</a></li>
-                    <li><a href="#">Поточний контроль</a></li>
-
-                    <li><a href="/Bulletins">Дошка оголошень</a></li>
-                    <li><a href="/Messages">Спілкування</a></li>
-                    <li><a href="/TimeTable">Розклад</a></li>
-                    <li><a href="/Support.aspx">Підтримка</a></li>
-
-                    <%--<li class="dropmenu">
-                        <a>Робота
-                            <div class="chevron"></div>
-                        </a>
-                        <ul class="submenu">
-                            <li><a href="#">Навчальна</a></li>
-                            <li><a href="#">Методична</a></li>
-                            <li><a href="#">Наукова</a></li>
-                            <li><a href="#">Інноваційна</a></li>
-                            <li><a href="#">Організаційна</a></li>
-                            <li><a href="#">Виховна</a></li>
-                        </ul>
-                    </li>--%>
-                    <%-- <li>
-                        <a href="/RNP">Навчальний процес</a>
-                    </li>--%>
-                </ul>
-            </div>
-            <div class="right-col">
-                <script>
-                    var plan = new Planner($("#CampusSessionId").html());
-                    $.page = 0;                    
-                    
-                    var toggleNavigation = function(state)
-                    {                        
-                        if (state == true || state == "1" || state == undefined) state = "0";
-                        else state = "1";
-
-                        var arr = ["#datepicker-show-events", "#datepicker-prev-events", "#datepicker-next-events"];
-                        var hoverInCallback = function () {};
-                        var hoverOutCallback = function () {};
-
-                        $('#datepicker-toggle-navigation').attr('onclick', '');
-                        $("#datepicker-toggle-navigation").attr("onclick", "toggleNavigation(" + state + ");");
-                        $("#datepicker-toggle-navigation").toggleClass("glyphicon-chevron-down");
-                        $("#datepicker-toggle-navigation").toggleClass("glyphicon-chevron-up");                        
-                        if (state == "1") {
-                            $("#datepicker-toggle-navigation").css("top", 123);
-                            for (var i = 0; i < arr.length; i++)
-                                $(arr[i]).fadeIn();
-                        } else {
-                            for (var i = 0; i < arr.length + 1; i++)
-                                $(arr[arr.length - i]).fadeOut();
-                            $("#datepicker-toggle-navigation").css("top", 53);                            
-                        }                        
-                    }
-                </script>
-                <div class="datepicker-toggle" id="datepicker-toggle-button">
-                    <i id="counter" class="fa fa-calendar"></i>                    
-                    <div class="datepicker-label"></div>
-                </div>
-                <div class="btn-sm glyphicon glyphicon-chevron-left" id="datepicker-prev-events" onclick="plan.togglePopover($.ddate, undefined, --$.page);" style="display: none;"></div>
-                <div class="btn-sm glyphicon glyphicon-chevron-right" id="datepicker-next-events" onclick="plan.togglePopover($.ddate, undefined, ++$.page);" style="display: none;"></div>
-                <div class="btn-sm glyphicon glyphicon-list" id="datepicker-show-events" onclick="plan.togglePopover($.ddate, undefined, $.page);" style="display: none;"></div>
-                <div class="btn-sm glyphicon glyphicon-chevron-down" id="datepicker-toggle-navigation" onclick="toggleNavigation(0);"></div>
-                <div class="datepicker"></div>
-
-                <script>
-                    $.ddate = "";
-                    $(".datepicker").datepicker({
-                        onSelect: function (date, inst) {
-                            $.ddate = date;                                                        
-                            plan.RenderTimeLabels($.ddate);                                                        
-                        }                        
-                    });
-                </script>
-
-                <%--<ul class="datepicker-messages hide">
-                    <li>                       
-                    </li>
-                    <li>                        
-                    </li>
-                </ul>--%>
-            </div>
-
-            <div class="md-col">
-                <div id="content">
-                    <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
-                </div>
-            </div>
+            </footer>
         </form>
 
-        <footer>
-            <div class="col-md-4 text-left">
-                Національний технічний університет України<br />
-                “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a><br />
-                Електронний кампус
-            </div>
-
-            <div class="col-md-4"></div>
-
-            <div class="col-md-4 text-right">
-                Розробник:  Конструкторське бюро<br />
-                інформаційних систем<br />
-                <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
-            </div>
-        </footer>
     </div>
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
-    <noscript>
-        <div>
-            <img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position: absolute; left: -9999px;" alt="" />
-        </div>
-    </noscript>
-    <!-- /Yandex.Metrika counter -->
 
 </body>
 </html>
