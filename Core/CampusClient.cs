@@ -394,19 +394,14 @@ namespace Core
              */
         }
 
+        public void DeskRemoveBulletin(string sub, string text)
+        {
+            Get<string>("BulletinBoard", "DeskRemoveBulletin", new { subject = sub, text = text });
+        }
+
         public string DeskIsModerator(string sessionId)
         {
             return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
         }
-
-        public void AcceptPublication(string sessionId)
-        {
-            Get<string>("User", "AcceptDataPublication", new { sessionId });
-        }
-        public void DenyPublication(string sessionId, string purpose)
-        {
-            Get<string>("User", "DenyDataPublication", new { sessionId , purpose });
-        }
-
     }
 }
