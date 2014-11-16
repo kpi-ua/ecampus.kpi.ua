@@ -80,7 +80,7 @@
                     Вами було відмовлено можливість розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет
                 </div>
                 <div id="purpose_alert" class="alert alert-info" role="alert" style="display: none;">
-                    <input class="form-control" placeholder="Причина відмови">
+                    <asp:TextBox ClientIDMode="Static" ID="DenyPublicationPurpose" runat="server" placeholder="Причина відмови"></asp:TextBox>
                     <button type="button" class="btn btn-default" onclick="
                         document.getElementById('okay_alert').style.display = 'none';
                         document.getElementById('purpose_alert').style.display = 'none';
