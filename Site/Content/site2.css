@@ -171,15 +171,15 @@
 
 .nav-tabs > li > a {
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     text-align: center;
     vertical-align: middle;
     background-color: #e5e5e5; 
     color: #515151;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    width: 140px;
-    height: 60px;
+    width: 110px;
+    height: 55px;
 }
 
 .nav-tabs>li.active>a,
