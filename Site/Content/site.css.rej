@@ -1,0 +1,12 @@
+diff a/Site/Content/site.css b/Site/Content/site.css	(rejected hunks)
+@@ -807,8 +807,8 @@
+ .carousel {
+     position: relative;
+     overflow: hidden;
+-    margin-bottom: 5px;
+-    max-height: 213px;
++    margin-bottom: 0px;
++    max-height: 200px;
+     height: 193px;
+ }
+ 
