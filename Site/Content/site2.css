@@ -114,16 +114,16 @@
 }
 
 .carousel-control {
-    width: 50px;
+    width: 45;
 }
 
 .carousel-control .glyphicon-chevron-right {
-    left: -25px;
+    left: -15px;
 }
 
 .carousel-control .glyphicon-chevron-right,
 .carousel-control .glyphicon-chevron-left {
-    color: #208843;
+    color: #e5e5e5;
 }
 
 
@@ -224,16 +224,16 @@
 
 /*------Footer-------*/
 .site-footer {
-    padding-left: 15px;
-    padding-right: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-bottom: 10px;
-    padding-top: 10px;
+    padding-top: 20px;
     height: 80px;
     background-color: #208843;
     color: #ffffff;
     vertical-align: middle;
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 14px;  
+    font-size: 12px;  
 }
 
 .orange {
