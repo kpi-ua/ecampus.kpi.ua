@@ -13,7 +13,6 @@ namespace Site
             base.OnLoad(ea);
 
             LoadCarousel();
-            
             try
             {
                 profile_photo.ImageUrl = CurrentUser.Photo;
@@ -22,9 +21,9 @@ namespace Site
                 {
                     foreach (var e in CurrentUser.Employees)
                     {
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + e.SubdivisionName + "</p>";
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + " Позиція: <i class=\"text-success\">" + e.Position + "</i></p>";
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree + "</i></p>";
+                        WorkData.Text += e.SubdivisionName + "</br>";
+                        WorkData.Text += " Позиція: <i class=\"text-success\">" + e.Position + "</i></br>";
+                        WorkData.Text += "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree + "</i></br>";
 
                     }
 
@@ -48,7 +47,7 @@ namespace Site
 
                     SpecFunc.Text += "</div>";
                 }
-                
+
 
             }
             catch { }
