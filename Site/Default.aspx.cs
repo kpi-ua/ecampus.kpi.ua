@@ -1,4 +1,6 @@
-﻿using Core;
+﻿using System.Web.UI.WebControls;
+using Campus.Common;
+using Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +14,8 @@ namespace Site
         {
             base.OnLoad(ea);
 
+            btnConfirm.Click += btnConfirm_Click;
+            btnFailure.Click += btnFailure_Click;
             LoadCarousel();
             try
             {
@@ -51,6 +55,16 @@ namespace Site
 
             }
             catch { }
+
+        }
+
+        public void btnFailure_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        public void btnConfirm_Click(object sender, EventArgs e)
+        {
 
         }
 
@@ -131,6 +145,7 @@ namespace Site
             //CampusClient.AcceptPublication(SessionId); - не работает
             return null;
         }
+
 
     }
 }
