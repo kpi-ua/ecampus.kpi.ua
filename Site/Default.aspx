@@ -12,6 +12,7 @@
             <li><a href="#tab2" data-toggle="tab">Додаткові функції</a></li>
             <li><a href="#tab3" data-toggle="tab">Редагування профайлу</a></li>
             <li><a href="#tab4" data-toggle="tab">Погодження</a></li>
+            <li><a href="#tab5" data-toggle="tab">Погодження2</a></li>
         </ul>
 
         <div class="tab-content">
@@ -267,7 +268,107 @@
                 ">Відмовляюсь</button>
             <!--#endregion -->
             </div>
+            <div class="tab-pane" id="tab5"> 
+            <!--#region content  -->
+               <div class="jumbotron" style="font-size: 16px;background-color: #3cb371">
+            <h1 style="text-align: center">ЗГОДА</h1>
+            
+            <h3 style="text-align: center">На публікацію даних на сайті ecampus.kpi.ua в мережі Інтернет</h3> 
+            <div class="btn-group">
+            </div>
+            <p>
+                Ecampus.kpi.ua - публічний веб-сайт, який складається з офіційних веб-сторінок викладачів НТУУ «КПІ».
+                Основний вміст ecampus.kpi.ua - записи, що регулярно автоматично оновлюються з персонального електронного кабінету НПП (науково-педагогічного працівника) системи Кампус.
+                <br />
+                На intellect.kpi.ua розміщується тільки та інформація, яку визначає сам користувач у своєму персональному кабінеті.
+                Відомості, які можуть бути представлені на ecampus.kpi.ua:
+                <ul class="list-group">
+                    <li class="list-group-item">1.  Загальна інформація:
+                        <li>Фото</li>
+                        <li>ПІБ</li>
+                        <li>Науковий ступень</li>
+                        <li>Вчене звання</li>
+                        <li>Данні за місцем роботи (підрозділ(-и), посада(-и))</li>
+                    </li>
 
+                    <li class="list-group-item">2.  Контактна інформація
+                    
+                        <li>E-mail, робочий(-і) телефон(-и),  мобільний(-і) телефон(-и)</li>
+                        <li>Адреса за місцем прийому (корпус, кімната, вулиця)</li>
+                        <li>Години звернення (розклад прийому/години прийому)</li>
+                        <li>Сайт(-и)</li>
+                        <li>Посилання на сторінки в соціальних мережах)</li>
+                    </li>
+                    <li class="list-group-item">3.  Педагогічна діяльність
+                        <li>Розклад навчальних занять</li>
+                        <li>Методичне забезпечення дисципліни/кредитного модулю</li>
+                    </li>
+                    <li class="list-group-item">4.  Наукова  діяльність
+                        <li>Публікації</li>
+                        <li>Конференції/семінари/симпозіуми</li>
+                        <li>Гранти/Проекти</li>
+                        <li>Авторське свідоцтва/патенти</li>
+                        <li>Нагороди</li>
+                        <li>Напрями досліджень</li>
+                    </li>
+
+                    <li class="list-group-item">5.  Захоплення/Досуг</li>
+                </ul>
+
+                <h3>Обрана мною інформація може бути розміщена на сайті ecampus.kpi.ua</h3>
+            </p>
+            <a class="btn btn-default" data-toggle="modal" data-target="#OK-modal" >Погоджуюсь</a>
+            <a class="btn btn-default" data-toggle="modal" data-target="#Cancel-modal">Відмовляюсь</a>
+        </div>
+
+        <!-- Modal 1-->
+        <div class="modal fade" id="OK-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Повідомлення</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Ви дозволили розміщення вашої персональної інформації в мережі Інтернет
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button type="button" class="btn btn-default" ID="btnConfirm" Text="OK" runat="server" OnClick="btnConfirm_Click"/>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal 2-->
+        <div class="modal fade" id="Cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Повідомлення</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Ви відмовились від розміщення вашої персональної інформації в мережі Інтернет
+                        </p>
+                        <p>
+                            Вкажіть будь ласка причину:
+                        </p>
+                        <div>
+                            <asp:TextBox ClientIDMode="Static" ID="ReasonTextBox" runat="server" placeholder="Причина відмови"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <asp:Button type="button" class="btn btn-default" ID="btnFailure" Text="OK" runat="server" OnClick="btnFailure_Click"/>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!--#endregion -->
+            </div>
         </div>
     </div>
 </asp:Content>
