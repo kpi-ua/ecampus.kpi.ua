@@ -15,28 +15,184 @@
         </ul>
 
         <div class="tab-content">
-            <div class="tab-pane active" id="tab1" style ="height: 200px">
-                <!--#region content  -->              
-                    <h4><%=this.CurrentUser.FullName %></h4>
-
-                    <div class="col-lg-3">
-                        
-                        <a data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">
-                               
-                            <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-lg-9">
-
-                        <h5 class="text-muted">Дані за місцем навчання/роботи</h5>
-                        <asp:Literal ID="WorkData" runat="server"></asp:Literal>
-
-                    </div>
-                <!--#endregion -->
-            </div>
+            <div class="tab-pane active" id="tab1">
+                <div class="profile">
+                       <!-- CONTENT -->
+                       <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                         <div class="panel panel-default">
+                           <div class="panel-head" role="tab" id="headingOne">
+                             <h4 class="panel-title">
+                               <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                 Загальна інформація
+                               </a>
+                             </h4>
+                           </div>
+                           <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                             <div class="panel-body">
+                              <div class="row main-info">
+                                <td class="row mod">
+                                <h1 class="profile-name"><%=this.CurrentUser.FullName %><small> к.т.н доцент</small></h1>
+                                  <div class="col-xs-12 col-sm-3 col-md-3 ">
+                                      <a data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
+                                          <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
+                                      </a>
+                                  </div>
+                                  <table class=" col-xs-12  col-sm-8  col-md-9 table-info">
+                                     <tr>
+                                        <td>Дані за місцем навчання/роботи</td>
+                                        <td>
+                                             <asp:Literal ID="WorkData" runat="server"></asp:Literal>
+                                        </td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                  </table>
+                                  </div>
+                                  <table class=" col-xs-12  col-sm-8  col-md-7 table-info col-md-offset-3 col-sm-offset-3">
+                                     <tr>
+                                        <td>Email</td>
+                                        <td>myemail.gmail.com</td>
+                                        <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Телефон робочий</td>
+                                         <td>254 87 96</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Телефон домашній</td>
+                                         <td>254 87 96</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Телефон мобільний</td>
+                                         <td>254 87 96</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Адреса за місцем роботи</td>
+                                         <td>вул. Політехнічна 14, 24 кб.</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Години прийому</td>
+                                         <td>10-25, 15-18</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Примітка</td>
+                                         <td>..............</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>Skype</td>
+                                         <td>kmelkumayn</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                     <tr>
+                                         <td>VK</td>
+                                         <td>http://vk.com/id575757</td>
+                                         <td class="glyphicon glyphicon-eye-open"></td>
+                                     </tr>
+                                  </table>
+                              </div>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="panel panel-default">
+                           <div class="panel-head" role="tab" id="headingTwo">
+                             <h4 class="panel-title">
+                               <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                 Педагогічна діяльність
+                               </a>
+                             </h4>
+                           </div>
+                           <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                             <div class="panel-body">
+                          <div class="row main-info">
+                            <div class="row mod">
+                              <table class=" col-xs-12  col-sm-8  col-md-9 table-info col-md-offset-3 col-sm-offset-3">
+                                  <tr>
+                                     <td>Назва кредитного модулю</td>
+                                     <td>Технології розробки програмного забезпечення</td>
+                                  </tr>
+                                  <tr>
+                                      <td>День тижня</td>
+                                      <td>середа</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Номер пари</td>
+                                      <td>1-й</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Час пари</td>
+                                      <td>10</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Група/Групи</td>
+                                      <td>ІК-21</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Викладач</td>
+                                      <td>Мелкумян К.Ю</td>
+                                  </tr>
+                              </table>
+                              </div>
+                              <table class=" col-xs-12  col-sm-8  col-md-7 table-info col-md-offset-3 col-sm-offset-3">
+                                 <tr>
+                                    <td>Бібліографічний опис</td>
+                                    <td>Definition</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Назва ЕІР</td>
+                                     <td>Definition</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Назва кредитного модулю</td>
+                                     <td>Definition</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Вид ЕІР</td>
+                                     <td>Definition</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Рік</td>
+                                     <td>Definition</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Посилання/Файл</td>
+                                     <td>Definition</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Анотоція</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Країна</td>
+                                 </tr>
+                                 <tr>
+                                     <td>Місто</td>
+                                 </tr>
+                              </table>
+                          </div>
+                             </div>
+                           </div>
+                         </div>
+                         <div class="panel panel-default">
+                           <div class="panel-head" role="tab" id="headingThree">
+                             <h4 class="panel-title">
+                               <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                 Наукова діяльність
+                               </a>
+                             </h4>
+                           </div>
+                           <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                             <div class="panel-body">
+                               CONTENT
+                             </div>
+                           </div>
+                         </div>
+                       <!-- END CONTENT -->
+                </div>
+        </div>
 
             <div class="tab-pane"  id="tab2" style ="height: 200px">
                 <!--#region content  -->
