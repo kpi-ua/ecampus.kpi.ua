@@ -270,7 +270,7 @@
             </div>
             <div class="tab-pane" id="tab5"> 
             <!--#region content  -->
-               <div class="jumbotron" style="font-size: 16px;background-color: #3cb371">
+               <div class="jumbotron" style="font-size: 16px;background-color: #208843">
             <h1 style="text-align: center">ЗГОДА</h1>
             
             <h3 style="text-align: center">На публікацію даних на сайті intellect.kpi.ua в мережі Інтернет</h3> 
