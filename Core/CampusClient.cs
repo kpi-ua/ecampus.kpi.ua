@@ -374,9 +374,9 @@ namespace Core
             return Get<IEnumerable<GroupInfo>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
         }
 
-        public string DeskAddBulletein(string sessionId, string sub, string txt)
+        public string DeskAddBulletein(string sessionId, string sub, string txt, int id = -1)
         {
-            return Get<string>("BulletinBoard", "DeskAddBulletin", new { sessionId, subject = sub, text = txt });
+            return Get<string>("BulletinBoard", "DeskAddBulletin", new { sessionId, subject = sub, text = txt, id = id });
             /*
             var arg = "sessionId=" + SessionId + "&subject=" + subject + "&text=" + text;
             return Get<string>("BulletinBoard", "DeskAddBulletein", new {subject, text});            
@@ -394,9 +394,9 @@ namespace Core
              */
         }
 
-        public void DeskRemoveBulletin(string sub, string text)
+        public void DeskRemoveBulletin(int id)
         {
-            Get<string>("BulletinBoard", "DeskRemoveBulletin", new { subject = sub, text = text });
+            Get<string>("BulletinBoard", "DeskRemoveBulletin", new { id = id });
         }
 
         public string DeskIsModerator(string sessionId)
