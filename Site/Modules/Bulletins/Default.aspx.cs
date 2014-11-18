@@ -16,11 +16,10 @@ namespace Site.Modules.Bulletins
 {
     public partial class Default : Core.SitePage
     {
-        private Bulletin _currentBulletin;
-        private Button but1;
-        private Button but2;
-        private string _moderator;
-        List<Control> controls = new List<Control>(); 
+        public static Bulletin CurrentBulletin;
+        private Control _baseControl;
+        private Control _editControl;
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -30,10 +29,7 @@ namespace Site.Modules.Bulletins
             //var items = CampusClient.GetBulletinBoard(SessionId);
 
             //Render(items);
-
             
-
-            _moderator = CampusClient.DeskIsModerator(SessionId);
             LoadBoard();
             foreach (var v in CampusClient.DeskGetAllowedProfiles())
             {
@@ -44,106 +40,16 @@ namespace Site.Modules.Bulletins
             {
                 drop2.Items.Add(v.Name);
             }
-
-
         }
-
-        private void Render(IEnumerable<Campus.Common.BulletinBoard> items)
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendLine("<table class=\"table  table-condensed  table-hover\">");
-
-            foreach (var item in items)
-            {
-                sb.AppendLine("<tr>");
-                sb.AppendLine("<td>");
-                sb.AppendFormat("<div class=\"date\">{0}</div>", item.DateCreate);
-                sb.AppendFormat("<span class=\"poster\">{0}</span>", String.IsNullOrEmpty(item.CreatorUserFullName) ? "Анонім" : item.CreatorUserFullName);
-                sb.AppendFormat("<h4 class=\"text-primary\">{0}</h4>", item.Subject);
-                sb.AppendFormat("<p class=\"text-success\">{0}</p>", item.Text);
-                sb.AppendLine("</td>");
-                sb.AppendLine("</tr>");
-            }
-
-            sb.AppendLine("</table>");
-
-            bulletins.InnerHtml = sb.ToString();
-        }
-
-        public void ChangeBulletin()
-        {
-            int id = _currentBulletin.BulletinId;
-            string s = "";
-            string t = "";
-            foreach (var c in ActualBulletinDiv.Controls)
-            {
-                if (c is TextBox)
-                {
-                    var box = c as TextBox;
-                    if (box.ID == "tb_Txt")
-                    {
-                        t = box.Text;
-                    }
-                }
-            }
-            CampusClient.DeskAddBulletein(SessionId, "", t, id);
-        }
-
-        public void EditBulletin(Bulletin l)
-        {
-            _currentBulletin = l;
-            var box1 = new TextBox();
-            box1.ID = "tb_Sub";
-            box1.Text = l.Subject;
-            box1.Width = 500;
-
-            var box2 = new TextBox();
-            box2.ID = "tb_Txt";
-            box2.Text = l.Text;
-            box2.Width = 900;
-            box2.TextMode = TextBoxMode.MultiLine;
-            box2.Height = 300;
-
-
-            but1.Visible = true;
-            but2.Visible = true;
-            ActualBulletinDiv.Controls.Add(box1);
-            ActualBulletinDiv.Controls.Add(box2);
-        }
+       
 
         void LoadBoard()
         {
-            var list = CampusClient.DeskGetActualBulletins(SessionId);
-            ActualBulletinDiv.InnerHtml = "";
-
-
-            var button1 = new Button();
-            button1.ID = "b1";
-            button1.Text = "Змінити";
-            button1.Click += (sender, args) =>
-            {
-                ChangeBulletin();
-                //LoadBoard();
-            };
-            button1.Visible = false;
-            but1 = button1;
-            var button2 = new Button();
-            button2.ID = "b2";
-            button2.Text = "Відмінити";
-            button2.Click += (sender, args) =>
-            {
-                LoadBoard();
-            };
-            button2.Visible = false;
-            but2 = button2;
-            ActualBulletinDiv.Controls.Add(button1);
-            ActualBulletinDiv.Controls.Add(button2);
-
-
-            ActualBulletinDiv.Controls.Add(new LiteralControl("<div class=\"panel-group\" id=\"accordion\">"));
+            var baseControl = new Control();
+            baseControl.ID = "base_board_control";
+            baseControl.Controls.Add(new LiteralControl("<div class=\"panel-group\" id=\"accordion\">"));
             int i = 0;
-            foreach (var l in list.Reverse())
+            foreach (var l in CampusClient.DeskGetActualBulletins(SessionId).Reverse())
             {
                 var ss = l;
                 string s = l.Subject;
@@ -162,11 +68,15 @@ namespace Site.Modules.Bulletins
                 b2.ID = "b2_" + i;
                 b2.Click += (source, args) =>
                 {
-                    EditBulletin(ss);
+                    _baseControl.Visible = false;
+                    _editControl.Visible = true;
+                    ((Label)_editControl.FindControl("board_edit_subject")).Text = l.Subject;
+                    ((TextBox)_editControl.FindControl("board_edit_text")).Text = l.Text;
+                    CurrentBulletin = l;
                 };
 
-                ActualBulletinDiv.Controls.Add(b1);
-                ActualBulletinDiv.Controls.Add(b2);
+                baseControl.Controls.Add(b1);
+                baseControl.Controls.Add(b2);
                 string header = "<table class=\"header-table\"><tr><td rowspan=\"2\"><div style=\"text-align: left;\">" +
                                 l.Subject +
                                 "</div></td>" +
@@ -187,11 +97,56 @@ namespace Site.Modules.Bulletins
                                 "<div class=\"panel-body\">" +
                                 l.Text +
                                 "</div></div></div>";
-                ActualBulletinDiv.Controls.Add(new LiteralControl(txt));
+                baseControl.Controls.Add(new LiteralControl(txt));
 
                 i++;
             }
-            ActualBulletinDiv.Controls.Add(new LiteralControl("</div>"));
+            baseControl.Controls.Add(new LiteralControl("</div>"));
+            _baseControl = baseControl;
+            ActualBulletinDiv.Controls.Add(baseControl);
+
+            var editControl = new Control();
+            editControl.ID = "edit_board_control";
+
+            var box1 = new Label();
+            box1.ID = "board_edit_subject";
+            box1.Width = 800;
+            var box2 = new TextBox();
+            box2.ID = "board_edit_text";
+            box2.Width = 800;
+            box2.Height = 300;
+            box2.TextMode = TextBoxMode.MultiLine;
+            var button1 = new Button();
+            button1.ID = "board_edit_button";
+            button1.Text = "Accept";
+            button1.Click += ((sender, eventArgs) =>
+                {
+                    CampusClient.DeskAddBulletein(
+                        SessionId, 
+                        "",
+                        ((TextBox)_editControl.FindControl("board_edit_text")).Text,
+                        Default.CurrentBulletin.BulletinId);
+                    _editControl.Visible = false;
+                    _baseControl.Visible = true;
+                });
+
+            var button2 = new Button();
+            button2.ID = "board_cancel_button";
+            button2.Text = "Cancel";
+            button2.Click += ((sender, eventArgs) =>
+                {
+                    _editControl.Visible = false;
+                    _baseControl.Visible = true;
+                });
+
+            editControl.Controls.Add(box1);
+            editControl.Controls.Add(box2);
+            editControl.Controls.Add(new LiteralControl("<br>"));
+            editControl.Controls.Add(button1);
+            editControl.Controls.Add(button2);
+            editControl.Visible = false;
+            _editControl = editControl;
+            ActualBulletinDiv.Controls.Add(editControl);
         }
         
         protected void add_buletin(object sender, EventArgs e)
