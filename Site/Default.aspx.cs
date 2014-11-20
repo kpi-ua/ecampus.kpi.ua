@@ -13,9 +13,6 @@ namespace Site
         protected override void OnLoad(EventArgs ea)
         {
             base.OnLoad(ea);
-
-            btnConfirm.Click += btnConfirm_Click;
-            btnFailure.Click += btnFailure_Click;
             LoadCarousel();
             try
             {
@@ -26,7 +23,7 @@ namespace Site
                     foreach (var e in CurrentUser.Employees)
                     {
                         WorkData.Text += e.SubdivisionName + "</br>";
-                        WorkData.Text += " Позиція: <i class=\"text-success\">" + e.Position + "</i></br>";
+                        WorkData.Text += " Посада: <i class=\"text-success\">" + e.Position + "</i></br>";
                         WorkData.Text += "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree + "</i></br>";
 
                     }
@@ -60,12 +57,31 @@ namespace Site
 
         public void btnFailure_Click(object sender, EventArgs e)
         {
-            
+            if (CampusClient.SetReasonFailure(SessionId, ReasonTextBox.Text))
+            {
+                MessegeIsConfirmed.Text += "<div class=\"form-group\">" +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
+                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "Ви не дозволили розміщення вашої персональної інформації на сайті " +
+                                           "intellect.kpi.ua в мережі Інтернет." +
+                                           "</div></div>";
+            }
         }
 
         public void btnConfirm_Click(object sender, EventArgs e)
         {
-
+            if (CampusClient.IsConfirmSet(SessionId))
+            {
+                MessegeIsConfirmed.Text += "<div class=\"form-group\">" +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
+                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "Ви дозволили розміщення вашої персональної інформації на сайті " +
+                                           "intellect.kpi.ua в мережі Інтернет." +
+                                           "</div></div>";
+            }
+            
         }
 
         private void LoadCarousel()
