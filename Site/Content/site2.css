@@ -309,3 +309,14 @@
   background-color: #F2F2F2;
   padding: 30px;
 }
+
+
+.bulletin-add-table, .header-table {
+    width: 100%;
+}
+
+.bulletin-add-table td{
+    margin: 5px 5px 5px 5px;
+    padding: 5px 5px 5px 5px;
+    text-align: initial;
+}
