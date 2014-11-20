@@ -403,5 +403,32 @@ namespace Core
         {
             return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
         }
+
+        public bool IsConfirmSet(string sessionId)
+        {
+            var url = BuildUrl("User", "IsConfirmed", new { sessionId });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool SetReasonFailure(string sessionId,string reasonFailure)
+        {
+            var url = BuildUrl("User", "SetReasonFailure", new { sessionId, reasonFailure });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

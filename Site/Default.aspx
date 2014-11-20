@@ -317,30 +317,11 @@
 
                 <h3>Обрана мною інформація може бути розміщена на сайті intellect.kpi.ua</h3>
             </p>
-            <a class="btn btn-default" data-toggle="modal" data-target="#OK-modal" >Погоджуюсь</a>
+            <asp:Button class="btn btn-default" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click"/>
             <a class="btn btn-default" data-toggle="modal" data-target="#Cancel-modal">Відмовляюсь</a>
+            <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>      
         </div>
 
-        <!-- Modal 1-->
-        <div class="modal fade" id="OK-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">Повідомлення</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            Ви дозволили розміщення вашої персональної інформації на сайті intellect.kpi.ua в мережі Інтернет
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <asp:Button type="button" class="btn btn-default" ID="btnConfirm" Text="OK" runat="server" OnClick="btnConfirm_Click"/>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Modal 2-->
         <div class="modal fade" id="Cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
