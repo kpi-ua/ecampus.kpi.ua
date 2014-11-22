@@ -43,13 +43,13 @@
     <Reference Include="AjaxControlToolkit">
       <HintPath>..\packages\AjaxControlToolkit.7.1213\lib\45\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="AjaxMin, Version=5.11.5295.12304, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+    <Reference Include="AjaxMin, Version=5.12.5436.22729, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxMin.5.11.5295.12309\lib\net40\AjaxMin.dll</HintPath>
+      <HintPath>..\packages\AjaxMin.5.12.5436.22734\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="Campus.Common, Version=1.0.17.28340, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Campus.Common, Version=1.0.20.1417, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\campus.common.1.0.17.300\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
+      <HintPath>..\packages\campus.common.1.0.20.400\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
     </Reference>
     <Reference Include="Campus.SDK">
       <HintPath>..\packages\campus.sdk.0.1.17.145\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
@@ -181,6 +181,7 @@
     <Content Include="Content\tree\40px.png" />
     <Content Include="Content\tree\style.css" />
     <Content Include="Content\tree\throbber.gif" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Modules\EIR\Create.aspx" />
     <Content Include="Modules\EIR\Default.aspx" />
     <Content Include="Modules\EIR\IrGroup\Default.aspx" />
@@ -189,7 +190,6 @@
     <Content Include="Modules\EIR\IrGroup\NewIrGroup.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\campus-logo-big.png" />
     <Content Include="Images\carousel-billboard-button.png" />
     <Content Include="Images\carousel-billboard.jpg" />
@@ -285,8 +285,6 @@
     <Content Include="Modules\MZSearch\Default.aspx" />
     <Content Include="Modules\RNP\Default.aspx" />
     <Content Include="robots.txt" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\APIlib.js" />
     <Content Include="Scripts\async.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -294,14 +292,16 @@
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\core.js" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Modules\EIR\Menu.master" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\webdeploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\CreatePage.js" />
@@ -314,6 +314,7 @@
     <Content Include="Scripts\jquery.eventsource.js" />
     <Content Include="Scripts\jstree.js" />
     <Content Include="Scripts\MZ.js" />
+    <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\timetable.js" />

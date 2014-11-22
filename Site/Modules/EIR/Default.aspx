@@ -8,5 +8,5 @@
     <script>
         $("#search_tab").addClass("active");
     </script>
-    <h3> Пошук ЕІР
+    <h3> Пошук ЕІР</h3>
 </asp:Content>
