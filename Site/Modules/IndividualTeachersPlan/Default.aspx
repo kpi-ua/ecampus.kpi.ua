@@ -29,15 +29,37 @@
                                              
                                                 
        
-                            <div id="1b" style="display:none">
-                                                      <form >
+                            <div id="1b" class="dip_none">
+                                                    
                                                              
-   <label><input type="checkbox" id="1r"> монографії</label><br> <form id="15" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="11"> підручники</label><br> <form id="16" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="12"> словники</label><br> <form id="17" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="13"> довідники</label><br> <form id="18" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox"id="14"> електронні наукові видання</label><br> <form id="19" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   </form>
+   <label><input type="checkbox" id="1r" > монографії</label><br> <div   id="15" class="dip_none"> 
+       
+       <ul class="hr">
+       <li><input type="checkbox" id="15r"> --------</li> 
+   <li ><input type="checkbox" id="151">-------- </li> 
+   <li ><input type="checkbox" id="152"> --------</li> 
+   <li ><input type="checkbox" id="153"> --------</li> 
+   <li ><input type="checkbox"id="154"> ----------------</li> 
+       </ul>
+        <ul class="hrg">
+       <li >  <textarea id="155" class="dip_none" placeholder="Введите текст 1"></textarea> </li>
+       <li >  <textarea id="156" class="dip_none" placeholder="Введите текст 2"></textarea> </li>
+       <li >  <textarea id="157" class="dip_none" placeholder="Введите текст 3"></textarea> </li>
+       <li >  <textarea id="158" class="dip_none" placeholder="Введите текст 4"></textarea> </li>
+       <li >  <textarea id="159" class="dip_none" placeholder="Введите текст 5"></textarea> </li>
+             </ul>
+        <%--<textarea placeholder="Введите текст"></textarea><br> </div>--%>
+      
+    
+
+
+
+
+   <label><input type="checkbox" id="11" > підручники</label><br> <div id="16"   class="dip_none"  >  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="12"> словники</label><br> <div id="17"  class="dip_none"  >  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="13"> довідники</label><br> <div id="18"  class="dip_none" >  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox"id="14"> електронні наукові видання</label><br> <div id="19"  class="dip_none"  >  <textarea placeholder="Введите текст"></textarea><br> </div>
+  
                                 </div>
                            
                              <script>
@@ -107,14 +129,13 @@
                             <ul>
 
                          <div id="2b" style="display:none">
-                                                      <form >
-                                                             
-   <label><input type="checkbox" id="2r"> --------</label><br> <form id="25" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="21">-------- </label><br> <form id="26" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="22"> --------</label><br> <form id="27" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="23"> --------</label><br> <form id="28" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox"id="24"> ----------------</label><br> <form id="29" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   </form>
+                                                    
+   <label><input type="checkbox" id="2r"> --------</label><br> <div id="25" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="21">-------- </label><br> <div id="26" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="22"> --------</label><br> <div id="27" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="23"> --------</label><br> <div id="28" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox"id="24"> ----------------</label><br> <div id="29" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   
                                 </div>
                        
                             </ul>
@@ -122,13 +143,13 @@
                          <li><h3><label><input type="checkbox" id="3">Конференції/семінари/симпозіуми </label><br></h3> 
                             <ul>
                                 <div id="3b" style="display:none">
-                                                      <form >
+                                                      
                                                              
-   <label><input type="checkbox" id="3r">місце проведення</label><br> <form id="35" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="31">назва заходу</label><br> <form id="36" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="32">назва доповіді</label><br> <form id="37" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
+   <label><input type="checkbox" id="3r">місце проведення</label><br> <div id="35" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="31">назва заходу</label><br> <div id="36" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="32">назва доповіді</label><br> <div id="37" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
    
-   </form>
+  
                                 </div>
                         
                             </ul>
@@ -136,13 +157,13 @@
                                <li><h3><label><input type="checkbox" id="4">Наукові виставки </label><br></h3> 
                             <ul>
                                  <div id="4b" style="display:none">
-                                                      <form >
+                                                    
                                                              
-   <label><input type="checkbox" id="4r">місце проведення</label><br> <form id="45" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="41">назва виставки</label><br> <form id="46" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="42">назва експонату</label><br> <form id="47" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
+   <label><input type="checkbox" id="4r">місце проведення</label><br> <div id="45" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="41">назва виставки</label><br> <div id="46" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="42">назва експонату</label><br> <div id="47" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
    
-   </form>
+   
                                 </div>
 
                       
@@ -151,28 +172,28 @@
                           <li><h3><label><input type="checkbox" id="5">Гранти/Проекти/Дослідження </label><br></h3> 
                             <ul>
  <div id="5b" style="display:none">
-                                                      <form >
+                                                     
                                                              
-   <label><input type="checkbox" id="5r"> --------</label><br> <form id="55" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="51">-------- </label><br> <form id="56" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="52"> --------</label><br> <form id="57" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="53"> --------</label><br> <form id="58" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox"id="54"> ----------------</label><br> <form id="59" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   </form>
+   <label><input type="checkbox" id="5r"> --------</label><br> <div id="55" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="51">-------- </label><br> <div id="56" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="52"> --------</label><br> <div id="57" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="53"> --------</label><br> <div id="58" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox"id="54"> ----------------</label><br> <div id="59" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   
                                 </div>
                        
                             </ul>
                                     <li><h3><label><input type="checkbox" id="6">Авторське свідоцтва/патенти </label><br></h3> 
                             <ul>
  <div id="6b" style="display:none">
-                                                      <form >
+                                                    
                                                              
-   <label><input type="checkbox" id="6r"> --------</label><br> <form id="65" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="61">-------- </label><br> <form id="66" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="62"> --------</label><br> <form id="67" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="63"> --------</label><br> <form id="68" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox"id="64"> ----------------</label><br> <form id="29" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   </form>
+   <label><input type="checkbox" id="6r"> --------</label><br> <div id="65" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="61">-------- </label><br> <div id="66" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="62"> --------</label><br> <div id="67" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="63"> --------</label><br> <div id="68" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox"id="64"> ----------------</label><br> <div id="29" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+  
                                 </div>
                        
                             </ul>
@@ -180,15 +201,14 @@
                             <ul>
 
                         <div id="7b" style="display:none">
-                                                      <form >
+                                             
                                                              
-   <label><input type="checkbox" id="7r"> --------</label><br> <form id="75" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="71">-------- </label><br> <form id="76" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="72"> --------</label><br> <form id="77" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox" id="73"> --------</label><br> <form id="78" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   <label><input type="checkbox"id="74"> ----------------</label><br> <form id="79" style="display:none; margin-left: 1000px;">  <textarea placeholder="Введите текст"></textarea><br> </form>
-   </form>
-                                </div>
+   <label><input type="checkbox" id="7r"> --------</label><br> <div id="75" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="71">-------- </label><br> <div id="76" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="72"> --------</label><br> <div id="77" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox" id="73"> --------</label><br> <div id="78" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+   <label><input type="checkbox"id="74"> ----------------</label><br> <div id="79" class="dip_none">  <textarea placeholder="Введите текст"></textarea><br> </div>
+                  </div>
                        
                             </ul>
 
@@ -200,7 +220,16 @@
          <script>
              $('#1').click(function () { $('#1b').toggle(); });
 
-             $('#1r').click(function () { $('#15').toggle(); });
+                   $('#1r').click(function () { $('#15').toggle(); });
+
+                       $('#15r').click(function () { $('#155').toggle(); });
+                       $('#151').click(function () { $('#156').toggle(); });
+                       $('#152').click(function () { $('#157').toggle(); });
+                       $('#153').click(function () { $('#158').toggle(); });
+                       $('#154').click(function () { $('#159').toggle(); });
+
+
+
              $('#11').click(function () { $('#16').toggle(); });
              $('#12').click(function () { $('#17').toggle(); });
              $('#13').click(function () { $('#18').toggle(); });
