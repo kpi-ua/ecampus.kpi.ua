@@ -114,7 +114,7 @@
 }
 
 .carousel-control {
-    width: 45;
+    width: 45px;
 }
 
 .carousel-control .glyphicon-chevron-right {
@@ -320,3 +320,30 @@
     padding: 5px 5px 5px 5px;
     text-align: initial;
 }
+
+/*EІR search*/
+.eirsearch{ 
+  /*  border: 1px black solid;*/
+    height:550px;
+    font-size:14px; 
+    }
+.names{
+  /*     border: 1px black solid; */
+       float:left; 
+       height:380px;
+       width:30%;
+       font-size:14px; 
+}
+.fields{
+   /* border: 1px black solid;*/
+    height:380px;
+}
+
+.names label{position:absolute; color: black;}
+.names ul{list-style-type:none; line-height:38px;}
+.names ul li:before{color: red; content: ""; padding-right: 10px; margin-left: 55%;}
+
+.fields input{position:absolute; color: black; margin-top: 6px; background-color:#fbe6b2; height:32px; width:400px;}
+.fields select{height:32px; width:400px; background-color:#fbe6b2;}
+.fields ul{list-style-type:none; line-height:38px;}
+.fields ul li:before{color: red; content: ""; padding-right: 10px;}
