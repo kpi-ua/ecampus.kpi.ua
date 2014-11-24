@@ -27,7 +27,7 @@
                            Профіль
                        </td>
                        <td>
-                           <asp:DropDownList id="drop1" runat="server"></asp:DropDownList>
+                           <asp:DropDownList id="profile" runat="server"></asp:DropDownList>
                        </td>
                    </tr> 
                     <tr>
@@ -35,7 +35,7 @@
                            Підрозділ
                        </td>
                        <td>
-                           <asp:DropDownList id="drop2" runat="server"></asp:DropDownList>
+                           <asp:DropDownList id="pidrozd" runat="server"></asp:DropDownList>
                        </td>
                    </tr> 
                     <tr>
@@ -44,6 +44,19 @@
                        </td>
                        <td>
                            <asp:TextBox ID="sub_text" runat="server" Width="700"></asp:TextBox>
+                       </td>
+                   </tr>
+                     <tr>
+                       <td>
+                           Період показу
+                       </td>
+                       <td>
+                           Початок: <asp:TextBox ID="dateStart_d" runat="server" Width="20" MaxLength="2"></asp:TextBox>
+                           -<asp:TextBox ID="dateStart_m" runat="server" Width="20" MaxLength="2"></asp:TextBox>
+                           -<asp:TextBox ID="dateStart_y" runat="server" Width="40" MaxLength="4"></asp:TextBox>
+                           Завершення: <asp:TextBox ID="dateEnd_d" runat="server" Width="20" MaxLength="2"></asp:TextBox>
+                           -<asp:TextBox ID="dateEnd_m" runat="server" Width="20" MaxLength="2"></asp:TextBox>
+                           -<asp:TextBox ID="dateEnd_y" runat="server" Width="40" MaxLength="4"></asp:TextBox>
                        </td>
                    </tr> 
                     <tr>
@@ -62,10 +75,6 @@
                        </td>
                    </tr>
                 </table>
-                
-                
-
-               
                 <!--#endregion -->
             </div>
         </div>
