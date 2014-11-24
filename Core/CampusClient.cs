@@ -1,19 +1,17 @@
-﻿using System.IO;
-using System.Text;
-using Campus.Common;
+﻿using Campus.Common;
 using Campus.SDK;
-using Core.Doska;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NLog;
+using PagedList;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Script.Serialization;
-using PagedList;
 
 namespace Core
 {
@@ -415,8 +413,6 @@ namespace Core
             return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
         }
 
-
-
         public bool IsConfirmSet(string sessionId)
         {
             var url = BuildUrl("User", "IsConfirmed", new { sessionId });
@@ -430,6 +426,7 @@ namespace Core
                 return false;
             }
         }
+
         public bool SetReasonFailure(string sessionId,string reasonFailure)
         {
             var url = BuildUrl("User", "SetReasonFailure", new { sessionId, reasonFailure });

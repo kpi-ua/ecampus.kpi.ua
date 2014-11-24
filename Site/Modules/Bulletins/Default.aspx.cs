@@ -1,16 +1,9 @@
-﻿using System.IO;
-using System.Linq;
-using System.Net;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using AjaxControlToolkit.HTMLEditor.ToolbarButton;
-using Core;
+﻿using Campus.Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Core.Doska;
-using ImageButton = System.Web.UI.WebControls.ImageButton;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Site.Modules.Bulletins
 {
@@ -30,6 +23,7 @@ namespace Site.Modules.Bulletins
             {
                 Path = "~/Scripts/jquery-2.1.1.min.js",
             });
+
             //moderator.Visible = Permissions["Дошка оголошень"].Create;
 
             //var items = CampusClient.GetBulletinBoard(SessionId);
