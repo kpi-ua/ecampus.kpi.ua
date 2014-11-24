@@ -19,11 +19,17 @@ namespace Site.Modules.Bulletins
         public static Bulletin CurrentBulletin;
         private Control _baseControl;
         private Control _editControl;
+        private List<SimpleInfo> _faculties;
+        private List<SimpleInfo> _allowedProfile; 
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
+            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
+            {
+                Path = "~/Scripts/jquery-2.1.1.min.js",
+            });
             //moderator.Visible = Permissions["Дошка оголошень"].Create;
 
             //var items = CampusClient.GetBulletinBoard(SessionId);
@@ -31,15 +37,22 @@ namespace Site.Modules.Bulletins
             //Render(items);
             
             LoadBoard();
+            var list = new List<SimpleInfo>();
             foreach (var v in CampusClient.DeskGetAllowedProfiles())
             {
-                drop1.Items.Add(v.Name);
+                profile.Items.Add(v.Name);
+                list.Add(v);
             }
-
+            _allowedProfile = list;
+            var list2 = new List<SimpleInfo>();
             foreach (var v in CampusClient.DeskGetFacultyTypesList())
             {
-                drop2.Items.Add(v.Name);
+                pidrozd.Items.Add(v.Name);
+                list2.Add(v);
             }
+            _faculties = list2;
+
+            //CampusClient.DeskGetGroupTypesList()
         }
        
 
@@ -56,15 +69,17 @@ namespace Site.Modules.Bulletins
                 string t = l.Text;
                 int id = l.BulletinId;
                 var b1 = new ImageButton();
-                b1.AlternateText = "Видалити";
+                b1.ImageUrl = "\\Images\\delete.png";
+                b1.AlternateText = "Вид";
                 b1.ID = "b1_" + i;
                 b1.Click += (source, args) =>
                 {
                     CampusClient.DeskRemoveBulletin(id);
-                    LoadBoard();
+                    ResetBoard();
                 };
                 var b2 = new ImageButton();
-                b2.AlternateText = "Редагувати";
+                b2.ImageUrl = "\\Images\\edit.png";
+                b2.AlternateText = "Ред";
                 b2.ID = "b2_" + i;
                 b2.Click += (source, args) =>
                 {
@@ -74,9 +89,13 @@ namespace Site.Modules.Bulletins
                     ((TextBox)_editControl.FindControl("board_edit_text")).Text = l.Text;
                     CurrentBulletin = l;
                 };
-
-                baseControl.Controls.Add(b1);
-                baseControl.Controls.Add(b2);
+                b1.Attributes["style"] = "float: left; margin-right: 5px;";
+                b2.Attributes["style"] = b1.Attributes["style"];
+                if (l.CreatorId == CurrentUser.UserAccountId)
+                {
+                    baseControl.Controls.Add(b1);
+                    baseControl.Controls.Add(b2);
+                }
                 string header = "<table class=\"header-table\"><tr><td rowspan=\"2\"><div style=\"text-align: left;\">" +
                                 l.Subject +
                                 "</div></td>" +
@@ -87,7 +106,7 @@ namespace Site.Modules.Bulletins
                                 "<td><div style=\"text-align: right;\">публікатор " +
                                 l.CreatorName +
                                 "</div></td></tr></table>";
-                string txt = "<div class=\"panel panel-default\"> " +
+                string txt = "<div class=\"panel panel-default\" style=\"margin: 10px 0px 10px 0px;\"> " +
                                 "<div class=\"panel-heading\" data-toggle=\"collapse\" data-parent=\"#accordion\" data-target=\"#collapse" + i + "\">" +
                                 "<h4 class=\"panel-title\">" +
                                 header +
@@ -125,9 +144,12 @@ namespace Site.Modules.Bulletins
                         SessionId, 
                         "",
                         ((TextBox)_editControl.FindControl("board_edit_text")).Text,
-                        Default.CurrentBulletin.BulletinId);
-                    _editControl.Visible = false;
-                    _baseControl.Visible = true;
+                        Default.CurrentBulletin.BulletinId,
+                        CurrentBulletin.GroupId??-1,
+                        CurrentBulletin.ProfileId??-1,
+                        CurrentBulletin.SubdivisionId??-1,
+                        CurrentBulletin.ProfilePermissionId??-1);
+                    ResetBoard();
                 });
 
             var button2 = new Button();
@@ -148,16 +170,30 @@ namespace Site.Modules.Bulletins
             _editControl = editControl;
             ActualBulletinDiv.Controls.Add(editControl);
         }
-        
-        protected void add_buletin(object sender, EventArgs e)
+
+        public void ResetBoard()
         {
-            string res = "REQUEST RESULT: " +
-                             ((CampusClient.DeskAddBulletein(SessionId, sub_text.Text, text_text.Text) == "0")
-                                 ? "Success"
-                                 : "Fail");
+            ActualBulletinDiv.Controls.Clear();
             LoadBoard();
         }
 
+        protected void add_buletin(object sender, EventArgs e)
+        {
+            string res = "REQUEST RESULT: " +
+                             ((CampusClient.DeskAddBulletein(
+                             SessionId,
+                             sub_text.Text,
+                             text_text.Text,
+                             -1,
+                             -1,
+                             //_allowedProfile.Find(a => a.Name == profile.Text).Id,
+                             //_faculties.Find(a => a.Name == pidrozd.Text).Id,
+                             -1,
+                             -1) == "0")
+                                 ? "Success"
+                                 : "Fail");
+            ResetBoard();
+        }
 
         //<div class="panel-group" id="accordion">
         //            <div class="panel panel-default">

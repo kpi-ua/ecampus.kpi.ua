@@ -374,9 +374,20 @@ namespace Core
             return Get<IEnumerable<GroupInfo>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
         }
 
-        public string DeskAddBulletein(string sessionId, string sub, string txt, int id = -1)
+        public string DeskAddBulletein(string sessionId, string sub, string txt, int id = -1,
+            int groupId = -1, int profileId = -1, int subdivisionId = -1, int profilePermissionId = -1)
         {
-            return Get<string>("BulletinBoard", "DeskAddBulletin", new { sessionId, subject = sub, text = txt, id = id });
+            return Get<string>("BulletinBoard", "DeskAddBulletin", new
+            {
+                sessionId,
+                subject = sub,
+                text = txt,
+                id,
+                //groupId,
+                //profileId,
+                //subdivisionId,
+                //profilePermissionId
+            });
             /*
             var arg = "sessionId=" + SessionId + "&subject=" + subject + "&text=" + text;
             return Get<string>("BulletinBoard", "DeskAddBulletein", new {subject, text});            
@@ -403,6 +414,8 @@ namespace Core
         {
             return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
         }
+
+
 
         public bool IsConfirmSet(string sessionId)
         {
