@@ -47,9 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AjaxMin.5.12.5436.22734\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="Campus.Common, Version=1.0.20.1417, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Campus.Common, Version=1.0.23.39045, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\campus.common.1.0.20.400\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
+      <HintPath>..\packages\campus.common.1.0.23.470\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
     </Reference>
     <Reference Include="Campus.SDK">
       <HintPath>..\packages\campus.sdk.0.1.17.145\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
