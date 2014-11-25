@@ -57,14 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\BaseClasses\AbstractSingleton.cs" />
-    <Compile Include="Common\BaseClasses\GenericFactory.cs" />
-    <Compile Include="Common\Exceptions\ArchitectureException.cs" />
     <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Common\Extensions\DelegateExtensions.cs" />
-    <Compile Include="Common\Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="Common\Extensions\ObjectExtensions.cs" />
-    <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Common\Generators\GuidIdGenerator.cs" />
     <Compile Include="Common\Generators\SimpleIdGenerator.cs" />
     <Compile Include="Common\Generators\TemplateEngine.cs" />
@@ -72,7 +65,6 @@
     <Compile Include="EventsArgs\BeatEventArgs.cs" />
     <Compile Include="EventsArgs\MessageEventArgs.cs" />
     <Compile Include="EventsArgs\SubscriberEventArgs.cs" />
-    <Compile Include="Interfaces\IFactory.cs" />
     <Compile Include="Interfaces\IGet.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Interfaces\IMessageHistory.cs" />

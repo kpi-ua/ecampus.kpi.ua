@@ -1,5 +1,5 @@
 ﻿using System;
-using Campus.Core.Pulse.Common.BaseClasses;
+using Campus.Core.Common.BaseClasses;
 using Campus.Core.Pulse.Interfaces;
 
 namespace Campus.Core.Common.Generators

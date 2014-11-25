@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Campus.Core.Pulse.Common.BaseClasses;
+using Campus.Core.Common.BaseClasses;
 using Campus.Core.Pulse.Interfaces;
 
 namespace Campus.Core.Common.Generators
