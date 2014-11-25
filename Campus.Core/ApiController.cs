@@ -116,8 +116,7 @@ namespace Campus.Core
         {
             var callerMethod = GetCallerMethod();
             var type = GetType();
-            CompressAttribute compression = null;
-            var tasks = new List<Task>();
+            CompressAttribute compression = null;            
 
             var result = new Result
             {
@@ -126,51 +125,45 @@ namespace Campus.Core
             };
 
             if (AllowCompression)
-                tasks.Add(Task.Run(() =>
+                if (ShouldBeCompressed)
                 {
-                    if (ShouldBeCompressed)
+                    var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
+                    native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
+                    compression = type.GetCustomAttribute<CompressAttribute>(inherit: true);
+                    compression = compression ?? callerMethod.GetCustomAttribute<CompressAttribute>(inherit: true);
+                    if (compression != null)
                     {
-                        var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
-                        native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
-                        compression = type.GetCustomAttribute<CompressAttribute>(inherit: true);
-                        compression = compression ?? callerMethod.GetCustomAttribute<CompressAttribute>(inherit: true);
-                        if (compression != null)
+                        result.Data = compression.CompressData(result.Data);
+                        result.Compression = new
                         {
-                            result.Data = compression.CompressData(result.Data);
-                            result.Compression = new
+                            Type = Enum.GetName(compression.Scheme.GetType(), compression.Scheme),
+                            Level = Enum.GetName(compression.Level.GetType(), compression.Level),
+                            Ratio = ((float)result.Data.Length / (float)Serialize(obj).Length).ToString(),
+                            ExecutingTime = compression.Time,
+                            Native = native == null ? null : new
                             {
-                                Type = Enum.GetName(compression.Scheme.GetType(), compression.Scheme),
-                                Level = Enum.GetName(compression.Level.GetType(), compression.Level),
-                                Ratio = ((float)result.Data.Length / (float)Serialize(obj).Length).ToString(),
-                                ExecutingTime = compression.Time,
-                                Native = native == null ? null : new
-                                {
-                                    Type = Enum.GetName(native.PreferredEncoding.GetType(), native.PreferredEncoding),
-                                    Lavel = Enum.GetName(native.Level.GetType(), native.Level)
-                                }
-                            };
-                        }
+                                Type = Enum.GetName(native.PreferredEncoding.GetType(), native.PreferredEncoding),
+                                Lavel = Enum.GetName(native.Level.GetType(), native.Level)
+                            }
+                        };
                     }
-                    else
+                }
+                else
+                {
+                    var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
+                    native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
+                    if (native != null)
                     {
-                        var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
-                        native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
-                        if (native != null)
+                        result.Compression = new
                         {
-                            result.Compression = new
+                            Native = new
                             {
-                                Native = new
-                                {
-                                    Type = Enum.GetName(native.PreferredEncoding.GetType(), native.PreferredEncoding),
-                                    Lavel = Enum.GetName(native.Level.GetType(), native.Level)
-                                }
-                            };
-                        }
+                                Type = Enum.GetName(native.PreferredEncoding.GetType(), native.PreferredEncoding),
+                                Lavel = Enum.GetName(native.Level.GetType(), native.Level)
+                            }
+                        };
                     }
-
-                }));            
-
-            Task.WaitAll(tasks.ToArray());
+                }            
 
             Response.StatusCode = Convert.ToInt32(result.StatusCode);
 
