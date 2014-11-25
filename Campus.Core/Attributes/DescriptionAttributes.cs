@@ -2,7 +2,7 @@
 
 namespace Campus.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.All, Inherited = true, AllowMultiple = true)]
     public sealed class DescriptionAttribute : AbstractAttribute
     {
         private readonly string _description;

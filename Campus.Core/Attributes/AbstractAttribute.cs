@@ -15,76 +15,23 @@ namespace Campus.Core.Attributes
             {
                 return GetType().Name;
             }
-        }                
-
-        /// <summary>
-        /// Determines whether the specified method has attribute.
-        /// </summary>
-        /// <param name="method">The method.</param>
-        /// <returns></returns>
-        public bool HasAttribute(MethodInfo method, Type attribute = null)
-        {
-            if (attribute == null) attribute = this.GetType();
-            return method.GetCustomAttributes().Any(a =>
-            {
-                return a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name;
-            });
         }
 
-
         /// <summary>
-        /// Determines whether the specified property has attribute.
+        /// Determines whether the specified <c>info</c> has attribute.
         /// </summary>
-        /// <param name="property">The property.</param>
+        /// <param name="customAttributeProvider">The attribute provider</param>
         /// <param name="attribute">The attribute.</param>
+        /// <param name="inherit">if set to <c>true</c> [inherit].</param>
         /// <returns></returns>
-        public bool HasAttribute(PropertyInfo property, Type attribute = null)
-        {
-            if (attribute == null) attribute = this.GetType();
-            return property.GetCustomAttributes().Any(a =>
-            {
-                return a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name;
-            });
-        }
-
-
-        /// <summary>
-        /// Determines whether the specified type has attribute.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="attribute">The attribute.</param>
-        /// <returns></returns>
-        public bool HasAttribute(TypeInfo type, Type attribute = null)
+        public bool HasAttribute(ICustomAttributeProvider customAttributeProvider, Type attribute = null, bool inherit = false)
         {            
-            if (attribute == null) attribute = this.GetType();            
-            return type.GetCustomAttributes().Any(a => a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name);
-        }
-
-
-        /// <summary>
-        /// Determines whether the specified parameter has attribute.
-        /// </summary>
-        /// <param name="parameter">The parameter.</param>
-        /// <param name="attribute">The attribute.</param>
-        /// <returns></returns>
-        public bool HasAttribute(ParameterInfo parameter, Type attribute = null)
-        {
             if (attribute == null) attribute = this.GetType();
-            return parameter.GetCustomAttributes().Any(a => a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name);
-        }
-
-
-
-        /// <summary>
-        /// Determines whether the specified field has attribute.
-        /// </summary>
-        /// <param name="field">The field.</param>
-        /// <param name="attribute">The attribute.</param>
-        /// <returns></returns>
-        public bool HasAttribute(FieldInfo field, Type attribute = null)
-        {
-            if (attribute == null) attribute = this.GetType();
-            return field.GetCustomAttributes().Any(a => a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name);
-        }
+            return customAttributeProvider.GetCustomAttributes(inherit).Any(attr =>
+            {
+                var a = attr as Attribute;
+                return a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name;
+            });
+        }        
     }
 }

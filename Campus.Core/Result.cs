@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Campus.Core.Documentation;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 
@@ -8,12 +9,21 @@ namespace Campus.Core
     {
         public HttpStatusCode StatusCode { get; set; }
         public DateTime TimeStamp { get; private set; }
-        public String Guid { get; private set; }
+        public string ExecutionTime { get; set; }
+        public String Guid { get; private set; }        
 
         /// <summary>
         /// Paging information. If null - information is complex object 
         /// </summary>
         public Paging Paging { get; set; }
+
+        /// <summary>
+        /// Gets or sets the compression information. If null - data is not compressed
+        /// </summary>
+        /// <value>
+        /// The compression.
+        /// </value>
+        public dynamic Compression { get; set; }
 
         /// <summary>
         /// 
@@ -26,7 +36,8 @@ namespace Campus.Core
             TimeStamp = DateTime.Now;
             Guid = System.Guid.NewGuid().ToString();
             Paging = null;
-        }        
+            Compression = null;
+        }
 
         public static Result Parse(string json)
         {

@@ -6,7 +6,7 @@ using System.Web.Http;
 using Campus.Core.Attributes;
 using Campus.Core.Common.Extensions;
 using Campus.Core.EventsArgs;
-using Campus.Core.Pulse.Common.Exceptions;
+using Campus.Core.Common.Exceptions;
 using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Interfaces;
 using Campus.Core.Pulse.Pulse;
