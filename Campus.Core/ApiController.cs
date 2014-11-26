@@ -1,21 +1,14 @@
-﻿using System.Web;
-using Campus.Core.Attributes;
+﻿using Campus.Core.Attributes;
+using Campus.Core.Documentation;
 using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
-using PagedList;
 using System;
-using System.Collections;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Web;
 using System.Web.Mvc;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using Campus.Core.Common.Extensions;
-using Campus.Core.Documentation;
-using System.Text.RegularExpressions;
 
 namespace Campus.Core
 {
@@ -117,7 +110,7 @@ namespace Campus.Core
         public virtual ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
         {
             var callerMethod = GetCallerMethod();
-            var type = GetType();            
+            var type = GetType();
 
             var result = new Result
             {
@@ -338,40 +331,56 @@ namespace Campus.Core
             return frame.GetMethod();
         }
 
-        private static string GetDescription(MethodInfo method, ParameterInfo o)
+        private static string GetDescription(MethodInfo methodInfo, ParameterInfo parameterInfo)
         {
             string result = null;
 
-            Param tempParam = null;
-            Campus.Core.Documentation.Controller tempController = null;
-            Method tempMethod = null;
+            var attributeMethod = methodInfo.GetCustomAttribute<DescriptionAttribute>(true);
+            var attributeParam = parameterInfo != null ? parameterInfo.GetCustomAttribute<DescriptionAttribute>(true) : null;
 
-            var attributeMethod = method.GetCustomAttribute<DescriptionAttribute>(true);
-            var attributeParam = o != null ? o.GetCustomAttribute<DescriptionAttribute>(true) : null;
-
-            if (attributeParam != null) return attributeParam.Description;
-            if (attributeMethod != null) return attributeMethod.Description;
-
-            tempController = XmlDocumentation.Documentation.Controllers.FirstOrDefault(c => c.Caption.Equals(method.DeclaringType.Name));
-            if (tempController != null)
+            if (attributeParam != null)
             {
-                tempMethod = tempController.Methods.FirstOrDefault(m => m.Caption.Equals(method.Name));
-                if (tempMethod != null)
+                return attributeParam.Description;
+            }
+
+            if (attributeMethod != null)
+            {
+                return attributeMethod.Description;
+            }
+
+            try
+            {
+                var controller =
+                    XmlDocumentation.Documentation.Controllers.FirstOrDefault(
+                        c => c.Caption.Equals(methodInfo.DeclaringType.Name));
+
+                if (controller != null)
                 {
-                    if (o == null)
+                    var method = controller.Methods.FirstOrDefault(m => m.Caption.Equals(methodInfo.Name));
+
+                    if (method != null)
                     {
-                        result = tempMethod.Summary != null ? tempMethod.Summary.Value : null;
-                    }
-                    else
-                    {
-                        tempParam = tempMethod.Params.FirstOrDefault(p => p.Name.Equals(o.Name));
-                        if (tempParam != null)
+                        if (parameterInfo == null)
                         {
-                            result = tempParam.Value;
+                            result = method.Summary != null ? method.Summary.Value : null;
+                        }
+                        else
+                        {
+                            var param = method.Params.FirstOrDefault(p => p.Name.Equals(parameterInfo.Name));
+
+                            if (param != null)
+                            {
+                                result = param.Value;
+                            }
                         }
                     }
                 }
             }
+            catch
+            {
+            }
+
+            result = String.IsNullOrEmpty(result) ? String.Empty : result.Trim();
 
             return result;
         }
