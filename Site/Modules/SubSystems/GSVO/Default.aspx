@@ -8,13 +8,10 @@
 
 <asp:Content ID="body_content" ContentPlaceHolderID="body" runat="server">
     <div class="page-header">
-        <h1><%-- <center>
-        <span>Оберіть кафедру</span>
-        <asp:DropDownList ID="SList" runat="server" class="form-control" placeholder="Почніть вводити назву кафедри" AutoPostBack="true" width="700"></asp:DropDownList>
-    </center>--%></h1>
+        <h1><%=Page.Title %></h1>
         <h3>Освітньо-професійна програма - Галузевий стандарт вищої освіти</h3>
     </div>
-    
+
    <%-- <center>
         <span>Оберіть кафедру</span>
         <asp:DropDownList ID="SList" runat="server" class="form-control" placeholder="Почніть вводити назву кафедри" AutoPostBack="true" width="700"></asp:DropDownList>

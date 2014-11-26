@@ -42,6 +42,7 @@ namespace Site.Modules.SubSystems.GSVO
                     {
                         li.Text = e.Value.ToString();
                     }
+
                     //else
                     //{
                     //    li.Value = e.Value.ToString();
