@@ -67,7 +67,11 @@ namespace Site.Modules.SubSystems
             subsystembtn.Height = 100;
 
             if ((int)sys["SubsystemId"] == _gsvoSubsystemId)
+            {
                 subsystembtn.Click += new EventHandler(GetToGSVOSubSystem);
+                Session["gsvoId"] = _gsvoSubsystemId;
+            }
+                
 
             subsysDiv.Controls.Add(subsystembtn);
 
