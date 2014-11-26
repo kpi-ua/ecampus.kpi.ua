@@ -26,11 +26,11 @@
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone-retina-display.png" />
 </head>
 <body>
-    <%--<script type="text/javascript">
-        image = "<%=this.SitePage.CurrentUser.Photo%>";
-        text = "<%=this.SitePage.CurrentUser.FullName +","+ this.Position + ","+ this.AcademicDegree%>";
+    <script type="text/javascript">
+        image = "<%=this.UserPhoto%>";
+        text = "<%=String.Format("{0}, {1}, {2}", this.UserFullName, this.Position, this.AcademicDegree)%>";
         head = "";
-    </script>--%>
+    </script>
 
     <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
 
