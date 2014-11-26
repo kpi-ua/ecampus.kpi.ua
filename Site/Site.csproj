@@ -182,6 +182,8 @@
     <Content Include="Content\tree\style.css" />
     <Content Include="Content\tree\throbber.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\delete.png" />
+    <Content Include="Images\edit.png" />
     <Content Include="Modules\EIR\Create.aspx" />
     <Content Include="Modules\EIR\Default.aspx" />
     <Content Include="Modules\EIR\IrGroup\Default.aspx" />
