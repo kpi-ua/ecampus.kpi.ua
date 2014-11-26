@@ -5,7 +5,8 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-
+    <meta name='yandex-verification' content='4ce42a0173a1c976' />
+    
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
 
     <link rel="stylesheet" href="/Content/site.css" />
@@ -25,11 +26,11 @@
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone-retina-display.png" />
 </head>
 <body>
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         image = "<%=this.SitePage.CurrentUser.Photo%>";
         text = "<%=this.SitePage.CurrentUser.FullName +","+ this.Position + ","+ this.AcademicDegree%>";
         head = "";
-    </script>
+    </script>--%>
 
     <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
 
@@ -56,7 +57,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="http://stat.campus.kpi.ua/">
+                                <a href="Modules/SubSystems/Default.aspx">
                                     <i class="fa fa-briefcase"></i>
                                 </a>
                             </li>
