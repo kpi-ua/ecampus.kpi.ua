@@ -284,6 +284,8 @@
     <Content Include="Images\zaliki.png" />
     <Content Include="Modules\MZSearch\Default.aspx" />
     <Content Include="Modules\RNP\Default.aspx" />
+    <Content Include="Modules\SubSystems\Default.aspx" />
+    <Content Include="Modules\SubSystems\GSVO\Default.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\APIlib.js" />
     <Content Include="Scripts\async.js" />
@@ -445,6 +447,20 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Modules\MZSearch\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
