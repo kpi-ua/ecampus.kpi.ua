@@ -30,11 +30,16 @@ namespace Campus.Core.Documentation
             List<Task> tasks = new List<Task>();
             if (Controllers == null && Members != null)
             {
-                var assembly = AppDomain.CurrentDomain.GetAssemblies().First(a => a.FullName.Contains("Site"));
-                Controllers = Members.Member.AsParallel<Member>().Where(m =>
-                {
-                    return m.Name.Split(new[] { ':' }).First().Equals("T");
-                }).DecorateAll<Controller>().ToList();
+                var assembly = AppDomain.CurrentDomain.GetAssemblies().First(a => a.FullName.Contains(ApiController.DocumentationProviderProject));                
+
+                var cntrls = Members.Member.Select(o => string.Join(".", o.Name.Split(new char[] { ':' })[1].Split(new char[]{'.'}, 4).Take(3).ToArray())).Distinct().Where(o => o.Split(new char[]{'.'})[2].Contains("Controller"));
+                Controllers = Members.Member.Where(o => cntrls.Contains(o.Name.Split(new char[] { ':' })[1]))
+                    .Distinct()
+                    .DecorateAll<Controller>()
+                    .ToList();
+
+                Controllers.AddRange(cntrls.Except(Controllers.Select(o => o.Name)).Select<string, Controller>(o => { return new Controller { Name = o};}));
+
                 tasks.Add(Controllers.ForEachAsync(c =>
                     {
                         c.Type = assembly.GetTypes().First(t => t.Name.Equals(c.Caption));
