@@ -22,22 +22,22 @@ namespace Site.Modules.Bulletins {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ActualBulletinDiv;
         
         /// <summary>
-        /// drop1 control.
+        /// profile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop1;
+        protected global::System.Web.UI.WebControls.DropDownList profile;
         
         /// <summary>
-        /// drop2 control.
+        /// pidrozd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList drop2;
+        protected global::System.Web.UI.WebControls.DropDownList pidrozd;
         
         /// <summary>
         /// sub_text control.
@@ -47,6 +47,60 @@ namespace Site.Modules.Bulletins {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox sub_text;
+        
+        /// <summary>
+        /// dateStart_d control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dateStart_d;
+        
+        /// <summary>
+        /// dateStart_m control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dateStart_m;
+        
+        /// <summary>
+        /// dateStart_y control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dateStart_y;
+        
+        /// <summary>
+        /// dateEnd_d control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dateEnd_d;
+        
+        /// <summary>
+        /// dateEnd_m control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dateEnd_m;
+        
+        /// <summary>
+        /// dateEnd_y control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox dateEnd_y;
         
         /// <summary>
         /// text_text control.

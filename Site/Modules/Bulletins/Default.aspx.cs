@@ -1,96 +1,106 @@
-﻿using System.Linq;
-using System.Web.UI;
-using AjaxControlToolkit.HTMLEditor.ToolbarButton;
-using Core;
+﻿using Campus.Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Core.Doska;
-using ImageButton = System.Web.UI.WebControls.ImageButton;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Site.Modules.Bulletins
 {
     public partial class Default : Core.SitePage
     {
-        private string _moderator;
+        public static Bulletin CurrentBulletin;
+        private Control _baseControl;
+        private Control _editControl;
+        private List<SimpleInfo> _faculties;
+        private List<SimpleInfo> _allowedProfile; 
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            
+
+            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
+            {
+                Path = "~/Scripts/jquery-2.1.1.min.js",
+            });
+
             //moderator.Visible = Permissions["Дошка оголошень"].Create;
 
             //var items = CampusClient.GetBulletinBoard(SessionId);
 
-            _moderator = CampusClient.DeskIsModerator(SessionId);
-            OnLoad();
+            //Render(items);
+            
+            LoadBoard();
+            var list = new List<SimpleInfo>();
             foreach (var v in CampusClient.DeskGetAllowedProfiles())
             {
-                drop1.Items.Add(v.Name);
+                profile.Items.Add(v.Name);
+                list.Add(v);
             }
-
+            _allowedProfile = list;
+            var list2 = new List<SimpleInfo>();
             foreach (var v in CampusClient.DeskGetFacultyTypesList())
             {
-                drop2.Items.Add(v.Name);
+                pidrozd.Items.Add(v.Name);
+                list2.Add(v);
             }
+            _faculties = list2;
 
-            //Render(items);
+            //CampusClient.DeskGetGroupTypesList()
         }
+       
 
-        private void Render(IEnumerable<Campus.Common.BulletinBoard> items)
+        void LoadBoard()
         {
-            var sb = new StringBuilder();
-
-            sb.AppendLine("<table class=\"table  table-condensed  table-hover\">");
-
-            foreach (var item in items)
-            {
-                sb.AppendLine("<tr>");
-                sb.AppendLine("<td>");
-                sb.AppendFormat("<div class=\"date\">{0}</div>", item.DateCreate);
-                sb.AppendFormat("<span class=\"poster\">{0}</span>", String.IsNullOrEmpty(item.CreatorUserFullName) ? "Анонім" : item.CreatorUserFullName);
-                sb.AppendFormat("<h4 class=\"text-primary\">{0}</h4>", item.Subject);
-                sb.AppendFormat("<p class=\"text-success\">{0}</p>", item.Text);
-                sb.AppendLine("</td>");
-                sb.AppendLine("</tr>");
-            }
-
-            sb.AppendLine("</table>");
-
-            bulletins.InnerHtml = sb.ToString();
-        }
-
-        void OnLoad()
-        {
-            //ActualBulletinDiv.InnerHtml += add_buletin("s", "t");
-            var list = CampusClient.DeskGetActualBulletins(CampusClient.SessionId);
-            ActualBulletinDiv.InnerHtml = "";
-            ActualBulletinDiv.Controls.Add(new LiteralControl("<div class=\"panel-group\" id=\"accordion\">"));
+            var baseControl = new Control();
+            baseControl.ID = "base_board_control";
+            baseControl.Controls.Add(new LiteralControl("<div class=\"panel-group\" id=\"accordion\">"));
             int i = 0;
-            foreach (var l in list.Reverse())
+            foreach (var l in CampusClient.DeskGetActualBulletins(SessionId).Reverse())
             {
+                var ss = l;
                 string s = l.Subject;
                 string t = l.Text;
-                var b = new ImageButton();
-                b.AlternateText = "Delete";
-                b.Click += (source, args) =>
+                int id = l.BulletinId;
+                var b1 = new ImageButton();
+                b1.ImageUrl = "\\Images\\delete.png";
+                b1.AlternateText = "Вид";
+                b1.ID = "b1_" + i;
+                b1.Click += (source, args) =>
                 {
-                    CampusClient.DeskRemoveBulletin(s, t);
-                    OnLoad();
+                    CampusClient.DeskRemoveBulletin(id);
+                    ResetBoard();
                 };
-                ActualBulletinDiv.Controls.Add(b);
-
-                string header = "<table class=\"header-table\"><tr><td rowspan=\"2\"><div style=\"text-align: left;\">"+
-                                l.Subject+
+                var b2 = new ImageButton();
+                b2.ImageUrl = "\\Images\\edit.png";
+                b2.AlternateText = "Ред";
+                b2.ID = "b2_" + i;
+                b2.Click += (source, args) =>
+                {
+                    _baseControl.Visible = false;
+                    _editControl.Visible = true;
+                    ((Label)_editControl.FindControl("board_edit_subject")).Text = l.Subject;
+                    ((TextBox)_editControl.FindControl("board_edit_text")).Text = l.Text;
+                    CurrentBulletin = l;
+                };
+                b1.Attributes["style"] = "float: left; margin-right: 5px;";
+                b2.Attributes["style"] = b1.Attributes["style"];
+                if (l.CreatorId == CurrentUser.UserAccountId)
+                {
+                    baseControl.Controls.Add(b1);
+                    baseControl.Controls.Add(b2);
+                }
+                string header = "<table class=\"header-table\"><tr><td rowspan=\"2\"><div style=\"text-align: left;\">" +
+                                l.Subject +
                                 "</div></td>" +
-                                "<td><div style=\"text-align: right;\">"+
-                                l.CreationDate+
+                                "<td><div style=\"text-align: right;\">" +
+                                l.CreationDate +
                                 "(Дата створення)</div></td></tr>" +
                                 "<tr>" +
-                                "<td><div style=\"text-align: right;\">публікатор "+
-                                l.CreatorName+
+                                "<td><div style=\"text-align: right;\">публікатор " +
+                                l.CreatorName +
                                 "</div></td></tr></table>";
-                string txt = "<div class=\"panel panel-default\"> " +
+                string txt = "<div class=\"panel panel-default\" style=\"margin: 10px 0px 10px 0px;\"> " +
                                 "<div class=\"panel-heading\" data-toggle=\"collapse\" data-parent=\"#accordion\" data-target=\"#collapse" + i + "\">" +
                                 "<h4 class=\"panel-title\">" +
                                 header +
@@ -100,42 +110,84 @@ namespace Site.Modules.Bulletins
                                 "<div class=\"panel-body\">" +
                                 l.Text +
                                 "</div></div></div>";
-                ActualBulletinDiv.Controls.Add(new LiteralControl(txt));
-                
+                baseControl.Controls.Add(new LiteralControl(txt));
+
                 i++;
             }
-            ActualBulletinDiv.Controls.Add(new LiteralControl("</div>"));
-            /*
-            ActualBulletinDiv.InnerHtml += "<div class=\"panel-group\" id=\"accordion\">";
-            var i = 0;
-            foreach (var bul in CampusClient.DeskGetActualBulletins(CampusClient.SessionId))
-            {
-                string txt = "<div class=\"panel panel-default\"> " +
-                             "<div class=\"panel-heading\" data-toggle=\"collapse\" data-parent=\"#accordion\" data-target=\"#collapse" + i + "\">" +
-                             "<h4 class=\"panel-title\">" + 
-                             bul.Subject + 
-                             "</h4>" +
-                             "</div>" +
-                             "<div id=\"collapse" + i + "\" class=\"panel-collapse collapse in\">" +
-                             "<div class=\"panel-body\">" +
-                             bul.Text +
-                             "</div></div></div>";
-                ActualBulletinDiv.InnerHtml += txt;
-                i++;
-            }
-            ActualBulletinDiv.InnerHtml += "</div>";
-            */
+            baseControl.Controls.Add(new LiteralControl("</div>"));
+            _baseControl = baseControl;
+            ActualBulletinDiv.Controls.Add(baseControl);
+
+            var editControl = new Control();
+            editControl.ID = "edit_board_control";
+
+            var box1 = new Label();
+            box1.ID = "board_edit_subject";
+            box1.Width = 800;
+            var box2 = new TextBox();
+            box2.ID = "board_edit_text";
+            box2.Width = 800;
+            box2.Height = 300;
+            box2.TextMode = TextBoxMode.MultiLine;
+            var button1 = new Button();
+            button1.ID = "board_edit_button";
+            button1.Text = "Accept";
+            button1.Click += ((sender, eventArgs) =>
+                {
+                    CampusClient.DeskAddBulletein(
+                        SessionId, 
+                        "",
+                        ((TextBox)_editControl.FindControl("board_edit_text")).Text,
+                        Default.CurrentBulletin.BulletinId,
+                        CurrentBulletin.GroupId??-1,
+                        CurrentBulletin.ProfileId??-1,
+                        CurrentBulletin.SubdivisionId??-1,
+                        CurrentBulletin.ProfilePermissionId??-1);
+                    ResetBoard();
+                });
+
+            var button2 = new Button();
+            button2.ID = "board_cancel_button";
+            button2.Text = "Cancel";
+            button2.Click += ((sender, eventArgs) =>
+                {
+                    _editControl.Visible = false;
+                    _baseControl.Visible = true;
+                });
+
+            editControl.Controls.Add(box1);
+            editControl.Controls.Add(box2);
+            editControl.Controls.Add(new LiteralControl("<br>"));
+            editControl.Controls.Add(button1);
+            editControl.Controls.Add(button2);
+            editControl.Visible = false;
+            _editControl = editControl;
+            ActualBulletinDiv.Controls.Add(editControl);
+        }
+
+        public void ResetBoard()
+        {
+            ActualBulletinDiv.Controls.Clear();
+            LoadBoard();
         }
 
         protected void add_buletin(object sender, EventArgs e)
         {
             string res = "REQUEST RESULT: " +
-                             ((CampusClient.DeskAddBulletein(SessionId, sub_text.Text, text_text.Text) == "0")
+                             ((CampusClient.DeskAddBulletein(
+                             SessionId,
+                             sub_text.Text,
+                             text_text.Text,
+                             -1,
+                             -1,
+                             //_allowedProfile.Find(a => a.Name == profile.Text).Id,
+                             //_faculties.Find(a => a.Name == pidrozd.Text).Id,
+                             -1,
+                             -1) == "0")
                                  ? "Success"
                                  : "Fail");
-            OnLoad();
+            ResetBoard();
         }
-
 
         //<div class="panel-group" id="accordion">
         //            <div class="panel panel-default">

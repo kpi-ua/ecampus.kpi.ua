@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using NLog;
 
 namespace Core
 {
@@ -13,7 +9,7 @@ namespace Core
     {
         private CampusClient _campusClient;
 
-        public CampusClient CampusClient
+        protected CampusClient CampusClient
         {
             get { return _campusClient ?? (_campusClient = new CampusClient()); }
         }
@@ -55,13 +51,13 @@ namespace Core
             set { Session["UserData"] = value; }
         }
 
-        public String UserLogin
+        protected String UserLogin
         {
             get { return Session["UserLogin"] == null ? null : Session["UserLogin"].ToString(); }
             set { Session["UserLogin"] = value; }
         }
 
-        public String UserPassword
+        protected String UserPassword
         {
             get { return Session["UserPassword"] == null ? null : Session["UserPassword"].ToString(); }
             set { Session["UserPassword"] = value; }
@@ -76,6 +72,5 @@ namespace Core
                 Response.Redirect("~/login");
             }
         }
-
     }
 }
