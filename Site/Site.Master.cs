@@ -31,6 +31,16 @@ namespace Site
             }
         }
 
+        public string UserPhoto
+        {
+         
+            get { return this.SitePage.CurrentUser.Photo; }
+        }
+        public string UserFullName
+        {
+            get { return this.SitePage.CurrentUser.FullName; }
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);

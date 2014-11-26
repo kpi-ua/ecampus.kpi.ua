@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bulletin.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Credential.cs" />

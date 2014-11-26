@@ -22,22 +22,31 @@ namespace Site.Modules.Bulletins {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ActualBulletinDiv;
         
         /// <summary>
-        /// profile control.
+        /// profileList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList profile;
+        protected global::System.Web.UI.WebControls.DropDownList profileList;
         
         /// <summary>
-        /// pidrozd control.
+        /// lnkSaveAs control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList pidrozd;
+        protected global::System.Web.UI.WebControls.Button lnkSaveAs;
+        
+        /// <summary>
+        /// selectedVals control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl selectedVals;
         
         /// <summary>
         /// sub_text control.
