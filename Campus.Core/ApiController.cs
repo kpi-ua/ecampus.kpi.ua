@@ -32,6 +32,8 @@ namespace Campus.Core
         /// </value>
         public static bool AllowCompression { get; set; }
 
+        public static bool EnableExtendedDocumentation { get; set; }
+
         public static string DocumentationFilePath { get; set; }
 
         public static string DocumentationProviderProject { get; set; }
@@ -197,18 +199,19 @@ namespace Campus.Core
         {
             //Default Introspect implementation
 
-            var methods = GetType().GetMethods().AsParallel<MethodInfo>().Where(method => (method.ReturnType.BaseType == typeof(ActionResult) ||
-                                                                                method.ReturnType == typeof(ActionResult))
-                                                                               && method.Name != "Result"
-                                                                               && method.Name != "NotFound"
-                                                                               && method.Name != "Forbiden"
-                                                                               && method.Name != "Introspect"
-                                                                               && method.Name != "ValidateUser"
-                                                                               && method.Name != "OK"
-                                                                               && method.IsPublic)
-                                                                        .Select(method => IntrospectMethod(method)).ToList();
+            var methods = GetType().GetMethods().ToList();
+            methods = methods.AsParallel().Where(method => (method.ReturnType.BaseType == typeof(ActionResult) || method.ReturnType == typeof(ActionResult))
+                                                           && method.Name != "Result"
+                                                           && method.Name != "NotFound"
+                                                           && method.Name != "Forbiden"
+                                                           && method.Name != "Introspect"
+                                                           && method.Name != "ValidateUser"
+                                                           && method.Name != "OK"
+                                                           && method.IsPublic).ToList();
 
-            return Result(methods);
+            var info = methods.Select(method => IntrospectMethod(method)).ToList();
+
+            return Result(info);
         }
 
         protected override void OnException(ExceptionContext filterContext)
@@ -266,25 +269,29 @@ namespace Campus.Core
                 compression = method.GetCustomAttribute<CompressAttribute>(true);
             }
 
+            var parameters = method.GetParameters().AsParallel()
+                .Where(p => !NonSerializableParameterAttribute.Instance.HasAttribute(p))
+                .Select(o => new
+                {
+                    o.Name,
+                    Type = o.ParameterType.ToString(),
+                    Description = GetDescription(method, o),
+                }).ToList();
+
+            var description = GetDescription(method, null);
+
             return new
             {
                 method.Name,
                 Method = isHttPost ? "POST" : "GET",
-                Description = GetDescription(method, null),
+                Description = description,
                 Reference = isReference ? method.GetCustomAttribute<ReferenceAttribute>(true).Url : null,
                 Compression = !isCompression ? null : new
                 {
                     Type = Enum.GetName(compression.Scheme.GetType(), compression.Scheme),
                     Level = Enum.GetName(compression.Level.GetType(), compression.Level)
                 },
-                Parameters = method.GetParameters().AsParallel<ParameterInfo>()
-                    .Where(p => !NonSerializableParameterAttribute.Instance.HasAttribute(p))
-                        .Select(o => new
-                        {
-                            o.Name,
-                            Type = o.ParameterType.ToString(),
-                            Description = GetDescription(method, o),
-                        }).ToList()
+                Parameters = parameters
             };
         }
 
@@ -327,7 +334,7 @@ namespace Campus.Core
 
         private MethodBase GetCallerMethod(int depth = 2)
         {
-            StackFrame frame = new StackFrame(depth);
+            var frame = new StackFrame(depth);
             return frame.GetMethod();
         }
 
@@ -335,49 +342,58 @@ namespace Campus.Core
         {
             string result = null;
 
-            var attributeMethod = methodInfo.GetCustomAttribute<DescriptionAttribute>(true);
-            var attributeParam = parameterInfo != null ? parameterInfo.GetCustomAttribute<DescriptionAttribute>(true) : null;
-
-            if (attributeParam != null)
+            if (!EnableExtendedDocumentation)
             {
-                return attributeParam.Description;
+                result = String.Format("{0} {1}", methodInfo, parameterInfo);
             }
-
-            if (attributeMethod != null)
+            else
             {
-                return attributeMethod.Description;
-            }
+                var attributeMethod = methodInfo.GetCustomAttribute<DescriptionAttribute>(true);
+                var attributeParam = parameterInfo != null
+                    ? parameterInfo.GetCustomAttribute<DescriptionAttribute>(true)
+                    : null;
 
-            try
-            {
-                var controller =
-                    XmlDocumentation.Documentation.Controllers.FirstOrDefault(
-                        c => c.Caption.Equals(methodInfo.DeclaringType.Name));
-
-                if (controller != null)
+                if (attributeParam != null)
                 {
-                    var method = controller.Methods.FirstOrDefault(m => m.Caption.Equals(methodInfo.Name));
+                    return attributeParam.Description;
+                }
 
-                    if (method != null)
+                if (attributeMethod != null)
+                {
+                    return attributeMethod.Description;
+                }
+
+                try
+                {
+                    var controller =
+                        XmlDocumentation.Documentation.Controllers.FirstOrDefault(
+                            c => c.Caption.Equals(methodInfo.DeclaringType.Name));
+
+                    if (controller != null)
                     {
-                        if (parameterInfo == null)
-                        {
-                            result = method.Summary != null ? method.Summary.Value : null;
-                        }
-                        else
-                        {
-                            var param = method.Params.FirstOrDefault(p => p.Name.Equals(parameterInfo.Name));
+                        var method = controller.Methods.FirstOrDefault(m => m.Caption.Equals(methodInfo.Name));
 
-                            if (param != null)
+                        if (method != null)
+                        {
+                            if (parameterInfo == null)
                             {
-                                result = param.Value;
+                                result = method.Summary != null ? method.Summary.Value : null;
+                            }
+                            else
+                            {
+                                var param = method.Params.FirstOrDefault(p => p.Name.Equals(parameterInfo.Name));
+
+                                if (param != null)
+                                {
+                                    result = param.Value;
+                                }
                             }
                         }
                     }
                 }
-            }
-            catch
-            {
+                catch
+                {
+                }
             }
 
             result = String.IsNullOrEmpty(result) ? String.Empty : result.Trim();
