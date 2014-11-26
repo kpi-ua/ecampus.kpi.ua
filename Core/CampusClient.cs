@@ -352,9 +352,15 @@ namespace Core
             return r[1];
         }
 
-        public IEnumerable<Bulletin> DeskGetActualBulletins(string sessionId)
+        public IEnumerable<Bulletin> DeskGetActualBulletins(int userId)
         {
-            return Get<IEnumerable<Bulletin>>("BulletinBoard", "DeskGetActualBulletins", new { sessionId });
+            var l = Get<IEnumerable<Bulletin>>("BulletinBoard", "DeskGetActualBulletins", new { userId });
+            foreach (var v in l)
+            {
+                v.LinkList = new List<BulletinLink>();
+                v.ParseLink(v.StrLinkList);
+            }
+            return l;
         }
 
         public IEnumerable<SimpleInfo> DeskGetAllowedProfiles()
@@ -372,37 +378,45 @@ namespace Core
             return Get<IEnumerable<GroupInfo>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
         }
 
-        public string DeskAddBulletein(string sessionId, string sub, string txt, int id = -1,
-            int groupId = -1, int profileId = -1, int subdivisionId = -1, int profilePermissionId = -1)
+        public string DeskAddBulletein(int creatorId,
+            string creatorName,
+            string creationDate,
+            string startDate,
+            string endDate,
+            string subject,
+            string text,
+            string link = "///")
         {
             return Get<string>("BulletinBoard", "DeskAddBulletin", new
             {
-                sessionId,
-                subject = sub,
-                text = txt,
-                id,
-                //groupId,
-                //profileId,
-                //subdivisionId,
-                //profilePermissionId
+                creatorId,
+                creatorName,
+                creationDate,
+                startDate,
+                endDate,
+                subject,
+                text,
+                link
             });
-            /*
-            var arg = "sessionId=" + SessionId + "&subject=" + subject + "&text=" + text;
-            return Get<string>("BulletinBoard", "DeskAddBulletein", new {subject, text});            
-            var request = (HttpWebRequest)WebRequest.Create("URL");
-            var postData = "thing1=hello";
-            postData += "&thing2=world";
-            var data = Encoding.ASCII.GetBytes(postData);
-            request.Method = "POST";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.ContentLength = data.Length;
-            using (var stream = request.GetRequestStream()){
-                stream.Write(data, 0, data.Length);}
-            var response = (HttpWebResponse)request.GetResponse();
-            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-             */
         }
-
+        public string DeskUpdateBulletein(int creatorId,
+            string creatorName,
+            string subject,
+            string text,
+            int id,
+            string link = "///"
+            )
+        {
+            return Get<string>("BulletinBoard", "DeskUpdateBulletin", new
+            {
+                creatorId,
+                creatorName,
+                subject,
+                text,
+                id,
+                link
+            });
+        }
         public void DeskRemoveBulletin(int id)
         {
             Get<string>("BulletinBoard", "DeskRemoveBulletin", new { id = id });

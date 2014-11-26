@@ -4,16 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Core;
+using Bulletin = Core.Bulletin;
 
 namespace Site.Modules.Bulletins
 {
     public partial class Default : Core.SitePage
     {
-        public static Bulletin CurrentBulletin;
+        public static Core.Bulletin CurrentBulletin;
         private Control _baseControl;
         private Control _editControl;
         private List<SimpleInfo> _faculties;
-        private List<SimpleInfo> _allowedProfile; 
+        private List<SimpleInfo> _allowedProfile;
+        public static string Result = "";
 
         protected override void OnLoad(EventArgs e)
         {
@@ -29,41 +32,44 @@ namespace Site.Modules.Bulletins
             //var items = CampusClient.GetBulletinBoard(SessionId);
 
             //Render(items);
-            
-            LoadBoard();
+
+
             var list = new List<SimpleInfo>();
+            list.Add(new SimpleInfo(-1, "Всі профайли"));
             foreach (var v in CampusClient.DeskGetAllowedProfiles())
-            {
-                profile.Items.Add(v.Name);
                 list.Add(v);
-            }
             _allowedProfile = list;
             var list2 = new List<SimpleInfo>();
+            list2.Add(new SimpleInfo(-1, "Всі факультети"));
             foreach (var v in CampusClient.DeskGetFacultyTypesList())
-            {
-                pidrozd.Items.Add(v.Name);
                 list2.Add(v);
-            }
             _faculties = list2;
 
+            if (!Page.IsPostBack)
+            {
+                profileList.Items.Clear();
+                _allowedProfile.ForEach(a => profileList.Items.Add(a.Name));
+            }
+            
+            LoadBoard();
+            
             //CampusClient.DeskGetGroupTypesList()
         }
-       
-
+        
         void LoadBoard()
         {
             var baseControl = new Control();
             baseControl.ID = "base_board_control";
             baseControl.Controls.Add(new LiteralControl("<div class=\"panel-group\" id=\"accordion\">"));
             int i = 0;
-            foreach (var l in CampusClient.DeskGetActualBulletins(SessionId).Reverse())
+            foreach (var l in CampusClient.DeskGetActualBulletins(CurrentUser.UserAccountId).Reverse())
             {
                 var ss = l;
                 string s = l.Subject;
                 string t = l.Text;
                 int id = l.BulletinId;
                 var b1 = new ImageButton();
-                b1.ImageUrl = "\\Images\\delete.png";
+                b1.ImageUrl = "/Images/delete.png";
                 b1.AlternateText = "Вид";
                 b1.ID = "b1_" + i;
                 b1.Click += (source, args) =>
@@ -72,16 +78,31 @@ namespace Site.Modules.Bulletins
                     ResetBoard();
                 };
                 var b2 = new ImageButton();
-                b2.ImageUrl = "\\Images\\edit.png";
+                b2.ImageUrl = "/Images/edit.png";
                 b2.AlternateText = "Ред";
                 b2.ID = "b2_" + i;
                 b2.Click += (source, args) =>
                 {
+                    CurrentBulletin = l;
                     _baseControl.Visible = false;
                     _editControl.Visible = true;
-                    ((Label)_editControl.FindControl("board_edit_subject")).Text = l.Subject;
+                    ((TextBox)_editControl.FindControl("board_edit_subject")).Text = l.Subject;
                     ((TextBox)_editControl.FindControl("board_edit_text")).Text = l.Text;
-                    CurrentBulletin = l;
+                    /*
+                    var profDrop = ((DropDownList) _editControl.FindControl("board_prof_drop"));
+                    _allowedProfile.ForEach(a => profDrop.Items.Add(a.Name));
+                    profDrop.SelectedValue = (l.LinkList[0].ProfileId != null)
+                        ? _allowedProfile.Find(a => a.Id == l.LinkList[0].ProfileId).Name
+                        : "Всі профайли";
+                    */
+                    /*
+                    var facultyDrop = ((DropDownList) _editControl.FindControl("board_faculty_drop"));
+                    _faculties.ForEach(a => facultyDrop.Items.Add(a.Name));
+                    facultyDrop.SelectedValue = (l.LinkList[0].SubdivisionId != null)
+                        ? _faculties.Find(a => a.Id == l.LinkList[0].SubdivisionId).Name
+                        : "Всі факультети";
+                     */
+                    
                 };
                 b1.Attributes["style"] = "float: left; margin-right: 5px;";
                 b2.Attributes["style"] = b1.Attributes["style"];
@@ -121,7 +142,7 @@ namespace Site.Modules.Bulletins
             var editControl = new Control();
             editControl.ID = "edit_board_control";
 
-            var box1 = new Label();
+            var box1 = new TextBox();
             box1.ID = "board_edit_subject";
             box1.Width = 800;
             var box2 = new TextBox();
@@ -134,15 +155,14 @@ namespace Site.Modules.Bulletins
             button1.Text = "Accept";
             button1.Click += ((sender, eventArgs) =>
                 {
-                    CampusClient.DeskAddBulletein(
-                        SessionId, 
-                        "",
+                    CampusClient.DeskUpdateBulletein(
+                        CurrentUser.UserAccountId,
+                        CurrentUser.FullName,
+                        ((TextBox)_editControl.FindControl("board_edit_subject")).Text,
                         ((TextBox)_editControl.FindControl("board_edit_text")).Text,
-                        Default.CurrentBulletin.BulletinId,
-                        CurrentBulletin.GroupId??-1,
-                        CurrentBulletin.ProfileId??-1,
-                        CurrentBulletin.SubdivisionId??-1,
-                        CurrentBulletin.ProfilePermissionId??-1);
+                        CurrentBulletin.BulletinId,
+                        CurrentBulletin.LinkList.ConvertToString()
+                        );
                     ResetBoard();
                 });
 
@@ -155,6 +175,11 @@ namespace Site.Modules.Bulletins
                     _baseControl.Visible = true;
                 });
 
+            var prof = new DropDownList();
+            prof.ID = "board_prof_drop";
+
+            //editControl.Controls.Add(prof);
+            //editControl.Controls.Add(new LiteralControl("<br>"));
             editControl.Controls.Add(box1);
             editControl.Controls.Add(box2);
             editControl.Controls.Add(new LiteralControl("<br>"));
@@ -164,31 +189,47 @@ namespace Site.Modules.Bulletins
             _editControl = editControl;
             ActualBulletinDiv.Controls.Add(editControl);
         }
-
+        
         public void ResetBoard()
         {
             ActualBulletinDiv.Controls.Clear();
             LoadBoard();
         }
 
-        protected void add_buletin(object sender, EventArgs e)
+        public void postRes(object sender, EventArgs e)
         {
-            string res = "REQUEST RESULT: " +
-                             ((CampusClient.DeskAddBulletein(
-                             SessionId,
-                             sub_text.Text,
-                             text_text.Text,
-                             -1,
-                             -1,
-                             //_allowedProfile.Find(a => a.Name == profile.Text).Id,
-                             //_faculties.Find(a => a.Name == pidrozd.Text).Id,
-                             -1,
-                             -1) == "0")
-                                 ? "Success"
-                                 : "Fail");
-            ResetBoard();
+            Result += " | " + profileList.SelectedValue;
+            selectedVals.InnerText = Result;
         }
 
+        protected void add_buletin(object sender, EventArgs e)
+        {
+            var list = new List<BulletinLink>();
+            var split = Result.Split(new [] {" | "}, StringSplitOptions.RemoveEmptyEntries);
+            Result = "";
+            selectedVals.InnerText = Result;
+            foreach (var s in split)
+            {
+                var link = new BulletinLink(-1, _allowedProfile.First(a => a.Name == s).Id, -1, -1);
+                    list.Add(link);
+            }
+            
+            var t = DateTime.Today.ToShortDateString();
+            CampusClient.DeskAddBulletein(
+                CurrentUser.UserAccountId,
+                CurrentUser.FullName,
+                DateTime.Today.ToShortDateString(),
+                DateTime.Parse(dateStart_d.Text + "/" + dateStart_m.Text + "/" + dateStart_y.Text)
+                    .ToShortDateString(),
+                DateTime.Parse(dateEnd_d.Text + "/" + dateEnd_m.Text + "/" + dateEnd_y.Text).ToShortDateString(),
+                sub_text.Text,
+                text_text.Text,
+                list.ConvertToString()
+                );
+            ResetBoard();
+            
+        }
+        
         //<div class="panel-group" id="accordion">
         //            <div class="panel panel-default">
         //            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">

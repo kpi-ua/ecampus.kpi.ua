@@ -27,15 +27,16 @@
                            Профіль
                        </td>
                        <td>
-                           <asp:DropDownList id="profile" runat="server"></asp:DropDownList>
+                           <asp:DropDownList Width="700" runat="server" ID ="profileList"></asp:DropDownList>
+                           <asp:Button ID="lnkSaveAs" Text="Вибрати" OnClick="postRes" runat="server"></asp:Button>
                        </td>
                    </tr> 
                     <tr>
                        <td>
-                           Підрозділ
+                           Отримувачі: 
                        </td>
                        <td>
-                           <asp:DropDownList id="pidrozd" runat="server"></asp:DropDownList>
+                           <div runat="server" id="selectedVals"></div>
                        </td>
                    </tr> 
                     <tr>
@@ -51,12 +52,12 @@
                            Період показу
                        </td>
                        <td>
-                           Початок: <asp:TextBox ID="dateStart_d" runat="server" Width="20" MaxLength="2"></asp:TextBox>
-                           -<asp:TextBox ID="dateStart_m" runat="server" Width="20" MaxLength="2"></asp:TextBox>
-                           -<asp:TextBox ID="dateStart_y" runat="server" Width="40" MaxLength="4"></asp:TextBox>
-                           Завершення: <asp:TextBox ID="dateEnd_d" runat="server" Width="20" MaxLength="2"></asp:TextBox>
-                           -<asp:TextBox ID="dateEnd_m" runat="server" Width="20" MaxLength="2"></asp:TextBox>
-                           -<asp:TextBox ID="dateEnd_y" runat="server" Width="40" MaxLength="4"></asp:TextBox>
+                           Початок: <asp:TextBox ID="dateStart_d" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
+                           -<asp:TextBox ID="dateStart_m" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
+                           -<asp:TextBox ID="dateStart_y" runat="server" Width="40" MaxLength="4" Text="1111"></asp:TextBox>
+                           Завершення: <asp:TextBox ID="dateEnd_d" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
+                           -<asp:TextBox ID="dateEnd_m" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
+                           -<asp:TextBox ID="dateEnd_y" runat="server" Width="40" MaxLength="4" Text="1111"></asp:TextBox>
                        </td>
                    </tr> 
                     <tr>
@@ -79,5 +80,12 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        function ShowPanel() {
+            var d = $('[id*=profileList] option:selected').text();
+            document.getElementById('<%=selectedVals.ClientID%>').innerText += " | " + d;
+            return false;
+        }
+    </script>
     <div class="table-responsive" runat="server" id="bulletins"></div>
 </asp:Content>
