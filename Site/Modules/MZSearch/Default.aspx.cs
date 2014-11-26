@@ -164,6 +164,11 @@ namespace Site.MZSearch
 
         }
 
+        /// <summary>
+        /// //
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void DiscList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
 
