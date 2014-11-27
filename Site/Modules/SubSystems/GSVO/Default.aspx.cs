@@ -36,11 +36,15 @@ namespace Site.Modules.SubSystems.GSVO
             {
                 var li = new ListItem();
 
+                var subdivId = new ListItem();
+
                 foreach(var e in (Dictionary<string, object>)dataArr[i])
                 {
-                    if (e.Key.ToString() == "Name")
+                    if (e.Key.ToString() == "Name" && e.Key.ToString() == "SubdivisionId")
                     {
                         li.Text = e.Value.ToString();
+
+                        subdivId.Text = e.Value.ToString();
                     }
 
                     //else
