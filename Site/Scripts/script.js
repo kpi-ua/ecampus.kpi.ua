@@ -454,10 +454,10 @@ Planner = function (session, input) {
         },
         Messages: {
             InputForm: '<div id="planner-popup"><br /><canvas class="div-canvas-small" id="spinner-calendar-data" style="display:none"></canvas> <div id="back-popup-content"> <span class="input-group" style="width: 280px; display: inline-block;"> Заголовок: <br /> <input type="text" class="form-control" id="tasktitle3" value=""> </span> <span class="input-group clockpicker" style="width: 280px; display: inline-block;"> Час:<br /> <input type="text" class="form-control" id="tasktime3" value="" data-default="00:00"> </span> <script type="text/javascript"> $(\'#tasktime3\').clockpicker({ autoclose: true, donetext: "OK" }); </script> <br /> <br /> Подія: <br /> <textarea class="input-group" name="tasktext3" rows="5" style="color: black; width: 565px; height: 100px;" id="tasktext3"></textarea><br /> </div> </div>',
-            EventList: '<div id="datepicker_data" style="width: 80%; height: 600px;"> <br /> <div class="input-group input-group-lg"> <span id="left_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-left"style="top:0px"></span> <input id="input_01" class="datepicker form-control" name="date" type="text" style="width: 290px; text-align:center; cursor: pointer"> <span id="right_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-right" style="top:0px"></span> <span id="add_button" class="input-group-addon btn btn-success">Додати</span> <span id="archive_button" class="input-group-addon btn btn-info" style="">Архів</span> </div> <br /><br /> <div id="datepicker-events"></div> </div>'
+            EventList: '<div id="datepicker_data" style="width: 80%; height: 600px;"> <br /> <div class="input-group input-group-lg"> <span id="left_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-left"style="top:0px"></span> <input id="input_01" class="datepicker form-control" name="date" type="text" style="width: 290px; text-align:center; cursor: pointer"> <span id="right_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-right" style="top:0px"></span> <span id="add_button" class="input-group-addon btn btn-success">Додати</span> <span id="archive_button" class="input-group-addon btn btn-info" style="">Архів</span> </div><div id="datepicker-events" style="overflow-y: auto; overflow-x: hidden; width: 560px; height: 500px"></div> </div>'
         },
         ArchiveLastState: false,
-        Page: 0
+        Page: 1
     };
 
     var ManipulateHtml = function (string, tag) {
@@ -592,23 +592,7 @@ Planner = function (session, input) {
         _d = bootbox.dialog({
             closeButton: false,
             message: Members.Messages.EventList,
-            buttons: {                
-                Prev: {
-                    label: "Попередня",
-                    className: "btn btn-default",
-                    callback: function () {
-                        _hide();
-                        _show(container, Members.ArchiveLastState, Members.Page - 1);
-                    }
-                },
-                Next: {
-                    label: "Наступна",
-                    className: "btn btn-default",
-                    callback: function () {                        
-                        _hide();
-                        _show(container, Members.ArchiveLastState, Members.Page + 1);
-                    }
-                },
+            buttons: {                                
                 Close: {
                     label: "Приховати",
                     className: "btn btn-default",
@@ -654,10 +638,34 @@ Planner = function (session, input) {
 
     var _hide = this.Hide;
 
+    //this.Pagination = function(id, archive)
+    //{
+    //    if (id == undefined) id = 'calendar-paging';
+    //    if (archive == undefined || archive == false) archive = "1";
+    //    else if (+archive == 0 || archive == true) archive = "0";
+
+    //    var callString = ApiEndpoint + "Calendar/GetPagesAllUserDate?sessionId=" + Members.SessionId + "&date=" + $.ddate + "&actuality=" + archive;
+    //    var callback = function(data) {
+    //        $.calendarPages = data['Data'];
+
+    //        $('#' + id).bootpag({
+    //            total: $.calendarPages,
+    //            page: Members.Page,
+    //            maxVisible: 10
+    //        }).on("page", function (event, num) {
+    //            Members.Page = num;
+    //            $.planner.RenderTimeLabels($.ddate, Members.ArchiveLastState, num);                
+    //        });
+    //    }
+    //    APICalls.MakeRawAPICall(callString, callback);        
+    //}
+
+    //var _pagination = this.Pagination;
+
     // Render list of events for date
     this.RenderTimeLabels = function (date, archive, page) {        
         date = Members.Date(date);
-        if (page == undefined) page = 0;
+        if (page == undefined) page = 1;
         if (archive == undefined || archive == false) archive = "1";
         else if (+archive == 0 || archive == true) archive = "0";
         Members.Page = page;
@@ -669,7 +677,7 @@ Planner = function (session, input) {
                 items += "<li><div class='btn input-group input-group-lg');'><span class='input-group-addon'>Oops</span><input type='text' class='form-control' style='cursor:default;' placeholder='Заплановані події відсутні' disabled></div></li><li><hr></li>";
             } else {                
                 for (var i = 0; i < data["Data"].length; i++) {
-                    items += nano("<li class='event'><div class='btn input-group input-group-lg' onclick='" + values.thisObject + ".ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
+                    items += nano("<li class='event'><div class='btn input-group input-group-lg' style='width: 530px;' onclick='" + values.thisObject + ".ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
                     if (title == "")
                         title = data["Data"][i].DateTask;
                 }
@@ -696,6 +704,7 @@ Planner = function (session, input) {
         };
 
         var beforeCall = function () {
+            //_pagination(archive);
             //if ($(".popover").html() != undefined)
                 //$("#" + values.popover_toggle_id).popover('destroy');
             $("#" + values.events_target_id).html('<canvas class="div-canvas-small" id="spinner-calendar"></canvas>');
@@ -854,7 +863,7 @@ Planner = function (session, input) {
 
     var _togglePopover = function (date, archive, page) {
         if (page == undefined)
-            page = 0;
+            page = 1;
 
         if (page == Members.Page) {
             if ($('.popover').html() == undefined || $('.popover').html() == "") {
@@ -862,8 +871,8 @@ Planner = function (session, input) {
                 if (archive == undefined)
                     archive = Members.ArchiveLastState;
 
-                if (+page < 0)
-                    page = 0;
+                if (+page < 1)
+                    page = 1;
 
                 _renderTimeLabels(date, archive, page);
             }
@@ -881,8 +890,8 @@ Planner = function (session, input) {
             if (archive == undefined)
                 archive = Members.ArchiveLastState;
 
-            if (+page < 0)
-                page = 0;
+            if (+page < 1)
+                page = 1;
 
             _renderTimeLabels(date, archive, page);
         }
