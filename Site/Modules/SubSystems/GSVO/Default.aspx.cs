@@ -40,11 +40,9 @@ namespace Site.Modules.SubSystems.GSVO
 
                 foreach(var e in (Dictionary<string, object>)dataArr[i])
                 {
-                    if (e.Key.ToString() == "Name" && e.Key.ToString() == "SubdivisionId")
+                    if (e.Key.ToString() == "Name")
                     {
                         li.Text = e.Value.ToString();
-
-                        subdivId.Text = e.Value.ToString();
                     }
 
                     //else
