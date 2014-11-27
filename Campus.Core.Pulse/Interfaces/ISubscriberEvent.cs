@@ -2,6 +2,7 @@
 using System.Net.Http;
 using Campus.Core.Attributes;
 using Campus.Core.EventsArgs;
+using Campus.Core.Pulse.Attributes;
 using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Pulse;
 

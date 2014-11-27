@@ -1,16 +1,16 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
-using Campus.Core.Attributes;
 using Campus.Core.Common.Extensions;
-using Campus.Core.EventsArgs;
-using Campus.Core.Common.Exceptions;
+using Campus.Core.Pulse.Attributes;
 using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Interfaces;
 using Campus.Core.Pulse.Pulse;
 using Campus.Pulse;
+using Campus.Core.Pulse.Common.Extensions;
 
 namespace Campus.Core.Pulse
 {
@@ -50,7 +50,8 @@ namespace Campus.Core.Pulse
         /// Represents a basic pulse class
         /// </summary>
         [NonSerializableClass]
-        public class PulseObject<ClientInfo> : PulseController<ClientInfo>, IPulseObject where ClientInfo: class
+        public class PulseObject<ClientInfo> : PulseController<ClientInfo>, IPulseObject where ClientInfo
+            : class
         {
             public int Id { get { return typeof(ClientInfo).GetHashCode(); } }
 
@@ -65,6 +66,7 @@ namespace Campus.Core.Pulse
             public override bool Equals(object obj)
             {
                 return this.GetHash().Equals(obj.GetHash());
+
             }
 
             public override ClientInfo GetUser(string sessionId)
@@ -93,7 +95,7 @@ namespace Campus.Core.Pulse
         public new event EventHandler<SubscriberEventArgs<Client>> SubscriberAdded;
 
         internal void OnSubscriberAdded(int subscriberCount, Client client)
-        {            
+        {
             if (SubscriberAdded != null)
                 SubscriberAdded(this, new SubscriberEventArgs<Client>(client, subscriberCount));
         }
@@ -136,7 +138,7 @@ namespace Campus.Core.Pulse
         /// <exception cref="System.NotImplementedException"></exception>
         public virtual ClientInfo GetUser(string sessionId)
         {
-            throw new ArchitectureException("You must override GetUser method in client code");
+            throw new Exception("You must override GetUser method in client code");
         }
 
         /// <summary>
@@ -162,7 +164,7 @@ namespace Campus.Core.Pulse
         /// <returns>Message stream</returns>
         [AcceptVerbs("GET", "POST")]
         [HttpGet]
-        [Description("Get request. Returns new event-stream.")]
+        [Attributes.Description("Get request. Returns new event-stream.")]
         public virtual HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
         {
             return AddSubscriber(request, sessionId, ContentType.Text);
@@ -234,7 +236,7 @@ namespace Campus.Core.Pulse
         /// <param name="contentType">Type of the content.</param>
         /// <returns>Response message</returns>
         private HttpResponseMessage AddSubscriber(HttpRequestMessage request, ClientInfo clientInfo, ContentType contentType = ContentType.Text)
-        {            
+        {
             HttpResponseMessage response = request.CreateResponse();
             AddHeaders(response);
             response.Content = new PushStreamContentWithClientInfomation<ClientInfo>((stream, content, context) =>
@@ -374,21 +376,21 @@ namespace Campus.Core.Pulse
         public override int GetClientId(string sessionId)
         {
             return int.Parse(sessionId);
-        }        
+        }
 
-        public TestClass()            
+        public TestClass()
         {
             var user = GetUser("123");
-            
-            OnHeartbeat += (sender, e) => 
+
+            OnHeartbeat += (sender, e) =>
             {
-                Send(data: "some message", clientIds: new[]{user.Id});
-            };            
+                Send(data: "some message", clientIds: new[] { user.Id });
+            };
         }
 
         [AcceptVerbs("GET", "POST")]
         [HttpGet]
-        [Description("Get request. Returns new event-stream.")]
+        [Attributes.Description("Get request. Returns new event-stream.")]
         public override HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request, string sessionId)
         {
             return AddSubscriber(request, sessionId, ServerSendEvent.ContentType.Text);

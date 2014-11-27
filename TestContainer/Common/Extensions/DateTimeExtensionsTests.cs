@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Campus.Core.Pulse.Common.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Campus.Core.Common.Extensions.Tests
+namespace Campus.PulseTests.Common.Extensions
 {
     [TestClass()]
     public class DateTimeExtensionsTests

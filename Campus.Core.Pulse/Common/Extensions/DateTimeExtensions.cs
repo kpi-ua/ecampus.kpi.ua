@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Campus.Core.Common.Generators;
 
-namespace Campus.Core.Common.Extensions
+namespace Campus.Core.Pulse.Common.Extensions
 {
     public static class DateTimeExtensions
     {

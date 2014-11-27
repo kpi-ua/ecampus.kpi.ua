@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Campus.Core.Common.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Campus.Core.Common.Extensions.Tests
+namespace Campus.PulseTests.Common.Extensions
 {
     [TestClass()]
     public class IEnumerableExtensionsTests
@@ -116,7 +117,7 @@ namespace Campus.Core.Common.Extensions.Tests
             var actual = new ConcurrentBag<int>();
 
             //actual
-            var actTask = testValues.ForEachAsync(2, (v) => Task.Run(() => actual.Add(v * v)));
+            var actTask = testValues.ForEachAsync((v) => Task.Run(() => actual.Add(v * v)));
 
             // expected
             foreach (var v in testValues)

@@ -1,4 +1,5 @@
-﻿using Campus.Core.Attributes;
+﻿using System.ComponentModel;
+using Campus.Core.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace Example.Controllers
         /// <param name="someValue">Some value.</param>
         /// <returns></returns>
         [Description("Descrption attr test")]
-        [Reference("http://someurl.com")]
+        //[Reference("http://someurl.com")]
         public ActionResult Test3([Description("testc description for params")]string someValue = "test")
         {
             return Result(someValue);

@@ -1,6 +1,6 @@
-﻿using Campus.Core.Attributes;
-using Campus.Core.Common.Extensions;
+﻿using Campus.Core.Common.Extensions;
 using Campus.Core.Common.Generators;
+using Campus.Core.Pulse.Attributes;
 using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Interfaces;
 using Campus.Pulse;
@@ -471,6 +471,7 @@ namespace Campus.Core.Pulse.Pulse
         }
 
 
+
         /// <summary>
         /// Introspects the method.
         /// </summary>
@@ -496,14 +497,14 @@ namespace Campus.Core.Pulse.Pulse
 
         void IDisposable.Dispose()
         {
-            if (this._HeartbeatTimer != null) 
+            if (this._HeartbeatTimer != null)
             {
                 this._HeartbeatTimer.Dispose();
             }
-            
+
             this._Clients = null;
             this._MessageHistory = null;
-            
+
         }
     }
 }

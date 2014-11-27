@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Campus.Core.Attributes;
+using Campus.Core.Pulse.Attributes;
 
 namespace Campus.Core.Pulse.Interfaces
 {

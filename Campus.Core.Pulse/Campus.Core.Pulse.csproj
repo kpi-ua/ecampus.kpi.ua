@@ -57,7 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\DescriptionAttribute.cs" />
     <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Common\Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Common\Extensions\ObjectExtensions.cs" />
     <Compile Include="Common\Generators\GuidIdGenerator.cs" />
     <Compile Include="Common\Generators\SimpleIdGenerator.cs" />
     <Compile Include="Common\Generators\TemplateEngine.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Pulse\Client.cs" />
     <Compile Include="Pulse\Message.cs" />
     <Compile Include="Pulse\MessageHistory.cs" />
+    <Compile Include="Attributes\Serializable.cs" />
     <Compile Include="Pulse\PulseCollection.cs" />
     <Compile Include="Pulse\PulseFactory.cs" />
     <Compile Include="Pulse\SendQueue.cs" />

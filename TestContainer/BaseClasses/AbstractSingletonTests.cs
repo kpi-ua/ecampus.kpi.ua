@@ -1,6 +1,4 @@
-﻿using Campus.Core.Common.BaseClasses;
-using Campus.Core.Common.Exceptions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Campus.Core.Common.BaseClasses.Tests
 {
@@ -8,7 +6,8 @@ namespace Campus.Core.Common.BaseClasses.Tests
     {
         public int t;
 
-        public TestClass() : base()
+        public TestClass()
+            : base()
         {
             t = 10;
         }
@@ -16,19 +15,13 @@ namespace Campus.Core.Common.BaseClasses.Tests
 
     [TestClass()]
     public class AbstractSingletonTests
-    {        
+    {
         [TestMethod()]
         public void VerifyChildTest()
         {
-            try
-            {
-                var t = TestClass.Instance.t;
-                Assert.Fail();
-            }
-            catch (ArchitectureException)
-            {
+            var t = TestClass.Instance.t;
+            Assert.Fail();
 
-            }
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Example
     {
         protected void Application_Start()
         {
+            Campus.Core.ApiController.EnableExtendedDocumentation = true;
             Campus.Core.ApiController.DocumentationFilePath = HttpContext.Current.Server.MapPath("~/api.xml");
             Campus.Core.ApiController.DocumentationProviderProject = "Example";
 
