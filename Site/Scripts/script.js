@@ -371,7 +371,8 @@ function AjaxLoader(id, options) {
 //}
 Planner = function (session, input) {
 
-    var ApiEndpoint = $("#ApiEndpoint").html();
+    $.ApiPath = $("#ApiEndpoint").html();
+    var ApiEndpoint = $.ApiPath;
 
     var constructValues = function () {
         if (input != undefined) {
@@ -1048,4 +1049,7 @@ SubscribeToEvents = function (_document) {
         $.planner.RenderTimeLabels($('.datepicker').val());        
         $.ddate = $('.datepicker').val();
     });
+
+    $.notifications = new ServerNotifications();
+    $.notifications.Subscribe("test", $.ApiPath + "Pulse/CalendarPulse/Get?sessionId=123");
 }
