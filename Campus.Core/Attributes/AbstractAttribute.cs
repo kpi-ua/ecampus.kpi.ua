@@ -11,10 +11,7 @@ namespace Campus.Core.Attributes
         /// </summary>
         public override object TypeId
         {
-            get
-            {
-                return GetType().Name;
-            }
+            get { return GetType().Name; }
         }
 
         /// <summary>
@@ -25,12 +22,16 @@ namespace Campus.Core.Attributes
         /// <param name="inherit">if set to <c>true</c> [inherit].</param>
         /// <returns></returns>
         public bool HasAttribute(ICustomAttributeProvider customAttributeProvider, Type attribute = null, bool inherit = false)
-        {            
-            if (attribute == null) attribute = this.GetType();
+        {
+            if (attribute == null)
+            {
+                attribute = this.GetType();
+            }
+
             return customAttributeProvider.GetCustomAttributes(inherit).Any(attr =>
             {
                 var a = attr as Attribute;
-                return a.TypeId.GetType().Equals(typeof(string)) && (string)a.TypeId == attribute.Name;
+                return a.TypeId.GetType() == typeof(string) && (string)a.TypeId == attribute.Name;
             });
         }        
     }

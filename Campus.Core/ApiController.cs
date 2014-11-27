@@ -214,6 +214,23 @@ namespace Campus.Core
             return Result(info);
         }
 
+        protected void OnException(Exception ex)
+        {
+            var handler = ExceptionHandled;
+
+            if (handler != null)
+            {
+                Uri url = null;
+
+                if (System.Web.HttpContext.Current != null && System.Web.HttpContext.Current.Request != null)
+                {
+                    url = System.Web.HttpContext.Current.Request.Url;
+                }
+
+                handler(this, new ExceptionEventsArgs(ex, url));
+            }
+        }
+
         protected override void OnException(ExceptionContext filterContext)
         {
             //Send exception for debug
@@ -226,7 +243,6 @@ namespace Campus.Core
             }
 
             var code = HttpStatusCode.InternalServerError;
-            var message = String.Empty;
 
             if (filterContext.Exception is NotImplementedException)
             {
@@ -255,7 +271,7 @@ namespace Campus.Core
         }
 
         [CompressIgnore]
-        protected static dynamic IntrospectMethod(MethodInfo method)
+        protected dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
             var isReference = ReferenceAttribute.Instance.HasAttribute(method);
@@ -321,7 +337,7 @@ namespace Campus.Core
             get
             {
                 var type = this.GetType();
-                var method = this.GetCallerMethod(3);
+                var method = GetCallerMethod(3);
 
                 return CompressIgnoreAttribute.Instance.HasAttribute(method) || CompressIgnoreAttribute.Instance.HasAttribute(type) ? false :
                     CompressAttribute.Instance.HasAttribute(type, inherit: true) || CompressAttribute.Instance.HasAttribute(method, inherit: true);
@@ -332,13 +348,13 @@ namespace Campus.Core
 
         #region Helpers
 
-        private MethodBase GetCallerMethod(int depth = 2)
+        private static MethodBase GetCallerMethod(int depth = 2)
         {
             var frame = new StackFrame(depth);
             return frame.GetMethod();
         }
 
-        private static string GetDescription(MethodInfo methodInfo, ParameterInfo parameterInfo)
+        private string GetDescription(MethodInfo methodInfo, ParameterInfo parameterInfo)
         {
             string result = null;
 
@@ -349,6 +365,7 @@ namespace Campus.Core
             else
             {
                 var attributeMethod = methodInfo.GetCustomAttribute<DescriptionAttribute>(true);
+
                 var attributeParam = parameterInfo != null
                     ? parameterInfo.GetCustomAttribute<DescriptionAttribute>(true)
                     : null;
@@ -365,9 +382,7 @@ namespace Campus.Core
 
                 try
                 {
-                    var controller =
-                        XmlDocumentation.Documentation.Controllers.FirstOrDefault(
-                            c => c.Caption.Equals(methodInfo.DeclaringType.Name));
+                    var controller = XmlDocumentation.Instance.Controllers.FirstOrDefault(c => c.Caption.Equals(methodInfo.DeclaringType.Name));
 
                     if (controller != null)
                     {
@@ -391,8 +406,9 @@ namespace Campus.Core
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
+                    OnException(ex);
                 }
             }
 
@@ -403,14 +419,16 @@ namespace Campus.Core
 
         private static void BuildCompressionInfo(Result result, object obj, Type type, MethodBase callerMethod)
         {
-            CompressAttribute compression = null;
             var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
             native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
-            compression = type.GetCustomAttribute<CompressAttribute>(inherit: true);
-            compression = compression ?? callerMethod.GetCustomAttribute<CompressAttribute>(inherit: true);
+
+            var compression = type.GetCustomAttribute<CompressAttribute>(true);
+            compression = compression ?? callerMethod.GetCustomAttribute<CompressAttribute>(true);
+
             if (compression != null)
             {
                 result.Data = compression.CompressData(result.Data);
+
                 result.Compression = new
                 {
                     Type = Enum.GetName(compression.Scheme.GetType(), compression.Scheme),

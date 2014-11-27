@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Campus.Core.Common.Extensions;
-using Campus.Core.Common.Exceptions;
 
 namespace Campus.Core.Common.BaseClasses
 {
@@ -26,14 +25,10 @@ namespace Campus.Core.Common.BaseClasses
         {
             get
             {
-                if(OnGettingInstance != null)
+                if (OnGettingInstance != null)
                     OnGettingInstance();
                 return _instance.Value;
             }
-        }
-
-        protected AbstractSingleton()
-        {
         }
 
         /// <summary>
@@ -54,7 +49,9 @@ namespace Campus.Core.Common.BaseClasses
         private static void VerifyChild()
         {
             if (typeof(T).GetConstructors(BindingFlags.Public | BindingFlags.Instance).Any())
-                throw new ArchitectureException("You're trying to use type that should be a singleton but has public constructor");
+            {
+                throw new Exception("You're trying to use type that should be a singleton but has public constructor");
+            }
         }
 
         public static event Action OnGettingInstance = () => { };

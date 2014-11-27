@@ -1,12 +1,9 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,7 +15,7 @@ namespace Campus.Core.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class CompressAttribute : AbstractAttribute
     {
-        private static CompressAttribute _instance = null;        
+        private static CompressAttribute _instance;
 
         public enum CompressionScheme
         {
@@ -36,16 +33,12 @@ namespace Campus.Core.Attributes
         public enum CompressLevel
         {
             Fastest,
-            Smallest,            
+            Smallest,
         }
 
         public static CompressAttribute Instance
         {
-            get
-            {
-                if (_instance == null) _instance = new CompressAttribute();
-                return _instance;
-            }
+            get { return _instance ?? (_instance = new CompressAttribute()); }
         }
 
         /// <summary>
@@ -56,7 +49,7 @@ namespace Campus.Core.Attributes
         public CompressAttribute(CompressLevel level = CompressLevel.Fastest, CompressionScheme scheme = CompressionScheme.Gzip)
         {
             Level = level; Scheme = scheme;
-        }        
+        }
 
         /// <summary>
         /// Gets the compression level.
@@ -89,22 +82,27 @@ namespace Campus.Core.Attributes
         public dynamic CompressData(string data)
         {
             var timer = new Stopwatch();
-            timer.Start(); 
+            timer.Start();
 
-            dynamic result = null;
+            dynamic result;
             var gz = Zip(data, (Level == CompressLevel.Fastest) ? CompressionLevel.Fastest : CompressionLevel.Optimal);
+
             if (Level == CompressLevel.Smallest)
-            {                                
+            {
                 result = Base64Encode(gz);
             }
             else
             {
                 result = gz;
             }
-            
+
             timer.Stop();
             Time = timer.Elapsed.TotalSeconds.ToString("0.000000000");
-            if (Time.EndsWith("0")) Time = Time + "9";
+
+            if (Time.EndsWith("0"))
+            {
+                Time = Time + "9";
+            }
 
             return result;
         }
@@ -115,9 +113,9 @@ namespace Campus.Core.Attributes
         /// <param name="obj">The object.</param>
         /// <returns></returns>
         public dynamic CompressData(object obj)
-        {            
+        {
             return CompressData(Serialize(obj));
-        }        
+        }
 
         private static void CopyTo(Stream src, Stream dest)
         {
@@ -164,12 +162,12 @@ namespace Campus.Core.Attributes
         }
 
         private string Base64Encode(byte[] data)
-        {            
+        {
             return System.Convert.ToBase64String(data);
         }
 
-        private string Serialize(object result, bool UseJavaScriptStyleCamelcase = true)
-        {            
+        private string Serialize(object result, bool useJavaScriptStyleCamelcase = true)
+        {
             var settings = new JsonSerializerSettings
             {
                 DateFormatHandling = DateFormatHandling.IsoDateFormat,
@@ -177,7 +175,7 @@ namespace Campus.Core.Attributes
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
             };
 
-            if (UseJavaScriptStyleCamelcase)
+            if (useJavaScriptStyleCamelcase)
             {
                 settings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
             }
@@ -193,20 +191,12 @@ namespace Campus.Core.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class CompressIgnoreAttribute : AbstractAttribute
     {
-        public CompressIgnoreAttribute()
-        {
-
-        }
-
+       
         private static CompressIgnoreAttribute _instance;
 
         public static CompressIgnoreAttribute Instance
         {
-            get
-            {
-                if (_instance == null) _instance = new CompressIgnoreAttribute();
-                return _instance;
-            }
+            get { return _instance ?? (_instance = new CompressIgnoreAttribute()); }
         }
     }
 
@@ -216,14 +206,13 @@ namespace Campus.Core.Attributes
     /// <remarks>Work only with browsers</remarks>
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = true)]
     public class CompressNativeAttribute : ActionFilterAttribute
-    {        
-        private CompressionLevel _level;
+    {
+        private readonly CompressionLevel _level;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CompressNativeAttribute"/> class.
         /// </summary>
         /// <param name="level">The level.</param>
-        /// <param name="compressOutput">if set to <c>true</c> [compress output].</param>
         public CompressNativeAttribute(CompressionLevel level = CompressionLevel.Fastest)
             : base()
         {
@@ -235,7 +224,7 @@ namespace Campus.Core.Attributes
             Gzip,
             Deflate,
             Identity
-        }               
+        }
 
         /// <summary>
         /// Gets the compression level.
@@ -251,7 +240,7 @@ namespace Campus.Core.Attributes
         /// <value>
         /// The preferred encoding.
         /// </value>
-        public CompressionScheme PreferredEncoding { get; private set; }        
+        public CompressionScheme PreferredEncoding { get; private set; }
 
         /// <summary>
         /// Called by the ASP.NET MVC framework before the action method executes.
@@ -266,32 +255,38 @@ namespace Campus.Core.Attributes
             }
 
             // Analyze the list of acceptable encodings
-            var PreferredEncoding = GetPreferredEncoding(filterContext.HttpContext.Request);
+            var preferredEncoding = GetPreferredEncoding(filterContext.HttpContext.Request);
             // Compress the response accordingly
             var response = filterContext.HttpContext.Response;
-            response.AppendHeader("Content-encoding", PreferredEncoding.ToString());
-            if (PreferredEncoding == CompressionScheme.Gzip)
+            response.AppendHeader("Content-encoding", preferredEncoding.ToString());
+
+            if (preferredEncoding == CompressionScheme.Gzip)
             {
                 response.Filter = new GZipStream(response.Filter, _level);
             }
-            if (PreferredEncoding == CompressionScheme.Deflate)
+
+            if (preferredEncoding == CompressionScheme.Deflate)
             {
                 response.Filter = new DeflateStream(response.Filter, _level);
             }
-            return;
         }
-        
+
         private static CompressionScheme GetPreferredEncoding(HttpRequestBase request)
         {
             var acceptableEncoding = request.Headers["Accept-Encoding"];
-            //acceptableEncoding = SortEncodings(acceptableEncoding);
-
+            
             // Get the preferred encoding format 
             if (acceptableEncoding.Contains("gzip"))
+            {
                 return CompressionScheme.Gzip;
+            }
+
             if (acceptableEncoding.Contains("deflate"))
+            {
                 return CompressionScheme.Deflate;
+            }
+
             return CompressionScheme.Identity;
-        }        
+        }
     }
 }

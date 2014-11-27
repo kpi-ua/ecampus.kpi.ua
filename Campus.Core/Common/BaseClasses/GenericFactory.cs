@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Campus.Core.Common.Extensions;
-using Campus.Core.Interfaces;
 
 namespace Campus.Core.Common.BaseClasses
 {
-    public class GenericFactory<T> : AbstractSingleton<GenericFactory<T>>, IFactory<T>
+    public class GenericFactory<T> : AbstractSingleton<GenericFactory<T>>
     {
         private GenericFactory() 
         { 
@@ -26,6 +25,7 @@ namespace Campus.Core.Common.BaseClasses
         /// Creates the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentException">No type registered for this id</exception>
         public T Create(object id, object[] parameters = null)
@@ -50,6 +50,7 @@ namespace Campus.Core.Common.BaseClasses
         /// Creates specified identifier asynchronously.
         /// </summary>
         /// <param name="id">The identifier.</param>
+        /// <param name="parameters"></param>
         /// <returns></returns>
         public Task<T> CreateAsync(object id, object[] parameters = null)
         {            

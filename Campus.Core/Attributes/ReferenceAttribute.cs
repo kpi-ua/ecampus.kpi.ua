@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campus.Core.Attributes
 {
@@ -16,14 +12,11 @@ namespace Campus.Core.Attributes
             Url = url;
         }
 
-        private static ReferenceAttribute _instance = null;
+        private static ReferenceAttribute _instance;
+
         public static ReferenceAttribute Instance
         {
-            get
-            {
-                if (_instance == null) _instance = new ReferenceAttribute(null);
-                return _instance;
-            }
+            get { return _instance ?? (_instance = new ReferenceAttribute(null)); }
         }
     }
 }

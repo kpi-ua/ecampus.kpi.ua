@@ -1,10 +1,6 @@
-using System;
-using System.ComponentModel;
-using System.Xml.Schema;
-using System.Xml.Serialization;
-using System.Collections.Generic;
-using System.Globalization;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace Campus.Core.Documentation
 {
@@ -18,19 +14,19 @@ namespace Campus.Core.Documentation
 		
 		// ELEMENTS
 		[XmlElement("summary")]
-		public Summary Summary { get; set; }
+		public XmlContainer Summary { get; set; }
 		
 		[XmlElement("param")]
 		public List<Param> Params { get; set; }
 		
 		[XmlElement("returns")]
-		public Returns Returns { get; set; }
+        public XmlContainer Returns { get; set; }
 		
 		[XmlElement("example")]
-		public Example Example { get; set; }
+        public XmlContainer Example { get; set; }
 		
 		[XmlElement("remarks")]
-		public Remarks Remarks { get; set; }
+        public XmlContainer Remarks { get; set; }
 		
 		// CONSTRUCTOR
 		public Member()

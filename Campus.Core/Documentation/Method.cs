@@ -1,29 +1,18 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Campus.Core.Common.Extensions;
-using Campus.Core.Common.BaseClasses;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
 using System.Reflection;
+using System.Xml.Serialization;
 
 namespace Campus.Core.Documentation
 {
     public class Method : Member
     {
-        private string _caption = null;
+        private string _caption;
 
         public Method(Member member)
             : base(member)
         {
-            
-        }
-
-        public Method()
-        {
-
         }
 
         [XmlIgnore]

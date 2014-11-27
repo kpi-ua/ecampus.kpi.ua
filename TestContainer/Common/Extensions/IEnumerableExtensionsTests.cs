@@ -14,12 +14,14 @@ namespace Campus.Core.Common.Extensions.Tests
 
         private int[] GenerateTestValues(int count)
         {
-            Action<ConcurrentBag<int>> generate = (vals) => { vals.Add(rand.Next()); };
-            ConcurrentBag<int> values = new ConcurrentBag<int>();
-            List<Task> tasks = new List<Task>();
+            Action<ConcurrentBag<int>> generate = (vals) => vals.Add(rand.Next());
+            
+            var values = new ConcurrentBag<int>();
+            var tasks = new List<Task>();
+            
             for (int i = 0; i < count; i++)
             {
-                tasks.Add(generate.AsyncInvoke(values));
+                tasks.Add(Task.Run(() => generate(values)));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -29,12 +31,13 @@ namespace Campus.Core.Common.Extensions.Tests
         private int[] GenerateTestValues()
         {
             int count = 1000;
-            ConcurrentBag<int> values = new ConcurrentBag<int>();
-            Action generate = () => { values.Add(rand.Next()); };
-            List<Task> tasks = new List<Task>();
+            var values = new ConcurrentBag<int>();
+            Action generate = () => values.Add(rand.Next());
+            var tasks = new List<Task>();
+            
             for (int i = 0; i < count; i++)
             {
-                tasks.Add(generate.AsyncInvoke());
+                tasks.Add(Task.Run(generate));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -54,9 +57,7 @@ namespace Campus.Core.Common.Extensions.Tests
                 return values;
             };
 
-            List<Task> tasks = new List<Task>();
-            var task = generate.AsyncInvoke();
-
+            var task = Task.Run(generate);
             task.Wait();
             return task.Result.ToArray();
         }
@@ -85,7 +86,7 @@ namespace Campus.Core.Common.Extensions.Tests
 
         [TestMethod()]
         public void ForEachAsyncTest()
-        {            
+        {
             var testValues = GenerateTestValues();
 
             var expected = new ConcurrentBag<int>();
@@ -108,7 +109,7 @@ namespace Campus.Core.Common.Extensions.Tests
 
         [TestMethod()]
         public void ForEachAsyncTest1()
-        {            
+        {
             var testValues = GenerateTestValuesF();
 
             var expected = new ConcurrentBag<int>();
@@ -139,8 +140,8 @@ namespace Campus.Core.Common.Extensions.Tests
                 Assert.Fail();
             }
             catch
-            {                                
-            }            
+            {
+            }
         }
     }
 }

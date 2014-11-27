@@ -17,14 +17,10 @@ namespace Campus.Core.Attributes
             get { return _description; }
         }
 
-        private static DescriptionAttribute _instance = null;
+        private static DescriptionAttribute _instance;
         public static DescriptionAttribute Instance
         {
-            get
-            {
-                if (_instance == null) _instance = new DescriptionAttribute(null);
-                return _instance;
-            }
+            get { return _instance ?? (_instance = new DescriptionAttribute(null)); }
         }
     }
 }
