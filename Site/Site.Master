@@ -96,6 +96,7 @@
                     <asp:ScriptReference Path="~/Scripts/picker.date.js" />
                     <asp:ScriptReference Path="~/Scripts/legacy.js" />
                     <asp:ScriptReference Path="~/Scripts/jquery.bootpag.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery.eventsource.js" />
                     <asp:ScriptReference Path="~/Scripts/script.js" />
                     <asp:ScriptReference Path="~/Scripts/site.js" />
                 </Scripts>
