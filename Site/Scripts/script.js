@@ -466,8 +466,7 @@ Planner = function (session, input) {
     };
 
     this.Today = Members.Today();
-    var ajaxLoaderBig = new AjaxLoader($('#' + values.spinner_id), Members.ajaxLoaderBig);
-    //var ajaxLoaderSmall = new AjaxLoader($(".popover-content").find('#spinner-calendar'), Members.ajaxLoaderSmall);
+    var ajaxLoaderBig = new AjaxLoader($('#' + values.spinner_id), Members.ajaxLoaderBig);    
 
     // Nano template engine
     var nano = function (template, data) {
@@ -532,8 +531,7 @@ Planner = function (session, input) {
                     if (beforeCall != undefined)
                         beforeCall();
                 }
-            });
-            //$(this).ajaxStop(function () { return result; });            
+            });                    
         }
     };
     
@@ -623,9 +621,7 @@ Planner = function (session, input) {
         });
         
         $.picker = input.pickadate('picker');
-        $.picker.set('select', $.planner.Today);
-
-        //ajaxLoaderBig = new AjaxLoader($('#' + values.spinner_id), Members.ajaxLoaderBig);
+        $.picker.set('select', $.planner.Today);       
 
         return false;
     }
@@ -636,31 +632,7 @@ Planner = function (session, input) {
         _d.modal('hide');
     }
 
-    var _hide = this.Hide;
-
-    //this.Pagination = function(id, archive)
-    //{
-    //    if (id == undefined) id = 'calendar-paging';
-    //    if (archive == undefined || archive == false) archive = "1";
-    //    else if (+archive == 0 || archive == true) archive = "0";
-
-    //    var callString = ApiEndpoint + "Calendar/GetPagesAllUserDate?sessionId=" + Members.SessionId + "&date=" + $.ddate + "&actuality=" + archive;
-    //    var callback = function(data) {
-    //        $.calendarPages = data['Data'];
-
-    //        $('#' + id).bootpag({
-    //            total: $.calendarPages,
-    //            page: Members.Page,
-    //            maxVisible: 10
-    //        }).on("page", function (event, num) {
-    //            Members.Page = num;
-    //            $.planner.RenderTimeLabels($.ddate, Members.ArchiveLastState, num);                
-    //        });
-    //    }
-    //    APICalls.MakeRawAPICall(callString, callback);        
-    //}
-
-    //var _pagination = this.Pagination;
+    var _hide = this.Hide;    
 
     // Render list of events for date
     this.RenderTimeLabels = function (date, archive, page) {        
@@ -694,21 +666,13 @@ Planner = function (session, input) {
             items += '</ul></div>';
             ajaxLoaderBig.hide();
             if (title == "")
-                title = Members.Today();
-            //$("#" + values.popover_toggle_id).remove();
+                title = Members.Today();            
 
-            $("#datepicker-events").html(items);
-            //$("#" + values.popover_toggle_id).popover('show');
-            //$('.popover-title').css('color', 'black');
-            //$('.popover-content').css('color', 'black');
+            $("#datepicker-events").html(items);           
         };
 
-        var beforeCall = function () {
-            //_pagination(archive);
-            //if ($(".popover").html() != undefined)
-                //$("#" + values.popover_toggle_id).popover('destroy');
-            $("#" + values.events_target_id).html('<canvas class="div-canvas-small" id="spinner-calendar"></canvas>');
-            //$("#" + values.popover_toggle_id).popover('show');
+        var beforeCall = function () {            
+            $("#" + values.events_target_id).html('<canvas class="div-canvas-small" id="spinner-calendar"></canvas>');            
             ajaxLoaderBig = new AjaxLoader($("#" + values.events_target_id).find('#spinner-calendar'), Members.ajaxLoaderBig);
             try {
                 ajaxLoaderBig.show();
@@ -899,8 +863,7 @@ Planner = function (session, input) {
 
     this.togglePopover = _togglePopover;
 
-    this.AddNew = function (date) {
-        //debugger;     
+    this.AddNew = function (date) {         
         if (date == undefined || date == "") {
             date = Members.Today();
         }
