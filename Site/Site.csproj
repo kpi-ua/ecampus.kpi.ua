@@ -171,11 +171,16 @@
     <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\CardEdit.css" />
     <Content Include="Content\CreatePage.css" />
+    <Content Include="Content\picker.css" />
+    <Content Include="Content\picker.date.css" />
     <Content Include="Content\EIRView.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
+    <Content Include="Scripts\jquery.bootpag.min.js" />
+    <Content Include="Scripts\legacy.js" />
+    <Content Include="Scripts\picker.date.js" />
     <Content Include="Content\site2.css" />
     <Content Include="Content\tree\32px.png" />
     <Content Include="Content\tree\40px.png" />
@@ -319,6 +324,7 @@
     <Content Include="Scripts\jquery.eventsource.js" />
     <Content Include="Scripts\jstree.js" />
     <Content Include="Scripts\MZ.js" />
+    <Content Include="Scripts\picker.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\site.js" />

@@ -9,11 +9,11 @@
 
 namespace Site
 {
-
-
+    
+    
     public partial class SiteMaster
     {
-
+        
         /// <summary>
         /// UserName control.
         /// </summary>
@@ -22,7 +22,7 @@ namespace Site
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal UserName;
-
+        
         /// <summary>
         /// form control.
         /// </summary>
@@ -31,7 +31,7 @@ namespace Site
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form;
-
+        
         /// <summary>
         /// CampusSessionId control.
         /// </summary>
@@ -40,7 +40,7 @@ namespace Site
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField CampusSessionId;
-
+        
         /// <summary>
         /// script_manager control.
         /// </summary>
@@ -49,7 +49,7 @@ namespace Site
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.ScriptManager script_manager;
-
+        
         /// <summary>
         /// breadcrumbs control.
         /// </summary>
@@ -58,7 +58,7 @@ namespace Site
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder breadcrumbs;
-
+        
         /// <summary>
         /// bodyPanel control.
         /// </summary>
@@ -67,7 +67,7 @@ namespace Site
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel bodyPanel;
-
+        
         /// <summary>
         /// body control.
         /// </summary>
