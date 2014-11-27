@@ -1296,12 +1296,12 @@ header {
         font-size: 1.3em;
     }
 
-    .datepicker-messages > .event {
+    .event {
         position: relative;
         padding-top: 6px;
     }
 
-        .datepicker-messages > .event:after {
+    .event:after {
             position: relative;
             display: block;
             margin: 6px auto 0 auto;
@@ -1311,13 +1311,12 @@ header {
             content: "";
         }
 
-        .datepicker-messages > .event > .event-time {
+   .event-time {
             position: absolute;
-            left: 4px;
-            width: 50px;
+            left: 4px;                       
         }
 
-        .datepicker-messages > .event > .event-text {
+   .event-text {
             padding-left: 55px;
         }
 
@@ -2153,6 +2152,26 @@ table tr td {
 }
 
 .popup-data {
-    width: 200px;
+    width: 540px;
 }
+
+#datepicker-events::-webkit-scrollbar{
+width:5px;
+background-color:#ccc;
+}
+#datepicker-events::-webkit-scrollbar-thumb{
+background-color:#999;
+}
+#datepicker-events::-webkit-scrollbar-thumb:hover{
+background-color:#999;
+border:1px solid;
+}
+#datepicker-events::-webkit-scrollbar-thumb:active{
+background-color:#3bb578;
+}
+#datepicker-events::-webkit-scrollbar-track{
+-webkit-box-shadow:0 0 2px gray inset;
+background-color:#ccc;
+}
+ 
 
