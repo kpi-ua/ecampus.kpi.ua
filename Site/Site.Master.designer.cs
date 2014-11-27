@@ -58,15 +58,6 @@ namespace Site {
         protected global::System.Web.UI.WebControls.ImageButton carousel_profile_button;
         
         /// <summary>
-        /// carousel_date_button control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton carousel_date_button;
-        
-        /// <summary>
         /// carousel_teachers_button control.
         /// </summary>
         /// <remarks>

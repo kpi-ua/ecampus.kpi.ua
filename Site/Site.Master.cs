@@ -69,7 +69,7 @@ namespace Site
 
         public void carousel_date_button_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Default.aspx");
+            //Response.Redirect("~/Default.aspx");
         }
 
         public void carousel_teachers_button_Click(object sender, EventArgs e)

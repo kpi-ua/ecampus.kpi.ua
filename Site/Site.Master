@@ -8,7 +8,7 @@
 
     <script src="/Scripts/bootstrap.js"></script>
     <script type="text/javascript">
-        $('#popoverData').popover();
+        //$('#popoverData').popover();
     </script>
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-clockpicker.min.css" />
+    <link rel="stylesheet" href="/Content/picker.css">
+    <link rel="stylesheet" href="/Content/picker.date.css">
     <link rel="stylesheet" href="/Content/site2.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -90,11 +92,19 @@
                     <asp:ScriptReference Path="~/Scripts/core.js" />
                     <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
                     <asp:ScriptReference Path="~/Scripts/bootstrap-clockpicker.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/picker.js" />
+                    <asp:ScriptReference Path="~/Scripts/picker.date.js" />
+                    <asp:ScriptReference Path="~/Scripts/legacy.js" />
                     <asp:ScriptReference Path="~/Scripts/script.js" />
                     <asp:ScriptReference Path="~/Scripts/site.js" />
                 </Scripts>
             </asp:ScriptManager>
+            <script>
+                $.planner = new Planner("<%=SitePage.SessionId %>");
+                $.ddate = $.planner.Today;
 
+                SubscribeToEvents(document);
+            </script>
             <!--Carousel-->
             <div id="carousel-menu" class="carousel slide site-carousel " data-ride="carousel" data-interval="false">
                 <!-- Indicators -->
@@ -113,7 +123,7 @@
                                 </td>
                                 <td rowspan="2" class="site-carousel-vseparator"></td>
                                 <td>
-                                    <asp:ImageButton src="/Images/carousel-date-button.png" ID="carousel_date_button" runat="server" OnClick="carousel_date_button_Click" />
+                                    <button type="button" class="btn fa fa-calendar" style="background-image: url(Images/carousel-date-button.png); width: 55px; height: 52px;" id="carousel_date_button_" onclick="$.planner.Show('datepicker_data');"></button>
                                 </td>
                                 <td>
                                     <asp:ImageButton src="/Images/carousel-teachers-button.png" ID="carousel_teachers_button" runat="server" OnClick="carousel_teachers_button_Click" />
@@ -227,5 +237,72 @@
 
     </div>
 
+    <div id="calendar-container" style="visibility: hidden; display: none; width: 100%">
+        <%--<div id="planner-popup">
+            <canvas class="div-canvas" id="spinner_target"></canvas>
+            <br />
+            <div id="back-popup-content" class="pop-content">
+                <span class="input-group" style="width: 280px; display: inline-block;">Заголовок:
+                    <br />
+                    <input type="text" class="form-control" id="tasktitle" value="">
+                </span>
+                <span class="input-group clockpicker" style="width: 280px; display: inline-block;">Час:<br />
+                    <input type="text" class="form-control" id="tasktime" value="" data-default="00:00">
+                </span>
+                <script type="text/javascript">
+                    $('#tasktime').clockpicker({
+                        autoclose: true,
+                    });
+                </script>
+                <br />
+                <br />
+                Подія:
+                <br />
+                <textarea class="input-group" name="tasktext" rows="5" style="color: black; width: 565px; height: 100px;" id="tasktext"></textarea><br />
+            </div>
+        </div>--%>
+
+        <div id="planner-menu">
+            <%--<div id="datepicker_data" style="width: 80%; height: 600px;">
+                <br />
+                <div class="input-group input-group-lg">
+                    <span id="left_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-left"style="top:0px"></span>                    
+                    <input
+                        id="input_01"
+                        class="datepicker form-control"
+                        name="date"
+                        type="text"                                                
+                        style="width: 290px; text-align:center; cursor: pointer">     
+                    <span id="right_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-right" style="top:0px"></span>     
+                    <span id="add_button" class="input-group-addon btn btn-success">Додати</span>  
+                    <span id="archive_button" class="input-group-addon btn btn-info" style="">Архів</span>             
+                </div>
+                <br /><br />
+                <div id="datepicker-events"></div>                
+            </div>--%>
+            <script>
+                var input = $('.datepicker').pickadate({
+                    today: 'Today',
+                    clear: '',
+                    close: 'Close',
+                    format: 'dd.mm.yyyy',
+                    onStart: function () {
+                        $('.datepicker').val($.ddate);
+                        $.planner.RenderTimeLabels($.ddate);
+                    },
+                    monthsFull: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
+                    monthShort: ['Січ', 'Лют', 'Бер', 'Кві', 'Тра', 'Чер', 'Лип', 'Сер', 'Вер', 'Жов', 'Лис', 'Гру'],
+                    weekdaysFull: ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'пятниця', 'суббота'],
+                    weekdaysShort: ['нед', 'пнд', 'вів', 'срд', 'чтв', 'птн', 'сбт'],
+                    firstDay: 1
+                });
+                $(document).on('click', function () {
+                    $.picker.close();
+                });                
+                $.picker = input.pickadate('picker');
+                $.picker.set('select', $.planner.Today);
+            </script>
+        </div>
+    </div>    
 </body>
 </html>
