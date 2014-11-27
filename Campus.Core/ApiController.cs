@@ -3,6 +3,7 @@ using Campus.Core.Documentation;
 using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -274,7 +275,7 @@ namespace Campus.Core
         protected dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
-            var isReference = ReferenceAttribute.Instance.HasAttribute(method);
+            
             var isCompression = !CompressIgnoreAttribute.Instance.HasAttribute(method.DeclaringType) &&
                                 !CompressIgnoreAttribute.Instance.HasAttribute(method) &&
                                 CompressAttribute.Instance.HasAttribute(method);
@@ -286,7 +287,6 @@ namespace Campus.Core
             }
 
             var parameters = method.GetParameters().AsParallel()
-                .Where(p => !NonSerializableParameterAttribute.Instance.HasAttribute(p))
                 .Select(o => new
                 {
                     o.Name,
@@ -301,7 +301,6 @@ namespace Campus.Core
                 method.Name,
                 Method = isHttPost ? "POST" : "GET",
                 Description = description,
-                Reference = isReference ? method.GetCustomAttribute<ReferenceAttribute>(true).Url : null,
                 Compression = !isCompression ? null : new
                 {
                     Type = Enum.GetName(compression.Scheme.GetType(), compression.Scheme),

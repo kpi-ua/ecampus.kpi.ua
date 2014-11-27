@@ -13,7 +13,7 @@ namespace Campus.Core.Common.BaseClasses
     /// <exception cref="Campus.Core.Common.BaseClasses.AbstractSingleton`1.ArchitectureException">You're trying to use type that should be a singleton but has public constructor</exception>
     public abstract class AbstractSingleton<T>
     {
-        protected static readonly Lazy<T> _instance = new Lazy<T>(() => { return Construct<T>(); });
+        protected static readonly Lazy<T> _instance = new Lazy<T>(Construct<T>);
 
         /// <summary>
         /// Gets the instance.

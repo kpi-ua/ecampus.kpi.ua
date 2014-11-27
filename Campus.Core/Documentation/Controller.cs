@@ -45,7 +45,6 @@ namespace Campus.Core.Documentation
             get { return this.ClearName.Split(new[] { '.' }).Last(); }
         }
 
-
         /// <summary>
         /// Gets the type.
         /// </summary>

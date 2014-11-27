@@ -66,12 +66,8 @@
     <Compile Include="ApiApplication.cs" />
     <Compile Include="Attributes\AbstractAttribute.cs" />
     <Compile Include="Attributes\CompressAttribute.cs" />
-    <Compile Include="Attributes\ReferenceAttribute.cs" />
-    <Compile Include="Attributes\SerializationAttributes.cs" />
-    <Compile Include="Attributes\DescriptionAttributes.cs" />
     <Compile Include="Common\BaseClasses\AbstractSingleton.cs" />
     <Compile Include="Common\BaseClasses\GenericFactory.cs" />
-    <Compile Include="Common\Exceptions\ArchitectureException.cs" />
     <Compile Include="Common\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Documentation\Assembly.cs" />

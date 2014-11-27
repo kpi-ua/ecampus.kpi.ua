@@ -10,6 +10,7 @@ namespace Campus.Core.Common.BaseClasses
         private GenericFactory() 
         { 
             _dict = new Dictionary<object, Func<object[], T>>();
+
             OnGettingInstance += () => 
             { 
                 if(!_dict.ContainsKey(typeof(T).Name)) 

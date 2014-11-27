@@ -9,6 +9,13 @@ using System.Web.Mvc;
 
 namespace Campus.Core.Attributes
 {
+    public enum CompressionScheme
+    {
+        Gzip,
+        Deflate,
+        Identity
+    }
+
     /// <summary>
     /// Enables data output compression
     /// </summary>
@@ -17,24 +24,7 @@ namespace Campus.Core.Attributes
     {
         private static CompressAttribute _instance;
 
-        public enum CompressionScheme
-        {
-            Gzip,
-            Deflate,
-            Identity
-        }
 
-        /// <summary>
-        /// <list type="CompressLevel">
-        /// <para>Fastest - best speed but worst compression</para>
-        /// <para>Smallest - best but slow compression</para>             
-        /// </list>
-        /// </summary>
-        public enum CompressLevel
-        {
-            Fastest,
-            Smallest,
-        }
 
         public static CompressAttribute Instance
         {
@@ -46,7 +36,7 @@ namespace Campus.Core.Attributes
         /// </summary>
         /// <param name="level">The level.</param>
         /// <param name="scheme">The scheme. (Deflate does not supported in JS)</param>
-        public CompressAttribute(CompressLevel level = CompressLevel.Fastest, CompressionScheme scheme = CompressionScheme.Gzip)
+        public CompressAttribute(CompressionLevel level = CompressionLevel.Fastest, CompressionScheme scheme = CompressionScheme.Gzip)
         {
             Level = level; Scheme = scheme;
         }
@@ -57,7 +47,7 @@ namespace Campus.Core.Attributes
         /// <value>
         /// The level.
         /// </value>
-        public CompressLevel Level { get; private set; }
+        public CompressionLevel Level { get; private set; }
         /// <summary>
         /// Gets the compression time.
         /// </summary>
@@ -84,25 +74,12 @@ namespace Campus.Core.Attributes
             var timer = new Stopwatch();
             timer.Start();
 
-            dynamic result;
-            var gz = Zip(data, (Level == CompressLevel.Fastest) ? CompressionLevel.Fastest : CompressionLevel.Optimal);
 
-            if (Level == CompressLevel.Smallest)
-            {
-                result = Base64Encode(gz);
-            }
-            else
-            {
-                result = gz;
-            }
+            var result = Zip(data, Level);
 
             timer.Stop();
-            Time = timer.Elapsed.TotalSeconds.ToString("0.000000000");
 
-            if (Time.EndsWith("0"))
-            {
-                Time = Time + "9";
-            }
+            Time = timer.Elapsed.TotalSeconds.ToString("0.000000000");
 
             return result;
         }
@@ -134,36 +111,27 @@ namespace Campus.Core.Attributes
             var bytes = Encoding.UTF8.GetBytes(str);
 
             using (var msi = new MemoryStream(bytes))
-            using (var mso = new MemoryStream())
             {
-                if (Scheme == CompressionScheme.Gzip)
+                using (var mso = new MemoryStream())
                 {
-                    using (var gs = new GZipStream(mso, level))
+                    if (Scheme == CompressionScheme.Gzip)
                     {
-                        CopyTo(msi, gs);
+                        using (var gs = new GZipStream(mso, level))
+                        {
+                            CopyTo(msi, gs);
+                        }
                     }
-                }
-                else if (Scheme == CompressionScheme.Deflate)
-                {
-                    using (var gs = new DeflateStream(mso, level))
+                    else if (Scheme == CompressionScheme.Deflate)
                     {
-                        CopyTo(msi, gs);
+                        using (var gs = new DeflateStream(mso, level))
+                        {
+                            CopyTo(msi, gs);
+                        }
                     }
-                }
 
-                return mso.ToArray();
+                    return mso.ToArray();
+                }
             }
-        }
-
-        private string Base64Encode(string data)
-        {
-            var dataBytes = System.Text.Encoding.UTF8.GetBytes(data);
-            return System.Convert.ToBase64String(dataBytes);
-        }
-
-        private string Base64Encode(byte[] data)
-        {
-            return System.Convert.ToBase64String(data);
         }
 
         private string Serialize(object result, bool useJavaScriptStyleCamelcase = true)
@@ -191,7 +159,7 @@ namespace Campus.Core.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
     public class CompressIgnoreAttribute : AbstractAttribute
     {
-       
+
         private static CompressIgnoreAttribute _instance;
 
         public static CompressIgnoreAttribute Instance
@@ -217,13 +185,6 @@ namespace Campus.Core.Attributes
             : base()
         {
             _level = level;
-        }
-
-        public enum CompressionScheme
-        {
-            Gzip,
-            Deflate,
-            Identity
         }
 
         /// <summary>
@@ -274,7 +235,7 @@ namespace Campus.Core.Attributes
         private static CompressionScheme GetPreferredEncoding(HttpRequestBase request)
         {
             var acceptableEncoding = request.Headers["Accept-Encoding"];
-            
+
             // Get the preferred encoding format 
             if (acceptableEncoding.Contains("gzip"))
             {
