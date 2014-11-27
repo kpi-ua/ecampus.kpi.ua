@@ -3,13 +3,69 @@
         window.campus = {};
     }
 
-    jQuery(function () {        
+    jQuery(function () {
+        campus.datepickerHandler(jQuery);
         campus.menuHandler(jQuery);
         campus.calendarToggler(jQuery);
         campus.carousel(jQuery);
         campus.scrollTop(jQuery);
         campus.eirFormControls(jQuery);
-    });    
+    });
+
+
+    campus.datepickerHandler = function () {
+        jQuery(function ($) {
+            $.datepicker.regional['ua'] = {
+                clearText: 'Очистити', clearStatus: '',
+                closeText: 'Закрити', closeStatus: '',
+                prevText: '&lt;&lt;', prevStatus: '',
+                nextText: '&gt;&gt;', nextStatus: '',
+                currentText: 'Сьогодні', currentStatus: '',
+                monthNames: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень',
+                'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
+                monthNamesShort: ['Січ', 'Лют', 'Бер', 'Кві', 'Тра', 'Чер',
+                'Лип', 'Сер', 'Вер', 'Жов', 'Лис', 'Гру'],
+                monthStatus: '', yearStatus: '',
+                weekHeader: 'Не', weekStatus: '',
+                dayNames: ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'пятниця', 'суббота'],
+                dayNamesShort: ['нед', 'пнд', 'вів', 'срд', 'чтв', 'птн', 'сбт'],
+                dayNamesMin: ['Нд', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                dayStatus: 'DD', dateStatus: 'D, M d',
+                dateFormat: 'dd.mm.yy', firstDay: 1,
+                initStatus: '', isRTL: false
+            };
+            $.datepicker.setDefaults($.datepicker.regional['ua']);
+        });
+
+        $("#datepicker-toggle-button").on("click", function () {
+            $(".right-col").toggleClass("show");
+            $(".datepicker-messages").toggleClass("show");
+        });
+
+        $.ajax(ApiEndpoint + "Calendar/GetAllForUserDateCount?sessionId=" + $("#CampusSessionId").html(), {
+            success: function (data) {
+                var count = +data['Data'];
+                if (count > 0)
+                    $(".datepicker-label").html(count).show();
+            },
+            error: function () {
+
+            }
+        });
+
+        $(window).on('scroll load', function (event) {
+            var scrollHeight = $(this).scrollTop();
+            //if (scrollHeight > 410) {
+            $(".right-col").css({
+                position: "fixed",
+                display: "block",
+                width: 220,
+                top: 210,
+                right: -220
+            });
+        });
+    }
+
 
     campus.menuHandler = function () {
         $(".left-nav li").on("click", function () {
@@ -371,8 +427,6 @@ function AjaxLoader(id, options) {
 //}
 Planner = function (session, input) {
 
-    var ApiEndpoint = $("#ApiEndpoint").html();
-
     var constructValues = function () {
         if (input != undefined) {
             if (input.time_id != undefined)
@@ -383,8 +437,8 @@ Planner = function (session, input) {
                 values.task_id = input.task_id;
             if (input.title_id != undefined)
                 values.title_id = input.title_id;
-            if (input.spinner_id != undefined)
-                values.spinner_id = input.spinner_id;
+            if (input.popover_toggle_id != undefined)
+                values.popover_toggle_id = input.popover_toggle_id;
         }
     }
 
@@ -393,9 +447,7 @@ Planner = function (session, input) {
         time_id: "tasktime",
         task_id: "tasktext",
         title_id: "tasktitle",
-        spinner_id: "spinner_target",
-        events_target_id: "datepicker-events",
-        thisObject: "$.planner"
+        popover_toggle_id: "datepicker-show-events",
     }
 
     constructValues();
@@ -432,14 +484,14 @@ Planner = function (session, input) {
         TimeObject: $("#" + values.template_id).find("#back-popup-content").find("#" + values.time_id),
         TaskObject: $("#" + values.template_id).find("#back-popup-content").find("#" + values.task_id),
         TitleObject: $("#" + values.template_id).find("#back-popup-content").find("#" + values.title_id),
-        SpinnerObject: $("#" + values.spinner_id),
+        PopoverObject: $("#" + values.popover_toggle_id),
         Update: {
             Time: false,
             Task: false,
             Title: false
         },
         ajaxLoaderBig: {
-            size: 100,           // Width and height of the spinner
+            size: 70,           // Width and height of the spinner
             factor: 0.25,       // Factor of thickness, density, etc.
             color: "#018C26",      // Color #rgb or #rrggbb
             speed: 1.0,         // Number of turns per second
@@ -453,11 +505,11 @@ Planner = function (session, input) {
             clockwise: true     // Direction of rotation
         },
         Messages: {
-            InputForm: '<div id="planner-popup"><br /><canvas class="div-canvas-small" id="spinner-calendar-data" style="display:none"></canvas> <div id="back-popup-content"> <span class="input-group" style="width: 280px; display: inline-block;"> Заголовок: <br /> <input type="text" class="form-control" id="tasktitle3" value=""> </span> <span class="input-group clockpicker" style="width: 280px; display: inline-block;"> Час:<br /> <input type="text" class="form-control" id="tasktime3" value="" data-default="00:00"> </span> <script type="text/javascript"> $(\'#tasktime3\').clockpicker({ autoclose: true, donetext: "OK" }); </script> <br /> <br /> Подія: <br /> <textarea class="input-group" name="tasktext3" rows="5" style="color: black; width: 565px; height: 100px;" id="tasktext3"></textarea><br /> </div> </div>',
-            EventList: '<div id="datepicker_data" style="width: 80%; height: 600px;"> <br /> <div class="input-group input-group-lg"> <span id="left_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-left"style="top:0px"></span> <input id="input_01" class="datepicker form-control" name="date" type="text" style="width: 290px; text-align:center; cursor: pointer"> <span id="right_date_button" class="input-group-addon btn btn-default glyphicon glyphicon-chevron-right" style="top:0px"></span> <span id="add_button" class="input-group-addon btn btn-success">Додати</span> <span id="archive_button" class="input-group-addon btn btn-info" style="">Архів</span> </div><div id="datepicker-events" style="overflow-y: auto; overflow-x: hidden; width: 560px; height: 500px"></div> </div>'
+            InputForm: '<div id="planner-popup"><br /> <div id="back-popup-content"> <span class="input-group" style="width: 280px; display: inline-block;"> Заголовок: <br /> <input type="text" class="form-control" id="tasktitle3" value=""> </span> <span class="input-group clockpicker" style="width: 280px; display: inline-block;"> Час:<br /> <input type="text" class="form-control" id="tasktime3" value="" data-default="00:00"> </span> <script type="text/javascript"> $(\'#tasktime3\').clockpicker({ autoclose: true, donetext: "OK" }); </script> <br /> <br /> Подія: <br /> <textarea class="input-group" name="tasktext3" rows="5" style="color: black; width: 565px; height: 100px;" id="tasktext3"></textarea><br /> </div> </div>',
+            EventList: ''
         },
         ArchiveLastState: false,
-        Page: 1
+        Page: 0
     };
 
     var ManipulateHtml = function (string, tag) {
@@ -466,8 +518,8 @@ Planner = function (session, input) {
     };
 
     this.Today = Members.Today();
-    var ajaxLoaderBig = new AjaxLoader($('#' + values.spinner_id), Members.ajaxLoaderBig);
-    //var ajaxLoaderSmall = new AjaxLoader($(".popover-content").find('#spinner-calendar'), Members.ajaxLoaderSmall);
+    var ajaxLoaderBig = new AjaxLoader($('#spinner-popup'), Members.ajaxLoaderBig);
+    var ajaxLoaderSmall = new AjaxLoader($(".popover-content").find('#spinner-calendar'), Members.ajaxLoaderSmall);
 
     // Nano template engine
     var nano = function (template, data) {
@@ -536,7 +588,7 @@ Planner = function (session, input) {
             //$(this).ajaxStop(function () { return result; });            
         }
     };
-    
+
     var DateTimeOperations = {
         // return difference in int
         dateComparer: function (date1, date2) {
@@ -564,84 +616,13 @@ Planner = function (session, input) {
             time1 = time1[0] + time1[1];
             time2 = time2[0] + time2[1];
             return +time1 - +time2;
-        },
-        nextDay: function (date) {
-            date = date.split('.');
-            var tommorow = new Date(+date[2], +date[1]-1, +date[0] + 1, 0, 0, 0, 0);
-            var dd = tommorow.getDate();
-            var mm = tommorow.getMonth() + 1; //January is 0!
-            var yyyy = tommorow.getFullYear();
-            return dd + '.' + mm + '.' + yyyy;
-        },
-        prevDay: function (date) {
-            date = date.split('.');
-            var tommorow = new Date(+date[2], +date[1] - 1, +date[0] - 1, 0, 0, 0, 0);
-            var dd = tommorow.getDate();
-            var mm = tommorow.getMonth() + 1; //January is 0!
-            var yyyy = tommorow.getFullYear();
-            return dd + '.' + mm + '.' + yyyy;
         }
     }
-    this.dateTimeOperations = DateTimeOperations;
-
-    var _d;
-    this.Show = function (container, archive, page) {
-        if (archive != undefined) Members.ArchiveLastState = archive;
-        if (page != undefined) Members.Page = page; else page = Members.Page;
-
-        _d = bootbox.dialog({
-            closeButton: false,
-            message: Members.Messages.EventList,
-            buttons: {                                
-                Close: {
-                    label: "Приховати",
-                    className: "btn btn-default",
-                    callback: function () {
-                        _d.modal('hide');
-                    }
-                }                
-            }
-        });
-
-        var input = $('.datepicker').pickadate({
-            today: 'Today',
-            clear: '',
-            close: 'Close',
-            format: 'dd.mm.yyyy',
-            onStart: function () {
-                $('.datepicker').val($.ddate);
-                $.planner.RenderTimeLabels($.ddate, Members.ArchiveLastState, page);
-            },
-            monthsFull: ['Січень', 'Лютий', 'Березень', 'Квітень', 'Травень', 'Червень', 'Липень', 'Серпень', 'Вересень', 'Жовтень', 'Листопад', 'Грудень'],
-            monthShort: ['Січ', 'Лют', 'Бер', 'Кві', 'Тра', 'Чер', 'Лип', 'Сер', 'Вер', 'Жов', 'Лис', 'Гру'],
-            weekdaysFull: ['неділя', 'понеділок', 'вівторок', 'середа', 'четвер', 'пятниця', 'суббота'],
-            weekdaysShort: ['нед', 'пнд', 'вів', 'срд', 'чтв', 'птн', 'сбт'],
-            firstDay: 1
-        });
-        $(document).on('click', function () {
-            $.picker.close();
-        });
-        
-        $.picker = input.pickadate('picker');
-        $.picker.set('select', $.planner.Today);
-
-        //ajaxLoaderBig = new AjaxLoader($('#' + values.spinner_id), Members.ajaxLoaderBig);
-
-        return false;
-    }
-
-    var _show = this.Show;
-
-    this.Hide = function () {
-        _d.modal('hide');
-    }
-
-    var _hide = this.Hide;
 
     // Render list of events for date
     this.RenderTimeLabels = function (date, archive, page) {        
         date = Members.Date(date);
-        if (page == undefined) page = 1;
+        if (page == undefined) page = 0;
         if (archive == undefined || archive == false) archive = "1";
         else if (+archive == 0 || archive == true) archive = "0";
         Members.Page = page;
@@ -650,40 +631,53 @@ Planner = function (session, input) {
             var title = "";
             this.items = "<div class='popup-data'><ul><li><hr></li>";
             if (data["Data"].length == 0) {
-                items += "<li><div class='btn input-group input-group-lg');'><span class='input-group-addon'>Oops</span><input type='text' class='form-control' style='cursor:default;' placeholder='Заплановані події відсутні' disabled></div></li><li><hr></li>";
+                items += '<li>Немає запланованих подій</li><li><hr></li>'
             } else {                
                 for (var i = 0; i < data["Data"].length; i++) {
-                    items += nano("<li class='event'><div class='btn input-group input-group-lg' style='width: 530px;' onclick='" + values.thisObject + ".ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
+                    items += nano("<li class='event'><div class='event-time' onclick='plan.ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'>{TimeTask} -- {Title}</div></li>", data["Data"][i]);
+                    items += '<li><hr></li>';
                     if (title == "")
                         title = data["Data"][i].DateTask;
                 }
-                items += '<li><hr></li>';
             }
             if (DateTimeOperations.dateComparer(date, Members.Today()) >= 0) {
                 if (+archive != 0) {
-                    Members.ArchiveLastState = false;                    
+                    items += '<li><div class="event-time" onclick="plan.AddNew($.ddate);">Додати</div></li>';
+                    items += '<li><hr></li>';
+                }
+                if (+archive != 0) {
+                    Members.ArchiveLastState = false;
+                    items += '<li><div class="event-time" onclick="plan.RenderTimeLabels($.ddate, true);">Архів</div></li>';
                 }
                 else {
-                    Members.ArchiveLastState = true;                    
+                    Members.ArchiveLastState = true;
+                    items += '<li><div class="event-time" onclick="plan.RenderTimeLabels($.ddate, false);">Актуальні</div></li>';
+                    title += " (Архів)";
                 }
             }
             items += '</ul></div>';
-            ajaxLoaderBig.hide();
+            ajaxLoaderSmall.hide();
             if (title == "")
-                title = Members.Today();            
-
-            $("#datepicker-events").html(items);           
+                title = Members.Today();
+            $("#" + values.popover_toggle_id).popover('destroy');
+            $("#" + values.popover_toggle_id).popover({ html: true, title: 'Події - ' + title, content: items, placement: 'left' });
+            $("#" + values.popover_toggle_id).popover('show');
+            $('.popover-title').css('color', 'black');
+            $('.popover-content').css('color', 'black');
         };
 
-        var beforeCall = function () {            
-            $("#" + values.events_target_id).html('<canvas class="div-canvas-small" id="spinner-calendar"></canvas>');           
-            ajaxLoaderBig = new AjaxLoader($("#" + values.events_target_id).find('#spinner-calendar'), Members.ajaxLoaderBig);
+        var beforeCall = function () {
+            if ($(".popover").html() != undefined)
+                $("#" + values.popover_toggle_id).popover('destroy');
+            $("#" + values.popover_toggle_id).popover({ html: true, title: 'Події', content: '<canvas class="div-canvas-small" id="spinner-calendar"></canvas>', placement: 'left' });
+            $("#" + values.popover_toggle_id).popover('show');
+            ajaxLoaderSmall = new AjaxLoader($(".popover-content").find('#spinner-calendar'), Members.ajaxLoaderSmall);
             try {
-                ajaxLoaderBig.show();
+                ajaxLoaderSmall.show();
             } catch (err) {
-                $("#" + values.events_target_id).html('<canvas class="div-canvas-small" id="spinner-calendar"></canvas>');
-                ajaxLoaderBig = new AjaxLoader($("#" + values.events_target_id).find('#spinner-calendar'), Members.ajaxLoaderBig);
-                ajaxLoaderBig.show();
+                $(".popover-content").html('<canvas class="div-canvas-small" id="spinner-calendar"></canvas>');
+                ajaxLoaderSmall = new AjaxLoader($(".popover-content").find('#spinner-calendar'), Members.ajaxLoaderSmall);
+                ajaxLoaderSmall.show();
             }
         }
 
@@ -707,32 +701,33 @@ Planner = function (session, input) {
     var Changes = function () {
         var callString = "";
         if (Members.Update.Time == true)
-            callString = callString + "&time=" + $("#tasktime3").val();
+            callString = callString + "&time=" + Members.TimeObject.val();
         if (Members.Update.Task == true)
-            callString = callString + "&task=" + $("#tasktext3").val();
+            callString = callString + "&task=" + Members.TaskObject.val();
         if (Members.Update.Title == true)
-            callString = callString + "&title=" + $("#tasktitle3").val();
+            callString = callString + "&title=" + Members.TitleObject.val();
         return callString;
     };
 
-    var DetectChanges = function (callback) {        
-        $("#tasktext3").bind('input propertychange', function () { Members.Update.Task = true; callback(); });
-        $("#tasktime3").bind('input propertychange', function () { Members.Update.Time = true; callback(); });
-        $("#tasktime3").on("change", function () { Members.Update.Time = true; callback(); })
-        $("#tasktitle3").bind('input propertychange', function () { Members.Update.Title = true; callback(); });
+    var DetectChanges = function (callback) {
+        Members.TaskObject.bind('input propertychange', function () { Members.Update.Task = true; callback(); });
+        Members.TimeObject.bind('input propertychange', function () { Members.Update.Time = true; callback(); });
+        Members.TitleObject.bind('input propertychange', function () { Members.Update.Title = true; callback(); });
     };
 
     var ClearInputs = function () {
-        Members.Update.Task = Members.Update.Time = Members.Update.Title = false;        
+        Members.Update.Task = Members.Update.Time = Members.Update.Title = false;
+        $("#back-popup-content").css("visibility", "hidden");
     };
 
     // Display dialog message to manage selected event
     this.ShowSelected = function (id, date, archived) {
-        var beforeAjaxCall = function () {            
-            $("#" + values.template_id).css("display", "inline");
+        var beforeAjaxCall = function () {
+            ajaxLoaderBig.show();
+            Members.PopupObject.css("display", "inline");
             var dialog = bootbox.dialog({
                 closeButton: false,
-                message: Members.Messages.InputForm,
+                message: Members.PopupObject,
                 buttons: {
                     Add: {
                         label: "OK",
@@ -776,15 +771,6 @@ Planner = function (session, input) {
                     }
                 }
             });
-            $("#spinner-calendar-data").css("display", "inline-block");
-            $("#back-popup-content").css("display", "none");
-            ajaxLoaderBig = new AjaxLoader($('#spinner-calendar-data'), Members.ajaxLoaderBig);
-            try {
-                ajaxLoaderBig.show();
-            } catch (err) {
-                ajaxLoaderBig = new AjaxLoader($('#spinner-calendar-data'), Members.ajaxLoaderBig);
-                ajaxLoaderBig.show();
-            }
         };
 
         var callback = function (jdata) {
@@ -793,17 +779,10 @@ Planner = function (session, input) {
                 $(".update-pop-button").html("Відновити");
             }
             ajaxLoaderBig.hide();
-            $("#spinner-calendar-data").css("display", "none");
-            $("#back-popup-content").css("display", "inline-block");
-
-            $("#back-popup-content").css("visibility", "visible");            
-            $("#tasktime3").val(data.TimeTask);
-            $("#tasktitle3").val(data.Task);
-            $("#tasktext3").val(data.Title);
-
-            $("#tasktime3").text(data.TimeTask);
-            $("#tasktext3").text(data.Task);
-            $("#tasktitle3").text(data.Title);
+            $("#back-popup-content").css("visibility", "visible");
+            Members.TimeObject.val(data.TimeTask);
+            Members.TaskObject.val(data.Task);
+            Members.TitleObject.val(data.Title);
             DetectChanges(function () {
                 if (+archived != 0)
                     $(".update-pop-button").html("Оновити");
@@ -830,7 +809,7 @@ Planner = function (session, input) {
 
     var _togglePopover = function (date, archive, page) {
         if (page == undefined)
-            page = 1;
+            page = 0;
 
         if (page == Members.Page) {
             if ($('.popover').html() == undefined || $('.popover').html() == "") {
@@ -838,8 +817,8 @@ Planner = function (session, input) {
                 if (archive == undefined)
                     archive = Members.ArchiveLastState;
 
-                if (+page < 1)
-                    page = 1;
+                if (+page < 0)
+                    page = 0;
 
                 _renderTimeLabels(date, archive, page);
             }
@@ -857,8 +836,8 @@ Planner = function (session, input) {
             if (archive == undefined)
                 archive = Members.ArchiveLastState;
 
-            if (+page < 1)
-                page = 1;
+            if (+page < 0)
+                page = 0;
 
             _renderTimeLabels(date, archive, page);
         }
@@ -866,7 +845,8 @@ Planner = function (session, input) {
 
     this.togglePopover = _togglePopover;
 
-    this.AddNew = function (date) {            
+    this.AddNew = function (date) {
+        //debugger;     
         if (date == undefined || date == "") {
             date = Members.Today();
         }
@@ -905,150 +885,3 @@ Planner = function (session, input) {
 
     var _addNew = this.AddNew;
 };
-
-// Nano template engine
-Nano = function (template, data) {
-    return template.replace(/\{([\w\.]*)\}/g, function (str, key) {
-        var keys = key.split("."), v = data[keys.shift()];
-        for (var i = 0, l = keys.length; i < l; i++) v = v[keys[i]];
-        return (typeof v !== "undefined" && v !== null) ? v : "";
-    });
-}
-
-ServerNotifications = function () {
-
-    var _subscriptions = new Object();
-
-    // Name, URL, assosiatedNames, onMessage 
-    //if onMessage is undefined -> new simple notification will be added
-    // use onMessage to provide custom on message action
-    this.Subscribe = function (name, url, assosiatedNames, onMessage) { _add(name, url, onMessage); }
-    var _add = function (name, url, assosiatedNames, onMessage) {
-        if (name == undefined || url == undefined)
-            throw new ExceptionInformation();
-
-        if (onMessage == undefined)
-            onMessage = simpleNotification;
-
-        $.eventsource({
-            label: name,
-            url: url,
-            dataType: "text",
-            open: function (data) {
-                if (_subscriptions != undefined)
-                    if (_subscriptions[name] != undefined)
-                        return;
-
-                _subscriptions[name] = {
-                    Name: name,
-                    Url: url,
-                    AssosiatedNames: assosiatedNames,
-                    onMessage: onMessage
-                }
-            },
-            message: onMessage
-        });
-    }
-
-    // Remove subscription
-    this.Remove = function (name) { _remove(name); }
-    var _remove = function (name) {
-        _subscriptions[name] = undefined;
-    }
-
-    // 
-    this.Change = function (name, url) { _change(name, url); }
-    var _change = function (name, url) {
-        if (_subscriptions == undefined || _subscriptions == null || _subscriptions[name] == undefined || name == undefined || url == undefined)
-            throw new ExceptionInformation();
-
-        _remove(name);
-    }
-
-    var simpleNotificationDefaultMessageBuilder = function (e, assosiatedNames) {
-        var message = "";
-
-        if (assosiatedNames != undefined) {
-            if (assosiatedNames.keys(obj).length == e.keys(obj).length)
-                for (var propertyName in e) {
-                    if (e[propertyName] != "null")
-                        message += assosiatedNames[propertyName] + ": " + e[propertyName] + "<br />";
-                }
-        } else {
-            for (var propertyName in e) {
-                if (e[propertyName] != null)
-                    message += e[propertyName] + "<br />";
-            }
-        }
-
-        return message;
-    }
-
-    // Use to change default message build function
-    // Action should accept as first argument EventMessage and as optional  associated array of labels
-    //
-    // return string message
-    this.SimpleNotificationMessageBuilder = function (action) {
-        if (action == undefined) throw new ExceptionInformation();
-        simpleNotificationDefaultMessageBuilder = action;
-    }
-
-    var simpleNotification = function (e) {
-        var message = simpleNotificationDefaultMessageBuilder(e);
-        if (e["Title"] != null) {
-            $.ambiance({
-                title: e["Title"],
-                message: message,
-                fade: true,
-                timeout: 5
-            });
-        }
-        else {
-            $.ambiance({
-                message: message,
-                fade: true,
-                timeout: 5
-            });
-        }
-
-    }
-}
-
-SubscribeToEvents = function (_document) {
-    $("#carousel_date_button_").on("click", function () {
-        $.planner.Show("planner-menu");
-    });
-
-    $('.datepicker').on("change", function () {
-        $.ddate = $('.datepicker').val();
-        $.planner.RenderTimeLabels($.ddate);
-    });
-
-    $(_document).on('click', '#add_button', function () {
-        $.planner.AddNew($('.datepicker').val());
-    });
-
-    $(_document).on('click', '#archive_button', function () {
-        if ($("#archive_button").html() == "Архів") {
-            $("#input_01").css('width', '251px');
-            $("#archive_button").html("Актуальні");
-            $.planner.RenderTimeLabels($('.datepicker').val(), true);
-        } else {
-            $("#archive_button").html("Архів");
-            $("#input_01").css('width', '290px');
-            $.planner.RenderTimeLabels($('.datepicker').val(), false);
-        }
-    });
-
-    $(_document).on('click', '#right_date_button', function () {
-        $('.datepicker').val($.planner.dateTimeOperations.nextDay($('.datepicker').val()));
-        $.planner.RenderTimeLabels($('.datepicker').val());
-        $.ddate = $('.datepicker').val();
-    });
-
-    $(_document).on('click', '#left_date_button', function () {
-        $('.datepicker').val($.planner.dateTimeOperations.prevDay($('.datepicker').val()));        
-        $.planner.RenderTimeLabels($('.datepicker').val());        
-        $.ddate = $('.datepicker').val();
-    });
-}
