@@ -1,8 +1,7 @@
-﻿
-var ApiEndpoint;
+﻿var ApiEndpoint;
 
 $(document).ready(function () {
-    
+
     ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
 
 
@@ -106,7 +105,7 @@ $(document).on("click", "#body_sb", function () {
     var url = ApiEndpoint;
     if ($("#body_isdisc").attr("value") == "True") {
         $(".subtitle").text("Дисципліни");
-        url += "Modules/MZSearch/GetDisc?rtpttId=" + $("#body_spec").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
+        url += "MZSearch/GetDisc?rtpttId=" + $("#body_spec").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
         $.getJSON(url, function (data, status) {
             if (data.Data.length > 0) {
                 $.each(data.Data, function (key, value) {
@@ -116,7 +115,7 @@ $(document).on("click", "#body_sb", function () {
         });
     } else if ($("#body_isdisc").attr("value") == "False") {
         $(".subtitle").text("Кредитного модуля");
-        url += "Modules/MZSearch/GetCred?rtpttId=" + $("#body_spec").attr("value") + "&sfId=" + $("#body_stdfrm").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
+        url += "MZSearch/GetCred?rtpttId=" + $("#body_spec").attr("value") + "&sfId=" + $("#body_stdfrm").attr("value") + "&dcdiscId=" + $("#body_disc").attr("value");
         $.getJSON(url, function (data, status) {
             if (data.Data.length > 0) {
                 $.each(data.Data, function (key, value) {
@@ -176,7 +175,7 @@ var loadDiscRows = function (parentUl, obj) {
 
     var url = ApiEndpoint;
 
-    url += "Modules/MZSearch/GetOneDisc?rtdiscId=" + obj.attr("did");
+    url += "MZSearch/GetOneDisc?rtdiscId=" + obj.attr("did");
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -207,9 +206,9 @@ var getIrForDorC = function (obj, parent) {
     var url = ApiEndpoint;
 
     if ($("#body_isdisc").attr("value") == "True") {
-        url += "Modules/MZSearch/GetIrD?rtdiscId=" + obj.attr("did");
+        url += "MZSearch/GetIrD?rtdiscId=" + obj.attr("did");
     } else if ($("#body_isdisc").attr("value") == "False") {
-        url += "Modules/MZSearch/GetIrC?ccredId=" + obj.attr("cid");
+        url += "MZSearch/GetIrC?ccredId=" + obj.attr("cid");
     }
 
     $.getJSON(url, function (data, status) {
@@ -232,7 +231,7 @@ var loadCredRows = function (parentUl, obj) {
 
     var url = ApiEndpoint;
 
-    url += "Modules/MZSearch/GetOneCred?ccredId=" + obj.attr("cid");
+    url += "MZSearch/GetOneCred?ccredId=" + obj.attr("cid");
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -280,7 +279,7 @@ $(document).on("click", ".ironediv p", function () {
     $(".ircol").css("display", "none");
 
     var url = ApiEndpoint;
-    url += "Modules/MZSearch/GetOneIr?irlevelId=" + callObj.attr("iid");
+    url += "MZSearch/GetOneIr?irlevelId=" + callObj.attr("iid");
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -294,7 +293,7 @@ $(document).on("click", ".ironediv p", function () {
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Анотація" + "</span><span class=\"col-md-6\">" + value.Annotation + "</span></li>");
                     //parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwww.AlexFrostField" + "</a></li>");
                     parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + callObj.attr("iid") + "\" class=\"edit btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + callObj.attr("iid") + "\" class=\"delete btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
-                    
+
                     count++;
                 }
             });
@@ -309,7 +308,7 @@ var getCredForDisc = function (obj, parent) {
 
     var url = ApiEndpoint;
 
-    url += "Modules/MZSearch/GetDiscDetailC?rtdiscId=" + obj.attr("did");
+    url += "MZSearch/GetDiscDetailC?rtdiscId=" + obj.attr("did");
 
 
     $.getJSON(url, function (data, status) {
@@ -326,9 +325,9 @@ var getRNPForDorC = function (obj, parent) {
     var url = ApiEndpoint;
 
     if ($("#body_isdisc").attr("value") == "True") {
-        url += "Modules/MZSearch/GetDiscDetailR?rtdiscId=" + obj.attr("did");
+        url += "MZSearch/GetDiscDetailR?rtdiscId=" + obj.attr("did");
     } else if ($("#body_isdisc").attr("value") == "False") {
-        url += "Modules/MZSearch/GetCredDetailR?ccredId=" + obj.attr("cid");
+        url += "MZSearch/GetCredDetailR?ccredId=" + obj.attr("cid");
     }
 
     $.getJSON(url, function (data, status) {
@@ -416,7 +415,7 @@ $(document).on("click", "#itemcontainer div input", function () {
 
 });
 
-$(document).on("click", ".edit", function() {
+$(document).on("click", ".edit", function () {
     $("#body_irEdit").attr("Value", $(this).attr("iid"));
     $(".popContainer").append("<input class=\"hinput\" type=\"submit\"/>");
     $(".hinput").click();

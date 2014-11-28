@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name='yandex-verification' content='4ce42a0173a1c976' />
 
+    <script src="/Scripts/bootstrap.js"></script>
+
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
 
     <link rel="stylesheet" href="/Content/site.css" />
@@ -84,10 +86,10 @@
                     <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
                     <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
                     <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
+                    <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
                     <asp:ScriptReference Path="~/Scripts/core.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.js" />
-                    <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.js" />                    
                     <asp:ScriptReference Path="~/Scripts/bootstrap-clockpicker.min.js" />
                     <asp:ScriptReference Path="~/Scripts/picker.js" />
                     <asp:ScriptReference Path="~/Scripts/picker.date.js" />
