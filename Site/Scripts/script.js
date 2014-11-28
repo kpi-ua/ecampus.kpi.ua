@@ -650,7 +650,10 @@ Planner = function (session, input) {
                 items += "<li><div class='btn input-group input-group-lg');'><span class='input-group-addon'>Oops</span><input type='text' class='form-control' style='cursor:default;' placeholder='Заплановані події відсутні' disabled></div></li><li><hr></li>";
             } else {                
                 for (var i = 0; i < data["Data"].length; i++) {
-                    items += nano("<li class='event'><div class='btn input-group input-group-lg' style='width: 530px;' onclick='" + values.thisObject + ".ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
+                    if (data["Data"]["PlannerId"] == "0")
+                        items += nano("<li class='event'><div class='btn input-group input-group-lg' style='width: 530px;'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
+                    else
+                        items += nano("<li class='event'><div class='btn input-group input-group-lg' style='width: 530px;' onclick='" + values.thisObject + ".ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
                     if (title == "")
                         title = data["Data"][i].DateTask;
                 }
@@ -736,14 +739,16 @@ Planner = function (session, input) {
                         label: "OK",
                         className: "btn btn-success update-pop-button",
                         callback: function () {
-                            if ($(".update-pop-button").html() != "OK") {
-                                var callString = ApiEndpoint + "Calendar/UpdatePlanner?sessionId=" + Members.SessionId + "&idPlanner=" + id;
-                                if (+archived != 0) callString += Changes();
-                                else if (+archived == 0 && $(".update-pop-button").html() == "Відновити") callString += "&actuality=1";
+                            if (+id != 0) {
+                                if ($(".update-pop-button").html() != "OK") {
+                                    var callString = ApiEndpoint + "Calendar/UpdatePlanner?sessionId=" + Members.SessionId + "&idPlanner=" + id;
+                                    if (+archived != 0) callString += Changes();
+                                    else if (+archived == 0 && $(".update-pop-button").html() == "Відновити") callString += "&actuality=1";
 
-                                APICalls.MakeRawAPICall(callString, function () {
-                                    update(date);
-                                });
+                                    APICalls.MakeRawAPICall(callString, function () {
+                                        update(date);
+                                    });
+                                }
                             }
                             Members.PopupObject.css("display", "none");
                             ClearInputs();
@@ -753,13 +758,15 @@ Planner = function (session, input) {
                         label: "Видалити",
                         className: "btn-danger",
                         callback: function () {
-                            var callString = "";
-                            if (+archived != 0) callString = ApiEndpoint + "Calendar/UpdatePlanner?sessionId=" + Members.SessionId + "&idPlanner=" + id + "&actuality=0";
-                            else callString = ApiEndpoint + "Calendar/RemovePlanner?sessionId=" + Members.SessionId + "&idPlanner=" + id; // if event is already archived, we need to delete it tottaly
+                            if (+id != 0) {
+                                var callString = "";
+                                if (+archived != 0) callString = ApiEndpoint + "Calendar/UpdatePlanner?sessionId=" + Members.SessionId + "&idPlanner=" + id + "&actuality=0";
+                                else callString = ApiEndpoint + "Calendar/RemovePlanner?sessionId=" + Members.SessionId + "&idPlanner=" + id; // if event is already archived, we need to delete it tottaly
 
-                            APICalls.MakeRawAPICall(callString, function () {
-                                update(date);
-                            });
+                                APICalls.MakeRawAPICall(callString, function () {
+                                    update(date);
+                                });
+                            }
                             Members.PopupObject.css("display", "none");
                             ClearInputs();
                         }
