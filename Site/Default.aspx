@@ -44,13 +44,16 @@
                                         <td>
                                              <asp:Literal ID="WorkData" runat="server"></asp:Literal>
                                         </td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
                                      </tr>
                                   </table>
-                                  </div>
-                                  <table class=" col-xs-12  col-sm-8  col-md-7 table-info col-md-offset-3 col-sm-offset-3">
+                                  
+                                  <table class=" col-xs-12  col-sm-8  col-md-9 table-info" style="float:right">
+                                      <tr>
+                                          <td>Контактні дані</td>
+                                      </tr>
                                          <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
                                   </table>
+                                    </div>
                               </div>
                              </div>
                            </div>
