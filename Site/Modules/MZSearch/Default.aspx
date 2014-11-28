@@ -38,9 +38,10 @@
         </div>
 
         <div id="SFdiv" runat="server" style="margin-top: -40px;" visible="false">
-            <span id="NameSF" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть форму навчання</span>
+            <span id="NameSF" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px" visible="false">Оберіть форму навчання</span>
             <div class="input-group col-md-9 col-md-offset-3">
-                <asp:DropDownList ID="SFList" runat="server" class="form-control" placeholder="Почніть вводити назву форми" AutoPostBack="true" OnSelectedIndexChanged="SFList_OnSelectedIndexChanged"></asp:DropDownList>
+                <asp:DropDownList ID="SFList" runat="server" class="form-control" placeholder="Почніть вводити назву форми" AutoPostBack="true"
+                     OnSelectedIndexChanged="SFList_OnSelectedIndexChanged" Visible="false"></asp:DropDownList>
             </div>
         </div>
 
