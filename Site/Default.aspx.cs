@@ -40,6 +40,13 @@ namespace Site
 
                     SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
 
+                    foreach (var p in CurrentUser.Contacts)
+                    {
+                        UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
+                        UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
+                        UserContactsLiteral.Text +="<td class=\"glyphicon glyphicon-eye-open\"></td></tr>";
+                    }
+
                     foreach (var p in CurrentUser.Profiles)
                     {
                         SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + p.SubsystemName + "\"";

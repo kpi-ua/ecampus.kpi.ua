@@ -49,51 +49,7 @@
                                   </table>
                                   </div>
                                   <table class=" col-xs-12  col-sm-8  col-md-7 table-info col-md-offset-3 col-sm-offset-3">
-                                     <tr>
-                                        <td>Email</td>
-                                        <td>myemail.gmail.com</td>
-                                        <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>Телефон робочий</td>
-                                         <td>254 87 96</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>Телефон домашній</td>
-                                         <td>254 87 96</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>Телефон мобільний</td>
-                                         <td>254 87 96</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>Адреса за місцем роботи</td>
-                                         <td>вул. Політехнічна 14, 24 кб.</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>Години прийому</td>
-                                         <td>10-25, 15-18</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>Примітка</td>
-                                         <td>..............</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>Skype</td>
-                                         <td>kmelkumayn</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
-                                     <tr>
-                                         <td>VK</td>
-                                         <td>http://vk.com/id575757</td>
-                                         <td class="glyphicon glyphicon-eye-open"></td>
-                                     </tr>
+                                         <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
                                   </table>
                               </div>
                              </div>
