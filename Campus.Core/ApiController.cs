@@ -16,7 +16,6 @@ namespace Campus.Core
     /// <summary>
     /// Base class for campus api-controllers
     /// </summary>
-    [CompressNative]
     public class ApiController : System.Web.Mvc.Controller
     {
         private const string AccessDenied = "Access denied";
@@ -165,7 +164,6 @@ namespace Campus.Core
         /// 
         /// </summary>
         /// <returns></returns>
-        [CompressIgnore]
         public ActionResult NotFound()
         {
             return Result(Request.Url, HttpStatusCode.NotFound);
@@ -175,7 +173,6 @@ namespace Campus.Core
         /// 
         /// </summary>
         /// <returns></returns>
-        [CompressIgnore]
         public ActionResult Forbiden()
         {
             return Result(AccessDenied, HttpStatusCode.Forbidden);
@@ -185,7 +182,6 @@ namespace Campus.Core
         /// 
         /// </summary>
         /// <returns></returns>
-        [CompressIgnore]
         public ActionResult OK()
         {
             return Result("OK", HttpStatusCode.OK);
@@ -195,7 +191,6 @@ namespace Campus.Core
         /// Method return information about another method supported by controller
         /// </summary>
         /// <returns></returns>
-        [CompressIgnore]
         public virtual ActionResult Introspect()
         {
             //Default Introspect implementation
@@ -271,7 +266,6 @@ namespace Campus.Core
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
         }
 
-        [CompressIgnore]
         protected dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
