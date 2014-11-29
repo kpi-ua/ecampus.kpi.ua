@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Web.UI;
-using AjaxControlToolkit.HTMLEditor.ToolbarButton;
 using Core;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,10 @@ namespace Site.Modules.SubSystems.GSVO
     {
         protected override void OnLoad(EventArgs e)
         {
-
+            if(SessionId == null)
+            {
+                Response.Redirect("/login");
+            }
         }
 
         protected void TreeView_SelectedNodeChanged(object sender, EventArgs e)
@@ -25,64 +27,96 @@ namespace Site.Modules.SubSystems.GSVO
 
         protected void TreeView_Load(object sender, EventArgs e)
         {
+            TreeView.Nodes.Clear();
+
+            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Specialist/GetDcOkr");
+
+            if(answer != null)
+            {
+                var dataArr = (ArrayList)answer["Data"];
+                AddParentNodes(dataArr);
+            }
 
         }
 
-        private void AddSubDivision(List<Campus.Common.Subdivision> dataArr)
+        private void AddParentNodes(ArrayList dataArr)
         {
-            //CafList.Items.Add(new ListItem("Не обрано", "-1"));
-
-            //for(int i = 0; i < dataArr.Count; i++)
-            //{
-            //    var li = new ListItem();
-
-            //    var subdivId = new ListItem();
-
-            //    foreach(var e in (Dictionary<string, object>)dataArr[i])
-            //    {
-            //        if (e.Key.ToString() == "Name")
-            //        {
-            //            li.Text = e.Value.ToString();
-            //        }
-
-            //        //else
-            //        //{
-            //        //    li.Value = e.Value.ToString();
-            //        //}
-            //    }
-
-            //CafList.Items.Add(li);
-            //break;
-            //var li = new ListItem();
-            //var subdivId = new ListItem();
-            foreach (var subd in dataArr)
+            for (int i = 0; i < dataArr.Count; i++)
             {
-                CafList.Items.Add(subd.Name);
+                var li = new ListItem();
+
+                foreach( var e in (Dictionary<string, object>)dataArr[i])
+                {
+                    if (e.Key.ToString() == "Name")
+                    {
+                        string okrName = li.Text = e.Value.ToString();
+                        TreeNode node = new TreeNode(okrName);
+                        TreeView.Nodes.Add(node);
+                    }
+                    else
+                    {
+                        li.Value = e.Value.ToString();
+                    }
+                }
+            }
+        }
+
+        //private void AddSubDivision(List<Campus.Common.Subdivision> dataArr)
+        private void AddSubDivision(ArrayList dataArr)
+        {
+            CafList.Items.Add(new ListItem("Не обрано", "-1"));
+
+            for (int i = 0; i < dataArr.Count; i++)
+            {
+                var li = new ListItem();
+
+                var subdivId = new ListItem();
+
+                foreach (var e in (Dictionary<string, object>)dataArr[i])
+                {
+                    if (e.Key.ToString() == "Name")
+                    {
+                        li.Text = e.Value.ToString();
+                    }
+
+                    else
+                    {
+                        li.Value = e.Value.ToString();
+                    }
+                }
+
+                CafList.Items.Add(li);
+
+                //foreach (var subd in dataArr)
+                //{
+                //    CafList.Items.Add(subd.Name);
+                //}
             }
         }
 
         protected void CafList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Session["subdivisionId"] = CafList.SelectedValue;
 
+            TreeView_Load(sender, e);
         }
 
         protected void CafList_Load(object sender, EventArgs e)
         {
-            //var subSysId = Session["gsvoId"];
+            var subSysId = Session["gsvoId"];
 
-            //CafList.Items.Add(SessionId.ToString());
-
-            //var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Responsible/GetSubDivisions?sessionId=" + SessionId + "&subsystemId=" + subSysId);
+            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Responsible/GetSubDivisions?sessionId=" + SessionId + "&subsystemId=" + subSysId);
 
             //CafList.Items.Clear();
 
-            //if (answer != null)
-            //{
-            //    var dataArr = (ArrayList)answer["Data"];
-            //    AddSubDivision(dataArr);
+            if (answer != null)
+            {
+                var dataArr = (ArrayList)answer["Data"];
+                AddSubDivision(dataArr);
+            }
             //}
-            var subdivision = CampusClient.GetSubdivisions(SessionId, Int32.Parse(Session["gsvoId"].ToString()));
-            AddSubDivision(subdivision);
+            //var subdivision = CampusClient.GetSubdivisions(SessionId, Int32.Parse(Session["gsvoId"].ToString()));
+            //AddSubDivision(subdivision);
         }
 
     }
