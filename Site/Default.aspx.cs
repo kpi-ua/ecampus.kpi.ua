@@ -42,7 +42,7 @@ namespace Site
 
                     foreach (var p in CurrentUser.Contacts)
                     {
-                        UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
+                        UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr><tr><td>" + p.ContactTypeName + "</td>";
                         UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
                         UserContactsLiteral.Text +="<td class=\"glyphicon glyphicon-eye-open\"></td></tr>";
                     }

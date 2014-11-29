@@ -15,7 +15,7 @@ namespace Site.Modules.SubSystems.GSVO
     {
         protected override void OnLoad(EventArgs e)
         {
-            
+
         }
 
         protected void TreeView_SelectedNodeChanged(object sender, EventArgs e)
@@ -26,56 +26,63 @@ namespace Site.Modules.SubSystems.GSVO
         protected void TreeView_Load(object sender, EventArgs e)
         {
 
-        }       
+        }
 
-        private void AddSubDivision(ArrayList dataArr)
+        private void AddSubDivision(List<Campus.Common.Subdivision> dataArr)
         {
-            CafList.Items.Add(new ListItem("Не обрано", "-1"));
+            //CafList.Items.Add(new ListItem("Не обрано", "-1"));
 
-            for(int i = 0; i < dataArr.Count; i++)
+            //for(int i = 0; i < dataArr.Count; i++)
+            //{
+            //    var li = new ListItem();
+
+            //    var subdivId = new ListItem();
+
+            //    foreach(var e in (Dictionary<string, object>)dataArr[i])
+            //    {
+            //        if (e.Key.ToString() == "Name")
+            //        {
+            //            li.Text = e.Value.ToString();
+            //        }
+
+            //        //else
+            //        //{
+            //        //    li.Value = e.Value.ToString();
+            //        //}
+            //    }
+
+            //CafList.Items.Add(li);
+            //break;
+            //var li = new ListItem();
+            //var subdivId = new ListItem();
+            foreach (var subd in dataArr)
             {
-                var li = new ListItem();
-
-                var subdivId = new ListItem();
-
-                foreach(var e in (Dictionary<string, object>)dataArr[i])
-                {
-                    if (e.Key.ToString() == "Name")
-                    {
-                        li.Text = e.Value.ToString();
-                    }
-
-                    //else
-                    //{
-                    //    li.Value = e.Value.ToString();
-                    //}
-                }
-
-                CafList.Items.Add(li);
-                break;
+                CafList.Items.Add(subd.Name);
             }
         }
 
         protected void CafList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void CafList_Load(object sender, EventArgs e)
         {
-            var subSysId = Session["gsvoId"];
+            //var subSysId = Session["gsvoId"];
 
-            CafList.Items.Add(SessionId.ToString());
+            //CafList.Items.Add(SessionId.ToString());
 
-            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Responsible/GetSubDivisions?sessionId=" + SessionId + "&subsystemId=" + subSysId);
+            //var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Responsible/GetSubDivisions?sessionId=" + SessionId + "&subsystemId=" + subSysId);
 
-            CafList.Items.Clear();
+            //CafList.Items.Clear();
 
-            if (answer != null)
-            {
-                var dataArr = (ArrayList)answer["Data"];
-                AddSubDivision(dataArr);
-            }
+            //if (answer != null)
+            //{
+            //    var dataArr = (ArrayList)answer["Data"];
+            //    AddSubDivision(dataArr);
+            //}
+            var subdivision = CampusClient.GetSubdivisions(SessionId, Int32.Parse(Session["gsvoId"].ToString()));
+            AddSubDivision(subdivision);
         }
 
     }
