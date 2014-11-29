@@ -39,7 +39,7 @@ namespace Site
                     }
 
                     SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
-
+                    UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
                     foreach (var p in CurrentUser.Contacts)
                     {
                         UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
