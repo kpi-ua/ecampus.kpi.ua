@@ -7,12 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Site
-{
+namespace Site {
     
     
-    public partial class SiteMaster
-    {
+    public partial class SiteMaster {
         
         /// <summary>
         /// UserName control.
