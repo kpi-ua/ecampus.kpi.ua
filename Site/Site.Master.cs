@@ -1,6 +1,7 @@
 ﻿using Core;
 using System;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 
@@ -11,6 +12,13 @@ namespace Site
         protected SitePage SitePage
         {
             get { return this.Page as SitePage; }
+        }
+
+        protected string JSPath
+        {
+            get { 
+                return HttpContext.Current.IsDebuggingEnabled ? "" : "min"; 
+            }
         }
 
         public string Position
