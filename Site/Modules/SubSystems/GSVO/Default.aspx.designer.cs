@@ -31,15 +31,6 @@ namespace Site.Modules.SubSystems.GSVO {
         protected global::System.Web.UI.WebControls.DropDownList CafList;
         
         /// <summary>
-        /// idl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label idl;
-        
-        /// <summary>
         /// TreeView control.
         /// </summary>
         /// <remarks>

@@ -27,7 +27,38 @@ namespace Site.Modules.SubSystems.GSVO
 
         protected void TreeView_Load(object sender, EventArgs e)
         {
+            TreeView.Nodes.Clear();
 
+            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Specialist/GetDcOkr");
+
+            if(answer != null)
+            {
+                var dataArr = (ArrayList)answer["Data"];
+                AddParentNodes(dataArr);
+            }
+
+        }
+
+        private void AddParentNodes(ArrayList dataArr)
+        {
+            for (int i = 0; i < dataArr.Count; i++)
+            {
+                var li = new ListItem();
+
+                foreach( var e in (Dictionary<string, object>)dataArr[i])
+                {
+                    if (e.Key.ToString() == "Name")
+                    {
+                        string okrName = li.Text = e.Value.ToString();
+                        TreeNode node = new TreeNode(okrName);
+                        TreeView.Nodes.Add(node);
+                    }
+                    else
+                    {
+                        li.Value = e.Value.ToString();
+                    }
+                }
+            }
         }
 
         //private void AddSubDivision(List<Campus.Common.Subdivision> dataArr)
@@ -66,6 +97,8 @@ namespace Site.Modules.SubSystems.GSVO
         protected void CafList_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["subdivisionId"] = CafList.SelectedValue;
+
+            TreeView_Load(sender, e);
         }
 
         protected void CafList_Load(object sender, EventArgs e)
