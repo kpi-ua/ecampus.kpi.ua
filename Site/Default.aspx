@@ -40,7 +40,7 @@
                                   </div>
                                   <table class=" col-xs-12  col-sm-8  col-md-9 table-info">
                                      <tr>
-                                        <td>Дані за місцем навчання/роботи</td>
+                                        <td>Дані за місцем навчання/роботи:</td>
                                         <td>
                                              <asp:Literal ID="WorkData" runat="server"></asp:Literal>
                                         </td>
@@ -48,9 +48,6 @@
                                   </table>
                                   
                                   <table class=" col-xs-12  col-sm-8  col-md-9 table-info" style="float:right">
-                                      <tr>
-                                          <td>Контактні дані</td>
-                                      </tr>
                                          <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
                                   </table>
                                     </div>
