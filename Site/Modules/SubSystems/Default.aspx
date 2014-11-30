@@ -1,7 +1,5 @@
 ﻿<%@ Page Title="Підсистеми" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Default.aspx.cs" Inherits="Site.Modules.SubSystems.Default" %>
 
-
-
 <asp:Content ID="breadcrumbs_content" ContentPlaceHolderID="breadcrumbs" runat="server">
     <li><a href="/Default.aspx">Домашня</a></li>
     <li class="active">Вибір підсистеми</li>

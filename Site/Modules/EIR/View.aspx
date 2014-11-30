@@ -1,12 +1,12 @@
-﻿<%@ Page Title="View" Language="C#" MasterPageFile="~/Modules/EIR/Menu.master" AutoEventWireup="true" CodeBehind="View.aspx.cs" Inherits="Site.Modules.EIR.View" %>
+﻿<%@ Page Title="Пошук" Language="C#" MasterPageFile="~/Modules/EIR/Menu.master" AutoEventWireup="true" CodeBehind="View.aspx.cs" Inherits="Site.Modules.EIR.View" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="breadcrumbs_new" runat="server">
     <li class="active">Пошук</li> 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="newhead" runat="server">
-    <link href="../../Content/EIRView.css" rel="stylesheet" />
+    <link href="/Content/EIRView.css" rel="stylesheet" />
     
-    <script src="../../Scripts/APIlib.js"></script>
-    <script src="../../Scripts/EIRView.js"></script>
+    <script src="/Scripts/APIlib.js"></script>
+    <script src="/Scripts/EIRView.js"></script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="newbody" runat="server">
     <table>
