@@ -180,6 +180,7 @@
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="Scripts\jquery.bootpag.min.js" />
     <Content Include="Scripts\legacy.js" />
+    <Content Include="Scripts\pako.min.js" />
     <Content Include="Scripts\picker.date.js" />
     <Content Include="Content\site2.css" />
     <Content Include="Content\tree\32px.png" />
@@ -577,6 +578,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
