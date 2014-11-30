@@ -1,11 +1,7 @@
-﻿using System.Linq;
-using System.Web.UI;
-using AjaxControlToolkit.HTMLEditor.ToolbarButton;
-using Core;
+﻿using Core;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -17,6 +13,7 @@ namespace Site.Modules.SubSystems
         /// Значення підсистеми ОПП ГСВО для переходу на сторінку підсистеми
         /// </summary>
         private const int _gsvoSubsystemId = 14;
+
         /// <summary>
         /// Значення підсистеми ОПП СВО для переходу на сторінку підсистеми
         /// </summary>

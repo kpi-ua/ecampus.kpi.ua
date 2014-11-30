@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Site.Modules.EIR.Search" %>
+﻿<%@ Page Title="Пошук" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Site.Modules.EIR.Search" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <div id="panel"></div>
