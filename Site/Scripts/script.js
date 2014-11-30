@@ -3,13 +3,35 @@
         window.campus = {};
     }
 
-    jQuery(function () {        
+    jQuery(function () {
+        campus.initVeriables(jQuery);
         campus.menuHandler(jQuery);
         campus.calendarToggler(jQuery);
         campus.carousel(jQuery);
         campus.scrollTop(jQuery);
         campus.eirFormControls(jQuery);
-    });    
+        campus.initCalendar(jQuery);
+        campus.initPushNotifications(jQuery);
+    });
+
+    campus.initVeriables = function () {
+        $.ApiPath = $("#ApiEndpoint").html();
+        $.SessionID = $("#CampusSessionId").val();
+    }
+
+    campus.initPushNotifications = function () {
+        $.notifications = new ServerNotifications();
+
+        // subscription to calendar notifications
+        $.notifications.Subscribe("notify-upcoming", $.ApiPath + "Pulse/CalendarPulse/Get?sessionId=" + $.SessionID);
+    }
+
+    campus.initCalendar = function() {
+        $.planner = new Planner($.SessionID);
+        $.ddate = $.planner.Today;
+
+        SubscribeToEvents(document);
+    }
 
     campus.menuHandler = function () {
         $(".left-nav li").on("click", function () {
@@ -170,14 +192,7 @@
         if ($('.list').find('tr').length > 0) {
             $('.list').closest('.row').before('<hr>');
         }
-        console.log($('.list').find('tr').length);
-        //$('#body_person_accessory_1').on('change', function() {
-        //    $('#non-kpi-person').slideDown(300);
-        //    $('#person_name_div').slideUp(300);
-        //});
-        //$('#body_person_accessory_0').on('change', function() {
-        //    $('#non-kpi-person').slideUp(300);
-        //});
+        console.log($('.list').find('tr').length);        
         $('#body_griff').on('change', function () {
             console.log($(this).val());
             if ($(this).val() == 7) {
@@ -370,8 +385,7 @@ function AjaxLoader(id, options) {
 //  popover_toggle_id: "datepicker-show-events"
 //}
 Planner = function (session, input) {
-
-    $.ApiPath = $("#ApiEndpoint").html();
+    
     $.SessionID = session;
     var ApiEndpoint = $.ApiPath;
 
@@ -1056,10 +1070,5 @@ SubscribeToEvents = function (_document) {
         $('.datepicker').val($.planner.dateTimeOperations.prevDay($('.datepicker').val()));        
         $.planner.RenderTimeLabels($('.datepicker').val());        
         $.ddate = $('.datepicker').val();
-    });
-
-    $.notifications = new ServerNotifications();
-
-    // subscription to calendar notifications
-    $.notifications.Subscribe("test", $.ApiPath + "Pulse/CalendarPulse/Get?sessionId=" + $.SessionID);
+    });    
 }

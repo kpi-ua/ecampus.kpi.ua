@@ -454,12 +454,5 @@ namespace Core
                 return false;
             }
         }
-
-        public List<Campus.Common.Subdivision> GetSubdivisions(string sessionId, int subsystemId)
-        {
-            var url = BuildUrl("Responsible", "GetSubDivisions", new { sessionId, subsystemId });
-            var answer = GetData(url);
-            return (List<Subdivision>)answer["Data"];
-        }
     }
 }
