@@ -118,8 +118,7 @@ namespace Site.MZSearch
         protected void inpDisc_OnCheckedChanged(object sender, EventArgs e)
         {
             sb.Visible = false;
-            inpCred.Checked = false;
-            
+            inpCred.Checked = false;            
 
             isdisc.Attributes["Value"] = true.ToString();
             SList.Items.Clear();
@@ -141,15 +140,14 @@ namespace Site.MZSearch
         protected void inpCred_OnCheckedChanged(object sender, EventArgs e)
         {
             sb.Visible = false;
-            inpDisc.Checked = false;
-            
+            inpDisc.Checked = false;            
 
             isdisc.Attributes["Value"] = false.ToString();
-            SFdiv.Visible = true;
+            //SFdiv.Visible = true;
             NameDisc.InnerText = "Оберіть кредитний модуль";
 
-            SFList.Items.Clear();
-            SFList.Items.Add(new ListItem("Не обрано", "-1"));
+            //SFList.Items.Clear();
+            //SFList.Items.Add(new ListItem("Не обрано", "-1"));
 
             SList.Items.Clear();
             SList.Items.Add(new ListItem("Не обрано", "-1"));
@@ -171,19 +169,19 @@ namespace Site.MZSearch
         /// <param name="e"></param>
         protected void DiscList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-
-            sb.Visible = false;
-            
+            sb.Visible = false;            
 
             Dictionary<string, object> answer = null;
 
             if (inpDisc.Checked)
             {
-                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityD?sessionId"+CampusClient.SessionId+"&discId=" + DiscList.SelectedValue.ToString());
+                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityD?sessionId"+CampusClient.SessionId +
+                    "&discId=" + DiscList.SelectedValue.ToString());
             }
             else
             {
-                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityC?sessionId" + CampusClient.SessionId + "&credId=" + DiscList.SelectedValue.ToString());
+                answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityC?sessionId" + CampusClient.SessionId + 
+                    "&credId=" + DiscList.SelectedValue.ToString());
             }
 
             SList.Items.Clear();

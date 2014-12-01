@@ -387,11 +387,10 @@ a, .btn {
 }
 
 .profile {
-    margin-right: 20px;
 }
 
     .profile .tab-pane {
-        padding: 0px;
+        padding: 0;
     }
 
     .profile .pic {
@@ -416,12 +415,12 @@ a, .btn {
         text-decoration: none;
     }
 
-    .profile .change:hover {
-        background-color: black;
-        color: white;
-        text-decoration: none;
-    }
-    
+        .profile .change:hover {
+            background-color: black;
+            color: white;
+            text-decoration: none;
+        }
+
 /* END PROFILE */
 
 /*MESSAGES*/
@@ -1153,7 +1152,7 @@ header {
     z-index: 15;
     width: 60px;
     height: 30px;
-    background: #208843;    
+    background: #208843;
     box-shadow: 0 0 1px #fff;
     color: #fff;
     text-align: center;
@@ -1166,7 +1165,7 @@ header {
     -moz-border-radius-topright: 0px;
     border-radius: 10px;
     border-top-left-radius: 0px;
-    border-top-right-radius: 0px;*/   
+    border-top-right-radius: 0px;*/
 }
 
 #datepicker-prev-events {
@@ -1176,14 +1175,14 @@ header {
     z-index: 15;
     width: 30px !important;
     height: 30px;
-    background: #208843;    
+    background: #208843;
     box-shadow: 0 0 1px #fff;
     color: #fff;
     text-align: center;
     cursor: pointer;
     /*-webkit-border-bottom-left-radius: 10px;
     -moz-border-radius-bottomleft: 10px;
-    border-bottom-left-radius: 10px;*/   
+    border-bottom-left-radius: 10px;*/
 }
 
 #datepicker-next-events {
@@ -1193,27 +1192,27 @@ header {
     z-index: 15;
     width: 30px !important;
     height: 30px;
-    background: #208843;    
+    background: #208843;
     box-shadow: 0 0 1px #fff;
     color: #fff;
     text-align: center;
     cursor: pointer;
     /*-webkit-border-bottom-right-radius: 10px;
     -moz-border-radius-bottomright: 10px;
-    border-bottom-right-radius: 10px;*/ 
+    border-bottom-right-radius: 10px;*/
 }
 
 #datepicker-show-events:hover {
-        background: #3bb578;
-    }
+    background: #3bb578;
+}
 
 #datepicker-prev-events:hover {
-        background: #3bb578;
-    }
+    background: #3bb578;
+}
 
 #datepicker-next-events:hover {
-        background: #3bb578;
-    }
+    background: #3bb578;
+}
 
 #datepicker-toggle-navigation {
     position: absolute;
@@ -1235,34 +1234,34 @@ header {
     border-bottom-left-radius: 5px;
 }
 
-#datepicker-toggle-navigation:hover {
+    #datepicker-toggle-navigation:hover {
         background: #3bb578;
     }
 
-    .datepicker-toggle i {
-        position: relative;
-        font-size: 36px;
-        line-height: 60px;
-    }
+.datepicker-toggle i {
+    position: relative;
+    font-size: 36px;
+    line-height: 60px;
+}
 
-    .datepicker-toggle:hover {
-        background: #3bb578;
-    }
+.datepicker-toggle:hover {
+    background: #3bb578;
+}
 
-    .datepicker-toggle .datepicker-label {
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        display: none;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        background: #d91e18;
-        color: #fff;
-        text-align: center;
-        font-size: 1em;
-        line-height: 24px;
-    }
+.datepicker-toggle .datepicker-label {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    display: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #d91e18;
+    color: #fff;
+    text-align: center;
+    font-size: 1em;
+    line-height: 24px;
+}
 
 .poster {
     display: block;
@@ -1296,30 +1295,29 @@ header {
         font-size: 1.3em;
     }
 
-    .datepicker-messages > .event {
+.event {
+    position: relative;
+    padding-top: 6px;
+}
+
+    .event:after {
         position: relative;
-        padding-top: 6px;
+        display: block;
+        margin: 6px auto 0 auto;
+        width: 220px;
+        height: 0;
+        border-bottom: 1px dotted #fff;
+        content: "";
     }
 
-        .datepicker-messages > .event:after {
-            position: relative;
-            display: block;
-            margin: 6px auto 0 auto;
-            width: 220px;
-            height: 0;
-            border-bottom: 1px dotted #fff;
-            content: "";
-        }
+.event-time {
+    position: absolute;
+    left: 4px;
+}
 
-        .datepicker-messages > .event > .event-time {
-            position: absolute;
-            left: 4px;
-            width: 50px;
-        }
-
-        .datepicker-messages > .event > .event-text {
-            padding-left: 55px;
-        }
+.event-text {
+    padding-left: 55px;
+}
 
 /* FORM EIR*/
 
@@ -2129,30 +2127,71 @@ table tr td {
 }
 
 .add-pop-btn {
-    
 }
 
 .div-canvas {
     top: 50%;
     left: 50%;
-    width:60px;
-    height:60px;
+    width: 60px;
+    height: 60px;
     margin-top: -30px; /*set to a negative number 1/2 of your height*/
-    margin-left: -30px; /*set to a negative number 1/2 of your width*/    
-    position:absolute;
+    margin-left: -30px; /*set to a negative number 1/2 of your width*/
+    position: absolute;
 }
 
 .div-canvas-small {
     top: 50%;
     left: 50%;
-    width:30px;
-    height:30px;
+    width: 30px;
+    height: 30px;
     margin-top: -15px; /*set to a negative number 1/2 of your height*/
-    margin-left: -15px; /*set to a negative number 1/2 of your width*/    
-    position:absolute;
+    margin-left: -15px; /*set to a negative number 1/2 of your width*/
+    position: absolute;
 }
 
 .popup-data {
-    width: 200px;
+    width: 540px;
 }
 
+#datepicker-events::-webkit-scrollbar {
+    width: 5px;
+    background-color: #ccc;
+}
+
+#datepicker-events::-webkit-scrollbar-thumb {
+    background-color: #999;
+}
+
+    #datepicker-events::-webkit-scrollbar-thumb:hover {
+        background-color: #999;
+        border: 1px solid;
+    }
+
+    #datepicker-events::-webkit-scrollbar-thumb:active {
+        background-color: #3bb578;
+    }
+
+#datepicker-events::-webkit-scrollbar-track {
+    -webkit-box-shadow: 0 0 2px gray inset;
+    background-color: #ccc;
+}
+
+.privacy-list {
+    margin-left: 15px;
+}
+
+    .privacy-list li {
+        padding-top: 3px;
+        list-style-type: decimal;
+        display: list-item;
+        list-style-position: inside;
+    }
+
+
+    .privacy-list ul {
+        margin-left: 35px;
+    }
+
+        .privacy-list ul li {
+            list-style: circle;
+        }

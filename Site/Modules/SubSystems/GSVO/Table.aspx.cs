@@ -1,19 +1,13 @@
-﻿using System.Linq;
-using System.Web.UI;
-using AjaxControlToolkit.HTMLEditor.ToolbarButton;
-using Core;
-using Campus.SDK;
-using Campus.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-using System.Web.UI.HtmlControls;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Site.Modules.SubSystems.GSVO
 {
-    public partial class Table : Core.SitePage
+    public partial class Table : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
