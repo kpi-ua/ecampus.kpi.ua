@@ -9,7 +9,7 @@ using System.Collections;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-namespace Site.Modules.SubSystems.GSVO
+namespace Site.Modules.SubSystems.SVO
 {
     public partial class Default : Core.SitePage
     {
@@ -40,20 +40,22 @@ namespace Site.Modules.SubSystems.GSVO
 
                 foreach(var e in (Dictionary<string, object>)dataArr[i])
                 {
-                    if (e.Key.ToString() == "Name" && e.Key.ToString() == "SubdivisionId")
+                    if (e.Key.ToString() == "Name")
                     {
                         li.Text = e.Value.ToString();
 
-                        subdivId.Text = e.Value.ToString();
+                        
                     }
-
+                    /*
                     //else
                     //{
                     //    li.Value = e.Value.ToString();
-                    //}
+                    //}*/
                 }
 
                 CafList.Items.Add(li);
+
+  
                 break;
             }
         }
@@ -65,7 +67,7 @@ namespace Site.Modules.SubSystems.GSVO
 
         protected void CafList_Load(object sender, EventArgs e)
         {
-            var subSysId = Session["gsvoId"];
+            var subSysId = Session["svoId"];
 
             CafList.Items.Add(SessionId.ToString());
 

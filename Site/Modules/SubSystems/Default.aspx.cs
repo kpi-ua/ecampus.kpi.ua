@@ -71,7 +71,14 @@ namespace Site.Modules.SubSystems
                 subsystembtn.Click += new EventHandler(GetToGSVOSubSystem);
                 Session["gsvoId"] = _gsvoSubsystemId;
             }
-                
+
+            /*
+            if ((int)sys["SubsustemId"] == _svoSubsystemId)
+            {
+                subsystembtn.Click += new EventHandler(GetToSVOSubSystem);
+                Session["svoId"] = _svoSubsystemId;
+            }
+                */
 
             subsysDiv.Controls.Add(subsystembtn);
 
@@ -79,9 +86,14 @@ namespace Site.Modules.SubSystems
 
         }
 
+       
         private void GetToGSVOSubSystem(object sender, EventArgs e)
         {
             Response.Redirect("GSVO/Default.aspx");
+        }
+         private void GetToSVOSubSystem(object sender, EventArgs e)
+        {
+            Response.Redirect("SVO/Default.aspx");
         }
     }
 }

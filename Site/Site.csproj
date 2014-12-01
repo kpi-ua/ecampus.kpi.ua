@@ -288,7 +288,11 @@
     <Content Include="Modules\RNP\Default.aspx" />
     <Content Include="Modules\SubSystems\Default.aspx" />
     <Content Include="Modules\SubSystems\GSVO\Default.aspx" />
+    <Content Include="Modules\SubSystems\GSVO\Table.aspx" />
+    <Content Include="Modules\SubSystems\SVO\Default.aspx" />
+    <Content Include="Modules\SubSystems\SVO\Table.aspx" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\ajax_upgrade_page.js" />
     <Content Include="Scripts\APIlib.js" />
     <Content Include="Scripts\async.js" />
     <Content Include="Scripts\bootbox.min.js" />
@@ -464,6 +468,27 @@
     </Compile>
     <Compile Include="Modules\SubSystems\GSVO\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.cs">
+      <DependentUpon>Table.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.designer.cs">
+      <DependentUpon>Table.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\SVO\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\SVO\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\SVO\Table.aspx.cs">
+      <DependentUpon>Table.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\SVO\Table.aspx.designer.cs">
+      <DependentUpon>Table.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\RNP\Default.aspx.cs">
