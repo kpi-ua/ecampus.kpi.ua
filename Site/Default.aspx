@@ -43,7 +43,7 @@
                                             </tr>
                                         </table>
 
-                                        <table class=" col-xs-12  col-sm-8  col-md-9 table-info">
+                                        <table class="col-md-6 table-info col-md-offset-3 table-condensed">
                                             <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
                                         </table>
                                     </div>
@@ -58,31 +58,10 @@
                         <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
                             <div class="panel-body">
                                 <table class="col-md-6 table-info col-md-offset-3 table-condensed">
-                                    <tr>
-                                        <td><strong>Назва кредитного модулю</strong></td>
-                                        <td>Технології розробки програмного забезпечення</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>День тижня</strong></td>
-                                        <td>середа</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Номер пари</strong></td>
-                                        <td>1-й</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Час пари</strong></td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Група/Групи</strong></td>
-                                        <td>ІК-21</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Викладач</strong></td>
-                                        <td>Мелкумян К.Ю</td>
-                                    </tr>
-                                    <tr>
+                                            <asp:Literal ID="TimeTablesLiteral" runat="server"></asp:Literal>
+                                        </table>
+                                 <table class="col-md-6 table-info col-md-offset-3 table-condensed">
+                                      <tr>
                                         <td colspan="2"></td>
                                     </tr>
                                     <tr>
