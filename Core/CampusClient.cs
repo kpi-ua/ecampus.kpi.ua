@@ -1,17 +1,21 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Campus.Common;
+using Campus.SDK;
+using Newtonsoft.Json;
 using NLog;
+using PagedList;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Web.Script.Serialization;
 
 namespace Core
 {
-    public class CampusClient : Campus.SDK.Client
+    public class CampusClient : Client
     {
         private readonly JavaScriptSerializer _serializer = new JavaScriptSerializer();
 
@@ -26,8 +30,9 @@ namespace Core
                 return null;
             }
 
-            var model = JsonConvert.DeserializeObject<T>(result.Data.ToString());
-            return model;
+            if (result.Data.ToString() == "True" || result.Data.ToString() == "False")
+                return result.Data.ToString();
+            return JsonConvert.DeserializeObject<T>(result.Data.ToString());
         }
 
         private Dictionary<string, object> GetStringObject(string url)
@@ -36,7 +41,7 @@ namespace Core
             {
                 var json = DownloadString(url);
                 var respDictionary = _serializer.Deserialize<Dictionary<string, object>>(json);
-                var data = (Dictionary<string, Object>)respDictionary["Data"];
+                var data = (Dictionary<string, object>)respDictionary["Data"];
                 return data;
             }
             catch
@@ -53,19 +58,19 @@ namespace Core
             {
                 _client = new WebClient
                 {
-                    Encoding = System.Text.Encoding.UTF8
+                    Encoding = Encoding.UTF8
                 };
 
-                if (Campus.SDK.Client.Proxy != null)
+                if (Proxy != null)
                 {
-                    _client.Proxy = Campus.SDK.Client.Proxy;
+                    _client.Proxy = Proxy;
                 }
             }
 
             return _client;
         }
 
-        public Dictionary<String, object> GetData(string url)
+        public Dictionary<string, object> GetData(string url)
         {
             try
             {
@@ -101,7 +106,7 @@ namespace Core
             return text;
         }
 
-        public IList<Campus.Common.Message> GetUserConversation(string sessionId, int groupId, int size, out PagedList.IPagedList paging)
+        public IList<Message> GetUserConversation(string sessionId, int groupId, int size, out IPagedList paging)
         {
             var url = BuildUrl("Message", "GetUserConversation", new
             {
@@ -113,30 +118,30 @@ namespace Core
             var result = Get(url);
             paging = result.Paging;
 
-            IEnumerable<Campus.Common.Message> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Message>>(result.Data.ToString());
+            IEnumerable<Message> messages = JsonConvert.DeserializeObject<IEnumerable<Message>>(result.Data.ToString());
             return messages.ToList();
         }
 
-        public IEnumerable<Campus.Common.Conversation> GetUserConversations(string sessionId)
+        public IEnumerable<Conversation> GetUserConversations(string sessionId)
         {
-            var result = Get<IEnumerable<Campus.Common.Conversation>>("Message", "GetUserConversations", new { sessionId, });
+            var result = Get<IEnumerable<Conversation>>("Message", "GetUserConversations", new { sessionId, });
             result = result.OrderByDescending(o => o.LastMessageDate);
             return result;
         }
 
-        public Campus.Common.User GetUser(string sessionId)
+        public User GetUser(string sessionId)
         {
-            var result = Get<Campus.Common.User>("User", "GetCurrentUser", new { sessionId, });
+            var result = Get<User>("User", "GetCurrentUser", new { sessionId, });
             return result;
         }
 
-        public IEnumerable<Campus.Common.BulletinBoard> GetBulletinBoard(string sessionId)
+        public IEnumerable<BulletinBoard> GetBulletinBoard(string sessionId)
         {
-            var result = Get<IEnumerable<Campus.Common.BulletinBoard>>("BulletinBoard", "GetActual", new { sessionId, });
+            var result = Get<IEnumerable<BulletinBoard>>("BulletinBoard", "GetActual", new { sessionId, });
             return result;
         }
 
-        public Dictionary<string, Object> GetIrPurpose()
+        public Dictionary<string, object> GetIrPurpose()
         {
             return GetStringObject(ApiEndpoint + "Ir/GetIrPurpose");
         }
@@ -214,9 +219,9 @@ namespace Core
             return answer == null;
         }
 
-        public IList<Permission> GetPermissions(string sessionId)
+        public IEnumerable<Permission> GetPermissions(string sessionId)
         {
-            var answer = GetData(Campus.SDK.Client.ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + sessionId);
+            var answer = GetData(ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + sessionId);
             var data = (ArrayList)answer["Data"];
 
             var permissions = new List<Permission>();
@@ -274,6 +279,190 @@ namespace Core
             }
 
             return permissions;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="method"></param>
+        /// <param name="postData"></param>
+        /// <returns></returns>
+        public string Request(string url, string method, string postData)
+        {
+            string responseData = "";
+
+            try
+            {
+                var request = (System.Net.HttpWebRequest)WebRequest.Create(url);
+                request.Accept = "*/*";
+                request.AllowAutoRedirect = true;
+                request.UserAgent = "http_requester/0.1";
+                request.Timeout = 60000;
+                request.Method = method;
+
+                if (request.Method == "POST")
+                {
+                    request.ContentType = "application/x-www-form-urlencoded";
+                    // Use UTF8Encoding instead of ASCIIEncoding for XML requests:
+                    var encoding = new System.Text.ASCIIEncoding();
+                    var postByteArray = encoding.GetBytes(postData);
+                    request.ContentLength = postByteArray.Length;
+
+                    var postStream = request.GetRequestStream();
+                    postStream.Write(postByteArray, 0, postByteArray.Length);
+                    postStream.Close();
+                }
+
+                var response = (System.Net.HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var responseStream = response.GetResponseStream();
+                    var myStreamReader =
+                        new System.IO.StreamReader(responseStream);
+                    responseData = myStreamReader.ReadToEnd();
+                }
+
+                response.Close();
+            }
+            catch (Exception e)
+            {
+                responseData = "An error occurred: " + e.Message;
+            }
+
+            return responseData;
+        }
+
+        public T MakeRequest<T>(string url)
+        {
+            var request = WebRequest.Create(url) as HttpWebRequest;
+
+            using (var response = request.GetResponse() as HttpWebResponse)
+            {
+                var reader = new StreamReader(response.GetResponseStream());
+                return JsonConvert.DeserializeObject<T>(ClearResponse(reader.ReadToEnd()));
+            }
+        }
+
+        private static string ClearResponse(string resp)
+        {
+            var r = resp.Split(new[] { "\"Data\":" }, StringSplitOptions.RemoveEmptyEntries);
+            r[1] = r[1].Substring(0, r[1].Length - 1);
+            return r[1];
+        }
+
+        public IEnumerable<Bulletin> DeskGetActualBulletins(int userId)
+        {
+            var l = Get<IEnumerable<Bulletin>>("BulletinBoard", "DeskGetActualBulletins", new { userId });
+            foreach (var v in l)
+            {
+                v.LinkList = new List<BulletinLink>();
+                v.ParseLink(v.StrLinkList);
+            }
+            return l;
+        }
+
+        public IEnumerable<SimpleInfo> DeskGetAllowedProfiles()
+        {
+            return Get<IEnumerable<SimpleInfo>>("BulletinBoard", "DeskGetProfileTypesList");
+        }
+
+        public IEnumerable<SimpleInfo> DeskGetFacultyTypesList()
+        {
+            return Get<IEnumerable<SimpleInfo>>("BulletinBoard", "DeskGetFacultyTypesList");
+        }
+
+        public IEnumerable<GroupInfo> DeskGetGroupTypesList(int subdivisionId)
+        {
+            return Get<IEnumerable<GroupInfo>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
+        }
+
+        public string DeskAddBulletein(int creatorId,
+            string creatorName,
+            string creationDate,
+            string startDate,
+            string endDate,
+            string subject,
+            string text,
+            string link = "///")
+        {
+            return Get<string>("BulletinBoard", "DeskAddBulletin", new
+            {
+                creatorId,
+                creatorName,
+                creationDate,
+                startDate,
+                endDate,
+                subject,
+                text,
+                link
+            });
+        }
+        public string DeskUpdateBulletein(int creatorId,
+            string creatorName,
+            string subject,
+            string text,
+            int id,
+            string link = "///"
+            )
+        {
+            return Get<string>("BulletinBoard", "DeskUpdateBulletin", new
+            {
+                creatorId,
+                creatorName,
+                subject,
+                text,
+                id,
+                link
+            });
+        }
+        public void DeskRemoveBulletin(int id)
+        {
+            Get<string>("BulletinBoard", "DeskRemoveBulletin", new { id = id });
+        }
+
+        public string DeskIsModerator(string sessionId)
+        {
+            return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
+        }
+
+        public bool IsConfirmSet(string sessionId)
+        {
+            var url = BuildUrl("User", "IsConfirmed", new { sessionId });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool SetReasonFailure(string sessionId,string reasonFailure)
+        {
+            var url = BuildUrl("User", "SetReasonFailure", new { sessionId, reasonFailure });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public List<Campus.Common.TimeTable> GeTimeTables(string sessionId, string profile)
+        {
+            var url = BuildUrl("TimeTable", "GetTimeTable", new { sessionId, profile });
+            var result = Get<List<TimeTable>>("TimeTable", "GetTimeTable", new { sessionId, profile });
+            if (result == null)
+            {
+                return null;
+            }
+            return result;
         }
     }
 }

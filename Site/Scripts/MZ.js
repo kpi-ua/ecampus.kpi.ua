@@ -1,8 +1,7 @@
-﻿
-var ApiEndpoint;
+﻿var ApiEndpoint;
 
 $(document).ready(function () {
-    
+
     ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
 
 
@@ -20,12 +19,12 @@ function window_resize() {
     var page_h = $("html").height();
     var page_w = $("html").width();
 
-    var containerHeight = page_h - 170;
+    var containerHeight = page_h - 200;
 
     $(".popContainer").css("max-height", containerHeight);
     $(".popContainer").css("min-height", containerHeight);
 
-    console.log(page_h - 200);
+    console.log("Page height" + (page_h - 200));
 }
 
 
@@ -294,7 +293,7 @@ $(document).on("click", ".ironediv p", function () {
                     parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Анотація" + "</span><span class=\"col-md-6\">" + value.Annotation + "</span></li>");
                     //parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwww.AlexFrostField" + "</a></li>");
                     parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + callObj.attr("iid") + "\" class=\"edit btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + callObj.attr("iid") + "\" class=\"delete btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
-                    
+
                     count++;
                 }
             });
@@ -347,46 +346,60 @@ $(document).on("click", "#itemcontainer div input", function () {
 
     popContainer.children().remove();
 
+    popContainer.append(
+        "<div class =\"row firstRow\">" +
+            "<div class=\"col-md-5\">" + 
+                "<ul id=\"dul\" class=\"itemcol col-md-12\"></ul>" +
+            "</div>" +
+       "</div>");
 
-    popContainer.append("<ul id=\"dul\" class=\"itemcol col-md-5\"></ul>");
-    popContainer.append("<div class =\"row\"><div class=\"col-md-5 col-md-offset-1\">" +
-        "<div class=\" col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
-        "Електронні інформаційні ресурси" +
-        "</div>" +
-        "<div id=\"irpop\" class=\"itemcol col-md-12\">" +
-        "</div></div></div>");
-
-    var irpopHeight = $(".itemcol").height() - 127;
-    $("#irpop").css("max-height", irpopHeight);
-    $("#irpop").css("min-height", irpopHeight);
-    var parentUl = popContainer.children("#dul");
-
+    var parentUl = popContainer.children(".firstRow").children().children("#dul");
 
     if ($("#body_isdisc").attr("value") == "True") {
 
         //-----------------------for disc---------------------------------
+        
+        loadDiscRows(parentUl, obj);      
 
-        loadDiscRows(parentUl, obj);
         //--------------------ir for disc-----------------------------------------------------
-        getIrForDorC(obj, $("#irpop"));
+        popContainer.children(".firstRow").append(
+            "<div class=\"col-md-5 col-md-offset-1\">" +
+                "<div class=\" col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
+                    "Електронні інформаційні ресурси" +
+                "</div>" +
+                "<div id=\"irpop\" class=\"itemcol col-md-12\">" +
+                "</div>" +
+            "</div>");
+
+        var irpopHeight = $(".itemcol").height() - 120;
+        $("#irpop").css("max-height", irpopHeight);
+        $("#irpop").css("min-height", irpopHeight);
+
+        getIrForDorC(obj, $("#irpop"));        
 
         //----------------cred for disc------------------------------------------------------
-        popContainer.append("<div class =\"row inrow\"><div class=\"col-md-5\">" +
-            "<div class=\" col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
-            "Кредитні модулі" +
-            "</div>" +
-            "<div id=\"cpop\" class=\"itemcol col-md-12\">" +
-            "</div></div></div>");
+        popContainer.append(
+            "<div class =\"row secondRow\">" + 
+                "<div class=\"col-md-5\">" +
+                    "<div class=\"col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
+                        "Кредитні модулі" +
+                    "</div>" +
+                    "<div id=\"cpop\" class=\"itemcol col-md-12\">" +
+                    "</div>" +
+                "</div>" + 
+            "</div>");
 
         getCredForDisc(obj, $("#cpop"));
 
         //--------------------rnp for disc----------------------------------------------------
-        popContainer.children(".inrow").append("<div class=\"col-md-5 col-md-offset-1\">" +
-            "<div class=\" col-md-12 label label-warning  margin\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
-            "Рядки РНП" +
-            "</div>" +
-            "<div id=\"rnppop\" class=\"itemcol col-md-12 margin\">" +
-            "</div></div>");
+        popContainer.children(".secondRow").append(
+            "<div class=\"col-md-5 col-md-offset-1\">" +
+                "<div class=\" col-md-12 label label-warning  margin\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
+                    "Рядки РНП" +
+                "</div>" +
+                "<div id=\"rnppop\" class=\"itemcol col-md-12 margin\">" +
+                "</div>" + 
+           "</div>");
 
         getRNPForDorC(obj, $("#rnppop"));
 
@@ -416,7 +429,7 @@ $(document).on("click", "#itemcontainer div input", function () {
 
 });
 
-$(document).on("click", ".edit", function() {
+$(document).on("click", ".edit", function () {
     $("#body_irEdit").attr("Value", $(this).attr("iid"));
     $(".popContainer").append("<input class=\"hinput\" type=\"submit\"/>");
     $(".hinput").click();
