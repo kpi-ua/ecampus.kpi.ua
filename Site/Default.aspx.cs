@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-
+using System.Linq;
 namespace Site
 {
     public partial class Default : Core.SitePage
@@ -38,7 +38,7 @@ namespace Site
                         WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
                     }
 
-                    SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
+                    
                     UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
                     foreach (var p in CurrentUser.Contacts)
                     {
@@ -46,7 +46,56 @@ namespace Site
                         UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
                         UserContactsLiteral.Text +="<td class=\"glyphicon glyphicon-eye-open\"></td></tr>";
                     }
+                    List<Campus.Common.TimeTable> ttList = null;
+                    if (CurrentUser.Employees.Count() >= 1)
+                    {
+                        ttList = CampusClient.GeTimeTables(SessionId, "employee");
+                    }
+                    if (CurrentUser.Personalities.Count() >= 1)
+                    {
+                        ttList = CampusClient.GeTimeTables(SessionId, "student");
+                    }
+                    if (ttList != null)
+                    {
 
+                        for (int w = 0; w < 2; w++)
+                        {
+                            TimeTablesLiteral.Text += "<h5 align=\"center\"> " + (w + 1) + "-й тиждень</h5>" +
+                           "  <table class=\"table table-bordered table-hover\"><tr><td></td><td>Понеділок</td><td>Вівторок</td><td>Середа</td>" +
+                           "<td>Четвер</td><td>П'ятниця</td><td>Субота</td></tr>";
+                            for (int l = 0; l < 5; l++)
+                            {
+                                TimeTablesLiteral.Text += "<tr><td>" + (l + 1) + "</td>";
+                                for (int d = 0; d < 6; d++)
+                                {
+                                    if (
+                                        !ttList.Exists(
+                                            table =>
+                                                table.WeekNum == w + 1 && table.LessonId == l + 1 &&
+                                                table.DayId == d + 1))
+                                    {
+                                        TimeTablesLiteral.Text += "<td></td>";
+                                    }
+                                    else
+                                    {
+                                        var lesson = ttList.SingleOrDefault(
+                                            table =>
+                                                table.WeekNum == w + 1 &&
+                                                table.LessonId == l + 1 &&
+                                                table.DayId == d + 1);
+                                        TimeTablesLiteral.Text += "<td>" + lesson.Subject + "<br>" +
+                                                                  lesson.Employee + "<br>" + lesson.Building
+                                                                  //+ "<br>" + lesson.GroupName + "</td>"
+                                                                  + "</td>";
+                                    }
+                                }
+                                TimeTablesLiteral.Text += "</tr>";
+                            }
+                            TimeTablesLiteral.Text += "</table><br><br>";
+                        }
+                    }
+
+                    SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
                     foreach (var p in CurrentUser.Profiles)
                     {
                         SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + p.SubsystemName + "\"";
