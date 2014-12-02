@@ -10,15 +10,4 @@
         <asp:Panel ID="MySubsystemsContainer" runat="server">
     </asp:Panel>
     </center>
-    
-
-    <script type="text/javascript">
-        $(".showText").mouseover(function () { $(this).css("cursor", "pointer") });
-        $(".showText").mouseout(function () { $(this).css("cursor", "default") });
-        $(".showText").click(function () {
-            if ($(this).parent().find(".set_des").css("display") == "none") {
-                $(this).parent().find(".set_des").slideDown();
-            } else { $(this).parent().find(".set_des").slideUp(); }
-        });
-    </script>
 </asp:Content>

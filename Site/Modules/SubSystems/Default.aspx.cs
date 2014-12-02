@@ -63,10 +63,17 @@ namespace Site.Modules.SubSystems
             subsystembtn.Width = 200;
             subsystembtn.Height = 100;
 
-            if ((int)sys["SubsystemId"] == _gsvoSubsystemId)
+            switch ((int)sys["SubsystemId"])
             {
-                subsystembtn.Click += new EventHandler(GetToGSVOSubSystem);
-                Session["gsvoId"] = _gsvoSubsystemId;
+                case _gsvoSubsystemId:
+                    subsystembtn.Click += new EventHandler(GetToGSVOSubSystem);
+                    Session["gsvoId"] = _gsvoSubsystemId;
+                    break;
+
+                case _svoSubsystemId:
+                    subsystembtn.Click += new EventHandler(GetToSVOSubsystem);
+                    Session["svoId"] = _svoSubsystemId;
+                    break;
             }
                 
 
@@ -74,6 +81,11 @@ namespace Site.Modules.SubSystems
 
             return subsysDiv;
 
+        }
+
+        private void GetToSVOSubsystem(object sender, EventArgs e)
+        {
+            Response.Write("Немає сторінки");
         }
 
         private void GetToGSVOSubSystem(object sender, EventArgs e)
