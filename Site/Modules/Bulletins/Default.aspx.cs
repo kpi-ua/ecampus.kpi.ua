@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Core;
-using Bulletin = Core.Bulletin;
 
 namespace Site.Modules.Bulletins
 {
     public partial class Default : Core.SitePage
     {
-        public static Core.Bulletin CurrentBulletin;
+        public static Bulletin CurrentBulletin;
         private Control _baseControl;
         private Control _editControl;
         private List<SimpleInfo> _faculties;
