@@ -38,7 +38,26 @@ namespace Site
                         WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
                     }
 
-                    
+                    if (CurrentUser.IsConfirmed != null&&CurrentUser.IsConfirmed=="1")
+                    {
+                        MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
+                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "Ви дозволили розміщення вашої персональної інформації на сайті " +
+                                           "intellect.kpi.ua в мережі Інтернет." +
+                                           "</div></div>";
+                    }
+                    if (CurrentUser.ReasonFailure != null)
+                    {
+                        MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
+                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "Ви не дозволили розміщення вашої персональної інформації на сайті " +
+                                           "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
+                                           "<br>"+CurrentUser.ReasonFailure+"</div></div>";
+                    }
                     UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
                     foreach (var p in CurrentUser.Contacts)
                     {
@@ -115,13 +134,13 @@ namespace Site
         {
             if (CampusClient.SetReasonFailure(SessionId, ReasonTextBox.Text))
             {
-                MessegeIsConfirmed.Text += "<div class=\"form-group\">" +
+                MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-danger alert-dismissable\">" +
                                            "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
                                            "aria-hidden=\"true\">&times;</button>" +
                                            "Ви не дозволили розміщення вашої персональної інформації на сайті " +
-                                           "intellect.kpi.ua в мережі Інтернет." +
-                                           "</div></div>";
+                                           "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
+                                           "<br>" + CurrentUser.ReasonFailure + "</div></div>";
             }
         }
 
@@ -129,7 +148,7 @@ namespace Site
         {
             if (CampusClient.IsConfirmSet(SessionId))
             {
-                MessegeIsConfirmed.Text += "<div class=\"form-group\">" +
+                MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-danger alert-dismissable\">" +
                                            "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
                                            "aria-hidden=\"true\">&times;</button>" +
