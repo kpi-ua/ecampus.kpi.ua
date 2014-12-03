@@ -194,6 +194,7 @@
             <div class="tab-pane" id="tab5">
                 <!--#region content  -->
                 <div>
+                    <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>
                     <h1 class="text-center">ЗГОДА</h1>
 
                     <h3 class="text-center">На публікацію даних на сайті intellect.kpi.ua в мережі Інтернет</h3>
@@ -254,7 +255,6 @@
                     <div class="text-center">
                         <asp:Button class="btn btn-primary" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click" />
                         <a class="btn btn-danger" data-toggle="modal" data-target="#Cancel-modal">Відмовляюсь</a>
-                        <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>
                     </div>
                 </div>
 
