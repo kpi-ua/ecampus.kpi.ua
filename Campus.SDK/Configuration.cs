@@ -9,7 +9,12 @@ namespace Campus.SDK
     /// </summary>
     public class Configuration
     {
-        private Configuration(IDictionary<string, string> settings)
+
+        public Configuration()
+        {
+        }
+
+        public Configuration(IDictionary<string, string> settings)
         {
             ProxyEnabled = Convert.ToBoolean(settings["campus-proxy-enabled"]);
 
