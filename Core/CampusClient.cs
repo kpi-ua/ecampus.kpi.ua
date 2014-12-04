@@ -458,10 +458,6 @@ namespace Core
         {
             var url = BuildUrl("TimeTable", "GetTimeTable", new { sessionId, profile });
             var result = Get<List<TimeTable>>("TimeTable", "GetTimeTable", new { sessionId, profile });
-            if (result == null)
-            {
-                return null;
-            }
             return result;
         }
     }
