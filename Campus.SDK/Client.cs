@@ -148,7 +148,7 @@ namespace Campus.SDK
 
                 return result.Data;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return String.Empty;
             }
