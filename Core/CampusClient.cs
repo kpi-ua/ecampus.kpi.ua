@@ -373,9 +373,9 @@ namespace Core
             return Get<IEnumerable<SimpleInfo>>("BulletinBoard", "DeskGetFacultyTypesList");
         }
 
-        public IEnumerable<GroupInfo> DeskGetGroupTypesList(int subdivisionId)
+        public IEnumerable<Group> DeskGetGroupTypesList(int subdivisionId)
         {
-            return Get<IEnumerable<GroupInfo>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
+            return Get<IEnumerable<Group>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
         }
 
         public string DeskAddBulletein(int creatorId,
