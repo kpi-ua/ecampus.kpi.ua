@@ -40,6 +40,15 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Literal UserContactsLiteral;
         
         /// <summary>
+        /// TimeTablesLiteral control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal TimeTablesLiteral;
+        
+        /// <summary>
         /// SpecFunc control.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Button SavePass;
         
         /// <summary>
+        /// MessegeIsConfirmed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal MessegeIsConfirmed;
+        
+        /// <summary>
         /// btnConfirm control.
         /// </summary>
         /// <remarks>
@@ -112,13 +130,13 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Button btnConfirm;
         
         /// <summary>
-        /// MessegeIsConfirmed control.
+        /// btnDenie control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal MessegeIsConfirmed;
+        protected global::System.Web.UI.WebControls.Button btnDenie;
         
         /// <summary>
         /// ReasonTextBox control.

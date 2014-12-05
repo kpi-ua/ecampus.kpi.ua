@@ -13,15 +13,6 @@ namespace Site.Modules.EIR {
     public partial class Menu {
         
         /// <summary>
-        /// breadcrumbs_new control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder breadcrumbs_new;
-        
-        /// <summary>
         /// newhead control.
         /// </summary>
         /// <remarks>
@@ -29,6 +20,15 @@ namespace Site.Modules.EIR {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder newhead;
+        
+        /// <summary>
+        /// breadcrumbs_new control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder breadcrumbs_new;
         
         /// <summary>
         /// newbody control.

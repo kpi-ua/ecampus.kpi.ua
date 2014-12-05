@@ -9,7 +9,6 @@ namespace Site.Controllers
         public ActionResult Index()
         {
             return View();
-            //рандомный текст
         }
     }
 }

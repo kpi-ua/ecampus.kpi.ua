@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Campus.Common;
 
 namespace Core
 {
@@ -22,7 +23,7 @@ namespace Core
                 {
 
                     var permissions = CampusClient.GetPermissions(SessionId);
-                    Session["UserPremissions"] = permissions.ToDictionary(o => o.Subsystem, o => o);
+                    Session["UserPremissions"] = permissions.ToDictionary(o => o.SubsystemName, o => o);
                 }
 
                 return Session["UserPremissions"] as Dictionary<string, Permission>;

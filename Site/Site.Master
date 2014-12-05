@@ -14,7 +14,7 @@
 
     <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />
+    <%--<link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />--%>
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/Content/picker.css" />
     <link rel="stylesheet" href="/Content/picker.date.css" />
     <link rel="stylesheet" href="/Content/jquery.ambiance.css" />
-    <link rel="stylesheet" href="/Content/site2.css" />
+    <link rel="stylesheet" href="/Content/custom.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
@@ -30,6 +30,9 @@
     <link rel="apple-touch-icon" href="/apple-touch-icon-iphone.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone-retina-display.png" />
+    
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+
 </head>
 <body>
     <script type="text/javascript">
@@ -218,7 +221,6 @@
                 </ol>
             </div>
             <!--================-->
-            <asp:Panel runat="server" ID="bodyPanel" />
             <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
 
             <footer class="row site-footer">

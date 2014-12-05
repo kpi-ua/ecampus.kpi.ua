@@ -1,5 +1,9 @@
 ﻿<%@ Master Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Menu.master.cs" Inherits="Site.Modules.EIR.Menu" %>
 
+<asp:Content ID="head_content" runat="server" ContentPlaceHolderID="head">
+    <asp:ContentPlaceHolder runat="server" ID="newhead"></asp:ContentPlaceHolder>
+</asp:Content>
+
 <asp:Content ID="breadcrumbs_content" ContentPlaceHolderID="breadcrumbs" runat="server">
     <li><a href="/">Домашня</a></li>
     <li><a href="/Modules/EIR/Default.aspx">EIP</a></li>
@@ -12,6 +16,6 @@
         <li id="create_tab"><a href="/Modules/EIR/Create.aspx">Створити</a></li>
         <li id="view_tab" style="display: none"><a href="/Modules/EIR/Create.aspx">Перегляд</a></li>
     </ul>
-    <asp:ContentPlaceHolder runat="server" ID="newhead"></asp:ContentPlaceHolder>
+
     <asp:ContentPlaceHolder runat="server" ID="newbody"></asp:ContentPlaceHolder>
 </asp:Content>

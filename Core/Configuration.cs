@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -9,35 +11,23 @@ namespace Core
     /// <summary>
     /// Application global configuration manager
     /// </summary>
-    public class Configuration
+    public class Configuration : Campus.SDK.Configuration
     {
-        private Configuration()
+        public Configuration(IDictionary<string, string> settings)
+            : base(settings)
         {
-            ProxyEnabled = Convert.ToBoolean(WebConfigurationManager.AppSettings["campus-proxy-enabled"]);
-
-            if (ProxyEnabled)
-            {
-                Proxy = new WebProxy(String.Format("{0}:{1}", WebConfigurationManager.AppSettings["campus-proxy-host"], WebConfigurationManager.AppSettings["campus-proxy-port"]), true)
-                {
-                    Credentials = new NetworkCredential(WebConfigurationManager.AppSettings["campus-proxy-login"], WebConfigurationManager.AppSettings["campus-proxy-password"])
-                };
-            }
-
-            ApiEndpoint = Convert.ToString(WebConfigurationManager.AppSettings["campus-api-endpoint"]);
         }
 
-        public WebProxy Proxy { get; set; }
-        public bool ProxyEnabled { get; set; }
-        public string ApiEndpoint { get; set; }
-       
         private static Configuration _current;
 
         public static Configuration Current
         {
-            get { return _current ?? (_current = new Configuration()); }
+            get
+            {
+                var settings = WebConfigurationManager.AppSettings.Cast<String>().ToDictionary(p => p, p => WebConfigurationManager.AppSettings[p]);
+                return _current ?? (_current = new Configuration(settings));
+            }
         }
-
-        public const int OutputCacheDuration = 60 * 15;
 
         public static void RegisterRoutes(RouteCollection routes)
         {

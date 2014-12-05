@@ -19,63 +19,56 @@
                 <!--#endregion -->
             </div>
 
-            <div class="tab-pane"  id="tab2" >
+            <div class="tab-pane" id="tab2">
                 <!--#region content  -->
-                <table class ="bulletin-add-table">
-                   <tr>
-                       <td style="width: 200px">
-                           Профіль
-                       </td>
-                       <td>
-                           <asp:DropDownList Width="700" runat="server" ID ="profileList"></asp:DropDownList>
-                           <asp:Button ID="lnkSaveAs" Text="Вибрати" OnClick="postRes" runat="server"></asp:Button>
-                       </td>
-                   </tr> 
-                    <tr>
-                       <td>
-                           Отримувачі: 
-                       </td>
-                       <td>
-                           <div runat="server" id="selectedVals"></div>
-                       </td>
-                   </tr> 
-                    <tr>
-                       <td>
-                           Тема
-                       </td>
-                       <td>
-                           <asp:TextBox ID="sub_text" runat="server" Width="700"></asp:TextBox>
-                       </td>
-                   </tr>
-                     <tr>
-                       <td>
-                           Період показу
-                       </td>
-                       <td>
-                           Початок: <asp:TextBox ID="dateStart_d" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
-                           -<asp:TextBox ID="dateStart_m" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
-                           -<asp:TextBox ID="dateStart_y" runat="server" Width="40" MaxLength="4" Text="1111"></asp:TextBox>
-                           Завершення: <asp:TextBox ID="dateEnd_d" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
-                           -<asp:TextBox ID="dateEnd_m" runat="server" Width="20" MaxLength="2" Text="11"></asp:TextBox>
-                           -<asp:TextBox ID="dateEnd_y" runat="server" Width="40" MaxLength="4" Text="1111"></asp:TextBox>
-                       </td>
-                   </tr> 
-                    <tr>
-                       <td>
-                           Текст
-                       </td>
-                       <td>
-                           <asp:TextBox ID="text_text" runat="server" Width="700" Height="300" TextMode="MultiLine"></asp:TextBox>
-                       </td>
-                   </tr> 
-                    <tr>
-                       <td>
-                           <asp:Button runat="server" Text="Додати" OnClick="add_buletin"></asp:Button>
-                       </td>
-                       <td>
-                       </td>
-                   </tr>
-                </table>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Профіль</label>
+                        <div class="col-sm-10 form-inline">
+                            <asp:DropDownList CssClass="form-control" Width="700" runat="server" ID="DropDownList1"></asp:DropDownList>
+                            <asp:Button CssClass="btn btn-default" ID="Button1" Text="Вибрати" OnClick="postRes" runat="server"></asp:Button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Профіль</label>
+                        <div class="col-sm-10 form-inline">
+                            <asp:DropDownList CssClass="form-control" Width="700" runat="server" ID="profileList"></asp:DropDownList>
+                            <asp:Button CssClass="btn btn-default" ID="lnkSaveAs" Text="Вибрати" OnClick="postRes" runat="server"></asp:Button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Отримувачі</label>
+                        <div class="col-sm-10" runat="server" id="selectedVals"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Тема</label>
+                        <div class="col-sm-10">
+                            <asp:TextBox CssClass="form-control" ID="sub_text" runat="server" Width="700"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="form-group form-inline">
+                        <label class="col-sm-2 control-label">Період показу</label>
+                        <div class="col-sm-10">
+                            Початок:
+                            <asp:TextBox CssClass="form-control" ID="dateStart_d" runat="server" Width="50" MaxLength="2" Text="11"></asp:TextBox>
+                            -<asp:TextBox CssClass="form-control" ID="dateStart_m" runat="server" Width="50" MaxLength="2" Text="11"></asp:TextBox>
+                            -<asp:TextBox CssClass="form-control" ID="dateStart_y" runat="server" Width="80" MaxLength="4" Text="1111"></asp:TextBox>
+                            Завершення:
+                            <asp:TextBox CssClass="form-control" ID="dateEnd_d" runat="server" Width="50" MaxLength="2" Text="11"></asp:TextBox>
+                            -<asp:TextBox CssClass="form-control" ID="dateEnd_m" runat="server" Width="50" MaxLength="2" Text="11"></asp:TextBox>
+                            -<asp:TextBox CssClass="form-control" ID="dateEnd_y" runat="server" Width="80" MaxLength="4" Text="1111"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Текст</label>
+                        <div class="col-sm-10">
+                            <asp:TextBox CssClass="form-control" ID="text_text" runat="server" Width="700" Height="300" TextMode="MultiLine"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <asp:Button runat="server" Text="Додати" CssClass="btn btn-primary" OnClick="add_buletin"></asp:Button>
+                </div>
                 <!--#endregion -->
             </div>
         </div>

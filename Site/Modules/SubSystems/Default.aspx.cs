@@ -1,11 +1,7 @@
-﻿using System.Linq;
-using System.Web.UI;
-using AjaxControlToolkit.HTMLEditor.ToolbarButton;
-using Core;
+﻿using Core;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
@@ -17,6 +13,7 @@ namespace Site.Modules.SubSystems
         /// Значення підсистеми ОПП ГСВО для переходу на сторінку підсистеми
         /// </summary>
         private const int _gsvoSubsystemId = 14;
+
         /// <summary>
         /// Значення підсистеми ОПП СВО для переходу на сторінку підсистеми
         /// </summary>
@@ -66,10 +63,17 @@ namespace Site.Modules.SubSystems
             subsystembtn.Width = 200;
             subsystembtn.Height = 100;
 
-            if ((int)sys["SubsystemId"] == _gsvoSubsystemId)
+            switch ((int)sys["SubsystemId"])
             {
-                subsystembtn.Click += new EventHandler(GetToGSVOSubSystem);
-                Session["gsvoId"] = _gsvoSubsystemId;
+                case _gsvoSubsystemId:
+                    subsystembtn.Click += new EventHandler(GetToGSVOSubSystem);
+                    Session["gsvoId"] = _gsvoSubsystemId;
+                    break;
+
+                case _svoSubsystemId:
+                    subsystembtn.Click += new EventHandler(GetToSVOSubsystem);
+                    Session["svoId"] = _svoSubsystemId;
+                    break;
             }
                 
 
@@ -77,6 +81,11 @@ namespace Site.Modules.SubSystems
 
             return subsysDiv;
 
+        }
+
+        private void GetToSVOSubsystem(object sender, EventArgs e)
+        {
+            Response.Write("Немає сторінки");
         }
 
         private void GetToGSVOSubSystem(object sender, EventArgs e)
