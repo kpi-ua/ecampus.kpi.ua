@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Net;
+using Core;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -13,7 +14,12 @@ namespace Site
 
             if (Core.Configuration.Current.ProxyEnabled)
             {
-                Campus.SDK.Client.Proxy = Core.Configuration.Current.Proxy;
+                var proxy = new WebProxy(Configuration.Current.ProxyHost, Configuration.Current.ProxyPort)
+                {
+                    Credentials = Configuration.Current.ProxyCredential
+                };
+
+                Campus.SDK.Client.Proxy = proxy;
             }
 
             Campus.SDK.Client.SetCustomEndpoint(Core.Configuration.Current.ApiEndpoint);

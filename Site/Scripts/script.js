@@ -1070,5 +1070,5 @@ SubscribeToEvents = function (_document) {
         $('.datepicker').val($.planner.dateTimeOperations.prevDay($('.datepicker').val()));        
         $.planner.RenderTimeLabels($('.datepicker').val());        
         $.ddate = $('.datepicker').val();
-    });    
+    });
 }

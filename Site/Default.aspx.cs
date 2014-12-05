@@ -1,4 +1,5 @@
-﻿using System.Web.UI.WebControls;
+﻿using System.Web.UI;
+using System.Web.UI.WebControls;
 using Campus.Common;
 using Core;
 using System;
@@ -38,25 +39,26 @@ namespace Site
                         WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
                     }
 
-                    if (CurrentUser.IsConfirmed != null&&CurrentUser.IsConfirmed=="1")
+                    if (CurrentUser.IsConfirmed != null && CurrentUser.IsConfirmed == "1")
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
-                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "<div class=\"alert alert-info alert-dismissable\">" +
                                            "Ви дозволили розміщення вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
+                        btnConfirm.CssClass = "btn btn-primary disabled";
+                        btnDenie.CssClass = "btn btn-primary";
                     }
                     if (CurrentUser.ReasonFailure != null)
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
-                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "<div class=\"alert alert-info alert-dismissable\">" +
                                            "Ви не дозволили розміщення вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
-                                           "<br>"+CurrentUser.ReasonFailure+"</div></div>";
+                                           "<br>" + CurrentUser.ReasonFailure + "</div></div>";
+                        btnConfirm.CssClass = "btn btn-primary";
+                        btnDenie.CssClass = "btn btn-primary disabled";
+
                     }
                     UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
                     foreach (var p in CurrentUser.Contacts)
@@ -135,12 +137,25 @@ namespace Site
             if (CampusClient.SetReasonFailure(SessionId, ReasonTextBox.Text))
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
-                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "<div class=\"alert alert-info alert-dismissable\">" +
                                            "Ви не дозволили розміщення вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
-                                           "<br>" + CurrentUser.ReasonFailure + "</div></div>";
+                                           "<br>" + ReasonTextBox.Text + "</div></div>";
+                //kostilik
+                CurrentUser.IsConfirmed = "0";
+                CurrentUser.ReasonFailure = ReasonTextBox.Text;
+                btnConfirm.CssClass = "btn btn-primary";
+                btnDenie.CssClass = "btn btn-primary disabled";
+                //btnDenie.Parent.Visible = false;
+                //btnDenie.Attributes.Add("data-dismiss", "modal");
+                //MessegeIsConfirmed.Focus();
+            }
+            else
+            {
+                MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "Сталася помилка, спробудуйте пізніше" +
+                                           "</div></div>";
             }
         }
 
@@ -149,11 +164,22 @@ namespace Site
             if (CampusClient.IsConfirmSet(SessionId))
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" " +
-                                           "aria-hidden=\"true\">&times;</button>" +
+                                           "<div class=\"alert alert-info alert-dismissable\">" +
                                            "Ви дозволили розміщення вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
+                                           "</div></div>";
+                //kostilik
+                CurrentUser.IsConfirmed = "1";
+                CurrentUser.ReasonFailure = null;
+                btnConfirm.CssClass = "btn btn-primary disabled";
+                btnDenie.CssClass = "btn btn-primary";
+                //MessegeIsConfirmed.Focus();
+            }
+            else
+            {
+                MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "Сталася помилка, спробудуйте пізніше" +
                                            "</div></div>";
             }
             
