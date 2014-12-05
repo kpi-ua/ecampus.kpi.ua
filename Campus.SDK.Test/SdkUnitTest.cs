@@ -1,4 +1,5 @@
-﻿using Campus.SDK;
+﻿using System.Collections.Generic;
+using Campus.SDK;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -7,18 +8,62 @@ namespace SDK.Test
     [TestClass]
     public class SdkUnitTest
     {
+        private Client CreateClient()
+        {
+            var settings = new Dictionary<string, string>()
+            {
+                {"campus-proxy-enabled", "false"},                
+                {"campus-api-endpoint", "http://campus-api.azurewebsites.net/"},
+            };
+
+            var configuration = new Configuration(settings);
+
+            Campus.SDK.Client.SetCustomEndpoint(configuration.ApiEndpoint);
+
+            var client = new Client();
+
+            return client;
+        }
+
+        [TestMethod]
+        public void TestConfiguration()
+        {
+            Dictionary<string, string> dictionary1 = null;
+            Dictionary<string, string> dictionary2 = new Dictionary<string, string>();
+            Dictionary<string, string> dictionary3 = new Dictionary<string, string>()
+            {
+                {"campus-proxy-enabled", "true"},
+                {"campus-proxy-login", "sdfdsf"},
+                {"campus-proxy-password", "sdfdsf"},
+                {"campus-proxy-host", "sdfdsf"},
+                {"campus-proxy-port", "10"},
+                {"campus-api-endpoint", "sdfdsf"},
+            };
+
+            var configuration1 = new Configuration(dictionary1);
+            var configuration2 = new Configuration(dictionary2);
+            var configuration3 = new Configuration(dictionary3);
+
+            Assert.AreEqual(String.Empty, configuration1.ProxyHost);
+            Assert.AreEqual(String.Empty, configuration1.ProxyHost);
+            Assert.AreEqual(10, configuration3.ProxyPort);
+            Assert.AreEqual(true, configuration3.ProxyEnabled);
+
+            //Assert.AreEqual(String.Empty, configuration1.Proxy.);
+        }
+
         [TestMethod]
         public void TestAuthenticate()
         {
-            var client = new Client();
-            var session = client.Authenticate("123", "123");
+            var client = CreateClient();
+            var session = client.Authenticate("1", "12");
             Assert.AreEqual(false, String.IsNullOrEmpty(session));
         }
 
         [TestMethod]
         public void TestPaging()
         {
-            var client = new Client();
+            var client = CreateClient();
             var result = client.Get(Client.ApiEndpoint + "Test/GetPagedData?rows=1000&page=2&size=20");
             Assert.AreEqual(false, result == null);
         }
