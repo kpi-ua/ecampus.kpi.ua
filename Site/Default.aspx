@@ -193,8 +193,14 @@
             </div>
             <div class="tab-pane" id="tab5">
                 <!--#region content  -->
+                
                 <div>
+                    <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
                     <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>
+                        <%--<div id="MessageForUser"></div>--%>
+                        </ContentTemplate>
+                </asp:UpdatePanel>
                     <h1 class="text-center">ЗГОДА</h1>
 
                     <h3 class="text-center">На публікацію даних на сайті intellect.kpi.ua в мережі Інтернет</h3>
@@ -253,9 +259,14 @@
 
                     <h3 class="text-center">Обрана мною інформація може бути розміщена на сайті intellect.kpi.ua</h3>
                     <div class="text-center">
-                        <asp:Button class="btn btn-primary" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click" />
-                        <a class="btn btn-danger" data-toggle="modal" data-target="#Cancel-modal">Відмовляюсь</a>
-                    </div>
+                        <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <asp:Button class="btn btn-primary" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click"/>
+                        <%--<button class="btn btn-primary" ID="btnConfirm">Погоджуюсь</button>--%>
+                        <asp:Button class="btn btn-primary" ID="btnDenie" Text="Відмовляюсь" runat="server" data-toggle="modal" data-target="#Cancel-modal"/>
+                   </ContentTemplate>
+                </asp:UpdatePanel>
+                         </div>
                 </div>
 
                 <!-- Modal 2-->
@@ -278,13 +289,18 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <asp:Button type="button" class="btn btn-default" ID="btnFailure" Text="OK" runat="server" OnClick="btnFailure_Click" />
+                                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                                <asp:Button type="button" class="btn btn-default" ID="btnFailure" Text="OK" runat="server" OnClick="btnFailure_Click"/>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                        </ContentTemplate>
+                </asp:UpdatePanel>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--#endregion -->
+                        
             </div>
         </div>
     </div>
