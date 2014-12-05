@@ -441,7 +441,7 @@ namespace Core
             }
         }
 
-        public bool SetReasonFailure(string sessionId,string reasonFailure)
+        public bool SetReasonFailure(string sessionId, string reasonFailure)
         {
             var url = BuildUrl("User", "SetReasonFailure", new { sessionId, reasonFailure });
             var answer = GetData(url);
