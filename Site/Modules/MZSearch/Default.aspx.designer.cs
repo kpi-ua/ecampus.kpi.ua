@@ -13,24 +13,6 @@ namespace Site.MZSearch {
     public partial class Default {
         
         /// <summary>
-        /// inpDisc control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton inpDisc;
-        
-        /// <summary>
-        /// inpCred control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton inpCred;
-        
-        /// <summary>
         /// DCdiv control.
         /// </summary>
         /// <remarks>
@@ -74,24 +56,6 @@ namespace Site.MZSearch {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList SList;
-        
-        /// <summary>
-        /// SFdiv control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SFdiv;
-        
-        /// <summary>
-        /// SFList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SFList;
         
         /// <summary>
         /// sb control.

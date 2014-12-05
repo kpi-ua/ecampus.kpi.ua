@@ -108,7 +108,7 @@ namespace Site.MZSearch
 
                 }
 
-                SFList.Items.Add(li);
+                //SFList.Items.Add(li);
             }
         }
 
@@ -118,7 +118,7 @@ namespace Site.MZSearch
         protected void inpDisc_OnCheckedChanged(object sender, EventArgs e)
         {
             sb.Visible = false;
-            inpCred.Checked = false;            
+            //inpCred.Checked = false;            
 
             isdisc.Attributes["Value"] = true.ToString();
             SList.Items.Clear();
@@ -126,7 +126,7 @@ namespace Site.MZSearch
 
             NameDisc.InnerText = "Оберіть дисципліну";
 
-            SFdiv.Visible = false;
+            //SFdiv.Visible = false;
 
             var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetDiscList");
 
@@ -140,7 +140,7 @@ namespace Site.MZSearch
         protected void inpCred_OnCheckedChanged(object sender, EventArgs e)
         {
             sb.Visible = false;
-            inpDisc.Checked = false;            
+            //inpDisc.Checked = false;            
 
             isdisc.Attributes["Value"] = false.ToString();
             //SFdiv.Visible = true;
@@ -173,7 +173,7 @@ namespace Site.MZSearch
 
             Dictionary<string, object> answer = null;
 
-            if (inpDisc.Checked)
+            if (true) //inpDisc.Checked)
             {
                 answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityD?sessionId"+CampusClient.SessionId +
                     "&discId=" + DiscList.SelectedValue.ToString());
@@ -217,14 +217,14 @@ namespace Site.MZSearch
                 spec.Attributes["Value"] = SList.SelectedValue.ToString();
                 disc.Attributes["Value"] = DiscList.SelectedValue.ToString();
 
-                if (inpDisc.Checked)
+                if (true)//(inpDisc.Checked)
                 {
                     sb.Visible = true;
                 }
             }
         }
 
-        protected void SFList_OnSelectedIndexChanged(object sender, EventArgs e)
+        /*protected void SFList_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             
 
@@ -237,7 +237,7 @@ namespace Site.MZSearch
                 stdfrm.Attributes["Value"] = SFList.SelectedValue.ToString();
                 sb.Visible = true;
             }
-        }
+        }*/
 
         
     }
