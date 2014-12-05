@@ -8,6 +8,7 @@
     <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
     <script src="/Scripts/MZ.js"></script>
 
+
     <div class="page-header">
         <h1><%=Page.Title %></h1>
     </div>
@@ -39,20 +40,22 @@
                 <div id="DCdiv" runat="server">
                     <span id="NameDisc" runat="server" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть дисципліну</span>
                     <div class="input-group col-md-9">
-                        <asp:DropDownList ID="DiscList" runat="server" class="form-control" placeholder="Почніть вводити назву дисципліни" AutoPostBack="true" 
-                            OnSelectedIndexChanged="DiscList_OnSelectedIndexChanged"></asp:DropDownList>
+                                <asp:DropDownList ID="DiscList" runat="server" class="form-control" placeholder="Почніть вводити назву дисципліни" 
+                                                        AutoPostBack="true" OnSelectedIndexChanged="DiscList_OnSelectedIndexChanged">
+                                </asp:DropDownList>   
                     </div>
                 </div>
 
                 <div id="Sdiv" runat="server">
                     <span id="NameSpec" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть спеціальність</span>
                     <div class="input-group col-md-9">
-                        <asp:DropDownList ID="SList" runat="server" class="form-control" placeholder="Почніть вводити назву спеціальності" AutoPostBack="true" 
-                            OnSelectedIndexChanged="SList_OnSelectedIndexChanged"></asp:DropDownList>
+                                <asp:DropDownList ID="SList" runat="server" class="form-control" placeholder="Почніть вводити назву спеціальності" 
+                                                AutoPostBack="true" OnSelectedIndexChanged="SList_OnSelectedIndexChanged">
+                                </asp:DropDownList>                                
                     </div>
                 </div>
 
-                <input id="sb" runat="server" visible="false" type="button" value="Пошук" class="btn-success col-lg-offset-10 col-md-2" />
+               <input id="sb" runat="server" visible="false" type="button" value="Пошук" class="btn-success col-lg-offset-10 col-md-2" />                
 
                 <h2 id="sTitle" style="display: none;">Результати пошуку</h2>
                 <div id="sresult" style="display: none" class="row">
