@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
-    $("a").popover({
-        delay: 1000
-    });
+    //$("a").popover({
+    //    delay: 1000
+    //});
 });
 
 var image;
