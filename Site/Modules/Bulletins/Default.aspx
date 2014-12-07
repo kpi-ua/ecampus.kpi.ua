@@ -25,19 +25,12 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Профіль</label>
                         <div class="col-sm-10 form-inline">
-                            <asp:DropDownList CssClass="form-control" Width="700" runat="server" ID="DropDownList1"></asp:DropDownList>
-                            <asp:Button CssClass="btn btn-default" ID="Button1" Text="Вибрати" OnClick="postRes" runat="server"></asp:Button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Профіль</label>
-                        <div class="col-sm-10 form-inline">
                             <asp:DropDownList CssClass="form-control" Width="700" runat="server" ID="profileList"></asp:DropDownList>
                             <asp:Button CssClass="btn btn-default" ID="lnkSaveAs" Text="Вибрати" OnClick="postRes" runat="server"></asp:Button>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Отримувачі</label>
+                        <label class="col-sm-2 control-label">Отримувачі:</label>
                         <div class="col-sm-10" runat="server" id="selectedVals"></div>
                     </div>
                     <div class="form-group">
