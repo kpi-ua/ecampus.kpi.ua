@@ -19,19 +19,9 @@ namespace Site.Modules.Bulletins
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
-            {
-                Path = "~/Scripts/jquery-2.1.1.min.js",
-            });
-
             //moderator.Visible = Permissions["Дошка оголошень"].Create;
-
             //var items = CampusClient.GetBulletinBoard(SessionId);
-
             //Render(items);
-
-
             var list = new List<SimpleInfo>();
             list.Add(new SimpleInfo(-1, "Всі профайли"));
             foreach (var v in CampusClient.DeskGetAllowedProfiles())
@@ -202,6 +192,11 @@ namespace Site.Modules.Bulletins
 
         protected void add_buletin(object sender, EventArgs e)
         {
+            if (selectedVals.InnerText == "")
+            {
+                System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=\"JavaScript\">alert(\"Немае отримувачів. Потрібно вибрати отримувача та натиснути кнопку Вибрати\")</SCRIPT>");
+                return;
+            }
             var list = new List<BulletinLink>();
             var split = Result.Split(new [] {" | "}, StringSplitOptions.RemoveEmptyEntries);
             Result = "";
