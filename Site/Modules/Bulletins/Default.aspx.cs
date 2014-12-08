@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Core;
-using Bulletin = Core.Bulletin;
 
 namespace Site.Modules.Bulletins
 {
     public partial class Default : Core.SitePage
     {
-        public static Core.Bulletin CurrentBulletin;
+        public static Bulletin CurrentBulletin;
         private Control _baseControl;
         private Control _editControl;
         private List<SimpleInfo> _faculties;
@@ -21,19 +19,9 @@ namespace Site.Modules.Bulletins
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
-            {
-                Path = "~/Scripts/jquery-2.1.1.min.js",
-            });
-
             //moderator.Visible = Permissions["Дошка оголошень"].Create;
-
             //var items = CampusClient.GetBulletinBoard(SessionId);
-
             //Render(items);
-
-
             var list = new List<SimpleInfo>();
             list.Add(new SimpleInfo(-1, "Всі профайли"));
             foreach (var v in CampusClient.DeskGetAllowedProfiles())
@@ -204,6 +192,11 @@ namespace Site.Modules.Bulletins
 
         protected void add_buletin(object sender, EventArgs e)
         {
+            if (selectedVals.InnerText == "")
+            {
+                System.Web.HttpContext.Current.Response.Write("<SCRIPT LANGUAGE=\"JavaScript\">alert(\"Немае отримувачів. Потрібно вибрати отримувача та натиснути кнопку Вибрати\")</SCRIPT>");
+                return;
+            }
             var list = new List<BulletinLink>();
             var split = Result.Split(new [] {" | "}, StringSplitOptions.RemoveEmptyEntries);
             Result = "";

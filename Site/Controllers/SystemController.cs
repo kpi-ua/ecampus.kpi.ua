@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Net;
+using Core;
 using System;
 using System.Web;
 using System.Web.Mvc;
@@ -8,18 +9,18 @@ namespace Site.Controllers
 {
     public class SystemController : SiteController
     {
-        public ActionResult Login(Credential credential)
+        public ActionResult Login(NetworkCredential credential)
         {
-            if (credential.IsNotEmpty)
+            if (!IsEmpty(credential))
             {
-                var sessionId = CampusClient.Authenticate(credential.Login, credential.Password);
+                var sessionId = CampusClient.Authenticate(credential.UserName, credential.Password);
 
                 if (!String.IsNullOrEmpty(sessionId))
                 {
                     SessionId = sessionId;
-                    UserLogin = credential.Login;
+                    UserLogin = credential.UserName;
                     UserPassword = credential.Password;
-                    FormsAuthentication.SetAuthCookie(credential.Login, true);
+                    FormsAuthentication.SetAuthCookie(credential.UserName, true);
                     return Redirect("~/Default.aspx");
                 }
 
@@ -27,6 +28,12 @@ namespace Site.Controllers
             }
 
             return View();
+        }
+
+        private static bool IsEmpty(NetworkCredential credential)
+        {
+            return String.IsNullOrEmpty(credential.Password)
+                   && String.IsNullOrEmpty(credential.UserName);
         }
 
         public ActionResult Logout()

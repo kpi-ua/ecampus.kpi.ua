@@ -373,9 +373,9 @@ namespace Core
             return Get<IEnumerable<SimpleInfo>>("BulletinBoard", "DeskGetFacultyTypesList");
         }
 
-        public IEnumerable<GroupInfo> DeskGetGroupTypesList(int subdivisionId)
+        public IEnumerable<Group> DeskGetGroupTypesList(int subdivisionId)
         {
-            return Get<IEnumerable<GroupInfo>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
+            return Get<IEnumerable<Group>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
         }
 
         public string DeskAddBulletein(int creatorId,
@@ -441,7 +441,7 @@ namespace Core
             }
         }
 
-        public bool SetReasonFailure(string sessionId,string reasonFailure)
+        public bool SetReasonFailure(string sessionId, string reasonFailure)
         {
             var url = BuildUrl("User", "SetReasonFailure", new { sessionId, reasonFailure });
             var answer = GetData(url);
@@ -458,10 +458,6 @@ namespace Core
         {
             var url = BuildUrl("TimeTable", "GetTimeTable", new { sessionId, profile });
             var result = Get<List<TimeTable>>("TimeTable", "GetTimeTable", new { sessionId, profile });
-            if (result == null)
-            {
-                return null;
-            }
             return result;
         }
     }

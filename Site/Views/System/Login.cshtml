@@ -1,4 +1,4 @@
-﻿@model Core.Credential
+﻿@model NetworkCredential
 
 @{
     ViewBag.Title = "Авторизація";
@@ -11,7 +11,7 @@
     {
         <fieldset>
             <div class="form-group">
-                @Html.TextBoxFor(model => model.Login, new { @class = "form-control", placeholder = "Логін" })
+                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Логін" })
             </div>
             <div class="form-group">
                 @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Пароль" })

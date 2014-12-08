@@ -3,35 +3,13 @@
         window.campus = {};
     }
 
-    jQuery(function () {
-        campus.initVeriables(jQuery);
+    jQuery(function () {        
         campus.menuHandler(jQuery);
         campus.calendarToggler(jQuery);
         campus.carousel(jQuery);
         campus.scrollTop(jQuery);
-        campus.eirFormControls(jQuery);
-        campus.initCalendar(jQuery);
-        campus.initPushNotifications(jQuery);
-    });
-
-    campus.initVeriables = function () {
-        $.ApiPath = $("#ApiEndpoint").html();
-        $.SessionID = $("#CampusSessionId").val();
-    }
-
-    campus.initPushNotifications = function () {
-        $.notifications = new ServerNotifications();
-
-        // subscription to calendar notifications
-        $.notifications.Subscribe("notify-upcoming", $.ApiPath + "Pulse/CalendarPulse/Get?sessionId=" + $.SessionID);
-    }
-
-    campus.initCalendar = function() {
-        $.planner = new Planner($.SessionID);
-        $.ddate = $.planner.Today;
-
-        SubscribeToEvents(document);
-    }
+        campus.eirFormControls(jQuery);       
+    });    
 
     campus.menuHandler = function () {
         $(".left-nav li").on("click", function () {
@@ -1070,5 +1048,20 @@ SubscribeToEvents = function (_document) {
         $('.datepicker').val($.planner.dateTimeOperations.prevDay($('.datepicker').val()));        
         $.planner.RenderTimeLabels($('.datepicker').val());        
         $.ddate = $('.datepicker').val();
-    });    
+    });
+}
+
+InitCalendar = function () {
+        $.ApiPath = $("#ApiEndpoint").html();
+        $.SessionID = $("#CampusSessionId").val();
+
+        $.notifications = new ServerNotifications();
+
+        // subscription to calendar notifications
+        $.notifications.Subscribe("notify-upcoming", $.ApiPath + "Pulse/CalendarPulse/Get?sessionId=" + $.SessionID);
+
+        $.planner = new Planner($.SessionID);
+        $.ddate = $.planner.Today;
+
+        SubscribeToEvents(document);
 }
