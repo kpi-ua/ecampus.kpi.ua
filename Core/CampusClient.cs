@@ -460,5 +460,29 @@ namespace Core
             var result = Get<List<TimeTable>>("TimeTable", "GetTimeTable", new { sessionId, profile });
             return result;
         }
+
+        public List<Campus.Common.Contributor> GetPersonName(string sessionId, string name)
+        {
+
+            try
+            {
+                var url = Campus.SDK.Client.BuildUrl("Ir", "GetPersonName", new { sessionId, name });
+                var result = Get<List<Campus.Common.Contributor>>("Ir", "GetPersonName", new { sessionId, name });
+                return result;
+            }
+            catch (Exception e) { return null; }
+        }
+
+
+        public ArrayList GetIrKinds()
+        {
+            try
+            {
+                var url = Campus.SDK.Client.BuildUrl("Ir", "GetIrKinds");
+                var result = Get<ArrayList>("Ir", "GetIrKinds");
+                return result;
+            }
+            catch (Exception e) { return null; }
+        }
     }
 }

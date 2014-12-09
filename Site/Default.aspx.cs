@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
+using System.Web.UI.HtmlControls;
 namespace Site
 {
     public partial class Default : Core.SitePage
@@ -126,7 +127,8 @@ namespace Site
                     SpecFunc.Text += "</div>";
                 }
 
-
+                btnFailure.Attributes.Add("onclick", "$('#Cancel-modal').hide();document.body.style.overflow = 'auto';");
+                //btnDenie.Attributes.Add("onclick","$('#Cancel-modal').show();");
             }
             catch { }
 
@@ -146,9 +148,6 @@ namespace Site
                 CurrentUser.ReasonFailure = ReasonTextBox.Text;
                 btnConfirm.CssClass = "btn btn-primary";
                 btnDenie.CssClass = "btn btn-primary disabled";
-                //btnDenie.Parent.Visible = false;
-                //btnDenie.Attributes.Add("data-dismiss", "modal");
-                //MessegeIsConfirmed.Focus();
             }
             else
             {
@@ -157,6 +156,7 @@ namespace Site
                                            "Сталася помилка, спробудуйте пізніше" +
                                            "</div></div>";
             }
+            //UpdPan.Update();
         }
 
         public void btnConfirm_Click(object sender, EventArgs e)
@@ -173,7 +173,6 @@ namespace Site
                 CurrentUser.ReasonFailure = null;
                 btnConfirm.CssClass = "btn btn-primary disabled";
                 btnDenie.CssClass = "btn btn-primary";
-                //MessegeIsConfirmed.Focus();
             }
             else
             {
@@ -182,7 +181,7 @@ namespace Site
                                            "Сталася помилка, спробудуйте пізніше" +
                                            "</div></div>";
             }
-            
+            //UpdPan.Update();
         }
 
         private void LoadCarousel()

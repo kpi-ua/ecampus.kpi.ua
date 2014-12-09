@@ -127,6 +127,10 @@
                 </Scripts>--%>
             </asp:ScriptManager>
 
+            <script>
+                InitCalendar();
+            </script>
+
             <!--Carousel-->
             <div id="carousel-menu" class="carousel slide site-carousel " data-ride="carousel" data-interval="false">
                 <!-- Indicators -->

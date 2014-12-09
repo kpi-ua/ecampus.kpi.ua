@@ -171,45 +171,45 @@
                 <div id="purpose_alert" class="alert alert-info" role="alert" style="display: none;">
                     <asp:TextBox ClientIDMode="Static" ID="DenyPublicationPurpose" runat="server" placeholder="Причина відмови"></asp:TextBox>
                     <button type="button" class="btn btn-primary" onclick="
-                        document.getElementById('okay_alert').style.display = 'none';
-                        document.getElementById('purpose_alert').style.display = 'none';
-                        document.getElementById('no_alert').style.display = 'block';
-                        document.getElementById('text').style.display = 'none';
-                        document.getElementById('okay_button').style.display = 'okay';
-                        document.getElementById('no_button').style.display = 'none
-                        var a = '<%= DenyPublication() %>';">
+document.getElementById('okay_alert').style.display = 'none';
+document.getElementById('purpose_alert').style.display = 'none';
+document.getElementById('no_alert').style.display = 'block';
+document.getElementById('text').style.display = 'none';
+document.getElementById('okay_button').style.display = 'okay';
+document.getElementById('no_button').style.display = 'none
+var a = '<%= DenyPublication() %>';">
                         Підтверджую</button>
                 </div>
                 <%--<h5 id="text">Текст</h5>--%>
                 <button id="okay_button" type="button" class="btn btn-primary" onclick="
-                    document.getElementById('okay_alert').style.display = 'block';
-                    document.getElementById('purpose_alert').style.display = 'none';
-                    document.getElementById('no_alert').style.display = 'none';
-                    document.getElementById('text').style.display = 'none';
-                    document.getElementById('okay_button').style.display = 'none';
-                    document.getElementById('no_button').style.display = 'block';
-                    var a = '<%= AcceptPublication() %>';">
+document.getElementById('okay_alert').style.display = 'block';
+document.getElementById('purpose_alert').style.display = 'none';
+document.getElementById('no_alert').style.display = 'none';
+document.getElementById('text').style.display = 'none';
+document.getElementById('okay_button').style.display = 'none';
+document.getElementById('no_button').style.display = 'block';
+var a = '<%= AcceptPublication() %>';">
                     Погоджуюсь</button>
                 <button id="no_button" type="button" class="btn btn-danger" onclick="
-                    document.getElementById('okay_alert').style.display = 'none';
-                    document.getElementById('purpose_alert').style.display = 'block';
-                    document.getElementById('no_alert').style.display = 'none';
-                    document.getElementById('text').style.display = 'block';
-                    document.getElementById('okay_button').style.display = 'block';
-                    document.getElementById('no_button').style.display = 'none';">
+document.getElementById('okay_alert').style.display = 'none';
+document.getElementById('purpose_alert').style.display = 'block';
+document.getElementById('no_alert').style.display = 'none';
+document.getElementById('text').style.display = 'block';
+document.getElementById('okay_button').style.display = 'block';
+document.getElementById('no_button').style.display = 'none';">
                     Відмовляюсь</button>
                 <!--#endregion -->
             </div>
             <div class="tab-pane" id="tab5">
                 <!--#region content  -->
-                
                 <div>
+                    <%--<asp:UpdatePanel runat="server">
+                    <ContentTemplate>--%>
                     <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                     <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>
-                        <%--<div id="MessageForUser"></div>--%>
-                        </ContentTemplate>
-                </asp:UpdatePanel>
+                        <%--</ContentTemplate>
+                </asp:UpdatePanel>--%>
                     <h1 class="text-center">ЗГОДА</h1>
 
                     <h3 class="text-center">На публікацію даних на сайті intellect.kpi.ua в мережі Інтернет</h3>
@@ -268,18 +268,18 @@
 
                     <h3 class="text-center">Обрана мною інформація може бути розміщена на сайті intellect.kpi.ua</h3>
                     <div class="text-center">
-                        <asp:UpdatePanel runat="server">
-                    <ContentTemplate>
+                        <%--<asp:UpdatePanel runat="server">
+                    <ContentTemplate>--%>
                         <asp:Button class="btn btn-primary" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click"/>
-                        <%--<button class="btn btn-primary" ID="btnConfirm">Погоджуюсь</button>--%>
                         <asp:Button class="btn btn-primary" ID="btnDenie" Text="Відмовляюсь" runat="server" data-toggle="modal" data-target="#Cancel-modal"/>
+                        <%--<button  type="button" class="btn btn-primary" ID="btnDenie" runat="server" onclick="$('#Cancel-modal').modal('show');">Відмовляюсь</button>--%>
                    </ContentTemplate>
                 </asp:UpdatePanel>
                          </div>
                 </div>
-
+                
                 <!-- Modal 2-->
-                <div class="modal fade" id="Cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal" id="Cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -307,10 +307,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--#endregion -->
                         
-            </div>
+                </div>   
+                <!--#endregion -->   
+            </div> 
         </div>
-    </div>
 </asp:Content>
