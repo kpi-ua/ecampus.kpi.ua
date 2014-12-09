@@ -20,9 +20,11 @@
                 <div class="profile">
                     <!-- CONTENT -->
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading  text-right">
-                                Загальна інформація
+                        <div class="accordion-group">
+                            <div class="panel panel-default" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion">
+                                <div class="panel-heading  text-right">
+                                    Загальна інформація
+                                </div>
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body">
@@ -49,18 +51,17 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading text-right">
-                            Педагогічна діяльність
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                            <div class="panel-body">
-                                <table class="col-md-6 table-info col-md-offset-3 table-condensed">
-                                            <asp:Literal ID="TimeTablesLiteral" runat="server"></asp:Literal>
-                                        </table>
-                                 <table class="col-md-6 table-info col-md-offset-3 table-condensed">
+                            <div class="panel panel-default" data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion">
+                                <div class="panel-heading text-right">
+                                    Педагогічна діяльність
+                                </div>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                <div class="panel-body">
+                                    <table class="col-md-6 table-info col-md-offset-3 table-condensed">
+                                                <asp:Literal ID="TimeTablesLiteral" runat="server"></asp:Literal>
+                                            </table>
+                                     <table class="col-md-6 table-info col-md-offset-3 table-condensed">
                                       <tr>
                                         <td colspan="2"></td>
                                     </tr>
@@ -103,15 +104,16 @@
                                 </table>
                             </div>
                         </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading  text-right">
-                            Наукова діяльність
+                            <div class="panel panel-default" data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion">
+                            <div class="panel-heading  text-right">
+                                Наукова діяльність
+                            </div>
                         </div>
-                        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                             <div class="panel-body">
                                 CONTENT
                             </div>
+                        </div>
                         </div>
                     </div>
                     <!-- END CONTENT -->
@@ -127,6 +129,13 @@
 
             <div class="tab-pane" id="tab3" style="height: 300px">
                 <!--#region content  -->
+                <div class="inline-panel">
+                    <div class="panel-heading">Функції Профілю</div>
+                    <div class="panel-body">
+                        <!-- Таблица профиля/ролей идёт сюда -->
+                    </div>
+                </div>
+                <div class="inline-panel">
                 <div class="input-group">
                     <label class="control-label" for="File">Обрати файл</label>
                     <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
@@ -148,8 +157,8 @@
                 <br />
                 <asp:Button ID="SavePass" runat="server" Text="Зберегти" CssClass="btn btn-success btn-sm" OnClick="SavePass_Click" />
                 <!--#endregion -->
-            </div>
-
+                </div>
+                </div>
             <div class="tab-pane" id="tab4">
                 <!--#region content  -->
                 <h4>Погодження про розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет</h4>
