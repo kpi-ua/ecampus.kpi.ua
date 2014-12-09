@@ -44,7 +44,7 @@ namespace Site
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary disabled";
@@ -53,8 +53,8 @@ namespace Site
                     if (CurrentUser.ReasonFailure != null)
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви не дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + CurrentUser.ReasonFailure + "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary";
@@ -66,7 +66,7 @@ namespace Site
                     {
                         UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
                         UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
-                        UserContactsLiteral.Text +="<td class=\"glyphicon glyphicon-eye-open\"></td></tr>";
+                        UserContactsLiteral.Text += "<td class=\"glyphicon glyphicon-eye-open\"></td></tr>";
                     }
                     List<Campus.Common.TimeTable> ttList = null;
                     if (CurrentUser.Employees.Count() >= 1)
@@ -107,7 +107,7 @@ namespace Site
                                                 table.DayId == d + 1);
                                         TimeTablesLiteral.Text += "<td>" + lesson.Subject + "<br>" +
                                                                   lesson.Employee + "<br>" + lesson.Building
-                                                                  //+ "<br>" + lesson.GroupName + "</td>"
+                                            //+ "<br>" + lesson.GroupName + "</td>"
                                                                   + "</td>";
                                     }
                                 }
@@ -139,8 +139,8 @@ namespace Site
             if (CampusClient.SetReasonFailure(SessionId, ReasonTextBox.Text))
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви не дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + ReasonTextBox.Text + "</div></div>";
                 //kostilik
@@ -165,7 +165,7 @@ namespace Site
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                 //kostilik
@@ -216,7 +216,7 @@ namespace Site
             {
                 if (NewPass.Text == NewPassCheak.Text)
                 {
-                    
+
                     CampusClient.ChangePassword(SessionId, OldPass.Text, NewPass.Text);
                     ShowErrorMessage("OK");
                     UserPassword = NewPass.Text;
