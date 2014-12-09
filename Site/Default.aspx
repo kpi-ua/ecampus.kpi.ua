@@ -31,14 +31,15 @@
                                         <div class="col-xs-12 col-sm-3 col-md-3 ">
                                             <a id="user_avatar" data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
                                                 <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
-                                            </a>
-<%--                                            <div class="owner_photo_bubble_wrap">
+                                                                                            <div class="owner_photo_bubble_wrap">
                                                 <div id="owner_photo_bubble">
                                                     <div class="owner_photo_bubble_action owner_photo_bubble_action_update">
-                                                      <span class="owner_photo_bubble_action_in">Загрузить фотографию</span>
+                                                      <label class="owner_photo_bubble_action_in"><input type="file" style="display: none"/>Загрузить фотографию</label>
                                                     </div>
                                                 </div>
-                                            </div>--%>
+                                            </div>
+                                            </a>
+
                                            <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                            <label id="change_user_avatar"class="glyphicon glyphicon-upload"><input type="file" style="display: none"/></label>
  
