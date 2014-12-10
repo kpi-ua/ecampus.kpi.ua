@@ -2193,5 +2193,125 @@ table tr td {
     }
 
         .privacy-list ul li {
-            list-style: circle;
+            list-style: none;
         }
+        /******* Profile data block **********/
+
+.main-info {
+    padding: 0 10px;
+    background-color: #F7F7F7;
+    border-top: 1px solid #adabab;
+    border-bottom: 1px solid #adabab;
+}
+
+.profile-name {
+    text-align: center;
+    color: #000;
+}
+
+.table-info td {
+  padding: 1%;
+}
+
+.table-info {
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+
+
+/*Bootstap customize*/
+.row {
+  overflow: hidden;
+}
+
+.panel-default {
+  border: none;
+}
+
+.panel-head {
+  text-align: right;
+}
+
+.panel-body {
+  padding: 0 20px;
+}
+
+.panel {
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05)
+}
+
+.panel-title {
+    margin-top: 19px;
+    margin-bottom: 10px;
+}
+
+.mod {
+  background-color: #F2F2F2;
+  padding: 30px;
+}
+
+#hide_user_photo {
+  position: absolute;
+  bottom: -25px;
+  left: 40px;
+  top: auto;
+}
+#change_user_avatar {
+  position: absolute;
+  bottom: -30px;
+  left: 140px;
+  top: auto;    
+}
+.owner_photo_bubble_wrap {
+    height: 40px;
+    width: 175px;
+    overflow: hidden;
+    font-size: 12px;
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    transition: bottom 0.2s linear;
+}
+#owner_photo_bubble {
+    color: #FFF;
+
+opacity: 0;
+filter: alpha(opacity=0);
+background: rgba(0, 0, 0, 0.7);
+width: 175px;
+
+-webkit-transition: all 200ms ease-in-out;
+-moz-transition: all 200ms ease-in-out;
+-o-transition: all 200ms ease-in-out;
+transition: all 200ms ease-in-out;
+z-index: 450;
+padding: 4px 0;
+}
+.owner_photo_bubble_action {
+cursor: pointer;
+padding: 5px 10px;
+height: 40px;
+overflow: hidden;
+
+text-shadow: 0px 1px 0px #262626;
+-o-text-overflow: ellipsis;
+text-overflow: ellipsis;
+width: 175px;    
+} 
+.owner_photo_bubble_action_in {
+    cursor: pointer;
+opacity: 0.7;
+filter: none;
+}
+#user_avatar {
+    position: relative;
+    overflow: hidden;
+}
+#user_avatar:hover #owner_photo_bubble {
+opacity: 1;
+filter: none;
+}
+#user_avatar:hover .owner_photo_bubble_wrap {
+bottom: 0;
+}
