@@ -84,7 +84,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="Modules/SubSystems/Default.aspx" title="Підсистем">
+                                <a href="/Modules/SubSystems" title="Підсистеми">
                                     <i class="fa fa-briefcase"></i>
                                 </a>
                             </li>
