@@ -39,11 +39,12 @@
                                                         </div>
                                                     </div>
                                                 </a>
-
                                                 <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                 <label id="change_user_avatar" class="glyphicon glyphicon-upload">
-                                                    <input type="file" style="display: none" /></label>
+                                                    <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
+                                                   <%-- <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click"/>--%>
 
+                                                </label>
                                             </div>
 
                                             <table class="col-xs-12  col-sm-8  col-md-9 table-info">
@@ -144,9 +145,9 @@
                 <div class="panel">
                     <div class="input-group">
                         <label class="control-label" for="File">Обрати файл</label>
-                        <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
+                        <%--<asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
                         <br/>
-                        <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="Завантажити" CssClass="btn btn-success btn-sm"></asp:Button>
+                        <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="Завантажити" CssClass="btn btn-success btn-sm"></asp:Button>--%>
                     </div>
                     <br />
                     <div class="input-group">

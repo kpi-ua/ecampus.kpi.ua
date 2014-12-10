@@ -2270,7 +2270,7 @@ table tr td {
     font-size: 12px;
     position: absolute;
     left: 0;
-    bottom: -100%;
+    bottom: 0%;
     transition: bottom 0.2s linear;
 }
 #owner_photo_bubble {
@@ -2302,6 +2302,7 @@ width: 175px;
 .owner_photo_bubble_action_in {
     cursor: pointer;
 opacity: 0.7;
+font-weight: 100!important;
 filter: none;
 }
 #user_avatar {
@@ -2314,4 +2315,14 @@ filter: none;
 }
 #user_avatar:hover .owner_photo_bubble_wrap {
 bottom: 0;
+}
+#UploadBtn {
+    display: none;
+}
+#file_upload {
+    display: none;
+}
+.glyphicon-eye-open{
+    size: 40px !important;
+    color: green;
 }
