@@ -27,6 +27,8 @@
                                     <div class="panel-body">
                                         <div>
                                             <h1 class="profile-name"><%=this.CurrentUser.FullName %></h1>
+                                            <h4 class="UserCredo">Кредо "Вік живи-вік вчись"</h4>
+                                            <span class="glyphicon glyphicon-pencil" id="CredoUpdate"></span>
                                             <div class="col-xs-12 col-sm-3 col-md-3 ">
                                                 <a id="user_avatar" data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
                                                     <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />

@@ -74,11 +74,16 @@ namespace Site
 
                     }
                     UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
+                    int i = 0;
                     foreach (var p in CurrentUser.Contacts)
                     {
+                        i++;
                         UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
                         UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
-                        UserContactsLiteral.Text += "<td class=\"glyphicon glyphicon-eye-open\"></td></tr>";
+                        UserContactsLiteral.Text += "<td id=\"userCont" + i + "\"class=\"glyphicon glyphicon-eye-open\"" +
+                                                     "onclick=\"$('#userCont" + i + "').toggleClass('glyphicon-eye-open');" +
+                                                    "$('#userCont" + i + "').toggleClass('glyphicon-eye-close');\"" +
+                                                    "</td></tr>";
                     }
                     List<Campus.Common.TimeTable> ttList = null;
                     if (CurrentUser.Employees.Count() >= 1)
