@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="/Scripts/APIlib.js"></script>
     <script>
         $("#search_tab").addClass("active");
 
@@ -22,9 +23,25 @@
             });
 
             addoption_autor();
-            addoption_vidEIR();
             addoption_day("number");
             addoption_month("month");
+          
+
+            API.getData(["Ir", "GetIrKinds"], {}, function (data) {
+                var html = "";
+                $.each(data, function (key, value) {
+                    if (value.kinds.length > 0) {
+                        html += "<optgroup label='" + value.name + "' value='" + value.id + "'>";
+                        for (var item in value.kinds) {
+                            html += "<option value='" + value.kinds[item].id + "'>" + value.kinds[item].name + "</option>";
+                        }
+                        html += "</optgroup>";
+                    }
+                });
+                $("#vid").append(html);
+                $("#vid").chosen();
+            });
+      
         });
 
         function addoption_autor() {
@@ -32,12 +49,7 @@
             var options = <%=new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(this.arrc) %>
             for(var h=0; h< <%=mm%>; h++){ objSel.options[objSel.options.length]= new Option(options[h], ""); }
         }
-
-        function addoption_vidEIR() {
-            var objSel = document.getElementById("vid");
-            var options = <%=new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(this.arrb) %>
-            for(var h=0; h< <%=bb%>; h++){ objSel.options[objSel.options.length]= new Option(options[h], ""); }
-        }
+                
 
         function addoption_day(id) {
             var objSel = document.getElementById(id);
@@ -50,8 +62,12 @@
             var options = <%=new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(this.months) %>
             for(var h=0; h<<%=mon%>; h++){ objSel.options[objSel.options.length]= new Option(options[h], ""); }
         }
+            
+       
+
     </script>
-    <!--   <h3> Пошук ЕІР</h3> -->
+
+    <!--  -------------- -->
     <section class="eirsearch form-horizontal">
         <h4>Способи пошуку</h4>
         
@@ -77,17 +93,18 @@
                 <div class="form-group">
                     <label for="eirauthorcontrib" class="col-sm-2 control-label">Тип внеску</label>
                     <div class="col-sm-10">
-                        <select class="form-control"  name="eirauthorcontrib" id="vns" style="margin-top: 6px;">
-                           
+                        <select class="form-control"  name="eirauthorcontrib" id="vns" >
+                           <option disabled selected value="--">Тип внеску</option>
                         </select>
+                      
                     </div>
                 </div>
-
+             
                 <div class="form-group">
                     <label for="eirview" class="col-sm-2 control-label">Вид ЕІР</label>
                     <div class="col-sm-10">
                         <select class="form-control"  name="eirview" id="vid">
-                           
+                            <option disabled selected value="--">Вид ЕІР</option>
                         </select>
                     </div>
                 </div>
@@ -100,11 +117,11 @@
                             <option>2014</option>
                             <option>2013</option>
                         </select>
-                        <label for="month" style="margin-left: 32px;">Місяць</label>
+                        <label for="month" >Місяць</label>
                         <select class="form-control"  name="datm" id="month">
                           
                         </select>
-                        <label for="number" style="margin-left: 32px;">Число</label>
+                        <label for="number">Число</label>
                         <select class="form-control"  name="datn" id="number">
                            
                         </select>
