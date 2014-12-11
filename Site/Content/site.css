@@ -2320,9 +2320,24 @@ bottom: 0;
     display: none;
 }
 #file_upload {
-    display: none;
+    /*display: none;*/
 }
 .glyphicon-eye-open{
-    size: 40px !important;
     color: green;
 }
+#user_avatar {
+    background-color: #fff!important;
+    border: none;
+}
+.UserCredo {
+    text-align: center;
+}
+/*#user_avatar {
+    top: -100px !important;
+}
+#hide_user_photo {
+    top: 65px !important;
+}
+#change_user_avatar {
+    top: 65px !important;
+}*/
