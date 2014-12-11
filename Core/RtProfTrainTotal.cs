@@ -8,8 +8,8 @@ namespace Campus.Common
     public class RtProfTrainTotal
     {
         //no data
-        public object RtProfTrainTotalId { get; set; }
-        public object Name { get; set; }
-        public object TotalShifr { get; set; }
+        public int RtProfTrainTotalId { get; set; }
+        public string Name { get; set; }
+        public string TotalShifr { get; set; }
     }
 }
