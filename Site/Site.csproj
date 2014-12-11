@@ -187,6 +187,7 @@
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
@@ -302,7 +303,6 @@
     <Content Include="Modules\RNP\Default.aspx" />
     <Content Include="Modules\SubSystems\Default.aspx" />
     <Content Include="Modules\SubSystems\GSVO\Default.aspx" />
-    <Content Include="Modules\SubSystems\GSVO\Table.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\APIlib.js" />
     <Content Include="Scripts\async.js" />
@@ -477,12 +477,12 @@
     <Compile Include="Modules\SubSystems\GSVO\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.cs">
-      <DependentUpon>Table.aspx</DependentUpon>
+    <Compile Include="Modules\SubSystems\GSVO\DisciplineTable.aspx.cs">
+      <DependentUpon>DisciplineTable.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.designer.cs">
-      <DependentUpon>Table.aspx</DependentUpon>
+    <Compile Include="Modules\SubSystems\GSVO\DisciplineTable.aspx.designer.cs">
+      <DependentUpon>DisciplineTable.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\RNP\Default.aspx.cs">

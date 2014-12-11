@@ -12,9 +12,13 @@ namespace Site.Modules.SubSystems.GSVO
 {
     public partial class Default : Core.SitePage
     {
+
+        List<Campus.Common.OKR> okrList = new List<Campus.Common.OKR>();
+
+        List<Campus.Common.RtProfTrainTotal> rtList = new List<Campus.Common.RtProfTrainTotal>();
         protected override void OnLoad(EventArgs e)
         {
-            if(SessionId == null)
+            if (SessionId == null)
             {
                 Response.Redirect("/login");
             }
@@ -22,75 +26,71 @@ namespace Site.Modules.SubSystems.GSVO
 
         protected void TreeView_SelectedNodeChanged(object sender, EventArgs e)
         {
+            try
+            {
+                Session["treevalue"] = TreeView.SelectedValue.ToString();
+                Session["okr"] = TreeView.SelectedNode.Parent.Value.ToString();
+                Session["GSVOSpec"] = TreeView.SelectedNode.Text;
+                Session["RtProfTrainTotalId"] = TreeView.SelectedValue.ToString();
+                Session["SubdivisionName"] = CafList.SelectedItem.ToString();
 
+                Response.Redirect("DisciplineTable.aspx");
+            }
+            catch(Exception)
+            {
+                return;
+            }
+
+           
+
+            
+            
         }
 
         protected void TreeView_Load(object sender, EventArgs e)
         {
             TreeView.Nodes.Clear();
 
-            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Specialist/GetDcOkr");
-
-            if(answer != null)
+            foreach (var item in CampusClient.GetOKR())
             {
-                var dataArr = (ArrayList)answer["Data"];
-                AddParentNodes(dataArr);
-            }
+                okrList.Add(
+                    new Campus.Common.OKR
+                    {
+                        DcOKRId = item.DcOKRId,
+                        Name = item.Name
+                    });
 
-        }
+                TreeNode node = new TreeNode(item.Name, item.DcOKRId.ToString());
 
-        private void AddParentNodes(ArrayList dataArr)
-        {
-            for (int i = 0; i < dataArr.Count; i++)
-            {
-                var li = new ListItem();
-
-                foreach( var e in (Dictionary<string, object>)dataArr[i])
+                TreeView.Nodes.Add(node);
+                if ((Session["subdivisionId"]) != null)
                 {
-                    if (e.Key.ToString() == "Name")
+                    try
                     {
-                        string okrName = li.Text = e.Value.ToString();
-                        TreeNode node = new TreeNode(okrName);
-                        TreeView.Nodes.Add(node);
+                        foreach (var itemSpec in CampusClient.GetSpecialities(Convert.ToInt32(Session["subdivisionId"]), item.DcOKRId))
+                        {
+                            rtList.Add(new Campus.Common.RtProfTrainTotal
+                            {
+                                RtProfTrainTotalId = itemSpec.RtProfTrainTotalId,
+                                Name = itemSpec.Name,
+                                TotalShifr = itemSpec.TotalShifr
+                            });
+
+                            TreeNode childnode = new TreeNode(itemSpec.TotalShifr + "\t" + itemSpec.Name, itemSpec.RtProfTrainTotalId.ToString());
+
+                            node.ChildNodes.Add(childnode);
+
+                            if (node.ChildNodes == null)
+                            {
+                                node.Parent.Text = null;
+                            }
+                        }
                     }
-                    else
+                    catch
                     {
-                        li.Value = e.Value.ToString();
+                        return;
                     }
                 }
-            }
-        }
-
-        //private void AddSubDivision(List<Campus.Common.Subdivision> dataArr)
-        private void AddSubDivision(ArrayList dataArr)
-        {
-            CafList.Items.Add(new ListItem("Не обрано", "-1"));
-
-            for (int i = 0; i < dataArr.Count; i++)
-            {
-                var li = new ListItem();
-
-                var subdivId = new ListItem();
-
-                foreach (var e in (Dictionary<string, object>)dataArr[i])
-                {
-                    if (e.Key.ToString() == "Name")
-                    {
-                        li.Text = e.Value.ToString();
-                    }
-
-                    else
-                    {
-                        li.Value = e.Value.ToString();
-                    }
-                }
-
-                CafList.Items.Add(li);
-
-                //foreach (var subd in dataArr)
-                //{
-                //    CafList.Items.Add(subd.Name);
-                //}
             }
         }
 
@@ -103,21 +103,26 @@ namespace Site.Modules.SubSystems.GSVO
 
         protected void CafList_Load(object sender, EventArgs e)
         {
-            var subSysId = Session["gsvoId"];
 
-            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Responsible/GetSubDivisions?sessionId=" + SessionId + "&subsystemId=" + subSysId);
-
-            //CafList.Items.Clear();
-
-            if (answer != null)
+            if (!IsPostBack)
             {
-                var dataArr = (ArrayList)answer["Data"];
-                AddSubDivision(dataArr);
-            }
-            //}
-            //var subdivision = CampusClient.GetSubdivisions(SessionId, Int32.Parse(Session["gsvoId"].ToString()));
-            //AddSubDivision(subdivision);
-        }
+                CafList.Items.Add("Не вибрано");
 
+                int subSysId = (int)Session["gsvoId"];
+
+                List<Campus.Common.Division> subdivList = new List<Campus.Common.Division>();
+
+                foreach (var item in CampusClient.GetSubdivisions(SessionId, subSysId))
+                {
+                    subdivList.Add(new Campus.Common.Division
+                    {
+                        SubdivisionId = item.SubdivisionId,
+                        Name = item.Name
+                    });
+
+                    CafList.Items.Add(new ListItem(item.Name, item.SubdivisionId.ToString()));
+                }
+            }
+        }
     }
 }

@@ -33,11 +33,12 @@
 </head>
 <body>
 
-    <script type="text/javascript">
+    <%-- Законментовано з тієї причини, що при переході на сторінку ~/Modules/Subsystems/GSVO/Table.aspx в даному фрагменті коду програма вилітає через NullReferenceException --%>
+    <%--<script type="text/javascript">
         image = "<%=this.UserPhoto%>";
         text = "<%=String.Format("{0}, {1}, {2}", this.UserFullName, this.Position, this.AcademicDegree)%>";
         head = "";
-    </script>
+    </script>--%>
 
     <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
 

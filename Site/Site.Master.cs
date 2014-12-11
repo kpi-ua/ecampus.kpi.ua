@@ -39,11 +39,12 @@ namespace Site
             }
         }
 
-        public string UserPhoto
-        {
+        //Законментовано з тієї причини, що при переході на сторінку ~/Modules/Subsystems/GSVO/Table.aspx в даному фрагменті коду програма вилітає через NullReferenceException
+        //public string UserPhoto
+        //{
          
-            get { return this.SitePage.CurrentUser.Photo; }
-        }
+        //    get { return this.SitePage.CurrentUser.Photo; }
+        //}
         public string UserFullName
         {
             get { return this.SitePage.CurrentUser.FullName; }
