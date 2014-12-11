@@ -87,7 +87,7 @@
                 <Scripts>
                     <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
                     <%--<asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />--%>
-                    <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js"/>  <%-- обьеденил сюда datepicker & autocomplete --%>
+                    <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js"/>  <%-- объединил сюда datepicker & autocomplete --%>
                     <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
                     <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
