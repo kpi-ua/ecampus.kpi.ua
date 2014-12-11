@@ -484,5 +484,29 @@ namespace Core
             }
             catch (Exception e) { return null; }
         }
+
+        public List<Campus.Common.Division> GetSubdivisions(string sessionId, int subsystemId)
+        {
+            var result = Get<List<Campus.Common.Division>>("Responsible", "GetSubDivisions", new { sessionId, subsystemId });
+            return result;
+        }
+
+        public List<Campus.Common.OKR> GetOKR()
+        {
+            var result = Get<List<Campus.Common.OKR>>("Specialist", "GetDcOkr", new { });
+            return result;
+        }
+
+        public List<Campus.Common.RtProfTrainTotal> GetSpecialities(int subdivId, int dcOkrId)
+        {
+            var result = Get<List<Campus.Common.RtProfTrainTotal>>("Specialist", "GetSpecByOkr", new { subdivId, dcOkrId });
+            return result;
+        }
+
+        public List<Campus.Common.RtDiscipline> GetRtDiscipline(string sessionId, int rtProfTrainTotalId)
+        {
+            var result = Get<List<Campus.Common.RtDiscipline>>("Specialist", "GetRtProfTrainTotal", new { sessionId, rtProfTrainTotalId });
+            return result;
+        }
     }
 }

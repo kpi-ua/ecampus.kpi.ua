@@ -27,31 +27,35 @@
                                     <div class="panel-body">
                                         <div>
                                             <h1 class="profile-name"><%=this.CurrentUser.FullName %></h1>
+                                            <h4 class="UserCredo">Кредо "Вік живи-вік вчись"</h4>
+                                            <span class="glyphicon glyphicon-pencil" id="CredoUpdate"></span>
                                             <div class="col-xs-12 col-sm-3 col-md-3 ">
                                                 <a id="user_avatar" data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
                                                     <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
                                                     <div class="owner_photo_bubble_wrap">
                                                         <div id="owner_photo_bubble">
-                                                            <div class="owner_photo_bubble_action owner_photo_bubble_action_update">
+                                                            <div class="owner_photo_bubble_action">
                                                                 <label class="owner_photo_bubble_action_in">
                                                                     <input type="file" style="display: none" />Загрузить фотографию</label>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <%--<asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" OnDisposed="btnUpload_Click" />--%>
                                                 </a>
-
                                                 <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                <label id="change_user_avatar" class="glyphicon glyphicon-upload">
-                                                    <input type="file" style="display: none" /></label>
-
+                                                <%--<label id="change_user_avatar" class="glyphicon glyphicon-upload" onclick="document.getElementById('file_upload').click();">--%>
+                                                    <label id="change_user_avatar" class="glyphicon glyphicon-upload">
+                                               <%-- <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click"/>--%>
+                                                        <input type="file" style="display: none" />
+                                                </label>
                                             </div>
 
                                             <table class="col-xs-12  col-sm-8  col-md-9 table-info">
                                                 <tr>
-                                                    <td>Дані за місцем навчання/роботи:</td>
-                                                    <td>
+                                                    <%--<td>Дані за місцем навчання/роботи:</td>
+                                                    <td>--%>
                                                         <asp:Literal ID="WorkData" runat="server"></asp:Literal>
-                                                    </td>
+                                                   <%-- </td>--%>
                                                 </tr>
                                             </table>
 
@@ -143,8 +147,9 @@
 
                 <div class="panel">
                     <div class="input-group">
-                        <label class="control-label" for="File">Обрати файл</label>
-                        <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
+                        <label class="control-label">Обрати файл
+                            <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server"/>
+                        </label>
                         <br/>
                         <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="Завантажити" CssClass="btn btn-success btn-sm"></asp:Button>
                     </div>
@@ -244,7 +249,7 @@
                 </div>
             </div>
 
-            <!-- Modal 2-->
+            <!-- Modal 1-->
             <div class="modal" id="Cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

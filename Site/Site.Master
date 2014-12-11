@@ -7,27 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name='yandex-verification' content='4ce42a0173a1c976' />
 
-    <!-- Script conflict fix -->
-    <!--
-        Relative paths to avoid site location conflicts.
-        -->
-    <script src="Scripts/jquery-2.1.1.min.js"></script>
-    <script src="Scripts/jquery-ui-1.10.4.custom.js"></script>
-    <script src="Scripts/bootstrap.js"></script>
-    <script src="Scripts/bootbox.min.js"></script>
-    <script src="Scripts/chosen.jquery.min.js"></script>
-    <script src="Scripts/core.js"></script>
-    <script src="Scripts/bootstrap-clockpicker.min.js"></script>
-    <script src="Scripts/picker.js"></script>
-    <script src="Scripts/picker.date.js"></script>
-    <script src="Scripts/legacy.js"></script>
-    <script src="Scripts/jquery.bootpag.min.js"></script>
-    <script src="Scripts/jquery.ambiance.js"></script>
-    <script src="Scripts/jquery.eventsource.js"></script>
-    <script src="Scripts/script.js"></script>
-    <script src="Scripts/site.js"></script>
-    <script src="Scripts/pako.min.js"></script>
-    <script src="Scripts/APIlib.js"></script>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
 
     <link rel="stylesheet" href="Content/site.css" />
@@ -54,11 +33,12 @@
 </head>
 <body>
 
-    <script type="text/javascript">
+    <%-- Законментовано з тієї причини, що при переході на сторінку ~/Modules/Subsystems/GSVO/Table.aspx в даному фрагменті коду програма вилітає через NullReferenceException --%>
+    <%--<script type="text/javascript">
         image = "<%=this.UserPhoto%>";
         text = "<%=String.Format("{0}, {1}, {2}", this.UserFullName, this.Position, this.AcademicDegree)%>";
         head = "";
-    </script>
+    </script>--%>
 
     <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
 
@@ -104,18 +84,17 @@
         <form class="content" id="form" runat="server">
             <asp:HiddenField runat="server" ID="CampusSessionId" ClientIDMode="Static" />
             <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
-                <%-- Нужно удалить, т.к. ломается скриптовая зависимость. Всё перенёс в хедер ^^^ --%>
-<%--                <Scripts>
+                <Scripts>
                     <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
+                    <%--<asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />--%>
+                    <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js"/>  <%-- обьеденил сюда datepicker & autocomplete --%>
                     <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
                     <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
                     <asp:ScriptReference Path="~/Scripts/core.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.js" />
                     <asp:ScriptReference Path="~/Scripts/bootstrap-clockpicker.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/picker.js" />
-                    <asp:ScriptReference Path="~/Scripts/picker.date.js" />
+                    <asp:ScriptReference Path="~/Scripts/picker.js" />   
+                    <asp:ScriptReference Path="~/Scripts/picker.date.js" />  
                     <asp:ScriptReference Path="~/Scripts/legacy.js" />
                     <asp:ScriptReference Path="~/Scripts/jquery.bootpag.min.js" />
                     <asp:ScriptReference Path="~/Scripts/jquery.ambiance.js" />
@@ -124,7 +103,7 @@
                     <asp:ScriptReference Path="~/Scripts/site.js" />
                     <asp:ScriptReference Path="~/Scripts/pako.min.js" />
                     <asp:ScriptReference Path="~/Scripts/APIlib.js" />
-                </Scripts>--%>
+                </Scripts>
             </asp:ScriptManager>
 
             <script>
