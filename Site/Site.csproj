@@ -164,8 +164,9 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.2\lib\net45\WebMatrix.WebData.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="X.PagedList">
-      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    <Reference Include="X.PagedList, Version=1.22.5.37966, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\X.PagedList.1.22.5.150\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -186,8 +187,10 @@
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.bootpag.min.js" />
     <Content Include="Scripts\legacy.js" />
     <Content Include="Scripts\npm.js" />
@@ -300,7 +303,6 @@
     <Content Include="Modules\RNP\Default.aspx" />
     <Content Include="Modules\SubSystems\Default.aspx" />
     <Content Include="Modules\SubSystems\GSVO\Default.aspx" />
-    <Content Include="Modules\SubSystems\GSVO\Table.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\APIlib.js" />
     <Content Include="Scripts\async.js" />
@@ -326,7 +328,6 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
-    <Content Include="Scripts\jquery-ui.min.autocomplete.js" />
     <Content Include="Scripts\jquery.ambiance.js" />
     <Content Include="Scripts\jquery.eventsource.js" />
     <Content Include="Scripts\jstree.js" />
@@ -476,12 +477,12 @@
     <Compile Include="Modules\SubSystems\GSVO\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.cs">
-      <DependentUpon>Table.aspx</DependentUpon>
+    <Compile Include="Modules\SubSystems\GSVO\DisciplineTable.aspx.cs">
+      <DependentUpon>DisciplineTable.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.designer.cs">
-      <DependentUpon>Table.aspx</DependentUpon>
+    <Compile Include="Modules\SubSystems\GSVO\DisciplineTable.aspx.designer.cs">
+      <DependentUpon>DisciplineTable.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Modules\RNP\Default.aspx.cs">

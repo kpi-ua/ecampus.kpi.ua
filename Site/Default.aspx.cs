@@ -22,29 +22,41 @@ namespace Site
 
                 if (!Page.IsPostBack)
                 {
-                    foreach (var e in CurrentUser.Employees)
+                    if (CurrentUser.Employees.Count()!=0)
                     {
-                        WorkData.Text += e.SubdivisionName + "</br>";
-                        WorkData.Text += " Посада: <i class=\"text-success\">" + e.Position + "</i></br>";
-                        WorkData.Text += "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree + "</i></br>";
+                        WorkData.Text += "<tr><td>Дані за місцем роботи:</td><td>";
+                        foreach (var e in CurrentUser.Employees)
+                        {
+                            WorkData.Text += e.SubdivisionName + "</br>";
+                            WorkData.Text += " Посада: <i class=\"text-success\">" + e.Position + "</i></br>";
+                            WorkData.Text += "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree +
+                                             "</i></br>";
 
+                        }
                     }
-
-                    foreach (var p in CurrentUser.Personalities)
+                    if (CurrentUser.Personalities.Count() != 0)
                     {
-                        var val = p.IsContract ? "так" : "ні";
+                        WorkData.Text += "<tr><td>Дані за місцем навчання:</td><td>";
+                        foreach (var p in CurrentUser.Personalities)
+                        {
+                            var val = p.IsContract ? "так" : "ні";
 
-                        WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" + p.SubdivisionName + "</p>";
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Група: <i class=\"text-success\">" + p.StudyGroupName + "</i></p>";
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Контрактна форма навчання: <i class=\"text-success\">" + val + "</i></p>";
-                        WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" + "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
+                            WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" +
+                                             p.SubdivisionName + "</p>";
+                            WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
+                                             "Група: <i class=\"text-success\">" + p.StudyGroupName + "</i></p>";
+                            WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
+                                             "Контрактна форма навчання: <i class=\"text-success\">" + val + "</i></p>";
+                            WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
+                                             "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
+                        }
                     }
-
+                    WorkData.Text += "</td>";
                     if (CurrentUser.IsConfirmed != null && CurrentUser.IsConfirmed == "1")
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary disabled";
@@ -53,8 +65,8 @@ namespace Site
                     if (CurrentUser.ReasonFailure != null)
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви не дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + CurrentUser.ReasonFailure + "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary";
@@ -62,11 +74,16 @@ namespace Site
 
                     }
                     UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
+                    int i = 0;
                     foreach (var p in CurrentUser.Contacts)
                     {
+                        i++;
                         UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
                         UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
-                        UserContactsLiteral.Text +="<td class=\"glyphicon glyphicon-eye-open\"></td></tr>";
+                        UserContactsLiteral.Text += "<td id=\"userCont" + i + "\"class=\"glyphicon glyphicon-eye-open\"" +
+                                                     "onclick=\"$('#userCont" + i + "').toggleClass('glyphicon-eye-open');" +
+                                                    "$('#userCont" + i + "').toggleClass('glyphicon-eye-close');\"" +
+                                                    "</td></tr>";
                     }
                     List<Campus.Common.TimeTable> ttList = null;
                     if (CurrentUser.Employees.Count() >= 1)
@@ -77,7 +94,7 @@ namespace Site
                     {
                         ttList = CampusClient.GeTimeTables(SessionId, "student");
                     }
-                    if (ttList != null)
+                    if (ttList.Count()>0)
                     {
 
                         for (int w = 0; w < 2; w++)
@@ -107,8 +124,8 @@ namespace Site
                                                 table.DayId == d + 1);
                                         TimeTablesLiteral.Text += "<td>" + lesson.Subject + "<br>" +
                                                                   lesson.Employee + "<br>" + lesson.Building
-                                                                  //+ "<br>" + lesson.GroupName + "</td>"
-                                                                  + "</td>";
+                                                                  + "<br>" + lesson.GroupName + "<br>"+
+                                                                  lesson.TimeLesson+"</td>"+"</td>";
                                     }
                                 }
                                 TimeTablesLiteral.Text += "</tr>";
@@ -139,8 +156,8 @@ namespace Site
             if (CampusClient.SetReasonFailure(SessionId, ReasonTextBox.Text))
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви не дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<div class=\"alert alert-danger alert-dismissable\">" +
+                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + ReasonTextBox.Text + "</div></div>";
                 //kostilik
@@ -165,7 +182,7 @@ namespace Site
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви дозволили розміщення вашої персональної інформації на сайті " +
+                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                 //kostilik
@@ -216,7 +233,7 @@ namespace Site
             {
                 if (NewPass.Text == NewPassCheak.Text)
                 {
-                    
+
                     CampusClient.ChangePassword(SessionId, OldPass.Text, NewPass.Text);
                     ShowErrorMessage("OK");
                     UserPassword = NewPass.Text;
@@ -240,28 +257,34 @@ namespace Site
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
+            //FileUpload a =new FileUpload();
+            //this.AddedControl(a,1);
+            if (file_upload.HasFile)
             {
-                var fileData = binaryReader.ReadBytes(file_upload.PostedFile.ContentLength);
-                CampusClient.Authenticate(UserLogin, UserPassword);
-                CampusClient.UploadUserProfileImage(fileData);
+                using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
+                {
+                    var fileData = binaryReader.ReadBytes(file_upload.PostedFile.ContentLength);
+                    CampusClient.Authenticate(UserLogin, UserPassword);
+                    CampusClient.UploadUserProfileImage(fileData);
+                }
+            }
+            else
+            {
+                //error dont switch file
             }
         }
-
-
-        protected global::System.Web.UI.WebControls.TextBox DenyPublicationPurpose;
-        public Object DenyPublication()
+        public void BtnUpload ()
         {
-            //CampusClient.DenyPublication(SessionId, DenyPublicationPurpose.Text); не работает
-            return null;
+            try
+            {
+                using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
+                {
+                    var fileData = binaryReader.ReadBytes(file_upload.PostedFile.ContentLength);
+                    CampusClient.Authenticate(UserLogin, UserPassword);
+                    CampusClient.UploadUserProfileImage(fileData);
+                }
+            }
+            catch { }
         }
-
-        public Object AcceptPublication()
-        {
-            //CampusClient.AcceptPublication(SessionId); - не работает
-            return null;
-        }
-
-
     }
 }

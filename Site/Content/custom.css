@@ -374,3 +374,13 @@
         content: "";
         padding-right: 10px;
     }
+.inline-panel {
+    display:inline-block;
+    min-width:40%;
+    height:100%;
+    vertical-align:top;
+}
+input[type="file"] {
+    z-index:2;
+    position:relative;
+}
