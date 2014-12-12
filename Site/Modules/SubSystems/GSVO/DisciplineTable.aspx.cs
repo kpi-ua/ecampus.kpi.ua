@@ -21,11 +21,9 @@ namespace Site.Modules.SubSystems.GSVO
             {
                 List<Campus.Common.RtDiscipline> rtDisc = new List<Campus.Common.RtDiscipline>();
 
-
                 CathName.Text += " <h4 class=\"text-success\">" + Session["SubdivisionName"] + "</h4>";
                 SpecName.Text += "<i class=\"text-success\">" + Session["GSVOSpec"] + "</i>";
 
-                //collspan=\"2\"
                 RtDisciplineTable.Text += "<table class=\"table table-bordered table-hover\"><tr><td colspan=\"2\">" + "<button id=\"addDisc\" class=\"glyphicon glyphicon-plus\" type=\"submit\" runat=\"server\" width=\"50\" heigth=\"50\" OnClick=\"addDisc_Click\"></button>" + "</td><td><b>Цикли</b></td><td><b>Компоненти</b></td><td><b>Назва дисципліни</b></td>" +
                 "<td><b>Шифр</b></td><td><b>Кількість годин</b></td><td><b>Національні кредити</b></td><td><b>Кредити ECTS</b></td><td><b>Поза\nкредит\nдисц</b></td><td><b>Актуальність</b></td><td><b>Статус</b></td><td><b>Опис</b></td></tr>";
 
@@ -36,8 +34,7 @@ namespace Site.Modules.SubSystems.GSVO
                         RtProfTrainTotalId = item.RtProfTrainTotalId,
                         DcComponentId = item.DcComponentId,
                         DcCycleId = item.DcCycleId,
-#warning Not found propery
-                        //Name = item.Name,
+                        Name = item.Name,
                         Shifr = item.Shifr,
                         CountHour = item.CountHour,
                         CreditECTS = item.CreditECTS,
@@ -110,8 +107,7 @@ namespace Site.Modules.SubSystems.GSVO
                             break;
                     }
 
-#warning item.Name not found propery
-                    RtDisciplineTable.Text += "<td><button id=\"editDisc\" class=\"glyphicon glyphicon-edit\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\" OnClick=\"editDisc_Click\"></button></td><td><button id=\"removeDisc\" class=\"glyphicon glyphicon-remove\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\"ToolTip = \"Видалення нормативної складової\" OnClick=\"removeDisc_Click\"></button></td><td>" + cycle + "</td><td>" + component + "</td><td>" + /*item.Name.ToString() +*/ "</td>" +
+                    RtDisciplineTable.Text += "<td><button id=\"editDisc\" class=\"glyphicon glyphicon-edit\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\" OnClick=\"editDisc_Click\"></button></td><td><button id=\"removeDisc\" class=\"glyphicon glyphicon-remove\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\"ToolTip = \"Видалення нормативної складової\" OnClick=\"removeDisc_Click\"></button></td><td>" + cycle + "</td><td>" + component + "</td><td>" + item.Name.ToString() + "</td>" +
                 "<td>" + item.Shifr + "</td><td>" + item.CountHour + "</td><td>" + item.CreditNational + "</td><td>" + item.CreditECTS +
                 "</td><td>" + item.OutCredit + "</td><td>" + item.vcActuality + "</td><td>" + item.vcStatus + "</td><td>" + item.FullName + "</td></tr>";
                 }
