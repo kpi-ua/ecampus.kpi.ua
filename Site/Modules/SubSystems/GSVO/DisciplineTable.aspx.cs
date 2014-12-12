@@ -112,7 +112,7 @@ namespace Site.Modules.SubSystems.GSVO
 
 #warning item.Name not found propery
                     RtDisciplineTable.Text += "<td><button id=\"editDisc\" class=\"glyphicon glyphicon-edit\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\" OnClick=\"editDisc_Click\"></button></td><td><button id=\"removeDisc\" class=\"glyphicon glyphicon-remove\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\"ToolTip = \"Видалення нормативної складової\" OnClick=\"removeDisc_Click\"></button></td><td>" + cycle + "</td><td>" + component + "</td><td>" + /*item.Name.ToString() +*/ "</td>" +
-                "<td>" + item.Shifr + "</td><td>" + item.CountHour + "</td><td>" + item.CreditNational.ToString(CultureInfo.InvariantCulture) + "</td><td>" + item.CreditECTS.ToString() +
+                "<td>" + item.Shifr + "</td><td>" + item.CountHour + "</td><td>" + item.CreditNational + "</td><td>" + item.CreditECTS +
                 "</td><td>" + item.OutCredit + "</td><td>" + item.vcActuality + "</td><td>" + item.vcStatus + "</td><td>" + item.FullName + "</td></tr>";
                 }
 
