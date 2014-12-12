@@ -26,7 +26,7 @@
                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
                                         <div>
-                                            <h1 class="profile-name"><%=this.CurrentUser.FullName %></h1>
+                                            <%--<h1 class="profile-name"><%=this.CurrentUser.FullName %></h1>--%>
                                             <h4 class="UserCredo">Кредо "Вік живи-вік вчись" <span class="glyphicon glyphicon-pencil" id="CredoUpdate"></span></h4>
 
                                             <div class="col-xs-12 col-sm-3 col-md-3 ">

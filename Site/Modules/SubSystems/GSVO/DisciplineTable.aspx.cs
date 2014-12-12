@@ -122,7 +122,7 @@ namespace Site.Modules.SubSystems.GSVO
 
         private void addDisc_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Response.Redirect("SearchDiscipline.aspx");
         }
 
         private void editDisc_Click(object sender, EventArgs e)
