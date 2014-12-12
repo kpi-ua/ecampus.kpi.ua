@@ -131,7 +131,7 @@ a, .btn {
             color: #fff;
         }
 
-.login-wrap {
+.public-wrap {
     background-color: #208843;
     margin-bottom: 0 !important;
 }
@@ -1712,10 +1712,6 @@ footer {
     .container {
         width: 100% !important;
     }
-
-    header .header-nav {
-        border-bottom: 1px solid #fff;
-    }
 }
 
 @media screen and (max-width:991px) {
@@ -1766,8 +1762,19 @@ footer {
 }
 
 @media screen and (max-width:520px) {
-    .top-header .text {
-        display: none;
+
+    footer .pull-left,
+    footer .pull-right {
+        text-align: center;
+        float: none !important;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+
+    .public-wrap {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+        min-height: 350px;
     }
 }
 
