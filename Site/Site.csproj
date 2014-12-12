@@ -188,6 +188,7 @@
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
+    <Content Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx" />
     <Content Include="Modules\SubSystems\SVO\Default.aspx" />
     <Content Include="Modules\SubSystems\SVO\Table.aspx" />
     <Content Include="Scripts\bootstrap.js" />
@@ -485,6 +486,13 @@
     </Compile>
     <Compile Include="Modules\SubSystems\GSVO\DisciplineTable.aspx.designer.cs">
       <DependentUpon>DisciplineTable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx.cs">
+      <DependentUpon>SearchDiscipline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx.designer.cs">
+      <DependentUpon>SearchDiscipline.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\SubSystems\SVO\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
