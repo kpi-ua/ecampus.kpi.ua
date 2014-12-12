@@ -9,16 +9,16 @@
 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
 
-    <link rel="stylesheet" href="Content/site.css" />
-    <link rel="stylesheet" href="Content/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="Content/bootstrap-chosen.css" />
-    <link rel="stylesheet" href="Content/font-awesome.min.css" />
-    <link rel="stylesheet" href="Content/bootstrap-clockpicker.min.css" />
-    <link rel="stylesheet" href="Content/picker.css" />
-    <link rel="stylesheet" href="Content/picker.date.css" />
-    <link rel="stylesheet" href="Content/jquery.ambiance.css" />
-    <link rel="stylesheet" href="Content/custom.css" />
+    <link rel="stylesheet" href="/Content/site.css" />
+    <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
+    <link rel="stylesheet" href="/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
+    <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+    <link rel="stylesheet" href="/Content/bootstrap-clockpicker.min.css" />
+    <link rel="stylesheet" href="/Content/picker.css" />
+    <link rel="stylesheet" href="/Content/picker.date.css" />
+    <link rel="stylesheet" href="/Content/jquery.ambiance.css" />
+    <link rel="stylesheet" href="/Content/custom.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
@@ -250,12 +250,12 @@
 
     <footer class="container-fluid">
         <div class="row">
-            <div class="col-md-6 pull-left" style="text-align: left">
+            <div class="col-md-6 pull-left">
                 Національний технічний університет України<br>
                 &nbsp;&nbsp;&nbsp;“Київський політехнічний інститут”<br>
                 &nbsp;&nbsp;&nbsp;<a class="orange">www.kpi.ua</a> Електронний кампус
             </div>
-            <div class="col-md-6 pull-right" style="text-align: right">
+            <div class="col-md-6 pull-right">
                 Розробник:  Конструкторське бюро<br>
                 інформаційних систем<br>
                 <a class="orange">www.kbis.kpi.ua</a>
