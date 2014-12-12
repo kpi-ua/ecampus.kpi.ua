@@ -173,11 +173,14 @@
     <Content Include="apple-touch-icon-ipad.png" />
     <Content Include="apple-touch-icon-iphone-retina-display.png" />
     <Content Include="apple-touch-icon-iphone.png" />
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\picker.css" />
@@ -193,6 +196,8 @@
     <Content Include="Modules\SubSystems\SVO\Table.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.bootpag.min.js" />
     <Content Include="Scripts\legacy.js" />
@@ -310,6 +315,8 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Properties\PublishProfiles\webdeploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\CreatePage.js" />
