@@ -15,7 +15,7 @@ namespace Site.Modules.SubSystems.SVO
     {
         protected override void OnLoad(EventArgs e)
         {
-            
+            base.OnLoad(e);
         }
 
         protected void TreeView_SelectedNodeChanged(object sender, EventArgs e)
@@ -26,25 +26,25 @@ namespace Site.Modules.SubSystems.SVO
         protected void TreeView_Load(object sender, EventArgs e)
         {
 
-        }       
+        }
 
         private void AddSubDivision(ArrayList dataArr)
         {
             CafList.Items.Add(new ListItem("Не обрано", "-1"));
 
-            for(int i = 0; i < dataArr.Count; i++)
+            for (int i = 0; i < dataArr.Count; i++)
             {
                 var li = new ListItem();
 
                 var subdivId = new ListItem();
 
-                foreach(var e in (Dictionary<string, object>)dataArr[i])
+                foreach (var e in (Dictionary<string, object>)dataArr[i])
                 {
                     if (e.Key.ToString() == "Name")
                     {
                         li.Text = e.Value.ToString();
 
-                        
+
                     }
                     /*
                     //else
@@ -55,14 +55,14 @@ namespace Site.Modules.SubSystems.SVO
 
                 CafList.Items.Add(li);
 
-  
+
                 break;
             }
         }
 
         protected void CafList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void CafList_Load(object sender, EventArgs e)

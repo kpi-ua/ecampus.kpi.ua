@@ -22,7 +22,7 @@ namespace Site.Modules.SubSystems.GSVO
 
 
                 CathName.Text += " <h4 class=\"text-success\">" + Session["SubdivisionName"] + "</h4>";
-                SpecName.Text += "<i class=\"text-success\">" + Session["GSVOSpec"] + "</i>";
+            SpecName.Text += "<i class=\"text-success\">" + Session["GSVOSpec"] + "</i>";
 
                 ///collspan=\"2\"
                 RtDisciplineTable.Text += "<table class=\"table table-bordered table-hover\"><tr><td colspan=\"2\">" + "<button id=\"addDisc\" class=\"glyphicon glyphicon-plus\" type=\"submit\" runat=\"server\" width=\"50\" heigth=\"50\" OnClick=\"addDisc_Click\"></button>" + "</td><td><b>Цикли</b></td><td><b>Компоненти</b></td><td><b>Назва дисципліни</b></td>" +

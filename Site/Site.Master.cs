@@ -16,8 +16,9 @@ namespace Site
 
         protected string JSPath
         {
-            get { 
-                return HttpContext.Current.IsDebuggingEnabled ? "" : "min"; 
+            get
+            {
+                return HttpContext.Current.IsDebuggingEnabled ? "" : "min";
             }
         }
 
@@ -39,12 +40,12 @@ namespace Site
             }
         }
 
-        //Законментовано з тієї причини, що при переході на сторінку ~/Modules/Subsystems/GSVO/Table.aspx в даному фрагменті коду програма вилітає через NullReferenceException
-        //public string UserPhoto
-        //{
-         
-        //    get { return this.SitePage.CurrentUser.Photo; }
-        //}
+        public string UserPhoto
+        {
+
+            get { return this.SitePage.CurrentUser.Photo; }
+        }
+
         public string UserFullName
         {
             get { return this.SitePage.CurrentUser.FullName; }

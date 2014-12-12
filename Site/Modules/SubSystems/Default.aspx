@@ -7,7 +7,6 @@
 
 <asp:Content ID="body_content" ContentPlaceHolderID="body" runat="server">
     <center>
-        <asp:Panel ID="MySubsystemsContainer" runat="server">
-    </asp:Panel>
+        <asp:Panel ID="MySubsystemsContainer" runat="server"></asp:Panel>
     </center>
 </asp:Content>

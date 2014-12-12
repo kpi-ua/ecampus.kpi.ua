@@ -28,7 +28,7 @@
                                         <div>
                                             <h1 class="profile-name"><%=this.CurrentUser.FullName %></h1>
                                             <h4 class="UserCredo">Кредо "Вік живи-вік вчись" <span class="glyphicon glyphicon-pencil" id="CredoUpdate"></span></h4>
-                                            
+
                                             <div class="col-xs-12 col-sm-3 col-md-3 ">
                                                 <a id="user_avatar" data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
                                                     <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
@@ -44,9 +44,9 @@
                                                 </a>
                                                 <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                 <%--<label id="change_user_avatar" class="glyphicon glyphicon-upload" onclick="document.getElementById('file_upload').click();">--%>
-                                                    <label id="change_user_avatar" class="glyphicon glyphicon-upload">
-                                               <%-- <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click"/>--%>
-                                                        <input type="file" style="display: none" />
+                                                <label id="change_user_avatar" class="glyphicon glyphicon-upload">
+                                                    <%-- <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click"/>--%>
+                                                    <input type="file" style="display: none" />
                                                 </label>
                                             </div>
 
@@ -54,8 +54,8 @@
                                                 <tr>
                                                     <%--<td>Дані за місцем навчання/роботи:</td>
                                                     <td>--%>
-                                                        <asp:Literal ID="WorkData" runat="server"></asp:Literal>
-                                                   <%-- </td>--%>
+                                                    <asp:Literal ID="WorkData" runat="server"></asp:Literal>
+                                                    <%-- </td>--%>
                                                 </tr>
                                             </table>
 
@@ -147,10 +147,11 @@
 
                 <div class="panel">
                     <div class="input-group">
-                        <label class="control-label">Обрати файл
-                            <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server"/>
+                        <label class="control-label">
+                            Обрати файл
+                            <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
                         </label>
-                        <br/>
+                        <br />
                         <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="Завантажити" CssClass="btn btn-success btn-sm"></asp:Button>
                     </div>
                     <br />
@@ -174,76 +175,71 @@
             <div class="tab-pane" id="tab3">
                 <!--#region content  -->
                 <div>
-                    <%--<asp:UpdatePanel runat="server">
-                    <ContentTemplate>--%>
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>
-                            <%--</ContentTemplate>
-                </asp:UpdatePanel>--%>
+
                             <h1 class="text-center">ЗГОДА</h1>
 
                             <h3 class="text-center">На публікацію даних на сайті intellect.kpi.ua в мережі Інтернет</h3>
                             <div class="btn-group">
                             </div>
                             Intellect.kpi.ua - публічний веб-сайт, який складається з офіційних веб-сторінок викладачів НТУУ «КПІ».
-                    Основний вміст intellect.kpi.ua - записи, що регулярно автоматично оновлюються з персонального електронного кабінету НПП (науково-педагогічного працівника) системи Кампус.
-                    <br />
-                            На intellect.kpi.ua розміщується тільки та інформація, яку визначає сам користувач у своєму персональному кабінеті.
-                    Відомості, які можуть бути представлені на intellect.kpi.ua:
-                   <ol class="privacy-list">
-                       <li>
-                           <strong>Загальна інформація</strong>:
-                            <ul>
-                                <li>- Фото</li>
-                                <li>- ПІБ</li>
-                                <li>- Науковий ступень</li>
-                                <li>- Вчене звання</li>
-                                <li>- Данні за місцем роботи (підрозділ(-и), посада(-и))</li>
-                            </ul>
-                       </li>
+                            Основний вміст intellect.kpi.ua - записи, що регулярно автоматично оновлюються з персонального електронного кабінету НПП (науково-педагогічного працівника) системи Кампус.
+                            <br />
+                                    На intellect.kpi.ua розміщується тільки та інформація, яку визначає сам користувач у своєму персональному кабінеті.
+                            Відомості, які можуть бути представлені на intellect.kpi.ua:
+                            <ol class="privacy-list">
+                               <li>
+                                   <strong>Загальна інформація</strong>:
+                                    <ul>
+                                        <li>- Фото</li>
+                                        <li>- ПІБ</li>
+                                        <li>- Науковий ступень</li>
+                                        <li>- Вчене звання</li>
+                                        <li>- Данні за місцем роботи (підрозділ(-и), посада(-и))</li>
+                                    </ul>
+                               </li>
 
-                       <li>
-                           <strong>Контактна інформація</strong>
-                           <ul>
-                               <li>- E-mail, робочий(-і) телефон(-и),  мобільний(-і) телефон(-и)</li>
-                               <li>- Адреса за місцем прийому (корпус, кімната, вулиця)</li>
-                               <li>- Години звернення (розклад прийому/години прийому)</li>
-                               <li>- Сайт(-и)</li>
-                               <li>- Посилання на сторінки в соціальних мережах)</li>
-                           </ul>
-                       </li>
-                       <li>
-                           <strong>Педагогічна діяльність</strong>
-                           <ul>
-                               <li>- Розклад навчальних занять</li>
-                               <li>- Методичне забезпечення дисципліни/кредитного модулю</li>
-                           </ul>
-                       </li>
-                       <li>
-                           <strong>Наукова  діяльність</strong>
-                           <ul>
-                               <li>- Публікації</li>
-                               <li>- Конференції/семінари/симпозіуми</li>
-                               <li>- Гранти/Проекти</li>
-                               <li>- Авторське свідоцтва/патенти</li>
-                               <li>- Нагороди</li>
-                               <li>- Напрями досліджень</li>
-                           </ul>
-                       </li>
+                               <li>
+                                   <strong>Контактна інформація</strong>
+                                   <ul>
+                                       <li>- E-mail, робочий(-і) телефон(-и),  мобільний(-і) телефон(-и)</li>
+                                       <li>- Адреса за місцем прийому (корпус, кімната, вулиця)</li>
+                                       <li>- Години звернення (розклад прийому/години прийому)</li>
+                                       <li>- Сайт(-и)</li>
+                                       <li>- Посилання на сторінки в соціальних мережах)</li>
+                                   </ul>
+                               </li>
+                               <li>
+                                   <strong>Педагогічна діяльність</strong>
+                                   <ul>
+                                       <li>- Розклад навчальних занять</li>
+                                       <li>- Методичне забезпечення дисципліни/кредитного модулю</li>
+                                   </ul>
+                               </li>
+                               <li>
+                                   <strong>Наукова  діяльність</strong>
+                                   <ul>
+                                       <li>- Публікації</li>
+                                       <li>- Конференції/семінари/симпозіуми</li>
+                                       <li>- Гранти/Проекти</li>
+                                       <li>- Авторське свідоцтва/патенти</li>
+                                       <li>- Нагороди</li>
+                                       <li>- Напрями досліджень</li>
+                                   </ul>
+                               </li>
 
-                       <li>
-                           <strong>Захоплення/Дозвілля</strong>
-                       </li>
-                   </ol>
+                               <li>
+                                   <strong>Захоплення/Дозвілля</strong>
+                               </li>
+                           </ol>
 
                             <h3 class="text-center">Обрана мною інформація може бути розміщена на сайті intellect.kpi.ua</h3>
                             <div class="text-center">
-                                <%--<asp:UpdatePanel runat="server">
-                    <ContentTemplate>--%>
                                 <asp:Button class="btn btn-primary" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click" />
                                 <asp:Button class="btn btn-primary" ID="btnDenie" Text="Відмовляюсь" runat="server" data-toggle="modal" data-target="#Cancel-modal" />
-                                <%--<button  type="button" class="btn btn-primary" ID="btnDenie" runat="server" onclick="$('#Cancel-modal').modal('show');">Відмовляюсь</button>--%>
+                            </div>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
@@ -283,4 +279,5 @@
             <!--#endregion -->
         </div>
     </div>
+
 </asp:Content>

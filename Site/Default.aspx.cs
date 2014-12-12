@@ -1,13 +1,10 @@
-﻿using System.Web.UI;
-using System.Web.UI.WebControls;
-using Campus.Common;
-using Core;
+﻿using Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
-using System.Web.UI.HtmlControls;
+
 namespace Site
 {
     public partial class Default : Core.SitePage
@@ -15,7 +12,9 @@ namespace Site
         protected override void OnLoad(EventArgs ea)
         {
             base.OnLoad(ea);
+
             LoadCarousel();
+            
             try
             {
                 profile_photo.ImageUrl = CurrentUser.Photo;

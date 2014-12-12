@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace Site.Modules.SubSystems.SVO
 {
-    public partial class Table : System.Web.UI.Page
+    public partial class Table : Core.SitePage
     {
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-
+            base.OnLoad(e);
         }
     }
 }
