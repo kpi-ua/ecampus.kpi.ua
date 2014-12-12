@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Site.Modules.SubSystems.GSVO
 {
-    public partial class DisciplineTable : System.Web.UI.Page
+    public partial class DisciplineTable : Core.SitePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {
