@@ -10,7 +10,7 @@ namespace Campus.Common
         public int RtProfTrainTotalId { get; set; }
         public int DcCycleId { get; set; }
         public int DcComponentId { get; set; }
-        public string DcDisciplineName { get; set; }
+        public string Name { get; set; }
         public string Shifr { get; set; }
         public int CountHour { get; set; }
         public double CreditNational { get; set; }
