@@ -95,22 +95,25 @@ namespace Site
                     }
                     if (ttList.Count()>0)
                     {
-
+                        //цикл по тижням навчання
                         for (int w = 0; w < 2; w++)
                         {
                             TimeTablesLiteral.Text += "<h5 align=\"center\"> " + (w + 1) + "-й тиждень</h5>" +
                            "  <table class=\"table table-bordered table-hover\"><tr><td></td><td>Понеділок</td><td>Вівторок</td><td>Середа</td>" +
                            "<td>Четвер</td><td>П'ятниця</td><td>Субота</td></tr>";
+                            //цикл по парам
                             for (int l = 0; l < 5; l++)
                             {
                                 TimeTablesLiteral.Text += "<tr><td>" + (l + 1) + "</td>";
+                                //цикл по дням тижня
                                 for (int d = 0; d < 6; d++)
                                 {
                                     if (
                                         !ttList.Exists(
                                             table =>
-                                                table.WeekNum == w + 1 && table.LessonId == l + 1 &&
-                                                table.DayId == d + 1))
+                                                //якщо нумерація тижнів, пар і днів тижня з нуля то +1
+                                                table.WeekNum == w && table.LessonId == l &&
+                                                table.DayId == d))
                                     {
                                         TimeTablesLiteral.Text += "<td></td>";
                                     }
@@ -118,9 +121,10 @@ namespace Site
                                     {
                                         var lesson = ttList.SingleOrDefault(
                                             table =>
-                                                table.WeekNum == w + 1 &&
-                                                table.LessonId == l + 1 &&
-                                                table.DayId == d + 1);
+                                                //якщо нумерація тижнів, пар і днів тижня з нуля то +1
+                                                table.WeekNum == w &&
+                                                table.LessonId == l &&
+                                                table.DayId == d);
                                         TimeTablesLiteral.Text += "<td>" + lesson.Subject + "<br>" +
                                                                   lesson.Employee + "<br>" + lesson.Building
                                                                   + "<br>" + lesson.GroupName + "<br>"+
@@ -133,14 +137,15 @@ namespace Site
                         }
                     }
 
-                    //SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
-                    //foreach (var p in CurrentUser.Profiles)
-                    //{
-                    //    SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + p.SubsystemName + "\"";
-                    //    SpecFunc.Text += "<i class=\"text-success\">" + "( " + p.ProfileName + " )" + "</i></p>";
-                    //}
+                    SpecFunc.Text += "<table class=\"table-hover table-fill\">"+
+                        "<tr><th>Вид підсистеми</th><th>Роль в підсистемі</th></tr>";
+                    foreach (var p in CurrentUser.Profiles)
+                    {
+                        SpecFunc.Text += "<tr><td>"+p.SubsystemName+"</td>";    
+                        SpecFunc.Text += "<td>"+p.ProfileName+"</td></tr>";
+                    }
 
-                    //SpecFunc.Text += "</div>";
+                    SpecFunc.Text += "</table>";
                 }
 
                 btnFailure.Attributes.Add("onclick", "$('#Cancel-modal').hide();document.body.style.overflow = 'auto';");

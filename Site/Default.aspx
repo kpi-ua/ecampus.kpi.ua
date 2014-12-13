@@ -137,12 +137,13 @@
                 <div class="inline-panel">
                     <div class="panel-body">
                         <!-- Таблица профиля/ролей идёт сюда -->
-                        <table class="table-hover table-fill">
-                            <tr>
+                        <%--<table class="table-hover table-fill">--%>
+                            <asp:Literal ID="SpecFunc" runat="server"></asp:Literal>
+                            <%--<tr>
                                 <th>Вид підсистеми</th>
                                 <th>Роль в підсистемі</th>
-                            </tr>
-                            <tr>
+                            </tr>--%>
+                            <%--<tr>
                                 <td>Дошка оголошень</td>
                                 <td>Викладач</td>
                             </tr>
@@ -154,7 +155,7 @@
                                 <td>Повідомлення</td>
                                 <td>Викладач</td>
                             </tr>
-                        </table>
+                        </table>--%>
                     </div>
                 </div>
                 <div class="inline-panel">
