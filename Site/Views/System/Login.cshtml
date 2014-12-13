@@ -5,58 +5,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="login-box">
-    <div class="login-logo"></div>
-    @using (Html.BeginForm("Login", "System"))
-    {
-        <fieldset>
-            <div class="form-group">
-                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Логін" })
-            </div>
-            <div class="form-group">
-                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Пароль" })
-            </div>
-            @if (Model != null)
-            {
+<div class="login-box row">
+
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="login-logo"></div>
+        @using (Html.BeginForm("Login", "System"))
+        {
+            <fieldset>
                 <div class="form-group">
-                    <div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                        Перевірте корректність логіну та паролю.
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Логін" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Пароль" })
+                </div>
+                @if (Model != null)
+                {
+                    <div class="form-group">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Перевірте корректність логіну та паролю.
+                        </div>
                     </div>
-                </div>
-            }
+                }
 
-            <a class="support-modal-link" data-toggle="modal" data-target="#support-modal">Служба підтримки користувачів</a>
-            <input type="submit" class="btn btn-success btn-block" value="Вхід" />
-        </fieldset>
-    }
+                <a class="support-modal-link" data-toggle="modal" data-target="#support-modal">Служба підтримки користувачів</a>
+                <input type="submit" class="btn btn-success btn-block" value="Вхід" />
+            </fieldset>
+        }
+    </div>
 
+    <div class="col-md-4"></div>
+</div>
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="support-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Служба підтримки</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        Якщо у вас є питання, ви можете надіслати його на email служби підтримки: <a href="mailto:ecampus@kpi.ua">ecampus@kpi.ua</a>
-                    </p>
-                    <p>
-                        Для термінового зв'язку ви можете подзвонити за номером: +380 (44) 454-98-45
-                    </p>
-                    <p>
-                        Також ви можете завітати до констуркторського бюро, за адресою: <a href="http://maps.yandex.ua/-/CVremSol">м. Києв, проспект Перемоги 37, корпус 13, 4 поверх, 25 кабінет</a>.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="support-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Служба підтримки</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Якщо у вас є питання, ви можете надіслати його на email служби підтримки: <a href="mailto:ecampus@kpi.ua">ecampus@kpi.ua</a>
+                </p>
+                <p>
+                    Для термінового зв'язку ви можете подзвонити за номером: +380 (44) 454-98-45
+                </p>
+                <p>
+                    Також ви можете завітати до констуркторського бюро, за адресою: <a href="http://maps.yandex.ua/-/CVremSol">м. Києв, проспект Перемоги 37, корпус 13, 4 поверх, 25 кабінет</a>.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
             </div>
         </div>
     </div>
-
 </div>

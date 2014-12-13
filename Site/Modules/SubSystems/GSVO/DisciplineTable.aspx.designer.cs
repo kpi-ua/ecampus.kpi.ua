@@ -10,7 +10,7 @@
 namespace Site.Modules.SubSystems.GSVO {
     
     
-    public partial class Table {
+    public partial class DisciplineTable {
         
         /// <summary>
         /// CathName control.
@@ -31,12 +31,12 @@ namespace Site.Modules.SubSystems.GSVO {
         protected global::System.Web.UI.WebControls.Literal SpecName;
         
         /// <summary>
-        /// AddDisc control.
+        /// RtDisciplineTable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddDisc;
+        protected global::System.Web.UI.WebControls.Literal RtDisciplineTable;
     }
 }

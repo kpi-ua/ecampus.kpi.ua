@@ -8,17 +8,13 @@
     <link href="/Content/jquery.ambiance.css" rel="stylesheet" />
     <link href="/Content/jquery-ui.min.autocomplete.css" rel="stylesheet" />
     <link href="/Content/tree/style.css" rel="stylesheet" />
-
-    <script src="/Scripts/async.js"></script>
-    <script src="/Scripts/chosen.jquery.js"></script>
-    <script src="/Scripts/APIlib.js"></script>
-    <script src="/Scripts/jquery.ambiance.js"></script>
-    <script src="/Scripts/CreatePage.js"></script>
-    <script src="/Scripts/jquery-ui.min.autocomplete.js"></script>
-    <script src="/Scripts/jstree.js"></script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="newbody" runat="server">
+    <script src="/Scripts/async.js"></script>
+    <script src="/Scripts/jstree.js"></script>
+    <script src="/Scripts/CreatePage.js"></script>
+    
 
     <div class="main">
         <h4 id="expand_persons"><span class="glyphicon glyphicon-user"></span>&nbsp;Учасники</h4>

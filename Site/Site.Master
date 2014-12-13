@@ -7,14 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name='yandex-verification' content='4ce42a0173a1c976' />
 
-    <script src="/Scripts/jquery-2.1.1.min.js"></script>
-    <script src="/Scripts/bootstrap.js"></script>
-
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
 
     <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
-    <%--<link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />--%>
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
@@ -22,6 +18,7 @@
     <link rel="stylesheet" href="/Content/picker.css" />
     <link rel="stylesheet" href="/Content/picker.date.css" />
     <link rel="stylesheet" href="/Content/jquery.ambiance.css" />
+    <link rel="stylesheet" href="/Content/jquery-filestyle.css" />
     <link rel="stylesheet" href="/Content/custom.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -44,56 +41,57 @@
 
     <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
 
-    <div class="wrap container">
-        <header>
-            <div class="row site-tile center-block">
-                <div class="site-tile-text col-md-12">
-                    НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
-                </div>
+    <header class="container-fluid">
+        <div class="row center-block">
+            <div class="site-tile-text col-md-12">
+                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
             </div>
-            <div class="header-nav">
-                <div class="green">
-                    <a href="/Default.aspx">
-                        <div class="header-logo pull-left">
-                            <img src="/Images/logo-small.png" alt="campus small logo" />
-                        </div>
-                    </a>
-                    <div class="navbar pull-right">
-                        <ul>
-                            <li>
-                                <a href="/Default.aspx">
-                                    <i class="fa fa-home"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Modules/SubSystems/Default.aspx" title="Підсистем">
-                                    <i class="fa fa-briefcase"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/logout" id="ExitLink"><i class="fa fa-sign-out"></i></a>
-                            </li>
-                        </ul>
-                        <div class="user-name">
-                            <a href="#" rel="drevil">Вітаємо,
-                                <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
-                        </div>
+        </div>
+        <div class="header-nav">
+            <div class="green">
+                <a href="/Default.aspx">
+                    <div class="header-logo pull-left">
+                        <img src="/Images/logo-small.png" alt="campus small logo" />
+                    </div>
+                </a>
+                <div class="navbar pull-right">
+                    <ul>
+                        <li>
+                            <a href="/Default.aspx">
+                                <i class="fa fa-home"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Modules/SubSystems" title="Підсистеми">
+                                <i class="fa fa-briefcase"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/logout" id="ExitLink"><i class="fa fa-sign-out"></i></a>
+                        </li>
+                    </ul>
+                    <div class="user-name">
+                        <a href="#" rel="drevil">Вітаємо,
+                            <asp:Literal ID="UserName" runat="server"></asp:Literal></a>
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
 
+    <div class="wrap container">
         <form class="content" id="form" runat="server">
+
             <asp:HiddenField runat="server" ID="CampusSessionId" ClientIDMode="Static" />
             <asp:ScriptManager EnableCdn="true" ID="script_manager" runat="server">
                 <Scripts>
                     <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.min.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-ui-1.10.4.custom.js" />
+                    <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js" />
+                    <%-- объединил сюда datepicker & autocomplete --%>
                     <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
                     <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
                     <asp:ScriptReference Path="~/Scripts/core.js" />
-                    <asp:ScriptReference Path="~/Scripts/jquery-2.1.1.js" />
                     <asp:ScriptReference Path="~/Scripts/bootstrap-clockpicker.min.js" />
                     <asp:ScriptReference Path="~/Scripts/picker.js" />
                     <asp:ScriptReference Path="~/Scripts/picker.date.js" />
@@ -246,23 +244,25 @@
             <!--================-->
             <asp:ContentPlaceHolder ID="body" runat="server"></asp:ContentPlaceHolder>
 
-            <footer class="row site-footer">
-                <div class="col-md-6 pull-left" style="text-align: left">
-                    @ Національний технічний університет України<br>
-                    &nbsp;&nbsp;&nbsp;
-                    “Київський політехнічний інститут”<br>
-                    &nbsp;&nbsp;&nbsp;
-                    <a class="orange">www.kpi.ua</a> Електронний кампус
-                </div>
-                <div class="col-md-6 pull-right" style="text-align: right">
-                    Розробник:  Конструкторське бюро<br>
-                    інформаційних систем<br>
-                    <a class="orange">www.kbis.kpi.ua</a>
-                </div>
-            </footer>
+
         </form>
 
     </div>
+
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                Національний технічний університет України<br />
+                “Київський політехнічний інститут”<br />
+                <a href="http://kpi.ua/" class="orange">www.kpi.ua</a> Електронний кампус                
+            </div>
+            <div class="col-md-6 text-right">
+                Розробник: Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="http://kbis.kpi.ua/" class="orange">www.kbis.kpi.ua</a>
+            </div>
+        </div>
+    </footer>
 
     <div id="calendar-container" style="visibility: hidden; display: none; width: 100%">
     </div>

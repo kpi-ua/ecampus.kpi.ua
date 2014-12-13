@@ -6,10 +6,68 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="newhead" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="newbody" runat="server">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+    <script src="/Scripts/APIlib.js"></script>
     <script>
         $("#search_tab").addClass("active");
+
+        $(function () {
+              
+            var rawData = <%=new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(this.arr) %>
+            $("#avt").autocomplete({
+                source: rawData,
+                minLength: 3,
+                delay:500
+            });
+
+            addoption_autor();
+            addoption_day("number");
+            addoption_month("month");
+          
+
+            API.getData(["Ir", "GetIrKinds"], {}, function (data) {
+                var html = "";
+                $.each(data, function (key, value) {
+                    if (value.kinds.length > 0) {
+                        html += "<optgroup label='" + value.name + "' value='" + value.id + "'>";
+                        for (var item in value.kinds) {
+                            html += "<option value='" + value.kinds[item].id + "'>" + value.kinds[item].name + "</option>";
+                        }
+                        html += "</optgroup>";
+                    }
+                });
+                $("#vid").append(html);
+                $("#vid").chosen();
+            });
+      
+        });
+
+        function addoption_autor() {
+            var objSel = document.getElementById("vns");
+            var options = <%=new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(this.arrc) %>
+            for(var h=0; h< <%=mm%>; h++){ objSel.options[objSel.options.length]= new Option(options[h], ""); }
+        }
+                
+
+        function addoption_day(id) {
+            var objSel = document.getElementById(id);
+            var options = <%=new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(this.days) %>
+            for(var h=0; h<<%=d%>; h++){ objSel.options[objSel.options.length]= new Option(options[h], ""); }
+        }
+
+        function addoption_month(id) {
+            var objSel = document.getElementById(id);
+            var options = <%=new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(this.months) %>
+            for(var h=0; h<<%=mon%>; h++){ objSel.options[objSel.options.length]= new Option(options[h], ""); }
+        }
+            
+       
+
     </script>
-    <!--   <h3> Пошук ЕІР</h3> -->
+
+    <!--  -------------- -->
     <section class="eirsearch form-horizontal">
         <h4>Способи пошуку</h4>
         
@@ -35,20 +93,18 @@
                 <div class="form-group">
                     <label for="eirauthorcontrib" class="col-sm-2 control-label">Тип внеску</label>
                     <div class="col-sm-10">
-                        <select class="form-control"  name="eirauthorcontrib" id="vns" style="margin-top: 6px;">
-                            <option>Автор</option>
-                            <option>Співавтор</option>
+                        <select class="form-control"  name="eirauthorcontrib" id="vns" >
+                           <option disabled selected value="--">Тип внеску</option>
                         </select>
+                      
                     </div>
                 </div>
-
+             
                 <div class="form-group">
                     <label for="eirview" class="col-sm-2 control-label">Вид ЕІР</label>
                     <div class="col-sm-10">
                         <select class="form-control"  name="eirview" id="vid">
-                            <option>Конспект</option>
-                            <option>Підручник</option>
-                            <option>Посібник</option>
+                            <option disabled selected value="--">Вид ЕІР</option>
                         </select>
                     </div>
                 </div>
@@ -61,19 +117,13 @@
                             <option>2014</option>
                             <option>2013</option>
                         </select>
-                        <label for="month" style="margin-left: 32px;">Місяць</label>
+                        <label for="month" >Місяць</label>
                         <select class="form-control"  name="datm" id="month">
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
-                            <option>04</option>
+                          
                         </select>
-                        <label for="number" style="margin-left: 32px;">Число</label>
+                        <label for="number">Число</label>
                         <select class="form-control"  name="datn" id="number">
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
-                            <option>04</option>
+                           
                         </select>
                     </div>
                 </div>
@@ -109,7 +159,7 @@
         </div>
 
         <div class="text-right">
-            <input class="btn btn-default" type="button" id="clearr" value="Очистити" />
+            <input class="btn btn-default" type="button" id="clearr" value="Очистити"  onclick="$('#avt').val(''); $('#nam').val(''); $('#dsc').val(''); $('#crd').val('');" />
             <input class="btn btn-primary" type="button" id="searchh" value="Пошук" />
         </div>
     </section>

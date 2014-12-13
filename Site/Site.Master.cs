@@ -16,8 +16,9 @@ namespace Site
 
         protected string JSPath
         {
-            get { 
-                return HttpContext.Current.IsDebuggingEnabled ? "" : "min"; 
+            get
+            {
+                return HttpContext.Current.IsDebuggingEnabled ? "" : "min";
             }
         }
 
@@ -41,9 +42,10 @@ namespace Site
 
         public string UserPhoto
         {
-         
+
             get { return this.SitePage.CurrentUser.Photo; }
         }
+
         public string UserFullName
         {
             get { return this.SitePage.CurrentUser.FullName; }

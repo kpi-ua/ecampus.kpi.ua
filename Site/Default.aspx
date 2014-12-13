@@ -9,10 +9,8 @@
     <div class="profile">
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#tab1" data-toggle="tab">Персональні дані</a></li>
-            <li><a href="#tab2" data-toggle="tab">Додаткові функції</a></li>
-            <li><a href="#tab3" data-toggle="tab">Редагування профайлу</a></li>
-            <li><a href="#tab4" data-toggle="tab">Погодження</a></li>
-            <li><a href="#tab5" data-toggle="tab">Погодження2</a></li>
+            <li><a href="#tab2" data-toggle="tab">Редагування профайлу</a></li>
+            <li><a href="#tab3" data-toggle="tab">Погодження</a></li>
         </ul>
 
         <div class="tab-content">
@@ -20,287 +18,255 @@
                 <div class="profile">
                     <!-- CONTENT -->
                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading  text-right">
-                                Загальна інформація
-                            </div>
-                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                <div class="panel-body">
-                                    <div>
-                                        <h1 class="profile-name"><%=this.CurrentUser.FullName %><small> к.т.н доцент</small></h1>
-                                        <div class="col-xs-12 col-sm-3 col-md-3 ">
-                                            <a data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
-                                                <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
-                                            </a>
-                                        </div>
+                        <div class="accordion-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading  text-left" data-toggle="collapse" data-target="#collapseOne" data-parent="#accordion">
+                                    Загальна інформація
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <div>
+                                            <h1 class="profile-name"><%=this.CurrentUser.FullName %></h1>
+                                            <h4 class="UserCredo">Кредо "Вік живи-вік вчись" <span class="glyphicon glyphicon-pencil" id="CredoUpdate"></span></h4>
 
-                                        <table class=" col-xs-12  col-sm-8  col-md-9 table-info">
-                                            <tr>
-                                                <td>Дані за місцем навчання/роботи:</td>
-                                                <td>
+                                            <div class="col-xs-12 col-sm-3 col-md-3 ">
+                                                <a id="user_avatar" data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
+                                                    <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
+                                                    <div class="owner_photo_bubble_wrap">
+                                                        <div id="owner_photo_bubble">
+                                                            <div class="owner_photo_bubble_action">
+                                                                <label class="owner_photo_bubble_action_in">
+                                                                    <input type="file" style="display: none" />Загрузить фотографию</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <%--<asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" OnDisposed="btnUpload_Click" />--%>
+                                                </a>
+                                                <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                <%--<label id="change_user_avatar" class="glyphicon glyphicon-upload" onclick="document.getElementById('file_upload').click();">--%>
+                                                <label id="change_user_avatar" class="glyphicon glyphicon-upload">
+                                                    <%-- <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click"/>--%>
+                                                    <input type="file" style="display: none" />
+                                                </label>
+                                            </div>
+
+                                            <table class="col-xs-12  col-sm-8  col-md-9 table-info">
+                                                <tr>
+                                                    <%--<td>Дані за місцем навчання/роботи:</td>
+                                                    <td>--%>
                                                     <asp:Literal ID="WorkData" runat="server"></asp:Literal>
-                                                </td>
-                                            </tr>
-                                        </table>
+                                                    <%-- </td>--%>
+                                                </tr>
+                                            </table>
 
+                                            <table class="col-xs-12  col-sm-8  col-md-9 table-info">
+                                                <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading  text-left" data-toggle="collapse" data-target="#collapseTwo" data-parent="#accordion">
+                                    Педагогічна діяльність
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
                                         <table class="col-md-6 table-info col-md-offset-3 table-condensed">
-                                            <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
+                                            <asp:Literal ID="TimeTablesLiteral" runat="server"></asp:Literal>
+                                        </table>
+                                        <table class="col-xs-12  col-sm-8  col-md-7 table-info col-md-offset-3 col-sm-offset-3">
+                                            <tr>
+                                                <td><strong>Бібліографічний опис</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Назва ЕІР</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Назва кредитного модулю</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Вид ЕІР</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Рік</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Посилання/Файл</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Анотоція</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Країна</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong>Місто</strong></td>
+                                                <td>Definition</td>
+                                            </tr>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading text-right">
-                            Педагогічна діяльність
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
-                            <div class="panel-body">
-                                <table class="col-md-6 table-info col-md-offset-3 table-condensed">
-                                            <asp:Literal ID="TimeTablesLiteral" runat="server"></asp:Literal>
-                                        </table>
-                                 <table class="col-md-6 table-info col-md-offset-3 table-condensed">
-                                      <tr>
-                                        <td colspan="2"></td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Бібліографічний опис</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Назва ЕІР</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Назва кредитного модулю</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Вид ЕІР</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Рік</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Посилання/Файл</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Анотоція</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Країна</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Місто</strong></td>
-                                        <td>Definition</td>
-                                    </tr>
-                                </table>
+                            <div class="panel panel-default">
+                                <div class="panel-heading  text-left" data-toggle="collapse" data-target="#collapseThree" data-parent="#accordion">
+                                    Наукова Діяльність
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        CONTENT
+                                    </div>
+                                </div>
                             </div>
+                            <!-- END CONTENT -->
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <div class="panel-heading  text-right">
-                            Наукова діяльність
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
-                            <div class="panel-body">
-                                CONTENT
-                            </div>
-                        </div>
-                    </div>
-                    <!-- END CONTENT -->
                 </div>
             </div>
 
-            <div class="tab-pane" id="tab2" style="height: 200px">
+           <div class="tab-pane" id="tab2" style="height: 300px">
                 <!--#region content  -->
-                <h4>Додаткові функції</h4>
-                <asp:Literal ID="SpecFunc" runat="server"></asp:Literal>
-                <!--#endregion -->
-            </div>
-
-            <div class="tab-pane" id="tab3" style="height: 300px">
-                <!--#region content  -->
-                <div class="input-group">
-                    <label class="control-label" for="File">Обрати файл</label>
-                    <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
-                    <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="Завантажити" CssClass="btn btn-success btn-sm"></asp:Button>
+                <div class="inline-panel">
+                    <div class="panel-body">
+                        <!-- Таблица профиля/ролей идёт сюда -->
+                            <asp:Literal ID="SpecFunc" runat="server"></asp:Literal>
+                    </div>
                 </div>
-                <br />
+                <div class="inline-panel">
                 <div class="input-group">
+                    <label class="control-label" for="File">Обрати файл</label><br />
+                    <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" placeholder="Оберіть файл..." class="jfilestyle" data-theme="gray" data-buttonText="" data-iconName="icon-download-alt" />
+                    <!-- 
+                        Кнопку снести, т.к. данные (опциональной)аватары можно обработать на сабмит всей формы
+                    <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="" CssClass="btn btn-success btn-sm"></asp:Button>
+                    -->
+                    <script src="Scripts/jquery-filestyle.js"></script>
                     <label class="control-label" for="OldPass">Старий пароль</label>
                     <asp:TextBox ClientIDMode="Static" ID="OldPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                </div>
-                <div class="input-group">
-                    <label class="control-label" for="NewPassLabel">Старий пароль</label>
+                    <label class="control-label" for="NewPassLabel">Новий пароль</label>
                     <asp:TextBox ClientIDMode="Static" ID="NewPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                </div>
-                <div class="input-group">
                     <label class="control-label" for="NewPassCheak">Повторіть новий пароль</label>
                     <asp:TextBox ClientIDMode="Static" ID="NewPassCheak" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
                 </div>
                 <br />
                 <asp:Button ID="SavePass" runat="server" Text="Зберегти" CssClass="btn btn-success btn-sm" OnClick="SavePass_Click" />
                 <!--#endregion -->
-            </div>
-
-            <div class="tab-pane" id="tab4">
-                <!--#region content  -->
-                <h4>Погодження про розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет</h4>
-                <div id="okay_alert" class="alert alert-warning" role="alert" style="display: none;">
-                    Вами було підписано погодження про розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет
                 </div>
-                <div id="no_alert" class="alert alert-info" role="alert" style="display: none;">
-                    Вами було відмовлено можливість розповсюдження даних, визначених самостійно на сторінках Електронного кампусу, в мережі Інтернет
                 </div>
-                <div id="purpose_alert" class="alert alert-info" role="alert" style="display: none;">
-                    <asp:TextBox ClientIDMode="Static" ID="DenyPublicationPurpose" runat="server" placeholder="Причина відмови"></asp:TextBox>
-                    <button type="button" class="btn btn-primary" onclick="
-document.getElementById('okay_alert').style.display = 'none';
-document.getElementById('purpose_alert').style.display = 'none';
-document.getElementById('no_alert').style.display = 'block';
-document.getElementById('text').style.display = 'none';
-document.getElementById('okay_button').style.display = 'okay';
-document.getElementById('no_button').style.display = 'none
-var a = '<%= DenyPublication() %>';">
-                        Підтверджую</button>
-                </div>
-                <%--<h5 id="text">Текст</h5>--%>
-                <button id="okay_button" type="button" class="btn btn-primary" onclick="
-document.getElementById('okay_alert').style.display = 'block';
-document.getElementById('purpose_alert').style.display = 'none';
-document.getElementById('no_alert').style.display = 'none';
-document.getElementById('text').style.display = 'none';
-document.getElementById('okay_button').style.display = 'none';
-document.getElementById('no_button').style.display = 'block';
-var a = '<%= AcceptPublication() %>';">
-                    Погоджуюсь</button>
-                <button id="no_button" type="button" class="btn btn-danger" onclick="
-document.getElementById('okay_alert').style.display = 'none';
-document.getElementById('purpose_alert').style.display = 'block';
-document.getElementById('no_alert').style.display = 'none';
-document.getElementById('text').style.display = 'block';
-document.getElementById('okay_button').style.display = 'block';
-document.getElementById('no_button').style.display = 'none';">
-                    Відмовляюсь</button>
-                <!--#endregion -->
-            </div>
-            <div class="tab-pane" id="tab5">
+            <div class="tab-pane" id="tab3">
                 <!--#region content  -->
                 <div>
-                    <%--<asp:UpdatePanel runat="server">
-                    <ContentTemplate>--%>
                     <asp:UpdatePanel runat="server">
-                    <ContentTemplate>
-                    <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>
-                        <%--</ContentTemplate>
-                </asp:UpdatePanel>--%>
-                    <h1 class="text-center">ЗГОДА</h1>
+                        <ContentTemplate>
+                            <asp:Literal ID="MessegeIsConfirmed" runat="server"></asp:Literal>
 
-                    <h3 class="text-center">На публікацію даних на сайті intellect.kpi.ua в мережі Інтернет</h3>
-                    <div class="btn-group">
-                    </div>
-                    Intellect.kpi.ua - публічний веб-сайт, який складається з офіційних веб-сторінок викладачів НТУУ «КПІ».
-                    Основний вміст intellect.kpi.ua - записи, що регулярно автоматично оновлюються з персонального електронного кабінету НПП (науково-педагогічного працівника) системи Кампус.
-                    <br />
-                    На intellect.kpi.ua розміщується тільки та інформація, яку визначає сам користувач у своєму персональному кабінеті.
-                    Відомості, які можуть бути представлені на intellect.kpi.ua:
-                    <ol class="privacy-list">
-                        <li>
-                            <strong>Загальна інформація</strong>:
-                            <ul>
-                                <li>Фото</li>
-                                <li>ПІБ</li>
-                                <li>Науковий ступень</li>
-                                <li>Вчене звання</li>
-                                <li>Данні за місцем роботи (підрозділ(-и), посада(-и))</li>
-                            </ul>
-                        </li>
+                            <h1 class="text-center">ЗГОДА</h1>
 
-                        <li>
-                            <strong>Контактна інформація</strong>
-                            <ul>
-                                <li>E-mail, робочий(-і) телефон(-и),  мобільний(-і) телефон(-и)</li>
-                                <li>Адреса за місцем прийому (корпус, кімната, вулиця)</li>
-                                <li>Години звернення (розклад прийому/години прийому)</li>
-                                <li>Сайт(-и)</li>
-                                <li>Посилання на сторінки в соціальних мережах)</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>Педагогічна діяльність</strong>
-                            <ul>
-                                <li>Розклад навчальних занять</li>
-                                <li>Методичне забезпечення дисципліни/кредитного модулю</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>Наукова  діяльність</strong>
-                            <ul>
-                                <li>Публікації</li>
-                                <li>Конференції/семінари/симпозіуми</li>
-                                <li>Гранти/Проекти</li>
-                                <li>Авторське свідоцтва/патенти</li>
-                                <li>Нагороди</li>
-                                <li>Напрями досліджень</li>
-                            </ul>
-                        </li>
-
-                        <li>
-                            <strong>Захоплення/Дозвілля</strong>
-                        </li>
-                    </ol>
-
-                    <h3 class="text-center">Обрана мною інформація може бути розміщена на сайті intellect.kpi.ua</h3>
-                    <div class="text-center">
-                        <%--<asp:UpdatePanel runat="server">
-                    <ContentTemplate>--%>
-                        <asp:Button class="btn btn-primary" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click"/>
-                        <asp:Button class="btn btn-primary" ID="btnDenie" Text="Відмовляюсь" runat="server" data-toggle="modal" data-target="#Cancel-modal"/>
-                        <%--<button  type="button" class="btn btn-primary" ID="btnDenie" runat="server" onclick="$('#Cancel-modal').modal('show');">Відмовляюсь</button>--%>
-                   </ContentTemplate>
-                </asp:UpdatePanel>
-                         </div>
-                </div>
-                
-                <!-- Modal 2-->
-                <div class="modal" id="Cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">Повідомлення</h4>
+                            <h3 class="text-center">На публікацію даних на сайті intellect.kpi.ua в мережі Інтернет</h3>
+                            <div class="btn-group">
                             </div>
-                            <div class="modal-body">
-                                <p>
-                                    Ви відмовились від розміщення вашої персональної інформації на сайті intellect.kpi.ua в мережі Інтернет
-                                </p>
-                                <p>
-                                    Вкажіть будь ласка причину:
-                                </p>
-                                <div>
-                                    <asp:TextBox ClientIDMode="Static" ID="ReasonTextBox" runat="server" placeholder="Причина відмови"></asp:TextBox>
-                                </div>
+                            Intellect.kpi.ua - публічний веб-сайт, який складається з офіційних веб-сторінок викладачів НТУУ «КПІ».
+                            Основний вміст intellect.kpi.ua - записи, що регулярно автоматично оновлюються з персонального електронного кабінету НПП (науково-педагогічного працівника) системи Кампус.
+                            <br />
+                                    На intellect.kpi.ua розміщується тільки та інформація, яку визначає сам користувач у своєму персональному кабінеті.
+                            Відомості, які можуть бути представлені на intellect.kpi.ua:
+                            <ol class="privacy-list">
+                               <li>
+                                   <strong>Загальна інформація</strong>:
+                                    <ul>
+                                        <li>- Фото</li>
+                                        <li>- ПІБ</li>
+                                        <li>- Науковий ступень</li>
+                                        <li>- Вчене звання</li>
+                                        <li>- Данні за місцем роботи (підрозділ(-и), посада(-и))</li>
+                                    </ul>
+                               </li>
+
+                               <li>
+                                   <strong>Контактна інформація</strong>
+                                   <ul>
+                                       <li>- E-mail, робочий(-і) телефон(-и),  мобільний(-і) телефон(-и)</li>
+                                       <li>- Адреса за місцем прийому (корпус, кімната, вулиця)</li>
+                                       <li>- Години звернення (розклад прийому/години прийому)</li>
+                                       <li>- Сайт(-и)</li>
+                                       <li>- Посилання на сторінки в соціальних мережах)</li>
+                                   </ul>
+                               </li>
+                               <li>
+                                   <strong>Педагогічна діяльність</strong>
+                                   <ul>
+                                       <li>- Розклад навчальних занять</li>
+                                       <li>- Методичне забезпечення дисципліни/кредитного модулю</li>
+                                   </ul>
+                               </li>
+                               <li>
+                                   <strong>Наукова  діяльність</strong>
+                                   <ul>
+                                       <li>- Публікації</li>
+                                       <li>- Конференції/семінари/симпозіуми</li>
+                                       <li>- Гранти/Проекти</li>
+                                       <li>- Авторське свідоцтва/патенти</li>
+                                       <li>- Нагороди</li>
+                                       <li>- Напрями досліджень</li>
+                                   </ul>
+                               </li>
+
+                               <li>
+                                   <strong>Захоплення/Дозвілля</strong>
+                               </li>
+                           </ol>
+
+                            <h3 class="text-center">Обрана мною інформація може бути розміщена на сайті intellect.kpi.ua</h3>
+                            <div class="text-center">
+                                <asp:Button class="btn btn-primary" ID="btnConfirm" Text="Погоджуюсь" runat="server" OnClick="btnConfirm_Click" />
+                                <asp:Button class="btn btn-primary" ID="btnDenie" Text="Відмовляюсь" runat="server" data-toggle="modal" data-target="#Cancel-modal" />
                             </div>
-                            <div class="modal-footer">
-                                <asp:UpdatePanel runat="server">
-                    <ContentTemplate>
-                                <asp:Button type="button" class="btn btn-default" ID="btnFailure" Text="OK" runat="server" OnClick="btnFailure_Click"/>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </ContentTemplate>
-                </asp:UpdatePanel>
+                    </asp:UpdatePanel>
+                </div>
+            </div>
+
+            <!-- Modal 1-->
+            <div class="modal" id="Cancel-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Повідомлення</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                Ви відмовились від розміщення вашої персональної інформації на сайті intellect.kpi.ua в мережі Інтернет
+                            </p>
+                            <p>
+                                Вкажіть будь ласка причину:
+                            </p>
+                            <div>
+                                <asp:TextBox ClientIDMode="Static" ID="ReasonTextBox" runat="server" placeholder="Причина відмови"></asp:TextBox>
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:Button type="button" class="btn btn-default" ID="btnFailure" Text="OK" runat="server" OnClick="btnFailure_Click" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
                     </div>
-                        
-                </div>   
-                <!--#endregion -->   
-            </div> 
+                </div>
+
+            </div>
+            <!--#endregion -->
         </div>
+    </div>
+
 </asp:Content>

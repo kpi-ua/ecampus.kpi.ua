@@ -170,7 +170,6 @@
         if ($('.list').find('tr').length > 0) {
             $('.list').closest('.row').before('<hr>');
         }
-        console.log($('.list').find('tr').length);        
         $('#body_griff').on('change', function () {
             console.log($(this).val());
             if ($(this).val() == 7) {

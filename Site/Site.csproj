@@ -164,30 +164,41 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.3.2.2\lib\net45\WebMatrix.WebData.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="X.PagedList">
-      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    <Reference Include="X.PagedList, Version=1.22.5.37966, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\X.PagedList.1.22.5.150\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="apple-touch-icon-ipad.png" />
     <Content Include="apple-touch-icon-iphone-retina-display.png" />
     <Content Include="apple-touch-icon-iphone.png" />
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\CardEdit.css" />
+    <Content Include="Content\chosen-sprite%402x.png" />
+    <Content Include="Content\chosen-sprite.png" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\picker.css" />
     <Content Include="Content\picker.date.css" />
     <Content Include="Content\EIRView.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
+    <Content Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx" />
+    <Content Include="Modules\SubSystems\SVO\Default.aspx" />
+    <Content Include="Modules\SubSystems\SVO\Table.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.bootpag.min.js" />
     <Content Include="Scripts\legacy.js" />
     <Content Include="Scripts\npm.js" />
@@ -207,7 +218,6 @@
     <Content Include="Modules\EIR\IrGroup\IrGroupView.aspx" />
     <Content Include="Modules\EIR\IrGroup\NewIrGroup.aspx" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Images\campus-logo-big.png" />
     <Content Include="Images\carousel-billboard-button.png" />
     <Content Include="Images\carousel-billboard.jpg" />
@@ -233,20 +243,9 @@
     <Content Include="Modules\Messages\Default.aspx" />
     <Content Include="Modules\Messages\Dialog.aspx" />
     <Content Include="Default.aspx" />
-    <Content Include="Content\bootstrap-chosen.css" />
-    <Content Include="Content\bootstrap\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap\bootstrap.css" />
-    <Content Include="Content\bootstrap\bootstrap.min.css" />
-    <Content Include="Content\chosen-sprite%402x.png" />
-    <Content Include="Content\chosen-sprite.png" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="googleeefcd3aa17a745f9.html" />
     <Content Include="Images\animated-overlay.gif" />
     <Content Include="Images\background.png" />
@@ -300,25 +299,24 @@
     <Content Include="Modules\RNP\Default.aspx" />
     <Content Include="Modules\SubSystems\Default.aspx" />
     <Content Include="Modules\SubSystems\GSVO\Default.aspx" />
-    <Content Include="Modules\SubSystems\GSVO\Table.aspx" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\APIlib.js" />
     <Content Include="Scripts\async.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap-clockpicker.min.js" />
-    <Content Include="Scripts\chosen.jquery.js" />
-    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\core.js" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Modules\EIR\Menu.master" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Properties\PublishProfiles\webdeploy.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\CreatePage.js" />
@@ -326,7 +324,6 @@
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
-    <Content Include="Scripts\jquery-ui.min.autocomplete.js" />
     <Content Include="Scripts\jquery.ambiance.js" />
     <Content Include="Scripts\jquery.eventsource.js" />
     <Content Include="Scripts\jstree.js" />
@@ -336,8 +333,6 @@
     <Content Include="Scripts\site.js" />
     <Content Include="Scripts\timetable.js" />
     <Content Include="NLog.config" />
-    <Content Include="Content\bootstrap-chosen.less" />
-    <Content Include="Content\bootstrap-chosen.scss" />
     <None Include="Properties\PublishProfiles\default.pubxml" />
     <Content Include="Modules\EIR\Search.aspx" />
     <Content Include="SessionManager.asmx" />
@@ -476,11 +471,32 @@
     <Compile Include="Modules\SubSystems\GSVO\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.cs">
+    <Compile Include="Modules\SubSystems\GSVO\DisciplineTable.aspx.cs">
+      <DependentUpon>DisciplineTable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\DisciplineTable.aspx.designer.cs">
+      <DependentUpon>DisciplineTable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx.cs">
+      <DependentUpon>SearchDiscipline.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx.designer.cs">
+      <DependentUpon>SearchDiscipline.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\SVO\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\SubSystems\SVO\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\SubSystems\SVO\Table.aspx.cs">
       <DependentUpon>Table.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Modules\SubSystems\GSVO\Table.aspx.designer.cs">
+    <Compile Include="Modules\SubSystems\SVO\Table.aspx.designer.cs">
       <DependentUpon>Table.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

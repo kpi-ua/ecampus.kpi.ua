@@ -9,21 +9,26 @@
     {
         <title>Електронний кампус НТУУ КПІ</title>
     }
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name='yandex-verification' content='4ce42a0173a1c976' />
-    
+
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />
+
     <link rel="stylesheet" href="/Content/site.css" />
     <link rel="stylesheet" href="/Content/jquery-ui-1.10.4.custom.min.css" />
-    <link rel="stylesheet" href="/Content/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap.min.css" />
     <link rel="stylesheet" href="/Content/bootstrap-chosen.css" />
     <link rel="stylesheet" href="/Content/font-awesome.min.css" />
+    <link rel="stylesheet" href="/Content/bootstrap-clockpicker.min.css" />
+    <link rel="stylesheet" href="/Content/picker.css" />
+    <link rel="stylesheet" href="/Content/picker.date.css" />
+    <link rel="stylesheet" href="/Content/jquery.ambiance.css" />
+    <link rel="stylesheet" href="/Content/custom.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
-    
+
     <link rel="apple-touch-icon" href="/apple-touch-icon-iphone.png" />
     <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" />
     <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone-retina-display.png" />
@@ -36,38 +41,59 @@
     <script src="/Scripts/script.js"></script>
 </head>
 <body>
-    <div class="wrap login-wrap container-fluid">
-        <header>
-            <div class="logo-kpi pull-right">
-            </div>
-            <div class="text">
+
+    <header class="container-fluid hidden-xs">
+        <div class="row center-block">
+            <div class="site-tile-text col-md-12">
                 НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
             </div>
-        </header>
+        </div>
+        <div class="header-nav">
+            <div class="green">
 
-        @RenderBody()
-
-        <footer>
-            <div class="row">
-                <div class="col-md-4 text-left">
-                    Національний технічний університет України<br />
-                    “Київський політехнічний інститут” <a href="http://kpi.ua">www.kpi.ua</a><br />
-                    Електронний кампус
-                </div>
-
-                <div class="col-md-4"></div>
-
-                <div class="col-md-4 text-right">
-                    Розробник:  Конструкторське бюро<br />
-                    інформаційних систем<br />
-                    <a href="http://kbis.kpi.ua">www.kbis.kpi.ua</a>
-                </div>
             </div>
-        </footer>
+        </div>
+    </header>
+
+    <div class="public-wrap container-fluid">
+        @RenderBody()
     </div>
 
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                Національний технічний університет України<br />
+                “Київський політехнічний інститут”<br />
+                <a href="http://kpi.ua/" class="orange">www.kpi.ua</a> Електронний кампус
+            </div>
+            <div class="col-md-6 text-right">
+                Розробник: Конструкторське бюро<br />
+                інформаційних систем<br />
+                <a href="http://kbis.kpi.ua/" class="orange">www.kbis.kpi.ua</a>
+            </div>
+        </div>
+    </footer>
+
     <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function () { try { w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" }); } catch (e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script>
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" });
+                } catch (e) {
+                }
+            });
+            var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else {
+                f();
+            }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
     <noscript>
         <div>
             <img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position: absolute; left: -9999px;" alt="" />
