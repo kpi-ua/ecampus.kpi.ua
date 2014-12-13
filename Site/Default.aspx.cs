@@ -133,14 +133,14 @@ namespace Site
                         }
                     }
 
-                    SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
-                    foreach (var p in CurrentUser.Profiles)
-                    {
-                        SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + p.SubsystemName + "\"";
-                        SpecFunc.Text += "<i class=\"text-success\">" + "( " + p.ProfileName + " )" + "</i></p>";
-                    }
+                    //SpecFunc.Text += "<div style=\"margin-left:10px;\" class=\"text-success\">";
+                    //foreach (var p in CurrentUser.Profiles)
+                    //{
+                    //    SpecFunc.Text += "<p class=\"text-primary\">" + "\"" + p.SubsystemName + "\"";
+                    //    SpecFunc.Text += "<i class=\"text-success\">" + "( " + p.ProfileName + " )" + "</i></p>";
+                    //}
 
-                    SpecFunc.Text += "</div>";
+                    //SpecFunc.Text += "</div>";
                 }
 
                 btnFailure.Attributes.Add("onclick", "$('#Cancel-modal').hide();document.body.style.overflow = 'auto';");

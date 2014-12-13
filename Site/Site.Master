@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/Content/picker.css" />
     <link rel="stylesheet" href="/Content/picker.date.css" />
     <link rel="stylesheet" href="/Content/jquery.ambiance.css" />
+    <link rel="stylesheet" href="/Content/jquery-filestyle.css" />
     <link rel="stylesheet" href="/Content/custom.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
