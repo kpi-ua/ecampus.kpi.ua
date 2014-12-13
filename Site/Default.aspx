@@ -131,47 +131,53 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="tab2">
-                <!--#region content  -->
-                <h4>Додаткові функції</h4>
-                <asp:Literal ID="SpecFunc" runat="server"></asp:Literal>
-                <!--#endregion -->
 
+           <div class="tab-pane" id="tab2" style="height: 300px">
                 <!--#region content  -->
-                <div class="panel">
-                    <div class="panel-heading">Функції Профілю</div>
+                <div class="inline-panel">
                     <div class="panel-body">
                         <!-- Таблица профиля/ролей идёт сюда -->
+                        <table class="table-hover table-fill">
+                            <tr>
+                                <th>Вид підсистеми</th>
+                                <th>Роль в підсистемі</th>
+                            </tr>
+                            <tr>
+                                <td>Дошка оголошень</td>
+                                <td>Викладач</td>
+                            </tr>
+                            <tr>
+                                <td>Групи електронних інформаційних ресурсів</td>
+                                <td>Модератор</td>
+                            </tr>
+                            <tr>
+                                <td>Повідомлення</td>
+                                <td>Викладач</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-
-                <div class="panel">
-                    <div class="input-group">
-                        <label class="control-label">
-                            Обрати файл
-                            <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" />
-                        </label>
-                        <br />
-                        <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="Завантажити" CssClass="btn btn-success btn-sm"></asp:Button>
-                    </div>
-                    <br />
-                    <div class="input-group">
-                        <label class="control-label" for="OldPass">Старий пароль</label>
-                        <asp:TextBox ClientIDMode="Static" ID="OldPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                    </div>
-                    <div class="input-group">
-                        <label class="control-label" for="NewPassLabel">Старий пароль</label>
-                        <asp:TextBox ClientIDMode="Static" ID="NewPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                    </div>
-                    <div class="input-group">
-                        <label class="control-label" for="NewPassCheak">Повторіть новий пароль</label>
-                        <asp:TextBox ClientIDMode="Static" ID="NewPassCheak" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                    </div>
-                    <br />
-                    <asp:Button ID="SavePass" runat="server" Text="Зберегти" CssClass="btn btn-success btn-sm" OnClick="SavePass_Click" />
-                    <!--#endregion -->
+                <div class="inline-panel">
+                <div class="input-group">
+                    <label class="control-label" for="File">Обрати файл</label><br />
+                    <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" placeholder="Оберіть файл..." class="jfilestyle" data-theme="gray" data-buttonText="" data-iconName="icon-download-alt" />
+                    <!-- 
+                        Кнопку снести, т.к. данные (опциональной)аватары можно обработать на сабмит всей формы
+                    <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="" CssClass="btn btn-success btn-sm"></asp:Button>
+                    -->
+                    <script src="Scripts/jquery-filestyle.js"></script>
+                    <label class="control-label" for="OldPass">Старий пароль</label>
+                    <asp:TextBox ClientIDMode="Static" ID="OldPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
+                    <label class="control-label" for="NewPassLabel">Новий пароль</label>
+                    <asp:TextBox ClientIDMode="Static" ID="NewPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
+                    <label class="control-label" for="NewPassCheak">Повторіть новий пароль</label>
+                    <asp:TextBox ClientIDMode="Static" ID="NewPassCheak" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
                 </div>
-            </div>
+                <br />
+                <asp:Button ID="SavePass" runat="server" Text="Зберегти" CssClass="btn btn-success btn-sm" OnClick="SavePass_Click" />
+                <!--#endregion -->
+                </div>
+                </div>
             <div class="tab-pane" id="tab3">
                 <!--#region content  -->
                 <div>
