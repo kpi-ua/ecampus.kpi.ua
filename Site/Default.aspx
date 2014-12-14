@@ -35,19 +35,21 @@
                                                     <div class="owner_photo_bubble_wrap">
                                                         <div id="owner_photo_bubble">
                                                             <div class="owner_photo_bubble_action">
-                                                                <label class="owner_photo_bubble_action_in">
-                                                                    <input type="file" style="display: none" />Загрузить фотографию</label>
+                                                                <label class="owner_photo_bubble_action_in" data-toggle="modal" data-target="#UploadFoto-modal">
+                                                                    <%--<input type="file" style="display: none" />--%>Загрузить фотографию</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <%--<asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" OnDisposed="btnUpload_Click" />--%>
                                                 </a>
+                                                <asp:UpdatePanel runat="server">
+                                                    <ContentTemplate>
                                                 <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                <%--<label id="change_user_avatar" class="glyphicon glyphicon-upload" onclick="document.getElementById('file_upload').click();">--%>
                                                 <label id="change_user_avatar" class="glyphicon glyphicon-upload">
-                                                    <%-- <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click"/>--%>
-                                                    <input type="file" style="display: none" />
+                                                <button class="glyphicon glyphicon-upload" data-toggle="modal" data-target="#UploadFoto-modal" style="display: none"> </button>
                                                 </label>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
                                             </div>
 
                                             <table class="col-xs-12  col-sm-8  col-md-9 table-info">
@@ -260,6 +262,26 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--#endregion -->
+            <!-- Modal 2-->
+            <div class="modal" id="UploadFoto-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Оберіть фото</h4>
+                        </div>
+                        <div class="modal-body">
+                             <asp:FileUpload ClientIDMode="Static" ID="UserFotoFileUpload" runat="server" placeholder="Оберіть файл..." data-theme="gray" data-buttonText="" data-iconName="icon-download-alt" />
+                        </div>
+                        <div class="modal-footer">
+                                    <asp:Button type="button" class="btn btn-default" ID="btnUploadUserFoto" Text="OK" runat="server" OnClick="btnUploadUserFoto_Click" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </div>
                     </div>
                 </div>

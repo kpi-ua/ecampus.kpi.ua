@@ -261,8 +261,6 @@ namespace Site
 
         protected void btnUpload_Click(object sender, EventArgs e)
         {
-            //FileUpload a =new FileUpload();
-            //this.AddedControl(a,1);
             if (file_upload.HasFile)
             {
                 using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
@@ -277,18 +275,22 @@ namespace Site
                 //error dont switch file
             }
         }
-        public void BtnUpload ()
+        protected void btnUploadUserFoto_Click(object sender, EventArgs e)
         {
-            try
+            if (UserFotoFileUpload.HasFile)
             {
-                using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
+                using (var binaryReader = new BinaryReader(UserFotoFileUpload.PostedFile.InputStream))
                 {
-                    var fileData = binaryReader.ReadBytes(file_upload.PostedFile.ContentLength);
+                    var fileData = binaryReader.ReadBytes(UserFotoFileUpload.PostedFile.ContentLength);
                     CampusClient.Authenticate(UserLogin, UserPassword);
                     CampusClient.UploadUserProfileImage(fileData);
                 }
             }
-            catch { }
+            else
+            {
+                //error dont switch file
+            }
         }
+        
     }
 }
