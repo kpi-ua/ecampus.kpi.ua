@@ -147,7 +147,17 @@ namespace Site
 
                     SpecFunc.Text += "</table>";
                 }
-
+                //тут буде перевірка чи є кредо вже в базі, якщо буде то будемо виводити його
+                //CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо \"Вік живи - вік вчись \"" +
+                //                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
+                //                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
+                //                     "</span></h4>";
+                //якщо немає то стандарне повідомлення вказати кредо
+                if (CredoLiteral.Text == "")
+                {
+                    CredoLiteral.Text += "<h6 class=\"UserCredo\"><a data-toggle=\"modal\" " +
+                                         "data-target=\"#ChangeCredo-modal\">Вкажіть Ваше кредо </a></h6>";
+                }
                 btnFailure.Attributes.Add("onclick", "$('#Cancel-modal').hide();document.body.style.overflow = 'auto';");
                 //btnDenie.Attributes.Add("onclick","$('#Cancel-modal').show();");
             }
@@ -273,6 +283,21 @@ namespace Site
             else
             {
                 //error dont switch file
+            }
+        }
+
+        protected void BtnChangeCredo_Click(object sender, EventArgs e)
+        {
+            if (NewUserCredoTextBox.Text != "")
+            {
+                CredoLiteral.Text = "<h4 class=\"UserCredo\">Кредо '" +NewUserCredoTextBox.Text+"' "+
+                                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
+                                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
+                                     "</span></h4>";
+            }
+            else
+            {
+                //error
             }
         }
         
