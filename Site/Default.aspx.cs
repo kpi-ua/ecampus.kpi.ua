@@ -55,7 +55,7 @@ namespace Site
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong>дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary disabled";
@@ -65,7 +65,7 @@ namespace Site
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong> не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + CurrentUser.ReasonFailure + "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary";
@@ -161,7 +161,7 @@ namespace Site
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong> не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + ReasonTextBox.Text + "</div></div>";
                 //kostilik
@@ -186,7 +186,7 @@ namespace Site
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong> дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                 //kostilik
