@@ -259,22 +259,6 @@ namespace Site
             //error_message_text.InnerText = text;
         }
 
-        protected void btnUpload_Click(object sender, EventArgs e)
-        {
-            if (file_upload.HasFile)
-            {
-                using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
-                {
-                    var fileData = binaryReader.ReadBytes(file_upload.PostedFile.ContentLength);
-                    CampusClient.Authenticate(UserLogin, UserPassword);
-                    CampusClient.UploadUserProfileImage(fileData);
-                }
-            }
-            else
-            {
-                //error dont switch file
-            }
-        }
         protected void btnUploadUserFoto_Click(object sender, EventArgs e)
         {
             if (UserFotoFileUpload.HasFile)

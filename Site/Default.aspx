@@ -45,9 +45,6 @@
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
                                                 <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                <label id="change_user_avatar" class="glyphicon glyphicon-upload">
-                                                <button class="glyphicon glyphicon-upload" data-toggle="modal" data-target="#UploadFoto-modal" style="display: none"> </button>
-                                                </label>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
@@ -144,12 +141,6 @@
                 </div>
                 <div class="inline-panel">
                 <div class="input-group">
-                    <label class="control-label" for="File">Обрати файл</label><br />
-                    <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" placeholder="Оберіть файл..." class="jfilestyle" data-theme="gray" data-buttonText="" data-iconName="icon-download-alt" />
-                    <!-- 
-                        Кнопку снести, т.к. данные (опциональной)аватары можно обработать на сабмит всей формы
-                    <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="" CssClass="btn btn-success btn-sm"></asp:Button>
-                    -->
                     <script src="Scripts/jquery-filestyle.js"></script>
                     <label class="control-label" for="OldPass">Старий пароль</label>
                     <asp:TextBox ClientIDMode="Static" ID="OldPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
