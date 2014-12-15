@@ -3,6 +3,7 @@ using Campus.Core.Documentation;
 using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Net;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace Campus.Core
 {
@@ -120,7 +122,14 @@ namespace Campus.Core
                 Data = obj,
             };
 
+            if (obj is IPagedList)
+            {
+                result.Paging = new Paging(obj as IPagedList);
+                result.Data = (obj as IEnumerable).Cast<Object>().ToList();
+            }
+
             if (AllowCompression)
+            {
                 if (ShouldBeCompressed)
                 {
                     BuildCompressionInfo(result, obj, type, callerMethod);
@@ -129,6 +138,7 @@ namespace Campus.Core
                 {
                     var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
                     native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
+
                     if (native != null)
                     {
                         result.Compression = new
@@ -141,6 +151,7 @@ namespace Campus.Core
                         };
                     }
                 }
+            }
 
             Response.StatusCode = Convert.ToInt32(result.StatusCode);
 
@@ -269,7 +280,7 @@ namespace Campus.Core
         protected dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
-            
+
             var isCompression = !CompressIgnoreAttribute.Instance.HasAttribute(method.DeclaringType) &&
                                 !CompressIgnoreAttribute.Instance.HasAttribute(method) &&
                                 CompressAttribute.Instance.HasAttribute(method);

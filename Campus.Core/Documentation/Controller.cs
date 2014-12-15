@@ -85,26 +85,22 @@ namespace Campus.Core.Documentation
         /// <exception cref="System.InvalidOperationException">Methods are already initialized</exception>
         internal void GetMethods(Members members)
         {
-            if (_methods != null) throw new InvalidOperationException("Methods are already initialized");
+            if (_methods != null)
+            {
+                throw new InvalidOperationException("Methods are already initialized");
+            }
 
             _methods = members.Member.AsParallel().Where(m => m.Name.Split(new[] { ':' }).Last().Contains(ClearName)).DecorateAll<Method>().ToList(); ;
 
             _methods.ForEach(method => method.SetParent(this));
             _methods.RemoveAll(m => m.Caption.Equals(string.Empty) || m.Caption.Equals(ClearName));
+
             _methods.ForEach(method => method.MethodInfo = this.Type.GetMethods().FirstOrDefault(m =>
             {
-                return m.ReflectedType.FullName + "." + m.Name + (m.GetParameters().Any() ? "(" + string.Join(",", m.GetParameters().Select(r => r.ParameterType.FullName)) + ")" : "") == method.Name.Split(new[] { ':' })[1];
-            }));
-
-            _methods.Where(method => method.MethodInfo != null).ForEach(method => method.MethodInfo.GetParameters().ForEach(param =>
-            {
-                var temp = method.Params.SingleOrDefault(p => p.Name.Equals(param.Name));
-
-                if (temp != null)
-                {
-                    temp.ParameterInfo = param;
-                    temp.ParameterType = param.ParameterType;
-                }
+                return m.ReflectedType.FullName + "." + m.Name +
+                       (m.GetParameters().Any()
+                           ? "(" + string.Join(",", m.GetParameters().Select(r => r.ParameterType.FullName)) + ")"
+                           : "") == method.Name.Split(new[] { ':' })[1];
             }));
         }
     }
