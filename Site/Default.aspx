@@ -27,8 +27,8 @@
                                     <div class="panel-body">
                                         <div>
                                             <h1 class="profile-name"><%=this.CurrentUser.FullName %></h1>
-                                            <h4 class="UserCredo">Кредо "Вік живи-вік вчись" <span class="glyphicon glyphicon-pencil" id="CredoUpdate"></span></h4>
-
+                                            <%--<h4 class="UserCredo">Кредо "Вік живи-вік вчись" <span class="glyphicon glyphicon-pencil" id="CredoUpdate" data-toggle="modal" data-target="#ChangeCredo-modal" ></span></h4>--%>
+                                            <asp:Literal runat="server" ID="CredoLiteral"></asp:Literal>
                                             <div class="col-xs-12 col-sm-3 col-md-3 ">
                                                 <a id="user_avatar" data-original-title="Dismissible popover" data-toggle="popover" class="btn btn-success" data-trigger="hover" data-placement="bottom" title="" data-content="And here's some amazing content. It's very engaging. Right?">
                                                     <asp:Image CssClass="pic img-circle" ID="profile_photo" runat="server" />
@@ -45,9 +45,6 @@
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
                                                 <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
-                                                <label id="change_user_avatar" class="glyphicon glyphicon-upload">
-                                                <button class="glyphicon glyphicon-upload" data-toggle="modal" data-target="#UploadFoto-modal" style="display: none"> </button>
-                                                </label>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
@@ -144,12 +141,6 @@
                 </div>
                 <div class="inline-panel">
                 <div class="input-group">
-                    <label class="control-label" for="File">Обрати файл</label><br />
-                    <asp:FileUpload ClientIDMode="Static" ID="file_upload" runat="server" placeholder="Оберіть файл..." class="jfilestyle" data-theme="gray" data-buttonText="" data-iconName="icon-download-alt" />
-                    <!-- 
-                        Кнопку снести, т.к. данные (опциональной)аватары можно обработать на сабмит всей формы
-                    <asp:Button runat="server" ID="UploadBtn" OnClick="btnUpload_Click" Text="" CssClass="btn btn-success btn-sm"></asp:Button>
-                    -->
                     <script src="Scripts/jquery-filestyle.js"></script>
                     <label class="control-label" for="OldPass">Старий пароль</label>
                     <asp:TextBox ClientIDMode="Static" ID="OldPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
@@ -281,6 +272,26 @@
                         </div>
                         <div class="modal-footer">
                                     <asp:Button type="button" class="btn btn-default" ID="btnUploadUserFoto" Text="OK" runat="server" OnClick="btnUploadUserFoto_Click" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--#endregion -->
+            <!-- Modal 3-->
+            <div class="modal" id="ChangeCredo-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Введіть новий статус</h4>
+                        </div>
+                        <div class="modal-body">
+                              <asp:TextBox ClientIDMode="Static" ID="NewUserCredoTextBox" runat="server" placeholder="Нове кредо" TextMode="MultiLine" MaxLength="100"></asp:TextBox>
+                        </div>
+                        <div class="modal-footer">
+                                    <asp:Button type="button" class="btn btn-default" ID="BtnChangeCredo" Text="OK" runat="server" OnClick="BtnChangeCredo_Click" />
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </div>
                     </div>

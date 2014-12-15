@@ -13,6 +13,15 @@ namespace Site {
     public partial class Default {
         
         /// <summary>
+        /// CredoLiteral control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal CredoLiteral;
+        
+        /// <summary>
         /// profile_photo control.
         /// </summary>
         /// <remarks>
@@ -56,24 +65,6 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal SpecFunc;
-        
-        /// <summary>
-        /// file_upload control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload file_upload;
-        
-        /// <summary>
-        /// UploadBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button UploadBtn;
         
         /// <summary>
         /// OldPass control.
@@ -173,5 +164,23 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUploadUserFoto;
+        
+        /// <summary>
+        /// NewUserCredoTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox NewUserCredoTextBox;
+        
+        /// <summary>
+        /// BtnChangeCredo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnChangeCredo;
     }
 }

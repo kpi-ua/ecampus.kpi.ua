@@ -55,7 +55,7 @@ namespace Site
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong>дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary disabled";
@@ -65,7 +65,7 @@ namespace Site
                     {
                         MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong> не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + CurrentUser.ReasonFailure + "</div></div>";
                         btnConfirm.CssClass = "btn btn-primary";
@@ -147,7 +147,17 @@ namespace Site
 
                     SpecFunc.Text += "</table>";
                 }
-
+                //тут буде перевірка чи є кредо вже в базі, якщо буде то будемо виводити його
+                //CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо \"Вік живи - вік вчись \"" +
+                //                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
+                //                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
+                //                     "</span></h4>";
+                //якщо немає то стандарне повідомлення вказати кредо
+                if (CredoLiteral.Text == "")
+                {
+                    CredoLiteral.Text += "<h6 class=\"UserCredo\"><a data-toggle=\"modal\" " +
+                                         "data-target=\"#ChangeCredo-modal\">Вкажіть Ваше кредо </a></h6>";
+                }
                 btnFailure.Attributes.Add("onclick", "$('#Cancel-modal').hide();document.body.style.overflow = 'auto';");
                 //btnDenie.Attributes.Add("onclick","$('#Cancel-modal').show();");
             }
@@ -161,7 +171,7 @@ namespace Site
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "<strong>Ви не дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong> не дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
                                            "<br>" + ReasonTextBox.Text + "</div></div>";
                 //kostilik
@@ -186,7 +196,7 @@ namespace Site
             {
                 MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
                                            "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "<strong>Ви дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                           "Ви <strong> дозволили розміщення</strong> вашої персональної інформації на сайті " +
                                            "intellect.kpi.ua в мережі Інтернет." +
                                            "</div></div>";
                 //kostilik
@@ -259,22 +269,6 @@ namespace Site
             //error_message_text.InnerText = text;
         }
 
-        protected void btnUpload_Click(object sender, EventArgs e)
-        {
-            if (file_upload.HasFile)
-            {
-                using (var binaryReader = new BinaryReader(file_upload.PostedFile.InputStream))
-                {
-                    var fileData = binaryReader.ReadBytes(file_upload.PostedFile.ContentLength);
-                    CampusClient.Authenticate(UserLogin, UserPassword);
-                    CampusClient.UploadUserProfileImage(fileData);
-                }
-            }
-            else
-            {
-                //error dont switch file
-            }
-        }
         protected void btnUploadUserFoto_Click(object sender, EventArgs e)
         {
             if (UserFotoFileUpload.HasFile)
@@ -289,6 +283,21 @@ namespace Site
             else
             {
                 //error dont switch file
+            }
+        }
+
+        protected void BtnChangeCredo_Click(object sender, EventArgs e)
+        {
+            if (NewUserCredoTextBox.Text != "")
+            {
+                CredoLiteral.Text = "<h4 class=\"UserCredo\">Кредо '" +NewUserCredoTextBox.Text+"' "+
+                                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
+                                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
+                                     "</span></h4>";
+            }
+            else
+            {
+                //error
             }
         }
         
