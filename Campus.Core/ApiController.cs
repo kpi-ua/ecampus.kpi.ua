@@ -33,11 +33,7 @@ namespace Campus.Core
         /// </value>
         public static bool AllowCompression { get; set; }
 
-        public static bool EnableExtendedDocumentation { get; set; }
-
         public static string DocumentationFilePath { get; set; }
-
-        public static string DocumentationProviderProject { get; set; }
 
         public static event EventHandler ExceptionHandled;
 

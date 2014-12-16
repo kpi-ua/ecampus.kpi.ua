@@ -10,34 +10,45 @@ namespace Campus.Core.Documentation
     [XmlRoot(ElementName = "doc")]
     public class XmlDocumentation
     {
-
-        public static void Generate()
+        public static XmlDocumentation Load()
         {
-            var xml = File.ReadAllText(ApiController.DocumentationFilePath);
+            try
+            {
+                var xml = File.ReadAllText(ApiController.DocumentationFilePath);
 
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream);
-            writer.Write(xml);
-            writer.Flush();
-            stream.Position = 0;
+                var stream = new MemoryStream();
+                var writer = new StreamWriter(stream);
+                writer.Write(xml);
+                writer.Flush();
+                stream.Position = 0;
 
 
-            var serializer = new XmlSerializer(typeof(XmlDocumentation), new XmlRootAttribute("doc"));
-            Instance = (XmlDocumentation)serializer.Deserialize(stream);
+                var serializer = new XmlSerializer(typeof(XmlDocumentation), new XmlRootAttribute("doc"));
+                return (XmlDocumentation)serializer.Deserialize(stream);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public static XmlDocumentation Instance { get; set; }
+        private static XmlDocumentation _instance;
 
         public static string GetDescription(MethodInfo methodInfo, ParameterInfo parameterInfo)
         {
             string result = null;
 
-            if (!ApiController.EnableExtendedDocumentation)
+            if (String.IsNullOrEmpty(ApiController.DocumentationFilePath))
             {
                 result = String.Format("{0} {1}", methodInfo, parameterInfo);
             }
             else
             {
+                if (_instance == null)
+                {
+                    _instance = Load();
+                }
+
                 try
                 {
                     var arguments = methodInfo.GetParameters().Select(o => o.ParameterType);
@@ -45,7 +56,7 @@ namespace Campus.Core.Documentation
                     var name = String.Format("M:{0}.{1}({2})", methodInfo.DeclaringType.FullName, methodInfo.Name,
                         String.Join(",", arguments));
 
-                    var member = XmlDocumentation.Instance.Members.SingleOrDefault(o => o.Name == name);
+                    var member = _instance.Members.SingleOrDefault(o => o.Name == name);
 
                     if (parameterInfo == null && member != null)
                     {
