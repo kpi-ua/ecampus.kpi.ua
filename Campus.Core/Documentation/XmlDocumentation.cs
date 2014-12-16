@@ -81,7 +81,7 @@ namespace Campus.Core.Documentation
         }
 
         [XmlElement("assembly")]
-        public System.Reflection.Assembly Assembly { get; set; }
+        public Assembly Assembly { get; set; }
 
         [XmlArray("members")]
         [XmlArrayItem("member")]
