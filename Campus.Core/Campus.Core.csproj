@@ -71,26 +71,18 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Serialization" />
-    <Reference Include="X.PagedList">
-      <HintPath>..\packages\X.PagedList.1.20.2.37\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
+    <Reference Include="X.PagedList, Version=1.22.5.37966, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\api.ecampus.kpi.ua\packages\X.PagedList.1.22.5.150\lib\portable-net4+sl5+wp8+win8\X.PagedList.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiApplication.cs" />
     <Compile Include="Attributes\AbstractAttribute.cs" />
     <Compile Include="Attributes\CompressAttribute.cs" />
-    <Compile Include="Common\BaseClasses\AbstractSingleton.cs" />
-    <Compile Include="Common\BaseClasses\GenericFactory.cs" />
-    <Compile Include="Common\Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Documentation\Assembly.cs" />
-    <Compile Include="Documentation\Controller.cs" />
-    <Compile Include="Common\Extensions\MemberExtensions.cs" />
     <Compile Include="Documentation\Member.cs" />
-    <Compile Include="Documentation\Members.cs" />
-    <Compile Include="Documentation\Method.cs" />
     <Compile Include="Documentation\Param.cs" />
-    <Compile Include="Documentation\XmlContainer.cs" />
     <Compile Include="Documentation\XmlDocumentation.cs" />
     <Compile Include="EventsArgs\ApiEventArgs.cs" />
     <Compile Include="EventsArgs\ExceptionEventsArgs.cs" />

@@ -1,16 +1,15 @@
 ﻿using Campus.Core.Attributes;
-using Campus.Core.Documentation;
 using Campus.Core.EventsArgs;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using Campus.Core.Documentation;
 using PagedList;
 
 namespace Campus.Core
@@ -43,6 +42,11 @@ namespace Campus.Core
         public static event EventHandler ExceptionHandled;
 
         public static event EventHandler ResultExecuted;
+
+        static ApiController()
+        {
+            AllowCompression = false;
+        }
 
         protected static void OnReseultExecuted(ApiController sender, string json)
         {
@@ -113,7 +117,6 @@ namespace Campus.Core
 
         public virtual ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
         {
-            var callerMethod = GetCallerMethod();
             var type = GetType();
 
             var result = new Result
@@ -132,7 +135,8 @@ namespace Campus.Core
             {
                 if (ShouldBeCompressed)
                 {
-                    BuildCompressionInfo(result, obj, type, callerMethod);
+
+                    BuildCompressionInfo(result, obj, type);
                 }
                 else
                 {
@@ -207,6 +211,7 @@ namespace Campus.Core
             //Default Introspect implementation
 
             var methods = GetType().GetMethods().ToList();
+
             methods = methods.AsParallel().Where(method => (method.ReturnType.BaseType == typeof(ActionResult) || method.ReturnType == typeof(ActionResult))
                                                            && method.Name != "Result"
                                                            && method.Name != "NotFound"
@@ -286,6 +291,7 @@ namespace Campus.Core
                                 CompressAttribute.Instance.HasAttribute(method);
 
             CompressAttribute compression = null;
+
             if (isCompression)
             {
                 compression = method.GetCustomAttribute<CompressAttribute>(true);
@@ -296,10 +302,10 @@ namespace Campus.Core
                 {
                     o.Name,
                     Type = o.ParameterType.ToString(),
-                    Description = GetDescription(method, o),
+                    Description = XmlDocumentation.GetDescription(method, o),
                 }).ToList();
 
-            var description = GetDescription(method, null);
+            var description = XmlDocumentation.GetDescription(method, null);
 
             return new
             {
@@ -343,14 +349,11 @@ namespace Campus.Core
                 var type = this.GetType();
                 var method = GetCallerMethod(3);
 
-                return CompressIgnoreAttribute.Instance.HasAttribute(method) || CompressIgnoreAttribute.Instance.HasAttribute(type) ? false :
-                    CompressAttribute.Instance.HasAttribute(type, inherit: true) || CompressAttribute.Instance.HasAttribute(method, inherit: true);
+                return CompressIgnoreAttribute.Instance.HasAttribute(method) || CompressIgnoreAttribute.Instance.HasAttribute(type) 
+                    ? false
+                    : CompressAttribute.Instance.HasAttribute(type, inherit: true) || CompressAttribute.Instance.HasAttribute(method, inherit: true);
             }
         }
-
-        #endregion
-
-        #region Helpers
 
         private static MethodBase GetCallerMethod(int depth = 2)
         {
@@ -358,71 +361,10 @@ namespace Campus.Core
             return frame.GetMethod();
         }
 
-        private string GetDescription(MethodInfo methodInfo, ParameterInfo parameterInfo)
+        private static void BuildCompressionInfo(Result result, object obj, Type type)
         {
-            string result = null;
+            var callerMethod = GetCallerMethod();
 
-            if (!EnableExtendedDocumentation)
-            {
-                result = String.Format("{0} {1}", methodInfo, parameterInfo);
-            }
-            else
-            {
-                var attributeMethod = methodInfo.GetCustomAttribute<DescriptionAttribute>(true);
-
-                var attributeParam = parameterInfo != null
-                    ? parameterInfo.GetCustomAttribute<DescriptionAttribute>(true)
-                    : null;
-
-                if (attributeParam != null)
-                {
-                    return attributeParam.Description;
-                }
-
-                if (attributeMethod != null)
-                {
-                    return attributeMethod.Description;
-                }
-
-                try
-                {
-                    var controller = XmlDocumentation.Instance.Controllers.FirstOrDefault(c => c.Caption.Equals(methodInfo.DeclaringType.Name));
-
-                    if (controller != null)
-                    {
-                        var method = controller.Methods.FirstOrDefault(m => m.Caption.Equals(methodInfo.Name));
-
-                        if (method != null)
-                        {
-                            if (parameterInfo == null)
-                            {
-                                result = method.Summary != null ? method.Summary.Value : null;
-                            }
-                            else
-                            {
-                                var param = method.Params.FirstOrDefault(p => p.Name.Equals(parameterInfo.Name));
-
-                                if (param != null)
-                                {
-                                    result = param.Value;
-                                }
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    OnException(ex);
-                }
-            }
-
-            result = String.IsNullOrEmpty(result) ? String.Empty : result.Trim();
-
-            return result;
-        }
-
-        private static void BuildCompressionInfo(Result result, object obj, Type type, MethodBase callerMethod)
-        {
             var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
             native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
 

@@ -1,5 +1,4 @@
-﻿using Campus.Core.Documentation;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Net;
 
@@ -10,7 +9,7 @@ namespace Campus.Core
         public HttpStatusCode StatusCode { get; set; }
         public DateTime TimeStamp { get; private set; }
         public string ExecutionTime { get; set; }
-        public String Guid { get; private set; }        
+        public String Guid { get; private set; }
 
         /// <summary>
         /// Paging information. If null - information is complex object 

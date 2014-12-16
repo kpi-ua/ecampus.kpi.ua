@@ -1,26 +1,20 @@
-using Newtonsoft.Json;
-using System;
-using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Campus.Core.Documentation
 {
-    public class Param : XmlContainer
-	{
-		// ATTRIBUTES
-		[XmlAttribute("name")]
-		public string Name { get; set; }
-		
-        [XmlIgnore]
-        [JsonIgnore]
-        public ParameterInfo ParameterInfo { get; set; }
+    [Serializable]
+    [XmlRoot(ElementName = "param")]
+    public class Param
+    {
+        [XmlAttribute("name")]
+        public string Name { get; set; }
 
-        [XmlIgnore]
-        public Type ParameterType { get; set; }
-		
-        public override string ToString()
-        {
-            return Name;
-        }
-	}
+        [XmlText]
+        public string Value { get; set; }
+    }
 }

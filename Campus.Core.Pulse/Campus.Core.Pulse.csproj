@@ -58,9 +58,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\DescriptionAttribute.cs" />
+    <Compile Include="Common\BaseClasses\AbstractSingleton.cs" />
     <Compile Include="Common\Extensions\DateTimeExtensions.cs" />
     <Compile Include="Common\Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Common\Extensions\ObjectExtensions.cs" />
+    <Compile Include="Common\Extensions\TypeExtensions.cs" />
     <Compile Include="Common\Generators\GuidIdGenerator.cs" />
     <Compile Include="Common\Generators\SimpleIdGenerator.cs" />
     <Compile Include="Common\Generators\TemplateEngine.cs" />

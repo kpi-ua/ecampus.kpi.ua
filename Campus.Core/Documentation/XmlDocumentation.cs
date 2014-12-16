@@ -1,118 +1,80 @@
-using Campus.Core.Common.BaseClasses;
-using Campus.Core.Common.Extensions;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Xml;
+using System.Reflection;
 using System.Xml.Serialization;
 
 namespace Campus.Core.Documentation
 {
+    [Serializable]
+    [XmlRoot(ElementName = "doc")]
     public class XmlDocumentation
     {
-        private static XmlDocumentation _instance;
-        private static Task _generationTask;
-
-        public static XmlDocumentation Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    if (_generationTask == null)
-                    {
-                        _generationTask = Task.Run(() => Generate());
-                    }
-                    else
-                    {
-                        if (!_generationTask.IsCompleted)
-                        {
-                            _generationTask.Wait();
-                        }
-                    }
-                }
-
-                return _instance;
-            }
-        }
 
         public static void Generate()
         {
-            if (_instance != null)
-            {
-                return;
-            }
+            var xml = File.ReadAllText(ApiController.DocumentationFilePath);
 
-            if (_instance == null && _generationTask != null)
-            {
-                _generationTask.Wait();
-                return;
-            }
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(xml);
+            writer.Flush();
+            stream.Position = 0;
 
-            if (!File.Exists(ApiController.DocumentationFilePath))
-            {
-                return;
-            }
 
             var serializer = new XmlSerializer(typeof(XmlDocumentation), new XmlRootAttribute("doc"));
-
-            // A FileStream is needed to read the XML document.
-            using (var stream = new FileStream(ApiController.DocumentationFilePath, FileMode.Open))
-            {
-                var reader = XmlReader.Create(stream);
-
-                _instance = serializer.Deserialize(reader) as XmlDocumentation;
-            }
-
-            Instance.InitControllers();
+            Instance = (XmlDocumentation)serializer.Deserialize(stream);
         }
 
-        /// <summary>
-        /// ELEMENTS
-        /// </summary>
-        [XmlElement("assembly")]
-        public Assembly Assembly { get; set; }
+        public static XmlDocumentation Instance { get; set; }
 
-        [XmlElement("members")]
-        public Members Members { get; set; }
-
-        [XmlIgnore]
-        public List<Controller> Controllers { get; private set; }
-
-        private void InitControllers()
+        public static string GetDescription(MethodInfo methodInfo, ParameterInfo parameterInfo)
         {
-            var tasks = new List<Task>();
+            string result = null;
 
-            if (Controllers == null && Members != null)
+            if (!ApiController.EnableExtendedDocumentation)
             {
-                var assembly = AppDomain.CurrentDomain.GetAssemblies().First(a => a.FullName.Contains(ApiController.DocumentationProviderProject));
+                result = String.Format("{0} {1}", methodInfo, parameterInfo);
+            }
+            else
+            {
+                try
+                {
+                    var arguments = methodInfo.GetParameters().Select(o => o.ParameterType);
 
-                var cntrls = Members.Member.Select(o => string.Join(".", o.Name.Split(new[] { ':' })[1].Split(new char[] { '.' }, 4).Take(3).ToArray())).Distinct().Where(o => o.Split(new char[] { '.' })[2].Contains("Controller"));
-                Controllers = Members.Member.Where(o => cntrls.Contains(o.Name.Split(new[] { ':' })[1]))
-                    .Distinct()
-                    .DecorateAll<Controller>()
-                    .ToList();
+                    var name = String.Format("M:{0}.{1}({2})", methodInfo.DeclaringType.FullName, methodInfo.Name,
+                        String.Join(",", arguments));
 
-                Controllers.AddRange(cntrls.Except(Controllers.Select(o => o.Name)).Select(o => new Controller { Name = o }));
+                    var member = XmlDocumentation.Instance.Members.SingleOrDefault(o => o.Name == name);
 
-                tasks.Add(Controllers.ForEachAsync(c =>
+                    if (parameterInfo == null && member != null)
                     {
-                        c.Type = assembly.GetTypes().First(t => t.Name.Equals(c.Caption));
-                        c.GetMethods(Members);
-                    }));
+                        result = member.Summary;
+                    }
+
+                    if (parameterInfo != null && member != null)
+                    {
+                        var param = member.Param.SingleOrDefault(o => o.Name == parameterInfo.Name);
+                        if (param != null)
+                        {
+                            result = param.Value;
+                        }
+                    }
+                }
+                catch { }
             }
 
-            Task.WaitAll(tasks.ToArray());
+            result = String.IsNullOrEmpty(result) ? String.Empty : result.Trim();
+
+            return result;
         }
 
-        public XmlDocumentation()
-        {
-            // registering types in factory
-            GenericFactory<Member>.Instance.Register((parameters) => { return new Member((Member)parameters[0]); });
-            GenericFactory<Method>.Instance.Register((parameters) => { return new Method((Member)parameters[0]); });
-            GenericFactory<Controller>.Instance.Register((parameters) => { return new Controller((Member)parameters[0]); });
-        }
+        [XmlElement("assembly")]
+        public System.Reflection.Assembly Assembly { get; set; }
+
+        [XmlArray("members")]
+        [XmlArrayItem("member")]
+        public Member[] Members { get; set; }
     }
+
 }
