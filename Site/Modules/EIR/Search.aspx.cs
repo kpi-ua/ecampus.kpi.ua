@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.HtmlControls;
@@ -18,7 +19,7 @@ namespace Site.Modules.EIR
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
+            /*
             if (Request.QueryString["type"] != null)
             {
                 _isGroup = (Request.QueryString["type"].Equals("group"));
@@ -39,10 +40,81 @@ namespace Site.Modules.EIR
                 {
                     LinkButtonsRendering(ir);
                 }
+            }*/
+            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetEmployees");
+
+            if (answer != null)
+            {
+                var dataArr = (ArrayList)answer["Data"];
+                ShowData(dataArr);
             }
+        }
 
+        private void ShowData(ArrayList data)
+        {
 
+            for (int i = 0; i < data.Count; i++)
+            {
+                var irLink = new LinkButton();
+                var mainDiv = new HtmlGenericControl("div");
+                var surname = new HtmlGenericControl("h5");
+                var name = new HtmlGenericControl("h5");
+                var patronymic = new HtmlGenericControl("h5");
+                var Dutie = new HtmlGenericControl("h5");
+                var Subdiv = new HtmlGenericControl("h5");
+                var AcademicDegree = new HtmlGenericControl("h5");
+                var AcademicStatus = new HtmlGenericControl("p");
+                mainDiv.Attributes.Add("id", "employee");
+                foreach (var e in (Dictionary<string, object>)data[i])
+                {
 
+                    if (e.Key.ToString() == "eEmployees1Id")
+                    {
+                        irLink.PostBackUrl = Request.Url.AbsolutePath;
+                        irLink.Attributes.Add("class", "irLink list-item list-item-info");
+                        irLink.Attributes.Add("Id", e.Value.ToString());
+                    }
+                    else if (e.Key.ToString() == "Surname")
+                    {
+                        surname.InnerText = e.Value.ToString();
+                    }
+                    else if (e.Key.ToString() == "Name")
+                    {
+                        name.InnerText = e.Value.ToString();
+                    }
+                    else if (e.Key.ToString() == "Patronymic")
+                    {
+                        patronymic.InnerText = e.Value.ToString();
+                    }
+                    else if (e.Key.ToString() == "DutieName")
+                    {
+                        Dutie.InnerText = e.Value.ToString();
+                    }
+                    else if (e.Key.ToString() == "SubdivisionName")
+                    {
+                        Subdiv.InnerText = e.Value.ToString();
+                    }
+                    else if (e.Key.ToString() == "AcademicDegreeName")
+                    {
+                        AcademicDegree.InnerText = e.Value.ToString();
+                    }
+                    else if (e.Key.ToString() == "AcademicStatusName")
+                    {
+                        AcademicStatus.InnerText = e.Value.ToString();
+                    }
+                }
+                mainDiv.Controls.Add(surname);
+                mainDiv.Controls.Add(name);
+                mainDiv.Controls.Add(patronymic);
+                mainDiv.Controls.Add(Dutie);
+                mainDiv.Controls.Add(Subdiv);
+                mainDiv.Controls.Add(AcademicDegree);
+                mainDiv.Controls.Add(AcademicStatus);
+
+                irLink.Controls.Add(mainDiv);
+
+                LinkContainer.Controls.Add(irLink);
+            }
         }
 
         private void LinkButtonsRendering(JObject group)

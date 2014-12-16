@@ -2119,4 +2119,10 @@ input[type="radio"] {
 
 .UserCredo {
     text-align: center;
+    cursor: pointer;
+}
+#NewUserCredoTextBox {
+    overflow: hidden;
+    width: 90%;
+    height: 15%;
 }
