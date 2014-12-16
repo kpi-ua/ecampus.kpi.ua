@@ -53,7 +53,10 @@ namespace Site.Modules.EIR
         private void ShowData(ArrayList data)
         {
 
-            for (int i = 0; i < data.Count; i++)
+
+
+
+            foreach (Dictionary<string, object> item in data)
             {
                 var irLink = new LinkButton();
                 var mainDiv = new HtmlGenericControl("div");
@@ -65,44 +68,18 @@ namespace Site.Modules.EIR
                 var AcademicDegree = new HtmlGenericControl("h5");
                 var AcademicStatus = new HtmlGenericControl("p");
                 mainDiv.Attributes.Add("id", "employee");
-                foreach (var e in (Dictionary<string, object>)data[i])
-                {
 
-                    if (e.Key.ToString() == "eEmployees1Id")
-                    {
-                        irLink.PostBackUrl = Request.Url.AbsolutePath;
-                        irLink.Attributes.Add("class", "irLink list-item list-item-info");
-                        irLink.Attributes.Add("Id", e.Value.ToString());
-                    }
-                    else if (e.Key.ToString() == "Surname")
-                    {
-                        surname.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "Name")
-                    {
-                        name.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "Patronymic")
-                    {
-                        patronymic.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "DutieName")
-                    {
-                        Dutie.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "SubdivisionName")
-                    {
-                        Subdiv.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "AcademicDegreeName")
-                    {
-                        AcademicDegree.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "AcademicStatusName")
-                    {
-                        AcademicStatus.InnerText = e.Value.ToString();
-                    }
-                }
+                irLink.PostBackUrl = Request.Url.AbsolutePath;
+                irLink.Attributes.Add("class", "irLink list-item list-item-info");
+                irLink.Attributes.Add("Id", item["eEmployees1Id"].ToString());
+                surname.InnerText = item["Surname"].ToString();
+                name.InnerText = item["Name"].ToString();
+                patronymic.InnerText = item["Patronymic"].ToString();
+                Dutie.InnerText = item["DutieName"].ToString();
+                Subdiv.InnerText = item["SubdivisionName"].ToString();
+                AcademicDegree.InnerText = item["AcademicDegreeName"].ToString();
+                AcademicStatus.InnerText = item["AcademicStatusName"].ToString();
+
                 mainDiv.Controls.Add(surname);
                 mainDiv.Controls.Add(name);
                 mainDiv.Controls.Add(patronymic);
