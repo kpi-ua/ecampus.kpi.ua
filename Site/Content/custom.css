@@ -376,11 +376,23 @@
     }
 .inline-panel {
     display:inline-block;
+    min-width:40%;
+    height:100%;
+    vertical-align:top;
+}
+input[type="file"] {
+    z-index:2;
+    position:relative;
+}
+
+.inline-panel {
+    display:inline-block;
     width:50%;
     height:100%;
     vertical-align:top;
 }
 
+/*
 .inline-panel:last-child {
     width:25%;
 }
@@ -400,3 +412,4 @@ th {
     background:#ddd;
     font-weight:bold;
 }
+*/
