@@ -508,5 +508,18 @@ namespace Core
             var result = Get<List<Campus.Common.RtDiscipline>>("Specialist", "GetRtProfTrainTotal", new { sessionId, rtProfTrainTotalId });
             return result;
         }
+
+        public List<ContactType> GetAllContactTypes() 
+        {
+            try
+            {
+                var result = Get <List<ContactType>>("User", "GetAllContactType");
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
