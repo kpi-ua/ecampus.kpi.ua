@@ -534,5 +534,27 @@ namespace Core
                 return false;
             }
         }
+
+        public bool SetUserCredo(string sessionId, string userCredo)
+        {
+            var url = BuildUrl("User", "SetUserCredo", new { sessionId, userCredo });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string GetUserCredo(string sessionId)
+        {
+            var url = BuildUrl("User", "GetUserCredo", new { sessionId});
+            var answer = GetData(url);
+            if (answer["Data"]==null) return null;
+            return answer["Data"].ToString();
+        }
     }
 }
