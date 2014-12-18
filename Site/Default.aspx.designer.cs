@@ -49,6 +49,15 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Literal UserContactsLiteral;
         
         /// <summary>
+        /// NewUserContactLiteral control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal NewUserContactLiteral;
+        
+        /// <summary>
         /// TimeTablesLiteral control.
         /// </summary>
         /// <remarks>

@@ -316,7 +316,20 @@ namespace Site
         {
             if (ListTypeContact.SelectedValue != "" && UserContactValue.Text != "" && ReceptionHoursValue.Text!="")
             {
-                //CurrentUser.Contacts = ;
+                string isVisible = IsVisibleCB.Checked ? "1" : "0";
+                if (
+                    CampusClient.AddUserContact(SessionId, ListTypeContact.SelectedValue, UserContactValue.Text,
+                        isVisible,
+                        ReceptionHoursValue.Text))
+                {
+                    NewUserContactLiteral.Text += "<tr><td>" + ListTypeContact.SelectedValue + "</td>";
+                    NewUserContactLiteral.Text += "<td>" + UserContactValue.Text + "</td>";
+                    NewUserContactLiteral.Text += "<td id=\"userCont" + "\"class=\"glyphicon glyphicon-eye-open\"" +
+                                             "onclick=\"$('#userCont" + "').toggleClass('glyphicon-eye-open');" +
+                                            "$('#userCont" + "').toggleClass('glyphicon-eye-close');\"" +
+                                            "</td></tr>";
+
+                }
             }
         }
         
