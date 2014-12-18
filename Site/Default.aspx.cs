@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Collections;
+using Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,150 +22,160 @@ namespace Site
 
                 if (!Page.IsPostBack)
                 {
-                    if (CurrentUser.Employees.Count()!=0)
-                    {
-                        WorkData.Text += "<tr><td>Дані за місцем роботи:</td><td>";
-                        foreach (var e in CurrentUser.Employees)
-                        {
-                            WorkData.Text += e.SubdivisionName + "</br>";
-                            WorkData.Text += " Посада: <i class=\"text-success\">" + e.Position + "</i></br>";
-                            WorkData.Text += "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree +
-                                             "</i></br>";
-
-                        }
-                    }
-                    if (CurrentUser.Personalities.Count() != 0)
-                    {
-                        WorkData.Text += "<tr><td>Дані за місцем навчання:</td><td>";
-                        foreach (var p in CurrentUser.Personalities)
-                        {
-                            var val = p.IsContract ? "так" : "ні";
-
-                            WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" +
-                                             p.SubdivisionName + "</p>";
-                            WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
-                                             "Група: <i class=\"text-success\">" + p.StudyGroupName + "</i></p>";
-                            WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
-                                             "Контрактна форма навчання: <i class=\"text-success\">" + val + "</i></p>";
-                            WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
-                                             "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
-                        }
-                    }
-                    WorkData.Text += "</td>";
-                    if (CurrentUser.IsConfirmed != null && CurrentUser.IsConfirmed == "1")
-                    {
-                        MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-info alert-dismissable\">" +
-                                           "Ви <strong>дозволили розміщення</strong> вашої персональної інформації на сайті " +
-                                           "intellect.kpi.ua в мережі Інтернет." +
-                                           "</div></div>";
-                        btnConfirm.CssClass = "btn btn-primary disabled";
-                        btnDenie.CssClass = "btn btn-primary";
-                    }
-                    if (CurrentUser.ReasonFailure != null)
-                    {
-                        MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
-                                           "<div class=\"alert alert-danger alert-dismissable\">" +
-                                           "Ви <strong> не дозволили розміщення</strong> вашої персональної інформації на сайті " +
-                                           "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
-                                           "<br>" + CurrentUser.ReasonFailure + "</div></div>";
-                        btnConfirm.CssClass = "btn btn-primary";
-                        btnDenie.CssClass = "btn btn-primary disabled";
-
-                    }
-                    UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
-                    int i = 0;
-                    foreach (var p in CurrentUser.Contacts)
-                    {
-                        i++;
-                        UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
-                        UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
-                        UserContactsLiteral.Text += "<td id=\"userCont" + i + "\"class=\"glyphicon glyphicon-eye-open\"" +
-                                                     "onclick=\"$('#userCont" + i + "').toggleClass('glyphicon-eye-open');" +
-                                                    "$('#userCont" + i + "').toggleClass('glyphicon-eye-close');\"" +
-                                                    "</td></tr>";
-                    }
-                    List<Campus.Common.TimeTable> ttList = null;
-                    if (CurrentUser.Employees.Count() >= 1)
-                    {
-                        ttList = CampusClient.GeTimeTables(SessionId, "employee");
-                    }
-                    if (CurrentUser.Personalities.Count() >= 1)
-                    {
-                        ttList = CampusClient.GeTimeTables(SessionId, "student");
-                    }
-                    if (ttList.Count()>0)
-                    {
-                        //цикл по тижням навчання
-                        for (int w = 0; w < 2; w++)
-                        {
-                            TimeTablesLiteral.Text += "<h5 align=\"center\"> " + (w + 1) + "-й тиждень</h5>" +
-                           "  <table class=\"table table-bordered table-hover\"><tr><td></td><td>Понеділок</td><td>Вівторок</td><td>Середа</td>" +
-                           "<td>Четвер</td><td>П'ятниця</td><td>Субота</td></tr>";
-                            //цикл по парам
-                            for (int l = 0; l < 5; l++)
-                            {
-                                TimeTablesLiteral.Text += "<tr><td>" + (l + 1) + "</td>";
-                                //цикл по дням тижня
-                                for (int d = 0; d < 6; d++)
-                                {
-                                    if (
-                                        !ttList.Exists(
-                                            table =>
-                                                //якщо нумерація тижнів, пар і днів тижня з нуля то +1
-                                                table.WeekNum == w && table.LessonId == l &&
-                                                table.DayId == d))
-                                    {
-                                        TimeTablesLiteral.Text += "<td></td>";
-                                    }
-                                    else
-                                    {
-                                        var lesson = ttList.SingleOrDefault(
-                                            table =>
-                                                //якщо нумерація тижнів, пар і днів тижня з нуля то +1
-                                                table.WeekNum == w &&
-                                                table.LessonId == l &&
-                                                table.DayId == d);
-                                        TimeTablesLiteral.Text += "<td>" + lesson.Subject + "<br>" +
-                                                                  lesson.Employee + "<br>" + lesson.Building
-                                                                  + "<br>" + lesson.GroupName + "<br>"+
-                                                                  lesson.TimeLesson+"</td>"+"</td>";
-                                    }
-                                }
-                                TimeTablesLiteral.Text += "</tr>";
-                            }
-                            TimeTablesLiteral.Text += "</table><br><br>";
-                        }
-                    }
-
-                    SpecFunc.Text += "<table class=\"table-hover table-fill\">"+
-                        "<tr><th>Вид підсистеми</th><th>Роль в підсистемі</th></tr>";
-                    foreach (var p in CurrentUser.Profiles)
-                    {
-                        SpecFunc.Text += "<tr><td>"+p.SubsystemName+"</td>";    
-                        SpecFunc.Text += "<td>"+p.ProfileName+"</td></tr>";
-                    }
-
-                    SpecFunc.Text += "</table>";
+                    UserPersonalInfoAddToPage();
                 }
-                //тут буде перевірка чи є кредо вже в базі, якщо буде то будемо виводити його
-                //CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо \"Вік живи - вік вчись \"" +
-                //                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
-                //                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
-                //                     "</span></h4>";
-                //якщо немає то стандарне повідомлення вказати кредо
-                if (CredoLiteral.Text == "")
-                {
-                    CredoLiteral.Text += "<h6 class=\"UserCredo\"><a data-toggle=\"modal\" " +
-                                         "data-target=\"#ChangeCredo-modal\">Вкажіть Ваше кредо </a></h6>";
-                }
+                
                 btnFailure.Attributes.Add("onclick", "$('#Cancel-modal').hide();document.body.style.overflow = 'auto';");
-                //btnDenie.Attributes.Add("onclick","$('#Cancel-modal').show();");
             }
             catch { }
 
         }
 
+        public void UserPersonalInfoAddToPage()
+        {
+            if (CurrentUser.Employees.Count() != 0)
+            {
+                WorkData.Text += "<tr><td>Дані за місцем роботи:</td><td>";
+                foreach (var e in CurrentUser.Employees)
+                {
+                    WorkData.Text += e.SubdivisionName + "</br>";
+                    WorkData.Text += " Посада: <i class=\"text-success\">" + e.Position + "</i></br>";
+                    WorkData.Text += "Академічний ступінь: <i class=\"text-success\">" + e.AcademicDegree +
+                                     "</i></br>";
+
+                }
+            }
+            if (CurrentUser.Personalities.Count() != 0)
+            {
+                WorkData.Text += "<tr><td>Дані за місцем навчання:</td><td>";
+                foreach (var p in CurrentUser.Personalities)
+                {
+                    var val = p.IsContract ? "так" : "ні";
+
+                    WorkData.Text += "<p style=\"margin-left:10px;\" class=\"text-primary\">" +
+                                     p.SubdivisionName + "</p>";
+                    WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
+                                     "Група: <i class=\"text-success\">" + p.StudyGroupName + "</i></p>";
+                    WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
+                                     "Контрактна форма навчання: <i class=\"text-success\">" + val + "</i></p>";
+                    WorkData.Text += "<p style=\"margin-left:20px;\" class=\"text-info\">" +
+                                     "Спеціальність: <i class=\"text-success\">" + p.Specialty + "</i></p>";
+                }
+            }
+            WorkData.Text += "</td>";
+            if (CurrentUser.IsConfirmed != null && CurrentUser.IsConfirmed == "1")
+            {
+                MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
+                                   "<div class=\"alert alert-info alert-dismissable\">" +
+                                   "Ви <strong>дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                   "intellect.kpi.ua в мережі Інтернет." +
+                                   "</div></div>";
+                btnConfirm.CssClass = "btn btn-primary disabled";
+                btnDenie.CssClass = "btn btn-primary";
+            }
+            if (CurrentUser.ReasonFailure != null)
+            {
+                MessegeIsConfirmed.Text = "<div class=\"form-group\">" +
+                                   "<div class=\"alert alert-danger alert-dismissable\">" +
+                                   "Ви <strong> не дозволили розміщення</strong> вашої персональної інформації на сайті " +
+                                   "intellect.kpi.ua в мережі Інтернет. Ви відмовились по причині:" +
+                                   "<br>" + CurrentUser.ReasonFailure + "</div></div>";
+                btnConfirm.CssClass = "btn btn-primary";
+                btnDenie.CssClass = "btn btn-primary disabled";
+
+            }
+            UserContactsLiteral.Text += "<tr><td>Контактні дані:</td></tr>";
+            int i = 0;
+            foreach (var p in CurrentUser.Contacts)
+            {
+                i++;
+                UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
+                UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
+                UserContactsLiteral.Text += "<td id=\"userCont" + i + "\"class=\"glyphicon glyphicon-eye-open\"" +
+                                             "onclick=\"$('#userCont" + i + "').toggleClass('glyphicon-eye-open');" +
+                                            "$('#userCont" + i + "').toggleClass('glyphicon-eye-close');\"" +
+                                            "</td></tr>";
+            }
+            var contactsType=CampusClient.GetAllContactTypes();
+            foreach (var v in contactsType)
+            {
+                ListTypeContact.Items.Add(v.Name);
+            }
+
+            List<Campus.Common.TimeTable> ttList = null;
+            if (CurrentUser.Employees.Count() >= 1)
+            {
+                ttList = CampusClient.GeTimeTables(SessionId, "employee");
+            }
+            if (CurrentUser.Personalities.Count() >= 1)
+            {
+                ttList = CampusClient.GeTimeTables(SessionId, "student");
+            }
+            if (ttList.Count() > 0)
+            {
+                //цикл по тижням навчання
+                for (int w = 0; w < 2; w++)
+                {
+                    TimeTablesLiteral.Text += "<h5 align=\"center\"> " + (w + 1) + "-й тиждень</h5>" +
+                   "  <table class=\"table table-bordered table-hover\"><tr><td></td><td>Понеділок</td><td>Вівторок</td><td>Середа</td>" +
+                   "<td>Четвер</td><td>П'ятниця</td><td>Субота</td></tr>";
+                    //цикл по парам
+                    for (int l = 0; l < 5; l++)
+                    {
+                        TimeTablesLiteral.Text += "<tr><td>" + (l + 1) + "</td>";
+                        //цикл по дням тижня
+                        for (int d = 0; d < 6; d++)
+                        {
+                            if (
+                                !ttList.Exists(
+                                    table =>
+                                        //якщо нумерація тижнів, пар і днів тижня з нуля то +1
+                                        table.WeekNum == w && table.LessonId == l &&
+                                        table.DayId == d))
+                            {
+                                TimeTablesLiteral.Text += "<td></td>";
+                            }
+                            else
+                            {
+                                var lesson = ttList.SingleOrDefault(
+                                    table =>
+                                        //якщо нумерація тижнів, пар і днів тижня з нуля то +1
+                                        table.WeekNum == w &&
+                                        table.LessonId == l &&
+                                        table.DayId == d);
+                                TimeTablesLiteral.Text += "<td>" + lesson.Subject + "<br>" +
+                                                          lesson.Employee + "<br>" + lesson.Building
+                                                          + "<br>" + lesson.GroupName + "<br>" +
+                                                          lesson.TimeLesson + "</td>" + "</td>";
+                            }
+                        }
+                        TimeTablesLiteral.Text += "</tr>";
+                    }
+                    TimeTablesLiteral.Text += "</table><br><br>";
+                }
+            }
+
+            SpecFunc.Text += "<table class=\"table-hover table-fill\">" +
+                "<tr><th>Вид підсистеми</th><th>Роль в підсистемі</th></tr>";
+            foreach (var p in CurrentUser.Profiles)
+            {
+                SpecFunc.Text += "<tr><td>" + p.SubsystemName + "</td>";
+                SpecFunc.Text += "<td>" + p.ProfileName + "</td></tr>";
+            }
+
+            SpecFunc.Text += "</table>";
+            //тут буде перевірка чи є кредо вже в базі, якщо буде то будемо виводити його
+            //CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо \"Вік живи - вік вчись \"" +
+            //                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
+            //                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
+            //                     "</span></h4>";
+            //якщо немає то стандарне повідомлення вказати кредо
+            if (CredoLiteral.Text == "")
+            {
+                CredoLiteral.Text += "<h6 class=\"UserCredo\"><a data-toggle=\"modal\" " +
+                                     "data-target=\"#ChangeCredo-modal\">Вкажіть Ваше кредо </a></h6>";
+            }
+        }
         public void btnFailure_Click(object sender, EventArgs e)
         {
             if (CampusClient.SetReasonFailure(SessionId, ReasonTextBox.Text))
@@ -298,6 +309,14 @@ namespace Site
             else
             {
                 //error
+            }
+        }
+
+        protected void AddUserContact_Click(object sender, EventArgs e)
+        {
+            if (ListTypeContact.SelectedValue != "" && UserContactValue.Text != "" && ReceptionHoursValue.Text!="")
+            {
+                //CurrentUser.Contacts = ;
             }
         }
         
