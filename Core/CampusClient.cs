@@ -521,5 +521,18 @@ namespace Core
                 return null;
             }
         }
+        public bool AddUserContact(string sessionId, string userContactTypeName, string userContactValue, string isVisible, string receptioHours)
+        {
+            var url = BuildUrl("User", "AddUserContact", new { sessionId, userContactTypeName, userContactValue, isVisible, receptioHours });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

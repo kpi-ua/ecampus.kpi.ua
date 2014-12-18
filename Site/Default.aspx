@@ -60,6 +60,7 @@
 
                                             <table class="col-xs-12  col-sm-8  col-md-9 table-info">
                                                 <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
+                                                <asp:Literal ID="NewUserContactLiteral" runat="server"></asp:Literal>
                                             </table>
                                             <table class="col-xs-12  col-sm-8  col-md-9 table-info">
                                                 <tr><td>
