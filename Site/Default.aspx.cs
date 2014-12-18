@@ -91,10 +91,17 @@ namespace Site
                 i++;
                 UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
                 UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
-                UserContactsLiteral.Text += "<td id=\"userCont" + i + "\"class=\"glyphicon glyphicon-eye-open\"" +
-                                             "onclick=\"$('#userCont" + i + "').toggleClass('glyphicon-eye-open');" +
-                                            "$('#userCont" + i + "').toggleClass('glyphicon-eye-close');\"" +
-                                            "</td></tr>";
+                UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "\"class=";
+                                            
+                if (p.IsVisible == "0")
+                {
+                    UserContactsLiteral.Text += "\"glyphicon glyphicon-eye-open isVisible\"</td></tr>";
+                }
+                else
+                {
+                    UserContactsLiteral.Text += "\"glyphicon glyphicon-eye-close isVisible\"</td></tr>";
+                }
+
             }
             var contactsType=CampusClient.GetAllContactTypes();
             foreach (var v in contactsType)
@@ -331,7 +338,7 @@ namespace Site
                     NewUserContactLiteral.Text += "<td id=\"userCont" + "\"class=\"glyphicon glyphicon-eye-open\"" +
                                              "onclick=\"$('#userCont" + "').toggleClass('glyphicon-eye-open');" +
                                             "$('#userCont" + "').toggleClass('glyphicon-eye-close');\"" +
-                                            "</td></tr>";
+                                            "</td></tr><span id=\"idUserContact\" style=\"display:none\">" + "</span>";//тут треба подумати з ID
 
                 }
             }
