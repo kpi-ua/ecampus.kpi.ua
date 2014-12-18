@@ -164,13 +164,16 @@ namespace Site
             }
 
             SpecFunc.Text += "</table>";
-            //тут буде перевірка чи є кредо вже в базі, якщо буде то будемо виводити його
-            //CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо \"Вік живи - вік вчись \"" +
-            //                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
-            //                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
-            //                     "</span></h4>";
+            var credo = CampusClient.GetUserCredo(SessionId);
+            if ( credo!= null)
+            {
+                CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо '" +credo+"' "+
+                                     "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
+                                     "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
+                                     "</span></h4>";
+            }
             //якщо немає то стандарне повідомлення вказати кредо
-            if (CredoLiteral.Text == "")
+            else
             {
                 CredoLiteral.Text += "<h6 class=\"UserCredo\"><a data-toggle=\"modal\" " +
                                      "data-target=\"#ChangeCredo-modal\">Вкажіть Ваше кредо </a></h6>";
@@ -305,6 +308,7 @@ namespace Site
                                      "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
                                      "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
                                      "</span></h4>";
+                CampusClient.SetUserCredo(SessionId, NewUserCredoTextBox.Text);
             }
             else
             {
