@@ -77,8 +77,8 @@
                     newValue: $('#newValueUserContact').val()
                 }
             });
-            alert($("#" + id1 + "td").innerHTML);
-            $("#" + id1 + "td").innerHTML = $('#newValueUserContact').val();
+            //alert($("#" + id1 + "td").innerHTML);
+            //$("#" + id1 + "td").innerHTML = $('#newValueUserContact').val();
             //location.reload();
             //var text = $("#" + id1 + "td").val();
             //    // получаем текст
