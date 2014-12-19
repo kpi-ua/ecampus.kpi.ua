@@ -90,7 +90,10 @@ namespace Site
             {
                 i++;
                 UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
-                UserContactsLiteral.Text += "<td>" + p.UserContactValue + "</td>";
+                UserContactsLiteral.Text += "<td id=\""+p.UserContactId+"td"+"\">" + p.UserContactValue +
+                                            "  <a class=\"glyphicon glyphicon-pencil " +
+                                            "redagContact\"data-toggle=\"modal\" data-target=" +
+                                            "\"#RedactUserContact-modal\" id=\"" + p.UserContactId + "\"></a>" + "</td>";
                 UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "\"class=";
                                             
                 if (p.IsVisible == "0")
@@ -328,18 +331,26 @@ namespace Site
             if (ListTypeContact.SelectedValue != "" && UserContactValue.Text != "" && ReceptionHoursValue.Text!="")
             {
                 string isVisible = IsVisibleCB.Checked ? "1" : "0";
-                if (
-                    CampusClient.AddUserContact(SessionId, ListTypeContact.SelectedValue, UserContactValue.Text,
-                        isVisible,
-                        ReceptionHoursValue.Text))
+                int newContactId = CampusClient.AddUserContactRetContactId(SessionId, ListTypeContact.SelectedValue,
+                    UserContactValue.Text,
+                    isVisible,
+                    ReceptionHoursValue.Text);
+                if (newContactId>0)
                 {
                     NewUserContactLiteral.Text += "<tr><td>" + ListTypeContact.SelectedValue + "</td>";
-                    NewUserContactLiteral.Text += "<td>" + UserContactValue.Text + "</td>";
-                    NewUserContactLiteral.Text += "<td id=\"userCont" + "\"class=\"glyphicon glyphicon-eye-open\"" +
-                                             "onclick=\"$('#userCont" + "').toggleClass('glyphicon-eye-open');" +
-                                            "$('#userCont" + "').toggleClass('glyphicon-eye-close');\"" +
-                                            "</td></tr><span id=\"idUserContact\" style=\"display:none\">" + "</span>";//тут треба подумати з ID
+                    NewUserContactLiteral.Text += "<td>" + UserContactValue.Text + "  <a class=\"glyphicon glyphicon-pencil " +
+                                            "redagContact\"data-toggle=\"modal\" data-target=\"#RedactUserContact-modal\"" +
+                                                  "id=\"" + newContactId+ "\">></a></td>";
+                    NewUserContactLiteral.Text += "<td id=\"" + newContactId + "\"class=";
 
+                    if (isVisible == "0")
+                    {
+                        NewUserContactLiteral.Text += "\"glyphicon glyphicon-eye-open isVisible\"</td></tr>";
+                    }
+                    else
+                    {
+                        NewUserContactLiteral.Text += "\"glyphicon glyphicon-eye-close isVisible\"</td></tr>";
+                    }
                 }
             }
         }
