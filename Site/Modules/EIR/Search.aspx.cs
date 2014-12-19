@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
+using System.Text;
 
 namespace Site.Modules.EIR
 {
@@ -41,7 +43,7 @@ namespace Site.Modules.EIR
                     LinkButtonsRendering(ir);
                 }
             }*/
-            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "TimeTable/GetEmployees");
+            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployee");
 
             if (answer != null)
             {
@@ -53,66 +55,64 @@ namespace Site.Modules.EIR
         private void ShowData(ArrayList data)
         {
 
-            for (int i = 0; i < data.Count; i++)
+            foreach (Dictionary<string, object> item in data)
             {
                 var irLink = new LinkButton();
                 var mainDiv = new HtmlGenericControl("div");
-                var surname = new HtmlGenericControl("h5");
-                var name = new HtmlGenericControl("h5");
-                var patronymic = new HtmlGenericControl("h5");
+                var Fullname = new HtmlGenericControl("h5");
+                var SubName = new HtmlGenericControl("h5");
                 var Dutie = new HtmlGenericControl("h5");
-                var Subdiv = new HtmlGenericControl("h5");
                 var AcademicDegree = new HtmlGenericControl("h5");
                 var AcademicStatus = new HtmlGenericControl("p");
+                var images = new StringBuilder();
+
                 mainDiv.Attributes.Add("id", "employee");
-                foreach (var e in (Dictionary<string, object>)data[i])
+                irLink.PostBackUrl = Request.Url.AbsolutePath;
+                irLink.Attributes.Add("class", "irLink list-item list-item-info");
+                irLink.Attributes.Add("Id", item["eEmployees1Id"].ToString());
+                string Fname = "ПІБ: ";
+                if (item["Surname"] != null)
                 {
-
-                    if (e.Key.ToString() == "eEmployees1Id")
-                    {
-                        irLink.PostBackUrl = Request.Url.AbsolutePath;
-                        irLink.Attributes.Add("class", "irLink list-item list-item-info");
-                        irLink.Attributes.Add("Id", e.Value.ToString());
-                    }
-                    else if (e.Key.ToString() == "Surname")
-                    {
-                        surname.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "Name")
-                    {
-                        name.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "Patronymic")
-                    {
-                        patronymic.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "DutieName")
-                    {
-                        Dutie.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "SubdivisionName")
-                    {
-                        Subdiv.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "AcademicDegreeName")
-                    {
-                        AcademicDegree.InnerText = e.Value.ToString();
-                    }
-                    else if (e.Key.ToString() == "AcademicStatusName")
-                    {
-                        AcademicStatus.InnerText = e.Value.ToString();
-                    }
+                    Fname += item["Surname"].ToString() + " ";
                 }
-                mainDiv.Controls.Add(surname);
-                mainDiv.Controls.Add(name);
-                mainDiv.Controls.Add(patronymic);
+                if (item["Name"] != null)
+                {
+                    Fname += item["Name"].ToString() + " ";
+                }
+                if (item["Patronymic"] != null)
+                {
+                    Fname += item["Patronymic"].ToString();
+                }
+                Fullname.InnerText = Fname;
+                if (item["SubdivName"] != null)
+                {
+                    SubName.InnerText += item["SubdivName"].ToString() + " ";
+                }
+                if (item["DutiesName"] != null)
+                {
+                    Dutie.InnerText = item["DutiesName"].ToString();
+                }
+
+                if (item["AcademicDegreeName"] != null)
+                {
+                    AcademicDegree.InnerText = item["AcademicDegreeName"].ToString();
+                }
+
+                if (item["UserAccountId"] != null)
+                {
+                    var answer = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployeePhoto?EmployeeAcountId=" + item["UserAccountId"].ToString());
+                    //var dataArr = (ArrayList)
+                    JavaScriptSerializer _serializer = new JavaScriptSerializer();
+                    var respDictionary = _serializer.Deserialize<Dictionary<string, object>>(answer);
+                    var url = respDictionary["Data"];
+                    images.AppendFormat(@"<img id =""employee_photo""{1}"""" src=""{0}"" style=""width:150px;height:200px""/>", url.ToString(), item["UserAccountId"].ToString());
+                }
+                mainDiv.InnerHtml = images.ToString();
+                mainDiv.Controls.Add(Fullname);
+                mainDiv.Controls.Add(SubName);
                 mainDiv.Controls.Add(Dutie);
-                mainDiv.Controls.Add(Subdiv);
                 mainDiv.Controls.Add(AcademicDegree);
-                mainDiv.Controls.Add(AcademicStatus);
-
                 irLink.Controls.Add(mainDiv);
-
                 LinkContainer.Controls.Add(irLink);
             }
         }
