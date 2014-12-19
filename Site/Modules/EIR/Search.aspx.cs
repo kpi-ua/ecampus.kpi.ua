@@ -60,9 +60,9 @@ namespace Site.Modules.EIR
                 var irLink = new LinkButton();
                 var mainDiv = new HtmlGenericControl("div");
                 var Fullname = new HtmlGenericControl("h5");
-                var SubName = new HtmlGenericControl("h5");
-                var Dutie = new HtmlGenericControl("h5");
-                var AcademicDegree = new HtmlGenericControl("h5");
+                var SubName = new HtmlGenericControl("h6");
+                var Dutie = new HtmlGenericControl("h6");
+                var AcademicDegree = new HtmlGenericControl("h6");
                 var AcademicStatus = new HtmlGenericControl("p");
                 var images = new StringBuilder();
 
