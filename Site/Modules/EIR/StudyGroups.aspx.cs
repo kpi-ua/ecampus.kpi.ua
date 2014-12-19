@@ -4,7 +4,6 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
@@ -47,7 +46,7 @@ namespace Site.Modules.EIR
                         if (answer != null)
                         {
                             var data = (ArrayList)answer["Data"];
-                            ShowData(data);
+                            ShowData(data, CathedraId);
                         }
                         usedCaf.Add(CathedraId);
                     }
@@ -55,15 +54,35 @@ namespace Site.Modules.EIR
             }
         }
 
-        private void ShowData(ArrayList data)
+        private void ShowData(ArrayList data, string CathedraId)
         {
             foreach (Dictionary<string, object> item in data)
             {
                 var irLink = new LinkButton();
                 var mainDiv = new HtmlGenericControl("div");
                 var Name = new HtmlGenericControl("h5");
-                var Course = new HtmlGenericControl("p");
+                var Course = new HtmlGenericControl("h6");
+                var CathName = new HtmlGenericControl("h6");
+                var Abr = new HtmlGenericControl("h6");
                 mainDiv.Attributes.Add("id", "employee");
+
+                var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetSubdivisionData?sesionid=" + CampusClient.SessionId + "&dcSubdivisionId=" + CathedraId);
+                if (answer != null)
+                {
+                    var dataCath = answer["Data"];
+                    foreach (var elem in (Dictionary<string, object>) dataCath)
+                    {
+                        if (elem.Key == "Name" && elem.Value != null)
+                        {
+                            CathName.InnerText = elem.Value.ToString();
+                        }
+                        if (elem.Key == "Abbreviation" && elem.Value != null)
+                        {
+                            Abr.InnerText = elem.Value.ToString();
+                        }
+                    }
+                }
+                
                 if (item["RtStudyGroupId"] != null)
                 {
                     irLink.PostBackUrl = Request.Url.AbsolutePath;
@@ -74,12 +93,14 @@ namespace Site.Modules.EIR
                 {
                     Name.InnerText = item["Name"].ToString();
                 }
-                else if (item["StudyCourse"] != null)
+                if (item["StudyCourse"] != null)
                 {
                     Course.InnerText = "Курс: " + item["StudyCourse"].ToString();
                 }
                 mainDiv.Controls.Add(Name);
                 mainDiv.Controls.Add(Course);
+                mainDiv.Controls.Add(CathName);
+                mainDiv.Controls.Add(Abr);
 
                 irLink.Controls.Add(mainDiv);
 
