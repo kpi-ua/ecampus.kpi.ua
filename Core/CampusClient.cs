@@ -534,7 +534,19 @@ namespace Core
                 return false;
             }
         }
-
+        public int AddUserContactRetContactId(string sessionId, string userContactTypeName, string userContactValue, string isVisible, string receptioHours)
+        {
+            var url = BuildUrl("User", "AddUserContactReturnContactId", new { sessionId, userContactTypeName, userContactValue, isVisible, receptioHours });
+            var answer = GetData(url);
+            if (Int32.Parse(answer["Data"].ToString().Split(':')[0])>0)
+            {
+                return Int32.Parse(answer["Data"].ToString().Split(':')[0]);
+            }
+            else
+            {
+                return -1;
+            }
+        }
         public bool SetUserCredo(string sessionId, string userCredo)
         {
             var url = BuildUrl("User", "SetUserCredo", new { sessionId, userCredo });
