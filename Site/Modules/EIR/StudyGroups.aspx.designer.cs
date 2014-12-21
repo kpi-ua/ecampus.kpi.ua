@@ -13,13 +13,31 @@ namespace Site.Modules.EIR {
     public partial class StudyGroups {
         
         /// <summary>
-        /// irEdit элемент управления.
+        /// word элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputHidden irEdit;
+        protected global::System.Web.UI.WebControls.TextBox word;
+        
+        /// <summary>
+        /// find элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button find;
+        
+        /// <summary>
+        /// all элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически создаваемое поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button all;
         
         /// <summary>
         /// LinkContainer элемент управления.
