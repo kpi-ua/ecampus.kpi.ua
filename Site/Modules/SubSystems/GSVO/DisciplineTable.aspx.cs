@@ -17,14 +17,14 @@ namespace Site.Modules.SubSystems.GSVO
                 Response.Redirect("/login");
             }
 
-            if (!IsPostBack)
-            {
+            //if (!IsPostBack)
+            //{
                 List<Campus.Common.RtDiscipline> rtDisc = new List<Campus.Common.RtDiscipline>();
 
                 CathName.Text += " <h4 class=\"text-success\">" + Session["SubdivisionName"] + "</h4>";
                 SpecName.Text += "<i class=\"text-success\">" + Session["GSVOSpec"] + "</i>";
 
-                RtDisciplineTable.Text += "<table class=\"table table-bordered table-hover\"><tr><td colspan=\"2\">" + "<button id=\"addDisc\" class=\"glyphicon glyphicon-plus\" type=\"submit\" runat=\"server\" width=\"50\" heigth=\"50\" OnClick=\"addDisc_Click\"></button>" + "</td><td><b>Цикли</b></td><td><b>Компоненти</b></td><td><b>Назва дисципліни</b></td>" +
+                RtDisciplineTable.Text += "<table class=\"table table-bordered table-hover\"><tr><td colspan=\"2\">" + "<a href=\"SearchDiscipline.aspx\" class=\"glyphicon glyphicon-plus\"></a>" + "</td><td><b>Цикли</b></td><td><b>Компоненти</b></td><td><b>Назва дисципліни</b></td>" +
                 "<td><b>Шифр</b></td><td><b>Кількість годин</b></td><td><b>Національні кредити</b></td><td><b>Кредити ECTS</b></td><td><b>Поза\nкредит\nдисц</b></td><td><b>Актуальність</b></td><td><b>Статус</b></td><td><b>Опис</b></td></tr>";
 
                 foreach (var item in CampusClient.GetRtDiscipline(SessionId, Convert.ToInt32(Session["RtProfTrainTotalId"])))
@@ -107,28 +107,19 @@ namespace Site.Modules.SubSystems.GSVO
                             break;
                     }
 
-                    RtDisciplineTable.Text += "<td><button id=\"editDisc\" class=\"glyphicon glyphicon-edit\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\" OnClick=\"editDisc_Click\"></button></td><td><button id=\"removeDisc\" class=\"glyphicon glyphicon-remove\" background-color=\"#208843\" width=\"30\" height=\"30\" type=\"submit\" runat=\"server\"ToolTip = \"Видалення нормативної складової\" OnClick=\"removeDisc_Click\"></button></td><td>" + cycle + "</td><td>" + component + "</td><td>" + item.Name.ToString() + "</td>" +
+                    RtDisciplineTable.Text += "<td><a id=\"" + item.RtProfTrainTotalId + "\" class=\"glyphicon glyphicon-edit editdispline \"data-toggle=\"modal\" data-target=" +
+                                            "\"#EditDisc-modal\"></a></td><td><a id=\"" + item.RtProfTrainTotalId + "\" class=\"glyphicon glyphicon-remove deletediscipline\" ></a></td><td>" + cycle + "</td><td>" + component + "</td><td>" + item.Name.ToString() + "</td>" +
                 "<td>" + item.Shifr + "</td><td>" + item.CountHour + "</td><td>" + item.CreditNational + "</td><td>" + item.CreditECTS +
                 "</td><td>" + item.OutCredit + "</td><td>" + item.vcActuality + "</td><td>" + item.vcStatus + "</td><td>" + item.FullName + "</td></tr>";
                 }
 
                 RtDisciplineTable.Text += "</table>";
-            }
+            //}
         }
 
         private void addDisc_Click(object sender, EventArgs e)
         {
             Response.Redirect("SearchDiscipline.aspx");
-        }
-
-        private void editDisc_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void removeDisc_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -85,7 +85,7 @@ namespace Site.Modules.SubSystems
 
         private void GetToSVOSubsystem(object sender, EventArgs e)
         {
-            Response.Write("Немає сторінки");
+            Response.Write("SVO/Default.aspx");
         }
 
         private void GetToGSVOSubSystem(object sender, EventArgs e)

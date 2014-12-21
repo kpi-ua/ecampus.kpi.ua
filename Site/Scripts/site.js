@@ -91,7 +91,32 @@
         }
 
     });
+    var idDisc;
+    $('.editdispline').click(function () {
+        idDisc = $(this).attr('id');
+    });
+    $('#SaveEditDiscipline').click(function () {
+        if ($('#dcComponentId').val() != null) {
 
+            $.ajax({
+                url: 'http://campus-api.azurewebsites.net/Discipline/EditRtDiscipline',
+                type: 'GET',
+                data: {
+                    rtProfTrainTotalId: idDisc,
+                    dcComponentId: $('#dcComponentId').val,
+                    dcCycleId: $('#dcCycleId').val(),
+                    shifr: $('#shifr').val(),
+                    countHour: $('#countHour').val(),
+                    creditNational: $('#creditNational').val(),
+                    creditECTS: $('#creditECTS').val(),
+                    ourCredit: $('#ourCredit').val(),
+                    vcStatus: $('#vcStatus').val(),
+                    vcActuality: $('#vcActuality').val(),
+                    fullName: $('#fullName').val()
+                }
+            });
+        }
+    });
 });
 
 var image;
