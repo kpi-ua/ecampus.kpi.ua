@@ -991,6 +991,7 @@ ServerNotifications = function () {
         var message = simpleNotificationDefaultMessageBuilder(e);
         if (e["Title"] != null) {
             $.ambiance({
+                type: "success",
                 title: e["Title"],
                 message: message,
                 fade: true,
@@ -999,6 +1000,7 @@ ServerNotifications = function () {
         }
         else {
             $.ambiance({
+                type: "success",
                 message: message,
                 fade: true,
                 timeout: 5
