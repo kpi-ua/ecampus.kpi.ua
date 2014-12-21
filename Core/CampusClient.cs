@@ -568,5 +568,20 @@ namespace Core
             if (answer["Data"]==null) return null;
             return answer["Data"].ToString();
         }
+
+
+        /*
+          public List<Campus.Common.RtDiscipline> GetRtDiscipline(string sessionId, int rtProfTrainTotalId)
+        {
+            var result = Get<List<Campus.Common.RtDiscipline>>("Specialist", "GetRtProfTrainTotal", new { sessionId, rtProfTrainTotalId });
+            return result;
+        }
+         */
+        public List<Campus.Common.DcDiscipline> GetDcDisciplines(string sessionId, string name)
+        {
+            var result = Get<List<Campus.Common.DcDiscipline>>("Discipline", "GetDcDisciplineName",
+                new {sessionId, name});
+            return result;
+        } 
     }
 }
