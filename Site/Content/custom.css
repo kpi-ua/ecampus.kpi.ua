@@ -380,21 +380,8 @@
     height:100%;
     vertical-align:top;
 }
-input[type="file"] {
-    z-index:2;
-    position:relative;
-}
-
-.inline-panel {
-    display:inline-block;
-    width:50%;
-    height:100%;
-    vertical-align:top;
-}
-
-/*
-.inline-panel:last-child {
-    width:25%;
+.input-group{
+    width:100%;
 }
 .input-group > * {
     display:block;
@@ -403,6 +390,7 @@ input[type="file"] {
     width:100%;
     margin-bottom:0.5em;
 }
+
 td,th {
     padding:0.5em;
     border:3px solid #FFF;
@@ -412,4 +400,7 @@ th {
     background:#ddd;
     font-weight:bold;
 }
-*/
+.mz_search
+{
+	min-height:350px;
+}
