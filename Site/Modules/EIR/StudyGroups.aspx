@@ -1,8 +1,15 @@
-﻿<%@ Page Title="Пошук" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StudyGroups.aspx.cs" Inherits="Site.Modules.EIR.StudyGroups" %>
+﻿<%@ Page Title="Навчальні групи" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StudyGroups.aspx.cs" Inherits="Site.Modules.EIR.StudyGroups" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <div id="panel"></div>
-    <input id="irEdit" type="hidden" runat="server" />
+    <ul>
+         <li>
+             <asp:TextBox id="word" value="" runat="server" style="width: 150px; margin: 0;" />
+         </li>
+         <li>
+             <asp:Button id="find" runat="server" Text ="Пошук групи" OnClick ="find_Click1" BackColor ="#ccffff" BorderStyle="Solid" BorderWidth ="2" Width ="150" Font-Bold="true" ></asp:Button>
+             <asp:Button id="all" runat="server" Text ="Показати всі групи" OnClick ="all_Click" BackColor ="#ccffff" BorderStyle="Solid" BorderWidth ="2" Width ="200" Font-Bold="true" Visible ="false" ></asp:Button>
+         </li>
+    </ul>
         <asp:Panel ID="LinkContainer" runat="server">
     </asp:Panel>
     <script type="text/javascript">
