@@ -6,7 +6,6 @@ Project location:
 * Test page: http://ecampus.kpi.ua/login
 * **Cloud** (from cloud-branch, for debug, with continuous deploy) - http://campus-portal.azurewebsites.net/login
 
-## Test auth 
-* 1 / 12 - Свинаренко
-* 123 / 123 Джон Малкович 
-* 2 / 21 Мелкумян Катерина Юріївна 
+## Test User Accounts
+
+![campus-pass.png](https://bitbucket.org/repo/z7pKa9/images/2351803063-campus-pass.png)
