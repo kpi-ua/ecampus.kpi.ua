@@ -191,6 +191,7 @@
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\planner-32.png" />
     <Content Include="Modules\EIR\StudyGroups.aspx" />
     <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
     <Content Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx" />
