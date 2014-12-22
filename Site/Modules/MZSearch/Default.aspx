@@ -13,7 +13,7 @@
         <h1><%=Page.Title %></h1>
     </div>
 
-    <div class="mz_seach">
+    <div class="mz_search">
         <ul class="nav nav-tabs" id="mzTabs">
             <li><a href="#tab1" data-toggle="tab">РНП</a></li>
             <li><a href="#tab2" data-toggle="tab">Кредитні модулі</a></li>
