@@ -4,21 +4,8 @@ Project location:
 
 * Dummy page: http://ecampus.kpi.ua/
 * Test page: http://ecampus.kpi.ua/login
-* **Cloud** (from cloud-branch, for debug, with continuous deploy) - http://campus-portal.azurewebsites.net
+* **Cloud** (from cloud-branch, for debug, with continuous deploy) - http://campus-portal.azurewebsites.net/login
 
-### Contributors
+## Test User Accounts
 
-* Nikolay Malenko
-* Alex Moroz
-* Dmitriy Svinarekno
-* Andrey Godny
-* Vladislav Horbatiuk
-* Artur Dzidzoiev
-* Vlad Yato
-* Oleh Formaniuk
-* Olya Mishchuck
-* ...
-
-### Architector & maintainer
-
-* Andrey Gubskiy
+![campus-pass.png](https://bitbucket.org/repo/z7pKa9/images/2351803063-campus-pass.png)
