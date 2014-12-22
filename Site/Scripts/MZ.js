@@ -145,11 +145,13 @@ $(document).ready(function () {
 
 
     $("#body_sel_table").change(function () {
+        
         if ($("#body_sel_table").val() == 2) {
+           // alert('ol');
             $("#body_GetGroup").empty();
             if (check_data($(this))) {
                 $("#body_GetGroup").append("<option value='-1'>Виберіть групу</option>");
-                var url = ApiEndpoint + "MzSearch/GetGroups?shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text() + "&year=" + $("#body_GetYear").find("option:selected").text();
+                var url = ApiEndpoint + "MzSearch/GetGroups?riven="+ $('#body_GetRiven').find("option:selected").text() + "&form=" + $("#body_GetForm").find("option:selected").text() + "&year=" + $("#body_GetYear").find("option:selected").text() + "&shifr=" + $("#body_GetProf").val();
                 $.getJSON(url, function (data, status) {
                     if (data.Data.length > 0) {
                         $.each(data.Data, function (key, value) {
@@ -174,6 +176,7 @@ $(document).ready(function () {
             $("#select_table").css('display', 'block');
             $("#select_group").css('display', 'none');
             $("#BodyContainer").css('display', 'block');
+            //alert('okl');
             GetTable($("#body_sel_table").val());
         }
     });
@@ -476,6 +479,7 @@ $(document).ready(function () {
 
                                         array.push(value.ModuleName);
                                         array1.push(value.HourN);
+                                        
                                         if (value.NName == "Лекція") { part.append("<tr class='tr-row' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
                                         if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
                                         if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
@@ -508,7 +512,13 @@ $(document).ready(function () {
                             });
                             //alert(array.length)
                         }
-                        for (var j1 = 0; j1 < array1.length; j1++) $('.tr-row').eq(j1).find('td').eq(5).text(array1[j1]);
+                        
+                        for (var j1 = 0; j1 < array1.length; j1++) {
+                            setTimeout(10);
+                            $('.tr-row').eq(j1).find('td').eq(5).text(array1[j1]);
+                            
+                           //alert(array1[j1]);
+                        }
                         $(".cycle2").on("click", function () {
                             if ($(this).find('i').hasClass('fa-caret-up')) {
                                 $rows = $(this).parent().parent().parent().find('tr');
