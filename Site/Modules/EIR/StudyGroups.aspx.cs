@@ -20,7 +20,7 @@ namespace Site.Modules.EIR
             //var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId);
             GetUser();
         }
-
+        //Отримує id поточного користувача, викликає GetData
         private void GetUser()
         {
             var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId.ToString());
@@ -38,6 +38,7 @@ namespace Site.Modules.EIR
             GetData(UserId);
         }
 
+        //Отримує кафедру користувача, робить перевірки, викликає ShowData
         private void GetData( string UserId)
         {
             var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetCathedra?UserId=" + UserId);
@@ -50,9 +51,12 @@ namespace Site.Modules.EIR
             {
                 if (item["DcSubdivisionId"] != null)
                 {
+                    
                     CathedraId = item["DcSubdivisionId"].ToString();
+                    //перевіряє на повтор кафедри (доволі часто таке буває)
                     if (!usedCaf.Contains(CathedraId))
                     {
+                        string subtype = "";
                         var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetStudyGroups?CathedraId=" + CathedraId);
                         if (answer != null)
                         {
@@ -60,7 +64,7 @@ namespace Site.Modules.EIR
                             var answer2 = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetSubdivisionData?sesionid=" + CampusClient.SessionId + "&dcSubdivisionId=" + CathedraId);
                             if (answer2 != null)
                             {
-                                var CathName = new HtmlGenericControl("p");
+                                var CathName = new HtmlGenericControl("h4");
                                 var dataCath = answer2["Data"];
                                 foreach (var elem in (Dictionary<string, object>)dataCath)
                                 {
@@ -68,20 +72,32 @@ namespace Site.Modules.EIR
                                     {
                                         CathName.InnerText = elem.Value.ToString();
                                     }
+                                    if (elem.Key == "DcSubdivisionTypeId" && elem.Value != null)
+                                    {
+                                        subtype = elem.Value.ToString();
+                                    }
                                 }
-                                LinkContainer.Controls.Add(CathName);
+                                //Перевірка чи знайдений підрозділ це кафедра
+                                if (subtype == "30")
+                                {
+                                    LinkContainer.Controls.Add(CathName); 
+                                    ShowData(data, CathedraId);
+                                    usedCaf.Add(CathedraId);
+                                    subtype = "";
+                                }
                             }
-                            ShowData(data, CathedraId);
                         }
-                        usedCaf.Add(CathedraId);
                     }
                 }
             }
         }
 
+        //Отримує дані про навчальні групи кожної кафедри та виводить їх
         private void ShowData(ArrayList data, string CathedraId)
         {
-            int length = data.Count / 4 + 1;
+            //кількість груп в рядку
+            int count_group_in_row = 4;
+            int length = data.Count / count_group_in_row + 1;
             var table = new HtmlGenericControl("table");
             List<HtmlGenericControl> tr = new List<HtmlGenericControl>();
             for (int i = 0; i < length; i++)
@@ -96,7 +112,6 @@ namespace Site.Modules.EIR
                 var irLink = new LinkButton();
                 var td = new HtmlGenericControl("td");
                 var Name = new HtmlGenericControl("h5");
-                var Course = new HtmlGenericControl("h6");
                 var CathName = new HtmlGenericControl("h6");
                 var Abr = new HtmlGenericControl("h6");
 
@@ -117,18 +132,13 @@ namespace Site.Modules.EIR
                         }
                     }
                 }
-
-                if (item["RtStudyGroupId"] != null)
-                {
-                    irLink.PostBackUrl = Request.Url.AbsolutePath;
-                    irLink.Attributes.Add("class", "irLink list-item list-item-info");
-                    irLink.Attributes.Add("Id", item["RtStudyGroupId"].ToString());
-                }
+                //перевірка, чи була натиснута клавіша пошуку
                 if (finder)
                 {
                     if (item["Name"].ToString().Contains(word.Text))
                     {
                         Name.InnerText = item["Name"].ToString();
+                        //якщо шукану кафедру знайдено, то присвоюємо true
                         finded = true;
                     }
                 }
@@ -136,18 +146,20 @@ namespace Site.Modules.EIR
                 {
                     Name.InnerText = item["Name"].ToString();
                 }
-                if (item["StudyCourse"] != null)
+                if (item["RtStudyGroupId"] != null)
                 {
-                    Course.InnerText = "Курс: " + item["StudyCourse"].ToString();
+                    irLink.PostBackUrl = "/Modules/EIR/StudentsOfGroup.aspx?RtStudyGroupId=" + Name.InnerText.ToString();
+                    irLink.Attributes.Add("class", "irLink list-item list-item-info");
+                    irLink.Attributes.Add("Id", item["RtStudyGroupId"].ToString());
                 }
+                //перевіряємо, чи цю групу шукали
                 if (finded)
                 {
                     irLink.Controls.Add(Name);
-                    irLink.Controls.Add(Course);
                     irLink.Controls.Add(CathName);
                     irLink.Controls.Add(Abr);
                     td.Controls.Add(irLink);
-                    int ind = row / 4;
+                    int ind = row / count_group_in_row;
                     tr[ind].Controls.Add(td);
                     table.Controls.Add(tr[ind]);
                     row++;
@@ -158,11 +170,10 @@ namespace Site.Modules.EIR
                     if (!finder) 
                     {
                         irLink.Controls.Add(Name);
-                        irLink.Controls.Add(Course);
                         irLink.Controls.Add(CathName);
                         irLink.Controls.Add(Abr);
                         td.Controls.Add(irLink);
-                        int ind = row / 4;
+                        int ind = row / count_group_in_row;
                         tr[ind].Controls.Add(td);
                         table.Controls.Add(tr[ind]);
                         row++;
@@ -173,6 +184,7 @@ namespace Site.Modules.EIR
             LinkContainer.Controls.Add(table);
         }
 
+        //пошук
         protected void find_Click1(object sender, EventArgs e)
         {
             finder = true;
@@ -180,7 +192,7 @@ namespace Site.Modules.EIR
             all.Visible = true;
             GetUser();
         }
-
+        //вивести всі групи (після пошуку)
         protected void all_Click(object sender, EventArgs e)
         {
             all.Visible = false;
