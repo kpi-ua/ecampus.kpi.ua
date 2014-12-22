@@ -67,15 +67,6 @@ namespace Site {
         protected global::System.Web.UI.WebControls.Literal TimeTablesLiteral;
         
         /// <summary>
-        /// SpecFunc control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal SpecFunc;
-        
-        /// <summary>
         /// OldPass control.
         /// </summary>
         /// <remarks>
@@ -110,6 +101,15 @@ namespace Site {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button SavePass;
+        
+        /// <summary>
+        /// SpecFunc control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal SpecFunc;
         
         /// <summary>
         /// MessegeIsConfirmed control.

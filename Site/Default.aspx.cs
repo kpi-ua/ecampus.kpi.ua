@@ -169,8 +169,8 @@ namespace Site
                 }
             }
 
-            SpecFunc.Text += "<table class=\"table-hover table-fill\">" +
-                "<tr><th>Вид підсистеми</th><th>Роль в підсистемі</th></tr>";
+            SpecFunc.Text += "<table class=\"table table-hover table-fill\">" +
+                "<tr><th><strong>Вид підсистеми</strong></th><th><strong>Роль в підсистемі</strong></th></tr>";
             foreach (var p in CurrentUser.Profiles)
             {
                 SpecFunc.Text += "<tr><td>" + p.SubsystemName + "</td>";

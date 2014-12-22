@@ -1,22 +1,15 @@
-﻿using Campus.SDK;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
+using System.Web.Script.Serialization;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web.Script.Serialization;
-using System.Text;
 
 namespace Site.Modules.EIR
 {
     public partial class Search : Core.SitePage
     {
-        private bool _isGroup;
-        private Client _client;
-        private string _addGroupUrl;
 
         protected override void OnLoad(EventArgs e)
         {
@@ -40,7 +33,7 @@ namespace Site.Modules.EIR
                     GetCathedra(UserId);
                 }
             }
-            
+
         }
 
         //Отримує кафедру користувача, робить перевірки, викликає ShowData
