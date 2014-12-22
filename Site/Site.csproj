@@ -191,6 +191,9 @@
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\planner-32.png" />
+    <Content Include="Modules\EIR\StudentsOfGroup.aspx" />
+    <Content Include="Modules\EIR\StudyGroups.aspx" />
     <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
     <Content Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx" />
     <Content Include="Modules\SubSystems\SVO\Default.aspx" />
@@ -412,6 +415,20 @@
     </Compile>
     <Compile Include="Modules\EIR\Menu.master.designer.cs">
       <DependentUpon>Menu.master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EIR\StudentsOfGroup.aspx.cs">
+      <DependentUpon>StudentsOfGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\EIR\StudentsOfGroup.aspx.designer.cs">
+      <DependentUpon>StudentsOfGroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EIR\StudyGroups.aspx.cs">
+      <DependentUpon>StudyGroups.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\EIR\StudyGroups.aspx.designer.cs">
+      <DependentUpon>StudyGroups.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\EIR\View.aspx.cs">
       <DependentUpon>View.aspx</DependentUpon>

@@ -239,7 +239,7 @@ function AjaxLoader(id, options) {
 
     var canvas = id[0];
     if (canvas == null) {
-        console.log("AjaxLoader Error! Cannot find canvas element by id '" + id + "'");
+        //console.log("AjaxLoader Error! Cannot find canvas element by id '" + id + "'");
         return null;
     }
     var context = canvas.getContext("2d");
@@ -571,9 +571,41 @@ Planner = function (session, input) {
             var mm = tommorow.getMonth() + 1; //January is 0!
             var yyyy = tommorow.getFullYear();
             return dd + '.' + mm + '.' + yyyy;
+        },
+        dateConverter: function (date) {
+            var today = date;
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+
+            if (dd < 10) {
+                dd = "0" + dd;
+            }
+
+            if (mm < 10) {
+                mm = "0" + mm;
+            }
+
+            return today = dd + "." + mm + "." + yyyy;
+        },
+        isDateString: function(string) {
+            return +((string + "").split(".").length) == 3;
         }
     }
     this.dateTimeOperations = DateTimeOperations;
+
+    this.UpdateCounter = function () {
+        APICalls.MakeAPICall("GetAllForUserDateCount", undefined, undefined, undefined, undefined, function (data) {
+            if (+data["Data"] > 0) {
+                $(".calendar-button-counter").show();
+                $(".counter-placeholder").html(data["Data"]);
+            }
+            else {
+                $(".calendar-button-counter").hide();
+            }
+        }, undefined);
+    };
+    var _updateCounter = this.UpdateCounter;
 
     var _d;
     this.Show = function (container, archive, page) {
@@ -581,7 +613,7 @@ Planner = function (session, input) {
         if (page != undefined) Members.Page = page; else page = Members.Page;
 
         _d = bootbox.dialog({
-            closeButton: false,
+            closeButton: true,
             message: Members.Messages.EventList,
             buttons: {                                
                 Close: {
@@ -595,11 +627,20 @@ Planner = function (session, input) {
         });
 
         var input = $('.datepicker').pickadate({
-            today: 'Today',
+            today: 'Сьогодні',
             clear: '',
-            close: 'Close',
+            close: 'Приховати',
             format: 'dd.mm.yyyy',
             onStart: function () {
+                $('.datepicker').val($.ddate);
+                $.planner.RenderTimeLabels($.ddate, Members.ArchiveLastState, page);
+            },
+            onSet: function (date) {
+                if (!DateTimeOperations.isDateString(date.select)) {
+                    $.ddate = DateTimeOperations.dateConverter(new Date(date.select));
+                } else {
+                    $.ddate = date.select;
+                }
                 $('.datepicker').val($.ddate);
                 $.planner.RenderTimeLabels($.ddate, Members.ArchiveLastState, page);
             },
@@ -642,26 +683,26 @@ Planner = function (session, input) {
                 items += "<li><div class='btn input-group input-group-lg');'><span class='input-group-addon'>Oops</span><input type='text' class='form-control' style='cursor:default;' placeholder='Заплановані події відсутні' disabled></div></li><li><hr></li>";
             } else {                
                 for (var i = 0; i < data["Data"].length; i++) {
-                    if (data["Data"]["PlannerId"] == "0")
+                    if (+data["Data"]["PlannerId"] === 0)
                         items += nano("<li class='event'><div class='btn input-group input-group-lg' style='width: 530px;'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
                     else
                         items += nano("<li class='event'><div class='btn input-group input-group-lg' style='width: 530px;' onclick='" + values.thisObject + ".ShowSelected(\"{PlannerId}\", \"{DateTask}\", \"{Actuality}\");'><span class='input-group-addon'>{TimeTask}</span><input type='text' class='form-control' style='cursor:default;' placeholder='{Title}' disabled></div></li>", data["Data"][i]);
-                    if (title == "")
+                    if (title === "")
                         title = data["Data"][i].DateTask;
                 }
-                items += '<li><hr></li>';
+                items += "<li><hr></li>";
             }
             if (DateTimeOperations.dateComparer(date, Members.Today()) >= 0) {
-                if (+archive != 0) {
+                if (+archive !== 0) {
                     Members.ArchiveLastState = false;                    
                 }
                 else {
                     Members.ArchiveLastState = true;                    
                 }
             }
-            items += '</ul></div>';
+            items += "</ul></div>";
             ajaxLoaderBig.hide();
-            if (title == "")
+            if (title === "")
                 title = Members.Today();            
 
             $("#datepicker-events").html(items);           
@@ -710,7 +751,7 @@ Planner = function (session, input) {
     var DetectChanges = function (callback) {        
         $("#tasktext3").bind('input propertychange', function () { Members.Update.Task = true; callback(); });
         $("#tasktime3").bind('input propertychange', function () { Members.Update.Time = true; callback(); });
-        $("#tasktime3").on("change", function () { Members.Update.Time = true; callback(); })
+        $("#tasktime3").on("change", function () { Members.Update.Time = true; callback(); });
         $("#tasktitle3").bind('input propertychange', function () { Members.Update.Title = true; callback(); });
     };
 
@@ -724,7 +765,7 @@ Planner = function (session, input) {
         var beforeAjaxCall = function () {            
             $("#" + values.template_id).css("display", "inline");
             var dialog = bootbox.dialog({
-                closeButton: false,
+                closeButton: true,
                 message: Members.Messages.InputForm,
                 buttons: {
                     Add: {
@@ -810,58 +851,9 @@ Planner = function (session, input) {
     };
 
     var update = function (date) {
-        if (date == Members.Today()) {
-            $.ajax(ApiEndpoint + "Calendar/GetAllForUserDateCount?sessionId=" + Members.SessionId, {
-                success: function (data) {
-                    var count = +data['Data'];
-                    if (count > 0)
-                        $(".datepicker-label").html(count).show();
-                },
-                error: function () {
-
-                }
-            });
-        }
+        _updateCounter();
         _renderTimeLabels(date, false);
-    };
-
-    var _togglePopover = function (date, archive, page) {
-        if (page == undefined)
-            page = 1;
-
-        if (page == Members.Page) {
-            if ($('.popover').html() == undefined || $('.popover').html() == "") {
-                date = Members.Date(date);
-                if (archive == undefined)
-                    archive = Members.ArchiveLastState;
-
-                if (+page < 1)
-                    page = 1;
-
-                _renderTimeLabels(date, archive, page);
-            }
-            else {
-                $("#" + values.popover_toggle_id).popover('destroy');
-                if ($('.popover').html() != undefined)
-                    $('.popover').html("");
-            }
-        } else {
-            $("#" + values.popover_toggle_id).popover('destroy');
-            if ($('.popover').html() != undefined)
-                $('.popover').html("");
-
-            date = Members.Date(date);
-            if (archive == undefined)
-                archive = Members.ArchiveLastState;
-
-            if (+page < 1)
-                page = 1;
-
-            _renderTimeLabels(date, archive, page);
-        }
-    }
-
-    this.togglePopover = _togglePopover;
+    };    
 
     this.AddNew = function (date) {         
         if (date == undefined || date == "") {
@@ -870,7 +862,7 @@ Planner = function (session, input) {
 
         $(".add-pop-btn").attr("disabled", "disabled");
         bootbox.dialog({
-            closeButton: false,
+            closeButton: true,
             message: Members.Messages.InputForm,
             title: "Додати нову подію",
             buttons: {
@@ -901,6 +893,11 @@ Planner = function (session, input) {
     }
 
     var _addNew = this.AddNew;
+
+    // run on-initialization events
+    $(function () {
+        _updateCounter();
+    });    
 };
 
 // Nano template engine
@@ -994,6 +991,7 @@ ServerNotifications = function () {
         var message = simpleNotificationDefaultMessageBuilder(e);
         if (e["Title"] != null) {
             $.ambiance({
+                type: "success",
                 title: e["Title"],
                 message: message,
                 fade: true,
@@ -1002,6 +1000,7 @@ ServerNotifications = function () {
         }
         else {
             $.ambiance({
+                type: "success",
                 message: message,
                 fade: true,
                 timeout: 5

@@ -25,13 +25,7 @@
 
         $(document).ready(function () {
             $(document).on("click", ".irLink", function (e) {
-                var irGroupId = $(this).attr("IrId");
-
-                SetSessionValue("EirId", irGroupId);
-                e.preventDefault();
-                window.open("CardView.aspx", "_self");
             });
-
         });
     </script>
 </asp:Content>

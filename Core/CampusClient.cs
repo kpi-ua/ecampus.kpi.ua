@@ -508,5 +508,80 @@ namespace Core
             var result = Get<List<Campus.Common.RtDiscipline>>("Specialist", "GetRtProfTrainTotal", new { sessionId, rtProfTrainTotalId });
             return result;
         }
+
+        public List<ContactType> GetAllContactTypes() 
+        {
+            try
+            {
+                var result = Get <List<ContactType>>("User", "GetAllContactType");
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public bool AddUserContact(string sessionId, string userContactTypeName, string userContactValue, string isVisible, string receptioHours)
+        {
+            var url = BuildUrl("User", "AddUserContact", new { sessionId, userContactTypeName, userContactValue, isVisible, receptioHours });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public int AddUserContactRetContactId(string sessionId, string userContactTypeName, string userContactValue, string isVisible, string receptioHours)
+        {
+            var url = BuildUrl("User", "AddUserContactReturnContactId", new { sessionId, userContactTypeName, userContactValue, isVisible, receptioHours });
+            var answer = GetData(url);
+            if (Int32.Parse(answer["Data"].ToString().Split(':')[0])>0)
+            {
+                return Int32.Parse(answer["Data"].ToString().Split(':')[0]);
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        public bool SetUserCredo(string sessionId, string userCredo)
+        {
+            var url = BuildUrl("User", "SetUserCredo", new { sessionId, userCredo });
+            var answer = GetData(url);
+            if (answer["Data"].ToString().Split(':')[0] == "OK")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public string GetUserCredo(string sessionId)
+        {
+            var url = BuildUrl("User", "GetUserCredo", new { sessionId});
+            var answer = GetData(url);
+            if (answer["Data"]==null) return null;
+            return answer["Data"].ToString();
+        }
+
+
+        /*
+          public List<Campus.Common.RtDiscipline> GetRtDiscipline(string sessionId, int rtProfTrainTotalId)
+        {
+            var result = Get<List<Campus.Common.RtDiscipline>>("Specialist", "GetRtProfTrainTotal", new { sessionId, rtProfTrainTotalId });
+            return result;
+        }
+         */
+        public List<Campus.Common.DcDiscipline> GetDcDisciplines(string sessionId, string name)
+        {
+            var result = Get<List<Campus.Common.DcDiscipline>>("Discipline", "GetDcDisciplineName",
+                new {sessionId, name});
+            return result;
+        } 
     }
 }

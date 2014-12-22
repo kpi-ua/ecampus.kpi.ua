@@ -60,8 +60,14 @@
 
                                             <table class="col-xs-12  col-sm-8  col-md-9 table-info">
                                                 <asp:Literal ID="UserContactsLiteral" runat="server"></asp:Literal>
+                                                <asp:Literal ID="NewUserContactLiteral" runat="server"></asp:Literal>
                                             </table>
-                                        </div>
+                                            <table class="col-xs-12  col-sm-8  col-md-9 table-info">
+                                                <tr><td>
+                                                <a class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#AddUserContact-modal"></a>
+                                                </td></tr>
+                                        </table>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -292,6 +298,49 @@
                         </div>
                         <div class="modal-footer">
                                     <asp:Button type="button" class="btn btn-default" ID="BtnChangeCredo" Text="OK" runat="server" OnClick="BtnChangeCredo_Click" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--#endregion -->
+            <!-- Modal 4-->
+            <div class="modal" id="AddUserContact-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Додайте новий контакт</h4>
+                        </div>
+                        <div class="modal-body">
+                            <asp:DropDownList ID="ListTypeContact" runat="server"/>
+                              <asp:TextBox ClientIDMode="Static" ID="UserContactValue" runat="server" placeholder="Значення контакту"></asp:TextBox>
+                            <asp:TextBox ClientIDMode="Static" ID="ReceptionHoursValue" runat="server" placeholder="Години прийому"></asp:TextBox>
+                            <asp:CheckBox ID="IsVisibleCB" Text="Приховати" runat="server"/>
+                        </div>
+                        <div class="modal-footer">
+                                    <asp:Button type="button" class="btn btn-default" ID="AddUserContact" Text="OK" runat="server" OnClick="AddUserContact_Click" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--#endregion -->
+            <!-- Modal 5-->
+            <div class="modal" id="RedactUserContact-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Редагування</h4>
+                        </div>
+                        <div class="modal-body">
+                              <input type="text" id ="newValueUserContact" placeholder="нове значення"/>
+                        </div>
+                        <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" id="SaveNewUserContactValue" data-dismiss="modal">OK</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </div>
                     </div>
