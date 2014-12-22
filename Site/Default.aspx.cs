@@ -33,6 +33,7 @@ namespace Site
 
         public void UserPersonalInfoAddToPage()
         {
+            NewUserCredoTextBox.Text = CampusClient.GetUserCredo(SessionId);
             if (CurrentUser.Employees.Count() != 0)
             {
                 WorkData.Text += "<tr><td>Дані за місцем роботи:</td><td>";
@@ -106,10 +107,13 @@ namespace Site
                 }
 
             }
-            var contactsType=CampusClient.GetAllContactTypes();
+            var contactsType = CampusClient.GetAllContactTypes();
             foreach (var v in contactsType)
             {
-                ListTypeContact.Items.Add(v.Name);
+                if (!CurrentUser.Contacts.ToList().Exists(contact => contact.ContactTypeName == v.Name))
+                {
+                    ListTypeContact.Items.Add(v.Name);
+                }
             }
 
             List<Campus.Common.TimeTable> ttList = null;
@@ -340,7 +344,7 @@ namespace Site
                     NewUserContactLiteral.Text += "<tr><td>" + ListTypeContact.SelectedValue + "</td>";
                     NewUserContactLiteral.Text += "<td>" + UserContactValue.Text + "  <a class=\"glyphicon glyphicon-pencil " +
                                             "redagContact\"data-toggle=\"modal\" data-target=\"#RedactUserContact-modal\"" +
-                                                  "id=\"" + newContactId+ "\">></a></td>";
+                                                  "id=\"" + newContactId+ "\"></a></td>";
                     NewUserContactLiteral.Text += "<td id=\"" + newContactId + "\"class=";
 
                     if (isVisible == "0")
