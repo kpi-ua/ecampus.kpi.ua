@@ -12,8 +12,549 @@ $(document).ready(function () {
     popupMagic(popup_Window_Width);
     window_resize();
     //------------------------------------------------------------end set popUP
+    GetYear();
 
+    $("#body_GetYear").change(function () {
+        $("#body_GetKaf").empty();
+        if (check_data($(this))) {
+            $("#body_GetKaf").append("<option value='-1'>Виберіть кафедру</option>");
+            var url = ApiEndpoint + "MzSearch/GetKafedra?year=" + $(this).find("option:selected").text();
+            $.getJSON(url, function (data, status) {
+                if (data.Data.length > 0) {
+                    $.each(data.Data, function (key, value) {
+                        $i = 0;
+                        $("#body_GetKaf").append("<option value='" + ($i++) + "'>" + value.Name + "</option>");
+                    });
+                }
+            });
+            $("#select_kaf").css('display', 'block');
+            $("#select_riven").css('display', 'none');
+            $("#select_prof").css('display', 'none');
+            $("#select_form").css('display', 'none');
+            $("#select_table").css('display', 'none');
+            $("#select_group").css('display', 'none');
+            $("#BodyContainer").css('display', 'none');
+        }
+    });
+
+    function GetYear() {
+        var url = ApiEndpoint + "MZSearch/GetYear";
+        $("#body_GetYear").append("<option value='-1'>Виберіть рік</option>");
+        $.getJSON(url, function (data, status) {
+            if (data.Data.length > 0) {
+                $i = 0;
+                $.each(data.Data, function (key, value) {
+                    //for ($i = 0; $i < data.Data.length;$i++)
+                    $("#body_GetYear").append("<option value='" + ($i++) + "'>" + value.StudyYear + "</option>");
+                });
+            }
+        });
+    }
+
+
+    $("#body_GetKaf").change(function () {
+        $("#body_GetRiven").empty();
+        if (check_data($(this))) {
+            $("#body_GetRiven").append("<option value='-1'>Виберіть рівень</option>");
+            var url = ApiEndpoint + "MzSearch/GetRiven";
+            $.getJSON(url, function (data, status) {
+                if (data.Data.length > 0) {
+                    $.each(data.Data, function (key, value) {
+                        $i = 0;
+                        $("#body_GetRiven").append("<option value='" + ($i++) + "'>" + value.Name + "</option>");
+                    });
+                }
+            });
+            $("#select_kaf").css('display', 'block');
+            $("#select_riven").css('display', 'block');
+            $("#select_prof").css('display', 'none');
+            $("#select_form").css('display', 'none');
+            $("#select_table").css('display', 'none');
+            $("#select_group").css('display', 'none');
+            $("#BodyContainer").css('display', 'none');
+        }
+
+    });
+
+
+    $("#body_GetRiven").change(function () {
+        $("#body_GetProf").empty();
+        if (check_data($(this))) {
+            $("#body_GetProf").append("<option value='-1'>Виберіть напрям</option>");
+            var url = ApiEndpoint + "MzSearch/GetProf?kaf=" + $('#body_GetKaf').find("option:selected").text() + "&riv=" + $(this).find("option:selected").text();
+            $.getJSON(url, function (data, status) {
+                if (data.Data.length > 0) {
+                    $.each(data.Data, function (key, value) {
+                        $i = 0;
+                        $("#body_GetProf").append("<option value='" + value.TotalShifr + "'>" + value.TotalShifr + " " + value.Name + "</option>");
+                    });
+                }
+            });
+            $("#select_kaf").css('display', 'block');
+            $("#select_riven").css('display', 'block');
+            $("#select_prof").css('display', 'block');
+            $("#select_form").css('display', 'none');
+            $("#select_table").css('display', 'none');
+            $("#select_group").css('display', 'none');
+            $("#BodyContainer").css('display', 'none');
+
+        }
+    });
+
+
+
+
+    $("#body_GetProf").change(function () {
+        $("#body_GetForm").empty();
+        if (check_data($(this))) {
+            $("#body_GetForm").append("<option value='-1'>Виберіть форму</option>");
+            var url = ApiEndpoint + "MzSearch/GetForm?shifr=" + $(this).val() + "&year=" + $("#body_GetYear").find("option:selected").text();
+            $.getJSON(url, function (data, status) {
+                if (data.Data.length > 0) {
+                    $.each(data.Data, function (key, value) {
+                        $i = 0;
+                        $("#body_GetForm").append("<option value='" + ($i++) + "'>" + value.Name + "</option>");
+                    });
+                }
+            });
+            $("#select_kaf").css('display', 'block');
+            $("#select_riven").css('display', 'block');
+            $("#select_prof").css('display', 'block');
+            $("#select_form").css('display', 'block');
+            $("#select_table").css('display', 'none');
+            $("#select_group").css('display', 'none');
+            $("#BodyContainer").css('display', 'none');
+        }
+    });
+
+    $("#body_GetForm").change(function () {
+        $("#body_sel_table").empty();
+
+        $("#body_sel_table").append("<option value='-1'>Виберіть таблицю</option>");
+        $("#body_sel_table").append("<option value='0'>Аудиторні години</option>");
+        $("#body_sel_table").append("<option value='1'>Контрольні заходи та їх розподіл за семестрами</option>");
+        $("#body_sel_table").append("<option value='2'>Для груп</option>");
+        $("#select_kaf").css('display', 'block');
+        $("#select_riven").css('display', 'block');
+        $("#select_prof").css('display', 'block');
+        $("#select_form").css('display', 'block');
+        $("#select_table").css('display', 'block');
+        $("#select_group").css('display', 'none');
+        $("#BodyContainer").css('display', 'none');
+    });
+
+
+    $("#body_sel_table").change(function () {
+        if ($("#body_sel_table").val() == 2) {
+            $("#body_GetGroup").empty();
+            if (check_data($(this))) {
+                $("#body_GetGroup").append("<option value='-1'>Виберіть групу</option>");
+                var url = ApiEndpoint + "MzSearch/GetGroups?shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text() + "&year=" + $("#body_GetYear").find("option:selected").text();
+                $.getJSON(url, function (data, status) {
+                    if (data.Data.length > 0) {
+                        $.each(data.Data, function (key, value) {
+                            $i = 0;
+                            $("#body_GetGroup").append("<option value='" + ($i++) + "'>" + value.Name + "</option>");
+                        });
+                    }
+                });
+                $("#select_kaf").css('display', 'block');
+                $("#select_riven").css('display', 'block');
+                $("#select_prof").css('display', 'block');
+                $("#select_form").css('display', 'block');
+                $("#select_table").css('display', 'block');
+                $("#select_group").css('display', 'block');
+                $("#BodyContainer").css('display', 'none');
+            }
+        }
+        else {
+            $("#select_riven").css('display', 'block');
+            $("#select_prof").css('display', 'block');
+            $("#select_form").css('display', 'block');
+            $("#select_table").css('display', 'block');
+            $("#select_group").css('display', 'none');
+            $("#BodyContainer").css('display', 'block');
+            GetTable($("#body_sel_table").val());
+        }
+    });
+
+    $("#body_GetGroup").change(function () {
+        $("#BodyContainer").css('display', 'block');
+        if ($("#body_GetGroup").val() != -1) GetTable($("#body_sel_table").val());
+    });
+
+
+    function GetTable(t_number) {
+        for (var i = 0; i < 3; i++) $("#body_Table" + i).css('display', 'none');
+        $("#body_Table" + t_number).css('display', 'block');
+        var cycle = new Array;
+        if (t_number == 0) {
+            for (var j = 4; j < $("#body_Table0 tr").length; j++) { $("#body_Table0 tr").eq(j).remove(); j--; }
+
+            //get cycles
+            var j = 1;
+            var url = ApiEndpoint + "MzSearch/GetCycle?shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text();
+            $.getJSON(url, function (data, status) {
+                if (data.Data.length > 0) {
+                    $.each(data.Data, function (key, value) {
+
+                        cycle.push(value.Name);
+
+
+                    });
+                }
+                //alert(cycle.length);
+                var array = new Array();
+                var array1 = new Array();
+                var name;
+                $j = 0;
+                $.each(cycle, function (i, item) {
+                    var part = $("<tbody />")
+                    part.append("<tr><td colspan='10'><a href='#' class='cycle'>" + cycle[i] + "<i class='fa fa-caret-up'></i></a></td></tr>")
+                    $("#body_Table0").append(part)
+                    ////////////////////////////////////////////
+
+
+                    //////////////////////////////////////////////
+                    var url1 = ApiEndpoint + "MzSearch/GetHours?cycle=" + cycle[i] + "&shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text() + "&year=" + $("#body_GetYear").find("option:selected").text();
+                    $.getJSON(url1, function (data, status) {
+
+                        if (data.Data.length > 0) {
+
+
+                            $.each(data.Data, function (key, value) {
+                                if (array.length != 0) {
+                                    var add = true;
+                                    for (var i1 = 0; i1 < array.length; i1++) {
+                                        if (array[i1] == value.ModuleName) {
+                                            add = false;
+                                            var number = i1 + 4;
+                                        }
+                                    }
+                                    if (add) {
+
+                                        array.push(value.ModuleName);
+                                        array1.push(value.HourN);
+                                        if (value.NName == "Лекція") { part.append("<tr class='tr-row' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
+                                        if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
+                                        if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
+                                        if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td></td><td>" + value.HourN + "</td></tr>");
+                                        //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+                                    }
+                                    else {
+
+                                        array1[number - 4] += value.HourN;
+                                        if (value.NName == "Лекція") name = 6;
+                                        if (value.NName == "Практичне заняття") name = 7;
+                                        if (value.NName == "Лабораторне заняття") name = 8;
+                                        if (value.NName == "Самостійна робота") name = 9;
+                                        $('.tr-row').eq(number - 4).find('td').eq(name).text(value.HourN);
+
+                                    }
+                                }
+                                else {
+
+                                    array.push(value.ModuleName);
+                                    array1.push(value.HourN);
+                                    if (value.NName == "Лекція") { part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
+                                    if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td0></td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
+                                    if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td>" + value.HourN + "</td><td></td></tr>");
+                                    if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td></tr>");
+                                    //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+
+                                }
+                                //$("#body_Table0").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
+                            });
+                            //alert(array.length)
+                        }
+                        for (var j1 = 0; j1 < array1.length; j1++) $('.tr-row').eq(j1).find('td').eq(5).text(array1[j1]);
+                        $(".cycle").on("click", function () {
+                            if ($(this).find('i').hasClass('fa-caret-up')) {
+                                $rows = $(this).parent().parent().parent().find('tr');
+                                $(this).find('i').removeClass('fa fa-caret-up').addClass('fa fa-caret-down');
+                                for (var i = 1; i < $rows.length; i++) $rows.eq(i).css('display', 'none');
+                            }
+                            else {
+                                $rows = $(this).parent().parent().parent().find('tr');
+                                $(this).find('i').removeClass('fa fa-caret-down').addClass('fa fa-caret-up');
+                                for (var i = 1; i < $rows.length; i++) $rows.eq(i).css('display', 'table-row');
+
+                            }
+                            e.preventDefault();
+                            return false;
+
+                        });
+
+                    }
+                    //,  $("#body_Table0").append("<tr><td>" + cycle[i] + "</td></tr>")
+                   );
+
+
+
+                })
+
+
+            });
+
+        }
+
+
+        if (t_number == 1) {
+            for (var j = 2; j < $("#body_Table1 tr").length; j++) { $("#body_Table1 tr").eq(j).remove(); j--; }
+
+            //get cycles
+            var j = 1;
+            var url = ApiEndpoint + "MzSearch/GetCycle?shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text();
+            $.getJSON(url, function (data, status) {
+                if (data.Data.length > 0) {
+                    $.each(data.Data, function (key, value) {
+
+                        cycle.push(value.Name);
+
+
+                    });
+                }
+                //alert(cycle.length);
+                var array = new Array();
+                var array1 = new Array();
+                var name;
+                $j = 0;
+                $.each(cycle, function (i, item) {
+                    var part = $("<tbody />");
+                    part.append("<tr><td colspan='11'><a href='#' class='cycle1'>" + cycle[i] + "<i class='fa fa-caret-up'></i></a></td></tr>");
+                    $("#body_Table1").append(part);
+                    ////////////////////////////////////////////
+
+
+                    //////////////////////////////////////////////
+                    var url1 = ApiEndpoint + "MzSearch/GetEvents?cycle=" + cycle[i] + "&shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text() + "&year=" + $("#body_GetYear").find("option:selected").text();
+                    $.getJSON(url1, function (data, status) {
+
+                        if (data.Data.length > 0) {
+
+
+                            $.each(data.Data, function (key, value) {
+
+                                if (array.length != 0) {
+                                    var add = true;
+                                    for (var i1 = 0; i1 < array.length; i1++) {
+                                        if (array[i1] == value.ModuleName) {
+                                            add = false;
+                                            var number = i1;
+                                        }
+                                    }
+                                    if (add) {
+
+                                        array.push(value.ModuleName);
+
+                                        if (value.Name == "Екзамен") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Залік") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Диференційований залік") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>" + value.Semester + "д</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Курсовий проект") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Курсова робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Робота контрольна") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Домашня контрольна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td></tr>"); }
+                                        //if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td></tr>"); }
+
+
+                                        //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+                                    }
+                                    else {
+
+
+                                        if (value.Name == "Екзамен") name = 3;
+                                        if (value.Name == "Залік") name = 4;
+                                        if (value.Name == "Диференційований залік") name = 4;
+                                        if (value.Name == "Робота контрольна") name = 5;
+                                        if (value.Name == "Курсовий проект") name = 6;
+                                        if (value.Name == "Курсова робота") name = 7;
+                                        if (value.Name == "Розрахунково-графічна робота") name = 8;
+                                        if (value.Name == "Домашня контрольна робота") name = 9;
+
+
+                                        $('.tr-row1').eq(number).find('td').eq(name).text(value.Semester);
+
+                                    }
+                                }
+                                else {
+
+                                    array.push(value.ModuleName);
+                                    if (value.Name == "Екзамен") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Залік") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Диференційований залік") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>" + value.Semester + "д</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Курсовий проект") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Курсова робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Робота контрольна") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Домашня контрольна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td></tr>"); }
+                                    //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+
+                                }
+                                //$("#body_Table1").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
+                            });
+                            //alert(array.length)
+                        }
+
+                        $(".cycle1").on("click", function () {
+
+                            if ($(this).find('i').hasClass('fa-caret-up')) {
+                                $rows = $(this).parent().parent().parent().find('tr');
+                                $(this).find('i').removeClass('fa fa-caret-up').addClass('fa fa-caret-down');
+                                for (var i = 1; i < $rows.length; i++) $rows.eq(i).css('display', 'none');
+                            }
+                            else {
+                                $rows = $(this).parent().parent().parent().find('tr');
+                                $(this).find('i').removeClass('fa fa-caret-down').addClass('fa fa-caret-up');
+                                for (var i = 1; i < $rows.length; i++) $rows.eq(i).css('display', 'table-row');
+
+                            }
+                            e.preventDefault();
+                            return false;
+
+                        });
+
+                    }
+                    //,  $("#body_Table0").append("<tr><td>" + cycle[i] + "</td></tr>")
+                   );
+
+
+
+                })
+
+
+            });
+
+        }
+
+
+        if (t_number == 2) {
+            for (var j = 4; j < $("#body_Table2 tr").length; j++) { $("#body_Table2 tr").eq(j).remove(); j--; }
+            
+            //get cycles
+            var j = 1;
+            var url = ApiEndpoint + "MzSearch/GetCycle?shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text();
+            $.getJSON(url, function (data, status) {
+                if (data.Data.length > 0) {
+                    $.each(data.Data, function (key, value) {
+
+                        cycle.push(value.Name);
+
+
+                    });
+                }
+                //alert(cycle.length);
+                var array = new Array();
+                var array1 = new Array();
+                var name;
+                $j = 0;
+                $.each(cycle, function (i, item) {
+                    var part = $("<tbody />")
+                    part.append("<tr><td colspan='10'><a href='#' class='cycle2'>" + cycle[i] + "<i class='fa fa-caret-up'></i></a></td></tr>")
+                    $("#body_Table2").append(part)
+                    ////////////////////////////////////////////
+
+
+                    //////////////////////////////////////////////
+                    var url1 = ApiEndpoint + "MzSearch/GetGroupTable?groupp=" + $("#body_GetGroup").find("option:selected").text() + "&cycle=" + cycle[i] + "&year=" + $("#body_GetYear").find("option:selected").text();
+                    $.getJSON(url1, function (data, status) {
+
+                        if (data.Data.length > 0) {
+
+
+                            $.each(data.Data, function (key, value) {
+                                //alert(value.ModuleName);
+                                if (array.length != 0) {
+                                    var add = true;
+                                    for (var i1 = 0; i1 < array.length; i1++) {
+                                        if (array[i1] == value.ModuleName) {
+                                            add = false;
+                                            var number = i1 + 4;
+                                        }
+                                    }
+                                    if (add) {
+
+                                        array.push(value.ModuleName);
+                                        array1.push(value.HourN);
+                                        if (value.NName == "Лекція") { part.append("<tr class='tr-row' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
+                                        if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
+                                        if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
+                                        if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td></td><td>" + value.HourN + "</td></tr>");
+                                        //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+                                    }
+                                    else {
+
+                                        array1[number - 4] += value.HourN;
+                                        if (value.NName == "Лекція") name = 6;
+                                        if (value.NName == "Практичне заняття") name = 7;
+                                        if (value.NName == "Лабораторне заняття") name = 8;
+                                        if (value.NName == "Самостійна робота") name = 9;
+                                        $('.tr-row').eq(number - 4).find('td').eq(name).text(value.HourN);
+
+                                    }
+                                }
+                                else {
+
+                                    array.push(value.ModuleName);
+                                    array1.push(value.HourN);
+                                    if (value.NName == "Лекція") { part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
+                                    if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td0></td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
+                                    if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td>" + value.HourN + "</td><td></td></tr>");
+                                    if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td></tr>");
+                                    //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+
+                                }
+                                //$("#body_Table0").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
+                            });
+                            //alert(array.length)
+                        }
+                        for (var j1 = 0; j1 < array1.length; j1++) $('.tr-row').eq(j1).find('td').eq(5).text(array1[j1]);
+                        $(".cycle2").on("click", function () {
+                            if ($(this).find('i').hasClass('fa-caret-up')) {
+                                $rows = $(this).parent().parent().parent().find('tr');
+                                $(this).find('i').removeClass('fa fa-caret-up').addClass('fa fa-caret-down');
+                                for (var i = 1; i < $rows.length; i++) $rows.eq(i).css('display', 'none');
+                            }
+                            else {
+                                $rows = $(this).parent().parent().parent().find('tr');
+                                $(this).find('i').removeClass('fa fa-caret-down').addClass('fa fa-caret-up');
+                                for (var i = 1; i < $rows.length; i++) $rows.eq(i).css('display', 'table-row');
+
+                            }
+                            e.preventDefault();
+                            return false;
+
+                        });
+
+                    }
+                    //,  $("#body_Table0").append("<tr><td>" + cycle[i] + "</td></tr>")
+                   );
+
+
+
+                })
+
+
+            });
+
+        }
+
+
+    }
+
+
+    /*$('.cycle').click(function () {
+       
+       
+    });*/
 });
+
+
+
+function check_data($object) {
+    if (($object).val() >= 0) return true;
+    else return false;
+}
 
 function window_resize() {
     var page_h = $("html").height();
