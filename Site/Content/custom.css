@@ -21,7 +21,7 @@
 .site-second-level-menu,
 .site-content,
 .site-footer {
-    width: 1200px;
+    /*width: 1200px;*/
     /*border: 1px solid gray;*/
     border-collapse: collapse;
 }
@@ -374,33 +374,43 @@
         content: "";
         padding-right: 10px;
     }
-.inline-panel {
-    display:inline-block;
-    min-width:40%;
-    height:100%;
-    vertical-align:top;
-}
-.input-group{
-    width:100%;
-}
-.input-group > * {
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
-    width:100%;
-    margin-bottom:0.5em;
+
+
+.tab2 .inline-panel {
+    display: inline-block;
+    min-width: 40%;
+    height: 100%;
+    vertical-align: top;
 }
 
-td,th {
-    padding:0.5em;
-    border:3px solid #FFF;
+.tab2 .input-group {
+    width: 100%;
 }
 
-th {
-    background:#ddd;
-    font-weight:bold;
+    .tab2 .input-group > * {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        margin-bottom: 0.5em;
+    }
+
+.tab2 td, .tab2 th {
+    padding: 0.5em;
+    border: 3px solid #FFF;
 }
-.mz_search
-{
-	min-height:350px;
+
+.tab2 th {
+    background: #ddd;
+    font-weight: bold;
+}
+
+.mz_search {
+    min-height: 350px;
+}
+
+
+.profile .redagContact,
+.profile .isVisible {
+    cursor: pointer;
 }
