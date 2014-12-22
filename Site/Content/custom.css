@@ -101,6 +101,10 @@
         vertical-align: middle;
     }
 
+    .site-carousel-table img {
+        border-radius: 5px;
+    }
+
 .site-carousel-vseparator {
     width: 25px;
 }

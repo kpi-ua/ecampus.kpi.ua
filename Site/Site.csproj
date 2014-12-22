@@ -190,6 +190,7 @@
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\calendar.gif" />
     <Content Include="Images\planner-32.png" />
     <Content Include="Modules\EIR\StudentsOfGroup.aspx" />
     <Content Include="Modules\EIR\StudyGroups.aspx" />
