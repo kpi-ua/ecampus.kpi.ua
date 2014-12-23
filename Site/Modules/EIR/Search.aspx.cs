@@ -20,7 +20,8 @@ namespace Site.Modules.EIR
         //Отримує id поточного користувача, викликає GetCathedra
         private void GetUser()
         {
-            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId.ToString());
+            string sessid = SessionId;
+            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessid);
             JavaScriptSerializer _serializer = new JavaScriptSerializer();
             var result = _serializer.Deserialize<Dictionary<string, object>>(json);
             var dataArr = (Dictionary<string, object>)result["Data"];
@@ -57,6 +58,7 @@ namespace Site.Modules.EIR
                         var answer2 = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetSubdivisionData?sesionid=" + CampusClient.SessionId + "&dcSubdivisionId=" + CathedraId);
                         if (answer2 != null)
                         {
+                            string CName = "";
                             var CathName = new HtmlGenericControl("h4");
                             var dataCath = answer2["Data"];
                             foreach (var elem in (Dictionary<string, object>)dataCath)
@@ -64,6 +66,7 @@ namespace Site.Modules.EIR
                                 if (elem.Key == "Name" && elem.Value != null)
                                 {
                                     CathName.InnerText = elem.Value.ToString();
+                                    CName = elem.Value.ToString();
                                 }
                                 if (elem.Key == "DcSubdivisionTypeId" && elem.Value != null)
                                 {
@@ -73,12 +76,18 @@ namespace Site.Modules.EIR
                             //Перевірка чи знайдений підрозділ це кафедра
                             if (subtype == "30")
                             {
-                                LinkContainer.Controls.Add(CathName);
-                                var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployee?CathedraId=" + item["DcSubdivisionId"].ToString());
-                                if (answer != null)
+                                if (list.Items.FindByValue(CName) == null)
                                 {
-                                    var dataArr2 = (ArrayList)answer["Data"];
-                                    ShowData(dataArr2);
+                                    list.Items.Add(CName);
+                                }
+                                if (list.SelectedValue == CName)
+                                {
+                                    var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployee?CathedraId=" + item["DcSubdivisionId"].ToString());
+                                    if (answer != null)
+                                    {
+                                        var dataArr2 = (ArrayList)answer["Data"];
+                                        ShowData(dataArr2);
+                                    }
                                 }
                                 usedCaf.Add(CathedraId);
                                 subtype = "";
@@ -164,6 +173,12 @@ namespace Site.Modules.EIR
                 row++;
             }
             LinkContainer.Controls.Add(table);
+        }
+
+        protected void list_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LinkContainer.Controls.Clear();
+            GetUser();
         }
     }
 }

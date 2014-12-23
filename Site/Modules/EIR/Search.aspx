@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Пошук" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Site.Modules.EIR.Search" %>
+﻿<%@ Page Title="Викладачі" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Search.aspx.cs" Inherits="Site.Modules.EIR.Search" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
 
@@ -9,7 +9,7 @@
     <div id="panel"></div>
     
     <input id="irEdit" type="hidden" runat="server" />
-    
+    <asp:DropDownList ID ="list" runat ="server" OnSelectedIndexChanged ="list_SelectedIndexChanged" AutoPostBack="true"></asp:DropDownList>
     <asp:Panel ID="LinkContainer" runat="server">
     </asp:Panel>
     
