@@ -355,9 +355,9 @@ $(document).ready(function () {
                                         if (value.Name == "Диференційований залік") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>" + value.Semester + "д</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
                                         if (value.Name == "Курсовий проект") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
                                         if (value.Name == "Курсова робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td></tr>"); }
-                                        if (value.Name == "Робота контрольна") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
-                                        if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td></tr>"); }
-                                        if (value.Name == "Домашня контрольна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td></tr>"); }
+                                        if (value.Name == "Робота контрольна") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>" + value.CountControlTest + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.CountControlTest + "</td><td>-</td><td>-</td></tr>"); }
+                                        if (value.Name == "Домашня контрольна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.CountControlTest + "</td><td>-</td></tr>"); }
                                         //if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td></tr>"); }
 
 
@@ -375,8 +375,9 @@ $(document).ready(function () {
                                         if (value.Name == "Розрахунково-графічна робота") name = 8;
                                         if (value.Name == "Домашня контрольна робота") name = 9;
 
-
-                                        $('.tr-row1').eq(number).find('td').eq(name).text(value.Semester);
+                                        if ((name!=5) && (name !=8) && (name!=9))
+                                            $('.tr-row1').eq(number).find('td').eq(name).text(value.Semester);
+                                        else $('.tr-row1').eq(number).find('td').eq(name).text(value.CountControlTest);
 
                                     }
                                 }
@@ -388,9 +389,9 @@ $(document).ready(function () {
                                     if (value.Name == "Диференційований залік") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>" + value.Semester + "д</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
                                     if (value.Name == "Курсовий проект") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
                                     if (value.Name == "Курсова робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td></tr>"); }
-                                    if (value.Name == "Робота контрольна") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
-                                    if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td><td>-</td></tr>"); }
-                                    if (value.Name == "Домашня контрольна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.Semester + "</td><td>-</td></tr>"); }
+                                    if (value.Name == "Робота контрольна") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>" + value.CountControlTest + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Розрахунково-графічна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.CountControlTest + "</td><td>-</td><td>-</td></tr>"); }
+                                    if (value.Name == "Домашня контрольна робота") { part.append("<tr class='tr-row1' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>" + value.CountControlTest + "</td><td>-</td></tr>"); }
                                     //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
 
                                 }
@@ -480,20 +481,21 @@ $(document).ready(function () {
                                         array.push(value.ModuleName);
                                         array1.push(value.HourN);
                                         
-                                        if (value.NName == "Лекція") { part.append("<tr class='tr-row' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
-                                        if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
-                                        if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
-                                        if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td></td><td>" + value.HourN + "</td></tr>");
+                                        if (value.NName == "Лекція") { part.append("<tr class='tr-row2' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
+                                        if (value.NName == "Практичне заняття") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
+                                        if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
+                                        if (value.NName == "Самостійна робота") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td></td><td>" + value.HourN + "</td></tr>");
                                         //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
                                     }
                                     else {
 
                                         array1[number - 4] += value.HourN;
+                                        //alert(number);
                                         if (value.NName == "Лекція") name = 6;
                                         if (value.NName == "Практичне заняття") name = 7;
                                         if (value.NName == "Лабораторне заняття") name = 8;
                                         if (value.NName == "Самостійна робота") name = 9;
-                                        $('.tr-row').eq(number - 4).find('td').eq(name).text(value.HourN);
+                                        $('.tr-row2').eq(number - 4).find('td').eq(name).text(value.HourN);
 
                                     }
                                 }
@@ -501,10 +503,10 @@ $(document).ready(function () {
 
                                     array.push(value.ModuleName);
                                     array1.push(value.HourN);
-                                    if (value.NName == "Лекція") { part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
-                                    if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td0></td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
-                                    if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td>" + value.HourN + "</td><td></td></tr>");
-                                    if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td></tr>");
+                                    if (value.NName == "Лекція") { part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
+                                    if (value.NName == "Практичне заняття") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td0></td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
+                                    if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td>" + value.HourN + "</td><td></td></tr>");
+                                    if (value.NName == "Самостійна робота") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td></tr>");
                                     //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
 
                                 }
@@ -514,8 +516,8 @@ $(document).ready(function () {
                         }
                         
                         for (var j1 = 0; j1 < array1.length; j1++) {
-                            setTimeout(10);
-                            $('.tr-row').eq(j1).find('td').eq(5).text(array1[j1]);
+                            
+                            $('.tr-row2').eq(j1).find('td').eq(5).text(array1[j1]);
                             
                            //alert(array1[j1]);
                         }
