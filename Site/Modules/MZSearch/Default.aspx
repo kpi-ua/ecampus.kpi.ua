@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Методичне забезпечення" Language="C#" MasterPageFile="~/Site.Master"
-    AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.MZSearch.Default" %>
+    AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.MZSearch.Default" 
+    EnableEventValidation="false"%>
 
 <asp:Content ID="MZ_Content" ContentPlaceHolderID="body" runat="server">
     <script src="/Scripts/jquery-2.1.1.js"></script>
@@ -173,51 +174,83 @@
             </div>
 
             <div class="tab-pane" id="tab2">
-                <div id="credit_tab">
-                    <strong>Сторінка "Кредитні модулі" знаходиться в розробці.</strong>
-                </div>
+                <!--CreditModule Tab Content Starts -->
+                <div id="cred_tab">
+                    <div id="CredDiv">
+                        <span id="NameCred" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть дисципліну</span>
+                        <div id="cred_droplist" class="input-group col-md-9">
+                            <asp:DropDownList ID="CredList" runat="server" class="form-control" style=" width: 900px"
+                                onchange="CredListChange()" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть спеціальність</span>
+                        <div id="spec2_droplist" class="input-group col-md-9">
+                            <asp:DropDownList ID="CredSpecList" runat="server" class="form-control" style="width: 900px" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <span id="NameSF" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть форму навчання</span>
+                        <div id="sf_droplist" class="input-group col-md-9">
+                            <asp:DropDownList ID="CredSFList" runat="server" class="form-control" style="width: 900px" />
+                        </div>
+                    </div>
+
+                    <input id="Button1" runat="server" visible="true" type="button" value="Пошук" class="btn-success col-lg-offset-10 col-md-2"
+                                onclick="SearchCred()" />
+
+                    <br />
+                    <div id="credSearchResult" style="display: none" class="row">
+                        <div class="col-md-12">
+                            <div class="col-lg-12 label label-warning" style="font-size: 100%; margin-bottom: 5px;">Результат пошуку</div>
+                            <div id="CredContainer" class="col-md-12"></div>
+                        </div>
+                    </div>
+
+                    <div class="popup-box" id="popup-box-2">
+                        <div class="close">X</div>
+                        <div class="top">
+                            <h2>Детальна інформація</h2>
+                            <div class="popContainer"></div>
+                        </div>
+                        <div class="bottom"></div>
+                    </div>
+
+                    <!--CreditModule Tab Content Ends -->
+                </div> 
             </div>
 
             <div class="tab-pane active" id="tab3">
                 <!--Discipline Tab Content Starts -->
-                <div id="searchForm">
-                    <div id="DCdiv" runat="server">
-                        <span id="NameDisc" runat="server" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть дисципліну</span>
-                        <div class="input-group col-md-9">
-                            <asp:DropDownList ID="DiscList" runat="server" class="form-control" placeholder="Почніть вводити назву дисципліни"
-                                AutoPostBack="true" OnSelectedIndexChanged="DiscList_OnSelectedIndexChanged">
-                            </asp:DropDownList>
+                <div id="disc_tab">
+                    <div id="DCdiv">
+                        <span id="NameDisc" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть дисципліну</span>
+                        <div id="disc_droplist" class="input-group col-md-9">
+                            <asp:DropDownList ID="DiscList" runat="server" class="form-control" style=" width: 900px"
+                                onchange="DiscListChange()" />
                         </div>
                     </div>
 
                     <div id="Sdiv" runat="server">
                         <span id="NameSpec" class="input-group-addon col-md-3" style="padding: 9px 9px; width: 235px">Оберіть спеціальність</span>
-                        <div class="input-group col-md-9">
-                            <asp:DropDownList ID="SList" runat="server" class="form-control" placeholder="Почніть вводити назву спеціальності"
-                                AutoPostBack="true" OnSelectedIndexChanged="SList_OnSelectedIndexChanged">
-                            </asp:DropDownList>
+                        <div id="spec_droplist" class="input-group col-md-9">
+                            <asp:DropDownList ID="SpecList" runat="server" class="form-control" style="width: 900px" />
                         </div>
                     </div>
 
-                    <input id="sb" runat="server" visible="false" type="button" value="Пошук" class="btn-success col-lg-offset-10 col-md-2" />
+                    <input id="SearchButton" runat="server" visible="true" type="button" value="Пошук" class="btn-success col-lg-offset-10 col-md-2"
+                                onclick="SearchDisc()" />
 
-                    <h2 id="sTitle" style="display: none;">Результати пошуку</h2>
+                    <br />
                     <div id="sresult" style="display: none" class="row">
-                        <div id="leftDiv" class="col-md-5">
-                            <div class="col-lg-12 label label-warning" style="font-size: 100%; margin-bottom: 5px;">Методичне забезпечення</div>
-                            <div class="subtitle"></div>
-                            <div id="itemcontainer" class="col-md-12 ldc">
-                            </div>
-                        </div>
-                        <div id="rightDiv" class="col-md-offset-1 col-md-6">
-                            <div class=" col-lg-12 label label-warning" style="font-size: 100%; margin-bottom: 5px;">Електронні інформаційні ресурси</div>
-                            <div id="ircontainer" class="col-md-12">
-                            </div>
+                        <div id="leftDiv" class="col-md-12">
+                            <div class="col-lg-12 label label-warning" style="font-size: 100%; margin-bottom: 5px;">Результат пошуку</div>
+                            <div id="DiscContainer" class="col-md-12" />
                         </div>
                     </div>
 
-                    <input type="hidden" class="popup-link-1" />
-                    <!-- use for call popUP by fake click -->
                     <div class="popup-box" id="popup-box-1">
                         <div class="close">X</div>
                         <div class="top">
@@ -225,9 +258,9 @@
                             <div class="popContainer">
                             </div>
                         </div>
-                        <div class="bottom">
-                        </div>
+                        <div class="bottom" />
                     </div>
+
                     <!--Discipline Tab Content Ends -->
                 </div>
 

@@ -103,22 +103,40 @@ namespace Site.MZSearch {
         protected global::System.Web.UI.WebControls.Table Table2;
         
         /// <summary>
-        /// DCdiv control.
+        /// CredList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DCdiv;
+        protected global::System.Web.UI.WebControls.DropDownList CredList;
         
         /// <summary>
-        /// NameDisc control.
+        /// CredSpecList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl NameDisc;
+        protected global::System.Web.UI.WebControls.DropDownList CredSpecList;
+        
+        /// <summary>
+        /// CredSFList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList CredSFList;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton Button1;
         
         /// <summary>
         /// DiscList control.
@@ -139,22 +157,22 @@ namespace Site.MZSearch {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Sdiv;
         
         /// <summary>
-        /// SList control.
+        /// SpecList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SList;
+        protected global::System.Web.UI.WebControls.DropDownList SpecList;
         
         /// <summary>
-        /// sb control.
+        /// SearchButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputButton sb;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton SearchButton;
         
         /// <summary>
         /// session control.
