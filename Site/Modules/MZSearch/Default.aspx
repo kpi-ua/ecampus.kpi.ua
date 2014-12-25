@@ -30,32 +30,32 @@
                             <asp:DropDownList ID="GetYear" runat="server" Name="GetYear"></asp:DropDownList>
                         </div>
                         <div id="select_kaf" style="display:none;">
-                            <div class="text_for_dropd">Випускова кафедра:</div>
+                           Випускова кафедра:
                             <asp:DropDownList ID="GetKaf" runat="server" Name="GetKaf"></asp:DropDownList>
                         </div>
 
                         <div id="select_riven" style="display:none;">
-                            <div class="text_for_dropd">Освітньо-кваліфікаційний рівень:</div>
+                            Освітньо-кваліфікаційний рівень:
                             <asp:DropDownList ID="GetRiven" runat="server" Name="GetRiven"></asp:DropDownList>
                         </div>
 
                         <div id="select_prof" style="display:none;">
-                            <div class="text_for_dropd">Напрям підготовки</div>
+                            Напрям підготовки
                             <asp:DropDownList ID="GetProf" runat="server" Name="GetProf"></asp:DropDownList>
                         </div>
 
                         <div id="select_form" style="display:none;">
-                            <div class="text_for_dropd">Форма навчання:</div>
+                           Форма навчання:
                             <asp:DropDownList ID="GetForm" runat="server" Name="GetForm"></asp:DropDownList>
                         </div>
 
                         <div id="select_table" style="display:none;">
-                            <div class="text_for_dropd">Таблиця:</div>
+                            Таблиця:
                             <asp:DropDownList ID="sel_table" runat="server" Name="sel_table"></asp:DropDownList>
                         </div>
 
                         <div id="select_group" style="display:none;">
-                            <div class="text_for_dropd">Вибір групи:</div>
+                           Вибір групи:
                             <asp:DropDownList ID="GetGroup" runat="server" Name="GetGroup"></asp:DropDownList>
                         </div>
 
