@@ -418,3 +418,7 @@
 .profile .isVisible {
     cursor: pointer;
 }
+
+.table td{
+    vertical-align:middle!important;
+}
