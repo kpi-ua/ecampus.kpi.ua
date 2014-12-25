@@ -566,6 +566,7 @@ function GetDiscList() {
             });
         }
     });
+}
 
 function showPopupWindow()
 { 
