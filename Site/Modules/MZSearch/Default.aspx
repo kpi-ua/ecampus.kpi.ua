@@ -3,11 +3,11 @@
 
 <asp:Content ID="MZ_Content" ContentPlaceHolderID="body" runat="server">
     <script src="/Scripts/jquery-2.1.1.js"></script>
-    <script src="/Scripts/chosen.jquery.js"></script>
+    <!--<script src="/Scripts/chosen.jquery.js"></script>-->
     <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
     <script src="/Scripts/MZ.js"></script>
-    <link rel="stylesheet" href="/Content/rnp.css">
+   
 
 
     <div class="page-header">

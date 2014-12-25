@@ -5,7 +5,7 @@ $(document).ready(function () {
     ApiEndpoint = document.getElementById("ApiEndpoint").innerHTML;
 
 
-    $(".chzn-select").chosen();
+   // $(".chzn-select").chosen();
 
     //-------------------------------------------------------------sete popUP
     var popup_Window_Width = 1200;
