@@ -577,7 +577,7 @@ function window_resize() {
     $(".popContainer").css("max-height", containerHeight);
     $(".popContainer").css("min-height", containerHeight);
 
-    console.log("Page height" + (page_h - 200));
+   // console.log("Page height" + (page_h - 200));
 }
 
 
