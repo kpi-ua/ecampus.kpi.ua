@@ -44,13 +44,13 @@
     <Reference Include="AjaxControlToolkit">
       <HintPath>..\packages\AjaxControlToolkit.7.1213\lib\45\AjaxControlToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="AjaxMin, Version=5.12.5436.22729, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+    <Reference Include="AjaxMin, Version=5.13.5463.15277, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxMin.5.12.5436.22734\lib\net40\AjaxMin.dll</HintPath>
+      <HintPath>..\packages\AjaxMin.5.13.5463.15282\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="Campus.Common, Version=1.0.30.24795, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Campus.Common, Version=1.0.32.23940, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\campus.common.1.0.30.550\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
+      <HintPath>..\packages\campus.common.1.0.32.600\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
     </Reference>
     <Reference Include="Campus.SDK, Version=1.0.1.22929, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -173,14 +173,13 @@
     <Content Include="apple-touch-icon-ipad.png" />
     <Content Include="apple-touch-icon-iphone-retina-display.png" />
     <Content Include="apple-touch-icon-iphone.png" />
-    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-clockpicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\chosen-sprite%402x.png" />
-    <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery-filestyle.css" />
@@ -191,20 +190,80 @@
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\calendar.gif" />
     <Content Include="Images\planner-32.png" />
+    <Content Include="Modules\EIR\StudentsOfGroup.aspx" />
     <Content Include="Modules\EIR\StudyGroups.aspx" />
     <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
     <Content Include="Modules\SubSystems\GSVO\SearchDiscipline.aspx" />
     <Content Include="Modules\SubSystems\SVO\Default.aspx" />
     <Content Include="Modules\SubSystems\SVO\Table.aspx" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\chosen.jquery.js" />
-    <Content Include="Scripts\chosen.jquery.min.js" />
+    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-filestyle.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.bootpag.min.js" />
     <Content Include="Scripts\legacy.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ar.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.az.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.bg.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ca.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cs.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.cy.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.da.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.de.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.el.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.es.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.et.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fa.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fi.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.fr.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.gl.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.he.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hr.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.hu.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.id.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.is.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.it.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ja.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ka.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kk.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.kr.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lt.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.lv.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.mk.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ms.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nb.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl-BE.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.nl.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.no.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pl.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt-BR.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.pt.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ro.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs-latin.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.rs.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ru.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sk.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sl.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sq.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sv.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.sw.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.th.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.tr.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.ua.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.vi.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-CN.js" />
+    <Content Include="Scripts\locales\bootstrap-datepicker.zh-TW.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\pako.min.js" />
     <Content Include="Scripts\picker.date.js" />
@@ -310,23 +369,13 @@
     <Content Include="Scripts\bootstrap-clockpicker.min.js" />
     <Content Include="Scripts\core.js" />
     <Content Include="Modules\EIR\Menu.master" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="Content\bootstrap-chosen.scss" />
-    <Content Include="Content\bootstrap-chosen.less" />
     <None Include="Properties\PublishProfiles\webdeploy.pubxml" />
-    <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\CreatePage.js" />
     <Content Include="Scripts\EIRView.js" />
-    <Content Include="Scripts\jquery-2.1.1.js" />
-    <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
     <Content Include="Scripts\jquery.ambiance.js" />
     <Content Include="Scripts\jquery.eventsource.js" />
@@ -414,6 +463,13 @@
     </Compile>
     <Compile Include="Modules\EIR\Menu.master.designer.cs">
       <DependentUpon>Menu.master</DependentUpon>
+    </Compile>
+    <Compile Include="Modules\EIR\StudentsOfGroup.aspx.cs">
+      <DependentUpon>StudentsOfGroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Modules\EIR\StudentsOfGroup.aspx.designer.cs">
+      <DependentUpon>StudentsOfGroup.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\EIR\StudyGroups.aspx.cs">
       <DependentUpon>StudyGroups.aspx</DependentUpon>
@@ -562,9 +618,9 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Site.Master" />
-    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Views\System\Login.cshtml" />
     <Content Include="Views\System\Support.cshtml" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

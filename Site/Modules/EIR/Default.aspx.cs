@@ -12,20 +12,19 @@ namespace Site.Modules.EIR
     {
         //public string enternam;
         public string[] arr;
-        public int nn,mm,bb,irid,aa,d = 31,mon = 12;
+        public int nn, mm, bb, irid, aa, d = 31, mon = 12;
         public string[] arrc;
         public string[] arrb;
         public string[] arra;
         public string[] days;
         public string[] months;
-       
+
         protected void Page_Load(object sender, EventArgs e)
         {
             nn = 0;
             mm = 0;
             //для автора
-            List<Campus.Common.Contributor> names = new List<Campus.Common.Contributor>();
-            names = CampusClient.GetPersonName(SessionId, "");
+            var names = CampusClient.GetPersonName(SessionId, "");
             nn = names.Count();
             arr = new string[nn];
 

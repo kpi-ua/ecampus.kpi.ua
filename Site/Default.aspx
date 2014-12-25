@@ -44,7 +44,7 @@
                                                 </a>
                                                 <asp:UpdatePanel runat="server">
                                                     <ContentTemplate>
-                                                <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                                        <span id="hide_user_photo" onclick="$('#hide_user_photo').toggleClass('glyphicon-eye-open'); $('#hide_user_photo').toggleClass('glyphicon-eye-close');" class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>
                                             </div>
@@ -63,11 +63,13 @@
                                                 <asp:Literal ID="NewUserContactLiteral" runat="server"></asp:Literal>
                                             </table>
                                             <table class="col-xs-12  col-sm-8  col-md-9 table-info">
-                                                <tr><td>
-                                                <a class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#AddUserContact-modal"></a>
-                                                </td></tr>
-                                        </table>
-                                    </div>
+                                                <tr>
+                                                    <td>
+                                                        <a class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#AddUserContact-modal"></a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -137,29 +139,44 @@
                 </div>
             </div>
 
-           <div class="tab-pane" id="tab2" style="height: 300px">
+            <div class="tab-pane" id="tab2">
                 <!--#region content  -->
-                <div class="inline-panel">
-                    <div class="panel-body">
-                        <!-- Таблица профиля/ролей идёт сюда -->
-                            <asp:Literal ID="SpecFunc" runat="server"></asp:Literal>
+                <div class="panel form-horizontal">
+                    <div class="col-md-6">
+                        <h3>Зміна паролю</h3>
+                        <script src="Scripts/jquery-filestyle.js"></script>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="OldPass">Старий пароль</label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ClientIDMode="Static" ID="OldPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="NewPassLabel">Новий пароль</label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ClientIDMode="Static" ID="NewPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="NewPassCheak">Повторіть новий пароль</label>
+                            <div class="col-sm-8">
+                                <asp:TextBox ClientIDMode="Static" ID="NewPassCheak" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
+                            </div>
+                        </div>
+
+                        <asp:Button ID="SavePass" runat="server" Text="Зберегти" CssClass="btn btn-success btn-sm pull-right" OnClick="SavePass_Click" />
+                        <!--#endregion -->
                     </div>
+                    <div class="col-md-6">
+                        <h3>Ролі у системі</h3>
+                        <!-- Таблица профиля/ролей идёт сюда -->
+                        <asp:Literal ID="SpecFunc" runat="server"></asp:Literal>
+                    </div>
+
                 </div>
-                <div class="inline-panel">
-                <div class="input-group">
-                    <script src="Scripts/jquery-filestyle.js"></script>
-                    <label class="control-label" for="OldPass">Старий пароль</label>
-                    <asp:TextBox ClientIDMode="Static" ID="OldPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                    <label class="control-label" for="NewPassLabel">Новий пароль</label>
-                    <asp:TextBox ClientIDMode="Static" ID="NewPass" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                    <label class="control-label" for="NewPassCheak">Повторіть новий пароль</label>
-                    <asp:TextBox ClientIDMode="Static" ID="NewPassCheak" runat="server" TextMode="Password" CssClass="form-control input-sm"></asp:TextBox>
-                </div>
-                <br />
-                <asp:Button ID="SavePass" runat="server" Text="Зберегти" CssClass="btn btn-success btn-sm" OnClick="SavePass_Click" />
-                <!--#endregion -->
-                </div>
-                </div>
+            </div>
             <div class="tab-pane" id="tab3">
                 <!--#region content  -->
                 <div>
@@ -175,11 +192,11 @@
                             Intellect.kpi.ua - публічний веб-сайт, який складається з офіційних веб-сторінок викладачів НТУУ «КПІ».
                             Основний вміст intellect.kpi.ua - записи, що регулярно автоматично оновлюються з персонального електронного кабінету НПП (науково-педагогічного працівника) системи Кампус.
                             <br />
-                                    На intellect.kpi.ua розміщується тільки та інформація, яку визначає сам користувач у своєму персональному кабінеті.
+                            На intellect.kpi.ua розміщується тільки та інформація, яку визначає сам користувач у своєму персональному кабінеті.
                             Відомості, які можуть бути представлені на intellect.kpi.ua:
                             <ol class="privacy-list">
-                               <li>
-                                   <strong>Загальна інформація</strong>:
+                                <li>
+                                    <strong>Загальна інформація</strong>:
                                     <ul>
                                         <li>- Фото</li>
                                         <li>- ПІБ</li>
@@ -187,41 +204,41 @@
                                         <li>- Вчене звання</li>
                                         <li>- Данні за місцем роботи (підрозділ(-и), посада(-и))</li>
                                     </ul>
-                               </li>
+                                </li>
 
-                               <li>
-                                   <strong>Контактна інформація</strong>
-                                   <ul>
-                                       <li>- E-mail, робочий(-і) телефон(-и),  мобільний(-і) телефон(-и)</li>
-                                       <li>- Адреса за місцем прийому (корпус, кімната, вулиця)</li>
-                                       <li>- Години звернення (розклад прийому/години прийому)</li>
-                                       <li>- Сайт(-и)</li>
-                                       <li>- Посилання на сторінки в соціальних мережах)</li>
-                                   </ul>
-                               </li>
-                               <li>
-                                   <strong>Педагогічна діяльність</strong>
-                                   <ul>
-                                       <li>- Розклад навчальних занять</li>
-                                       <li>- Методичне забезпечення дисципліни/кредитного модулю</li>
-                                   </ul>
-                               </li>
-                               <li>
-                                   <strong>Наукова  діяльність</strong>
-                                   <ul>
-                                       <li>- Публікації</li>
-                                       <li>- Конференції/семінари/симпозіуми</li>
-                                       <li>- Гранти/Проекти</li>
-                                       <li>- Авторське свідоцтва/патенти</li>
-                                       <li>- Нагороди</li>
-                                       <li>- Напрями досліджень</li>
-                                   </ul>
-                               </li>
+                                <li>
+                                    <strong>Контактна інформація</strong>
+                                    <ul>
+                                        <li>- E-mail, робочий(-і) телефон(-и),  мобільний(-і) телефон(-и)</li>
+                                        <li>- Адреса за місцем прийому (корпус, кімната, вулиця)</li>
+                                        <li>- Години звернення (розклад прийому/години прийому)</li>
+                                        <li>- Сайт(-и)</li>
+                                        <li>- Посилання на сторінки в соціальних мережах)</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Педагогічна діяльність</strong>
+                                    <ul>
+                                        <li>- Розклад навчальних занять</li>
+                                        <li>- Методичне забезпечення дисципліни/кредитного модулю</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>Наукова  діяльність</strong>
+                                    <ul>
+                                        <li>- Публікації</li>
+                                        <li>- Конференції/семінари/симпозіуми</li>
+                                        <li>- Гранти/Проекти</li>
+                                        <li>- Авторське свідоцтва/патенти</li>
+                                        <li>- Нагороди</li>
+                                        <li>- Напрями досліджень</li>
+                                    </ul>
+                                </li>
 
-                               <li>
-                                   <strong>Захоплення/Дозвілля</strong>
-                               </li>
-                           </ol>
+                                <li>
+                                    <strong>Захоплення/Дозвілля</strong>
+                                </li>
+                            </ol>
 
                             <h3 class="text-center">Обрана мною інформація може бути розміщена на сайті intellect.kpi.ua</h3>
                             <div class="text-center">
@@ -274,11 +291,11 @@
                             <h4 class="modal-title" id="myModalLabel">Оберіть фото</h4>
                         </div>
                         <div class="modal-body">
-                             <asp:FileUpload ClientIDMode="Static" ID="UserFotoFileUpload" runat="server" placeholder="Оберіть файл..." data-theme="gray" data-buttonText="" data-iconName="icon-download-alt" />
+                            <asp:FileUpload ClientIDMode="Static" ID="UserFotoFileUpload" runat="server" placeholder="Оберіть файл..." data-theme="gray" data-buttonText="" data-iconName="icon-download-alt" />
                         </div>
                         <div class="modal-footer">
-                                    <asp:Button type="button" class="btn btn-default" ID="btnUploadUserFoto" Text="OK" runat="server" OnClick="btnUploadUserFoto_Click" />
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                            <asp:Button type="button" class="btn btn-default" ID="btnUploadUserFoto" Text="OK" runat="server" OnClick="btnUploadUserFoto_Click" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </div>
                     </div>
                 </div>
@@ -294,11 +311,11 @@
                             <h4 class="modal-title" id="myModalLabel">Введіть новий статус</h4>
                         </div>
                         <div class="modal-body">
-                              <asp:TextBox ClientIDMode="Static" ID="NewUserCredoTextBox" runat="server" placeholder="Нове кредо" TextMode="MultiLine" MaxLength="100"></asp:TextBox>
+                            <asp:TextBox ClientIDMode="Static" ID="NewUserCredoTextBox" runat="server" placeholder="Нове кредо" TextMode="MultiLine" MaxLength="100"></asp:TextBox>
                         </div>
                         <div class="modal-footer">
-                                    <asp:Button type="button" class="btn btn-default" ID="BtnChangeCredo" Text="OK" runat="server" OnClick="BtnChangeCredo_Click" />
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                            <asp:Button type="button" class="btn btn-default" ID="BtnChangeCredo" Text="OK" runat="server" OnClick="BtnChangeCredo_Click" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </div>
                     </div>
                 </div>
@@ -314,14 +331,14 @@
                             <h4 class="modal-title" id="myModalLabel">Додайте новий контакт</h4>
                         </div>
                         <div class="modal-body">
-                            <asp:DropDownList ID="ListTypeContact" runat="server"/>
-                              <asp:TextBox ClientIDMode="Static" ID="UserContactValue" runat="server" placeholder="Значення контакту"></asp:TextBox>
+                            <asp:DropDownList ID="ListTypeContact" runat="server" />
+                            <asp:TextBox ClientIDMode="Static" ID="UserContactValue" runat="server" placeholder="Значення контакту"></asp:TextBox>
                             <asp:TextBox ClientIDMode="Static" ID="ReceptionHoursValue" runat="server" placeholder="Години прийому"></asp:TextBox>
-                            <asp:CheckBox ID="IsVisibleCB" Text="Приховати" runat="server"/>
+                            <asp:CheckBox ID="IsVisibleCB" Text="Приховати" runat="server" />
                         </div>
                         <div class="modal-footer">
-                                    <asp:Button type="button" class="btn btn-default" ID="AddUserContact" Text="OK" runat="server" OnClick="AddUserContact_Click" />
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                            <asp:Button type="button" class="btn btn-default" ID="AddUserContact" Text="OK" runat="server" OnClick="AddUserContact_Click" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </div>
                     </div>
                 </div>
@@ -337,11 +354,11 @@
                             <h4 class="modal-title" id="myModalLabel">Редагування</h4>
                         </div>
                         <div class="modal-body">
-                              <input type="text" id ="newValueUserContact" placeholder="нове значення"/>
+                            <input type="text" class="form-control" id="newValueUserContact" placeholder="нове значення" />
                         </div>
                         <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" id="SaveNewUserContactValue" data-dismiss="modal">OK</button>
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+                            <button type="button" class="btn btn-primary" id="SaveNewUserContactValue" data-dismiss="modal">OK</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
                         </div>
                     </div>
                 </div>

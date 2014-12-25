@@ -1,64 +1,123 @@
-﻿using Campus.SDK;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
+using System.Web.Script.Serialization;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Web.Script.Serialization;
-using System.Text;
 
 namespace Site.Modules.EIR
 {
     public partial class Search : Core.SitePage
     {
-        private bool _isGroup;
-        private Client _client;
-        private string _addGroupUrl;
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            /*
-            if (Request.QueryString["type"] != null)
+            GetUser();
+        }
+
+        //Отримує id поточного користувача, викликає GetCathedra
+        private void GetUser()
+        {
+            string sessid = SessionId;
+            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + sessid);
+            JavaScriptSerializer _serializer = new JavaScriptSerializer();
+            var result = _serializer.Deserialize<Dictionary<string, object>>(json);
+            var dataArr = (Dictionary<string, object>)result["Data"];
+            string UserId = "";
+            foreach (var el in dataArr)
             {
-                _isGroup = (Request.QueryString["type"].Equals("group"));
-                var irGroupId = Session["irGroupId"].ToString();
-                _addGroupUrl = Campus.SDK.Client.BuildUrl("IrGroup", "AddIrToGroup", new { SessionId, irGroupId }) + "&irId=";
+                if (el.Key == "UserAccountId")
+                {
+                    UserId = el.Value.ToString();
+                    GetCathedra(UserId);
+                }
             }
 
-            _client = new Campus.SDK.Client();
-            var url = Campus.SDK.Client.BuildUrl("Ir", "GetIr", new { SessionId });
+        }
 
-            var result = _client.Get(url);
-
-            var inner = JsonConvert.DeserializeObject(result.Data.ToString());
-            if (inner != null)
+        //Отримує кафедру користувача, робить перевірки, викликає ShowData
+        private void GetCathedra(string UserId)
+        {
+            var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetCathedra?UserId=" + UserId);
+            var _serializer = new JavaScriptSerializer();
+            var result = _serializer.Deserialize<Dictionary<string, object>>(json);
+            var Caf = (ArrayList)result["Data"];
+            string CathedraId = "";
+            List<string> usedCaf = new List<string>();
+            foreach (Dictionary<string, object> item in Caf)
             {
-                var items = (inner as IEnumerable<Object>).Cast<JObject>().ToList();
-                foreach (var ir in items)
+                if (item["DcSubdivisionId"] != null)
                 {
-                    LinkButtonsRendering(ir);
+                    string subtype = "";
+                    CathedraId = item["DcSubdivisionId"].ToString();
+                    //перевіряє на повтор кафедри (доволі часто таке буває)
+                    if (!usedCaf.Contains(CathedraId))
+                    {
+                        var answer2 = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetSubdivisionData?sesionid=" + CampusClient.SessionId + "&dcSubdivisionId=" + CathedraId);
+                        if (answer2 != null)
+                        {
+                            string CName = "";
+                            var CathName = new HtmlGenericControl("h4");
+                            var dataCath = answer2["Data"];
+                            foreach (var elem in (Dictionary<string, object>)dataCath)
+                            {
+                                if (elem.Key == "Name" && elem.Value != null)
+                                {
+                                    CathName.InnerText = elem.Value.ToString();
+                                    CName = elem.Value.ToString();
+                                }
+                                if (elem.Key == "DcSubdivisionTypeId" && elem.Value != null)
+                                {
+                                    subtype = elem.Value.ToString();
+                                }
+                            }
+                            //Перевірка чи знайдений підрозділ це кафедра
+                            if (subtype == "30")
+                            {
+                                if (list.Items.FindByValue(CName) == null)
+                                {
+                                    list.Items.Add(CName);
+                                }
+                                if (list.SelectedValue == CName)
+                                {
+                                    var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployee?CathedraId=" + item["DcSubdivisionId"].ToString());
+                                    if (answer != null)
+                                    {
+                                        var dataArr2 = (ArrayList)answer["Data"];
+                                        ShowData(dataArr2);
+                                    }
+                                }
+                                usedCaf.Add(CathedraId);
+                                subtype = "";
+                            }
+                        }
+                    }
                 }
-            }*/
-            var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployee");
-
-            if (answer != null)
-            {
-                var dataArr = (ArrayList)answer["Data"];
-                ShowData(dataArr);
             }
         }
 
+        //Отримує дані про викладачів кожної кафедри та виводить їх
         private void ShowData(ArrayList data)
         {
-
+            //кількість викладачів в рядку
+            int count_empl_in_row = 4;
+            int length = data.Count / count_empl_in_row + 1;
+            var table = new HtmlGenericControl("table");
+            List<HtmlGenericControl> tr = new List<HtmlGenericControl>();
+            for (int i = 0; i < length; i++)
+            {
+                var new_tr = new HtmlGenericControl("tr");
+                new_tr.Attributes.Add("id", "group" + i.ToString());
+                tr.Add(new_tr);
+            }
+            int row = 0;
             foreach (Dictionary<string, object> item in data)
             {
                 var irLink = new LinkButton();
-                var mainDiv = new HtmlGenericControl("div");
+                var td = new HtmlGenericControl("td");
+                var div = new HtmlGenericControl("div");
                 var Fullname = new HtmlGenericControl("h5");
                 var SubName = new HtmlGenericControl("h6");
                 var Dutie = new HtmlGenericControl("h6");
@@ -66,7 +125,6 @@ namespace Site.Modules.EIR
                 var AcademicStatus = new HtmlGenericControl("p");
                 var images = new StringBuilder();
 
-                mainDiv.Attributes.Add("id", "employee");
                 irLink.PostBackUrl = Request.Url.AbsolutePath;
                 irLink.Attributes.Add("class", "irLink list-item list-item-info");
                 irLink.Attributes.Add("Id", item["eEmployees1Id"].ToString());
@@ -88,10 +146,6 @@ namespace Site.Modules.EIR
                 {
                     SubName.InnerText += item["SubdivName"].ToString() + " ";
                 }
-                if (item["DutiesName"] != null)
-                {
-                    Dutie.InnerText = item["DutiesName"].ToString();
-                }
 
                 if (item["AcademicDegreeName"] != null)
                 {
@@ -101,67 +155,30 @@ namespace Site.Modules.EIR
                 if (item["UserAccountId"] != null)
                 {
                     var answer = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployeePhoto?EmployeeAcountId=" + item["UserAccountId"].ToString());
-                    //var dataArr = (ArrayList)
                     JavaScriptSerializer _serializer = new JavaScriptSerializer();
                     var respDictionary = _serializer.Deserialize<Dictionary<string, object>>(answer);
                     var url = respDictionary["Data"];
                     images.AppendFormat(@"<img id =""employee_photo""{1}"""" src=""{0}"" style=""width:150px;height:200px""/>", url.ToString(), item["UserAccountId"].ToString());
                 }
-                mainDiv.InnerHtml = images.ToString();
-                mainDiv.Controls.Add(Fullname);
-                mainDiv.Controls.Add(SubName);
-                mainDiv.Controls.Add(Dutie);
-                mainDiv.Controls.Add(AcademicDegree);
-                irLink.Controls.Add(mainDiv);
-                LinkContainer.Controls.Add(irLink);
+                div.InnerHtml = images.ToString();
+                div.Controls.Add(Fullname);
+                div.Controls.Add(SubName);
+                div.Controls.Add(Dutie);
+                div.Controls.Add(AcademicDegree);
+                irLink.Controls.Add(div);
+                td.Controls.Add(irLink);
+                int ind = row / count_empl_in_row;
+                tr[ind].Controls.Add(td);
+                table.Controls.Add(tr[ind]);
+                row++;
             }
+            LinkContainer.Controls.Add(table);
         }
 
-        private void LinkButtonsRendering(JObject group)
+        protected void list_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var irLink = new LinkButton();
-            var mainDiv = new HtmlGenericControl("div");
-            var nameShort = new HtmlGenericControl("h5");
-            var nameFull = new HtmlGenericControl("h6");
-            var description = new HtmlGenericControl("p");
-
-
-            irLink.PostBackUrl = Request.Url.AbsolutePath;
-            irLink.Attributes.Add("class", "irLink list-item list-item-info");
-            irLink.Attributes.Add("IrId", group["IrId"].ToString());
-
-            mainDiv.Attributes.Add("id", "irGroupMainBlock");
-            //mainDiv.Attributes.Add("class", ".form-inline");
-
-            nameShort.Attributes.Add("id", "irGroupName");
-            //nameShort.Attributes.Add("class", "text-primary");
-
-            //description.Attributes.Add("class", "irGroupDescription");
-
-            nameShort.InnerText = group["NameShort"].ToString();
-            nameFull.InnerText = group["NameFull"].ToString();
-            description.InnerText = group["IrId"].ToString();
-
-
-
-            mainDiv.Controls.Add(nameShort);
-            mainDiv.Controls.Add(nameFull);
-            mainDiv.Controls.Add(description);
-
-            irLink.Controls.Add(mainDiv);
-
-            LinkContainer.Controls.Add(irLink);
-
-            if (_isGroup)
-            {
-                var addToGroupButton = new Button();
-                addToGroupButton.UseSubmitBehavior = false;
-                addToGroupButton.Text = "Додати до групи";
-                var url = _addGroupUrl + group["IrId"].ToString();
-                addToGroupButton.OnClientClick = "httpGet(\"" + url + "\"); return false;";
-                LinkContainer.Controls.Add(addToGroupButton);
-            }
+            LinkContainer.Controls.Clear();
+            GetUser();
         }
-
     }
 }

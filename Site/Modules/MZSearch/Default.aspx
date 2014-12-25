@@ -4,11 +4,11 @@
 
 <asp:Content ID="MZ_Content" ContentPlaceHolderID="body" runat="server">
     <script src="/Scripts/jquery-2.1.1.js"></script>
-    <script src="/Scripts/chosen.jquery.js"></script>
+    <!--<script src="/Scripts/chosen.jquery.js"></script>-->
     <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/jquery-ui-1.10.4.custom.js"></script>
     <script src="/Scripts/MZ.js"></script>
-    <link rel="stylesheet" href="/Content/rnp.css">
+   
 
 
     <div class="page-header">
@@ -31,32 +31,32 @@
                             <asp:DropDownList ID="GetYear" runat="server" Name="GetYear"></asp:DropDownList>
                         </div>
                         <div id="select_kaf" style="display:none;">
-                            <div class="text_for_dropd">Випускова кафедра:</div>
+                           Випускова кафедра:
                             <asp:DropDownList ID="GetKaf" runat="server" Name="GetKaf"></asp:DropDownList>
                         </div>
 
                         <div id="select_riven" style="display:none;">
-                            <div class="text_for_dropd">Освітньо-кваліфікаційний рівень:</div>
+                            Освітньо-кваліфікаційний рівень:
                             <asp:DropDownList ID="GetRiven" runat="server" Name="GetRiven"></asp:DropDownList>
                         </div>
 
                         <div id="select_prof" style="display:none;">
-                            <div class="text_for_dropd">Напрям підготовки</div>
+                            Напрям підготовки
                             <asp:DropDownList ID="GetProf" runat="server" Name="GetProf"></asp:DropDownList>
                         </div>
 
                         <div id="select_form" style="display:none;">
-                            <div class="text_for_dropd">Форма навчання:</div>
+                           Форма навчання:
                             <asp:DropDownList ID="GetForm" runat="server" Name="GetForm"></asp:DropDownList>
                         </div>
 
                         <div id="select_table" style="display:none;">
-                            <div class="text_for_dropd">Таблиця:</div>
+                            Таблиця:
                             <asp:DropDownList ID="sel_table" runat="server" Name="sel_table"></asp:DropDownList>
                         </div>
 
                         <div id="select_group" style="display:none;">
-                            <div class="text_for_dropd">Вибір групи:</div>
+                           Вибір групи:
                             <asp:DropDownList ID="GetGroup" runat="server" Name="GetGroup"></asp:DropDownList>
                         </div>
 

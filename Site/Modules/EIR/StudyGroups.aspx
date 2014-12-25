@@ -3,7 +3,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <ul>
          <li>
-             <asp:TextBox id="word" value="" runat="server" style="width: 150px; margin: 0;" />
+             <asp:TextBox id="word" runat="server" style="width: 150px; margin: 0;" />
          </li>
          <li>
              <asp:Button id="find" runat="server" Text ="Пошук групи" OnClick ="find_Click1" BackColor ="#ccffff" BorderStyle="Solid" BorderWidth ="2" Width ="150" Font-Bold="true" ></asp:Button>
