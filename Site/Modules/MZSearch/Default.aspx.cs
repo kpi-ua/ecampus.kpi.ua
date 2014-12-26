@@ -24,17 +24,17 @@ namespace Site.MZSearch
                 isdisc.Attributes["Value"] = true.ToString();
                 session.Attributes["Value"] = SessionId;
 
-                var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetDiscList");
+                /*var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetDiscList");
 
                 if (answer != null)
                 {
                     var dataArr = (ArrayList)answer["Data"];
 
-                    SList.Items.Clear();
-                    SList.Items.Add(new ListItem("Дисципліну не обрано!", "-1"));
+                    SpecList.Items.Clear();
+                    SpecList.Items.Add(new ListItem("Дисципліну не обрано!", "-1"));
 
                     LoadDiscList(dataArr);
-                }
+                }*/
             }
         }
 
@@ -81,7 +81,7 @@ namespace Site.MZSearch
 
                 }
 
-                SList.Items.Add(li);
+                SpecList.Items.Add(li);
             }
         }
 
@@ -106,39 +106,6 @@ namespace Site.MZSearch
         }       
 
 
-        /// <summary>
-        /// //
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void DiscList_OnSelectedIndexChanged(object sender, EventArgs e)
-        {
-            sb.Visible = false;
-            Dictionary<string, object> answer = null;
-
-            answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetSpecialityD?sessionId"+CampusClient.SessionId +
-                    "&discId=" + DiscList.SelectedValue.ToString());
-
-            SList.Items.Clear();
-            SList.Items.Add(new ListItem("Не обрано", "-1"));
-
-            if (answer != null)
-            {
-                var dataArr = (ArrayList)answer["Data"];
-                LoadSpecList(dataArr);
-            }
-
-            if (DiscList.SelectedValue.ToString() != "-1" && SList.SelectedValue.ToString() != "-1")
-            {
-                sb.Visible = true;
-            }
-            else
-            {
-                sb.Visible = false;
-            }
-
-        }
-
         protected void SList_OnSelectedIndexChanged(object sender, EventArgs e)
         {            
             var getSF = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetStudyFormList");
@@ -146,20 +113,10 @@ namespace Site.MZSearch
             if (getSF != null)
             {
                 var dataArr = (ArrayList)getSF["Data"];
-                LoadSFList(dataArr);
+                //LoadSFList(dataArr);
             }
 
-            spec.Attributes["Value"] = SList.SelectedValue.ToString();
-            disc.Attributes["Value"] = DiscList.SelectedValue.ToString();
-
-            if (DiscList.SelectedValue.ToString() != "-1" && SList.SelectedValue.ToString() != "-1")
-            {
-                sb.Visible = true;
-            }
-            else
-            {
-                sb.Visible = false;
-            }
+            spec.Attributes["Value"] = SpecList.SelectedValue.ToString();
         }        
     }
 }

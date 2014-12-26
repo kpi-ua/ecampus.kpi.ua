@@ -20,7 +20,7 @@ namespace Site.Modules.EIR
             //var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId);
             GetUser();
         }
-        //Отримує id поточного користувача, викликає GetData
+        //Отримує id поточного користувача, викликає GetCathedra
         private void GetUser()
         {
             var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "User/GetCurrentUser?sessionId=" + SessionId.ToString());
@@ -35,11 +35,11 @@ namespace Site.Modules.EIR
                     UserId = el.Value.ToString();
                 }
             }
-            GetData(UserId);
+            GetCathedra(UserId);
         }
 
         //Отримує кафедру користувача, робить перевірки, викликає ShowData
-        private void GetData( string UserId)
+        private void GetCathedra(string UserId)
         {
             var json = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "StudyGroup/GetCathedra?UserId=" + UserId);
             var _serializer = new JavaScriptSerializer();
@@ -51,7 +51,7 @@ namespace Site.Modules.EIR
             {
                 if (item["DcSubdivisionId"] != null)
                 {
-                    
+
                     CathedraId = item["DcSubdivisionId"].ToString();
                     //перевіряє на повтор кафедри (доволі часто таке буває)
                     if (!usedCaf.Contains(CathedraId))
@@ -80,7 +80,7 @@ namespace Site.Modules.EIR
                                 //Перевірка чи знайдений підрозділ це кафедра
                                 if (subtype == "30")
                                 {
-                                    LinkContainer.Controls.Add(CathName); 
+                                    LinkContainer.Controls.Add(CathName);
                                     ShowData(data, CathedraId);
                                     usedCaf.Add(CathedraId);
                                     subtype = "";
@@ -165,9 +165,9 @@ namespace Site.Modules.EIR
                     row++;
                     finded = false;
                 }
-                else 
+                else
                 {
-                    if (!finder) 
+                    if (!finder)
                     {
                         irLink.Controls.Add(Name);
                         irLink.Controls.Add(CathName);
