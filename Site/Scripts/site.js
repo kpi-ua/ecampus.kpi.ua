@@ -44,7 +44,7 @@
                 }
             });
             //alert('#' + 'RedUserCont' + id1);
-            alert($('#' + 'RedUserCont' + id1).innerHTML);
+            //alert($('#' + 'RedUserCont' + id1).innerHTML);
         }
 
     });
