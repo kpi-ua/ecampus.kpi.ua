@@ -925,8 +925,9 @@ function SearchCred() {
                 var credId = value.cCreditModuleId;
                 var credName = value.NameFull;
                 $("#CredContainer").append("<div class=\"oneitem col-md-12\">" +
-                                                "<span class=\"itemrow\" credId=\"" + credId + "\" onclick=\"ShowIrList(" + credId + ")\">" + credName + "</span>" +
+                                                "<span class=\"itemrow\" credId=\"" + credId + "\" >" + credName + "</span>" +
                                                 "<input type=\"button\" value=\"[...]\" credId=\"" + credId + "\" class=\"btn-success\" onclick=\"ShowCredCard(" + credId + ")\"/>" +
+                                                "<div id=\"irblock" + credId + "\" style=\"display: none\"</div>" + 
                                            "</div>");
             });
         }
@@ -1015,17 +1016,39 @@ var getRNPForCred = function (parent, credId) {
 var getIrForCred = function (parent, credId) {
     var url = ApiEndpoint;
 
-    url += "MZSearch/GetIrC?ccredId" + credId;
+    url += "MZSearch/GetIrC?ccredId=" + credId;
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
             var prev = null;
+            parent.append("<span> Електронні інформаційні ресурси</span>" + 
+                          "<input type=\"button\" value=\"[/]\" credId=\"" + credId + "\" class=\"btn-success\" onclick=\"EditCredIrList(" + credId + ")\"/>" +
+                          "<br />");
+
             $.each(data.Data, function (key, value) {
-                if (prev != value.kind) {
+                if (prev != value.kind)
+                {
+                    var irId = value.levelId;
                     parent.append("<div class=\"ironediv\"><div class=\"col-md-12 kind\">" + value.kind + "</div><br></div>");
-                    parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
-                } else {
-                    parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
+                   // parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + "№" + value.levelId + " Назва " + value.levelName + "</p>");
+                    parent.last().append("<p class=\"irrow\" iid=\"" + irId + "\">" + "№" + irId + " Назва " + value.levelName +
+                                         "<input type=\"button\" value=\"[..]\" class=\"btn-success\" onclick=\"ShowCredIrCard(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[/]\" class=\"btn-success\" onclick=\"EditCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[^]\" class=\"btn-success\" onclick=\"DisconnectCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[X]\" class=\"btn-success\" onclick=\"DeleteCredIr(" + irId + ")\"/>" +
+                                         "</p>");
+                    prev = value.kind;
+                }
+                else
+                {
+                    var irId = value.levelId;
+                    //parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + "№" + value.levelId + " Назва " + value.levelName + "</p>");
+                    parent.last().append("<p class=\"irrow\" iid=\"" + irId + "\">" + "№" + irId + " Назва " + value.levelName +
+                                         "<input type=\"button\" value=\"[..]\" class=\"btn-success\" onclick=\"ShowCredIrCard(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[/]\" class=\"btn-success\" onclick=\"EditCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[^]\" class=\"btn-success\" onclick=\"DisconnectCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[X]\" class=\"btn-success\" onclick=\"DeleteCredIr(" + irId + ")\"/>" +
+                                         "</p>");
                 }
             });
         }
@@ -1059,28 +1082,73 @@ function showCredPopupWindow() {
     });
 }
 
+function ShowCredIrList(obj)
+{
+    //var credId = obj.attr("credId");
+    //$(".itemcol").remove();
+    //$(".itemrow_a").attr("class", "itemrow");
+    //$("#CredContainer div input").remove();
+    //$("#CredContainer div br").remove();
+
+    //$("#ircontainer div").remove();
+
+    //$(this).attr("class", "itemrow_a");
+
+    //var parentDiv = $(this).parent();
+    //var parentDiv = $(this).parent().children(".irblock");
+    //parentDiv.empty();
+
+    //parentDiv.append("<ul class=\"itemcol\"></ul>");
+
+    //var parentUl = parentDiv.children(".itemcol");
+
+    //$("#CredContainer div .itemcol").css("display", "none");
+
+
+    //var credId = $("#CredContainer div span").attr("credId");
+
+    //getIrForCred($(this), credId);
+
+    //$("#CredContainer .itemcol").slideDown("slow");
+
+}
+
 $(document).on("click", "#CredContainer div span", function () {
-    $(".itemcol").remove();
-    $(".itemrow_a").attr("class", "itemrow");
-    $("#CredContainer div input").remove();
-    $("#CredContainer div br").remove();
+    //$(".itemcol").remove();
+    //$(".itemrow_a").attr("class", "itemrow");
+    //$("#CredContainer div input").remove();
+    //$("#CredContainer div br").remove();
 
-    $("#ircontainer div").remove();
+    //$("#ircontainer div").remove();
 
-    $(this).attr("class", "itemrow_a");
+    var credId = $("#CredContainer div span").attr("credId");
 
-    var parentDiv = $(this).parent();
+   // $(this).attr("class", "itemrow_a");
+
+    //var parentDiv = $(this).parent();
+    var parentDiv = $("#irblock" + credId)
+
+    if (parentDiv.css('display') == 'block')
+    {
+        parentDiv.css("display", "none");
+        return;
+    }
+
+    parentDiv.empty();
+    //parentDiv.attr("class", "itemrow_a");
 
     parentDiv.append("<ul class=\"itemcol\"></ul>");
 
     var parentUl = parentDiv.children(".itemcol");
 
-    $("#CredContainer div .itemcol").css("display", "none");
+    //$("#CredContainer div .itemcol").css("display", "none");
+    
+    parentDiv.css("display", "block");
 
 
-    var credId = obj.attr("credId");
+    getIrForCred(parentUl, credId);
 
-    getIrForCred($(this), credId);
+    $("#CredContainer .itemcol").slideDown("slow");
 
 
     /*} else if ($("#body_isdisc").attr("value") == "False") {
@@ -1095,6 +1163,33 @@ $(document).on("click", "#CredContainer div span", function () {
         getIrForDorC(obj, $("#ircontainer"));
     }*/
 });
+
+function EditCredIrList(credId)
+{
+    alert("Сторінка редагування списку ІР для кредитного модуля з id=" + credId);
+    return;
+}
+
+function ShowCredIrCard(irId)
+{
+    alert("Сторінка картки ІР з id=" + irId);
+    return;
+}
+
+function EditCredIr(irId) {
+    alert("Сторінка редагування ІР з id=" + irId);
+    return;
+}
+
+function DisconnectCredIr(irId) {
+    alert("Сторінка від'єднання ІР з id=" + irId);
+    return;
+}
+
+function DeleteCredIr(irId) {
+    alert("Сторінка видалення ІР з id=" + irId);
+    return;
+}
 
 
 /**********************************************UNUSED CODE**************************************************************/
