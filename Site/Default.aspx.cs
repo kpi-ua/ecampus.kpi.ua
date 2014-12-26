@@ -15,7 +15,7 @@ namespace Site
             base.OnLoad(ea);
 
             LoadCarousel();
-            
+
             try
             {
                 profile_photo.ImageUrl = CurrentUser.Photo;
@@ -24,7 +24,7 @@ namespace Site
                 {
                     UserPersonalInfoAddToPage();
                 }
-                
+
                 btnFailure.Attributes.Add("onclick", "$('#Cancel-modal').hide();document.body.style.overflow = 'auto';");
             }
             catch { }
@@ -91,12 +91,19 @@ namespace Site
             {
                 i++;
                 UserContactsLiteral.Text += "<tr><td>" + p.ContactTypeName + "</td>";
-                UserContactsLiteral.Text += "<td id=\""+p.UserContactId+"td"+"\">" + p.UserContactValue +
+                UserContactsLiteral.Text += "<td id=\"" + "RedUserCont" + p.UserContactId + "\">" + p.UserContactValue +
                                             "  <a class=\"glyphicon glyphicon-pencil " +
                                             "redagContact\"data-toggle=\"modal\" data-target=" +
-                                            "\"#RedactUserContact-modal\" id=\"" + p.UserContactId + "\"></a>" + "</td>";
-                UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "\"class=";
-                                            
+                                            "\"#RedactUserContact-modal\" id=\"" + p.UserContactId + "RD" + "\"></a>" + "</td>";
+                UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "VC" + "\"class=";
+
+
+                //UserContactsLiteral.Text += "<td><span id=\"" + "RedUserCont" + p.UserContactId + "\">" + p.UserContactValue +
+                //                            "</span><a class=\"glyphicon glyphicon-pencil " +
+                //                            "redagContact\"data-toggle=\"modal\" data-target=" +
+                //                            "\"#RedactUserContact-modal\" id=\"" + p.UserContactId + "RD" + "\"></a>" + "</td>";
+                //UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "VC" + "\"class=";
+
                 if (p.IsVisible == "0")
                 {
                     UserContactsLiteral.Text += "\"glyphicon glyphicon-eye-open isVisible\"</td></tr>";
@@ -179,9 +186,9 @@ namespace Site
 
             SpecFunc.Text += "</table>";
             var credo = CampusClient.GetUserCredo(SessionId);
-            if ( credo!= null)
+            if (credo != null)
             {
-                CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо '" +credo+"' "+
+                CredoLiteral.Text += "<h4 class=\"UserCredo\">Кредо '" + credo + "' " +
                                      "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
                                      "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
                                      "</span></h4>";
@@ -318,7 +325,7 @@ namespace Site
         {
             if (NewUserCredoTextBox.Text != "")
             {
-                CredoLiteral.Text = "<h4 class=\"UserCredo\">Кредо '" +NewUserCredoTextBox.Text+"' "+
+                CredoLiteral.Text = "<h4 class=\"UserCredo\">Кредо '" + NewUserCredoTextBox.Text + "' " +
                                      "<span class=\"glyphicon glyphicon-pencil\" id=\"CredoUpdate\" " +
                                      "data-toggle=\"modal\" data-target=\"#ChangeCredo-modal\" >" +
                                      "</span></h4>";
@@ -332,20 +339,20 @@ namespace Site
 
         protected void AddUserContact_Click(object sender, EventArgs e)
         {
-            if (ListTypeContact.SelectedValue != "" && UserContactValue.Text != "" && ReceptionHoursValue.Text!="")
+            if (ListTypeContact.SelectedValue != "" && UserContactValue.Text != "" && ReceptionHoursValue.Text != "")
             {
                 string isVisible = IsVisibleCB.Checked ? "1" : "0";
                 int newContactId = CampusClient.AddUserContactRetContactId(SessionId, ListTypeContact.SelectedValue,
                     UserContactValue.Text,
                     isVisible,
                     ReceptionHoursValue.Text);
-                if (newContactId>0)
+                if (newContactId > 0)
                 {
-                    NewUserContactLiteral.Text += "<tr><td>" + ListTypeContact.SelectedValue + "</td>";
+                    NewUserContactLiteral.Text += "<tr><td id=\"RedUserCont" + newContactId + "\">" + ListTypeContact.SelectedValue + "</td>";
                     NewUserContactLiteral.Text += "<td>" + UserContactValue.Text + "  <a class=\"glyphicon glyphicon-pencil " +
                                             "redagContact\"data-toggle=\"modal\" data-target=\"#RedactUserContact-modal\"" +
-                                                  "id=\"" + newContactId+ "\"></a></td>";
-                    NewUserContactLiteral.Text += "<td id=\"" + newContactId + "\"class=";
+                                                  "id=\"" + newContactId + "RD" + "\"></a></td>";
+                    NewUserContactLiteral.Text += "<td id=\"" + newContactId + "VC" + "\"class=";
 
                     if (isVisible == "0")
                     {
@@ -358,6 +365,6 @@ namespace Site
                 }
             }
         }
-        
+
     }
 }
