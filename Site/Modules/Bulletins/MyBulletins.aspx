@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="Мої оголошення" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MyBulletins.aspx.cs" Inherits="Site.Modules.Bulletins.MyBulletins" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+
     <asp:Button ID="CreateNewBulletin" runat="server" Text="Створити оголошення" CssClass="btn btn-warning" />
 
     <asp:Panel ID="MyBulletinsContainer" runat="server">

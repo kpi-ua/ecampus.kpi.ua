@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="Індивідуальний план викладача" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Modules.IndividualTeachersPlan.IndividualTeachersPlan" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
 
     <div class="profile">
         <ul class="nav nav-tabs" id="myTab">
@@ -317,9 +320,10 @@
                             </div>
 
                             <h3>
-                                <label><input type="checkbox" id="2">Статті</label>
+                                <label>
+                                    <input type="checkbox" id="2">Статті</label>
                             </h3>
-<div id="2b" class="dip_none">
+                            <div id="2b" class="dip_none">
                                 <div class="col-md-12">
                                     <label>
                                         <input type="checkbox" id="2r">

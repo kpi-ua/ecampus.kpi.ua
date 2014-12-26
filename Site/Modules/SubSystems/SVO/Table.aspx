@@ -1,5 +1,4 @@
-﻿<%--<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Table.aspx.cs" Inherits="Site.Modules.SubSystems.SVO.Table" %>--%>
-<%@ Page Title="ОПП СВО" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Table.aspx.cs" Inherits="Site.Modules.SubSystems.SVO.Table" %>
+﻿<%@ Page Title="ОПП СВО" Language="C#" AutoEventWireup="true" MasterPageFile="~/Site.Master" CodeBehind="Table.aspx.cs" Inherits="Site.Modules.SubSystems.SVO.Table" %>
 
 <asp:Content ID="breadcrumbs_content" ContentPlaceHolderID="breadcrumbs" runat="server">
     <li><a href="/Default.aspx">Домашня</a></li>

@@ -173,6 +173,7 @@
     <Content Include="apple-touch-icon-ipad.png" />
     <Content Include="apple-touch-icon-iphone-retina-display.png" />
     <Content Include="apple-touch-icon-iphone.png" />
+    <Content Include="Content\bootstrap-chosen.css" />
     <Content Include="Content\bootstrap-clockpicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker3.css" />
@@ -191,6 +192,8 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\calendar.gif" />
+    <Content Include="Images\carousel-subsystems-button.jpg" />
+    <Content Include="Images\carousel-support-button.jpg" />
     <Content Include="Images\planner-32.png" />
     <Content Include="Modules\EIR\StudentsOfGroup.aspx" />
     <Content Include="Modules\EIR\StudyGroups.aspx" />
@@ -206,7 +209,11 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\bootstrap-chosen.less" />
+    <Content Include="Content\bootstrap-chosen.scss" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\chosen.jquery.js" />
+    <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-filestyle.js" />

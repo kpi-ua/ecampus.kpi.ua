@@ -6,6 +6,11 @@
 </asp:Content>
 
 <asp:Content ID="body_content" ContentPlaceHolderID="body" runat="server">
+    
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+
     <div class="profile">
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#tab1" data-toggle="tab">Актуальні оголошення</a></li>
@@ -25,7 +30,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Профіль</label>
                         <div class="col-sm-10 form-inline">
-                            <asp:DropDownList CssClass="form-control" Width="700" runat="server" ID="profileList"></asp:DropDownList>
+                            <asp:DropDownList CssClass="form-control" runat="server" ID="profileList"></asp:DropDownList>
                             <asp:Button CssClass="btn btn-default" ID="lnkSaveAs" Text="Вибрати" OnClick="postRes" runat="server"></asp:Button>
                         </div>
                     </div>
@@ -36,7 +41,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Тема</label>
                         <div class="col-sm-10">
-                            <asp:TextBox CssClass="form-control" ID="sub_text" runat="server" Width="700"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control" ID="sub_text" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="form-group form-inline">

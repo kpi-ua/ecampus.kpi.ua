@@ -1,8 +1,12 @@
 ﻿<%@ Page Title="Студенти групи" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="StudentsOfGroup.aspx.cs" Inherits="Site.Modules.EIR.StudentsOfGroup" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+    
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
 
-        <asp:Panel ID="LinkContainer" runat="server">
+    <asp:Panel ID="LinkContainer" runat="server">
     </asp:Panel>
     <script type="text/javascript">
 
