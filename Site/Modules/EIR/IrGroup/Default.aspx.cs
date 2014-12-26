@@ -8,18 +8,8 @@ namespace Site.Modules.EIR.IrGroup
     {
         protected void Page_Init(object sender, EventArgs e)
         {
-            //AutoLogin();
-
             IrGroupListRendering(-1, "Приватні");
             IrGroupListRendering(10193, "Кафедра технiчної кiбернетики ФІОТ");
-        }
-
-        public void AutoLogin()
-        {
-            //TODO debuging staff - delete!!!!!!!
-            var client = new Campus.SDK.Client();
-            client.Authenticate("123", "123");
-            SessionId = client.SessionId;
         }
 
         private void IrGroupListRendering(int idVar, string nameVar)

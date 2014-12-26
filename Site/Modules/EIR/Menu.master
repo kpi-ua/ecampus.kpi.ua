@@ -11,6 +11,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
+
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+
     <ul class="nav nav-tabs">
         <li id="search_tab"><a href="/Modules/EIR/Default.aspx">Пошук</a></li>
         <li id="create_tab"><a href="/Modules/EIR/Create.aspx">Створити</a></li>

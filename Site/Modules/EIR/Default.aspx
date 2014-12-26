@@ -3,8 +3,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="breadcrumbs_new" runat="server">
     <li class="active">Пошук</li>
 </asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="newhead" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="newbody" runat="server">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>

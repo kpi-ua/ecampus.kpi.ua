@@ -6,8 +6,13 @@
 </asp:Content>
 
 <asp:Content ID="body_content" ContentPlaceHolderID="body" runat="server">
-    <center>
+    
+    <div class="page-header">
+        <h1><%=Page.Title %></h1>
+    </div>
+
+    <section class="text-center">
         <asp:Panel ID="MySubsystemsContainer" runat="server"></asp:Panel>
-    </center>
+    </section>
   
 </asp:Content>

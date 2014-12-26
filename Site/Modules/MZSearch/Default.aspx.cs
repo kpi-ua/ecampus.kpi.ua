@@ -23,18 +23,6 @@ namespace Site.MZSearch
 
                 isdisc.Attributes["Value"] = true.ToString();
                 session.Attributes["Value"] = SessionId;
-
-                /*var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "MZSearch/GetDiscList");
-
-                if (answer != null)
-                {
-                    var dataArr = (ArrayList)answer["Data"];
-
-                    SpecList.Items.Clear();
-                    SpecList.Items.Add(new ListItem("Дисципліну не обрано!", "-1"));
-
-                    LoadDiscList(dataArr);
-                }*/
             }
         }
 
@@ -104,7 +92,6 @@ namespace Site.MZSearch
                 }
             }
         }       
-
 
         protected void SList_OnSelectedIndexChanged(object sender, EventArgs e)
         {            

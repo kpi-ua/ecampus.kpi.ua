@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="Спілкування" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Modules.Messages.Default" %>
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     
     <div class="page-header">
