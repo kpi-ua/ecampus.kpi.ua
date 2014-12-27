@@ -1,8 +1,11 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -18,6 +21,9 @@ namespace Site.Modules.EIR
         public string[] arra;
         public string[] days;
         public string[] months;
+        public int pgg, pgs, pcm, NampFor;
+        public string pgsstring, pcmstring;
+        public string forER, forNam, fortyp, forview;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -43,7 +49,7 @@ namespace Site.Modules.EIR
             }
             //имя типа внеску в массив
             mm = Contribtyp.Count();
-            arrc = new string[nn];
+            arrc = new string[mm];
             for (int m = 0; m < Contribtyp.Count(); m++)
             { /*dr.Items.Add(Contribtyp[m].ToString());*/ arrc[m] = Contribtyp[m].ToString(); }
             //------------------------------------------------------//
@@ -100,6 +106,58 @@ namespace Site.Modules.EIR
                     months[m] = Convert.ToString(m + 1);
                 }
             }
+
+            rez.Visible = false;
         }
+
+        public void search(object sender, EventArgs e)
+        {
+            //Получение о6щего числа страниц
+            IPagedList paging;
+            var messages = CampusClient.GetAllIrs(SessionId, 1, 31, out paging);
+            pgg = paging.PageCount;
+
+            rez.Visible = true;
+        }
+
+        public void dsc(object sender, EventArgs e)
+        {
+            //Получение о6щего числа страниц
+            IPagedList paging;
+            string c = dssc.Value.ToString();
+            var messages = CampusClient.GetIrbyDcDisc(SessionId, c, 1, 31, out paging);
+            pgs = paging.PageCount;
+            pgsstring = dssc.Value;
+            rez.Visible = true;
+        }
+
+        public void crd(object sender, EventArgs e)
+        {
+            //Получение о6щего числа страниц
+            IPagedList paging;
+            string c = crdd.Value.ToString();
+            var messages = CampusClient.GetIrbyCredMod(SessionId, c, 1, 31, out paging);
+            pcm = paging.PageCount;
+            pcmstring = crdd.Value;
+
+            rez.Visible = true;
+        }
+
+        public void aut(object sender, EventArgs e)
+        {
+            //Получение о6щего числа страниц
+            IPagedList paging;
+            string c = crdd.Value.ToString();
+            var messages = CampusClient.GetIrResourses(SessionId, forNam, fortyp, forview, 1, 31, out paging);
+            NampFor = paging.PageCount;
+            //-----------------------
+            //forER = nam.Value;
+            //forNam = avt.Value;
+            //     fortyp = vns.Value; 
+            //   forview = vid.Value;
+
+            rez.Visible = true;
+        }
+
     }
 }
