@@ -582,6 +582,88 @@ namespace Core
             var result = Get<List<Campus.Common.DcDiscipline>>("Discipline", "GetDcDisciplineName",
                 new {sessionId, name});
             return result;
-        } 
+        }
+
+        public IList<Campus.Common.Irs> GetAllIrs(string sessionId, int pageNumber, int pageSize, out IPagedList paging)
+        {
+
+            var url = BuildUrl("Ir", "GetAllIrs", new
+            {
+                sessionId,
+                pageNumber,
+                pageSize
+            });
+
+            var result = Get(url);
+
+            paging = result.Paging;
+            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
+
+
+            return messages.ToList();
+
+        }
+
+        public IList<Campus.Common.Irs> GetIrResourses(string sessionId, string author, string type, string irview, int pageNumber, int pageSize, out IPagedList paging)
+        {
+
+            var url = BuildUrl("Ir", "GetIrResourses", new
+            {
+                sessionId,
+                author,
+                type,
+                irview,
+                pageNumber,
+                pageSize
+
+            });
+
+            var result = Get(url);
+
+            paging = result.Paging;
+            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
+
+
+            return messages.ToList();
+
+        }
+
+        public IList<Campus.Common.Irs> GetIrbyDcDisc(string sessionId, string dsc, int pageNumber, int pageSize, out IPagedList paging)
+        {
+
+            var url = BuildUrl("Ir", "GetIrbyDcDisc", new
+            {
+                sessionId,
+                dsc,
+                pageNumber,
+                pageSize
+            });
+
+            var result = Get(url);
+
+            paging = result.Paging;
+            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
+
+            return messages.ToList();
+        }
+
+        public IList<Campus.Common.Irs> GetIrbyCredMod(string sessionId, string dsc, int pageNumber, int pageSize, out IPagedList paging)
+        {
+
+            var url = BuildUrl("Ir", "GetIrbyCredMod", new
+            {
+                sessionId,
+                dsc,
+                pageNumber,
+                pageSize
+            });
+
+            var result = Get(url);
+
+            paging = result.Paging;
+            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
+
+            return messages.ToList();
+        }
     }
 }
