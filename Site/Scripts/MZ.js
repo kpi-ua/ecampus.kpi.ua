@@ -8,7 +8,7 @@ $(document).ready(function () {
     GetYear();
 
     InitCreditTab();
-    GetDiscList();
+    InitDisciplineTab();
 
     /********************************************* RNP MODULE ***********************************************************************/
     $("#body_GetYear").change(function () {
@@ -550,6 +550,11 @@ function check_data($object) {
 }
 
 /********************************************DISCIPLINE Module ************************************************************/
+function InitDisciplineTab() {
+    GetDiscList();
+    GetDiscSpecList();
+}
+
 function GetDiscList() {
     var url = ApiEndpoint + "MZSearch/GetDiscList";
     $("#body_DiscList").append("<option value='-1'>Не обрано</option>");
@@ -562,7 +567,25 @@ function GetDiscList() {
     });
 }
 
+function GetDiscSpecList() {
+    var url = ApiEndpoint + "MZSearch/GetSpecialityList";
+    $("#body_SpecList").empty();
+    $("#body_SpecList").append("<option value='-1'>Не обрано</option>");
+    $.getJSON(url, function (data, status) {
+        if (data.Data.length > 0) {
+            $.each(data.Data, function (key, value) {
+                $("#body_SpecList").append("<option value='" + value.RtProfTrainTotalId + "'>" + value.TotalShifr + " " + value.Name + "</option>");
+            });
+        }
+    });
+}
+
 function DiscListChange() {
+    if ($("#body_DiscList").find("option:selected").val() == -1) {
+        GetDiscSpecList();
+        return false;
+    }
+
     var url = ApiEndpoint + "MZSearch/GetSpecialityD?" + "&discId=" + $("#body_DiscList").find("option:selected").val();
 
     $("#body_SpecList").empty();
@@ -612,9 +635,14 @@ function SearchDisc() {
                 $("#DiscContainer").append("<div class=\"oneitem col-md-12\">" +
                                                 "<span class=\"itemrow\" discId=\"" + rdId + "\" onclick=\"ShowIrList(" + rdId + ")\">" + discName + "</span>" +
                                                 "<input type=\"button\" value=\"[...]\" discId=\"" + rdId + "\" class=\"btn btn-xs btn-success\" onclick=\"ShowDiscCard(" + rdId + ")\"/>" +
+                                                "<div id=\"irblock" + rdId + "\" style=\"display: none\"</div>" +
                                            "</div>");
             });
         }
+        else {
+            $("#DiscContainer").append("<div>" + "Записів не знайдено" + "</div>");
+        }
+
     });
 
 }
@@ -665,7 +693,6 @@ function ShowDiscCard(id) {
 
     showPopupWindow();
 }
-
 
 var loadDiscRows = function (parentUl, rdId) {
 
@@ -750,66 +777,81 @@ function showPopupWindow() {
     });
 }
 
-var getIrForDisc = function (parent, rtId) {
+var getIrForDisc = function (parent, rdId) {
     var url = ApiEndpoint;
 
-    url += "MZSearch/GetIrD?rtdiscId=" + rtId;
+    url += "MZSearch/GetIrD?rtdiscId=" + rdId;
+
+    parent.append("<span> Електронні інформаційні ресурси</span>" +
+              "<input type=\"button\" value=\"[/]\" discId=\"" + rdId + "\" class=\"btn btn-success\" onclick=\"EditDiscIrList(" + rdId + ")\"/>" +
+              "<br />");
+    parent.append("<h5>На стадії розробки<h5>");
+    return false;
 
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
             var prev = null;
+
             $.each(data.Data, function (key, value) {
                 if (prev != value.kind) {
-                    parent.append("<div class=\"ironediv\"><div class=\"col-md-12 kind\">" + value.kind + "</div><br></div>");
-                    parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
-                } else {
-                    parent.children(".ironediv").append("<p class=\"irrow\" iid=\"" + value.levelId + "\">" + value.levelName + "</p>");
+                    var irId = value.levelId;
+
+                    parent.append("<h4>" + value.kind + "</h4>");
+
+                    parent.last().append("<p class=\"irrow\" iid=\"" + irId + "\">" + "№" + irId + " Назва " + value.levelName +
+                                         "<input type=\"button\" value=\"[..]\" class=\"btn btn-success\" onclick=\"ShowCredIrCard(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[/]\" class=\"btn btn-success\" onclick=\"EditCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[^]\" class=\"btn btn-success\" onclick=\"DisconnectCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[X]\" class=\"btn btn-success\" onclick=\"DeleteCredIr(" + irId + ")\"/>" +
+                                         "</p>");
+                    prev = value.kind;
+                }
+                else {
+                    var irId = value.levelId;
+
+                    parent.last().append("<p class=\"irrow\" iid=\"" + irId + "\">" + "№" + irId + " Назва " + value.levelName +
+                                         "<input type=\"button\" value=\"[..]\" class=\"btn btn-success\" onclick=\"ShowCredIrCard(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[/]\" class=\"btn btn-success\" onclick=\"EditCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[^]\" class=\"btn btn-success\" onclick=\"DisconnectCredIr(" + irId + ")\"/>" +
+                                         "<input type=\"button\" value=\"[X]\" class=\"btn btn-success\" onclick=\"DeleteCredIr(" + irId + ")\"/>" +
+                                         "</p>");
                 }
             });
+        }
+        else {
+            parent.append("<h4>" + "Прикріплених ІР не знайдено" + "</h4>");
         }
     });
 }
 
+$(document).on("click", "#DiscContainer div span", function () {
 
-function ShowIrList2(id) {
-    $(".itemcol").remove();
-    $(".itemrow_a").attr("class", "itemrow");
+    var rdId = $(this).attr("discId");
 
+    var parentDiv = $("#irblock" + rdId)
 
-    $(this).attr("class", "itemrow_a");
+    if (parentDiv.css('display') == 'block') {
+        parentDiv.css("display", "none");
+        return;
+    }
 
-    var parentDiv = $(this).parent();
+    parentDiv.empty();
 
     parentDiv.append("<ul class=\"itemcol\"></ul>");
 
     var parentUl = parentDiv.children(".itemcol");
 
-    $("#itemcontainer div .itemcol").css("display", "none");
+    parentDiv.css("display", "block");
 
-    var obj = $(this);
+    getIrForDisc(parentUl, rdId);
 
-    if ($("#body_isdisc").attr("value") == "True") {
+    $("DiscContainer .itemcol").slideDown("slow");
+});
 
-        //-----------------------for disc---------------------------------
-        loadDiscRows(parentUl, obj);
-        parentDiv.append("<input type=\"button\" value=\"Детальніше\" did=\"" + obj.attr("did") + "\" class=\"btn-success col-lg-4 col-lg-offset-8\"/><br>");
-        //--------------------ir for disc-----------------------------------------------------
-        getIrForDorC(obj, $("#ircontainer"));
-
-    } else if ($("#body_isdisc").attr("value") == "False") {
-
-        //---------------------for cred-------------------------------------------------------------
-
-        loadCredRows(parentUl, obj);
-        parentDiv.append("<input type=\"button\" value=\"Детальніше\" cid=\"" + obj.attr("cid") + "\" class=\"btn-success col-lg-4 col-lg-offset-8\"/><br>");
-
-        //--------------------ir for cred------------------------------------------------------------
-
-        getIrForDorC(obj, $("#ircontainer"));
-    }
-
+function EditDiscIrList(rdId) {
+    alert("Сторінка редагування списку ІР для дисципліни з id=" + rdId);
+    return;
 }
-
 
 /********************************************Сredit Module ************************************************************/
 function InitCreditTab() {
@@ -820,6 +862,7 @@ function InitCreditTab() {
 
 function GetCredList() {
     var url = ApiEndpoint + "MZSearch/GetCredList";
+    $("#body_CredSpecList").empty();
     $("#body_CredList").append("<option value='-1'>Не обрано</option>");
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -832,6 +875,7 @@ function GetCredList() {
 
 function GetCredSpecList() {
     var url = ApiEndpoint + "MZSearch/GetSpecialityList";
+    $("#body_CredSpecList").empty();
     $("#body_CredSpecList").append("<option value='-1'>Не обрано</option>");
     $.getJSON(url, function (data, status) {
         if (data.Data.length > 0) {
@@ -855,6 +899,11 @@ function GetStudyFormList() {
 }
 
 function CredListChange() {
+    if ($("#body_CredList").find("option:selected").val() == -1) {
+        GetCredSpecList();
+        return false;
+    }
+
     var url = ApiEndpoint + "MZSearch/GetSpecialityC?" + "&dccredId=" + $("#body_CredList").find("option:selected").val();
 
     console.log("In CreditList change. JSON url = " + url);
@@ -890,6 +939,7 @@ function SearchCred() {
     else {
         url += "MZSearch/GetCredX?" + "&credId=" + selectedCred + "&specId=" + selectedSpec + "&sfId=" + selectedSF;
         $("#credSearchResult").css('display', 'inline');
+        console.log("Credit search. JSON url: " + url);
     }
 
     $.getJSON(url, function (data, status) {
