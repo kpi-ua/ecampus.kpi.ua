@@ -603,7 +603,6 @@ function SearchDisc() {
     $("#sTitle").slideDown("slow");
     $("#sresult").slideDown("slow");
     $("#DiscContainer div").remove();
-    //$("#ircontainer div").remove();
 
     $("#sresult").css('display', 'none');
 
@@ -715,8 +714,6 @@ var loadDiscRows = function (parentUl, rdId) {
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Актуальність" + "</span><span class=\"col-md-6\">" + value.dAct + "</span></li>");
                 parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Дата зміни актуальності" + "</span><span class=\"col-md-6\">" + value.dCreateDate + "</span></li>");
             });
-
-            //$("#DiscContainer .itemcol").slideDown("slow");
         }
     });
 }
@@ -939,7 +936,6 @@ function SearchCred() {
     else {
         url += "MZSearch/GetCredX?" + "&credId=" + selectedCred + "&specId=" + selectedSpec + "&sfId=" + selectedSF;
         $("#credSearchResult").css('display', 'inline');
-        console.log("Credit search. JSON url: " + url);
     }
 
     $.getJSON(url, function (data, status) {
@@ -1047,7 +1043,6 @@ var getIrForCred = function (parent, credId) {
             $.each(data.Data, function (key, value) {
                 if (prev != value.kind) {
                     var irId = value.levelId;
-                    //parent.append("<div class=\"ironediv\"><div class=\"col-md-12 kind\">" + value.kind + "</div><br></div>");
 
                     parent.append("<h4>" + value.kind + "</h4>");
 
@@ -1154,231 +1149,3 @@ function DeleteCredIr(irId) {
     alert("Сторінка видалення ІР з id=" + irId);
     return;
 }
-
-
-/**********************************************UNUSED CODE**************************************************************/
-$(document).on("click", "#DiscContainer2 div input", function () {
-    var obj = $(this);
-    var rdId = obj.attr("discId");
-    var popContainer = $(".popContainer");
-
-    popContainer.children().remove();
-
-    popContainer.append(
-        "<div class =\"row firstRow\">" +
-            "<div class=\"col-md-5\">" +
-                "<ul id=\"dul\" class=\"itemcol col-md-12\"></ul>" +
-            "</div>" +
-       "</div>");
-
-    var parentUl = popContainer.children(".firstRow").children().children("#dul");
-
-    if ($("#body_isdisc").attr("value") == "True") {
-
-        //-----------------------for disc---------------------------------
-
-        loadDiscRows(parentUl, rdId);
-
-        //--------------------ir for disc-----------------------------------------------------
-        popContainer.children(".firstRow").append(
-            "<div class=\"col-md-5 col-md-offset-1\">" +
-                "<div class=\" col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
-                    "Електронні інформаційні ресурси" +
-                "</div>" +
-                "<div id=\"irpop\" class=\"itemcol col-md-12\">" +
-                "</div>" +
-            "</div>");
-
-        var irpopHeight = $(".itemcol").height() - 120;
-        $("#irpop").css("max-height", irpopHeight);
-        $("#irpop").css("min-height", irpopHeight);
-
-        getIrForDorC($("#irpop"), rdId);
-
-        //----------------cred for disc------------------------------------------------------
-        popContainer.append(
-            "<div class =\"row secondRow\">" +
-                "<div class=\"col-md-5\">" +
-                    "<div class=\"col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
-                        "Кредитні модулі" +
-                    "</div>" +
-                    "<div id=\"cpop\" class=\"itemcol col-md-12\">" +
-                    "</div>" +
-                "</div>" +
-            "</div>");
-
-        getCredForDisc($("#cpop"), rdId);
-
-        //--------------------rnp for disc----------------------------------------------------
-        popContainer.children(".secondRow").append(
-            "<div class=\"col-md-5 col-md-offset-1\">" +
-                "<div class=\" col-md-12 label label-warning  margin\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
-                    "Рядки РНП" +
-                "</div>" +
-                "<div id=\"rnppop\" class=\"itemcol col-md-12 margin\">" +
-                "</div>" +
-           "</div>");
-
-        getRNPForDorC($("#rnppop"), rdId);
-
-
-    } else if ($("#body_isdisc").attr("value") == "False") {
-
-        //-----------------------for cred---------------------------------
-
-        loadDiscRows(parentUl, obj);
-        //--------------------ir for cred-----------------------------------------------------
-        getIrForDorC(obj, $("#irpop"));
-
-        //--------------------rnp for cred----------------------------------------------------
-        popContainer.children(".inrow").append("<div class=\"col-md-5 col-md-offset-1\">" +
-            "<div class=\" col-md-12 label label-warning  margin\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
-            "Рядки РНП" +
-            "</div>" +
-            "<div id=\"rnppop\" class=\"itemcol col-md-12 margin\">" +
-            "</div></div>");
-
-        getRNPForDorC(obj, $("#rnppop"));
-
-    }
-
-    //call popUP
-    $(".popup-link-1").click();
-
-});
-
-$(document).on("click", ".edit", function () {
-    $("#body_irEdit").attr("Value", $(this).attr("iid"));
-    $(".popContainer").append("<input class=\"hinput\" type=\"submit\"/>");
-    $(".hinput").click();
-});
-
-$(document).on("click", ".ironediv p", function () {
-
-    $(".ircol").remove();
-    $(".irrow_a").attr("class", "irrow");
-    $(".ironediv div br").remove();
-    $(".edit").remove();
-    $(".dlete").remove();
-    $(".ironediv div").remove();
-
-    var callObj = $(this);
-
-    callObj.attr("class", "irrow_a");
-
-    var parentDiv = callObj.parent();
-
-    parentDiv.append("<ul class=\"ircol\"></ul>");
-    console.log(parentDiv);
-
-    var parentUl = parentDiv.children(".ircol");
-    console.log(parentUl);
-
-    $(".ircol").css("display", "none");
-
-    var url = ApiEndpoint;
-    url += "MZSearch/GetOneIr?irlevelId=" + callObj.attr("iid");
-
-    $.getJSON(url, function (data, status) {
-        if (data.Data.length > 0) {
-            var count = 0;
-            $.each(data.Data, function (key, value) {
-                if (count < 1) {                              //---------------------must bi fixed! API err---------------------//
-                    parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Номер протоколу" + "</span><span class=\"col-md-6\">" + value.DocNumber + "</span></li>");
-                    parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Дата протоколу" + "</span><span class=\"col-md-6\">" + value.DocDate + "</span></li>");
-                    parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Гриф" + "</span><span class=\"col-md-6\">" + value.stamp + "</span></li>");
-                    parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Бібліографічний опис" + "</span><span class=\"col-md-6\">" + value.bibliog + "</span></li>");
-                    parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Анотація" + "</span><span class=\"col-md-6\">" + value.Annotation + "</span></li>");
-                    //parentUl.append("<li class=\"row lirow\"><span class=\"col-md-6\">" + "Посилання" + "</span><a href=\"#\" class=\"col-md-6\">" + "http://wwww.AlexFrostField" + "</a></li>");
-                    parentDiv.append("<div><input type=\"button\" value=\"Редагувати\" iid=\"" + callObj.attr("iid") + "\" class=\"edit btn-success col-lg-4 col-lg-offset-3\"/><input type=\"button\" value=\"Відкріпити\" iid=\"" + callObj.attr("iid") + "\" class=\"delete btn-success col-lg-4 col-lg-offset-1\"/><br></div>");
-
-                    count++;
-                }
-            });
-            $(".ironediv .ircol").slideDown("slow");
-        }
-    });
-});
-
-function window_resize() {
-    var page_h = $("html").height();
-    var page_w = $("html").width();
-
-    var containerHeight = page_h - 200;
-
-    $(".popContainer").css("max-height", containerHeight);
-    $(".popContainer").css("min-height", containerHeight);
-
-    console.log("Page height" + (page_h - 200));
-}
-
-var popupMagic = function (popup_Window_Width) {
-    $('body').append('<div id="blackout"></div>');
-
-    var boxWidth = popup_Window_Width;
-    centerBox();
-
-    function centerBox() {
-
-        /* определяем нужные данные */
-        var winWidth = $(window).width();
-        var winHeight = $(document).height();
-        var scrollPos = $(window).scrollTop();
-
-        /* Вычисляем позицию */
-
-        var disWidth = (winWidth - boxWidth) / 2
-        var disHeight = scrollPos + 40;
-
-        /* Добавляем стили к блокам */
-        $('.popup-box').css({ 'width': boxWidth + 'px', 'left': disWidth + 'px', 'top': disHeight + 'px' });
-        $('#blackout').css({ 'width': winWidth + 'px', 'height': winHeight + 'px' });
-
-        return false;
-    };
-
-
-    $('[class*=popup-link]').click(function (e) {
-        console.log("Inside popup-link-1 click");
-
-        /* Предотвращаем действия по умолчанию */
-        e.preventDefault();
-        e.stopPropagation();
-
-        /* Получаем id (последний номер в имени класса ссылки) */
-        var name = $(this).attr('class');
-        var id = name[name.length - 1];
-        var scrollPos = $(window).scrollTop();
-
-        console.log("name=" + name + " id=" + id + " scrollPos=" + scrollPos);
-
-        /* Корректный вывод popup окна, накрытие тенью, предотвращение скроллинга */
-        $('#popup-box-' + id).show();
-        $('#blackout').show();
-        $('html,body').css('overflow', 'hidden');
-
-        /* Убираем баг в Firefox */
-        $('html').scrollTop(scrollPos);
-    });
-
-    $('[class*=popup-box]').click(function (e) {
-        /* Предотвращаем работу ссылки, если она являеться нашим popup окном */
-        e.stopPropagation();
-    });
-    $('html').click(function () {
-        var scrollPos = $(window).scrollTop();
-        /* Скрыть окно, когда кликаем вне его области */
-        $('[id^=popup-box-]').hide();
-        $('#blackout').hide();
-        $("html,body").css("overflow", "auto");
-        $('html').scrollTop(scrollPos);
-    });
-    $('.close').click(function () {
-        var scrollPos = $(window).scrollTop();
-        /* Скрываем тень и окно, когда пользователь кликнул по X */
-        $('[id^=popup-box-]').hide();
-        $('#blackout').hide();
-        $("html,body").css("overflow", "auto");
-        $('html').scrollTop(scrollPos);
-    });
-};
