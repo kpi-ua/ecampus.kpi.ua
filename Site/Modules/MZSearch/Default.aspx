@@ -221,11 +221,6 @@
                         <asp:DropDownList ID="DiscList" runat="server" class="form-control" onchange="DiscListChange()" />
                     </div>
 
-                    <%--<div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                      </div>--%>
-
                     <div id="Sdiv" class="form-group" runat="server">
                         <label for="SpecList">Оберіть спеціальність</label>
                         <asp:DropDownList ID="SpecList" runat="server" class="form-control" />
@@ -258,10 +253,6 @@
             </div>
 
             <input id="session" type="hidden" runat="server" />
-            <input id="isdisc" type="hidden" runat="server" />
-            <input id="disc" type="hidden" runat="server" />
-            <input id="spec" type="hidden" runat="server" />
-            <input id="stdfrm" type="hidden" runat="server" />
             <input id="irEdit" type="hidden" runat="server" />
 
         </div>
