@@ -178,14 +178,17 @@ $(document).ready(function () {
             $("#BodyContainer").css('display', 'block');
             //alert('okl');
             GetTable($("#body_sel_table").val());
+          
         }
     });
+
 
     $("#body_GetGroup").change(function () {
         $("#BodyContainer").css('display', 'block');
         if ($("#body_GetGroup").val() != -1) GetTable($("#body_sel_table").val());
     });
 
+    
 
     function GetTable(t_number) {
         for (var i = 0; i < 3; i++) $("#body_Table" + i).css('display', 'none');
@@ -216,16 +219,17 @@ $(document).ready(function () {
                     part.append("<tr><td colspan='10'><a href='#' class='cycle'>" + cycle[i] + "<i class='fa fa-caret-up'></i></a></td></tr>")
                     $("#body_Table0").append(part)
                     ////////////////////////////////////////////
-
+                   /* ;*/
 
                     //////////////////////////////////////////////
                     var url1 = ApiEndpoint + "MzSearch/GetHours?cycle=" + cycle[i] + "&shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text() + "&year=" + $("#body_GetYear").find("option:selected").text();
                     $.getJSON(url1, function (data, status) {
-
+                        
                         if (data.Data.length > 0) {
 
 
                             $.each(data.Data, function (key, value) {
+                                var name1 = value.ModuleName;
                                 if (array.length != 0) {
                                     var add = true;
                                     for (var i1 = 0; i1 < array.length; i1++) {
@@ -243,6 +247,12 @@ $(document).ready(function () {
                                         if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
                                         if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td></td><td>" + value.HourN + "</td></tr>");
                                         //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+
+                                        /////////////////////////////
+                                       
+                                           
+                                        
+                                        /////////////////////////////
                                     }
                                     else {
 
@@ -254,6 +264,9 @@ $(document).ready(function () {
                                         $('.tr-row').eq(number - 4).find('td').eq(name).text(value.HourN);
 
                                     }
+                                    //////////////////////
+                                    
+                                    ///////////////////////////////
                                 }
                                 else {
 
@@ -263,13 +276,25 @@ $(document).ready(function () {
                                     if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td0></td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
                                     if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td>" + value.HourN + "</td><td></td></tr>");
                                     if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td></tr>");
-                                    //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+                                   
 
                                 }
-                                //$("#body_Table0").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
+                               
                             });
-                            //alert(array.length)
+                           if (i==cycle.length-1)
+                                $.each(array, function (i1, item1) {
+                                     var url2 = ApiEndpoint + "MzSearch/GetMat?name=" + array[i1];
+                                     $.getJSON(url, function (data, status) {
+                                         if (data.Data.length > 0) {
+                                            // alert(array[i1] + "    ||    " + $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).text() + "     ||         " + array.length);
+                                             $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).html("<a href='#'>"+array[i1]+"</a>");
+                                             
+                                         }
+
+                                 });
+                            });
                         }
+                        
                         for (var j1 = 0; j1 < array1.length; j1++) $('.tr-row').eq(j1).find('td').eq(5).text(array1[j1]);
                         $(".cycle").on("click", function () {
                             if ($(this).find('i').hasClass('fa-caret-up')) {
@@ -291,13 +316,14 @@ $(document).ready(function () {
                     }
                     //,  $("#body_Table0").append("<tr><td>" + cycle[i] + "</td></tr>")
                    );
-
+                    
 
 
                 })
 
-
+               
             });
+           
 
         }
 
@@ -397,6 +423,18 @@ $(document).ready(function () {
                                 }
                                 //$("#body_Table1").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
                             });
+                            if (i == cycle.length - 1)
+                                $.each(array, function (i1, item1) {
+                                    var url2 = ApiEndpoint + "MzSearch/GetMat?name=" + array[i1];
+                                    $.getJSON(url, function (data, status) {
+                                        if (data.Data.length > 0) {
+                                            // alert(array[i1] + "    ||    " + $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).text() + "     ||         " + array.length);
+                                            $('#body_Table1 .tr-row1').eq(i1).find('td').eq(1).html("<a href='#'>" + array[i1] + "</a>");
+
+                                        }
+                                        
+                                    });
+                                });
                             //alert(array.length)
                         }
 
@@ -513,6 +551,19 @@ $(document).ready(function () {
                                 //$("#body_Table0").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
                             });
                             //alert(array.length)
+
+                            if (i == cycle.length - 1)
+                                $.each(array, function (i1, item1) {
+                                    var url2 = ApiEndpoint + "MzSearch/GetMat?name=" + array[i1];
+                                    $.getJSON(url, function (data, status) {
+                                        if (data.Data.length > 0) {
+                                            // alert(array[i1] + "    ||    " + $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).text() + "     ||         " + array.length);
+                                            $('#body_Table2 .tr-row2').eq(i1).find('td').eq(1).html("<a href='#'>" + array[i1] + "</a>");
+
+                                        }
+
+                                    });
+                                });
                         }
                         
                         for (var j1 = 0; j1 < array1.length; j1++) {
