@@ -136,9 +136,9 @@ $(document).ready(function () {
     });
 
     $("#body_sel_table").change(function () {
-
+        
         if ($("#body_sel_table").val() == 2) {
-            // alert('ol');
+           // alert('ol');
             $("#body_GetGroup").empty();
             if (check_data($(this))) {
                 $("#body_GetGroup").append("<option value='-1'>Виберіть групу</option>");
@@ -169,8 +169,10 @@ $(document).ready(function () {
             $("#BodyContainer").css('display', 'block');
             //alert('okl');
             GetTable($("#body_sel_table").val());
+          
         }
     });
+
 
     $("#body_GetGroup").change(function () {
         $("#BodyContainer").css('display', 'block');
@@ -206,7 +208,7 @@ $(document).ready(function () {
                     part.append("<tr><td colspan='10'><a href='#' class='cycle'>" + cycle[i] + "<i class='fa fa-caret-up'></i></a></td></tr>")
                     $("#body_Table0").append(part)
                     ////////////////////////////////////////////
-
+                   /* ;*/
 
                     //////////////////////////////////////////////
                     var url1 = ApiEndpoint + "MzSearch/GetHours?cycle=" + cycle[i] + "&shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text() + "&year=" + $("#body_GetYear").find("option:selected").text();
@@ -216,6 +218,7 @@ $(document).ready(function () {
 
 
                             $.each(data.Data, function (key, value) {
+                                var name1 = value.ModuleName;
                                 if (array.length != 0) {
                                     var add = true;
                                     for (var i1 = 0; i1 < array.length; i1++) {
@@ -233,6 +236,12 @@ $(document).ready(function () {
                                         if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
                                         if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td></td><td>" + value.HourN + "</td></tr>");
                                         //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+
+                                        /////////////////////////////
+                                       
+                                           
+                                        
+                                        /////////////////////////////
                                     }
                                     else {
 
@@ -244,6 +253,9 @@ $(document).ready(function () {
                                         $('.tr-row').eq(number - 4).find('td').eq(name).text(value.HourN);
 
                                     }
+                                    //////////////////////
+                                    
+                                    ///////////////////////////////
                                 }
                                 else {
 
@@ -253,13 +265,25 @@ $(document).ready(function () {
                                     if (value.NName == "Практичне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td0></td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
                                     if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td></td><td>" + value.HourN + "</td><td></td></tr>");
                                     if (value.NName == "Самостійна робота") part.append("<tr class='tr-row'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td></tr>");
-                                    //$('#body_Table0 tr').eq(number).find('td').eq(name).text(value.HourN);
+
 
                                 }
-                                //$("#body_Table0").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
+                               
                             });
-                            //alert(array.length)
+                           if (i==cycle.length-1)
+                                $.each(array, function (i1, item1) {
+                                     var url2 = ApiEndpoint + "MzSearch/GetMat?name=" + array[i1];
+                                     $.getJSON(url, function (data, status) {
+                                         if (data.Data.length > 0) {
+                                            // alert(array[i1] + "    ||    " + $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).text() + "     ||         " + array.length);
+                                             $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).html("<a href='#'>"+array[i1]+"</a>");
+                                             
+                                         }
+
+                                 });
+                            });
                         }
+                        
                         for (var j1 = 0; j1 < array1.length; j1++) $('.tr-row').eq(j1).find('td').eq(5).text(array1[j1]);
                         $(".cycle").on("click", function () {
                             if ($(this).find('i').hasClass('fa-caret-up')) {
@@ -288,6 +312,7 @@ $(document).ready(function () {
 
 
             });
+
 
         }
 
@@ -387,6 +412,18 @@ $(document).ready(function () {
                                 }
                                 //$("#body_Table1").append("<tr><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td></td><td></td><td>"+value.NName+"</td><td></td><td></td></tr>");
                             });
+                            if (i == cycle.length - 1)
+                                $.each(array, function (i1, item1) {
+                                    var url2 = ApiEndpoint + "MzSearch/GetMat?name=" + array[i1];
+                                    $.getJSON(url, function (data, status) {
+                                        if (data.Data.length > 0) {
+                                            // alert(array[i1] + "    ||    " + $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).text() + "     ||         " + array.length);
+                                            $('#body_Table1 .tr-row1').eq(i1).find('td').eq(1).html("<a href='#'>" + array[i1] + "</a>");
+
+                                        }
+                                        
+                                    });
+                                });
                             //alert(array.length)
                         }
 
@@ -421,7 +458,7 @@ $(document).ready(function () {
 
         if (t_number == 2) {
             for (var j = 4; j < $("#body_Table2 tr").length; j++) { $("#body_Table2 tr").eq(j).remove(); j--; }
-
+            
             //get cycles
             var j = 1;
             var url = ApiEndpoint + "MzSearch/GetCycle?shifr=" + $("#body_GetProf").val() + "&form=" + $("#body_GetForm").find("option:selected").text();
@@ -467,7 +504,7 @@ $(document).ready(function () {
 
                                         array.push(value.ModuleName);
                                         array1.push(value.HourN);
-
+                                        
                                         if (value.NName == "Лекція") { part.append("<tr class='tr-row2' ><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td><td>0</td></tr>"); }
                                         if (value.NName == "Практичне заняття") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td><td>0</td></tr>");
                                         if (value.NName == "Лабораторне заняття") part.append("<tr class='tr-row2'><td>" + (j++) + "</td><td>" + value.ModuleName + "</td><td>" + value.CafName + "</td><td>" + value.Credits + "</td><td>" + value.Hours + "</td><td>0</td><td>0</td><td>0</td><td>" + value.HourN + "</td><td>0</td></tr>");
@@ -498,13 +535,26 @@ $(document).ready(function () {
 
                                 }
                             });
+                            //alert(array.length)
 
+                            if (i == cycle.length - 1)
+                                $.each(array, function (i1, item1) {
+                                    var url2 = ApiEndpoint + "MzSearch/GetMat?name=" + array[i1];
+                                    $.getJSON(url, function (data, status) {
+                                        if (data.Data.length > 0) {
+                                            // alert(array[i1] + "    ||    " + $('#body_Table0 .tr-row').eq(i1).find('td').eq(1).text() + "     ||         " + array.length);
+                                            $('#body_Table2 .tr-row2').eq(i1).find('td').eq(1).html("<a href='#'>" + array[i1] + "</a>");
+
+                                        }
+
+                                    });
+                                });
                         }
-
+                        
                         for (var j1 = 0; j1 < array1.length; j1++) {
-
+                            
                             $('.tr-row2').eq(j1).find('td').eq(5).text(array1[j1]);
-
+                            
                         }
                         $(".cycle2").on("click", function () {
                             if ($(this).find('i').hasClass('fa-caret-up')) {
@@ -539,7 +589,7 @@ $(document).ready(function () {
 
     }
 
-    /*$('.cycle').click(function () {      
+    /*$('.cycle').click(function () {
     });*/
 });
 
@@ -559,23 +609,23 @@ function GetDiscList() {
             $.each(data.Data, function (key, value) {
                 $("#body_DiscList").append("<option value='" + value.DcDisciplineId + "'>" + value.Name + "</option>");
             });
-        }
+}
     });
 }
 
 function showPopupWindow() {
-    var winWidth = $(window).width();
+        var winWidth = $(window).width();
     var boxWidth = winWidth - 200;
 
-    var scrollPos = $(window).scrollTop();
+        var scrollPos = $(window).scrollTop();
 
-    /* Вычисляем позицию */
-    var disWidth = (winWidth - boxWidth) / 2
+        /* Вычисляем позицию */
+        var disWidth = (winWidth - boxWidth) / 2
     var disHeight = scrollPos + 40;;
 
-    /* Добавляем стили к блокам */
+        /* Добавляем стили к блокам */
     
-    $('.popup-box').css({ 'width': boxWidth + 'px', 'left': disWidth + 'px', 'top': disHeight + 'px' });
+        $('.popup-box').css({ 'width': boxWidth + 'px', 'left': disWidth + 'px', 'top': disHeight + 'px' });
 
     var containerHeight = $("html").height() - 200;
 
@@ -598,13 +648,13 @@ function DiscListChange() {
 
     $("#body_SpecList").empty();
     $("#body_SpecList").append("<option value='-1'>Не обрано</option>");
-    $.getJSON(url, function (data, status) {
-        if (data.Data.length > 0) {
-            $.each(data.Data, function (key, value) {
+        $.getJSON(url, function (data, status) {
+            if (data.Data.length > 0) {
+                $.each(data.Data, function (key, value) {
                 $("#body_SpecList").append("<option value='" + value.RtProfTrainTotalId + "'>" + value.TotalShifr + " " + value.Name + "</option>");
-            });
-        }
-    });
+                });
+            }
+        });
 }
 
 function SearchDisc() {
@@ -633,20 +683,20 @@ function SearchDisc() {
                 return;
             }
 
-    $.getJSON(url, function (data, status) {
-        if (data.Data.length > 0) {
-            $.each(data.Data, function (key, value) {
+        $.getJSON(url, function (data, status) {
+            if (data.Data.length > 0) {
+                $.each(data.Data, function (key, value) {
                 var rdId = value.RtDisciplineId;
                 var discName = value.NameFull;
                 $("#DiscContainer").append("<div class=\"oneitem col-md-12\">" +
                                                 "<span class=\"itemrow\" discId=\"" + rdId + "\" onclick=\"ShowIrList(" + rdId + ")\">" + discName + "</span>" +
                                                 "<input type=\"button\" value=\"[...]\" discId=\"" + rdId + "\" class=\"btn btn-xs btn-success\" onclick=\"ShowDiscCard(" + rdId + ")\"/>" +
                                            "</div>");
-            });
-        }
-    });
+                });
+            }
+        });
 
-}
+    }
 
 function ShowDiscCard(id) {
     var rdId = id;
@@ -778,7 +828,7 @@ var getCredForDisc = function (parent, rdId) {
                 console.log("Inside getCredForDisc parent appending.");
                 parent.append("<div class=\"oneitem\" ><p class=\"itemrow\"" + "\">" + value.NameFull + "</p></div>");
             });
-        }
+}
     });
 
 };
@@ -793,7 +843,7 @@ var getRNPForDisc = function (parent, rdId) {
             $.each(data.Data, function (key, value) {
                 parent.append("<div class=\"oneitem\" ><p class=\"itemrow\"" + "\">" + value.NameFull + "</p></div>");
             });
-        }
+    }
     });
 };
 
@@ -976,9 +1026,9 @@ var loadCredRows = function (parentUl, credId) {
             });
 
             //$("#CredContainer .itemcol").slideDown("slow");
+                }
+            });
         }
-    });
-}
 
 var getRNPForCred = function (parent, credId) {
     var url = ApiEndpoint;
@@ -1061,8 +1111,8 @@ function showCredPopupWindow() {
         /* Скрываем тень и окно, когда пользователь кликнул по X */
         $('[id^=popup-box-]').hide();
         $("html,body").css("overflow", "auto");
-    });
-}
+            });
+        }
 
 $(document).on("click", "#CredContainer div span", function () {
 
@@ -1089,7 +1139,7 @@ $(document).on("click", "#CredContainer div span", function () {
     getIrForCred(parentUl, credId);
 
     $("#CredContainer .itemcol").slideDown("slow");
-});
+    });
 
 function EditCredIrList(credId) {
     alert("Сторінка редагування списку ІР для кредитного модуля з id=" + credId);
@@ -1127,7 +1177,7 @@ $(document).on("click", "#DiscContainer2 div input", function () {
 
     popContainer.append(
         "<div class =\"row firstRow\">" +
-            "<div class=\"col-md-5\">" +
+            "<div class=\"col-md-5\">" + 
                 "<ul id=\"dul\" class=\"itemcol col-md-12\"></ul>" +
             "</div>" +
        "</div>");
@@ -1137,7 +1187,7 @@ $(document).on("click", "#DiscContainer2 div input", function () {
     if ($("#body_isdisc").attr("value") == "True") {
 
         //-----------------------for disc---------------------------------
-
+        
         loadDiscRows(parentUl, rdId);
 
         //--------------------ir for disc-----------------------------------------------------
@@ -1158,14 +1208,14 @@ $(document).on("click", "#DiscContainer2 div input", function () {
 
         //----------------cred for disc------------------------------------------------------
         popContainer.append(
-            "<div class =\"row secondRow\">" +
+            "<div class =\"row secondRow\">" + 
                 "<div class=\"col-md-5\">" +
                     "<div class=\"col-lg-12 label label-warning\" style=\"font-size: 100%; margin-bottom: 5px;\">" +
                         "Кредитні модулі" +
                     "</div>" +
                     "<div id=\"cpop\" class=\"itemcol col-md-12\">" +
                     "</div>" +
-                "</div>" +
+                "</div>" + 
             "</div>");
 
         getCredForDisc($("#cpop"), rdId);
@@ -1177,7 +1227,7 @@ $(document).on("click", "#DiscContainer2 div input", function () {
                     "Рядки РНП" +
                 "</div>" +
                 "<div id=\"rnppop\" class=\"itemcol col-md-12 margin\">" +
-                "</div>" +
+                "</div>" + 
            "</div>");
 
         getRNPForDorC($("#rnppop"), rdId);
