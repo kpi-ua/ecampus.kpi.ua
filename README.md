@@ -2,6 +2,7 @@
 
 Campus core classes for implementing API modules.<br />
 
+[![NuGet version (campus.core)](https://img.shields.io/nuget/v/campus.core.svg?style=flat-square)](https://www.nuget.org/packages/campus.core/)
 
 ####Example 
 Examples of using: https://github.com/DOIS/examples
