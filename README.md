@@ -1,4 +1,3 @@
-### Javascript campus SDK
-####Campus Scaffolder
+### JavaScript Campus SDK (including debug tool)
 
-Debug and diagnostic tool for NTUU KPI Campus project
+SDK for NTUU KPI Campus JavaScript applications.

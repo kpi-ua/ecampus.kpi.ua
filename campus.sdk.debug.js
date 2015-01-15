@@ -221,6 +221,10 @@ function fillMethodList(url) {
 $(document).ready(function () {
 
     API.setApiEndpoint('http://campus-api.azurewebsites.net/');
+    
+    $("#api-link").attr("href", API.getApiEndpoint);
+    $("#api-link").text(API.getApiEndpoint);
+    
 
     $("#cmb-methods").change(function () {
         var method = $("#cmb-methods option:selected").text();
