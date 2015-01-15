@@ -1,5 +1,8 @@
-//example for using APIlib.js
+//example for using campus.sdk.js
 $(document).ready(function() {
+    
+    API.setApiEndpoint('http://campus-api.azurewebsites.net/');
+    
     $("button").click(function() {
         //get user sessionId
         //getData( [ controller, function], { properties (must have the same names as parameters in api url)}, callback function)

@@ -1,11 +1,26 @@
-﻿var ssid;
-var apiEndpoint;
+//Default API endpoint: http://api.ecampus.kpi.ua/
 
 $(document).ready(function () {
-    ssid = document.getElementById("CampusSessionId").value;
-    apiEndpoint = document.getElementById("ApiEndpoint").value;
-
+    var sessionId;
+    var apiEndpoint;
+    
     window.API = {
+        setApiEndpoint: function(url){
+            apiEndpoint = url;
+        },
+        
+        getApiEndpoint: function(){
+            return apiEndpoint;
+        },
+        
+        setSessionId: function(sid){
+            sessionId =sid;
+        },
+        
+        getSessionId: function(){
+            return sessionId;
+        },
+    
         getUser: function (callback) {
             this.getData(["User", "GetCurrentUser"], {}, function (data) {
                 callback(data);
@@ -13,7 +28,7 @@ $(document).ready(function () {
         },
 
         getData: function (path, obj, callback) {
-            var url = apiEndpoint + path.join('/') + "?sessionId=" + ssid + "&";
+            var url = ApiEndpoint + path.join('/') + "?sessionId=" + SessionId + "&";
             var array = [];
             for (var item in obj) {
                 array.push(item + '=' + obj[item]);
