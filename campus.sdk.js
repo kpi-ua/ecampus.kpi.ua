@@ -3,24 +3,24 @@
 $(document).ready(function () {
     var sessionId;
     var apiEndpoint;
-    
+
     window.API = {
-        setApiEndpoint: function(url){
+        setApiEndpoint: function (url) {
             apiEndpoint = url;
         },
-        
-        getApiEndpoint: function(){
+
+        getApiEndpoint: function () {
             return apiEndpoint;
         },
-        
-        setSessionId: function(sid){
-            sessionId =sid;
+
+        setSessionId: function (sid) {
+            sessionId = sid;
         },
-        
-        getSessionId: function(){
+
+        getSessionId: function () {
             return sessionId;
         },
-    
+
         getUser: function (callback) {
             this.getData(["User", "GetCurrentUser"], {}, function (data) {
                 callback(data);
@@ -28,7 +28,7 @@ $(document).ready(function () {
         },
 
         getData: function (path, obj, callback) {
-            var url = ApiEndpoint + path.join('/') + "?sessionId=" + SessionId + "&";
+            var url = apiEndpoint + path.join('/') + "?sessionId=" + sessionId + "&";
             var array = [];
             for (var item in obj) {
                 array.push(item + '=' + obj[item]);
