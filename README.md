@@ -1,13 +1,11 @@
-# NTUU KPI Electronic Campus #
+# NTUU KPI Electronic Campus web interface
 
-Несколько признаков хорошего интерфейса: http://habrahabr.ru/post/247367/
 
-Project location: 
+### Project location: 
 
 * Dummy page: http://ecampus.kpi.ua/
 * Test page: http://ecampus.kpi.ua/login
 * **Cloud** (from cloud-branch, for debug, with continuous deploy) - http://campus-portal.azurewebsites.net/login
 
-## Test User Accounts
-
-![campus-pass.png](https://bitbucket.org/repo/z7pKa9/images/2351803063-campus-pass.png)
+### Test User Accounts
+![ua](https://cloud.githubusercontent.com/assets/3822922/5788645/bb681c90-9e4b-11e4-97a7-8932afb81a43.png)
