@@ -208,6 +208,8 @@
     <Content Include="Images\carousel-subsystems-button.jpg" />
     <Content Include="Images\carousel-support-button.jpg" />
     <Content Include="Images\planner-32.png" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="Modules\EIR\StudentsOfGroup.aspx" />
     <Content Include="Modules\EIR\StudyGroups.aspx" />
     <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
