@@ -20,3 +20,9 @@ Automatic synced with **cloud** branch: http://campus-portal.azurewebsites.net/l
 | bai   | bai      | Бахуринский А.И. |
 | gks   | 333      | Глущенко К.С.    |
 | myv   | myv      | Мазай Я.В.       |
+
+
+###More information
+* API endpoint: campus-api.azurewebsites.net
+* API debug tool: http://campus-tools.azurewebsites.net/
+* API debug tool source code: https://github.com/DOIS/campus.sdk.js/blob/master/index.html
