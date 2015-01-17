@@ -8,4 +8,15 @@
 Automatic synced with **cloud** branch: http://campus-portal.azurewebsites.net/login
 
 #### Test accounts
-![ua](https://cloud.githubusercontent.com/assets/3822922/5788645/bb681c90-9e4b-11e4-97a7-8932afb81a43.png)
+| Login | Password | Name             |
+|-------|----------|------------------|
+| 2     | 21       | Мелкумян К.Ю.    |
+| 123   | 123      | Савицкий А.Й.    |
+| 1     | 1        | Свинаренко Д.А   |
+| tua   | tua      | Тимошин Ю.А.     |
+| gob   | gob      | Габзовская О.Б.  |
+| vam   | vam      | Волокита В.Б.    |
+| bvb   | bvb      | Бобков В.Б.      |
+| bai   | bai      | Бахуринский А.И. |
+| gks   | 333      | Глущенко К.С.    |
+| myv   | myv      | Мазай Я.В.       |
