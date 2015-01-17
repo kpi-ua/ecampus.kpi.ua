@@ -1,7 +1,6 @@
-﻿using System.Net;
-using Core;
+﻿using Core;
 using System;
-using System.Web;
+using System.Net;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -18,8 +17,7 @@ namespace Site.Controllers
                 if (!String.IsNullOrEmpty(sessionId))
                 {
                     SessionId = sessionId;
-                    UserLogin = credential.UserName;
-                    UserPassword = credential.Password;
+
                     FormsAuthentication.SetAuthCookie(credential.UserName, true);
                     return Redirect("~/Default.aspx");
                 }

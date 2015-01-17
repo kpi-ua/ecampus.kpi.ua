@@ -278,24 +278,23 @@ namespace Site
 
         protected void SavePass_Click(object sender, EventArgs e)
         {
-            if (OldPass.Text == UserPassword)
-            {
-                if (NewPass.Text == NewPassCheak.Text)
-                {
 
-                    CampusClient.ChangePassword(SessionId, OldPass.Text, NewPass.Text);
+            if (NewPass.Text == NewPassCheak.Text)
+            {
+                if (CampusClient.ChangePassword(SessionId, OldPass.Text, NewPass.Text))
+                {
                     ShowErrorMessage("OK");
-                    UserPassword = NewPass.Text;
                 }
                 else
                 {
-                    ShowErrorMessage("Новий пароль не співпав");
+                    ShowErrorMessage("Старий пароль неправильний");
                 }
             }
             else
             {
-                ShowErrorMessage("Старий пароль неправильний");
+                ShowErrorMessage("Новий пароль не співпав");
             }
+
         }
 
         private void ShowErrorMessage(string text)
@@ -311,7 +310,6 @@ namespace Site
                 using (var binaryReader = new BinaryReader(UserFotoFileUpload.PostedFile.InputStream))
                 {
                     var fileData = binaryReader.ReadBytes(UserFotoFileUpload.PostedFile.ContentLength);
-                    CampusClient.Authenticate(UserLogin, UserPassword);
                     CampusClient.UploadUserProfileImage(fileData);
                 }
             }

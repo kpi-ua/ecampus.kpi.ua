@@ -45,9 +45,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\campus.common.1.0.32.600\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Campus.SDK, Version=1.0.1.22929, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Campus.SDK, Version=1.0.2.41180, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\campus.sdk.1.0.1.220\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
+      <HintPath>..\packages\campus.sdk.1.0.2.225\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks">

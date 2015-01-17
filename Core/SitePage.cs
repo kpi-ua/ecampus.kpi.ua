@@ -51,19 +51,7 @@ namespace Core
             get { return Session["UserData"] == null ? null : Session["UserData"].ToString(); }
             set { Session["UserData"] = value; }
         }
-
-        protected String UserLogin
-        {
-            get { return Session["UserLogin"] == null ? null : Session["UserLogin"].ToString(); }
-            set { Session["UserLogin"] = value; }
-        }
-
-        protected String UserPassword
-        {
-            get { return Session["UserPassword"] == null ? null : Session["UserPassword"].ToString(); }
-            set { Session["UserPassword"] = value; }
-        }
-
+        
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -72,6 +60,8 @@ namespace Core
             {
                 Response.Redirect("~/login");
             }
+
+            CampusClient.SessionId = SessionId;
         }
     }
 }
