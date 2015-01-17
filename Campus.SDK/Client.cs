@@ -47,9 +47,9 @@ namespace Campus.SDK
         }
 
         /// <summary>
-        /// 
+        /// Get or set session id
         /// </summary>
-        public string SessionId { get; protected set; }
+        public string SessionId { get; set; }
 
         /// <summary>
         /// by default session has expire time. This property retrn that your session is valid.
