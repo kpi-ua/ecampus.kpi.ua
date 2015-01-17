@@ -180,6 +180,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\custom.css">
+      <DependentUpon>custom.less</DependentUpon>
+    </Content>
+    <Content Include="Content\custom.min.css">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker3.css" />
     <Content Include="Content\font-awesome.css" />
@@ -187,10 +193,15 @@
     <Content Include="Content\jquery-filestyle.css" />
     <Content Include="Content\picker.css" />
     <Content Include="Content\picker.date.css" />
-    <Content Include="Content\EIRView.css" />
     <Content Include="Content\jquery-ui.min.autocomplete.css" />
     <Content Include="Content\jquery.ambiance.css" />
     <Content Include="Content\simplePagination.css" />
+    <Content Include="Content\site.css">
+      <DependentUpon>site.less</DependentUpon>
+    </Content>
+    <Content Include="Content\site.min.css">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\calendar.gif" />
@@ -215,6 +226,12 @@
     <Content Include="Content\bootstrap-chosen.scss" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
+    <Content Include="Content\site.css.map">
+      <DependentUpon>site.css</DependentUpon>
+    </Content>
+    <Content Include="Content\custom.css.map">
+      <DependentUpon>custom.css</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -287,7 +304,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\pako.min.js" />
     <Content Include="Scripts\picker.date.js" />
-    <Content Include="Content\custom.css" />
+    <None Include="Content\custom.less" />
     <Content Include="Content\tree\32px.png" />
     <Content Include="Content\tree\40px.png" />
     <Content Include="Content\tree\style.css" />
@@ -327,7 +344,7 @@
     <Content Include="Modules\Messages\Dialog.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Content\jquery-ui-1.10.4.custom.min.css" />
-    <Content Include="Content\site.css" />
+    <None Include="Content\site.less" />
     <Content Include="Global.asax" />
     <Content Include="googleeefcd3aa17a745f9.html" />
     <Content Include="Images\animated-overlay.gif" />

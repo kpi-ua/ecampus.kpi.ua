@@ -6,7 +6,6 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="newhead" runat="server">
-    <link href="/Content/EIRView.css" rel="stylesheet" />
     <script src="/Scripts/APIlib.js"></script>
     <script src="/Scripts/EIRView.js"></script>
 </asp:Content>
