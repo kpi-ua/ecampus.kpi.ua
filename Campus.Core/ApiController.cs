@@ -293,19 +293,16 @@ namespace Campus.Core
                 compression = method.GetCustomAttribute<CompressAttribute>(true);
             }
 
-            var parameters = method.GetParameters().AsParallel()
-                .Select(o => new
-                {
-                    o.Name,
-                    Type = o.ParameterType.ToString(),
-                    Description = XmlDocumentation.GetDescription(method, o),
-                }).ToList();
+            var parameters = method.GetParameters()
+                .AsParallel()
+                .Select(o => new TypeDescription(o, XmlDocumentation.GetDescription(method, o)))
+                .ToList();
 
             var description = XmlDocumentation.GetDescription(method, null);
 
-            return new
+            return new MethodDescription
             {
-                method.Name,
+                Name = method.Name,
                 Method = isHttPost ? "POST" : "GET",
                 Description = description,
                 Compression = !isCompression ? null : new
@@ -345,7 +342,7 @@ namespace Campus.Core
                 var type = this.GetType();
                 var method = GetCallerMethod(3);
 
-                return CompressIgnoreAttribute.Instance.HasAttribute(method) || CompressIgnoreAttribute.Instance.HasAttribute(type) 
+                return CompressIgnoreAttribute.Instance.HasAttribute(method) || CompressIgnoreAttribute.Instance.HasAttribute(type)
                     ? false
                     : CompressAttribute.Instance.HasAttribute(type, inherit: true) || CompressAttribute.Instance.HasAttribute(method, inherit: true);
             }

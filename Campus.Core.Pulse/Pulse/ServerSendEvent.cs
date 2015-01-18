@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Campus.Core.Documentation;
 
 namespace Campus.Core.Pulse.Pulse
 {
@@ -333,7 +334,6 @@ namespace Campus.Core.Pulse.Pulse
             return response;
         }
 
-
         /// <summary>
         /// Adds cross-domain headers.
         /// </summary>
@@ -344,7 +344,6 @@ namespace Campus.Core.Pulse.Pulse
                 response.Headers.Add("Access-Control-Allow-Origin", "*");
             response.Headers.Add("Cache-Control", "no-cache, must-revalidate");
         }
-
 
         /// <summary>
         /// Adds the client.
@@ -373,7 +372,6 @@ namespace Campus.Core.Pulse.Pulse
             }
         }
 
-
         /// <summary>
         /// Gets the last message identifier.
         /// </summary>
@@ -388,7 +386,6 @@ namespace Campus.Core.Pulse.Pulse
 
             return id;
         }
-
 
         /// <summary>
         /// Checks the message.
@@ -405,7 +402,6 @@ namespace Campus.Core.Pulse.Pulse
                 msg.Retry = _HeartbeatInterval.ToString();
         }
 
-
         /// <summary>
         /// Setups the heartbeat.
         /// </summary>
@@ -418,7 +414,6 @@ namespace Campus.Core.Pulse.Pulse
             }
         }
 
-
         /// <summary>
         /// Timer's callback.
         /// </summary>
@@ -429,7 +424,6 @@ namespace Campus.Core.Pulse.Pulse
 
             Send(new Message() { Comment = "heartbeat" });
         }
-
 
         /// <summary>
         /// Validates the user.
@@ -445,7 +439,6 @@ namespace Campus.Core.Pulse.Pulse
                 throw new HttpException(Convert.ToInt32(HttpStatusCode.Forbidden), "Access denied");
             }
         }
-
 
         /// <summary>
         /// Introspects this instance.
@@ -470,8 +463,6 @@ namespace Campus.Core.Pulse.Pulse
             });
         }
 
-
-
         /// <summary>
         /// Introspects the method.
         /// </summary>
@@ -482,29 +473,24 @@ namespace Campus.Core.Pulse.Pulse
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
             var isDescription = DescriptionAttribute.Instance.HasAttribute(method);
 
-            return new
+            return new MethodDescription
             {
-                method.Name,
+                Name = method.Name,
                 Method = isHttPost ? "POST" : "GET",
                 Description = isDescription ? ((DescriptionAttribute)method.GetCustomAttributes().First(o => (string)o.TypeId == "DescriptionAttribute")).Description : null,
-                Parameters = method.GetParameters().Where(p => !NonSerializableParameterAttribute.Instance.HasAttribute(p)).Select(o => new
-                {
-                    o.Name,
-                    Type = o.ParameterType.ToString(),
-                }).ToList()
+                Parameters = method.GetParameters().Where(p => !NonSerializableParameterAttribute.Instance.HasAttribute(p)).Select(o => new TypeDescription(o)).ToList()
             };
         }
 
         void IDisposable.Dispose()
         {
-            if (this._HeartbeatTimer != null)
+            if (_HeartbeatTimer != null)
             {
-                this._HeartbeatTimer.Dispose();
+                _HeartbeatTimer.Dispose();
             }
 
-            this._Clients = null;
-            this._MessageHistory = null;
-
+            _Clients = null;
+            _MessageHistory = null;
         }
     }
 }
