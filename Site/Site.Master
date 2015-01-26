@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="/Content/jquery-filestyle.css" />
     <link rel="stylesheet" href="/Content/custom.css" />
 
+    <!-- Slick carousel -->
+    <link rel="stylesheet" href="/Content/slick.css" />
+    <link rel="stylesheet" href="/Content/carousel.css" />
+
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
 
@@ -111,113 +115,86 @@
             </script>
 
             <!--Carousel-->
-            <div id="carousel-menu" class="carousel slide site-carousel " data-ride="carousel" data-interval="false">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-menu" data-slide-to="0" class="active"></li>
-                    <%--<li data-target="#carousel-menu" data-slide-to="1"></li>--%>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <table class="site-carousel-table">
-                            <tr>
-                                <td colspan="2">
-                                    <a href="/Default.aspx">
-                                        <img src="/Images/carousel-profile-button.png" /></a>
-                                </td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td>
-                                    <div class="calendar-button-container_" style="width: 55px; height: 52px; position: relative;">
-                                        <div>
-                                            <button type="button" class="carousel_date_button_ btn fa" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-image: url(../../../../Images/planner-32.png); background-repeat: no-repeat; background-position: center;" onclick="$.planner.Show('datepicker_data');"></button>
-                                        </div>
-                                        <div class="calendar-button-counter" style="width: 55px; height: 52px; position: relative; display: none;">
-                                            <div class="fa fa-2x fa-circle" style="position: absolute; color: #F20400; left: 55%"></div>
-                                            <div class="counter-placeholder" style="position: absolute; color: white; top: -62%; left: 70%"></div>
-                                            <div style="width: 55px; height: 52px; position: relative;" onclick="$.planner.Show('datepicker_data');"></div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="/Modules/EIR/Search.aspx">
-                                        <img src="/Images/carousel-teachers-button.png" /></a>
-                                </td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td colspan="2">
-                                    <a href="/Modules/MZSearch/">
-                                        <img src="/Images/carousel-methodologicalsupport-button.png" /></a>
-                                </td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td rowspan="2">
-                                    <a href="/Modules/EIR/">
-                                        <img src="/Images/carousel-eip-button.png" /></a>
-                                </td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td rowspan="2">
-                                    <a href="/Modules/IndividualTeachersPlan/">
-                                        <img src="/Images/carousel-plan-button.png"></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="/Modules/Bulletins/">
-                                        <img src="/Images/carousel-billboard-button.png"></a>
-                                </td>
-                                <td>
-                                    <a href="/Modules/Messages/">
-                                        <img src="/Images/carousel-communion-button.png"></a>
-                                </td>
-                                <td colspan="2">
-                                    <a href="/Modules/EIR/StudyGroups.aspx">
-                                        <img src="/Images/carousel-studygroups-button.png"></a>
-                                </td>
-                                <td colspan="2">
-                                    <a href="#">
-                                        <img src="/Images/carousel-currentcontrol-button.png"></a>
-                                </td>
-                            </tr>
-                        </table>
+            <div class="carousel">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <div class="carousel-group">
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="/Default.aspx">
+                                <img src="/Images/carousel-profile-button.png">
+                            </a>
+                        </div>
                     </div>
-                    <%--<div class="item">
-                        <table class="site-carousel-table">
-                            <tr>
-                                <td colspan="2">
-                                    <a href="/Modules/Support/"><img src="/Images/carousel-support-button.jpg"/></a>
-                                </td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td></td>
-                                <td></td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td colspan="2"></td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td rowspan="2"></td>
-                                <td rowspan="2" class="site-carousel-vseparator"></td>
-                                <td rowspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <a href="/Modules/SubSystems"><img src="/Images/carousel-subsystems-button.jpg"/></a>
-                                </td>
-                                <td colspan="2"></td>
-                                <td colspan="2"></td>
-                            </tr>
-                        </table>
-                    </div>--%>
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="/Modules/Bulletins/">
+                                <img src="/Images/carousel-billboard-button.png">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="/Modules/Messages/">
+                                <img src="/Images/carousel-communion-button.png">
+                            </a>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Test -->
-
-                <!-- Controls -->
-                <a class="left carousel-control" href="#carousel-menu" role="button" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="right carousel-control" href="#carousel-menu" role="button" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
+                <div class="carousel-group">
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                        </div>
+                        <div class="carousel-item">
+                            <a href="/Modules/EIR/Search.aspx">
+                                <img src="/Images/carousel-teachers-button.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="/Modules/EIR/StudyGroups.aspx">
+                                <img src="/Images/carousel-studygroups-button.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-group">
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="/Modules/MZSearch/">
+                                <img src="/Images/carousel-methodologicalsupport-button.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="#">
+                                <img src="/Images/carousel-currentcontrol-button.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-group">
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="/Modules/EIR/">
+                                <img src="/Images/carousel-eip-button.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-group">
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="/Modules/IndividualTeachersPlan/">
+                                <img src="/Images/carousel-plan-button.png">
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- ---------- -->
+
+
             <!--Хлебные крошки-->
             <div class="row site-breadcrumbs">
                 <ol class="breadcrumb">
@@ -249,5 +226,8 @@
 
     <div id="calendar-container" style="visibility: hidden; display: none; width: 100%">
     </div>
+    
+    <script type="text/javascript" src="/Scripts/slick.min.js"></script>
+    <script type="text/javascript" src="/Scripts/carousel.js"></script>
 </body>
 </html>
