@@ -146,6 +146,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\carousel.css" />
     <Content Include="Content\custom.css">
       <DependentUpon>custom.less</DependentUpon>
     </Content>
@@ -168,6 +169,7 @@
     <Content Include="Content\site.min.css">
       <DependentUpon>site.css</DependentUpon>
     </Content>
+    <Content Include="Content\slick.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\calendar.gif" />
@@ -192,6 +194,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-chosen.less" />
     <Content Include="Content\bootstrap-chosen.scss" />
+    <Content Include="Scripts\carousel.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Content\site.css.map">
@@ -200,6 +203,7 @@
     <Content Include="Content\custom.css.map">
       <DependentUpon>custom.css</DependentUpon>
     </Content>
+    <Content Include="Content\slick.css.map" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -389,6 +393,7 @@
     <Content Include="Scripts\picker.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\site.js" />
+    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\timetable.js" />
     <Content Include="NLog.config" />
     <None Include="Properties\PublishProfiles\default.pubxml" />
