@@ -1,0 +1,54 @@
+﻿.slick-list {
+    margin: 0 33px;
+}
+
+.slick-track {
+    margin: 0 auto;
+}
+
+.carousel {
+    height: 152px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.carousel-group {
+    padding: 0 12px;
+}
+
+.carousel-row:not(:first-of-type) {
+    padding-top: 5px;
+}
+
+.carousel-item {
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: bottom;
+}
+
+.carousel-item img {
+    border-radius: 5px;
+}
+
+.carousel .glyphicon {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 40%;
+    color: #e5e5e5;
+    font: 30px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.carousel .glyphicon:hover {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.carousel .glyphicon-chevron-left {
+    left: 0;
+}
+
+.carousel .glyphicon-chevron-right {
+    right: 0;
+}
