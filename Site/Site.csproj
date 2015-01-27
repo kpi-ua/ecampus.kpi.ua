@@ -173,6 +173,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Images\calendar.gif" />
+    <Content Include="Images\calendar.png" />
     <Content Include="Images\carousel-subsystems-button.jpg" />
     <Content Include="Images\carousel-support-button.jpg" />
     <Content Include="Images\planner-32.png" />

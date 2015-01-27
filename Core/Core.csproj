@@ -118,7 +118,6 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="ContactType.cs" />
     <Compile Include="Irs.cs" />
-    <Compile Include="Contributor.cs" />
     <Compile Include="DcDiscipline.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

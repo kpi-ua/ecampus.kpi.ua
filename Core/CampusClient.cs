@@ -470,7 +470,7 @@ namespace Core
                 var result = Get<List<Campus.Common.Contributor>>("Ir", "GetPersonName", new { sessionId, name });
                 return result;
             }
-            catch (Exception e) { return null; }
+            catch { return null; }
         }
 
 
@@ -482,7 +482,7 @@ namespace Core
                 var result = Get<ArrayList>("Ir", "GetIrKinds");
                 return result;
             }
-            catch (Exception e) { return null; }
+            catch { return null; }
         }
 
         public List<Campus.Common.Division> GetSubdivisions(string sessionId, int subsystemId)
@@ -509,11 +509,11 @@ namespace Core
             return result;
         }
 
-        public List<ContactType> GetAllContactTypes() 
+        public List<ContactType> GetAllContactTypes()
         {
             try
             {
-                var result = Get <List<ContactType>>("User", "GetAllContactType");
+                var result = Get<List<ContactType>>("User", "GetAllContactType");
                 return result;
             }
             catch (Exception)
@@ -538,7 +538,7 @@ namespace Core
         {
             var url = BuildUrl("User", "AddUserContactReturnContactId", new { sessionId, userContactTypeName, userContactValue, isVisible, receptioHours });
             var answer = GetData(url);
-            if (Int32.Parse(answer["Data"].ToString().Split(':')[0])>0)
+            if (Int32.Parse(answer["Data"].ToString().Split(':')[0]) > 0)
             {
                 return Int32.Parse(answer["Data"].ToString().Split(':')[0]);
             }
@@ -563,9 +563,9 @@ namespace Core
 
         public string GetUserCredo(string sessionId)
         {
-            var url = BuildUrl("User", "GetUserCredo", new { sessionId});
+            var url = BuildUrl("User", "GetUserCredo", new { sessionId });
             var answer = GetData(url);
-            if (answer["Data"]==null) return null;
+            if (answer["Data"] == null) return null;
             return answer["Data"].ToString();
         }
 
@@ -580,7 +580,7 @@ namespace Core
         public List<Campus.Common.DcDiscipline> GetDcDisciplines(string sessionId, string name)
         {
             var result = Get<List<Campus.Common.DcDiscipline>>("Discipline", "GetDcDisciplineName",
-                new {sessionId, name});
+                new { sessionId, name });
             return result;
         }
 

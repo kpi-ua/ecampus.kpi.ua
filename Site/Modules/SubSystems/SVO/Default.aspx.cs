@@ -24,34 +24,7 @@ namespace Site.Modules.SubSystems.SVO
 
         private void AddSubDivision(ArrayList dataArr)
         {
-            CafList.Items.Add(new ListItem("Не обрано", "-1"));
-
-            for (int i = 0; i < dataArr.Count; i++)
-            {
-                var li = new ListItem();
-
-                var subdivId = new ListItem();
-
-                foreach (var e in (Dictionary<string, object>)dataArr[i])
-                {
-                    if (e.Key.ToString() == "Name")
-                    {
-                        li.Text = e.Value.ToString();
-
-
-                    }
-                    /*
-                    //else
-                    //{
-                    //    li.Value = e.Value.ToString();
-                    //}*/
-                }
-
-                CafList.Items.Add(li);
-
-
-                break;
-            }
+            throw new NotImplementedException();
         }
 
         protected void CafList_SelectedIndexChanged(object sender, EventArgs e)
