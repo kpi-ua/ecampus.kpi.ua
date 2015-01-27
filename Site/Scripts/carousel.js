@@ -34,3 +34,7 @@
       }
     ]
 });
+
+$("#calendar_open_btn").click(function () {
+    $.planner.Show($(this).data("modal"));
+});
