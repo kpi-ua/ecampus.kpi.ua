@@ -23,6 +23,6 @@ Automatic synced with **cloud** branch: http://campus-portal.azurewebsites.net/l
 
 
 ###More information
-* API endpoint: campus-api.azurewebsites.net
+* API endpoint: http://campus-api.azurewebsites.net
 * API debug tool: http://campus-tools.azurewebsites.net/
 * API debug tool source code: https://github.com/DOIS/campus.sdk.js/blob/master/index.html
