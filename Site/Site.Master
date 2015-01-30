@@ -37,12 +37,6 @@
 </head>
 <body>
 
-    <script type="text/javascript">
-        image = "<%=this.UserPhoto%>";
-        text = "<%=String.Format("{0}, {1}, {2}", this.UserFullName, this.Position, this.AcademicDegree)%>";
-        head = "";
-    </script>
-
     <label id="ApiEndpoint" style="display: none"><%=Core.Configuration.Current.ApiEndpoint %></label>
 
     <header class="container-fluid">
@@ -229,6 +223,16 @@
     <div id="calendar-container" style="visibility: hidden; display: none; width: 100%">
     </div>
     
+
+    <script>
+        var userInfo = {
+            image: "<%= this.UserPhoto %>",
+            fullName:  "<%= this.UserFullName %>",
+            position: "<%= this.Position %>",
+            degree: "<%= this.AcademicDegree %>"
+        };
+    </script>
+
     <!-- Vendor -->
     <script src="/js/vendor/global/modernizr.min.js"></script>
     <script src="/js/vendor/global/bootstrap.min.js"></script>

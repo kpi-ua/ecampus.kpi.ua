@@ -182,7 +182,7 @@
     <Content Include="js\core-bootstrap.js" />
     <Content Include="js\core.js" />
     <Content Include="js\modules\carousel.js" />
-    <Content Include="js\modules\popup.js" />
+    <Content Include="js\modules\popover.js" />
     <Content Include="js\utils.js" />
     <Content Include="js\vendor\global\bootstrap.min.js" />
     <Content Include="js\vendor\global\modernizr.min.js" />
@@ -203,7 +203,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-chosen.less" />
     <Content Include="Content\bootstrap-chosen.scss" />
-    <Content Include="Scripts\carousel.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Content\site.css.map">
@@ -402,7 +401,6 @@
     <Content Include="Scripts\picker.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\timetable.js" />
     <Content Include="NLog.config" />
     <None Include="Properties\PublishProfiles\default.pubxml" />
