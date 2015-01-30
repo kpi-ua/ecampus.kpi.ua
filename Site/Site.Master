@@ -92,7 +92,6 @@
                     <asp:ScriptReference Path="~/Scripts/jquery-2.1.3.min.js" />
                     <asp:ScriptReference Path="~/Scripts/jquery-ui.min.js" />
                     <%-- объединил сюда datepicker & autocomplete --%>
-                    <asp:ScriptReference Path="~/Scripts/bootstrap.js" />
                     <asp:ScriptReference Path="~/Scripts/bootbox.min.js" />
                     <asp:ScriptReference Path="~/Scripts/chosen.jquery.min.js" />
                     <asp:ScriptReference Path="~/Scripts/core.js" />
@@ -115,7 +114,7 @@
             </script>
 
             <!--Carousel-->
-            <div class="carousel">
+            <div class="js-carousel carousel">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <div class="carousel-group">
@@ -142,7 +141,7 @@
                 <div class="carousel-group">
                     <div class="carousel-row">
                         <div class="carousel-item">
-                            <a href="#!" id="calendar_open_btn" data-modal="datepicker_data">
+                            <a href="#!" class="js-calendar-btn" data-modal="datepicker_data">
                                 <img src="/Images/calendar.png" alt="">                                                                             
                             </a>
                         </div>
@@ -230,7 +229,17 @@
     <div id="calendar-container" style="visibility: hidden; display: none; width: 100%">
     </div>
     
-    <script type="text/javascript" src="/Scripts/slick.min.js"></script>
-    <script type="text/javascript" src="/Scripts/carousel.js"></script>
+    <!-- Vendor -->
+    <script src="/js/vendor/global/modernizr.min.js"></script>
+    <script src="/js/vendor/global/bootstrap.min.js"></script>
+    <script src="/js/vendor/global/slick.min.js"></script>
+    <!-- Core -->
+    <script src="/js/utils.js"></script>
+    <script src="/js/core.js"></script>
+    <!-- Modules -->
+    <script src="/js/modules/carousel.js"></script>
+    <!-- Boot -->
+    <script src="/js/core-bootstrap.js"></script>
+
 </body>
 </html>
