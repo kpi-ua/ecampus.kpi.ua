@@ -416,8 +416,8 @@ footer a:hover,
   padding: 0;
 }
 .profile .pic {
-  /*width: 150px;*/
-  max-height: 150px;
+  width: 150px;
+  height: 150px;
 }
 .profile .name {
   padding-left: 30px;

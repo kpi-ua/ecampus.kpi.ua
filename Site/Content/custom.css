@@ -214,6 +214,8 @@
 .portrait {
   width: 100px;
   height: 100px;
+  margin-right: 8px;
+  border-radius: 50%;
 }
 .popover {
   -webkit-border-radius: 0 !important;
