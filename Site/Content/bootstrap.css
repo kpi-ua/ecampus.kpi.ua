@@ -5715,7 +5715,7 @@ button.close {
           box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
 }
 .popover.top {
-  margin-top: -10px;
+  margin-top: -10px;    
 }
 .popover.right {
   margin-left: 10px;
