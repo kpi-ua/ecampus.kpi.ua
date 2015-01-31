@@ -33,7 +33,6 @@ var Core = (function (Core, document, _u, $) {
              input01: "input_01",
              rightDateBtn: "right_date_button",
              leftDateBtn: "left_date_button"
-
          },
 
         /** 
