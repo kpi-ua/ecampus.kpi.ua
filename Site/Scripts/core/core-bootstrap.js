@@ -17,5 +17,6 @@
      ****************************************************************/
     Core.Carousel.initialize();
     Core.Popover.initialize();
+    Core.Calendar.initialize();
 
 }(Core || {}, this.document, this.jQuery, this.Modernizr));

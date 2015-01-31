@@ -44,27 +44,17 @@ var Core = (function (Core, window, _u, $) {
          },
 
         /**
-         * Attach popover events
-         *
-         * @return {void}
-         * @private
-         */
-         _attachEvents = function () {
-             $(_u.toCssData(_cssData)).each(function () {
-                 var trigger = $(this),
-                     popover = trigger.data(_cssData);
-                 trigger.popover(_options[popover]);
-             });
-         },
-
-        /**
          * Initialize this module
          *
          * @function initialize
          * @public
          */
          initialize = function () {
-             _attachEvents();
+             $(_u.toCssData(_cssData)).each(function () {
+                 var trigger = $(this),
+                     popover = trigger.data(_cssData);
+                 trigger.popover(_options[popover]);
+             });
          };
 
     return Core.register("Popover", {
