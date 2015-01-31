@@ -179,6 +179,12 @@
     <Content Include="Images\planner-32.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="Scripts\core\core-bootstrap.js" />
+    <Content Include="Scripts\core\core.js" />
+    <Content Include="Scripts\modules\carousel.js" />
+    <Content Include="Scripts\modules\popover.js" />
+    <Content Include="Scripts\core\utils.js" />
+    <Content Include="Scripts\vendor\slick.min.js" />
     <Content Include="Modules\EIR\StudentsOfGroup.aspx" />
     <Content Include="Modules\EIR\StudyGroups.aspx" />
     <Content Include="Modules\SubSystems\GSVO\DisciplineTable.aspx" />
@@ -195,7 +201,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-chosen.less" />
     <Content Include="Content\bootstrap-chosen.scss" />
-    <Content Include="Scripts\carousel.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Content\site.css.map">
@@ -394,7 +399,6 @@
     <Content Include="Scripts\picker.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\site.js" />
-    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\timetable.js" />
     <Content Include="NLog.config" />
     <None Include="Properties\PublishProfiles\default.pubxml" />
