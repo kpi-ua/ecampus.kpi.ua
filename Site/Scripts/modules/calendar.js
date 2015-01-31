@@ -119,12 +119,11 @@ var Core = (function (Core, document, _u, $) {
          },
 
         /**
-         * Initialize this module
+         * Setup this module
          *
-         * @function initialize
          * @public
          */
-         initialize = function () {
+         setup = function () {
              _getCalendarSettings();
              $.ApiPath = _settings.apiPath;
              $.SessionID = _settings.sessionId;
@@ -136,6 +135,6 @@ var Core = (function (Core, document, _u, $) {
          };
 
     return Core.register("Calendar", {
-        initialize: initialize
+        setup: setup
     });
 }(Core || {}, document, _u, jQuery));

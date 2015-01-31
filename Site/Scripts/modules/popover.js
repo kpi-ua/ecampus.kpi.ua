@@ -44,12 +44,11 @@ var Core = (function (Core, window, _u, $) {
          },
 
         /**
-         * Initialize this module
+         * Setup this module
          *
-         * @function initialize
          * @public
          */
-         initialize = function () {
+         setup = function () {
              $(_u.toCssData(_cssData)).each(function () {
                  var trigger = $(this),
                      popover = trigger.data(_cssData);
@@ -58,6 +57,6 @@ var Core = (function (Core, window, _u, $) {
          };
 
     return Core.register("Popover", {
-        initialize: initialize
+        setup: setup
     });
 }(Core || {}, window, _u, jQuery));
