@@ -1,5 +1,5 @@
 ﻿/**
- * @namespace Carousel
+ * @namespace Calendar
  * @memberOf  Core
  */
 var Core = (function (Core, document, _u, $) {
