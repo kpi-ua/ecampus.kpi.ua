@@ -74,6 +74,10 @@
         return "#" + selector;
     };
 
+    _u.toCssData = function (selector) {
+        return "[data-" + selector + "]";
+    };
+
     _u.toInt = function (value) {
         return parseInt(value, 10);
     };

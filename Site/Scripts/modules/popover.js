@@ -19,25 +19,12 @@ var Core = (function (Core, window, _u, $) {
          },
 
         /** 
-         * Event data triggers
+         * Css popover data-*
          * 
-         * @type {Object}
-         * @private
-         */
-         _eventData = {
-             toggle:  "popover",
-             trigger: "focus"
-         },
-
-        /** 
-         * Id list of the popovers
-         * 
-         * @type {Object}
+         * @type {String}
          * @private
          */        
-         _id = {
-             userInfo: "js-popover-userInfo"
-         },
+         _cssData = "popover",
 
         /** 
          * Settings of the popovers
@@ -47,15 +34,14 @@ var Core = (function (Core, window, _u, $) {
          */ 
          _options = {
              userInfo: {
-                 placement: "left",
                  html: true,
+                 placement: "left",
+                 title: _userInfo.fullName,
                  content:
-                       "<div>"
-                     + "<img class='portrait' src='" + _userInfo.image + "'>"
-                     + new Array(_userInfo.fullName, _userInfo.position, _userInfo.degree).join(" ")
-                     + "</div>"
+                     "<img class='portrait pull-left' src='" + _userInfo.image + "'>"
+                     +  _userInfo.position + "<br>" + _userInfo.degree
              }
-         }
+         },
 
         /**
          * Attach popover events
@@ -64,8 +50,10 @@ var Core = (function (Core, window, _u, $) {
          * @private
          */
          _attachEvents = function () {
-             $(_u.toCssId(_id.userInfo)).popover({
-
+             $(_u.toCssData(_cssData)).each(function () {
+                 var trigger = $(this),
+                     popover = trigger.data(_cssData);
+                 trigger.popover(_options[popover]);
              });
          },
 
@@ -76,11 +64,10 @@ var Core = (function (Core, window, _u, $) {
          * @public
          */
          initialize = function () {
-             $(_u.toCssClass(_eventClasses.carousel)).slick(_settings);
              _attachEvents();
          };
 
-    return Core.register("Carousel", {
+    return Core.register("Popover", {
         initialize: initialize
     });
 }(Core || {}, window, _u, jQuery));

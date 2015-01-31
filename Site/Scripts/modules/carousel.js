@@ -49,15 +49,23 @@ var Core = (function (Core, _u, $) {
          },
 
         /** 
-         * Css classes of elements
-         * with custom events
+         * List of the css ids
          * 
          * @type {Object}
          * @private
          */
-         _eventClasses = {
+         _cssId = {
              carousel: "js-carousel",
-             calendar: "js-calendar-btn"
+         },
+         
+        /** 
+         * List of the css data-*
+         * 
+         * @type {Object}
+         * @private
+         */
+         _cssData = {
+             modal: "modal"
          },
 
         /**
@@ -67,9 +75,9 @@ var Core = (function (Core, _u, $) {
          * @private
          */
          _attachEvents = function () {
-             // Calendar event
-             $(_u.toCssClass(_eventClasses.calendar)).click(function () {
-                 $.planner.Show($(this).data("modal"));
+             // Modals
+             $(_u.toCssData(_cssData.modal), _u.toCssId(_cssId.carousel)).click(function () {
+                 $.planner.Show($(this).data(_cssData.modal));
              });
          },
 
@@ -80,7 +88,7 @@ var Core = (function (Core, _u, $) {
          * @public
          */
          initialize = function () {
-             $(_u.toCssClass(_eventClasses.carousel)).slick(_settings);
+             $(_u.toCssId(_cssId.carousel)).slick(_settings);
              _attachEvents();
          };
 

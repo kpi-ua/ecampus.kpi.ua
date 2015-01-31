@@ -16,5 +16,6 @@
      * GENERAL METHODS USED THROUGHOUT SITE                          *
      ****************************************************************/
     Core.Carousel.initialize();
+    Core.Popover.initialize();
 
 }(Core || {}, this.document, this.jQuery, this.Modernizr));
