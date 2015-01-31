@@ -32,7 +32,7 @@ namespace Site.Modules.SubSystems.GSVO
 
             for (int i = 0; i < disciplines.Count(); i++)
             {
-                discipline[i] = disciplines[i].DcDisciplineName;
+                discipline[i] = disciplines[i].Name;
             }
         }
 
