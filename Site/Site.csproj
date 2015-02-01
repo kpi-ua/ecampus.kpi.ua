@@ -405,13 +405,12 @@
     <None Include="Properties\PublishProfiles\default.pubxml" />
     <Content Include="Modules\EIR\Search.aspx" />
     <Content Include="SessionManager.asmx" />
-    <Content Include="Modules\Support\Default.aspx" />
     <Content Include="Modules\TimeTable\Edit.aspx" />
     <Content Include="Modules\TimeTable\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LayoutPublic.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Web.sitemap" />
   </ItemGroup>
@@ -608,13 +607,6 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="Modules\Support\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\Support\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Modules\TimeTable\Edit.aspx.cs">
       <DependentUpon>Edit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -635,8 +627,9 @@
     <Content Include="packages.config" />
     <Content Include="Site.Master" />
     <Content Include="Views\System\Login.cshtml" />
-    <Content Include="Views\System\Support.cshtml" />
     <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <Content Include="Views\Home\Support.cshtml" />
+    <Content Include="Views\Shared\_LayoutPrivate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>

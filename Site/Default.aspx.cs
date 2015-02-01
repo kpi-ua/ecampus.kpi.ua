@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using Core;
+﻿using Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Linq;
 
 namespace Site
@@ -13,8 +11,6 @@ namespace Site
         protected override void OnLoad(EventArgs ea)
         {
             base.OnLoad(ea);
-
-            LoadCarousel();
 
             try
             {
@@ -96,13 +92,6 @@ namespace Site
                                             "redagContact\"data-toggle=\"modal\" data-target=" +
                                             "\"#RedactUserContact-modal\" id=\"" + p.UserContactId + "RD" + "\"></a>" + "</td>";
                 UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "VC" + "\"class=";
-
-
-                //UserContactsLiteral.Text += "<td><span id=\"" + "RedUserCont" + p.UserContactId + "\">" + p.UserContactValue +
-                //                            "</span><a class=\"glyphicon glyphicon-pencil " +
-                //                            "redagContact\"data-toggle=\"modal\" data-target=" +
-                //                            "\"#RedactUserContact-modal\" id=\"" + p.UserContactId + "RD" + "\"></a>" + "</td>";
-                //UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "VC" + "\"class=";
 
                 if (p.IsVisible == "0")
                 {
@@ -250,31 +239,7 @@ namespace Site
             //UpdPan.Update();
         }
 
-        private void LoadCarousel()
-        {
-            var sb = new StringBuilder();
-
-            var links = new List<Core.Link>
-            {
-                new Link {Title = "Мій профіль", Image = CurrentUser.Photo, Url = "/Default.aspx"},
-                new Link {Title = "Дошка оголошень", Image = "/Images/carousel-billboard.jpg", Url = "/Modules/Bulletins"},
-                new Link {Title = "Спілкування", Image = "/Images/carousel-msg.jpg", Url = "/Modules/Messages"},
-                new Link {Title = "Розклад", Image = "/Images/carousel-schd.jpg", Url = "/Modules/TimeTable"},
-                new Link {Title = "Підтримка", Image = "/Images/carousel-support.jpg", Url = "/Modules/Support.aspx"},
-            };
-
-            foreach (var link in links)
-            {
-                sb.AppendLine("<div class=\"slide\">");
-                sb.AppendLine("<div class=\"slide-content\">");
-                sb.AppendFormat("<a href=\"{0}\">", link.Url);
-                sb.AppendFormat("<img src=\"{0}\" alt=\"{1}\" />", link.Image, link.Title);
-                sb.AppendFormat("<div class=\"slide-title\">{0}</div>", link.Title);
-                sb.AppendLine("</a></div></div>");
-            }
-
-            //carousel_wrap.InnerHtml = sb.ToString();
-        }
+        
 
         protected void SavePass_Click(object sender, EventArgs e)
         {

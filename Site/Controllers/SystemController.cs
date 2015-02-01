@@ -41,11 +41,5 @@ namespace Site.Controllers
             FormsAuthentication.SignOut();
             return Redirect("~/login");
         }
-
-        public ActionResult Support()
-        {
-            return View();
-        }
-
     }
 }

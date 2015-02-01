@@ -46,6 +46,12 @@ namespace Core
             );
 
             routes.MapRoute(
+                name: "Support",
+                url: "support",
+                defaults: new { controller = "Home", action = "Support" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

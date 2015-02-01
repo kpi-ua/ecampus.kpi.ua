@@ -10,5 +10,16 @@ namespace Site.Controllers
         {
             return View();
         }
+
+        [Authorize]
+        public ActionResult Support()
+        {
+            ViewBag.UserPhoto = "Test";
+            ViewBag.UserFullName = "Test";
+            ViewBag.Position = "Test";
+            ViewBag.AcademicDegree = "Test";
+
+            return View();
+        }
     }
 }
