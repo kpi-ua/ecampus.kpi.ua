@@ -175,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-group">
+                <div class="carousel-group" id="individual_plan" runat="server" >
                     <div class="carousel-row">
                         <div class="carousel-item">
                             <a href="/Modules/IndividualTeachersPlan/">

@@ -14,14 +14,6 @@ namespace Site
             get { return this.Page as SitePage; }
         }
 
-        protected string JSPath
-        {
-            get
-            {
-                return HttpContext.Current.IsDebuggingEnabled ? "" : "min";
-            }
-        }
-
         public string Position
         {
             get
@@ -42,7 +34,6 @@ namespace Site
 
         public string UserPhoto
         {
-
             get { return this.SitePage.CurrentUser.Photo; }
         }
 
@@ -74,7 +65,7 @@ namespace Site
 
                 CampusSessionId.Value = (this.Page as SitePage).SessionId;
 
-                // individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
+                individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
             }
             catch
             {
