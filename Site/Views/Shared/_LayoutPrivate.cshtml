@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Campus.Common.User userInfo = ViewBag.CurrentUser;
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -70,7 +73,7 @@
                     </ul>
                     <div class="user-name">
                         <a href="#!" data-popover="userInfo">
-                            Вітаємо, @ViewBag.UserFullName
+                            Вітаємо, @userInfo.FullName
                         </a>
                     </div>
                 </div>
@@ -218,10 +221,10 @@
 
     <script>
         var userInfo = {
-            image: "@ViewBag.UserPhoto",
-            fullName: "@ViewBag.UserFullName",
-            position: "@ViewBag.Position",
-            degree: "@ViewBag.AcademicDegree"
+            image: "@userInfo.Photo",
+            fullName: "@userInfo.FullName",
+            position: "@userInfo.Position",
+            degree: "@userInfo.Degree"
         };
     </script>
 

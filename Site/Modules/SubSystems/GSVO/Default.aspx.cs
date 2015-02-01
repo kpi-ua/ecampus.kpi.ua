@@ -7,6 +7,7 @@ using System.Text;
 using System.Collections;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using Campus.Common;
 
 namespace Site.Modules.SubSystems.GSVO
 {
@@ -15,7 +16,7 @@ namespace Site.Modules.SubSystems.GSVO
 
         List<Campus.Common.OKR> okrList = new List<Campus.Common.OKR>();
 
-        List<Campus.Common.RtProfTrainTotal> rtList = new List<Campus.Common.RtProfTrainTotal>();
+        List<RtProfTrainTotal> rtList = new List<RtProfTrainTotal>();
         protected override void OnLoad(EventArgs e)
         {
             if (SessionId == null)
@@ -36,15 +37,15 @@ namespace Site.Modules.SubSystems.GSVO
 
                 Response.Redirect("DisciplineTable.aspx");
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return;
             }
 
-           
 
-            
-            
+
+
+
         }
 
         protected void TreeView_Load(object sender, EventArgs e)
@@ -69,14 +70,14 @@ namespace Site.Modules.SubSystems.GSVO
                     {
                         foreach (var itemSpec in CampusClient.GetSpecialities(Convert.ToInt32(Session["subdivisionId"]), item.DcOKRId))
                         {
-                            rtList.Add(new Campus.Common.RtProfTrainTotal
+                            rtList.Add(new RtProfTrainTotal
                             {
-                                RtProfTrainTotalId = itemSpec.RtProfTrainTotalId,
+                                Id = itemSpec.Id,
                                 Name = itemSpec.Name,
                                 TotalShifr = itemSpec.TotalShifr
                             });
 
-                            TreeNode childnode = new TreeNode(itemSpec.TotalShifr + "\t" + itemSpec.Name, itemSpec.RtProfTrainTotalId.ToString());
+                            TreeNode childnode = new TreeNode(itemSpec.TotalShifr + "\t" + itemSpec.Name, itemSpec.Id.ToString());
 
                             node.ChildNodes.Add(childnode);
 

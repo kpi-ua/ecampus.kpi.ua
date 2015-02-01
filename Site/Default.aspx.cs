@@ -91,6 +91,7 @@ namespace Site
                                             "  <a class=\"glyphicon glyphicon-pencil " +
                                             "redagContact\"data-toggle=\"modal\" data-target=" +
                                             "\"#RedactUserContact-modal\" id=\"" + p.UserContactId + "RD" + "\"></a>" + "</td>";
+               
                 UserContactsLiteral.Text += "<td id=\"" + p.UserContactId + "VC" + "\"class=";
 
                 if (p.IsVisible == "0")
@@ -104,24 +105,26 @@ namespace Site
 
             }
             var contactsType = CampusClient.GetAllContactTypes();
+
             foreach (var v in contactsType)
             {
-                if (!CurrentUser.Contacts.ToList().Exists(contact => contact.ContactTypeName == v.Name))
+                if (!CurrentUser.Contacts.ToList().Exists(contact => contact.ContactTypeName == v))
                 {
-                    ListTypeContact.Items.Add(v.Name);
+                    ListTypeContact.Items.Add(v);
                 }
             }
 
             List<Campus.Common.TimeTable> ttList = null;
-            if (CurrentUser.Employees.Count() >= 1)
+
+            if (CurrentUser.Employees.Any())
             {
                 ttList = CampusClient.GeTimeTables(SessionId, "employee");
             }
-            if (CurrentUser.Personalities.Count() >= 1)
+            if (CurrentUser.Personalities.Any())
             {
                 ttList = CampusClient.GeTimeTables(SessionId, "student");
             }
-            if (ttList.Count() > 0)
+            if (ttList.Any())
             {
                 //цикл по тижням навчання
                 for (int w = 0; w < 2; w++)

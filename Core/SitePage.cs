@@ -15,22 +15,7 @@ namespace Core
             get { return _campusClient ?? (_campusClient = new CampusClient()); }
         }
 
-        public Dictionary<string, Permission> Permissions
-        {
-            get
-            {
-                if (Session["UserPremissions"] == null)
-                {
-
-                    var permissions = CampusClient.GetPermissions(SessionId);
-                    Session["UserPremissions"] = permissions.ToDictionary(o => o.SubsystemName, o => o);
-                }
-
-                return Session["UserPremissions"] as Dictionary<string, Permission>;
-            }
-        }
-
-        public Campus.Common.User CurrentUser
+        public User CurrentUser
         {
             get
             {
@@ -45,13 +30,13 @@ namespace Core
                 return user;
             }
         }
-
+        
         public String SessionId
         {
             get { return Session["UserData"] == null ? null : Session["UserData"].ToString(); }
             set { Session["UserData"] = value; }
         }
-        
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);

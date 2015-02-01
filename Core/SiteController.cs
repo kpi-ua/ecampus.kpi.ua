@@ -15,22 +15,7 @@ namespace Core
             get { return _campusClient ?? (_campusClient = new CampusClient()); }
         }
 
-        public Dictionary<string, Permission> Permissions
-        {
-            get
-            {
-                if (Session["UserPremissions"] == null)
-                {
-
-                    var permissions = CampusClient.GetPermissions(SessionId);
-                    Session["UserPremissions"] = permissions.ToDictionary(o => o.SubsystemName, o => o);
-                }
-
-                return Session["UserPremissions"] as Dictionary<string, Permission>;
-            }
-        }
-
-        protected Campus.Common.User CurrentUser
+        protected User CurrentUser
         {
             get
             {
@@ -52,5 +37,10 @@ namespace Core
             set { Session["UserData"] = value; }
         }
 
+        protected override void OnActionExecuted(ActionExecutedContext filterContext)
+        {
+            ViewBag.CurrentUser = CurrentUser; 
+            base.OnActionExecuted(filterContext);
+        }
     }
 }

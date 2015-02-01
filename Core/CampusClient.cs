@@ -131,29 +131,13 @@ namespace Core
 
         public User GetUser(string sessionId)
         {
+            if (String.IsNullOrEmpty(sessionId))
+            {
+                return null;
+            }
+
             var result = Get<User>("User", "GetCurrentUser", new { sessionId, });
             return result;
-        }
-
-        public IEnumerable<BulletinBoard> GetBulletinBoard(string sessionId)
-        {
-            var result = Get<IEnumerable<BulletinBoard>>("BulletinBoard", "GetActual", new { sessionId, });
-            return result;
-        }
-
-        public Dictionary<string, object> GetIrPurpose()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetIrPurpose");
-        }
-
-        public Dictionary<string, object> GetIrForm()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetIrForm");
-        }
-
-        public Dictionary<string, object> GetPublicationForm()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetPublicationForm");
         }
 
         public Dictionary<string, object> GetContributorType()
@@ -161,195 +145,11 @@ namespace Core
             return GetStringObject(ApiEndpoint + "Ir/GetContributorType");
         }
 
-        public Dictionary<string, object> GetStamp()
-        {
-
-            return GetStringObject(ApiEndpoint + "Ir/GetStamp");
-        }
-
-        public Dictionary<string, object> GetCountries()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetCountries");
-        }
-
-        public Dictionary<string, object> GetLang()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetLang");
-        }
-
-        public Dictionary<string, object> GetISType()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetISType");
-        }
-
-        public Dictionary<string, object> GetPersonStatusType()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetPersonStatusType");
-        }
-
-        public Dictionary<string, object> GetFeature()
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetIrFeature");
-        }
-
-        public Dictionary<string, object> GetKind(string id)
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetIrKind?featureId=" + id);
-        }
-
-        public Dictionary<string, object> GetCities(string countryId)
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetCities?countryId=" + countryId);
-        }
-
-        public Dictionary<string, object> GetStampOrg(string cityId)
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetStampOrg?cityId=" + cityId);
-        }
-
-        public Dictionary<string, object> GetPublishOrg(string cityId)
-        {
-            return GetStringObject(ApiEndpoint + "Ir/GetPublishOrg?cityId=" + cityId);
-        }
-
         public bool ChangePassword(string sessionId, string oldPassword, string newPassword)
         {
             var url = BuildUrl("User", "ChangePassword", new { sessionId, old = oldPassword, password = newPassword });
             var answer = GetData(url);
             return answer == null;
-        }
-
-        public IEnumerable<Permission> GetPermissions(string sessionId)
-        {
-            var answer = GetData(ApiEndpoint + "User/GetEffectivePermissions?sessionId=" + sessionId);
-            var data = (ArrayList)answer["Data"];
-
-            var permissions = new List<Permission>();
-
-            for (var i = 0; i < data.Count; i++)
-            {
-                Permission permission = null;
-
-                foreach (var p in (Dictionary<string, object>)data[i])
-                {
-                    var prem = (p.Value.ToString().ToLower() != "false");
-
-                    switch (p.Key)
-                    {
-                        case "SubsystemName":
-                            {
-                                permission = new Permission(p.Value.ToString());
-                                break;
-                            }
-                        case "IsCreate":
-                            {
-                                permission.Create = prem;
-                                break;
-                            }
-                        case "IsRead":
-                            {
-                                permission.Read = prem;
-                                break;
-                            }
-                        case "IsUpdate":
-                            {
-                                permission.Update = prem;
-                                break;
-                            }
-                        case "IsDelete":
-                            {
-                                permission.Delete = prem;
-                                break;
-                            }
-                        default:
-                            {
-                                break;
-                            }
-                    }
-                }
-
-                if (permission != null)
-                {
-                    permissions.Add(permission);
-                }
-                else
-                {
-                    throw (new Exception("Права пользователя не получены!"));
-                }
-            }
-
-            return permissions;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="method"></param>
-        /// <param name="postData"></param>
-        /// <returns></returns>
-        public string Request(string url, string method, string postData)
-        {
-            string responseData = "";
-
-            try
-            {
-                var request = (System.Net.HttpWebRequest)WebRequest.Create(url);
-                request.Accept = "*/*";
-                request.AllowAutoRedirect = true;
-                request.UserAgent = "http_requester/0.1";
-                request.Timeout = 60000;
-                request.Method = method;
-
-                if (request.Method == "POST")
-                {
-                    request.ContentType = "application/x-www-form-urlencoded";
-                    // Use UTF8Encoding instead of ASCIIEncoding for XML requests:
-                    var encoding = new System.Text.ASCIIEncoding();
-                    var postByteArray = encoding.GetBytes(postData);
-                    request.ContentLength = postByteArray.Length;
-
-                    var postStream = request.GetRequestStream();
-                    postStream.Write(postByteArray, 0, postByteArray.Length);
-                    postStream.Close();
-                }
-
-                var response = (System.Net.HttpWebResponse)request.GetResponse();
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    var responseStream = response.GetResponseStream();
-                    var myStreamReader =
-                        new System.IO.StreamReader(responseStream);
-                    responseData = myStreamReader.ReadToEnd();
-                }
-
-                response.Close();
-            }
-            catch (Exception e)
-            {
-                responseData = "An error occurred: " + e.Message;
-            }
-
-            return responseData;
-        }
-
-        public T MakeRequest<T>(string url)
-        {
-            var request = WebRequest.Create(url) as HttpWebRequest;
-
-            using (var response = request.GetResponse() as HttpWebResponse)
-            {
-                var reader = new StreamReader(response.GetResponseStream());
-                return JsonConvert.DeserializeObject<T>(ClearResponse(reader.ReadToEnd()));
-            }
-        }
-
-        private static string ClearResponse(string resp)
-        {
-            var r = resp.Split(new[] { "\"Data\":" }, StringSplitOptions.RemoveEmptyEntries);
-            r[1] = r[1].Substring(0, r[1].Length - 1);
-            return r[1];
         }
 
         public IEnumerable<Bulletin> DeskGetActualBulletins(int userId)
@@ -373,11 +173,6 @@ namespace Core
             return Get<IEnumerable<SimpleInfo>>("BulletinBoard", "DeskGetFacultyTypesList");
         }
 
-        public IEnumerable<Group> DeskGetGroupTypesList(int subdivisionId)
-        {
-            return Get<IEnumerable<Group>>("BulletinBoard", "DeskGetGroupTypesList", new { subdivisionId });
-        }
-
         public string DeskAddBulletein(int creatorId,
             string creatorName,
             string creationDate,
@@ -399,6 +194,7 @@ namespace Core
                 link
             });
         }
+
         public string DeskUpdateBulletein(int creatorId,
             string creatorName,
             string subject,
@@ -417,14 +213,10 @@ namespace Core
                 link
             });
         }
+
         public void DeskRemoveBulletin(int id)
         {
             Get<string>("BulletinBoard", "DeskRemoveBulletin", new { id = id });
-        }
-
-        public string DeskIsModerator(string sessionId)
-        {
-            return Get<string>("BulletinBoard", "DeskIsModerator", new { sessionId });
         }
 
         public bool IsConfirmSet(string sessionId)
@@ -454,14 +246,15 @@ namespace Core
                 return false;
             }
         }
-        public List<Campus.Common.TimeTable> GeTimeTables(string sessionId, string profile)
+
+        public List<TimeTable> GeTimeTables(string sessionId, string profile)
         {
             var url = BuildUrl("TimeTable", "GetTimeTable", new { sessionId, profile });
             var result = Get<List<TimeTable>>("TimeTable", "GetTimeTable", new { sessionId, profile });
             return result;
         }
 
-        public List<Campus.Common.Contributor> GetPersonName(string sessionId, string name)
+        public List<Contributor> GetPersonName(string sessionId, string name)
         {
 
             try
@@ -472,7 +265,6 @@ namespace Core
             }
             catch { return null; }
         }
-
 
         public ArrayList GetIrKinds()
         {
@@ -485,35 +277,35 @@ namespace Core
             catch { return null; }
         }
 
-        public List<Campus.Common.Division> GetSubdivisions(string sessionId, int subsystemId)
+        public IEnumerable<Division> GetSubdivisions(string sessionId, int subsystemId)
         {
             var result = Get<List<Campus.Common.Division>>("Responsible", "GetSubDivisions", new { sessionId, subsystemId });
             return result;
         }
 
-        public List<Campus.Common.OKR> GetOKR()
+        public IEnumerable<OKR> GetOKR()
         {
             var result = Get<List<Campus.Common.OKR>>("Specialist", "GetDcOkr", new { });
             return result;
         }
 
-        public List<Campus.Common.RtProfTrainTotal> GetSpecialities(int subdivId, int dcOkrId)
+        public IEnumerable<RtProfTrainTotal> GetSpecialities(int subdivId, int dcOkrId)
         {
-            var result = Get<List<Campus.Common.RtProfTrainTotal>>("Specialist", "GetSpecByOkr", new { subdivId, dcOkrId });
+            var result = Get<List<RtProfTrainTotal>>("Specialist", "GetSpecByOkr", new { subdivId, dcOkrId });
             return result;
         }
 
-        public List<Campus.Common.RtDiscipline> GetRtDiscipline(string sessionId, int rtProfTrainTotalId)
+        public IEnumerable<RtDiscipline> GetRtDiscipline(string sessionId, int rtProfTrainTotalId)
         {
             var result = Get<List<Campus.Common.RtDiscipline>>("Specialist", "GetRtProfTrainTotal", new { sessionId, rtProfTrainTotalId });
             return result;
         }
 
-        public List<ContactType> GetAllContactTypes()
+        public IEnumerable<String> GetAllContactTypes()
         {
             try
             {
-                var result = Get<List<ContactType>>("User", "GetAllContactType");
+                var result = Get<List<String>>("User", "GetAllContactTypes");
                 return result;
             }
             catch (Exception)
@@ -521,149 +313,50 @@ namespace Core
                 return null;
             }
         }
-        public bool AddUserContact(string sessionId, string userContactTypeName, string userContactValue, string isVisible, string receptioHours)
-        {
-            var url = BuildUrl("User", "AddUserContact", new { sessionId, userContactTypeName, userContactValue, isVisible, receptioHours });
-            var answer = GetData(url);
-            if (answer["Data"].ToString().Split(':')[0] == "OK")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+
         public int AddUserContactRetContactId(string sessionId, string userContactTypeName, string userContactValue, string isVisible, string receptioHours)
         {
             var url = BuildUrl("User", "AddUserContactReturnContactId", new { sessionId, userContactTypeName, userContactValue, isVisible, receptioHours });
             var answer = GetData(url);
+
             if (Int32.Parse(answer["Data"].ToString().Split(':')[0]) > 0)
             {
                 return Int32.Parse(answer["Data"].ToString().Split(':')[0]);
             }
-            else
-            {
-                return -1;
-            }
+
+            return -1;
         }
+
         public bool SetUserCredo(string sessionId, string userCredo)
         {
             var url = BuildUrl("User", "SetUserCredo", new { sessionId, userCredo });
             var answer = GetData(url);
+
             if (answer["Data"].ToString().Split(':')[0] == "OK")
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         public string GetUserCredo(string sessionId)
         {
             var url = BuildUrl("User", "GetUserCredo", new { sessionId });
             var answer = GetData(url);
-            if (answer["Data"] == null) return null;
+
+            if (answer["Data"] == null)
+            {
+                return null;
+            }
+
             return answer["Data"].ToString();
         }
 
-
-        /*
-          public List<Campus.Common.RtDiscipline> GetRtDiscipline(string sessionId, int rtProfTrainTotalId)
+        public List<DcDiscipline> GetDcDisciplines(string sessionId, string name)
         {
-            var result = Get<List<Campus.Common.RtDiscipline>>("Specialist", "GetRtProfTrainTotal", new { sessionId, rtProfTrainTotalId });
+            var result = Get<List<Campus.Common.DcDiscipline>>("Discipline", "GetDcDisciplineName", new { sessionId, name });
             return result;
-        }
-         */
-        public List<Campus.Common.DcDiscipline> GetDcDisciplines(string sessionId, string name)
-        {
-            var result = Get<List<Campus.Common.DcDiscipline>>("Discipline", "GetDcDisciplineName",
-                new { sessionId, name });
-            return result;
-        }
-
-        public IList<Campus.Common.Irs> GetAllIrs(string sessionId, int pageNumber, int pageSize, out IPagedList paging)
-        {
-
-            var url = BuildUrl("Ir", "GetAllIrs", new
-            {
-                sessionId,
-                pageNumber,
-                pageSize
-            });
-
-            var result = Get(url);
-
-            paging = result.Paging;
-            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
-
-
-            return messages.ToList();
-
-        }
-
-        public IList<Campus.Common.Irs> GetIrResourses(string sessionId, string author, string type, string irview, int pageNumber, int pageSize, out IPagedList paging)
-        {
-
-            var url = BuildUrl("Ir", "GetIrResourses", new
-            {
-                sessionId,
-                author,
-                type,
-                irview,
-                pageNumber,
-                pageSize
-
-            });
-
-            var result = Get(url);
-
-            paging = result.Paging;
-            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
-
-
-            return messages.ToList();
-
-        }
-
-        public IList<Campus.Common.Irs> GetIrbyDcDisc(string sessionId, string dsc, int pageNumber, int pageSize, out IPagedList paging)
-        {
-
-            var url = BuildUrl("Ir", "GetIrbyDcDisc", new
-            {
-                sessionId,
-                dsc,
-                pageNumber,
-                pageSize
-            });
-
-            var result = Get(url);
-
-            paging = result.Paging;
-            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
-
-            return messages.ToList();
-        }
-
-        public IList<Campus.Common.Irs> GetIrbyCredMod(string sessionId, string dsc, int pageNumber, int pageSize, out IPagedList paging)
-        {
-
-            var url = BuildUrl("Ir", "GetIrbyCredMod", new
-            {
-                sessionId,
-                dsc,
-                pageNumber,
-                pageSize
-            });
-
-            var result = Get(url);
-
-            paging = result.Paging;
-            IEnumerable<Campus.Common.Irs> messages = JsonConvert.DeserializeObject<IEnumerable<Campus.Common.Irs>>(result.Data.ToString());
-
-            return messages.ToList();
         }
     }
 }

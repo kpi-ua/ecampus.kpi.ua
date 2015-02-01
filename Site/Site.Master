@@ -133,7 +133,7 @@
                     <div class="carousel-row">
                         <div class="carousel-item">
                             <a href="#!" data-modal="datepicker_data">
-                                <img src="/Images/calendar.png" alt="">                                                                             
+                                <img src="/Images/calendar.png" alt="">
                             </a>
                         </div>
                         <div class="carousel-item">
@@ -175,7 +175,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="carousel-group" id="individual_plan" runat="server" >
+                <div class="carousel-group" id="individual_plan" runat="server">
                     <div class="carousel-row">
                         <div class="carousel-item">
                             <a href="/Modules/IndividualTeachersPlan/">
@@ -219,14 +219,14 @@
 
     <div id="js-calendar-container" style="visibility: hidden; display: none; width: 100%">
     </div>
-    
+
 
     <script>
         var userInfo = {
-            image: "<%= this.UserPhoto %>",
-            fullName:  "<%= this.UserFullName %>",
-            position: "<%= this.Position %>",
-            degree: "<%= this.AcademicDegree %>"
+            image: "<%= this.SitePage.CurrentUser.Photo %>",
+            fullName: "<%= this.SitePage.CurrentUser.FullName %>",
+            position: "<%= this.SitePage.CurrentUser.Position %>",
+            degree: "<%= this.SitePage.CurrentUser.Degree %>"
         };
     </script>
 

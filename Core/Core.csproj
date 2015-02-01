@@ -34,9 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Campus.Common, Version=1.0.35.23883, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Campus.Common, Version=1.0.37.30693, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\campus.common.1.0.35.900\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
+      <HintPath>..\packages\campus.common.1.0.37.1000\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
     </Reference>
     <Reference Include="Campus.SDK, Version=1.0.2.41180, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,13 +116,8 @@
   <ItemGroup>
     <Compile Include="Cache.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="ContactType.cs" />
-    <Compile Include="Irs.cs" />
-    <Compile Include="Link.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CampusClient.cs" />
-    <Compile Include="RtDiscipline.cs" />
-    <Compile Include="RtProfTrainTotal.cs" />
     <Compile Include="SiteController.cs" />
     <Compile Include="SitePage.cs">
       <SubType>ASPXCodeBehind</SubType>
