@@ -82,17 +82,16 @@ var Core = (function (Core, _u, $) {
          },
 
         /**
-         * Initialize this module
+         * Setup this module
          *
-         * @function initialize
          * @public
          */
-         initialize = function () {
+         setup = function () {
              $(_u.toCssId(_cssId.carousel)).slick(_settings);
              _attachEvents();
          };
 
     return Core.register("Carousel", {
-        initialize: initialize
+        setup: setup
     });
 }(Core || {}, _u, jQuery));
