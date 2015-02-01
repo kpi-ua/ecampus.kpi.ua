@@ -12,7 +12,7 @@ namespace Site
         {
             get { return this.Page as SitePage; }
         }
-        
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -37,7 +37,8 @@ namespace Site
 
                 CampusSessionId.Value = (this.Page as SitePage).SessionId;
 
-                individual_plan.Visible = SitePage.CurrentUser.Employees.Any(o => o.Position.Contains("Викладач"));
+
+                individual_plan.Visible = SitePage.CurrentUser.Roles.Any(o => o == Campus.Common.Role.Teacher);
             }
             catch
             {
