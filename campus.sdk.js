@@ -35,8 +35,8 @@ $(document).ready(function () {
             }
             url += array.join("&");
             $.getJSON(url, function (data, status) {
-                if (status == "success") {
-                    if (data["Compression"] != null && data["Compression"]["Type"] == "Gzip") {
+                if (status === "success") {
+                    if (data["Compression"] != null && data["Compression"]["Type"] === "Gzip") {
                         callback(this.API.gzip.encode(data["Data"]), data);
                     } else {
                         callback(data.Data);
