@@ -34,7 +34,6 @@ function render() {
         }
 
         if (_httpMethod === 'POST') {
-
             var data = new FormData(document.getElementById($(form).attr("Id")));
             var url = _url + '/' + controllerMethod;
 
