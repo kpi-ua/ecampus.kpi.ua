@@ -21,7 +21,7 @@ function render() {
         progressBar(true);
         var controllerMethod = form.attr('Name');
 
-        if (_httpMethod == 'GET') {
+        if (_httpMethod === 'GET') {
             var url = _url + '/' + controllerMethod + '?' + form.serialize();
 
             $.getJSON(url, function (obj) {
@@ -33,7 +33,7 @@ function render() {
             });
         }
 
-        if (_httpMethod == 'POST') {
+        if (_httpMethod === 'POST') {
 
             var data = new FormData(document.getElementById($(form).attr("Id")));
             var url = _url + '/' + controllerMethod;
@@ -123,7 +123,7 @@ function loadControllerList() {
 function getMethodInfo(array, method) {
     var result = null;
     array.forEach(function (value) {
-        if (value.Name == method) {
+        if (value.Name === method) {
             result = value;
         }
     });
@@ -146,7 +146,7 @@ function scaffoldMethod(url, controller, method) {
         form.attr("action", _url + controller + '/' + method);
         form.attr("name", method);
 
-        if (_httpMethod == "POST") {
+        if (_httpMethod === "POST") {
             form.attr("method", _httpMethod);
             form.attr("enctype", "multipart/form-data");
         }
@@ -174,11 +174,11 @@ function createControl(parameter) {
 
     var controlHtml;
 
-    if (type == 'System.String') {
+    if (type === 'System.String') {
         controlType = 'text';
-    } else if (type == 'System.Int32') {
+    } else if (type === 'System.Int32') {
         controlType = 'number';
-    } else if (type == 'System.Web.HttpPostedFileBase') {
+    } else if (type === 'System.Web.HttpPostedFileBase') {
         controlType = 'file';
     } else {
         controlType = 'text';
