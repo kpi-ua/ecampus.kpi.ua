@@ -49,11 +49,8 @@ $(document).ready(function () {
 
         gzip: {
             encode: function (string) {
-                // Get some base64 encoded binary data from the server. Imagine we got this:
-                var b64Data = string;
-
                 // Decode base64 (convert ascii to binary)
-                var strData = Base64.decode(string)//atob(b64Data);
+                var strData = Base64.decode(string)
 
                 // Convert binary string to character-number array
                 var charData = strData.split('').map(function (x) { return x.charCodeAt(0); });
