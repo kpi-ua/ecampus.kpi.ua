@@ -7,55 +7,6 @@ function append(html) {
     _html += html;
 }
 
-function render() {
-    $("#out").html('');
-    $("#out").append(_html);
-
-    $("#sessionId").val(API.getSessionId());
-
-    _html = '';
-
-    $(".submit").click(function () {
-        var form = $(this).closest("form");
-
-        progressBar(true);
-        var controllerMethod = form.attr('Name');
-
-        if (_httpMethod === 'GET') {
-            var url = _url + '/' + controllerMethod + '?' + form.serialize();
-
-            $.getJSON(url, function (obj) {
-                displayResult(obj);
-                progressBar(false);
-            }).fail(function () {
-                displayResult("Error detected")
-                progressBar(false);
-            });
-        }
-
-        if (_httpMethod === 'POST') {
-            var data = new FormData(document.getElementById($(form).attr("Id")));
-            var url = _url + '/' + controllerMethod;
-
-            $.ajax({
-                url: url,
-                type: _httpMethod,
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function (obj) {
-                    displayResult(obj);
-                    progressBar(false);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    displayResult(textStatus)
-                    progressBar(false);
-                }
-            });
-        }
-    });
-}
-
 function ajaxLoad(url, callback) {
 
     progressBar(true);
@@ -246,3 +197,52 @@ $(document).ready(function () {
 
     loadControllerList();
 });
+
+function render() {
+    $("#out").html('');
+    $("#out").append(_html);
+
+    $("#sessionId").val(API.getSessionId());
+
+    _html = '';
+
+    $(".submit").click(function () {
+        var form = $(this).closest("form");
+
+        progressBar(true);
+        var controllerMethod = form.attr('Name');
+
+        if (_httpMethod === 'GET') {
+            var url = _url + '/' + controllerMethod + '?' + form.serialize();
+
+            $.getJSON(url, function (obj) {
+                displayResult(obj);
+                progressBar(false);
+            }).fail(function () {
+                displayResult("Error detected")
+                progressBar(false);
+            });
+        }
+
+        if (_httpMethod === 'POST') {
+            var data = new FormData(document.getElementById($(form).attr("Id")));
+            
+            $.ajax({
+                url: _url + '/' + controllerMethod,
+                type: _httpMethod,
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (obj) {
+                    displayResult(obj);
+                    progressBar(false);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    displayResult(textStatus)
+                    progressBar(false);
+                }
+            });
+        }
+    });
+}
+
