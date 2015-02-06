@@ -30,9 +30,13 @@ $(document).ready(function () {
         getData: function (path, obj, callback) {
             var url = apiEndpoint + path.join('/') + "?sessionId=" + sessionId + "&";
             var array = [];
+            
             for (var item in obj) {
-                array.push(item + '=' + obj[item]);
+                if (obj.hasOwnProperty(item)) {
+                    array.push(item + '=' + obj[item]);
+                }
             }
+            
             url += array.join("&");
             $.getJSON(url, function (data, status) {
                 if (status === "success") {
