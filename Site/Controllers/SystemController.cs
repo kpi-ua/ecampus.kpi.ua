@@ -28,18 +28,18 @@ namespace Site.Controllers
             return View();
         }
 
-        private static bool IsEmpty(NetworkCredential credential)
-        {
-            return String.IsNullOrEmpty(credential.Password)
-                   && String.IsNullOrEmpty(credential.UserName);
-        }
-
         public ActionResult Logout()
         {
             Session.Clear();
             HttpContext.Response.Cookies.Clear();
             FormsAuthentication.SignOut();
             return Redirect("~/login");
+        }
+
+        private static bool IsEmpty(NetworkCredential credential)
+        {
+            return String.IsNullOrEmpty(credential.Password)
+                   && String.IsNullOrEmpty(credential.UserName);
         }
     }
 }

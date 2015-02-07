@@ -1,13 +1,8 @@
-﻿using System.Linq;
-using System.Web.UI;
+﻿using Campus.Common;
 using Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Collections;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using Campus.Common;
 
 namespace Site.Modules.SubSystems.GSVO
 {

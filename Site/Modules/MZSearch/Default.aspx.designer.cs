@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Site.MZSearch {
+namespace Site.Modules.MZSearch {
     
     
     public partial class Default {

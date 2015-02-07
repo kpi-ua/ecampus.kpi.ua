@@ -39,7 +39,8 @@ namespace Core
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            ViewBag.CurrentUser = CurrentUser; 
+            ViewBag.CurrentUser = CurrentUser;
+
             base.OnActionExecuted(filterContext);
         }
     }

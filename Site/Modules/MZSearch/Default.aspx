@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Методичне забезпечення" Language="C#" MasterPageFile="~/Site.Master"
-    AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.MZSearch.Default"
+    AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Modules.MZSearch.Default"
     EnableEventValidation="false" %>
 
 <asp:Content ID="MZ_Content" ContentPlaceHolderID="body" runat="server">

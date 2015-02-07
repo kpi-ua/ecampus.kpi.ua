@@ -108,7 +108,7 @@ namespace Site.Modules.EIR
         public void search(object sender, EventArgs e)
         {
             //Получение о6щего числа страниц
-            IPagedList paging;
+            //IPagedList paging;
             //var messages = CampusClient.GetAllIrs(SessionId, 1, 31, out paging);
             //pgg = paging.PageCount;
 
@@ -118,8 +118,8 @@ namespace Site.Modules.EIR
         public void dsc(object sender, EventArgs e)
         {
             //Получение о6щего числа страниц
-            IPagedList paging;
-            string c = dssc.Value.ToString();
+            //IPagedList paging;
+            //string c = dssc.Value;
             //var messages = CampusClient.GetIrbyDcDisc(SessionId, c, 1, 31, out paging);
             //pgs = paging.PageCount;
             pgsstring = dssc.Value;
@@ -129,8 +129,8 @@ namespace Site.Modules.EIR
         public void crd(object sender, EventArgs e)
         {
             //Получение о6щего числа страниц
-            IPagedList paging;
-            string c = crdd.Value.ToString();
+            //IPagedList paging;
+            //string c = crdd.Value;
             //var messages = CampusClient.GetIrbyCredMod(SessionId, c, 1, 31, out paging);
             //pcm = paging.PageCount;
             pcmstring = crdd.Value;

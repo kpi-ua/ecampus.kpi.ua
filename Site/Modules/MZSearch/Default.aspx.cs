@@ -1,28 +1,24 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Web.UI.WebControls;
 
-namespace Site.MZSearch
+namespace Site.Modules.MZSearch
 {
     public partial class Default : Core.SitePage
     {
-       
-        protected void Page_Load(object sender, EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
 
-            if (irEdit.Attributes["value"] != null && irEdit.Attributes["Value"].ToString() != "")
+            if (irEdit.Attributes["value"] != null && irEdit.Attributes["Value"] != "")
             {
                 Session["EirEdit"] = true;
-                Session["EirId"] = irEdit.Attributes["value"].ToString();
+                Session["EirId"] = irEdit.Attributes["value"];
                 Response.Redirect("~/Modules/EIR/CardEdit.aspx");
             }
 
             if (!Page.IsPostBack)
             {
-
                 session.Attributes["Value"] = SessionId;
             }
-        }    
+        }
     }
 }

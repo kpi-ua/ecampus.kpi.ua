@@ -178,7 +178,7 @@
                 <div class="carousel-group" id="individual_plan" runat="server">
                     <div class="carousel-row">
                         <div class="carousel-item">
-                            <a href="/Modules/IndividualTeachersPlan/">
+                            <a href="/IndividualTeacherPlan">
                                 <img src="/Images/carousel-plan-button.png" alt="">
                             </a>
                         </div>

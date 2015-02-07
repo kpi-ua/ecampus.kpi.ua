@@ -318,7 +318,6 @@
     <Content Include="Images\header-portfolio-button.png" />
     <Content Include="Images\header-question-button.png" />
     <Content Include="Modules\EIR\View.aspx" />
-    <Content Include="Modules\IndividualTeachersPlan\Default.aspx" />
     <Content Include="Modules\Messages\Default.aspx" />
     <Content Include="Modules\Messages\Dialog.aspx" />
     <Content Include="Default.aspx" />
@@ -415,6 +414,7 @@
     <Content Include="Web.sitemap" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\IndividualTeacherPlanController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Modules\Bulletins\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -499,13 +499,6 @@
     </Compile>
     <Compile Include="Modules\EIR\View.aspx.designer.cs">
       <DependentUpon>View.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Modules\IndividualTeachersPlan\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Modules\IndividualTeachersPlan\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Modules\Messages\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -630,6 +623,7 @@
     <Content Include="Scripts\jquery-2.1.3.min.map" />
     <Content Include="Views\Home\Support.cshtml" />
     <Content Include="Views\Shared\_LayoutPrivate.cshtml" />
+    <Content Include="Views\IndividualTeacherPlan\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
