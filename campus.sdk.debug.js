@@ -98,6 +98,18 @@ function getMethodInfo(array, method) {
     return result;
 };
 
+function renderFormGroup(controlId, title, controlHtml) {
+
+    var html = '';
+    html += '<div class="form-group">';
+    html += '<label for="' + controlId + '" class="col-md-4 control-label">' + title + '</label>';
+    html += '<div class="col-md-8">';
+    html += controlHtml;
+    html += '</div>';
+    html += '</div>';
+    return html;
+}
+
 function createControl(parameter) {
 
     var type = parameter.Type;
@@ -119,18 +131,6 @@ function createControl(parameter) {
     controlHtml = '<input class="form-control" type="' + controlType + '" name="' + controlId + '" id = "' + controlId + '" value="" placeholder="' + parameter.Name + '" />';
 
     append(renderFormGroup(controlId, parameter.Name, controlHtml));
-}
-
-function renderFormGroup(controlId, title, controlHtml) {
-
-    var html = '';
-    html += '<div class="form-group">';
-    html += '<label for="' + controlId + '" class="col-md-4 control-label">' + title + '</label>';
-    html += '<div class="col-md-8">';
-    html += controlHtml;
-    html += '</div>';
-    html += '</div>';
-    return html;
 }
 
 function render() {
