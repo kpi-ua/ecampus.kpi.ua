@@ -7,6 +7,14 @@ function append(html) {
     _html += html;
 }
 
+function progressBar(show) {
+    if (show) {
+        $("#progress").show();
+    } else {
+        $("#progress").hide();
+    }
+}
+
 function ajaxLoad(url, callback) {
 
     progressBar(true);
@@ -33,17 +41,26 @@ function ajaxLoad(url, callback) {
     });
 }
 
-function progressBar(show) {
-    if (show) {
-        $("#progress").show();
-    } else {
-        $("#progress").hide();
-    }
-}
-
 function displayResult(result) {
     var json = JSON.stringify(result, null, "\t");
     $("#message-box").val(json);
+}
+
+function fillMethodList(url) {
+    $('#cmb-methods').html('');
+
+    ajaxLoad(url, function (obj) {
+        //$.getJSON(url, function (obj) {
+
+        $.each(obj.Data, function (index, method) {
+            $('#cmb-methods')
+                .append($("<option></option>")
+                    .attr("value", method.Name)
+                    .text(method.Name));
+        });
+
+        $("#cmb-methods").change();
+    })
 }
 
 function loadControllerList() {
@@ -81,41 +98,6 @@ function getMethodInfo(array, method) {
     return result;
 };
 
-function scaffoldMethod(url, controller, method) {
-
-    ajaxLoad(url, function (obj) {
-
-        var methodInfo = getMethodInfo(obj.Data, method);
-        var methodUrl = API.getApiEndpoint() + controller + '/' + method;
-
-        _httpMethod = methodInfo.Method;
-
-        $("#method-title").html('<strong>' + method + '<strong>');
-
-        var form = $("#out");
-        form.attr("action", _url + controller + '/' + method);
-        form.attr("name", method);
-
-        if (_httpMethod === "POST") {
-            form.attr("method", _httpMethod);
-            form.attr("enctype", "multipart/form-data");
-        }
-
-        $("#txt-http-method").val(methodInfo.Method);
-        $("#txt-method-url").val(methodUrl);
-
-        $.each(methodInfo.Parameters, function (index, parameter) {
-            createControl(parameter);
-        });
-
-        append(renderFormGroup('', '', '<input type="button" class="btn btn-primary submit" value="Debug">'));
-
-        //append('</form>');
-
-        render();
-    });
-}
-
 function createControl(parameter) {
 
     var type = parameter.Type;
@@ -150,53 +132,6 @@ function renderFormGroup(controlId, title, controlHtml) {
     html += '</div>';
     return html;
 }
-
-function fillMethodList(url) {
-    $('#cmb-methods').html('');
-
-    ajaxLoad(url, function (obj) {
-        //$.getJSON(url, function (obj) {
-
-        $.each(obj.Data, function (index, method) {
-            $('#cmb-methods')
-                .append($("<option></option>")
-                    .attr("value", method.Name)
-                    .text(method.Name));
-        });
-
-        $("#cmb-methods").change();
-    })
-}
-
-$(document).ready(function () {
-
-    API.setApiEndpoint('http://campus-api.azurewebsites.net/');
-    
-    $("#api-link").attr("href", API.getApiEndpoint);
-    $("#api-link").text(API.getApiEndpoint);
-    
-
-    $("#cmb-methods").change(function () {
-        var method = $("#cmb-methods option:selected").text();
-        scaffoldMethod(_url, _controller, method);
-        $("#message-box").val('');
-    });
-
-    $("#btn-auth").click(function () {
-        var login = $("#txt-login").val();
-        var password = $("#txt-password").val();
-
-        var url = API.getApiEndpoint() + 'User/Auth?login=' + login + '&password=' + password;
-
-        ajaxLoad(url, function (obj) {
-            API.setSessionId(obj.Data);
-            $("#campus-session-id").val(API.getSessionId());
-            $("#sessionId").val(API.getSessionId());
-        });
-    });
-
-    loadControllerList();
-});
 
 function render() {
     $("#out").html('');
@@ -246,3 +181,67 @@ function render() {
     });
 }
 
+function scaffoldMethod(url, controller, method) {
+
+    ajaxLoad(url, function (obj) {
+
+        var methodInfo = getMethodInfo(obj.Data, method);
+        var methodUrl = API.getApiEndpoint() + controller + '/' + method;
+
+        _httpMethod = methodInfo.Method;
+
+        $("#method-title").html('<strong>' + method + '<strong>');
+
+        var form = $("#out");
+        form.attr("action", _url + controller + '/' + method);
+        form.attr("name", method);
+
+        if (_httpMethod === "POST") {
+            form.attr("method", _httpMethod);
+            form.attr("enctype", "multipart/form-data");
+        }
+
+        $("#txt-http-method").val(methodInfo.Method);
+        $("#txt-method-url").val(methodUrl);
+
+        $.each(methodInfo.Parameters, function (index, parameter) {
+            createControl(parameter);
+        });
+
+        append(renderFormGroup('', '', '<input type="button" class="btn btn-primary submit" value="Debug">'));
+
+        //append('</form>');
+
+        render();
+    });
+}
+
+$(document).ready(function () {
+
+    API.setApiEndpoint('http://campus-api.azurewebsites.net/');
+    
+    $("#api-link").attr("href", API.getApiEndpoint);
+    $("#api-link").text(API.getApiEndpoint);
+    
+
+    $("#cmb-methods").change(function () {
+        var method = $("#cmb-methods option:selected").text();
+        scaffoldMethod(_url, _controller, method);
+        $("#message-box").val('');
+    });
+
+    $("#btn-auth").click(function () {
+        var login = $("#txt-login").val();
+        var password = $("#txt-password").val();
+
+        var url = API.getApiEndpoint() + 'User/Auth?login=' + login + '&password=' + password;
+
+        ajaxLoad(url, function (obj) {
+            API.setSessionId(obj.Data);
+            $("#campus-session-id").val(API.getSessionId());
+            $("#sessionId").val(API.getSessionId());
+        });
+    });
+
+    loadControllerList();
+});
