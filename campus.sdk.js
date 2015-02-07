@@ -66,9 +66,7 @@ $(document).ready(function () {
                 var data = pako.inflate(binData);
 
                 // Convert gunzipped byteArray back to ascii string:
-                var strData = String.fromCharCode.apply(null, new Uint16Array(data));
-
-                return strData;
+                return String.fromCharCode.apply(null, new Uint16Array(data));
             }
         }
     };
