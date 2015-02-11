@@ -20,7 +20,7 @@
     API.getData(["Ir", "GetIr"], {
             id: irId
         }, function(data) {
-            $(".info-block").append("<span>" + (value.dayNamesShort == null ? "" : "<u>Назва ресурсу:</u> " + data.NameShort + "</span><br/>") + "<span><u>Статус ресурсу:</u> " + (data.isPublic ? "Публічний" : "Приватний") + "</span><br/><span><u>Вид:</u> " + data.DcIrKindName + "</span>");
+            $(".info-block").append("<span>" + (data.dayNamesShort == null ? "" : "<u>Назва ресурсу:</u> " + data.NameShort + "</span><br/>") + "<span><u>Статус ресурсу:</u> " + (data.isPublic ? "Публічний" : "Приватний") + "</span><br/><span><u>Вид:</u> " + data.DcIrKindName + "</span>");
         });
     
     API.getData(["Ir", "GetExtraLangs"], {

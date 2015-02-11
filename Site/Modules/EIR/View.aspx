@@ -6,12 +6,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="newhead" runat="server">
-    <script src="/Scripts/APIlib.js"></script>
-    <script src="/Scripts/EIRView.js"></script>
+    
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="newbody" runat="server">
-
+    <script src="/Scripts/APIlib.js"></script>
+    <script src="/Scripts/EIRView.js"></script>
     <div class="page-header">
         <h1><%=Page.Title %></h1>
     </div>
