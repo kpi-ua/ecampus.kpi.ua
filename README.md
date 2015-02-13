@@ -11,3 +11,7 @@ Examples of using: https://github.com/DOIS/examples
 ####Install
 You can install campus.core from NuGet.
 Current version available at: https://www.nuget.org/packages/campus.core
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/DOIS/campus.core/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
