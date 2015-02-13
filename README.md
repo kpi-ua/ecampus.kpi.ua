@@ -26,3 +26,7 @@ Automatic synced with **cloud** branch: http://campus-portal.azurewebsites.net/l
 * API endpoint: http://campus-api.azurewebsites.net
 * API debug tool: http://campus-tools.azurewebsites.net/
 * API debug tool source code: https://github.com/DOIS/campus.sdk.js/blob/master/index.html
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/DOIS/ecampus.kpi.ua/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
