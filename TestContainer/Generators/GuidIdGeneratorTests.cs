@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Campus.Core.Common.Generators;
+using Campus.Core.Pulse.Common.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Campus.Core.Common.Generators.Tests
 {

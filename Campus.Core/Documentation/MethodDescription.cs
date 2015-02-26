@@ -2,9 +2,13 @@
 
 namespace Campus.Core.Documentation
 {
-    public class MethodDescription
+    public class MethodDescription : Element
     {
-        public string Name { get; set; }
+        public MethodDescription()
+        {
+            Parameters = new List<TypeDescription>();
+        }
+
         public string Method { get; set; }
         public string Description { get; set; }
         public object Compression { get; set; }

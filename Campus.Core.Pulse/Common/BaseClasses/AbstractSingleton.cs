@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using Campus.Core.Common.Extensions;
+using Campus.Core.Pulse.Common.Extensions;
 
-namespace Campus.Core.Common.BaseClasses
+namespace Campus.Core.Pulse.Common.BaseClasses
 {
     /// <summary>
     /// Base class for singleton pattern.

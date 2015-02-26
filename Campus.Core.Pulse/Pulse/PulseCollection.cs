@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using Campus.Core.Common.BaseClasses;
+using Campus.Core.Pulse.Common.BaseClasses;
 using Campus.Core.Pulse.Interfaces;
 
 namespace Campus.Core.Pulse.Pulse

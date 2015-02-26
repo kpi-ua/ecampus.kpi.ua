@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Campus.Core.Common.Extensions;
 
-namespace Campus.Core.Common.Generators
+namespace Campus.Core.Pulse.Common.Generators
 {
     public class TemplateEngine<T>
     {

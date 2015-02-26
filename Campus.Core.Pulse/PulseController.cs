@@ -1,15 +1,12 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
-using Campus.Core.Common.Extensions;
 using Campus.Core.Pulse.Attributes;
 using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Interfaces;
 using Campus.Core.Pulse.Pulse;
-using Campus.Pulse;
 using Campus.Core.Pulse.Common.Extensions;
 
 namespace Campus.Core.Pulse
@@ -17,8 +14,9 @@ namespace Campus.Core.Pulse
     /// <summary>
     /// Functionality for handling and sending a Server-Sent Events from ASP.NET WebApi.
     /// </summary>
-    /// <typeparam name="ClientInfo">Type to carry additional information for each client/subscriber.</typeparam>
-    public abstract class PulseController<ClientInfo> : ServerSendEvent, IGet where ClientInfo : class
+    /// <typeparam name="TClientInfo">Type to carry additional information for each client/subscriber.</typeparam>
+    public abstract class PulseController<TClientInfo> : ServerSendEvent, IGet, IApiController
+        where TClientInfo : class
     {
         #region c'tors
 
@@ -50,14 +48,14 @@ namespace Campus.Core.Pulse
         /// Represents a basic pulse class
         /// </summary>
         [NonSerializableClass]
-        public class PulseObject<ClientInfo> : PulseController<ClientInfo>, IPulseObject where ClientInfo
+        public class PulseObject<TObjectInfo> : PulseController<TObjectInfo>, IPulseObject where TObjectInfo
             : class
         {
-            public int Id { get { return typeof(ClientInfo).GetHashCode(); } }
+            public int Id { get { return typeof(TObjectInfo).GetHashCode(); } }
 
-            private Func<ClientInfo> _getUser = null;
+            private readonly Func<TObjectInfo> _getUser = null;
 
-            internal PulseObject(Func<ClientInfo> getFunc, bool generateMessageIds = true, MessageIdGenerator? idGenerator = ServerSendEvent.MessageIdGenerator.Simple, int heartbeatInterval = 5000)
+            internal PulseObject(Func<TObjectInfo> getFunc, bool generateMessageIds = true, MessageIdGenerator? idGenerator = ServerSendEvent.MessageIdGenerator.Simple, int heartbeatInterval = 5000)
                 : base(generateMessageIds, idGenerator, heartbeatInterval)
             {
                 _getUser = getFunc;
@@ -69,7 +67,7 @@ namespace Campus.Core.Pulse
 
             }
 
-            public override ClientInfo GetUser(string sessionId)
+            public override TObjectInfo GetUser(string sessionId)
             {
                 return _getUser();
             }
@@ -86,7 +84,7 @@ namespace Campus.Core.Pulse
         /// <value>
         /// The factory.
         /// </value>
-        public static PulseFactory<ClientInfo> Factory { get { return PulseFactory<ClientInfo>.Instance; } }
+        public static PulseFactory<TClientInfo> Factory { get { return PulseFactory<TClientInfo>.Instance; } }
 
         #endregion
 
@@ -108,19 +106,19 @@ namespace Campus.Core.Pulse
                 SubscriberRemoved(this, new SubscriberEventArgs<Client>(client, subscriberCount));
         }
 
-        public new event EventHandler<BeatEventArgs<ClientInfo>> OnHeartbeat;
+        public new event EventHandler<BeatEventArgs<TClientInfo>> OnHeartbeat;
 
-        internal void OnHBeat(object state, ClientInfo client)
+        internal void OnHBeat(object state, TClientInfo client)
         {
             if (OnHeartbeat != null)
-                OnHeartbeat(this, new BeatEventArgs<ClientInfo>(state, client));
+                OnHeartbeat(this, new BeatEventArgs<TClientInfo>(state, client));
         }
 
         internal override void TimerCallback(object state)
         {
             _Clients.ForEachAsync((c) =>
             {
-                OnHBeat(state, ((ClientWithInformation<ClientInfo>)c).Info);
+                OnHBeat(state, ((ClientWithInformation<TClientInfo>)c).Info);
             });
 
             Send(new Message() { Comment = "heartbeat" });
@@ -136,7 +134,7 @@ namespace Campus.Core.Pulse
         /// <param name="sessionId">The session identifier.</param>
         /// <returns></returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual ClientInfo GetUser(string sessionId)
+        public virtual TClientInfo GetUser(string sessionId)
         {
             throw new Exception("You must override GetUser method in client code");
         }
@@ -192,7 +190,7 @@ namespace Campus.Core.Pulse
         /// </summary>
         /// <param name="data">The data to send.</param>
         /// <param name="criteria">The criteria to be fulfilled to get the data.</param>
-        public void Send(object data, Func<ClientInfo, bool> criteria)
+        public void Send(object data, Func<TClientInfo, bool> criteria)
         {
             Send(new Message() { Data = data }, criteria);
         }
@@ -203,7 +201,7 @@ namespace Campus.Core.Pulse
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">The id of the message.</param>
         /// <param name="criteria">The criteria to be fulfilled to get the data.</param>
-        public void Send(object data, string eventType, Func<ClientInfo, bool> criteria)
+        public void Send(object data, string eventType, Func<TClientInfo, bool> criteria)
         {
             Send(new Message() { EventType = eventType, Data = data }, criteria);
         }
@@ -215,7 +213,7 @@ namespace Campus.Core.Pulse
         /// <param name="data">The data to send.</param>
         /// <param name="messageId">The id of the message.</param>
         /// <param name="criteria">The criteria to be fulfilled to get the data.</param>
-        public void Send(object data, string eventType, string messageId, Func<ClientInfo, bool> criteria)
+        public void Send(object data, string eventType, string messageId, Func<TClientInfo, bool> criteria)
         {
             Send(new Message() { EventType = eventType, Data = data, Id = messageId }, criteria);
         }
@@ -235,22 +233,22 @@ namespace Campus.Core.Pulse
         /// <param name="clientInfo">The client information.</param>
         /// <param name="contentType">Type of the content.</param>
         /// <returns>Response message</returns>
-        private HttpResponseMessage AddSubscriber(HttpRequestMessage request, ClientInfo clientInfo, ContentType contentType = ContentType.Text)
+        private HttpResponseMessage AddSubscriber(HttpRequestMessage request, TClientInfo clientInfo, ContentType contentType = ContentType.Text)
         {
             HttpResponseMessage response = request.CreateResponse();
             AddHeaders(response);
-            response.Content = new PushStreamContentWithClientInfomation<ClientInfo>((stream, content, context) =>
+            response.Content = new PushStreamContentWithClientInfomation<TClientInfo>((stream, content, context) =>
             {
-                ClientInfo info = default(ClientInfo);
+                TClientInfo info = default(TClientInfo);
 
-                if (content is PushStreamContentWithClientInfomation<ClientInfo>)
+                if (content is PushStreamContentWithClientInfomation<TClientInfo>)
                 {
-                    var contentWithInfo = content as PushStreamContentWithClientInfomation<ClientInfo>;
+                    var contentWithInfo = content as PushStreamContentWithClientInfomation<TClientInfo>;
                     info = contentWithInfo.Info;
                 }
 
                 string lastMessageId = GetLastMessageId(content);
-                var client = new ClientWithInformation<ClientInfo>(stream, lastMessageId, info);
+                var client = new ClientWithInformation<TClientInfo>(stream, lastMessageId, info);
                 AddClient(client);
             }, GetContentType(contentType), clientInfo);
             return response;
@@ -274,16 +272,16 @@ namespace Campus.Core.Pulse
         /// </summary>
         /// <param name="msg">The MSG.</param>
         /// <param name="criteria">The criteria.</param>
-        private void Send(Message msg, Func<ClientInfo, bool> criteria)
+        private void Send(Message msg, Func<TClientInfo, bool> criteria)
         {
             lock (_Lock)
             {
                 // Only send message to clients fulfilling the criteria
                 var filtered = _Clients
-                                .Where(c => c is ClientWithInformation<ClientInfo>)
+                                .Where(c => c is ClientWithInformation<TClientInfo>)
                                     .Where(c =>
                                     {
-                                        var clientWithInfo = c as ClientWithInformation<ClientInfo>;
+                                        var clientWithInfo = c as ClientWithInformation<TClientInfo>;
                                         return clientWithInfo.Info == null ? false : criteria(clientWithInfo.Info);
                                     }).ToList();
 
@@ -297,14 +295,14 @@ namespace Campus.Core.Pulse
         /// <param name="client">The client.</param>
         internal override void AddClient(Client client)
         {
-            if (client is ClientWithInformation<ClientInfo>)
+            if (client is ClientWithInformation<TClientInfo>)
             {
-                var clientWithInfo = client as ClientWithInformation<ClientInfo>;
+                var clientWithInfo = client as ClientWithInformation<TClientInfo>;
                 lock (_Lock)
                 {
-                    if (_Clients.Any(c => ((ClientWithInformation<ClientInfo>)c).Info.Equals(clientWithInfo.Info)))
+                    if (_Clients.Any(c => ((ClientWithInformation<TClientInfo>)c).Info.Equals(clientWithInfo.Info)))
                     {
-                        var oldClient = _Clients.First(c => ((ClientWithInformation<ClientInfo>)c).Id == clientWithInfo.Id);
+                        var oldClient = _Clients.First(c => ((ClientWithInformation<TClientInfo>)c).Id == clientWithInfo.Id);
                         _Clients.Remove(oldClient);
                         OnSubscriberRemoved(_Clients.Count, client);
                     }
@@ -359,6 +357,7 @@ namespace Campus.Core.Pulse
     public class TestUser
     {
         public int Id;
+
         public TestUser(int id)
         {
             Id = id;

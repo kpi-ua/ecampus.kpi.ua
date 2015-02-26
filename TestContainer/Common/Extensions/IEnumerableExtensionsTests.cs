@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Campus.Core.Common.Extensions;
+using Campus.Core.Pulse.Common.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Campus.PulseTests.Common.Extensions

@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Campus.Core.Pulse.Common.BaseClasses;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Campus.Core.Common.BaseClasses.Tests
 {

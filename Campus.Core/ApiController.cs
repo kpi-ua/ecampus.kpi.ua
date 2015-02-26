@@ -17,7 +17,7 @@ namespace Campus.Core
     /// <summary>
     /// Base class for campus api-controllers
     /// </summary>
-    public class ApiController : System.Web.Mvc.Controller
+    public class ApiController : System.Web.Mvc.Controller, IApiController
     {
         private const string AccessDenied = "Access denied";
 

@@ -1,4 +1,6 @@
 ﻿using Campus.Core.Common.Generators;
+using Campus.Core.Pulse.Common.Extensions;
+using Campus.Core.Pulse.Common.Generators;
 using Campus.Pulse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Campus.Core.Common.Extensions.Tests

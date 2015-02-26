@@ -1,8 +1,8 @@
 ﻿using System;
-using Campus.Core.Common.BaseClasses;
+using Campus.Core.Pulse.Common.BaseClasses;
 using Campus.Core.Pulse.Interfaces;
 
-namespace Campus.Core.Common.Generators
+namespace Campus.Core.Pulse.Common.Generators
 {
     public class GuidIdGenerator : AbstractSingleton<GuidIdGenerator>, IMessageIdGenerator
     {
@@ -12,7 +12,6 @@ namespace Campus.Core.Common.Generators
         /// </summary>
         private GuidIdGenerator()
         {
-
         }
 
 

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Campus.Core.Common.Extensions
+namespace Campus.Core.Pulse.Common.Extensions
 {
     public static class TypeExtensions
     {      

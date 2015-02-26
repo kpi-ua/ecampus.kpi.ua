@@ -65,13 +65,10 @@ namespace Campus.Core.Pulse.Attributes
         }
 
         private static NonSerializableParameterAttribute _instance = null;
+        
         public static NonSerializableParameterAttribute Instance
         {
-            get
-            {
-                if (_instance == null) _instance = new NonSerializableParameterAttribute();
-                return _instance;
-            }
+            get { return _instance ?? (_instance = new NonSerializableParameterAttribute()); }
         }
     }
 }

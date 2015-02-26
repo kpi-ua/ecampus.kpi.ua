@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Campus.Core.Common.BaseClasses;
+﻿using System.Threading;
+using Campus.Core.Pulse.Common.BaseClasses;
 using Campus.Core.Pulse.Interfaces;
 
-namespace Campus.Core.Common.Generators
+namespace Campus.Core.Pulse.Common.Generators
 {
     public class SimpleIdGenerator : AbstractSingleton<SimpleIdGenerator>, IMessageIdGenerator
     {

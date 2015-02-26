@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 
 namespace Campus.Core.Documentation
 {
-    public class TypeDescription
+    public class TypeDescription : Element
     {
         public TypeDescription()
         {
@@ -21,7 +20,6 @@ namespace Campus.Core.Documentation
             Description = description;
         }
 
-        public String Name { get; set; }
         public String Type { get; set; }
         public String Description { get; set; }
     }

@@ -1,5 +1,4 @@
-﻿using Campus.Core.Common.Extensions;
-using Campus.Core.Common.Generators;
+﻿using Campus.Core.Common.Generators;
 using Campus.Core.Pulse.Attributes;
 using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Interfaces;
@@ -14,6 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Campus.Core.Documentation;
+using Campus.Core.Pulse.Common.Extensions;
+using Campus.Core.Pulse.Common.Generators;
 
 namespace Campus.Core.Pulse.Pulse
 {

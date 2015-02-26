@@ -4,7 +4,7 @@ using System.Net;
 
 namespace Campus.Core
 {
-    public class Result
+    public class Result : IResult
     {
         public HttpStatusCode StatusCode { get; set; }
         public DateTime TimeStamp { get; private set; }
@@ -36,6 +36,10 @@ namespace Campus.Core
             Guid = System.Guid.NewGuid().ToString();
             Paging = null;
             Compression = null;
+        }
+
+        public void Dispose()
+        {
         }
 
         public static Result Parse(string json)

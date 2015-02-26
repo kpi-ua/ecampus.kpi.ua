@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Campus.Core.Common.Generators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Campus.Core.Common.Extensions;
+using Campus.Core.Pulse.Common.Generators;
+
 namespace Campus.Core.Common.Generators.Tests
 {
     [TestClass()]

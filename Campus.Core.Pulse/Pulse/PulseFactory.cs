@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Campus.Core.Common.BaseClasses;
+using Campus.Core.Pulse.Common.BaseClasses;
 using Campus.Core.Pulse.Interfaces;
 
 namespace Campus.Core.Pulse.Pulse

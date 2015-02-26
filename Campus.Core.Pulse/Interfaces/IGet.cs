@@ -1,6 +1,5 @@
-﻿using System.Net.Http;
-using Campus.Core.Attributes;
-using Campus.Core.Pulse.Attributes;
+﻿using Campus.Core.Pulse.Attributes;
+using System.Net.Http;
 
 namespace Campus.Core.Pulse.Interfaces
 {
@@ -12,6 +11,7 @@ namespace Campus.Core.Pulse.Interfaces
         /// <param name="request">The request.</param>
         /// <returns></returns>
         HttpResponseMessage Get([NonSerializableParameter]HttpRequestMessage request);
+
         /// <summary>
         /// Gets request.
         /// </summary>

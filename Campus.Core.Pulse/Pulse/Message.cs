@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text;
-using Campus.Core.Common.Extensions;
 using Campus.Core.Common.Generators;
 using Campus.Core.Pulse.Common.Extensions;
+using Campus.Core.Pulse.Common.Generators;
 using Campus.Core.Pulse.Interfaces;
 using Newtonsoft.Json;
 

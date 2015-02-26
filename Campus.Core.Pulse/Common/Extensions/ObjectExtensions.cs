@@ -130,7 +130,7 @@ namespace Campus.Core.Pulse.Common.Extensions
             unchecked
             {
                 int hash = 17;
-                Core.Common.Extensions.IEnumerableExtensions.ForEach(props, (prop) =>
+                IEnumerableExtensions.ForEach(props, (prop) =>
                 {
                     var val = prop.GetValue(obj, null);
                     hash = (val != null) ? hash * 23 + val.GetHashCode() : hash;

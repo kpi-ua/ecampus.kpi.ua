@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Campus.Core.Common.Extensions
+namespace Campus.Core.Pulse.Common.Extensions
 {
     public static class IEnumerableExtensions
     {
