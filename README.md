@@ -1,5 +1,7 @@
 ###KPI Campus SDK.NET 
 
+[![Join the chat at https://gitter.im/DOIS/campus.sdk.net](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/DOIS/campus.sdk.net?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 | Package | Actual version |
 |---------|----------------|
 | campus.sdk.net     | [![NuGet version (campus.sdk)](https://img.shields.io/nuget/v/campus.sdk.svg?style=flat-square)](https://www.nuget.org/packages/campus.sdk/)|
