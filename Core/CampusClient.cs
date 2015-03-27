@@ -18,10 +18,16 @@ namespace Core
     {
         private readonly JavaScriptSerializer _serializer = new JavaScriptSerializer();
 
-        private T Get<T>(string controller, string method, object arguments = null)
+        public T Get<T>(string controller, string method, object arguments = null)
             where T : class
         {
             var url = arguments == null ? BuildUrl(controller, method) : BuildUrl(controller, method, arguments);
+            return GetByUrl<T>(url);
+        }
+
+        public T GetByUrl<T>(string url)
+            where T : class
+        {
             var result = Get(url);
 
             if (result.Data == null)
@@ -30,7 +36,10 @@ namespace Core
             }
 
             if (result.Data.ToString() == "True" || result.Data.ToString() == "False")
+            {
                 return result.Data.ToString();
+            }
+
             return JsonConvert.DeserializeObject<T>(result.Data.ToString());
         }
 
@@ -356,6 +365,11 @@ namespace Core
         {
             var result = Get<List<Campus.Common.DcDiscipline>>("Discipline", "GetDcDisciplineName", new { sessionId, name });
             return result;
+        }
+
+        public string GetUserProfileImage(int userId)
+        {
+            return String.Format("{0}Storage/GetUserProfileImage?userId={1}", Campus.SDK.Client.ApiEndpoint, userId);
         }
     }
 }

@@ -23,6 +23,9 @@ namespace Site.Modules.EIR
 
             Group.InnerText = "Студенти групи " + StudyGroupId + ": ";
             var answer = CampusClient.GetData(Campus.SDK.Client.ApiEndpoint + "Ir/GetPersonName?sessionId=" + SessionId + "&name=");
+
+
+
             if (answer != null)
             {
                 var dataStGr = (ArrayList)answer["Data"];
@@ -52,10 +55,7 @@ namespace Site.Modules.EIR
                     {
                         if (item["Id"] != null)
                         {
-                            var answer2 = CampusClient.DownloadString(Campus.SDK.Client.ApiEndpoint + "Employee/GetEmployeePhoto?EmployeeAcountId=" + item["Id"].ToString());
-                            JavaScriptSerializer _serializer = new JavaScriptSerializer();
-                            var respDictionary = _serializer.Deserialize<Dictionary<string, object>>(answer2);
-                            var url = respDictionary["Data"];
+                            var url = CampusClient.GetUserProfileImage(Convert.ToInt32(item["Id"]));
                             im.AppendFormat(@"<img id =""employee_photo""{1}"""" src=""{0}"" style=""width:150px;height:200px""/>", url.ToString(), item["Id"].ToString());
                         }
                         if (item["Name"] != null)
