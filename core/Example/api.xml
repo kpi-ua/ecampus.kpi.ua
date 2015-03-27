@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Example</name>
+    </assembly>
+    <members>
+        <member name="T:Example.Controllers.HomeController">
+            <summary>
+            Test controller description
+            </summary>
+        </member>
+        <member name="M:Example.Controllers.HomeController.Index">
+            <summary>
+            Indexes this instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Example.Controllers.HomeController.Test2(System.String)">
+            <summary>
+            Test2s the specified some value.
+            </summary>
+            <param name="someValue">Some value.</param>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:Example.Controllers.HomeController.Test3(System.String)">
+            <summary>
+            Test3s the specified some value will be overridden.
+            </summary>
+            <param name="someValue">Some value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Example.Controllers.HomeController.TestCompress(System.String)">
+            <summary>
+            Test2s the specified some value. (Compression disabled on the API level)
+            </summary>
+            <param name="someValue">Some value.</param>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:Example.Controllers.HomeController.TestCompress2(System.String)">
+            <summary>
+            Test2s the specified some value.
+            </summary>
+            <param name="someValue">Some value.</param>
+            <returns>JSON</returns>
+        </member>
+    </members>
+</doc>
