@@ -3,7 +3,7 @@ using Campus.SDK;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace SDK.Test
+namespace Campus.SDK.Test
 {
     [TestClass]
     public class SdkUnitTest

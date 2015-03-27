@@ -5,7 +5,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading;
 
-namespace Campus.Pulse.Tests
+namespace Campus.SDK.Test
 {   
     [TestClass()]
     public class PulseControllerTests

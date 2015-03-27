@@ -2,7 +2,7 @@
 using Campus.Core.Pulse.Common.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Campus.PulseTests.Common.Extensions
+namespace Campus.SDK.Test.Common.Extensions
 {
     [TestClass()]
     public class DateTimeExtensionsTests

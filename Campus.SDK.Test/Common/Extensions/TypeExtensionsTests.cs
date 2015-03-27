@@ -3,7 +3,8 @@ using Campus.Core.Pulse.Common.Extensions;
 using Campus.Core.Pulse.Common.Generators;
 using Campus.Pulse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace Campus.Core.Common.Extensions.Tests
+
+namespace Campus.SDK.Test.Common.Extensions.Tests
 {
     [TestClass()]
     public class TypeExtensionsTests

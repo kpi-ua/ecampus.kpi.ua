@@ -7,7 +7,8 @@ using Campus.Core.Common.Generators;
 using Campus.Core.Pulse.Common.Generators;
 using Campus.Core.Pulse.Pulse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-namespace Campus.Pulse.Generators.Tests
+
+namespace Campus.SDK.Test.Generators.Tests
 {
     [TestClass()]
     public class TemplateEngineTests

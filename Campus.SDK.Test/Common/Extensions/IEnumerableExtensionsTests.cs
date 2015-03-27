@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Campus.Core.Pulse.Common.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Campus.Core.Common.Extensions;
-using Campus.Core.Pulse.Common.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Campus.PulseTests.Common.Extensions
+namespace Campus.SDK.Test.Common.Extensions
 {
     [TestClass()]
     public class IEnumerableExtensionsTests

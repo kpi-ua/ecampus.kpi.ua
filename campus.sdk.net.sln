@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campus.Core.Pulse", "Campus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example", "Example\Example.csproj", "{B28681EE-83C0-4D30-B628-447E2C004914}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestContainer", "TestContainer\TestContainer.csproj", "{CFAC57A2-BEE0-4E52-A100-E62EE909FBCD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,12 +50,6 @@ Global
 		{B28681EE-83C0-4D30-B628-447E2C004914}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B28681EE-83C0-4D30-B628-447E2C004914}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{B28681EE-83C0-4D30-B628-447E2C004914}.Test|Any CPU.Build.0 = Release|Any CPU
-		{CFAC57A2-BEE0-4E52-A100-E62EE909FBCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CFAC57A2-BEE0-4E52-A100-E62EE909FBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CFAC57A2-BEE0-4E52-A100-E62EE909FBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CFAC57A2-BEE0-4E52-A100-E62EE909FBCD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CFAC57A2-BEE0-4E52-A100-E62EE909FBCD}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{CFAC57A2-BEE0-4E52-A100-E62EE909FBCD}.Test|Any CPU.Build.0 = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
