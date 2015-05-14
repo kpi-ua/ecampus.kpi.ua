@@ -5,12 +5,14 @@ using PagedList;
 
 namespace Campus.SDK
 {
-    public class Result
+    public class Result : IResult
     {
-        public HttpStatusCode StatusCode { get; set; }
-        public DateTime TimeStamp { get; private set; }
-        public String Guid { get; private set; }
-        
+        public int StatusCode { get; set; }
+        public DateTime TimeStamp { get; protected set; }
+        public String Guid { get; protected set; }
+        public string ExecutionTime { get; set; }
+
+
         /// <summary>
         /// Paging information. If null - information is complex object 
         /// </summary>
@@ -24,7 +26,7 @@ namespace Campus.SDK
 
         public Result()
         {
-            StatusCode = HttpStatusCode.OK;
+            StatusCode = (int)HttpStatusCode.OK;
             TimeStamp = DateTime.Now;
             Guid = System.Guid.NewGuid().ToString();
             Paging = null;
@@ -33,6 +35,10 @@ namespace Campus.SDK
         public static Result Parse(string json)
         {
             return JsonConvert.DeserializeObject<Result>(json);
+        }
+
+        public void Dispose()
+        {
         }
     }
 }

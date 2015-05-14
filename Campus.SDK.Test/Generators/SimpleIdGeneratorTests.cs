@@ -1,10 +1,10 @@
-﻿using Campus.Core.Pulse.Common.Generators;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Campus.Core.Pulse.Common.Generators;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Campus.SDK.Test.Common.Generators.Tests
+namespace Campus.SDK.Test.Generators
 {
     [TestClass()]
     public class SimpleIdGeneratorTests

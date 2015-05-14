@@ -1,5 +1,4 @@
 ﻿using System;
-using Campus.Core.Attributes;
 
 namespace Campus.Core.Pulse.Attributes
 {

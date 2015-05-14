@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Campus.Core.Common.Generators;
-using Campus.Core.Pulse.Common.Generators;
+﻿using Campus.Core.Pulse.Common.Generators;
 using Campus.Core.Pulse.Pulse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Campus.SDK.Test.Generators.Tests
+namespace Campus.SDK.Test.Generators
 {
     [TestClass()]
     public class TemplateEngineTests

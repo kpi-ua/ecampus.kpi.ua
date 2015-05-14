@@ -7,19 +7,19 @@ namespace Campus.SDK
     {
         public Proxy(string address, bool bypassOnLocal)
         {
-            
+
         }
 
         public ICredentials Credentials { get; set; }
 
         public Uri GetProxy(Uri destination)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public bool IsBypassed(Uri host)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
     }
 }

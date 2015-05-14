@@ -4,44 +4,64 @@
         <name>Example</name>
     </assembly>
     <members>
-        <member name="T:Example.Controllers.HomeController">
+        <member name="T:Example.RouteConfig">
+            <summary>
+            Route config
+            </summary>
+        </member>
+        <member name="M:Example.RouteConfig.RegisterRoutes(System.Web.Routing.RouteCollection)">
+            <summary>
+            Register routes 
+            </summary>
+            <param name="routes"></param>
+        </member>
+        <member name="T:Example.Controllers.ExampleController">
             <summary>
             Test controller description
             </summary>
         </member>
-        <member name="M:Example.Controllers.HomeController.Index">
+        <member name="M:Example.Controllers.ExampleController.Index">
             <summary>
             Indexes this instance.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Example.Controllers.HomeController.Test2(System.String)">
+        <member name="M:Example.Controllers.ExampleController.Test">
+            <summary>
+            Main test method
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Example.Controllers.ExampleController.Test2(System.String)">
             <summary>
             Test2s the specified some value.
             </summary>
             <param name="someValue">Some value.</param>
             <returns>JSON</returns>
         </member>
-        <member name="M:Example.Controllers.HomeController.Test3(System.String)">
+        <member name="M:Example.Controllers.ExampleController.GetList">
+            <summary>
+            Test2s the specified some value.
+            </summary>
+            <param name="someValue">Some value.</param>
+            <returns>JSON</returns>
+        </member>
+        <member name="M:Example.Controllers.ExampleController.Test3(System.String)">
             <summary>
             Test3s the specified some value will be overridden.
             </summary>
             <param name="someValue">Some value.</param>
             <returns></returns>
         </member>
-        <member name="M:Example.Controllers.HomeController.TestCompress(System.String)">
+        <member name="T:Example.MvcApplication">
             <summary>
-            Test2s the specified some value. (Compression disabled on the API level)
+            Base class for test web application
             </summary>
-            <param name="someValue">Some value.</param>
-            <returns>JSON</returns>
         </member>
-        <member name="M:Example.Controllers.HomeController.TestCompress2(System.String)">
+        <member name="M:Example.MvcApplication.Application_Start">
             <summary>
-            Test2s the specified some value.
+            
             </summary>
-            <param name="someValue">Some value.</param>
-            <returns>JSON</returns>
         </member>
     </members>
 </doc>

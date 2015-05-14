@@ -1,8 +1,11 @@
 ﻿using Campus.Core.Common.Generators;
 using Campus.Core.Pulse.Attributes;
+using Campus.Core.Pulse.Common.Extensions;
+using Campus.Core.Pulse.Common.Generators;
 using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Interfaces;
 using Campus.Pulse;
+using Campus.SDK;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +15,7 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
-using Campus.Core.Documentation;
-using Campus.Core.Pulse.Common.Extensions;
-using Campus.Core.Pulse.Common.Generators;
+using Campus.SDK.Documentation;
 
 namespace Campus.Core.Pulse.Pulse
 {
@@ -459,7 +460,7 @@ namespace Campus.Core.Pulse.Pulse
 
             return Request.CreateResponse(HttpStatusCode.OK, new Result
             {
-                StatusCode = HttpStatusCode.OK,
+                StatusCode = (int)HttpStatusCode.OK,
                 Data = methods
             });
         }

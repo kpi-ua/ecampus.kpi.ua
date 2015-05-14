@@ -2,7 +2,7 @@
 
 namespace Campus.SDK
 {
-    internal class PagedList : IPagedList
+    public class PagedList : IPagedList
     {
         public int PageCount { get; set; }
         public int TotalItemCount { get; set; }
@@ -14,5 +14,23 @@ namespace Campus.SDK
         public bool IsLastPage { get; private set; }
         public int FirstItemOnPage { get; set; }
         public int LastItemOnPage { get; set; }
+
+        public PagedList()
+        {
+        }
+
+        public PagedList(IPagedList pagedList)
+        {
+            PageCount = pagedList.PageCount;
+            TotalItemCount = pagedList.TotalItemCount;
+            PageNumber = pagedList.PageNumber;
+            PageSize = pagedList.PageSize;
+            HasPreviousPage = pagedList.HasPreviousPage;
+            HasNextPage = pagedList.HasNextPage;
+            IsFirstPage = pagedList.IsFirstPage;
+            IsLastPage = pagedList.IsLastPage;
+            FirstItemOnPage = pagedList.FirstItemOnPage;
+            LastItemOnPage = pagedList.LastItemOnPage;
+        }
     }
 }

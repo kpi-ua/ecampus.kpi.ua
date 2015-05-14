@@ -1,15 +1,14 @@
-﻿using Campus.Core.Attributes;
-using Campus.Core.EventsArgs;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using Campus.Core.Documentation;
+using Campus.SDK;
+using Campus.SDK.Documentation;
+using Campus.SDK.EventsArgs;
 using PagedList;
 
 namespace Campus.Core
@@ -113,47 +112,19 @@ namespace Campus.Core
 
         public virtual ActionResult Result(object obj, HttpStatusCode status = HttpStatusCode.OK)
         {
-            var type = GetType();
-
             var result = new Result
             {
-                StatusCode = status,
+                StatusCode = (int)status,
                 Data = obj,
             };
 
             if (obj is IPagedList)
             {
-                result.Paging = new Paging(obj as IPagedList);
+                result.Paging = new Campus.SDK.PagedList(obj as IPagedList);
                 result.Data = (obj as IEnumerable).Cast<Object>().ToList();
             }
 
-            if (AllowCompression)
-            {
-                if (ShouldBeCompressed)
-                {
-
-                    BuildCompressionInfo(result, obj, type);
-                }
-                else
-                {
-                    var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
-                    native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
-
-                    if (native != null)
-                    {
-                        result.Compression = new
-                        {
-                            Native = new
-                            {
-                                Type = Enum.GetName(native.PreferredEncoding.GetType(), native.PreferredEncoding),
-                                Lavel = Enum.GetName(native.Level.GetType(), native.Level)
-                            }
-                        };
-                    }
-                }
-            }
-
-            Response.StatusCode = Convert.ToInt32(result.StatusCode);
+            Response.StatusCode = result.StatusCode;
 
             result.ExecutionTime = DateTime.Now.Subtract(_timeStamp).TotalMilliseconds.ToString("0.000000000");
 
@@ -222,7 +193,7 @@ namespace Campus.Core
             return Result(info);
         }
 
-        protected void OnException(Exception ex)
+        protected virtual void OnException(Exception ex)
         {
             var handler = ExceptionHandled;
 
@@ -278,38 +249,22 @@ namespace Campus.Core
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
         }
 
-        protected dynamic IntrospectMethod(MethodInfo method)
+        protected virtual dynamic IntrospectMethod(MethodInfo method)
         {
             var isHttPost = method.CustomAttributes.Any(o => o.AttributeType.Name == "HttpPostAttribute");
 
-            var isCompression = !CompressIgnoreAttribute.Instance.HasAttribute(method.DeclaringType) &&
-                                !CompressIgnoreAttribute.Instance.HasAttribute(method) &&
-                                CompressAttribute.Instance.HasAttribute(method);
-
-            CompressAttribute compression = null;
-
-            if (isCompression)
-            {
-                compression = method.GetCustomAttribute<CompressAttribute>(true);
-            }
-
             var parameters = method.GetParameters()
                 .AsParallel()
-                .Select(o => new TypeDescription(o, XmlDocumentation.GetDescription(method, o)))
+                .Select(o => new TypeDescription(o, ApiDocumentation.GetDescription(method, o)))
                 .ToList();
 
-            var description = XmlDocumentation.GetDescription(method, null);
+            var description = ApiDocumentation.GetDescription(method, null);
 
             return new MethodDescription
             {
                 Name = method.Name,
                 Method = isHttPost ? "POST" : "GET",
                 Description = description,
-                Compression = !isCompression ? null : new
-                {
-                    Type = Enum.GetName(compression.Scheme.GetType(), compression.Scheme),
-                    Level = Enum.GetName(compression.Level.GetType(), compression.Level)
-                },
                 Parameters = parameters
             };
         }
@@ -326,63 +281,5 @@ namespace Campus.Core
                 throw new HttpException(Convert.ToInt32(HttpStatusCode.Forbidden), AccessDenied);
             }
         }
-
-        #region Compression
-
-        /// <summary>
-        /// Gets a value indicating whether data should be compressed using custom compression engine.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if data should be compressed; otherwise, <c>false</c>.
-        /// </value>
-        private bool ShouldBeCompressed
-        {
-            get
-            {
-                var type = this.GetType();
-                var method = GetCallerMethod(3);
-
-                return CompressIgnoreAttribute.Instance.HasAttribute(method) || CompressIgnoreAttribute.Instance.HasAttribute(type)
-                    ? false
-                    : CompressAttribute.Instance.HasAttribute(type, inherit: true) || CompressAttribute.Instance.HasAttribute(method, inherit: true);
-            }
-        }
-
-        private static MethodBase GetCallerMethod(int depth = 2)
-        {
-            var frame = new StackFrame(depth);
-            return frame.GetMethod();
-        }
-
-        private static void BuildCompressionInfo(Result result, object obj, Type type)
-        {
-            var callerMethod = GetCallerMethod();
-
-            var native = type.GetCustomAttribute<CompressNativeAttribute>(false);
-            native = native ?? type.GetCustomAttribute<CompressNativeAttribute>(true);
-
-            var compression = type.GetCustomAttribute<CompressAttribute>(true);
-            compression = compression ?? callerMethod.GetCustomAttribute<CompressAttribute>(true);
-
-            if (compression != null)
-            {
-                result.Data = compression.CompressData(result.Data);
-
-                result.Compression = new
-                {
-                    Type = Enum.GetName(compression.Scheme.GetType(), compression.Scheme),
-                    Level = Enum.GetName(compression.Level.GetType(), compression.Level),
-                    Ratio = ((float)result.Data.Length / (float)Serialize(obj).Length).ToString(),
-                    ExecutingTime = compression.Time,
-                    Native = native == null ? null : new
-                    {
-                        Type = Enum.GetName(native.PreferredEncoding.GetType(), native.PreferredEncoding),
-                        Lavel = Enum.GetName(native.Level.GetType(), native.Level)
-                    }
-                };
-            }
-        }
-
-        #endregion
     }
 }

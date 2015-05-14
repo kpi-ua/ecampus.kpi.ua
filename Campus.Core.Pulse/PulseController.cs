@@ -8,6 +8,8 @@ using Campus.Core.Pulse.EventsArgs;
 using Campus.Core.Pulse.Interfaces;
 using Campus.Core.Pulse.Pulse;
 using Campus.Core.Pulse.Common.Extensions;
+using Campus.SDK;
+using Client = Campus.Core.Pulse.Pulse.Client;
 
 namespace Campus.Core.Pulse
 {

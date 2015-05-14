@@ -1,10 +1,10 @@
-﻿using Campus.Core.Pulse.Common.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Campus.Core.Pulse.Common.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Campus.SDK.Test.Common.Extensions
 {
