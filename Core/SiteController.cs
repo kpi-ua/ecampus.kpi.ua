@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Campus.Common;
+using System;
 using System.Web.Mvc;
-using Campus.Common;
 
 namespace Core
 {
