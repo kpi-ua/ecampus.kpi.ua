@@ -3,7 +3,8 @@
 | Package | Actual version |
 |---------|----------------|
 | campus.sdk.net     | [![NuGet version (campus.sdk)](https://img.shields.io/nuget/v/campus.sdk.svg?style=flat-square)](https://www.nuget.org/packages/campus.sdk/)|
-| campus.core        | [![NuGet version (campus.core)](https://img.shields.io/nuget/v/campus.core.svg?style=flat-square)](https://www.nuget.org/packages/campus.core/) |
+| campus.core.pulse        | [![NuGet version (campus.core.pulse)](https://img.shields.io/nuget/v/campus.core.pulse.svg?style=flat-square)](https://www.nuget.org/packages/campus.core.pulse/) | 
+|campus.common | [![NuGet version (campus.common)](https://img.shields.io/nuget/v/campus.common.svg?style=flat-square)](https://www.nuget.org/packages/campus.common/) |
 
 
 Campus core classes for implementing API modules and clients applications.
@@ -15,7 +16,7 @@ Examples of using: https://github.com/DOIS/campus.sdk.net/tree/master/Example
 ####Install
 You can install all packages  from NuGet.<br />
 Campus SDK available at: https://www.nuget.org/packages/campus.sdk <br />
-Campus Core  available at: http://www.nuget.org/packages/campus.core <br />
+Campus Common available at: http://www.nuget.org/packages/campus.common <br />
 Campus Core Pulse available at: http://www.nuget.org/packages/campus.core.pulse <br />
 
 
