@@ -8,7 +8,14 @@ namespace Campus.SDK
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            if (value != null && value is IPagedList)
+            {
+                serializer.Serialize(writer, value);
+            }
+            else
+            {
+                throw new Exception("Object is null or not implement IPagedList interface.");
+            }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
