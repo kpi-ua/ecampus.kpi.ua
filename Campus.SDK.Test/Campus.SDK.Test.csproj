@@ -110,10 +110,6 @@
       <Project>{b94e14f0-bdce-4353-8b69-17350a946973}</Project>
       <Name>Campus.Core.Pulse</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Campus.Core\Campus.Core.csproj">
-      <Project>{b993c7e9-da2a-4090-9cdf-4a17b248ad63}</Project>
-      <Name>Campus.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Campus.SDK\Campus.SDK.csproj">
       <Project>{8337eade-65f9-4edb-aee5-e96f8275e785}</Project>
       <Name>Campus.SDK</Name>
