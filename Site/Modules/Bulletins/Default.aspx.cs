@@ -38,12 +38,12 @@ namespace Site.Modules.Bulletins
                 profileList.Items.Clear();
                 _allowedProfile.ForEach(a => profileList.Items.Add(a.Name));
             }
-            
+
             LoadBoard();
-            
+
             //CampusClient.DeskGetGroupTypesList()
         }
-        
+
         void LoadBoard()
         {
             var baseControl = new Control();
@@ -76,13 +76,13 @@ namespace Site.Modules.Bulletins
                     _editControl.Visible = true;
                     ((TextBox)_editControl.FindControl("board_edit_subject")).Text = l.Subject;
                     ((TextBox)_editControl.FindControl("board_edit_text")).Text = l.Text;
-                    /*
-                    var profDrop = ((DropDownList) _editControl.FindControl("board_prof_drop"));
+
+                    var profDrop = ((DropDownList)_editControl.FindControl("board_prof_drop"));
                     _allowedProfile.ForEach(a => profDrop.Items.Add(a.Name));
                     profDrop.SelectedValue = (l.LinkList[0].ProfileId != null)
                         ? _allowedProfile.Find(a => a.Id == l.LinkList[0].ProfileId).Name
                         : "Всі профайли";
-                    */
+
                     /*
                     var facultyDrop = ((DropDownList) _editControl.FindControl("board_faculty_drop"));
                     _faculties.ForEach(a => facultyDrop.Items.Add(a.Name));
@@ -90,7 +90,7 @@ namespace Site.Modules.Bulletins
                         ? _faculties.Find(a => a.Id == l.LinkList[0].SubdivisionId).Name
                         : "Всі факультети";
                      */
-                    
+
                 };
                 b1.Attributes["style"] = "float: left; margin-right: 5px;";
                 b2.Attributes["style"] = b1.Attributes["style"];
@@ -132,52 +132,144 @@ namespace Site.Modules.Bulletins
 
             var box1 = new TextBox();
             box1.ID = "board_edit_subject";
-            box1.Width = 800;
+            box1.Width = 780;
             var box2 = new TextBox();
             box2.ID = "board_edit_text";
-            box2.Width = 800;
+            box2.Width = 780;
             box2.Height = 300;
             box2.TextMode = TextBoxMode.MultiLine;
+            var box3 = new TextBox();
+            box3.ID = "dateStart_d_text";
+            box3.Width = 30;
+            var box4 = new TextBox();
+            box4.ID = "dateStart_m_text";
+            box4.Width = 30;
+            var box5 = new TextBox();
+            box5.ID = "dateStart_y_text";
+            box5.Width = 50;
+            var box6 = new TextBox();
+            box6.ID = "dateEnd_d_text";
+            box6.Width = 30;
+            var box7 = new TextBox();
+            box7.ID = "dateEnd_m_text";
+            box7.Width = 30;
+            var box8 = new TextBox();
+            box8.ID = "dateEnd_y_text";
+            box8.Width = 50;
             var button1 = new Button();
             button1.ID = "board_edit_button";
-            button1.Text = "Accept";
+            button1.Text = "Зберегти";
             button1.Click += ((sender, eventArgs) =>
-                {
-                    CampusClient.DeskUpdateBulletein(
-                        CurrentUser.UserAccountId,
-                        CurrentUser.FullName,
-                        ((TextBox)_editControl.FindControl("board_edit_subject")).Text,
-                        ((TextBox)_editControl.FindControl("board_edit_text")).Text,
-                        CurrentBulletin.BulletinId,
-                        CurrentBulletin.LinkList.ConvertToString()
-                        );
-                    ResetBoard();
-                });
+            {
+                CampusClient.DeskUpdateBulletein(
+                    CurrentUser.UserAccountId,
+                    CurrentUser.FullName,
+                    ((TextBox)_editControl.FindControl("board_edit_subject")).Text,
+                    ((TextBox)_editControl.FindControl("board_edit_text")).Text,
+                    CurrentBulletin.BulletinId,
+                    CurrentBulletin.LinkList.ConvertToString()
+                    );
+                ResetBoard();
+            });
 
             var button2 = new Button();
             button2.ID = "board_cancel_button";
-            button2.Text = "Cancel";
+            button2.Text = "Відміна";
             button2.Click += ((sender, eventArgs) =>
-                {
-                    _editControl.Visible = false;
-                    _baseControl.Visible = true;
-                });
+            {
+                _editControl.Visible = false;
+                _baseControl.Visible = true;
+            });
+
+            var button3 = new Button();
+            button3.ID = "useless_button";
+            button3.Text = "Вибрати";
+
+            var uselessDropDown = new DropDownList();
+            uselessDropDown.ID = "useless_drop_down";
 
             var prof = new DropDownList();
             prof.ID = "board_prof_drop";
 
             //editControl.Controls.Add(prof);
-            //editControl.Controls.Add(new LiteralControl("<br>"));
+
+            editControl.Controls.Add(new LiteralControl("<div class=\"form-horizontal\">" +
+                "<div class=\"form-group\">" +
+                "<label class=\"col-sm-2 control-label\">Профіль</label>" +
+                "<div class=\"col-sm-8\">"));
+            editControl.Controls.Add(prof);
+            editControl.Controls.Add(button3);
+            editControl.Controls.Add(new LiteralControl(
+                "</div>" +
+                "</div>" +
+                "</div>"));
+
+            editControl.Controls.Add(new LiteralControl("<div class=\"form-horizontal\">" +
+                 "<div class=\"form-group\">" +
+                 "<label class=\"col-sm-2 control-label\">Отримувачи:</label>" +
+                 "<div class=\"col-sm-8\">"));
+            editControl.Controls.Add(new LiteralControl(
+                 "</div>" +
+                 "</div>" +
+                 "</div>"));
+
+            editControl.Controls.Add(new LiteralControl("<div class=\"form-horizontal\">" +
+                "<div class=\"form-group\">" +
+                "<label class=\"col-sm-2 control-label\">Тема</label>" +
+                "<div class=\"col-sm-8\">"));
             editControl.Controls.Add(box1);
+            editControl.Controls.Add(new LiteralControl(
+                "</div>" +
+                "</div>" +
+                "</div>"));
+
+
+
+            editControl.Controls.Add(new LiteralControl("<div class=\"form-horizontal\">" + "<div class=\"form-group form-inline\">" +
+                "<label class=\"col-sm-2 control-label\">Період показу</label>"
+                + "<div class=\"col-sm-8\"> Початок: "));
+            editControl.Controls.Add(box3);
+            editControl.Controls.Add(new LiteralControl(" - "));
+            editControl.Controls.Add(box4);
+            editControl.Controls.Add(new LiteralControl(" - "));
+            editControl.Controls.Add(box5);
+            editControl.Controls.Add(new LiteralControl("Завершення: "));
+            editControl.Controls.Add(box6);
+            editControl.Controls.Add(new LiteralControl(" - "));
+            editControl.Controls.Add(box7);
+            editControl.Controls.Add(new LiteralControl(" - "));
+            editControl.Controls.Add(box8);
+            editControl.Controls.Add(new LiteralControl(
+    "</div>" +
+    "</div>" +
+    "</div>"));
+
+
+            editControl.Controls.Add(new LiteralControl("<div class=\"form-horizontal\">" +
+                "<div class=\"form-group\">" +
+                "<label class=\"col-sm-2 control-label\">Текст</label>" +
+                "<div class=\"col-sm-8\">"));
             editControl.Controls.Add(box2);
+            editControl.Controls.Add(new LiteralControl(
+                "</div>" +
+                "</div>" +
+                "</div>"));
             editControl.Controls.Add(new LiteralControl("<br>"));
+            editControl.Controls.Add(new LiteralControl("<div class=\"form-horizontal\">" +
+                "<div class=\"form-group\">" +
+                "<label class=\"col-sm-9 control-label\"></label>" +
+                "<div class=\"col-sm-3 pull-right\">"));
             editControl.Controls.Add(button1);
             editControl.Controls.Add(button2);
+            editControl.Controls.Add(new LiteralControl(
+                "</div>" +
+                "</div>" +
+                "</div>"));
             editControl.Visible = false;
             _editControl = editControl;
             ActualBulletinDiv.Controls.Add(editControl);
         }
-        
+
         public void ResetBoard()
         {
             ActualBulletinDiv.Controls.Clear();
@@ -198,15 +290,15 @@ namespace Site.Modules.Bulletins
                 return;
             }
             var list = new List<BulletinLink>();
-            var split = Result.Split(new [] {" | "}, StringSplitOptions.RemoveEmptyEntries);
+            var split = Result.Split(new[] { " | " }, StringSplitOptions.RemoveEmptyEntries);
             Result = "";
             selectedVals.InnerText = Result;
             foreach (var s in split)
             {
                 var link = new BulletinLink(-1, _allowedProfile.First(a => a.Name == s).Id, -1, -1);
-                    list.Add(link);
+                list.Add(link);
             }
-            
+
             var t = DateTime.Today.ToShortDateString();
             CampusClient.DeskAddBulletein(
                 CurrentUser.UserAccountId,
@@ -220,9 +312,9 @@ namespace Site.Modules.Bulletins
                 list.ConvertToString()
                 );
             ResetBoard();
-            
+
         }
-        
+
         //<div class="panel-group" id="accordion">
         //            <div class="panel panel-default">
         //            <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#collapseOne">
