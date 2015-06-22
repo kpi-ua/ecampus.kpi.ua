@@ -24,7 +24,7 @@ function ajaxLoad(url, callback) {
             console.log("success");
         })
         .done(function () {
-            console.log("second success");
+            // console.log("second success");
         })
         .fail(function () {
             alert('Error detected');
@@ -32,12 +32,12 @@ function ajaxLoad(url, callback) {
         })
         .always(function () {
             progressBar(false);
-            console.log("complete");
+            // console.log("complete");
         });
 
     // Set another completion function for the request above
     jqxhr.complete(function () {
-        console.log("second complete");
+        // console.log("second complete");
     });
 }
 
@@ -219,7 +219,7 @@ function scaffoldMethod(url, controller, method) {
 $(document).ready(function () {
 
     API.setApiEndpoint('http://campus-api.azurewebsites.net/');
-    
+       
     $("#api-link").attr("href", API.getApiEndpoint);
     $("#api-link").text(API.getApiEndpoint);
     
