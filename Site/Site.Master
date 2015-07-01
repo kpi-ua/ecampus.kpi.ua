@@ -184,6 +184,24 @@
                         </div>
                     </div>
                 </div>
+                <div class="carousel-group" runat="server">
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="Modules/Antiplagiarism/Default.aspx">
+                                <img src="/Images/carousel-antiplagiarism.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-group" runat="server">
+                    <div class="carousel-row">
+                        <div class="carousel-item">
+                            <a href="Modules/MadS/MadS.aspx">
+                                <img src="/Images/carousel-mads.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- ---------- -->
 
