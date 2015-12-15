@@ -1,3 +1,0 @@
-language: csharp
-solution: campus.sdk.net.sln
-sudo: false
