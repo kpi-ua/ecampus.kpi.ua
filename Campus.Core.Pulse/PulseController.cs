@@ -86,7 +86,7 @@ namespace Campus.Core.Pulse
         /// <value>
         /// The factory.
         /// </value>
-        public static PulseFactory<TClientInfo> Factory { get { return PulseFactory<TClientInfo>.Instance; } }
+        public new static PulseFactory<TClientInfo> Factory { get { return PulseFactory<TClientInfo>.Instance; } }
 
         #endregion
 

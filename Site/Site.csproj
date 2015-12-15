@@ -22,6 +22,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>96442aa5</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,10 +46,6 @@
       <HintPath>..\packages\campus.common.1.5.0.1500\lib\portable-net4+sl5+wp8+win8\Campus.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Campus.SDK, Version=1.5.1.25487, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\campus.sdk.1.5.1.1100\lib\portable-net45+sl5+wp8+win8\Campus.SDK.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -63,12 +60,12 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="NLog, Version=3.2.1.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.3.2.1\lib\net45\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.2.2\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.Services.Client" />
@@ -190,6 +187,11 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\core\core-bootstrap.js" />
     <Content Include="Scripts\core\core.js" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -392,10 +394,6 @@
     <Content Include="Scripts\bootstrap-clockpicker.min.js" />
     <Content Include="Scripts\core.js" />
     <Content Include="Modules\EIR\Menu.master" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\FontAwesome.otf" />
     <Content Include="Scripts\CreatePage.js" />
     <Content Include="Scripts\EIRView.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.js" />
@@ -640,6 +638,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Campus.SDK\Campus.SDK.csproj">
+      <Project>{8337eade-65f9-4edb-aee5-e96f8275e785}</Project>
+      <Name>Campus.SDK</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{c4ebf4e3-1ea1-46ec-bb58-db4876272676}</Project>
       <Name>Core</Name>
