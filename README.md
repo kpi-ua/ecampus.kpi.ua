@@ -4,9 +4,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/q4vt16i3qrxjxtu1?svg=true)](https://ci.appveyor.com/project/ernado-x/ecampus-kpi-ua)
 [![License](http://img.shields.io/:license-apache-blue.svg)](https://raw.githubusercontent.com/DOIS/ecampus.kpi.ua/master/LICENSE.md)
 
-#### Project location: 
-Automatic synced with **cloud** branch: http://campus-portal.azurewebsites.net/login (suspended)
-
 #### Test accounts
 | Login | Password | Name             |
 |-------|----------|------------------|
@@ -22,10 +19,8 @@ Automatic synced with **cloud** branch: http://campus-portal.azurewebsites.net/l
 | myv   | myv      | Мазай Я.В.       |
 
 
-### API
-* API endpoint: http://campus-api.azurewebsites.net (suspended)
-* API debug tool: http://campus-tools.azurewebsites.net/ (suspended)
-* API debug tool source code: https://github.com/DOIS/campus.sdk.js/blob/master/index.html (suspended)
+###API Debug Tool
+* API debug tool source code: https://github.com/kpi-ua/ecampus.kpi.ua/tree/master/campus.sdk.js (suspended)
 
 ###KPI Campus SDK.NET 
 
@@ -36,13 +31,7 @@ Automatic synced with **cloud** branch: http://campus-portal.azurewebsites.net/l
 |campus.common | [![NuGet version (campus.common)](https://img.shields.io/nuget/v/campus.common.svg?style=flat-square)](https://www.nuget.org/packages/campus.common/) |
 
 
-Campus core classes for implementing API modules and clients applications.
-
-####Example 
-Examples of using: https://github.com/DOIS/campus.sdk.net/tree/master/Example
-
-
-####Install
+###NuGet packages
 You can install all packages  from NuGet.<br />
 Campus SDK available at: https://www.nuget.org/packages/campus.sdk <br />
 Campus Common available at: http://www.nuget.org/packages/campus.common <br />
