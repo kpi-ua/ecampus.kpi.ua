@@ -1,3 +1,0 @@
-language: csharp
-solution: ecampus.kpi.ua.sln
-sudo: false
