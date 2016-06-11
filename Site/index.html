@@ -1,15 +1,15 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
 
+<head>
     <title>Електронний кампус НТУУ КПІ</title>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta name='yandex-verification' content='4ce42a0173a1c976' />
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=cyrillic,latin" />    
-    <link rel="stylesheet" href="/css/site.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,300,700&subset=latin,cyrillic,cyrillic-ext" />
     <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css" />
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
@@ -21,17 +21,16 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.1.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"></script>
 </head>
+
 <body>
 
-    <header class="container-fluid hidden-xs">
+    <header class="container-fluid">
         <div class="row center-block">
-            <div class="site-tile-text col-md-12">
-                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
+            <div class="col-md-6">
+                Електроний кампус
             </div>
-        </div>
-        <div class="header-nav">
-            <div class="green">
-
+            <div class="col-md-6 text-right">
+                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
             </div>
         </div>
     </header>
@@ -39,34 +38,31 @@
     <div class="public-wrap container-fluid">
         <div class="content">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="dummy col-md-6">
+                <div class="col-md-4"></div>
+                <div class="dummy col-md-4">
                     <div class="login-logo"></div>
-                    <h2>Система знаходиться у стадії розробки</h2>                    
-                    Зараз ви можете перейти на інші ресурси: <a href="http://kbis.kpi.ua/">сайт конструкторського бюро «Інформаційних систем»</a>, <a href="https://github.com/kpi-ua">портал розробників електроного кампусу</a>.
+                    <h2>Система знаходиться у стадії розробки</h2> Зараз ви можете перейти на інші ресурси: <a href="http://kbis.kpi.ua/">сайт конструкторського бюро «Інформаційних систем»</a>, <a href="https://github.com/kpi-ua">портал розробників електроного кампусу</a>.
                     <br />
                     <br />
                     <a class="support-modal-link" data-toggle="modal" data-target="#support-modal">Служба підтримки користувачів</a>
                 </div>
-                <div class="col-md-3"></div>
+                <div class="col-md-4"></div>
             </div>
         </div>
     </div>
     <footer class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                Національний технічний університет України<br />
-                “Київський політехнічний інститут”<br />
+                Національний технічний університет України<br /> “Київський політехнічний інститут”<br />
                 <a href="http://kpi.ua/" class="orange">www.kpi.ua</a> Електронний кампус
             </div>
             <div class="col-md-6 text-right">
-                Розробник: Конструкторське бюро<br />
-                інформаційних систем<br />
+                Розробник: Конструкторське бюро<br /> інформаційних систем<br />
                 <a href="http://kbis.kpi.ua/" class="orange">www.kbis.kpi.ua</a>
             </div>
         </div>
     </footer>
-    
+
     <!-- Modal -->
     <div class="modal fade" id="support-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -96,14 +92,25 @@
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
-        (function (d, w, c) {
-            (w[c] = w[c] || []).push(function () {
+        (function(d, w, c) {
+            (w[c] = w[c] || []).push(function() {
                 try {
-                    w.yaCounter20363149 = new Ya.Metrika({ id: 20363149, webvisor: true, clickmap: true, trackLinks: true, accurateTrackBounce: true, trackHash: true, ut: "noindex" });
-                } catch (e) {
-                }
+                    w.yaCounter20363149 = new Ya.Metrika({
+                        id: 20363149,
+                        webvisor: true,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true,
+                        trackHash: true,
+                        ut: "noindex"
+                    });
+                } catch (e) {}
             });
-            var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); };
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function() {
+                    n.parentNode.insertBefore(s, n);
+                };
             s.type = "text/javascript";
             s.async = true;
             s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
@@ -120,10 +127,9 @@
         </div>
     </noscript>
     <!-- /Yandex.Metrika counter -->
-    
-    
+
+
 
 </body>
+
 </html>
-
-
