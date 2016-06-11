@@ -11,11 +11,17 @@ function restorePassword() {
 
     var emailOrLogin = $('#user-id').val();
     var captcha = $('#captcha-value').val();
-    var url = API_ENDPOINT + 'Account/Recovery/' + emailOrLogin + '?captcha=' + captcha;
+    var url = API_ENDPOINT + 'Account/Recovery';
 
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: url,
+        crossDomain: true,
+        data: JSON.stringify({
+            Captcha: captcha,
+            UserIdentifier: emailOrLogin
+        }),
+        contentType: "application/json",
         success: function(response) {
             $(".step-2").hide();
             $(".step-3").show();
@@ -39,6 +45,12 @@ function restorePassword() {
     });
 }
 
+function htmlEncode(value) {
+    //create a in-memory div, set it's inner text(which jQuery automatically encodes)
+    //then grab the encoded contents back out.  The div never exists on the page.
+    return $('<div/>').text(value).html();
+}
+
 function validate() {
     $("#btn-get-captcha").prop("disabled", !$('#user-id').val());
     $("#btn-get-password").prop("disabled", !$('#captcha-value').val());
@@ -50,7 +62,7 @@ function getCaptcha() {
 
     var emailOrLogin = $('#user-id').val();
 
-    var url = API_ENDPOINT + 'Account/Recovery/' + emailOrLogin + '/token?d=' + new Date().getTime();
+    var url = API_ENDPOINT + 'Account/Recovery/' + encodeURIComponent(emailOrLogin) + '/token?d=' + new Date().getTime();
     $("#captcha-image").attr("src", url);
 }
 
