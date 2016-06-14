@@ -22,33 +22,27 @@ function restorePassword() {
             UserIdentifier: emailOrLogin
         }),
         contentType: "application/json",
-        success: function(response) {
+        success: function() {
             $(".step-2").hide();
             $(".step-3").show();
         },
-        error: function(xhr, ajaxOptions, thrownError) {
-            if (xhr.status == 403) {
+        error: function(xhr, ajaxOptions) {
+            if (xhr.status === 403) {
                 showMessage("Невiрний код пiдтвердження");
                 $('#captcha-value').val('');
                 getCaptcha();
             }
-            if (xhr.status == 404) {
+            if (xhr.status === 404) {
                 showMessage("Користувач з таким логiном, або електроною поштою не знайдений");
                 location.reload();
             }
-            if (xhr.status == 409) {
+            if (xhr.status === 409) {
                 $(".step-2").hide();
                 $(".step-3").hide();
                 $(".step-4").show();
             }
         }
     });
-}
-
-function htmlEncode(value) {
-    //create a in-memory div, set it's inner text(which jQuery automatically encodes)
-    //then grab the encoded contents back out.  The div never exists on the page.
-    return $('<div/>').text(value).html();
 }
 
 function validate() {
