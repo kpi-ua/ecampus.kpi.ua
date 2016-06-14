@@ -128,7 +128,7 @@ footer a {
     color: #fff;
 }
 
-footer a:hover,
+footer a:hover
 {
     color: #208843;
 }
@@ -592,7 +592,3 @@ input[type="radio"] + label {
 .logo-green {
     margin: 0 auto;
 }
-
-.link {}
-
-.link:hover {}
