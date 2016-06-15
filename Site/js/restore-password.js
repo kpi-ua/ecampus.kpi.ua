@@ -1,32 +1,41 @@
-var API_ENDPOINT = 'http://localhost:50302/';
-// var API_ENDPOINT = 'https://api.campus.kpi.ua/';
+var API_ENDPOINT = 'https://api.campus.kpi.ua/';
 
 $(document).ready(function() {
-    $(".step-2").hide();
-    $(".step-3").hide();
-    $(".step-4").hide();
+    step(1);
 });
+
+function step(n) {
+    for (i = 1; i <= 4; i++) {
+        $(".step-" + i).hide();
+    }
+
+    $(".step-" + n).show();
+}
 
 function restorePassword() {
 
-    var emailOrLogin = $('#user-id').val();
-    var captcha = $('#captcha-value').val();
     var url = API_ENDPOINT + 'Account/Recovery';
+
+    var payload = {
+        Captcha: $('#captcha-value').val(),
+        UserIdentifier: $('#user-id').val()
+    };
+
+    $(".loader").show();
 
     $.ajax({
         type: "POST",
         url: url,
         crossDomain: true,
-        data: JSON.stringify({
-            Captcha: captcha,
-            UserIdentifier: emailOrLogin
-        }),
+        data: JSON.stringify(payload),
         contentType: "application/json",
         success: function() {
-            $(".step-2").hide();
-            $(".step-3").show();
+            step(3);
+            $(".loader").hide();
         },
         error: function(xhr, ajaxOptions) {
+            $(".loader").hide();
+
             if (xhr.status === 403) {
                 showMessage("Невiрний код пiдтвердження");
                 $('#captcha-value').val('');
@@ -37,9 +46,7 @@ function restorePassword() {
                 location.reload();
             }
             if (xhr.status === 409) {
-                $(".step-2").hide();
-                $(".step-3").hide();
-                $(".step-4").show();
+                step(4);
             }
         }
     });
@@ -51,8 +58,7 @@ function validate() {
 }
 
 function getCaptcha() {
-    $(".step-1").hide();
-    $(".step-2").show();
+    step(2);
 
     var emailOrLogin = $('#user-id').val();
 
