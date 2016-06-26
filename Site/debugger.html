@@ -8,92 +8,49 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" href="http://ecampus.kpi.ua/favicon.ico" />
-    <link rel="icon" type="image/vnd.microsoft.icon" href="http://ecampus.kpi.ua/favicon.ico" />
-
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,300,700&subset=latin,cyrillic,cyrillic-ext" />
+    <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material-fullpalette.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css">
 
-    <style type="text/css">
-        footer {
-            margin-top: 50px;
-            background-color: #EEEEEE;
-            color: #000000;
-            font-size: 8pt;
-            padding-bottom: 25px;
-            padding-top: 10px;
-        }
-        
-        .navbar-inverse.navbar {
-            background-color: #208944;
-        }
-        
-        .about {
-            margin-top: 100px;
-            margin-bottom: 25px;
-        }
-        
-        .btn-primary:not(.btn-link):not(.btn-flat) {
-            background-color: #449d44;
-            border-color: #398439;
-        }
-        
-        .btn-primary:hover:not(.btn-link):not(.btn-flat) {
-            background-color: #449d44;
-            border-color: #398439;
-        }
-        
-        .form-group .form-control:focus,
-        .form-group-default .form-control:focus {
-            background-image: linear-gradient(#ecc103, #ecc103), linear-gradient(#ecc103, #ecc103);
-        }
-        
-        #campus-session-id {
-            min-width: 270px;
-        }
-        
-        #progress {
-            display: none;
-        }
-        
-        #message-box {
-            padding: 10px;
-            font-family: "Lucida Console"
-        }
-    </style>
+    <link rel="stylesheet" href="/css/site.css" />
+    <link rel="stylesheet" href="/css/debugger.css" />
 
+    <link rel="shortcut icon" type="image/x-icon" href="http://ecampus.kpi.ua/favicon.ico" />
+    <link rel="icon" type="image/vnd.microsoft.icon" href="http://ecampus.kpi.ua/favicon.ico" />
 </head>
 
 <body>
 
-    <div role="navigation" class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <span class="navbar-brand">API Debugger</span>
+    <header class="container-fluid">
+        <div class="row center-block">
+            <div class="col-md-6">
+                Електроний кампус
             </div>
-            <div class="navbar-collapse collapse">
-                <form role="form" class="navbar-form navbar-right">
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="txt-login" placeholder="Login" />
-                    </div>
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="txt-password" placeholder="Password" />
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="campus-session-id" placeholder="Token" />
-                    </div>
-                    <input type="button" id="btn-auth" value="Auth" class="btn btn-primary" />
-                </form>
+            <div class="col-md-6 text-right">
+                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ "КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ"
             </div>
         </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row green">
+            <form role="form" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="txt-login" placeholder="Login" />
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="txt-password" placeholder="Password" />
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="campus-session-id" placeholder="Token" />
+                </div>
+                <input type="button" id="btn-auth" value="Auth" class="btn btn-primary" />
+            </form>
+        </div>
     </div>
+
+
 
     <div class="container-fluid">
         <div class="row">
@@ -166,12 +123,21 @@
     </div>
 
     <footer class="container-fluid">
-        <p class="text-muted">Copyright &copy; NTUU KPI 2016</p>
+        <div class="row">
+            <div class="col-md-6">
+                Національний технічний університет України<br /> “Київський політехнічний інститут”<br />
+                <a href="http://kpi.ua/" class="orange">www.kpi.ua</a> Електронний кампус
+            </div>
+            <div class="col-md-6 text-right">
+                Розробник: Конструкторське бюро<br /> інформаційних систем<br />
+                <a href="http://kbis.kpi.ua/" class="orange">www.kbis.kpi.ua</a>
+            </div>
+        </div>
     </footer>
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.1.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"></script>
-    
+
     <script src="/js/campus.sdk.js"></script>
     <script src="/js/debugger.js"></script>
 

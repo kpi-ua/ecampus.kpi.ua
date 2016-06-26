@@ -106,16 +106,15 @@ function createControl(parameter) {
         controlType = 'text';
     }
 
-    var controlHtml = '<input class="form-control" type="' + controlType + '" name="' + parameter.name + '" id = "' + parameter.name + '" value="" placeholder="' + parameter.name + '" />';
+    var html = '<input class="form-control" type="' + controlType + '" name="' + parameter.name + '" id = "' + parameter.name + '" value="" placeholder="' + parameter.name + '" />';
 
-    return renderFormGroup(parameter.name, parameter.name, controlHtml);
+    return renderFormGroup(parameter.name, parameter.name, html);
 }
 
 function render(m) {
 
     $("#method-title").html('<strong>' + m.route + '<strong>');
 
-    var form = $("#out");
     var html = '';
 
     $.each(m.parameters, function(index, parameter) {
@@ -123,6 +122,14 @@ function render(m) {
     });
 
     $("#out").html(html);
+}
+
+function getSelectedMethod() {
+    var url = $("#cmb-methods option:selected").text();
+
+    return _methods.filter(function(o) {
+        return o.route.indexOf(url) == 0;
+    })[0];
 }
 
 function execute() {
@@ -135,11 +142,8 @@ function execute() {
         data[e.name] = e.value;
     });
 
-    var url = $("#cmb-methods option:selected").text();
-
-    var m = _methods.filter(function(o) {
-        return o.route.indexOf(url) == 0;
-    })[0];
+    var m = getSelectedMethod();
+    var url = m.route;
 
     var regexp = /{(.*?)\}/g; //find all 'markers': {param-name}
     var names = matchAll(url, regexp);
@@ -154,11 +158,11 @@ function execute() {
 
     Campus.execute(m.method, url, data)
         .done(function(result) {
-            $("#message-box").val(JSON.stringify(result));
+            $("#message-box").val(JSON.stringify(result, null, '\t'));
         })
         .fail(function(result) {
             debugger;
-            $("#message-box").val(JSON.stringify(result));
+            $("#message-box").val(JSON.stringify(result, null, '\t'));
         })
         .always(function() {
             progressBar(false);
@@ -166,24 +170,14 @@ function execute() {
 }
 
 function loadSelectedMethodMetadata() {
-    var method = $("#cmb-methods option:selected").text();
+    var m = getSelectedMethod();
+    $("#txt-http-method").val(m.method);
+    $("#message-box").val('');
 
-    var m = _methods.filter(function(o) {
-        return o.route == method;
-    })[0];
-
-    if (!!m) {
-        $("#txt-http-method").val(m.method);
-        $("#message-box").val('');
-
-        render(m);
-    }
+    render(getSelectedMethod());
 }
 
 $(document).ready(function() {
-
-    $("#api-link").attr("href", Campus.ApiEndpoint);
-    $("#api-link").text(Campus.ApiEndpoint);
 
     $("#cmb-methods").change(function() {
         loadSelectedMethodMetadata();
@@ -199,6 +193,10 @@ $(document).ready(function() {
             _token = token;
             $("#campus-session-id").val(_token);
             progressBar(false);
+
+            if (!_token){
+                $("#message-box").val('Incorrect login or password.')
+            }
         });
 
     });

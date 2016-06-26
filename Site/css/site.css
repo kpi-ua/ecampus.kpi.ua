@@ -46,6 +46,14 @@ h5 {
     cursor: pointer;
 }
 
+.green {
+    background-color: #208843;
+}
+
+.green input {
+    color: #FFF;
+}
+
 #support-modal {
     color: #000000;
 }
