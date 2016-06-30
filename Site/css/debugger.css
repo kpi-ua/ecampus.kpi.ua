@@ -12,6 +12,10 @@ body {
     margin-bottom: 15px;
 }
 
+.green .navbar-right {
+    margin-right: 0;
+}
+
 .btn-primary:not(.btn-link):not(.btn-flat) {
     background-color: #449d44;
     border-color: #398439;
