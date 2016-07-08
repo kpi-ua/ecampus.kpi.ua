@@ -1,14 +1,42 @@
-//API JS SDK
+//API JS SDK v1.0.2.220
 
 var API = function() {};
 
 API.prototype.ApiEndpoint = 'https://api.campus.kpi.ua/';
-API.prototype._token = null;
+//API.prototype.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
 
+/**
+ * Set auth token
+ */
+API.prototype.setToken = function(token) {
+    localStorage["campus-access-token"] = token;
+}
+
+/**
+ * Return current auth token
+ */
+API.prototype.getToken = function() {
+    var token = localStorage["campus-access-token"];
+    return token == "null" ? null : token;
+}
+
+/**
+ * Set API endpoint
+ */
 API.prototype.setApiEndpoint = function(url) {
     this.ApiEndpoint = url;
 };
 
+/**
+ * Logout and clear current auth token
+ */
+API.prototype.logout = function() {
+    this.setToken(null);
+}
+
+/**
+ * Execute API method
+ */
 API.prototype.execute = function(method, path, payload) {
 
     var self = this;
@@ -24,10 +52,10 @@ API.prototype.execute = function(method, path, payload) {
         processData: false,
         contentType: false,
         beforeSend: function(xhr) {
-            if (!!self._token) {
+            if (!!self.getToken()) {
                 xhr.setRequestHeader("Accept", "application/json");
                 xhr.setRequestHeader("Content-Type", "application/json");
-                xhr.setRequestHeader("Authorization", "Bearer " + self._token);
+                xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
             }
         },
         success: function(response) {
@@ -41,6 +69,9 @@ API.prototype.execute = function(method, path, payload) {
     return jqxhr;
 };
 
+/**
+ * Authorize and save auth token
+ */
 API.prototype.auth = function(login, password) {
 
     var payload = {
@@ -62,15 +93,14 @@ API.prototype.auth = function(login, password) {
         crossDomain: true,
         data: payload,
         success: function(response) {
-            self._token = response.access_token
-
-            d.resolve(self._token);
+            self.setToken(response.access_token);
+            d.resolve(self.getToken());
         },
         error: function(xhr, status, err) {
             console.warn(xhr, status, err.toString());
 
-            self._token = null;
-            d.resolve(self._token);
+            self.setToken(null);
+            d.resolve(self.getToken());
         }
     });
 
