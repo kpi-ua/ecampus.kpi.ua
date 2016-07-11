@@ -33,7 +33,19 @@
 
     <div class="container-fluid">
         <div class="row green">
-            <form role="form" class="navbar-form navbar-right">
+            <div class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="url" class="form-control" id="txt-api-endpoint" placeholder="API endpoint" list="api-endpoints" />
+                    <datalist id="api-endpoints">
+                        <option value="https://api-campus-kpi-ua.azurewebsites.net/">https://api-campus-kpi-ua.azurewebsites.net/</option>
+                        <option value="https://api.campus.kpi.ua/">https://api.campus.kpi.ua/</option>
+                    </datalist>
+                </div>
+                <div class="form-group">
+                    <input type="button" id="btn-set-enpoint" value="Set Endpoint" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="navbar-form navbar-right">
                 <div class="form-group">
                     <input type="text" class="form-control" id="txt-login" placeholder="Login" />
                 </div>
@@ -43,8 +55,10 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="campus-session-id" placeholder="Token" />
                 </div>
-                <input type="button" id="btn-auth" value="Auth" class="btn btn-primary" />
-            </form>
+                <div class="form-group">
+                    <input type="button" id="btn-auth" value="Auth" class="btn btn-primary" />
+                </div>
+            </div>
         </div>
     </div>
 
@@ -131,49 +145,11 @@
         </div>
     </footer>
 
-    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"></script>
 
     <script src="/js/campus.sdk.js"></script>
     <script src="/js/debugger.js"></script>
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function(d, w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter20363149 = new Ya.Metrika({
-                        id: 20363149,
-                        webvisor: true,
-                        clickmap: true,
-                        trackLinks: true,
-                        accurateTrackBounce: true,
-                        trackHash: true,
-                        ut: "noindex"
-                    });
-                } catch (e) {}
-            });
-            var n = d.getElementsByTagName("script")[0],
-                s = d.createElement("script"),
-                f = function() {
-                    n.parentNode.insertBefore(s, n);
-                };
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-            if (w.opera == "[object Opera]") {
-                d.addEventListener("DOMContentLoaded", f, false);
-            } else {
-                f();
-            }
-        })(document, window, "yandex_metrika_callbacks");
-    </script>
-    <noscript>
-        <div>
-            <img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position: absolute; left: -9999px;" alt="" />
-        </div>
-    </noscript>
-    <!-- /Yandex.Metrika counter -->
 
 </body>
 

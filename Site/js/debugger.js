@@ -182,6 +182,12 @@ $(document).ready(function() {
         loadSelectedMethodMetadata();
     });
 
+    $("#btn-set-enpoint").click(function() {
+        Campus.ApiEndpoint = $("#txt-api-endpoint").val();
+    })
+
+    $("#txt-api-endpoint").val(Campus.ApiEndpoint);
+
     $("#btn-auth").click(function() {
         var login = $("#txt-login").val();
         var password = $("#txt-password").val();
