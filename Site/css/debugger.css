@@ -26,10 +26,6 @@ body {
     border-color: #398439;
 }
 
-.form-group .form-control:focus,
-.form-group-default .form-control:focus {
-    background-image: linear-gradient(#ecc103, #ecc103), linear-gradient(#ecc103, #ecc103);
-}
 
 #campus-session-id {
     min-width: 270px;
