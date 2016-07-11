@@ -54,6 +54,10 @@ h5 {
     color: #FFF;
 }
 
+.green .navbar-right {
+    margin-right: 0;
+}
+
 #support-modal {
     color: #000000;
 }
