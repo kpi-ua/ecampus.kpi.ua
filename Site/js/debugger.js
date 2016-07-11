@@ -1,5 +1,4 @@
 var _url = ""; //URL of current controller
-var _token = "";
 var _methods = [];
 
 function getUnique(array) {
@@ -190,13 +189,15 @@ $(document).ready(function() {
         progressBar(true);
 
         Campus.auth(login, password).then(function(token) {
-            _token = token;
-            $("#campus-session-id").val(_token);
-            progressBar(false);
 
-            if (!_token){
-                $("#message-box").val('Incorrect login or password.')
+            $("#campus-session-id").val(token);
+            $("#message-box").val('');
+
+            if (!token) {
+                $("#message-box").val('Incorrect login or password.');
             }
+
+            progressBar(false);
         });
 
     });
