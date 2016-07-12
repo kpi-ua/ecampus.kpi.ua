@@ -176,11 +176,19 @@ function loadSelectedMethodMetadata() {
     render(getSelectedMethod());
 }
 
+
+
 $(document).ready(function() {
 
     $("#cmb-methods").change(function() {
         loadSelectedMethodMetadata();
     });
+
+    $("#btn-set-enpoint").click(function() {
+        Campus.ApiEndpoint = $("#txt-api-endpoint").val();
+    })
+
+    $("#txt-api-endpoint").val(Campus.ApiEndpoint);
 
     $("#btn-auth").click(function() {
         var login = $("#txt-login").val();
