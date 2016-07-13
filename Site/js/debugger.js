@@ -184,9 +184,22 @@ $(document).ready(function() {
         loadSelectedMethodMetadata();
     });
 
-    $("#btn-set-enpoint").click(function() {
+    $("#btn-set-endpoint").click(function() {
         Campus.ApiEndpoint = $("#txt-api-endpoint").val();
-    })
+        alert('API endpoint successfully changed.'); 
+    });
+
+    $("#btn-view-error-log").click(function() {
+        var w = window.open(Campus.ApiEndpoint + 'system/logs/errors/', '_blank');
+
+        if (w) {            
+            w.focus();  //Browser has allowed it to be opened
+        } else {            
+            alert('Please allow popups for this website');  //Browser has blocked it
+        }
+
+        Campus.ApiEndpoint = $("#txt-api-endpoint").val();
+    });
 
     $("#txt-api-endpoint").val(Campus.ApiEndpoint);
 
