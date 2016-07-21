@@ -3,7 +3,8 @@
 var API = function() {};
 
 API.prototype.ApiEndpoint = 'https://api.campus.kpi.ua/';
-//API.prototype.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
+//API.prototype.ApiEndpoint = 'http://localhost:51944/';
+//API.prototype.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
 
 /**
  * Set auth token
@@ -52,9 +53,10 @@ API.prototype.execute = function(method, path, payload) {
         processData: false,
         contentType: false,
         beforeSend: function(xhr) {
+            xhr.setRequestHeader("Accept", "application/json");
+            xhr.setRequestHeader("Content-Type", "application/json");
+
             if (!!self.getToken()) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
             }
         },

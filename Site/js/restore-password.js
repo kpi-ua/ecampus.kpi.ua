@@ -1,5 +1,3 @@
-var API_ENDPOINT = 'https://api.campus.kpi.ua/';
-
 $(document).ready(function() {
     step(1);
 });
@@ -14,7 +12,7 @@ function step(n) {
 
 function restorePassword() {
 
-    var url = API_ENDPOINT + 'Account/Recovery';
+    var url = 'Account/Recovery';
 
     var payload = {
         Captcha: $('#captcha-value').val(),
@@ -23,33 +21,27 @@ function restorePassword() {
 
     $(".loader").show();
 
-    $.ajax({
-        type: "POST",
-        url: url,
-        crossDomain: true,
-        data: JSON.stringify(payload),
-        contentType: "application/json",
-        success: function() {
+    Campus.execute("POST", url, JSON.stringify(payload))
+        .done(function(result) {
             step(3);
             $(".loader").hide();
-        },
-        error: function(xhr, ajaxOptions) {
+        })
+        .fail(function(result) {
             $(".loader").hide();
 
-            if (xhr.status === 403) {
+            if (result.status === 403) {
                 showMessage("Невiрний код пiдтвердження");
                 $('#captcha-value').val('');
                 getCaptcha();
             }
-            if (xhr.status === 404) {
+            if (result.status === 404) {
                 showMessage("Користувач з таким логiном, або електроною поштою не знайдений");
                 location.reload();
             }
-            if (xhr.status === 409) {
+            if (result.status === 409) {
                 step(4);
             }
-        }
-    });
+        });
 }
 
 function validate() {
@@ -62,7 +54,7 @@ function getCaptcha() {
 
     var emailOrLogin = $('#user-id').val();
 
-    var url = API_ENDPOINT + 'Account/Recovery/' + encodeURIComponent(emailOrLogin) + '/token?d=' + new Date().getTime();
+    var url = Campus.ApiEndpoint + 'Account/Recovery/' + encodeURIComponent(emailOrLogin) + '/token?d=' + new Date().getTime();
     $("#captcha-image").attr("src", url);
 }
 
