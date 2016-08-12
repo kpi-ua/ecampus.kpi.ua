@@ -61,16 +61,16 @@
                         <div class="form-group">
                             <label for="cmb-controllers" class="col-md-4 control-label">Controller: </label>
                             <div class="col-md-8">
-                                <select id="cmb-controllers" class="form-control" ng-model="selectedMethod" ng-change="loadMethodForCurrentController()">
-                                    <option ng-repeat="c in controllers" value="{{ c }}" text="{{ c }}"></option>
+                                <select class="form-control" ng-model="selectedController" ng-change="loadMethodForCurrentController()">
+                                    <option ng-repeat="controller in controllers" value="{{controller}}">{{controller}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="cmb-methods" class="col-md-4 control-label">Method: </label>
                             <div class="col-md-8">
-                                <select id="cmb-methods" class="form-control" ng-change="loadSelectedMethodMetadata()">
-                                    <option ng-repeat="m in methods" value="{{ m.route }}" text="{{ m.route }}"></option>                                    
+                                <select id="cmb-methods" class="form-control" ng-model="selectedMethod" ng-change="loadSelectedMethodMetadata()">
+                                    <option ng-repeat="m in methods" value="{{ m.route }}">{{ m.route }}</option>                                    
                                 </select>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                         <div class="form-group">
                             <label for="txt-http-method" class="col-md-4 control-label">HTTP Method: </label>
                             <div class="col-md-8">
-                                <input id="txt-http-method" class="form-control" disabled />
+                                <input id="txt-http-method" class="form-control" disabled ng-value="httpMethod" />
                             </div>
                         </div>
                     </form>

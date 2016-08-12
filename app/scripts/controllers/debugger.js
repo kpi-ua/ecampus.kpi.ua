@@ -17,13 +17,16 @@ angular.module('ecampusApp')
         ];
 
         $scope.progressBar = false;
-        $scope.controllers = [];
+        $scope.controllers = [1, 2, 3];
         $scope.methods = [];
         $scope.message = '';
         $scope.methodTitle = '...';
         $scope.out = '';
         $scope.url = ""; //URL of current controller
         $scope.selectedMethod = null;
+        $scope.selectedController = null;
+        $scope.httpMethod = '';
+
 
         function getUnique(array) {
             var u = {},
@@ -58,9 +61,11 @@ angular.module('ecampusApp')
 
         function loadControllerList() {
 
+            var scope = $scope;
+
             Campus.execute('GET', 'System/Structure').then(function(data) {
 
-                $scope.methods = data;
+                scope.methods = data;
 
                 var controllers = data.map(function(o) {
                     return !!o && !!o.route ? o.route.substring(0, o.route.indexOf('/')) : "unknown";
@@ -68,7 +73,8 @@ angular.module('ecampusApp')
                     return !!o && o != '';
                 }).sort();
 
-                $scope.controllers = getUnique(controllers);
+                scope.controllers = getUnique(controllers);
+                scope.$apply();
 
                 loadMethodForCurrentController();
             });
@@ -82,7 +88,7 @@ angular.module('ecampusApp')
             $scope.methods = [];
             $scope.message = '';
 
-            var controller = $("#cmb-controllers option:selected").text();
+            var controller = $scope.selectedController;
 
             $scope.methods = $scope.methods.filter(function(o) {
                 return o.route.indexOf(controller) == 0;
@@ -139,7 +145,7 @@ angular.module('ecampusApp')
         }
 
         function getSelectedMethod() {
-            var url = $("#cmb-methods option:selected").text();
+            var url = $scope.selectedMethod;
 
             return $scope.methods.filter(function(o) {
                 return o.route.indexOf(url) == 0;
@@ -189,14 +195,18 @@ angular.module('ecampusApp')
 
         function loadSelectedMethodMetadata() {
             var m = getSelectedMethod();
-            $("#txt-http-method").val(m.method);
-            $("#message-box").val('');
 
-            render(getSelectedMethod());
+            if (!!m) {
+                $scope.httpMethod = m.method;
+                $scope.message = '';
+
+                render(getSelectedMethod());
+            }
         }
 
         $scope.setEndpoint = function() {
-            Campus.ApiEndpoint = $("#txt-api-endpoint").val();
+            Campus.ApiEndpoint = $scope.apiEndpoint;
+
             alert('API endpoint successfully changed.');
         }
 
