@@ -47,7 +47,8 @@ ul {
     list-style: none;
 }
 
-a {
+a,
+.link {
     cursor: pointer;
 }
 
