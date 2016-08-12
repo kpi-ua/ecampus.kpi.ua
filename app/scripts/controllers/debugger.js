@@ -10,12 +10,6 @@
 angular.module('ecampusApp')
     .controller('DebuggerCtrl', function($scope, $sce) {
 
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-
         $scope.progressBar = false;
         $scope.controllers = [1, 2, 3];
         $scope.methods = [];
@@ -23,10 +17,10 @@ angular.module('ecampusApp')
         $scope.methodTitle = '...';
         $scope.out = '';
         $scope.url = ""; //URL of current controller
+        $scope.allMethods = [];
         $scope.selectedMethod = null;
         $scope.selectedController = null;
         $scope.httpMethod = '';
-
 
         function getUnique(array) {
             var u = {},
@@ -55,10 +49,6 @@ angular.module('ecampusApp')
             return matches.length ? matches : null;
         }
 
-        function progressBar(show) {
-            $scope.progressBar = show;
-        }
-
         function loadControllerList() {
 
             var scope = $scope;
@@ -78,10 +68,6 @@ angular.module('ecampusApp')
 
                 loadMethodForCurrentController();
             });
-        }
-
-        $scope.loadMethodForCurrentController = function() {
-            loadMethodForCurrentController();
         }
 
         function loadMethodForCurrentController() {
@@ -149,13 +135,9 @@ angular.module('ecampusApp')
             })[0];
         }
 
-        $scope.executeRequest = function() {
-            executeRequest();
-        }
-
         function executeRequest() {
 
-            progressBar(true);
+            $scope.progressBar = true;
 
             var data = {};
 
@@ -177,6 +159,8 @@ angular.module('ecampusApp')
                 });
             }
 
+            var scope = $scope;
+
             Campus.execute(m.method, url, data)
                 .done(function(result) {
                     $("#message-box").val(JSON.stringify(result, null, '\t'));
@@ -185,12 +169,9 @@ angular.module('ecampusApp')
                     $("#message-box").val(JSON.stringify(result, null, '\t'));
                 })
                 .always(function() {
-                    progressBar(false);
+                    scope.progressBar = false;
+                    scope.$apply();
                 })
-        }
-
-        $scope.loadSelectedMethodMetadata = function() {
-            loadSelectedMethodMetadata();
         }
 
         function loadSelectedMethodMetadata() {
@@ -202,6 +183,18 @@ angular.module('ecampusApp')
 
                 render(getSelectedMethod());
             }
+        }
+
+        $scope.loadMethodForCurrentController = function() {
+            loadMethodForCurrentController();
+        }
+
+        $scope.executeRequest = function() {
+            executeRequest();
+        }
+
+        $scope.loadSelectedMethodMetadata = function() {
+            loadSelectedMethodMetadata();
         }
 
         $scope.setEndpoint = function() {
@@ -226,7 +219,8 @@ angular.module('ecampusApp')
             var login = $("#txt-login").val();
             var password = $("#txt-password").val();
 
-            progressBar(true);
+            var scope = $scope;
+            $scope.progressBar = true;
 
             Campus.auth(login, password).then(function(token) {
 
@@ -237,7 +231,8 @@ angular.module('ecampusApp')
                     $("#message-box").val('Incorrect login or password.');
                 }
 
-                progressBar(false);
+                scope.progressBar = false;
+                scope.$apply();
             });
         }
 
