@@ -4,3 +4,17 @@
 [![License](http://img.shields.io/:license-apache-blue.svg)](https://raw.githubusercontent.com/DOIS/ecampus.kpi.ua/master/LICENSE.md)
 
 API v2.0 structure: http://api-campus-kpi-ua.azurewebsites.net/system/structure
+
+
+### ecampus
+
+This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
+version 0.15.1.
+
+#### Build & development
+
+Run `grunt` for building and `grunt serve` for preview.
+
+#### Testing
+
+Running `grunt test` will run the unit tests with karma.
