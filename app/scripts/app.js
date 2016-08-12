@@ -8,51 +8,51 @@
  *
  * Main module of the application.
  */
-angular
-    .module('ecampusApp', [
-        'ngAnimate',
-        'ngCookies',
-        'ngResource',
-        'ngRoute',
-        'ngSanitize',
-        'ngTouch'
-    ])
-    .config(function($routeProvider, $locationProvider) {
+var app = angular.module('ecampusApp', [
+    'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngRoute',
+    'ngSanitize',
+    'ngTouch'
+]);
 
-        $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl',
-                controllerAs: 'main'
-            })
-            .when('/about', {
-                templateUrl: 'views/about.html',
-                controller: 'AboutCtrl',
-                controllerAs: 'about'
-            })
-            .when('/Login', {
-                templateUrl: 'views/login.html',
-                controller: 'SecurityCtrl',
-                controllerAs: 'Security'
-            })
-            .when('/RestorePassword', {
-                templateUrl: 'views/Restore-password.html',
-                controller: 'SecurityCtrl',
-                controllerAs: 'Security'
-            })
-            .when('/Voting', {
-                templateUrl: 'views/voting.html',
-                controller: 'VotingCtrl',
-                controllerAs: 'Voting'
-            })
-            .when('/Debugger', {
-                templateUrl: 'views/debugger.html',
-                controller: 'DebuggerCtrl',
-                controllerAs: 'Debugger'
-            })
-            .otherwise({
-                redirectTo: '/'
-            });
+app.config(function($routeProvider, $locationProvider) {
 
-        // $locationProvider.html5Mode(true);
-    });
+    $routeProvider
+        .when('/', {
+            templateUrl: 'views/main.html',
+            controller: 'MainCtrl',
+            controllerAs: 'main'
+        })
+        .when('/about', {
+            templateUrl: 'views/about.html',
+            controller: 'AboutCtrl',
+            controllerAs: 'about'
+        })
+        .when('/Login', {
+            templateUrl: 'views/login.html',
+            controller: 'SecurityCtrl',
+            controllerAs: 'Security'
+        })
+        .when('/RestorePassword', {
+            templateUrl: 'views/restore-password.html',
+            controller: 'SecurityCtrl',
+            controllerAs: 'Security'
+        })
+        .when('/Voting', {
+            templateUrl: 'views/voting.html',
+            controller: 'VotingCtrl',
+            controllerAs: 'Voting'
+        })
+        .when('/Debugger', {
+            templateUrl: 'views/debugger.html',
+            controller: 'DebuggerCtrl',
+            controllerAs: 'Debugger'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+
+    // $locationProvider.html5Mode(true);
+});

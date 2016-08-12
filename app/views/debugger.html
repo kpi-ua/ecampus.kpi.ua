@@ -1,1 +1,109 @@
-<p>This is the Debugger view.</p>
+<div class="container-fluid">
+    <div class="row green">
+        <div class="navbar-form navbar-left">
+            <div class="form-group">
+                <input type="url" class="form-control" id="txt-api-endpoint" ng-value="apiEndpoint" placeholder="API endpoint" list="api-endpoints" />
+                <datalist id="api-endpoints">
+                        <option value="https://api-campus-kpi-ua.azurewebsites.net/">https://api-campus-kpi-ua.azurewebsites.net/</option>
+                        <option value="https://api.campus.kpi.ua/">https://api.campus.kpi.ua/</option>
+                        <option value="https://api-debug.azurewebsites.net/">https://api-debug.azurewebsites.net/</option>
+                    </datalist>
+            </div>
+            <div class="form-group">
+                <input type="button" id="btn-set-endpoint" ng-click="setEndpoint()" value="Set Endpoint" class="btn btn-primary" />
+            </div>
+            <div class="form-group">
+                <input type="button" id="btn-view-error-log" ng-click="viewErrorLog()" value="View error log" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="navbar-form navbar-right">
+            <div class="form-group">
+                <input type="text" class="form-control" id="txt-login" placeholder="Login" />
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="txt-password" placeholder="Password" />
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="campus-session-id" placeholder="Token" />
+            </div>
+            <div class="form-group">
+                <input type="button" id="btn-auth" ng-click="auth()" value="Auth" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 about">
+            <p>This is tool allow to debug NTUU KPI Campus API. More information you can find at <a href="https://github.com/kpi-ua">our project site</a>.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="progress" ng-if="!!progressBar">
+            <h5>Please wait</h5>
+            <div class="progress progress-striped active">
+                <div class="progress-bar" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    <span class="sr-only">Please wait</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Select method to debug</strong></div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="form-login" role="form">
+                        <div class="form-group">
+                            <label for="cmb-controllers" class="col-md-4 control-label">Controller: </label>
+                            <div class="col-md-8">
+                                <select id="cmb-controllers" class="form-control" ng-model="selectedMethod" ng-change="loadMethodForCurrentController()">
+                                    <option ng-repeat="c in controllers" value="{{ c }}" text="{{ c }}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cmb-methods" class="col-md-4 control-label">Method: </label>
+                            <div class="col-md-8">
+                                <select id="cmb-methods" class="form-control" ng-change="loadSelectedMethodMetadata()">
+                                    <option ng-repeat="m in methods" value="{{ m.route }}" text="{{ m.route }}"></option>                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txt-http-method" class="col-md-4 control-label">HTTP Method: </label>
+                            <div class="col-md-8">
+                                <input id="txt-http-method" class="form-control" disabled />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div id="method-title" class="panel-heading">
+                    <strong>{{ methodTitle }}<strong>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" name="" action="" id="out" role="form" ng-bind-html="out">
+                    </form>
+                    <input type="button" class="btn btn-primary" value="Debug" onclick="execute()" />
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Result</h3>
+                </div>
+                <textarea rows="25" id="message-box" class="panel-body form-control">{{ message }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>

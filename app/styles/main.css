@@ -1,3 +1,44 @@
+html,
+body {
+    background-color: #FFF;
+}
+
+.navbar-inverse.navbar {
+    background-color: #208944;
+}
+
+.about {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.green .navbar-right {
+    margin-right: 0;
+}
+
+.btn-primary:not(.btn-link):not(.btn-flat) {
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+.btn-primary:hover:not(.btn-link):not(.btn-flat) {
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+#campus-session-id {
+    min-width: 270px;
+}
+
+#progress {
+    display: none;
+}
+
+#message-box {
+    padding: 10px;
+    font-family: sans-serif, "Lucida Console";
+}
+
 .clear {
     clear: both;
 }
