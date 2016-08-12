@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('DebuggerCtrl', function($scope) {
+    .controller('DebuggerCtrl', function($scope, $sce) {
 
         this.awesomeThings = [
             'HTML5 Boilerplate',
@@ -65,7 +65,7 @@ angular.module('ecampusApp')
 
             Campus.execute('GET', 'System/Structure').then(function(data) {
 
-                scope.methods = data;
+                scope.allMethods = data;
 
                 var controllers = data.map(function(o) {
                     return !!o && !!o.route ? o.route.substring(0, o.route.indexOf('/')) : "unknown";
@@ -90,7 +90,7 @@ angular.module('ecampusApp')
 
             var controller = $scope.selectedController;
 
-            $scope.methods = $scope.methods.filter(function(o) {
+            $scope.methods = $scope.allMethods.filter(function(o) {
                 return o.route.indexOf(controller) == 0;
             });
 
@@ -131,7 +131,6 @@ angular.module('ecampusApp')
         function render(m) {
 
             $scope.methodTitle = m.route;
-            //$("#method-title").html('<strong>' + m.route + '<strong>');
 
             var html = '';
 
@@ -139,9 +138,7 @@ angular.module('ecampusApp')
                 html += createControl(parameter);
             });
 
-            $scope.out = html;
-
-            //$("#out").html(html);
+            $scope.out = $sce.trustAsHtml(html);
         }
 
         function getSelectedMethod() {
@@ -152,7 +149,11 @@ angular.module('ecampusApp')
             })[0];
         }
 
-        function execute() {
+        $scope.executeRequest = function() {
+            executeRequest();
+        }
+
+        function executeRequest() {
 
             progressBar(true);
 
@@ -181,7 +182,6 @@ angular.module('ecampusApp')
                     $("#message-box").val(JSON.stringify(result, null, '\t'));
                 })
                 .fail(function(result) {
-                    debugger;
                     $("#message-box").val(JSON.stringify(result, null, '\t'));
                 })
                 .always(function() {

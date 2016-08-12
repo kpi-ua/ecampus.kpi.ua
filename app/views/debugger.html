@@ -2,12 +2,11 @@
     <div class="row green">
         <div class="navbar-form navbar-left">
             <div class="form-group">
-                <input type="url" class="form-control" id="txt-api-endpoint" ng-value="apiEndpoint" placeholder="API endpoint" list="api-endpoints" />
+                <input type="url" class="form-control" ng-model="apiEndpoint" placeholder="API endpoint" list="api-endpoints" />
                 <datalist id="api-endpoints">
-                        <option value="https://api-campus-kpi-ua.azurewebsites.net/">https://api-campus-kpi-ua.azurewebsites.net/</option>
-                        <option value="https://api.campus.kpi.ua/">https://api.campus.kpi.ua/</option>
-                        <option value="https://api-debug.azurewebsites.net/">https://api-debug.azurewebsites.net/</option>
-                    </datalist>
+                    <option value="https://api-campus-kpi-ua.azurewebsites.net/">https://api-campus-kpi-ua.azurewebsites.net/</option>
+                    <option value="https://api.campus.kpi.ua/">https://api.campus.kpi.ua/</option>
+                </datalist>
             </div>
             <div class="form-group">
                 <input type="button" id="btn-set-endpoint" ng-click="setEndpoint()" value="Set Endpoint" class="btn btn-primary" />
@@ -90,9 +89,9 @@
                     <strong>{{ methodTitle }}<strong>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" name="" action="" id="out" role="form" ng-bind-html="out">
+                    <form class="form-horizontal" name="" action="" role="form" ng-bind-html="out">
                     </form>
-                    <input type="button" class="btn btn-primary" value="Debug" onclick="execute()" />
+                    <input type="button" class="btn btn-primary" value="Debug" ng-click="executeRequest()" />
                 </div>
             </div>
 
