@@ -31,7 +31,7 @@ angular.module('ecampusApp')
             $scope.loader = true;
 
             Api.execute("POST", url, JSON.stringify(payload))
-                .done(function(result) {
+                .done(function() {
                     step(3);
                     $scope.loader = false;
                     $scope.$apply();
@@ -67,10 +67,6 @@ angular.module('ecampusApp')
             $scope.step = n;
         }
 
-        function reload() {
-            step(1);
-        }
-
         $scope.auth = function() {
             Api.auth($scope.login, $scope.password).then(function(token) {
 
@@ -81,14 +77,14 @@ angular.module('ecampusApp')
                     alert('OK');
                 }
             });
-        }
+        };
 
         $scope.getCaptcha = function() {
             getCaptcha();
-        }
+        };
 
         $scope.restorePassword = function() {
             restorePassword();
-        }
+        };
 
     });

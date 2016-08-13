@@ -20,7 +20,7 @@ angular.module('ecampusApp')
         /**
          * Get API endpoint
          */
-        this.getApiEndpoint = function(url) {
+        this.getApiEndpoint = function() {
             return Campus.getApiEndpoint();
         };
 
@@ -29,7 +29,7 @@ angular.module('ecampusApp')
          */
         this.logout = function() {
             Campus.logout();
-        }
+        };
 
         /**
          * Execute API method
@@ -43,7 +43,5 @@ angular.module('ecampusApp')
          */
         this.auth = function(login, password) {
             return Campus.auth(login, password);
-        }
-
-        //Campus.setApiEndpoint('https://api-campus-kpi-ua.azurewebsites.net/');
+        };
     });

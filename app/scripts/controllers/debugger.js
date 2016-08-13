@@ -175,7 +175,7 @@ angular.module('ecampusApp')
                 .always(function() {
                     scope.progressBar = false;
                     scope.$apply();
-                })
+                });
         }
 
         function loadSelectedMethodMetadata() {
@@ -191,20 +191,20 @@ angular.module('ecampusApp')
 
         $scope.loadMethodForCurrentController = function() {
             loadMethodForCurrentController();
-        }
+        };
 
         $scope.executeRequest = function() {
             executeRequest();
-        }
+        };
 
         $scope.loadSelectedMethodMetadata = function() {
             loadSelectedMethodMetadata();
-        }
+        };
 
         $scope.setEndpoint = function() {
             Api.setApiEndpoint($scope.apiEndpoint);
             alert('API endpoint successfully changed.');
-        }
+        };
 
         $scope.viewErrorLog = function() {
             var w = window.open(Api.getApiEndpoint() + 'system/logs/errors/', '_blank');
@@ -233,7 +233,7 @@ angular.module('ecampusApp')
                 scope.progressBar = false;
                 scope.$apply();
             });
-        }
+        };
 
         function reload() {
             loadControllerList();

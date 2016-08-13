@@ -1,17 +1,17 @@
-//API JS SDK v1.0.2.220
+'use strict';
+
+//API JS SDK v1.0.3.250
 
 var API = function() {};
 
 API.prototype.ApiEndpoint = 'https://api.campus.kpi.ua/';
-//API.prototype.ApiEndpoint = 'http://localhost:51944/';
-//API.prototype.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
 
 /**
  * Set auth token
  */
 API.prototype.setToken = function(token) {
     localStorage["campus-access-token"] = token;
-}
+};
 
 /**
  * Return current auth token
@@ -19,7 +19,7 @@ API.prototype.setToken = function(token) {
 API.prototype.getToken = function() {
     var token = localStorage["campus-access-token"];
     return token == "null" ? null : token;
-}
+};
 
 /**
  * Set API endpoint
@@ -31,7 +31,7 @@ API.prototype.setApiEndpoint = function(url) {
 /**
  * Get API endpoint
  */
-API.prototype.getApiEndpoint = function(url) {
+API.prototype.getApiEndpoint = function() {
     return this.ApiEndpoint;
 };
 
@@ -40,7 +40,7 @@ API.prototype.getApiEndpoint = function(url) {
  */
 API.prototype.logout = function() {
     this.setToken(null);
-}
+};
 
 /**
  * Execute API method
@@ -67,7 +67,7 @@ API.prototype.execute = function(method, path, payload) {
                 xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
             }
         },
-        success: function(response) {
+        success: function() {
             //console.info('Request to campus API success: ', response);
         },
         error: function(jqXHR, status, error) {
@@ -114,6 +114,6 @@ API.prototype.auth = function(login, password) {
     });
 
     return d.promise();
-}
+};
 
 Campus = new API();
