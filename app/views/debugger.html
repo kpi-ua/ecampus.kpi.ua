@@ -17,13 +17,13 @@
         </div>
         <div class="navbar-form navbar-right">
             <div class="form-group">
-                <input type="text" class="form-control" id="txt-login" placeholder="Login" />
+                <input type="text" class="form-control" ng-model="login" placeholder="Login" />
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" id="txt-password" placeholder="Password" />
+                <input type="password" class="form-control" ng-model="password" placeholder="Password" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="campus-session-id" placeholder="Token" />
+                <input type="text" class="form-control" ng-model="sessionToken" placeholder="Token" />
             </div>
             <div class="form-group">
                 <input type="button" id="btn-auth" ng-click="auth()" value="Auth" class="btn btn-primary" />

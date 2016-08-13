@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('DebuggerCtrl', function($scope, $sce) {
+    .controller('DebuggerCtrl', function($scope, $sce, Api) {
 
         $scope.progressBar = false;
         $scope.controllers = [1, 2, 3];
@@ -21,6 +21,9 @@ angular.module('ecampusApp')
         $scope.selectedMethod = null;
         $scope.selectedController = null;
         $scope.httpMethod = '';
+        $scope.sessionToken = '';
+        $scope.login = '';
+        $scope.password = '';
 
         function getUnique(array) {
             var u = {},
@@ -53,7 +56,7 @@ angular.module('ecampusApp')
 
             var scope = $scope;
 
-            Campus.execute('GET', 'System/Structure').then(function(data) {
+            Api.execute('GET', 'System/Structure').then(function(data) {
 
                 scope.allMethods = data;
 
@@ -140,8 +143,9 @@ angular.module('ecampusApp')
             $scope.progressBar = true;
 
             var data = {};
+            var form = $('#out').serializeArray(); //Serialize form
 
-            $.each($('#out').serializeArray(), function(index, e) { //Serialize form
+            $.each(form, function(index, e) {
                 data[e.name] = e.value;
             });
 
@@ -161,12 +165,12 @@ angular.module('ecampusApp')
 
             var scope = $scope;
 
-            Campus.execute(m.method, url, data)
+            Api.execute(m.method, url, data)
                 .done(function(result) {
-                    $("#message-box").val(JSON.stringify(result, null, '\t'));
+                    $scope.message = JSON.stringify(result, null, '\t');
                 })
                 .fail(function(result) {
-                    $("#message-box").val(JSON.stringify(result, null, '\t'));
+                    $scope.message = JSON.stringify(result, null, '\t');
                 })
                 .always(function() {
                     scope.progressBar = false;
@@ -198,37 +202,32 @@ angular.module('ecampusApp')
         }
 
         $scope.setEndpoint = function() {
-            Campus.ApiEndpoint = $scope.apiEndpoint;
-
+            Api.setApiEndpoint($scope.apiEndpoint);
             alert('API endpoint successfully changed.');
         }
 
         $scope.viewErrorLog = function() {
-            var w = window.open(Campus.ApiEndpoint + 'system/logs/errors/', '_blank');
+            var w = window.open(Api.getApiEndpoint() + 'system/logs/errors/', '_blank');
 
             if (w) {
                 w.focus(); //Browser has allowed it to be opened
             } else {
                 alert('Please allow popups for this website'); //Browser has blocked it
             }
-
-            Campus.ApiEndpoint = $("#txt-api-endpoint").val();
         };
 
         $scope.auth = function() {
-            var login = $("#txt-login").val();
-            var password = $("#txt-password").val();
 
             var scope = $scope;
             $scope.progressBar = true;
 
-            Campus.auth(login, password).then(function(token) {
+            Api.auth($scope.login, $scope.password).then(function(token) {
+                $scope.sessionToken = token;
 
-                $("#campus-session-id").val(token);
-                $("#message-box").val('');
+                $scope.message = '';
 
                 if (!token) {
-                    $("#message-box").val('Incorrect login or password.');
+                    $scope.message = 'Incorrect login or password.';
                 }
 
                 scope.progressBar = false;
@@ -238,7 +237,7 @@ angular.module('ecampusApp')
 
         function reload() {
             loadControllerList();
-            $scope.apiEndpoint = Campus.ApiEndpoint;
+            $scope.apiEndpoint = Api.getApiEndpoint();
         }
 
         reload();

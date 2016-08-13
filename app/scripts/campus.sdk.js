@@ -29,6 +29,13 @@ API.prototype.setApiEndpoint = function(url) {
 };
 
 /**
+ * Get API endpoint
+ */
+API.prototype.getApiEndpoint = function(url) {
+    return this.ApiEndpoint;
+};
+
+/**
  * Logout and clear current auth token
  */
 API.prototype.logout = function() {
