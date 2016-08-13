@@ -25,27 +25,27 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'MainCtrl',
             controllerAs: 'main'
         })
-        .when('/about', {
+        .when('/about.html', {
             templateUrl: 'views/about.html',
             controller: 'AboutCtrl',
             controllerAs: 'about'
         })
-        .when('/Login', {
+        .when('/login.html', {
             templateUrl: 'views/login.html',
             controller: 'SecurityCtrl',
             controllerAs: 'Security'
         })
-        .when('/RestorePassword', {
+        .when('/restore-password.html', {
             templateUrl: 'views/restore-password.html',
             controller: 'SecurityCtrl',
             controllerAs: 'Security'
         })
-        .when('/Voting', {
+        .when('/voting.html', {
             templateUrl: 'views/voting.html',
             controller: 'VotingCtrl',
             controllerAs: 'Voting'
         })
-        .when('/Debugger', {
+        .when('/debugger.html', {
             templateUrl: 'views/debugger.html',
             controller: 'DebuggerCtrl',
             controllerAs: 'Debugger'
@@ -54,5 +54,5 @@ app.config(function($routeProvider, $locationProvider) {
             redirectTo: '/'
         });
 
-    // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 });
