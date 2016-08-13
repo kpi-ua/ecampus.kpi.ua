@@ -45,4 +45,6 @@ angular.module('ecampusApp')
             return Campus.auth(login, password);
         }
 
+        Campus.setApiEndpoint('https://api-campus-kpi-ua.azurewebsites.net/');
+
     });

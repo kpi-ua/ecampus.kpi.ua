@@ -21,12 +21,12 @@
                                             <input type="password" ng-model="password" class="form-control" , placeholder="Пароль" />
                                         </div>
 
-                                        <div class="form-group" ng-show="!!error">
-                                            <div class="alert alert-danger alert-dismissable">
+                                        <div class="form-group" ng-if="!!error">
+                                            <div class="alert alert-danger">
                                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Перевірте корректність логіну та паролю.
                                             </div>
                                         </div>
-                                        <input type="submit" class="btn btn-success btn-block" value="Вхід" />
+                                        <input type="submit" class="btn btn-success btn-block" ng-click="auth()" value="Вхід" />
                                     </fieldset>
 
                                 </form>

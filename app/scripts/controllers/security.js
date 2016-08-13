@@ -8,13 +8,16 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('SecurityCtrl', function($scope) {
+    .controller('SecurityCtrl', function($scope, Api) {
 
         $scope.step = 1;
         $scope.captcha = '';
         $scope.userId = '';
         $scope.loader = false;
         $scope.captchaImage = '';
+
+        $scope.login = '';
+        $scope.password = '';
 
         function restorePassword() {
 
@@ -27,7 +30,7 @@ angular.module('ecampusApp')
 
             $scope.loader = true;
 
-            Campus.execute("POST", url, JSON.stringify(payload))
+            Api.execute("POST", url, JSON.stringify(payload))
                 .done(function(result) {
                     step(3);
                     $scope.loader = false;
@@ -53,7 +56,7 @@ angular.module('ecampusApp')
 
         function getCaptcha() {
             step(2);
-            $scope.captchaImage = Campus.ApiEndpoint + 'Account/Recovery/' + encodeURIComponent($scope.userId) + '/token?d=' + new Date().getTime();
+            $scope.captchaImage = Api.getApiEndpoint() + 'Account/Recovery/' + encodeURIComponent($scope.userId) + '/token?d=' + new Date().getTime();
         }
 
         function showMessage(message) {
@@ -66,6 +69,18 @@ angular.module('ecampusApp')
 
         function reload() {
             step(1);
+        }
+
+        $scope.auth = function() {
+            Api.auth($scope.login, $scope.password).then(function(token) {
+
+                $scope.error = !token;
+                $scope.$apply();
+
+                if (!$scope.error) {
+                    alert('OK');
+                }
+            });
         }
 
         $scope.getCaptcha = function() {
