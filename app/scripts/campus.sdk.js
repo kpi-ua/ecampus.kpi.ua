@@ -1,5 +1,3 @@
-'use strict';
-
 //API JS SDK v1.0.3.250
 
 var API = function() {};
