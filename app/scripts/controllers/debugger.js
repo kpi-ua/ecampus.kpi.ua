@@ -238,6 +238,8 @@ angular.module('ecampusApp')
         function reload() {
             loadControllerList();
             $scope.apiEndpoint = Api.getApiEndpoint();
+            $scope.sessionToken = Api.getToken();
+
         }
 
         reload();
