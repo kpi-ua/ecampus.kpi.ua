@@ -44,4 +44,18 @@ angular.module('ecampusApp')
         this.auth = function(login, password) {
             return Campus.auth(login, password);
         };
+
+        /**
+         * Get information about current logged user
+         */
+        this.getCurrentUser = function() {
+            return Campus.getCurrentUser();
+        };
+
+        /**
+         * Return current auth token
+         */
+        this.getToken = function() {
+            return Campus.getToken();
+        };
     });
