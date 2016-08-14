@@ -1,4 +1,4 @@
-//API JS SDK v1.0.3.250
+//API JS SDK v1.0.4.350
 
 var API = function() {};
 
@@ -34,10 +34,25 @@ API.prototype.getApiEndpoint = function() {
 };
 
 /**
+ * Save current user
+ */
+API.prototype.setCurrentUser = function(data) {
+    localStorage["campus-current-user"] = JSON.stringify(data);
+};
+
+/**
+ * Get information about current logged user
+ */
+API.prototype.getCurrentUser = function() {
+    return JSON.parse(localStorage["campus-current-user"]);
+}
+
+/**
  * Logout and clear current auth token
  */
 API.prototype.logout = function() {
     this.setToken(null);
+    this.setCurrentUser(null);
 };
 
 /**
@@ -55,7 +70,8 @@ API.prototype.execute = function(method, path, payload) {
         url: url,
         method: method,
         data: payload,
-        processData: false,
+        //processData: false,
+        processData: true,
         contentType: false,
         beforeSend: function(xhr) {
             xhr.setRequestHeader("Accept", "application/json");
@@ -101,13 +117,18 @@ API.prototype.auth = function(login, password) {
         data: payload,
         success: function(response) {
             self.setToken(response.access_token);
-            d.resolve(self.getToken());
+
+            self.execute("GET", "Account/Info").then(function(response) {
+                //get current user details
+                self.setCurrentUser(response);
+                d.resolve(self.getToken());
+            });
         },
         error: function(xhr, status, err) {
             console.warn(xhr, status, err.toString());
 
-            self.setToken(null);
-            d.resolve(self.getToken());
+            self.logout();
+            d.resolve(null);
         }
     });
 
