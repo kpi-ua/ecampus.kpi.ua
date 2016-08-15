@@ -1,20 +1,19 @@
 <div class="container-fluid content">
-  <div class="content">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
 
-        <h2>Модуль оцінювання викладачів</h2>
+                <h2>Модуль оцінювання викладачів</h2>
 
 
-        <ul class="list-group">
-          <li class="list-group-item" ng-repeat="person in personsForVote">
-            {{ person.lecturer }}
-            <input-stars ng-model="person.rating" max="10"></input-stars>
-            <!--<input-stars readonly ng-model="App.prop3" max="5"></input-stars>-->
-          </li>
-        </ul>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="person in personsForVote">
+                        <a href="/#/voting/profile/{{person.employeesId}}">{{ person.lecturer }}</a>
+                        <input-stars ng-model="person.rating" readonly max="10"></input-stars>                        
+                    </li>
+                </ul>
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
