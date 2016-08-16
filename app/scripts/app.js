@@ -18,7 +18,7 @@ var app = angular.module('ecampusApp', [
     'angular-input-stars'
 ]);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider
         .when('/', {
