@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('VotingCtrl', function($scope, $location, Api) {
+    .controller('VotingCtrl', function ($scope, $location, Api) {
 
         $scope.currentUser = null;
         $scope.personsForVote = [];
@@ -21,7 +21,7 @@ angular.module('ecampusApp')
                 $location.path("/login");
             }
 
-            Api.execute("GET", "Vote/Term/Current").then(function(data) {
+            Api.execute("GET", "Vote/Term/Current").then(function (data) {
                 $scope.voteTerm = !!data && data.length > 0 ? data[0] : null;
 
                 if (!$scope.voteTerm) {
@@ -42,7 +42,7 @@ angular.module('ecampusApp')
                     envelope: false
                 };
 
-                Api.execute("GET", action, payload).then(function(data) {
+                Api.execute("GET", action, payload).then(function (data) {
                     $scope.personsForVote = data;
                     $scope.$apply();
 
@@ -60,13 +60,30 @@ angular.module('ecampusApp')
                     size: 100,
                     envelope: false
                 };
-                Api.execute("GET", action, payload).then(function(data) {
+
+                Api.execute("GET", action, payload).then(function (data) {
                     $scope.personsAlreadyVoted = data;
                     $scope.$apply();
                     console.log('$scope.personsAlreadyVoted', $scope.personsAlreadyVoted);
                 });
 
             }
+
+            $scope.personVoted = function (person) {
+                var result = false;
+
+                if (!!$scope.personsAlreadyVoted) {
+
+                    $scope.personsAlreadyVoted.forEach(function (p) {
+                        if (p.employeesId == person.employeesId) {
+                            result = true;
+                        }
+                    });
+
+                }
+
+                return result;
+            };
 
         }
 

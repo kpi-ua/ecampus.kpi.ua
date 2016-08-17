@@ -8,38 +8,64 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('VotingProfileCtrl', function($scope, $location, $routeParams, Api) {
+    .controller('VotingProfileCtrl', function ($scope, $location, $routeParams, Api) {
 
         $scope.currentUser = null;
         $scope.criterions = [];
 
         $scope.course = null;
 
-        $scope.selectedEmployeeId = null;
+        $scope.selectedEmploye = null;
+        $scope.selectedEmployeId = null;
+
 
         function reload() {
 
             $scope.currentUser = Api.getCurrentUser();
-            $scope.selectedEmployeeId = $routeParams.id;
+            $scope.selectedEmployeId = $routeParams.id;
 
             if (!$scope.currentUser) {
                 $location.path("/login");
             }
 
-            Api.execute("GET", "Vote/Criterions").then(function(data) {
+            Api.execute("GET", "Account/Employee/" + $scope.selectedEmployeId).then(function (data) {
+                $scope.selectedEmploye = data;
+                $scope.$apply();
+            });
+
+
+            Api.execute("GET", "Vote/Criterions").then(function (data) {
                 $scope.criterions = data;
                 $scope.$apply();
             });
 
         }
 
-        $scope.vote = function() {
+        $scope.formIsValid = function () {
+            var result = true;
 
-            $scope.criterions.forEach(function(c) {
+            if (!$scope.criterions) {
+                return false;
+            }
+
+            $scope.criterions.forEach(function (c) {
+                if (!c.mark || c.mark == 0) {
+                    result = false;
+                }
+            });
+
+            return result;
+        }
+
+        $scope.vote = function () {
+
+            var votes = [];
+
+            $scope.criterions.forEach(function (c) {
 
                 var vote = {
                     VoteTermId: 1,
-                    EmployeeId: $scope.selectedEmployeeId,
+                    EmployeeId: $scope.selectedEmployeId,
                     DateVote: new Date(),
                     Actuality: true,
                     ChangeDate: new Date(),
@@ -49,12 +75,15 @@ angular.module('ecampusApp')
                     Mark: c.mark,
                 };
 
-                Api.execute("POST", "Vote", vote).then(function(data) {
-                    $scope.criterions = data;
-                    $scope.$apply();
-                    reload();
-                });
+                votes.push(vote);
+            });
 
+            Api.execute("POST", "Vote", votes).then(function (data) {                
+                alert('Дякуємо!');
+                $location.path("/voting");
+                $scope.$apply();
+            }).catch(function (reason) {
+                alert(reason.responseText);
             });
 
         };

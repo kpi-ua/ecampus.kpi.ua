@@ -4,7 +4,12 @@
             <div class="col-md-12">
 
                 <h2>Модуль оцінювання викладачів</h2>
-                <h3>{{ currentUser.name }}</h3>
+                <h3>{{ selectedEmploye.fullName }}</h3>
+                <i>{{ selectedEmploye.position }}, {{ selectedEmploye.academicDegree }}</i>
+
+                <br />
+                <br />
+
                 <table class="table table-striped table-hover">
                     <tr ng-repeat="c in criterions">
                         <td>
@@ -16,7 +21,8 @@
                     </tr>
                 </table>
 
-                <input type="button" class="btn btn-primary" value="Зберегти" ng-click="vote()" />
+                <input ng-disabled="!formIsValid()" type="button" class="btn btn-primary" value="Зберегти" ng-click="vote()" />
+                <a href="/#/voting" class="btn btn-default">Повернутися</a>
 
             </div>
         </div>
