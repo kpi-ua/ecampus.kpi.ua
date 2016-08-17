@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('VotingProfileCtrl', function ($scope, $location, $routeParams, Api) {
+    .controller('VotingProfileCtrl', function($scope, $location, $routeParams, Api) {
 
         $scope.currentUser = null;
         $scope.criterions = [];
@@ -26,18 +26,16 @@ angular.module('ecampusApp')
                 $location.path("/login");
             }
 
-            Api.execute("GET", "Vote/Criterions").then(function (data) {
+            Api.execute("GET", "Vote/Criterions").then(function(data) {
                 $scope.criterions = data;
                 $scope.$apply();
             });
 
         }
 
-        $scope.vote = function () {
+        $scope.vote = function() {
 
-            $scope.criterions.forEach(function (c) {
-
-                var course = 1; //$scope.course;
+            $scope.criterions.forEach(function(c) {
 
                 var vote = {
                     VoteTermId: 1,
@@ -47,25 +45,14 @@ angular.module('ecampusApp')
                     ChangeDate: new Date(),
                     PersonalityId: $scope.currentUser.Id,
                     VoteCriterionId: c.id,
-                    Course: course,
+                    Course: 1,
                     Mark: c.mark,
                 };
 
-                // Api.execute("POST", "Vote/Marks", vote).then(function (data) {
-                //     $scope.criterions = data;
-                //     $scope.$apply();
-                // });
-
-                Api.execute("POST", "Vote/Marks", vote).then(function (data) {
+                Api.execute("POST", "Vote", vote).then(function(data) {
                     $scope.criterions = data;
                     $scope.$apply();
-                });
-                
-                //debugger;
-
-                Api.execute("POST", "Vote/TTTT", vote).then(function (data) {
-                    debugger;
-                    $scope.$apply();
+                    reload();
                 });
 
             });

@@ -60,11 +60,9 @@ angular.module('ecampusApp')
                     size: 100,
                     envelope: false
                 };
-
                 Api.execute("GET", action, payload).then(function(data) {
                     $scope.personsAlreadyVoted = data;
                     $scope.$apply();
-
                     console.log('$scope.personsAlreadyVoted', $scope.personsAlreadyVoted);
                 });
 
