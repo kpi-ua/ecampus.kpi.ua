@@ -56,11 +56,17 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'DebuggerCtrl',
             controllerAs: 'Debugger'
         })
+        .when('/statistic', {
+          templateUrl: 'views/statistic.html',
+          controller: 'StatisticCtrl',
+          controllerAs: 'statistic'
+        })
         .otherwise({
             redirectTo: '/'
         });
 
     //$locationProvider.html5Mode(true);
 
-    Campus.setApiEndpoint('https://api-campus-kpi-ua.azurewebsites.net/');
+    //Campus.setApiEndpoint('https://api-campus-kpi-ua.azurewebsites.net/');
+    Campus.setApiEndpoint('http://localhost:56329/');
 });
