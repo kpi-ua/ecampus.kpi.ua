@@ -28,8 +28,13 @@ app.config(function ($routeProvider, $locationProvider) {
         })
         .when('/about', {
             templateUrl: 'views/about.html',
-            controller: 'AboutCtrl',
-            controllerAs: 'about'
+            controller: 'InformationCtrl',
+            controllerAs: 'About'
+        })
+        .when('/contacts', {
+            templateUrl: 'views/contacts.html',
+            controller: 'InformationCtrl',
+            controllerAs: 'Contacts'
         })
         .when('/login', {
             templateUrl: 'views/login.html',
