@@ -36,10 +36,10 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'InformationCtrl',
             controllerAs: 'Contacts'
         })
-        .when('/rules', {
-          templateUrl: 'views/rules.html',
+        .when('/privacy', {
+          templateUrl: 'views/privacy.html',
           controller: 'InformationCtrl',
-          controllerAs: 'rules'
+          controllerAs: 'privacy'
         })
         .when('/login', {
             templateUrl: 'views/login.html',
