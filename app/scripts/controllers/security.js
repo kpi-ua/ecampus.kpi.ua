@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('SecurityCtrl', function ($scope, $cookies, Api) {
+    .controller('SecurityCtrl', function ($scope, $cookies, $window, Api) {
 
         $scope.step = 1;
         $scope.captcha = '';
