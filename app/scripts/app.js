@@ -36,6 +36,11 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'InformationCtrl',
             controllerAs: 'Contacts'
         })
+        .when('/rules', {
+          templateUrl: 'views/rules.html',
+          controller: 'InformationCtrl',
+          controllerAs: 'rules'
+        })
         .when('/login', {
             templateUrl: 'views/login.html',
             controller: 'SecurityCtrl',
@@ -65,7 +70,7 @@ app.config(function ($routeProvider, $locationProvider) {
           templateUrl: 'views/statistic.html',
           controller: 'StatisticCtrl',
           controllerAs: 'statistic'
-        })
+        })        
         .otherwise({
             redirectTo: '/'
         });
