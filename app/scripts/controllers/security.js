@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('SecurityCtrl', function ($scope, Api) {
+    .controller('SecurityCtrl', function ($scope, $cookies, Api) {
 
         $scope.step = 1;
         $scope.captcha = '';
@@ -74,7 +74,10 @@ angular.module('ecampusApp')
                 $scope.$apply();
 
                 if (!$scope.error) {
-                    alert('OK');
+                    var user = Api.getCurrentUser();
+                    $cookies.put('SID', user.sid, {domain: 'kpi.ua'});
+                    $cookies.put('SID', user.sid, {domain: 'campus.kpi.ua'});
+                    $window.location.href = 'http://campus.kpi.ua/';                    
                 }
             });
         };
@@ -86,5 +89,4 @@ angular.module('ecampusApp')
         $scope.restorePassword = function () {
             restorePassword();
         };
-
     });
