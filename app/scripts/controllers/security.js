@@ -16,8 +16,7 @@ angular.module('ecampusApp')
         $scope.loader = false;
         $scope.captchaImage = '';
 
-        $scope.login = '';
-        $scope.password = '';
+        
 
         function restorePassword() {
 
@@ -66,21 +65,6 @@ angular.module('ecampusApp')
         function step(n) {
             $scope.step = n;
         }
-
-        $scope.auth = function () {
-            Api.auth($scope.login, $scope.password).then(function (token) {
-
-                $scope.error = !token;
-                $scope.$apply();
-
-                if (!$scope.error) {
-                    var user = Api.getCurrentUser();
-                    $cookies.put('SID', user.sid, {domain: 'kpi.ua'});
-                    $cookies.put('SID', user.sid, {domain: 'campus.kpi.ua'});
-                    $window.location.href = 'http://campus.kpi.ua/';                    
-                }
-            });
-        };
 
         $scope.getCaptcha = function () {
             getCaptcha();
