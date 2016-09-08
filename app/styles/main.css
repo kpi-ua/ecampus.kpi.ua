@@ -610,3 +610,9 @@ input[type="radio"] + label {
 .btn-vk:hover {
     background-color: #405077;
 }
+
+.sad-cat {
+    width: 200px;
+    margin-top: 10px;
+    margin: 0 auto;
+}

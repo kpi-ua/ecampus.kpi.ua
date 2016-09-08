@@ -41,8 +41,8 @@ app.config(function ($routeProvider, $locationProvider) {
           controller: 'InformationCtrl',
           controllerAs: 'privacy'
         })
-        .when('/login', {
-            templateUrl: 'views/login.html',
+        .when('/social-forbidden', {
+            templateUrl: 'views/social-forbidden.html',
             controller: 'SecurityCtrl',
             controllerAs: 'Security'
         })
