@@ -588,7 +588,7 @@ input[type="radio"] + label {
     margin: 0 auto;
 }
 
-.btn-fb,
+/*.btn-fb,
 .btn-vk {
     width: 175px;
     font-size: 0.7em;
@@ -609,7 +609,7 @@ input[type="radio"] + label {
 
 .btn-vk:hover {
     background-color: #405077;
-}
+}*/
 
 .sad-cat {
     width: 200px;
