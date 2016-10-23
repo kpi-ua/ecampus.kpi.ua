@@ -1,0 +1,30 @@
+<div class="container-fluid content">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+
+                <h2>Модуль оцінювання викладачів</h2>
+                <h3>{{ selectedEmploye.fullName }}</h3>
+                <i>{{ selectedEmploye.position }}, {{ selectedEmploye.academicDegree }}</i>
+
+                <br />
+                <br />
+
+                <table class="table table-striped table-hover">
+                    <tr ng-repeat="c in criterions">
+                        <td>
+                            {{ c.name }}
+                        </td>
+                        <td>
+                            <input-stars ng-model="c.mark" max="5"></input-stars>
+                        </td>
+                    </tr>
+                </table>
+
+                <input ng-disabled="!formIsValid()" type="button" class="btn btn-primary" value="Зберегти" ng-click="vote()" />
+                <a href="/#/voting" class="btn btn-default">Повернутися</a>
+
+            </div>
+        </div>
+    </div>
+</div>
