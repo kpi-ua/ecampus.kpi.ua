@@ -70,15 +70,12 @@ app.config(function ($routeProvider, $locationProvider) {
           templateUrl: 'views/statistic.html',
           controller: 'StatisticCtrl',
           controllerAs: 'statistic'
-        })        
-<<<<<<< HEAD
-=======
+        })
         .when('/home', {
           templateUrl: 'views/home.html',
           controller: 'HomeCtrl',
           controllerAs: 'home'
         })
->>>>>>> 3f9ff3f2f52032e2c7ac9dcc329b19b85eb1cbfb
         .otherwise({
             redirectTo: '/'
         });
