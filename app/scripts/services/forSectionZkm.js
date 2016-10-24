@@ -218,6 +218,9 @@ function check() {
                                 if(isFinish[0]&& isFinish[1]&&isFinish[2]){
                                     $(".loader_inner").fadeOut();
                                     $(".loaderQuery").delay(400).fadeOut("slow");
+                                    $("#zkmWrapper a").on('click', function(event){
+                                        event.preventDefault();
+                                    });
                                 }
 
                             });
@@ -449,6 +452,9 @@ function check() {
                                 if(isFinish[0]&& isFinish[1]&&isFinish[2]){
                                     $(".loader_inner").fadeOut();
                                     $(".loaderQuery").delay(400).fadeOut("slow");
+                                    $("#zkmWrapper a").on('click', function(event){
+                                        event.preventDefault();
+                                    });
                                 }
                             });
                         });
@@ -682,6 +688,9 @@ function check() {
                                 if(isFinish[0]&& isFinish[1]&&isFinish[2]){
                                     $(".loader_inner").fadeOut();
                                     $(".loaderQuery").delay(400).fadeOut("slow");
+                                    $("#zkmWrapper a").on('click', function(event){
+                                        event.preventDefault();
+                                    });
                                 }
 
                             });

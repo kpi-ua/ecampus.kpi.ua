@@ -221,8 +221,11 @@ angular.module('ecampusApp')
     //    For section npp
         $(document).ready(function() {
             bodyPosition = $(".nPPBody").offset().top+$(".topMenu").offset().top;
+            $('#1, #2').on('click', function(event) {
+
+            });
             $('#1, #2').on('click', '.panel-heading', function(event) {
-                event.preventDefault();
+
                 var panelId = this.parentNode.id;
                 $("#" + panelId + " .table").toggleClass("hidden");
                 //$("#" + panelId + " .zkmContent").toggleClass("hidden");

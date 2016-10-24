@@ -76,9 +76,11 @@ angular.module('ecampusApp')
         }
 
         function setRadioBtnForCathedras(responsive){
+            console.log("stat");
             var subdivisionId = responsive.Subdivision.SubdivisionId;
             var subdivisionName = responsive.Subdivision.Name;
             if (document.getElementById(subdivisionId + "") == null && ~subdivisionName.indexOf("Кафедра")) {
+                console.log("stat");
                 $('.radioMenu .radioBtnWrapper').append('<input class="radioBtn" id="' + subdivisionId + '" name="cathedra" type="radio" value=' + subdivisionId + ' onchange="check()">' +
                     '<label for="' + subdivisionId + '" class="side-label">' + subdivisionName + '</label>');
             }
@@ -105,8 +107,6 @@ angular.module('ecampusApp')
             }
 
         }
-
-
 
         function setFacultyAndInstitute(){
             var kpiQuery= false;
