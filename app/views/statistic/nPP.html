@@ -1,0 +1,92 @@
+    <a href="#top" class="scroll-to-top-Btn"><i class="fa fa-chevron-up"></i></a>
+
+    <section class="container topMenu background-light border-bottom-orange">
+        <div class="row">
+            <a href="/statistic">
+                <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre" data-title="Перейти до розділів статистики">
+                    <i class="fa fa-th-large"></i>
+                </div>
+            </a>
+            <a href="/home">
+                <div class="col-md-3  col-md-offset-4 col-sm-4 col-sm-offset-7 col-xs-10 col-xs-offset-1 menuButtons textCentre" data-title="В Кампус">
+                    <div class="menuButtons--img"></div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section class="container radioMenu">
+        <h2>Розділ 4. Індивідуальне навантаження викладачів</h2>
+        <div class="dropDownWrapper">
+            <form>
+                <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2">
+                    <option value=""></option>
+                </select>
+            </form>
+        </div>
+        <div class="radioBtnWrapper">
+            <label class="topLabel">Оберіть кафедру</label>
+        </div>
+    </section>
+
+    <section class="container download nPPBody">
+        <div class="row">
+            <a download="Індивідуальне навантаження викладачів.xls" href="#" onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
+                <div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                    <i class="fa fa-file-excel-o "></i> Завантажини звіт в форматі Excel (.xls)
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="container nPPBody">
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="loader">
+                    <div class="loader_inner"></div>
+                </div>
+                <div class="loaderQuery">
+                    <div class="loader_inner"></div>
+                </div>
+                <div class="tabbable">
+                    <!-- Only required for left/right tabs -->
+                    <ul class="nav nav-tabs myNavTabs textCentre">
+                        <li class="tabLiStyle "><a href="#1" data-toggle="tab">Перше півріччя (осінній семестр)</a></li>
+                        <li class="tabLiStyle"><a href="#2" data-toggle="tab">Друге півріччя (весняний семестр)</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="col-md-12 tab-pane  myTabPane" id="1">
+
+                        </div>
+                        <div class="col-md-12 tab-pane  myTabPane" id="2">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <table id="table-for-download">
+            <tr>
+                <th colspan="3">Перше півріччя (осінній семестр)</th>
+            </tr>
+            <tbody id="semester1">
+
+
+            </tbody>
+            <tr>
+                <th colspan="3">Друге півріччя (весняний семестр)</th>
+            </tr>
+            <tbody id="semester2">
+
+            </tbody>
+        </table>
+    </div>
+
+    <div id="authorized" class="hidden"></div>
+    <script src="scripts/services/forSectionNpp.js"></script>

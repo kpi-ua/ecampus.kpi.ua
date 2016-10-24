@@ -53,7 +53,7 @@ angular.module('ecampusApp')
                     var user = Api.getCurrentUser();
                     $cookies.put('SID', user.sid, { domain: 'kpi.ua' });
                     $cookies.put('SID', user.sid, { domain: 'campus.kpi.ua' });
-                    $window.location.href = 'http://campus.kpi.ua/';
+                    $window.location.href = '/admin';
                 }
             });
         };

@@ -1,0 +1,91 @@
+    <a href="#top" class="scroll-to-top-Btn"><i class="fa fa-chevron-up"></i></a>
+
+    <section class="container topMenu background-light border-bottom-orange">
+        <div class="row">
+            <a href="/statistic">
+                <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre" data-title="Перейти до розділів статистики">
+                    <i class="fa fa-th-large"></i>
+                </div>
+            </a>
+            <a href="/home">
+                <div class="col-md-3  col-md-offset-4 col-sm-4 col-sm-offset-7 col-xs-10 col-xs-offset-1 menuButtons textCentre" data-title="В Кампус">
+                    <div class="menuButtons--img"></div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="container radioMenu ">
+        <div class="dropDownWrapper">
+            <form>
+                <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2">
+                    <option value=""></option>
+                </select>
+            </form>
+        </div>
+        <div class="radioBtnWrapper">
+            <label class="topLabel">Оберіть кафедру</label>
+        </div>
+    </section>
+
+    <section class="container download nPPBody border-top-orange">
+        <div class="row">
+            <a download="Забеспечення кредитного модуля.xls" href="#" onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
+                <div class="col-md-6 col-md-offset-3 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                    <i class="fa fa-file-excel-o "></i> Завантажини звіт (Всі розділи)(.xls)
+                </div>
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <a download="Забеспечення кредитного модуля РОЗДІЛ 1.xls" href="#" onclick="return ExcellentExport.excel(this, 'section1', 'NPP');">
+                    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                        <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 1) (.xls)
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <a download="Забеспечення кредитного модуля РОЗДІЛ 2.xls" href="#" onclick="return ExcellentExport.excel(this, 'section2', 'NPP');">
+                    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                        <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 2) (.xls)
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <a download="Забеспечення кредитного модуля РОЗДІЛ 3.xls" href="#" onclick="return ExcellentExport.excel(this, 'section3', 'NPP');">
+                    <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                        <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 3) (.xls)
+                    </div>
+                </a>
+            </div>
+
+
+
+        </div>
+    </section>
+
+    <div class="container nPPBody">
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="loader">
+                    <div class="loader_inner"></div>
+                </div>
+                <div class="loaderQuery">
+                    <div class="loader_inner"></div>
+                    <div class="statusLine"></div>
+                </div>
+                <div id="zkmWrapper">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <table id="table-for-download">
+
+        </table>
+    </div>
+
+    <div id="authorized" class="hidden"></div>
+    <script src="scripts/services/forSectionZkm.js"></script>

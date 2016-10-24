@@ -2,22 +2,29 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:StatisticCtrl
+ * @name ecampusApp.controller:ZkmCtrl
  * @description
- * # StatisticCtrl
+ * # ZkmCtrl
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('StatisticCtrl', function ($scope, $cookies, $window, Api) {
+    .controller('ZkmCtrl', function ($scope, $cookies, $window, Api) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
         ];
-        //    CommonJS
+        console.log('ZkmCtrl');
+    //    CommonJS
         var bodyPosition;
 
         $(window).load(function() {
+
+
+        });
+
+        $(document).ready(function() {
+            //load
 
             if($(".nPPBody").offset()){
                 bodyPosition = $(".nPPBody").offset().top;
@@ -38,10 +45,7 @@ angular.module('ecampusApp')
             $('.login-message').click(function() {
                 $('.login-message').addClass('hidden');
             })
-
-        });
-
-        $(document).ready(function() {
+            //
             $(".loader_inner").fadeOut();
             $(".loader").delay(400).fadeOut("slow");
             if (!!document.querySelector("#authorized") && !Campus.getToken()) {
@@ -105,8 +109,6 @@ angular.module('ecampusApp')
             }
 
         }
-
-
 
         function setFacultyAndInstitute(){
             var kpiQuery= false;
@@ -214,5 +216,30 @@ angular.module('ecampusApp')
                 $(".nPPBody").addClass('container');
             }
         });
-        //    ---
+    //    ---
+
+    //    For section zkm
+        $(document).ready(function() {
+            //var kpiQuery= false;
+            $('#zkmWrapper').on('click', '.panel-heading', function() {
+                var panelId = this.parentNode.id;
+                $("#" + panelId + " .table").toggleClass("hidden");
+                $("#" + panelId + " .zkmContent").toggleClass("hidden");
+                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
+            });
+
+            $('#zkmWrapper').on('click', 'table', function() {});
+            //$(".statusLine").append('<p>Зачекайте будь ласка.</p>');
+            $(".loader_inner").fadeIn();
+
+            if (!!Campus.getToken()) {
+                setFacultyAndInstitute();
+                setSubdivisionDetails();
+            } else {
+                $(location).attr('href', 'index.html');
+            }
+
+        });
+
+    //    ---
     });

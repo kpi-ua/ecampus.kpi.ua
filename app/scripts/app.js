@@ -66,19 +66,31 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'DebuggerCtrl',
             controllerAs: 'Debugger'
         })
+        .when('/admin', {
+          templateUrl: 'views/admin.html',
+          controller: 'AdminCtrl',
+          controllerAs: 'admin'
+        })
         .when('/statistic', {
-          templateUrl: 'views/statistic.html',
+          templateUrl: 'views/statistic/init.html',
           controller: 'StatisticCtrl',
           controllerAs: 'statistic'
-        })        
-<<<<<<< HEAD
-=======
+        })
+        .when('/statistic/npp', {
+          templateUrl: 'views/statistic/nPP.html',
+          controller: 'NppCtrl',
+          controllerAs: 'npp'
+        })
+        .when('/statistic/zkm', {
+          templateUrl: 'views/statistic/zkm.html',
+          controller: 'ZkmCtrl',
+          controllerAs: 'zkm'
+        })
         .when('/home', {
           templateUrl: 'views/home.html',
           controller: 'HomeCtrl',
           controllerAs: 'home'
         })
->>>>>>> 3f9ff3f2f52032e2c7ac9dcc329b19b85eb1cbfb
         .otherwise({
             redirectTo: '/'
         });

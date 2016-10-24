@@ -2,23 +2,30 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:StatisticCtrl
+ * @name ecampusApp.controller:NppCtrl
  * @description
- * # StatisticCtrl
+ * # NppCtrl
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('StatisticCtrl', function ($scope, $cookies, $window, Api) {
+    .controller('NppCtrl', function ($scope, $cookies, $window, Api) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma'
         ];
+        console.log('NppCtrl');
         //    CommonJS
         var bodyPosition;
 
         $(window).load(function() {
 
+
+
+        });
+
+        $(document).ready(function() {
+            //load
             if($(".nPPBody").offset()){
                 bodyPosition = $(".nPPBody").offset().top;
                 $("a[href='#top']").mPageScroll2id();
@@ -38,10 +45,8 @@ angular.module('ecampusApp')
             $('.login-message').click(function() {
                 $('.login-message').addClass('hidden');
             })
+            //
 
-        });
-
-        $(document).ready(function() {
             $(".loader_inner").fadeOut();
             $(".loader").delay(400).fadeOut("slow");
             if (!!document.querySelector("#authorized") && !Campus.getToken()) {
@@ -105,8 +110,6 @@ angular.module('ecampusApp')
             }
 
         }
-
-
 
         function setFacultyAndInstitute(){
             var kpiQuery= false;
@@ -215,4 +218,28 @@ angular.module('ecampusApp')
             }
         });
         //    ---
+    //    For section npp
+        $(document).ready(function() {
+            bodyPosition = $(".nPPBody").offset().top+$(".topMenu").offset().top;
+            $('#1, #2').on('click', '.panel-heading', function(event) {
+                event.preventDefault();
+                var panelId = this.parentNode.id;
+                $("#" + panelId + " .table").toggleClass("hidden");
+                //$("#" + panelId + " .zkmContent").toggleClass("hidden");
+                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
+            });
+
+            $('#1, #2').on('click', 'table', function() {});
+
+            $(".loader_inner").fadeOut();
+            $(".loaderQuery").delay(400).fadeOut("slow");
+
+            if (!!Campus.getToken()) {
+                setFacultyAndInstitute();
+                setSubdivisionDetails();
+            } else {
+                $(location).attr('href', 'index.html');
+            }
+        });
+    //    ---
     });
