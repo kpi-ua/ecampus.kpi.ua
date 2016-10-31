@@ -1,11 +1,11 @@
 //API JS SDK v1.2.0.500
 
 var API = function () { };
-Campus = new API();
+var Campus = new API();
 
-"use strict"
-API.prototype.ApiEndpoint = 'https://api.campus.kpi.ua/';
-
+"use strict";
+//API.prototype.ApiEndpoint = 'https://api.campus.kpi.ua/';
+API.prototype.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
 /**
  * Set auth token
  */

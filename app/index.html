@@ -13,16 +13,21 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,300,700&subset=latin,cyrillic,cyrillic-ext" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.1/chosen.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css" />
+    <link rel="stylesheet" href="bower_components/webix/codebase/webix.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+
+    <link rel="stylesheet" href="styles/stat.main.css">
     <link rel="stylesheet" href="styles/main.css">
+
     <!-- endbuild -->
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -39,26 +44,14 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <header class="container-fluid">
-        <div class="row center-block">
-            <div class="col-md-6">
-                <a href="/#/">
-                    Електронний кампус
-                </a>
-            </div>
-            <div class="col-md-6 text-right">
-                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ<br /> «КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ імені Ігоря Сікорського»
-            </div>
-        </div>
-    </header>
+    <page-header class="container-fluid"></page-header>
 
     <div class="white" ng-view></div>
 
     <footer class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                Усі права застережено. &copy; 2016 <a href="http://kpi.ua/">НТУУ «КПІ імені Ігоря Сікорського»</a> <br />
-                Розробник: <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
+                Усі права застережено. &copy; 2016 <a href="http://kpi.ua/">НТУУ «КПІ імені Ігоря Сікорського»</a> <br /> Розробник: <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
             </div>
             <div class="col-md-8 text-right">
                 <a href="/#/privacy">Правила використання інформації сайту</a> /
@@ -109,10 +102,14 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-input-stars-directive/angular-input-stars.js"></script>
+    <script src="bower_components/kjur-jsrsasign/jsrsasign-latest-all-min.js"></script>
+    <script src="bower_components/jwt-decode/build/jwt-decode.js"></script>
+    <script src="bower_components/webix/codebase/webix.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.6.1/chosen.jquery.min.js"></script>
     <script src="scripts/campus.sdk.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/main.js"></script>
@@ -122,7 +119,17 @@
     <script src="scripts/controllers/security.js"></script>
     <script src="scripts/controllers/votingProfile.js"></script>
     <script src="scripts/services/api.js"></script>
+    <script src="scripts/controllers/admin.js"></script>
     <script src="scripts/controllers/statistic.js"></script>
+    <script src="scripts/controllers/npp.js"></script>
+    <script src="scripts/controllers/zkm.js"></script>
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/controllers/home/bulletinsBoard.js"></script>
+    <script src="scripts/controllers/home/disciplinesChoice.js"></script>
+    <script src="scripts/libs/excellent-export/excellentexport.min.js"></script>
+    <script src="scripts/libs/scroll2id/PageScroll2id.min.js"></script>
+    <script src="scripts/directives/toggle.js"></script>
+    <script src="scripts/directives/pageHeader.js"></script>
     <!-- endbuild -->
 
 

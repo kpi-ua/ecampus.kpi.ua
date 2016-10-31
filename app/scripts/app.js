@@ -66,12 +66,42 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'DebuggerCtrl',
             controllerAs: 'Debugger'
         })
+        .when('/admin', {
+          templateUrl: 'views/admin.html',
+          controller: 'AdminCtrl',
+          controllerAs: 'admin'
+        })
         .when('/statistic', {
-          templateUrl: 'views/statistic.html',
+          templateUrl: 'views/statistic/init.html',
           controller: 'StatisticCtrl',
           controllerAs: 'statistic'
-        })        
-        .otherwise({
+        })
+        .when('/statistic/npp', {
+          templateUrl: 'views/statistic/nPP.html',
+          controller: 'NppCtrl',
+          controllerAs: 'npp'
+        })
+        .when('/statistic/zkm', {
+          templateUrl: 'views/statistic/zkm.html',
+          controller: 'ZkmCtrl',
+          controllerAs: 'zkm'
+        })
+        .when('/home', {
+          templateUrl: 'views/home.html',
+          controller: 'HomeCtrl',
+          controllerAs: 'home'
+        })
+        .when('/home/bulletins/board', {
+          templateUrl: "views/home/bulletins-board.html",
+          controller: "HomeBulletinsBoardCtrl",
+          controllerAs: 'board'
+        })
+      .when('/home/disciplines/choice', {
+        templateUrl: "views/home/disciplines-choice.html",
+        controller: "DisciplinesChoiceCtrl",
+        controllerAs: 'choice'
+      })
+      .otherwise({
             redirectTo: '/'
         });
 

@@ -30,6 +30,9 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-input-stars-directive/angular-input-stars.js',
+      'bower_components/kjur-jsrsasign/jsrsasign-latest-all-min.js',
+      'bower_components/jwt-decode/build/jwt-decode.js',
+      'bower_components/webix/codebase/webix.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',
