@@ -91,6 +91,11 @@ app.config(function ($routeProvider, $locationProvider) {
           controller: 'HomeCtrl',
           controllerAs: 'home'
         })
+        .when('/home/bulletins/board', {
+          templateUrl: "views/home/bulletins-board.html",
+          controller: "HomeBulletinsBoardCtrl",
+          controllerAs: 'board'
+        })   
         .otherwise({
             redirectTo: '/'
         });
