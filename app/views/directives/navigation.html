@@ -7,7 +7,7 @@
             НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ<br /> «КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ імені Ігоря Сікорського»
         </div>
     </div>
-    <div class="row">
+    <div class="row" ng-show="!!user">
         <div id="navbar" class="navbar-collapse collapse campus-navigation">
             <ul class="nav navbar-nav">
                 <li><a href="/#/home">Головна</a></li>
@@ -15,9 +15,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Модулi <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="/#/admin">Підсистема адміністрування</a></li>
-                        <li><a href="/#/voting">Модуль оцінювання викладачів</a></li>
-                        <li><a href="/#/statistic">Модуль статистики</a></li>
+                        <li><a href="/#/admin">Адміністрування</a></li>
+                        <li><a href="/#/voting">Оцінювання викладачів</a></li>
+                        <li><a href="/#/statistic">Статистика</a></li>
                         <!--<li><a href="/#/debugger.html">Дебагер</a></li>-->
                     </ul>
                 </li>

@@ -7,16 +7,18 @@
  * # header
  */
 angular.module('ecampusApp')
-    .directive('pageHeader', function() {
+    .directive('navigation', function() {
         return {
             restrict: 'E',
             replace: true,
-            templateUrl: "views/directives/pageHeader.html",
+            templateUrl: "views/directives/navigation.html",
             controller: ['$scope', 'Api', function($scope, Api) {
                 $scope.userAuthenticated = false;
-                $scope.userResp = false;
+                $scope.user = null;
 
                 var user = Api.getCurrentUser();
+                $scope.user = user;
+
                 if (!!user) {
                     $scope.userAuthenticated = true;
                 }
@@ -24,11 +26,6 @@ angular.module('ecampusApp')
                 if ($scope.userAuthenticated) {
                     $scope.userName = user.name;
                     $scope.userImage = Api.getApiEndpoint() + "/Account/" + user.id + "/ProfileImage";
-                }
-
-                var decodedToken = jwt_decode(Api.getToken())
-                if (decodedToken.resp) {
-                    $scope.userResp = true;
                 }
             }]
         };

@@ -8,15 +8,13 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('SecurityCtrl', function ($scope, $cookies, $window, Api) {
+    .controller('SecurityCtrl', function($scope, $cookies, $window, Api) {
 
         $scope.step = 1;
         $scope.captcha = '';
         $scope.userId = '';
         $scope.loader = false;
         $scope.captchaImage = '';
-
-        
 
         function restorePassword() {
 
@@ -30,12 +28,12 @@ angular.module('ecampusApp')
             $scope.loader = true;
 
             Api.execute("POST", url, payload)
-                .done(function () {
+                .done(function() {
                     step(3);
                     $scope.loader = false;
                     $scope.$apply();
                 })
-                .fail(function (result) {
+                .fail(function(result) {
                     $scope.loader = false;
 
                     if (result.status === 403) {
@@ -66,11 +64,11 @@ angular.module('ecampusApp')
             $scope.step = n;
         }
 
-        $scope.getCaptcha = function () {
+        $scope.getCaptcha = function() {
             getCaptcha();
         };
 
-        $scope.restorePassword = function () {
+        $scope.restorePassword = function() {
             restorePassword();
         };
     });
