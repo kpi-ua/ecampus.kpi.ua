@@ -315,8 +315,7 @@ header .logo-kpi {
     position: relative;
     overflow: hidden;
     margin-bottom: 5px;
-    max-height: 213px;
-    height: 193px;
+    height: auto;
 }
 
 .content {
@@ -633,9 +632,9 @@ input[type="radio"] + label {
   border-radius: 50%;
   margin-right: 10px;
   background: url(../images/home/user.png) no-repeat;
-  -webkit-background-size: cover; 
-  -moz-background-size: cover; 
-  -o-background-size: cover; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 
@@ -749,6 +748,7 @@ a.bulletin-title:hover{
 .study-profile, .item{
   padding-left: 30px;
   padding-right: 30px;
+
 }
 
 .panel-item {
@@ -816,5 +816,24 @@ a.bulletin-title:hover{
 
 .article-date {
   padding-left: 2px;
+}
+
+.webix_tree.webix_view {
+  height: auto !important;
+  width: auto !important;
+}
+
+.webix_tree_checkbox {
+  margin: 0 0 0 !important;
+}
+.webix_tree_item.webix_selected {
+  background: #208843 !important;
+}
+.webix_tree .webix_scroll_cont>.webix_tree_leaves {
+  padding: 0 0 0 0;
+}
+
+.webix_selected > .webix_tree_close, .webix_selected > .webix_tree_open {
+  color: white;
 }
 
