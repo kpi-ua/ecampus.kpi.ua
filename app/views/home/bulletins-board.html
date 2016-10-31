@@ -35,21 +35,21 @@
     <!-- Всі оголошення -->
     <div class="tab-pane" ng-class="{ active: isSet(1) }">
       <div class="panel-group">
-        <div class="panel panel-primary" ng-repeat="article in allArticles" ng-click='isActive=!isActive'>
+        <div class="panel panel-primary" ng-repeat="board in allBoards" ng-click='isActive=!isActive'>
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="bulletin-title">
-                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-down': isActive, 'glyphicon-chevron-right' : !isActive }"></span>{{article.subject}}
+                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-down': isActive, 'glyphicon-chevron-right' : !isActive }"></span>{{board.subject}}
               </a>
               <span data-toggle="tooltip" data-placement="left" class="pull-right glyphicon glyphicon-ok-sign" data-original-title="Актуальність"></span>
             </h4>
           </div>
-          <div id="collapse1-{{article.id}}" class="panel-collapse" ng-show="isActive">
-            <div class="panel-body bulletin-body">{{article.text}}</div>
+          <div id="collapse1-{{board.id}}" class="panel-collapse" ng-show="isActive">
+            <div class="panel-body bulletin-body">{{board.text}}</div>
             <div class="panel-footer">
-              <span><span class="glyphicon glyphicon-user"></span><span class="bulletin-user">{{article.creatorName}}</span></span>
+              <span><span class="glyphicon glyphicon-user"></span><span class="bulletin-user">{{board.creatorName}}</span></span>
 							<span class="pull-right"><span class="glyphicon glyphicon-calendar"></span>
-							<span class="bulletin-date">{{stringToUaDate(article.dateCreate)}}</span></span>
+							<span class="bulletin-date">{{stringToUaDate(board.dateCreate)}}</span></span>
             </div>
           </div>
         </div>
@@ -59,21 +59,21 @@
     <!-- Оголошення за профілем -->
     <div class="tab-pane" ng-class="{ active: isSet(2) }">
       <div class="panel-group">
-        <div class="panel panel-primary" ng-repeat="article in articlesForProfile" ng-click='isActive=!isActive'>
+        <div class="panel panel-primary" ng-repeat="board in boardsForProfile" ng-click='isActive=!isActive'>
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="bulletin-title">
-                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-down': isActive, 'glyphicon-chevron-right' : !isActive }"></span>{{article.subject}}
+                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-down': isActive, 'glyphicon-chevron-right' : !isActive }"></span>{{board.subject}}
               </a>
               <span data-toggle="tooltip" data-placement="left" class="pull-right glyphicon glyphicon-ok-sign" data-original-title="Актуальність"></span>
             </h4>
           </div>
-          <div id="collapse1-{{article.id}}" class="panel-collapse" ng-show="isActive">
-            <div class="panel-body bulletin-body">{{article.text}}</div>
+          <div id="collapse1-{{board.id}}" class="panel-collapse" ng-show="isActive">
+            <div class="panel-body bulletin-body">{{board.text}}</div>
             <div class="panel-footer">
-              <span><span class="glyphicon glyphicon-user"></span><span class="bulletin-user">{{article.creatorName}}</span></span>
+              <span><span class="glyphicon glyphicon-user"></span><span class="bulletin-user">{{board.creatorName}}</span></span>
 							<span class="pull-right"><span class="glyphicon glyphicon-calendar"></span>
-							<span class="bulletin-date">{{stringToUaDate(article.dateCreate)}}</span></span>
+							<span class="bulletin-date">{{stringToUaDate(board.dateCreate)}}</span></span>
             </div>
           </div>
         </div>
@@ -83,21 +83,21 @@
     <!-- Оголошення за підрозділом -->
     <div class="tab-pane" ng-class="{ active: isSet(3) }">
       <div class="panel-group">
-        <div class="panel panel-primary" ng-repeat="article in articlesForSubdivision" ng-click='isActive=!isActive'>
+        <div class="panel panel-primary" ng-repeat="board in boardsForSubdivision" ng-click='isActive=!isActive'>
           <div class="panel-heading">
             <h4 class="panel-title">
               <a class="arbulletin-title">
-                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-down': isActive, 'glyphicon-chevron-right' : !isActive }"></span>{{article.subject}}
+                <span class="glyphicon" ng-class="{ 'glyphicon-chevron-down': isActive, 'glyphicon-chevron-right' : !isActive }"></span>{{board.subject}}
               </a>
               <span data-toggle="tooltip" data-placement="left" class="pull-right glyphicon glyphicon-ok-sign" data-original-title="Актуальність"></span>
             </h4>
           </div>
-          <div id="collapse1-{{article.id}}" class="panel-collapse" ng-show="isActive">
-            <div class="panel-body bulletin-body">{{article.text}}</div>
+          <div id="collapse1-{{board.id}}" class="panel-collapse" ng-show="isActive">
+            <div class="panel-body bulletin-body">{{board.text}}</div>
             <div class="panel-footer">
-              <span><span class="glyphicon glyphicon-user"></span><span class="bulletin-user">{{article.creatorName}}</span></span>
+              <span><span class="glyphicon glyphicon-user"></span><span class="bulletin-user">{{board.creatorName}}</span></span>
 							<span class="pull-right"><span class="glyphicon glyphicon-calendar"></span>
-							<span class="bulletin-date">{{stringToUaDate(article.dateCreate)}}</span></span>
+							<span class="bulletin-date">{{stringToUaDate(board.dateCreate)}}</span></span>
             </div>
           </div>
         </div>
