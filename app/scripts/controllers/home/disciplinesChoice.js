@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:HomeCtrl
+ * @name ecampusApp.controller:DisciplinesChoiceCtrl
  * @description
- * # HomeCtrl
+ * # DisciplinesChoiceCtrl
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')

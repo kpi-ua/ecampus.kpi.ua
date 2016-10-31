@@ -96,7 +96,7 @@ app.config(function ($routeProvider, $locationProvider) {
           controller: "HomeBulletinsBoardCtrl",
           controllerAs: 'board'
         })
-      .when('/home/disciplines-choice', {
+      .when('/home/disciplines/choice', {
         templateUrl: "views/home/disciplines-choice.html",
         controller: "DisciplinesChoiceCtrl",
         controllerAs: 'choice'

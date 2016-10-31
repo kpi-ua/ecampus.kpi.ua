@@ -632,6 +632,11 @@ input[type="radio"] + label {
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
+  background: url(../images/home/user.png) no-repeat;
+  -webkit-background-size: cover; 
+  -moz-background-size: cover; 
+  -o-background-size: cover; 
+  background-size: cover;
 }
 
 .user-name {
