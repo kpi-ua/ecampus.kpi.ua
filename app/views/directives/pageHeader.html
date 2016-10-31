@@ -10,33 +10,36 @@
     <div class="row">
         <div id="navbar" class="navbar-collapse collapse campus-navigation">
             <ul class="nav navbar-nav">
-                <li><a href="/#/">Головна</a></li>
-                <li><a href="/#/home">Кампус</a></li>
-                <li><a href="/#/admin">Підсистема адміністрування</a></li>
-                <li><a href="/#/voting">Модуль оцінювання викладачів</a></li>
-                <li><a href="/#/statistic">Модуль статистики</a></li>
-                <li><a href="/#/debugger.html">Дебагер</a></li>
-                <li><a href="/#/contacts">Контактнi данi</a></li>
+                <li><a href="/#/home">Головна</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Модулi <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/#/admin">Підсистема адміністрування</a></li>
+                        <li><a href="/#/voting">Модуль оцінювання викладачів</a></li>
+                        <li><a href="/#/statistic">Модуль статистики</a></li>
+                        <!--<li><a href="/#/debugger.html">Дебагер</a></li>-->
+                    </ul>
+                </li>
+
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Iнформація <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/#/privacy">Правила використання інформації сайту</a></li>
                         <li><a href="/#/about">Про систему</a></li>
+                        <li><a href="/#/contacts">Контактнi данi</a></li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-if="userAuthenticated">
-                    <div class="user-name">
-                        <p class="text">Вітаємо, {{userName}}!</p>
-                    </div>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-briefcase"></i>Вітаємо, {{userName}}! <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/#/privacy">Налаштування</a></li>
+                        <li><a href="/#/about">Вийти з системи</a></li>
+                    </ul>
+                </li>
 
-                </li>
-                <li ng-if="userResp">
-                    <span class="special-user-img">
-                        <i class="fa fa-briefcase"></i>
-                    </span>
-                </li>
 
             </ul>
         </div>
