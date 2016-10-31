@@ -1,54 +1,37 @@
-    <section class="topMenu border-bottom-main-color">
-        <div class="row">
-            <a href="/admin">
-                <div class="col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre">
-                    <div class="menuButtons--img menuButtons--img_arrow-left">
-                        Перейти до розділів адміністрування
-                    </div>
-                </div>
-            </a>
-            <a href="/home">
-                <div class="col-md-3  col-md-offset-4 col-sm-4 col-sm-offset-7 col-xs-10 col-xs-offset-1 menuButtons textCentre">
-                    <div class="menuButtons--img menuButtons--img_campus">В Кампус</div>
-                </div>
-            </a>
-        </div>
-    </section>
+<div class="loginWrapper border-bottom-main-color">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 loginContainer">
 
-    <div class="loginWrapper border-bottom-main-color">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 loginContainer">
+            <div class="loader">
+                <div class="loader_inner"></div>
+            </div>
 
-                <div class="loader">
-                    <div class="loader_inner"></div>
+            <div class="loginLogo textCentre">
+                <img src="../../images/logo-big-green.png">
+            </div>
+            <p class="textCentre">Підсистема статистики</p>
+            <div class="initButtonsWrapper textCentre main-menu">
+                <div class="row">
+                    <a href="/statistic/zkm">
+                        <div class="col-md-4 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 initButtons">
+                            <i class="fa fa-book fa-3x"></i>
+                            <p>Забезпечення кредитного модуля</p>
+                        </div>
+                    </a>
+                    <a href="/statistic/npp">
+                        <div class="col-md-4 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 initButtons">
+                            <i class="fa fa-briefcase fa-3x"></i>
+                            <p>Навантаження НПП</p>
+                        </div>
+                    </a>
                 </div>
+            </div>
 
-                <div class="loginLogo textCentre">
-                    <img src="../../images/logo-big-green.png">
-                </div>
-                <p class="textCentre">Підсистема статистики</p>
-                <div class="initButtonsWrapper textCentre main-menu">
-                    <div class="row">
-                        <a href="/statistic/zkm">
-                            <div class="col-md-4 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 initButtons">
-                                <i class="fa fa-book fa-3x"></i>
-                                <p>Забезпечення кредитного модуля</p>
-                            </div>
-                        </a>
-                        <a href="/statistic/npp">
-                            <div class="col-md-4 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 initButtons">
-                                <i class="fa fa-briefcase fa-3x"></i>
-                                <p>Навантаження НПП</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="textCentre loginLinks">
-                    <p><a data-toggle="modal" data-target="#support-modal" href="#">Служба підтримки користувачів</a></p>
-                </div>
+            <div class="textCentre loginLinks">
+                <p><a data-toggle="modal" data-target="#support-modal" href="#">Служба підтримки користувачів</a></p>
             </div>
         </div>
     </div>
+</div>
 
-    <div id="authorized" class="hidden"></div>
+<div id="authorized" class="hidden"></div>
