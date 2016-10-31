@@ -9,12 +9,16 @@ describe('Directive: toggle', function () {
     scope;
 
   beforeEach(inject(function ($rootScope) {
-    scope = $rootScope.$new();
+    scope = $rootScope.$new();    
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<toggle></toggle>');
+  it('should call bootstrap method tooltip', inject(function ($compile) {
+    element = angular.element('<span data-toggle="tooltip" data-original-title="Актуальність"></span>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the toggle directive');
+    
+    spyOn(element, 'tooltip');
+    //must bu element.trigger("event_that_call_tooltip")
+    element.tooltip();
+    expect(element.tooltip).toHaveBeenCalled();
   }));
 });
