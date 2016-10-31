@@ -91,7 +91,17 @@ app.config(function ($routeProvider, $locationProvider) {
           controller: 'HomeCtrl',
           controllerAs: 'home'
         })
-        .otherwise({
+        .when('/home/bulletins/board', {
+          templateUrl: "views/home/bulletins-board.html",
+          controller: "HomeBulletinsBoardCtrl",
+          controllerAs: 'board'
+        })
+      .when('/home/disciplines/choice', {
+        templateUrl: "views/home/disciplines-choice.html",
+        controller: "DisciplinesChoiceCtrl",
+        controllerAs: 'choice'
+      })
+      .otherwise({
             redirectTo: '/'
         });
 
