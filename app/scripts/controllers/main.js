@@ -42,13 +42,18 @@ angular.module('ecampusApp')
         }
 
         init();
+        $(".loader_inner").fadeOut();
+        $(".loader").delay(400).fadeOut("slow");
 
         $scope.auth = function() {
+            $(".loader_inner").fadeIn();
+            $(".loader").fadeIn("slow");
             Api.auth($scope.login, $scope.password).then(function(token) {
 
                 $scope.error = !token;
                 $scope.$apply();
-
+                $(".loader_inner").fadeOut();
+                $(".loader").fadeOut("slow");
                 if (!$scope.error) {
                     var user = Api.getCurrentUser();
                     $cookies.put('SID', user.sid, { domain: 'kpi.ua' });
