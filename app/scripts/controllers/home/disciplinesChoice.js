@@ -8,10 +8,6 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('DisciplinesChoiceCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('DisciplinesChoiceCtrl', function() {
+
+    });

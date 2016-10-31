@@ -9,26 +9,11 @@
  */
 angular.module('ecampusApp')
     .controller('NppCtrl', function($scope, $cookies, $window, Api) {
-        this.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-        //console.log('NppCtrl');
-        //    CommonJS
-        var bodyPosition;
-        $(window).on('load', function() {
-            $("a[href='#top']").mPageScroll2id();
-        });
 
         reload();
 
         function reload() {
-            //load
-            if ($(".nPPBody").offset()) {
-                bodyPosition = $(".nPPBody").offset().top;
 
-            }
             if (!!Campus.getToken()) {
                 var sClaim = decodeToken(Campus.getToken());
 
@@ -50,7 +35,24 @@ angular.module('ecampusApp')
             if (!!document.querySelector("#authorized") && !Campus.getToken()) {
                 history.back();
             }
-        };
+
+            $('#1, #2').on('click', '.panel-heading', function(event) {
+
+                var panelId = this.parentNode.id;
+                $("#" + panelId + " .table").toggleClass("hidden");                
+                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
+            });
+
+            $('#1, #2').on('click', 'table', function() {});
+
+            $(".loader_inner").fadeOut();
+            $(".loaderQuery").delay(400).fadeOut("slow");
+
+            if (!!Campus.getToken()) {
+                setFacultyAndInstitute();
+                setSubdivisionDetails();
+            }
+        }
 
         function decodeToken(accessTokenIn) {
 
@@ -85,6 +87,10 @@ angular.module('ecampusApp')
         }
 
         function setSubdivisionDetails() {
+
+            debugger;
+
+            var user = Api.getCurrentUser();
             var sClaim = decodeToken(Campus.getToken());
             sClaim = JSON.parse(sClaim);
             if (typeof(sClaim.resp) == "object") {
@@ -179,65 +185,4 @@ angular.module('ecampusApp')
             }
             return kpiQuery;
         }
-
-        $("#loginBtn").click(function() {
-            $(".loader_inner").fadeIn();
-            $(".loader").fadeIn("slow");
-            var login = $("#main_content_placeholder_login").val();
-            var password = $("#main_content_placeholder_password").val();
-            Campus.auth(login, password).then(function(token) {
-                if (!token) {
-                    $('.login-message').removeClass('hidden');
-                } else {
-                    $(".loader_inner").fadeOut();
-                    $(".loader").delay(400).fadeOut("slow");
-                    $(location).attr('href', 'initAdmin.html');
-                }
-            });
-            $(".loader_inner").fadeOut();
-            $(".loader").fadeOut("slow");
-
-
-        });
-
-        $(window).scroll(function() {
-            if ($(window).scrollTop() > 100) {
-                $(".scroll-to-top-Btn").fadeIn(300);
-            } else {
-                $(".scroll-to-top-Btn").fadeOut(300);
-            }
-            //if(bodyPosition && $(window).scrollTop()>bodyPosition){
-            //    $(".nPPBody").removeClass('container');
-            //} else {
-            //    $(".nPPBody").addClass('container');
-            //}
-        });
-        //    ---
-        //    For section npp
-        $(document).ready(function() {
-            bodyPosition = $(".nPPBody").offset().top + $(".topMenu").offset().top;
-            $('#1, #2').on('click', function(event) {
-
-            });
-            $('#1, #2').on('click', '.panel-heading', function(event) {
-
-                var panelId = this.parentNode.id;
-                $("#" + panelId + " .table").toggleClass("hidden");
-                //$("#" + panelId + " .zkmContent").toggleClass("hidden");
-                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
-            });
-
-            $('#1, #2').on('click', 'table', function() {});
-
-            $(".loader_inner").fadeOut();
-            $(".loaderQuery").delay(400).fadeOut("slow");
-
-            if (!!Campus.getToken()) {
-                setFacultyAndInstitute();
-                setSubdivisionDetails();
-            } else {
-                $(location).attr('href', 'index.html');
-            }
-        });
-        //    ---
     });

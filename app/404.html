@@ -1,95 +1,95 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Page Not Found :(</title>
-    <style>
-      ::-moz-selection {
-        background: #b3d4fc;
-        text-shadow: none;
-      }
+'use strict';
 
-      ::selection {
-        background: #b3d4fc;
-        text-shadow: none;
-      }
+/**
+ * @ngdoc function
+ * @name ecampusApp.controller:VotingCtrl
+ * @description
+ * # VotingCtrl
+ * Controller of the ecampusApp
+ */
+angular.module('ecampusApp')
+    .controller('VotingCtrl', function($scope, $location, Api) {
 
-      html {
-        padding: 30px 10px;
-        font-size: 20px;
-        line-height: 1.4;
-        color: #737373;
-        background: #f0f0f0;
-        -webkit-text-size-adjust: 100%;
-        -ms-text-size-adjust: 100%;
-      }
+        $scope.currentUser = null;
+        $scope.personsForVote = [];
 
-      html,
-      input {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      }
+        function reload() {
 
-      body {
-        max-width: 500px;
-        padding: 30px 20px 50px;
-        border: 1px solid #b3b3b3;
-        border-radius: 4px;
-        margin: 0 auto;
-        box-shadow: 0 1px 10px #a7a7a7, inset 0 1px 0 #fff;
-        background: #fcfcfc;
-      }
+            $scope.currentUser = Api.getCurrentUser();
 
-      h1 {
-        margin: 0 10px;
-        font-size: 50px;
-        text-align: center;
-      }
+            if (!$scope.currentUser) {
+                $location.path("/");
+            }
 
-      h1 span {
-        color: #bbb;
-      }
+            Api.execute("GET", "Vote/Term/Current").then(function(data) {
+                $scope.voteTerm = !!data && data.length > 0 ? data[0] : null;
 
-      h3 {
-        margin: 1.5em 0 0.5em;
-      }
+                if (!$scope.voteTerm) {
+                    //Voting is closed
+                }
 
-      p {
-        margin: 1em 0;
-      }
+                getAllPersons();
+                getAlreadyVotedPersons();
 
-      ul {
-        padding: 0 0 0 40px;
-        margin: 1em 0;
-      }
+            });
 
-      .container {
-        max-width: 380px;
-        margin: 0 auto;
-      }
+            function getAllPersons() {
+                var action = "Vote/Persons/" + $scope.currentUser.id;
 
-      /* google search */
+                var payload = {
+                    page: 1,
+                    size: 100,
+                    envelope: false
+                };
 
-      #goog-fixurl ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
+                Api.execute("GET", action, payload).then(function(data) {
+                    $scope.personsForVote = data;
+                    $scope.$apply();
 
-      #goog-fixurl form {
-        margin: 0;
-      }
+                    console.log('$scope.personsForVote', $scope.personsForVote);
+                });
+            }
 
-      #goog-wm-qt,
-      #goog-wm-sb {
-        border: 1px solid #bbb;
-        font-size: 16px;
-        line-height: normal;
-        vertical-align: top;
-        color: #444;
-        border-radius: 2px;
-      }
+            function getAlreadyVotedPersons() {
 
-      #goog-wm-qt {
+                var action = "Vote/Persons/" + $scope.currentUser.id + "/Voted";
+
+                var payload = {
+                    voteTermId: $scope.voteTerm.id,
+                    page: 1,
+                    size: 100,
+                    envelope: false
+                };
+
+                Api.execute("GET", action, payload).then(function(data) {
+                    $scope.personsAlreadyVoted = data;
+                    $scope.$apply();
+                    console.log('$scope.personsAlreadyVoted', $scope.personsAlreadyVoted);
+                });
+
+            }
+
+            $scope.personVoted = function(person) {
+                var result = false;
+
+                if (!!$scope.personsAlreadyVoted) {
+
+                    $scope.personsAlreadyVoted.forEach(function(p) {
+                        if (p.employeesId == person.employeesId) {
+                            result = true;
+                        }
+                    });
+
+                }
+
+                return result;
+            };
+
+        }
+
+        reload();
+
+    });goog-wm-qt {
         width: 220px;
         height: 20px;
         padding: 5px;

@@ -9,16 +9,11 @@
  */
 angular.module('ecampusApp')
     .controller('ZkmCtrl', function($scope, $cookies, $window, Api) {
-        var bodyPosition;
 
         reload();
 
         function reload() {
 
-            if ($(".nPPBody").offset()) {
-                bodyPosition = $(".nPPBody").offset().top;
-                $("a[href='#top']").mPageScroll2id();
-            }
             if (!!Campus.getToken()) {
                 var sClaim = decodeToken(Campus.getToken());
 
@@ -36,11 +31,27 @@ angular.module('ecampusApp')
             });
 
             $(".loader_inner").fadeOut();
-            
+
             $(".loader").delay(400).fadeOut("slow");
             if (!!document.querySelector("#authorized") && !Campus.getToken()) {
                 history.back();
-            }            
+            }
+
+            $('#zkmWrapper').on('click', '.panel-heading', function() {
+                var panelId = this.parentNode.id;
+                $("#" + panelId + " .table").toggleClass("hidden");
+                $("#" + panelId + " .zkmContent").toggleClass("hidden");
+                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
+            });
+
+            $('#zkmWrapper').on('click', 'table', function() {});
+
+            $(".loader_inner").fadeIn();
+
+            if (!!Campus.getToken()) {
+                setFacultyAndInstitute();
+                setSubdivisionDetails();
+            } ыы
         }
 
         function decodeToken(accessTokenIn) {
@@ -170,57 +181,4 @@ angular.module('ecampusApp')
             }
             return kpiQuery;
         }
-
-        $("#loginBtn").click(function() {
-            $(".loader_inner").fadeIn();
-            $(".loader").fadeIn("slow");
-            var login = $("#main_content_placeholder_login").val();
-            var password = $("#main_content_placeholder_password").val();
-            Campus.auth(login, password).then(function(token) {
-                if (!token) {
-                    $('.login-message').removeClass('hidden');
-                } else {
-                    $(".loader_inner").fadeOut();
-                    $(".loader").delay(400).fadeOut("slow");
-                    $(location).attr('href', 'initAdmin.html');
-                }
-            });
-            $(".loader_inner").fadeOut();
-            $(".loader").fadeOut("slow");
-
-
-        });
-
-        $(window).scroll(function() {
-            if ($(window).scrollTop() > 100) {
-                $(".scroll-to-top-Btn").fadeIn(300);
-            } else {
-                $(".scroll-to-top-Btn").fadeOut(300);
-            }
-        });
-        //    ---
-
-        //    For section zkm
-        $(document).ready(function() {
-            //var kpiQuery= false;
-            $('#zkmWrapper').on('click', '.panel-heading', function() {
-                var panelId = this.parentNode.id;
-                $("#" + panelId + " .table").toggleClass("hidden");
-                $("#" + panelId + " .zkmContent").toggleClass("hidden");
-                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
-            });
-
-            $('#zkmWrapper').on('click', 'table', function() {});
-            //$(".statusLine").append('<p>Зачекайте, будь ласка.</p>');
-            $(".loader_inner").fadeIn();
-
-            if (!!Campus.getToken()) {
-                setFacultyAndInstitute();
-                setSubdivisionDetails();
-            } else {
-                $(location).attr('href', 'index.html');
-            }
-
-        });
-
     });

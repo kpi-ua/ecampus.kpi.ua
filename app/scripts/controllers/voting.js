@@ -18,7 +18,7 @@ angular.module('ecampusApp')
             $scope.currentUser = Api.getCurrentUser();
 
             if (!$scope.currentUser) {
-                $location.path("/login");
+                $location.path("/");
             }
 
             Api.execute("GET", "Vote/Term/Current").then(function (data) {
