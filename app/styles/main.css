@@ -689,8 +689,8 @@ input[type="radio"] + label {
   text-decoration: none;
 }
 
-#bulletins-board {
-  margin-top: 20px;
+#bulletins, #download-bulletins, #error-bulletins {
+  padding-top: 20px;
 }
 
 .nav-pills > li.active > a,
