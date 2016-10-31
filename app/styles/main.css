@@ -624,12 +624,14 @@ input[type="radio"] + label {
 
 .user-info {
   float: right !important;
+  margin: 20px 0 20px 0;
 }
 
 .user-img {
-  width: 55px;
-  height: 55px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  margin-right: 10px;
 }
 
 .user-name {
@@ -641,6 +643,7 @@ input[type="radio"] + label {
 
 .text {
   display: inline;
+  margin-right: 10px;
 }
 
 .special-user-img {
@@ -689,8 +692,16 @@ input[type="radio"] + label {
   text-decoration: none;
 }
 
+#bulletins {
+  width: 921px;
+}
+
 #bulletins, #download-bulletins, #error-bulletins {
   padding-top: 20px;
+}
+
+a.bulletin-title:hover{
+  color: #fff !important;
 }
 
 .nav-pills > li.active > a,
@@ -701,11 +712,51 @@ input[type="radio"] + label {
   filter: alpha(opacity=100);
 }
 
-.nav > li > a:hover, .nav > li > a:focus {
+.nav > li > a:hover,
+.nav > li > a:focus {
   text-decoration: none;
   background-color: #208843;
-  opacity: 0.3;
-  filter: alpha(opacity=30);
+}
+
+#disciplines {
+  width: 921px;
+}
+
+.carousel-control.left{
+  background-image: none;
+  width: 30px;
+  height: 30px;
+
+}
+.carousel-control.right{
+  background-image: none;
+  width: 30px;
+  height: 30px;
+  left: 270px;
+}
+
+.carousel-control.left > span, .carousel-control.right > span  {
+  font-size: 18px;
+  color: black;
+}
+
+
+.study-profile, .item{
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.panel-item {
+  padding-right: 20px;
+  font-size: 18px;
+  font-weight: lighter;
+
+}
+
+.panel-default > .panel-heading {
+  color: #208843;
+  font-size: 20px;
+  font-weight: lighter;
 }
 
 .panel-primary > .panel-heading {
@@ -761,3 +812,4 @@ input[type="radio"] + label {
 .article-date {
   padding-left: 2px;
 }
+
