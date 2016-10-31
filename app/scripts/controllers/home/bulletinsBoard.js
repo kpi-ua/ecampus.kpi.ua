@@ -24,7 +24,7 @@ angular.module('ecampusApp')
     $scope.stringToUaDate = function (str) {
       return stringToDate(str)
         .toLocaleString("uk-ua", { year: 'numeric', month: 'long', day: 'numeric' });
-    }
+    };
 
     function loadBoards() {
       var url = '/Board/All';
@@ -66,7 +66,7 @@ angular.module('ecampusApp')
       var positions = [];
       Api.getCurrentUser().position.forEach(function (entry) {
         positions.push(entry.id);
-      })
+      });
 
       return $scope.boardsList.filter(function (board) {
         return ~positions.indexOf(board.profileId);
@@ -78,7 +78,7 @@ angular.module('ecampusApp')
 
       Api.getCurrentUser().subdivision.forEach(function (entry) {
         subdivisions.push(entry.id);
-      })
+      });
 
       return $scope.boardsList.filter(function (board) {
         return ~subdivisions.indexOf(board.subdivisionId);
