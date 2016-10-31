@@ -36,16 +36,15 @@ angular.module('ecampusApp')
 
         });
 
-        $(document).ready(function() {
+        reload();
+
+        function reload() {
             $(".loader_inner").fadeOut();
             $(".loader").delay(400).fadeOut("slow");
             if (!!document.querySelector("#authorized") && !Campus.getToken()) {
                 history.back();
             }
-            if (!document.querySelector("#authorized")) {
-                Campus.logout();
-            }
-        });
+        };
 
         function decodeToken(accessTokenIn) {
 
@@ -175,7 +174,7 @@ angular.module('ecampusApp')
             }
             return kpiQuery;
         }
-        
+
         function SubsistemItem(nameForWeb, pageOrUrl, icon) {
             this.nameForWeb = nameForWeb;
             this.pageOrUrl = pageOrUrl;

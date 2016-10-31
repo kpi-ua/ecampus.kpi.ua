@@ -8,10 +8,6 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('HomeCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('HomeCtrl', function() {
+
+    });
