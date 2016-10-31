@@ -52,14 +52,14 @@ angular.module('ecampusApp')
 
                 $scope.error = !token;
                 $scope.$apply();
-                $(".loader_inner").fadeOut();
-                $(".loader").fadeOut("slow");
                 if (!$scope.error) {
                     var user = Api.getCurrentUser();
                     $cookies.put('SID', user.sid, { domain: 'kpi.ua' });
                     $cookies.put('SID', user.sid, { domain: 'campus.kpi.ua' });
                     $window.location.href = '/admin';
                 }
+                $(".loader_inner").fadeOut();
+                $(".loader").fadeOut("slow");
             });
         };
 
