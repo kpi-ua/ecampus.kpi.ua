@@ -109,6 +109,7 @@ AppPackages/
 
 # Others
 sql/
+*.css.map
 *.Cache
 ClientBin/
 [Ss]tyle[Cc]op.*
@@ -150,6 +151,7 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 
+/sass
 
 .vs/
 

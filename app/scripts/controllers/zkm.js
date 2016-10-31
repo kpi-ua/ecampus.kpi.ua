@@ -14,15 +14,9 @@ angular.module('ecampusApp')
             'AngularJS',
             'Karma'
         ];
-        console.log('ZkmCtrl');
+        //console.log('ZkmCtrl');
     //    CommonJS
         var bodyPosition;
-
-        $(window).load(function() {
-
-
-        });
-
         $(document).ready(function() {
             //load
 
@@ -210,11 +204,11 @@ angular.module('ecampusApp')
             } else {
                 $(".scroll-to-top-Btn").fadeOut(300);
             }
-            if(bodyPosition && $(window).scrollTop()>bodyPosition){
-                $(".nPPBody").removeClass('container');
-            } else {
-                $(".nPPBody").addClass('container');
-            }
+            //if(bodyPosition && $(window).scrollTop()>bodyPosition){
+            //    $(".nPPBody").removeClass('container');
+            //} else {
+            //    $(".nPPBody").addClass('container');
+            //}
         });
     //    ---
 
@@ -229,7 +223,7 @@ angular.module('ecampusApp')
             });
 
             $('#zkmWrapper').on('click', 'table', function() {});
-            //$(".statusLine").append('<p>Зачекайте будь ласка.</p>');
+            //$(".statusLine").append('<p>Зачекайте, будь ласка.</p>');
             $(".loader_inner").fadeIn();
 
             if (!!Campus.getToken()) {

@@ -16,8 +16,7 @@ angular.module('ecampusApp')
         ];
         //    CommonJS
         var bodyPosition;
-
-        $(window).load(function() {
+        $(window).on('load',function() {
 
             if($(".nPPBody").offset()){
                 bodyPosition = $(".nPPBody").offset().top;
@@ -76,11 +75,11 @@ angular.module('ecampusApp')
         }
 
         function setRadioBtnForCathedras(responsive){
-            console.log("stat");
+            //console.log("stat");
             var subdivisionId = responsive.Subdivision.SubdivisionId;
             var subdivisionName = responsive.Subdivision.Name;
             if (document.getElementById(subdivisionId + "") == null && ~subdivisionName.indexOf("Кафедра")) {
-                console.log("stat");
+                //console.log("stat");
                 $('.radioMenu .radioBtnWrapper').append('<input class="radioBtn" id="' + subdivisionId + '" name="cathedra" type="radio" value=' + subdivisionId + ' onchange="check()">' +
                     '<label for="' + subdivisionId + '" class="side-label">' + subdivisionName + '</label>');
             }
@@ -208,11 +207,11 @@ angular.module('ecampusApp')
             } else {
                 $(".scroll-to-top-Btn").fadeOut(300);
             }
-            if(bodyPosition && $(window).scrollTop()>bodyPosition){
-                $(".nPPBody").removeClass('container');
-            } else {
-                $(".nPPBody").addClass('container');
-            }
+            //if(bodyPosition && $(window).scrollTop()>bodyPosition){
+            //    $(".nPPBody").removeClass('container');
+            //} else {
+            //    $(".nPPBody").addClass('container');
+            //}
         });
         //    ---
     });

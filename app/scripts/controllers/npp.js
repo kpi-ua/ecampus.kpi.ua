@@ -14,21 +14,17 @@ angular.module('ecampusApp')
             'AngularJS',
             'Karma'
         ];
-        console.log('NppCtrl');
+        //console.log('NppCtrl');
         //    CommonJS
         var bodyPosition;
-
-        $(window).load(function() {
-
-
-
+        $(window).on('load',function() {
+            $("a[href='#top']").mPageScroll2id();
         });
-
         $(document).ready(function() {
             //load
             if($(".nPPBody").offset()){
                 bodyPosition = $(".nPPBody").offset().top;
-                $("a[href='#top']").mPageScroll2id();
+
             }
             if (!!Campus.getToken()) {
                 var sClaim = decodeToken(Campus.getToken());
@@ -211,11 +207,11 @@ angular.module('ecampusApp')
             } else {
                 $(".scroll-to-top-Btn").fadeOut(300);
             }
-            if(bodyPosition && $(window).scrollTop()>bodyPosition){
-                $(".nPPBody").removeClass('container');
-            } else {
-                $(".nPPBody").addClass('container');
-            }
+            //if(bodyPosition && $(window).scrollTop()>bodyPosition){
+            //    $(".nPPBody").removeClass('container');
+            //} else {
+            //    $(".nPPBody").addClass('container');
+            //}
         });
         //    ---
     //    For section npp
