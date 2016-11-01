@@ -1,0 +1,50 @@
+<header class="container-fluid">
+    <div class="row center-block">
+        <div class="col-md-6">
+            <a href="/#/">Електронний кампус</a>
+        </div>
+        <div class="col-md-6 text-right">
+            НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ<br /> «КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ імені Ігоря Сікорського»
+        </div>
+    </div>
+    <div class="row" ng-show="!!user">
+        <div id="navbar" class="navbar-collapse collapse campus-navigation">
+            <ul class="nav navbar-nav">
+                <li><a href="/#/home">Головна</a></li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Модулi <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/#/admin">Адміністрування</a></li>
+                        <li><a href="/#/voting">Оцінювання викладачів</a></li>
+                        <li><a href="/#/statistic">Статистика</a></li>
+                        <li><a href="/#/home/bulletins/board">Оголошення</a></li>
+                        <li><a href="#">Індивідуальний план</a></li>
+                        <li><a href="/#/home/disciplines/choice">Вибір дисциплін</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Iнформація <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/#/privacy">Правила використання інформації сайту</a></li>
+                        <li><a href="/#/about">Про систему</a></li>
+                        <li><a href="/#/contacts">Контактнi данi</a></li>
+                    </ul>
+                </li>
+                <li><a data-toggle="modal" data-target="#support-modal">Служба підтримки</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-briefcase"></i>Вітаємо, {{userName}}! <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/#/privacy">Налаштування</a></li>
+                        <li><a href="/#/about">Вийти з системи</a></li>
+                    </ul>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</header>

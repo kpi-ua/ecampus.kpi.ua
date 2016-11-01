@@ -10,7 +10,7 @@ function check() {
     var path = "Statistic/Cathedras/" + cathedraId + "/Emplloyers/WithIndividualLoad/List";
 
     Campus.execute("GET", path).then(function(response) {
-        console.log(response);
+        //console.log(response);
         if (!response || response == "") {
             $('.radioMenu').append('<p class="errorLabel">На жаль, записи у базі даних відсутні.</p>');
             $(".loader_inner").fadeOut();
