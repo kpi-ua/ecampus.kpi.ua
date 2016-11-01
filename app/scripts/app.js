@@ -101,6 +101,11 @@ app.config(function ($routeProvider, $locationProvider) {
         controller: "DisciplinesChoiceCtrl",
         controllerAs: 'choice'
       })
+      .when('/settings', {
+        templateUrl: 'views/settings.html',
+        controller: 'SettingsCtrl',
+        controllerAs: 'settings'
+      })
       .otherwise({
             redirectTo: '/'
         });
