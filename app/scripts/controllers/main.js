@@ -30,6 +30,11 @@ angular.module('ecampusApp')
         function init() {
             $scope.vkAuthUrl = generateVkAuthUrl();
             $scope.fbAuthUrl = generateFbAuthUrl();
+
+            if (Api.getCurrentUser() != null) {
+                $window.location.href = '/home';
+            }
+
         }
 
         function generateVkAuthUrl() {
@@ -42,6 +47,7 @@ angular.module('ecampusApp')
         }
 
         init();
+
         $(".loader_inner").fadeOut();
         $(".loader").delay(400).fadeOut("slow");
 
@@ -52,12 +58,14 @@ angular.module('ecampusApp')
 
                 $scope.error = !token;
                 $scope.$apply();
+
                 if (!$scope.error) {
                     var user = Api.getCurrentUser();
                     $cookies.put('SID', user.sid, { domain: 'kpi.ua' });
                     $cookies.put('SID', user.sid, { domain: 'campus.kpi.ua' });
                     $window.location.href = '/home';
                 }
+
                 $(".loader_inner").fadeOut();
                 $(".loader").fadeOut("slow");
             });
