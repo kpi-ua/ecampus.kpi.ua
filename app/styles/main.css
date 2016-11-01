@@ -194,7 +194,7 @@ footer a:hover {
 header {
     color: #208944;
     padding-top: 10px;
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
     border-bottom: 1px solid #EEE;
     letter-spacing: 1px;
     font-size: 10pt;
@@ -818,4 +818,12 @@ a.bulletin-title:hover {
 
 .campus-navigation {
     font-size: 9pt;
+    background-color: #eee;
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.campus-navigation .nav>li>a:hover,
+.campus-navigation .nav>li>a:focus {
+    background-color: #FFF;
 }
