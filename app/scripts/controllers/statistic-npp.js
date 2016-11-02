@@ -23,15 +23,10 @@ angular.module('ecampusApp')
                 }
             }
 
-            $(".loader_inner").fadeOut();
-            $(".loader").delay(400).fadeOut("slow");
-
             $('.login-message').click(function() {
                 $('.login-message').addClass('hidden');
             });
-
-            $(".loader_inner").fadeOut();
-            $(".loader").delay(400).fadeOut("slow");
+            
             if (!!document.querySelector("#authorized") && !Campus.getToken()) {
                 history.back();
             }
@@ -44,9 +39,6 @@ angular.module('ecampusApp')
             });
 
             $('#1, #2').on('click', 'table', function() {});
-
-            $(".loader_inner").fadeOut();
-            $(".loaderQuery").delay(400).fadeOut("slow");
 
             if (!!Campus.getToken()) {
                 setFacultyAndInstitute();
@@ -173,8 +165,7 @@ angular.module('ecampusApp')
                                 })
                             });
                         });
-                        $(".loader_inner").fadeOut();
-                        $(".loaderQuery").delay(400).fadeOut("slow");
+                        
                     });
                 }
                 if (document.getElementById(subdivisionId + "") == null &&

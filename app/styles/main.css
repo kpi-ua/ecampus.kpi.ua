@@ -194,31 +194,11 @@ footer a:hover {
 header {
     color: #208944;
     padding-top: 10px;
-    /*padding-bottom: 10px;*/
     border-bottom: 1px solid #EEE;
     letter-spacing: 1px;
     font-size: 10pt;
     text-transform: uppercase;
     vertical-align: middle;
-}
-
-header .logo-kpi {
-    margin-top: 6px;
-    padding: 0 15px;
-    width: 64px;
-    height: 48px;
-    background: url("/images/logo-kpi.png") center no-repeat;
-}
-
-.header-logo {
-    margin: 0 0 0 50px;
-    height: 60px;
-}
-
-.header-logo img {
-    position: relative;
-    margin: auto;
-    height: 100%;
 }
 
 .header-nav .navbar {
@@ -360,6 +340,14 @@ header .logo-kpi {
     padding: 0;
 }
 
+header .logo {
+    margin-top: 0;
+    height: 51px;
+    margin-bottom: 0;
+    float: left;
+    margin-left: 0px;
+}
+
 .left-nav a {
     position: relative;
     display: block;
@@ -385,6 +373,7 @@ footer {
     overflow: hidden;
     padding-bottom: 20px;
     min-height: 100px;
+    margin-top: 35px;
 }
 
 footer:after {
@@ -575,38 +564,6 @@ input[type="radio"]+label {
 .text-left {
     text-align: left;
 }
-
-.logo-green {
-    margin: 0 auto;
-}
-
-.loader div {
-    margin: 0 auto;
-}
-
-
-/*.btn-fb,
-.btn-vk {
-    width: 175px;
-    font-size: 0.7em;
-    margin-bottom: 5px;
-}
-
-.btn-fb {
-    background-color: #3B5998;
-}
-
-.btn-fb:hover {
-    background-color: #2B4488;
-}
-
-.btn-vk {
-    background-color: #507299;
-}
-
-.btn-vk:hover {
-    background-color: #405077;
-}*/
 
 .sad-cat {
     width: 200px;
@@ -826,4 +783,9 @@ a.bulletin-title:hover {
 .campus-navigation .nav>li>a:hover,
 .campus-navigation .nav>li>a:focus {
     background-color: #FFF;
+}
+
+.breadcrumb {
+    background-color: #FFF;
+    font-size: 8pt;
 }
