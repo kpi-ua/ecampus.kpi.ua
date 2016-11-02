@@ -16,7 +16,9 @@
     "bootstrap-social": "^5.0.0",
     "kjur-jsrsasign": "jsrsasign#^6.1.4",
     "jwt-decode": "^2.1.0",
-    "webix": "^4.0.8"
+    "webix": "^4.0.8",
+    "excellentexport": "^2.0.0",
+    "page-scroll-to-id": "^1.5.5"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
