@@ -241,60 +241,6 @@ header {
     line-height: 40px;
 }
 
-.navbar ul {
-    margin: 0;
-    text-align: right;
-}
-
-.navbar ul>li {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.navbar ul>li>a {
-    display: block;
-    margin-left: 14px;
-    width: 40px;
-    height: 40px;
-    border: 1px solid #3c9;
-    border-radius: 4px;
-    color: inherit;
-    text-align: center;
-}
-
-.navbar ul>li>a>i {
-    vertical-align: top;
-    font-size: 2em;
-    line-height: 40px;
-}
-
-.navbar ul>li>a:hover {
-    border-color: #fff;
-    color: #fff;
-}
-
-.navbar .user-name {
-    margin-top: 8px;
-}
-
-.navbar .user-name a {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.navbar .user-name a:hover {
-    color: #fff;
-}
-
-.carousel {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 5px;
-    max-height: 213px;
-    height: 193px;
-}
-
 .content {
     /*overflow: hidden;*/
     margin-bottom: 25px;
@@ -773,11 +719,30 @@ a.bulletin-title:hover {
     background-color: #FFF;
 }
 
-.campus-navigation {
+.navigation {
     font-size: 9pt;
     background-color: #eee;
     margin-top: 10px;
-    border-top: 1px solid #eee;
+    margin-bottom: 5px;
+    min-height: 30px;
+    border-radius: 0;
+}
+
+.navigation>.container {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+}
+
+.navigation>.container li a {
+    font-size: 8pt;
+    /*padding: 5px;*/
+}
+
+.navigation>.container li a:hover {
+    /*background-color: #FFF;*/
 }
 
 .campus-navigation .nav>li>a:hover,
@@ -788,4 +753,52 @@ a.bulletin-title:hover {
 .breadcrumb {
     background-color: #FFF;
     font-size: 8pt;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
 }
