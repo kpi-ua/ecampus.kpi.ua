@@ -1,188 +1,188 @@
-//    For section zkm
-function check() {
-    $(".loader_inner").fadeIn();
-    $(".loaderQuery").delay(400).fadeIn("slow");
-    $("#zkmWrapper").empty();
-    $("#table-for-download").empty();
-    $(".statusLine").empty();
+'use strict';
 
-    $("p.errorLabel").remove();
-    var isFinish =[];
-    var cathedraId = $('input[name=cathedra]:checked').val();
-    var cathedraName = $('label[for=' + cathedraId + ']').html();
-    var cathedraNameRV = cathedraName;
-    var cathedraNameDV = cathedraName;
-    //cathedraNameRP = cathedraNameRP.toLowerCase();
-    cathedraNameDV = cathedraNameDV.replace('Кафедра','кафедрі');
-    cathedraNameRV = cathedraNameDV.replace('Кафедра','кафедри');
-    $(".statusLine").append('<p>Очікуємо  відповідь від сервера...</p>');
-    $(".statusLine").append('<p>Зачекайте будь ласка.</p>');
-    for(var i=0; i<3;i++){
-        isFinish[i]=false;
-    }
-    $("#zkmWrapper").append(
-        '<div class="panel panel-default" id="zkm1">' +
-        '<div class="panel-heading panelHeadingHover extCentre">' +
-        '<p>РОЗДІЛ 1. Статистичні дані по ' + cathedraNameDV + ', що сама себе забезпечує, тобто сама собі читає кредитні модулі(КМ).</p>' +
-        '</div> ' +
-        '</div>' +
-        '<div class="panel panel-default" id="zkm2">' +
-        '<div class="panel-heading panelHeadingHover extCentre">' +
-        '<p>РОЗДІЛ 2. Статистичні дані по ' + cathedraNameDV + ', для якої читають інші кафедри університету.</p>' +
-        '</div> ' +
-        '</div>' +
-        '<div class="panel panel-default" id="zkm3">' +
-        '<div class="panel-heading panelHeadingHover extCentre">' +
-        '<p>РОЗДІЛ 3. Статистичні дані по ' + cathedraNameDV + ', яка читає іншим кафедрам університету.</p>' +
-        '</div> ' +
-        '</div>'
-    );
-    // for download
-    $("#table-for-download").append(
-        '<tbody id="section1">' +
-        '<tr><th colspan="2">РОЗДІЛ 1. Статистичні дані по ' + cathedraNameDV + ', що сама себе забезпечує, тобто сама собі читає кредитні модулі(КМ).</th></tr>' +
-        '</tbody>' +
-        '<tbody id="section2">' +
-        '<tr><th colspan="2">РОЗДІЛ 2. Статистичні дані по ' + cathedraNameDV + ', для якої читають інші кафедри університету.</th></tr>' +
-        '</tbody>' +
-        '<tbody id="section3">' +
-        '<tr><th colspan="2">РОЗДІЛ 3. Статистичні дані по ' + cathedraNameDV + ', яка читає іншим кафедрам університету.</th></tr>' +
-        '</tbody>');
-    //--
+/**
+ * @ngdoc function
+ * @name ecampusApp.controller:ZkmCtrl
+ * @description
+ * # ZkmCtrl
+ * Controller of the ecampusApp
+ */
+angular.module('ecampusApp')
+    .controller('ZkmCtrl', function($scope, $cookies, $window, Api) {
 
-    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Раздел 1
+        reload();
 
-    var path = [
-        "Statistic/Cathedras/" + cathedraId + "/Modules/ByItself/Count",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/WithMethodicalmanualByItself/Count",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/WithoutMethodicalmanualByItself/Count",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/EIRSByItself/List",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/EIRSByItself/Count",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/WithMethodicalManual/List",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/WithoutMethodicalManul/List",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/WithPartialMethodicalManul/List",
-        "Statistic/Cathedras/" + cathedraId + "/Modules/WithoutFiles/List"
-    ];
+        function reload() {
 
-    Campus.execute("GET", path[0]).then(function(response) {
+            if (!!Campus.getToken()) {
+                var sClaim = decodeToken(Campus.getToken());
 
-        var baseSubName = "";
-        var baseCounter = 0;
-        var baseSubCounter = -1;
-        var responseArray = [];
+                if (!!sClaim) {
+                    sClaim = JSON.parse(sClaim);
+                    $(".userName").append(JSON.parse(sClaim.prof).FullName);
+                }
+            }
 
-        //console.log(response);
-        $("#zkm1").append(
-            '<div class="row">' +
-            '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
-            '<div class="panel panel-default" id="zkm11">' +
-            '<div class="panel-heading panelHeadingHover active">' +
-            '<p>Кількість КМ, що читає ' + cathedraName + ' - <span class="badge myBadge" >' + response + '</span> </p>' +
-            '</div></div></div></div>');
-        //for download
-        $("#section1").append('<tr><th colspan="2">Кількість КМ, що читає ' + cathedraName + ' - ' + response + '</th></tr>');
-        //--
-        Campus.execute("GET", path[1]).then(function(response) {
-            //console.log(response);
-            responseArray[0] = response;
-            Campus.execute("GET", path[5]).then(function(response) {
-                //console.log(response);
-                responseArray[1] = response;
-                Campus.execute("GET", path[6]).then(function(response) {
-                    //console.log(response);
-                    responseArray[2] = response;
-                    Campus.execute("GET", path[7]).then(function(response) {
+
+
+            $('.login-message').click(function() {
+                $('.login-message').addClass('hidden');
+            });
+
+            if (!!document.querySelector("#authorized") && !Campus.getToken()) {
+                history.back();
+            }
+
+            $('#zkmWrapper').on('click', '.panel-heading', function() {
+                var panelId = this.parentNode.id;
+                $("#" + panelId + " .table").toggleClass("hidden");
+                $("#" + panelId + " .zkmContent").toggleClass("hidden");
+                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
+            });
+
+            $('#zkmWrapper').on('click', 'table', function() {});
+
+            if (!!Campus.getToken()) {
+                setFacultyAndInstitute();
+                setSubdivisionDetails();
+            }
+            ыы
+        }
+
+        function decodeToken(accessTokenIn) {
+
+            if (!accessTokenIn || accessTokenIn == 'null') {
+                return null;
+            }
+
+            var a = accessTokenIn.split(".");
+            var uHeader = b64utoutf8(a[0]);
+            var uClaim = b64utoutf8(a[1]);
+
+            var pHeader = KJUR.jws.JWS.readSafeJSONString(uHeader);
+            var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
+
+            var sHeader = JSON.stringify(pHeader, null, "  ");
+            var sClaim = JSON.stringify(pClaim, null, "  ");
+
+            return sClaim;
+        }
+
+        function getParent(obj, parentTagName) {
+            return (obj.tagName == parentTagName) ? obj : getParent(obj.parentNode, parentTagName);
+        }
+
+        function setRadioBtnForCathedras(responsive) {
+            var subdivisionId = responsive.Subdivision.SubdivisionId;
+            var subdivisionName = responsive.Subdivision.Name;
+            if (document.getElementById(subdivisionId + "") == null && ~subdivisionName.indexOf("Кафедра")) {
+                $('.radioMenu .radioBtnWrapper').append('<input class="radioBtn" id="' + subdivisionId + '" name="cathedra" type="radio" value=' + subdivisionId + ' onchange="check()">' +
+                    '<label for="' + subdivisionId + '" class="side-label">' + subdivisionName + '</label>');
+            }
+        }
+
+        function setSubdivisionDetails() {
+            var sClaim = decodeToken(Campus.getToken());
+            sClaim = JSON.parse(sClaim);
+            if (typeof(sClaim.resp) == "object") {
+                sClaim.resp.forEach(function(itemForEach, i, arr) {
+                    var itemForEachJSON = JSON.parse(itemForEach);
+                    if (itemForEachJSON.Subsystem == 1) {
+                        setRadioBtnForCathedras(itemForEachJSON);
+                    }
+
+                });
+            } else {
+                if (typeof(sClaim.resp) == "string") {
+                    var responsive = JSON.parse(sClaim.resp);
+                    if (responsive.Subsystem == 1) {
+                        setRadioBtnForCathedras(responsive);
+                    }
+                }
+            }
+
+        }
+
+        function setFacultyAndInstitute() {
+            var kpiQuery = false;
+            var sClaim = decodeToken(Campus.getToken());
+            sClaim = JSON.parse(sClaim);
+            if (typeof(sClaim.resp) == "object") {
+                sClaim.resp.forEach(function(itemForEach, i, arr) {
+                    kpiQuery = setFacultyAndInstituteLogic(itemForEach, kpiQuery);
+                });
+            } else {
+                if (typeof(sClaim.resp) == "string") {
+                    kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
+                }
+            }
+
+        }
+
+        function setFacultyAndInstituteLogic(item, kpiQuery) {
+            var itemForEachJSON = JSON.parse(item);
+            if (itemForEachJSON.Subsystem == 1) {
+                var subdivisionId = itemForEachJSON.Subdivision.SubdivisionId;
+                var subdivisionName = itemForEachJSON.Subdivision.Name;
+                //console.log(subdivisionId +" -"+subdivisionName);
+                if (subdivisionId == 9998 && !kpiQuery) {
+                    kpiQuery = true;
+                    var pathFaculty = "Subdivision";
+                    Campus.execute("GET", pathFaculty).then(function(response) {
                         //console.log(response);
-                        responseArray[3] = response;
-                        Campus.execute("GET", path[8]).then(function(response) {
-                            //console.log(response);
-                            responseArray[4] = response;
-                            //console.log(responseArray);
-                            $("#zkm11").append('<div class="zkmContent">' +
-                                '<div class="tabbable row">' +
-                                '<ul class="nav nav-tabs myNavTabs textCentre">' +
-                                '<li class="tabLiStyle "><a href="#14" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >'+ responseArray[0]+'</span></a></li>' +
-                                '<li class="tabLiStyle"><a href="#15" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >'+ responseArray[2].length+'</span></a></li>' +
-                                '<li class="tabLiStyle "><a href="#16" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >'+ responseArray[3].length+'</span></a></li>' +
-                                '<li class="tabLiStyle"><a href="#17" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >'+ responseArray[4].length+'</span></a></li>' +
-                                '</ul>' +
-                                '<div class="tab-content">' +
-                                '<div class="col-md-12 tab-pane  myTabPane" id="14"></div>' +
-                                '<div class="col-md-12 tab-pane  myTabPane" id="15">' +
-                                '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                                '<div class="col-md-12 tab-pane  myTabPane" id="16">' +
-                                '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                                '<div class="col-md-12 tab-pane  myTabPane" id="17">' +
-                                '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                                '</div></div></div>'
-
-                            );
-                            //for download
-                            $("#section1").append('<tr><th colspan="2">Відсутнє МЗ - '+ responseArray[2].length+'</th></tr>');
-                            //--
-                            responseArray[2].forEach(function(itemForEach, i, arr) {
-                                //console.log(itemForEach);
-                                $("#15 table tbody").append('<tr><td>' + itemForEach + '</td></tr>');
-                                //for download
-                                $("#section1").append('<tr><td colspan="2">' + itemForEach +'</td></tr>');
-                                //--
+                        response.forEach(function(itemForEach, i, arr) {
+                            if (itemForEach.typeId == 26 || itemForEach.typeId == 77) {
+                                var subdivisionName = itemForEach.name;
+                                var subdivisionId = itemForEach.subdivisionId;
+                                $(".chosen-select").append('<option id="' + subdivisionId + '" value="' + subdivisionId + '">' + subdivisionName + '</option>');
+                            }
+                        });
+                        var config = {
+                            '.chosen-select': {},
+                            '.chosen-select-deselect': { allow_single_deselect: true },
+                            '.chosen-select-no-single': { disable_search_threshold: 10 },
+                            '.chosen-select-no-results': { no_results_text: 'Співпадінь не знайдено...' },
+                            '.chosen-select-width': { width: "95%" }
+                        };
+                        for (var selector in config) {
+                            $(selector).chosen(config[selector]);
+                        }
+                        $('.chosen-select').on('change', function(evt, params) {
+                            var parentId = this.value;
+                            var subdivisionPath = "Subdivision/" + parentId + "/children";
+                            Campus.execute("GET", subdivisionPath).then(function(response) {
+                                $('.radioMenu .radioBtnWrapper').empty();
+                                $('.radioMenu .radioBtnWrapper').append('<label class="topLabel">Оберіть кафедру</label>');
+                                response.forEach(function(itemForEach, i, arr) {
+                                    if (arr[i + 1] != undefined) {
+                                        var cathedraId = itemForEach.id;
+                                        var cathedraName = itemForEach.name;
+                                        //console.log(itemForEach);
+                                        $('.radioMenu .radioBtnWrapper').append('<input class="radioBtn" id="' + cathedraId + '" name="cathedra" type="radio" value=' + cathedraId + ' onchange="check()">' +
+                                            '<label for="' + cathedraId + '" class="side-label">Кафедра ' + cathedraName + '</label>');
+                                    }
+                                })
                             });
-                            //for download
-                            $("#section1").append('<tr><th colspan="2">Частково забезпечені МЗ -'+ responseArray[3].length+'</th></tr>');
-                            //--
-                            responseArray[3].forEach(function(itemForEach, i, arr) {
-                                $("#16 table tbody").append('<tr><td>' + itemForEach + '</td></tr>');
-                                //for download
-                                $("#section1").append('<tr><td colspan="2">' + itemForEach +'</td></tr>');
-                                //--
-                            });
-                            //for download
-                            $("#section1").append('<tr><th colspan="2">Відсутні файли або посилання на МЗ - '+ responseArray[4].length+'</th></tr>');
-                            //--
-                            responseArray[4].forEach(function(itemForEach, i, arr) {
-                                $("#17 table tbody").append('<tr><td>' + itemForEach + '</td></tr>');
-                                //for download
-                                $("#section1").append('<tr><td colspan="2">' + itemForEach +'</td></tr>');
-                                //--
-                            });
-                            //for download
-                            $("#section1").append('<tr><th colspan="2">Завантажено МЗ - '+ responseArray[0]+'</th></tr>');
-                            //--
-                            responseArray[1].forEach(function(itemForEach, i, arr) {
-                                var subName = itemForEach.name;
-                                var kindOfDoc = itemForEach.className;
-                                var curCount = itemForEach.count;
-                                var subNameNext;
-                                if (i + 1 >= responseArray[1].length) {
-                                    subNameNext = "";
-                                } else {
-                                    subNameNext = responseArray[1][i + 1].name;
+                        });
 
-                                }
-
-                                if (subName != baseSubName) {
-                                    baseSubName = subName;
-                                    baseCounter = 0;
-                                    baseSubCounter++;
-                                    $("#14").append('<div class="zkmContent">' +
-                                        '<div class="panel panel-default" id="zkm14' + baseSubCounter + '">' +
-                                        '<table class="table table-bordered hidden "><tbody></tbody></table>' +
-                                        '</div></div>');
-                                    //for download
-                                    $("#section1").append('<tr><th colspan="2" id="sec14'+baseSubCounter+'"></th></tr>');
-                                    //--
-                                }
-                                $('#zkm14' + baseSubCounter + ' .table tbody').append('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
-                                baseCounter += curCount;
-                                //for download
-                                $("#section1").append('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
+                    });
+                }
+                if (document.getElementById(subdivisionId + "") == null &&
+                    (~subdivisionName.indexOf("факультет") || ~subdivisionName.indexOf("Факультет") ||
+                        ~subdivisionName.indexOf("інститут") || ~subdivisionName.indexOf("Інститут"))) {
+                    $(".chosen-select").append('<option id="' + subdivisionId + '" value="' + subdivisionId + '">' + subdivisionName + '</option>');
+                }
+            }
+            return kpiQuery;
+        }
+    });                         $("#section1").append('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
                                 //--
                                 //downloadCounter ++;
                                 if (subName != subNameNext) {
                                     $("#zkm14" + baseSubCounter + " .table").before('<div class="panel-heading panelHeadingHover extCentre">' +
                                         '<p>' + baseSubName + '<span class="badge myBadge" >' + baseCounter + '</span> </p></div>');
                                     //for download
-                                    $("#section1 #sec14"+baseSubCounter).append(baseSubName + ' - ' + baseCounter);
+                                    $("#section1 #sec14" + baseSubCounter).append(baseSubName + ' - ' + baseCounter);
                                     //--
                                 }
                             });
@@ -204,21 +204,21 @@ function check() {
                                     var curCount = response[key];
                                     $("#zkm12 table tbody").append('<tr><td>' + subName + '</td><td>' + curCount + '</td></tr>');
                                     resultCounter += curCount;
-                                    //for download
+                                
                                     $("#section1").append('<tr><td>' + subName + '</td><td>' + curCount + '</td></tr>');
-                                    //--
+                                
                                 }
                                 $("#zkm12 table").before('<div class="panel-heading panelHeadingHover extCentre active">' +
                                     '<p>Кількість завантажених ЕІР, що читає ' + cathedraName + ' - <span class="badge myBadge" >' + resultCounter + '</span> </p></div>');
-                                //for download
+                      
                                 $("#section1 #sec12").append('Кількість завантажених ЕІР, що читає ' + cathedraName + ' - ' + resultCounter);
-                                //--
-                                isFinish[0]=true;
+                                            
+                                isFinish[0] = true;
+
                                 $(".statusLine").append('<p>Розділ 1 - завантажено.</p>');
-                                if(isFinish[0]&& isFinish[1]&&isFinish[2]){
-                                    $(".loader_inner").fadeOut();
-                                    $(".loaderQuery").delay(400).fadeOut("slow");
-                                    $("#zkmWrapper a").on('click', function(event){
+                                if (isFinish[0] && isFinish[1] && isFinish[2]) {
+
+                                    $("#zkmWrapper a").on('click', function(event) {
                                         event.preventDefault();
                                     });
                                 }
@@ -303,10 +303,10 @@ function check() {
                             $("#zkm21").append('<div class="zkmContent">' +
                                 '<div class="tabbable row">' +
                                 '<ul class="nav nav-tabs myNavTabs textCentre">' +
-                                '<li class="tabLiStyle "><a href="#24" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >'+ responseArray2[0]+'</span></a></li>' +
-                                '<li class="tabLiStyle"><a href="#25" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >'+ responseArray2[2].length+'</span></a></li>' +
-                                '<li class="tabLiStyle "><a href="#26" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >'+ responseArray2[3].length+'</span></a></li>' +
-                                '<li class="tabLiStyle"><a href="#27" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >'+ responseArray2[4].length+'</span></a></li>' +
+                                '<li class="tabLiStyle "><a href="#24" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray2[0] + '</span></a></li>' +
+                                '<li class="tabLiStyle"><a href="#25" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray2[2].length + '</span></a></li>' +
+                                '<li class="tabLiStyle "><a href="#26" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray2[3].length + '</span></a></li>' +
+                                '<li class="tabLiStyle"><a href="#27" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray2[4].length + '</span></a></li>' +
                                 '</ul>' +
                                 '<div class="tab-content">' +
                                 '<div class="col-md-12 tab-pane  myTabPane" id="24"></div>' +
@@ -320,7 +320,7 @@ function check() {
 
                             );
                             //for download
-                            $("#section2").append('<tr><th colspan="2">Відсутнє МЗ -'+ responseArray2[2].length+'</th></tr>');
+                            $("#section2").append('<tr><th colspan="2">Відсутнє МЗ -' + responseArray2[2].length + '</th></tr>');
                             //--
                             responseArray2[2].forEach(function(itemForEach, i, arr) {
                                 //console.log(itemForEach);
@@ -330,7 +330,7 @@ function check() {
                                 //--
                             });
                             //for download
-                            $("#section2").append('<tr><th colspan="2">Частково забезпечені МЗ - '+ responseArray2[3].length+'</th></tr>');
+                            $("#section2").append('<tr><th colspan="2">Частково забезпечені МЗ - ' + responseArray2[3].length + '</th></tr>');
                             //--
                             responseArray2[3].forEach(function(itemForEach, i, arr) {
                                 $("#26 table tbody").append('<tr><td>' + itemForEach + '</td></tr>');
@@ -339,7 +339,7 @@ function check() {
                                 //--
                             });
                             //for download
-                            $("#section2").append('<tr><th colspan="2">Відсутні файли або посилання на МЗ - '+ responseArray2[4].length+'</th></tr>');
+                            $("#section2").append('<tr><th colspan="2">Відсутні файли або посилання на МЗ - ' + responseArray2[4].length + '</th></tr>');
                             //--
                             responseArray2[4].forEach(function(itemForEach, i, arr) {
                                 $("#27 table tbody").append('<tr><td>' + itemForEach + '</td></tr>');
@@ -348,7 +348,7 @@ function check() {
                                 //--
                             });
                             //for download
-                            $("#section2").append('<tr><th colspan="2">Завантажено МЗ - '+ responseArray2[0]+'</th></tr>');
+                            $("#section2").append('<tr><th colspan="2">Завантажено МЗ - ' + responseArray2[0] + '</th></tr>');
                             //--
                             responseArray2[1].forEach(function(itemForEach, i, arr) {
                                 var subName = itemForEach.name;
@@ -363,7 +363,7 @@ function check() {
                                     $("#24 #zkm24" + baseSubdivCounter + " .panelHeadingHover p.nestingFix").append(
                                         '<span class="badge myBadge" >' + baseSubjCounter + '</span>');
                                     //for download
-                                    $("#section2 #sec24"+baseSubdivCounter+" th").append(' - '+ baseSubjCounter);
+                                    $("#section2 #sec24" + baseSubdivCounter + " th").append(' - ' + baseSubjCounter);
                                     //--
                                 } else {
                                     subNameNext = responseArray2[1][i + 1].name;
@@ -375,7 +375,7 @@ function check() {
                                         $("#24 #zkm24" + baseSubdivCounter + " .panelHeadingHover p.nestingFix").append(
                                             '<span class="badge myBadge" >' + baseSubjCounter + '</span>');
                                         //for download
-                                        $("#section2 #sec24"+baseSubdivCounter +" th").append(' - '+ baseSubjCounter);
+                                        $("#section2 #sec24" + baseSubdivCounter + " th").append(' - ' + baseSubjCounter);
                                         //--
                                     }
                                     baseSubdivName = subdivName;
@@ -388,7 +388,7 @@ function check() {
                                         '<p class="nestingFix">' + baseSubdivName + '</p>' +
                                         '</div> ');
                                     //for download
-                                    $("#section2").append('<tr id="sec24'+baseSubdivCounter+'"><th colspan="2" >' + baseSubdivName + '</th></tr>');
+                                    $("#section2").append('<tr id="sec24' + baseSubdivCounter + '"><th colspan="2" >' + baseSubdivName + '</th></tr>');
                                     //--
 
                                 }
@@ -405,19 +405,19 @@ function check() {
                                         '<table class="table table-bordered "><tbody></tbody></table>' +
                                         '</div></div></div>');
                                     //for download
-                                    $("#section2 #sec24"+baseSubdivCounter).after('<tr id="sec24'+ baseSubdivCounter + '_' + baseSubCounter+'"><th colspan="2" ></th></tr>');
+                                    $("#section2 #sec24" + baseSubdivCounter).after('<tr id="sec24' + baseSubdivCounter + '_' + baseSubCounter + '"><th colspan="2" ></th></tr>');
                                     //--
                                 }
                                 $('#zkm24' + baseSubdivCounter + '_' + baseSubCounter + ' .table tbody').append('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
                                 baseCounter += curCount;
                                 //for download
-                                $("#section2 #sec24"+baseSubdivCounter+"_"+baseSubCounter).after('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
+                                $("#section2 #sec24" + baseSubdivCounter + "_" + baseSubCounter).after('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
                                 //--
                                 if (subName != subNameNext || (subdivName != subdivNameNext & subdivNameNext != "")) {
                                     $("#zkm24" + baseSubdivCounter + '_' + baseSubCounter + " .table").before('<div class="panel-heading panelHeadingHover extCentre active">' +
                                         '<p>' + baseSubName + '<span class="badge myBadge" >' + baseCounter + '</span></p></div>');
                                     //for download
-                                    $("#section2 #sec24"+baseSubdivCounter+"_"+baseSubCounter+" th").append(baseSubName + ' - ' + baseCounter);
+                                    $("#section2 #sec24" + baseSubdivCounter + "_" + baseSubCounter + " th").append(baseSubName + ' - ' + baseCounter);
                                     //--
                                 }
                             });
@@ -445,14 +445,12 @@ function check() {
                                     '<p>Кількість завантажених ЕІР, що читає ' + cathedraName + ' - <span class="badge myBadge" >' + resultCounter + '</span> </p></div>');
                                 //for download
                                 $("#section2 #sec22 th").append('Кількість завантажених ЕІР, що читає ' + cathedraName + ' - ' + resultCounter);
-                                //--
-                                //console.log(response);
-                                isFinish[1]=true;
+
+                                isFinish[1] = true;
                                 $(".statusLine").append('<p>Розділ 2 - завантажено.</p>');
-                                if(isFinish[0]&& isFinish[1]&&isFinish[2]){
-                                    $(".loader_inner").fadeOut();
-                                    $(".loaderQuery").delay(400).fadeOut("slow");
-                                    $("#zkmWrapper a").on('click', function(event){
+                                if (isFinish[0] && isFinish[1] && isFinish[2]) {
+
+                                    $("#zkmWrapper a").on('click', function(event) {
                                         event.preventDefault();
                                     });
                                 }
@@ -539,10 +537,10 @@ function check() {
                             $("#zkm31").append('<div class="zkmContent">' +
                                 '<div class="tabbable row">' +
                                 '<ul class="nav nav-tabs myNavTabs textCentre">' +
-                                '<li class="tabLiStyle "><a href="#34" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >'+ responseArray3[0]+'</span></a></li>' +
-                                '<li class="tabLiStyle"><a href="#35" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >'+ responseArray3[2].length+'</span></a></li>' +
-                                '<li class="tabLiStyle "><a href="#36" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >'+ responseArray3[3].length+'</span></a></li>' +
-                                '<li class="tabLiStyle"><a href="#37" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >'+ responseArray3[4].length+'</span></a></li>' +
+                                '<li class="tabLiStyle "><a href="#34" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray3[0] + '</span></a></li>' +
+                                '<li class="tabLiStyle"><a href="#35" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray3[2].length + '</span></a></li>' +
+                                '<li class="tabLiStyle "><a href="#36" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray3[3].length + '</span></a></li>' +
+                                '<li class="tabLiStyle"><a href="#37" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray3[4].length + '</span></a></li>' +
                                 '</ul>' +
                                 '<div class="tab-content">' +
                                 '<div class="col-md-12 tab-pane  myTabPane" id="34"></div>' +
@@ -556,7 +554,7 @@ function check() {
 
                             );
                             //for download
-                            $("#section3").append('<tr><th colspan="2">Відсутнє МЗ - '+ responseArray3[2].length+'</th></tr>');
+                            $("#section3").append('<tr><th colspan="2">Відсутнє МЗ - ' + responseArray3[2].length + '</th></tr>');
                             //--
                             responseArray3[2].forEach(function(itemForEach, i, arr) {
                                 //console.log(itemForEach);
@@ -566,7 +564,7 @@ function check() {
                                 //--
                             });
                             //for download
-                            $("#section3").append('<tr><th colspan="2">Частково забезпечені МЗ - '+ responseArray3[3].length+'</th></tr>');
+                            $("#section3").append('<tr><th colspan="2">Частково забезпечені МЗ - ' + responseArray3[3].length + '</th></tr>');
                             //--
 
                             responseArray3[3].forEach(function(itemForEach, i, arr) {
@@ -576,7 +574,7 @@ function check() {
                                 //--
                             });
                             //for download
-                            $("#section3").append('<tr><th colspan="2">Відсутні файли або посилання на МЗ - '+ responseArray3[4].length+'</th></tr>');
+                            $("#section3").append('<tr><th colspan="2">Відсутні файли або посилання на МЗ - ' + responseArray3[4].length + '</th></tr>');
                             //--
                             responseArray3[4].forEach(function(itemForEach, i, arr) {
                                 $("#37 table tbody").append('<tr><td>' + itemForEach + '</td></tr>');
@@ -585,7 +583,7 @@ function check() {
                                 //--
                             });
                             //for download
-                            $("#section3").append('<tr><th colspan="2">Завантажено МЗ - '+ responseArray3[0]+'</th></tr>');
+                            $("#section3").append('<tr><th colspan="2">Завантажено МЗ - ' + responseArray3[0] + '</th></tr>');
                             //--
                             responseArray3[1].forEach(function(itemForEach, i, arr) {
                                 var subName = itemForEach.name;
@@ -600,7 +598,7 @@ function check() {
                                     $("#34 #zkm34" + baseSubdivCounter + " .panelHeadingHover p.nestingFix").append(
                                         '<span class="badge myBadge" >' + baseSubjCounter + '</span>');
                                     //for download
-                                    $("#section3 #sec34"+baseSubdivCounter+" th").append(' - '+ baseSubjCounter);
+                                    $("#section3 #sec34" + baseSubdivCounter + " th").append(' - ' + baseSubjCounter);
                                     //--
                                 } else {
                                     subNameNext = responseArray3[1][i + 1].name;
@@ -611,7 +609,7 @@ function check() {
                                         $("#34 #zkm34" + baseSubdivCounter + " .panelHeadingHover p.nestingFix").append(
                                             '<span class="badge myBadge" >' + baseSubjCounter + '</span>');
                                         //for download
-                                        $("#section3 #sec34"+baseSubdivCounter +" th").append(' - '+ baseSubjCounter);
+                                        $("#section3 #sec34" + baseSubdivCounter + " th").append(' - ' + baseSubjCounter);
                                         //--
                                     }
                                     baseSubdivName = subdivName;
@@ -624,7 +622,7 @@ function check() {
                                         '<p class="nestingFix">' + baseSubdivName + '</p>' +
                                         '</div> ');
                                     //for download
-                                    $("#section3").append('<tr id="sec34'+baseSubdivCounter+'"><th colspan="2" >' + baseSubdivName + '</th></tr>');
+                                    $("#section3").append('<tr id="sec34' + baseSubdivCounter + '"><th colspan="2" >' + baseSubdivName + '</th></tr>');
                                     //--
 
                                 }
@@ -641,19 +639,19 @@ function check() {
                                         '<table class="table table-bordered "><tbody></tbody></table>' +
                                         '</div></div></div>');
                                     //for download
-                                    $("#section3 #sec34"+baseSubdivCounter).after('<tr id="sec34'+ baseSubdivCounter + '_' + baseSubCounter+'"><th colspan="2" ></th></tr>');
+                                    $("#section3 #sec34" + baseSubdivCounter).after('<tr id="sec34' + baseSubdivCounter + '_' + baseSubCounter + '"><th colspan="2" ></th></tr>');
                                     //--
                                 }
                                 $('#zkm34' + baseSubdivCounter + '_' + baseSubCounter + ' .table tbody').append('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
                                 baseCounter += curCount;
                                 //for download
-                                $("#section3 #sec34"+baseSubdivCounter+"_"+baseSubCounter).after('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
+                                $("#section3 #sec34" + baseSubdivCounter + "_" + baseSubCounter).after('<tr><td>' + kindOfDoc + '</td><td>' + curCount + '</td></tr>');
                                 //--
                                 if (subName != subNameNext || (subdivName != subdivNameNext & subdivNameNext != "")) {
                                     $("#zkm34" + baseSubdivCounter + '_' + baseSubCounter + " .table").before('<div class="panel-heading panelHeadingHover extCentre active">' +
                                         '<p>' + baseSubName + '<span class="badge myBadge" >' + baseCounter + '</span></p></div>');
                                     //for download
-                                    $("#section3 #sec34"+baseSubdivCounter+"_"+baseSubCounter+" th").append(baseSubName + ' - ' + baseCounter);
+                                    $("#section3 #sec34" + baseSubdivCounter + "_" + baseSubCounter + " th").append(baseSubName + ' - ' + baseCounter);
                                     //--
                                 }
                             });
@@ -681,14 +679,13 @@ function check() {
                                     '<p>Кількість завантажених ЕІР, що читає ' + cathedraName + ' - <span class="badge myBadge" >' + resultCounter + '</span> </p></div>');
                                 //for download
                                 $("#section3 #sec32 th").append('Кількість завантажених ЕІР, що читає ' + cathedraName + ' - ' + resultCounter);
-                                //--
-                                //console.log(response);
-                                isFinish[2]=true;
+
+
+                                isFinish[2] = true;
                                 $(".statusLine").append('<p>Розділ 3 - завантажено.</p>');
-                                if(isFinish[0]&& isFinish[1]&&isFinish[2]){
-                                    $(".loader_inner").fadeOut();
-                                    $(".loaderQuery").delay(400).fadeOut("slow");
-                                    $("#zkmWrapper a").on('click', function(event){
+                                if (isFinish[0] && isFinish[1] && isFinish[2]) {
+
+                                    $("#zkmWrapper a").on('click', function(event) {
                                         event.preventDefault();
                                     });
                                 }

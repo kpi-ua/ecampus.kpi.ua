@@ -1,7 +1,6 @@
 //  For section npp
 function check() {
-    $(".loader_inner").fadeIn();
-    $(".loaderQuery").delay(400).fadeIn("slow");
+
     $("p.errorLabel").remove();
     $("#1, #2, #semester1, #semester2").empty();
     $(".tabLiStyle, .myTabPane ").removeClass("active");
@@ -13,8 +12,6 @@ function check() {
         //console.log(response);
         if (!response || response == "") {
             $('.radioMenu').append('<p class="errorLabel">На жаль, записи у базі даних відсутні.</p>');
-            $(".loader_inner").fadeOut();
-            $(".loaderQuery").delay(400).fadeOut("slow");
         } else {
 
             var baseEmplFullName = "";
@@ -45,7 +42,7 @@ function check() {
                             '<table class="table table-bordered hidden"><tbody></tbody></table>' +
                             '</div>');
                         // for download
-                        $("#semester"+studSemesterYear[0]).append('<tr><th colspan="3">'+emplFullName+'</th></tr>');
+                        $("#semester" + studSemesterYear[0]).append('<tr><th colspan="3">' + emplFullName + '</th></tr>');
                     }
 
                     if (baseSubName != subLongNameFull) {
@@ -60,16 +57,13 @@ function check() {
                             '<td>' + collectGroupsString + '</td>' +
                             '<td>' + studSemesterYear + '</td></tr>');
                         // for download
-                        $("#semester"+studSemesterYear[0]).append('<tr>' +
+                        $("#semester" + studSemesterYear[0]).append('<tr>' +
                             '<td>' + baseSubName + ' </td>' +
                             '<td>' + collectGroupsString + '</td>' +
                             '<td>' + studSemesterYear + '</td></tr>');
                     }
                 }
             });
-
-            $(".loader_inner").fadeOut();
-            $(".loaderQuery").delay(400).fadeOut("slow");
 
         }
     });

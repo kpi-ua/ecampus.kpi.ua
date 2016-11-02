@@ -18,7 +18,7 @@ var app = angular.module('ecampusApp', [
     'angular-input-stars'
 ]);
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider) {
 
     $routeProvider
         .when('/', {
@@ -37,9 +37,9 @@ app.config(function ($routeProvider, $locationProvider) {
             controllerAs: 'Contacts'
         })
         .when('/privacy', {
-          templateUrl: 'views/privacy.html',
-          controller: 'InformationCtrl',
-          controllerAs: 'privacy'
+            templateUrl: 'views/privacy.html',
+            controller: 'InformationCtrl',
+            controllerAs: 'privacy'
         })
         .when('/social-forbidden', {
             templateUrl: 'views/social-forbidden.html',
@@ -67,41 +67,46 @@ app.config(function ($routeProvider, $locationProvider) {
             controllerAs: 'Debugger'
         })
         .when('/admin', {
-          templateUrl: 'views/admin.html',
-          controller: 'AdminCtrl',
-          controllerAs: 'admin'
+            templateUrl: 'views/admin.html',
+            controller: 'AdminCtrl',
+            controllerAs: 'admin'
         })
         .when('/statistic', {
-          templateUrl: 'views/statistic/init.html',
-          controller: 'StatisticCtrl',
-          controllerAs: 'statistic'
+            templateUrl: 'views/statistic.html',
+            controller: 'StatisticCtrl',
+            controllerAs: 'statistic'
         })
-        .when('/statistic/npp', {
-          templateUrl: 'views/statistic/nPP.html',
-          controller: 'NppCtrl',
-          controllerAs: 'npp'
+        .when('/statistic-npp', {
+            templateUrl: 'views/statistic-npp.html',
+            controller: 'NppCtrl',
+            controllerAs: 'npp'
         })
-        .when('/statistic/zkm', {
-          templateUrl: 'views/statistic/zkm.html',
-          controller: 'ZkmCtrl',
-          controllerAs: 'zkm'
+        .when('/statistic-zkm', {
+            templateUrl: 'views/statistic-zkm.html',
+            controller: 'ZkmCtrl',
+            controllerAs: 'zkm'
         })
         .when('/home', {
-          templateUrl: 'views/home.html',
-          controller: 'HomeCtrl',
-          controllerAs: 'home'
+            templateUrl: 'views/home.html',
+            controller: 'HomeCtrl',
+            controllerAs: 'home'
         })
-        .when('/home/bulletins/board', {
-          templateUrl: "views/home/bulletins-board.html",
-          controller: "HomeBulletinsBoardCtrl",
-          controllerAs: 'board'
+        .when('/bulletins-board', {
+            templateUrl: "views/bulletins-board.html",
+            controller: "HomeBulletinsBoardCtrl",
+            controllerAs: 'board'
         })
-      .when('/home/disciplines/choice', {
-        templateUrl: "views/home/disciplines-choice.html",
-        controller: "DisciplinesChoiceCtrl",
-        controllerAs: 'choice'
-      })
-      .otherwise({
+        .when('/disciplines-choice', {
+            templateUrl: "views/disciplines-choice.html",
+            controller: "DisciplinesChoiceCtrl",
+            controllerAs: 'choice'
+        })
+        .when('/settings', {
+            templateUrl: 'views/settings.html',
+            controller: 'SettingsCtrl',
+            controllerAs: 'settings'
+        })
+        .otherwise({
             redirectTo: '/'
         });
 
