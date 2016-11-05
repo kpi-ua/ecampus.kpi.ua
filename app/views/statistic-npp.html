@@ -1,16 +1,26 @@
 <a href="#top" class="scroll-to-top-Btn" onclick="event.preventDefault()"><i class="fa fa-chevron-up"></i></a>
-
+<div class="loader" ng-show="preloader">
+    <div class="loader_inner" ng-show="preloader"></div>
+</div>
 <section class="container radioMenu">
     <h2 id=>Розділ 4. Індивідуальне навантаження викладачів</h2>
     <div class="dropDownWrapper">
         <form>
-            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2">
-                    <option value=""></option>
-                </select>
+            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2" ng-model="chosenCathedraId"  ng-change="chosenSelectChange()">
+                <option value=""></option>
+                <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}" value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}</option>
+            </select>
         </form>
     </div>
     <div class="radioBtnWrapper">
-        <label class="topLabel">Оберіть кафедру</label>
+        <ng-repeat ng-repeat="cathedra in cathedras">
+            <label class="topLabel" ng-if="$first">Оберіть кафедру</label>
+            <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio" value='{{cathedra.cathedraId}}' onchange="checkNpp()">
+            <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
+        </ng-repeat>
+        <!--<label class="topLabel" ng-if="$first">Оберіть кафедру</label>-->
+            <!--<input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio" value='{{cathedra.cathedraId}}' onchange="checkNpp()">-->
+            <!--<label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>-->
     </div>
 </section>
 

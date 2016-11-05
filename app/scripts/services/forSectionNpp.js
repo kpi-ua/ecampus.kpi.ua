@@ -1,5 +1,5 @@
 //  For section npp
-function check() {
+function checkNpp() {
 
     $("p.errorLabel").remove();
     $("#1, #2, #semester1, #semester2").empty();
