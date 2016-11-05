@@ -47,7 +47,9 @@
     <navigation class="container-fluid"></navigation>
 
     <div class="white" ng-view></div>
-
+    <div class="loader" ng-if="preloader">
+        <div class="loader_inner" ng-if="preloader"></div>
+    </div>
     <footer class="container-fluid">
         <div class="row">
             <div class="col-md-4">

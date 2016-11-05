@@ -42,12 +42,12 @@ angular.module('ecampusApp')
         }
 
         init();
-        $(".loader_inner").fadeOut();
-        $(".loader").delay(400).fadeOut("slow");
+        //$(".loader_inner").fadeOut();
+        //$(".loader").delay(400).fadeOut("slow");
 
         $scope.auth = function() {
-            $(".loader_inner").fadeIn();
-            $(".loader").fadeIn("slow");
+            //$(".loader_inner").fadeIn();
+            //$(".loader").fadeIn("slow");
             Api.auth($scope.login, $scope.password).then(function(token) {
 
                 $scope.error = !token;
@@ -58,8 +58,8 @@ angular.module('ecampusApp')
                     $cookies.put('SID', user.sid, { domain: 'campus.kpi.ua' });
                     $window.location.href = '/home';
                 }
-                $(".loader_inner").fadeOut();
-                $(".loader").fadeOut("slow");
+                //$(".loader_inner").fadeOut();
+                //$(".loader").fadeOut("slow");
             });
         };
 
