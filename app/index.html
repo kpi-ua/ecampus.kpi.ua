@@ -44,7 +44,22 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <navigation class="container-fluid"></navigation>
+    <header class="container-fluid">
+        <div class="row center-block">
+            <div class="col-md-6">
+                <!--<a href="/#/">Електронний кампус</a>-->
+                <a href="/#/">
+                    <img src="/images/logo-big-green.png" class="logo" />
+                </a>
+            </div>
+            <div class="col-md-6 text-right">
+                НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ<br /> «КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ імені Ігоря Сікорського»
+            </div>
+        </div>
+        <navigation class="container-fluid"></navigation>
+    </header>
+
+
 
     <div class="white" ng-view></div>
     <div class="loader" ng-if="preloader">
@@ -53,7 +68,8 @@
     <footer class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                Усі права застережено. &copy; 2016 <a href="http://kpi.ua/">НТУУ «КПІ імені Ігоря Сікорського»</a> <br /> Розробник: <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
+                Усі права застережено. &copy; 2016 <a href="http://kpi.ua/">НТУУ «КПІ імені Ігоря Сікорського»</a> <br /> Розробник:
+                <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
             </div>
             <div class="col-md-8 text-right">
                 <a href="/#/privacy">Правила використання інформації сайту</a> /
@@ -123,15 +139,15 @@
     <script src="scripts/services/api.js"></script>
     <script src="scripts/controllers/admin.js"></script>
     <script src="scripts/controllers/statistic.js"></script>
-    <script src="scripts/controllers/npp.js"></script>
-    <script src="scripts/controllers/zkm.js"></script>
+    <script src="scripts/controllers/statistic-npp.js"></script>
+    <script src="scripts/controllers/statistic-zkm.js"></script>
     <script src="scripts/controllers/home.js"></script>
-    <script src="scripts/controllers/home/bulletinsBoard.js"></script>
-    <script src="scripts/controllers/home/disciplinesChoice.js"></script>
+    <script src="scripts/controllers/bulletinsBoard.js"></script>
+    <script src="scripts/controllers/disciplinesChoice.js"></script>
     <script src="scripts/libs/excellent-export/excellentexport.min.js"></script>
     <script src="scripts/libs/scroll2id/PageScroll2id.min.js"></script>
-    <script src="scripts/directives/toggle.js"></script>
     <script src="scripts/directives/navigation.js"></script>
+    <script src="scripts/controllers/settings.js"></script>
     <!-- endbuild -->
 
 
@@ -168,10 +184,10 @@
         })(document, window, "yandex_metrika_callbacks");
     </script>
     <noscript>
-        <div>
-            <img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position: absolute; left: -9999px;" alt="" />
-        </div>
-    </noscript>
+		<div>
+			<img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position: absolute; left: -9999px;" alt="" />
+		</div>
+	</noscript>
     <!-- /Yandex.Metrika counter -->
 </body>
 

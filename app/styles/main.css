@@ -194,31 +194,11 @@ footer a:hover {
 header {
     color: #208944;
     padding-top: 10px;
-    padding-bottom: 10px;
     border-bottom: 1px solid #EEE;
     letter-spacing: 1px;
     font-size: 10pt;
     text-transform: uppercase;
     vertical-align: middle;
-}
-
-header .logo-kpi {
-    margin-top: 6px;
-    padding: 0 15px;
-    width: 64px;
-    height: 48px;
-    background: url("/images/logo-kpi.png") center no-repeat;
-}
-
-.header-logo {
-    margin: 0 0 0 50px;
-    height: 60px;
-}
-
-.header-logo img {
-    position: relative;
-    margin: auto;
-    height: 100%;
 }
 
 .header-nav .navbar {
@@ -259,60 +239,6 @@ header .logo-kpi {
 .menu-toggle i {
     font-size: 1.1em;
     line-height: 40px;
-}
-
-.navbar ul {
-    margin: 0;
-    text-align: right;
-}
-
-.navbar ul>li {
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.navbar ul>li>a {
-    display: block;
-    margin-left: 14px;
-    width: 40px;
-    height: 40px;
-    border: 1px solid #3c9;
-    border-radius: 4px;
-    color: inherit;
-    text-align: center;
-}
-
-.navbar ul>li>a>i {
-    vertical-align: top;
-    font-size: 2em;
-    line-height: 40px;
-}
-
-.navbar ul>li>a:hover {
-    border-color: #fff;
-    color: #fff;
-}
-
-.navbar .user-name {
-    margin-top: 8px;
-}
-
-.navbar .user-name a {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.navbar .user-name a:hover {
-    color: #fff;
-}
-
-.carousel {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 5px;
-    max-height: 213px;
-    height: 193px;
 }
 
 .content {
@@ -360,6 +286,14 @@ header .logo-kpi {
     padding: 0;
 }
 
+header .logo {
+    margin-top: 0;
+    height: 51px;
+    margin-bottom: 0;
+    float: left;
+    margin-left: 0px;
+}
+
 .left-nav a {
     position: relative;
     display: block;
@@ -385,6 +319,7 @@ footer {
     overflow: hidden;
     padding-bottom: 20px;
     min-height: 100px;
+    margin-top: 35px;
 }
 
 footer:after {
@@ -576,38 +511,6 @@ input[type="radio"]+label {
     text-align: left;
 }
 
-.logo-green {
-    margin: 0 auto;
-}
-
-.loader div {
-    margin: 0 auto;
-}
-
-
-/*.btn-fb,
-.btn-vk {
-    width: 175px;
-    font-size: 0.7em;
-    margin-bottom: 5px;
-}
-
-.btn-fb {
-    background-color: #3B5998;
-}
-
-.btn-fb:hover {
-    background-color: #2B4488;
-}
-
-.btn-vk {
-    background-color: #507299;
-}
-
-.btn-vk:hover {
-    background-color: #405077;
-}*/
-
 .sad-cat {
     width: 200px;
     margin-top: 10px;
@@ -628,15 +531,10 @@ input[type="radio"]+label {
 }
 
 .user-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background: url(../images/home/user.png) no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    width: 64px;
+    text-align: center;
+    display: block;
+    margin: auto;
 }
 
 .user-name {
@@ -821,6 +719,86 @@ a.bulletin-title:hover {
     background-color: #FFF;
 }
 
-.campus-navigation {
+.navigation {
     font-size: 9pt;
+    background-color: #eee;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    min-height: 30px;
+    border-radius: 0;
+}
+
+.navigation>.container {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+}
+
+.navigation>.container li a {
+    font-size: 8pt;
+    /*padding: 5px;*/
+}
+
+.navigation>.container li a:hover {
+    /*background-color: #FFF;*/
+}
+
+.campus-navigation .nav>li>a:hover,
+.campus-navigation .nav>li>a:focus {
+    background-color: #FFF;
+}
+
+.breadcrumb {
+    background-color: #FFF;
+    font-size: 8pt;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu>.dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -6px;
+    margin-left: -1px;
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+.dropdown-submenu:hover>.dropdown-menu {
+    display: block;
+}
+
+.dropdown-submenu>a:after {
+    display: block;
+    content: " ";
+    float: right;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 5px 0 5px 5px;
+    border-left-color: #ccc;
+    margin-top: 5px;
+    margin-right: -10px;
+}
+
+.dropdown-submenu:hover>a:after {
+    border-left-color: #fff;
+}
+
+.dropdown-submenu.pull-left {
+    float: none;
+}
+
+.dropdown-submenu.pull-left>.dropdown-menu {
+    left: -100%;
+    margin-left: 10px;
+    -webkit-border-radius: 6px 0 6px 6px;
+    -moz-border-radius: 6px 0 6px 6px;
+    border-radius: 6px 0 6px 6px;
 }
