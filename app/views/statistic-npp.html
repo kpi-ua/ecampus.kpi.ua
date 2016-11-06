@@ -6,21 +6,19 @@
     <h2 id=>Розділ 4. Індивідуальне навантаження викладачів</h2>
     <div class="dropDownWrapper">
         <form>
-            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2" ng-model="chosenCathedraId"  ng-change="chosenSelectChange()">
+            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2" ng-model="chosenSubdivisionId"  ng-change="chosenSelectChange()">
                 <option value=""></option>
                 <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}" value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}</option>
             </select>
         </form>
     </div>
     <div class="radioBtnWrapper">
+        <label class="topLabel">Оберіть кафедру</label>
         <ng-repeat ng-repeat="cathedra in cathedras">
-            <label class="topLabel" ng-if="$first">Оберіть кафедру</label>
-            <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio" value='{{cathedra.cathedraId}}' onchange="checkNpp()">
+            <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio" value='{{cathedra.cathedraId}}' ng-model="chosenId"  ng-click="checkNpp(cathedra.cathedraId)">
             <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
         </ng-repeat>
-        <!--<label class="topLabel" ng-if="$first">Оберіть кафедру</label>-->
-            <!--<input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio" value='{{cathedra.cathedraId}}' onchange="checkNpp()">-->
-            <!--<label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>-->
+        <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
     </div>
 </section>
 
@@ -46,12 +44,27 @@
                     <li class="tabLiStyle"><a href="#2" data-toggle="tab" onclick="event.preventDefault()">Друге півріччя (весняний семестр)</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="col-md-12 tab-pane  myTabPane" id="1">
-
+                    <div class="col-md-12 tab-pane  myTabPane" id="{{npp.semestr}}" ng-repeat="npp in npps">
+                        <div class="panel panel-default" id="{{employee.id}}" ng-repeat="employee in npp.employees" ng-if="employee.subjects.length!=0" ng-click="showTabById(employee.id)">
+                            <div class="panel-heading panelHeadingHover textCentre" ng-class="{active:employee.id==tabIdForShow}">
+                                <i class="fa fa-sort-desc   textCentre"></i>
+                                {{employee.name}}
+                                <i class="fa fa-sort-desc   textCentre"></i>
+                            </div>
+                        <table class="table table-bordered" ng-show="tabIdForShow==employee.id">
+                            <tbody>
+                                <tr ng-repeat="subject in employee.subjects" >
+                                    <td>{{subject.name}}</td>
+                                    <td>{{subject.groups.join('\n')}}</td>
+                                    <td>{{npp.semestr}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
-                    <div class="col-md-12 tab-pane  myTabPane" id="2">
+                    <!--<div class="col-md-12 tab-pane  myTabPane" id="2">-->
 
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
 
@@ -65,7 +78,6 @@
             <th colspan="3">Перше півріччя (осінній семестр)</th>
         </tr>
         <tbody id="semester1">
-
 
         </tbody>
         <tr>
