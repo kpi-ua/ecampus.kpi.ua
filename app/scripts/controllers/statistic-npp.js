@@ -9,8 +9,33 @@
  */
 angular.module('ecampusApp')
     .controller('NppCtrl', function($scope, $cookies, $window, Api) {
+        $scope.cathedras=[];
+        $scope.subdivisions=[];
+        $scope.errorLabelText="";
+        $scope.tabIdForShow = -1;
 
         reload();
+
+        $scope.chosenSelectChange = function (){
+            var parentId = $scope.chosenSubdivisionId;
+            var subdivisionPath = "Subdivision/" + parentId + "/children";
+            $scope.preloader = true;
+            Campus.execute("GET", subdivisionPath).then(function(response) {
+                $scope.cathedras = [];
+                response.forEach(function(itemForEach, i, arr) {
+                    if (arr[i + 1] != undefined) {
+                        var cathedraId = itemForEach.id;
+                        var cathedraName = itemForEach.name;
+                        $scope.cathedras.push({
+                            cathedraId : cathedraId,
+                            cathedraName :cathedraName
+                        });
+                    }
+                });
+                $scope.preloader = false;
+                safeApply();
+            })
+        };
 
         function reload() {
 
@@ -19,30 +44,24 @@ angular.module('ecampusApp')
 
                 if (!!sClaim) {
                     sClaim = JSON.parse(sClaim);
-                    $(".userName").append(JSON.parse(sClaim.prof).FullName);
                 }
             }
 
-            $('.login-message').click(function() {
-                $('.login-message').addClass('hidden');
-            });
-            
-            if (!!document.querySelector("#authorized") && !Campus.getToken()) {
-                history.back();
-            }
-
-            $('#1, #2').on('click', '.panel-heading', function(event) {
-
-                var panelId = this.parentNode.id;
-                $("#" + panelId + " .table").toggleClass("hidden");                
-                $("#" + panelId + " .panelHeadingHover").toggleClass("active");
-            });
-
-            $('#1, #2').on('click', 'table', function() {});
+            // $('#1, #2').on('click', '.panel-heading', function(event) {
+            //
+            //     var panelId = this.parentNode.id;
+            //     $("#" + panelId + " .table").toggleClass("hidden");
+            //     $("#" + panelId + " .panelHeadingHover").toggleClass("active");
+            // });
+            //
+            //
+            // $('#1, #2').on('click', 'table', function() {});
 
             if (!!Campus.getToken()) {
+                $scope.preloader = true;
                 setFacultyAndInstitute();
                 setSubdivisionDetails();
+                $scope.preloader=false;
             }
         }
 
@@ -72,16 +91,16 @@ angular.module('ecampusApp')
         function setRadioBtnForCathedras(responsive) {
             var subdivisionId = responsive.Subdivision.SubdivisionId;
             var subdivisionName = responsive.Subdivision.Name;
-            if (document.getElementById(subdivisionId + "") == null && ~subdivisionName.indexOf("Кафедра")) {
-                $('.radioMenu .radioBtnWrapper').append('<input class="radioBtn" id="' + subdivisionId + '" name="cathedra" type="radio" value=' + subdivisionId + ' onchange="check()">' +
-                    '<label for="' + subdivisionId + '" class="side-label">' + subdivisionName + '</label>');
+            if (~subdivisionName.indexOf("Кафедра")) {
+                $scope.cathedras.push({
+                    cathedraId : subdivisionId,
+                    cathedraName :subdivisionName
+                });
             }
         }
 
         function setSubdivisionDetails() {
-
-            debugger;
-
+            //debugger;
             var user = Api.getCurrentUser();
             var sClaim = decodeToken(Campus.getToken());
             sClaim = JSON.parse(sClaim);
@@ -91,7 +110,6 @@ angular.module('ecampusApp')
                     if (itemForEachJSON.Subsystem == 1) {
                         setRadioBtnForCathedras(itemForEachJSON);
                     }
-
                 });
             } else {
                 if (typeof(sClaim.resp) == "string") {
@@ -101,7 +119,6 @@ angular.module('ecampusApp')
                     }
                 }
             }
-
         }
 
         function setFacultyAndInstitute() {
@@ -125,19 +142,21 @@ angular.module('ecampusApp')
             if (itemForEachJSON.Subsystem == 1) {
                 var subdivisionId = itemForEachJSON.Subdivision.SubdivisionId;
                 var subdivisionName = itemForEachJSON.Subdivision.Name;
-                //console.log(subdivisionId +" -"+subdivisionName);
                 if (subdivisionId == 9998 && !kpiQuery) {
                     kpiQuery = true;
                     var pathFaculty = "Subdivision";
                     Campus.execute("GET", pathFaculty).then(function(response) {
-                        //console.log(response);
                         response.forEach(function(itemForEach, i, arr) {
                             if (itemForEach.typeId == 26 || itemForEach.typeId == 77) {
                                 var subdivisionName = itemForEach.name;
                                 var subdivisionId = itemForEach.subdivisionId;
-                                $(".chosen-select").append('<option id="' + subdivisionId + '" value="' + subdivisionId + '">' + subdivisionName + '</option>');
+                                $scope.subdivisions.push({
+                                    subdivisionId : subdivisionId,
+                                    subdivisionName :subdivisionName
+                                });
                             }
                         });
+                        safeApply();
                         var config = {
                             '.chosen-select': {},
                             '.chosen-select-deselect': { allow_single_deselect: true },
@@ -148,32 +167,121 @@ angular.module('ecampusApp')
                         for (var selector in config) {
                             $(selector).chosen(config[selector]);
                         }
-                        $('.chosen-select').on('change', function(evt, params) {
-                            var parentId = this.value;
-                            var subdivisionPath = "Subdivision/" + parentId + "/children";
-                            Campus.execute("GET", subdivisionPath).then(function(response) {
-                                $('.radioMenu .radioBtnWrapper').empty();
-                                $('.radioMenu .radioBtnWrapper').append('<label class="topLabel">Оберіть кафедру</label>');
-                                response.forEach(function(itemForEach, i, arr) {
-                                    if (arr[i + 1] != undefined) {
-                                        var cathedraId = itemForEach.id;
-                                        var cathedraName = itemForEach.name;
-                                        //console.log(itemForEach);
-                                        $('.radioMenu .radioBtnWrapper').append('<input class="radioBtn" id="' + cathedraId + '" name="cathedra" type="radio" value=' + cathedraId + ' onchange="check()">' +
-                                            '<label for="' + cathedraId + '" class="side-label">Кафедра ' + cathedraName + '</label>');
-                                    }
-                                })
-                            });
-                        });
-                        
                     });
                 }
                 if (document.getElementById(subdivisionId + "") == null &&
                     (~subdivisionName.indexOf("факультет") || ~subdivisionName.indexOf("Факультет") ||
                         ~subdivisionName.indexOf("інститут") || ~subdivisionName.indexOf("Інститут"))) {
-                    $(".chosen-select").append('<option id="' + subdivisionId + '" value="' + subdivisionId + '">' + subdivisionName + '</option>');
+                    $scope.subdivisions.push({
+                        subdivisionId : subdivisionId,
+                        subdivisionName :subdivisionName
+                    });
                 }
+
             }
             return kpiQuery;
+            safeApply();
         }
+
+        function safeApply (fn) {
+            $scope.safeApply(fn);
+        }
+
+        function subjectModel (name) {
+            this.name = name;
+            this.groups = [];
+        }
+        
+        function employeeModel(id, name) {
+            this.id = id;
+            this.name = name;
+            this.subjects = [];
+        }
+
+        function nppModel(semestr) {
+            this.semestr = semestr;
+            this.employees =[];
+        }
+
+        $scope.safeApply = function(fn) {
+            var phase = this.$root.$$phase;
+            if(phase == '$apply' || phase == '$digest') {
+                if(fn)
+                    fn();
+            } else {
+                this.$apply(fn);
+            }
+        };
+
+        //  For section npp
+        $scope.checkNpp = function( chosenСathedraId) {
+            $scope.npps = null;
+            $scope.errorLabelText="";
+            $scope.preloader = true;
+            $scope.safeApply();
+            var cathedraId = chosenСathedraId;
+            var path = "Statistic/Cathedras/" + cathedraId + "/Emplloyers/WithIndividualLoad/List";
+            Campus.execute("GET", path).then(function(response) {
+                var npp = [new nppModel(1), new nppModel(2)];
+                if (!response || response == "") {
+                    $scope.errorLabelText="На жаль, записи у базі даних відсутні.";
+                    $scope.safeApply();
+                } else {
+                    var baseEmplFullName = "";
+                    var baseCounter = -1;
+                    var baseSubName = "";
+                    var collectGroupsString = "";
+                    response.forEach(function(itemForEach, i, arr) {
+                        var emplFullName = itemForEach.employeeName;
+                        var subLongNameFull = itemForEach.rnpName;
+                        var studStudyGroupName = itemForEach.studyGroup;
+                        var studSemesterYear = itemForEach.years;
+                        if (studSemesterYear[0] != 0) {
+                            if (baseEmplFullName != emplFullName) {
+                                baseEmplFullName = emplFullName;
+                                baseCounter++;
+                                npp[0].employees.push(new employeeModel('npp' + baseCounter + '1',emplFullName));
+                                npp[1].employees.push(new employeeModel('npp' + baseCounter + '2',emplFullName));
+                                // for download
+                                $("#semester" + studSemesterYear[0]).append('<tr><th colspan="3">' + emplFullName + '</th></tr>');
+                            }
+                            var lastIndexOfEmployee = npp[studSemesterYear[0]-1].employees.length-1;
+                            var currentEmployee= npp[studSemesterYear[0]-1].employees[lastIndexOfEmployee];
+                            var lastIndexOfSubject;
+                            var currentSubject;
+                            if (baseSubName != subLongNameFull) {
+                                baseSubName = subLongNameFull;
+                                currentEmployee.subjects.push(new subjectModel(subLongNameFull));
+                                lastIndexOfSubject = currentEmployee.subjects.length-1;
+                                currentSubject=currentEmployee.subjects[lastIndexOfSubject];
+                                currentSubject.groups.push(studStudyGroupName);
+                            } else {
+                                lastIndexOfSubject = npp[studSemesterYear[0]-1].employees[lastIndexOfEmployee].subjects.length-1;
+                                currentSubject=currentEmployee.subjects[lastIndexOfSubject];
+                                currentSubject.groups.push(studStudyGroupName);
+                            }
+                            if (arr[i + 1] == undefined || arr[i + 1].rnpName != baseSubName) {
+                                // for download
+                                $("#semester" + studSemesterYear[0]).append('<tr>' +
+                                    '<td>' + baseSubName + ' </td>' +
+                                    '<td>' + collectGroupsString + '</td>' +
+                                    '<td>' + studSemesterYear + '</td></tr>');
+                            }
+                        }
+                    });
+                    console.log(npp);
+                    $scope.npps = npp;
+                    $scope.preloader = false;
+                    $scope.safeApply();
+                }
+            });
+        };
+
+    $scope.showTabById = function (id) {
+        if( $scope.tabIdForShow != id){
+            $scope.tabIdForShow = id;
+        }else{
+            $scope.tabIdForShow = -1;
+        }
+    }
     });

@@ -47,9 +47,7 @@ angular.module('ecampusApp')
         }
 
         init();
-
         $scope.auth = function() {
-
             Api.auth($scope.login, $scope.password).then(function(token) {
 
                 $scope.error = !token;
