@@ -16,29 +16,7 @@ angular.module('ecampusApp')
 
         reload();
 
-        $scope.chosenSelectChange = function (){
-            var parentId = $scope.chosenSubdivisionId;
-            var subdivisionPath = "Subdivision/" + parentId + "/children";
-            $scope.preloader = true;
-            Campus.execute("GET", subdivisionPath).then(function(response) {
-                $scope.cathedras = [];
-                response.forEach(function(itemForEach, i, arr) {
-                    if (arr[i + 1] != undefined) {
-                        var cathedraId = itemForEach.id;
-                        var cathedraName = itemForEach.name;
-                        $scope.cathedras.push({
-                            cathedraId : cathedraId,
-                            cathedraName :cathedraName
-                        });
-                    }
-                });
-                $scope.preloader = false;
-                safeApply();
-            })
-        };
-
         function reload() {
-
             if (!!Campus.getToken()) {
                 var sClaim = decodeToken(Campus.getToken());
 
@@ -46,17 +24,6 @@ angular.module('ecampusApp')
                     sClaim = JSON.parse(sClaim);
                 }
             }
-
-            // $('#1, #2').on('click', '.panel-heading', function(event) {
-            //
-            //     var panelId = this.parentNode.id;
-            //     $("#" + panelId + " .table").toggleClass("hidden");
-            //     $("#" + panelId + " .panelHeadingHover").toggleClass("active");
-            // });
-            //
-            //
-            // $('#1, #2').on('click', 'table', function() {});
-
             if (!!Campus.getToken()) {
                 $scope.preloader = true;
                 setFacultyAndInstitute();
@@ -183,15 +150,11 @@ angular.module('ecampusApp')
             safeApply();
         }
 
-        function safeApply (fn) {
-            $scope.safeApply(fn);
-        }
-
         function subjectModel (name) {
             this.name = name;
             this.groups = [];
         }
-        
+
         function employeeModel(id, name) {
             this.id = id;
             this.name = name;
@@ -201,6 +164,10 @@ angular.module('ecampusApp')
         function nppModel(semestr) {
             this.semestr = semestr;
             this.employees =[];
+        }
+
+        function safeApply (fn) {
+            $scope.safeApply(fn);
         }
 
         $scope.safeApply = function(fn) {
@@ -213,12 +180,36 @@ angular.module('ecampusApp')
             }
         };
 
+        $scope.chosenSelectChange = function (){
+            var parentId = $scope.chosenSubdivisionId;
+            var subdivisionPath = "Subdivision/" + parentId + "/children";
+            $scope.preloader = true;
+            Campus.execute("GET", subdivisionPath).then(function(response) {
+                $scope.cathedras = [];
+                response.forEach(function(itemForEach, i, arr) {
+                    if (arr[i + 1] != undefined) {
+                        var cathedraId = itemForEach.id;
+                        var cathedraName = itemForEach.name;
+                        $scope.cathedras.push({
+                            cathedraId : cathedraId,
+                            cathedraName :cathedraName
+                        });
+                    }
+                });
+                $scope.preloader = false;
+                safeApply();
+            })
+        };
+
         //  For section npp
         $scope.checkNpp = function( chosenСathedraId) {
             $scope.npps = null;
             $scope.errorLabelText="";
             $scope.preloader = true;
             $scope.safeApply();
+
+            $("#semester1, #semester2").empty();
+
             var cathedraId = chosenСathedraId;
             var path = "Statistic/Cathedras/" + cathedraId + "/Emplloyers/WithIndividualLoad/List";
             Campus.execute("GET", path).then(function(response) {
@@ -255,10 +246,12 @@ angular.module('ecampusApp')
                                 lastIndexOfSubject = currentEmployee.subjects.length-1;
                                 currentSubject=currentEmployee.subjects[lastIndexOfSubject];
                                 currentSubject.groups.push(studStudyGroupName);
+                                collectGroupsString = studStudyGroupName + "<br> ";
                             } else {
                                 lastIndexOfSubject = npp[studSemesterYear[0]-1].employees[lastIndexOfEmployee].subjects.length-1;
                                 currentSubject=currentEmployee.subjects[lastIndexOfSubject];
                                 currentSubject.groups.push(studStudyGroupName);
+                                collectGroupsString += studStudyGroupName + "<br> ";
                             }
                             if (arr[i + 1] == undefined || arr[i + 1].rnpName != baseSubName) {
                                 // for download
@@ -277,11 +270,11 @@ angular.module('ecampusApp')
             });
         };
 
-    $scope.showTabById = function (id) {
-        if( $scope.tabIdForShow != id){
-            $scope.tabIdForShow = id;
-        }else{
-            $scope.tabIdForShow = -1;
+        $scope.showTabById = function (id) {
+            if( $scope.tabIdForShow != id){
+                $scope.tabIdForShow = id;
+            }else{
+                $scope.tabIdForShow = -1;
+            }
         }
-    }
     });

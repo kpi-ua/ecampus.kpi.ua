@@ -106,6 +106,21 @@ app.config(function($routeProvider, $locationProvider) {
             controller: 'SettingsCtrl',
             controllerAs: 'settings'
         })
+        .when('/discipline-specialization', {
+            templateUrl: 'views/discipline-specialization.html',
+            controller: 'DisciplinesSpecializationCtrl',
+            controllerAs: 'specialization'
+        })
+        .when('/discipline-proposition', {
+            templateUrl: 'views/discipline-proposition.html',
+            controller: 'DisciplinesPropositionCtrl',
+            controllerAs: 'proposition'
+        })
+        .when('/discipline-block', {
+            templateUrl: 'views/discipline-block.html',
+            controller: 'DisciplinesBlockCtrl',
+            controllerAs: 'block'
+        })
         .otherwise({
             redirectTo: '/'
         });
