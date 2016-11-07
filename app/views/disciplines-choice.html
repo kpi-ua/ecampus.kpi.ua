@@ -1,6 +1,6 @@
 <div class="container">
   <div header></div>
-  <div class="row">    
+  <div class="row" style="margin-bottom: 20px;">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="panel panel-default">
         <div class="panel-heading title">Інформація про студента</div>
@@ -8,7 +8,7 @@
           <div class="study-profile">
             <span class="panel-item">Навчальна група:</span><span class="panel-item group">ІК-32</span>
             <br>
-            <span class="panel-item">Поточний рік:</span><span class="panel-item group">2016-2017</span>
+            <span class="panel-item">Поточний рік:</span><span class="panel-item">2016-2017</span>
           </div>
 
           <div id="disciplines-choice-by-year" class="carousel" data-interval="false">
@@ -16,19 +16,90 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
               <div class="item active">
-                <span class="panel-item">Навчальний рік:</span><span class="panel-item group">2016-2017</span>
+                <span class="panel-item">Навчальний рік:</span><span class="panel-item">2016-2017</span>
                 <div class="study-blocks">
-                  <div class="block" style="background-color: #01C675; width: 100%; height: 300px;">
+                  <div id="testA"></div>
+                  <script type="text/javascript" charset="utf-8">
+                    var smalltreedata = [
+                      {id:"root", value:"Дисципліни для вибору", open:true, data:[
+                        { id:"1", open:true, value:"Блок 1", data:[
+                          { id:"1.1", value:"Дисципліна 1.1" },
+                          { id:"1.2", value:"Дисципліна 1.2" },
+                          { id:"1.3", value:"Дисципліна 1.3" }
+                        ]},
+                        { id:"2", open:true, value:"Блок 2", data:[
+                          { id:"2.1", value:"Дисципліна 2.1" },
+                          { id:"2.2", value:"Дисципліна 2.2" }
+                        ]},
+                        { id:"3", open:true, value:"Блок 3", data:[
+                          { id:"3.1", value:"Дисципліна 3.1" },
+                          { id:"3.2", value:"Дисципліна 3.2" }
+                        ]}
+                      ]}
+                    ];
 
-                  </div>
+                    webix.ready(function(){
+                      tree = webix.ui({
+                        container:"testA",
+                        view:"tree",
+                        template:"{common.icon()} {common.checkbox()} #value#",
+                        threeState: true,
+
+                        data: webix.copy(smalltreedata),
+                        ready:function(){
+                          this.close(1);
+                          this.close(2);
+                          this.close(3);
+                        }
+                      });
+                    });
+                      </script>
                 </div>
               </div>
               <div class="item">
-                <span class="panel-item">Навчальний рік:</span><span class="panel-item group">2017-2018</span>
+                <span class="panel-item">Навчальний рік:</span><span class="panel-item">2017-2018</span>
                 <div class="study-blocks">
-                  <div class="block" style="background-color: #0b97c4; width: 100%; height: 300px;">
+                  <div id="testB"></div>
+                  <script type="text/javascript" charset="utf-8">
+                    var smalltreedata2 = [
+                      {id:"root", value:"Дисципліни для вибору", open:true, data:[
+                        { id:"1", open:true, value:"Блок 1", data:[
+                          { id:"1.1", value:"Дисципліна 1.1" },
+                          { id:"1.2", value:"Дисципліна 1.2" },
+                          { id:"1.3", value:"Дисципліна 1.3" },
+                          { id:"1.4", value:"Дисципліна 1.4" },
+                          { id:"1.5", value:"Дисципліна 1.5" },
+                        ]},
+                        { id:"2", open:true, value:"Блок 2", data:[
+                          { id:"2.1", value:"Дисципліна 2.1" },
+                          { id:"2.2", value:"Дисципліна 2.2" }
+                        ]},
+                        { id:"3", open:true, value:"Блок 3", data:[
+                          { id:"3.1", value:"Дисципліна 3.1" },
+                          { id:"3.2", value:"Дисципліна 3.2" }
+                        ]},
+                        { id:"4", open:true, value:"Блок 4", data:[
+                          { id:"4.1", value:"Дисципліна 4.1" },
+                          { id:"4.2", value:"Дисципліна 4.2" }
+                        ]}
+                      ]}
+                    ];
 
-                  </div>
+                    tree2 = webix.ui({
+                      container:"testB",
+                      view:"tree",
+                      template:"{common.icon()} {common.checkbox()} #value#",
+                      threeState: true,
+
+                      data: webix.copy(smalltreedata2),
+                      ready:function(){
+                        this.close(1);
+                        this.close(2);
+                        this.close(3);
+                        this.close(4);
+                      }
+                    });
+                  </script>
                 </div>
               </div>
             </div>
@@ -45,6 +116,10 @@
           </div>
         </div>
       </div>
+      <button class="btn btn-primary pull-right save-btn">
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+        Зберегти!
+      </button>
     </div>
     </div>
 </div>
