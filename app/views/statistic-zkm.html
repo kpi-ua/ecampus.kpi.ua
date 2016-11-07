@@ -1,15 +1,25 @@
 <a href="#top" class="scroll-to-top-Btn" onclick="event.preventDefault()"><i class="fa fa-chevron-up"></i></a>
-
+<div class="loader" ng-show="preloader">
+    <div class="loader_inner" ng-show="preloader"></div>
+    <div class="statusLine" ng-bind="statusLine"></div>
+</div>
 <section class="container radioMenu ">
+    <h2>Забезпечення кредитного модуля</h2>
     <div class="dropDownWrapper">
         <form>
-            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2">
+            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;" tabindex="2" ng-model="chosenSubdivisionId"  ng-change="chosenSelectChange()">
                 <option value=""></option>
+                <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}" value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}</option>
             </select>
         </form>
     </div>
     <div class="radioBtnWrapper">
         <label class="topLabel">Оберіть кафедру</label>
+        <ng-repeat ng-repeat="cathedra in cathedras">
+            <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio" value='{{cathedra.cathedraId}}' ng-model="chosenId"  ng-click="checkZkm(cathedra.cathedraId,cathedra.cathedraName)">
+            <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
+        </ng-repeat>
+        <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
     </div>
 </section>
 
