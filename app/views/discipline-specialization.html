@@ -1,1 +1,135 @@
-<h2>Дисципліни спеціалізації</h2>
+<div class="container-fluid">
+    <h2>Дисципліни спеціалізації</h2>
+    <label for="Cathedra">Кафедра</label>
+    <select id="Cathedra">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+    <br/>
+    <label for="Direction">Напрям</label>
+    <select id="Direction">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+    <br/>
+    <label for="Specialization">Специализация</label>
+    <select id="Specialization">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+    <br/>
+    <label for="Ork">ОРК</label>
+    <select id="Ork">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+    <br/>
+    <label for="StudyYear">Навчальний рік</label>
+    <select id="StudyYear">
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+        <option value="mercedes">Mercedes</option>
+        <option value="audi">Audi</option>
+    </select>
+</div>
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset>
+                <legend>
+                    Розподіл дісциплін вибору за блоками
+                </legend>
+                <p>Блок: Всі</p>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th>Курс</th>
+                    <th>Семестр</th>
+                    <th>Группа</th>
+                    <th>Блок</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td scope="row">2</td>
+                    <td>4</td>
+                    <td>IK-51</td>
+                    <td>Філософські</td>
+                </tr>
+                <tr>
+                    <td scope="row">2</td>
+                    <td>4</td>
+                    <td>IK-52</td>
+                    <td>Філософські</td>
+                </tr>
+                <tr>
+                    <td scope="row">3</td>
+                    <td>5</td>
+                    <td>IK-41</td>
+                    <td>Філософські</td>
+                </tr>
+                <tr>
+                    <td scope="row">3</td>
+                    <td>5</td>
+                    <td>IK-42</td>
+                    <td>Філософські</td>
+                </tr>
+
+                </tbody>
+            </table>
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset>
+                <legend>
+                    Результати запису студентів
+                </legend>
+                <p>Блок: Філософські</p>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Назва дисципліни</th>
+                        <th>Мах кількість <br/> студентів</th>
+                        <th>Записалося студентів</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Логіка</th>
+                        <td>100</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                    <span>40/100</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Історія</th>
+                        <td>200</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+                                    <span>150/200</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </fieldset>
+
+        </div>
+    </div>
+</section>
+
