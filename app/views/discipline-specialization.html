@@ -1,48 +1,38 @@
-<div class="container-fluid">
+<section class="container-fluid">
     <h2>Дисципліни спеціалізації</h2>
     <label for="Cathedra">Кафедра</label>
-    <select id="Cathedra">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-    </select>
-    <br/>
-    <label for="Direction">Напрям</label>
-    <select id="Direction">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
-    </select>
-    <br/>
-    <label for="Specialization">Специализация</label>
-    <select id="Specialization">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+    <!--<label for="Cathedra">{{selectData.CathedraId}}</label>-->
+    <select class="select_disabled" id="Cathedra" name="Cathedra" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
+        <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">{{subsystem.Subdivision.Name}}</option>
     </select>
     <br/>
     <label for="Ork">ОРК</label>
-    <select id="Ork">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+    <select class="select_disabled" id="Ork" ng-disabled = "!selectData.CathedraId" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
+        <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
     </select>
     <br/>
-    <label for="StudyYear">Навчальний рік</label>
-    <select id="StudyYear">
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-        <option value="mercedes">Mercedes</option>
-        <option value="audi">Audi</option>
+    <label for="Direction">Напрям</label>
+    <select class="select_disabled" id="Direction" ng-disabled = "!selectData.Okr" ng-model = "selectData.Direction" ng-change="OnFullSelect()">
+        <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code +" "+ speciality.Name}}</option>
     </select>
-</div>
+    <!--<br/>-->
+    <!--<label for="Specialization">Специализация</label>-->
+    <!--<select id="Specialization">-->
+        <!--<option value="volvo">Volvo</option>-->
+        <!--<option value="saab">Saab</option>-->
+        <!--<option value="mercedes">Mercedes</option>-->
+        <!--<option value="audi">Audi</option>-->
+    <!--</select>-->
+    <br/>
+    <label for="StudyYear">Навчальний рік</label>
+    <select id="StudyYear"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
+        <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
+    </select>
+    <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
+</section>
 <section class="container-fluid">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" ng-show="blocks!=null">
             <fieldset>
                 <legend>
                     Розподіл дісциплін вибору за блоками
@@ -50,44 +40,28 @@
                 <p>Блок: Всі</p>
             <table class="table table-hover table-bordered">
                 <thead>
-                <tr>
-                    <th>Курс</th>
-                    <th>Семестр</th>
-                    <th>Группа</th>
-                    <th>Блок</th>
+                <tr class="text-center">
+                    <th class="text-center">Курс</th>
+                    <th class="text-center">Семестр</th>
+                    <th class="text-center">Группа</th>
+                    <th class="text-center">Блок</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td scope="row">2</td>
-                    <td>4</td>
-                    <td>IK-51</td>
-                    <td>Філософські</td>
+                <tr ng-repeat="block in blocks" ng-click="OnDisciplineChose(block.BlockId)">
+                    <td scope="row">{{block.Course}}</td>
+                    <td>{{block.Semestr}}</td>
+                    <td>{{block.StudyGroupName}}</td>
+                    <td>{{block.BlockName}}</td>
                 </tr>
-                <tr>
-                    <td scope="row">2</td>
-                    <td>4</td>
-                    <td>IK-52</td>
-                    <td>Філософські</td>
+                <tr ng-show="blocks!=null && blocks.length == 0">
+                    <td class="errorLabel" scope="row" colspan="4">На жаль записи у базі відсутні</td>
                 </tr>
-                <tr>
-                    <td scope="row">3</td>
-                    <td>5</td>
-                    <td>IK-41</td>
-                    <td>Філософські</td>
-                </tr>
-                <tr>
-                    <td scope="row">3</td>
-                    <td>5</td>
-                    <td>IK-42</td>
-                    <td>Філософські</td>
-                </tr>
-
                 </tbody>
             </table>
             </fieldset>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" ng-show="disciplines!=null">
             <fieldset>
                 <legend>
                     Результати запису студентів
@@ -96,32 +70,24 @@
                 <table class="table table-hover table-bordered">
                     <thead>
                     <tr>
-                        <th>Назва дисципліни</th>
-                        <th>Мах кількість <br/> студентів</th>
-                        <th>Записалося студентів</th>
+                        <th class="text-center">Назва дисципліни</th>
+                        <th class="text-center">Мах кількість <br/> студентів</th>
+                        <th class="text-center">Записалося студентів</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">Логіка</th>
-                        <td>100</td>
+                    <tr ng-repeat="discipline in disciplines">
+                        <th scope="row">{{discipline.DisciplineName}}</th>
+                        <td>{{discipline.MaxCountStudent}}</td>
                         <td>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                    <span>40/100</span>
+                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" ng-style="{width: discipline.OccupiedPercent*100+'%'}" >
+                                    <span>{{discipline.Subscribed+"\\"+discipline.MaxCountStudent}}</span>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Історія</th>
-                        <td>200</td>
-                        <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
-                                    <span>150/200</span>
-                                </div>
-                            </div>
+                            <tr ng-show="disciplines!=null && disciplines.length == 0">
+                                <td class="errorLabel" scope="row" colspan="4">На жаль записи у базі відсутні</td>
+                            </tr>
                         </td>
                     </tr>
 
@@ -132,4 +98,53 @@
         </div>
     </div>
 </section>
+<!--<section class="container-fluid">-->
+    <!--<label for="CathedraTemplate">Кафедра</label>-->
+    <!--<select id="CathedraTemplate">-->
+        <!--<option value="volvo">Volvo</option>-->
+        <!--<option value="saab">Saab</option>-->
+        <!--<option value="mercedes">Mercedes</option>-->
+        <!--<option value="audi">Audi</option>-->
+    <!--</select>-->
+    <!--<br/>-->
+    <!--<label for="DirectionTemplate">Напрям</label>-->
+    <!--<select id="DirectionTemplate">-->
+        <!--<option value="volvo">Volvo</option>-->
+        <!--<option value="saab">Saab</option>-->
+        <!--<option value="mercedes">Mercedes</option>-->
+        <!--<option value="audi">Audi</option>-->
+    <!--</select>-->
+    <!--<br/>-->
+    <!--<label for="DirectionTemplateSpecialization">Напрям</label>-->
+    <!--<select id="DirectionTemplateSpecialization">-->
+        <!--<option value="volvo">Volvo</option>-->
+        <!--<option value="saab">Saab</option>-->
+        <!--<option value="mercedes">Mercedes</option>-->
+        <!--<option value="audi">Audi</option>-->
+    <!--</select>-->
+    <!--<br/>-->
+    <!--<label for="SpecializationTemplate">Специализация</label>-->
+    <!--<select id="SpecializationTemplate">-->
+        <!--<option value="volvo">Volvo</option>-->
+        <!--<option value="saab">Saab</option>-->
+        <!--<option value="mercedes">Mercedes</option>-->
+        <!--<option value="audi">Audi</option>-->
+    <!--</select>-->
+    <!--<br/>-->
+    <!--<label for="OrkTemplate">ОРК</label>-->
+    <!--<select id="OrkTemplate">-->
+        <!--<option value="volvo">Volvo</option>-->
+        <!--<option value="saab">Saab</option>-->
+        <!--<option value="mercedes">Mercedes</option>-->
+        <!--<option value="audi">Audi</option>-->
+    <!--</select>-->
+    <!--<br/>-->
+    <!--<label for="StudyYearTemplate">Навчальний рік</label>-->
+    <!--<select id="StudyYearTemplate">-->
+        <!--<option value="volvo">Volvo</option>-->
+        <!--<option value="saab">Saab</option>-->
+        <!--<option value="mercedes">Mercedes</option>-->
+        <!--<option value="audi">Audi</option>-->
+    <!--</select>-->
+<!--</section>-->
 

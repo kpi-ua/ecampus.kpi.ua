@@ -628,3 +628,7 @@ input:focus+.side-label::before {
 input:checked+.side-label::after {
     display: block;
 }
+
+.select_disabled:disabled{
+    opacity: 0.5;
+}
