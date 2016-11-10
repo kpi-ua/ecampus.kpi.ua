@@ -194,7 +194,6 @@ footer a:hover {
 header {
   color: #208944;
   padding-top: 10px;
-  border-bottom: 1px solid #EEE;
   letter-spacing: 1px;
   font-size: 10pt;
   text-transform: uppercase;
@@ -601,7 +600,6 @@ input[type="radio"] + label {
 }
 
 #bulletins {
-  width: 921px;
 }
 
 #bulletins,
@@ -761,7 +759,9 @@ a.bulletin-title:hover {
 
 .breadcrumb {
   background-color: #FFF;
-  font-size: 8pt;
+  font-size: 10pt;
+  margin-bottom: 0;
+  padding: 0;
 }
 
 .dropdown-submenu {

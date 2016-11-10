@@ -1,3 +1,8 @@
+<breadcrumbs>
+  <b>Дебаггер</b>
+</breadcrumbs>
+
+
 <div class="container-fluid">
     <div class="row green">
         <div class="navbar-form navbar-left">
@@ -69,7 +74,7 @@
                             <label for="cmb-methods" class="col-md-4 control-label">Method: </label>
                             <div class="col-md-8">
                                 <select id="cmb-methods" class="form-control" ng-model="selectedMethod" ng-change="loadSelectedMethodMetadata()">
-                                    <option ng-repeat="m in methods" value="{{ m.route }}">{{ m.route }}</option>                                    
+                                    <option ng-repeat="m in methods" value="{{ m.route }}">{{ m.route }}</option>
                                 </select>
                             </div>
                         </div>
