@@ -1,20 +1,23 @@
 <div class="container-fluid content">
-    <div class="content">
-        <div class="row">
-            <div class="col-md-12">
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
 
-                <h2>Модуль оцінювання викладачів</h2>
+        <h2>Модуль оцінювання викладачів</h2>
 
-
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="person in personsForVote">
-                        <a ng-if="!personVoted(person)" href="/#/voting/profile/{{person.employeesId}}">{{ person.lecturer }}</a>
-                        <i ng-if="personVoted(person)">{{ person.lecturer }}</i>
-                        <!--<input-stars ng-model="person.rating" readonly max="5"></input-stars>                        -->
-                    </li>
-                </ul>
-
-            </div>
+        <div ng-if="!voteTerm">
+          Голосування завершено.
         </div>
+
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="person in personsForVote">
+            <a ng-if="!personVoted(person)" href="/#/voting/profile/{{person.employeesId}}">{{ person.lecturer }}</a>
+            <i ng-if="personVoted(person)">{{ person.lecturer }}</i>
+            <!--<input-stars ng-model="person.rating" readonly max="5"></input-stars>                        -->
+          </li>
+        </ul>
+
+      </div>
     </div>
+  </div>
 </div>
