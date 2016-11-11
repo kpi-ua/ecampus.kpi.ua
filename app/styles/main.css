@@ -3,7 +3,7 @@ body {
   height: 100%;
   min-height: 100%;
   color: #111;
-  font-size: 1em;
+  font-size: 10pt;
   font-family: 'Ubuntu', sans-serif;
 }
 
@@ -194,7 +194,6 @@ footer a:hover {
 header {
   color: #208944;
   padding-top: 10px;
-  border-bottom: 1px solid #EEE;
   letter-spacing: 1px;
   font-size: 10pt;
   text-transform: uppercase;
@@ -417,6 +416,10 @@ footer a:hover {
     text-align: center !important;
   }
 
+  .logo {
+    display: none;
+  }
+
   header .text-right {
     text-align: center !important;
   }
@@ -601,7 +604,6 @@ input[type="radio"] + label {
 }
 
 #bulletins {
-  width: 921px;
 }
 
 #bulletins,
@@ -762,6 +764,11 @@ a.bulletin-title:hover {
 .breadcrumb {
   background-color: #FFF;
   font-size: 8pt;
+  margin-bottom: 0;
+  border-bottom: 2px solid #208944;
+  border-radius: 0;
+  margin-top: 0;
+  padding: 0 15px 5px;
 }
 
 .dropdown-submenu {
