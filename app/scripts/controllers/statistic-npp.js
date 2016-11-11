@@ -85,7 +85,7 @@ angular.module('ecampusApp')
 
         }
 
-        function setFacultyAndInstituteLogic(item, kpiQuery) {
+        function setFacultyAndInstituteLogic(item, kpiQuery=false) {
             var itemForEachJSON = JSON.parse(item);
             if (itemForEachJSON.Subsystem == 1) {
                 var subdivisionId = itemForEachJSON.Subdivision.SubdivisionId;

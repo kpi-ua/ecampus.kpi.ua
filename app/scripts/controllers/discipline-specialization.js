@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('DisciplinesSpecializationCtrl', function($scope, $cookies, $window, Api) {
+    .controller('DisciplinesSpecializationCtrl', function($scope, $cookies, $window, Api , $filter, $http) {
         var subsystemIdMain = 20;
         var StydyYearFrom =2013;
         var StydyYearTo =2020;
@@ -20,6 +20,7 @@ angular.module('ecampusApp')
             Direction : null,
             StudyYear : null
         };
+        $scope.section = "specialization";
         reload();
 
         function reload() {
@@ -76,13 +77,16 @@ angular.module('ecampusApp')
 
         }
         
-        function DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed) {
+        function DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName) {
             this.DisciplineBlockYearId = disciplineBlockYearId;
             this.DisciplineName = disciplineName;
             this.MaxCountStudent = maxCountStudent;
             this.OccupiedPercent = occupiedPercent;
             this.StydyCourse = stydyCourse;
             this.Subscribed = subscribed;
+            this.WhoReadId = whoReadId;
+            this.WhoReadAbbreviation = whoReadAbbreviation;
+            this.WhoReadName = whoReadName;
         }
         
         function getStudyYearsArray(from, to) {
@@ -200,10 +204,10 @@ angular.module('ecampusApp')
 
         $scope.OnFullSelect = function () {
             $scope.disciplines =null;
-            var cathedraIdBool =    $scope.selectData.CathedraId == null? false:true;
-            var directionBool =     $scope.selectData.Direction == null? false:true;
-            var okrBool =           $scope.selectData.Okr == null? false:true;
-            var studyYearBool =     $scope.selectData.StudyYear == null? false:true;
+            var cathedraIdBool =    $scope.selectData.CathedraId != null;
+            var directionBool =     $scope.selectData.Direction != null;
+            var okrBool =           $scope.selectData.Okr != null;
+            var studyYearBool =     $scope.selectData.StudyYear != null;
             console.log($scope.selectData.CathedraId +" - "+cathedraIdBool );
             console.log($scope.selectData.Okr +" - "+ okrBool);
             console.log($scope.selectData.Direction +" - "+ directionBool);
@@ -211,7 +215,7 @@ angular.module('ecampusApp')
             if (cathedraIdBool && directionBool && okrBool && studyYearBool){
                 $scope.preloader = true;
                 var blocks= [];
-                var path = "Subdivision/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhome/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
                     response.forEach(function(item, i, arr){
                         var blockChoiceWhomId = item.blockChoiceWhomId
@@ -234,7 +238,7 @@ angular.module('ecampusApp')
             console.log(blockId);
             $scope.preloader = true;
             var disciplines= [];
-            var path = "Subdivision/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+blockId;
+            var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+blockId;
             Campus.execute("GET", path).then(function(response) {
                 console.log(response);
                 response.forEach(function(item, i, arr){
@@ -243,14 +247,22 @@ angular.module('ecampusApp')
                         ,maxCountStudent = item.maxCountStudent
                         ,occupiedPercent = item.occupiedPercent
                         ,stydyCourse = item.stydyCourse
-                        ,subscribed = item.subscribed;
-                    disciplines.push(new DisciplineModel(disciplineBlockYearId,disciplineName,maxCountStudent,occupiedPercent,stydyCourse,subscribed));
+                        ,subscribed = item.subscribed
+                        ,whoReadId = item.whoReadId
+                        ,whoReadAbbreviation = item.whoReadAbbreviation
+                        ,whoReadName = item.whoReadName;
+                    disciplines.push(new DisciplineModel(disciplineBlockYearId,disciplineName,maxCountStudent,occupiedPercent,stydyCourse,subscribed, whoReadId, whoReadAbbreviation, whoReadName));
 
                 });
                 $scope.disciplines = disciplines;
+                console.log(disciplines);
                 $scope.preloader = false;
                 $scope.safeApply();
             });
+        };
+
+        $scope.SwitchSections = function (event) {
+            $scope.section = event.target.value;
         };
 
         function safeApply (fn) {
@@ -266,4 +278,72 @@ angular.module('ecampusApp')
                 this.$apply(fn);
             }
         };
+
+        //---TEST---
+        $scope.users = [
+            {id: 1, name: 'awesome user1', status: 2, group: 4, groupName: 'admin'},
+            {id: 2, name: 'awesome user2', status: undefined, group: 3, groupName: 'vip'},
+            {id: 3, name: 'awesome user3', status: 2, group: null}
+        ];
+
+        $scope.statuses = [
+            {value: 1, text: 'status1'},
+            {value: 2, text: 'status2'},
+            {value: 3, text: 'status3'},
+            {value: 4, text: 'status4'}
+        ];
+
+        $scope.groups = [];
+        $scope.loadGroups = function() {
+            return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
+                $scope.groups = data;
+            });
+        };
+
+        $scope.showGroup = function(user) {
+            if(user.group && $scope.groups.length) {
+                var selected = $filter('filter')($scope.groups, {id: user.group});
+                return selected.length ? selected[0].text : 'Not set';
+            } else {
+                return user.groupName || 'Not set';
+            }
+        };
+
+        $scope.showStatus = function(user) {
+            var selected = [];
+            if(user.status) {
+                selected = $filter('filter')($scope.statuses, {value: user.status});
+            }
+            return selected.length ? selected[0].text : 'Not set';
+        };
+
+        $scope.checkName = function(data, id) {
+            if (id === 2 && data !== 'awesome') {
+                return "Username 2 should be `awesome`";
+            }
+        };
+
+        $scope.saveUser = function(data, id) {
+            //$scope.user not updated yet
+            angular.extend(data, {id: id});
+            return $http.post('/saveUser', data);
+        };
+
+        // remove user
+        $scope.removeUser = function(index) {
+            $scope.users.splice(index, 1);
+        };
+
+        // add user
+        $scope.addUser = function() {
+            $scope.inserted = {
+                id: $scope.users.length+1,
+                name: '',
+                status: null,
+                group: null
+            };
+            $scope.users.push($scope.inserted);
+        };
     });
+
+// --------------- mock $http requests ----------------------
