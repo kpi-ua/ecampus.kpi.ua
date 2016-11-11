@@ -27,8 +27,21 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  grunt.loadNpmTasks('grunt-css-url-replace');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
+
+    css_url_replace: {
+      options: {
+        staticRoot: 'public'
+      },
+      replace: {
+        files: {
+          'dest/*.css': ['../fonts/', '../fonts/'],
+        }
+      }
+    },
 
     // Project settings
     yeoman: appConfig,
@@ -271,6 +284,14 @@ module.exports = function (grunt) {
         patterns: {
           js: [
             [/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']
+          ],
+          css: [
+            [/(..\/fonts\/)/g, 'Fix webfonts path 1', function (match) {
+              return match.replace('../fonts/', '/fonts/');
+            }],
+            [/(\(fonts\/)/g, 'Fix webfonts path 2', function (match) {
+              return match.replace('(fonts/', '(fonts/');
+            }]
           ]
         }
       }
