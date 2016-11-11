@@ -96,7 +96,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
 
             return [
-              modRewrite(['!\\.html|\\.js|\\.css|\\.png$ /index.html [L]']),
+              modRewrite(['!\\.html|\\.js|\\.woff|\\.ttf|\\.css|\\.png$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
