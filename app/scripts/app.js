@@ -15,11 +15,13 @@ var app = angular.module('ecampusApp', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angular-input-stars'
+    'angular-input-stars',
+    "xeditable",
 ]);
-
+app.run(function(editableOptions) {
+    editableOptions.theme = 'bs3';
+});
 app.config(function($routeProvider, $locationProvider) {
-
     $routeProvider
         .when('/', {
             templateUrl: 'views/main.html',

@@ -35,6 +35,7 @@ module.exports = function(config) {
       'bower_components/webix/codebase/webix.js',
       'bower_components/excellentexport/excellentexport.js',
       'bower_components/page-scroll-to-id/jquery.malihu.PageScroll2id.js',
+      'bower_components/angular-xeditable/dist/js/xeditable.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

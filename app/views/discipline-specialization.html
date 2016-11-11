@@ -1,40 +1,50 @@
 <breadcrumbs>
   <span>Модулі</span> > <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Дисципліни спеціалізації</b>
 </breadcrumbs>
-
+<div ng-switch on="section">
 <section class="container-fluid">
-    <h2>Дисципліни спеціалізації</h2>
-    <label for="Cathedra">Кафедра</label>
-    <!--<label for="Cathedra">{{selectData.CathedraId}}</label>-->
-    <select class="select_disabled" id="Cathedra" name="Cathedra" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
-        <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">{{subsystem.Subdivision.Name}}</option>
-    </select>
-    <br/>
-    <label for="Ork">ОРК</label>
-    <select class="select_disabled" id="Ork" ng-disabled = "!selectData.CathedraId" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
-        <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
-    </select>
-    <br/>
-    <label for="Direction">Напрям</label>
-    <select class="select_disabled" id="Direction" ng-disabled = "!selectData.Okr" ng-model = "selectData.Direction" ng-change="OnFullSelect()">
-        <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code +" "+ speciality.Name}}</option>
-    </select>
-    <!--<br/>-->
-    <!--<label for="Specialization">Специализация</label>-->
-    <!--<select id="Specialization">-->
-        <!--<option value="volvo">Volvo</option>-->
-        <!--<option value="saab">Saab</option>-->
-        <!--<option value="mercedes">Mercedes</option>-->
-        <!--<option value="audi">Audi</option>-->
-    <!--</select>-->
-    <br/>
-    <label for="StudyYear">Навчальний рік</label>
-    <select id="StudyYear"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
-        <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
-    </select>
-    <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-success" value="specialization"  ng-click=" SwitchSections($event)">Дисципліни спеціалізації</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-success" value="patterns" ng-click="SwitchSections($event)">Перегляд і редагування шаблонів</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-success" value="apply" ng-click="SwitchSections($event)">Застосування шаблонів</button>
+        </div>
+    </div>
 </section>
 <section class="container-fluid">
+        <h2 ng-switch-when="specialization">Дисципліни спеціалізації</h2>
+        <h2 ng-switch-when="patterns">Перегляд і редагування шаблонів</h2>
+        <h2 ng-switch-when="apply">Застосування шаблонів</h2>
+        <label for="Cathedra">Кафедра</label>
+        <!--<label for="Cathedra">{{selectData.CathedraId}}</label>-->
+        <select class="select_disabled" id="Cathedra" name="Cathedra" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
+            <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">{{subsystem.Subdivision.Name}}</option>
+        </select>
+        <br/>
+        <label for="Ork">ОКР</label>
+        <select class="select_disabled" id="Ork" ng-disabled = "!selectData.CathedraId" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
+            <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
+        </select>
+        <br/>
+        <label for="Direction">Напрям</label>
+        <select class="select_disabled" id="Direction" ng-disabled = "!selectData.Okr" ng-model = "selectData.Direction" ng-change="OnFullSelect()">
+            <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code +" "+ speciality.Name}}</option>
+        </select>
+        <br/>
+        <div ng-switch-when="specialization">
+            <label for="StudyYear">Навчальний рік</label>
+            <select id="StudyYear"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
+                <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
+            </select>
+        </div>
+
+    <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
+</section>
+<section class="container-fluid" ng-switch-when="specialization">
     <div class="row">
         <div class="col-md-6" ng-show="blocks!=null">
             <fieldset>
@@ -75,6 +85,7 @@
                     <thead>
                     <tr>
                         <th class="text-center">Назва дисципліни</th>
+                        <th class="text-center">Читаюча кафедра</th>
                         <th class="text-center">Мах кількість <br/> студентів</th>
                         <th class="text-center">Записалося студентів</th>
                     </tr>
@@ -82,6 +93,7 @@
                     <tbody>
                     <tr ng-repeat="discipline in disciplines">
                         <th scope="row">{{discipline.DisciplineName}}</th>
+                        <th scope="row">{{discipline.WhoReadAbbreviation}}</th>
                         <td>{{discipline.MaxCountStudent}}</td>
                         <td>
                             <div class="progress">
@@ -89,10 +101,10 @@
                                     <span>{{discipline.Subscribed+"\\"+discipline.MaxCountStudent}}</span>
                                 </div>
                             </div>
-                            <tr ng-show="disciplines!=null && disciplines.length == 0">
-                                <td class="errorLabel" scope="row" colspan="4">На жаль записи у базі відсутні</td>
-                            </tr>
                         </td>
+                        <tr ng-show="disciplines!=null && disciplines.length == 0">
+                            <td class="errorLabel" scope="row" colspan="4">На жаль записи у базі відсутні</td>
+                        </tr>
                     </tr>
 
                     </tbody>
@@ -102,53 +114,53 @@
         </div>
     </div>
 </section>
-<!--<section class="container-fluid">-->
-    <!--<label for="CathedraTemplate">Кафедра</label>-->
-    <!--<select id="CathedraTemplate">-->
-        <!--<option value="volvo">Volvo</option>-->
-        <!--<option value="saab">Saab</option>-->
-        <!--<option value="mercedes">Mercedes</option>-->
-        <!--<option value="audi">Audi</option>-->
-    <!--</select>-->
-    <!--<br/>-->
-    <!--<label for="DirectionTemplate">Напрям</label>-->
-    <!--<select id="DirectionTemplate">-->
-        <!--<option value="volvo">Volvo</option>-->
-        <!--<option value="saab">Saab</option>-->
-        <!--<option value="mercedes">Mercedes</option>-->
-        <!--<option value="audi">Audi</option>-->
-    <!--</select>-->
-    <!--<br/>-->
-    <!--<label for="DirectionTemplateSpecialization">Напрям</label>-->
-    <!--<select id="DirectionTemplateSpecialization">-->
-        <!--<option value="volvo">Volvo</option>-->
-        <!--<option value="saab">Saab</option>-->
-        <!--<option value="mercedes">Mercedes</option>-->
-        <!--<option value="audi">Audi</option>-->
-    <!--</select>-->
-    <!--<br/>-->
-    <!--<label for="SpecializationTemplate">Специализация</label>-->
-    <!--<select id="SpecializationTemplate">-->
-        <!--<option value="volvo">Volvo</option>-->
-        <!--<option value="saab">Saab</option>-->
-        <!--<option value="mercedes">Mercedes</option>-->
-        <!--<option value="audi">Audi</option>-->
-    <!--</select>-->
-    <!--<br/>-->
-    <!--<label for="OrkTemplate">ОРК</label>-->
-    <!--<select id="OrkTemplate">-->
-        <!--<option value="volvo">Volvo</option>-->
-        <!--<option value="saab">Saab</option>-->
-        <!--<option value="mercedes">Mercedes</option>-->
-        <!--<option value="audi">Audi</option>-->
-    <!--</select>-->
-    <!--<br/>-->
-    <!--<label for="StudyYearTemplate">Навчальний рік</label>-->
-    <!--<select id="StudyYearTemplate">-->
-        <!--<option value="volvo">Volvo</option>-->
-        <!--<option value="saab">Saab</option>-->
-        <!--<option value="mercedes">Mercedes</option>-->
-        <!--<option value="audi">Audi</option>-->
-    <!--</select>-->
-<!--</section>-->
+    <section class="container-fluid" ng-switch-when="patterns">
+        <h4>Angular-xeditable Editable row (Bootstrap 3)</h4>
+            <table class="table table-bordered table-hover table-condensed">
+                <tr style="font-weight: bold">
+                    <td>Name</td>
+                    <td>Status</td>
+                    <td>Group</td>
+                    <td>Edit</td>
+                </tr>
+                <tr ng-repeat="user in users">
+                    <td>
+                        <!-- editable username (text with validation) -->
+                        <span editable-text="user.name" e-name="name" e-form="rowform" onbeforesave="checkName($data, user.id)" e-required>
+                          {{ user.name || 'empty' }}
+                        </span>
+                    </td>
+                    <td>
+                        <!-- editable status (select-local) -->
+                        <span editable-select="user.status" e-name="status" e-form="rowform" e-ng-options="s.value as s.text for s in statuses">
+                          {{ showStatus(user) }}
+                        </span>
+                    </td>
+                    <td>
+                        <!-- editable group (select-remote) -->
+                        <span editable-select="user.group" e-name="group" onshow="loadGroups()" e-form="rowform" e-ng-options="g.id as g.text for g in groups">
+                          {{ showGroup(user) }}
+                        </span>
+                    </td>
+                    <td style="white-space: nowrap">
+                        <!-- form -->
+                        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
+                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                save
+                            </button>
+                            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                                cancel
+                            </button>
+                        </form>
+                        <div class="buttons" ng-show="!rowform.$visible">
+                            <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
+                            <button class="btn btn-danger" ng-click="removeUser($index)">del</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <button class="btn btn-default" ng-click="addUser()">Add row</button>
+    </section>
+</div>
 
