@@ -1,16 +1,62 @@
-<breadcrumbs>
-  <span>Модулі</span> > <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Блок дисциплін</b>
-</breadcrumbs>
+<!-- ng-controller="DisciplinesBlockCtrl" with this controller is invoked twice (from router+here) -->
+<div>
+    <div class="container-fluid" id="selectYearAndOkr"> 
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Дисципліни вибору</h2>
+            </div>
+        </div>
+
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="year">Навчальний рік:</label>
+            <div class="col-sm-10">
+                <select data-placeholder="Enter study year" id="year" ng-model="selectedYear" ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
+                    <option></option> <!-- this option is necessary to provide correct index of data options -->
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="okr">Освітній рівень:</label>
+            <div class="col-sm-10">
+                <select data-placeholder="Enter okr" id="okr" ng-model="selectedOkr" ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
+                    <option></option><!-- this option is necessary to provide correct index of data options -->
+                </select>
 
 
-<div class="container-fluid content">
-  <div class="content">
-    <div class="row">
-      <div class="col-md-12">
+            </div>
+        </div>
 
-        <h2>Блок дисциплін</h2>
+        </form>
+    <div ng-show="ifYearAndOkr0Chosen()">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Перелік дисциплін вибору:</h2>
+            </div>
+        </div>
 
-      </div>
-    </div>
-  </div>
+        <div ui-tree> 
+            <ol ui-tree-nodes="" ng-model="dataInTree">
+                <li ng-repeat="(block, disciplines) in dataInTree | groupBy: 'block'" ui-tree-node data-collapsed="true" data-expand-on-hover="true">
+                    <div ui-tree-handle data-nodrag class="node_block">
+                        <a class="btn btn-default btn-xs" ng-if="block && block.length>0" ng-click="toggle()">
+                            <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}">
+
+                            </span>
+                        </a>
+                        {{block}}
+                    </div>
+                    <ol ui-tree-nodes="" ng-model="disciplines" ng-class="{hidden: collapsed}">
+                        <li ng-repeat="discip in disciplines" ui-tree-node>
+                            <div ui-tree-handle data-nodrag class="node_child">
+                               {{discip.discipline}}
+                           </div>
+                       </li>
+                   </ol>
+               </li>
+
+           </ol>
+       </div>
+   </div>
+</div>
 </div>
