@@ -18,7 +18,7 @@ angular.module('ecampusApp')
 
     function reload() {
       if (!!Campus.getToken()) {
-        var sClaim = decodeToken(Campus.getToken());
+        var sClaim = Api.decodeToken(Campus.getToken());
 
         if (!!sClaim) {
           sClaim = JSON.parse(sClaim);
@@ -48,10 +48,10 @@ angular.module('ecampusApp')
     }
 
     function setSubdivisionDetails() {
-      //debugger;
-      var user = Api.getCurrentUser();
-      var sClaim = decodeToken(Campus.getToken());
+
+      var sClaim = Api.decodeToken(Campus.getToken());
       sClaim = JSON.parse(sClaim);
+
       if (typeof(sClaim.resp) == "object") {
         sClaim.resp.forEach(function (itemForEach, i, arr) {
           var itemForEachJSON = JSON.parse(itemForEach);
@@ -71,8 +71,10 @@ angular.module('ecampusApp')
 
     function setFacultyAndInstitute() {
       var kpiQuery = false;
-      var sClaim = decodeToken(Campus.getToken());
+      var sClaim = Api.decodeToken(Campus.getToken());
+
       sClaim = JSON.parse(sClaim);
+
       if (typeof(sClaim.resp) == "object") {
         sClaim.resp.forEach(function (itemForEach, i, arr) {
           kpiQuery = setFacultyAndInstituteLogic(itemForEach, kpiQuery);
