@@ -15,7 +15,8 @@ var app = angular.module('ecampusApp', [
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'angular-input-stars'
+    'angular-input-stars',
+	'ui.tree'
 ]);
 
 app.config(function ($routeProvider, $locationProvider) {
@@ -70,7 +71,17 @@ app.config(function ($routeProvider, $locationProvider) {
           templateUrl: 'views/statistic.html',
           controller: 'StatisticCtrl',
           controllerAs: 'statistic'
-        })        
+        })      
+		.when('/discipline-proposition', {
+            templateUrl: 'views/discipline-proposition.html',
+            controller: 'DisciplinesPropositionCtrl',
+            controllerAs: 'proposition'
+        })
+        .when('/discipline-block', {
+            templateUrl: 'views/discipline-block.html',
+            controller: 'DisciplinesBlockCtrl',
+            controllerAs: 'block'
+        })
         .otherwise({
             redirectTo: '/'
         });
