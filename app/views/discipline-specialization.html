@@ -7,6 +7,8 @@
     <div class="row">
       <div class="col-md-12">
 
+        <h2>Дисципліни спеціалізації</h2>
+
         <div ng-switch on="section">
           <section class="container-fluid">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -28,9 +30,9 @@
             </div>
           </section>
           <section class="container-fluid">
-            <h2 ng-switch-when="specialization">Дисципліни спеціалізації</h2>
-            <h2 ng-switch-when="patterns">Перегляд і редагування шаблонів</h2>
-            <h2 ng-switch-when="apply">Застосування шаблонів</h2>
+            <h4 ng-switch-when="specialization">Дисципліни спеціалізації</h4>
+            <h4 ng-switch-when="patterns">Перегляд і редагування шаблонів</h4>
+            <h4 ng-switch-when="apply">Застосування шаблонів</h4>
             <div ng-show="section=='specialization'||section=='patterns'">
               <label for="Cathedra">Кафедра</label>
               <!--<label for="Cathedra">{{selectData.CathedraId}}</label>-->
