@@ -16,7 +16,8 @@ var app = angular.module('ecampusApp', [
     'ngSanitize',
     'ngTouch',
     'angular-input-stars',
-    "xeditable"
+    "xeditable",
+	'ui.tree'
 ]);
 
 app.run(function(editableOptions) {
