@@ -44,7 +44,6 @@ angular.module('ecampusApp')
             $scope.preloader=false;
         }
 
-
         function SubdivisionModel(SubdivisionId,Name){
             this.SubdivisionId =SubdivisionId;
             this.Name =Name;
@@ -88,6 +87,29 @@ angular.module('ecampusApp')
             this.WhoReadAbbreviation = whoReadAbbreviation;
             this.WhoReadName = whoReadName;
         }
+
+        function BlockModel(blockId, blockName ) {
+            this.BlockName = blockName ;
+            this.BlockId = blockId ;
+        }
+
+        function CycleModel(cycleId, cycleName) {
+            this.CycleName = cycleName ;
+            this.CycleId = cycleId ;
+        }
+
+        function PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName) {
+            this.PatternBlockChoice8Id = patternBlockChoice8Id ;
+            this.RtProfTrainTotalSubdivisionId = rtProfTrainTotalSubdivisionId ;
+            this.BlockName = blockName ;
+            this.BlockId = blockId ;
+            this.CycleName = cycleName ;
+            this.CycleId = cycleId ;
+            this.Course = course ;
+            this.Semester = semester ;
+            this.CountDiscipline = countDiscipline ;
+            this.PatternName = patternName ;
+        }
         
         function getStudyYearsArray(from, to) {
             var studyYears = [];
@@ -105,7 +127,6 @@ angular.module('ecampusApp')
                 if(typeof(sClaim.resp)=="object"){
                     sClaim.resp.forEach(function(itemForEach, i, arr) {
                         var itemForEachJSON = JSON.parse(itemForEach);
-
                         var subsystemId = itemForEachJSON.Subsystem;
                         var subdivisionId = itemForEachJSON.Subdivision.SubdivisionId;
                         var subdivisionName = itemForEachJSON.Subdivision.Name;
@@ -203,19 +224,16 @@ angular.module('ecampusApp')
         };
 
         $scope.OnFullSelect = function () {
+            var path="";
             $scope.disciplines =null;
             var cathedraIdBool =    $scope.selectData.CathedraId != null;
             var directionBool =     $scope.selectData.Direction != null;
             var okrBool =           $scope.selectData.Okr != null;
             var studyYearBool =     $scope.selectData.StudyYear != null;
-            console.log($scope.selectData.CathedraId +" - "+cathedraIdBool );
-            console.log($scope.selectData.Okr +" - "+ okrBool);
-            console.log($scope.selectData.Direction +" - "+ directionBool);
-            console.log($scope.selectData.StudyYear +" - "+studyYearBool);
-            if (cathedraIdBool && directionBool && okrBool && studyYearBool){
+            if (cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='specialization'){
                 $scope.preloader = true;
                 var blocks= [];
-                var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
                     response.forEach(function(item, i, arr){
                         var blockChoiceWhomId = item.blockChoiceWhomId
@@ -231,6 +249,55 @@ angular.module('ecampusApp')
                     $scope.safeApply();
                 });
 
+            }else if(cathedraIdBool && directionBool && okrBool && $scope.section=='patterns') {
+                $scope.preloader = true;
+                var patterns= [];
+                path = "SelectiveDiscipline/GetPatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                Campus.execute("GET", path).then(function(response) {
+                    response.forEach(function(item, i, arr){
+                        var   patternBlockChoice8Id =  item.patternBlockChoice8Id
+                            , rtProfTrainTotalSubdivisionId = item.rtProfTrainTotalSubdivisionId
+                            , blockName = item.blockName
+                            , blockId = item.blockId
+                            , cycleName = item.cycleName
+                            , cycleId = item.cycleId
+                            , course = item.course
+                            , semester = item.semester
+                            , countDiscipline = item.countDiscipline
+                            , patternName = item.patternName;
+                        patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName));
+                    });
+                    $scope.patterns = patterns;
+                    /// Написать запросы на DcCycle и DcBlock
+                    // Логику для Courses и
+                    $scope.Dc ={
+                        Cycles      : [
+                          new CycleModel(1,"Цикл гуманітарної та соціально-економічної підготовки"),
+                          new CycleModel(2,"Цикл математичної природничо-наукової підготовки"),
+                          new CycleModel(3,"Цикл професійної та практичної підготовки"),
+                          new CycleModel(4,"Гуманітарна складова"),
+                          new CycleModel(5,"Професійна складова")
+                    ],
+                        Blocks      : [
+                            new BlockModel(1,"Екологічні навчальні дисципліни"),
+                            new BlockModel(2,"Мовні навчальні дисципліни"),
+                            new BlockModel(3,"Історичні навчальні дисципліни"),
+                            new BlockModel(4,"Філософські навчальні дисципліни"),
+                            new BlockModel(5,"Психологічні навчальні дисципліни"),
+                            new BlockModel(6,"Педагогічні навчальні дисципліни"),
+                            new BlockModel(7,"Правові навчальні дисципліни"),
+                            new BlockModel(8,"Додаткові навчальні дисципліни вільного вибору"),
+                            new BlockModel(9,"Навчальні дисципліни зі сталого розвитку"),
+                            new BlockModel(10,"Навчальні дисципліни з менеджменту і маркетингу"),
+                            new BlockModel(11,"Перший блок дисциплін"),
+                            new BlockModel(12,"Другий  блок дисциплін")
+                        ],
+                        Courses     : [1,2,3,4],
+                        Semesters   : [1,2,3,4,5,6,7,8]
+                    };
+                    $scope.preloader = false;
+                    $scope.safeApply();
+                });
             }
         };
 
