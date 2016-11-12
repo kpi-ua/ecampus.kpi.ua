@@ -16,11 +16,13 @@ var app = angular.module('ecampusApp', [
     'ngSanitize',
     'ngTouch',
     'angular-input-stars',
-    "xeditable",
+    "xeditable"
 ]);
+
 app.run(function(editableOptions) {
     editableOptions.theme = 'bs3';
 });
+
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
@@ -128,7 +130,4 @@ app.config(function($routeProvider, $locationProvider) {
         });
 
     $locationProvider.html5Mode(true);
-
-    //Campus.setApiEndpoint('https://api-campus-kpi-ua.azurewebsites.net/');
-    //Campus.setApiEndpoint('http://localhost:56329/');
 });
