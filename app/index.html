@@ -12,17 +12,23 @@
     <meta name='yandex-verification' content='4ce42a0173a1c976' />
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,300,700&subset=latin,cyrillic,cyrillic-ext" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-social/bootstrap-social.css" />
+    <link rel="stylesheet" href="bower_components/webix/codebase/webix.css" />
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/stat.main.css">
     <link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/discBlockAndPropose.css">
+
     <!-- endbuild -->
 
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -42,18 +48,24 @@
     <header class="container-fluid">
         <div class="row center-block">
             <div class="col-md-6">
+                <!--<a href="/#/">Електронний кампус</a>-->
                 <a href="/#/">
-                    Електронний кампус
+                    <img src="/images/logo-big-green.png" class="logo" />
                 </a>
             </div>
             <div class="col-md-6 text-right">
                 НАЦІОНАЛЬНИЙ ТЕХНІЧНИЙ УНІВЕРСИТЕТ УКРАЇНИ<br /> «КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ імені Ігоря Сікорського»
             </div>
         </div>
+        <navigation class="container-fluid"></navigation>
     </header>
 
-    <div class="white" ng-view></div>
 
+
+    <div class="white" ng-view></div>
+    <div class="loader" ng-if="preloader">
+        <div class="loader_inner" ng-if="preloader"></div>
+    </div>
     <footer class="container-fluid">
         <div class="row">
             <div class="col-md-4">
@@ -64,7 +76,7 @@
                 <a href="/#/privacy">Правила використання інформації сайту</a> /
                 <a href="/#/about">Про систему</a> /
                 <!--<a href="/#/voting">Модуль оцінювання викладачів</a> /-->
-                <a href="/#/debugger.html">Дебагер</a> /
+                <!--<a href="/#/debugger.html">Дебагер</a> /-->
                 <a href="/#/contacts">Контактнi данi</a>
             </div>
         </div>
@@ -109,61 +121,47 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-input-stars-directive/angular-input-stars.js"></script>
+    <script src="bower_components/kjur-jsrsasign/jsrsasign-latest-all-min.js"></script>
+    <script src="bower_components/jwt-decode/build/jwt-decode.js"></script>
+    <script src="bower_components/webix/codebase/webix.js"></script>
+    <script src="bower_components/excellentexport/excellentexport.js"></script>
+    <script src="bower_components/page-scroll-to-id/jquery.malihu.PageScroll2id.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="bower_components/chosen/chosen.jquery.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/campus.sdk.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/services/api.js"></script>
+    <script src="scripts/services/UniqueElemsInListService.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/information.js"></script>
     <script src="scripts/controllers/voting.js"></script>
     <script src="scripts/controllers/debugger.js"></script>
     <script src="scripts/controllers/security.js"></script>
     <script src="scripts/controllers/votingProfile.js"></script>
-    <script src="scripts/services/api.js"></script>
+    <script src="scripts/controllers/admin.js"></script>
     <script src="scripts/controllers/statistic.js"></script>
+    <script src="scripts/controllers/statistic-npp.js"></script>
+    <script src="scripts/controllers/statistic-zkm.js"></script>
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/controllers/bulletinsBoard.js"></script>
+    <script src="scripts/controllers/disciplinesChoice.js"></script>
+    <script src="scripts/controllers/discipline-block.js"></script>
+    <script src="scripts/controllers/discipline-proposition.js"></script>
+    <script src="scripts/controllers/discipline-specialization.js"></script>
+    <script src="scripts/controllers/settings.js"></script>
+    <script src="scripts/directives/ChosenDirective.js"></script>
+    <script src="scripts/directives/navigation.js"></script>
+    <script src="scripts/directives/breadcrumbs.js"></script>
+    <script src="scripts/filters/SortCustomFilter.js"></script>
+    <script src="scripts/filters/UniqueFilter.js"></script>
+    <script src="scripts/filters/groupByFilter.js"></script>
     <!-- endbuild -->
 
-
-
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function(d, w, c) {
-            (w[c] = w[c] || []).push(function() {
-                try {
-                    w.yaCounter20363149 = new Ya.Metrika({
-                        id: 20363149,
-                        webvisor: true,
-                        clickmap: true,
-                        trackLinks: true,
-                        accurateTrackBounce: true,
-                        trackHash: true,
-                        ut: "noindex"
-                    });
-                } catch (e) {}
-            });
-            var n = d.getElementsByTagName("script")[0],
-                s = d.createElement("script"),
-                f = function() {
-                    n.parentNode.insertBefore(s, n);
-                };
-            s.type = "text/javascript";
-            s.async = true;
-            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-            if (w.opera == "[object Opera]") {
-                d.addEventListener("DOMContentLoaded", f, false);
-            } else {
-                f();
-            }
-        })(document, window, "yandex_metrika_callbacks");
-    </script>
-    <noscript>
-        <div>
-            <img src="//mc.yandex.ru/watch/20363149?ut=noindex" style="position: absolute; left: -9999px;" alt="" />
-        </div>
-    </noscript>
-    <!-- /Yandex.Metrika counter -->
 </body>
 
 </html>

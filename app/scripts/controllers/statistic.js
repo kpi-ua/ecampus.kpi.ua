@@ -8,10 +8,6 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('StatisticCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('StatisticCtrl', function($scope, $cookies, $window, Api) {
+
+    });

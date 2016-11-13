@@ -1,0 +1,246 @@
+<breadcrumbs>
+  <span>Модулі</span> > <b>Пропозиції дисциплін</b>
+</breadcrumbs>
+          <!-- ng-controller="DisciplinesPropositionCtrl"  with this controller is invoked twice (from router+here)--->
+		  <div>
+                    <div class="container-fluid"> 
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h2>Пропозиції дисциплін</h2>
+                            </div>
+                        </div>
+						<form class="form-inline" id="selectSubdiv">
+                              <div class="form-group">
+                                <label for="subdivisionSelect">Підрозділ, який забезпечує викладання: </label>
+                                <select data-placeholder="Оберіть підрозділ..." style="width:500px;" chosen class="chosen-select" id="subdivisionSelect" ng-model="selectedDiscipline" ng-change="SendSubdivisionToServer()" ng-options="subdivision.name for subdivision in allSubdivisions">
+                                    <option></option> <!-- this option is necessary to provide correct index of data options -->
+                                </select>
+                            </div>                        
+                        </form>
+						<div ng-show="ifSubdivChosen()">
+                        <div class="table-responsive" >
+                            <table  class="table table-condensed table-bordered" id="TablecDisciplinesblock8")>
+                                <tr class="tableColorHead">
+                                    <th class="tdFullAlignCenter">№</th>
+                                    <th class="tdFullAlignCenter" ng-click="sortBy('okr')">
+                                        ОКР
+                                        <span class="sortorder" ng-show="sortName === 'okr'" ng-class="{'reverse': sortReverse}"></span> 
+                                    </th>
+                                    <th class="tdFullAlignCenter" ng-click="sortBy('blockName')">
+                                        Назва блоку
+                                        <span class="sortorder" ng-show="sortName === 'blockName'" ng-class="{'reverse': sortReverse}"></span> 
+                                    </th>
+                                    <th class="tdFullAlignCenter" ng-click="sortBy('nameUkr')">
+                                        Назва дисципліни
+                                        <span class="sortorder" ng-show="sortName === 'nameUkr'" ng-class="{'reverse': sortReverse}"></span> 
+                                    </th>
+                                    <th class="tdFullAlignCenter">
+                                        Опис
+                                    </th>
+                                    <th class="tdFullAlignCenter">
+                                        Рік викладання
+                                    </th>
+                                    <th class="tdFullAlignCenter">
+                                        Зображення
+                                    </th>
+                                    <th class="tdFullAlignCenter">
+                                        Кількість кредитів
+                                    </th>
+                                </tr>
+
+                <tr ng-repeat="obj in alldisciplines | orderObjectBy:sortName:sortReverse | unique:selectedDiscipline"> 
+
+                    <td>{{ $index + 1 }}</td>
+
+                    <td>{{obj.okr}}</td>
+                    <td>{{obj.blockName}}</td>
+                    
+                    <td>{{obj.nameUkr}}</td>
+                    <td> 
+                    <button type="button" class="btn btn-default" aria-label="Description and additional information" data-toggle="modal" data-target="#ModalAdditionalInfo" ng-click="getCurrentYearData(obj)">
+                        <i class="fa fa-bars" aria-hidden="true"></i>
+                    </button>
+                    
+                    </td>
+                    <td>
+                    <button type="button" class="btn btn-default" aria-label="Maximum amount of approved students according to years" data-toggle="modal" data-target="#ModalTableApproved" ng-click="getCurrentYearData(obj)">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                    </button>
+                    </td>
+                    
+                    
+                    <td>{{obj.pictures}}</td>
+                    <td>{{obj.countCredit}}</td>
+                </tr>
+            </table>
+            
+            
+        </div>
+        <div class="row">
+                <div class="col-xs-11 col-xs-offset-11">
+                    <a href="#" data-toggle="modal" data-target="#AddDataToTable" class="round-button">+</a>
+                </div>
+            </div>
+			</div>
+    </div>
+
+    <!--All of this will be modified soon into single modal with appropriate content-->
+    <div id="ModalAdditionalInfo" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Детальний опис</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid"> 
+                    <div class="row">
+                        <div class="col-xs-2">Знання:</div>
+                        <div class="col-xs-10">{{CurrentYearData.knowledge}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">Уміння:</div>
+                        <div class="col-xs-10">{{CurrentYearData.competence}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">Навички:</div>
+                        <div class="col-xs-10">{{CurrentYearData.skill}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-2">Анотація:</div>
+                        <div class="col-xs-10">{{CurrentYearData.annotation}}</div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <div id="ModalTableApproved" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Детальна інформація про кількість студентів</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered">
+                    <caption>{{CurrentYearData.nameUkr}}</caption>
+                        <tr>
+                            <th>Навчальний рік</th>
+                            <th>Максимальна кількість студентів на потоці</th>
+                            <th>Затвердження</th>
+                        </tr>
+                        
+                        <tr ng-repeat="objYear in CurrentYearData.cdisciplineblockyear8">
+                            <td>{{objYear.studyYear}}</td>
+                            <td>{{objYear.maxCountStudent}}</td>
+                            <td>{{objYear.isApproved}}</td>
+                        </tr>
+                    </table>
+                    
+                  
+                    
+    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="AddDataToTable" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Додати інформацію</h4>
+            </div>
+        <div class="modal-body">
+             <form class="form-horizontal">
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="newOkr">ОКР:</label>
+                <div class="col-sm-9">
+                  <select name="" id="newOkr" ng-model="newData.okr" ng-options="currOkr for currOkr in allOkr"></select>
+              </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="newBlock">Назва блоку:</label>
+            <div class="col-sm-9">
+              <select name="" id="newBlock" ng-model="newData.blockName"></select>
+          </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="newDisc">Назва дисципліни:</label>
+            <div class="col-sm-9">
+              <select name="" id="newDisc" ng-model="newData.nameUkr"></select>
+          </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="newKnowledge">Знання:</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" rows="3" id="newKnowledge" ng-model="newData.knowledge"></textarea>
+          </div>
+      </div>
+      <div class="form-group">
+            <label class="control-label col-sm-3" for="newCompetence">Уміння:</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" rows="3" id="newCompetence" ng-model="newData.competence"></textarea>
+          </div>
+      </div>
+      <div class="form-group">
+            <label class="control-label col-sm-3" for="newSkills">Навички:</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" rows="3" id="newSkills" ng-model="newData.skill"></textarea>
+          </div>
+      </div>
+      <div class="form-group">
+            <label class="control-label col-sm-3" for="newAnnotation">Анотація:</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" rows="3" id="newAnnotation" ng-model="newData.annotation"></textarea>
+          </div>
+      </div>
+      <div class="form-group">
+            <label class="control-label col-sm-3" for="newImg">Зображення:</label>
+            <div class="col-sm-9">
+              <input type="" class="form-control" id="newImg" placeholder="Enter img" ng-model="newData.pictures">
+          </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="newCred">Кількість кредитів:</label>
+            <div class="col-sm-9">
+              <input type="" class="form-control" id="newCred" placeholder="Enter amount of credits" ng-model="newData.countCredit">
+          </div>
+          </div>
+
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default" ng-click="sendToServer()">Зберегти</button>
+  </div>
+</div>
+</form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
+</div>
+</div>
+
+    </div>
+</div>
+
+
+
+
+
+</div>
