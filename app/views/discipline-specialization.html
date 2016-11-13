@@ -27,12 +27,12 @@
             </select>
             <br/>
             <label for="Ork">ОКР</label>
-            <select class="select_disabled" id="Ork" ng-disabled = "!selectData.CathedraId" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
+            <select class="select_disabled" id="Ork" ng-disabled = "!okrNames" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
                 <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
             </select>
             <br/>
             <label for="Direction">Напрям</label>
-            <select class="select_disabled" id="Direction" ng-disabled = "!selectData.Okr" ng-model = "selectData.Direction" ng-change="OnFullSelect()">
+            <select class="select_disabled" id="Direction" ng-disabled = "!specialities" ng-model = "selectData.Direction" ng-change="OnFullSelect()">
                 <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code +" "+ speciality.Name}}</option>
             </select>
         </div>
@@ -117,62 +117,66 @@
         </div>
     </section>
     <section class="container-fluid" ng-switch-when="patterns">
-        <h4>Angular-xeditable Editable row (Bootstrap 3)</h4>
+        <div class="col-md-12">
+        <button class="btn btn-default" ng-click="addPattern()">Add row</button>
             <table class="table table-bordered table-hover table-condensed">
-                <tr style="font-weight: bold">
+                <tr>
                     <td>Цикл дисциплін</td>
                     <td>Назва блоку</td>
-                    <td>Курс</td>
+                    <td>Курс навчання</td>
                     <td>Семестр</td>
                     <td>Кількість дисциплін</td>
                     <td>Примітка</td>
+                    <td></td>
                 </tr>
-                <button class="btn btn-default" ng-click="">Add row</button>
                 <tr ng-repeat="pattern in patterns">
                     <td>
-                        <span editable-select="pattern.CycleName" e-name="cycle" e-form="rowform" onbeforesave="" e-required e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
-                          {{ pattern.CycleName}}
+                        <span editable-select="pattern.CycleId" e-name="CycleId" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
+                          {{ pattern.CycleName|| 'empty' }}
+                          <!--{{ShowCycleName(pattern)}}-->
                         </span>
                     </td>
                     <td>
-                        <span editable-select="pattern.BlockName" e-name="BlockName" e-form="rowform" e-ng-options="block.BlockId as block.BlockName for block in Dc.Blocks">
-                          {{ pattern.BlockName }}
+                        <span editable-select="pattern.BlockId" e-name="BlockId" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="block.BlockId as block.BlockName for block in Dc.Blocks">
+                          {{ pattern.BlockName || 'empty' }}
                         </span>
                     </td>
                     <td>
-                        <span editable-select="pattern.Course" e-name="Course" e-form="rowform" e-ng-options="course as course for course in Dc.Courses">
-                          {{ pattern.Course}}
+                        <span editable-select="pattern.Course" e-name="Course" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="course as course for course in Dc.Courses">
+                          {{ pattern.Course || 'empty' }}
                         </span>
                     </td>
                     <td>
-                        <span editable-select="pattern.Semester" e-name="Semester" e-form="rowform" e-ng-options="semester as semester for semester in Dc.Semesters">
-                          {{ pattern.Semester}}
+                        <span editable-select="pattern.Semester" e-name="Semester" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="semester as semester for semester in Dc.Semesters">
+                          {{ pattern.Semester || 'empty' }}
                         </span>
                     </td>
                     <td>
-                        <span  editable-number="pattern.CountDiscipline" e-name="CountDiscipline" e-min="0"  e-form="rowform">{{ pattern.CountDiscipline|| 'empty' }}</span>
+                        <span  editable-number="pattern.CountDiscipline" e-name="CountDiscipline" onbeforesave="checkAllForm($data)" e-form="rowform" e-min="0"  e-required>{{ pattern.CountDiscipline|| 'empty' }}</span>
                     </td>
-                    <td style="white-space: nowrap">
+                    <td>
+                        <span editable-text="pattern.PatternName" e-name="PatternName" e-form="rowform">
+                          {{ pattern.PatternName || 'empty' }}
+                        </span>
+                    </td>
+                    <td>
                         <!-- form -->
-                        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == user">
-                            <button type="button" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="">
+                        <form editable-form name="rowform" onbeforesave="savePattern($data, pattern.PatternBlockChoice8Id,pattern)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pattern">
+                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
                                 save
                             </button>
-                            <!--<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="alert('saved');">-->
-                                <!--save-->
-                            <!--</button>-->
                             <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
                                 cancel
                             </button>
                         </form>
                         <div class="buttons" ng-show="!rowform.$visible">
                             <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                            <button class="btn btn-danger" ng-click="">del</button>
+                            <button class="btn btn-danger" ng-click="removePattern(pattern.PatternBlockChoice8Id)">del</button>
                         </div>
                     </td>
                 </tr>
             </table>
-
+        </div>
 
     </section>
 </div>

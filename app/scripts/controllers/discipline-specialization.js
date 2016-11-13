@@ -18,9 +18,37 @@ angular.module('ecampusApp')
             CathedraId : null,
             Okr : null,
             Direction : null,
-            StudyYear : null
+            StudyYear : null,
+            RtProfTrainTotalSubdivisionId: null,
         };
         $scope.section = "specialization";
+        /// Написать запросы на DcCycle и DcBlock
+        // Логику для Courses и
+        $scope.Dc ={
+            Cycles      : [
+                new CycleModel(1,"Цикл гуманітарної та соціально-економічної підготовки"),
+                new CycleModel(2,"Цикл математичної природничо-наукової підготовки"),
+                new CycleModel(3,"Цикл професійної та практичної підготовки"),
+                new CycleModel(4,"Гуманітарна складова"),
+                new CycleModel(5,"Професійна складова")
+            ],
+            Blocks      : [
+                new BlockModel(1,"Екологічні навчальні дисципліни"),
+                new BlockModel(2,"Мовні навчальні дисципліни"),
+                new BlockModel(3,"Історичні навчальні дисципліни"),
+                new BlockModel(4,"Філософські навчальні дисципліни"),
+                new BlockModel(5,"Психологічні навчальні дисципліни"),
+                new BlockModel(6,"Педагогічні навчальні дисципліни"),
+                new BlockModel(7,"Правові навчальні дисципліни"),
+                new BlockModel(8,"Додаткові навчальні дисципліни вільного вибору"),
+                new BlockModel(9,"Навчальні дисципліни зі сталого розвитку"),
+                new BlockModel(10,"Навчальні дисципліни з менеджменту і маркетингу"),
+                new BlockModel(11,"Перший блок дисциплін"),
+                new BlockModel(12,"Другий  блок дисциплін")
+            ],
+            Courses     : [1,2,3,4],
+            Semesters   : [1,2,3,4,5,6,7,8]
+        };
         reload();
 
         function reload() {
@@ -179,6 +207,26 @@ angular.module('ecampusApp')
             return okrArray;
         }
 
+        function GetBlockNameById(dcBlock, blockId) {
+            var blockName = "";
+            dcBlock.forEach(function (item,iter,arr) {
+               if(item.BlockId == blockId){
+                   blockName =  item.BlockName;
+               }
+            });
+            return blockName;
+        }
+
+        function GetCycleNameById(dcCycle, cycleId) {
+            var cycleName ="";
+            dcCycle.forEach(function (item,iter,arr) {
+               if(item.CycleId == cycleId){
+                   cycleName =  item.CycleName;
+               }
+            });
+            return cycleName;
+        }
+
         $scope.OnCathedraSelect = function () {
             $scope.blocks = null;
             $scope.disciplines =null;
@@ -208,6 +256,7 @@ angular.module('ecampusApp')
                     $scope.okrNames = getOkrNamesArrayFromProfTrains(profTrains);
                 }
                 $scope.preloader = false;
+                $scope.safeApply();
             });
         };
 
@@ -221,6 +270,7 @@ angular.module('ecampusApp')
                     $scope.specialities.push(profTrain.Speciality);
                 }
             });
+            $scope.safeApply();
         };
 
         $scope.OnFullSelect = function () {
@@ -268,33 +318,7 @@ angular.module('ecampusApp')
                         patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName));
                     });
                     $scope.patterns = patterns;
-                    /// Написать запросы на DcCycle и DcBlock
-                    // Логику для Courses и
-                    $scope.Dc ={
-                        Cycles      : [
-                          new CycleModel(1,"Цикл гуманітарної та соціально-економічної підготовки"),
-                          new CycleModel(2,"Цикл математичної природничо-наукової підготовки"),
-                          new CycleModel(3,"Цикл професійної та практичної підготовки"),
-                          new CycleModel(4,"Гуманітарна складова"),
-                          new CycleModel(5,"Професійна складова")
-                    ],
-                        Blocks      : [
-                            new BlockModel(1,"Екологічні навчальні дисципліни"),
-                            new BlockModel(2,"Мовні навчальні дисципліни"),
-                            new BlockModel(3,"Історичні навчальні дисципліни"),
-                            new BlockModel(4,"Філософські навчальні дисципліни"),
-                            new BlockModel(5,"Психологічні навчальні дисципліни"),
-                            new BlockModel(6,"Педагогічні навчальні дисципліни"),
-                            new BlockModel(7,"Правові навчальні дисципліни"),
-                            new BlockModel(8,"Додаткові навчальні дисципліни вільного вибору"),
-                            new BlockModel(9,"Навчальні дисципліни зі сталого розвитку"),
-                            new BlockModel(10,"Навчальні дисципліни з менеджменту і маркетингу"),
-                            new BlockModel(11,"Перший блок дисциплін"),
-                            new BlockModel(12,"Другий  блок дисциплін")
-                        ],
-                        Courses     : [1,2,3,4],
-                        Semesters   : [1,2,3,4,5,6,7,8]
-                    };
+                    $scope.selectData.RtProfTrainTotalSubdivisionId = patterns[0].RtProfTrainTotalSubdivisionId;
                     $scope.preloader = false;
                     $scope.safeApply();
                 });
@@ -330,6 +354,7 @@ angular.module('ecampusApp')
 
         $scope.SwitchSections = function (event) {
             $scope.section = event.target.value;
+            $scope.OnFullSelect()
         };
 
         function safeApply (fn) {
@@ -347,70 +372,72 @@ angular.module('ecampusApp')
         };
 
         //---TEST---
-        $scope.users = [
-            {id: 1, name: 'awesome user1', status: 2, group: 4, groupName: 'admin'},
-            {id: 2, name: 'awesome user2', status: undefined, group: 3, groupName: 'vip'},
-            {id: 3, name: 'awesome user3', status: 2, group: null}
-        ];
-
-        $scope.statuses = [
-            {value: 1, text: 'status1'},
-            {value: 2, text: 'status2'},
-            {value: 3, text: 'status3'},
-            {value: 4, text: 'status4'}
-        ];
-
-        $scope.groups = [];
-        $scope.loadGroups = function() {
-            return $scope.groups.length ? null : $http.get('/groups').success(function(data) {
-                $scope.groups = data;
-            });
-        };
-
-        $scope.showGroup = function(user) {
-            if(user.group && $scope.groups.length) {
-                var selected = $filter('filter')($scope.groups, {id: user.group});
-                return selected.length ? selected[0].text : 'Not set';
-            } else {
-                return user.groupName || 'Not set';
+        $scope.checkAllForm = function (data) {
+            console.log(data);
+            if(data == null || data==""){
+                return "Заполніть це поле!";
             }
         };
 
-        $scope.showStatus = function(user) {
-            var selected = [];
-            if(user.status) {
-                selected = $filter('filter')($scope.statuses, {value: user.status});
+        $scope.savePattern = function(data, id,pattern) {
+            // $scope.user not updated yet
+            //insert
+            var path = "";
+            var patternBlockChoice8Id = data.PatternBlockChoice8Id, rtProfTrainTotalSubdivisionId = $scope.selectData.RtProfTrainTotalSubdivisionId, blockName = GetBlockNameById($scope.Dc.Blocks,data.BlockId), blockId =  data.BlockId, cycleName = GetCycleNameById($scope.Dc.Cycles,data.CycleId) , cycleId =  data.CycleId, course = data.Course, semester =  data.Semester, countDiscipline = data.CountDiscipline, patternName =  data.PatternName;
+            var newPattern =  new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName);
+            console.log(newPattern);
+            $scope.patterns.splice($scope.patterns.indexOf(pattern),1,newPattern);
+            if(patternBlockChoice8Id==null){
+                var payload = {
+                    dcBlock8Id: blockId,
+                    dcCycleId: cycleId,
+                    rtProfTrainTotalSubdivisionId: rtProfTrainTotalSubdivisionId,
+                    name: patternName,
+                    countDiscipline: countDiscipline,
+                    course: course,
+                    semester: semester
+                };
+                path = "SelectiveDiscipline/SetPatternBlockChoise";
+            }else{
+                var payload = {
+                    patternBlockChoice8Id: patternBlockChoice8Id,
+                    dcBlock8Id: blockId,
+                    dcCycleId: cycleId,
+                    rtProfTrainTotalSubdivisionId: rtProfTrainTotalSubdivisionId,
+                    name: patternName,
+                    countDiscipline: countDiscipline,
+                    course: course,
+                    semester: semester
+                };
+                path = "SelectiveDiscipline/UpdatePatternBlockChoise";
             }
-            return selected.length ? selected[0].text : 'Not set';
-        };
-
-        $scope.checkName = function(data, id) {
-            if (id === 2 && data !== 'awesome') {
-                return "Username 2 should be `awesome`";
-            }
-        };
-
-        $scope.saveUser = function(data, id) {
-            //$scope.user not updated yet
-            angular.extend(data, {id: id});
-            return $http.post('/saveUser', data);
+            // console.log(Campus.execute("POST", path,payload));
         };
 
         // remove user
-        $scope.removeUser = function(index) {
-            $scope.users.splice(index, 1);
+        $scope.removePattern = function(index) {
+            console.log(index);
+            var payload = {
+                patternBlockChoice8Id: index
+            };
+            var  path = "SelectiveDiscipline/RemovePatternBlockChoise";
+            // console.log(Campus.execute("POST", path,payload));
         };
 
         // add user
-        $scope.addUser = function() {
+        $scope.addPattern = function() {
             $scope.inserted = {
-                id: $scope.users.length+1,
-                name: '',
-                status: null,
-                group: null
+                PatternBlockChoice8Id : null,
+                RtProfTrainTotalSubdivisionId : null,
+                BlockName : null,
+                BlockId : null,
+                CycleName : null,
+                CycleId : null,
+                Course : null,
+                Semester : null,
+                CountDiscipline : null,
+                PatternName : null
             };
-            $scope.users.push($scope.inserted);
+            $scope.patterns.unshift($scope.inserted);
         };
     });
-
-// --------------- mock $http requests ----------------------
