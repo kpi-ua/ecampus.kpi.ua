@@ -637,6 +637,9 @@ a.bulletin-title:hover {
 }*/
 
 /* disciplines choice styles*/
+.disciplines {
+  padding: 0 19px 0 19px;
+}
 
 .panel-title-image {
   text-align: center;
@@ -646,6 +649,33 @@ a.bulletin-title:hover {
   margin: 0 0 0 0;
   background: url("../images/home/open-book.png") no-repeat;
   background-size: 60px 60px;
+}
+
+/*430 p*/
+@media screen and (max-width: 430px) {
+  .panel-title-image {
+    min-height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    margin: 0 0 0 0;
+    background: url("../images/home/open-book.png") no-repeat;
+    background-size: 40px 40px;
+  }
+
+  .panel-title.disciplines-header {
+    text-align: center;
+    min-height: 40px;
+    font-size: 18px !important;
+    line-height: 40px;
+    margin: 0 0 0 0;
+  }
+
+  .specialization-code, .specialization-name, .okr-name {
+    min-height: 20px;
+    font-size: 16px !important;
+    line-height: 20px;
+    text-align: center;
+  }
 }
 
 .panel-title.disciplines-header {
@@ -685,6 +715,10 @@ div.row.account-info {
 
 .semester, .description, .block-name, .status, .discipline {
   overflow: hidden;
+}
+
+div.radio.radio-disciplines-choice {
+  padding: 0 0 0 2px;
 }
 
 .study-profile,
