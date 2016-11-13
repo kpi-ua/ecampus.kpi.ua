@@ -93,7 +93,7 @@ angular.module('ecampusApp')
             this.OkrName = OkrName;
             this.Speciality = Speciality;
         }
-        
+
         function BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName,course,semestr,studyGroupName) {
             this.BlockChoiceWhomId = blockChoiceWhomId;
             this.BlockId = blockId;
@@ -103,7 +103,7 @@ angular.module('ecampusApp')
             this.StudyGroupName = studyGroupName;
 
         }
-        
+
         function DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName) {
             this.DisciplineBlockYearId = disciplineBlockYearId;
             this.DisciplineName = disciplineName;
@@ -138,7 +138,7 @@ angular.module('ecampusApp')
             this.CountDiscipline = countDiscipline ;
             this.PatternName = patternName ;
         }
-        
+
         function getStudyYearsArray(from, to) {
             var studyYears = [];
             for(var i =from;i<to;i++){
@@ -228,6 +228,7 @@ angular.module('ecampusApp')
         }
 
         $scope.OnCathedraSelect = function () {
+            $scope.errorLabelText="";
             $scope.blocks = null;
             $scope.disciplines =null;
             $scope.preloader = true;
@@ -261,6 +262,7 @@ angular.module('ecampusApp')
         };
 
         $scope.OnOkrSelect = function () {
+            $scope.errorLabelText="";
             $scope.blocks = null;
             $scope.disciplines =null;
             $scope.selectData.Direction = null;
@@ -274,6 +276,7 @@ angular.module('ecampusApp')
         };
 
         $scope.OnFullSelect = function () {
+            $scope.errorLabelText="";
             var path="";
             $scope.disciplines =null;
             var cathedraIdBool =    $scope.selectData.CathedraId != null;
@@ -285,18 +288,23 @@ angular.module('ecampusApp')
                 var blocks= [];
                 path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
-                    response.forEach(function(item, i, arr){
-                        var blockChoiceWhomId = item.blockChoiceWhomId
-                            ,blockId =  item.blockId
-                            ,blockName =  item.blockName
-                            ,course =  item.course
-                            ,semestr =  item.semestr
-                            ,studyGroupName =  item.studyGroupName;
-                        blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId,blockId,blockName,course,semestr,studyGroupName));
-                    });
-                    $scope.blocks = blocks;
-                    $scope.preloader = false;
-                    $scope.safeApply();
+                    if (!response || response == "") {
+                        $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
+                        $scope.blocks =[];
+                    } else {
+                        response.forEach(function (item, i, arr) {
+                            var blockChoiceWhomId = item.blockChoiceWhomId
+                                , blockId = item.blockId
+                                , blockName = item.blockName
+                                , course = item.course
+                                , semestr = item.semestr
+                                , studyGroupName = item.studyGroupName;
+                            blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
+                        });
+                        $scope.blocks = blocks;
+                        $scope.preloader = false;
+                        $scope.safeApply();
+                    }
                 });
 
             }else if(cathedraIdBool && directionBool && okrBool && $scope.section=='patterns') {
@@ -304,23 +312,29 @@ angular.module('ecampusApp')
                 var patterns= [];
                 path = "SelectiveDiscipline/GetPatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
-                    response.forEach(function(item, i, arr){
-                        var   patternBlockChoice8Id =  item.patternBlockChoice8Id
-                            , rtProfTrainTotalSubdivisionId = item.rtProfTrainTotalSubdivisionId
-                            , blockName = item.blockName
-                            , blockId = item.blockId
-                            , cycleName = item.cycleName
-                            , cycleId = item.cycleId
-                            , course = item.course
-                            , semester = item.semester
-                            , countDiscipline = item.countDiscipline
-                            , patternName = item.patternName;
-                        patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName));
-                    });
-                    $scope.patterns = patterns;
-                    $scope.selectData.RtProfTrainTotalSubdivisionId = patterns[0].RtProfTrainTotalSubdivisionId;
-                    $scope.preloader = false;
-                    $scope.safeApply();
+                    if (!response || response == "") {
+                        $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
+                        $scope.patterns = [];
+                        $scope.safeApply();
+                    } else {
+                        response.forEach(function (item, i, arr) {
+                            var patternBlockChoice8Id = item.patternBlockChoice8Id
+                                , rtProfTrainTotalSubdivisionId = item.rtProfTrainTotalSubdivisionId
+                                , blockName = item.blockName
+                                , blockId = item.blockId
+                                , cycleName = item.cycleName
+                                , cycleId = item.cycleId
+                                , course = item.course
+                                , semester = item.semester
+                                , countDiscipline = item.countDiscipline
+                                , patternName = item.patternName;
+                            patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName, blockId, cycleName, cycleId, course, semester, countDiscipline, patternName));
+                        });
+                        $scope.patterns = patterns;
+                        $scope.selectData.RtProfTrainTotalSubdivisionId = patterns[0].RtProfTrainTotalSubdivisionId;
+                        $scope.preloader = false;
+                        $scope.safeApply();
+                    }
                 });
             }
         };

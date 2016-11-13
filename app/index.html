@@ -21,11 +21,13 @@
     <link rel="stylesheet" href="bower_components/webix/codebase/webix.css" />
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
     <link rel="stylesheet" href="bower_components/chosen/chosen.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-tree/dist/angular-ui-tree.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/stat.main.css">
     <link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/discBlockAndPropose.css">
 
     <!-- endbuild -->
 
@@ -67,8 +69,8 @@
     <footer class="container-fluid">
         <div class="row">
             <div class="col-md-4">
-                Усі права застережено. &copy; 2016 <a href="http://kpi.ua/">НТУУ «КПІ імені Ігоря Сікорського»</a> <br /> Розробник:
-                <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
+                Усі права застережено. &copy; 2016 <a href="http://kpi.ua/">НТУУ «КПІ імені Ігоря Сікорського»</a> <br />
+                Розробник: <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
             </div>
             <div class="col-md-8 text-right">
                 <a href="/#/privacy">Правила використання інформації сайту</a> /
@@ -126,20 +128,21 @@
     <script src="bower_components/page-scroll-to-id/jquery.malihu.PageScroll2id.js"></script>
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <script src="bower_components/chosen/chosen.jquery.js"></script>
+    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/campus.sdk.js"></script>
     <script src="scripts/app.js"></script>
-    <script src="scripts/services/tokenDecoder.js"></script>
+    <script src="scripts/services/api.js"></script>
+    <script src="scripts/services/UniqueElemsInListService.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/information.js"></script>
     <script src="scripts/controllers/voting.js"></script>
     <script src="scripts/controllers/debugger.js"></script>
     <script src="scripts/controllers/security.js"></script>
     <script src="scripts/controllers/votingProfile.js"></script>
-    <script src="scripts/services/api.js"></script>
     <script src="scripts/controllers/admin.js"></script>
     <script src="scripts/controllers/statistic.js"></script>
     <script src="scripts/controllers/statistic-npp.js"></script>
@@ -150,9 +153,14 @@
     <script src="scripts/controllers/discipline-block.js"></script>
     <script src="scripts/controllers/discipline-proposition.js"></script>
     <script src="scripts/controllers/discipline-specialization.js"></script>
-    <script src="scripts/directives/navigation.js"></script>
     <script src="scripts/controllers/settings.js"></script>
+    <script src="scripts/directives/ChosenDirective.js"></script>
+    <script src="scripts/directives/navigation.js"></script>
     <script src="scripts/directives/breadcrumbs.js"></script>
+    <script src="scripts/filters/SortCustomFilter.js"></script>
+    <script src="scripts/filters/UniqueFilter.js"></script>
+    <script src="scripts/filters/groupByFilter.js"></script>
+    <script src="scripts/decodeToken.js"></script>
     <!-- endbuild -->
 
 </body>

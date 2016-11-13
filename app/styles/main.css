@@ -617,11 +617,17 @@ a.bulletin-title:hover {
 }
 
 .nav-pills > li.active > a,
-.nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   background-color: #208843;
   opacity: 1;
   filter: alpha(opacity=100);
+}
+
+.nav.nav-bulletins > li > a:hover {
+  text-decoration: none;
+  background-color: #208843;
+  opacity: 0.3;
+  filter: alpha(opacity=30);
 }
 
 /*.nav>li>a:hover,
@@ -630,27 +636,89 @@ a.bulletin-title:hover {
     background-color: #208843;
 }*/
 
-#disciplines {
-  width: 921px;
+/* disciplines choice styles*/
+.disciplines {
+  padding: 0 19px 0 19px;
 }
 
-.carousel-control.left {
-  background-image: none;
-  width: 30px;
-  height: 30px;
+.panel-title-image {
+  text-align: center;
+  min-height: 60px;
+  font-size: 24px;
+  line-height: 60px;
+  margin: 0 0 0 0;
+  background: url("../images/home/open-book.png") no-repeat;
+  background-size: 60px 60px;
 }
 
-.carousel-control.right {
-  background-image: none;
-  width: 30px;
-  height: 30px;
-  left: 270px;
+/*430 p*/
+@media screen and (max-width: 430px) {
+  .panel-title-image {
+    min-height: 40px;
+    font-size: 18px;
+    line-height: 40px;
+    margin: 0 0 0 0;
+    background: url("../images/home/open-book.png") no-repeat;
+    background-size: 40px 40px;
+  }
+
+  .panel-title.disciplines-header {
+    text-align: center;
+    min-height: 40px;
+    font-size: 18px !important;
+    line-height: 40px;
+    margin: 0 0 0 0;
+  }
+
+  .specialization-code, .specialization-name, .okr-name {
+    min-height: 20px;
+    font-size: 16px !important;
+    line-height: 20px;
+    text-align: center;
+  }
 }
 
-.carousel-control.left > span,
-.carousel-control.right > span {
-  font-size: 18px;
-  color: black;
+.panel-title.disciplines-header {
+  text-align: center;
+  min-height: 60px;
+  font-size: 24px;
+  line-height: 60px;
+  margin: 0 0 0 0;
+}
+
+.specialization-info, .okr-info {
+  text-align: center;
+  padding: 10px 0 0 0;
+}
+
+.specialization-code, .specialization-name, .okr-name {
+  display: inline-block;
+  font-size: 22px;
+}
+
+.tab-pane.course {
+  margin: 0 15px 0 15px;
+  padding: 0 0 0 0;
+}
+
+div.row.well.well-md.disciplines {
+  padding: 20px 0 20px 0;
+}
+
+div.row.account-info {
+  padding: 20px 15px 20px 15px;
+}
+
+.course, .group, .start-year, .current-year {
+  overflow: hidden;
+}
+
+.semester, .description, .block-name, .status, .discipline {
+  overflow: hidden;
+}
+
+div.radio.radio-disciplines-choice {
+  padding: 0 0 0 2px;
 }
 
 .study-profile,

@@ -37,6 +37,7 @@ module.exports = function(config) {
       'bower_components/page-scroll-to-id/jquery.malihu.PageScroll2id.js',
       'bower_components/angular-xeditable/dist/js/xeditable.js',
       'bower_components/chosen/chosen.jquery.js',
+      'bower_components/angular-ui-tree/dist/angular-ui-tree.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

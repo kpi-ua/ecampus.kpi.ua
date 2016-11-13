@@ -2,7 +2,6 @@
   <span>Модулі</span> > <b>Оголошення</b>
 </breadcrumbs>
 
-
 <div class="container-fluid content">
   <div class="content">
     <div class="row">
@@ -12,8 +11,8 @@
 
         <div id="bulletins">
           <div header></div>
-          <div id="download-bulletins" ng-show="loader">
-            <i class="fa fa-spinner fa-pulse fa-5x fa-fw center-block" style="color: #208843;"></i>
+          <div id="download-bulletins" ng-show="loader" class="text-center">
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-center" style="color: #208843;"></i>
             <div class="alert alert-info text-center fade in">
               Зачекайте будь ласка відбувається завантаження даних!
             </div>
@@ -24,7 +23,7 @@
             </div>
           </div>
 
-          <ul class="nav nav-pills nav-justified">
+          <ul class="nav nav-pills nav-justified nav-bulletins">
             <li ng-class="{ active: isSet(1) }">
               <a href ng-click="setTab(1)">
                 <img src="/images/home/ic_action_actual.png">
