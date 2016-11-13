@@ -64,7 +64,6 @@ angular.module('ecampusApp')
         .done(function (response) {
           $scope.loaderDisc = true;
           $scope.disciplines = response;
-          console.log(response);
           $scope.firstCourse = [];
           $scope.secondCourse = [];
           $scope.thirdCourse = [];
