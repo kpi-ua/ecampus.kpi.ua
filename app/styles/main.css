@@ -645,6 +645,10 @@ a.bulletin-title:hover {
   padding: 0 19px 0 19px;
 }
 
+.panel .active .disciplines-panel {
+  cursor: default;
+}
+
 .disciplines-subdivision-name {
   color: gray;
   font-style: italic;
@@ -715,6 +719,7 @@ a.bulletin-title:hover {
 .tab-pane.course {
   margin: 0 15px 0 15px;
   padding: 0 0 0 0;
+  cursor: default;
 }
 
 div.row.well.well-md.disciplines {
@@ -733,8 +738,15 @@ div.row.account-info {
   overflow: hidden;
 }
 
-div.radio.radio-disciplines-choice {
-  padding: 0 0 0 2px;
+input[type="radio"].radio-disciplines-choice {
+  margin: 0 2px 0 2px;
+  position: relative;
+  left: 0;
+  vertical-align: baseline;
+}
+
+label.label-disciplines-choice {
+  padding-left: 0;
 }
 
 .study-profile,

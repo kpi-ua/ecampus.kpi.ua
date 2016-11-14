@@ -7,7 +7,7 @@
   <div class="row selective-disciplines-wrapper">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-      <div class="panel panel-default panel-general">
+      <div class="panel panel-default disciplines-panel panel-general">
         <div class="panel-heading title">
           <div class="panel-title-image">Загальна інформація</div>
         </div>
@@ -117,11 +117,11 @@
                     <div class="block-name">{{first.array[0].blockName || "інформацію не вказано"}}</div>
                     <div class="status">{{translateStatus(first.status) || "інформацію не вказано"}}</div>
                     <div class="discipline" ng-show="first.blocks == 0">Не вказано дисциплін</div>
-                    <form ng-hide="first.blocks == 0">
+                    <form ng-hide="first.blocks == 0 || first.status == 'not available' ">
                       <div class="discipline" ng-repeat="firstDisc in first.blocks[0].blockDisc">
-                        <div class="radio radio-disciplines-choice">
-                          <label>
-                            <input type="radio" name="radio-1-{{$index + 1}}">
+                        <div class="radio">
+                          <label class="label-disciplines-choice">
+                            <input type="radio" class="radio-disciplines-choice" name="radio-1-{{$index + 1}}">
                             {{firstDisc.nameUkr || "назву дисциплін не вказано"}}
                           </label>
                           <span class="disciplines-subdivision-name">
@@ -145,7 +145,9 @@
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Зберегти</button>
+                      <button type="submit" class="btn btn-primary"
+                              ng-show="!(first.status == 'not available' || first.status == 'done')">Зберегти
+                      </button>
                     </form>
                     <br>
                   </div>
@@ -192,11 +194,11 @@
                     <div class="block-name">{{second.blocks[0].blockName || "інформацію не вказано"}}</div>
                     <div class="status">{{translateStatus(second.status) || "інформацію не вказано"}}</div>
                     <div class="discipline" ng-show="second.blocks.length == 0">Не вказано дисциплін</div>
-                    <form ng-hide="second.blocks.length == 0">
+                    <form ng-hide="second.blocks.length == 0 || second.status == 'not available'">
                       <div class="discipline" ng-repeat="secondDisc in second.blocks[0].blockDisc">
-                        <div class="radio radio-disciplines-choice">
-                          <label>
-                            <input type="radio" name="radio-2-{{$index + 1}}">
+                        <div class="radio">
+                          <label class="label-disciplines-choice">
+                            <input type="radio" class="radio-disciplines-choice" name="radio-2-{{$index + 1}}">
                             {{secondDisc.nameUkr || "назву дисциплін не вказано"}}
                           </label>
                           <span class="disciplines-subdivision-name">
@@ -220,7 +222,9 @@
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Зберегти</button>
+                      <button type="submit" class="btn btn-primary"
+                              ng-show="!(second.status == 'not available' || second.status == 'done')">Зберегти
+                      </button>
                     </form>
                     <br>
                   </div>
@@ -266,11 +270,11 @@
                     <div class="block-name">{{third.blocks[0].blockName || "інформацію не вказано"}}</div>
                     <div class="status">{{translateStatus(third.status) || "інформацію не вказано"}}</div>
                     <div class="discipline" ng-show="third.blocks.length == 0">Не вказано дисциплін</div>
-                    <form ng-hide="third.blocks.length == 0">
+                    <form ng-hide="third.blocks.length == 0 || third.status == 'not available'">
                       <div class="discipline" ng-repeat="thirdDisc in third.blocks[0].blockDisc">
-                        <div class="radio radio-disciplines-choice">
-                          <label>
-                            <input type="radio" name="radio-2-{{$index + 1}}">
+                        <div class="radio">
+                          <label class="label-disciplines-choice">
+                            <input type="radio" class="radio-disciplines-choice" name="radio-2-{{$index + 1}}">
                             {{thirdDisc.nameUkr || "назву дисциплін не вказано"}}
                           </label>
                           <span class="disciplines-subdivision-name">
@@ -294,7 +298,9 @@
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Зберегти</button>
+                      <button type="submit" class="btn btn-primary"
+                              ng-show="!(third.status == 'not available' || third.status == 'done')">Зберегти
+                      </button>
                     </form>
                     <br>
                   </div>
@@ -340,11 +346,11 @@
                     <div class="block-name">{{fourth.blocks[0].blockName || "інформацію не вказано"}}</div>
                     <div class="status">{{translateStatus(fourth.status) || "інформацію не вказано"}}</div>
                     <div class="discipline" ng-show="fourth.blocks.length == 0">Не вказано дисциплін</div>
-                    <form ng-hide="fourth.blocks.length == 0">
+                    <form ng-hide="fourth.blocks.length == 0 || fourth.status == 'not available'">
                       <div class="discipline" ng-repeat="fourthDisc in fourth.blocks[0].blockDisc">
-                        <div class="radio radio-disciplines-choice">
-                          <label>
-                            <input type="radio" name="radio-2-{{$index + 1}}">
+                        <div class="radio">
+                          <label class="label-disciplines-choice">
+                            <input type="radio" class="radio-disciplines-choice" name="radio-2-{{$index + 1}}">
                             {{fourthDisc.nameUkr || "назву дисциплін не вказано"}}
                           </label>
                           <span class="disciplines-subdivision-name">
@@ -368,7 +374,9 @@
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-primary">Зберегти</button>
+                      <button type="submit" class="btn btn-primary"
+                              ng-show="!(fourth.status == 'not available' || fourth.status == 'done')">Зберегти
+                      </button>
                     </form>
                     <br>
                   </div>
