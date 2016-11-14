@@ -230,6 +230,8 @@ angular.module('ecampusApp')
         $scope.OnCathedraSelect = function () {
             $scope.errorLabelText="";
             $scope.blocks = null;
+            $scope.specialities = null;
+            $scope.okrNames = null;
             $scope.disciplines =null;
             $scope.preloader = true;
             $scope.safeApply();
