@@ -629,6 +629,21 @@ input:checked+.side-label::after {
     display: block;
 }
 
-.select_disabled:disabled{
+.discipline-specialization__label{
+    font-size: 16px;
+}
+.discipline-specialization__select{
+    font-size: 16px;
+}
+.discipline-specialization__select_disabled{
     opacity: 0.5;
+    color: red;
+    border-color: red;
+
+}
+.d-s-table__tr-button{
+    cursor: pointer;
+    font-size: 18px;
+}
+.d-s-table__header{
 }
