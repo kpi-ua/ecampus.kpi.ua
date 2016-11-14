@@ -179,7 +179,7 @@
                     </td>
                     <td>
                         <!-- form -->
-                        <form editable-form name="rowform" onbeforesave="savePattern($data, pattern.PatternBlockChoice8Id,pattern)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pattern">
+                        <form editable-form name="rowform" onbeforesave="savePattern($data,pattern)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pattern">
                             <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
                                 save
                             </button>
@@ -189,7 +189,7 @@
                         </form>
                         <div class="buttons" ng-show="!rowform.$visible">
                             <button class="btn btn-primary" ng-click="rowform.$show()">edit</button>
-                            <button class="btn btn-danger" ng-click="removePattern(pattern.PatternBlockChoice8Id)">del</button>
+                            <button class="btn btn-danger" ng-click="removePattern(pattern)">del</button>
                         </div>
                     </td>
                 </tr>

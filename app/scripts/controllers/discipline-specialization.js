@@ -310,6 +310,7 @@ angular.module('ecampusApp')
             }else if(cathedraIdBool && directionBool && okrBool && $scope.section=='patterns') {
                 $scope.preloader = true;
                 var patterns= [];
+                $scope.patterns =null;
                 path = "SelectiveDiscipline/GetPatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
@@ -385,7 +386,6 @@ angular.module('ecampusApp')
             }
         };
 
-        //---TEST---
         $scope.checkAllForm = function (data) {
             console.log(data);
             if(data == null || data==""){
@@ -393,52 +393,57 @@ angular.module('ecampusApp')
             }
         };
 
-        $scope.savePattern = function(data, id,pattern) {
-            // $scope.user not updated yet
-            //insert
-            var path = "";
-            var patternBlockChoice8Id = data.PatternBlockChoice8Id, rtProfTrainTotalSubdivisionId = $scope.selectData.RtProfTrainTotalSubdivisionId, blockName = GetBlockNameById($scope.Dc.Blocks,data.BlockId), blockId =  data.BlockId, cycleName = GetCycleNameById($scope.Dc.Cycles,data.CycleId) , cycleId =  data.CycleId, course = data.Course, semester =  data.Semester, countDiscipline = data.CountDiscipline, patternName =  data.PatternName;
+        //save patterb
+        $scope.savePattern = function(data,pattern) {
+            var path ="";
+            var patternBlockChoice8Id = pattern.PatternBlockChoice8Id,
+                rtProfTrainTotalSubdivisionId = $scope.selectData.RtProfTrainTotalSubdivisionId,
+                blockName = GetBlockNameById($scope.Dc.Blocks,data.BlockId),
+                blockId =  data.BlockId,
+                cycleName = GetCycleNameById($scope.Dc.Cycles,data.CycleId) ,
+                cycleId =  data.CycleId,
+                course = data.Course,
+                semester =  data.Semester,
+                countDiscipline = data.CountDiscipline,
+                patternName =  data.PatternName;
             var newPattern =  new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName);
             console.log(newPattern);
             $scope.patterns.splice($scope.patterns.indexOf(pattern),1,newPattern);
+            var payload = {
+                BlockId: blockId,
+                CycleId: cycleId,
+                ProfTrainTotalSubdivisionId: rtProfTrainTotalSubdivisionId,
+                Name: patternName,
+                CountDiscipline: countDiscipline,
+                Course: course,
+                Semester: semester,
+                Id: patternBlockChoice8Id == null?0:patternBlockChoice8Id,
+            };
             if(patternBlockChoice8Id==null){
-                var payload = {
-                    dcBlock8Id: blockId,
-                    dcCycleId: cycleId,
-                    rtProfTrainTotalSubdivisionId: rtProfTrainTotalSubdivisionId,
-                    name: patternName,
-                    countDiscipline: countDiscipline,
-                    course: course,
-                    semester: semester
-                };
-                path = "SelectiveDiscipline/SetPatternBlockChoise";
+                path = "SelectiveDiscipline/PatternBlockChoise";
             }else{
-                var payload = {
-                    patternBlockChoice8Id: patternBlockChoice8Id,
-                    dcBlock8Id: blockId,
-                    dcCycleId: cycleId,
-                    rtProfTrainTotalSubdivisionId: rtProfTrainTotalSubdivisionId,
-                    name: patternName,
-                    countDiscipline: countDiscipline,
-                    course: course,
-                    semester: semester
-                };
                 path = "SelectiveDiscipline/UpdatePatternBlockChoise";
             }
-            // console.log(Campus.execute("POST", path,payload));
+            Campus.execute("POST", path,payload).then(function (resp) {
+                $scope.OnFullSelect();
+            });
         };
 
-        // remove user
-        $scope.removePattern = function(index) {
-            console.log(index);
-            var payload = {
-                patternBlockChoice8Id: index
-            };
-            var  path = "SelectiveDiscipline/RemovePatternBlockChoise";
-            // console.log(Campus.execute("POST", path,payload));
+        // remove patterb
+        $scope.removePattern = function(pattern) {
+            if (confirm("Ви впеврені що хочете видалити цей шаблон?"))
+            {
+                var payload = {
+                    Id: pattern.PatternBlockChoice8Id
+                };
+
+                var  path = "SelectiveDiscipline/RemovePatternBlockChoise";
+                $scope.patterns.splice($scope.patterns.indexOf(pattern),1);
+                Campus.execute("POST", path,payload);
+            }
         };
 
-        // add user
+        // add patterb
         $scope.addPattern = function() {
             $scope.inserted = {
                 PatternBlockChoice8Id : null,
