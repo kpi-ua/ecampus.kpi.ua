@@ -637,8 +637,25 @@ a.bulletin-title:hover {
 }*/
 
 /* disciplines choice styles*/
+.info-load {
+  color: #208843;
+}
+
 .disciplines {
   padding: 0 19px 0 19px;
+}
+
+.disciplines-subdivision-name {
+  color: gray;
+  font-style: italic;
+}
+
+.disciplines-students-count {
+  color: gray;
+}
+
+.selective-disciplines-tabs, .selective-disciplines-wrapper {
+  margin-top: 20px;
 }
 
 .panel-title-image {
@@ -651,7 +668,6 @@ a.bulletin-title:hover {
   background-size: 60px 60px;
 }
 
-/*430 p*/
 @media screen and (max-width: 430px) {
   .panel-title-image {
     min-height: 40px;
