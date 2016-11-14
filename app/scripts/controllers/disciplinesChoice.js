@@ -37,8 +37,6 @@ angular.module('ecampusApp')
           return "вибір здійснено";
           break;
       }
-      // if ()
-      // return ($scope.status);
     };
 
     function loadInfo() {
