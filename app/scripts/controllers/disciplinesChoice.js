@@ -25,6 +25,20 @@ angular.module('ecampusApp')
       return $scope.tab === tabNum;
     };
 
+    $scope.translateStatus = function (englishStatus) {
+      switch (englishStatus) {
+        case "not available":
+          return "вибір не доступний";
+          break;
+        case "available":
+          return "вибір доступний";
+          break;
+        case "done":
+          return "вибір здійснено";
+          break;
+      }
+    };
+
     function loadInfo() {
       var url = '/Account/student/group';
       $scope.loader = true;
@@ -63,7 +77,6 @@ angular.module('ecampusApp')
       Api.execute("GET", url)
         .done(function (response) {
           $scope.loaderDisc = true;
-          $scope.disciplines = response;
           $scope.firstCourse = [];
           $scope.secondCourse = [];
           $scope.thirdCourse = [];
