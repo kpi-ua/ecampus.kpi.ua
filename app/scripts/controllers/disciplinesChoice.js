@@ -9,7 +9,7 @@
  */
 angular.module('ecampusApp')
   .controller('DisciplinesChoiceCtrl', ['$scope', 'Api', function ($scope, Api) {
-    $scope.tab = 1;
+
     $scope.errorMessage = '';
     $scope.hideInfo = false;
     $scope.loader = false;
@@ -47,6 +47,7 @@ angular.module('ecampusApp')
         .done(function (response) {
           $scope.info = response[0];
           $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
+          $scope.tab = +response[0].studyCourse;
           $scope.loader = false;
           $scope.$apply();
         })

@@ -6,7 +6,6 @@
   <div header></div>
   <div class="row selective-disciplines-wrapper">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
       <div class="panel panel-default disciplines-panel panel-general">
         <div class="panel-heading title">
           <div class="panel-title-image">Загальна інформація</div>
@@ -42,12 +41,13 @@
                 <div class="current-year">{{info.currentStudyYear}}</div>
               </div>
             </div>
+          </div>
         </div>
       </div>
       <div class="panel panel-default panel-disciplines">
         <div class="panel-heading title">
           <div class="panel-title disciplines-header">Дисципліни вільного вибору згідно НП</div>
-        </div>
+          </div>
         <div class="text-center download-general-info" ng-show="loaderDisc">
           <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-center info-load"></i>
           <div class="alert alert-default text-center fade in">
@@ -60,6 +60,7 @@
           </div>
         </div>
         <div class="panel-body">
+
           <ul class="nav nav-tabs nav-justified" ng-hide="hideInfoDisc">
             <li ng-class="{ active: isSet(1)}">
               <a ng-click="setTab(1)">1 курс</a>
@@ -96,7 +97,7 @@
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <a ng-click="showDetails = !showDetails">Показати деталі</a>
                   </div>
-                </div>
+                  </div>
                 <div class="row disciplines" ng-show="showDetails">
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
                     <div class="labels">Навчальний рік</div>
@@ -132,26 +133,24 @@
                           Вказано нульову кількість студентів.
                         </p>
                         <div class="progress" ng-hide="firstDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                aria-valuenow="{{firstDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{firstDisc.maxCountStudent}}"
                                ng-init="procent=((+ firstDisc.studentCount)/(+ firstDisc.maxCountStudent))*100"
                                ng-style="{'width' : procent + '%'}">
                             {{firstDisc.studentCount}} / {{firstDisc.maxCountStudent}}
                           </div>
+                          </div>
                         </div>
-                      </div>
                       <button type="submit" class="btn btn-primary"
                               ng-show="!(first.status == 'not available' || first.status == 'done')">Зберегти
                       </button>
                     </form>
                     <br>
                   </div>
-
+                  </div>
                 </div>
-
               </div>
-            </div>
             <div class="tab-pane course" ng-class="{ active: isSet(2)}">
               <div ng-repeat="second in secondCourse">
                 <div class="row well well-md disciplines-info">
@@ -161,7 +160,7 @@
                     <div class="labels">Назва блоку</div>
                     <div class="labels">Статус</div>
                     <div class="labels">Дисципліни</div>
-                  </div>
+                    </div>
                   <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
                     <div class="semester">{{second.semester || "інформацію не вказано"}}</div>
                     <div class="description">{{second.blocks[0].component || "інформацію не вказано"}}</div>
@@ -173,7 +172,7 @@
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <a ng-click="showDetails = !showDetails">Показати деталі</a>
                   </div>
-                </div>
+                  </div>
                 <div class="row disciplines" ng-show="showDetails">
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
                     <div class="labels">Навчальний рік</div>
@@ -209,25 +208,24 @@
                           Вказано нульову кількість студентів.
                         </p>
                         <div class="progress" ng-hide="secondDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                aria-valuenow="{{secondDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{secondDisc.maxCountStudent}}"
                                ng-init="procent=((+ secondDisc.studentCount)/(+ secondDisc.maxCountStudent))*100"
                                ng-style="{'width' : procent + '%'}">
                             {{secondDisc.studentCount}} / {{secondDisc.maxCountStudent}}
                           </div>
+                          </div>
                         </div>
-                      </div>
                       <button type="submit" class="btn btn-primary"
                               ng-show="!(second.status == 'not available' || second.status == 'done')">Зберегти
                       </button>
                     </form>
                     <br>
                   </div>
-
+                  </div>
                 </div>
               </div>
-            </div>
             <div class="tab-pane course" ng-class="{ active: isSet(3)}">
               <div ng-repeat="third in thirdCourse">
                 <div class="row well well-md disciplines-info">
@@ -237,7 +235,7 @@
                     <div class="labels">Назва блоку</div>
                     <div class="labels">Статус</div>
                     <div class="labels">Дисципліни</div>
-                  </div>
+                    </div>
                   <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
                     <div class="semester">{{third.semester || "інформацію не вказано"}}</div>
                     <div class="description">{{third.blocks[0].component || "інформацію не вказано"}}</div>
@@ -249,7 +247,7 @@
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <a ng-click="showDetails = !showDetails">Показати деталі</a>
                   </div>
-                </div>
+                  </div>
                 <div class="row disciplines" ng-show="showDetails">
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
                     <div class="labels">Навчальний рік</div>
@@ -285,25 +283,24 @@
                           Вказано нульову кількість студентів.
                         </p>
                         <div class="progress" ng-hide="thirdDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                aria-valuenow="{{thirdDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{thirdDisc.maxCountStudent}}"
                                ng-init="procent=((+ thirdDisc.studentCount)/(+ thirdDisc.maxCountStudent))*100"
                                ng-style="{'width' : procent + '%'}">
                             {{thirdDisc.studentCount}} / {{thirdDisc.maxCountStudent}}
                           </div>
+                          </div>
                         </div>
-                      </div>
                       <button type="submit" class="btn btn-primary"
                               ng-show="!(third.status == 'not available' || third.status == 'done')">Зберегти
                       </button>
                     </form>
                     <br>
                   </div>
-
+                  </div>
                 </div>
               </div>
-            </div>
             <div class="tab-pane course" ng-class="{ active: isSet(4)}">
               <div ng-repeat="fourth in fourthCourse">
                 <div class="row well well-md disciplines-info">
@@ -313,7 +310,7 @@
                     <div class="labels">Назва блоку</div>
                     <div class="labels">Статус</div>
                     <div class="labels">Дисципліни</div>
-                  </div>
+                    </div>
                   <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
                     <div class="semester">{{fourth.semester || "інформацію не вказано"}}</div>
                     <div class="description">{{fourth.blocks[0].component || "інформацію не вказано"}}</div>
@@ -325,7 +322,7 @@
                   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <a ng-click="showDetails = !showDetails">Показати деталі</a>
                   </div>
-                </div>
+                  </div>
                 <div class="row disciplines" ng-show="showDetails">
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
                     <div class="labels">Навчальний рік</div>
@@ -361,30 +358,28 @@
                           Вказано нульову кількість студентів.
                         </p>
                         <div class="progress" ng-hide="fourthDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                aria-valuenow="{{fourthDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{fourthDisc.maxCountStudent}}"
                                ng-init="procent=((+ fourthDisc.studentCount)/(+ fourthDisc.maxCountStudent))*100"
                                ng-style="{'width' : procent + '%'}">
                             {{fourthDisc.studentCount}} / {{fourthDisc.maxCountStudent}}
                           </div>
+                          </div>
                         </div>
-                      </div>
                       <button type="submit" class="btn btn-primary"
                               ng-show="!(fourth.status == 'not available' || fourth.status == 'done')">Зберегти
                       </button>
                     </form>
                     <br>
                   </div>
-
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
-</div>
 </div>
