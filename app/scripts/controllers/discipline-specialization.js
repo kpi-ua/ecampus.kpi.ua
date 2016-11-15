@@ -21,6 +21,11 @@ angular.module('ecampusApp')
             StudyYear : null,
             RtProfTrainTotalSubdivisionId: null,
         };
+
+        $scope.sortType     = 'Course'; // значение сортировки по умолчанию
+        $scope.sortReverse  = false;  // обратная сортировка
+        $scope.searchField   = '';     // значение поиска по умолчанию
+
         $scope.section = "specialization";
         /// Написать запросы на DcCycle и DcBlock
         // Логику для Courses и
@@ -128,7 +133,7 @@ angular.module('ecampusApp')
 
         function PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName) {
             this.PatternBlockChoice8Id = patternBlockChoice8Id ;
-            this.RtProfTrainTotalSubdivisionId = rtProfTrainTotalSubdivisionId ;
+            this.ProfTrainTotalSubdivisionId = rtProfTrainTotalSubdivisionId ;
             this.BlockName = blockName ;
             this.BlockId = blockId ;
             this.CycleName = cycleName ;
@@ -313,7 +318,7 @@ angular.module('ecampusApp')
                 $scope.preloader = true;
                 var patterns= [];
                 $scope.patterns =null;
-                path = "SelectiveDiscipline/GetPatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                path = "SelectiveDiscipline/PatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
@@ -322,7 +327,7 @@ angular.module('ecampusApp')
                     } else {
                         response.forEach(function (item, i, arr) {
                             var patternBlockChoice8Id = item.patternBlockChoice8Id
-                                , rtProfTrainTotalSubdivisionId = item.rtProfTrainTotalSubdivisionId
+                                , rtProfTrainTotalSubdivisionId = item.profTrainTotalSubdivisionId
                                 , blockName = item.blockName
                                 , blockId = item.blockId
                                 , cycleName = item.cycleName
@@ -330,11 +335,14 @@ angular.module('ecampusApp')
                                 , course = item.course
                                 , semester = item.semester
                                 , countDiscipline = item.countDiscipline
-                                , patternName = item.patternName;
+                                , patternName = item.name;
                             patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName, blockId, cycleName, cycleId, course, semester, countDiscipline, patternName));
                         });
                         $scope.patterns = patterns;
-                        $scope.selectData.RtProfTrainTotalSubdivisionId = patterns[0].RtProfTrainTotalSubdivisionId;
+                        $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
+                        console.log( $scope.selectData.ProfTrainTotalSubdivisionId);
+                        console.log( patterns[0].ProfTrainTotalSubdivisionId);
+                        console.log( patterns[0]);
                         $scope.preloader = false;
                         $scope.safeApply();
                     }
@@ -398,8 +406,9 @@ angular.module('ecampusApp')
         //save patterb
         $scope.savePattern = function(data,pattern) {
             var path ="";
+            var method= "";
             var patternBlockChoice8Id = pattern.PatternBlockChoice8Id,
-                rtProfTrainTotalSubdivisionId = $scope.selectData.RtProfTrainTotalSubdivisionId,
+                profTrainTotalSubdivisionId = $scope.selectData.ProfTrainTotalSubdivisionId,
                 blockName = GetBlockNameById($scope.Dc.Blocks,data.BlockId),
                 blockId =  data.BlockId,
                 cycleName = GetCycleNameById($scope.Dc.Cycles,data.CycleId) ,
@@ -408,25 +417,23 @@ angular.module('ecampusApp')
                 semester =  data.Semester,
                 countDiscipline = data.CountDiscipline,
                 patternName =  data.PatternName;
-            var newPattern =  new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName);
+            var newPattern =  new PatternModel(patternBlockChoice8Id, profTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName);
             console.log(newPattern);
             $scope.patterns.splice($scope.patterns.indexOf(pattern),1,newPattern);
             var payload = {
                 BlockId: blockId,
                 CycleId: cycleId,
-                ProfTrainTotalSubdivisionId: rtProfTrainTotalSubdivisionId,
+                ProfTrainTotalSubdivisionId: profTrainTotalSubdivisionId,
                 Name: patternName,
                 CountDiscipline: countDiscipline,
                 Course: course,
                 Semester: semester,
                 Id: patternBlockChoice8Id == null?0:patternBlockChoice8Id,
             };
-            if(patternBlockChoice8Id==null){
-                path = "SelectiveDiscipline/PatternBlockChoise";
-            }else{
-                path = "SelectiveDiscipline/UpdatePatternBlockChoise";
-            }
-            Campus.execute("POST", path,payload).then(function (resp) {
+            path = "SelectiveDiscipline/PatternBlockChoise";
+            method = patternBlockChoice8Id==null? "POST":"PUT";
+
+            Campus.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
             });
         };
@@ -439,9 +446,9 @@ angular.module('ecampusApp')
                     Id: pattern.PatternBlockChoice8Id
                 };
 
-                var  path = "SelectiveDiscipline/RemovePatternBlockChoise";
+                var  path = "SelectiveDiscipline/PatternBlockChoise";
                 $scope.patterns.splice($scope.patterns.indexOf(pattern),1);
-                Campus.execute("POST", path,payload);
+                Campus.execute("DELETE", path,payload);
             }
         };
 

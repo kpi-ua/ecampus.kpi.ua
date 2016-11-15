@@ -649,9 +649,9 @@ input:checked+.side-label::after {
 .d-s-table__header{
     text-align: center;
 }
-.discipline-specialization__navigation{
+.discipline-specialization__navigation-button{
     font-size: 16px;
 }
-.discipline-specialization__navigation-active{
+.discipline-specialization__navigation-button_active{
    background-color: #ccc;
 }
