@@ -136,7 +136,7 @@
                                aria-valuenow="{{firstDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{firstDisc.maxCountStudent}}"
                                ng-init="procent=((+ firstDisc.studentCount)/(+ firstDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
+                               ng-style="{'width' : procent + '%'}">
                             {{firstDisc.studentCount}} / {{firstDisc.maxCountStudent}}
                           </div>
                         </div>
@@ -213,7 +213,7 @@
                                aria-valuenow="{{secondDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{secondDisc.maxCountStudent}}"
                                ng-init="procent=((+ secondDisc.studentCount)/(+ secondDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
+                               ng-style="{'width' : procent + '%'}">
                             {{secondDisc.studentCount}} / {{secondDisc.maxCountStudent}}
                           </div>
                         </div>
@@ -289,7 +289,7 @@
                                aria-valuenow="{{thirdDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{thirdDisc.maxCountStudent}}"
                                ng-init="procent=((+ thirdDisc.studentCount)/(+ thirdDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
+                               ng-style="{'width' : procent + '%'}">
                             {{thirdDisc.studentCount}} / {{thirdDisc.maxCountStudent}}
                           </div>
                         </div>
@@ -365,7 +365,7 @@
                                aria-valuenow="{{fourthDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{fourthDisc.maxCountStudent}}"
                                ng-init="procent=((+ fourthDisc.studentCount)/(+ fourthDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
+                               ng-style="{'width' : procent + '%'}">
                             {{fourthDisc.studentCount}} / {{fourthDisc.maxCountStudent}}
                           </div>
                         </div>
