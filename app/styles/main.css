@@ -290,7 +290,7 @@ header .logo {
   height: 51px;
   margin-bottom: 0;
   float: left;
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .logo-green {
@@ -641,10 +641,6 @@ a.bulletin-title:hover {
   color: #208843;
 }
 
-.disciplines {
-  padding: 0 19px 0 19px;
-}
-
 .panel .active .disciplines-panel {
   cursor: default;
 }
@@ -658,7 +654,7 @@ a.bulletin-title:hover {
 }
 
 .selective-disciplines-tabs, .selective-disciplines-wrapper {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .panel-title-image {
@@ -709,17 +705,23 @@ a.bulletin-title:hover {
 }
 
 .tab-pane.course {
-  margin: 0 15px 0 15px;
+  margin: 0 0 0 0;
   padding: 0 0 0 0;
   cursor: default;
 }
 
-div.row.well.well-md.disciplines {
-  padding: 20px 0 20px 0;
+div.row.well.well-md.disciplines-info {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 15px;
+}
+
+.disciplines {
+  padding: 0 34px 0 34px;
 }
 
 div.row.account-info {
-  padding: 20px 15px 20px 15px;
+  padding: 0 15px 0 15px;
 }
 
 .course, .group, .start-year, .current-year {
