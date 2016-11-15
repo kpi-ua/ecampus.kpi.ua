@@ -24,24 +24,24 @@
             </div>
         </section>
 
-        <section class="container-fluid discipline-specialization__select-form">
+        <section class="container-fluid discipline-specialization__select-form select-form">
             <br>
             <div ng-show="section=='specialization'||section=='patterns'">
                 <div class="row">
-                    <label for="Cathedra" class="col-md-2 discipline-specialization discipline-specialization__label ">Кафедра</label>
-                    <select id="Cathedra" class="col-md-4 discipline-specialization discipline-specialization__select" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
+                    <label for="Cathedra" class="col-md-2 select-form__label ">Кафедра</label>
+                    <select id="Cathedra" class="col-md-4 select-form__select" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
                         <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">{{subsystem.Subdivision.Name}}</option>
                     </select>
                 </div>
                 <div class="row">
-                    <label for="Ork" class="col-md-2 discipline-specialization__label  ">Освітній рівень</label>
-                    <select id="Ork" class="col-md-4 discipline-specialization discipline-specialization__select"  ng-disabled = "!okrNames" ng-class="{'discipline-specialization__select_disabled':!okrNames}" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
+                    <label for="Ork" class="col-md-2 select-form__label  ">Освітній рівень</label>
+                    <select id="Ork" class="col-md-4 select-form__select"  ng-disabled = "!okrNames" ng-class="{'select-form__select_disabled':!okrNames}" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
                         <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
                     </select>
                 </div>
                 <div class="row">
-                    <label for="Direction" class="col-md-2 discipline-specialization__label  ">Напрям</label>
-                    <select id="Direction" class="col-md-4  discipline-specialization discipline-specialization__select"  ng-disabled="!specialities" ng-class="{'discipline-specialization__select_disabled':!specialities}"
+                    <label for="Direction" class="col-md-2 select-form__label  ">Напрям</label>
+                    <select id="Direction" class="col-md-4  select-form__select"  ng-disabled="!specialities" ng-class="{'select-form__select_disabled':!specialities}"
                             ng-model="selectData.Direction" ng-change="OnFullSelect()">
                         <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code
                             +" "+ speciality.Name}}
@@ -50,15 +50,15 @@
                 </div>
             </div>
             <div ng-switch-when="specialization" class="row">
-                <label for="StudyYear" class="col-md-2 discipline-specialization__label  ">Навчальний рік</label>
-                <select id="StudyYear" class="col-md-4 discipline-specialization discipline-specialization__select"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
+                <label for="StudyYear" class="col-md-2 select-form__label  ">Навчальний рік</label>
+                <select id="StudyYear" class="col-md-4 select-form__select"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
                     <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
                 </select>
             </div>
             <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
         </section>
 
-        <section class="container-fluid discipline-specialization__specialization" ng-switch-when="specialization">
+        <section class="container-fluid discipline-specialization__specialization specialization" ng-switch-when="specialization">
             <div class="row">
                 <div class="col-md-6" ng-show="blocks!=null">
                     <fieldset>
@@ -151,14 +151,11 @@
             </div>
         </section>
 
-        <section class="container-fluid discipline-specialization__patterns" ng-switch-when="patterns">
+        <section class="container-fluid discipline-specialization__patterns patterns" ng-switch-when="patterns">
             <div ng-show="patterns!=null">
-                <!--<button class="btn btn-success" ng-click="addPattern()">-->
-                <!--<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>Додати новий шаблон-->
-                <!--</button>-->
                 <table class="table table-bordered table-hover table-condensed d-s-table">
                     <thead>
-                    <tr class="d-s-table__header">
+                    <tr class="patterns__table-header">
                         <td>
                             <a href="#" ng-click="sortType = 'CycleName';sortReverse = !sortReverse">
                                 Цикл дисциплін
@@ -200,9 +197,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="d-s-table d-s-table__tr-button">
+                    <tr class="d-s-table patterns__table-button">
                         <td colspan="7" ng-click="addPattern()" class="text-center">
-                            <i class="fa fa-plus" aria-hidden="true"></i>Додати новий шаблон
+                            <i class="fa fa-plus" aria-hidden="true"></i>  Додати новий шаблон
                         </td>
                     </tr>
                     <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse
@@ -241,18 +238,20 @@
                         <td>
                             <!-- form -->
                             <form editable-form name="rowform" onbeforesave="savePattern($data,pattern)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pattern">
-                                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                <button type="submit" ng-disabled="rowform.$waiting"
+                                        class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
                                     <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                                 </button>
-                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();OnFullSelect()" class="btn btn-default">
+                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();OnFullSelect()"
+                                        class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 </button>
                             </form>
                             <div class="buttons" ng-show="!rowform.$visible">
-                                <button class="btn btn-primary" ng-click="rowform.$show()">
+                                <button class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit" ng-click="rowform.$show()">
                                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                                 </button>
-                                <button class="btn btn-danger" ng-click="removePattern(pattern)">
+                                <button class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete" ng-click="removePattern(pattern)">
                                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                                 </button>
                                 <!--<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>-->

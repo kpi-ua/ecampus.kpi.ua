@@ -628,30 +628,67 @@ input:checked+.side-label::after {
     display: block;
 }
 
-.discipline-specialization__label{
+.discipline-specialization__navigation{
+    margin-top: 10px;
+}
+.discipline-specialization__select-form{
+    margin-bottom: 10px;
+}
+.select-form__label {
     font-size: 14px;
     font-weight: normal;
 }
-.discipline-specialization__select{
+
+.select-form__select {
     font-size: 14px;
 }
-.discipline-specialization__select_disabled{
+
+.select-form__select_disabled {
     opacity: 0.5;
     color: red;
     border-color: red;
 
 }
-.d-s-table__tr-button{
-    cursor: pointer;
-    font-size: 14px;
-    color: #208944;
-}
-.d-s-table__header{
-    text-align: center;
-}
+
 .discipline-specialization__navigation-button{
     font-size: 16px;
 }
 .discipline-specialization__navigation-button_active{
    background-color: #ccc;
+}
+/*PATTERNS*/
+    /*PATTERNS BUTTONS CRUD*/
+.patterns__table-header{
+    text-align: center;
+}
+.patterns__table-button{
+    cursor: pointer;
+    font-size: 14px;
+    color: #208944;
+    background: white;
+    border: 1px solid #208944;
+    box-sizing: border-box;
+    transition: all .3s ease;
+    height: 35px;
+}
+.patterns__table-button:hover{
+    font-size: 16px;
+}
+.patterns__table-button_CRUD-button {
+    padding: 0;
+    width: 35px;
+}
+.patterns__table-button_CRUD-button:hover {
+    color: green;
+}
+.patterns__table-button_CRUD-button_save{
+}
+
+.patterns__table-button_CRUD-button_cancel{
+}
+
+.patterns__table-button_CRUD-button_edit{
+}
+
+.patterns__table-button_CRUD-button_delete{
 }
