@@ -13,8 +13,8 @@
         </div>
         <div class="panel-body">
           <div class="text-center download-general-info" ng-show="loader">
-            <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-center info-load"></i>
-            <div class="alert alert-info text-center fade in">
+            <i class="fa fa-spinner fa-pulse info-load fa-fw text-center info-load"></i>
+            <div class="alert alert-default text-center fade in">
               Зачекайте будь ласка відбувається завантаження даних!
             </div>
           </div>
@@ -24,28 +24,24 @@
             </div>
           </div>
           <div class="general-info" ng-hide="hideInfo">
-            <div class="well well-lg specialization-info">
-              <p class="specialization-code">{{info.totalShifr}}</p>
-              <p class="specialization-name">{{info.proftrain}}</p>
-            </div>
-            <div class="well well-lg okr-info">
-              <p class="okr-name">{{info.okr}}</p>
-            </div>
             <div class="row account-info">
               <div class="col-lg-4 col-md-3 col-sm-3 col-xs-7">
+                <div class="labels">Напрям</div>
+                <div class="labels">Освітній рівень</div>
                 <div class="labels">Група</div>
                 <div class="labels">Курс</div>
                 <div class="labels">Рік зарахування</div>
                 <div class="labels">Поточний навчальний рік</div>
               </div>
               <div class="col-lg-8 col-md-9 col-sm-9 col-xs-5">
+                <div class="proftrain">{{info.totalShifr + " "+ info.proftrain}}</div>
+                <div class="okr">{{info.okr}}</div>
                 <div class="group">{{info.studyGroupName}}</div>
                 <div class="course">{{info.studyCourse}}</div>
                 <div class="start-year">{{info.yearIntake}}</div>
                 <div class="current-year">{{info.currentStudyYear}}</div>
               </div>
             </div>
-          </div>
         </div>
       </div>
       <div class="panel panel-default panel-disciplines">
@@ -54,7 +50,7 @@
         </div>
         <div class="text-center download-general-info" ng-show="loaderDisc">
           <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-center info-load"></i>
-          <div class="alert alert-info text-center fade in">
+          <div class="alert alert-default text-center fade in">
             Зачекайте будь ласка відбувається завантаження даних!
           </div>
         </div>
@@ -127,7 +123,7 @@
                           <span class="disciplines-subdivision-name">
                             {{firstDisc.subdiv || "назву кафедри не вказано"}}
                           </span>
-                          <a href="">інформація про дисципліну</a>
+                          <a href=""><i class="fa fa-info fa-fw info-load" aria-hidden="true"></i></a>
                         </div>
                         <span class="disciplines-students-count">
                             Кількість записаних студентів із максимальної кількості місць в потоці навчання.
@@ -204,7 +200,7 @@
                           <span class="disciplines-subdivision-name">
                             {{secondDisc.subdiv || "назву кафедри не вказано"}}
                           </span>
-                          <a href="">інформація про дисципліну</a>
+                          <a href=""><i class="fa fa-info fa-fw info-load" aria-hidden="true"></i></a>
                         </div>
                         <span class="disciplines-students-count">
                             Кількість записаних студентів із максимальної кількості місць в потоці навчання.
@@ -280,7 +276,7 @@
                           <span class="disciplines-subdivision-name">
                             {{thirdDisc.subdiv || "назву кафедри не вказано"}}
                           </span>
-                          <a href="">інформація про дисципліну</a>
+                          <a href=""><i class="fa fa-info fa-fw info-load" aria-hidden="true"></i></a>
                         </div>
                         <span class="disciplines-students-count">
                             Кількість записаних студентів із максимальної кількості місць в потоці навчання.
@@ -356,7 +352,7 @@
                           <span class="disciplines-subdivision-name">
                             {{fourthDisc.subdiv || "назву кафедри не вказано"}}
                           </span>
-                          <a href="">інформація про дисципліну</a>
+                          <a href=""><i class="fa fa-info fa-fw info-load" aria-hidden="true"></i></a>
                         </div>
                         <span class="disciplines-students-count">
                             Кількість записаних студентів із максимальної кількості місць в потоці навчання.
@@ -390,4 +386,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

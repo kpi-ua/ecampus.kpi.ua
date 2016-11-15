@@ -651,7 +651,6 @@ a.bulletin-title:hover {
 
 .disciplines-subdivision-name {
   color: gray;
-  font-style: italic;
 }
 
 .disciplines-students-count {
@@ -664,45 +663,38 @@ a.bulletin-title:hover {
 
 .panel-title-image {
   text-align: center;
-  min-height: 60px;
-  font-size: 24px;
-  line-height: 60px;
+  min-height: 50px;
+  font-size: 18px;
+  line-height: 50px;
   margin: 0 0 0 0;
   background: url("../images/home/open-book.png") no-repeat;
-  background-size: 60px 60px;
+  background-size: 50px 50px;
 }
 
 @media screen and (max-width: 430px) {
   .panel-title-image {
     min-height: 40px;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 40px;
     margin: 0 0 0 0;
     background: url("../images/home/open-book.png") no-repeat;
     background-size: 40px 40px;
   }
 
-  .panel-title.disciplines-header {
+  .disciplines-header {
     text-align: center;
     min-height: 40px;
-    font-size: 18px !important;
+    font-size: 14px;
     line-height: 40px;
     margin: 0 0 0 0;
-  }
-
-  .specialization-code, .specialization-name, .okr-name {
-    min-height: 20px;
-    font-size: 16px !important;
-    line-height: 20px;
-    text-align: center;
   }
 }
 
 .panel-title.disciplines-header {
   text-align: center;
-  min-height: 60px;
-  font-size: 24px;
-  line-height: 60px;
+  min-height: 40px;
+  font-size: 18px;
+  line-height: 40px;
   margin: 0 0 0 0;
 }
 
@@ -838,8 +830,8 @@ label.label-disciplines-choice {
 .navigation > .container {
   margin-left: 0;
   margin-right: 0;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
   width: 100%;
 }
 
