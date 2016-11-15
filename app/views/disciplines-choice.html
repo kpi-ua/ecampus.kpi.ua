@@ -6,15 +6,14 @@
   <div header></div>
   <div class="row selective-disciplines-wrapper">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
       <div class="panel panel-default disciplines-panel panel-general">
         <div class="panel-heading title">
           <div class="panel-title-image">Загальна інформація</div>
         </div>
         <div class="panel-body">
           <div class="text-center download-general-info" ng-show="loader">
-            <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-center info-load"></i>
-            <div class="alert alert-info text-center fade in">
+            <i class="fa fa-spinner fa-pulse info-load fa-fw text-center info-load"></i>
+            <div class="alert alert-default text-center fade in">
               Зачекайте будь ласка відбувається завантаження даних!
             </div>
           </div>
@@ -24,21 +23,18 @@
             </div>
           </div>
           <div class="general-info" ng-hide="hideInfo">
-            <div class="well well-lg specialization-info">
-              <p class="specialization-code">{{info.totalShifr}}</p>
-              <p class="specialization-name">{{info.proftrain}}</p>
-            </div>
-            <div class="well well-lg okr-info">
-              <p class="okr-name">{{info.okr}}</p>
-            </div>
             <div class="row account-info">
               <div class="col-lg-4 col-md-3 col-sm-3 col-xs-7">
+                <div class="labels">Напрям</div>
+                <div class="labels">Освітній рівень</div>
                 <div class="labels">Група</div>
                 <div class="labels">Курс</div>
                 <div class="labels">Рік зарахування</div>
                 <div class="labels">Поточний навчальний рік</div>
               </div>
               <div class="col-lg-8 col-md-9 col-sm-9 col-xs-5">
+                <div class="proftrain">{{info.totalShifr + " "+ info.proftrain}}</div>
+                <div class="okr">{{info.okr}}</div>
                 <div class="group">{{info.studyGroupName}}</div>
                 <div class="course">{{info.studyCourse}}</div>
                 <div class="start-year">{{info.yearIntake}}</div>
@@ -54,7 +50,7 @@
         </div>
         <div class="text-center download-general-info" ng-show="loaderDisc">
           <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-center info-load"></i>
-          <div class="alert alert-info text-center fade in">
+          <div class="alert alert-default text-center fade in">
             Зачекайте будь ласка відбувається завантаження даних!
           </div>
         </div>
@@ -64,18 +60,25 @@
           </div>
         </div>
         <div class="panel-body">
+
           <ul class="nav nav-tabs nav-justified" ng-hide="hideInfoDisc">
             <li ng-class="{ active: isSet(1)}">
-              <a ng-click="setTab(1)">1 курс</a>
+              <a ng-click="setTab(1)">1 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).firstCourse}}</a>
             </li>
             <li ng-class="{ active: isSet(2)}">
-              <a ng-click="setTab(2)">2 курс</a>
+              <a ng-click="setTab(2)">2 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).secondCourse}}</a>
             </li>
             <li ng-class="{ active: isSet(3)}">
-              <a ng-click="setTab(3)">3 курс</a>
+              <a ng-click="setTab(3)">3 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).thirdCourse}}</a>
             </li>
             <li ng-class="{ active: isSet(4)}">
-              <a ng-click="setTab(4)">4 курс</a>
+              <a ng-click="setTab(4)">4 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).fourthCourse}}</a>
+            </li>
+            <li ng-class="{ active: isSet(5)}" ng-hide="info.okr != 'Магістр'">
+              <a ng-click="setTab(5)">5 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).fifthCourse}}</a>
+            </li>
+            <li ng-class="{ active: isSet(6)}" ng-hide="info.okr != 'Магістр'">
+              <a ng-click="setTab(6)">6 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).sixthCourse}}</a>
             </li>
           </ul>
 
@@ -84,76 +87,16 @@
               <div ng-repeat="first in firstCourse">
                 <div class="row well well-md disciplines-info">
                   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
-                    <div class="labels">Семестр</div>
-                    <div class="labels">Опис</div>
-                    <div class="labels">Назва блоку</div>
-                    <div class="labels">Статус</div>
-                    <div class="labels">Дисципліни</div>
-                  </div>
-                  <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
-                    <div class="semester">{{first.semester || "інформацію не вказано"}}</div>
-                    <div class="description">{{first.array[0].component || "інформацію не вказано"}}</div>
-                    <div class="block-name">{{first.array[0].blockName || "інформацію не вказано"}}</div>
-                    <div class="status">{{translateStatus(first.status) || "інформацію не вказано"}}</div>
-                    <div class="discipline">{{first.array[0].blockDisc[0].nameUkr || "інформацію не вказано"}}</div>
-                  </div>
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <a ng-click="showDetails = !showDetails">Показати деталі</a>
-                  </div>
-                </div>
-                <div class="row disciplines" ng-show="showDetails">
-                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
                     <div class="labels">Навчальний рік</div>
                     <div class="labels">Семестр</div>
-                    <div class="labels">Опис</div>
-                    <div class="labels">Назва блоку</div>
                     <div class="labels">Статус</div>
-                    <div class="labels">Дисципліни</div>
                   </div>
                   <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
                     <div class="studyYear">{{first.studyYear || "інформацію не вказано"}}</div>
                     <div class="semester">{{first.semester || "інформацію не вказано"}}</div>
-                    <div class="description">{{first.array[0].component || "інформацію не вказано"}}</div>
-                    <div class="block-name">{{first.array[0].blockName || "інформацію не вказано"}}</div>
-                    <div class="status">{{translateStatus(first.status) || "інформацію не вказано"}}</div>
-                    <div class="discipline" ng-show="first.blocks == 0">Не вказано дисциплін</div>
-                    <form ng-hide="first.blocks == 0 || first.status == 'not available' ">
-                      <div class="discipline" ng-repeat="firstDisc in first.blocks[0].blockDisc">
-                        <div class="radio">
-                          <label class="label-disciplines-choice">
-                            <input type="radio" class="radio-disciplines-choice" name="radio-1-{{$index + 1}}">
-                            {{firstDisc.nameUkr || "назву дисциплін не вказано"}}
-                          </label>
-                          <span class="disciplines-subdivision-name">
-                            {{firstDisc.subdiv || "назву кафедри не вказано"}}
-                          </span>
-                          <a href="">інформація про дисципліну</a>
-                        </div>
-                        <span class="disciplines-students-count">
-                            Кількість записаних студентів із максимальної кількості місць в потоці навчання.
-                          </span>
-                        <p ng-show="firstDisc.maxCountStudent == 0">
-                          Вказано нульову кількість студентів.
-                        </p>
-                        <div class="progress" ng-hide="firstDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
-                               aria-valuenow="{{firstDisc.studentCount}}" aria-valuemin="0"
-                               aria-valuemax="{{firstDisc.maxCountStudent}}"
-                               ng-init="procent=((+ firstDisc.studentCount)/(+ firstDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
-                            {{firstDisc.studentCount}} / {{firstDisc.maxCountStudent}}
-                          </div>
-                        </div>
-                      </div>
-                      <button type="submit" class="btn btn-primary"
-                              ng-show="!(first.status == 'not available' || first.status == 'done')">Зберегти
-                      </button>
-                    </form>
-                    <br>
+                    <div class="status">Вибір не здійснювався</div>
                   </div>
-
                 </div>
-
               </div>
             </div>
             <div class="tab-pane course" ng-class="{ active: isSet(2)}">
@@ -204,7 +147,7 @@
                           <span class="disciplines-subdivision-name">
                             {{secondDisc.subdiv || "назву кафедри не вказано"}}
                           </span>
-                          <a href="">інформація про дисципліну</a>
+                          <a href=""><i class="fa fa-info fa-fw info-load" aria-hidden="true"></i></a>
                         </div>
                         <span class="disciplines-students-count">
                             Кількість записаних студентів із максимальної кількості місць в потоці навчання.
@@ -213,11 +156,11 @@
                           Вказано нульову кількість студентів.
                         </p>
                         <div class="progress" ng-hide="secondDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                aria-valuenow="{{secondDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{secondDisc.maxCountStudent}}"
                                ng-init="procent=((+ secondDisc.studentCount)/(+ secondDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
+                               ng-style="{'width' : procent + '%'}">
                             {{secondDisc.studentCount}} / {{secondDisc.maxCountStudent}}
                           </div>
                         </div>
@@ -228,7 +171,6 @@
                     </form>
                     <br>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -280,7 +222,7 @@
                           <span class="disciplines-subdivision-name">
                             {{thirdDisc.subdiv || "назву кафедри не вказано"}}
                           </span>
-                          <a href="">інформація про дисципліну</a>
+                          <a href=""><i class="fa fa-info fa-fw info-load" aria-hidden="true"></i></a>
                         </div>
                         <span class="disciplines-students-count">
                             Кількість записаних студентів із максимальної кількості місць в потоці навчання.
@@ -289,11 +231,11 @@
                           Вказано нульову кількість студентів.
                         </p>
                         <div class="progress" ng-hide="thirdDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                aria-valuenow="{{thirdDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{thirdDisc.maxCountStudent}}"
                                ng-init="procent=((+ thirdDisc.studentCount)/(+ thirdDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
+                               ng-style="{'width' : procent + '%'}">
                             {{thirdDisc.studentCount}} / {{thirdDisc.maxCountStudent}}
                           </div>
                         </div>
@@ -304,7 +246,6 @@
                     </form>
                     <br>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -356,7 +297,7 @@
                           <span class="disciplines-subdivision-name">
                             {{fourthDisc.subdiv || "назву кафедри не вказано"}}
                           </span>
-                          <a href="">інформація про дисципліну</a>
+                          <a href=""><i class="fa fa-info fa-fw info-load" aria-hidden="true"></i></a>
                         </div>
                         <span class="disciplines-students-count">
                             Кількість записаних студентів із максимальної кількості місць в потоці навчання.
@@ -365,11 +306,11 @@
                           Вказано нульову кількість студентів.
                         </p>
                         <div class="progress" ng-hide="fourthDisc.maxCountStudent == 0">
-                          <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar"
+                          <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
                                aria-valuenow="{{fourthDisc.studentCount}}" aria-valuemin="0"
                                aria-valuemax="{{fourthDisc.maxCountStudent}}"
                                ng-init="procent=((+ fourthDisc.studentCount)/(+ fourthDisc.maxCountStudent))*100"
-                               style="width:{{procent}}%">
+                               ng-style="{'width' : procent + '%'}">
                             {{fourthDisc.studentCount}} / {{fourthDisc.maxCountStudent}}
                           </div>
                         </div>
@@ -380,12 +321,33 @@
                     </form>
                     <br>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane course" ng-class="{ active: isSet(5)}" ng-hide="info.okr != 'Магістр'">
+              <div ng-repeat="fifth in fifthCourse">
+                <div class="row well well-md disciplines-info">
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
+                    <div class="labels">Навчальний рік</div>
+                    <div class="labels">Семестр</div>
+                    <div class="labels">Статус</div>
+                  </div>
+                  <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
+                    <div class="studyYear">{{fifth.studyYear || "інформацію не вказано"}}</div>
+                    <div class="semester">{{fifth.semester || "інформацію не вказано"}}</div>
+                    <div class="status">Вибір не здійснювався</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane course" ng-class="{ active: isSet(6)}" ng-hide="info.okr != 'Магістр'">
+              <div ng-repeat="sixth in sixthCourse">
+                <div class="row well well-md disciplines-info">
 
                 </div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

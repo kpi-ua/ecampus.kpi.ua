@@ -290,7 +290,7 @@ header .logo {
   height: 51px;
   margin-bottom: 0;
   float: left;
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .logo-green {
@@ -641,17 +641,12 @@ a.bulletin-title:hover {
   color: #208843;
 }
 
-.disciplines {
-  padding: 0 19px 0 19px;
-}
-
 .panel .active .disciplines-panel {
   cursor: default;
 }
 
 .disciplines-subdivision-name {
   color: gray;
-  font-style: italic;
 }
 
 .disciplines-students-count {
@@ -659,50 +654,43 @@ a.bulletin-title:hover {
 }
 
 .selective-disciplines-tabs, .selective-disciplines-wrapper {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .panel-title-image {
   text-align: center;
-  min-height: 60px;
-  font-size: 24px;
-  line-height: 60px;
+  min-height: 50px;
+  font-size: 18px;
+  line-height: 50px;
   margin: 0 0 0 0;
   background: url("../images/home/open-book.png") no-repeat;
-  background-size: 60px 60px;
+  background-size: 50px 50px;
 }
 
 @media screen and (max-width: 430px) {
   .panel-title-image {
     min-height: 40px;
-    font-size: 18px;
+    font-size: 14px;
     line-height: 40px;
     margin: 0 0 0 0;
     background: url("../images/home/open-book.png") no-repeat;
     background-size: 40px 40px;
   }
 
-  .panel-title.disciplines-header {
+  .disciplines-header {
     text-align: center;
     min-height: 40px;
-    font-size: 18px !important;
+    font-size: 14px;
     line-height: 40px;
     margin: 0 0 0 0;
-  }
-
-  .specialization-code, .specialization-name, .okr-name {
-    min-height: 20px;
-    font-size: 16px !important;
-    line-height: 20px;
-    text-align: center;
   }
 }
 
 .panel-title.disciplines-header {
   text-align: center;
-  min-height: 60px;
-  font-size: 24px;
-  line-height: 60px;
+  min-height: 40px;
+  font-size: 18px;
+  line-height: 40px;
   margin: 0 0 0 0;
 }
 
@@ -717,17 +705,23 @@ a.bulletin-title:hover {
 }
 
 .tab-pane.course {
-  margin: 0 15px 0 15px;
+  margin: 0 0 0 0;
   padding: 0 0 0 0;
   cursor: default;
 }
 
-div.row.well.well-md.disciplines {
-  padding: 20px 0 20px 0;
+div.row.well.well-md.disciplines-info {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 15px;
+}
+
+.disciplines {
+  padding: 0 34px 0 34px;
 }
 
 div.row.account-info {
-  padding: 20px 15px 20px 15px;
+  padding: 0 15px 0 15px;
 }
 
 .course, .group, .start-year, .current-year {
@@ -838,8 +832,8 @@ label.label-disciplines-choice {
 .navigation > .container {
   margin-left: 0;
   margin-right: 0;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding-left: 0;
+  padding-right: 0;
   width: 100%;
 }
 

@@ -9,7 +9,7 @@
  */
 angular.module('ecampusApp')
   .controller('DisciplinesChoiceCtrl', ['$scope', 'Api', function ($scope, Api) {
-    $scope.tab = 1;
+
     $scope.errorMessage = '';
     $scope.hideInfo = false;
     $scope.loader = false;
@@ -39,6 +39,18 @@ angular.module('ecampusApp')
       }
     };
 
+    $scope.getStudyCoursesWithYears = function (yearIntake) {
+      var result = {
+        firstCourse: yearIntake + '-' + (1 + yearIntake),
+        secondCourse: (1 + yearIntake) + '-' + (2 + yearIntake),
+        thirdCourse: (2 + yearIntake) + '-' + (3 + yearIntake),
+        fourthCourse: (3 + yearIntake) + '-' + (4 + yearIntake),
+        fifthCourse: (4 + yearIntake) + '-' + (5 + yearIntake),
+        sixthCourse: (5 + yearIntake) + '-' + (6 + yearIntake)
+      };
+      return (result)
+    };
+
     function loadInfo() {
       var url = '/Account/student/group';
       $scope.loader = true;
@@ -47,6 +59,7 @@ angular.module('ecampusApp')
         .done(function (response) {
           $scope.info = response[0];
           $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
+          $scope.tab = +response[0].studyCourse;
           $scope.loader = false;
           $scope.$apply();
         })
