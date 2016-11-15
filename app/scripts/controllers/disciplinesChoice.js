@@ -39,6 +39,18 @@ angular.module('ecampusApp')
       }
     };
 
+    $scope.getStudyCoursesWithYears = function (yearIntake) {
+      var result = {
+        firstCourse: yearIntake + '-' + (1 + yearIntake),
+        secondCourse: (1 + yearIntake) + '-' + (2 + yearIntake),
+        thirdCourse: (2 + yearIntake) + '-' + (3 + yearIntake),
+        fourthCourse: (3 + yearIntake) + '-' + (4 + yearIntake),
+        fifthCourse: (4 + yearIntake) + '-' + (5 + yearIntake),
+        sixthCourse: (5 + yearIntake) + '-' + (6 + yearIntake)
+      };
+      return (result)
+    };
+
     function loadInfo() {
       var url = '/Account/student/group';
       $scope.loader = true;
