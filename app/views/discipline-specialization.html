@@ -9,26 +9,24 @@
                 <section class="container-fluid">
                     <div class="btn-group btn-group-justified" role="group" aria-label="...">
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-success" value="specialization" ng-click=" SwitchSections($event)">
+                            <button type="button" class="btn btn-default discipline-specialization__navigation" value="specialization" ng-click=" SwitchSections($event)" ng-class="{'discipline-specialization__navigation-active':section=='specialization'}">
                                 Дисципліни спеціалізації
                             </button>
                         </div>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-success" value="patterns" ng-click="SwitchSections($event)">
+                                <button type="button" class="btn btn-default discipline-specialization__navigation" value="patterns" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-active':section=='patterns'}">
                                 Перегляд і редагування шаблонів
                             </button>
                         </div>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-success" value="apply" ng-click="SwitchSections($event)">
+                            <button type="button" class="btn btn-default discipline-specialization__navigation" value="apply" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-active':section=='apply'}">
                                 Застосування шаблонів
                             </button>
                         </div>
                     </div>
                 </section>
                 <section class="container-fluid">
-                    <h2 ng-switch-when="specialization">Дисципліни спеціалізації</h2>
-                    <h2 ng-switch-when="patterns">Перегляд і редагування шаблонів</h2>
-                    <h2 ng-switch-when="apply">Застосування шаблонів</h2>
+                    <br>
                     <div ng-show="section=='specialization'||section=='patterns'">
                         <div class="row">
                             <label for="Cathedra" class="col-md-2 discipline-specialization discipline-specialization__label ">Кафедра</label>
@@ -37,7 +35,7 @@
                             </select>
                         </div>
                         <div class="row">
-                            <label for="Ork" class="col-md-2 discipline-specialization__label  ">ОКР</label>
+                            <label for="Ork" class="col-md-2 discipline-specialization__label  ">Освітній рівень</label>
                             <select id="Ork" class="col-md-4 discipline-specialization discipline-specialization__select"  ng-disabled = "!okrNames" ng-class="{'discipline-specialization__select_disabled':!okrNames}" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
                                 <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
                             </select>
@@ -140,19 +138,19 @@
                         <table class="table table-bordered table-hover table-condensed d-s-table">
                             <thead>
                             <tr class="d-s-table__header">
-                                <th>Цикл дисциплін</th>
-                                <th>Назва блоку</th>
-                                <th>Курс навчання</th>
-                                <th>Семестр</th>
-                                <th>Кількість дисциплін</th>
-                                <th>Примітка</th>
-                                <th></th>
+                                <td>Цикл дисциплін</td>
+                                <td>Назва блоку</td>
+                                <td>Курс навчання</td>
+                                <td>Семестр</td>
+                                <td>Кількість дисциплін</td>
+                                <td>Примітка</td>
+                                <td></td>
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="d-s-table d-s-table__tr-button">
-                                <td colspan="7" ng-click="addPattern()" class="text-center btn-success">
-                                    <i class="fa fa-plus fa-2x" aria-hidden="true"></i>Додати новий шаблон
+                                <td colspan="7" ng-click="addPattern()" class="text-center">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>Додати новий шаблон
                                 </td>
                             </tr>
                             <tr ng-repeat="pattern in patterns">

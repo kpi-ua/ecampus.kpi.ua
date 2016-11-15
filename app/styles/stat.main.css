@@ -283,9 +283,8 @@ footer .contactInfo a {
 
 .errorLabel {
     text-align: center;
-    color: red;
-    font-size: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    color: black;
+    font-size: 14px;
     width: 100%;
     border: 1px solid red;
 }
@@ -630,10 +629,11 @@ input:checked+.side-label::after {
 }
 
 .discipline-specialization__label{
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: normal;
 }
 .discipline-specialization__select{
-    font-size: 16px;
+    font-size: 14px;
 }
 .discipline-specialization__select_disabled{
     opacity: 0.5;
@@ -643,7 +643,15 @@ input:checked+.side-label::after {
 }
 .d-s-table__tr-button{
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
+    color: #208944;
 }
 .d-s-table__header{
+    text-align: center;
+}
+.discipline-specialization__navigation{
+    font-size: 16px;
+}
+.discipline-specialization__navigation-active{
+   background-color: #ccc;
 }
