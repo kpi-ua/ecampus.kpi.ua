@@ -24,7 +24,9 @@ angular.module('ecampusApp')
 
         $scope.sortType     = 'Course'; // значение сортировки по умолчанию
         $scope.sortReverse  = false;  // обратная сортировка
-        $scope.searchField   = '';     // значение поиска по умолчанию
+
+        $scope.sortTypeBlock     = 'DisciplineName'; // значение сортировки по умолчанию
+        $scope.sortReverseBlock  = false;  // обратная сортировка
 
         $scope.section = "specialization";
         /// Написать запросы на DcCycle и DcBlock
@@ -215,9 +217,9 @@ angular.module('ecampusApp')
         function GetBlockNameById(dcBlock, blockId) {
             var blockName = "";
             dcBlock.forEach(function (item,iter,arr) {
-               if(item.BlockId == blockId){
-                   blockName =  item.BlockName;
-               }
+                if(item.BlockId == blockId){
+                    blockName =  item.BlockName;
+                }
             });
             return blockName;
         }
@@ -225,9 +227,9 @@ angular.module('ecampusApp')
         function GetCycleNameById(dcCycle, cycleId) {
             var cycleName ="";
             dcCycle.forEach(function (item,iter,arr) {
-               if(item.CycleId == cycleId){
-                   cycleName =  item.CycleName;
-               }
+                if(item.CycleId == cycleId){
+                    cycleName =  item.CycleName;
+                }
             });
             return cycleName;
         }
@@ -245,7 +247,6 @@ angular.module('ecampusApp')
             var cathedraId = $scope.selectData.CathedraId;
             var path = "StudyOrganization/ProfTrains/"+ cathedraId;
             Campus.execute("GET", path).then(function(response) {
-
                 if (!response || response == "") {
                     $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
                 } else {
@@ -265,6 +266,9 @@ angular.module('ecampusApp')
                 }
                 $scope.preloader = false;
                 $scope.safeApply();
+            },function (response) {
+                console.log("Error!!!");
+                console.log(response);
             });
         };
 

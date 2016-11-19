@@ -118,16 +118,36 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th class="text-center">Назва дисципліни</th>
-                                <th class="text-center">Читаюча кафедра</th>
-                                <th class="text-center">Мах кількість <br/> студентів</th>
-                                <th class="text-center">Записалося студентів</th>
+                                <td class="text-center">
+                                    <a href="#" ng-click="sortTypeBlock = 'DisciplineName';sortReverseBlock = !sortReverseBlock">
+                                        Назва дисципліни
+                                        <span ng-show="sortTypeBlock == 'DisciplineName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" ng-click="sortTypeBlock = 'WhoReadAbbreviation';sortReverseBlock = !sortReverseBlock">
+                                        Читаюча кафедра
+                                        <span ng-show="sortTypeBlock == 'WhoReadAbbreviation'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" ng-click="sortTypeBlock = 'MaxCountStudent';sortReverseBlock = !sortReverseBlock">
+                                        Мах кількість <br/> студентів
+                                        <span ng-show="sortTypeBlock == 'MaxCountStudent'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" ng-click="sortTypeBlock = 'OccupiedPercent';sortReverseBlock = !sortReverseBlock">
+                                        Записалося студентів
+                                        <span ng-show="sortTypeBlock == 'OccupiedPercent'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                    </a>
+                                </td>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="discipline in disciplines">
-                                <th scope="row">{{discipline.DisciplineName}}</th>
-                                <th>{{discipline.WhoReadAbbreviation}}</th>
+                            <tr ng-repeat="discipline in disciplines | orderBy:sortTypeBlock:sortReverseBlock">
+                                <td>{{discipline.DisciplineName}}</td>
+                                <td>{{discipline.WhoReadAbbreviation}}</td>
                                 <td>{{discipline.MaxCountStudent}}</td>
                                 <td>
                                     <div class="progress">
