@@ -25,10 +25,12 @@ angular.module('ecampusApp')
         $scope.sortType     = 'Course'; // значение сортировки по умолчанию
         $scope.sortReverse  = false;  // обратная сортировка
 
-        $scope.sortTypeBlock     = 'DisciplineName'; // значение сортировки по умолчанию
+        $scope.sortTypeBlock     = 'MaxCountStudent'; // значение сортировки по умолчанию
         $scope.sortReverseBlock  = false;  // обратная сортировка
 
         $scope.section = "specialization";
+        $scope.semester = "";
+        $scope.blockIdShow =0;
         /// Написать запросы на DcCycle и DcBlock
         // Логику для Courses и
         $scope.Dc ={
@@ -77,73 +79,6 @@ angular.module('ecampusApp')
             }
             $scope.stydyYears = getStudyYearsArray(StydyYearFrom,StydyYearTo);
             $scope.preloader=false;
-        }
-
-        function SubdivisionModel(SubdivisionId,Name){
-            this.SubdivisionId =SubdivisionId;
-            this.Name =Name;
-        }
-
-        function SubsystemModel(SubsystemId, Subdivision) {
-            this.SubsystemId = SubsystemId;
-            this.Subdivision = Subdivision;
-        }
-
-        function SpecialityModel( Code,Name, ProfTrainTotalId) {
-            this.Code = Code;
-            this.Name = Name;
-            this.ProfTrainTotalId = ProfTrainTotalId;
-
-        }
-
-        function ProfTrainModel( OkrName,Speciality) {
-            this.OkrName = OkrName;
-            this.Speciality = Speciality;
-        }
-
-        function BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName,course,semestr,studyGroupName) {
-            this.BlockChoiceWhomId = blockChoiceWhomId;
-            this.BlockId = blockId;
-            this.BlockName = blockName;
-            this.Course = course;
-            this.Semestr = semestr;
-            this.StudyGroupName = studyGroupName;
-
-        }
-
-        function DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName) {
-            this.DisciplineBlockYearId = disciplineBlockYearId;
-            this.DisciplineName = disciplineName;
-            this.MaxCountStudent = maxCountStudent;
-            this.OccupiedPercent = occupiedPercent;
-            this.StydyCourse = stydyCourse;
-            this.Subscribed = subscribed;
-            this.WhoReadId = whoReadId;
-            this.WhoReadAbbreviation = whoReadAbbreviation;
-            this.WhoReadName = whoReadName;
-        }
-
-        function BlockModel(blockId, blockName ) {
-            this.BlockName = blockName ;
-            this.BlockId = blockId ;
-        }
-
-        function CycleModel(cycleId, cycleName) {
-            this.CycleName = cycleName ;
-            this.CycleId = cycleId ;
-        }
-
-        function PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName) {
-            this.PatternBlockChoice8Id = patternBlockChoice8Id ;
-            this.ProfTrainTotalSubdivisionId = rtProfTrainTotalSubdivisionId ;
-            this.BlockName = blockName ;
-            this.BlockId = blockId ;
-            this.CycleName = cycleName ;
-            this.CycleId = cycleId ;
-            this.Course = course ;
-            this.Semester = semester ;
-            this.CountDiscipline = countDiscipline ;
-            this.PatternName = patternName ;
         }
 
         function getStudyYearsArray(from, to) {
@@ -234,6 +169,54 @@ angular.module('ecampusApp')
             return cycleName;
         }
 
+        function BlockChoiceFromResponseToView(response) {
+            var blocks= [];
+            var groupedBlocksArray =[];
+            var blocksAndDisciplines=[];
+            var studyGroups = [];
+            var blocksForRequest=[];
+            var compareSemester = 0;
+            response.forEach(function (item, i, arr) {
+                var blockChoiceWhomId = item.blockChoiceWhomId
+                    , blockId = item.blockId
+                    , blockName = item.blockName
+                    , course = item.course
+                    , semestr = item.semestr
+                    , studyGroupName = item.studyGroupName;
+                if(compareSemester!=semestr){
+                    compareSemester = semestr;
+                    if(blocks.length != 0) {
+                        groupedBlocksArray.push(blocks);
+                        blocks = [];
+                    }
+                }
+                blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
+            });
+            groupedBlocksArray.push(blocks);
+            groupedBlocksArray.forEach(function (blocksArray,iter,arr) {
+                blocksForRequest=[];
+                studyGroups = [];
+                blocks=[];
+                blocksArray.forEach(function (block ,iterator ,arra) {
+                    studyGroups.push(block.StudyGroupName);
+                    var compatreBlock = new BlockModel(block.BlockId,block.BlockName);
+                    if(!~blocksForRequest.indexOf(compatreBlock)) {
+                        blocksForRequest.push(compatreBlock);
+                        blocks.push(compatreBlock)
+                    }
+                });
+                blocksAndDisciplines.push(new SemestrsBlocksModel(blocksArray[0].Course,blocksArray[0].Semestr,studyGroups,blocks));
+            });
+            return blocksAndDisciplines;
+        }
+
+        function ErrorHandlerMy (response, status,headers){
+            $scope.errorLabelText="Помилка. Перевірте інтернет з'єднання.";
+            console.log(response);
+            console.log(status);
+            console.log(headers);
+        }
+
         $scope.OnCathedraSelect = function () {
             $scope.errorLabelText="";
             $scope.blocks = null;
@@ -266,9 +249,9 @@ angular.module('ecampusApp')
                 }
                 $scope.preloader = false;
                 $scope.safeApply();
-            },function (response) {
-                console.log("Error!!!");
-                console.log(response);
+            },function(response, status,headers){
+                ErrorHandlerMy (response, status,headers);
+                $scope.safeApply();
             });
         };
 
@@ -290,6 +273,8 @@ angular.module('ecampusApp')
             $scope.errorLabelText="";
             var path="";
             $scope.disciplines =null;
+            $scope.semestrsForView = null;
+            $scope.blocksWidthDisciplines = null;
             var cathedraIdBool =    $scope.selectData.CathedraId != null;
             var directionBool =     $scope.selectData.Direction != null;
             var okrBool =           $scope.selectData.Okr != null;
@@ -297,27 +282,70 @@ angular.module('ecampusApp')
             if (cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='specialization'){
                 $scope.preloader = true;
                 var blocks= [];
+                var groupedBlocksArray =[];
+                var compareSemester = 0;
                 path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
-                        $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
-                        $scope.blocks =[];
+                        $scope.errorLabelText="На жаль записи у базі відсутні";
+                        $scope.safeApply();
                     } else {
-                        response.forEach(function (item, i, arr) {
-                            var blockChoiceWhomId = item.blockChoiceWhomId
-                                , blockId = item.blockId
-                                , blockName = item.blockName
-                                , course = item.course
-                                , semestr = item.semestr
-                                , studyGroupName = item.studyGroupName;
-                            blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
-                        });
-                        $scope.blocks = blocks;
+                        // console.log(response);
+                        var semestrForView  = BlockChoiceFromResponseToView(response);
+                        // console.log(semestrForView);
+                        // response.forEach(function (item, i, arr) {
+                        //     var blockChoiceWhomId = item.blockChoiceWhomId
+                        //         , blockId = item.blockId
+                        //         , blockName = item.blockName
+                        //         , course = item.course
+                        //         , semestr = item.semestr
+                        //         , studyGroupName = item.studyGroupName;
+                        //     if(compareSemester!=semestr){
+                        //         compareSemester = semestr;
+                        //         if(blocks.length != 0) {
+                        //             groupedBlocksArray.push(blocks);
+                        //             blocks = [];
+                        //         }
+                        //     }
+                        //     blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
+                        //
+                        // });
+                        // groupedBlocksArray.push(blocks);
+                        $scope.semestrsForView = semestrForView;
                         $scope.preloader = false;
                         $scope.safeApply();
                     }
+                },function(response, status,headers){
+                    ErrorHandlerMy (response, status,headers);
+                    $scope.safeApply();
                 });
-
+            // if (cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='specialization'){
+            //     $scope.preloader = true;
+            //     var blocks= [];
+            //     var compareSemester = 0;
+            //     path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+            //     Campus.execute("GET", path).then(function(response) {
+            //         if (!response || response == "") {
+            //             $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
+            //             $scope.blocks =[];
+            //         } else {
+            //             console.log(response);
+            //             response.forEach(function (item, i, arr) {
+            //                 var blockChoiceWhomId = item.blockChoiceWhomId
+            //                     , blockId = item.blockId
+            //                     , blockName = item.blockName
+            //                     , course = item.course
+            //                     , semestr = item.semestr
+            //                     , studyGroupName = item.studyGroupName;
+            //                 blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
+            //
+            //             });
+            //             $scope.blocks = blocks;
+            //             console.log($scope.blocks);
+            //             $scope.preloader = false;
+            //             $scope.safeApply();
+            //         }
+            //     });
             }else if(cathedraIdBool && directionBool && okrBool && $scope.section=='patterns') {
                 $scope.preloader = true;
                 var patterns= [];
@@ -325,7 +353,7 @@ angular.module('ecampusApp')
                 path = "SelectiveDiscipline/PatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Campus.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
-                        $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
+                        $scope.errorLabelText="На жаль записи у базі відсутні.";
                         $scope.patterns = [];
                         $scope.safeApply();
                     } else {
@@ -344,23 +372,109 @@ angular.module('ecampusApp')
                         });
                         $scope.patterns = patterns;
                         $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
-                        console.log( $scope.selectData.ProfTrainTotalSubdivisionId);
-                        console.log( patterns[0].ProfTrainTotalSubdivisionId);
-                        console.log( patterns[0]);
+                        // console.log( $scope.selectData.ProfTrainTotalSubdivisionId);
+                        // console.log( patterns[0].ProfTrainTotalSubdivisionId);
+                        // console.log( patterns[0]);
                         $scope.preloader = false;
                         $scope.safeApply();
                     }
+                },function(response, status,headers){
+                    ErrorHandlerMy (response, status,headers);
+                    $scope.safeApply();
                 });
             }
         };
+        //
+        // $scope.OnDisciplineChose = function (blockId) {
+        //     console.log(blockId);
+        //     $scope.preloader = true;
+        //     var disciplines= [];
+        //     var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+blockId;
+        //     Campus.execute("GET", path).then(function(response) {
+        //         console.log(response);
+        //         response.forEach(function(item, i, arr){
+        //             var disciplineBlockYearId = item.disciplineBlockYearId
+        //                 ,disciplineName = item.disciplineName
+        //                 ,maxCountStudent = item.maxCountStudent
+        //                 ,occupiedPercent = item.occupiedPercent
+        //                 ,stydyCourse = item.stydyCourse
+        //                 ,subscribed = item.subscribed
+        //                 ,whoReadId = item.whoReadId
+        //                 ,whoReadAbbreviation = item.whoReadAbbreviation
+        //                 ,whoReadName = item.whoReadName;
+        //             disciplines.push(new DisciplineModel(disciplineBlockYearId,disciplineName,maxCountStudent,occupiedPercent,stydyCourse,subscribed, whoReadId, whoReadAbbreviation, whoReadName));
+        //
+        //         });
+        //         $scope.disciplines = disciplines;
+        //         console.log(disciplines);
+        //         $scope.preloader = false;
+        //         $scope.safeApply();
+        //     });
+        // };
+        $scope.GetAllDisciplines = function (blocks) {
+            blocks.forEach(function (block,iter,arr) {
+                var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+block.BlockId;
+                Campus.execute("GET", path).then(function(response) {
+                    var disciplinesBlock =[];
+                    var tatalMaxCountStudent =0;
+                    var tatalOccupiedPercent =0;
+                    var tatalSubscribed =0;
+                    if (!response || response == "") {
+                        $scope.errorLabelText="На жаль записи у базі відсутні";
+                        $scope.blocksWidthDisciplines = null;
+                        $scope.safeApply();
+                    }else {
+                        response.forEach(function (item, i, arr) {
+                            var disciplineBlockYearId = item.disciplineBlockYearId
+                                , disciplineName = item.disciplineName
+                                , maxCountStudent = item.maxCountStudent
+                                , occupiedPercent = item.occupiedPercent
+                                , stydyCourse = item.stydyCourse
+                                , subscribed = item.subscribed
+                                , whoReadId = item.whoReadId
+                                , whoReadAbbreviation = item.whoReadAbbreviation
+                                , whoReadName = item.whoReadName;
+                            disciplinesBlock.push(new DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName));
+                            tatalMaxCountStudent += maxCountStudent;
+                            tatalSubscribed += subscribed;
+                        });
+                        tatalOccupiedPercent = tatalSubscribed / tatalMaxCountStudent;
+                        disciplinesBlock.push(new DisciplineModel(0, "Разом", tatalMaxCountStudent, tatalOccupiedPercent, "", tatalSubscribed, "", "", ""));
+                        block.DisciplineArray = disciplinesBlock;
+                        $scope.blocksWidthDisciplines = blocks;
+                        $scope.safeApply();
+                    }
+                },function(response){
+                    $scope.errorLabelText="Помилка на строні сервера";
+                    console.log(response);
+                    $scope.safeApply();
+                });
+            });
+            // var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+blocks[0].BlockId;
+            // Campus.execute("GET", path).then(function(response) {
+            //     response.forEach(function (item, i, arr) {
+            //         var disciplineBlockYearId = item.disciplineBlockYearId
+            //             , disciplineName = item.disciplineName
+            //             , maxCountStudent = item.maxCountStudent
+            //             , occupiedPercent = item.occupiedPercent
+            //             , stydyCourse = item.stydyCourse
+            //             , subscribed = item.subscribed
+            //             , whoReadId = item.whoReadId
+            //             , whoReadAbbreviation = item.whoReadAbbreviation
+            //             , whoReadName = item.whoReadName;
+            //         disciplinesAll.push(new DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName));
+            //
+            //     });
+            // });
+        };
 
         $scope.OnDisciplineChose = function (blockId) {
-            console.log(blockId);
+            // console.log(blockId);
             $scope.preloader = true;
             var disciplines= [];
             var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+blockId;
             Campus.execute("GET", path).then(function(response) {
-                console.log(response);
+                // console.log(response);
                 response.forEach(function(item, i, arr){
                     var disciplineBlockYearId = item.disciplineBlockYearId
                         ,disciplineName = item.disciplineName
@@ -373,17 +487,31 @@ angular.module('ecampusApp')
                         ,whoReadName = item.whoReadName;
                     disciplines.push(new DisciplineModel(disciplineBlockYearId,disciplineName,maxCountStudent,occupiedPercent,stydyCourse,subscribed, whoReadId, whoReadAbbreviation, whoReadName));
 
+                },function(response, status,headers){
+                    ErrorHandlerMy(response, status,headers);
+                    $scope.safeApply();
                 });
                 $scope.disciplines = disciplines;
-                console.log(disciplines);
+                // console.log($scope.disciplines);
                 $scope.preloader = false;
                 $scope.safeApply();
             });
         };
 
+        $scope.UpadeModalForGroup = function(groupName){
+            $scope.ModalGroupInfo ={
+                GroupName: groupName,
+            }
+        };
+
         $scope.SwitchSections = function (event) {
             $scope.section = event.target.value;
             $scope.OnFullSelect()
+        };
+
+        $scope.SwitchSemester = function (value) {
+            $scope.semester = value;
+            $scope.OnFullSelect();
         };
 
         function safeApply (fn) {
@@ -439,6 +567,9 @@ angular.module('ecampusApp')
 
             Campus.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
+            },function(response, status,headers){
+                ErrorHandlerMy (response, status,headers);
+                $scope.safeApply();
             });
         };
 
@@ -472,4 +603,83 @@ angular.module('ecampusApp')
             };
             $scope.patterns.unshift($scope.inserted);
         };
+
+
+    //    MODELS!!!
+        function SubdivisionModel(SubdivisionId,Name){
+            this.SubdivisionId =SubdivisionId;
+            this.Name =Name;
+        }
+
+        function SubsystemModel(SubsystemId, Subdivision) {
+            this.SubsystemId = SubsystemId;
+            this.Subdivision = Subdivision;
+        }
+
+        function SpecialityModel( Code,Name, ProfTrainTotalId) {
+            this.Code = Code;
+            this.Name = Name;
+            this.ProfTrainTotalId = ProfTrainTotalId;
+
+        }
+
+        function ProfTrainModel( OkrName,Speciality) {
+            this.OkrName = OkrName;
+            this.Speciality = Speciality;
+        }
+
+        function BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName,course,semestr,studyGroupName) {
+            this.BlockChoiceWhomId = blockChoiceWhomId;
+            this.BlockId = blockId;
+            this.BlockName = blockName;
+            this.Course = course;
+            this.Semestr = semestr;
+            this.StudyGroupName = studyGroupName;
+
+        }
+
+        function DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName) {
+            this.DisciplineBlockYearId = disciplineBlockYearId;
+            this.DisciplineName = disciplineName;
+            this.MaxCountStudent = maxCountStudent;
+            this.OccupiedPercent = occupiedPercent;
+            this.StydyCourse = stydyCourse;
+            this.Subscribed = subscribed;
+            this.WhoReadId = whoReadId;
+            this.WhoReadAbbreviation = whoReadAbbreviation;
+            this.WhoReadName = whoReadName;
+        }
+
+        function SemestrsBlocksModel(course, semestr, groupsArray,blocksArray) {
+            this.Course = course;
+            this.Semestr = semestr;
+            this.Groups = groupsArray;
+            this.Blocks = blocksArray;
+
+        }
+
+        function BlockModel(blockId, blockName, disciplines, summarize ) {
+            this.BlockName = blockName ;
+            this.BlockId = blockId ;
+            this.DisciplineArray= disciplines;
+            this.Summarize =summarize;
+        }
+
+        function CycleModel(cycleId, cycleName) {
+            this.CycleName = cycleName ;
+            this.CycleId = cycleId ;
+        }
+
+        function PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName) {
+            this.PatternBlockChoice8Id = patternBlockChoice8Id ;
+            this.ProfTrainTotalSubdivisionId = rtProfTrainTotalSubdivisionId ;
+            this.BlockName = blockName ;
+            this.BlockId = blockId ;
+            this.CycleName = cycleName ;
+            this.CycleId = cycleId ;
+            this.Course = course ;
+            this.Semester = semester ;
+            this.CountDiscipline = countDiscipline ;
+            this.PatternName = patternName ;
+        }
     });

@@ -656,6 +656,33 @@ input:checked+.side-label::after {
 .discipline-specialization__navigation-button_active{
    background-color: #ccc;
 }
+/*SPECIALIZATION*/
+.nav-pills-campus{
+}
+.nav-pills-campus .nav-pills-campus__item{
+    color: #208944;
+    background-color: white;
+    border: 1px solid #208944;
+    box-sizing: border-box;
+    opacity: 1;
+    text-align: center;
+    transition: all .3s ease;
+}
+.nav-pills-campus .nav-pills-campus__item:hover{
+    color: black;
+    background-color: #cccccc;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+}
+.nav-pills-campus_fixed{
+    position: fixed;
+}
+.nav-pills-campus .nav-pills-campus_active{
+    border: 1px solid #208944;
+
+}
+
 /*PATTERNS*/
     /*PATTERNS BUTTONS CRUD*/
 .patterns__table-header{
@@ -692,3 +719,13 @@ input:checked+.side-label::after {
 
 .patterns__table-button_CRUD-button_delete{
 }
+
+/*table-choice-result - directive*/
+
+.table-choice-result__group-list{
+}
+.table-choice-result__group-item{
+}
+.table-choice-result__count-of-students{
+}
+
