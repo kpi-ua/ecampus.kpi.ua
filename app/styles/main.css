@@ -728,8 +728,9 @@ div.row.well.well-md.disciplines-info {
   padding-right: 0;
 }
 
-.disciplines {
-  /*padding: 0 34px 0 34px;*/
+.labels {
+  font-size: 14px;
+  font-weight: normal;
 }
 
 div.row.account-info {
