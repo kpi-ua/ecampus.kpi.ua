@@ -1,7 +1,7 @@
 <breadcrumbs>
   <span>Модулі</span> > <b>Пропозиції дисциплін</b>
 </breadcrumbs>
-          <!-- ng-controller="DisciplinesPropositionCtrl"  with this controller is invoked twice (from router+here)--->
+          <!-- ng-controller="DisciplinesPropositionCtrl"  with this controller is invoked twice (from router+here) -->
 		  <div>
                     <div class="container-fluid"> 
                         <div class="row">
@@ -9,13 +9,23 @@
                                 <h2>Пропозиції дисциплін</h2>
                             </div>
                         </div>
-						<form class="form-inline" id="selectSubdiv">
+						<form class="form-horizontal" id="selectSubdiv">
                               <div class="form-group">
-                                <label for="subdivisionSelect">Підрозділ, який забезпечує викладання: </label>
-                                <select data-placeholder="Оберіть підрозділ..." style="width:500px;" chosen class="chosen-select" id="subdivisionSelect" ng-model="selectedDiscipline" ng-change="SendSubdivisionToServer()" ng-options="subdivision.name for subdivision in allSubdivisions">
+                                <label for="subdivisionSelect" class="fontNormal col-lg-3 col-md-5 col-sm-5 col-xs-12">Підрозділ, який забезпечує викладання: </label>
+                                <div class="col-lg-4 col-md-5 col-sm-7 col-xs-12">
+                                  <select data-placeholder="Оберіть підрозділ..." chosen class="chosen-select chosenWidth" chosen class="chosen-select" id="subdivisionSelect" ng-model="selectedDiscipline" ng-change="SendSubdivisionToServer()" ng-options="subdivision.name for subdivision in allSubdivisions">
                                     <option></option> <!-- this option is necessary to provide correct index of data options -->
-                                </select>
-                            </div>                        
+                                  </select>    
+                                </div>
+                                
+                                
+                                
+                            </div>   
+                            <div class="row" ng-show="alldisciplines===null || allSubdivisions===null">
+                              <div class="col-xs-12">
+                                <p>На жаль, під час завантаження даних сталася помилка</p>
+                              </div>
+                            </div>                     
                         </form>
 						<div ng-show="ifSubdivChosen()">
                         <div class="table-responsive" >
@@ -46,6 +56,9 @@
                                     <th class="tdFullAlignCenter">
                                         Кількість кредитів
                                     </th>
+                                </tr>
+                                <tr ng-show="alldisciplines!=null && alldisciplines.length == 0">
+                                  <td colspan="8">На жаль, записи у базі відсутні</td>
                                 </tr>
 
                 <tr ng-repeat="obj in alldisciplines | orderObjectBy:sortName:sortReverse | unique:selectedDiscipline"> 
@@ -150,11 +163,76 @@
                     
     
                 </div>
+                <div class="row">
+                <div class="col-xs-11 col-xs-offset-11">
+                    <a href="#" data-toggle="modal" data-target="#AddToTableMax" class="round-button">+</a>
+                </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
             </div>
         </div>
+
+    </div>
+</div>
+
+<div id="AddToTableMax" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Додати інформацію</h4>
+            </div>
+        <div class="modal-body">
+             <form class="form-horizontal">
+
+              <div class="form-group">
+                <label class="control-label col-sm-3 alignLeft" for="newStYear">Навчальний рік:</label>
+                <div class="col-sm-9">
+                  <select name="" id="newStYear" ng-model="CurrYear" class="selectMarginTop" ng-change="newDataMax.StudyYear=CurrYear.currentYear" ng-options="currYearMax.currentYear for currYearMax in tempListDataMax.allYearsMax"></select>
+              </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 alignLeft" for="newMaxStud">Максимальна кількість студентів:</label>
+            <div class="col-md-2 col-sm-3">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-danger btn-minuse" ng-click="MinusCred()" type="button">-</button>
+                </span>
+                <input type="text" id="newMaxStud" class="form-control no-padding add-color text-center height-25" placeholder="Enter amount of credits" maxlength="1" ng-model="newData.countCredit">
+                <span class="input-group-btn">
+                  <button class="btn btn-success btn-pluss" ng-click="PlusCred()" type="button">+</button>
+                </span>
+              </div>
+            </div>
+          </div> 
+
+          <div class="form-group">
+            <label class="control-label col-sm-3 alignLeft" for="newApprove">Затвердження:</label>
+            <div class="col-sm-9">
+              <select name="" id="newApprove" ng-model="CurrAppr" class="selectMarginTop" ng-change="newDataMax.IsApproved=CurrAppr.currentApprove" ng-options="currApprove.currentApprove for currApprove in tempListDataMax.allApproves"></select>
+          </div>
+          </div>
+          
+          
+
+
+
+
+<div class="form-group">
+    <div class="col-xs-offset-9 col-xs-3 col-md-offset-10 col-md-2">
+      <button type="submit" class="btn btn-default" ng-click="sendToServer()">Зберегти</button>
+  </div>
+</div>
+</form>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
+</div>
+</div>
 
     </div>
 </div>
@@ -169,62 +247,74 @@
         <div class="modal-body">
              <form class="form-horizontal">
               <div class="form-group">
-                <label class="control-label col-sm-3" for="newOkr">ОКР:</label>
+                <label class="control-label col-sm-3 alignLeft" for="newOkr">ОКР:</label>
                 <div class="col-sm-9">
-                  <select name="" id="newOkr" ng-model="newData.okr" ng-options="currOkr for currOkr in allOkr"></select>
+                  <select name="" id="newOkr" ng-model="CurrOkr" class="selectMarginTop" ng-change="newData.DcOKRId=CurrOkr.currentOkrId" ng-options="currOkr.currentOkr for currOkr in tempListData.allOkr"></select>
               </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-3" for="newBlock">Назва блоку:</label>
+            <label class="control-label col-sm-3 alignLeft" for="newBlock">Назва блоку:</label>
             <div class="col-sm-9">
-              <select name="" id="newBlock" ng-model="newData.blockName"></select>
+              <select name="" id="newBlock" ng-model="CurrBlock" class="selectMarginTop" ng-change="newData.DcBlock8Id=CurrBlock.currentBlockId" ng-options="currBlock.currentBlock for currBlock in tempListData.allBlocks"></select>
           </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-3" for="newDisc">Назва дисципліни:</label>
+            <label class="control-label col-sm-3 alignLeft" for="newDisc">Назва дисципліни:</label>
             <div class="col-sm-9">
-              <select name="" id="newDisc" ng-model="newData.nameUkr"></select>
+              <select name="" id="newDisc" ng-model="CurrDiscipline" class="selectMarginTop" ng-change="newData.DcDiscipline8Id=CurrDiscipline.currentDisciplineId" ng-options="currDiscipline.currentDiscipline for currDiscipline in tempListData.allDisciplines"></select>
           </div>
           </div>
           <div class="form-group">
-            <label class="control-label col-sm-3" for="newKnowledge">Знання:</label>
+            <label class="control-label col-sm-3 alignLeft" for="newKnowledge">Знання:</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="3" id="newKnowledge" ng-model="newData.knowledge"></textarea>
+              <textarea class="form-control unresizeable selectMarginTop"  rows="3" id="newKnowledge" ng-model="newData.Knowledge"></textarea>
           </div>
       </div>
       <div class="form-group">
-            <label class="control-label col-sm-3" for="newCompetence">Уміння:</label>
+            <label class="control-label col-sm-3 alignLeft" for="newCompetence">Уміння:</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="3" id="newCompetence" ng-model="newData.competence"></textarea>
+              <textarea class="form-control unresizeable selectMarginTop" ng-model="newData.competence" rows="3" id="newCompetence" ng-model="newData.Competence"></textarea>
           </div>
       </div>
       <div class="form-group">
-            <label class="control-label col-sm-3" for="newSkills">Навички:</label>
+            <label class="control-label col-sm-3 alignLeft" for="newSkills">Навички:</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="3" id="newSkills" ng-model="newData.skill"></textarea>
+              <textarea class="form-control unresizeable selectMarginTop" ng-model="newData.skill" rows="3" id="newSkills" ng-model="newData.Skill"></textarea>
           </div>
       </div>
       <div class="form-group">
-            <label class="control-label col-sm-3" for="newAnnotation">Анотація:</label>
+            <label class="control-label col-sm-3 alignLeft" for="newAnnotation">Анотація:</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="3" id="newAnnotation" ng-model="newData.annotation"></textarea>
+              <textarea class="form-control unresizeable selectMarginTop" ng-model="newData.Annotation" rows="3" id="newAnnotation" ng-model="newData.annotation"></textarea>
           </div>
       </div>
-      <div class="form-group">
-            <label class="control-label col-sm-3" for="newImg">Зображення:</label>
+      <!--<div class="form-group">
+            <label class="control-label col-sm-3 alignLeft" for="newImg">Зображення:</label>
             <div class="col-sm-9">
               <input type="" class="form-control" id="newImg" placeholder="Enter img" ng-model="newData.pictures">
           </div>
-          </div>
+          </div>-->
+
           <div class="form-group">
-            <label class="control-label col-sm-3" for="newCred">Кількість кредитів:</label>
-            <div class="col-sm-9">
-              <input type="" class="form-control" id="newCred" placeholder="Enter amount of credits" ng-model="newData.countCredit">
-          </div>
-          </div>
+            <label class="control-label col-md-3 col-sm-3 alignLeft" for="newCred">Кількість кредитів:</label>
+            <div class="col-md-2 col-sm-3">
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-danger btn-minuse" ng-click="MinusCred()" type="button">-</button>
+                </span>
+                <input type="text" id="newCred" class="form-control no-padding add-color text-center height-25" placeholder="Enter amount of credits" maxlength="1" ng-model="newData.countCredit">
+                <span class="input-group-btn">
+                  <button class="btn btn-success btn-pluss" ng-click="PlusCred()" type="button">+</button>
+                </span>
+              </div>
+            </div>
+          </div> 
+
+
+
 
 <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
+    <div class="col-xs-offset-9 col-xs-3 col-md-offset-10 col-md-2">
       <button type="submit" class="btn btn-default" ng-click="sendToServer()">Зберегти</button>
   </div>
 </div>

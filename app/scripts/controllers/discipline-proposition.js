@@ -35,19 +35,19 @@
  			$scope.alldisciplines = [];
  		}, function(response) {	
  			
+ 			$scope.allSubdivisions = null;
  			
- 			var msgError = document.createElement('p');
- 			msgError.innerHTML = 'На жаль, під час завантаження даних сталася помилка. Спробуйте пізніше. Код: '+response.statusText;
- 			msgError.className = "col-xs-12 loadingError";
- 			selectSubdiv.appendChild(msgError);
  			
  		});
  	});
 
  	$scope.SendSubdivisionToServer = function() {
  		$scope.alldisciplines = [];	
- 		var data = $scope.selectedDiscipline.id;		
- 		var url = "http://api-campus-kpi-ua.azurewebsites.net/SelectiveDiscipline/BlocksDispline/"+data;
+ 		var data = $scope.selectedDiscipline.id;	
+		//alert(data);
+ 		//var url = "http://api-campus-kpi-ua.azurewebsites.net/SelectiveDiscipline/BlocksDispline/"+data;
+		var url = "cDisciplineBlock.json";
+ 		
  		$http.get(url)
  		.then(
  			function(response){
@@ -72,27 +72,76 @@
 				$scope.CurrentYearData = currentData;
 			}
 
-			UniqueElemsInList.setData($scope.alldisciplines);
-			$scope.allOkr = UniqueElemsInList.getDataUnique('okr');
-			
+			//UniqueElemsInList.setData($scope.alldisciplines);
+			//$scope.allOkr = UniqueElemsInList.getDataUnique('okr');
+			$scope.tempListData = {
+				allOkr: [
+					{currentOkr: "бакалавр",
+					 currentOkrId: 1
+					},
+					{currentOkr: "магістр",
+					 currentOkrId: 2
+					}
+				],
+				allBlocks: [
+					{currentBlock: "блок1", currentBlockId: 1},
+					{currentBlock: "блок2", currentBlockId: 2},
+					{currentBlock: "блок3", currentBlockId: 3},
+					{currentBlock: "блок4", currentBlockId: 4}
+				],
+				allDisciplines: [
+					{currentDiscipline: "дисципліна1", currentDisciplineId: 1},
+					{currentDiscipline: "дисципліна2", currentDisciplineId: 2},
+					{currentDiscipline: "дисципліна3", currentDisciplineId: 3},
+					{currentDiscipline: "дисципліна4", currentDisciplineId: 4}
+				]
+			}
+
+			$scope.tempListDataMax = {
+				allYearsMax: [
+					{currentYear: "2016-2017"},
+					{currentYear: "2017-2018"},
+					{currentYear: "2018-2019"}
+				],
+				allApproves: [
+					{currentApprove: "+"},
+					{currentApprove: "-"},
+					{currentApprove: "+/-"}
+				]
+				
+			}
+
+			$scope.newDataMax = {
+				cDisciplineBlock8Id: "",
+				StudyYear: "",
+				MaxCountStudent: "",
+				IsApproved: ""
+			}
 			
 			$scope.newData = {
-				okr: "",
-				blockName: "",
-				nameUkr: "",
-				subdivisionName: "",
-				countCredit: null,
-				annotation: "",
-				annotationEng: "",
-				competence: "",
-				knowledge: "",
-				skill: "",
-				pictures: null
+				DcOKRId: "",
+				//okr: "",
+				DcBlock8Id: "",
+				//blockName: "",
+				DcDiscipline8Id: "",
+				//nameUkr: "",
+				DcSubdivisionWhoId: "",
+				//subdivisionName: "",
+				CountCredit: null,
+				Annotation: "",
+				//annotationEng: "",
+				Competence: "",
+				Knowledge: "",
+				Skill: ""
+				//pictures: null
+				
 			};
 			
 			
 			$scope.sendToServer = function() {
-				var data = $scope.newData;
+				$scope.newData.countCredit = parseInt($scope.newData.countCredit);
+				var data = angular.toJson($scope.newData);
+				console.log(data);
 				var config = {
 					headers : {
 						'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
@@ -100,18 +149,58 @@
 				}
 				console.log("I'm preparing new data. Wait pls.");
 				console.log($scope.newData);	
+
+				$http.post('some_url', data, config)
+   			.then(function(response){
+        	$scope.alldisciplines = response.data;
+       		}, 
+       		function(response){
+        		alert("Cannot add new data");
+       		}
+    		);
 			}
+
 		}, 
 		function(response){
-			// failure callback
 			
-			var msgError = document.createElement('p');
-			msgError.innerHTML = 'На жаль, під час завантаження даних сталася помилка. Спробуйте пізніше. Код: '+response.statusText;
-			msgError.className = "col-xs-12 loadingError";
-			selectSubdiv.appendChild(msgError);
+			$scope.alldisciplines=null;
 		}
 		);
  	}
+
+ 	$scope.MinusCred = function () {
+ 		$scope.newData.countCredit = parseInt($scope.newData.countCredit);
+ 		if ($scope.newData.countCredit!==0) {
+ 			$scope.newData.countCredit = $scope.newData.countCredit - 1;
+ 			$('.btn-minuse').removeClass('disabled');
+ 			$('.btn-pluss').removeClass('disabled');
+ 		}
+ 		else {
+ 			$('.btn-minuse').addClass('disabled');
+ 		}
+ 	}
+
+ 	$scope.PlusCred = function () {
+ 		$scope.newData.countCredit = parseInt($scope.newData.countCredit);
+ 		if ($scope.newData.countCredit!==9) {
+ 			$scope.newData.countCredit = $scope.newData.countCredit + 1;
+ 			$('.btn-pluss').removeClass('disabled');
+ 			$('.btn-minuse').removeClass('disabled');
+ 		}
+ 		else {
+ 			$('.btn-pluss').addClass('disabled');
+ 		}
+ 	}
+
+	var number = document.getElementById('newCred');
+	number.onkeydown = function(e) {
+    if(!((e.keyCode > 95 && e.keyCode < 106)
+      || (e.keyCode > 47 && e.keyCode < 58) 
+      || e.keyCode == 8)) {
+        return false;
+    }
+}
+
  });
 
 

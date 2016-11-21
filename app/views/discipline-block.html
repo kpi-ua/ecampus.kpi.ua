@@ -13,17 +13,17 @@
 
         <form class="form-horizontal">
           <div class="form-group">
-            <label class="control-label col-sm-2" for="year">Навчальний рік:</label>
-            <div class="col-sm-10">
-                <select data-placeholder="Enter study year" id="year" ng-model="selectedYear" ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
+            <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft" for="year">Навчальний рік:</label>
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+                <select data-placeholder="Enter study year" id="year" class="selectMarginTop" ng-model="selectedYear" ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
                     <option></option> <!-- this option is necessary to provide correct index of data options -->
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-sm-2" for="okr">Освітній рівень:</label>
-            <div class="col-sm-10">
-                <select data-placeholder="Enter okr" id="okr" ng-model="selectedOkr" ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
+            <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft" for="okr">Освітній рівень:</label>
+            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+                <select data-placeholder="Enter okr" id="okr" class="selectMarginTop" ng-model="selectedOkr" ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
                     <option></option><!-- this option is necessary to provide correct index of data options -->
                 </select>
 
@@ -32,35 +32,47 @@
         </div>
 
         </form>
-    <div ng-show="ifYearAndOkr0Chosen()">
-        <div class="row">
-            <div class="col-xs-12">
-                <h2>Перелік дисциплін вибору:</h2>
-            </div>
-        </div>
+        <div ng-show="ifYearAndOkr0Chosen()">
+            <fieldset>
+                <legend>
+                    Перелік дисциплін вибору:
+                </legend>
+                
 
-        <div ui-tree> 
-            <ol ui-tree-nodes="" ng-model="dataInTree">
-                <li ng-repeat="(block, disciplines) in dataInTree | groupBy: 'block'" ui-tree-node data-collapsed="true" data-expand-on-hover="true">
-                    <div ui-tree-handle data-nodrag class="node_block">
-                        <a class="btn btn-default btn-xs" ng-if="block && block.length>0" ng-click="toggle()">
-                            <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}">
 
-                            </span>
-                        </a>
-                        {{block}}
-                    </div>
-                    <ol ui-tree-nodes="" ng-model="disciplines" ng-class="{hidden: collapsed}">
-                        <li ng-repeat="discip in disciplines" ui-tree-node>
-                            <div ui-tree-handle data-nodrag class="node_child">
-                               {{discip.discipline}}
-                           </div>
-                       </li>
-                   </ol>
-               </li>
+                <div ui-tree> 
+                    <ol ui-tree-nodes="" ng-model="dataInTree">
+                        <li ng-repeat="(block, disciplines) in dataInTree | groupBy: 'block'" ui-tree-node data-collapsed="true" data-expand-on-hover="true">
+                            <div ui-tree-handle data-nodrag class="node_block fontNormal">
+                                <a class="btn btn-default btn-xs" ng-if="block && block.length>0" ng-click="toggle()">
+                                    <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}">
 
-           </ol>
-       </div>
-   </div>
+                                    </span>
+                                </a>
+                                {{block}}
+                            </div>
+                            <ol ui-tree-nodes="" ng-model="disciplines" ng-class="{hidden: collapsed}">
+                                <li ng-repeat="discip in disciplines" ui-tree-node>
+                                    <div ui-tree-handle data-nodrag class="node_child fontNormal">
+                                        <div class="row">
+                                            <div class="col-lg-5 col-md-6 col-sm-6">
+                                                - {{discip.discipline}}.            
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6">
+                                                Викладає: {{discip.subdivision}}
+                                            </div>
+                                        </div>
+
+
+                                     
+                                 </div>
+                             </li>
+                         </ol>
+                     </li>
+
+                 </ol>
+             </div>
+         </fieldset>
+     </div>
 </div>
 </div>

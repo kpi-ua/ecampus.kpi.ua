@@ -1,0 +1,210 @@
+﻿[
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 7,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Українська мова за професійним спрямуванням",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  },
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 8,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Культура наукового технічного мовлення фахівця",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  },
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 9,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Стилістика української мови за професійним спрямуванням",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  },
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 10,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Засади усного професійного мовлення (риторика)",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  },
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 11,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Культура судової промови",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  },
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 12,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Стилістика сучасної української мови",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  },
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 13,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Сучасна українська мова",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  },
+  {
+    "dcSubdivisionId": 10197,
+    "subdivisionName": "Кафедра української мови, літератури та культури ФЛ",
+    "subdivisionAbbr": "КУМЛК ФЛ",
+    "cDisciplineBlock8Id": 14,
+    "okr": "Бакалавр",
+    "blockName": "Мовні навчальні дисципліни",
+    "blockNameEng": "",
+    "nameUkr": "Культура наукового мовлення",
+    "nameEng": "",
+    "countCredit": null,
+    "annotation": "",
+    "annotationEng": "",
+    "competence": "",
+    "knowledge": "",
+    "skill": "",
+    "pictures": null,
+    "cdisciplineblockyear8": [
+      {
+        "studyYear": "2016-2017",
+        "maxCountStudent": 0,
+        "isApproved": "",
+        "nameFull": ""
+      }
+    ]
+  }
+]
