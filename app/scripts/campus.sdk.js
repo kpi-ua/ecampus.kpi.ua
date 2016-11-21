@@ -6,9 +6,7 @@ var Campus = new API();
 
 "use strict";
 //API.prototype.ApiEndpoint = 'https://api.campus.kpi.ua/';
-// API.prototype.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
-API.prototype.ApiEndpoint = 'http://localhost:4445/';
-
+API.prototype.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
 /**
  * Set auth token
  */

@@ -653,45 +653,46 @@ a.bulletin-title:hover {
   color: gray;
 }
 
-.selective-disciplines-tabs, .selective-disciplines-wrapper {
+.selective-disciplines-wrapper {
   margin-top: 15px;
 }
 
 .panel-title-image {
   text-align: center;
-  min-height: 50px;
+  min-height: 30px;
   font-size: 18px;
-  line-height: 50px;
+  line-height: 30px;
   margin: 0 0 0 0;
   background: url("../images/home/open-book.png") no-repeat;
-  background-size: 50px 50px;
+  background-size: 30px 30px;
 }
 
 @media screen and (max-width: 430px) {
   .panel-title-image {
-    min-height: 40px;
+    min-height: 20px;
     font-size: 14px;
-    line-height: 40px;
+    line-height: 20px;
     margin: 0 0 0 0;
     background: url("../images/home/open-book.png") no-repeat;
-    background-size: 40px 40px;
+    background-size: 20px 20px;
   }
 
   .disciplines-header {
     text-align: center;
     min-height: 40px;
-    font-size: 14px;
+    font-size: 1px;
     line-height: 40px;
     margin: 0 0 0 0;
   }
 }
 
-.panel-title.disciplines-header {
+.disciplines-header {
   text-align: center;
   min-height: 40px;
   font-size: 18px;
   line-height: 40px;
-  margin: 0 0 0 0;
+  margin: 0 0 20px 0;
+  color: #208843;
 }
 
 .specialization-info, .okr-info {
@@ -714,10 +715,22 @@ div.row.well.well-md.disciplines-info {
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 15px;
+  border-radius: 0;
 }
 
-.disciplines {
-  padding: 0 34px 0 34px;
+.selective-disciplines-navs {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.selective-disciplines-info {
+  padding-top: 0;
+  padding-right: 0;
+}
+
+.labels {
+  font-size: 14px;
+  font-weight: normal;
 }
 
 div.row.account-info {
@@ -741,6 +754,14 @@ input[type="radio"].radio-disciplines-choice {
 
 label.label-disciplines-choice {
   padding-left: 0;
+}
+
+.loading-data div {
+  color: #6e776e;
+}
+
+div.progress-student-count {
+  color: white;
 }
 
 .study-profile,
