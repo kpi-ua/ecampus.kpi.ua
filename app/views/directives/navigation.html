@@ -38,7 +38,9 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Навчальний процесс</a>
                 <ul class="dropdown-menu">
                   <li><a href="#">Індивідуальний план</a></li>
-                  <li ng-hide="disableDisciplineChoiceForNotStudent"><a href="/#/disciplines-choice">Вибір дисциплін</a>
+                  <li ng-hide="disableDisciplineChoiceForNotStudent"><a href="/#/disciplines-choice-st">Вибір дисциплін</a>
+                  </li>
+                  <li ng-show="enableDisciplineForNotStudent"><a href="/#/disciplines-choice-t">Дисципліни вибору</a>
                   </li>
                 </ul>
               </li>
