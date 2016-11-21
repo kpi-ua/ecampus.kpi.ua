@@ -283,9 +283,8 @@ footer .contactInfo a {
 
 .errorLabel {
     text-align: center;
-    color: red;
-    font-size: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    color: black;
+    font-size: 14px;
     width: 100%;
     border: 1px solid red;
 }
@@ -629,21 +628,104 @@ input:checked+.side-label::after {
     display: block;
 }
 
-.discipline-specialization__label{
-    font-size: 16px;
+.discipline-specialization__navigation{
+    margin-top: 10px;
 }
-.discipline-specialization__select{
-    font-size: 16px;
+.discipline-specialization__select-form{
+    margin-bottom: 10px;
 }
-.discipline-specialization__select_disabled{
+.select-form__label {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.select-form__select {
+    font-size: 14px;
+}
+
+.select-form__select_disabled {
     opacity: 0.5;
     color: red;
     border-color: red;
 
 }
-.d-s-table__tr-button{
+
+.discipline-specialization__navigation-button{
+    font-size: 16px;
+}
+.discipline-specialization__navigation-button_active{
+   background-color: #ccc;
+}
+/*SPECIALIZATION*/
+.nav-pills-campus{
+}
+.nav-pills-campus .nav-pills-campus__item{
+    color: #208944;
+    background-color: white;
+    border: 1px solid #208944;
+    box-sizing: border-box;
+    opacity: 1;
+    text-align: center;
+    transition: all .3s ease;
+}
+.nav-pills-campus .nav-pills-campus__item:hover{
+    color: black;
+    background-color: #cccccc;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+}
+.nav-pills-campus_fixed{
+    position: fixed;
+}
+.nav-pills-campus .nav-pills-campus_active{
+    border: 1px solid #208944;
+
+}
+
+/*PATTERNS*/
+    /*PATTERNS BUTTONS CRUD*/
+.patterns__table-header{
+    text-align: center;
+}
+.patterns__table-button{
     cursor: pointer;
-    font-size: 18px;
+    font-size: 14px;
+    color: #208944;
+    background: white;
+    border: 1px solid #208944;
+    box-sizing: border-box;
+    transition: all .3s ease;
+    height: 35px;
 }
-.d-s-table__header{
+.patterns__table-button:hover{
+    font-size: 16px;
 }
+.patterns__table-button_CRUD-button {
+    padding: 0;
+    width: 35px;
+}
+.patterns__table-button_CRUD-button:hover {
+    color: green;
+}
+.patterns__table-button_CRUD-button_save{
+}
+
+.patterns__table-button_CRUD-button_cancel{
+}
+
+.patterns__table-button_CRUD-button_edit{
+}
+
+.patterns__table-button_CRUD-button_delete{
+}
+
+/*table-choice-result - directive*/
+
+.table-choice-result__group-list{
+}
+.table-choice-result__group-item{
+}
+.table-choice-result__count-of-students{
+}
+

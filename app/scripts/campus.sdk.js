@@ -6,7 +6,8 @@ var Campus = new API();
 
 "use strict";
 //API.prototype.ApiEndpoint = 'https://api.campus.kpi.ua/';
-API.prototype.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
+// API.prototype.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
+API.prototype.ApiEndpoint = 'http://localhost:4445/';
 
 /**
  * Set auth token
@@ -80,7 +81,7 @@ API.prototype.execute = function (method, path, payload) {
 
   payload = $.isEmptyObject(payload) ? null : payload;
 
-  if (method == "POST" /* || method == "POST" */) {
+  if (method == "POST" || method == "PUT" || method == "DELETE" ) {
     payload = !!payload ? JSON.stringify(payload) : payload;
   }
 
