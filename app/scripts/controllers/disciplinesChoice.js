@@ -125,6 +125,9 @@ angular.module('ecampusApp')
         })
     }
 
+    // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням
+    // link: http://www.w3schools.com/angular/tryit.asp?filename=try_ng_form_radio
+
     loadInfo();
     loadDisciplines();
   }]);
