@@ -17,14 +17,14 @@ angular.module('ecampusApp')
     reload();
 
     function reload() {
-      if (!!Campus.getToken()) {
-        var sClaim = Api.decodeToken(Campus.getToken());
+      if (!!Api.getToken()) {
+        var sClaim = Api.decodeToken(Api.getToken());
 
         if (!!sClaim) {
           sClaim = JSON.parse(sClaim);
         }
       }
-      if (!!Campus.getToken()) {
+      if (!!Api.getToken()) {
         $scope.preloader = true;
         setFacultyAndInstitute();
         setSubdivisionDetails();
@@ -49,7 +49,7 @@ angular.module('ecampusApp')
 
     function setSubdivisionDetails() {
 
-      var sClaim = Api.decodeToken(Campus.getToken());
+      var sClaim = Api.decodeToken(Api.getToken());
       sClaim = JSON.parse(sClaim);
 
       if (typeof(sClaim.resp) == "object") {
@@ -71,7 +71,7 @@ angular.module('ecampusApp')
 
     function setFacultyAndInstitute() {
       var kpiQuery = false;
-      var sClaim = Api.decodeToken(Campus.getToken());
+      var sClaim = Api.decodeToken(Api.getToken());
 
       sClaim = JSON.parse(sClaim);
 
@@ -97,7 +97,7 @@ angular.module('ecampusApp')
         if (subdivisionId == 9998 && !kpiQuery) {
           kpiQuery = true;
           var pathFaculty = "Subdivision";
-          Campus.execute("GET", pathFaculty).then(function (response) {
+          Api.execute("GET", pathFaculty).then(function (response) {
             response.forEach(function (itemForEach, i, arr) {
               if (itemForEach.typeId == 26 || itemForEach.typeId == 77) {
                 var subdivisionName = itemForEach.name;
@@ -168,7 +168,7 @@ angular.module('ecampusApp')
       var parentId = $scope.chosenSubdivisionId;
       var subdivisionPath = "Subdivision/" + parentId + "/children";
       $scope.preloader = true;
-      Campus.execute("GET", subdivisionPath).then(function (response) {
+      Api.execute("GET", subdivisionPath).then(function (response) {
         $scope.cathedras = [];
         response.forEach(function (itemForEach, i, arr) {
           if (arr[i + 1] != undefined) {
@@ -196,7 +196,7 @@ angular.module('ecampusApp')
 
       var cathedraId = chosenСathedraId;
       var path = "Statistic/Cathedras/" + cathedraId + "/Emplloyers/WithIndividualLoad/List";
-      Campus.execute("GET", path).then(function (response) {
+      Api.execute("GET", path).then(function (response) {
         var npp = [new nppModel(1), new nppModel(2)];
         if (!response || response == "") {
           $scope.errorLabelText = "На жаль, записи у базі даних відсутні.";

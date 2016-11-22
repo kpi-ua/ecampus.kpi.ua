@@ -32,7 +32,7 @@ angular.module('ecampusApp')
       $scope.loader = true;
 
       Api.execute("GET", url)
-        .done(function (response) {
+        .then(function (response) {
           $scope.boardsList = response;
           $scope.loader = false;
 
@@ -41,17 +41,7 @@ angular.module('ecampusApp')
           $scope.boardsForProfile = getBoardsForProfile();
           $scope.boardsForSubdivision = getBoardsForSubdivision();
 
-        })
-        .fail(function (result) {
-          $scope.loader = false;
-
-          if (result.status === 401) {
-            $scope.errorMessage = "Потрібно авторизуватися";
-          } else {
-            $scope.errorMessage = "Помилка на стороні сервера";
-          }
-
-        })
+        });
     }
 
     function getAllBoards() {

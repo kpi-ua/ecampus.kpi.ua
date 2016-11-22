@@ -165,13 +165,12 @@ angular.module('ecampusApp')
       var scope = $scope;
 
       Api.execute(m.method, url, data)
-        .done(function (result) {
+        .then(function (result) {
           $scope.message = JSON.stringify(result, null, '\t');
-        })
-        .fail(function (result) {
+            scope.progressBar = false;
+        },
+        function (result) {
           $scope.message = JSON.stringify(result, null, '\t');
-        })
-        .always(function () {
           scope.progressBar = false;
         });
     }
