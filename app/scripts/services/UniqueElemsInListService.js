@@ -76,7 +76,8 @@ angular
           listOfObjects.push({
 
             block: initialArr[i].blockName,
-            discipline: initialArr[i].discipline
+            discipline: initialArr[i].discipline,
+            subdivision: initialArr[i].subdiv
           });
 
         }
