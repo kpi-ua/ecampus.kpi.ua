@@ -31,7 +31,6 @@ angular.module('ecampusApp')
                 .done(function() {
                     step(3);
                     $scope.loader = false;
-                    $scope.$apply();
                 })
                 .fail(function(result) {
                     $scope.loader = false;
@@ -47,7 +46,6 @@ angular.module('ecampusApp')
                         step(4);
                     }
 
-                    $scope.$apply();
                 });
         }
 

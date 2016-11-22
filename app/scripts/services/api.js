@@ -8,7 +8,7 @@
  * Service in the ecampusApp.
  */
 angular.module('ecampusApp')
-  .service('Api', function () {
+  .service('Api', function ($http) {
 
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'http://api-campus-kpi-ua.azurewebsites.net/';
@@ -33,14 +33,10 @@ angular.module('ecampusApp')
         method: method,
         data: payload,
         processData: true,
-        contentType: false,
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader("Accept", "application/json");
-          xhr.setRequestHeader("Content-Type", "application/json");
-
-          if (!!self.getToken()) {
-            xhr.setRequestHeader("Authorization", "Bearer " + self.getToken());
-          }
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + self.getToken()
         },
         success: function () {
           //console.info('Request to campus API success: ', response);
@@ -48,6 +44,12 @@ angular.module('ecampusApp')
         error: function (jqXHR, status, error) {
           console.warn('Error occured: ', status, error);
         }
+      }).then(function (response) {
+        if (!!response) {
+          return response.data;
+        }
+
+        return null;
       });
 
     };
@@ -68,20 +70,16 @@ angular.module('ecampusApp')
 
       var d = $.Deferred();
 
+      debugger;
+
       $http({
         url: self.ApiEndpoint + 'oauth/token',
-        type: "POST",
-        contentType: "application/x-www-form-urlencoded",
-        crossDomain: true,
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
         data: payload,
         success: function (response) {
-          self.setToken(response.access_token);
-
-          self.execute("GET", "Account/Info").then(function (response) {
-            //get current user details
-            self.setCurrentUser(response);
-            d.resolve(self.getToken());
-          });
         },
         error: function (xhr, status, err) {
           console.warn(xhr, status, err.toString());
@@ -89,6 +87,23 @@ angular.module('ecampusApp')
           self.logout();
           d.resolve(null);
         }
+      }).then(function (response) {
+        debugger;
+        if (!!response && !!response.data) {
+
+          self.setToken(response.data.access_token);
+
+          self.execute("GET", "Account/Info").then(function (response) {
+            debugger;
+            //get current user details
+            self.setCurrentUser(response);
+            d.resolve(self.getToken());
+          });
+
+          return response.data;
+        }
+
+        return null;
       });
 
       return d.promise();

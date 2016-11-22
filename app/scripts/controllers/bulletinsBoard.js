@@ -41,7 +41,6 @@ angular.module('ecampusApp')
           $scope.boardsForProfile = getBoardsForProfile();
           $scope.boardsForSubdivision = getBoardsForSubdivision();
 
-          $scope.$apply();
         })
         .fail(function (result) {
           $scope.loader = false;
@@ -52,7 +51,6 @@ angular.module('ecampusApp')
             $scope.errorMessage = "Помилка на стороні сервера";
           }
 
-          $scope.$apply();
         })
     }
 

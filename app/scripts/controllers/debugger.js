@@ -67,7 +67,6 @@ angular.module('ecampusApp')
         }).sort();
 
         scope.controllers = getUnique(controllers);
-        scope.$apply();
 
         loadMethodForCurrentController();
       });
@@ -174,7 +173,6 @@ angular.module('ecampusApp')
         })
         .always(function () {
           scope.progressBar = false;
-          scope.$apply();
         });
     }
 
@@ -236,7 +234,6 @@ angular.module('ecampusApp')
         }
 
         scope.progressBar = false;
-        scope.$apply();
       });
     };
 

@@ -43,7 +43,6 @@ angular.module('ecampusApp')
 
         Api.execute("GET", action, payload).then(function (data) {
           $scope.personsForVote = data;
-          $scope.$apply();
 
           console.log('$scope.personsForVote', $scope.personsForVote);
         });
@@ -62,7 +61,6 @@ angular.module('ecampusApp')
 
         Api.execute("GET", action, payload).then(function (data) {
           $scope.personsAlreadyVoted = data;
-          $scope.$apply();
           console.log('$scope.personsAlreadyVoted', $scope.personsAlreadyVoted);
         });
 
