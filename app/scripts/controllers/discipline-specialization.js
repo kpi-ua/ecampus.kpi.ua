@@ -63,7 +63,7 @@ angular.module('ecampusApp')
         function reload() {
             $scope.preloader = true;
             if (!!Campus.getToken()) {
-                var sClaim = decodeToken(Campus.getToken());
+                var sClaim = Api.decodeToken(Campus.getToken());
 
                 if (!!sClaim) {
                     sClaim = JSON.parse(sClaim);
@@ -92,7 +92,7 @@ angular.module('ecampusApp')
         function getPermissionSubsystemFromToken(){
             var permissionArray = [];
             if (!!Campus.getToken()) {
-                var sClaim = decodeToken(Campus.getToken());
+                var sClaim = Api.decodeToken(Campus.getToken());
                 sClaim = JSON.parse(sClaim);
                 if(typeof(sClaim.resp)=="object"){
                     sClaim.resp.forEach(function(itemForEach, i, arr) {
