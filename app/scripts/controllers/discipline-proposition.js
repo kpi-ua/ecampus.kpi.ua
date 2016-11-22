@@ -44,9 +44,9 @@
  	$scope.SendSubdivisionToServer = function() {
  		$scope.alldisciplines = [];	
  		var data = $scope.selectedDiscipline.id;	
-		//alert(data);
- 		//var url = "http://api-campus-kpi-ua.azurewebsites.net/SelectiveDiscipline/BlocksDispline/"+data;
-		var url = "cDisciplineBlock.json";
+		alert(data);
+ 		var url = "http://api-campus-kpi-ua.azurewebsites.net/SelectiveDiscipline/BlocksDispline/"+data;
+		//var url = "cDisciplineBlock.json";
  		
  		$http.get(url)
  		.then(
@@ -72,8 +72,7 @@
 				$scope.CurrentYearData = currentData;
 			}
 
-			//UniqueElemsInList.setData($scope.alldisciplines);
-			//$scope.allOkr = UniqueElemsInList.getDataUnique('okr');
+			/* temp data before api will be implemented*/
 			$scope.tempListData = {
 				allOkr: [
 					{currentOkr: "бакалавр",
@@ -120,21 +119,14 @@
 			
 			$scope.newData = {
 				DcOKRId: "",
-				//okr: "",
 				DcBlock8Id: "",
-				//blockName: "",
 				DcDiscipline8Id: "",
-				//nameUkr: "",
 				DcSubdivisionWhoId: "",
-				//subdivisionName: "",
 				CountCredit: null,
 				Annotation: "",
-				//annotationEng: "",
 				Competence: "",
 				Knowledge: "",
-				Skill: ""
-				//pictures: null
-				
+				Skill: ""			
 			};
 			
 			
@@ -168,6 +160,7 @@
 		);
  	}
 
+ 	/* Control (integer + - adding) */
  	$scope.MinusCred = function () {
  		$scope.newData.countCredit = parseInt($scope.newData.countCredit);
  		if ($scope.newData.countCredit!==0) {

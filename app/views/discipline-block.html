@@ -5,42 +5,45 @@
 <!-- ng-controller="DisciplinesBlockCtrl" with this controller is invoked twice (from router+here) -->
 <div>
     <div class="container-fluid" id="selectYearAndOkr"> 
-        <section class="container-fluid">
-                    <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-default discipline-specialization__navigation-button discipline-specialization__navigation-button_active" value="specialization" ng-click=" SwitchSections($event)">
-                                Дисципліни вибору
-                            </button>
-                        </div>
-                    </div>
-                </section>
+        <div class="row">
+        <section class="container-fluid discipline-specialization__navigation">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default discipline-specialization__navigation-button discipline-specialization__navigation-button_active text-align-left" value="specialization">
+                        Дисципліни вибору
+                    </button>
+                </div>
+                
+            </div>
+        </section>
 
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label" for="year">Навчальний рік:</label>
+        <section class="container-fluid discipline-specialization__select-form select-form">
+            <br>
+            <div class="row">
+                <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label" for="year">Навчальний рік:</label>
             <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-                <select data-placeholder="Enter study year" id="year" class="selectMarginTop select-form__select" ng-model="selectedYear" ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
+                <select data-placeholder="Enter study year" id="year" class="select-form__select" ng-model="selectedYear" ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
                     <option></option> <!-- this option is necessary to provide correct index of data options -->
                 </select>
             </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label" for="okr">Освітній рівень:</label>
+            </div>
+            <div class="row">
+                <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label" for="okr">Освітній рівень:</label>
             <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-                <select data-placeholder="Enter okr" id="okr" class="selectMarginTop select-form__select" ng-model="selectedOkr" ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
+                <select data-placeholder="Enter okr" id="okr" class="select-form__select" ng-model="selectedOkr" ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
                     <option></option><!-- this option is necessary to provide correct index of data options -->
                 </select>
 
 
             </div>
+            </div>
+        </section>
         </div>
 
-        </form>
+        
         <div ng-show="ifYearAndOkr0Chosen()">
             <fieldset>
-                <legend>
-                    Перелік дисциплін вибору:
-                </legend>
+                
                 
 
 
