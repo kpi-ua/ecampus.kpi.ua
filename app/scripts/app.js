@@ -17,7 +17,8 @@ var app = angular.module('ecampusApp', [
   'ngTouch',
   'angular-input-stars',
   "xeditable",
-  'ui.tree'
+  'ui.tree',
+  'ui.select'
 ]);
 
 app.run(function (editableOptions) {
@@ -130,6 +131,11 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: "views/disciplines-choice-t.html",
       controller: "DisciplinesChoiceTCtrl",
       controllerAs: 'choiceT'
+    })
+    .when('/attestation', {
+      templateUrl: 'views/attestation.html',
+      controller: 'AttestationCtrl',
+      controllerAs: 'attest'
     })
     .otherwise({
       redirectTo: '/'

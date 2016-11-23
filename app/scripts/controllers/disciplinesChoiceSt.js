@@ -29,13 +29,10 @@ angular.module('ecampusApp')
       switch (englishStatus) {
         case "not available":
           return "вибір не доступний";
-          break;
         case "available":
           return "вибір доступний";
-          break;
         case "done":
           return "вибір здійснено";
-          break;
       }
     };
 
@@ -61,6 +58,15 @@ angular.module('ecampusApp')
           $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
           $scope.tab = +response[0].studyCourse;
           $scope.loader = false;
+        }, function (result) {
+
+          if (result.status === 401) {
+            $scope.errorMessage = "Потрібно авторизуватися";
+          } else {
+            $scope.errorMessage = "Помилка на стороні сервера";
+          }
+
+          $scope.hideInfo = true;
         });
     }
 
@@ -77,30 +83,38 @@ angular.module('ecampusApp')
 
       Api.execute("GET", url)
         .then(function (response) {
-          $scope.loaderDisc = true;
-          $scope.firstCourse = [];
-          $scope.secondCourse = [];
-          $scope.thirdCourse = [];
-          $scope.fourthCourse = [];
+            $scope.loaderDisc = true;
+            $scope.firstCourse = [];
+            $scope.secondCourse = [];
+            $scope.thirdCourse = [];
+            $scope.fourthCourse = [];
 
-          for (var i = 0; i < response.length; i++) {
-            switch (response[i].course) {
-              case 1:
-                $scope.firstCourse.push(response[i]);
-                break;
-              case 2:
-                $scope.secondCourse.push(response[i]);
-                break;
-              case 3:
-                $scope.thirdCourse.push(response[i]);
-                break;
-              case 4:
-                $scope.fourthCourse.push(response[i]);
-                break;
+            for (var i = 0; i < response.length; i++) {
+              switch (response[i].course) {
+                case 1:
+                  $scope.firstCourse.push(response[i]);
+                  break;
+                case 2:
+                  $scope.secondCourse.push(response[i]);
+                  break;
+                case 3:
+                  $scope.thirdCourse.push(response[i]);
+                  break;
+                case 4:
+                  $scope.fourthCourse.push(response[i]);
+                  break;
+              }
             }
-          }
-          $scope.loaderDisc = false;
-        });
+            $scope.loaderDisc = false;
+          },
+          function (result) {
+            if (result.status === 401) {
+              $scope.errorMessageDisc = "Потрібно авторизуватися";
+            } else {
+              $scope.errorMessageDisc = "Помилка на стороні сервера";
+            }
+            $scope.hideInfoDisc = true;
+          });
     }
 
     // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням

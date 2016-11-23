@@ -1,0 +1,43 @@
+<breadcrumbs>
+  <span>Модулі</span> > <b>Атестація</b>
+</breadcrumbs>
+
+<div class="container content">
+  <div class="content">
+    <h3>Результати атестації</h3>
+    <div class="year-select">
+    <label for="year" class="select-form__label">Навчальний рік</label>
+    <ui-select id="year" class="select-form__select" ng-model="$parent.itemYear" append-to-body="true">
+      <ui-select-match placeholder="Оберіть навчальний рік">
+        <span ng-bind="$select.selected.studyingYearName"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="itemYears in (Years | filter: $select.search) track by itemYears.studyingYearId">
+        <span ng-bind="itemYears.studyingYearName"></span>
+      </ui-select-choices>
+    </ui-select>
+    </div>
+    <div class="semester-select">
+      <label for="semester" class="select-form__label">Семестр</label>
+      <ui-select id="semester" class="select-form__select" ng-model="$parent.itemSemester" append-to-body="true">
+        <ui-select-match placeholder="Оберіть семестр">
+          <span ng-bind="$select.selected.name"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="semesters in (Semesters | filter: $select.search) track by semesters.id">
+          <span ng-bind="semesters.name"></span>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+    <div class="attest-num-select">
+      <label for="attest-num" class="select-form__label">Номер атестації</label>
+      <ui-select id="attest-num" class="select-form__select" ng-model="$parent.itemAttest"
+                 append-to-body="true" ng-init="s">
+        <ui-select-match placeholder="Оберіть номер атестації">
+          <span ng-bind="$select.selected.name"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="attests in (Attests | filter: $select.search) track by attests.id">
+          <span ng-bind="attests.name"></span>
+        </ui-select-choices>
+      </ui-select>
+    </div>
+  </div>
+</div>
