@@ -131,6 +131,11 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: "DisciplinesChoiceTCtrl",
       controllerAs: 'choiceT'
     })
+    .when('/attestation', {
+      templateUrl: 'views/attestation.html',
+      controller: 'AttestationCtrl',
+      controllerAs: 'attest'
+    })
     .otherwise({
       redirectTo: '/'
     });
