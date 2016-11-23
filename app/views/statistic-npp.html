@@ -4,115 +4,113 @@
 </breadcrumbs>
 
 <div class="container-fluid content">
-  <div class="content">
-    <div class="row">
-      <div class="col-md-12">
+  <div class="row">
+    <div class="col-md-12">
 
-        <h2>Індивідуальне навантаження викладачів</h2>
+      <h2>Індивідуальне навантаження викладачів</h2>
 
-        <a href="#top" class="scroll-to-top-Btn" onclick="event.preventDefault()"><i class="fa fa-chevron-up"></i></a>
-        <div class="loader" ng-show="preloader">
-          <div class="loader_inner" ng-show="preloader"></div>
-        </div>
-        <section class="container radioMenu">
-
-          <div class="dropDownWrapper">
-            <form>
-              <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;"
-                      tabindex="2" ng-model="chosenSubdivisionId" ng-change="chosenSelectChange()">
-                <option value=""></option>
-                <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}"
-                        value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}
-                </option>
-              </select>
-            </form>
-          </div>
-          <div class="radioBtnWrapper">
-            <label class="topLabel">Оберіть кафедру</label>
-            <ng-repeat ng-repeat="cathedra in cathedras">
-              <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio"
-                     value='{{cathedra.cathedraId}}'
-                     ng-model="chosenId" ng-click="checkNpp(cathedra.cathedraId)">
-              <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
-            </ng-repeat>
-            <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
-          </div>
-        </section>
-
-        <section class="container download nPPBody">
-          <div class="row">
-            <a download="Індивідуальне навантаження викладачів.xls" href="#"
-               onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
-              <div
-                class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 menuButtons textCentre">
-                <i class="fa fa-file-excel-o "></i> Завантажини звіт
-              </div>
-            </a>
-          </div>
-        </section>
-
-        <div class="nPPBody">
-
-          <div class="row">
-            <div class="col-md-12 ">
-
-              <div class="tabbable">
-                <!-- Only required for left/right tabs -->
-                <ul class="nav nav-tabs myNavTabs textCentre">
-                  <li class="tabLiStyle "><a href="#1" data-toggle="tab" onclick="event.preventDefault()">Перше півріччя
-                    (осінній семестр)</a></li>
-                  <li class="tabLiStyle"><a href="#2" data-toggle="tab" onclick="event.preventDefault()">Друге півріччя
-                    (весняний семестр)</a></li>
-                </ul>
-                <div class="tab-content">
-                  <div class="col-md-12 tab-pane  myTabPane" id="{{npp.semestr}}" ng-repeat="npp in npps">
-                    <div class="panel panel-default" id="{{employee.id}}" ng-repeat="employee in npp.employees"
-                         ng-if="employee.subjects.length!=0" ng-click="showTabById(employee.id)">
-                      <div class="panel-heading panelHeadingHover textCentre"
-                           ng-class="{active:employee.id==tabIdForShow}">
-                        <i class="fa fa-sort-desc   textCentre"></i>
-                        {{employee.name}}
-                        <i class="fa fa-sort-desc   textCentre"></i>
-                      </div>
-                      <table class="table table-bordered" ng-show="tabIdForShow==employee.id">
-                        <tbody>
-                        <tr ng-repeat="subject in employee.subjects">
-                          <td>{{subject.name}}</td>
-                          <td>{{subject.groups.join('\n')}}</td>
-                          <td>{{npp.semestr}}</td>
-                        </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                  <!--<div class="col-md-12 tab-pane  myTabPane" id="2">-->
-
-                  <!--</div>-->
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="hidden">
-          <table id="table-for-download">
-            <tr>
-              <th colspan="3">Перше півріччя (осінній семестр)</th>
-            </tr>
-            <tbody id="semester1">
-
-            </tbody>
-            <tr>
-              <th colspan="3">Друге півріччя (весняний семестр)</th>
-            </tr>
-            <tbody id="semester2">
-
-            </tbody>
-          </table>
-        </div>
-
-
+      <a href="#top" class="scroll-to-top-Btn" onclick="event.preventDefault()"><i class="fa fa-chevron-up"></i></a>
+      <div class="loader" ng-show="preloader">
+        <div class="loader_inner" ng-show="preloader"></div>
       </div>
+      <section class="container radioMenu">
+
+        <div class="dropDownWrapper">
+          <form>
+            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;"
+                    tabindex="2" ng-model="chosenSubdivisionId" ng-change="chosenSelectChange()">
+              <option value=""></option>
+              <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}"
+                      value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}
+              </option>
+            </select>
+          </form>
+        </div>
+        <div class="radioBtnWrapper">
+          <label class="topLabel">Оберіть кафедру</label>
+          <ng-repeat ng-repeat="cathedra in cathedras">
+            <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio"
+                   value='{{cathedra.cathedraId}}'
+                   ng-model="chosenId" ng-click="checkNpp(cathedra.cathedraId)">
+            <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
+          </ng-repeat>
+          <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
+        </div>
+      </section>
+
+      <section class="container download nPPBody">
+        <div class="row">
+          <a download="Індивідуальне навантаження викладачів.xls" href="#"
+             onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
+            <div
+              class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+              <i class="fa fa-file-excel-o "></i> Завантажини звіт
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <div class="nPPBody">
+
+        <div class="row">
+          <div class="col-md-12 ">
+
+            <div class="tabbable">
+              <!-- Only required for left/right tabs -->
+              <ul class="nav nav-tabs myNavTabs textCentre">
+                <li class="tabLiStyle "><a href="#1" data-toggle="tab" onclick="event.preventDefault()">Перше півріччя
+                  (осінній семестр)</a></li>
+                <li class="tabLiStyle"><a href="#2" data-toggle="tab" onclick="event.preventDefault()">Друге півріччя
+                  (весняний семестр)</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="col-md-12 tab-pane  myTabPane" id="{{npp.semestr}}" ng-repeat="npp in npps">
+                  <div class="panel panel-default" id="{{employee.id}}" ng-repeat="employee in npp.employees"
+                       ng-if="employee.subjects.length!=0" ng-click="showTabById(employee.id)">
+                    <div class="panel-heading panelHeadingHover textCentre"
+                         ng-class="{active:employee.id==tabIdForShow}">
+                      <i class="fa fa-sort-desc   textCentre"></i>
+                      {{employee.name}}
+                      <i class="fa fa-sort-desc   textCentre"></i>
+                    </div>
+                    <table class="table table-bordered" ng-show="tabIdForShow==employee.id">
+                      <tbody>
+                      <tr ng-repeat="subject in employee.subjects">
+                        <td>{{subject.name}}</td>
+                        <td>{{subject.groups.join('\n')}}</td>
+                        <td>{{npp.semestr}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!--<div class="col-md-12 tab-pane  myTabPane" id="2">-->
+
+                <!--</div>-->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden">
+        <table id="table-for-download">
+          <tr>
+            <th colspan="3">Перше півріччя (осінній семестр)</th>
+          </tr>
+          <tbody id="semester1">
+
+          </tbody>
+          <tr>
+            <th colspan="3">Друге півріччя (весняний семестр)</th>
+          </tr>
+          <tbody id="semester2">
+
+          </tbody>
+        </table>
+      </div>
+
+
     </div>
   </div>

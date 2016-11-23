@@ -13,7 +13,7 @@ angular.module('ecampusApp')
     angular.element(document).ready(function () {
       Api.execute("GET", "Subdivision")
         .then(function (response) {
-          $scope.allDataFromApi = response.data;
+          $scope.allDataFromApi = response;
 
           $scope.allSubdivisions = [];
 
@@ -26,19 +26,21 @@ angular.module('ecampusApp')
            Кафедра інформаційного права та права інтелектуальної власності ФСП
            */
 
-          for (var i = 0; i < $scope.allDataFromApi.length; i++) {
-            if ($scope.allDataFromApi[i].typeId == 30) {
-              $scope.allSubdivisions.push({
-                name: $scope.allDataFromApi[i].name,
-                id: $scope.allDataFromApi[i].subdivisionId
-              });
+          if (!!$scope.allDataFromApi) {
+            for (var i = 0; i < $scope.allDataFromApi.length; i++) {
+              if ($scope.allDataFromApi[i].typeId == 30) {
+                $scope.allSubdivisions.push({
+                  name: $scope.allDataFromApi[i].name,
+                  id: $scope.allDataFromApi[i].subdivisionId
+                });
+              }
             }
           }
 
           $scope.alldisciplines = [];
         }, function (response) {
 
-          $scope.allSubdivisions = null;
+          $scope.allSubdivisions = [];
 
 
         });
