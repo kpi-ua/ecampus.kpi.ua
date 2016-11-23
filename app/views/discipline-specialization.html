@@ -4,11 +4,12 @@
 
 <div class="container-fluid content discipline-specialization">
     <div class="row" ng-switch on="section">
+
         <section class="container-fluid discipline-specialization__navigation">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
                     <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="specialization" ng-click=" SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':section=='specialization'}">
-                        Дисципліни спеціалізації
+                        Результат вибоу
                     </button>
                 </div>
                 <div class="btn-group" role="group">
@@ -26,44 +27,42 @@
 
         <section class="container-fluid discipline-specialization__select-form select-form">
             <br>
-            <div ng-show="section=='specialization'||section=='patterns'">
-                <div class="row">
-                    <label for="Cathedra" class="col-md-2 select-form__label ">Кафедра</label>
-                    <select id="Cathedra" class="col-md-4 select-form__select" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
-                        <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">{{subsystem.Subdivision.Name}}</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <label for="Ork" class="col-md-2 select-form__label  ">Освітній рівень</label>
-                    <select id="Ork" class="col-md-4 select-form__select"  ng-disabled = "!okrNames" ng-class="{'select-form__select_disabled':!okrNames}" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
-                        <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <label for="Direction" class="col-md-2 select-form__label  ">Напрям</label>
-                    <select id="Direction" class="col-md-4  select-form__select"  ng-disabled="!specialities" ng-class="{'select-form__select_disabled':!specialities}"
-                            ng-model="selectData.Direction" ng-change="OnFullSelect()">
-                        <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code
-                            +" "+ speciality.Name}}
-                        </option>
-                    </select>
-                </div>
+            <div class="row">
+                <label for="Cathedra" class="col-md-2 col-sm-3 col-xs-12 select-form__label ">Кафедра</label>
+                <select id="Cathedra" class="col-md-3 col-sm-4 col-xs-12 select-form__select" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
+                    <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">{{subsystem.Subdivision.Name}}</option>
+                </select>
             </div>
-            <div ng-switch-when="specialization" class="row">
-                <label for="StudyYear" class="col-md-2 select-form__label  ">Навчальний рік</label>
-                <select id="StudyYear" class="col-md-4 select-form__select"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
+            <div class="row">
+                <label for="Ork" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Освітній рівень</label>
+                <select id="Ork" class="col-md-3 col-sm-4 col-xs-12 select-form__select"  ng-disabled = "!okrNames" ng-class="{'select-form__select_disabled':!okrNames}" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
+                    <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="Direction" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Напрям</label>
+                <select id="Direction" class="col-md-3 col-sm-4 col-xs-12  select-form__select"  ng-disabled="!specialities" ng-class="{'select-form__select_disabled':!specialities}"
+                        ng-model="selectData.Direction" ng-change="OnFullSelect()">
+                    <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code
+                        +" "+ speciality.Name}}
+                    </option>
+                </select>
+            </div>
+            <div ng-show="section=='specialization'||section=='apply'" class="row">
+                <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="specialization">Навчальний рік</label>
+                <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="apply">Рік вступу</label>
+                <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
                     <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
                 </select>
             </div>
             <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
         </section>
 
-        <section class="container-fluid discipline-specialization__specialization specialization" table-choice-result ng-switch-when="specialization">
-
-        </section>
+        <section class="container-fluid discipline-specialization__specialization specialization" table-choice-result ng-switch-when="specialization"></section>
 
         <section class="container-fluid discipline-specialization__patterns patterns" ng-switch-when="patterns">
-            <div ng-show="patterns!=null">
+            <div  ng-show="patterns!=null">
+            <!--<div >-->
                 <table class="table table-bordered table-hover table-condensed d-s-table">
                     <thead>
                     <tr class="patterns__table-header">
@@ -113,8 +112,7 @@
                             <i class="fa fa-plus" aria-hidden="true"></i>  Додати новий шаблон
                         </td>
                     </tr>
-                    <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse
-">
+                    <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
                         <td>
                             <span editable-select="pattern.CycleId" e-name="CycleId" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
                               {{ pattern.CycleName|| 'empty' }}
@@ -143,7 +141,7 @@
                         </td>
                         <td>
                             <span editable-text="pattern.PatternName" e-name="PatternName" e-form="rowform">
-                              {{ pattern.PatternName || 'empty' }}
+                              {{pattern.PatternName}}
                             </span>
                         </td>
                         <td>
@@ -176,8 +174,6 @@
             </div>
         </section>
 
-        <section class="container-fluid discipline-specialization__apply" ng-switch-when="apply">
-
-        </section>
+        <section class="container-fluid discipline-specialization__apply apply" pattern-implementation ng-switch-when="apply"></section>
     </div>
 </div>
