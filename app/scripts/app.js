@@ -101,10 +101,10 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: "HomeBulletinsBoardCtrl",
       controllerAs: 'board'
     })
-    .when('/disciplines-choice', {
-      templateUrl: "views/disciplines-choice.html",
+    .when('/disciplines-choice-st', {
+      templateUrl: "views/disciplines-choice-st.html",
       controller: "DisciplinesChoiceCtrl",
-      controllerAs: 'choice'
+      controllerAs: 'choiceSt'
     })
     .when('/settings', {
       templateUrl: 'views/settings.html',
@@ -125,6 +125,11 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'views/discipline-block.html',
       controller: 'DisciplinesBlockCtrl',
       controllerAs: 'block'
+    })
+    .when('/disciplines-choice-t', {
+      templateUrl: "views/disciplines-choice-t.html",
+      controller: "DisciplinesChoiceTCtrl",
+      controllerAs: 'choiceT'
     })
     .otherwise({
       redirectTo: '/'

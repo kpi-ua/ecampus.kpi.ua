@@ -35,7 +35,8 @@ angular.module('ecampusApp')
 
                 function init() {
                     var user = Api.getCurrentUser();
-                  $scope.disableDisciplineChoiceForNotStudent = false;
+                    $scope.disableDisciplineChoiceForNotStudent = false;
+                    $scope.enableDisciplineForNotStudent = false;
                     $scope.user = user;
 
                     if (!!user) {
@@ -47,6 +48,7 @@ angular.module('ecampusApp')
                         $scope.userImage = Api.getApiEndpoint() + "/Account/" + user.id + "/ProfileImage";
                       if (user.position[0].id != 5) {
                         $scope.disableDisciplineChoiceForNotStudent = true;
+                        $scope.enableDisciplineForNotStudent = true;
                       }
                     }
                 }

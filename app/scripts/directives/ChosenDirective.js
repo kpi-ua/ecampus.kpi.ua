@@ -7,7 +7,7 @@ angular
       scope.$watch('allSubdivisions', function () {
         element.trigger("chosen:updated");
       });
-      element.chosen();
+      element.chosen({ width: '100%' });
     };
 
     return {

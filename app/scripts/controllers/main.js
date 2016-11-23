@@ -51,7 +51,6 @@ angular.module('ecampusApp')
             Api.auth($scope.login, $scope.password).then(function(token) {
 
                 $scope.error = !token;
-                $scope.$apply();
 
                 if (!$scope.error) {
                     var user = Api.getCurrentUser();

@@ -62,8 +62,8 @@ angular.module('ecampusApp')
 
         function reload() {
             $scope.preloader = true;
-            if (!!Campus.getToken()) {
-                var sClaim = decodeToken(Campus.getToken());
+            if (!!Api.getToken()) {
+                var sClaim = Api.decodeToken(Api.getToken());
 
                 if (!!sClaim) {
                     sClaim = JSON.parse(sClaim);
@@ -91,8 +91,8 @@ angular.module('ecampusApp')
 
         function getPermissionSubsystemFromToken(){
             var permissionArray = [];
-            if (!!Campus.getToken()) {
-                var sClaim = decodeToken(Campus.getToken());
+            if (!!Api.getToken()) {
+                var sClaim = Api.decodeToken(Api.getToken());
                 sClaim = JSON.parse(sClaim);
                 if(typeof(sClaim.resp)=="object"){
                     sClaim.resp.forEach(function(itemForEach, i, arr) {
@@ -233,7 +233,7 @@ angular.module('ecampusApp')
             $scope.selectData.Direction = null;
             var cathedraId = $scope.selectData.CathedraId;
             var path = "StudyOrganization/ProfTrains/"+ cathedraId;
-            Campus.execute("GET", path).then(function(response) {
+            Api.execute("GET", path).then(function(response) {
                 if (!response || response == "") {
                     $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
                 } else {
@@ -291,7 +291,7 @@ angular.module('ecampusApp')
                 var groupedBlocksArray =[];
                 var compareSemester = 0;
                 path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/BlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
-                Campus.execute("GET", path).then(function(response) {
+                Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні";
                         $scope.safeApply();
@@ -325,40 +325,13 @@ angular.module('ecampusApp')
                     ErrorHandlerMy (response, status,headers);
                     $scope.safeApply();
                 });
-            // if (cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='specialization'){
-            //     $scope.preloader = true;
-            //     var blocks= [];
-            //     var compareSemester = 0;
-            //     path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetBlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
-            //     Campus.execute("GET", path).then(function(response) {
-            //         if (!response || response == "") {
-            //             $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
-            //             $scope.blocks =[];
-            //         } else {
-            //             console.log(response);
-            //             response.forEach(function (item, i, arr) {
-            //                 var blockChoiceWhomId = item.blockChoiceWhomId
-            //                     , blockId = item.blockId
-            //                     , blockName = item.blockName
-            //                     , course = item.course
-            //                     , semestr = item.semestr
-            //                     , studyGroupName = item.studyGroupName;
-            //                 blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
-            //
-            //             });
-            //             $scope.blocks = blocks;
-            //             console.log($scope.blocks);
-            //             $scope.preloader = false;
-            //             $scope.safeApply();
-            //         }
-            //     });
             }else if(cathedraIdBool && directionBool && okrBool && ($scope.section=='patterns' || $scope.section=='apply')) {
                 $scope.preloader = true;
                 $scope.safeApply();
                 var patterns= [];
                 $scope.patterns =null;
                 path = "SelectiveDiscipline/PatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
-                Campus.execute("GET", path).then(function(response) {
+                Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні.";
                         $scope.patterns = [];
@@ -416,7 +389,7 @@ angular.module('ecampusApp')
         //     $scope.preloader = true;
         //     var disciplines= [];
         //     var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+blockId;
-        //     Campus.execute("GET", path).then(function(response) {
+        //     Api.execute("GET", path).then(function(response) {
         //         console.log(response);
         //         response.forEach(function(item, i, arr){
         //             var disciplineBlockYearId = item.disciplineBlockYearId
@@ -441,7 +414,7 @@ angular.module('ecampusApp')
             $scope.errorLabelText="";
             blocks.forEach(function (block,iter,arr) {
                 var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/DisciplineChosen/"+block.BlockId;
-                Campus.execute("GET", path).then(function(response) {
+                Api.execute("GET", path).then(function(response) {
                     var disciplinesBlock =[];
                     var tatalMaxCountStudent =0;
                     var tatalOccupiedPercent =0;
@@ -478,7 +451,7 @@ angular.module('ecampusApp')
                 });
             });
             // var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetDisciplineChosen/"+blocks[0].BlockId;
-            // Campus.execute("GET", path).then(function(response) {
+            // Api.execute("GET", path).then(function(response) {
             //     response.forEach(function (item, i, arr) {
             //         var disciplineBlockYearId = item.disciplineBlockYearId
             //             , disciplineName = item.disciplineName
@@ -500,7 +473,7 @@ angular.module('ecampusApp')
             $scope.preloader = true;
             var disciplines= [];
             var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/DisciplineChosen/"+blockId;
-            Campus.execute("GET", path).then(function(response) {
+            Api.execute("GET", path).then(function(response) {
                 // console.log(response);
                 response.forEach(function(item, i, arr){
                     var disciplineBlockYearId = item.disciplineBlockYearId
@@ -590,9 +563,9 @@ angular.module('ecampusApp')
                 Id: patternBlockChoice8Id == null?0:patternBlockChoice8Id,
             };
             path = "SelectiveDiscipline/PatternBlockChoise";
-            method = patternBlockChoice8Id==null? "POST":"PUT";
+            method = patternBlockChoice8Id==null? "POST": "PUT";
 
-            Campus.execute(method, path,payload).then(function (resp) {
+            Api.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
             },function(response, status,headers){
                 ErrorHandlerMy (response, status,headers);
@@ -610,7 +583,7 @@ angular.module('ecampusApp')
 
                 var  path = "SelectiveDiscipline/PatternBlockChoise";
                 $scope.patterns.splice($scope.patterns.indexOf(pattern),1);
-                Campus.execute("DELETE", path,payload);
+                Api.execute("DELETE", path,payload);
             }
         };
 

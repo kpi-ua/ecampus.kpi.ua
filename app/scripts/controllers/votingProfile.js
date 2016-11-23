@@ -30,13 +30,11 @@ angular.module('ecampusApp')
 
             Api.execute("GET", "Account/Employee/" + $scope.selectedEmployeId).then(function(data) {
                 $scope.selectedEmploye = data;
-                $scope.$apply();
             });
 
 
             Api.execute("GET", "Vote/Criterions").then(function(data) {
                 $scope.criterions = data;
-                $scope.$apply();
             });
 
         }
@@ -78,10 +76,9 @@ angular.module('ecampusApp')
                 votes.push(vote);
             });
 
-            Api.execute("POST", "Vote", votes).then(function(data) {
+            Api.execute("POST", "Vote", votes).then(function() {
                 alert('Дякуємо!');
                 $location.path("/voting");
-                $scope.$apply();
             }).catch(function(reason) {
                 alert(reason.responseText);
             });

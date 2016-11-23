@@ -56,24 +56,12 @@ angular.module('ecampusApp')
       $scope.loader = true;
 
       Api.execute("GET", url)
-        .done(function (response) {
+        .then(function (response) {
           $scope.info = response[0];
           $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
           $scope.tab = +response[0].studyCourse;
           $scope.loader = false;
-          $scope.$apply();
-        })
-        .fail(function (result) {
-
-          if (result.status === 401) {
-            $scope.errorMessage = "Потрібно авторизуватися";
-          } else {
-            $scope.errorMessage = "Помилка на стороні сервера";
-          }
-
-          $scope.hideInfo = true;
-          $scope.$apply();
-        })
+        });
     }
 
     function getCurrStudyYear(yearIntake, studyCourse) {
@@ -88,7 +76,7 @@ angular.module('ecampusApp')
       $scope.loaderDisc = true;
 
       Api.execute("GET", url)
-        .done(function (response) {
+        .then(function (response) {
           $scope.loaderDisc = true;
           $scope.firstCourse = [];
           $scope.secondCourse = [];
@@ -112,18 +100,11 @@ angular.module('ecampusApp')
             }
           }
           $scope.loaderDisc = false;
-          $scope.$apply();
-        })
-        .fail(function (result) {
-          if (result.status === 401) {
-            $scope.errorMessageDisc = "Потрібно авторизуватися";
-          } else {
-            $scope.errorMessageDisc = "Помилка на стороні сервера";
-          }
-          $scope.hideInfoDisc = true;
-          $scope.$apply();
-        })
+        });
     }
+
+    // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням
+    // link: http://www.w3schools.com/angular/tryit.asp?filename=try_ng_form_radio
 
     loadInfo();
     loadDisciplines();
