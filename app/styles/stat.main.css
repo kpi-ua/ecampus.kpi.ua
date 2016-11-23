@@ -652,6 +652,8 @@ input:checked+.side-label::after {
 
 .discipline-specialization__navigation-button{
     font-size: 16px;
+    border: 1px solid transparent;
+    white-space: normal;
 }
 .discipline-specialization__navigation-button_active{
    background-color: #ccc;

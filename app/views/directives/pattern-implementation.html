@@ -1,0 +1,78 @@
+<div class="table-choice-result__group-list">
+    <p>Групи:
+        <span class="table-choice-result__group-item" ng-repeat="group in groups" data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(group.groupName)">
+              {{group.groupName}}
+        </span>
+    </p>
+</div>
+<table class="table table-bordered table-hover table-condensed d-s-table" ng-show="patterns!=null">
+    <thead>
+    <tr class="patterns__table-header">
+        <td>
+            Застосувати
+        </td>
+        <td>
+            <a href="#" ng-click="sortType = 'Course';sortReverse = !sortReverse">
+                Курс навчання
+                <span ng-show="sortType == 'Course'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+            </a>
+        </td>
+        <td>
+            <a href="#" ng-click="sortType = 'Semester';sortReverse = !sortReverse">
+                Семестр
+                <span ng-show="sortType == 'Semester'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+            </a>
+        </td>
+        <td>
+            <a href="#" ng-click="sortType = 'CycleName';sortReverse = !sortReverse">
+                Цикл дисциплін
+                <span ng-show="sortType == 'CycleName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+            </a>
+        </td>
+        <td>
+            <a href="#" ng-click="sortType = 'BlockName';sortReverse = !sortReverse">
+                Назва блоку
+                <span ng-show="sortType == 'BlockName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+            </a>
+        </td>
+        <td>
+            <a href="#" ng-click="sortType = 'PatternName';sortReverse = !sortReverse">
+                Примітка
+                <span ng-show="sortType == 'PatternName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+            </a>
+        </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
+        <td>
+            <input type="checkbox"/>
+        </td>
+        <td>
+            <span>
+                {{ pattern.Course || 'empty' }}
+            </span>
+        </td>
+        <td>
+            <span>
+                {{ pattern.Semester || 'empty' }}
+            </span>
+        </td>
+        <td>
+            <span>
+                {{ pattern.CycleName|| 'empty' }}
+            </span>
+        </td>
+        <td>
+            <span>
+                {{ pattern.BlockName || 'empty' }}
+            </span>
+        </td>
+        <td>
+            <span>
+                {{pattern.PatternName}}
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
