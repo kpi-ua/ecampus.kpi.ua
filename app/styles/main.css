@@ -728,11 +728,6 @@ div.row.well.well-md.disciplines-info {
   padding-right: 0;
 }
 
-.labels {
-  font-size: 14px;
-  font-weight: normal;
-}
-
 div.row.account-info {
   padding: 0 15px 0 15px;
 }
@@ -764,6 +759,13 @@ div.progress-student-count {
   color: white;
 }
 
+.nav > li > a.nav-pills-campus__item {
+  position: relative;
+  display: block;
+  padding: 0 0;
+}
+
+/* end disciplin choice*/
 .study-profile,
 .item {
   padding-left: 30px;
