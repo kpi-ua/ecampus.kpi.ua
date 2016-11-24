@@ -1,45 +1,47 @@
 <div class="container-fluid content">
-    <div class="content">
-        <div class="row">
-            <!--<div class="col-md-4"></div>-->
-            <div class="col-md-4 col-md-offset-4"> <br />
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="text-center">
-                            <a href="/"> <img src="/images/logo-big-green.png" alt="Електроний кампус" class="img-responsive logo-green" /> </a>
-                            <h2 class="text-center">Авторизацiя у системi</h2>
-                            <div class="panel-body">
-                                <form>
-                                    <fieldset>
-                                        <div class="form-group"> <input type="text" ng-model="login" class="form-control" , placeholder="Логін" /> </div>
-                                        <div class="form-group"> <input type="password" ng-model="password" class="form-control" , placeholder="Пароль" /> </div>
-                                        <div class="form-group" ng-if="!!error">
-                                            <div class="alert alert-danger">
-                                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Перевірте корректність логіну та паролю.
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="submit" class="btn btn-success btn-block" ng-click="auth()" value="Вхід" />
-                                        </div>
-                                        <div class="form-group">
-                                            <a class="btn btn-block btn-social btn-vk" href="{{vkAuthUrl}}">
-                                                <span class="fa fa-vk"></span> Увiйти через VK
-                                            </a>
-
-                                            <a class="btn btn-block btn-social btn-facebook" href="{{fbAuthUrl}}">
-                                                <span class="fa fa-facebook"></span> Увiйти через Facebook
-                                            </a>
-                                        </div>
-
-                                    </fieldset>
-                                </form>
-                                <br />
-                                <a class="information-link" data-toggle="modal" data-target="#support-modal">Служба підтримки</a> <a class="information-link" href="/#/restore-password.html">Вiдновити втрачений пароль</a> </div>
-                        </div>
+  <div class="row">
+    <!--<div class="col-md-4"></div>-->
+    <div class="col-md-4 col-md-offset-4"><br/>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="text-center">
+            <a href="/"> <img src="/images/logo-big-green.png" alt="Електроний кампус"
+                              class="img-responsive logo-green"/> </a>
+            <h2 class="text-center">Авторизацiя у системi</h2>
+            <div class="panel-body">
+              <form>
+                <fieldset>
+                  <div class="form-group"><input type="text" ng-model="login" class="form-control" ,
+                                                 placeholder="Логін"/></div>
+                  <div class="form-group"><input type="password" ng-model="password" class="form-control" ,
+                                                 placeholder="Пароль"/></div>
+                  <div class="form-group" ng-if="!!error">
+                    <div class="alert alert-danger">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      Перевірте корректність логіну та паролю.
                     </div>
-                </div>
-            </div>
-            <!--<div class="col-md-4"></div>-->
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-success btn-block" ng-click="auth()" value="Вхід"/>
+                  </div>
+                  <div class="form-group">
+                    <a class="btn btn-block btn-social btn-vk" href="{{vkAuthUrl}}">
+                      <span class="fa fa-vk"></span> Увiйти через VK
+                    </a>
+
+                    <a class="btn btn-block btn-social btn-facebook" href="{{fbAuthUrl}}">
+                      <span class="fa fa-facebook"></span> Увiйти через Facebook
+                    </a>
+                  </div>
+
+                </fieldset>
+              </form>
+              <br/>
+              <a class="information-link" data-toggle="modal" data-target="#support-modal">Служба підтримки</a> <a
+              class="information-link" href="/#/restore-password.html">Вiдновити втрачений пароль</a></div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

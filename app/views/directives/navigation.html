@@ -16,29 +16,13 @@
           <li>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Модулi<b class="caret"></b></a>
             <ul class="dropdown-menu multi-level">
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Адміністрування</a>
-                <ul class="dropdown-menu">
-                  <li><a href="/#/statistic">Статистика</a></li>
-                  <li class="dropdown-submenu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Дисципліни вибору</a>
-                    <ul class="dropdown-menu">
-                      <li><a href="/#/discipline-specialization">Дисципліни спеціалізації</a></li>
-                      <li><a href="/#/discipline-proposition">Пропозиції дисциплін</a></li>
-                      <li><a href="/#/discipline-block">Блок дисциплін</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="/#/">Фонд дисципліни</a></li>
-                  <li><a href="/#/">РНП</a></li>
-                </ul>
-              </li>
-              <li><a href="/#/attestation">Атестація</a></li>
+
               <li><a href="/#/bulletins-board">Оголошення</a></li>
 
               <li class="dropdown-submenu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Навчальний процесс</a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Індивідуальний план</a></li>
+                  <li><a href="/#/individual-plan">Індивідуальний план</a></li>
                   <li ng-hide="disableDisciplineChoiceForNotStudent"><a href="/#/disciplines-choice-st">Вибір дисциплін</a>
                   </li>
                   <li ng-show="enableDisciplineForNotStudent"><a href="/#/disciplines-choice-t">Дисципліни вибору</a>
@@ -49,6 +33,33 @@
               <li><a href="/#/voting">Оцінювання викладачів</a></li>
             </ul>
           </li>
+
+
+          <li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Адміністрування<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+
+              <li class="dropdown-submenu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Статистика</a>
+                <ul class="dropdown-menu">
+                  <li><a href="/#/statistic-zkm">Забезпечення кредитного модуля</a></li>
+                  <li><a href="/#/statistic-npp">Навантаження НПП</a></li>
+                </ul>
+              </li>
+
+              <li class="dropdown-submenu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Дисципліни вибору</a>
+                <ul class="dropdown-menu">
+                  <li><a href="/#/discipline-specialization">Дисципліни спеціалізації</a></li>
+                  <li><a href="/#/discipline-proposition">Пропозиції дисциплін</a></li>
+                  <li><a href="/#/discipline-block">Блок дисциплін</a></li>
+                </ul>
+              </li>
+              <li><a href="/#/discipline-fund">Фонд дисциплін</a></li>
+              <li><a href="/#/rnp">РНП</a></li>
+            </ul>
+          </li>
+          <li><a href="/#/attestation">Атестація</a></li>
 
           <li>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iнформація<b class="caret"></b></a>

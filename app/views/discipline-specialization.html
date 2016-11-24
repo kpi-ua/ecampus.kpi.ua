@@ -1,179 +1,227 @@
 <breadcrumbs>
-    <span>Модулі</span> > <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Дисципліни спеціалізації</b>
+  <!--<span>Модулі</span> >--> <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Дисципліни спеціалізації</b>
 </breadcrumbs>
 
-<div class="container-fluid content discipline-specialization">
-    <div class="row" ng-switch on="section">
+<div class="container-fluid content">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Дисципліни спеціалізації</h1>
 
+      <div class="discipline-specialization" ng-switch on="section">
         <section class="container-fluid discipline-specialization__navigation">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="specialization" ng-click=" SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':section=='specialization'}">
-                        Результат вибоу
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="patterns" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':section=='patterns'}">
-                        Перегляд і редагування шаблонів
-                    </button>
-                </div>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="apply" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':section=='apply'}">
-                        Застосування шаблонів
-                    </button>
-                </div>
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default discipline-specialization__navigation-button"
+                      value="specialization" ng-click=" SwitchSections($event)"
+                      ng-class="{'discipline-specialization__navigation-button_active':section=='specialization'}">
+                Результат вибоу
+              </button>
             </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default discipline-specialization__navigation-button"
+                      value="patterns"
+                      ng-click="SwitchSections($event)"
+                      ng-class="{'discipline-specialization__navigation-button_active':section=='patterns'}">
+                Перегляд і редагування шаблонів
+              </button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="apply"
+                      ng-click="SwitchSections($event)"
+                      ng-class="{'discipline-specialization__navigation-button_active':section=='apply'}">
+                Застосування шаблонів
+              </button>
+            </div>
+          </div>
         </section>
 
         <section class="container-fluid discipline-specialization__select-form select-form">
-            <br>
-            <div class="row">
-                <label for="Cathedra" class="col-md-2 col-sm-3 col-xs-12 select-form__label ">Кафедра</label>
-                <select id="Cathedra" class="col-md-3 col-sm-4 col-xs-12 select-form__select" ng-model = "selectData.CathedraId" ng-change="OnCathedraSelect()">
-                    <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">{{subsystem.Subdivision.Name}}</option>
-                </select>
-            </div>
-            <div class="row">
-                <label for="Ork" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Освітній рівень</label>
-                <select id="Ork" class="col-md-3 col-sm-4 col-xs-12 select-form__select"  ng-disabled = "!okrNames" ng-class="{'select-form__select_disabled':!okrNames}" ng-model = "selectData.Okr" ng-change="OnOkrSelect()">
-                    <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
-                </select>
-            </div>
-            <div class="row">
-                <label for="Direction" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Напрям</label>
-                <select id="Direction" class="col-md-3 col-sm-4 col-xs-12  select-form__select"  ng-disabled="!specialities" ng-class="{'select-form__select_disabled':!specialities}"
-                        ng-model="selectData.Direction" ng-change="OnFullSelect()">
-                    <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code
-                        +" "+ speciality.Name}}
-                    </option>
-                </select>
-            </div>
-            <div ng-show="section=='specialization'||section=='apply'" class="row">
-                <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="specialization">Навчальний рік</label>
-                <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="apply">Рік вступу</label>
-                <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"  ng-model = "selectData.StudyYear" ng-change="OnFullSelect()">
-                    <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
-                </select>
-            </div>
-            <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
+          <br>
+          <div class="row">
+            <label for="Cathedra" class="col-md-2 col-sm-3 col-xs-12 select-form__label ">Кафедра</label>
+            <select id="Cathedra" class="col-md-3 col-sm-4 col-xs-12 select-form__select"
+                    ng-model="selectData.CathedraId"
+                    ng-change="OnCathedraSelect()">
+              <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">
+                {{subsystem.Subdivision.Name}}
+              </option>
+            </select>
+          </div>
+          <div class="row">
+            <label for="Ork" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Освітній рівень</label>
+            <select id="Ork" class="col-md-3 col-sm-4 col-xs-12 select-form__select" ng-disabled="!okrNames"
+                    ng-class="{'select-form__select_disabled':!okrNames}" ng-model="selectData.Okr"
+                    ng-change="OnOkrSelect()">
+              <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
+            </select>
+          </div>
+          <div class="row">
+            <label for="Direction" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Напрям</label>
+            <select id="Direction" class="col-md-3 col-sm-4 col-xs-12  select-form__select" ng-disabled="!specialities"
+                    ng-class="{'select-form__select_disabled':!specialities}"
+                    ng-model="selectData.Direction" ng-change="OnFullSelect()">
+              <option value="{{speciality.ProfTrainTotalId}}" ng-repeat="speciality in specialities">{{speciality.Code
+                +" "+ speciality.Name}}
+              </option>
+            </select>
+          </div>
+          <div ng-show="section=='specialization'||section=='apply'" class="row">
+            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label"
+                   ng-switch-when="specialization">Навчальний
+              рік</label>
+            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="apply">Рік
+              вступу</label>
+            <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"
+                    ng-model="selectData.StudyYear"
+                    ng-change="OnFullSelect()">
+              <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
+            </select>
+          </div>
+          <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
         </section>
 
-        <section class="container-fluid discipline-specialization__specialization specialization" table-choice-result ng-switch-when="specialization"></section>
+        <section class="container-fluid discipline-specialization__specialization specialization" table-choice-result
+                 ng-switch-when="specialization"></section>
 
         <section class="container-fluid discipline-specialization__patterns patterns" ng-switch-when="patterns">
-            <div  ng-show="patterns!=null">
+          <div ng-show="patterns!=null">
             <!--<div >-->
-                <table class="table table-bordered table-hover table-condensed d-s-table">
-                    <thead>
-                    <tr class="patterns__table-header">
-                        <td>
-                            <a href="#" ng-click="sortType = 'CycleName';sortReverse = !sortReverse">
-                                Цикл дисциплін
-                                <span ng-show="sortType == 'CycleName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#" ng-click="sortType = 'BlockName';sortReverse = !sortReverse">
-                                Назва блоку
-                                <span ng-show="sortType == 'BlockName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#" ng-click="sortType = 'Course';sortReverse = !sortReverse">
-                                Курс навчання
-                                <span ng-show="sortType == 'Course'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#" ng-click="sortType = 'Semester';sortReverse = !sortReverse">
-                                Семестр
-                                <span ng-show="sortType == 'Semester'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#" ng-click="sortType = 'CountDiscipline';sortReverse = !sortReverse">
-                                Кількість дисциплін
-                                <span ng-show="sortType == 'CountDiscipline'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
-                            </a>
+            <table class="table table-bordered table-hover table-condensed d-s-table">
+              <thead>
+              <tr class="patterns__table-header">
+                <td>
+                  <a href="#" ng-click="sortType = 'CycleName';sortReverse = !sortReverse">
+                    Цикл дисциплін
+                    <span ng-show="sortType == 'CycleName'" class="fa"
+                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                  </a>
+                </td>
+                <td>
+                  <a href="#" ng-click="sortType = 'BlockName';sortReverse = !sortReverse">
+                    Назва блоку
+                    <span ng-show="sortType == 'BlockName'" class="fa"
+                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                  </a>
+                </td>
+                <td>
+                  <a href="#" ng-click="sortType = 'Course';sortReverse = !sortReverse">
+                    Курс навчання
+                    <span ng-show="sortType == 'Course'" class="fa"
+                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                  </a>
+                </td>
+                <td>
+                  <a href="#" ng-click="sortType = 'Semester';sortReverse = !sortReverse">
+                    Семестр
+                    <span ng-show="sortType == 'Semester'" class="fa"
+                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                  </a>
+                </td>
+                <td>
+                  <a href="#" ng-click="sortType = 'CountDiscipline';sortReverse = !sortReverse">
+                    Кількість дисциплін
+                    <span ng-show="sortType == 'CountDiscipline'" class="fa"
+                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                  </a>
 
-                        </td>
-                        <td>
-                            <a href="#" ng-click="sortType = 'PatternName';sortReverse = !sortReverse">
-                                Примітка
-                                <span ng-show="sortType == 'PatternName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
-                            </a>
-                        </td>
-                        <td></td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="d-s-table patterns__table-button">
-                        <td colspan="7" ng-click="addPattern()" class="text-center">
-                            <i class="fa fa-plus" aria-hidden="true"></i>  Додати новий шаблон
-                        </td>
-                    </tr>
-                    <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
-                        <td>
-                            <span editable-select="pattern.CycleId" e-name="CycleId" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
+                </td>
+                <td>
+                  <a href="#" ng-click="sortType = 'PatternName';sortReverse = !sortReverse">
+                    Примітка
+                    <span ng-show="sortType == 'PatternName'" class="fa"
+                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                  </a>
+                </td>
+                <td></td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="d-s-table patterns__table-button">
+                <td colspan="7" ng-click="addPattern()" class="text-center">
+                  <i class="fa fa-plus" aria-hidden="true"></i> Додати новий шаблон
+                </td>
+              </tr>
+              <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
+                <td>
+                            <span editable-select="pattern.CycleId" e-name="CycleId" e-form="rowform"
+                                  onbeforesave="checkAllForm($data)" e-required
+                                  e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
                               {{ pattern.CycleName|| 'empty' }}
-                                <!--{{ShowCycleName(pattern)}}-->
+                              <!--{{ShowCycleName(pattern)}}-->
                             </span>
-                        </td>
-                        <td>
-                            <span editable-select="pattern.BlockId" e-name="BlockId" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="block.BlockId as block.BlockName for block in Dc.Blocks">
+                </td>
+                <td>
+                            <span editable-select="pattern.BlockId" e-name="BlockId" e-form="rowform"
+                                  onbeforesave="checkAllForm($data)" e-required
+                                  e-ng-options="block.BlockId as block.BlockName for block in Dc.Blocks">
                               {{ pattern.BlockName || 'empty' }}
                             </span>
-                        </td>
-                        <td>
-                            <span editable-select="pattern.Course" e-name="Course" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="course as course for course in Dc.Courses">
+                </td>
+                <td>
+                            <span editable-select="pattern.Course" e-name="Course" e-form="rowform"
+                                  onbeforesave="checkAllForm($data)" e-required
+                                  e-ng-options="course as course for course in Dc.Courses">
                               {{ pattern.Course || 'empty' }}
                             </span>
-                        </td>
-                        <td>
-                            <span editable-select="pattern.Semester" e-name="Semester" e-form="rowform" onbeforesave="checkAllForm($data)" e-required e-ng-options="semester as semester for semester in Dc.Semesters">
+                </td>
+                <td>
+                            <span editable-select="pattern.Semester" e-name="Semester" e-form="rowform"
+                                  onbeforesave="checkAllForm($data)" e-required
+                                  e-ng-options="semester as semester for semester in Dc.Semesters">
                               {{ pattern.Semester || 'empty' }}
                             </span>
-                        </td>
-                        <td>
-                            <span  editable-number="pattern.CountDiscipline" e-name="CountDiscipline" onbeforesave="checkAllForm($data)" e-form="rowform" e-min="0"  e-required>
+                </td>
+                <td>
+                            <span editable-number="pattern.CountDiscipline" e-name="CountDiscipline"
+                                  onbeforesave="checkAllForm($data)" e-form="rowform" e-min="0" e-required>
                                 {{ pattern.CountDiscipline|| 'empty' }}
                             </span>
-                        </td>
-                        <td>
+                </td>
+                <td>
                             <span editable-text="pattern.PatternName" e-name="PatternName" e-form="rowform">
                               {{pattern.PatternName}}
                             </span>
-                        </td>
-                        <td>
-                            <!-- form -->
-                            <form editable-form name="rowform" onbeforesave="savePattern($data,pattern)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pattern">
-                                <button type="submit" ng-disabled="rowform.$waiting"
-                                        class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
-                                    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
-                                </button>
-                                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();OnFullSelect()"
-                                        class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </button>
-                            </form>
-                            <div class="buttons" ng-show="!rowform.$visible">
-                                <button class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit" ng-click="rowform.$show()">
-                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                </button>
-                                <button class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete" ng-click="removePattern(pattern)">
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </button>
-                                <!--<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>-->
-                                <!--<button class="btn btn-danger" ng-click="removePattern(pattern)">del</button>-->
+                </td>
+                <td>
+                  <!-- form -->
+                  <form editable-form name="rowform" onbeforesave="savePattern($data,pattern)"
+                        ng-show="rowform.$visible"
+                        class="form-buttons form-inline" shown="inserted == pattern">
+                    <button type="submit" ng-disabled="rowform.$waiting"
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
+                      <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();OnFullSelect()"
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                  </form>
+                  <div class="buttons" ng-show="!rowform.$visible">
+                    <button
+                      class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
+                      ng-click="rowform.$show()">
+                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <button
+                      class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
+                      ng-click="removePattern(pattern)">
+                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                    <!--<button class="btn btn-primary" ng-click="rowform.$show()">edit</button>-->
+                    <!--<button class="btn btn-danger" ng-click="removePattern(pattern)">del</button>-->
 
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
-        <section class="container-fluid discipline-specialization__apply apply" pattern-implementation ng-switch-when="apply"></section>
+        <section class="container-fluid discipline-specialization__apply apply" pattern-implementation
+                 ng-switch-when="apply"></section>
+
+      </div>
     </div>
+  </div>
 </div>

@@ -72,11 +72,6 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: 'DebuggerCtrl',
       controllerAs: 'Debugger'
     })
-    .when('/admin', {
-      templateUrl: 'views/admin.html',
-      controller: 'AdminCtrl',
-      controllerAs: 'admin'
-    })
     .when('/statistic', {
       templateUrl: 'views/statistic.html',
       controller: 'StatisticCtrl',
@@ -131,6 +126,21 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: "views/disciplines-choice-t.html",
       controller: "DisciplinesChoiceTCtrl",
       controllerAs: 'choiceT'
+    })
+    .when('/individual-plan', {
+      templateUrl: 'views/individual-plan.html',
+      controller: 'IndividualPlanCtrl',
+      controllerAs: 'individualPlan'
+    })
+    .when('/discipline-fund', {
+      templateUrl: 'views/discipline-fund.html',
+      controller: 'DisciplineFundCtrl',
+      controllerAs: 'disciplineFund'
+    })
+    .when('/rnp', {
+      templateUrl: 'views/rnp.html',
+      controller: 'RnpCtrl',
+      controllerAs: 'rnp'
     })
     .when('/attestation', {
       templateUrl: 'views/attestation.html',
