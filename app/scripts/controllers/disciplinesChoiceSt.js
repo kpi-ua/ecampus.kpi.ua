@@ -58,15 +58,6 @@ angular.module('ecampusApp')
           $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
           $scope.tab = +response[0].studyCourse;
           $scope.loader = false;
-        }, function (result) {
-
-          if (result.status === 401) {
-            $scope.errorMessage = "Потрібно авторизуватися";
-          } else {
-            $scope.errorMessage = "Помилка на стороні сервера";
-          }
-
-          $scope.hideInfo = true;
         });
     }
 
@@ -106,14 +97,6 @@ angular.module('ecampusApp')
               }
             }
             $scope.loaderDisc = false;
-          },
-          function (result) {
-            if (result.status === 401) {
-              $scope.errorMessageDisc = "Потрібно авторизуватися";
-            } else {
-              $scope.errorMessageDisc = "Помилка на стороні сервера";
-            }
-            $scope.hideInfoDisc = true;
           });
     }
 

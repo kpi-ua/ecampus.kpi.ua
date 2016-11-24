@@ -41,14 +41,6 @@ angular.module('ecampusApp')
           $scope.boardsForProfile = getBoardsForProfile();
           $scope.boardsForSubdivision = getBoardsForSubdivision();
 
-        }, function (result) {
-          $scope.loader = false;
-
-          if (result.status === 401) {
-            $scope.errorMessage = "Потрібно авторизуватися";
-          } else {
-            $scope.errorMessage = "Помилка на стороні сервера";
-          }
         });
     }
 
