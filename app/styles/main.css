@@ -787,6 +787,11 @@ div.progress-student-count {
   box-shadow: none;
 }
 
+.error-load-attest {
+  color: red;
+  margin-top: 10px;
+}
+
 /* end attestation styles*/
 .study-profile,
 .item {

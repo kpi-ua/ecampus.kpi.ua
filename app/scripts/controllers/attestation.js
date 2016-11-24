@@ -9,8 +9,9 @@
  */
 angular.module('ecampusApp')
   .controller('AttestationCtrl', ['$scope', 'Api', function ($scope, Api) {
-
-     $scope.attestNumTyped = '';
+    $scope.errorMessageYears = '';
+    $scope.errorMessageAttests = '';
+    $scope.attestNumTyped = '';
 
     function LoadYears() {
       var url = 'Attestation/studyYear';
@@ -18,12 +19,9 @@ angular.module('ecampusApp')
         .then(function (response) {
             $scope.Years = response;
           },
-          function (result) {
-            if (result.status === 401) {
-              $scope.errorMessageYears = "Потрібно авторизуватися";
-            } else {
-              $scope.errorMessageYears = "Помилка на стороні сервера";
-            }
+          function () {
+            $scope.errorMessageYears = "Не вдалося завантажити список навчальних років";
+            $scope.Years = null;
           });
     }
 
@@ -33,12 +31,9 @@ angular.module('ecampusApp')
         .then(function (response) {
             $scope.Attests = response;
           },
-          function (result) {
-            if (result.status === 401) {
-              $scope.errorMessageYears = "Потрібно авторизуватися";
-            } else {
-              $scope.errorMessageYears = "Помилка на стороні сервера";
-            }
+          function () {
+            $scope.errorMessageAttests = "Не вдалося завантажити список атестацій";
+            $scope.Attests = null;
           });
     }
 

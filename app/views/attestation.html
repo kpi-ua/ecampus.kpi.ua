@@ -15,6 +15,7 @@
         <span ng-bind="itemYears.studyingYearName"></span>
       </ui-select-choices>
     </ui-select>
+      <div class="error-load-attest" ng-show="errorMessageYears">{{errorMessageYears}}</div>
     </div>
     <div class="semester-select">
       <label for="semester" class="select-form__label">Семестр</label>
@@ -38,6 +39,7 @@
           <span ng-bind="attests.name"></span>
         </ui-select-choices>
       </ui-select>
+      <div class="error-load-attest" ng-show="errorMessageAttests">{{errorMessageAttests}}</div>
     </div>
   </div>
 </div>
