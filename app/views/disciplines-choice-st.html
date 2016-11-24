@@ -62,55 +62,44 @@
             {{errorMessageDisc}}
           </div>
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-3 nav-pills-campus  selective-disciplines-navs">
-          <ul class="nav nav-stacked" ng-hide="hideInfoDisc">
-            <li ng-class="{ 'nav-pills-campus_active': isSet(1)}">
-              <div class="nav-pills-campus__item">
-                <a ng-click="setTab(1)">1 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).firstCourse}}</a>
-              </div>
-            </li>
-            <li ng-class="{ 'nav-pills-campus_active': isSet(2)}">
-              <div class="nav-pills-campus__item">
-                <a ng-click="setTab(2)">2 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).secondCourse}}</a>
-              </div>
-            </li>
-            <li ng-class="{ 'nav-pills-campus_active': isSet(3)}">
-              <div class="nav-pills-campus__item">
-                <a ng-click="setTab(3)">3 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).thirdCourse}}</a>
-              </div>
-            </li>
-            <li ng-class="{ 'nav-pills-campus_active': isSet(4)}">
-              <div class="nav-pills-campus__item">
-                <a ng-click="setTab(4)">4 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).fourthCourse}}</a>
-              </div>
-            </li>
-            <li ng-class="{ 'nav-pills-campus_active': isSet(5)}" ng-hide="info.okr != 'Магістр'">
-              <div class="nav-pills-campus__item">
-                <a ng-click="setTab(5)">5 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).fifthCourse}}</a>
-              </div>
-            </li>
-            <li ng-class="{ 'nav-pills-campus_active': isSet(6)}" ng-hide="info.okr != 'Магістр'">
-              <div class="nav-pills-campus__item">
-                <a ng-click="setTab(6)">6 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).sixthCourse}}</a>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-9 selective-disciplines-info">
-          <div class="tab-content selective-disciplines-tabs" ng-hide="hideInfoDisc">
-            <div class="tab-pane course" ng-class="{ active: isSet(1)}">
-              <div ng-repeat="first in firstCourse">
-                <div class="row well well-md disciplines-info">
-                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
-                    <div class="labels">Навчальний рік</div>
-                    <div class="labels">Семестр</div>
-                    <div class="labels">Статус</div>
-                  </div>
-                  <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                    <div class="studyYear">{{first.studyYear || "інформацію не вказано"}}</div>
-                    <div class="semester">{{first.semester || "інформацію не вказано"}}</div>
-                    <div class="status">Вибір не здійснювався</div>
-                  </div>
+      </div>
+      <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 nav-pills-campus selective-disciplines-navs">
+        <ul class="nav nav-stacked" ng-hide="hideInfoDisc">
+          <li ng-class="{ 'nav-pills-campus_active': isSet(1)}">
+              <a class="nav-pills-campus__item" ng-click="setTab(1)">1 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).firstCourse}}</a>
+          </li>
+          <li ng-class="{ 'nav-pills-campus_active': isSet(2)}">
+              <a class="nav-pills-campus__item" ng-click="setTab(2)">2 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).secondCourse}}</a>
+          </li>
+          <li ng-class="{ 'nav-pills-campus_active': isSet(3)}">
+              <a class="nav-pills-campus__item" ng-click="setTab(3)">3 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).thirdCourse}}</a>
+          </li>
+          <li ng-class="{ 'nav-pills-campus_active': isSet(4)}">
+              <a class="nav-pills-campus__item" ng-click="setTab(4)">4 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).fourthCourse}}</a>
+          </li>
+          <li ng-class="{ 'nav-pills-campus_active': isSet(5)}" ng-hide="info.okr != 'Магістр'">
+              <a class="nav-pills-campus__item" ng-click="setTab(5)">5 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).fifthCourse}}</a>
+          </li>
+          <li ng-class="{ 'nav-pills-campus_active': isSet(6)}" ng-hide="info.okr != 'Магістр'">
+              <a class="nav-pills-campus__item" ng-click="setTab(6)">6 курс<br>{{getStudyCoursesWithYears(+ (info.yearIntake)).sixthCourse}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 selective-disciplines-info">
+        <div class="tab-content selective-disciplines-tabs" ng-hide="hideInfoDisc">
+          <div class="tab-pane course" ng-class="{ active: isSet(1)}">
+            <div ng-repeat="first in firstCourse">
+              <div class="row well well-md disciplines-info">
+                <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
+                  <div class="labels">Навчальний рік</div>
+                  <div class="labels">Семестр</div>
+                  <div class="labels">Статус</div>
+                </div>
+                <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
+                  <div class="studyYear">{{first.studyYear || "інформацію не вказано"}}</div>
+                  <div class="semester">{{first.semester || "інформацію не вказано"}}</div>
+                  <div class="status">Вибір не здійснювався</div>
+                </div>
                 </div>
               </div>
             </div>
