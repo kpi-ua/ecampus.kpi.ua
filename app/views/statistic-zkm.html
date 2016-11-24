@@ -16,17 +16,16 @@
       </div>
       <section class="container radioMenu ">
 
-        <div class="dropDownWrapper">
-          <form>
-            <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;"
-                    tabindex="2" ng-model="chosenSubdivisionId" ng-change="chosenSelectChange()">
-              <option value=""></option>
-              <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}"
-                      value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}
-              </option>
-            </select>
-          </form>
-        </div>
+        <form>
+          <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;"
+                  tabindex="2" ng-model="chosenSubdivisionId" ng-change="chosenSelectChange()">
+            <option value=""></option>
+            <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}"
+                    value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}
+            </option>
+          </select>
+        </form>
+
         <div class="radioBtnWrapper">
           <label class="topLabel">Оберіть кафедру</label>
           <ng-repeat ng-repeat="cathedra in cathedras">

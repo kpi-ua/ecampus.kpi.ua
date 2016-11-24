@@ -14,6 +14,7 @@ angular.module('ecampusApp')
     $scope.errorLabelText = "";
     $scope.tabIdForShow = -1;
     $scope.npps = [];
+    $scope.chosenSubdivision = null;
 
     reload();
 
@@ -99,6 +100,7 @@ angular.module('ecampusApp')
           var pathFaculty = "Subdivision";
           Api.execute("GET", pathFaculty).then(function (response) {
             response.forEach(function (itemForEach, i, arr) {
+
               if (itemForEach.typeId == 26 || itemForEach.typeId == 77) {
                 var subdivisionName = itemForEach.name;
                 var subdivisionId = itemForEach.subdivisionId;
@@ -141,11 +143,15 @@ angular.module('ecampusApp')
     }
 
 
-    $scope.chosenSelectChange = function () {
+    function loadCathedras() {
 
       $scope.npps = [];
 
-      var parentId = $scope.chosenSubdivisionId;
+      if (!$scope.chosenSubdivision) {
+        return;
+      }
+
+      var parentId = $scope.chosenSubdivision.subdivisionId;
       var subdivisionPath = "Subdivision/" + parentId + "/children";
 
       Api.execute("GET", subdivisionPath).then(function (response) {
@@ -162,7 +168,7 @@ angular.module('ecampusApp')
         });
 
       })
-    };
+    }
 
     //  For section npp
     $scope.checkNpp = function (chosenСathedraId) {
@@ -205,7 +211,7 @@ angular.module('ecampusApp')
                 lastIndexOfSubject = currentEmployee.subjects.length - 1;
                 currentSubject = currentEmployee.subjects[lastIndexOfSubject];
 
-                currentSubject = !currentSubject? {} : currentSubject;
+                currentSubject = !currentSubject ? {} : currentSubject;
                 currentSubject.groups = !currentSubject.groups ? [] : currentSubject.groups;
 
                 currentSubject.groups.push(studStudyGroupName);
@@ -215,7 +221,7 @@ angular.module('ecampusApp')
                 lastIndexOfSubject = npp[studSemesterYear[0] - 1].employees[lastIndexOfEmployee].subjects.length - 1;
                 currentSubject = currentEmployee.subjects[lastIndexOfSubject];
 
-                currentSubject = !currentSubject? {} : currentSubject;
+                currentSubject = !currentSubject ? {} : currentSubject;
                 currentSubject.groups = !currentSubject.groups ? [] : currentSubject.groups;
 
                 currentSubject.groups.push(studStudyGroupName);
@@ -242,5 +248,10 @@ angular.module('ecampusApp')
       } else {
         $scope.tabIdForShow = -1;
       }
-    }
+    };
+
+    $scope.$watch('chosenSubdivision', function () {
+      loadCathedras();
+    });
+
   });

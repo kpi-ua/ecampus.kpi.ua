@@ -286,18 +286,6 @@ footer .contactInfo a {
     color: black;
 }
 
-.dropDownWrapper {
-    margin-top: 20px;
-}
-
-.dropDownWrapper .chosen-container {
-    font-size: 16px;
-}
-
-.dropDownWrapper .chosen-container .chosen-single {
-    color: black;
-}
-
 body {
     font-family: Raleway, sans-serif;
     background-size: cover;
