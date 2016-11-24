@@ -18,10 +18,10 @@ angular.module('ecampusApp')
     function reload() {
 
       if (!!Api.getToken()) {
-        $scope.preloader = true;
+
         setFacultyAndInstitute();
         setSubdivisionDetails();
-        $scope.preloader = false;
+
       }
 //!!!!
       $('#zkmWrapper').on('click', '.panel-heading', function () {
@@ -153,7 +153,6 @@ angular.module('ecampusApp')
     };
 
     $scope.checkZkm = function (id, name) {
-      $scope.preloader = true;
       $scope.statusLine = "";
       $scope.zkm = null;
       $scope.errorLabelText = "";
@@ -256,19 +255,19 @@ angular.module('ecampusApp')
                   //console.log(responseArray);
                   $("#zkm11").append('<div class="zkmContent">' +
                     '<div class="tabbable row">' +
-                    '<ul class="nav nav-tabs myNavTabs textCentre">' +
-                    '<li class="tabLiStyle "><a href="#14" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray[0] + '</span></a></li>' +
-                    '<li class="tabLiStyle"><a href="#15" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray[2].length + '</span></a></li>' +
-                    '<li class="tabLiStyle "><a href="#16" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray[3].length + '</span></a></li>' +
-                    '<li class="tabLiStyle"><a href="#17" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray[4].length + '</span></a></li>' +
+                    '<ul class="nav nav-tabs ">' +
+                    '<li><a href="#14" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray[0] + '</span></a></li>' +
+                    '<li><a href="#15" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray[2].length + '</span></a></li>' +
+                    '<li><a href="#16" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray[3].length + '</span></a></li>' +
+                    '<li><a href="#17" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray[4].length + '</span></a></li>' +
                     '</ul>' +
                     '<div class="tab-content">' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="14"></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="15">' +
+                    '<div class="tab-pane" id="14"></div>' +
+                    '<div class="tab-pane" id="15">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="16">' +
+                    '<div class="tab-pane" id="16">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="17">' +
+                    '<div class="tab-pane" id="17">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
                     '</div></div></div>'
                   );
@@ -370,11 +369,6 @@ angular.module('ecampusApp')
                     //--
                     isFinish[0] = true;
                     $(".statusLine").append('<p>Розділ 1 - завантажено.</p>');
-                    if (isFinish[0] && isFinish[1] && isFinish[2]) {
-                      $(".loader_inner").fadeOut();
-                      $(".loaderQuery").delay(400).fadeOut("slow");
-                    }
-
                   });
                 });
               });
@@ -454,19 +448,19 @@ angular.module('ecampusApp')
                   //console.log(responseArray2);
                   $("#zkm21").append('<div class="zkmContent">' +
                     '<div class="tabbable row">' +
-                    '<ul class="nav nav-tabs myNavTabs textCentre">' +
-                    '<li class="tabLiStyle "><a href="#24" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray2[0] + '</span></a></li>' +
-                    '<li class="tabLiStyle"><a href="#25" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray2[2].length + '</span></a></li>' +
-                    '<li class="tabLiStyle "><a href="#26" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray2[3].length + '</span></a></li>' +
-                    '<li class="tabLiStyle"><a href="#27" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray2[4].length + '</span></a></li>' +
+                    '<ul class="nav nav-tabs ">' +
+                    '<li><a href="#24" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray2[0] + '</span></a></li>' +
+                    '<li><a href="#25" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray2[2].length + '</span></a></li>' +
+                    '<li><a href="#26" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray2[3].length + '</span></a></li>' +
+                    '<li><a href="#27" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray2[4].length + '</span></a></li>' +
                     '</ul>' +
                     '<div class="tab-content">' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="24"></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="25">' +
+                    '<div class="tab-pane" id="24"></div>' +
+                    '<div class="tab-pane" id="25">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="26">' +
+                    '<div class="tab-pane" id="26">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="27">' +
+                    '<div class="tab-pane" id="27">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
                     '</div></div></div>'
                   );
@@ -600,10 +594,6 @@ angular.module('ecampusApp')
                     //console.log(response);
                     isFinish[1] = true;
                     $(".statusLine").append('<p>Розділ 2 - завантажено.</p>');
-                    if (isFinish[0] && isFinish[1] && isFinish[2]) {
-                      $(".loader_inner").fadeOut();
-                      $(".loaderQuery").delay(400).fadeOut("slow");
-                    }
                   });
                 });
               });
@@ -639,7 +629,7 @@ angular.module('ecampusApp')
         var baseSubCounter = -1;
         var responseArray3 = [];
 
-        //console.log(response);
+
         $("#zkm3").append(
           '<div class="row">' +
           '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
@@ -649,12 +639,12 @@ angular.module('ecampusApp')
           '</div></div></div></div>');
         //for download
         $("#section3").append('<tr><th colspan="2">Кількість КМ, що читає ' + cathedraName + ' для інших кафедр - ' + response + '</th></tr>');
-        //--
+
         Api.execute("GET", path3[1]).then(function (response) {
-          //console.log(response);
+
           responseArray3[0] = response;
           Api.execute("GET", path3[5]).then(function (response) {
-            //console.log(response);
+
             response.sort(
               function (a, b) {
                 if (a.subdivisionName > b.subdivisionName) {
@@ -671,32 +661,33 @@ angular.module('ecampusApp')
                 }
                 return 0;
               });
+
             responseArray3[1] = response;
             Api.execute("GET", path3[6]).then(function (response) {
-              //console.log(response);
+
               responseArray3[2] = response;
               Api.execute("GET", path3[7]).then(function (response) {
-                //console.log(response);
+
                 responseArray3[3] = response;
                 Api.execute("GET", path3[8]).then(function (response) {
-                  //console.log(response);
+
                   responseArray3[4] = response;
-                  //console.log(responseArray3);
+
                   $("#zkm31").append('<div class="zkmContent">' +
                     '<div class="tabbable row">' +
-                    '<ul class="nav nav-tabs myNavTabs textCentre">' +
-                    '<li class="tabLiStyle "><a href="#34" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray3[0] + '</span></a></li>' +
-                    '<li class="tabLiStyle"><a href="#35" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray3[2].length + '</span></a></li>' +
-                    '<li class="tabLiStyle "><a href="#36" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray3[3].length + '</span></a></li>' +
-                    '<li class="tabLiStyle"><a href="#37" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray3[4].length + '</span></a></li>' +
+                    '<ul class="nav nav-tabs ">' +
+                    '<li><a href="#34" data-toggle="tab">Завантажено МЗ - <span class="badge myBadge" >' + responseArray3[0] + '</span></a></li>' +
+                    '<li><a href="#35" data-toggle="tab">Відсутнє МЗ - <span class="badge myBadge" >' + responseArray3[2].length + '</span></a></li>' +
+                    '<li><a href="#36" data-toggle="tab">Частково забезпечені МЗ - <span class="badge myBadge" >' + responseArray3[3].length + '</span></a></li>' +
+                    '<li><a href="#37" data-toggle="tab">Відсутні файли або посилання на МЗ - <span class="badge myBadge" >' + responseArray3[4].length + '</span></a></li>' +
                     '</ul>' +
                     '<div class="tab-content">' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="34"></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="35">' +
+                    '<div class="tab-pane" id="34"></div>' +
+                    '<div class="tab-pane" id="35">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="36">' +
+                    '<div class="tab-pane" id="36">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
-                    '<div class="col-md-12 tab-pane  myTabPane" id="37">' +
+                    '<div class="tab-pane" id="37">' +
                     '<table class="table table-bordered "><tbody></tbody></table></div>' +
                     '</div></div></div>'
                   );
@@ -827,14 +818,9 @@ angular.module('ecampusApp')
                     //for download
                     $("#section3 #sec32 th").append('Кількість завантажених ЕІР, що читає ' + cathedraName + ' - ' + resultCounter);
                     //--
-                    //console.log(response);
+
                     isFinish[2] = true;
                     $(".statusLine").append('<p>Розділ 3 - завантажено.</p>');
-                    if (isFinish[0] && isFinish[1] && isFinish[2]) {
-                      $(".loader_inner").fadeOut();
-                      $(".loaderQuery").delay(400).fadeOut("slow");
-                    }
-
                   });
 
                 });

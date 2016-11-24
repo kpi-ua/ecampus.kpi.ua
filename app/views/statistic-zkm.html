@@ -1,5 +1,6 @@
 <breadcrumbs>
-  <!--<span>Модулі</span> >--> <span>Адміністрування</span> > <span>Статистика</span> > <b>Забезпечення кредитного модуля</b>
+  <!--<span>Модулі</span> >--> <span>Адміністрування</span> > <span>Статистика</span> > <b>Забезпечення кредитного
+  модуля</b>
 </breadcrumbs>
 
 <div class="container-fluid content">
@@ -34,7 +35,7 @@
                    ng-model="chosenId" ng-click="checkZkm(cathedra.cathedraId,cathedra.cathedraName)">
             <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
           </ng-repeat>
-          <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
+          <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
         </div>
       </section>
 
@@ -43,7 +44,7 @@
           <a download="Забеспечення кредитного модуля.xls" href="#"
              onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
             <div
-              class="col-md-6 col-md-offset-3 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+              class="col-md-6 col-md-offset-3 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 menuButtons">
               <i class="fa fa-file-excel-o "></i> Завантажини звіт (Всі розділи)
             </div>
           </a>
@@ -53,7 +54,7 @@
             <a download="Забеспечення кредитного модуля РОЗДІЛ 1.xls" href="#"
                onclick="return ExcellentExport.excel(this, 'section1', 'NPP');">
               <div
-                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons">
                 <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 1)
               </div>
             </a>
@@ -62,7 +63,7 @@
             <a download="Забеспечення кредитного модуля РОЗДІЛ 2.xls" href="#"
                onclick="return ExcellentExport.excel(this, 'section2', 'NPP');">
               <div
-                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons">
                 <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 2)
               </div>
             </a>
@@ -71,12 +72,11 @@
             <a download="Забеспечення кредитного модуля РОЗДІЛ 3.xls" href="#"
                onclick="return ExcellentExport.excel(this, 'section3', 'NPP');">
               <div
-                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons textCentre">
+                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons">
                 <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 3)
               </div>
             </a>
           </div>
-
 
         </div>
       </section>

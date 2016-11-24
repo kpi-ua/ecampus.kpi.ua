@@ -33,10 +33,6 @@ body textarea:required:valid {
     align-items: center;
 }
 
-.textCentre {
-    text-align: center;
-}
-
 .mainColor {
     color: #208944;
 }
@@ -237,9 +233,6 @@ footer .contactInfo a {
     color: #208944;
 }
 
-.nav .tabLiStyle {
-    width: 50%;
-}
 
 .nav .active a {
     color: black;
@@ -253,41 +246,6 @@ footer .contactInfo a {
     color: white;
 }
 
-.tabbable {
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-.tabbable .myNavTabs {
-    border-color: #208944;
-    font-size: 18px;
-}
-
-.tabbable .myNavTabs li a {
-    color: black;
-}
-
-.tabbable .myNavTabs .active a {
-    border-color: #208944;
-}
-
-.myTabPane {
-    padding-top: 20px;
-    background-color: white;
-    padding-bottom: 1px;
-    font-size: 16px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    margin-bottom: 20px;
-}
-
-.errorLabel {
-    text-align: center;
-    color: black;
-    font-size: 14px;
-    width: 100%;
-    border: 1px solid red;
-}
 
 .topMenu .topMenu--control-btn,
 .download .topMenu--control-btn {
@@ -319,9 +277,6 @@ footer .contactInfo a {
     border: 1px solid #208944;
 }
 
-#zkmWrapper .tabLiStyle a {
-    color: #333333;
-}
 
 #zkmWrapper .panel-default {
     margin-top: 20px;
@@ -539,10 +494,6 @@ footer .contactInfo a {
 .flex-items-center {
     display: flex;
     align-items: center;
-}
-
-.textCentre {
-    text-align: center;
 }
 
 .mainColor {
