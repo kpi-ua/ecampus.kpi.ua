@@ -11,7 +11,8 @@ angular.module('ecampusApp')
   .controller('AttestationCtrl', ['$scope', 'Api', function ($scope, Api) {
     $scope.errorMessageYears = '';
     $scope.errorMessageAttests = '';
-    $scope.attestNumTyped = '';
+    $scope.errorMessageGroups = '';
+    $scope.attestPeriodId = '';
 
     function LoadYears() {
       var url = 'Attestation/studyYear';
@@ -37,10 +38,36 @@ angular.module('ecampusApp')
           });
     }
 
-    // ng-keyup="getTypedValue($select.search)"
-    // $scope.getTypedValue = function (search) {
-    //   $scope.attestNumTyped = search;
-    // };
+    $scope.getAttestationPeriodId = function (dcStudingYearId, semesterYear, dcLoadId) {
+      var url = 'Attestation/period?dcStudingYearId=' + dcStudingYearId + '&semesterYear=' + semesterYear +'&dcLoadId=' + dcLoadId;
+      console.log(url);
+      Api.execute("GET", url)
+        .then(function (response) {
+            $scope.attestationPeriodId = response;
+          },
+          function () {
+            $scope.Attests = null;
+          });
+    };
+    
+    $scope.LoadGroups = function (namePattern) {
+      if (namePattern.length > 1) {
+        var url = 'Attestation/group/find/' + namePattern;
+        // url + namePattern (2 first symbol of group)
+        Api.execute("GET", url)
+          .then(function (response) {
+              $scope.errorMessageGroups = "";
+              $scope.Groups = response;
+            },
+            function () {
+              $scope.errorMessageGroups = "Не вдалося завантажити список груп";
+              $scope.Groups = null;
+            });
+      }
+      else {
+        $scope.errorMessageGroups = "Введіть більше 2-х символів для пошуку групи";
+      }
+    };
 
     $scope.Semesters = [
       {id: 1, name: 'Перший семестр'},
@@ -49,4 +76,5 @@ angular.module('ecampusApp')
 
     LoadYears();
     LoadAttests();
+
   }]);
