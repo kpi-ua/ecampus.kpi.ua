@@ -20,9 +20,6 @@ var app = angular.module('ecampusApp', [
   'ui.select'
 ]);
 
-// app.run(function (editableOptions) {
-//   editableOptions.theme = 'bs3';
-// });
 
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider

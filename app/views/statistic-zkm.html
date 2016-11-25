@@ -6,97 +6,68 @@
 <div class="container-fluid content">
   <div class="row">
     <div class="col-md-12">
+      <h1>Забезпечення кредитного модуля</h1>
+    </div>
+  </div>
 
-      <h2>Забезпечення кредитного модуля</h2>
+  <div class="row">
+    <div class="col-md-6">
+      <ui-select ng-model="$parent.chosenSubdivision" append-to-body="true">
+        <ui-select-match placeholder="Оберіть факультет або інститут...">
+          <span ng-bind="$select.selected.subdivisionName"></span>
+        </ui-select-match>
+        <ui-select-choices
+          repeat="subdivision in (subdivisions | filter: $select.search) track by subdivision.subdivisionId">
+          <span ng-bind="subdivision.subdivisionName"></span>
+        </ui-select-choices>
+      </ui-select>
 
-      <a href="#top" class="scroll-to-top-Btn" onclick="event.preventDefault()"><i class="fa fa-chevron-up"></i></a>
-      <div class="loader" ng-show="preloader">
-        <div class="loader_inner" ng-show="preloader"></div>
-        <div class="statusLine" ng-bind="statusLine"></div>
-      </div>
-      <section class="container radioMenu ">
-
-        <form>
-          <select data-placeholder="Оберіть факультет або інститут..." class="chosen-select" style="width:350px;"
-                  tabindex="2" ng-model="chosenSubdivisionId" ng-change="chosenSelectChange()">
-            <option value=""></option>
-            <option ng-repeat="subdivision in subdivisions" id="{{subdivision.subdivisionId}}"
-                    value="{{subdivision.subdivisionId}}">{{subdivision.subdivisionName}}
-            </option>
-          </select>
-        </form>
-
-        <div class="radioBtnWrapper">
-          <label class="topLabel">Оберіть кафедру</label>
-          <ng-repeat ng-repeat="cathedra in cathedras">
-            <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio"
-                   value='{{cathedra.cathedraId}}'
-                   ng-model="chosenId" ng-click="checkZkm(cathedra.cathedraId,cathedra.cathedraName)">
-            <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
-          </ng-repeat>
-          <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
-        </div>
-      </section>
-
-      <section class="container download nPPBody">
-        <div class="row">
-          <a download="Забеспечення кредитного модуля.xls" href="#"
-             onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
-            <div
-              class="col-md-6 col-md-offset-3 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1 menuButtons">
-              <i class="fa fa-file-excel-o "></i> Завантажини звіт (Всі розділи)
-            </div>
-          </a>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-12 col-xs-12">
-            <a download="Забеспечення кредитного модуля РОЗДІЛ 1.xls" href="#"
-               onclick="return ExcellentExport.excel(this, 'section1', 'NPP');">
-              <div
-                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons">
-                <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 1)
-              </div>
-            </a>
-          </div>
-          <div class="col-md-4 col-sm-12 col-xs-12">
-            <a download="Забеспечення кредитного модуля РОЗДІЛ 2.xls" href="#"
-               onclick="return ExcellentExport.excel(this, 'section2', 'NPP');">
-              <div
-                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons">
-                <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 2)
-              </div>
-            </a>
-          </div>
-          <div class="col-md-4 col-sm-12 col-xs-12">
-            <a download="Забеспечення кредитного модуля РОЗДІЛ 3.xls" href="#"
-               onclick="return ExcellentExport.excel(this, 'section3', 'NPP');">
-              <div
-                class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1 menuButtons">
-                <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 3)
-              </div>
-            </a>
-          </div>
-
-        </div>
-      </section>
-
-      <div class="nPPBody">
-
-        <div class="row">
-          <div class="col-md-12 ">
-
-            <div id="zkmWrapper">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hidden">
-        <table id="table-for-download">
-
-        </table>
+      <div ng-show="!!chosenSubdivision">
+        <label class="topLabel">Оберіть кафедру</label>
+        <ng-repeat ng-repeat="cathedra in cathedras">
+          <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio"
+                 value='{{cathedra.cathedraId}}'
+                 ng-model="chosenId" ng-click="checkZkm(cathedra.cathedraId,cathedra.cathedraName)">
+          <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
+        </ng-repeat>
+        <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
       </div>
 
     </div>
+    <div class="col-md-6">
+        <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId" download="Забеспечення кредитного модуля.xls" href="#"
+           onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
+          <i class="fa fa-file-excel-o "></i> Завантажини звіт (Всі розділи)
+        </a>
+
+        <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId" download="Забеспечення кредитного модуля РОЗДІЛ 1.xls" href="#"
+           onclick="return ExcellentExport.excel(this, 'section1', 'NPP');">
+          <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 1)
+        </a>
+
+        <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId" download="Забеспечення кредитного модуля РОЗДІЛ 2.xls" href="#"
+           onclick="return ExcellentExport.excel(this, 'section2', 'NPP');">
+          <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 2)
+        </a>
+
+        <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId" download="Забеспечення кредитного модуля РОЗДІЛ 3.xls" href="#"
+           onclick="return ExcellentExport.excel(this, 'section3', 'NPP');">
+          <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 3)
+        </a>
+    </div>
+
   </div>
+
+  <div class="row">
+    <div class="col-md-12 ">
+      <div id="zkmWrapper">
+      </div>
+    </div>
+  </div>
+
+  <div class="hidden">
+    <table class="table" id="table-for-download">
+    </table>
+  </div>
+
 </div>

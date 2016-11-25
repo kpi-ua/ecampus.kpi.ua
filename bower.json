@@ -17,7 +17,6 @@
     "kjur-jsrsasign": "jsrsasign#^6.1.4",
     "jwt-decode": "^2.1.0",
     "page-scroll-to-id": "^1.5.5",
-    "angular-xeditable": "^0.5.0",
     "chosen": "^1.6.2",
     "angular-ui-tree": "^2.22.1",
     "angular-ui-select": "^0.19.6"
