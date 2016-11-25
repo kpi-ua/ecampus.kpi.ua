@@ -16,14 +16,13 @@ var app = angular.module('ecampusApp', [
   'ngSanitize',
   'ngTouch',
   'angular-input-stars',
-  "xeditable",
   'ui.tree',
   'ui.select'
 ]);
 
-app.run(function (editableOptions) {
-  editableOptions.theme = 'bs3';
-});
+// app.run(function (editableOptions) {
+//   editableOptions.theme = 'bs3';
+// });
 
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider

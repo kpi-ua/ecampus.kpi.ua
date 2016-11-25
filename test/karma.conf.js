@@ -32,7 +32,6 @@ module.exports = function(config) {
       'bower_components/angular-input-stars-directive/angular-input-stars.js',
       'bower_components/kjur-jsrsasign/jsrsasign-latest-all-min.js',
       'bower_components/jwt-decode/build/jwt-decode.js',
-      'bower_components/excellentexport/excellentexport.js',
       'bower_components/page-scroll-to-id/jquery.malihu.PageScroll2id.js',
       'bower_components/angular-xeditable/dist/js/xeditable.js',
       'bower_components/chosen/chosen.jquery.js',
