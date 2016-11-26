@@ -13,7 +13,11 @@ angular.module('ecampusApp')
     $scope.errorMessageAttests = '';
     $scope.errorMessageGroups = '';
     $scope.attestPeriodId = '';
-
+    $scope.Semesters = [
+      {id: 1, name: 'Перший семестр'},
+      {id: 2, name: 'Другий семестр'}
+    ];
+    
     function LoadYears() {
       var url = 'Attestation/studyYear';
       Api.execute("GET", url)
@@ -24,6 +28,10 @@ angular.module('ecampusApp')
             $scope.errorMessageYears = "Не вдалося завантажити список навчальних років";
             $scope.Years = null;
           });
+    }
+
+    function generateUrlForAttestPeriod(year, semester, attestNum) {
+      return 'Attestation/period?dcStudingYearId=' + year + '&semesterYear=' + semester +'&dcLoadId=' + attestNum;
     }
 
     function LoadAttests() {
@@ -39,7 +47,7 @@ angular.module('ecampusApp')
     }
 
     $scope.getAttestationPeriodId = function (dcStudingYearId, semesterYear, dcLoadId) {
-      var url = 'Attestation/period?dcStudingYearId=' + dcStudingYearId + '&semesterYear=' + semesterYear +'&dcLoadId=' + dcLoadId;
+      var url = generateUrlForAttestPeriod(dcStudingYearId, semesterYear, dcLoadId);
       console.log(url);
       Api.execute("GET", url)
         .then(function (response) {
@@ -49,7 +57,7 @@ angular.module('ecampusApp')
             $scope.Attests = null;
           });
     };
-    
+
     $scope.LoadGroups = function (namePattern) {
       if (namePattern.length > 1) {
         var url = 'Attestation/group/find/' + namePattern;
@@ -68,11 +76,6 @@ angular.module('ecampusApp')
         $scope.errorMessageGroups = "Введіть більше 2-х символів для пошуку групи";
       }
     };
-
-    $scope.Semesters = [
-      {id: 1, name: 'Перший семестр'},
-      {id: 2, name: 'Другий семестр'}
-    ];
 
     LoadYears();
     LoadAttests();

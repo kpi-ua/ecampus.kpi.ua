@@ -6,15 +6,16 @@
   <div class="content">
     <h3>Результати атестації</h3>
     <div class="year-select">
-    <label for="year" class="select-form__label">Навчальний рік</label>
-    <ui-select id="year" class="select-form__select" ng-model="$parent.itemYear" append-to-body="true">
-      <ui-select-match placeholder="Оберіть навчальний рік">
-        <span ng-bind="$select.selected.studyingYearName"></span>
-      </ui-select-match>
-      <ui-select-choices repeat="itemYears in (Years | filter: $select.search) track by itemYears.studyingYearId" position="down">
-        <span ng-bind="itemYears.studyingYearName"></span>
-      </ui-select-choices>
-    </ui-select>
+      <label for="year" class="select-form__label">Навчальний рік</label>
+      <ui-select id="year" class="select-form__select" ng-model="$parent.itemYear" append-to-body="true">
+        <ui-select-match placeholder="Оберіть навчальний рік">
+          <span ng-bind="$select.selected.studyingYearName"></span>
+        </ui-select-match>
+        <ui-select-choices repeat="itemYears in (Years | filter: $select.search) track by itemYears.studyingYearId"
+                           position="down">
+          <span ng-bind="itemYears.studyingYearName"></span>
+        </ui-select-choices>
+      </ui-select>
       <div class="error-load-attest" ng-show="errorMessageYears">{{errorMessageYears}}</div>
     </div>
     <div class="semester-select">
@@ -23,7 +24,8 @@
         <ui-select-match placeholder="Оберіть семестр">
           <span ng-bind="$select.selected.name"></span>
         </ui-select-match>
-        <ui-select-choices repeat="semesters in (Semesters | filter: $select.search) track by semesters.id" position="down">
+        <ui-select-choices repeat="semesters in (Semesters | filter: $select.search) track by semesters.id"
+                           position="down">
           <span ng-bind="semesters.name"></span>
         </ui-select-choices>
       </ui-select>
@@ -35,7 +37,8 @@
         <ui-select-match placeholder="Оберіть номер атестації">
           <span ng-bind="$select.selected.name"></span>
         </ui-select-match>
-        <ui-select-choices repeat="attests in (Attests | filter: $select.search) track by attests.id" position="down">
+        <ui-select-choices repeat="attests in (Attests | filter: $select.search) track by attests.id"
+                           position="down">
           <span ng-bind="attests.name"></span>
         </ui-select-choices>
       </ui-select>
@@ -43,12 +46,13 @@
     </div>
     <div class="group-select">
       <label for="group-select" class="select-form__label">Навчальна група</label>
-      <ui-select id="group-select" ng-keyup="LoadGroups($select.search);"  class="select-form__select"
+      <ui-select id="group-select" ng-keyup="LoadGroups($select.search);" class="select-form__select"
                  ng-model="$parent.itemGroup" append-to-body="true">
         <ui-select-match placeholder="Оберіть навчальну групу">
           <span ng-bind="$select.selected.name"></span>
         </ui-select-match>
-        <ui-select-choices repeat="groups in (Groups | filter: $select.search) track by groups.id" position="down">
+        <ui-select-choices repeat="groups in (Groups | filter: $select.search) track by groups.id"
+                           position="down">
           <span ng-bind="groups.name"></span>
         </ui-select-choices>
       </ui-select>
