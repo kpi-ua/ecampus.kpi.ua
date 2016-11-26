@@ -17,6 +17,14 @@ angular.module('ecampusApp')
       {id: 1, name: 'Перший семестр'},
       {id: 2, name: 'Другий семестр'}
     ];
+
+    $scope.setPill = function (newPill) {
+      $scope.pill = newPill;
+    };
+
+    $scope.isSet = function (pillNum) {
+      return $scope.pill === pillNum;
+    };
     
     function LoadYears() {
       var url = 'Attestation/studyYear';

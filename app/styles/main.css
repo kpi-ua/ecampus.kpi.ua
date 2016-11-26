@@ -796,6 +796,27 @@ div.progress-student-count {
   max-height: 400px;
 }
 
+.attest-menu {
+  margin: 20px 0 20px 0;
+}
+
+.nav-pills-attest > li.active > a, .nav-pills-attest > li.active > a:hover, .nav-pills-attest > li.active > a:focus {
+  color: #fff;
+  background-color: #208944;
+}
+
+.attest-navigation > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  border: 1px solid #208944;
+  margin: 5px 5px 5px 5px;
+  min-width: 250px;
+}
+
+.nav-pills-attest > li + li {
+  margin-left: 0;
+}
 /* end attestation styles*/
 .study-profile,
 .item {
