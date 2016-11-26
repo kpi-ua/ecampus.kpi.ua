@@ -755,6 +755,12 @@ label.label-disciplines-choice {
   color: #6e776e;
 }
 
+.discipline-general-count {
+  margin-bottom: 0;
+  background-color: #ffffff;
+  border: solid #208843 1px;
+}
+
 div.progress-student-count {
   color: white;
 }
