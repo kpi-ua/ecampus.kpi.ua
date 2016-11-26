@@ -402,7 +402,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
-            '.config',
+            '*.config',
             '*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
