@@ -68,9 +68,9 @@
         <div ng-switch-when="groups">
           <div class="group-select">
             <label for="group-select" class="select-form__label">Навчальна група</label>
-            <ui-select id="group-select" ng-keyup="LoadGroups($select.search);" class="select-form__select"
+            <ui-select id="group-select" ng-keyup="loadGroups($select.search);" class="select-form__select"
                        ng-model="$parent.itemGroup" append-to-body="true">
-              <ui-select-match placeholder="Оберіть навчальну групу">
+              <ui-select-match placeholder="Введіть ім'я групи">
                 <span ng-bind="$select.selected.name"></span>
               </ui-select-match>
               <ui-select-choices repeat="groups in (Groups | filter: $select.search) track by groups.id"
@@ -80,9 +80,8 @@
             </ui-select>
             <div class="error-load-attest" ng-show="errorMessageGroups">{{errorMessageGroups}}</div>
             <input type="submit" style="margin: 20px 0"
-                   ng-click="LoadGroupsResult(8511, attestationPeriodId);getGroupsResults = true;">
+                   ng-click="loadGroupsResult(8511, attestationPeriodId);getGroupsResults = true;">
           </div>
-
           <div ng-show="getGroupsResults" style="margin-bottom: 20px;">
             <div class="disc-select">
               <label for="disc" class="select-form__label">Дисципліна</label>
@@ -116,9 +115,36 @@
             </table>
           </div>
         </div>
-
         <div ng-switch-when="teachers">
-
+          <div class="lecturer-select">
+            <label for="lecturer" class="select-form__label">Викладач</label>
+            <ui-select id="lecturer" ng-keyup="loadLecturers($select.search);" class="select-form__select"
+                       ng-model="$parent.itemLecturer" append-to-body="true">
+              <ui-select-match placeholder="Введіть ім'я викладача">
+                <span ng-bind="$select.selected.fullName"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="lecturers in (Lecturers | filter: $select.search) track by lecturers.id"
+                                 position="down">
+                <span ng-bind="lecturers.fullName"></span>
+              </ui-select-choices>
+            </ui-select>
+            <div class="error-load-attest" ng-show="errorMessageLecturers">{{errorMessageLecturers}}</div>
+            <input type="submit" style="margin: 20px 0"
+                   ng-click="loadLecturersResult(itemLecturer.id, attestationPeriodId);getLecturersResults=true;">
+          </div>
+          <div class="teacher-groups-select" ng-show="getLecturersResults" style="margin: 20px 0">
+            <label for="teacher-groups" class="select-form__label">Навчальна група</label>
+            <ui-select id="teacher-groups" ng-keyup="loadGroups($select.search);" class="select-form__select"
+                       ng-model="$parent.itemTeacherGroups" append-to-body="true">
+              <ui-select-match placeholder="Введіть ім'я групи">
+                <span ng-bind="$select.selected.studyGroupName"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="teacherGroups in (LecturersResult | filter: $select.search)"
+                                 position="down">
+                <span ng-bind="teacherGroups.studyGroupName"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
         </div>
         <div ng-switch-default></div>
       </div>
