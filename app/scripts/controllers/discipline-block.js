@@ -12,12 +12,19 @@
  	$http.get("http://api-campus-kpi-ua.azurewebsites.net/SelectiveDiscipline/Blocksyear")
  	.then(function(response) {
  		$scope.alldata = response.data;
+ 		for (var i=0; i<$scope.alldata.length; i++) {
+ 			if ($scope.alldata[i].countLecture==null) {
+ 			$scope.alldata[i].countLecture="Не визначено";
+ 		}	
+ 		}
  		UniqueElemsInList.setData($scope.alldata);
  		$scope.allYears = UniqueElemsInList.getDataUnique('studyyear');	
  		$scope.allOkrs = UniqueElemsInList.getDataUnique('okr');	
  		
  	}, function(response) {
  		$scope.alldata = response.statusText;
+ 		
+ 		
  		
  		var msgError = document.createElement('p');
  		msgError.innerHTML = 'На жаль, під час завантаження даних сталася помилка. Спробуйте пізніше. Код: '+response.statusText;
@@ -38,4 +45,11 @@
  			}
  			
  		}
+
+ 	$scope.ifNull = function(inputData) {
+      if (inputData == null) {
+        inputData = "Не визначено";
+      }
+    }
+
  	});
