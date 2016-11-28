@@ -1,60 +1,69 @@
 <breadcrumbs>
-  <span>Модулі</span> > <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Блок дисциплін</b>
+  <!--<span>Модулі</span> >--> <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Блок дисциплін</b>
 </breadcrumbs>
 
-<!-- ng-controller="DisciplinesBlockCtrl" with this controller is invoked twice (from router+here) -->
-<div>
-    <div class="container-fluid" id="selectYearAndOkr"> 
-        <div class="row">
-        <section class="container-fluid discipline-specialization__navigation">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default discipline-specialization__navigation-button discipline-specialization__navigation-button_active text-align-left" value="specialization">
-                        Дисципліни вибору
-                    </button>
-                </div>
-                
-            </div>
-        </section>
+<div class="container-fluid content" id="selectYearAndOkr">
+  <div class="row">
+    <div class="col-md-12">
 
-        <section class="container-fluid discipline-specialization__select-form select-form">
-            <br>
-            <div class="row">
-                <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label" for="year">Навчальний рік:</label>
-            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-                <select data-placeholder="Enter study year" id="year" class="select-form__select" ng-model="selectedYear" ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
-                    <option></option> <!-- this option is necessary to provide correct index of data options -->
-                </select>
-            </div>
-            </div>
-            <div class="row">
-                <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label" for="okr">Освітній рівень:</label>
-            <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
-                <select data-placeholder="Enter okr" id="okr" class="select-form__select" ng-model="selectedOkr" ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
-                    <option></option><!-- this option is necessary to provide correct index of data options -->
-                </select>
+      <h1>Блок дисциплін</h1>
 
+      <section class="container-fluid discipline-specialization__navigation">
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="btn-group" role="group">
+            <button type="button"
+                    class="btn btn-default discipline-specialization__navigation-button discipline-specialization__navigation-button_active text-align-left"
+                    value="specialization">
+              Дисципліни вибору
+            </button>
+          </div>
 
-            </div>
-            </div>
-        </section>
         </div>
+      </section>
 
-        
-        <div ng-show="ifYearAndOkr0Chosen()">
-            <fieldset>
-                
-                
+      <section class="container-fluid discipline-specialization__select-form select-form">
+        <br>
+        <div class="row">
+          <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label"
+                 for="year">Навчальний рік:</label>
+          <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+            <select data-placeholder="Enter study year" id="year" class="select-form__select" ng-model="selectedYear"
+                    ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
+              <option></option> <!-- this option is necessary to provide correct index of data options -->
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label"
+                 for="okr">Освітній рівень:</label>
+          <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+            <select data-placeholder="Enter okr" id="okr" class="select-form__select" ng-model="selectedOkr"
+                    ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
+              <option></option><!-- this option is necessary to provide correct index of data options -->
+            </select>
 
 
-                <div ui-tree> 
-                    <ol ui-tree-nodes="" ng-model="dataInTree">
-                        <li ng-repeat="(block, disciplines) in dataInTree | groupBy: 'block'" ui-tree-node data-collapsed="true" data-expand-on-hover="true">
-                            <div ui-tree-handle data-nodrag class="node_block fontNormal">
-                                <a class="btn btn-default btn-xs" ng-if="block && block.length>0" ng-click="toggle()">
-                                    <span class="glyphicon glyphicon-plus" ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}">
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+    <div ng-show="ifYearAndOkr0Chosen()" class="marginLeftRight">
+      <fieldset>
+
+
+        <div ui-tree>
+          <ol ui-tree-nodes="" ng-model="dataInTree">
+            <li ng-repeat="(block, disciplines) in dataInTree | groupBy: 'block'" ui-tree-node data-collapsed="true"
+                data-expand-on-hover="true">
+              <div ui-tree-handle data-nodrag class="node_block fontNormal">
+                <a class="btn btn-default btn-xs" ng-if="block && block.length>0" ng-click="toggle()">
+                                    <span class="glyphicon glyphicon-plus"
+                                          ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}">
 
                                     </span>
+
                                 </a>
                                 {{block}}
                             </div>
@@ -123,9 +132,10 @@
                          </ol>
                      </li>
 
-                 </ol>
-             </div>
-         </fieldset>
-     </div>
-</div>
+
+          </ol>
+        </div>
+      </fieldset>
+    </div>
+  </div>
 </div>

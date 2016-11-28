@@ -18,6 +18,7 @@ angular.module('ecampusApp')
 
     	Api.execute("GET", "SelectiveDiscipline/ActualCafedra/")
         .then(function (response) {
+
         	$scope.allSubdivisions = [];
         	$scope.alldisciplines = []; //change it to allDisciplines soon!!
         	response.forEach(function(item, i, arr){ //you are not using "i" and "arr" so maybe delete it
@@ -28,6 +29,7 @@ angular.module('ecampusApp')
 
         		//}
         	});
+
 
           //$scope.allDataFromApi = response.data;
           //alert(response.data);
@@ -42,19 +44,24 @@ angular.module('ecampusApp')
            Кафедра інформаційного права та права інтелектуальної власності ФСП
            */
 
-          /*for (var i = 0; i < $scope.allDataFromApi.length; i++) {
-            if ($scope.allDataFromApi[i].typeId == 30) {
-              $scope.allSubdivisions.push({
-                name: $scope.allDataFromApi[i].name,
-                id: $scope.allDataFromApi[i].subdivisionId
-              });
+
+          /*
+          if (!!$scope.allDataFromApi) {
+            for (var i = 0; i < $scope.allDataFromApi.length; i++) {
+              if ($scope.allDataFromApi[i].typeId == 30) {
+                $scope.allSubdivisions.push({
+                  name: $scope.allDataFromApi[i].name,
+                  id: $scope.allDataFromApi[i].subdivisionId
+                });
+              }
+
             }
           }*/
           $scope.loader = false;
           
         }, function (response) {
 
-          $scope.allSubdivisions = null;
+          $scope.allSubdivisions = [];
 
 
         });
@@ -81,9 +88,10 @@ angular.module('ecampusApp')
 
       //temp solution
       var url = "cDisciplineBlock.json";
-      
-      //var url = "http://api-campus-kpi-ua.azurewebsites.net/selectivediscipline/BlocksDispline/"+data;
       $http.get(url)
+
+      //var url = "http://api-campus-kpi-ua.azurewebsites.net/selectivediscipline/BlocksDispline/"+data;
+      
       
       //worked before but now again something wrong with API
       //var url = "SelectiveDiscipline/BlocksDispline/"+data+"";
@@ -116,7 +124,7 @@ angular.module('ecampusApp')
         			var studyYear = item.cdisciplineblockyear8.studyYear;
         			var maxCountStudent = item.cdisciplineblockyear8.maxCountStudent;
         			var isApproved = item.cdisciplineblockyear8.isApproved;
-							var yearData = YearDataModel(studyYear, maxCountStudent, isApproved);
+							var yearData = YearDataModel(studyYear, maxCountStudent, isApproved); //new add
 
         			$scope.alldisciplines.push(new DisciplinesModel(okr, blockName, nameUkr, countCredit, annotation, competence, knowledge, skill, pictures, yearData, cDisciplineBlock8Id));
         			console.log($scope.alldisciplines.pictures);
@@ -144,32 +152,6 @@ angular.module('ecampusApp')
 
             $scope.getCurrentYearData = function (currentData) {
               $scope.CurrentYearData = currentData;
-            };
-
-            /* temp data before api will be implemented*/
-            $scope.tempListData = {
-              allOkr: [
-                {
-                  currentOkr: "Бакалавр",
-                  currentOkrId: 1
-                },
-                {
-                  currentOkr: "Магістр",
-                  currentOkrId: 2
-                }
-              ],
-              allBlocks: [
-                {currentBlock: "блок1", currentBlockId: 1},
-                {currentBlock: "блок2", currentBlockId: 2},
-                {currentBlock: "блок3", currentBlockId: 3},
-                {currentBlock: "блок4", currentBlockId: 4}
-              ],
-              allDisciplines: [
-                {currentDiscipline: "дисципліна1", currentDisciplineId: 1},
-                {currentDiscipline: "дисципліна2", currentDisciplineId: 2},
-                {currentDiscipline: "дисципліна3", currentDisciplineId: 3},
-                {currentDiscipline: "дисципліна4", currentDisciplineId: 4}
-              ]
             };
 
             $scope.tempListDataMax = {
@@ -207,6 +189,55 @@ angular.module('ecampusApp')
               Images: ""
             };
 
+            var url = "SelectiveDiscipline/ForDisciplineOffer";
+      			Api.execute("GET", url)
+        			.then(function (response) {
+        				$scope.tempListData = [];
+        				$scope.tempListData.allOkr = [];
+        				$scope.tempListData.allBlocks = [];
+        				$scope.tempListData.allDisciplines = [];
+        				$scope.tempListData.allYears = [];
+								
+        				response.forEach(function(item, i, arr){
+        					item.forEach(function(item2, i, arr){
+        						if (item2.okr) {
+        							var currentOkr = item2.okr;
+        							var currentOkrId = item2.dcOKRId;
+        							$scope.tempListData.allOkr.push(new AllOkrModel(currentOkr, currentOkrId));
+        						} 
+        						else {
+        							if (item2.blockName) {
+        								var currentBlock = item2.blockName;
+        								var currentBlockId = item2.dcBlock8Id;
+        								$scope.tempListData.allBlocks.push(new AllBlocksModel(currentBlock, currentBlockId));
+        							}
+        							else {
+        								if (item2.disciplineName) {
+        									var currentDiscipline = item2.disciplineName;
+        									var currentDisciplineId = item2.dcDiscipline8Id;
+        									$scope.tempListData.allDisciplines.push(new AllDisciplinesModel(currentDiscipline, currentDisciplineId));
+        								}
+        								else {
+        									var currentYear = item2.studyYear;
+        									$scope.tempListData.allYears.push(currentYear);
+        								}
+        							}
+        						}
+
+        						
+        					});
+
+        				//var allOkr = item.okr;
+        				//var id = item.cafedraId;
+        				//$scope.tempListData.push(new SubdivisionsModel(name, id));
+
+        		//}
+        	});
+
+        			});
+
+
+            
 
 						$scope.fileNameChanged1 = function() {
   						console.log("select file");
@@ -322,7 +353,7 @@ angular.module('ecampusApp')
               else {
               	console.log("not ok");	
               }*/
-              console.log($scope.newData.countCredit);
+              //console.log($scope.newData.countCredit);
               //make a Model with .this...
               $scope.newData = {
 	              DcOKRId: "",
@@ -423,6 +454,28 @@ angular.module('ecampusApp')
     	this.isApproved = isApproved;
     }*/
 
+    function AllSelectData(allOkr, allBlocks, allDisciplines, allYears) {
+    	this.allOkr = allOkr;
+    	this.allBlocks = allBlocks;
+    	this.allDisciplines = allDisciplines;
+    	this.allYears = allYears;
+    }
+
+    function AllOkrModel(currentOkr, currentOkrId) {
+    	this.currentOkr = currentOkr;
+    	this.currentOkrId = currentOkrId;
+    }
+
+    function AllBlocksModel(currentBlock, currentBlockId) {
+    	this.currentBlock = currentBlock;
+    	this.currentBlockId = currentBlockId;
+    }
+
+    function AllDisciplinesModel(currentDiscipline, currentDisciplineId) {
+    	this.currentDiscipline = currentDiscipline;
+    	this.currentDisciplineId = currentDisciplineId;
+    }
+
 
     //var ifItIsAllowed = false; ok it works
     // Check for the various File API support.
@@ -433,13 +486,6 @@ angular.module('ecampusApp')
 		}
 
 		
-
-
-
-
-
-
-
 
 
 		function handleFileSelect(evt) {

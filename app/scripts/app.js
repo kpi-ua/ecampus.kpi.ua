@@ -16,13 +16,10 @@ var app = angular.module('ecampusApp', [
   'ngSanitize',
   'ngTouch',
   'angular-input-stars',
-  "xeditable",
-  'ui.tree'
+  'ui.tree',
+  'ui.select'
 ]);
 
-app.run(function (editableOptions) {
-  editableOptions.theme = 'bs3';
-});
 
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider
@@ -70,11 +67,6 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'views/debugger.html',
       controller: 'DebuggerCtrl',
       controllerAs: 'Debugger'
-    })
-    .when('/admin', {
-      templateUrl: 'views/admin.html',
-      controller: 'AdminCtrl',
-      controllerAs: 'admin'
     })
     .when('/statistic', {
       templateUrl: 'views/statistic.html',
@@ -130,6 +122,26 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: "views/disciplines-choice-t.html",
       controller: "DisciplinesChoiceTCtrl",
       controllerAs: 'choiceT'
+    })
+    .when('/individual-plan', {
+      templateUrl: 'views/individual-plan.html',
+      controller: 'IndividualPlanCtrl',
+      controllerAs: 'individualPlan'
+    })
+    .when('/discipline-fund', {
+      templateUrl: 'views/discipline-fund.html',
+      controller: 'DisciplineFundCtrl',
+      controllerAs: 'disciplineFund'
+    })
+    .when('/rnp', {
+      templateUrl: 'views/rnp.html',
+      controller: 'RnpCtrl',
+      controllerAs: 'rnp'
+    })
+    .when('/attestation', {
+      templateUrl: 'views/attestation.html',
+      controller: 'AttestationCtrl',
+      controllerAs: 'attest'
     })
     .otherwise({
       redirectTo: '/'
