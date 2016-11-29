@@ -171,7 +171,6 @@ angular.module('ecampusApp')
       var url = 'Attestation/group/' + rtStudyGroupId + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
-            console.log(response);
             $scope.errorLoadGroupsResult = "";
             $scope.GroupsResult = response.sort(sortByStudentNameThenDiscName);
             getStudentsAndDisciplinesLists(response);

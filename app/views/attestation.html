@@ -16,6 +16,9 @@
                              position="down">
             <span ng-bind="itemYears.studyingYearName"></span>
           </ui-select-choices>
+          <ui-select-no-choice>
+            Група не знайдена
+          </ui-select-no-choice>
         </ui-select>
         <div class="error-load-attest" ng-show="errorMessageYears">{{errorMessageYears}}</div>
       </div>
@@ -29,12 +32,15 @@
                              position="down">
             <span ng-bind="semesters.name"></span>
           </ui-select-choices>
+          <ui-select-no-choice>
+            Семестр не знайдений
+          </ui-select-no-choice>
         </ui-select>
       </div>
       <div class="attest-num-select" ng-show="itemSemester">
         <label for="attest-num" class="select-form__label">Номер атестації</label>
         <ui-select id="attest-num" class="select-form__select" ng-model="$parent.itemAttest"
-                   append-to-body="true">
+                   append-to-body="true" on-select="getAttestationPeriodId(itemYear.studyingYearId,itemSemester.id,itemAttest.id);">
           <ui-select-match placeholder="Оберіть номер атестації">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
@@ -42,6 +48,9 @@
                              position="down">
             <span ng-bind="attests.name"></span>
           </ui-select-choices>
+          <ui-select-no-choice>
+            Номер атестації не знайдений
+          </ui-select-no-choice>
         </ui-select>
         <div class="error-load-attest" ng-show="errorMessageAttests">{{errorMessageAttests}}</div>
       </div>
@@ -50,14 +59,11 @@
         <h4 class="text-center">Оберіть категорію для перегляду атестацій</h4>
         <ul class="nav nav-pills-attest nav-justified attest-navigation " ng-model="choiceType">
           <li ng-class="{ active: isSet(1)}">
-            <a ng-click="getAttestationPeriodId(itemYear.studyingYearId,itemSemester.id,itemAttest.id);
-            setPill(1);choiceType = 'students'">Студенти</a></li>
+            <a ng-click="setPill(1);choiceType = 'students'">Студенти</a></li>
           <li ng-class="{ active: isSet(2)}">
-            <a ng-click="getAttestationPeriodId(itemYear.studyingYearId,itemSemester.id,itemAttest.id);
-            setPill(2);choiceType = 'groups'">Групи</a></li>
+            <a ng-click="setPill(2);choiceType = 'groups'">Групи</a></li>
           <li ng-class="{ active: isSet(3)}">
-            <a ng-click="getAttestationPeriodId(itemYear.studyingYearId,itemSemester.id,itemAttest.id);
-            setPill(3);choiceType = 'teachers'">Викладачі</a></li>
+            <a ng-click="setPill(3);choiceType = 'teachers'">Викладачі</a></li>
         </ul>
       </div>
     </div>
@@ -80,6 +86,9 @@
                                    position="down">
                   <span ng-bind="groups.name"></span>
                 </ui-select-choices>
+                <ui-select-no-choice>
+                  Група не знайдена
+                </ui-select-no-choice>
               </ui-select>
               <div class="error-load-attest" ng-show="errorMessageGroups">{{errorMessageGroups}}</div>
               <div class="text-center">
@@ -123,12 +132,12 @@
               <tbody>
               <tr ng-repeat="stud in studentsList">
                 <td class="text-center">{{$index + 1}}</td>
-                <td class="text-center">{{stud}}</td>
+                <td>{{stud}}</td>
                 <td class="text-center" ng-repeat="att in (GroupsResult | filter: stud)">{{att.attestation}}</td>
               </tr>
               </tbody>
             </table>
-            <div class="text-center">
+            <div class="text-center" ng-show="GroupsResult.length != 0">
               <a class="btn btn-success" download="attest.xls"
                  onclick="return ExcellentExport.excel(this, 'table-attest', 'attest');">
                 <i class="fa fa-file-excel-o "></i> Завантажини звіт
@@ -148,6 +157,9 @@
                                  position="down">
                 <span ng-bind="lecturers.fullName"></span>
               </ui-select-choices>
+              <ui-select-no-choice>
+                Немає даних для вибору
+              </ui-select-no-choice>
             </ui-select>
             <div class="error-load-attest" ng-show="errorMessageLecturers">{{errorMessageLecturers}}</div>
             <div class="text-center">
