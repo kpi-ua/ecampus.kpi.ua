@@ -12,24 +12,19 @@ angular.module('ecampusApp')
     $scope.errorMessageYears = '';
     $scope.errorMessageAttests = '';
     $scope.errorMessageGroups = '';
-    $scope.errorLoadGroupsResult = '';
-    $scope.errorMessageLecturers = '';
     $scope.attestationPeriodId = null;
-    $scope.getGroupsResults = false;
-    $scope.disciplinesList = [];
-    $scope.teacherGroupsList = [];
-    $scope.getLecturersResults = false;
-
     $scope.Semesters = [
       {id: 1, name: 'Перший семестр'},
       {id: 2, name: 'Другий семестр'}
     ];
 
-    function disciplinesTeachersModel(disciplineName, disciplineShortName, teacherName) {
-      this.disciplineFullName = disciplineName;
-      this.disciplineShortName = disciplineShortName;
-      this.teacherName = teacherName;
-    }
+    $scope.errorLoadGroupsResult = '';
+    $scope.getGroupsResults = false;
+    $scope.disciplinesList = [];
+
+    $scope.errorMessageLecturers = '';
+    $scope.teacherGroupsList = [];
+    $scope.getLecturersResults = false;
 
     $scope.setPill = function (newPill) {
       $scope.pill = newPill;
@@ -39,9 +34,56 @@ angular.module('ecampusApp')
       return $scope.pill === pillNum;
     };
 
+    function loadYears() {
+      var url = 'Attestation/studyYear';
+      Api.execute("GET", url)
+        .then(function (response) {
+            $scope.Years = response;
+          },
+          function () {
+            $scope.errorMessageYears = "Не вдалося завантажити список навчальних років";
+            $scope.Years = null;
+          });
+    }
+
+    function loadAttests() {
+      var url = 'Attestation';
+      Api.execute("GET", url)
+        .then(function (response) {
+            $scope.Attests = response;
+          },
+          function () {
+            $scope.errorMessageAttests = "Не вдалося завантажити список атестацій";
+            $scope.Attests = null;
+          });
+    }
+
+    function DisciplinesTeachersModel(disciplineName, disciplineShortName, teacherName) {
+      this.disciplineFullName = disciplineName;
+      this.disciplineShortName = disciplineShortName;
+      this.teacherName = teacherName;
+    }
+
     function getDisciplineName(fullName) {
       var result = fullName.split(",");
       return result[0];
+    }
+
+    function getStudentsAndDisciplinesLists(response) {
+      var allDisciplinesList = [];
+      var allStudentsList = [];
+      for (var i = 0; i < response.length; i++) {
+        allDisciplinesList.push(
+          new DisciplinesTeachersModel(
+            response[i].disciplineFullName,
+            getDisciplineName(response[i].disciplineFullName),
+            response[i].teacher
+          )
+        );
+        allStudentsList.push(response[i].student);
+      }
+      $scope.disciplinesList = uniqueLoadGroupsResultElements(allDisciplinesList);
+      $scope.studentsList = uniqueElements(allStudentsList);
     }
 
     function uniqueLoadGroupsResultElements(arr) {
@@ -62,7 +104,7 @@ angular.module('ecampusApp')
       return result;
     }
 
-    function uniqueTeacherGroups(arr) {
+    function uniqueElements(arr) {
       var obj = {};
 
       for (var i = 0; i < arr.length; i++) {
@@ -70,10 +112,11 @@ angular.module('ecampusApp')
         obj[str] = true;
       }
 
-      return Object.keys(obj); // или собрать ключи перебором для IE8-
+      return Object.keys(obj);
     }
 
     function sortByStudentNameThenDiscName(a, b) {
+
       var name1 = a.student;
       var name2 = b.student;
 
@@ -90,32 +133,8 @@ angular.module('ecampusApp')
       return name1.localeCompare(name2);
     }
 
-    function loadYears() {
-      var url = 'Attestation/studyYear';
-      Api.execute("GET", url)
-        .then(function (response) {
-            $scope.Years = response;
-          },
-          function () {
-            $scope.errorMessageYears = "Не вдалося завантажити список навчальних років";
-            $scope.Years = null;
-          });
-    }
-
     function generateUrlForAttestPeriod(year, semester, attestNum) {
       return 'Attestation/period?dcStudingYearId=' + year + '&semesterYear=' + semester + '&dcLoadId=' + attestNum;
-    }
-
-    function loadAttests() {
-      var url = 'Attestation';
-      Api.execute("GET", url)
-        .then(function (response) {
-            $scope.Attests = response;
-          },
-          function () {
-            $scope.errorMessageAttests = "Не вдалося завантажити список атестацій";
-            $scope.Attests = null;
-          });
     }
 
     $scope.getAttestationPeriodId = function (dcStudingYearId, semesterYear, dcLoadId) {
@@ -152,17 +171,11 @@ angular.module('ecampusApp')
       var url = 'Attestation/group/' + rtStudyGroupId + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
+            console.log(response);
             $scope.errorLoadGroupsResult = "";
             $scope.GroupsResult = response.sort(sortByStudentNameThenDiscName);
-            console.log(response);
-            var allDisciplinesList = [];
-            for (var i = 0; i < response.length; i++) {
-              allDisciplinesList.push(
-                new disciplinesTeachersModel(response[i].disciplineFullName,
-                  getDisciplineName(response[i].disciplineFullName),
-                  response[i].teacher));
-            }
-            $scope.disciplinesList = uniqueLoadGroupsResultElements(allDisciplinesList);
+            getStudentsAndDisciplinesLists(response);
+            $scope.getGroupsResults = true;
           },
           function () {
             $scope.errorLoadGroupsResult = "Не вдалося завантажити результати для даної групи";
@@ -200,7 +213,7 @@ angular.module('ecampusApp')
             for (var i = 0; i < response.length; i++) {
               allTeacherGroupsList.push(response[i].studyGroupName);
             }
-            $scope.teacherGroupsList = uniqueTeacherGroups(allTeacherGroupsList);
+            $scope.teacherGroupsList = uniqueElements(allTeacherGroupsList);
             console.log($scope.teacherGroupsList);
           },
           function () {

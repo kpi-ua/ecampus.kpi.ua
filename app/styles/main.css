@@ -817,12 +817,20 @@ div.progress-student-count {
   padding: 10px 15px;
   border: 1px solid #208944;
   margin: 5px 5px 5px 5px;
-  min-width: 250px;
 }
 
 .nav-pills-attest > li + li {
   margin-left: 0;
 }
+
+.table-hover > tbody > tr:hover {
+  background-color: #e8f3ec;
+}
+
+.btn-result {
+  margin: 20px 0
+}
+
 /* end attestation styles*/
 .study-profile,
 .item {
