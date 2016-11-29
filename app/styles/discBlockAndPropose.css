@@ -127,10 +127,37 @@
 	width: 600px !important;
 }
 
+.imgHeight {
+	height: 200px;
+}
+
+.thumb {
+  height: 75px;
+  border: 1px solid #000;
+  margin: 10px 0 0 0;
+}
+
+.objImages {
+	height: 60px;
+	border: 1px solid #000;
+}
+
+.marginBottom {
+	margin-bottom: 10px;
+}
+
+.marginTop {
+	margin-top: 5px;
+}
+
+.marginLeftRight {
+	margin: 0 10px 0 10px;
+}
+
 /* media */
 
-/*@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .selectMarginTop {
 		margin-top: 10px!important;
 	}
-}*/
+}

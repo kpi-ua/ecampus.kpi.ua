@@ -77,7 +77,9 @@ angular
 
             block: initialArr[i].blockName,
             discipline: initialArr[i].discipline,
-            subdivision: initialArr[i].subdiv
+            subdivision: initialArr[i].subdiv,
+            maxCountStudent: initialArr[i].maxCountStudent,
+            countLecture: initialArr[i].countLecture
           });
 
         }

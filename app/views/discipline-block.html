@@ -6,7 +6,7 @@
   <div class="row">
     <div class="col-md-12">
 
-      <h2>Блок дисциплін</h2>
+      <h1>Блок дисциплін</h1>
 
       <section class="container-fluid discipline-specialization__navigation">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -49,7 +49,7 @@
     </div>
 
 
-    <div ng-show="ifYearAndOkr0Chosen()">
+    <div ng-show="ifYearAndOkr0Chosen()" class="marginLeftRight">
       <fieldset>
 
 
@@ -63,26 +63,75 @@
                                           ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}">
 
                                     </span>
-                </a>
-                {{block}}
-              </div>
-              <ol ui-tree-nodes="" ng-model="disciplines" ng-class="{hidden: collapsed}">
-                <li ng-repeat="discip in disciplines" ui-tree-node>
-                  <div ui-tree-handle data-nodrag class="node_child fontNormal">
-                    <div class="row">
-                      <div class="col-lg-5 col-md-6 col-sm-6">
-                        - {{discip.discipline}}.
-                      </div>
-                      <div class="col-lg-7 col-md-6 col-sm-6">
-                        Викладає: {{discip.subdivision}}
-                      </div>
-                    </div>
+
+                                </a>
+                                {{block}}
+                            </div>
+                            <ol ui-tree-nodes="" ng-model="disciplines" ng-class="{hidden: collapsed}">
+                                <!--<li ng-repeat="discip in disciplines" ui-tree-node>
+                                    <div ui-tree-handle data-nodrag class="node_child fontNormal">
+                                        <div class="row">
+                                            <div class="col-lg-5 col-md-6 col-sm-6">
+                                                - {{discip.discipline}}.            
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 marginBottom">
+                                                <div>Викладає: {{discip.subdivision}}</div>
+                                                <div>Максимальна кількість студентів в рамках університету: {{discip.maxCountStudent}}</div>
+                                                <div>Кількість викладачів: {{discip.countLecture}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>-->
+                                            
 
 
-                  </div>
-                </li>
-              </ol>
-            </li>
+                        <div class="table-responsive">
+                            <table  class="table table-bordered table-hover table-condensed d-s-table marginTop" id="tableBlockYear")>
+                                <tr class="patterns__table-header color-head">
+                                    <th class="tdFullAlignCenter">Дисципліна</th>
+                                    <th class="tdFullAlignCenter">Викладає</th>
+                                    <th class="tdFullAlignCenter">Максимальна кількість студентів в рамках університету</th>
+                                    <th class="tdFullAlignCenter">Кількість викладачів</th>
+                                </tr>
+                                <tr ng-repeat="currDiscipline in disciplines">
+                                    <td>{{currDiscipline.discipline}}</td>
+                                    <td>{{currDiscipline.subdivision}}</td>
+                                    <td>{{currDiscipline.maxCountStudent}}</td>
+                                    <td>{{currDiscipline.countLecture}}</td>
+
+                                </tr>
+                            </table>
+                            </div>
+
+                                    
+
+
+
+
+
+
+
+
+
+
+
+                                            <!--<div class="col-lg-5 col-md-6 col-sm-6">
+                                                - {{discip.discipline}}.            
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 marginBottom">
+                                                <div>Викладає: {{discip.subdivision}}</div>
+                                                <div>Максимальна кількість студентів в рамках університету: {{discip.maxCountStudent}}</div>
+                                                <div>Кількість викладачів: {{discip.countLecture}}</div>
+                                            </div>-->
+                                        <!--</div>
+
+
+                                     
+                                 </div>
+                             </li>-->
+                         </ol>
+                     </li>
+
 
           </ol>
         </div>
