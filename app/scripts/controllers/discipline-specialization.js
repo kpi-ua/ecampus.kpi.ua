@@ -231,6 +231,36 @@ angular.module('ecampusApp')
             return  Math.round(semester/2);
         }
 
+        function GetStudyYearCourse(studyYearPublish , course) {
+            var yearArray  =studyYearPublish.split('-');
+            yearArray[0]= parseInt(yearArray[0],10);
+            yearArray[0]+=(course-1);
+
+            yearArray[1]= parseInt(yearArray[1],10);
+            yearArray[1]+=(course-1);
+            return ""+yearArray[0]+"-"+yearArray[1];
+        }
+        //из массива групп возвращает групу с нужным groupId
+        function FindGroupInGroups(groups, groupId) {
+            var groupById = null;
+            groups.forEach(function (group,i,arr) {
+                if(group.id == groupId){
+                    groupById = group;
+                }
+            });
+            return groupById;
+        }
+        // выполняем поиск Id учебной группы в группе,  в случае его отсутсвия возвращаем null
+        function GetStudyGroupIdFromGroupByCourse(group , course) {
+            var studyGroupId = null;
+            group.studyGroups.forEach(function (item,i,arr) {
+               if(item.studyCourse == course){
+                   studyGroupId = item.studyGroupsId;
+               }
+            });
+            return studyGroupId;
+        }
+
         $scope.OnCathedraSelect = function () {
             $scope.errorLabelText="";
             $scope.blocks = null;
@@ -319,6 +349,7 @@ angular.module('ecampusApp')
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні";
+                        $scope.preloader = false;
                         $scope.safeApply();
                     } else {
                         var semestrForView  = BlockChoiceFromResponseToView(response);
@@ -340,6 +371,7 @@ angular.module('ecampusApp')
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні.";
                         $scope.patterns = [];
+                        $scope.preloader = false;
                         $scope.safeApply();
                     } else {
                         response.forEach(function (item, i, arr) {
@@ -362,6 +394,7 @@ angular.module('ecampusApp')
                     }
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
+                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }
@@ -417,6 +450,7 @@ angular.module('ecampusApp')
 
         $scope.GetAllDisciplines = function (blocks) {
             $scope.errorLabelText="";
+            $scope.preloader = true;
             blocks.forEach(function (block,iter,arr) {
                 var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/DisciplineChosen/"+block.BlockId;
                 Api.execute("GET", path).then(function(response) {
@@ -427,6 +461,7 @@ angular.module('ecampusApp')
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні";
                         $scope.blocksWidthDisciplines = null;
+                        $scope.preloader = false;
                         $scope.safeApply();
                     }else {
                         response.forEach(function (item, i, arr) {
@@ -447,6 +482,7 @@ angular.module('ecampusApp')
                         disciplinesBlock.push(new DisciplineModel(0, "Разом", tatalMaxCountStudent, tatalOccupiedPercent, "", tatalSubscribed, "", "", ""));
                         block.DisciplineArray = disciplinesBlock;
                         $scope.blocksWidthDisciplines = blocks;
+                        $scope.preloader = false;
                         $scope.safeApply();
                     }
                 });
@@ -516,7 +552,7 @@ angular.module('ecampusApp')
             }
         };
 
-        //save patterb
+        //save pattern
         $scope.savePattern = function(data,pattern) {
             var path ="";
             var method= "";
@@ -584,6 +620,63 @@ angular.module('ecampusApp')
             };
             $scope.patterns.unshift($scope.inserted);
             $scope.safeApply();
+        };
+
+        //save pattern
+        $scope.saveBlock = function(data,block) {
+            var path ="";
+            var method= "";
+            $scope.preloader = true;
+            $scope.safeApply();
+            debugger;
+            console.log($scope.groups);
+            console.log(data);
+            console.log(block);
+            var groupChosen = FindGroupInGroups($scope.groups,data.groupId);
+            var blockChoiceWhom8Id = block.id,
+                dcBlock8Id = data.blockId,
+                semester = data.semester ,
+                studyYearPublish = block.studyYearPublish,
+                course = GetCourseBySemester(semester),
+                cycleId = data.cycleId,
+                groupId = data.groupId,
+                studyGroupId = GetStudyGroupIdFromGroupByCourse(groupChosen,course),
+                studyYearCourse = GetStudyYearCourse(studyYearPublish,course),
+                countDiscipline = block.countDiscipline;
+            var payload = {
+                StudyYearCourse : studyYearCourse ,
+                CountDiscipline : countDiscipline ,
+                StudyYearPublish : studyYearPublish ,
+                Cycle : {
+                    Id: cycleId ,
+                    Name: GetCycleNameById($scope.Dc.Cycles, cycleId) ,
+
+                } ,
+                GroupId : groupId ,
+                Id : blockChoiceWhom8Id ,
+                StudyGroup : {
+                    Id: studyGroupId ,
+                    Name: groupChosen.name ,
+
+                } ,
+                Course : course ,
+                Semestr : semester ,
+                Block : {
+                    Id: dcBlock8Id ,
+                    Name: GetBlockNameById($scope.Dc.Blocks, dcBlock8Id) ,
+
+                } ,
+            };
+            path = "SelectiveDiscipline/BlockChoise";
+            method = blockChoiceWhom8Id==null? "POST": "PUT";
+
+            Api.execute(method, path,payload).then(function (resp) {
+                $scope.OnFullSelect();
+            },function(response, status,headers){
+                ErrorHandlerMy (response, status,headers);
+            $scope.preloader = false;
+                $scope.safeApply();
+            });
         };
 
     //    MODELS!!!

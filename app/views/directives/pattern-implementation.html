@@ -152,7 +152,7 @@
             </span>
             </td>
             <td>
-            <span editable-select="block.studyGroup.id" e-name="blockId" e-form="blockChoiseForm"
+            <span editable-select="block.studyGroup.id" e-name="groupId" e-form="blockChoiseForm"
                   onbeforesave="checkAllBlockChoiseForm($data)" e-required
                   e-ng-options="group.id as group.name for group in groups">
                 {{ block.studyGroup.name|| 'null' }}
@@ -179,7 +179,7 @@
             </td>
             <td>
                 <!-- form -->
-                <form editable-form name="blockChoiseForm" onbeforesave=""
+                <form editable-form name="blockChoiseForm" onbeforesave="saveBlock($data,block)"
                       ng-show="blockChoiseForm.$visible"
                       class="form-buttons form-inline" shown="inserted == block">
                     <button type="submit" ng-disabled="blockChoiseForm.$waiting"
