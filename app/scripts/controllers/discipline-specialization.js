@@ -356,7 +356,7 @@ angular.module('ecampusApp')
                     } else {
                         $scope.groups = response;
                         console.log($scope.groups);
-                        path = "SelectiveDiscipline/GetBlockChoiceWhomExtended/";
+                        path = "SelectiveDiscipline/BlockChoice/";
                         response.forEach(function(group, i, arr){
                             path+=group.groupId;
                             if(arr[i+1]!= undefined){
