@@ -1,7 +1,7 @@
 <div class="table-choice-result__group-list" ng-show="groups!=null">
     <p>Групи:
         <span class="table-choice-result__group-item" ng-repeat="group in groups" data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(group.groupName)">
-              {{group.groupName}}
+              {{group.name}}
         </span>
     </p>
 </div>
@@ -152,29 +152,29 @@
             </span>
             </td>
             <td>
-            <span editable-select="block.groupId" e-name="blockId" e-form="blockChoiseForm"
+            <span editable-select="block.studyGroup.id" e-name="blockId" e-form="blockChoiseForm"
                   onbeforesave="checkAllBlockChoiseForm($data)" e-required
-                  e-ng-options="group.groupId as group.groupName for group in groups">
-                {{ block.studyGroupName|| 'null' }}
+                  e-ng-options="group.id as group.name for group in groups">
+                {{ block.studyGroup.name|| 'null' }}
             </span>
             </td>
             <td>
-            <span editable-select="block.cycleId" e-name="cycleId" e-form="blockChoiseForm"
+            <span editable-select="block.cycle.id" e-name="cycleId" e-form="blockChoiseForm"
                   onbeforesave="checkAllBlockChoiseForm($data)" e-required
-                  e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
-                {{ block.cycleName || 'null' }}
+                  e-ng-options="cycle.id as cycle.name for cycle in Dc.Cycles">
+                {{ block.cycle.name || 'null' }}
             </span>
             </td>
             <td>
-            <span editable-select="block.blockId" e-name="blockId" e-form="blockChoiseForm"
+            <span editable-select="block.block.id" e-name="blockId" e-form="blockChoiseForm"
                   onbeforesave="checkAllBlockChoiseForm($data)" e-required
-                  e-ng-options="dcBlock.BlockId as dcBlock.BlockName for dcBlock in Dc.Blocks">
-                {{block.blockName || 'null' }}
+                  e-ng-options="dcBlock.id as dcBlock.name for dcBlock in Dc.Blocks">
+                {{block.block.name || 'null' }}
             </span>
             </td>
             <td>
             <span>
-                {{block.studyGroupId==null? "Ні": "Так" || 'null' }}
+                {{block.groupId == null? "Ні": "Так" || 'null' }}
             </span>
             </td>
             <td>

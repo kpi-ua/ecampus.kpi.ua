@@ -146,7 +146,7 @@
                 <td>
                             <span editable-select="pattern.CycleId" e-name="CycleId" e-form="rowform"
                                   onbeforesave="checkAllForm($data)" e-required
-                                  e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
+                                  e-ng-options="cycle.id as cycle.name for cycle in Dc.Cycles">
                               {{ pattern.CycleName|| 'empty' }}
                               <!--{{ShowCycleName(pattern)}}-->
                             </span>
@@ -154,15 +154,13 @@
                 <td>
                             <span editable-select="pattern.BlockId" e-name="BlockId" e-form="rowform"
                                   onbeforesave="checkAllForm($data)" e-required
-                                  e-ng-options="block.BlockId as block.BlockName for block in Dc.Blocks">
+                                  e-ng-options="block.id as block.name for block in Dc.Blocks">
                               {{ pattern.BlockName || 'empty' }}
                             </span>
                 </td>
                 <td>
-                            <span editable-select="pattern.Course" e-name="Course" e-form="rowform"
-                                  onbeforesave="checkAllForm($data)" e-required
-                                  e-ng-options="course as course for course in Dc.Courses">
-                              {{ pattern.Course || 'empty' }}
+                            <span  e-name="Course" e-form="rowform">
+                              {{ pattern.Course }}
                             </span>
                 </td>
                 <td>
