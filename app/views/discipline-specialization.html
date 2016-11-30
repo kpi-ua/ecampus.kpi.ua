@@ -5,6 +5,7 @@
 <div class="container-fluid content">
   <div class="row">
     <div class="col-md-12">
+
       <h1>Дисципліни спеціалізації</h1>
 
       <div class="discipline-specialization" ng-switch on="section">
@@ -77,7 +78,7 @@
               <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
             </select>
           </div>
-          <p class="errorLabel" ng-hide="errorLabelText===''">{{errorLabelText}}</p>
+          <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
         </section>
 
         <section class="container-fluid discipline-specialization__specialization specialization" table-choice-result

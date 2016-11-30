@@ -16,13 +16,10 @@ var app = angular.module('ecampusApp', [
   'ngSanitize',
   'ngTouch',
   'angular-input-stars',
-  "xeditable",
-  'ui.tree'
+  'ui.tree',
+  'ui.select'
 ]);
 
-app.run(function (editableOptions) {
-  editableOptions.theme = 'bs3';
-});
 
 app.config(function ($routeProvider, $locationProvider) {
   $routeProvider
@@ -140,6 +137,11 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'views/rnp.html',
       controller: 'RnpCtrl',
       controllerAs: 'rnp'
+    })
+    .when('/attestation', {
+      templateUrl: 'views/attestation.html',
+      controller: 'AttestationCtrl',
+      controllerAs: 'attest'
     })
     .otherwise({
       redirectTo: '/'

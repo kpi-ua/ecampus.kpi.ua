@@ -728,11 +728,6 @@ div.row.well.well-md.disciplines-info {
   padding-right: 0;
 }
 
-.labels {
-  font-size: 14px;
-  font-weight: normal;
-}
-
 div.row.account-info {
   padding: 0 15px 0 15px;
 }
@@ -760,10 +755,83 @@ label.label-disciplines-choice {
   color: #6e776e;
 }
 
+.discipline-general-count {
+  margin-bottom: 0;
+  background-color: #ffffff;
+  border: solid #208843 1px;
+}
+
 div.progress-student-count {
   color: white;
 }
 
+.nav > li > a.nav-pills-campus__item {
+  position: relative;
+  display: block;
+  padding: 0 0;
+}
+
+/* end disciplines choice*/
+
+/* attestation styles */
+.select2 > .select2-choice.ui-select-match {
+  /* Because of the inclusion of Bootstrap */
+  height: 29px;
+}
+
+.selectize-control > .selectize-dropdown {
+  top: 36px;
+}
+
+.ui-select-bootstrap .ui-select-choices-row.active>span {
+  background-color: #208944;
+}
+
+.form-control:focus {
+  border-color: #208944;
+  outline: 0;
+  box-shadow: none;
+}
+
+.error-load-attest {
+  color: red;
+  margin-top: 10px;
+}
+
+.ui-select-bootstrap > .ui-select-choices, .ui-select-bootstrap > .ui-select-no-choice {
+  max-height: 400px;
+}
+
+.attest-menu {
+  margin: 20px 0 20px 0;
+}
+
+.nav-pills-attest > li.active > a, .nav-pills-attest > li.active > a:hover, .nav-pills-attest > li.active > a:focus {
+  color: #fff;
+  background-color: #208944;
+}
+
+.attest-navigation > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  border: 1px solid #208944;
+  margin: 5px 5px 5px 5px;
+}
+
+.nav-pills-attest > li + li {
+  margin-left: 0;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: #e8f3ec;
+}
+
+.btn-result {
+  margin: 20px 0
+}
+
+/* end attestation styles*/
 .study-profile,
 .item {
   padding-left: 30px;

@@ -29,13 +29,10 @@ angular.module('ecampusApp')
       switch (englishStatus) {
         case "not available":
           return "вибір не доступний";
-          break;
         case "available":
           return "вибір доступний";
-          break;
         case "done":
           return "вибір здійснено";
-          break;
       }
     };
 
@@ -77,30 +74,30 @@ angular.module('ecampusApp')
 
       Api.execute("GET", url)
         .then(function (response) {
-          $scope.loaderDisc = true;
-          $scope.firstCourse = [];
-          $scope.secondCourse = [];
-          $scope.thirdCourse = [];
-          $scope.fourthCourse = [];
+            $scope.loaderDisc = true;
+            $scope.firstCourse = [];
+            $scope.secondCourse = [];
+            $scope.thirdCourse = [];
+            $scope.fourthCourse = [];
 
-          for (var i = 0; i < response.length; i++) {
-            switch (response[i].course) {
-              case 1:
-                $scope.firstCourse.push(response[i]);
-                break;
-              case 2:
-                $scope.secondCourse.push(response[i]);
-                break;
-              case 3:
-                $scope.thirdCourse.push(response[i]);
-                break;
-              case 4:
-                $scope.fourthCourse.push(response[i]);
-                break;
+            for (var i = 0; i < response.length; i++) {
+              switch (response[i].course) {
+                case 1:
+                  $scope.firstCourse.push(response[i]);
+                  break;
+                case 2:
+                  $scope.secondCourse.push(response[i]);
+                  break;
+                case 3:
+                  $scope.thirdCourse.push(response[i]);
+                  break;
+                case 4:
+                  $scope.fourthCourse.push(response[i]);
+                  break;
+              }
             }
-          }
-          $scope.loaderDisc = false;
-        });
+            $scope.loaderDisc = false;
+          });
     }
 
     // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням

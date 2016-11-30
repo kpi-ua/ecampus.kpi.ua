@@ -426,10 +426,6 @@ angular.module('ecampusApp')
                         $scope.blocksWidthDisciplines = blocks;
                         $scope.safeApply();
                     }
-                },function(response){
-                    $scope.errorLabelText="Помилка на строні сервера";
-                    console.log(response);
-                    $scope.safeApply();
                 });
             });
         };
@@ -479,10 +475,6 @@ angular.module('ecampusApp')
             $scope.semester = value;
             $scope.OnFullSelect();
         };
-
-        function safeApply (fn) {
-            $scope.safeApply(fn);
-        }
 
         $scope.safeApply = function(fn) {
             var phase = this.$root.$$phase;
