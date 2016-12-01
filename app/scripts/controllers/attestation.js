@@ -259,8 +259,6 @@ angular.module('ecampusApp')
       var url = 'Attestation/student/' + sPersonalityId + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
-            console.log(url);
-            console.log(response);
             $scope.getStudentsResult = true;
             $scope.studentsResult = response.sort(sortStudentsResultsByDisciplinesName);
             $scope.loaderStudentsResult = false;

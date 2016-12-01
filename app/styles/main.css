@@ -802,7 +802,7 @@ div.progress-student-count {
   max-height: 400px;
 }
 
-.attest-menu {
+.attest-menu, .attest-alert {
   margin: 20px 0 20px 0;
 }
 

@@ -105,7 +105,9 @@
               </div>
             </div>
           </div>
-
+              <div class="alert alert-info text-center fade in attest-alert" ng-show="studentsResult.length == 0">
+                Немає даних про атестацію для вказаного студента!
+              </div>
             <div ng-show="getStudentsResult && studentsResult.length != 0" class="table-responsive">
               <table class="table table-hover table-condensed table-bordered" id="table-attest-for-student">
                 <thead class="hidden for-excel">
@@ -120,10 +122,6 @@
                 <tr>
                   <th class="text-center">№ Атестації</th>
                   <th class="text-center">{{itemAttest.name}}</th>
-                </tr>
-                <tr>
-                  <th class="text-center">Група</th>
-                  <th class="text-center">{{itemGroup.name}}</th>
                 </tr>
                 <tr>
                   <th class="text-center">Студент</th>
@@ -183,7 +181,9 @@
               </div>
             </div>
           </div>
-
+          <div class="alert alert-info text-center fade in attest-alert" ng-show="GroupsResult.length == 0">
+            Немає даних про атестацію для вказаної групи!
+          </div>
           <div ng-show="getGroupsResults && GroupsResult.length != 0" class="table-responsive">
             <table class="table table-hover table-condensed table-bordered" id="table-attest">
               <thead class="hidden for-excel">
