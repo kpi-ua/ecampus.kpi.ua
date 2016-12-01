@@ -13,6 +13,7 @@ angular.module('ecampusApp')
     $scope.errorMessageAttests = '';
     $scope.errorMessageGroups = '';
     $scope.attestationPeriodId = '';
+
     $scope.Semesters = [
       {id: 1, name: 'Перший семестр'},
       {id: 2, name: 'Другий семестр'}
@@ -20,12 +21,14 @@ angular.module('ecampusApp')
 
     $scope.errorLoadGroupsResult = '';
     $scope.getGroupsResults = false;
-    $scope.disciplinesList = [];
+    $scope.disciplinesListForLecturers = [];
     $scope.loaderGroupsResult = false;
 
     $scope.errorMessageLecturers = '';
-    $scope.teacherGroupsList = [];
     $scope.getLecturersResults = false;
+    $scope.groupsListForLecturers = [];
+    $scope.coursesListForLecturers = [];
+    $scope.disciplinesListForLecturers = [];
 
     $scope.errorMessageStudents = '';
     $scope.loaderStudentsResult = false;
@@ -85,8 +88,32 @@ angular.module('ecampusApp')
         );
         allStudentsList.push(response[i].student.name);
       }
-      $scope.disciplinesList = uniqueLoadGroupsResultElements(allDisciplinesList);
+      $scope.disciplinesListForLecturers = uniqueLoadGroupsResultElements(allDisciplinesList);
       $scope.studentsList = uniqueElements(allStudentsList);
+    }
+
+    function getGroupsList(response) {
+      var allGroupsList = [];
+      for (var i = 0; i < response.length; i++) {
+        allGroupsList.push(response[i].studyGroup.name);
+      }
+      $scope.groupsListForLecturers = uniqueElements(allGroupsList);
+    }
+
+    function getCoursesList(response) {
+      var allCoursesList = [];
+      for (var i = 0; i < response.length; i++) {
+        allCoursesList.push(response[i].course);
+      }
+      $scope.coursesListForLecturers = uniqueElements(allCoursesList);
+    }
+
+    function getDisciplinesList(response) {
+      var allDisciplinesList = [];
+      for (var i = 0; i < response.length; i++) {
+        allDisciplinesList.push(response[i].rnpRow.name);
+      }
+      $scope.disciplinesListForLecturers = uniqueElements(allDisciplinesList);
     }
 
     function uniqueLoadGroupsResultElements(arr) {
@@ -118,7 +145,9 @@ angular.module('ecampusApp')
       return Object.keys(obj);
     }
 
-    function sortByStudentNameThenDiscName(a, b) {
+    // sort response in this order:
+    // 1 - by student name 2 - by discipline name
+    function sortRuleForGroupsResult(a, b) {
       var name1 = a.student.name;
       var name2 = b.student.name;
 
@@ -128,14 +157,29 @@ angular.module('ecampusApp')
       return name1.localeCompare(name2) || disc1.localeCompare(disc2);
     }
 
-    function sortByStudyGroupName(a, b) {
-      var name1 = a.studyGroupName;
-      var name2 = b.studyGroupName;
+    // sort response in this order:
+    // 1 - by course 2 - by discipline name
+    // 3 - by study group name 4 - by student name
+    function sortRuleForLecturersResult(a, b) {
+      var course1 = + (a.course);
+      var course2 = + (b.course);
 
-      return name1.localeCompare(name2);
+      var disc1 = a.rnpRow.name;
+      var disc2 = b.rnpRow.name;
+
+      var group1 = a.studyGroup.name;
+      var group2 = b.studyGroup.name;
+
+      var student1 = a.student.name;
+      var student2 = b.student.name;
+
+      return course1 - course2 || disc1.localeCompare(disc2) ||
+        group1.localeCompare(group2) || student1.localeCompare(student2);
     }
 
-    function sortStudentsResultsByDisciplinesName(a, b) {
+    // sort response in this order:
+    // 1 - by disciplines name
+    function sortStudentsResults(a, b) {
       var name1 = a.rnpRow.name;
       var name2 = b.rnpRow.name;
 
@@ -182,7 +226,7 @@ angular.module('ecampusApp')
       Api.execute("GET", url)
         .then(function (response) {
             $scope.errorLoadGroupsResult = "";
-            $scope.GroupsResult = response.sort(sortByStudentNameThenDiscName);
+            $scope.GroupsResult = response.sort(sortRuleForGroupsResult);
             getStudentsAndDisciplinesLists(response);
             $scope.getGroupsResults = true;
             $scope.loaderGroupsResult = false;
@@ -213,25 +257,21 @@ angular.module('ecampusApp')
       }
     };
 
-    function getTeacherGroupsList(response) {
-      var allTeacherGroupsList = [];
-      for (var i = 0; i < response.length; i++) {
-        allTeacherGroupsList.push(response[i].studyGroupName);
-      }
-      $scope.teacherGroupsList = uniqueElements(allTeacherGroupsList);
-    }
-
     $scope.loadLecturersResult = function (eEmployees1Id, cAttestationPeriodId) {
-      var url = 'Attestation/lecturer/' + eEmployees1Id + '/period/' + cAttestationPeriodId + '/disciplines';
+      var url = 'Attestation/lecturer/' + eEmployees1Id + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
+            getGroupsList(response);
+            getCoursesList(response);
+            getDisciplinesList(response);
             $scope.errorLecturersResult = "";
-            $scope.LecturersResult = response.sort(sortByStudyGroupName);
-            getTeacherGroupsList(response);
+            $scope.getLecturersResults = true;
+            $scope.LecturersResult = response.sort(sortRuleForLecturersResult);
           },
           function () {
             $scope.errorLecturersResult = "Не вдалося завантажити результати для даного викладача";
             $scope.LecturersResult = null;
+            $scope.getLecturersResults = false;
           });
     };
 
@@ -260,7 +300,7 @@ angular.module('ecampusApp')
       Api.execute("GET", url)
         .then(function (response) {
             $scope.getStudentsResult = true;
-            $scope.studentsResult = response.sort(sortStudentsResultsByDisciplinesName);
+            $scope.studentsResult = response.sort(sortStudentsResults);
             $scope.loaderStudentsResult = false;
           },
           function () {
