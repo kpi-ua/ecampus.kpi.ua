@@ -15,7 +15,7 @@
           <ui-select-match placeholder="Оберіть навчальний рік">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
-          <ui-select-choices repeat="itemYears in (Years | filter: $select.search) track by itemYears.id"
+          <ui-select-choices repeat="itemYears in (studyYears | filter: $select.search) track by itemYears.id"
                              position="down">
             <span ng-bind="itemYears.name"></span>
           </ui-select-choices>
@@ -48,7 +48,7 @@
           <ui-select-match placeholder="Оберіть номер атестації">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
-          <ui-select-choices repeat="attests in (Attests | filter: $select.search) track by attests.id"
+          <ui-select-choices repeat="attests in (attestations | filter: $select.search) track by attests.id"
                              position="down">
             <span ng-bind="attests.name"></span>
           </ui-select-choices>
@@ -90,6 +90,7 @@
                 <ui-select-choices repeat="student in (students | filter: $select.search) track by student.id"
                                    position="down">
                   <span ng-bind="student.fullName"></span>
+                  <span class="student-study-group-name" ng-bind="student.group"></span>
                 </ui-select-choices>
                 <ui-select-no-choice>
                   Студента з таким ПІБ не знайдено
@@ -212,7 +213,7 @@
               <tr>
                 <th class="text-center">№</th>
                 <th class="text-center">ПІБ</th>
-                <th class="text-center" ng-repeat="disc in disciplinesListForLecturers">
+                <th class="text-center" ng-repeat="disc in disciplinesListForGroups">
                   "{{getDisciplineName(disc.disciplineFullName)}}"
                   <br>
                   {{disc.teacherName}}
@@ -244,10 +245,10 @@
                 <ui-select-match placeholder="Введіть ПІБ викладача">
                   <span ng-bind="$select.selected.fullName"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="lecturer in (Lecturers | filter: $select.search) track by lecturer.id"
+                <ui-select-choices repeat="lecturer in (lecturersList | filter: $select.search) track by lecturer.id"
                                    position="down">
                   <span ng-bind="lecturer.fullName"></span>
-                  <span style="font-size: 12px; font-style: italic" ng-bind="lecturer.subdivisionName"></span>
+                  <span class="lecturer-subdivision-name" ng-bind="lecturer.subdivisionName"></span>
                 </ui-select-choices>
                 <ui-select-no-choice>
                   Викладача з таким ПІБ не знайдено
@@ -260,7 +261,7 @@
                 </button>
               </div>
               <div class="alert alert-info text-center fade in attest-alert"
-                   ng-show="getLecturersResults && LecturersResult.length == 0">
+                   ng-show="getLecturersResults && lecturersResult.length == 0">
                 Немає даних про атестацію для вказаного викладача!
               </div>
               <div ng-show="getLecturersResults">
@@ -312,7 +313,7 @@
                       </ui-select-no-choice>
                     </ui-select>
 
-                      <div ng-show="itemGroupLect && LecturersResult.length != 0" class="table-responsive"
+                      <div ng-show="itemGroupLect && lecturersResult.length != 0" class="table-responsive"
                            style="margin-top: 20px;">
                         <table class="table table-hover table-condensed table-bordered" id="table-attest-lecturer">
                           <thead class="hidden for-excel">
@@ -341,14 +342,14 @@
                           </tr>
                           </thead>
                           <tbody>
-                          <tr ng-repeat="stud in LecturersResult | filter:itemCourse | filter:itemDiscipline | filter:itemGroupLect">
+                          <tr ng-repeat="stud in lecturersResult | filter:itemCourse | filter:itemDiscipline | filter:itemGroupLect">
                             <td class="text-center">{{$index + 1}}</td>
                             <td>{{stud.student.name}}</td>
                             <td class="text-center">{{stud.attestation.name}}</td>
                           </tr>
                           </tbody>
                         </table>
-                        <div class="text-center" ng-show="LecturersResult.length != 0">
+                        <div class="text-center" ng-show="lecturersResult.length != 0">
                           <a class="btn btn-success" download="attest.xls"
                              onclick="return ExcellentExport.excel(this, 'table-attest-lecturer', 'attest');">
                             <i class="fa fa-file-excel-o "></i> Завантажини звіт
