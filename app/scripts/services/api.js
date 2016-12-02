@@ -11,7 +11,8 @@ angular.module('ecampusApp')
   .service('Api', function ($http) {
 
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
-    this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
+    // this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
+    this.ApiEndpoint = 'http://localhost:4445/';
 
     /**
      * Execute API method

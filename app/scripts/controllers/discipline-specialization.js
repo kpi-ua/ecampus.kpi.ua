@@ -64,6 +64,7 @@ angular.module('ecampusApp')
                     $scope.safeApply();
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
+                    $scope.preloader = false;
                     $scope.safeApply();
                 });
                 path = "cycles";
@@ -77,6 +78,7 @@ angular.module('ecampusApp')
                     $scope.safeApply();
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
+                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }
@@ -101,7 +103,7 @@ angular.module('ecampusApp')
                     sClaim.resp.forEach(function(itemForEach, i, arr) {
                         var itemForEachJSON = JSON.parse(itemForEach);
                         var subsystemId = itemForEachJSON.Subsystem;
-                        var subdivisionId = itemForEachJSON.Subdivision.SubdivisionId;
+                        var subdivisionId = itemForEachJSON.Subdivision.Id;
                         var subdivisionName = itemForEachJSON.Subdivision.Name;
                         var subdivision = new SubdivisionModel(subdivisionId,subdivisionName);
 
@@ -116,7 +118,7 @@ angular.module('ecampusApp')
                         var responsive  = JSON.parse(sClaim.resp);
 
                         var subsystemId = responsive.Subsystem;
-                        var subdivisionId = responsive.Subdivision.SubdivisionId;
+                        var subdivisionId = responsive.Subdivision.Id;
                         var subdivisionName = responsive.Subdivision.Name;
                         var subdivision = new SubdivisionModel(subdivisionId,subdivisionName);
 
@@ -138,6 +140,7 @@ angular.module('ecampusApp')
                     permissionArray.push(item);
                 }
             });
+            console.log(permissionArray);
             return permissionArray;
         }
 
@@ -295,6 +298,7 @@ angular.module('ecampusApp')
                 $scope.safeApply();
             },function(response, status,headers){
                 ErrorHandlerMy (response, status,headers);
+                $scope.preloader = false;
                 $scope.safeApply();
             });
         };
@@ -359,6 +363,7 @@ angular.module('ecampusApp')
                     }
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
+                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }else if(cathedraIdBool && directionBool && okrBool && ($scope.section=='patterns' || $scope.section=='apply')) {
@@ -377,10 +382,10 @@ angular.module('ecampusApp')
                         response.forEach(function (item, i, arr) {
                             var patternBlockChoice8Id = item.patternBlockChoice8Id
                                 , rtProfTrainTotalSubdivisionId = item.profTrainTotalSubdivisionId
-                                , blockName = item.blockName
-                                , blockId = item.blockId
-                                , cycleName = item.cycleName
-                                , cycleId = item.cycleId
+                                , blockName = item.block.name
+                                , blockId = item.block.id
+                                , cycleName = item.cycle.name
+                                , cycleId = item.cycle.id
                                 , course = item.course
                                 , semester = item.semester
                                 , countDiscipline = item.countDiscipline
@@ -437,12 +442,14 @@ angular.module('ecampusApp')
                             $scope.safeApply();
                         },function(response, status,headers){
                             ErrorHandlerMy (response, status,headers);
+                            $scope.preloader = false;
                             $scope.safeApply();
                         });
 
                     }
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
+                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }
@@ -510,6 +517,7 @@ angular.module('ecampusApp')
 
                 },function(response, status,headers){
                     ErrorHandlerMy(response, status,headers);
+                    $scope.preloader = false;
                     $scope.safeApply();
                 });
                 $scope.disciplines = disciplines;
@@ -570,8 +578,12 @@ angular.module('ecampusApp')
             console.log(newPattern);
             $scope.patterns.splice($scope.patterns.indexOf(pattern),1,newPattern);
             var payload = {
-                BlockId: blockId,
-                CycleId: cycleId,
+                Block:{
+                    Id:blockId,
+                },
+                Cycle:{
+                    Id: cycleId,
+                },
                 ProfTrainTotalSubdivisionId: profTrainTotalSubdivisionId,
                 Name: patternName,
                 CountDiscipline: countDiscipline,
@@ -586,6 +598,7 @@ angular.module('ecampusApp')
                 $scope.OnFullSelect();
             },function(response, status,headers){
                 ErrorHandlerMy (response, status,headers);
+                $scope.preloader = false;
                 $scope.safeApply();
             });
         };
@@ -674,7 +687,7 @@ angular.module('ecampusApp')
                 $scope.OnFullSelect();
             },function(response, status,headers){
                 ErrorHandlerMy (response, status,headers);
-            $scope.preloader = false;
+                $scope.preloader = false;
                 $scope.safeApply();
             });
         };

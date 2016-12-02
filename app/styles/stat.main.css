@@ -670,3 +670,7 @@ input:checked+.side-label::after {
 .table-choice-result__count-of-students{
 }
 
+.editable-number .editable-controls input[type="number"][name="CountDiscipline"]{
+    max-width: 50px;
+}
+
