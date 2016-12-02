@@ -831,6 +831,16 @@ div.progress-student-count {
   margin: 20px 0
 }
 
+.lecturer-subdivision-name {
+  font-size: 12px;
+  font-style: italic
+}
+
+.student-study-group-name {
+  font-size: 12px;
+  font-style: italic
+}
+
 /* end attestation styles*/
 .study-profile,
 .item {
