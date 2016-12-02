@@ -20,6 +20,7 @@ angular.module('ecampusApp')
             Direction : null,
             StudyYear : null,
             RtProfTrainTotalSubdivisionId: null,
+            Patterns:[]
         };
 
         $scope.sortType     = 'Course'; // значение сортировки по умолчанию
@@ -218,16 +219,22 @@ angular.module('ecampusApp')
 
         function ErrorHandlerMy (response, status,headers){
             var errorDetails ="";
-            if(response.statusText == 'Unauthorized'){
-                errorDetails= "Ви не авторизовані у системі. Статус: " +response.status;
-                Api.logout();
-            }else if(response.statusText == ''){
-                errorDetails= "Перевірте інтернет з'єднання.";
+            switch (response.statusText){
+                case 'Unauthorized' :{
+                    errorDetails= "Ви не авторизовані у системі. Статус: " +response.status;
+                    Api.logout();
+                    $window.location.href = '/';
+                    break;
+                }
+                case "Internal Server Error":{
+                    errorDetails= "Помилка сервера, спробуйте пізніше. Статус: " +response.status;
+                    break;
+                }
+                default:{
+                    errorDetails= "Перевірте інтернет з'єднання.";
+                }
             }
             $scope.errorLabelText="Помилка. "+errorDetails;
-            console.log(response);
-            console.log(status);
-            console.log(headers);
         }
 
         function GetCourseBySemester(semester) {
@@ -257,9 +264,9 @@ angular.module('ecampusApp')
         function GetStudyGroupIdFromGroupByCourse(group , course) {
             var studyGroupId = null;
             group.studyGroups.forEach(function (item,i,arr) {
-               if(item.studyCourse == course){
-                   studyGroupId = item.studyGroupsId;
-               }
+                if(item.studyCourse == course){
+                    studyGroupId = item.studyGroupsId;
+                }
             });
             return studyGroupId;
         }
@@ -332,7 +339,7 @@ angular.module('ecampusApp')
             $scope.safeApply();
         };
 
-        $scope.OnFullSelect = function () {
+        $scope.OnFullSelect = function (onlyGroupUpdate = false) {
             $scope.errorLabelText="";
             var path="";
             $scope.disciplines =null;
@@ -342,7 +349,6 @@ angular.module('ecampusApp')
             var directionBool =     $scope.selectData.Direction != null;
             var okrBool =           $scope.selectData.Okr != null;
             var studyYearBool =     $scope.selectData.StudyYear != null;
-
             if (cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='specialization'){
                 $scope.preloader = true;
                 $scope.safeApply();
@@ -366,7 +372,8 @@ angular.module('ecampusApp')
                     $scope.preloader = false;
                     $scope.safeApply();
                 });
-            }else if(cathedraIdBool && directionBool && okrBool && ($scope.section=='patterns' || $scope.section=='apply')) {
+            }else if(cathedraIdBool && directionBool && okrBool && ($scope.section=='patterns' || ($scope.section=='apply' && !onlyGroupUpdate))) {
+                $scope.selectData.Patterns = [];
                 $scope.preloader = true;
                 $scope.safeApply();
                 var patterns= [];
@@ -412,6 +419,7 @@ angular.module('ecampusApp')
                         $scope.errorLabelText="На жаль групи у базі відсутні.";
                         $scope.groups = null;
                         $scope.blocksChoise = null;
+                        $scope.preloader = false;
                         $scope.safeApply();
                     } else {
                         $scope.groups = response;
@@ -530,6 +538,48 @@ angular.module('ecampusApp')
         $scope.UpdateModalForGroup = function(groupName){
             $scope.ModalGroupInfo ={
                 GroupName: groupName,
+            }
+        };
+
+        $scope.PatternChecked = function(pattern){
+            if(~$scope.selectData.Patterns.indexOf(pattern)){
+                $scope.selectData.Patterns.splice($scope.selectData.Patterns.indexOf(pattern),1);
+            }else{
+                $scope.selectData.Patterns.push(pattern);
+            }
+        };
+
+        $scope.PatternImplement = function () {
+            $scope.errorLabelText="";
+            $scope.implementReport = null;
+            if($scope.selectData.Patterns.length >0 && $scope.groups!=null){
+                var path ="";
+                var method= "";
+                $scope.preloader = true;
+                $scope.safeApply();
+                var payload = {
+                    PatternBlockList: $scope.selectData.Patterns,
+                    GroupList:$scope.groups,
+                    StudyYearPublish : $scope.selectData.StudyYear
+                };
+                path = "SelectiveDiscipline/BlockChoiseImplement";
+                method = "POST";
+                console.log($scope.patterns);
+                Api.execute(method, path,payload).then(function (resp) {
+                    $scope.OnFullSelect();
+                },function(response, status,headers){
+                    ErrorHandlerMy (response, status,headers);
+                    $scope.preloader = false;
+                    $scope.safeApply();
+                });
+            }else{
+                if($scope.selectData.Patterns.length ==0){
+                    $scope.errorLabelText = "Помилка! Оберіть хочаб один шаблон. ";
+                }
+                if($scope.groups==null){
+                    $scope.errorLabelText += "| Оберіть рік вступу для якого у базі є записи про группи.";
+                }
+                $scope.safeApply();
             }
         };
 
@@ -692,7 +742,7 @@ angular.module('ecampusApp')
             });
         };
 
-    //    MODELS!!!
+        //    MODELS!!!
         function SubdivisionModel(SubdivisionId,Name){
             this.SubdivisionId =SubdivisionId;
             this.Name =Name;
@@ -760,10 +810,14 @@ angular.module('ecampusApp')
         function PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName) {
             this.PatternBlockChoice8Id = patternBlockChoice8Id ;
             this.ProfTrainTotalSubdivisionId = rtProfTrainTotalSubdivisionId ;
-            this.BlockName = blockName ;
-            this.BlockId = blockId ;
-            this.CycleName = cycleName ;
-            this.CycleId = cycleId ;
+            this.Block ={
+                Name : blockName,
+                Id : blockId
+            };
+            this.Cycle={
+                Name : cycleName ,
+                Id : cycleId
+            };
             this.Course = course ;
             this.Semester = semester ;
             this.CountDiscipline = countDiscipline ;

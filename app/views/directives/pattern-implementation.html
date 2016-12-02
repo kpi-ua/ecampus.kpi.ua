@@ -47,7 +47,7 @@
         <tbody>
         <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
             <td>
-                <input type="checkbox"/>
+                <input type="checkbox" value="pattern.PatternBlockChoice8Id" ng-click="PatternChecked(pattern)"/>
             </td>
             <td>
                 <span>
@@ -61,12 +61,12 @@
             </td>
             <td>
                 <span>
-                    {{ pattern.CycleName|| 'empty' }}
+                    {{ pattern.Cycle.Name|| 'empty' }}
                 </span>
             </td>
             <td>
                 <span>
-                    {{ pattern.BlockName || 'empty' }}
+                    {{ pattern.Block.Name || 'empty' }}
                 </span>
             </td>
             <td>
@@ -77,7 +77,10 @@
         </tr>
         </tbody>
     </table>
+    <input type="button" class="" value="Застосувати шаблони" ng-click="PatternImplement()">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#implementReport" ng-show="implementReport!=null">Подивитися звіт про застосування шаблонівю</button>
 </section>
+
 
 <section ng-show="blocksChoise!= null">
     <table class="table table-bordered table-hover table-condensed d-s-table" ng-show="patterns!=null">
@@ -127,7 +130,7 @@
             </td>
             <td>
                 <a href="#">
-                    Редагувати\<br>Видалити
+                    Дія
                 </a>
             </td>
         </tr>
