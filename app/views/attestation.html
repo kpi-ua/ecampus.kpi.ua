@@ -11,7 +11,7 @@
 
       <div class="year-select">
         <label for="year" class="select-form__label">Навчальний рік</label>
-        <ui-select id="year" class="select-form__select" ng-model="$parent.itemYear" append-to-body="true">
+        <ui-select id="year" class="select-form__select" ng-model="studyYears.selected" append-to-body="true">
           <ui-select-match placeholder="Оберіть навчальний рік">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
@@ -25,7 +25,7 @@
         </ui-select>
         <div class="error-load-attest" ng-show="errorMessageYears">{{errorMessageYears}}</div>
       </div>
-      <div class="semester-select" ng-show="itemYear">
+      <div class="semester-select" ng-show="studyYears.selected">
         <label for="semester" class="select-form__label">Семестр</label>
         <ui-select id="semester" class="select-form__select" ng-model="$parent.itemSemester" append-to-body="true">
           <ui-select-match placeholder="Оберіть семестр">
@@ -44,7 +44,7 @@
         <label for="attest-num" class="select-form__label">Номер атестації</label>
         <ui-select id="attest-num" class="select-form__select" ng-model="$parent.itemAttest"
                    append-to-body="true"
-                   on-select="getAttestationPeriodId(itemYear.id, itemSemester.id, itemAttest.id);">
+                   on-select="getAttestationPeriodId(studyYears.selected.id, itemSemester.id, itemAttest.id);">
           <ui-select-match placeholder="Оберіть номер атестації">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
@@ -116,7 +116,7 @@
               <thead class="hidden for-excel">
               <tr>
                 <th class="text-center">Навчальний рік</th>
-                <th class="text-center">{{itemYear.name}}</th>
+                <th class="text-center">{{studyYears.selected.name}}</th>
               </tr>
               <tr>
                 <th class="text-center">Семестр</th>
@@ -160,7 +160,7 @@
           <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 group-select">
               <label for="group-select" class="select-form__label">Навчальна група</label>
-              <ui-select id="group-select" ng-keyup="loadGroups($select.search, itemYear.id);"
+              <ui-select id="group-select" ng-keyup="loadGroups($select.search, studyYears.selected.id);"
                          class="select-form__select"
                          ng-model="$parent.itemGroup" append-to-body="true">
                 <ui-select-match placeholder="Введіть ім'я групи">
@@ -194,7 +194,7 @@
               <thead class="hidden for-excel">
               <tr>
                 <th class="text-center">Навчальний рік</th>
-                <th class="text-center">{{itemYear.name}}</th>
+                <th class="text-center">{{studyYears.selected.name}}</th>
               </tr>
               <tr>
                 <th class="text-center">Семестр</th>
@@ -319,7 +319,7 @@
                           <thead class="hidden for-excel">
                           <tr>
                             <th class="text-center">Навчальний рік</th>
-                            <th class="text-center">{{itemYear.name}}</th>
+                            <th class="text-center">{{studyYears.selected.name}}</th>
                           </tr>
                           <tr>
                             <th class="text-center">Семестр</th>

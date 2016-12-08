@@ -42,11 +42,21 @@ angular.module('ecampusApp')
       return $scope.pill === pillNum;
     };
 
+    function getCurrentStudyYear(response) {
+      for (var i = 0; i < response.length; i++) {
+        var current = response[i];
+        if (current.isActual) {
+          return current;
+        }
+      }
+    }
+
     function loadStudyYears() {
       var url = 'Attestation/studyYear';
       Api.execute("GET", url)
         .then(function (response) {
             $scope.studyYears = response;
+            $scope.studyYears.selected = getCurrentStudyYear(response);
           },
           function () {
             $scope.errorMessageYears = "Не вдалося завантажити список навчальних років";
