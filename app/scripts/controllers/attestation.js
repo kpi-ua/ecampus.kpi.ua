@@ -14,11 +14,6 @@ angular.module('ecampusApp')
     $scope.errorMessageGroups = '';
     $scope.attestationPeriodId = '';
 
-    $scope.Semesters = [
-      {id: 1, name: 'Перший семестр'},
-      {id: 2, name: 'Другий семестр'}
-    ];
-
     $scope.errorLoadGroupsResult = '';
     $scope.getGroupsResults = false;
     $scope.disciplinesListForGroups = [];
@@ -42,7 +37,7 @@ angular.module('ecampusApp')
       return $scope.pill === pillNum;
     };
 
-    function getCurrentStudyYear(response) {
+    function setCurrentStudyYear(response) {
       for (var i = 0; i < response.length; i++) {
         var current = response[i];
         if (current.isActual) {
@@ -56,12 +51,44 @@ angular.module('ecampusApp')
       Api.execute("GET", url)
         .then(function (response) {
             $scope.studyYears = response;
-            $scope.studyYears.selected = getCurrentStudyYear(response);
+            $scope.studyYears.selected = setCurrentStudyYear(response);
           },
           function () {
             $scope.errorMessageYears = "Не вдалося завантажити список навчальних років";
             $scope.studyYears = null;
           });
+    }
+
+    function getCurrentStudySemester() {
+      var currentStudySemester = 0;
+      var currentDate = new Date();
+      if (currentDate.getMonth() >= 8 && currentDate.getMonth() <= 11) {
+        currentStudySemester = 1;
+      }
+      else {
+        currentStudySemester = 2;
+      }
+      return currentStudySemester;
+    }
+
+    function setCurrentStudySemester(response) {
+      var currentStudySemester = getCurrentStudySemester();
+      if (currentStudySemester != 0) {
+        for (var i = 0; i < response.length; i++) {
+          var current = response[i];
+          if (current.id == currentStudySemester) {
+            return current;
+          }
+        }
+      }
+    }
+
+    function loadSemesters() {
+      $scope.studySemesters = [
+        {id: 1, name: 'Перший семестр'},
+        {id: 2, name: 'Другий семестр'}
+      ];
+      $scope.studySemesters.selected = setCurrentStudySemester($scope.studySemesters);
     }
 
     function loadAttestations() {
@@ -330,6 +357,7 @@ angular.module('ecampusApp')
     };
 
     loadStudyYears();
+    loadSemesters();
     loadAttestations();
 
   }]);

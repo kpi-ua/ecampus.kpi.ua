@@ -27,24 +27,24 @@
       </div>
       <div class="semester-select" ng-show="studyYears.selected">
         <label for="semester" class="select-form__label">Семестр</label>
-        <ui-select id="semester" class="select-form__select" ng-model="$parent.itemSemester" append-to-body="true">
+        <ui-select id="semester" class="select-form__select" ng-model="studySemesters.selected" append-to-body="true">
           <ui-select-match placeholder="Оберіть семестр">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
-          <ui-select-choices repeat="semesters in (Semesters | filter: $select.search) track by semesters.id"
+          <ui-select-choices repeat="itemSemester in (studySemesters | filter: $select.search) track by itemSemester.id"
                              position="down">
-            <span ng-bind="semesters.name"></span>
+            <span ng-bind="itemSemester.name"></span>
           </ui-select-choices>
           <ui-select-no-choice>
-            Семестр не знайдений
+            Семестр не знайдено
           </ui-select-no-choice>
         </ui-select>
       </div>
-      <div class="attest-num-select" ng-show="itemSemester">
+      <div class="attest-num-select" ng-show="studySemesters.selected">
         <label for="attest-num" class="select-form__label">Номер атестації</label>
         <ui-select id="attest-num" class="select-form__select" ng-model="$parent.itemAttest"
                    append-to-body="true"
-                   on-select="getAttestationPeriodId(studyYears.selected.id, itemSemester.id, itemAttest.id);">
+                   on-select="getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, itemAttest.id);">
           <ui-select-match placeholder="Оберіть номер атестації">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
@@ -120,7 +120,7 @@
               </tr>
               <tr>
                 <th class="text-center">Семестр</th>
-                <th class="text-center">{{itemSemester.name}}</th>
+                <th class="text-center">{{studySemesters.selected.name}}</th>
               </tr>
               <tr>
                 <th class="text-center">№ Атестації</th>
@@ -198,7 +198,7 @@
               </tr>
               <tr>
                 <th class="text-center">Семестр</th>
-                <th class="text-center">{{itemSemester.name}}</th>
+                <th class="text-center">{{studySemesters.selected.name}}</th>
               </tr>
               <tr>
                 <th class="text-center">№ Атестації</th>
@@ -323,7 +323,7 @@
                           </tr>
                           <tr>
                             <th class="text-center">Семестр</th>
-                            <th class="text-center">{{itemSemester.name}}</th>
+                            <th class="text-center">{{studySemesters.selected.name}}</th>
                           </tr>
                           <tr>
                             <th class="text-center">№ Атестації</th>
