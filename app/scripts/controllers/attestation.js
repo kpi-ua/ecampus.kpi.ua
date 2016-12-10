@@ -12,7 +12,7 @@ angular.module('ecampusApp')
     $scope.errorMessageYears = '';
     $scope.errorMessageAttests = '';
     $scope.errorMessageGroups = '';
-    $scope.attestationPeriodId = '';
+    $scope.attestationPeriodId = 'not get';
 
     $scope.errorLoadGroupsResult = '';
     $scope.getGroupsResults = false;
@@ -91,11 +91,53 @@ angular.module('ecampusApp')
       $scope.studySemesters.selected = setCurrentStudySemester($scope.studySemesters);
     }
 
+    // 1 period - (7 - 9) study year week
+    // 2 period - (13 - 15) study year week
+    function getCurrentStudyAttestationPeriod() {
+      Date.prototype.getWeek = function () {
+        var date = new Date(this.getTime());
+        date.setHours(0, 0, 0, 0);
+        // Thursday in current week decides the year.
+        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+        // January 4 is always in week 1.
+        var week1 = new Date(date.getFullYear(), 0, 4);
+        // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+            - 3 + (week1.getDay() + 6) % 7) / 7);
+      };
+
+      var currentStudyAttestationPeriod = "не визначено";
+      var currentDate = new Date();
+
+      if ( (currentDate.getWeek() >= 42 && currentDate.getWeek() <= 44) ||
+        (currentDate.getWeek() >= 12 && currentDate.getWeek() <= 14)) {
+        currentStudyAttestationPeriod = "Атестація №1";
+      }
+      else if ((currentDate.getWeek() >= 48 && currentDate.getWeek() <= 50) ||
+        (currentDate.getWeek() >= 18 && currentDate.getWeek() <= 20)) {
+        currentStudyAttestationPeriod = "Атестація №2";
+      }
+      return currentStudyAttestationPeriod;
+    }
+
+    function setCurrentStudyAttestationPeriod(response) {
+      var currentStudyAttestationPeriod = getCurrentStudyAttestationPeriod();
+      if (currentStudyAttestationPeriod != 0) {
+        for (var i = 0; i < response.length; i++) {
+          var current = response[i];
+          if (current.name == currentStudyAttestationPeriod) {
+            return current;
+          }
+        }
+      }
+    }
+
     function loadAttestations() {
       var url = 'Attestation';
       Api.execute("GET", url)
         .then(function (response) {
-            $scope.attestations = response;
+            $scope.studyAttestationPeriod = response;
+            $scope.studyAttestationPeriod.selected = setCurrentStudyAttestationPeriod(response);
           },
           function () {
             $scope.errorMessageAttests = "Не вдалося завантажити список атестацій";

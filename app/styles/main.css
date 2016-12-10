@@ -803,9 +803,11 @@ div.progress-student-count {
 }
 
 .attest-menu, .attest-alert {
-  margin: 20px 0 20px 0;
+  margin: 0 0 20px 0;
 }
-
+.title-type-attest {
+  margin-top: 0;
+}
 .nav-pills-attest > li.active > a, .nav-pills-attest > li.active > a:hover, .nav-pills-attest > li.active > a:focus {
   color: #fff;
   background-color: #208944;

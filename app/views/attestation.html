@@ -7,73 +7,84 @@
   <div class="row">
     <div class="col-md-12">
 
-      <h1>Результати атестації</h1>
+      <h1 class="text-center">Результати атестації</h1>
 
-      <div class="year-select">
-        <label for="year" class="select-form__label">Навчальний рік</label>
-        <ui-select id="year" class="select-form__select" ng-model="studyYears.selected" append-to-body="true">
-          <ui-select-match placeholder="Оберіть навчальний рік">
-            <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="itemYears in (studyYears | filter: $select.search) track by itemYears.id"
-                             position="down">
-            <span ng-bind="itemYears.name"></span>
-          </ui-select-choices>
-          <ui-select-no-choice>
-            Рік не знайдено
-          </ui-select-no-choice>
-        </ui-select>
-        <div class="error-load-attest" ng-show="errorMessageYears">{{errorMessageYears}}</div>
-      </div>
-      <div class="semester-select" ng-show="studyYears.selected">
-        <label for="semester" class="select-form__label">Семестр</label>
-        <ui-select id="semester" class="select-form__select" ng-model="studySemesters.selected" append-to-body="true">
-          <ui-select-match placeholder="Оберіть семестр">
-            <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="itemSemester in (studySemesters | filter: $select.search) track by itemSemester.id"
-                             position="down">
-            <span ng-bind="itemSemester.name"></span>
-          </ui-select-choices>
-          <ui-select-no-choice>
-            Семестр не знайдено
-          </ui-select-no-choice>
-        </ui-select>
-      </div>
-      <div class="attest-num-select" ng-show="studySemesters.selected">
-        <label for="attest-num" class="select-form__label">Номер атестації</label>
-        <ui-select id="attest-num" class="select-form__select" ng-model="$parent.itemAttest"
-                   append-to-body="true"
-                   on-select="getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, itemAttest.id);">
-          <ui-select-match placeholder="Оберіть номер атестації">
-            <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="attests in (attestations | filter: $select.search) track by attests.id"
-                             position="down">
-            <span ng-bind="attests.name"></span>
-          </ui-select-choices>
-          <ui-select-no-choice>
-            Номер атестації не знайдений
-          </ui-select-no-choice>
-        </ui-select>
-        <div class="error-load-attest" ng-show="errorMessageAttests">{{errorMessageAttests}}</div>
+      <div class="ol-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 selected-info">
+        <div class="year-select">
+          <label for="year" class="select-form__label">Навчальний рік</label>
+          <ui-select id="year" class="select-form__select" ng-model="studyYears.selected" append-to-body="true">
+            <ui-select-match placeholder="Оберіть навчальний рік">
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="itemYears in (studyYears | filter: $select.search) track by itemYears.id"
+                               position="down">
+              <span ng-bind="itemYears.name"></span>
+            </ui-select-choices>
+            <ui-select-no-choice>
+              Рік не знайдено
+            </ui-select-no-choice>
+          </ui-select>
+          <div class="error-load-attest" ng-show="errorMessageYears">{{errorMessageYears}}</div>
+        </div>
+        <div class="semester-select" ng-show="studyYears.selected">
+          <label for="semester" class="select-form__label">Семестр</label>
+          <ui-select id="semester" class="select-form__select" ng-model="studySemesters.selected" append-to-body="true">
+            <ui-select-match placeholder="Оберіть семестр">
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices
+              repeat="itemSemester in (studySemesters | filter: $select.search) track by itemSemester.id"
+              position="down">
+              <span ng-bind="itemSemester.name"></span>
+            </ui-select-choices>
+            <ui-select-no-choice>
+              Семестр не знайдено
+            </ui-select-no-choice>
+          </ui-select>
+        </div>
+        <div class="attest-num-select" ng-show="studySemesters.selected">
+          <label for="attest-num" class="select-form__label">Номер атестації</label>
+          <ui-select id="attest-num" class="select-form__select"
+                     ng-model="studyAttestationPeriod.selected"
+                     append-to-body="true">
+            <ui-select-match placeholder="Оберіть номер атестації">
+              <span ng-bind="$select.selected.name"></span>
+            </ui-select-match>
+            <ui-select-choices repeat="attests in (studyAttestationPeriod | filter: $select.search) track by attests.id"
+                               position="down">
+              <span ng-bind="attests.name"></span>
+            </ui-select-choices>
+            <ui-select-no-choice>
+              Номер атестації не знайдений
+            </ui-select-no-choice>
+          </ui-select>
+          <div class="error-load-attest" ng-show="errorMessageAttests">{{errorMessageAttests}}</div>
+        </div>
+
+        <div class="text-center" ng-show="studyAttestationPeriod.selected">
+          <button class="btn btn-primary btn-result" type="submit"
+                  ng-click="getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);">
+            Перевірити наявність даних про атестацію
+          </button>
+        </div>
+
+        <div class="alert alert-danger text-center fade in attest-alert" ng-show="attestationPeriodId == null">
+          Немає даних про атестацію для таких параметрів!
+        </div>
+        <!--  -->
+        <div class="attest-menu" ng-show="attestationPeriodId != null && attestationPeriodId != 'not get'">
+          <h4 class="text-center title-type-attest">Оберіть категорію для перегляду атестацій</h4>
+          <ul class="nav nav-pills-attest nav-justified attest-navigation " ng-model="choiceType">
+            <li ng-class="{ active: isSet(1)}">
+              <a ng-click="setPill(1);choiceType = 'students'">Студенти</a></li>
+            <li ng-class="{ active: isSet(2)}">
+              <a ng-click="setPill(2);choiceType = 'groups'">Групи</a></li>
+            <li ng-class="{ active: isSet(3)}">
+              <a ng-click="setPill(3);choiceType = 'lecturers'">Викладачі</a></li>
+          </ul>
+        </div>
       </div>
 
-      <div class="alert alert-danger text-center fade in attest-alert" ng-show="attestationPeriodId == null">
-        Немає даних про атестацію для таких параметрів!
-      </div>
-
-      <div class="attest-menu" ng-show="itemAttest && (attestationPeriodId != null)">
-        <h4 class="text-center">Оберіть категорію для перегляду атестацій</h4>
-        <ul class="nav nav-pills-attest nav-justified attest-navigation " ng-model="choiceType">
-          <li ng-class="{ active: isSet(1)}">
-            <a ng-click="setPill(1);choiceType = 'students'">Студенти</a></li>
-          <li ng-class="{ active: isSet(2)}">
-            <a ng-click="setPill(2);choiceType = 'groups'">Групи</a></li>
-          <li ng-class="{ active: isSet(3)}">
-            <a ng-click="setPill(3);choiceType = 'lecturers'">Викладачі</a></li>
-        </ul>
-      </div>
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
@@ -124,7 +135,7 @@
               </tr>
               <tr>
                 <th class="text-center">№ Атестації</th>
-                <th class="text-center">{{itemAttest.name}}</th>
+                <th class="text-center">{{studyAttestationPeriod.selected.name}}</th>
               </tr>
               <tr>
                 <th class="text-center">Студент</th>
@@ -202,7 +213,7 @@
               </tr>
               <tr>
                 <th class="text-center">№ Атестації</th>
-                <th class="text-center">{{itemAttest.name}}</th>
+                <th class="text-center">{{studyAttestationPeriod.selected.name}}</th>
               </tr>
               <tr>
                 <th class="text-center">Група</th>
@@ -298,67 +309,68 @@
                   </ui-select>
                 </div>
                 <div class="group-lect-select">
-                    <label for="group-lect" class="select-form__label">Група</label>
-                    <ui-select id="group-lect" class="select-form__select" ng-model="$parent.itemGroupLect"
-                               append-to-body="true">
-                      <ui-select-match placeholder="Оберіть групу">
-                        <span ng-bind="$select.selected"></span>
-                      </ui-select-match>
-                      <ui-select-choices repeat="group in (groupsListForLecturers | filter: $select.search)"
-                                         position="down">
-                        <span ng-bind="group"></span>
-                      </ui-select-choices>
-                      <ui-select-no-choice>
-                        Групу не знайдено
-                      </ui-select-no-choice>
-                    </ui-select>
+                  <label for="group-lect" class="select-form__label">Група</label>
+                  <ui-select id="group-lect" class="select-form__select" ng-model="$parent.itemGroupLect"
+                             append-to-body="true">
+                    <ui-select-match placeholder="Оберіть групу">
+                      <span ng-bind="$select.selected"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="group in (groupsListForLecturers | filter: $select.search)"
+                                       position="down">
+                      <span ng-bind="group"></span>
+                    </ui-select-choices>
+                    <ui-select-no-choice>
+                      Групу не знайдено
+                    </ui-select-no-choice>
+                  </ui-select>
 
-                      <div ng-show="itemGroupLect && lecturersResult.length != 0" class="table-responsive"
-                           style="margin-top: 20px;">
-                        <table class="table table-hover table-condensed table-bordered" id="table-attest-lecturer">
-                          <thead class="hidden for-excel">
-                          <tr>
-                            <th class="text-center">Навчальний рік</th>
-                            <th class="text-center">{{studyYears.selected.name}}</th>
-                          </tr>
-                          <tr>
-                            <th class="text-center">Семестр</th>
-                            <th class="text-center">{{studySemesters.selected.name}}</th>
-                          </tr>
-                          <tr>
-                            <th class="text-center">№ Атестації</th>
-                            <th class="text-center">{{itemAttest.name}}</th>
-                          </tr>
-                          <tr>
-                            <th class="text-center">Група</th>
-                            <th class="text-center">{{itemGroup.name}}</th>
-                          </tr>
-                          </thead>
-                          <thead>
-                          <tr>
-                            <th class="text-center">№</th>
-                            <th class="text-center">ПІБ</th>
-                            <th class="text-center">Результат</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr ng-repeat="stud in lecturersResult | filter:itemCourse | filter:itemDiscipline | filter:itemGroupLect">
-                            <td class="text-center">{{$index + 1}}</td>
-                            <td>{{stud.student.name}}</td>
-                            <td class="text-center">{{stud.attestation.name}}</td>
-                          </tr>
-                          </tbody>
-                        </table>
-                        <div class="text-center" ng-show="lecturersResult.length != 0">
-                          <a class="btn btn-success" download="attest.xls"
-                             onclick="return ExcellentExport.excel(this, 'table-attest-lecturer', 'attest');">
-                            <i class="fa fa-file-excel-o "></i> Завантажини звіт
-                          </a>
-                        </div>
-                      </div>
+                  <div ng-show="itemGroupLect && lecturersResult.length != 0" class="table-responsive"
+                       style="margin-top: 20px;">
+                    <table class="table table-hover table-condensed table-bordered" id="table-attest-lecturer">
+                      <thead class="hidden for-excel">
+                      <tr>
+                        <th class="text-center">Навчальний рік</th>
+                        <th class="text-center">{{studyYears.selected.name}}</th>
+                      </tr>
+                      <tr>
+                        <th class="text-center">Семестр</th>
+                        <th class="text-center">{{studySemesters.selected.name}}</th>
+                      </tr>
+                      <tr>
+                        <th class="text-center">№ Атестації</th>
+                        <th class="text-center">{{studyAttestationPeriod.selected.name}}</th>
+                      </tr>
+                      <tr>
+                        <th class="text-center">Група</th>
+                        <th class="text-center">{{itemGroup.name}}</th>
+                      </tr>
+                      </thead>
+                      <thead>
+                      <tr>
+                        <th class="text-center">№</th>
+                        <th class="text-center">ПІБ</th>
+                        <th class="text-center">Результат</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr
+                        ng-repeat="stud in lecturersResult | filter:itemCourse | filter:itemDiscipline | filter:itemGroupLect">
+                        <td class="text-center">{{$index + 1}}</td>
+                        <td>{{stud.student.name}}</td>
+                        <td class="text-center">{{stud.attestation.name}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                    <div class="text-center" ng-show="lecturersResult.length != 0">
+                      <a class="btn btn-success" download="attest.xls"
+                         onclick="return ExcellentExport.excel(this, 'table-attest-lecturer', 'attest');">
+                        <i class="fa fa-file-excel-o "></i> Завантажини звіт
+                      </a>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-          </div>
           </div>
         </div>
         <div ng-switch-default></div>
