@@ -12,16 +12,11 @@ angular.module('ecampusApp')
     $scope.errorMessageYears = '';
     $scope.errorMessageAttests = '';
     $scope.errorMessageGroups = '';
-    $scope.attestationPeriodId = '';
-
-    $scope.Semesters = [
-      {id: 1, name: 'Перший семестр'},
-      {id: 2, name: 'Другий семестр'}
-    ];
+    $scope.attestationPeriodId = 'not get';
 
     $scope.errorLoadGroupsResult = '';
     $scope.getGroupsResults = false;
-    $scope.disciplinesListForLecturers = [];
+    $scope.disciplinesListForGroups = [];
     $scope.loaderGroupsResult = false;
 
     $scope.errorMessageLecturers = '';
@@ -42,27 +37,111 @@ angular.module('ecampusApp')
       return $scope.pill === pillNum;
     };
 
-    function loadYears() {
+    function setCurrentStudyYear(response) {
+      for (var i = 0; i < response.length; i++) {
+        var current = response[i];
+        if (current.isActual) {
+          return current;
+        }
+      }
+    }
+
+    function loadStudyYears() {
       var url = 'Attestation/studyYear';
       Api.execute("GET", url)
         .then(function (response) {
-            $scope.Years = response;
+            $scope.studyYears = response;
+            $scope.studyYears.selected = setCurrentStudyYear(response);
           },
           function () {
             $scope.errorMessageYears = "Не вдалося завантажити список навчальних років";
-            $scope.Years = null;
+            $scope.studyYears = null;
           });
     }
 
-    function loadAttests() {
+    function getCurrentStudySemester() {
+      var currentStudySemester = 0;
+      var currentDate = new Date();
+      if (currentDate.getMonth() >= 8 && currentDate.getMonth() <= 11) {
+        currentStudySemester = 1;
+      }
+      else {
+        currentStudySemester = 2;
+      }
+      return currentStudySemester;
+    }
+
+    function setCurrentStudySemester(response) {
+      var currentStudySemester = getCurrentStudySemester();
+      if (currentStudySemester != 0) {
+        for (var i = 0; i < response.length; i++) {
+          var current = response[i];
+          if (current.id == currentStudySemester) {
+            return current;
+          }
+        }
+      }
+    }
+
+    function loadSemesters() {
+      $scope.studySemesters = [
+        {id: 1, name: 'Перший семестр'},
+        {id: 2, name: 'Другий семестр'}
+      ];
+      $scope.studySemesters.selected = setCurrentStudySemester($scope.studySemesters);
+    }
+
+    // 1 period - (7 - 9) study year week
+    // 2 period - (13 - 15) study year week
+    function getCurrentStudyAttestationPeriod() {
+      Date.prototype.getWeek = function () {
+        var date = new Date(this.getTime());
+        date.setHours(0, 0, 0, 0);
+        // Thursday in current week decides the year.
+        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+        // January 4 is always in week 1.
+        var week1 = new Date(date.getFullYear(), 0, 4);
+        // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+            - 3 + (week1.getDay() + 6) % 7) / 7);
+      };
+
+      var currentStudyAttestationPeriod = "не визначено";
+      var currentDate = new Date();
+
+      if ( (currentDate.getWeek() >= 42 && currentDate.getWeek() <= 44) ||
+        (currentDate.getWeek() >= 12 && currentDate.getWeek() <= 14)) {
+        currentStudyAttestationPeriod = "Атестація №1";
+      }
+      else if ((currentDate.getWeek() >= 48 && currentDate.getWeek() <= 50) ||
+        (currentDate.getWeek() >= 18 && currentDate.getWeek() <= 20)) {
+        currentStudyAttestationPeriod = "Атестація №2";
+      }
+      return currentStudyAttestationPeriod;
+    }
+
+    function setCurrentStudyAttestationPeriod(response) {
+      var currentStudyAttestationPeriod = getCurrentStudyAttestationPeriod();
+      if (currentStudyAttestationPeriod != 0) {
+        for (var i = 0; i < response.length; i++) {
+          var current = response[i];
+          if (current.name == currentStudyAttestationPeriod) {
+            return current;
+          }
+        }
+      }
+    }
+
+    function loadAttestations() {
       var url = 'Attestation';
       Api.execute("GET", url)
         .then(function (response) {
-            $scope.Attests = response;
+            $scope.studyAttestationPeriod = response;
+            $scope.studyAttestationPeriod.selected = setCurrentStudyAttestationPeriod(response);
           },
           function () {
             $scope.errorMessageAttests = "Не вдалося завантажити список атестацій";
-            $scope.Attests = null;
+            $scope.attestations = null;
           });
     }
 
@@ -79,6 +158,7 @@ angular.module('ecampusApp')
     function getStudentsAndDisciplinesLists(response) {
       var allDisciplinesList = [];
       var allStudentsList = [];
+
       for (var i = 0; i < response.length; i++) {
         allDisciplinesList.push(
           new DisciplinesTeachersModel(
@@ -88,31 +168,39 @@ angular.module('ecampusApp')
         );
         allStudentsList.push(response[i].student.name);
       }
-      $scope.disciplinesListForLecturers = uniqueLoadGroupsResultElements(allDisciplinesList);
+
+      $scope.disciplinesListForGroups = uniqueLoadGroupsResultElements(allDisciplinesList);
       $scope.studentsList = uniqueElements(allStudentsList);
     }
 
     function getGroupsList(response) {
       var allGroupsList = [];
+
       for (var i = 0; i < response.length; i++) {
         allGroupsList.push(response[i].studyGroup.name);
       }
+
       $scope.groupsListForLecturers = uniqueElements(allGroupsList);
     }
 
     function getCoursesList(response) {
       var allCoursesList = [];
+
       for (var i = 0; i < response.length; i++) {
         allCoursesList.push(response[i].course);
       }
+
       $scope.coursesListForLecturers = uniqueElements(allCoursesList);
     }
 
     function getDisciplinesList(response) {
       var allDisciplinesList = [];
+
       for (var i = 0; i < response.length; i++) {
-        allDisciplinesList.push(response[i].rnpRow.name);
+        var result = response[i].rnpRow.name.split(",");
+        allDisciplinesList.push(result[0]);
       }
+
       $scope.disciplinesListForLecturers = uniqueElements(allDisciplinesList);
     }
 
@@ -245,11 +333,11 @@ angular.module('ecampusApp')
         Api.execute("GET", url)
           .then(function (response) {
               $scope.errorMessageLecturers = "";
-              $scope.Lecturers = response;
+              $scope.lecturersList = response;
             },
             function () {
               $scope.errorMessageLecturers = "Не вдалося завантажити список груп";
-              $scope.Lecturers = null;
+              $scope.lecturersList = null;
             });
       }
       else {
@@ -261,16 +349,17 @@ angular.module('ecampusApp')
       var url = 'Attestation/lecturer/' + eEmployees1Id + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
-            getGroupsList(response);
-            getCoursesList(response);
-            getDisciplinesList(response);
+            var sortedResponse = response.sort(sortRuleForLecturersResult);
+            getGroupsList(sortedResponse);
+            getCoursesList(sortedResponse);
+            getDisciplinesList(sortedResponse);
             $scope.errorLecturersResult = "";
             $scope.getLecturersResults = true;
-            $scope.LecturersResult = response.sort(sortRuleForLecturersResult);
+            $scope.lecturersResult = sortedResponse;
           },
           function () {
             $scope.errorLecturersResult = "Не вдалося завантажити результати для даного викладача";
-            $scope.LecturersResult = null;
+            $scope.lecturersResult = null;
             $scope.getLecturersResults = false;
           });
     };
@@ -309,7 +398,8 @@ angular.module('ecampusApp')
           });
     };
 
-    loadYears();
-    loadAttests();
+    loadStudyYears();
+    loadSemesters();
+    loadAttestations();
 
   }]);
