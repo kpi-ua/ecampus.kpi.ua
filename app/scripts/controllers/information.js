@@ -9,5 +9,4 @@
  */
 angular.module('ecampusApp')
   .controller('InformationCtrl', function () {
-    
   });

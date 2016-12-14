@@ -30,7 +30,7 @@ angular.module('ecampusApp')
                     Api.logout();
                     $cookies.put('SID', null, { domain: 'kpi.ua' });
                     $cookies.put('SID', null, { domain: 'campus.kpi.ua' });
-                    $window.location.href = '/#/';
+                    $window.location.href = '/#!/';
                 };
 
                 function init() {

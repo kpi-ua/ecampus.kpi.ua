@@ -143,10 +143,7 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'views/attestation.html',
       controller: 'AttestationCtrl',
       controllerAs: 'attest'
-    })
-    .otherwise({
-      redirectTo: '/'
     });
 
-  $locationProvider.html5Mode(true);
+  //$locationProvider.html5Mode(true);
 });
