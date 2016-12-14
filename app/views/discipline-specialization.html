@@ -1,10 +1,13 @@
 <breadcrumbs>
   <!--<span>Модулі</span> >--> <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Дисципліни спеціалізації</b>
 </breadcrumbs>
-
+<div class="loader" ng-if="preloader">
+  <div class="loader_inner" ng-if="preloader"></div>
+</div>
 <div class="container-fluid content">
   <div class="row">
     <div class="col-md-12">
+
       <h1>Дисципліни спеціалізації</h1>
 
       <div class="discipline-specialization" ng-switch on="section">
@@ -73,7 +76,7 @@
               вступу</label>
             <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"
                     ng-model="selectData.StudyYear"
-                    ng-change="OnFullSelect()">
+                    ng-change="OnFullSelect(true)">
               <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
             </select>
           </div>
@@ -90,22 +93,22 @@
               <thead>
               <tr class="patterns__table-header">
                 <td>
-                  <a href="#" ng-click="sortType = 'CycleName';sortReverse = !sortReverse">
+                  <a href="#" ng-click="sortType = 'Cycle.Name';sortReverse = !sortReverse">
                     Цикл дисциплін
-                    <span ng-show="sortType == 'CycleName'" class="fa"
+                    <span ng-show="sortType == 'Cycle.Name'" class="fa"
                           ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
                   </a>
                 </td>
                 <td>
-                  <a href="#" ng-click="sortType = 'BlockName';sortReverse = !sortReverse">
+                  <a href="#" ng-click="sortType = 'Block.Name';sortReverse = !sortReverse">
                     Назва блоку
-                    <span ng-show="sortType == 'BlockName'" class="fa"
+                    <span ng-show="sortType == 'Block.Name'" class="fa"
                           ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
                   </a>
                 </td>
                 <td>
                   <a href="#" ng-click="sortType = 'Course';sortReverse = !sortReverse">
-                    Курс навчання
+                    Курс <br/> навчання
                     <span ng-show="sortType == 'Course'" class="fa"
                           ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
                   </a>
@@ -119,7 +122,7 @@
                 </td>
                 <td>
                   <a href="#" ng-click="sortType = 'CountDiscipline';sortReverse = !sortReverse">
-                    Кількість дисциплін
+                    Кількість <br/> дисциплін
                     <span ng-show="sortType == 'CountDiscipline'" class="fa"
                           ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
                   </a>
@@ -132,7 +135,7 @@
                           ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
                   </a>
                 </td>
-                <td></td>
+                <td>Дія</td>
               </tr>
               </thead>
               <tbody>
@@ -143,25 +146,23 @@
               </tr>
               <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
                 <td>
-                            <span editable-select="pattern.CycleId" e-name="CycleId" e-form="rowform"
+                            <span editable-select="pattern.Cycle.Id" e-name="CycleId" e-form="rowform"
                                   onbeforesave="checkAllForm($data)" e-required
-                                  e-ng-options="cycle.CycleId as cycle.CycleName for cycle in Dc.Cycles">
-                              {{ pattern.CycleName|| 'empty' }}
+                                  e-ng-options="cycle.id as cycle.name for cycle in Dc.Cycles">
+                              {{ pattern.Cycle.Name|| 'empty' }}
                               <!--{{ShowCycleName(pattern)}}-->
                             </span>
                 </td>
                 <td>
-                            <span editable-select="pattern.BlockId" e-name="BlockId" e-form="rowform"
+                            <span editable-select="pattern.Block.Id" e-name="BlockId" e-form="rowform"
                                   onbeforesave="checkAllForm($data)" e-required
-                                  e-ng-options="block.BlockId as block.BlockName for block in Dc.Blocks">
-                              {{ pattern.BlockName || 'empty' }}
+                                  e-ng-options="block.id as block.name for block in Dc.Blocks">
+                              {{ pattern.Block.Name || 'empty' }}
                             </span>
                 </td>
                 <td>
-                            <span editable-select="pattern.Course" e-name="Course" e-form="rowform"
-                                  onbeforesave="checkAllForm($data)" e-required
-                                  e-ng-options="course as course for course in Dc.Courses">
-                              {{ pattern.Course || 'empty' }}
+                            <span  e-name="Course" e-form="rowform">
+                              {{ pattern.Course }}
                             </span>
                 </td>
                 <td>
