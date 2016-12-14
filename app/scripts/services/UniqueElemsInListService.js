@@ -3,24 +3,24 @@
 angular
   .module('ecampusApp')
   .service('UniqueElemsInList', function () {
-    var listOfObjects = [], finalArr = [], listAccordingToSubdivision = [];
+    var unmodifiedElementsOfQuery = [], finalArr = [], listAccordingToSubdivision = [];
     var tmpItem, ifPresent;
 
     this.setData = function (currListOfObj) {
       for (var i = 0; i < currListOfObj.length; i++) {
-        listOfObjects.push(currListOfObj[i]);
+        unmodifiedElementsOfQuery.push(currListOfObj[i]);
       }
     };
 
     this.getData = function () {
-      return listOfObjects;
+      return unmodifiedElementsOfQuery;
     };
 
     this.getDataFiltered = function (field) {
       listAccordingToSubdivision = [];
-      for (var i = 0; i < listOfObjects.length; i++) {
-        if (field == listOfObjects[i].subdivisionName) {
-          listAccordingToSubdivision.push(listOfObjects[i]);
+      for (var i = 0; i < unmodifiedElementsOfQuery.length; i++) {
+        if (field == unmodifiedElementsOfQuery[i].subdivisionName) {
+          listAccordingToSubdivision.push(unmodifiedElementsOfQuery[i]);
         }
       }
       return listAccordingToSubdivision;
@@ -30,32 +30,26 @@ angular
       finalArr = [];
       finalArr.push('testStr');
 
-      for (var i = 0; i < listOfObjects.length; i++) {
-        //listOfObjects[i][field].discipline is not working
+      for (var i = 0; i < unmodifiedElementsOfQuery.length; i++) {
+        //unmodifiedElementsOfQuery[i][field].discipline is not working
         switch (field) {
           case 'discipline':
-            tmpItem = listOfObjects[i].discipline;
+            tmpItem = unmodifiedElementsOfQuery[i].discipline;
             break;
           case 'okr':
-            tmpItem = listOfObjects[i].okr;
+            tmpItem = unmodifiedElementsOfQuery[i].okr;
             break;
           case 'studyyear':
-            tmpItem = listOfObjects[i].studyyear;
-            break;
-          case 'studyPeriod.start':
-            tmpItem = listOfObjects[i].studyPeriod.start;
-            break;
-          case 'studyPeriod.end':
-            tmpItem = listOfObjects[i].studyPeriod.end;
+            tmpItem = unmodifiedElementsOfQuery[i].studyyear;
             break;
           case 'studyPeriod.all':
-            tmpItem = listOfObjects[i].studyPeriod.start+"-"+listOfObjects[i].studyPeriod.end;
+            tmpItem = unmodifiedElementsOfQuery[i].studyPeriod.start+"-"+unmodifiedElementsOfQuery[i].studyPeriod.end;
             break;
           case 'subdivisionName':
-            tmpItem = listOfObjects[i].subdivisionName;
+            tmpItem = unmodifiedElementsOfQuery[i].subdivisionName;
             break;
           default:
-            tmpItem = listOfObjects[i];
+            tmpItem = unmodifiedElementsOfQuery[i];
             break;
         }
         for (var j = 0; j < finalArr.length; j++) {
@@ -77,18 +71,18 @@ angular
 
     this.getArrayOfBlocksAndDisc = function (year, okr, initialArr) {
 
-      listOfObjects = [];
-      var StudyYearFrom = year.substr(0,4),
-          StudyYearTo = year.substr(5);
+      unmodifiedElementsOfQuery = [];
+      var studyYearFrom = year.substr(0,4),
+          studyYearTo = year.substr(5);
 
       for (var i = 0; i < initialArr.length; i++) {
 
         console.log("initialArr[i]");
         console.log(initialArr[i]);
-        if ((StudyYearFrom == initialArr[i].studyPeriod.start) && (StudyYearTo == initialArr[i].studyPeriod.end) && (okr == initialArr[i].okr)) {
+        if ((studyYearFrom == initialArr[i].studyPeriod.start) && (studyYearTo == initialArr[i].studyPeriod.end) && (okr == initialArr[i].okr)) {
         //if ((year == initialArr[i].studyyear) && (okr == initialArr[i].okr)) {
           console.log("pushed!");
-          listOfObjects.push({
+          unmodifiedElementsOfQuery.push({
 
             block: initialArr[i].blockName,
             discipline: initialArr[i].discipline,
@@ -102,11 +96,11 @@ angular
       }
 
 
-      return listOfObjects;
+      return unmodifiedElementsOfQuery;
     };
 
     this.clearData = function () {
-      listOfObjects = [];
+      unmodifiedElementsOfQuery = [];
     }
 
 
