@@ -79,35 +79,51 @@
                                     <th class="tdFullAlignCenter">
                                         Кількість кредитів
                                     </th>
-                                    <th class="tdFullAlignCenter">Дія</th>
+                                    <th class="tdFullAlignCenter minWidthTwoButtons">Дія</th>
                                 </tr>
-                                <tr class="d-s-table patterns__table-button">
-                        <td colspan="8" ng-click="addRowFromTable()" class="text-center" data-toggle="modal" data-target="#AddDataToTable">
-                            <i class="fa fa-plus" aria-hidden="true"></i>  Додати нову пропозицію
-                        </td>
+                                <!--<tr class="d-s-table patterns__table-button">
+                    </tr>-->
+                    <tr class="d-s-table patterns__table-button">
+                      <td colspan="8" class="text-center" ng-click="addProposition()">
+                        <i class="fa fa-plus" aria-hidden="true"></i>Додати нову пропозицію
+                      </td>
                     </tr>
+                    
                                 <tr ng-show="alldisciplines!=null && alldisciplines.length == 0">
                                   <td colspan="8">На жаль, записи у базі відсутні</td>
                                 </tr>
-
+                
                 <tr ng-repeat="obj in alldisciplines | orderObjectBy:sortName:sortReverse | unique:selectedDiscipline"> 
-
+                    <!-- <td>{{ $index + 1 }}</td> -->               
+                    <td>
+                      <span editable-select="obj.okr" e-name="okr" e-form="rowformProposition" onbeforesave="checkProposForm($data)" e-required e-ng-options="okr.name as okr.name for okr in tempListData.okr">
+                      {{ obj.okr || 'не вказано'}}
+                      </span>
+                    </td>
+                    <td>
+                    <span editable-select="obj.blockName" e-name="blockName" e-form="rowformProposition"
+                                  onbeforesave="checkProposForm($data)" e-required
+                                  e-ng-options="block.name as block.name for block in tempListData.dcBlock8">
+                    {{obj.blockName || 'не вказано'}}
+                    </span>
+                    </td>
                     
-                    <!-- <td>{{ $index + 1 }}</td> -->
-
-                    <td>{{obj.okr}}</td>
-                    <td>{{obj.blockName}}</td>
-                    
-                    <td>{{obj.nameUkr}}</td>
+                    <td>
+                      <span editable-select="obj.nameUkr" e-name="nameUkr" e-form="rowformProposition"
+                                  onbeforesave="checkProposForm($data)" e-required
+                                  e-ng-options="discipline.name as discipline.name for discipline in tempListData.dcDiscipline8">
+                      {{obj.nameUkr || 'не вказано'}}
+                      </span>
+                    </td>
                     <td class="tdFullAlignCenter"> 
-                    <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button" aria-label="Description and additional information" data-toggle="modal" data-target="#ModalAdditionalInfo" ng-click="getCurrentYearData(obj)">
+                    <button type="button" ng-show="!rowformProposition.$visible" class="btn patterns__table-button patterns__table-button_CRUD-button" aria-label="Description and additional information" data-toggle="modal" data-target="#ModalAdditionalInfo" ng-click="getCurrentYearData(obj)">
                       <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
                         <!--<i class="fa fa-bars" aria-hidden="true"></i>-->
                     </button>
                     
                     </td>
                     <td class="tdFullAlignCenter">
-                    <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button" aria-label="Maximum amount of approved students according to years" data-toggle="modal" data-target="#ModalTableApproved" ng-click="getCurrentYearData(obj)">
+                    <button type="button" ng-show="!rowformProposition.$visible" class="btn patterns__table-button patterns__table-button_CRUD-button" aria-label="Maximum amount of approved students according to years" data-toggle="modal" data-target="#ModalTableApproved" ng-click="getCurrentYearData(obj)">
                       <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                         <!--<i class="fa fa-calendar" aria-hidden="true"></i>-->
                     </button>
@@ -117,16 +133,39 @@
                     <td>
                       <img class="objImages" ng-src="{{obj.pictures}}" ng-if="obj.pictures">
                     </td>
-                    <td>{{obj.countCredit}}</td>
+                    <td>
+                      <span editable-number="obj.countCredit" e-name="countCredit" e-form="rowformProposition" e-min="0">
+                        {{obj.countCredit || 'не вказано'}}  
+                      </span>
+                    </td>
                     <td class="tdFullAlignCenter">
-                      <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button" aria-label="delete row" data-toggle="modal" data-target="#AddDataToTable" ng-click="editRowFromTable(obj)">
+                      <form editable-form name="rowformProposition" onbeforesave="saveProposition($data,obj)"
+                        ng-show="rowformProposition.$visible"
+                        class="form-buttons form-inline" shown="insertedProposition == obj">
+                        <button type="submit" ng-disabled="rowformProposition.$waiting"
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
+                            <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" ng-disabled="rowformProposition.$waiting" ng-click="rowformProposition.$cancel()"
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                      </form>
+
+                    <div class="buttons" ng-show="!rowformProposition.$visible">
+                      <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit" ng-click="rowformProposition.$show()">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <!-- ng-click="editRowFromTable(obj)" -->
                         <!--<i class="fa fa-pencil" aria-hidden="true"></i>-->
                       </button>
-                      <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button" aria-label="delete row" data-toggle="modal" data-target="#ModalDeleteRow" ng-click="getCurrentYearData(obj)">
+                      <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete" ng-click="removeProposition(obj)">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                          <!-- ng-click="getCurrentYearData(obj)" -->
+
                         <!--<i class="fa fa-trash-o" aria-hidden="true"></i>-->
                       </button>
+                    </div>
+                      
                     </td>
                 </tr>
             </table>
@@ -147,22 +186,59 @@
             </div>
             <div class="modal-body">
               <div class="container-fluid">
-                <div class="row">
-                  <div class="col-xs-2">Знання:</div>
-                  <div class="col-xs-10">{{CurrentYearData.knowledge}}</div>
+                <form editable-form name="formDescription" onaftersave="addDescription()">
+                  <div>
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-2">Знання: </span>
+                    <span editable-text="CurrentYearData.knowledge" e-name="knowledge" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.knowledge || 'empty' }}</span>
+                  </div>
+                  <div>
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-2">Уміння: </span>
+                    <span editable-text="CurrentYearData.competence" e-name="competence" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.competence || 'empty' }}</span>
+                  </div>
+                  <div>
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-2">Навички: </span>
+                    <span editable-text="CurrentYearData.skill" e-name="skill" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.skill || 'empty' }}</span>
+                  </div>
+                  <div>
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-2">Анотація: </span>
+                    <span editable-text="CurrentYearData.annotation" e-name="annotation" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.annotation || 'empty' }}</span>
+                  </div> 
+                  <div class="form-group" ng-show="formDescription.$visible">
+                    <label for="files" class="control-label col-sm-3 alignLeft select-form__label">
+                    Зображення:
+                    </label>
+                    <div class="col-sm-9">
+
+                      <input type="file" id="files" name="files[]" accept="image/*">
+                      <img class="thumb" id="preview" src="" alt="Зображення">
+                    </div>
+                  </div>
+                  <button type="submit" ng-disabled="formDescription.$waiting" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save" ng-show="formDescription.$visible">
+                    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" ng-disabled="formDescription.$waiting" ng-click="formDescription.$cancel()" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel" ng-show="formDescription.$visible">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  </button>
+                </form>
+
+                <div class="buttons" ng-show="!formDescription.$visible">
+                  <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit" ng-click="formDescription.$show()">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+                  </button>
+                  <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete" ng-click="">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+
+                  </button>
                 </div>
-                <div class="row">
-                  <div class="col-xs-2">Уміння:</div>
-                  <div class="col-xs-10">{{CurrentYearData.competence}}</div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-2">Навички:</div>
-                  <div class="col-xs-10">{{CurrentYearData.skill}}</div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-2">Анотація:</div>
-                  <div class="col-xs-10">{{CurrentYearData.annotation}}</div>
-                </div>
+
+                
+                
+                
               </div>
 
             </div>
@@ -174,8 +250,9 @@
         </div>
       </div>
 
+<!-- info modal window about approved students of current discipline --> 
       <div id="ModalTableApproved" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -185,26 +262,70 @@
 
 
                 <div class="table-responsive">
-                    <table class="table table-condensed table-bordered">
+                  <table class="table table-condensed table-bordered">
                     <caption>{{CurrentYearData.nameUkr}}</caption>
-                        <tr class="color-head">
-                            <th class="fontNormal">Навчальний рік</th>
-                            <th class="fontNormal">Максимальна кількість студентів на потоці</th>
-                            <th class="fontNormal">Затвердження</th>
-                        </tr>
-
-                        <tr class="d-s-table patterns__table-button">
-                        <td colspan="8" ng-click="addPattern()" class="text-center" data-toggle="modal" data-target="#AddToTableMax">
-                            <i class="fa fa-plus" aria-hidden="true"></i>  Додати нові дані
-                        </td>
+                    <tr class="color-head">
+                      <th class="fontNormal">Навчальний рік</th>
+                      <th class="fontNormal">Максимальна кількість студентів на потоці</th>
+                      <th class="fontNormal">Затвердження</th>
+                      <th class="fontNormal">Дія</th>
                     </tr>
-                        
-                        <tr ng-repeat="objYear in CurrentYearData.cdisciplineblockyear8">
-                            <td>{{objYear.studyYear}}</td>
-                            <td>{{objYear.maxCountStudent}}</td>
-                            <td>{{objYear.isApproved}}</td>
-                        </tr>
-                    </table>
+
+                    <tr class="d-s-table patterns__table-button">
+                      <td colspan="4" ng-click="addYear()" class="text-center">
+                        <i class="fa fa-plus" aria-hidden="true"></i>  Додати нові дані
+                      </td>
+                    </tr>
+
+                    <tr ng-repeat="objYear in CurrentYearData.yearData">
+                      <td>
+                        <span editable-select="objYear.studyYear.name" e-name="studyYear" e-form="rowformYear" onbeforesave="" e-required e-ng-options="studyYear.name as studyYear.name for studyYear in tempListData.cdiscipleneblockyear8">
+                          {{ objYear.studyYear.name || 'не вказано'}}
+                        </span>
+
+                      </td>
+                      <td class="countClass">
+                        <!--<span class="input-group-btn" ng-show="rowformYear.$visible">
+                          <button class="btn btn-danger btn-minuse" ng-click="MinusCred(objYear.maxCountStudent)" type="button">-</button>
+                        </span>-->
+                        <span editable-number="objYear.maxCountStudent" e-name="maxCountStudent" onbeforesave="" e-required e-form="rowformYear" e-min="0">
+                        {{objYear.maxCountStudent || 'не вказано'}}  
+                        </span>
+                        <!--<span class="input-group-btn" ng-show="rowformYear.$visible">
+                          <button class="btn btn-success btn-pluss" ng-click="PlusCred(objYear.maxCountStudent)" type="button">+</button>
+                        </span>-->
+                      </td>
+                      <td>
+                        <span editable-select="objYear.isApproved" e-name="isApproved" e-form="rowformYear" onbeforesave="" e-required e-ng-options="isApproved.name as isApproved.name for isApproved in testIsApproved" ng-init="showUaWords(objYear)">
+                            {{ objYear.isApproved || 'не вказано'}}
+                        </span>
+                      </td>
+                      <td class="tdFullAlignCenter">
+                        <form editable-form name="rowformYear" onbeforesave="saveYear($data,objYear)"
+                        ng-show="rowformYear.$visible"
+                        class="form-buttons form-inline" shown="insertedYear == objYear">
+                          <button type="submit" ng-disabled="rowformYear.$waiting" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
+                          <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                          </button>
+                          <button type="button" ng-disabled="rowformYear.$waiting" ng-click="rowformYear.$cancel()" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                          </button>
+                        </form>
+
+                  <div class="buttons" ng-show="!rowformYear.$visible">
+                    <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit" ng-click="rowformYear.$show()">
+                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+                    </button>
+                    <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete" ng-click="removeYear(objYear)">
+                      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                      
+                    </button>
+                  </div>
+
+                </td>
+              </tr>
+            </table>
                     
                   
                     
@@ -283,35 +404,7 @@
         </div>
       </div>
 
-
-<div id="ModalDeleteRow" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Видалення пропозиції</h4>
-            </div>
-            <div class="modal-body">
-                <h5>Ви збираєтеся видалити пропозицію з такими даними:</h5>
-                <ul>
-                  <li>{{CurrentYearData.okr}}</li>
-                  <li>{{CurrentYearData.blockName}}</li>
-                  <li>{{CurrentYearData.nameUkr}}</li>
-                </ul>
-                <h5>Для підтвердження оберіть варіант: "Так"</h5>
-                
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="deleteRowFromTable(CurrentYearData)">Так</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
+<!-- previous test modal window adding window -->
 <div id="AddDataToTable" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -326,7 +419,7 @@
               <div class="form-group">
                 <label class="control-label col-sm-3 alignLeft select-form__label" for="newOkr">ОКР:</label>
                 <div class="col-sm-9">
-                  <select name="" id="newOkr" ng-model="CurrOkr" class="select-form__select selectMarginTop" ng-change="newData.DcOKRId=CurrOkr.currentOkrId" ng-options="currOkr.currentOkr for currOkr in tempListData.allOkr"></select>
+                  <select name="" id="newOkr" ng-model="CurrOkr" class="select-form__select selectMarginTop" ng-change="newData.DcOKRId=CurrOkr.id" ng-options="currOkr.name for currOkr in tempListData.okr"></select>
                   <!-- <select name="" id="newOkr" ng-model="CurrOkr" class="select-form__select selectMarginTop" ng-change="functionOkr()" ng-options="currOkr.currentOkr as currOkr.currentOkr for currOkr in tempListData.allOkr"></select> -->
               </div>
           </div>
@@ -366,18 +459,18 @@
               <textarea class="form-control unresizeable selectMarginTop" ng-model="newData.annotation" rows="3" id="newAnnotation"></textarea>
           </div>
       </div>
-      <div class="form-group">
+      <!--<div class="form-group">
         <label for="files" class="control-label col-sm-3 alignLeft select-form__label">
           Зображення (натисніть тут для завантаження обраного файлу):
         </label>
         <div class="col-sm-9">
-          <!-- this is horrible solution, but another tries didn't give a desired result -->
-          <!-- <input type="file" style="display:none" 
-    id="files" name='file' onchange="angular.element(this).scope().fileNameChanged(this)" /> -->
+           this is horrible solution, but another tries didn't give a desired result
+          <input type="file" style="display:none" 
+    id="files" name='file' onchange="angular.element(this).scope().fileNameChanged(this)" />
           <input type="file" id="files" name="files[]" accept="image/*">
           <img class="thumb" id="preview" src="" alt="Зображення">
         </div>
-      </div>
+      </div>-->
  
 
           <div class="form-group">

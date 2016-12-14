@@ -8,103 +8,83 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('DisciplinesPropositionCtrl', function ($scope, $window, $http, Api, UniqueElemsInList, $timeout) {
-  	$scope.loader = false;
+  .run(function(editableOptions) {
+    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+  })
+  .controller('DisciplinesPropositionCtrl', function ($scope, $window, $http, Api, UniqueElemsInList, $timeout, $filter) {
 
-    
+    $scope.loader = false;
+    //$scope.needToAdd = false;  
+    //$scope.tempListData = {};
+    var ifWantToAddRowData = false;
 
     var initialLoadCafedra = function() {
 			//$scope.loader = true;
 
-    	Api.execute("GET", "SelectiveDiscipline/ActualCafedra/")
+    	Api.execute("GET", "SelectiveDiscipline/ActualCathedra")
         .then(function (response) {
-
         	$scope.allSubdivisions = [];
-        	$scope.alldisciplines = []; //change it to allDisciplines soon!!
-        	response.forEach(function(item, i, arr){ //you are not using "i" and "arr" so maybe delete it
-        		//if (item.typeId === "30") {
-        			var name = item.cafedraName;
-        			var id = item.cafedraId;
-        			$scope.allSubdivisions.push(new SubdivisionsModel(name, id));
-
-        		//}
-        	});
-
-
-          //$scope.allDataFromApi = response.data;
-          //alert(response.data);
-          //$scope.allSubdivisions = [];
-
-          /* test with:
-           Кафедра екології та технології рослинних полімерів ІХФ
-           Кафедра української мови, літератури та культури ФЛ
-           Кафедра історії ФСП
-           Кафедра філософії ФСП
-           Кафедра публічного права ФСП
-           Кафедра інформаційного права та права інтелектуальної власності ФСП
-           */
-
-
-          /*
-          if (!!$scope.allDataFromApi) {
-            for (var i = 0; i < $scope.allDataFromApi.length; i++) {
-              if ($scope.allDataFromApi[i].typeId == 30) {
-                $scope.allSubdivisions.push({
-                  name: $scope.allDataFromApi[i].name,
-                  id: $scope.allDataFromApi[i].subdivisionId
-                });
-              }
-
-            }
-          }*/
+        	$scope.alldisciplines = []; 
+        	$scope.allSubdivisions = response;   
           $scope.loader = false;
-          
         }, function (response) {
-
           $scope.allSubdivisions = [];
-
-
         });
     };
 
+    var getDataSelectBoxes = function() {
+              var url = "SelectiveDiscipline/ForDisciplineOffer";
+              
+              Api.execute("GET", url)
+              .then(function (response) {
+                
+                $scope.tempListData = response;
+                
+                for (var i=0; i<$scope.tempListData.okr.length; i++){
+                  console.log($scope.tempListData.okr[i].name);  
+                }
+
+                for (var i = 0; i < $scope.tempListData.dcBlock8.length; i++) {
+                  console.log($scope.tempListData.dcBlock8[i].name);
+                }
+              
+              }, function (response) {
+
+
+               });
+              
+            }
+
     angular.element(document).ready(function () {
     	$scope.loader = true; //delete it from here
-    	$timeout(initialLoadCafedra, 1000);
+    	//$timeout(initialLoadCafedra, 1000);
+      initialLoadCafedra();
+      getDataSelectBoxes();
+    
 
-      
     });
+
+    $scope.checkProposForm = function (data) {
+      console.log(data);
+      if(data == null || data==""){
+        return "Заполніть це поле!";
+      }
+    };
 
     $scope.SendSubdivisionToServer = function () {
 
       $scope.alldisciplines = [];
+      console.log($scope.selectedDiscipline.id);
       var data = $scope.selectedDiscipline.id;
 
-      //alert(data);
+      
 			$scope.loader = true;
-      //var url = "SelectiveDiscipline/BlocksDispline/" + data;
-      
-      
-      
 
-      //temp solution
-      var url = "cDisciplineBlock.json";
-      $http.get(url)
-
-      //var url = "http://api-campus-kpi-ua.azurewebsites.net/selectivediscipline/BlocksDispline/"+data;
-      
-      
-      //worked before but now again something wrong with API
-      //var url = "SelectiveDiscipline/BlocksDispline/"+data+"";
-      //Api.execute("GET", url)
+      var url = "SelectiveDiscipline/BlocksDispline/"+data;
+      //console.log(url);
+      Api.execute("GET", url)
         .then(function (response) {
-
-            // success callback
-            $scope.alldisciplines = [];
-            $scope.alldisciplines = response.data;
-
-            //used to work before
-            /*response.forEach(function(item, i, arr){ 
-        		
+            response.forEach(function(item, i, arr){ 
         			var okr = item.okr;
         			var blockName = item.blockName;
         			var nameUkr = item.nameUkr;
@@ -113,27 +93,26 @@ angular.module('ecampusApp')
         			var competence = item.competence;
         			var knowledge = item.knowledge;
         			var skill = item.skill;
-        			var cDisciplineBlock8Id = item.cDisciplineBlock8Id;
+        			var disciplineBlockId = item.disciplineBlockId;
+              var yearData = [];
 
         			var pictures;
         			if (item.pictures!==null) {
         				pictures = "data:image/jpeg;base64," + item.pictures;
         			}
+        			              
+              item.disciplineBlockYear.forEach(function(item2, i, arr){
+                var studyYear = item2.studyYear;
+                var maxCountStudent = item2.maxCountStudent;
+                var isApproved = item2.isApproved;
+                var disciplineBlockYearId = item2.disciplineBlockYearId;
+                yearData.push(new YearDataModel(studyYear, maxCountStudent, isApproved, disciplineBlockYearId)); //new add
+              });
         			
-        			//check this code....
-        			var studyYear = item.cdisciplineblockyear8.studyYear;
-        			var maxCountStudent = item.cdisciplineblockyear8.maxCountStudent;
-        			var isApproved = item.cdisciplineblockyear8.isApproved;
-							var yearData = YearDataModel(studyYear, maxCountStudent, isApproved); //new add
-
-        			$scope.alldisciplines.push(new DisciplinesModel(okr, blockName, nameUkr, countCredit, annotation, competence, knowledge, skill, pictures, yearData, cDisciplineBlock8Id));
-        			console.log($scope.alldisciplines.pictures);
+        			$scope.alldisciplines.push(new DisciplinesModel(okr, blockName, nameUkr, countCredit, annotation, competence, knowledge, skill, pictures, yearData, disciplineBlockId));
+        			console.log($scope.alldisciplines);
         		});
-            */
             
-
-
-
             console.log($scope.alldisciplines);
             $scope.ifSubdivChosen = function () {
               return Boolean($scope.alldisciplines);
@@ -149,9 +128,14 @@ angular.module('ecampusApp')
 
             $scope.CurrentYearData = {};
             $scope.CurrentYearDataList = [];
+            $scope.CurrentData = {};
 
             $scope.getCurrentYearData = function (currentData) {
               $scope.CurrentYearData = currentData;
+              $scope.CurrentData = currentData;
+              console.log("currentyeardata:");
+              console.log($scope.CurrentYearData);
+              //$scope.showUaWords($scope.CurrentYearData);
             };
 
             $scope.tempListDataMax = {
@@ -167,6 +151,39 @@ angular.module('ecampusApp')
               ]
 
             };
+
+            $scope.testIsApproved = [
+              {
+                name: "так",
+                status: false
+              },
+              {
+                name: "ні",
+                status: true
+              },
+              {
+                name: "не визначено",
+                status: null
+              }
+            ];
+
+            $scope.showUaWords = function(current) {
+              console.log("testing view");
+              
+              switch (current.isApproved) {
+                case true:
+                  current.isApproved = "так";
+                  break;
+                case false:
+                  current.isApproved = "ні";
+                  break;
+                case null:
+                  current.isApproved = "не визначено";
+                  break;
+              }
+            }
+
+
 
             $scope.newDataMax = {
               cDisciplineBlock8Id: "",
@@ -189,93 +206,266 @@ angular.module('ecampusApp')
               Images: ""
             };
 
-            var url = "SelectiveDiscipline/ForDisciplineOffer";
-      			Api.execute("GET", url)
-        			.then(function (response) {
-        				$scope.tempListData = [];
-        				$scope.tempListData.allOkr = [];
-        				$scope.tempListData.allBlocks = [];
-        				$scope.tempListData.allDisciplines = [];
-        				$scope.tempListData.allYears = [];
-								
-        				response.forEach(function(item, i, arr){
-        					item.forEach(function(item2, i, arr){
-        						if (item2.okr) {
-        							var currentOkr = item2.okr;
-        							var currentOkrId = item2.dcOKRId;
-        							$scope.tempListData.allOkr.push(new AllOkrModel(currentOkr, currentOkrId));
-        						} 
-        						else {
-        							if (item2.blockName) {
-        								var currentBlock = item2.blockName;
-        								var currentBlockId = item2.dcBlock8Id;
-        								$scope.tempListData.allBlocks.push(new AllBlocksModel(currentBlock, currentBlockId));
-        							}
-        							else {
-        								if (item2.disciplineName) {
-        									var currentDiscipline = item2.disciplineName;
-        									var currentDisciplineId = item2.dcDiscipline8Id;
-        									$scope.tempListData.allDisciplines.push(new AllDisciplinesModel(currentDiscipline, currentDisciplineId));
-        								}
-        								else {
-        									var currentYear = item2.studyYear;
-        									$scope.tempListData.allYears.push(currentYear);
-        								}
-        							}
-        						}
-
-        						
-        					});
-
-        				//var allOkr = item.okr;
-        				//var id = item.cafedraId;
-        				//$scope.tempListData.push(new SubdivisionsModel(name, id));
-
-        		//}
-        	});
-
-        			});
-
-
             
+
+            $scope.addProposition = function() {
+              //show or hide adding row in the Proposition-table
+              if (!ifWantToAddRowData){ 
+                $scope.insertedProposition = {
+                  okr: "",
+                  blockName: "",
+                  nameUkr: "",
+                  countCredit: null,
+                  annotation: "",
+                  competence: "",
+                  knowledge: "",
+                  skill: "",
+                  pictures: "",
+                  yearData: "",
+                  disciplineBlockId: ""
+                };
+                $scope.alldisciplines.unshift($scope.insertedProposition);
+                //for (var i = 0; i < $scope.alldisciplines.length; i++) {
+                //  console.log($scope.alldisciplines[i]);
+                //}
+                ifWantToAddRowData = true;
+              }
+            }
+
+            $scope.addYear = function() {            
+              if (!ifWantToAddRowData){ 
+                $scope.insertedYear = {
+                  studyYear: "", 
+                  maxCountStudent: "", 
+                  isApproved: null,
+                  disciplineBlockYearId: ""
+                };
+                $scope.CurrentYearData.yearData.unshift($scope.insertedYear);
+                ifWantToAddRowData = true;
+              }
+            }
+
+            $scope.saveProposition = function(data, proposition) {
+              console.log("data and proposition");
+              console.log(data);
+              console.log(proposition);
+              var url = "SelectiveDiscipline/BlocksDispline";
+              var method = "";
+              var BlockId = getBlockIdByName($scope.tempListData.dcBlock8, data.blockName),
+                  DisciplineId = getDisciplineIdByName($scope.tempListData.dcDiscipline8, data.nameUkr),
+                  DcOKRId = getOkrIdByName($scope.tempListData.okr, data.okr),
+                  DcSubdivisionWhoId = $scope.selectedDiscipline.id,
+                  Knowledge = proposition.knowledge,
+                  Competence = proposition.competence,
+                  Skill = proposition.skill,
+                  Annotation = proposition.annotation,
+                  Picture = proposition.pictures.substring(23),
+                  CountCredit = data.countCredit,
+                  disciplineBlockId = proposition.disciplineBlockId;
+                
+              if (proposition.disciplineBlockId){
+                url = url + "/" + proposition.disciplineBlockId;
+                method = "PUT";
+              }
+              else {
+                method = "POST"; 
+                Knowledge = null;
+                Competence = null;
+                Skill = null;
+                Annotation = null;
+                Picture = "";
+              }
+              var newRowProposition = new PropositionModel(BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId, Knowledge, Competence, Skill, Annotation, CountCredit, Picture, disciplineBlockId);
+              console.log(url);
+              console.log(newRowProposition);
+
+              Api.execute(method, url, newRowProposition)
+                .then(function (response) {
+                  console.log("ok");
+                  console.log(response);
+                  $scope.SendSubdivisionToServer();
+                }, function (response) {
+                  console.log("not ok!!!");
+                  console.log(response);
+                });
+              console.log("disciplineBlockId");
+              console.log(disciplineBlockId);
+
+              ifWantToAddRowData = false;
+            }
+
+            $scope.saveYear = function(data, year) {
+              console.log("data and year");
+              console.log(data);
+              console.log(year);
+              var url = "SelectiveDiscipline/BlocksDisplineYear";
+              var method = "";
+              console.log("data.studyYear");
+              console.log(data.studyYear);
+              var //disciplineBlockYearId = year.disciplineBlockYearId,
+                      //$scope.CurrentYearData.disciplineBlockId,
+                  //cDisciplineBlock8Id
+                  StudyYear = {},
+                  MaxCountStudent = data.maxCountStudent,
+                  IsApproved = getApprovedByName($scope.testIsApproved, data.isApproved),
+                  DisciplineBlock8Id = $scope.CurrentYearData.disciplineBlockId;
+                  //DcSubdivisionWhoId = $scope.selectedDiscipline.id,
+                  //$scope.CurrentYearData.disciplineBlockId;
+              StudyYear.Name = data.studyYear;
+              var newRowYear = new YearModel(StudyYear, MaxCountStudent, IsApproved, DisciplineBlock8Id);
+              console.log("newRowYear");
+              console.log(newRowYear);
+              //console.log("newRowYear.disciplineBlockYearId");
+              //console.log(newRowYear.disciplineBlockYearId);
+              if (year.disciplineBlockYearId){
+                //url = url + "/" + $scope.CurrentYearData.disciplineBlockId;
+                method = "PUT";
+                url = url + "/" + year.disciplineBlockYearId;
+              }
+              else {
+               method = "POST"; 
+              }
+              console.log(method);
+              console.log(url);
+
+              Api.execute(method, url, newRowYear)
+                .then(function (response) {
+                  console.log("ok");
+                  console.log(response);
+                  $('#ModalTableApproved').modal('hide');
+                  $scope.SendSubdivisionToServer();
+                }, function (response) {
+                  console.log("not ok!!!");
+                  console.log(response);
+                });
+
+              ifWantToAddRowData = false;
+
+            }
+
+            $scope.removeProposition = function(proposition){
+              //console.log(url);
+              if (confirm("Ви впеврені що хочете видалити цю пропозицію?"))
+              {
+                var url = "SelectiveDiscipline/BlocksDispline/" + proposition.disciplineBlockId;  
+                var method = "DELETE";
+                Api.execute(method, url)
+                  .then(function(response){
+                    console.log("deleted!");
+                    console.log(response);
+                    $scope.SendSubdivisionToServer();
+                  }, function(response){
+                    console.log("cauldn't delete!");
+                    console.log(response);
+                  });
+                console.log(url);
+              }
+            }
+
+            $scope.removeYear = function(year){
+              console.log(year.disciplineBlockYearId);
+              //console.log(url);
+              if (confirm("Ви впеврені що хочете видалити дані про поточний рік?"))
+              {
+                var url = "SelectiveDiscipline/BlocksDisplineYear/" + year.disciplineBlockYearId;  
+                var method = "DELETE";
+                Api.execute(method, url)
+                  .then(function(response){
+                    console.log("deleted!");
+                    console.log(response);
+                    $('#ModalTableApproved').modal('hide');
+                    $scope.SendSubdivisionToServer();
+                  }, function(response){
+                    console.log("cauldn't delete!");
+                    console.log(response);
+                  });
+                console.log(url);
+              }
+            }
+
+            $scope.addDescription = function() {
+              
+              console.log("after");
+              console.log($scope.CurrentYearData);
+              
+              
+
+              var BlockId = getBlockIdByName($scope.tempListData.dcBlock8, $scope.CurrentYearData.blockName),
+                  DisciplineId = getDisciplineIdByName($scope.tempListData.dcDiscipline8, $scope.CurrentYearData.nameUkr),
+                  DcOKRId = getOkrIdByName($scope.tempListData.okr, $scope.CurrentYearData.okr),
+                  DcSubdivisionWhoId = $scope.selectedDiscipline.id,
+                  Knowledge = $scope.CurrentYearData.knowledge,
+                  Competence = $scope.CurrentYearData.competence,
+                  Skill = $scope.CurrentYearData.skill,
+                  Annotation = $scope.CurrentYearData.annotation,
+                  CountCredit = $scope.CurrentYearData.countCredit,
+                  Picture = $scope.newData.Images,
+                  //$scope.newData.Images;
+                  disciplineBlockId = $scope.CurrentYearData.disciplineBlockId;
+
+              var editedRowProposition = new PropositionModel(BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId, Knowledge, Competence, Skill, Annotation, CountCredit, Picture, disciplineBlockId);
+
+              console.log(editedRowProposition);
+
+              var method = "PUT";
+              var url = "SelectiveDiscipline/BlocksDispline/" + $scope.CurrentYearData.disciplineBlockId;
+              
+              Api.execute(method, url, editedRowProposition)
+                .then(function (response) {
+                  console.log("ok");
+                  console.log(response);
+                  $('#ModalAdditionalInfo').modal('hide');
+                  $scope.SendSubdivisionToServer();
+                }, function (response) {
+                  console.log("not ok!!!");
+                  console.log(response);
+                });
+            }
+
+            var getOkrIdByName = function(okrList, okrName) {
+              var okrId = "";
+              okrList.forEach(function(item, iter, arr){
+                if (item.name == okrName) {
+                  okrId = item.id;
+                }
+              });
+              return okrId;
+            }
+            
+            var getBlockIdByName = function(blockList, blockName) {
+              var blockId = "";
+              blockList.forEach(function(item, iter, arr){
+                if (item.name == blockName) {
+                  blockId = item.id;
+                }
+              });
+              return blockId;
+            }
+
+            var getDisciplineIdByName = function(disciplineList, disciplineName) {
+              var disciplineId = "";
+              disciplineList.forEach(function(item, iter, arr){
+                if (item.name == disciplineName) {
+                  disciplineId = item.id;
+                }
+              });
+              return disciplineId;
+            }
+
+            var getApprovedByName = function(approveList, approveName) {
+              var approveStatus = "";
+              approveList.forEach(function(item, iter, arr){
+                if (item.name == approveName) {
+                  approveStatus = item.status;
+                }
+              });
+              return approveStatus;
+            }
+
 
 						$scope.fileNameChanged1 = function() {
   						console.log("select file");
 						}
-
-            
-            /*$scope.fileNameChanged = function(event) {
-            	alert("how can I open you?");
-            	var selectedFile = event.target.files[0];
-            	var reader = new FileReader();
-
-            	if (files[0].type.match('image.*')) {
-            		var imgtag = document.getElementById("preview");
-            		imgtag.title = selectedFile.name;
-
-            		reader.onload = function(event) {
-            			imgtag.src = event.target.result;
-            		};
-
-            		reader.readAsDataURL(selectedFile);
-            		alert("I'm here");  
-            	}
-            	document.getElementById('files').addEventListener('change', onFileSelected, false);
-            }*/
-						
-            $scope.deleteRowFromTable = function(objToDelete) {
-            	console.log("Видалення пропозиції з ID: " + objToDelete.cDisciplineBlock8Id);
-            	console.log(objToDelete);
-            	/*Api.execute("DELETE", 'SelectiveDiscipline/BlocksDispline', objToDelete.cDisciplineBlock8Id)
-                .then(function (response) {
-                  $scope.alldisciplines = response.data;
-                  },
-                  function (response) {
-                   alert("Cannot delete new data");
-                  }
-                );*/
-
-            }
 
             $scope.editRowFromTable = function(objToEdit) {
             	$scope.newData = objToEdit;
@@ -297,25 +487,6 @@ angular.module('ecampusApp')
             	console.log("CurrOkr2:");
             	console.log($scope.CurrOkr);
             	console.log($scope.newData);
-            }
-
-            $scope.addRowFromTable = function() {
-
-
-          		$scope.newData = {
-              	DcOKRId: "",
-              	okr: "",
-              	DcBlock8Id: "",
-              	DcDiscipline8Id: "",
-              	DcSubdivisionWhoId: "10197",
-              	countCredit: null,
-              	Annotation: "",
-              	Competence: "",
-              	Knowledge: "",
-              	Skill: "",
-              	Images: ""
-            	};
-            	$scope.CurrOkr=$scope.newData.okr;
             }
 
             $scope.functionOkr = function() {
@@ -342,19 +513,7 @@ angular.module('ecampusApp')
               console.log($scope.newData);
               console.log("readyyyyYyyyyyy!!! goo!!!!!!");
 
-              /*if (($scope.currImgFormat=="image/png")||($scope.currImgFormat=="image/jpeg")||($scope.currImgFormat=="image/gif"))  {
-              	console.log("ok");
-              	Api.execute("POST", url, data)
-              	.then(function (response) {
-              		console.log("success");
-              		$scope.loader = false;
-              	});
-              }
-              else {
-              	console.log("not ok");	
-              }*/
-              //console.log($scope.newData.countCredit);
-              //make a Model with .this...
+       
               $scope.newData = {
 	              DcOKRId: "",
   	            DcBlock8Id: "",
@@ -373,21 +532,12 @@ angular.module('ecampusApp')
               
 
 
-
-              // Api.execute("POST", 'some_url', data, config)
-              //   .then(function (response) {
-              //       $scope.alldisciplines = response.data;
-              //     },
-              //     function (response) {
-              //       alert("Cannot add new data");
-              //     }
-              //   );
             }
 
             $scope.loader = false;
           },
           function (response) {
-
+            console.log("whooops");
             $scope.alldisciplines = null;
           }
         );
@@ -434,7 +584,7 @@ angular.module('ecampusApp')
       this.id = id;
     }
 
-    function DisciplinesModel(okr, blockName, nameUkr, countCredit, annotation, competence,knowledge,skill,pictures, yearData,cDisciplineBlock8Id){
+    function DisciplinesModel(okr, blockName, nameUkr, countCredit, annotation, competence,knowledge,skill,pictures, yearData, disciplineBlockId){
     	this.okr = okr;
       this.blockName = blockName;
       this.nameUkr = nameUkr;
@@ -445,14 +595,15 @@ angular.module('ecampusApp')
       this.skill = skill;
       this.pictures = pictures;
       this.yearData = yearData;
-      this.cDisciplineBlock8Id = cDisciplineBlock8Id;
+      this.disciplineBlockId = disciplineBlockId;
     }
 
-    /*function YearDataModel(studyYear, maxCountStudent, isApproved) {
+    function YearDataModel(studyYear, maxCountStudent, isApproved, disciplineBlockYearId) {
     	this.studyYear = studyYear;
     	this.maxCountStudent = maxCountStudent;
     	this.isApproved = isApproved;
-    }*/
+      this.disciplineBlockYearId = disciplineBlockYearId;
+    }
 
     function AllSelectData(allOkr, allBlocks, allDisciplines, allYears) {
     	this.allOkr = allOkr;
@@ -476,6 +627,29 @@ angular.module('ecampusApp')
     	this.currentDisciplineId = currentDisciplineId;
     }
 
+    function PropositionModel(BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId, Knowledge, Competence, Skill, Annotation, CountCredit, Picture, disciplineBlockId){
+      this.BlockId = BlockId;
+      this.DisciplineId = DisciplineId;
+      this.DcOKRId = DcOKRId;
+      this.DcSubdivisionWhoId = DcSubdivisionWhoId;
+      this.Knowledge = Knowledge;
+      this.Competence = Competence;
+      this.Skill = Skill;
+      this.Annotation = Annotation;
+      this.CountCredit = CountCredit;
+      this.Picture = Picture;
+      if (disciplineBlockId != "") {
+        this.disciplineBlockId = disciplineBlockId;
+      } 
+    }
+
+    function YearModel(StudyYear, MaxCountStudent, IsApproved, DisciplineBlock8Id) {
+      this.StudyYear = StudyYear;
+      this.MaxCountStudent = MaxCountStudent;
+      this.IsApproved = IsApproved; 
+      this.DisciplineBlock8Id = DisciplineBlock8Id;
+    }
+
 
     //var ifItIsAllowed = false; ok it works
     // Check for the various File API support.
@@ -484,8 +658,6 @@ angular.module('ecampusApp')
 		} else {
 			alert('The File APIs are not fully supported in this browser.');
 		}
-
-		
 
 
 		function handleFileSelect(evt) {

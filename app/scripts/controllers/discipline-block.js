@@ -18,7 +18,10 @@
  		}	
  		}
  		UniqueElemsInList.setData($scope.alldata);
- 		$scope.allYears = UniqueElemsInList.getDataUnique('studyyear');	
+ 		//var SrudyYearFrom = UniqueElemsInList.getDataUnique('studyPeriod.start'),
+ 		//		SrudyYearFrom = UniqueElemsInList.getDataUnique('studyPeriod.end');	
+ 		$scope.allYears = UniqueElemsInList.getDataUnique('studyPeriod.all');	
+ 		//$scope.allYears = UniqueElemsInList.getDataUnique('studyyear');	
  		$scope.allOkrs = UniqueElemsInList.getDataUnique('okr');	
  		
  	}, function(response) {
