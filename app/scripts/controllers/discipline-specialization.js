@@ -339,7 +339,7 @@ angular.module('ecampusApp')
             $scope.safeApply();
         };
 
-        $scope.OnFullSelect = function (onlyGroupUpdate = false) {
+        $scope.OnFullSelect = function (onlyGroupUpdate) {
             $scope.errorLabelText="";
             var path="";
             $scope.disciplines =null;
