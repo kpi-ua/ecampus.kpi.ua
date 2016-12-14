@@ -70,8 +70,6 @@ angular.module('ecampusApp')
 
       var d = $.Deferred();
 
-      debugger;
-
       $http({
         url: self.ApiEndpoint + 'oauth/token',
         method: "POST",
@@ -88,13 +86,11 @@ angular.module('ecampusApp')
           d.resolve(null);
         }
       }).then(function (response) {
-        debugger;
         if (!!response && !!response.data) {
 
           self.setToken(response.data.access_token);
 
           self.execute("GET", "Account/Info").then(function (response) {
-            debugger;
             //get current user details
             self.setCurrentUser(response);
             d.resolve(self.getToken());

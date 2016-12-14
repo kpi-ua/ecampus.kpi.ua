@@ -691,7 +691,7 @@ angular.module('ecampusApp')
             var method= "";
             $scope.preloader = true;
             $scope.safeApply();
-            debugger;
+
             console.log($scope.groups);
             console.log(data);
             console.log(block);
