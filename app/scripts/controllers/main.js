@@ -32,6 +32,7 @@ angular.module('ecampusApp')
       $scope.fbAuthUrl = generateFbAuthUrl();
 
       if (Api.getCurrentUser() != null) {
+        debugger;
         $window.location.href = '/#!/home';
       }
 
@@ -53,10 +54,11 @@ angular.module('ecampusApp')
         $scope.error = !token;
 
         if (!$scope.error) {
+          debugger;
           var user = Api.getCurrentUser();
           $cookies.put('SID', user.sid, {domain: 'kpi.ua'});
           $cookies.put('SID', user.sid, {domain: 'campus.kpi.ua'});
-          $window.location.href = '/home';
+          $window.location.href = '/#!/home';
         }
       });
     };

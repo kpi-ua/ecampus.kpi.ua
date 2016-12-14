@@ -23,6 +23,9 @@ var app = angular.module('ecampusApp', [
 
 
 app.config(function ($routeProvider, $locationProvider) {
+
+  $locationProvider.hashPrefix('!');
+
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
@@ -145,5 +148,5 @@ app.config(function ($routeProvider, $locationProvider) {
       controllerAs: 'attest'
     });
 
-  //$locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 });
