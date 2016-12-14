@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('MainCtrl', function ($scope, $cookies, $window, Api) {
+  .controller('MainCtrl', function ($scope, $rootScope, $cookies, $location, Api) {
 
     $scope.login = '';
     $scope.password = '';
@@ -32,8 +32,7 @@ angular.module('ecampusApp')
       $scope.fbAuthUrl = generateFbAuthUrl();
 
       if (Api.getCurrentUser() != null) {
-        debugger;
-        $window.location.href = '/#!/home';
+        $location.path("/home");
       }
 
     }
@@ -54,11 +53,17 @@ angular.module('ecampusApp')
         $scope.error = !token;
 
         if (!$scope.error) {
-          debugger;
           var user = Api.getCurrentUser();
-          $cookies.put('SID', user.sid, {domain: 'kpi.ua'});
-          $cookies.put('SID', user.sid, {domain: 'campus.kpi.ua'});
-          $window.location.href = '/#!/home';
+
+          if (user != null) {
+            $cookies.put('SID', user.sid, {domain: 'kpi.ua'});
+            $cookies.put('SID', user.sid, {domain: 'campus.kpi.ua'});
+          }
+
+          $location.path("/home");
+
+          $rootScope.$broadcast('update-navigation');
+
         }
       });
     };

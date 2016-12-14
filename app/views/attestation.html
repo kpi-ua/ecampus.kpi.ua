@@ -113,9 +113,6 @@
                         ng-click="loadStudentsResult(itemStudent.id, attestationPeriodId);">Переглянути результати
                 </button>
               </div>
-              <div class="alert alert-default text-center fade in attest-alert" ng-show="loaderStudentsResult">
-                Зачекайте будь ласка відбувається завантаження даних!
-              </div>
               <div class="alert alert-info text-center fade in attest-alert"
                    ng-show="getStudentsResult && studentsResult.length == 0">
                 Немає даних про атестацію для вказаного студента!
@@ -190,9 +187,6 @@
                 <button class="btn btn-primary btn-result" type="submit"
                         ng-click="loadGroupsResult(itemGroup.id, attestationPeriodId);">Переглянути результати
                 </button>
-              </div>
-              <div class="alert alert-default text-center fade in attest-alert" ng-show="loaderGroupsResult">
-                Зачекайте будь ласка відбувається завантаження даних!
               </div>
               <div class="alert alert-info text-center fade in attest-alert"
                    ng-show="getGroupsResults && GroupsResult.length == 0">

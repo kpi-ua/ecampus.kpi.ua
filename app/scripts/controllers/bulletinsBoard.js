@@ -9,7 +9,6 @@
  */
 angular.module('ecampusApp')
   .controller('HomeBulletinsBoardCtrl', ['$scope', 'Api', function ($scope, Api) {
-    $scope.loader = false;
     $scope.errorMessage = '';
     $scope.tab = 1;
 
@@ -29,12 +28,9 @@ angular.module('ecampusApp')
     function loadBoards() {
       var url = '/Board/All';
 
-      $scope.loader = true;
-
       Api.execute("GET", url)
         .then(function (response) {
           $scope.boardsList = response;
-          $scope.loader = false;
 
           sortBoards($scope.boardsList);
           $scope.allBoards = getAllBoards();
