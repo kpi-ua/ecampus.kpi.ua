@@ -619,6 +619,6 @@ input:checked+.side-label::after {
 }
 
 .editable-number .editable-controls input[type="number"][name="CountDiscipline"]{
-    max-width: 50px;
+    max-width: 70px;
 }
 

@@ -389,7 +389,7 @@ angular.module('ecampusApp')
             }
             if(cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='apply'){
                 $scope.safeApply();
-                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetGroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль групи у базі відсутні.";
@@ -409,18 +409,6 @@ angular.module('ecampusApp')
                         Api.execute("GET", path).then(function(response) {
                             $scope.blocksChoise = response;
                             console.log($scope.blocksChoise);
-                            // blockChoiceWhomId
-                            // blockId
-                            // blockName
-                            // countDiscipline
-                            // course
-                            // cycleId
-                            // cycleName
-                            // groupId
-                            // semestr
-                            // studyGroupId
-                            // studyGroupName
-                            // studyYearCourse
                             $scope.safeApply();
                         },function(response, status,headers){
                             ErrorHandlerMy (response, status,headers);
@@ -703,6 +691,23 @@ angular.module('ecampusApp')
             });
         };
 
+        $scope.deleteBlock =  function(block){
+            if (confirm("Ви впеврені що хочете видалити цей запис?"))
+            {
+                var path = "SelectiveDiscipline/BlockChoise";
+                var method = "DELETE";
+                var payload = {
+                    Id : block.id
+                };
+                Api.execute(method, path,payload).then(function (resp) {
+                    $scope.OnFullSelect();
+                },function(response, status,headers){
+                    ErrorHandlerMy (response, status,headers);
+                    $scope.safeApply();
+                });
+                $scope.blocksChoise.splice($scope.blocksChoise.indexOf(block),1);
+            }
+        };
         //    MODELS!!!
         function SubdivisionModel(SubdivisionId,Name){
             this.SubdivisionId =SubdivisionId;
