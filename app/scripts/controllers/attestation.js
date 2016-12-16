@@ -22,6 +22,7 @@ angular.module('ecampusApp')
     function initGroupsResult() {
       $scope.getGroupsResults = false;
       $scope.disciplinesListForGroups = [];
+      $scope.groupsResult = [];
     }
 
     $scope.errorMessageLecturers = '';
@@ -36,6 +37,7 @@ angular.module('ecampusApp')
     $scope.errorMessageStudents = '';
     function initStudentsResult() {
       $scope.getStudentsResult = false;
+      $scope.studentsResult = [];
     }
 
     $scope.setPill = function (newPill) {
@@ -329,13 +331,13 @@ angular.module('ecampusApp')
       Api.execute("GET", url)
         .then(function (response) {
             $scope.errorLoadGroupsResult = "";
-            $scope.GroupsResult = response.sort(sortRuleForGroupsResult);
+            $scope.groupsResult = response.sort(sortRuleForGroupsResult);
             getStudentsAndDisciplinesLists(response);
             $scope.getGroupsResults = true;
           },
           function () {
             $scope.errorLoadGroupsResult = "Не вдалося завантажити результати для даної групи";
-            $scope.GroupsResult = null;
+            $scope.groupsResult = null;
           });
     };
 
