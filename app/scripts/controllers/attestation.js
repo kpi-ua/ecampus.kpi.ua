@@ -269,7 +269,7 @@ angular.module('ecampusApp')
       var name1 = a.rnpRow.name;
       var name2 = b.rnpRow.name;
 
-      return name1.localeCompare(name2) || disc1.localeCompare(disc2);
+      return name1.localeCompare(name2);
     }
 
     function generateUrlForAttestPeriod(year, semester, attestNum) {
