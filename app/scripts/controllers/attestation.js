@@ -12,20 +12,31 @@ angular.module('ecampusApp')
     $scope.errorMessageYears = '';
     $scope.errorMessageAttests = '';
     $scope.errorMessageGroups = '';
-    $scope.attestationPeriodId = 'not get';
+
+    function initAttestationPeriodId() {
+      $scope.attestationPeriodId = 'not get';
+    }
 
     $scope.errorLoadGroupsResult = '';
-    $scope.getGroupsResults = false;
-    $scope.disciplinesListForGroups = [];
+
+    function initGroupsResult() {
+      $scope.getGroupsResults = false;
+      $scope.disciplinesListForGroups = [];
+    }
 
     $scope.errorMessageLecturers = '';
-    $scope.getLecturersResults = false;
-    $scope.groupsListForLecturers = [];
-    $scope.coursesListForLecturers = [];
-    $scope.disciplinesListForLecturers = [];
+
+    function initLecturersResult() {
+      $scope.getLecturersResults = false;
+      $scope.groupsListForLecturers = [];
+      $scope.coursesListForLecturers = [];
+      $scope.disciplinesListForLecturers = [];
+    }
 
     $scope.errorMessageStudents = '';
-    $scope.getStudentsResult = false;
+    function initStudentsResult() {
+      $scope.getStudentsResult = false;
+    }
 
     $scope.setPill = function (newPill) {
       $scope.pill = newPill;
@@ -280,11 +291,17 @@ angular.module('ecampusApp')
       var url = generateUrlForAttestPeriod(dcStudingYearId, semesterYear, dcLoadId);
       Api.execute("GET", url)
         .then(function (response) {
-            $scope.attestationPeriodId = +(response);
-          },
-          function () {
-            $scope.attestationPeriodId = null;
+            if (!!response) {
+              $scope.attestationPeriodId = +(response);
+            }
+            else {
+              $scope.attestationPeriodId = null;
+            }
           });
+    };
+
+    $scope.clearAttestationPeriodId = function () {
+      initAttestationPeriodId();
     };
 
     $scope.loadGroups = function (namePattern, year) {
@@ -307,6 +324,7 @@ angular.module('ecampusApp')
     };
 
     $scope.loadGroupsResult = function (rtStudyGroupId, cAttestationPeriodId) {
+      initGroupsResult();
       var url = 'Attestation/group/' + rtStudyGroupId + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
@@ -319,6 +337,10 @@ angular.module('ecampusApp')
             $scope.errorLoadGroupsResult = "Не вдалося завантажити результати для даної групи";
             $scope.GroupsResult = null;
           });
+    };
+
+    $scope.clearGroupsResult = function () {
+      initGroupsResult();
     };
 
     $scope.loadLecturers = function (namePattern) {
@@ -336,11 +358,12 @@ angular.module('ecampusApp')
             });
       }
       else {
-        $scope.errorMessageLecturers = "Введіть більше 3-х символів для пошуку групи";
+        $scope.errorMessageLecturers = "Введіть більше 3-х символів для пошуку викладача";
       }
     };
 
     $scope.loadLecturersResult = function (eEmployees1Id, cAttestationPeriodId) {
+      initLecturersResult();
       var url = 'Attestation/lecturer/' + eEmployees1Id + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
@@ -359,6 +382,10 @@ angular.module('ecampusApp')
           });
     };
 
+    $scope.clearLecturersResult = function () {
+      initLecturersResult();
+    };
+
     $scope.loadStudents = function (namePattern) {
       if (namePattern.length > 2) {
         var url = 'Attestation/student/find/' + namePattern;
@@ -374,11 +401,12 @@ angular.module('ecampusApp')
             });
       }
       else {
-        $scope.errorMessageStudents = "Введіть більше 3-х символів для пошуку групи";
+        $scope.errorMessageStudents = "Введіть більше 3-х символів для пошуку студента";
       }
     };
 
     $scope.loadStudentsResult = function (sPersonalityId, cAttestationPeriodId) {
+      initStudentsResult();
       var url = 'Attestation/student/' + sPersonalityId + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
@@ -390,6 +418,11 @@ angular.module('ecampusApp')
           });
     };
 
+    $scope.clearStudentsResult = function () {
+      initStudentsResult();
+    };
+
+    initAttestationPeriodId();
     loadStudyYears();
     loadSemesters();
     loadAttestations();

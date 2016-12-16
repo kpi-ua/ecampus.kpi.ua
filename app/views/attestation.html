@@ -9,10 +9,11 @@
 
       <h1 class="text-center">Результати атестації</h1>
 
-      <div class="ol-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 selected-info">
+      <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 selected-info">
         <div class="year-select">
           <label for="year" class="select-form__label">Навчальний рік</label>
-          <ui-select id="year" class="select-form__select" ng-model="studyYears.selected" append-to-body="true">
+          <ui-select id="year" class="select-form__select" ng-model="studyYears.selected" append-to-body="true"
+                     on-select="clearAttestationPeriodId()">
             <ui-select-match placeholder="Оберіть навчальний рік">
               <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -28,7 +29,8 @@
         </div>
         <div class="semester-select" ng-show="studyYears.selected">
           <label for="semester" class="select-form__label">Семестр</label>
-          <ui-select id="semester" class="select-form__select" ng-model="studySemesters.selected" append-to-body="true">
+          <ui-select id="semester" class="select-form__select" ng-model="studySemesters.selected" append-to-body="true"
+                     on-select="clearAttestationPeriodId()">
             <ui-select-match placeholder="Оберіть семестр">
               <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -46,7 +48,8 @@
           <label for="attest-num" class="select-form__label">Номер атестації</label>
           <ui-select id="attest-num" class="select-form__select"
                      ng-model="studyAttestationPeriod.selected"
-                     append-to-body="true">
+                     append-to-body="true"
+                     on-select="clearAttestationPeriodId()">
             <ui-select-match placeholder="Оберіть номер атестації">
               <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -71,16 +74,16 @@
         <div class="alert alert-danger text-center fade in attest-alert" ng-show="attestationPeriodId == null">
           Немає даних про атестацію для таких параметрів!
         </div>
-        <!--  -->
+
         <div class="attest-menu" ng-show="attestationPeriodId != null && attestationPeriodId != 'not get'">
           <h4 class="text-center title-type-attest">Оберіть категорію для перегляду атестацій</h4>
           <ul class="nav nav-pills-attest nav-justified attest-navigation " ng-model="choiceType">
             <li ng-class="{ active: isSet(1)}">
-              <a ng-click="setPill(1);choiceType = 'students'">Студенти</a></li>
+              <a ng-click="clearStudentsResult();setPill(1);choiceType = 'students';clearGroupsResult();clearLecturersResult();">Студенти</a></li>
             <li ng-class="{ active: isSet(2)}">
-              <a ng-click="setPill(2);choiceType = 'groups'">Групи</a></li>
+              <a ng-click="clearGroupsResult();setPill(2);choiceType = 'groups';clearLecturersResult();clearStudentsResult();">Групи</a></li>
             <li ng-class="{ active: isSet(3)}">
-              <a ng-click="setPill(3);choiceType = 'lecturers'">Викладачі</a></li>
+              <a ng-click="clearLecturersResult();setPill(3);choiceType = 'lecturers';clearGroupsResult();clearStudentsResult();">Викладачі</a></li>
           </ul>
         </div>
       </div>
