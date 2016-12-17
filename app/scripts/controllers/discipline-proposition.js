@@ -17,11 +17,14 @@ angular.module('ecampusApp')
     //$scope.needToAdd = false;  
     //$scope.tempListData = {};
     var ifWantToAddRowData = false;
+    var studyYearFrom = 2013;
+    var studyYearTo = 2020;
 
     var initialLoadCafedra = function() {
 			//$scope.loader = true;
 
-    	Api.execute("GET", "SelectiveDiscipline/ActualCathedra")
+    	//Api.execute("GET", "SelectiveDiscipline/ActualCathedra")
+      Api.execute("GET", "Subdivision")
         .then(function (response) {
         	$scope.allSubdivisions = [];
         	$scope.alldisciplines = []; 
@@ -34,20 +37,22 @@ angular.module('ecampusApp')
 
     var getDataSelectBoxes = function() {
               var url = "SelectiveDiscipline/ForDisciplineOffer";
-              
+              var studyYears = UniqueElemsInList.getStudyYearsArray(studyYearFrom, studyYearTo);
+
               Api.execute("GET", url)
               .then(function (response) {
                 
                 $scope.tempListData = response;
                 
-                for (var i=0; i<$scope.tempListData.okr.length; i++){
-                  console.log($scope.tempListData.okr[i].name);  
+                //for (var i=0; i<$scope.tempListData.okr.length; i++){
+                //  console.log($scope.tempListData.okr[i].name);  
+                //}
+                $scope.tempListData.customYears = [];
+                //$scope.tempListData.push(customYears);
+                for (var i = 0; i < studyYears.length; i++) {
+                  $scope.tempListData.customYears.push(new YearListModel(studyYears[i]));
                 }
 
-                for (var i = 0; i < $scope.tempListData.dcBlock8.length; i++) {
-                  console.log($scope.tempListData.dcBlock8[i].name);
-                }
-              
               }, function (response) {
 
 
@@ -259,10 +264,14 @@ angular.module('ecampusApp')
                   Competence = proposition.competence,
                   Skill = proposition.skill,
                   Annotation = proposition.annotation,
-                  Picture = proposition.pictures.substring(23),
+                  Picture = "",
                   CountCredit = data.countCredit,
                   disciplineBlockId = proposition.disciplineBlockId;
-                
+              
+              if (proposition.pictures) {
+                Picture = proposition.pictures.substring(23);
+              }  
+
               if (proposition.disciplineBlockId){
                 url = url + "/" + proposition.disciplineBlockId;
                 method = "PUT";
@@ -273,7 +282,7 @@ angular.module('ecampusApp')
                 Competence = null;
                 Skill = null;
                 Annotation = null;
-                Picture = "";
+                //Picture = "";
               }
               var newRowProposition = new PropositionModel(BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId, Knowledge, Competence, Skill, Annotation, CountCredit, Picture, disciplineBlockId);
               console.log(url);
@@ -648,6 +657,10 @@ angular.module('ecampusApp')
       this.MaxCountStudent = MaxCountStudent;
       this.IsApproved = IsApproved; 
       this.DisciplineBlock8Id = DisciplineBlock8Id;
+    }
+
+    function YearListModel(name) {
+      this.name = name;
     }
 
 

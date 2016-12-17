@@ -279,7 +279,7 @@
 
                     <tr ng-repeat="objYear in CurrentYearData.yearData">
                       <td>
-                        <span editable-select="objYear.studyYear.name" e-name="studyYear" e-form="rowformYear" onbeforesave="" e-required e-ng-options="studyYear.name as studyYear.name for studyYear in tempListData.cdiscipleneblockyear8">
+                        <span editable-select="objYear.studyYear.name" e-name="studyYear" e-form="rowformYear" onbeforesave="" e-required e-ng-options="studyYear.name as studyYear.name for studyYear in tempListData.customYears">
                           {{ objYear.studyYear.name || 'не вказано'}}
                         </span>
 
