@@ -12,7 +12,7 @@ angular.module('ecampusApp')
         var subsystemIdMain = 20;
         var StydyYearFrom =2013;
         var StydyYearTo =2020;
-        $scope.preloader = false;
+
         $scope.errorLabelText ="";
         $scope.selectData ={
             CathedraId : null,
@@ -43,7 +43,6 @@ angular.module('ecampusApp')
         reload();
 
         function reload() {
-            $scope.preloader = true;
             if (!!Api.getToken()) {
                 var sClaim = Api.decodeToken(Api.getToken());
 
@@ -61,11 +60,9 @@ angular.module('ecampusApp')
                     } else {
                         $scope.Dc.Blocks = response;
                     }
-                    $scope.preloader = false;
                     $scope.safeApply();
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
-                    $scope.preloader = false;
                     $scope.safeApply();
                 });
                 path = "cycles";
@@ -75,16 +72,13 @@ angular.module('ecampusApp')
                     } else {
                         $scope.Dc.Cycles = response;
                     }
-                    $scope.preloader = false;
                     $scope.safeApply();
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
-                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }
             $scope.stydyYears = getStudyYearsArray(StydyYearFrom,StydyYearTo);
-            $scope.preloader=false;
         }
 
         function getStudyYearsArray(from, to) {
@@ -220,12 +214,6 @@ angular.module('ecampusApp')
         function ErrorHandlerMy (response, status,headers){
             var errorDetails ="";
             switch (response.statusText){
-                case 'Unauthorized' :{
-                    errorDetails= "Ви не авторизовані у системі. Статус: " +response.status;
-                    Api.logout();
-                    $window.location.href = '/';
-                    break;
-                }
                 case "Internal Server Error":{
                     errorDetails= "Помилка сервера, спробуйте пізніше. Статус: " +response.status;
                     break;
@@ -277,7 +265,6 @@ angular.module('ecampusApp')
             $scope.specialities = null;
             $scope.okrNames = null;
             $scope.disciplines =null;
-            $scope.preloader = true;
             $scope.safeApply();
             $scope.selectData.Okr = null;
             $scope.selectData.Direction = null;
@@ -301,11 +288,9 @@ angular.module('ecampusApp')
                     $scope.profTrains = profTrains;
                     $scope.okrNames = getOkrNamesArrayFromProfTrains(profTrains);
                 }
-                $scope.preloader = false;
                 $scope.safeApply();
             },function(response, status,headers){
                 ErrorHandlerMy (response, status,headers);
-                $scope.preloader = false;
                 $scope.safeApply();
             });
         };
@@ -350,7 +335,6 @@ angular.module('ecampusApp')
             var okrBool =           $scope.selectData.Okr != null;
             var studyYearBool =     $scope.selectData.StudyYear != null;
             if (cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='specialization'){
-                $scope.preloader = true;
                 $scope.safeApply();
                 var blocks= [];
                 var groupedBlocksArray =[];
@@ -359,22 +343,18 @@ angular.module('ecampusApp')
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні";
-                        $scope.preloader = false;
                         $scope.safeApply();
                     } else {
                         var semestrForView  = BlockChoiceFromResponseToView(response);
                         $scope.semestrsForView = semestrForView;
-                        $scope.preloader = false;
                         $scope.safeApply();
                     }
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
-                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }else if(cathedraIdBool && directionBool && okrBool && ($scope.section=='patterns' || ($scope.section=='apply' && !onlyGroupUpdate))) {
                 $scope.selectData.Patterns = [];
-                $scope.preloader = true;
                 $scope.safeApply();
                 var patterns= [];
                 $scope.patterns =null;
@@ -383,7 +363,6 @@ angular.module('ecampusApp')
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні.";
                         $scope.patterns = [];
-                        $scope.preloader = false;
                         $scope.safeApply();
                     } else {
                         response.forEach(function (item, i, arr) {
@@ -401,25 +380,21 @@ angular.module('ecampusApp')
                         });
                         $scope.patterns = patterns;
                         $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
-                        $scope.preloader = false;
                         $scope.safeApply();
                     }
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
-                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }
             if(cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='apply'){
-                $scope.preloader = true;
                 $scope.safeApply();
-                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GetGroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль групи у базі відсутні.";
                         $scope.groups = null;
                         $scope.blocksChoise = null;
-                        $scope.preloader = false;
                         $scope.safeApply();
                     } else {
                         $scope.groups = response;
@@ -434,30 +409,15 @@ angular.module('ecampusApp')
                         Api.execute("GET", path).then(function(response) {
                             $scope.blocksChoise = response;
                             console.log($scope.blocksChoise);
-                            // blockChoiceWhomId
-                            // blockId
-                            // blockName
-                            // countDiscipline
-                            // course
-                            // cycleId
-                            // cycleName
-                            // groupId
-                            // semestr
-                            // studyGroupId
-                            // studyGroupName
-                            // studyYearCourse
-                            $scope.preloader = false;
                             $scope.safeApply();
                         },function(response, status,headers){
                             ErrorHandlerMy (response, status,headers);
-                            $scope.preloader = false;
                             $scope.safeApply();
                         });
 
                     }
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
-                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }
@@ -465,7 +425,6 @@ angular.module('ecampusApp')
 
         $scope.GetAllDisciplines = function (blocks) {
             $scope.errorLabelText="";
-            $scope.preloader = true;
             blocks.forEach(function (block,iter,arr) {
                 var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/DisciplineChosen/"+block.BlockId;
                 Api.execute("GET", path).then(function(response) {
@@ -476,7 +435,6 @@ angular.module('ecampusApp')
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні";
                         $scope.blocksWidthDisciplines = null;
-                        $scope.preloader = false;
                         $scope.safeApply();
                     }else {
                         response.forEach(function (item, i, arr) {
@@ -497,7 +455,6 @@ angular.module('ecampusApp')
                         disciplinesBlock.push(new DisciplineModel(0, "Разом", tatalMaxCountStudent, tatalOccupiedPercent, "", tatalSubscribed, "", "", ""));
                         block.DisciplineArray = disciplinesBlock;
                         $scope.blocksWidthDisciplines = blocks;
-                        $scope.preloader = false;
                         $scope.safeApply();
                     }
                 });
@@ -506,7 +463,6 @@ angular.module('ecampusApp')
 
         $scope.OnDisciplineChose = function (blockId) {
             // console.log(blockId);
-            $scope.preloader = true;
             var disciplines= [];
             var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/DisciplineChosen/"+blockId;
             Api.execute("GET", path).then(function(response) {
@@ -525,12 +481,10 @@ angular.module('ecampusApp')
 
                 },function(response, status,headers){
                     ErrorHandlerMy(response, status,headers);
-                    $scope.preloader = false;
                     $scope.safeApply();
                 });
                 $scope.disciplines = disciplines;
                 // console.log($scope.disciplines);
-                $scope.preloader = false;
                 $scope.safeApply();
             });
         };
@@ -555,7 +509,6 @@ angular.module('ecampusApp')
             if($scope.selectData.Patterns.length >0 && $scope.groups!=null){
                 var path ="";
                 var method= "";
-                $scope.preloader = true;
                 $scope.safeApply();
                 var payload = {
                     PatternBlockList: $scope.selectData.Patterns,
@@ -569,7 +522,6 @@ angular.module('ecampusApp')
                     $scope.OnFullSelect();
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
-                    $scope.preloader = false;
                     $scope.safeApply();
                 });
             }else{
@@ -648,7 +600,6 @@ angular.module('ecampusApp')
                 $scope.OnFullSelect();
             },function(response, status,headers){
                 ErrorHandlerMy (response, status,headers);
-                $scope.preloader = false;
                 $scope.safeApply();
             });
         };
@@ -689,9 +640,8 @@ angular.module('ecampusApp')
         $scope.saveBlock = function(data,block) {
             var path ="";
             var method= "";
-            $scope.preloader = true;
             $scope.safeApply();
-            debugger;
+
             console.log($scope.groups);
             console.log(data);
             console.log(block);
@@ -737,11 +687,27 @@ angular.module('ecampusApp')
                 $scope.OnFullSelect();
             },function(response, status,headers){
                 ErrorHandlerMy (response, status,headers);
-                $scope.preloader = false;
                 $scope.safeApply();
             });
         };
 
+        $scope.deleteBlock =  function(block){
+            if (confirm("Ви впеврені що хочете видалити цей запис?"))
+            {
+                var path = "SelectiveDiscipline/BlockChoise";
+                var method = "DELETE";
+                var payload = {
+                    Id : block.id
+                };
+                Api.execute(method, path,payload).then(function (resp) {
+                    $scope.OnFullSelect();
+                },function(response, status,headers){
+                    ErrorHandlerMy (response, status,headers);
+                    $scope.safeApply();
+                });
+                $scope.blocksChoise.splice($scope.blocksChoise.indexOf(block),1);
+            }
+        };
         //    MODELS!!!
         function SubdivisionModel(SubdivisionId,Name){
             this.SubdivisionId =SubdivisionId;

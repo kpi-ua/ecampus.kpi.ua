@@ -8,10 +8,16 @@
  * Service in the ecampusApp.
  */
 angular.module('ecampusApp')
-  .service('Api', function ($http) {
+  .service('Api', function ($http, $rootScope) {
 
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
+
+    $rootScope.requestCount = 0;
+
+    this.changeRequestCount = function (i) {
+      $rootScope.requestCount = $rootScope.requestCount + i;
+    }
 
     /**
      * Execute API method
@@ -28,6 +34,8 @@ angular.module('ecampusApp')
         payload = !!payload ? JSON.stringify(payload) : payload;
       }
 
+      self.changeRequestCount(1);
+
       return $http({
         url: url,
         method: method,
@@ -37,19 +45,21 @@ angular.module('ecampusApp')
           "Accept": "application/json",
           "Content-Type": "application/json",
           "Authorization": "Bearer " + self.getToken()
-        },
-        success: function () {
-          //console.info('Request to campus API success: ', response);
-        },
-        error: function (jqXHR, status, error) {
-          console.warn('Error occured: ', status, error);
         }
       }).then(function (response) {
+
+        self.changeRequestCount(-1);
+
         if (!!response) {
           return response.data;
         }
 
         return null;
+      }, function (err) {
+
+        console.warn(err);
+        self.changeRequestCount(-1);
+
       });
 
     };
@@ -68,45 +78,40 @@ angular.module('ecampusApp')
 
       payload = $.param(payload);
 
-      var d = $.Deferred();
+      self.changeRequestCount(1);
 
-      debugger;
-
-      $http({
+      return $http({
         url: self.ApiEndpoint + 'oauth/token',
         method: "POST",
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: payload,
-        success: function (response) {
-        },
-        error: function (xhr, status, err) {
-          console.warn(xhr, status, err.toString());
-
-          self.logout();
-          d.resolve(null);
-        }
+        data: payload
       }).then(function (response) {
-        debugger;
+
+        self.changeRequestCount(-1);
+
         if (!!response && !!response.data) {
 
           self.setToken(response.data.access_token);
 
-          self.execute("GET", "Account/Info").then(function (response) {
-            debugger;
+          var session = response.data;
+
+          return self.execute("GET", "Account/Info").then(function (response) {
             //get current user details
             self.setCurrentUser(response);
-            d.resolve(self.getToken());
-          });
 
-          return response.data;
+            return session;
+          });
         }
 
         return null;
+      }, function (err) {
+        self.changeRequestCount(-1);
+        console.warn(err);
+        self.logout();
       });
 
-      return d.promise();
     };
 
     /**

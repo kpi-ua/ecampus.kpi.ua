@@ -154,58 +154,6 @@ footer .contactInfo a {
     color: white;
 }
 
-.loader,
-.loaderQuery {
-    background: none repeat scroll 0 0 #ffffff;
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 100%;
-    z-index: 9999;
-}
-
-.loader .loader_inner,
-.loaderQuery .loader_inner {
-    background: url("../images/preloader.png") no-repeat top center;
-    background-size: contain;
-    height: 30px;
-    width: 300px;
-    margin-top: -15px;
-    margin-left: -150px;
-    left: 50%;
-    top: 50%;
-    position: absolute;
-}
-
-.loaderQuery {
-    background: rgba(255, 255, 255, 0.7);
-}
-
-.loaderQuery .loader_inner {
-    background: url("../images/preloader.png") no-repeat top center;
-    background-size: cover;
-    height: 30px;
-    width: 300px;
-    margin-top: -15px;
-    margin-left: -150px;
-    left: 50%;
-    top: 50%;
-    position: absolute;
-}
-
-.loaderQuery .statusLine {
-    position: absolute;
-    margin-top: 30px;
-    margin-left: -150px;
-    left: 50%;
-    top: 50%;
-    text-align: center;
-    font-size: 20px;
-}
-
 .panel .active {
     color: black;
     cursor: pointer;
@@ -671,6 +619,6 @@ input:checked+.side-label::after {
 }
 
 .editable-number .editable-controls input[type="number"][name="CountDiscipline"]{
-    max-width: 50px;
+    max-width: 70px;
 }
 

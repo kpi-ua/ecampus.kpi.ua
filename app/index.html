@@ -26,6 +26,7 @@
   <!-- endbower -->
   <!-- endbuild -->
   <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="styles/stat.main.css">
   <link rel="stylesheet" href="styles/main.css">
   <link rel="stylesheet" href="styles/discBlockAndPropose.css">
@@ -51,7 +52,7 @@
   <div class="row center-block">
     <div class="col-md-6">
       <!--<a href="/#/">Електронний кампус</a>-->
-      <a href="/#/">
+      <a href="/#!/">
         <img src="/images/logo-big-green.png" class="logo"/>
       </a>
     </div>
@@ -62,11 +63,13 @@
   <navigation class="container-fluid"></navigation>
 </header>
 
+<div class="loader" ng-if="requestCount > 0">
+  Завантаження даних...<br />
+  <img src="/images/ajax-loader.png" />
+</div>
 
 <div class="white" ng-view></div>
-<div class="loader" ng-if="preloader">
-  <div class="loader_inner" ng-if="preloader"></div>
-</div>
+
 <footer class="container-fluid">
   <div class="row">
     <div class="col-md-4">
@@ -74,11 +77,9 @@
       Розробник: <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
     </div>
     <div class="col-md-8 text-right">
-      <a href="/#/privacy">Правила використання інформації сайту</a> /
-      <a href="/#/about">Про систему</a> /
-      <!--<a href="/#/voting">Модуль оцінювання викладачів</a> /-->
-      <!--<a href="/#/debugger.html">Дебагер</a> /-->
-      <a href="/#/contacts">Контактнi данi</a>
+      <a href="/#!/privacy">Правила використання інформації сайту</a> /
+      <a href="/#!/about">Про систему</a> /
+      <a href="/#!/contacts">Контактнi данi</a>
     </div>
   </div>
 </footer>

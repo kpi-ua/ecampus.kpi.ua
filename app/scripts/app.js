@@ -23,6 +23,9 @@ var app = angular.module('ecampusApp', [
 
 
 app.config(function ($routeProvider, $locationProvider) {
+
+  $locationProvider.hashPrefix('!');
+
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
@@ -143,10 +146,7 @@ app.config(function ($routeProvider, $locationProvider) {
       templateUrl: 'views/attestation.html',
       controller: 'AttestationCtrl',
       controllerAs: 'attest'
-    })
-    .otherwise({
-      redirectTo: '/'
     });
 
-  $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 });

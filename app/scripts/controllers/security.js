@@ -13,7 +13,6 @@ angular.module('ecampusApp')
     $scope.step = 1;
     $scope.captcha = '';
     $scope.userId = '';
-    $scope.loader = false;
     $scope.captchaImage = '';
 
     function restorePassword() {
@@ -25,14 +24,11 @@ angular.module('ecampusApp')
         UserIdentifier: $scope.userId
       };
 
-      $scope.loader = true;
 
       Api.execute("POST", url, payload)
         .then(function () {
           step(3);
-          $scope.loader = false;
         }, function (result) {
-          $scope.loader = false;
 
           if (result.status === 403) {
             showMessage("Невiрний код пiдтвердження");

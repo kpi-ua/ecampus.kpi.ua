@@ -17,7 +17,6 @@ angular.module('ecampusApp')
     $scope.errorLoadGroupsResult = '';
     $scope.getGroupsResults = false;
     $scope.disciplinesListForGroups = [];
-    $scope.loaderGroupsResult = false;
 
     $scope.errorMessageLecturers = '';
     $scope.getLecturersResults = false;
@@ -26,7 +25,6 @@ angular.module('ecampusApp')
     $scope.disciplinesListForLecturers = [];
 
     $scope.errorMessageStudents = '';
-    $scope.loaderStudentsResult = false;
     $scope.getStudentsResult = false;
 
     $scope.setPill = function (newPill) {
@@ -309,7 +307,6 @@ angular.module('ecampusApp')
     };
 
     $scope.loadGroupsResult = function (rtStudyGroupId, cAttestationPeriodId) {
-      $scope.loaderGroupsResult = true;
       var url = 'Attestation/group/' + rtStudyGroupId + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
@@ -317,12 +314,10 @@ angular.module('ecampusApp')
             $scope.GroupsResult = response.sort(sortRuleForGroupsResult);
             getStudentsAndDisciplinesLists(response);
             $scope.getGroupsResults = true;
-            $scope.loaderGroupsResult = false;
           },
           function () {
             $scope.errorLoadGroupsResult = "Не вдалося завантажити результати для даної групи";
             $scope.GroupsResult = null;
-            $scope.loaderGroupsResult = false;
           });
     };
 
@@ -384,17 +379,14 @@ angular.module('ecampusApp')
     };
 
     $scope.loadStudentsResult = function (sPersonalityId, cAttestationPeriodId) {
-      $scope.loaderStudentsResult = true;
       var url = 'Attestation/student/' + sPersonalityId + '/period/' + cAttestationPeriodId + '/result';
       Api.execute("GET", url)
         .then(function (response) {
             $scope.getStudentsResult = true;
             $scope.studentsResult = response.sort(sortStudentsResults);
-            $scope.loaderStudentsResult = false;
           },
           function () {
             $scope.studentsResult = null;
-            $scope.loaderStudentsResult = false;
           });
     };
 

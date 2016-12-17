@@ -12,10 +12,8 @@ angular.module('ecampusApp')
 
     $scope.errorMessage = '';
     $scope.hideInfo = false;
-    $scope.loader = false;
     $scope.errorMessageDisc = '';
     $scope.hideInfoDisc = false;
-    $scope.loaderDisc = false;
 
     $scope.setTab = function (newTab) {
       $scope.tab = newTab;
@@ -50,14 +48,12 @@ angular.module('ecampusApp')
 
     function loadInfo() {
       var url = '/Account/student/group';
-      $scope.loader = true;
 
       Api.execute("GET", url)
         .then(function (response) {
           $scope.info = response[0];
           $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
           $scope.tab = +response[0].studyCourse;
-          $scope.loader = false;
         });
     }
 
@@ -70,11 +66,9 @@ angular.module('ecampusApp')
 
     function loadDisciplines() {
       var url = '/SelectiveDiscipline/semesters/disciplines';
-      $scope.loaderDisc = true;
 
       Api.execute("GET", url)
         .then(function (response) {
-            $scope.loaderDisc = true;
             $scope.firstCourse = [];
             $scope.secondCourse = [];
             $scope.thirdCourse = [];
@@ -96,7 +90,6 @@ angular.module('ecampusApp')
                   break;
               }
             }
-            $scope.loaderDisc = false;
           });
     }
 
