@@ -8,7 +8,7 @@
       <h1>Пропозиції дисциплін</h1>
 
       <div class="discipline-specialization">
-        <section class="container-fluid discipline-specialization__navigation">
+        <!--<section class="container-fluid discipline-specialization__navigation">
           <div class="btn-group btn-group-justified" role="group" aria-label="...">
             <div class="btn-group" role="group">
               <button type="button"
@@ -19,7 +19,7 @@
             </div>
 
           </div>
-        </section>
+        </section>-->
         <section class="container-fluid discipline-specialization__select-form select-form">
 
           <br>
@@ -187,31 +187,31 @@
             <div class="modal-body">
               <div class="container-fluid">
                 <form editable-form name="formDescription" onaftersave="addDescription()">
-                  <div>
+                  <div class="marginBottom">
                     <!-- editable username (text with validation) -->
-                    <span class="title col-xs-2">Знання: </span>
-                    <span editable-text="CurrentYearData.knowledge" e-name="knowledge" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.knowledge || 'empty' }}</span>
+                    <span class="title col-xs-3">Знання: </span>
+                    <span editable-text="CurrentYearData.knowledge" e-name="knowledge" class="col-xs-9">{{ CurrentYearData.knowledge || 'empty' }}</span>
                   </div>
-                  <div>
+                  <div class="marginBottom">
                     <!-- editable username (text with validation) -->
-                    <span class="title col-xs-2">Уміння: </span>
-                    <span editable-text="CurrentYearData.competence" e-name="competence" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.competence || 'empty' }}</span>
+                    <span class="title col-xs-3">Уміння: </span>
+                    <span editable-text="CurrentYearData.competence" e-name="competence" class="col-xs-9">{{ CurrentYearData.competence || 'empty' }}</span>
                   </div>
-                  <div>
+                  <div class="marginBottom">
                     <!-- editable username (text with validation) -->
-                    <span class="title col-xs-2">Навички: </span>
-                    <span editable-text="CurrentYearData.skill" e-name="skill" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.skill || 'empty' }}</span>
+                    <span class="title col-xs-3">Навички: </span>
+                    <span editable-text="CurrentYearData.skill" e-name="skill" class="col-xs-9">{{ CurrentYearData.skill || 'empty' }}</span>
                   </div>
-                  <div>
+                  <div class="marginBottom">
                     <!-- editable username (text with validation) -->
-                    <span class="title col-xs-2">Анотація: </span>
-                    <span editable-text="CurrentYearData.annotation" e-name="annotation" onbeforesave="" e-required class="col-xs-10">{{ CurrentYearData.annotation || 'empty' }}</span>
+                    <span class="title col-xs-3">Анотація: </span>
+                    <span editable-text="CurrentYearData.annotation" e-name="annotation" class="col-xs-9">{{ CurrentYearData.annotation || 'empty' }}</span>
                   </div> 
-                  <div class="form-group" ng-show="formDescription.$visible">
-                    <label for="files" class="control-label col-sm-3 alignLeft select-form__label">
+                  <div class="form-group marginBottom" ng-show="formDescription.$visible">
+                    <label for="files" class="control-label col-xs-3 alignLeft select-form__label">
                     Зображення:
                     </label>
-                    <div class="col-sm-9">
+                    <div class="col-xs-9">
 
                       <input type="file" id="files" name="files[]" accept="image/*">
                       <img class="thumb" id="preview" src="" alt="Зображення">
