@@ -17,7 +17,8 @@ angular.module('ecampusApp')
 
     this.changeRequestCount = function (i) {
       $rootScope.requestCount = $rootScope.requestCount + i;
-    }
+    };
+
 
     /**
      * Execute API method
