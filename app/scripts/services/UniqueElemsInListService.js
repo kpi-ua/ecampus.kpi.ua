@@ -86,7 +86,7 @@ angular
 
             block: initialArr[i].blockName,
             discipline: initialArr[i].discipline,
-            subdivision: initialArr[i].subdiv,
+            subdivision: initialArr[i].subdivision,
             maxCountStudent: initialArr[i].maxCountStudent,
             countLecture: initialArr[i].countLecture
           });
@@ -101,7 +101,13 @@ angular
 
     this.clearData = function () {
       unmodifiedElementsOfQuery = [];
+    };
+
+    this.getStudyYearsArray = function (from, to) {
+      var studyYears = [];
+      for(var i =from;i<to;i++){
+        studyYears.push(i+"-"+(i+1));
+      }
+      return studyYears;
     }
-
-
   });

@@ -14,10 +14,13 @@ angular.module('ecampusApp')
   .controller('DisciplinesPropositionCtrl', function ($scope, $window, $http, Api, UniqueElemsInList, $timeout, $filter) {
 
     var ifWantToAddRowData = false;
+    var studyYearFrom = 2013;
+    var studyYearTo = 2020;
 
     var initialLoadCafedra = function () {
 
-      Api.execute("GET", "SelectiveDiscipline/ActualCathedra")
+    	//Api.execute("GET", "SelectiveDiscipline/ActualCathedra")
+      Api.execute("GET", "Subdivision")
         .then(function (response) {
           $scope.allSubdivisions = [];
           $scope.alldisciplines = [];
@@ -27,11 +30,25 @@ angular.module('ecampusApp')
         });
     };
 
-    var getDataSelectBoxes = function () {
-      var url = "SelectiveDiscipline/ForDisciplineOffer";
+    var getDataSelectBoxes = function() {
+              var url = "SelectiveDiscipline/ForDisciplineOffer";
+              var studyYears = UniqueElemsInList.getStudyYearsArray(studyYearFrom, studyYearTo);
 
-      Api.execute("GET", url)
-        .then(function (response) {
+              Api.execute("GET", url)
+              .then(function (response) {
+                
+                $scope.tempListData = response;
+                
+                //for (var i=0; i<$scope.tempListData.okr.length; i++){
+                //  console.log($scope.tempListData.okr[i].name);  
+                //}
+                $scope.tempListData.customYears = [];
+                //$scope.tempListData.push(customYears);
+                for (var i = 0; i < studyYears.length; i++) {
+                  $scope.tempListData.customYears.push(new YearListModel(studyYears[i]));
+                }
+
+              }, function (response) {
 
           $scope.tempListData = response;
 
@@ -240,18 +257,22 @@ angular.module('ecampusApp')
               var url = "SelectiveDiscipline/BlocksDispline";
               var method = "";
               var BlockId = getBlockIdByName($scope.tempListData.dcBlock8, data.blockName),
-                DisciplineId = getDisciplineIdByName($scope.tempListData.dcDiscipline8, data.nameUkr),
-                DcOKRId = getOkrIdByName($scope.tempListData.okr, data.okr),
-                DcSubdivisionWhoId = $scope.selectedDiscipline.id,
-                Knowledge = proposition.knowledge,
-                Competence = proposition.competence,
-                Skill = proposition.skill,
-                Annotation = proposition.annotation,
-                Picture = proposition.pictures.substring(23),
-                CountCredit = data.countCredit,
-                disciplineBlockId = proposition.disciplineBlockId;
+                  DisciplineId = getDisciplineIdByName($scope.tempListData.dcDiscipline8, data.nameUkr),
+                  DcOKRId = getOkrIdByName($scope.tempListData.okr, data.okr),
+                  DcSubdivisionWhoId = $scope.selectedDiscipline.id,
+                  Knowledge = proposition.knowledge,
+                  Competence = proposition.competence,
+                  Skill = proposition.skill,
+                  Annotation = proposition.annotation,
+                  Picture = "",
+                  CountCredit = data.countCredit,
+                  disciplineBlockId = proposition.disciplineBlockId;
+              
+              if (proposition.pictures) {
+                Picture = proposition.pictures.substring(23);
+              }  
 
-              if (proposition.disciplineBlockId) {
+              if (proposition.disciplineBlockId){
                 url = url + "/" + proposition.disciplineBlockId;
                 method = "PUT";
               }
@@ -261,7 +282,7 @@ angular.module('ecampusApp')
                 Competence = null;
                 Skill = null;
                 Annotation = null;
-                Picture = "";
+                //Picture = "";
               }
               var newRowProposition = new PropositionModel(BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId, Knowledge, Competence, Skill, Annotation, CountCredit, Picture, disciplineBlockId);
               console.log(url);
@@ -630,6 +651,10 @@ angular.module('ecampusApp')
       this.MaxCountStudent = MaxCountStudent;
       this.IsApproved = IsApproved;
       this.DisciplineBlock8Id = DisciplineBlock8Id;
+    }
+
+    function YearListModel(name) {
+      this.name = name;
     }
 
 
