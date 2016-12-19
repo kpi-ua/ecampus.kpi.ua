@@ -189,22 +189,22 @@
                   <div class="marginBottom">
                     <!-- editable username (text with validation) -->
                     <span class="title col-xs-3">Знання: </span>
-                    <span editable-text="CurrentYearData.knowledge" e-name="knowledge" class="col-xs-9">{{ CurrentYearData.knowledge || 'empty' }}</span>
+                    <span editable-textarea="CurrentYearData.knowledge" e-name="knowledge" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ CurrentYearData.knowledge || 'empty' }}</pre></span>
                   </div>
                   <div class="marginBottom">
                     <!-- editable username (text with validation) -->
                     <span class="title col-xs-3">Уміння: </span>
-                    <span editable-text="CurrentYearData.competence" e-name="competence" class="col-xs-9">{{ CurrentYearData.competence || 'empty' }}</span>
+                    <span editable-textarea="CurrentYearData.competence" e-name="competence" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ CurrentYearData.competence || 'empty' }}</pre></span>
                   </div>
                   <div class="marginBottom">
                     <!-- editable username (text with validation) -->
                     <span class="title col-xs-3">Навички: </span>
-                    <span editable-text="CurrentYearData.skill" e-name="skill" class="col-xs-9">{{ CurrentYearData.skill || 'empty' }}</span>
+                    <span editable-textarea="CurrentYearData.skill" e-name="skill" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ CurrentYearData.skill || 'empty' }}</pre></span>
                   </div>
                   <div class="marginBottom">
                     <!-- editable username (text with validation) -->
                     <span class="title col-xs-3">Анотація: </span>
-                    <span editable-text="CurrentYearData.annotation" e-name="annotation" class="col-xs-9">{{ CurrentYearData.annotation || 'empty' }}</span>
+                    <span editable-textarea="CurrentYearData.annotation" e-name="annotation" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ CurrentYearData.annotation || 'empty' }}</pre></span>
                   </div> 
                   <div class="form-group marginBottom" ng-show="formDescription.$visible">
                     <label for="files" class="control-label col-xs-3 alignLeft select-form__label">
@@ -282,7 +282,7 @@
 
                     <tr ng-repeat="objYear in CurrentYearData.yearData">
                       <td>
-                        <span editable-select="objYear.studyYear.name" e-name="studyYear" e-form="rowformYear" onbeforesave="" e-required e-ng-options="studyYear.name as studyYear.name for studyYear in tempListData.customYears">
+                        <span editable-select="objYear.studyYear.name" e-name="studyYear" e-form="rowformYear" onbeforesave="checkYearForm($data)" e-required e-ng-options="studyYear.name as studyYear.name for studyYear in tempListData.customYears">
                           {{ objYear.studyYear.name || 'не вказано'}}
                         </span>
 
@@ -291,8 +291,7 @@
                       <!--<span class="input-group-btn" ng-show="rowformYear.$visible">
                         <button class="btn btn-danger btn-minuse" ng-click="MinusCred(objYear.maxCountStudent)" type="button">-</button>
                       </span>-->
-                      <span editable-number="objYear.maxCountStudent" e-name="maxCountStudent" onbeforesave=""
-                            e-required e-form="rowformYear" e-min="0">
+                      <span editable-number="objYear.maxCountStudent" e-name="maxCountStudent" onbeforesave="checkYearForm($data)" e-required e-form="rowformYear" e-min="0">
                         {{objYear.maxCountStudent || 'не вказано'}}
                         </span>
                       <!--<span class="input-group-btn" ng-show="rowformYear.$visible">
@@ -301,8 +300,7 @@
                     </td>
                     <td>
                         <span editable-select="objYear.isApproved" e-name="isApproved" e-form="rowformYear"
-                              onbeforesave="" e-required
-                              e-ng-options="isApproved.name as isApproved.name for isApproved in testIsApproved"
+                              onbeforesave="checkYearForm($data)" e-required e-ng-options="isApproved.name as isApproved.name for isApproved in testIsApproved"
                               ng-init="showUaWords(objYear)">
                             {{ objYear.isApproved || 'не вказано'}}
                         </span>
