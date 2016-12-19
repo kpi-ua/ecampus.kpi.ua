@@ -81,6 +81,17 @@ angular.module('ecampusApp')
       }
     };
 
+    $scope.checkYearForm = function (data) {
+      for (var i = 0; i < $scope.CurrentYearData.yearData.length; i++){
+        if (data == $scope.CurrentYearData.yearData[i].studyYear.name) {
+          return "Такі дані вже існують";
+        }        
+      }
+      if (data == null || data == "") {
+        return "Заполніть це поле!";
+      }
+    };
+
     $scope.SendSubdivisionToServer = function () {
 
       $scope.alldisciplines = [];
@@ -238,11 +249,16 @@ angular.module('ecampusApp')
             }
 
             $scope.addYear = function () {
+              //objYear.studyYear.name
               if (!ifWantToAddRowData) {
                 $scope.insertedYear = {
-                  studyYear: "",
+                  //studyYear: UniqueElemsInList.setCurrentYear($scope.tempListData.cdiscipleneblockyear8),
+                  //studyYear: "",
+                  studyYear: {
+                    name: UniqueElemsInList.setCurrentYear($scope.tempListData.cdiscipleneblockyear8)
+                  },
                   maxCountStudent: "",
-                  isApproved: null,
+                  isApproved: "",
                   disciplineBlockYearId: ""
                 };
                 $scope.CurrentYearData.yearData.unshift($scope.insertedYear);
@@ -254,6 +270,13 @@ angular.module('ecampusApp')
               console.log("data and proposition");
               console.log(data);
               console.log(proposition);
+              for (var i = 0; i < $scope.alldisciplines.length; i++) {
+                if (($scope.alldisciplines[i].okr==data.okr)&&($scope.alldisciplines[i].blockName==data.blockName)&&($scope.alldisciplines[i].nameUkr==data.nameUkr)) {
+                  console.log("повтор");
+                  $scope.SendSubdivisionToServer();
+                  return;
+                }
+              }
               var url = "SelectiveDiscipline/BlocksDispline";
               var method = "";
               var BlockId = getBlockIdByName($scope.tempListData.dcBlock8, data.blockName),

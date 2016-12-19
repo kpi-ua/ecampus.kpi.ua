@@ -74,14 +74,15 @@ angular
       unmodifiedElementsOfQuery = [];
       var studyYearFrom = year.substr(0,4),
           studyYearTo = year.substr(5);
-
+      console.log("-----");    
       for (var i = 0; i < initialArr.length; i++) {
 
-        console.log("initialArr[i]");
-        console.log(initialArr[i]);
+        //console.log("initialArr[i]");
+        //console.log(initialArr[i]);
         if ((studyYearFrom == initialArr[i].studyPeriod.start) && (studyYearTo == initialArr[i].studyPeriod.end) && (okr == initialArr[i].okr)) {
         //if ((year == initialArr[i].studyyear) && (okr == initialArr[i].okr)) {
-          console.log("pushed!");
+          console.log("pushed");
+          //console.log(initialArr[i]);
           unmodifiedElementsOfQuery.push({
 
             block: initialArr[i].blockName,
@@ -109,5 +110,28 @@ angular
         studyYears.push(i+"-"+(i+1));
       }
       return studyYears;
+    };
+
+    this.setCurrentYear = function(allYears){
+      var currDate = new Date();
+      var actualYear = currDate.getFullYear();
+      var actualMonth = currDate.getMonth()+1;
+
+      if (actualMonth<7) {
+        actualYear -= 1;
+      }
+
+      for (var i = 0; i < allYears.length; i++) {
+        if (allYears[i].name) {
+          if (actualYear == allYears[i].name.substr(0,4)) {
+           return allYears[i].name;
+          }  
+        }
+        else {
+          if (actualYear == allYears[i].substr(0,4)) {
+            return allYears[i];
+          }
+        }
+      }
     }
   });
