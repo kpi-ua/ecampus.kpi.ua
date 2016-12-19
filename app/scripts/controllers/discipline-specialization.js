@@ -191,7 +191,11 @@ angular.module('ecampusApp')
                         blocks = [];
                     }
                 }
-                blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
+                var tempBlock = new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName);
+                if(!~blocks.indexOf(tempBlock)){
+                    blocks.push(tempBlock);
+                }
+
             });
             groupedBlocksArray.push(blocks);
             groupedBlocksArray.forEach(function (blocksArray,iter,arr) {
@@ -455,8 +459,8 @@ angular.module('ecampusApp')
                                 , stydyCourse = item.stydyCourse
                                 , subscribed = item.subscribed
                                 , whoReadId = item.whoReadId
-                                , whoReadAbbreviation = item.whoReadAbbreviation
-                                , whoReadName = item.whoReadName;
+                                , whoReadAbbreviation = item.subdivisionAbbreviation
+                                , whoReadName = item.subdivision.name;
                             disciplinesBlock.push(new DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName));
                             tatalMaxCountStudent += maxCountStudent;
                             tatalSubscribed += subscribed;
@@ -552,7 +556,7 @@ angular.module('ecampusApp')
 
         $scope.SwitchSemester = function (value) {
             $scope.semester = value;
-            $scope.OnFullSelect();
+            // $scope.OnFullSelect();
         };
 
         $scope.safeApply = function(fn) {
@@ -576,7 +580,6 @@ angular.module('ecampusApp')
         $scope.savePattern = function(data,pattern) {
             var path ="";
             var method= "";
-            debugger;
             var patternBlockChoice8Id = pattern.PatternBlockChoice8Id,
                 profTrainTotalSubdivisionId = $scope.selectData.ProfTrainTotalSubdivisionId,
                 blockName = GetBlockNameById($scope.Dc.Blocks,data.BlockId),
@@ -606,6 +609,7 @@ angular.module('ecampusApp')
             };
             path = "SelectiveDiscipline/PatternBlockChoise";
             method = patternBlockChoice8Id==null? "POST": "PUT";
+
             console.log(method);
             Api.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
@@ -652,7 +656,6 @@ angular.module('ecampusApp')
             var path ="";
             var method= "";
             $scope.safeApply();
-
             console.log($scope.groups);
             console.log(data);
             console.log(block);
@@ -693,7 +696,6 @@ angular.module('ecampusApp')
             };
             path = "SelectiveDiscipline/BlockChoise";
             method = blockChoiceWhom8Id==null? "POST": "PUT";
-
             Api.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
             },function(response, status,headers){
