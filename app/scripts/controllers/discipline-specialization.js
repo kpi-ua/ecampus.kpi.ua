@@ -191,7 +191,11 @@ angular.module('ecampusApp')
                         blocks = [];
                     }
                 }
-                blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
+                var tempBlock = new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName);
+                if(!~blocks.indexOf(tempBlock)){
+                    blocks.push(tempBlock);
+                }
+
             });
             groupedBlocksArray.push(blocks);
             groupedBlocksArray.forEach(function (blocksArray,iter,arr) {
@@ -301,6 +305,7 @@ angular.module('ecampusApp')
             $scope.disciplines =null;
             $scope.selectData.Direction = null;
             $scope.specialities =[];
+            console.log($scope.profTrains);
             $scope.profTrains.forEach(function (profTrain, iterator ,arr) {
                 if(profTrain.OkrName == $scope.selectData.Okr){
                     switch ($scope.selectData.Okr) {
@@ -319,6 +324,7 @@ angular.module('ecampusApp')
 
                     }
                     $scope.specialities.push(profTrain.Speciality);
+                    console.log(profTrain.Speciality);
                 }
             });
             $scope.safeApply();
@@ -361,26 +367,34 @@ angular.module('ecampusApp')
                 path = "SelectiveDiscipline/PatternBlockChoise/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
-                        $scope.errorLabelText="На жаль записи у базі відсутні.";
+                        $scope.errorLabelText="На жаль, записи у базі відсутні.";
                         $scope.patterns = [];
                         $scope.safeApply();
                     } else {
-                        response.forEach(function (item, i, arr) {
-                            var patternBlockChoice8Id = item.patternBlockChoice8Id
-                                , rtProfTrainTotalSubdivisionId = item.profTrainTotalSubdivisionId
-                                , blockName = item.block.name
-                                , blockId = item.block.id
-                                , cycleName = item.cycle.name
-                                , cycleId = item.cycle.id
-                                , course = item.course
-                                , semester = item.semester
-                                , countDiscipline = item.countDiscipline
-                                , patternName = item.name;
-                            patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName, blockId, cycleName, cycleId, course, semester, countDiscipline, patternName));
-                        });
-                        $scope.patterns = patterns;
-                        $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
-                        $scope.safeApply();
+                        if(response.name == "ProfTrainTotalSubdivisionId"){
+                            $scope.errorLabelText="На жаль, шаблони відсутні.";
+                            $scope.patterns = [];
+                            $scope.selectData.ProfTrainTotalSubdivisionId = response.id;
+                            $scope.safeApply();
+                        }else{
+                            $scope.patterns = [];
+                            response.forEach(function (item, i, arr) {
+                                var patternBlockChoice8Id = item.patternBlockChoice8Id
+                                    , rtProfTrainTotalSubdivisionId = item.profTrainTotalSubdivisionId
+                                    , blockName = item.block.name
+                                    , blockId = item.block.id
+                                    , cycleName = item.cycle.name
+                                    , cycleId = item.cycle.id
+                                    , course = item.course
+                                    , semester = item.semester
+                                    , countDiscipline = item.countDiscipline
+                                    , patternName = item.name;
+                                patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName, blockId, cycleName, cycleId, course, semester, countDiscipline, patternName));
+                            });
+                            $scope.patterns = patterns;
+                            $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId; ///-----------------------------------------------------------------------------
+                            $scope.safeApply();
+                        }
                     }
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
@@ -445,8 +459,8 @@ angular.module('ecampusApp')
                                 , stydyCourse = item.stydyCourse
                                 , subscribed = item.subscribed
                                 , whoReadId = item.whoReadId
-                                , whoReadAbbreviation = item.whoReadAbbreviation
-                                , whoReadName = item.whoReadName;
+                                , whoReadAbbreviation = item.subdivisionAbbreviation
+                                , whoReadName = item.subdivision.name;
                             disciplinesBlock.push(new DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName));
                             tatalMaxCountStudent += maxCountStudent;
                             tatalSubscribed += subscribed;
@@ -542,7 +556,7 @@ angular.module('ecampusApp')
 
         $scope.SwitchSemester = function (value) {
             $scope.semester = value;
-            $scope.OnFullSelect();
+            // $scope.OnFullSelect();
         };
 
         $scope.safeApply = function(fn) {
@@ -596,6 +610,7 @@ angular.module('ecampusApp')
             path = "SelectiveDiscipline/PatternBlockChoise";
             method = patternBlockChoice8Id==null? "POST": "PUT";
 
+            console.log(method);
             Api.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
             },function(response, status,headers){
@@ -641,7 +656,6 @@ angular.module('ecampusApp')
             var path ="";
             var method= "";
             $scope.safeApply();
-
             console.log($scope.groups);
             console.log(data);
             console.log(block);
@@ -682,7 +696,6 @@ angular.module('ecampusApp')
             };
             path = "SelectiveDiscipline/BlockChoise";
             method = blockChoiceWhom8Id==null? "POST": "PUT";
-
             Api.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
             },function(response, status,headers){

@@ -9,10 +9,11 @@
 
       <h1 class="text-center">Результати атестації</h1>
 
-      <div class="ol-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 selected-info">
+      <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 selected-info">
         <div class="year-select">
           <label for="year" class="select-form__label">Навчальний рік</label>
-          <ui-select id="year" class="select-form__select" ng-model="studyYears.selected" append-to-body="true">
+          <ui-select id="year" class="select-form__select" ng-model="studyYears.selected" append-to-body="true"
+                     on-select="clearAttestationPeriodId();getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);">
             <ui-select-match placeholder="Оберіть навчальний рік">
               <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -28,7 +29,8 @@
         </div>
         <div class="semester-select" ng-show="studyYears.selected">
           <label for="semester" class="select-form__label">Семестр</label>
-          <ui-select id="semester" class="select-form__select" ng-model="studySemesters.selected" append-to-body="true">
+          <ui-select id="semester" class="select-form__select" ng-model="studySemesters.selected" append-to-body="true"
+                     on-select="clearAttestationPeriodId();getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);">
             <ui-select-match placeholder="Оберіть семестр">
               <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -46,7 +48,8 @@
           <label for="attest-num" class="select-form__label">Номер атестації</label>
           <ui-select id="attest-num" class="select-form__select"
                      ng-model="studyAttestationPeriod.selected"
-                     append-to-body="true">
+                     append-to-body="true"
+                     on-select="clearAttestationPeriodId();getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);">
             <ui-select-match placeholder="Оберіть номер атестації">
               <span ng-bind="$select.selected.name"></span>
             </ui-select-match>
@@ -62,8 +65,8 @@
         </div>
 
         <div class="text-center" ng-show="studyAttestationPeriod.selected">
-          <button class="btn btn-primary btn-result" type="submit"
-                  ng-click="getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);">
+          <button class="btn btn-primary btn-result" type="submit" ng-hide="first"
+                  ng-click="getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);first = true;">
             Перевірити наявність даних про атестацію
           </button>
         </div>
@@ -71,16 +74,16 @@
         <div class="alert alert-danger text-center fade in attest-alert" ng-show="attestationPeriodId == null">
           Немає даних про атестацію для таких параметрів!
         </div>
-        <!--  -->
+
         <div class="attest-menu" ng-show="attestationPeriodId != null && attestationPeriodId != 'not get'">
           <h4 class="text-center title-type-attest">Оберіть категорію для перегляду атестацій</h4>
           <ul class="nav nav-pills-attest nav-justified attest-navigation " ng-model="choiceType">
             <li ng-class="{ active: isSet(1)}">
-              <a ng-click="setPill(1);choiceType = 'students'">Студенти</a></li>
+              <a ng-click="clearStudentsResult();setPill(1);choiceType = 'students';clearGroupsResult();clearLecturersResult();">Студенти</a></li>
             <li ng-class="{ active: isSet(2)}">
-              <a ng-click="setPill(2);choiceType = 'groups'">Групи</a></li>
+              <a ng-click="clearGroupsResult();setPill(2);choiceType = 'groups';clearLecturersResult();clearStudentsResult();">Групи</a></li>
             <li ng-class="{ active: isSet(3)}">
-              <a ng-click="setPill(3);choiceType = 'lecturers'">Викладачі</a></li>
+              <a ng-click="clearLecturersResult();setPill(3);choiceType = 'lecturers';clearGroupsResult();clearStudentsResult();">Викладачі</a></li>
           </ul>
         </div>
       </div>
@@ -88,7 +91,7 @@
     </div>
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-      <div ng-switch="choiceType">
+      <div ng-switch="choiceType" ng-show="attestationPeriodId != null && attestationPeriodId != 'not get'">
         <div ng-switch-when="students">
           <div class="row">
             <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 student-select">
@@ -109,7 +112,7 @@
               </ui-select>
               <div class="error-load-attest" ng-show="errorMessageStudents">{{errorMessageStudents}}</div>
               <div class="text-center">
-                <button class="btn btn-primary btn-result" type="submit"
+                <button class="btn btn-primary btn-result" type="submit" ng-show="itemStudent"
                         ng-click="loadStudentsResult(itemStudent.id, attestationPeriodId);">Переглянути результати
                 </button>
               </div>
@@ -156,12 +159,12 @@
               </tr>
               </tbody>
             </table>
-            <div class="text-center" ng-show="GroupsResult.length != 0">
-              <a class="btn btn-success" download="attest.xls"
-                 onclick="return ExcellentExport.excel(this, 'table-attest-for-student', 'attest');">
-                <i class="fa fa-file-excel-o "></i> Завантажини звіт
-              </a>
-            </div>
+          </div>
+          <div class="text-center" ng-show="studentsResult.length != 0">
+            <a class="btn btn-success" download="attest.xls"
+               onclick="return ExcellentExport.excel(this, 'table-attest-for-student', 'attest');">
+              <i class="fa fa-file-excel-o "></i> Завантажити звіт
+            </a>
           </div>
         </div>
         <div ng-switch-when="groups">
@@ -184,17 +187,17 @@
               </ui-select>
               <div class="error-load-attest" ng-show="errorMessageGroups">{{errorMessageGroups}}</div>
               <div class="text-center">
-                <button class="btn btn-primary btn-result" type="submit"
+                <button class="btn btn-primary btn-result" type="submit" ng-show="itemGroup"
                         ng-click="loadGroupsResult(itemGroup.id, attestationPeriodId);">Переглянути результати
                 </button>
               </div>
               <div class="alert alert-info text-center fade in attest-alert"
-                   ng-show="getGroupsResults && GroupsResult.length == 0">
+                   ng-show="getGroupsResults && groupsResult.length == 0">
                 Немає даних про атестацію для вказаної групи!
               </div>
             </div>
           </div>
-          <div ng-show="getGroupsResults && GroupsResult.length != 0" class="table-responsive">
+          <div ng-show="getGroupsResults && groupsResult.length != 0" class="table-responsive">
             <table class="table table-hover table-condensed table-bordered" id="table-attest">
               <thead class="hidden for-excel">
               <tr>
@@ -229,16 +232,16 @@
               <tr ng-repeat="stud in studentsList">
                 <td class="text-center">{{$index + 1}}</td>
                 <td>{{stud}}</td>
-                <td class="text-center" ng-repeat="att in (GroupsResult | filter: stud)">{{att.attestation.name}}</td>
+                <td class="text-center" ng-repeat="att in (groupsResult | filter: stud)">{{att.attestation.name}}</td>
               </tr>
               </tbody>
             </table>
-            <div class="text-center" ng-show="GroupsResult.length != 0">
-              <a class="btn btn-success" download="attest.xls"
-                 onclick="return ExcellentExport.excel(this, 'table-attest', 'attest');">
-                <i class="fa fa-file-excel-o "></i> Завантажини звіт
-              </a>
-            </div>
+          </div>
+          <div class="text-center" ng-show="groupsResult.length != 0">
+            <a class="btn btn-success" download="attest.xls"
+               onclick="return ExcellentExport.excel(this, 'table-attest', 'attest');">
+              <i class="fa fa-file-excel-o "></i> Завантажити звіт
+            </a>
           </div>
         </div>
         <div ng-switch-when="lecturers">
@@ -261,7 +264,7 @@
               </ui-select>
               <div class="error-load-attest" ng-show="errorMessageLecturers">{{errorMessageLecturers}}</div>
               <div class="text-center">
-                <button class="btn btn-primary btn-result" type="submit"
+                <button class="btn btn-primary btn-result" type="submit" ng-show="itemLecturers"
                         ng-click="loadLecturersResult(itemLecturers.id, attestationPeriodId);">Переглянути результати
                 </button>
               </div>
@@ -336,7 +339,7 @@
                       </tr>
                       <tr>
                         <th class="text-center">Група</th>
-                        <th class="text-center">{{itemGroup.name}}</th>
+                        <th class="text-center">{{itemGroupLect}}</th>
                       </tr>
                       </thead>
                       <thead>
@@ -355,12 +358,12 @@
                       </tr>
                       </tbody>
                     </table>
-                    <div class="text-center" ng-show="lecturersResult.length != 0">
-                      <a class="btn btn-success" download="attest.xls"
-                         onclick="return ExcellentExport.excel(this, 'table-attest-lecturer', 'attest');">
-                        <i class="fa fa-file-excel-o "></i> Завантажини звіт
-                      </a>
-                    </div>
+                  </div>
+                  <div class="text-center" ng-show="lecturersResult.length != 0">
+                    <a class="btn btn-success" download="attest.xls"
+                       onclick="return ExcellentExport.excel(this, 'table-attest-lecturer', 'attest');">
+                      <i class="fa fa-file-excel-o "></i> Завантажити звіт
+                    </a>
                   </div>
                 </div>
               </div>
