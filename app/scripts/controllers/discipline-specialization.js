@@ -172,6 +172,7 @@ angular.module('ecampusApp')
 
         function BlockChoiceFromResponseToView(response) {
             var blocks= [];
+            var blocksNames= [];
             var groupedBlocksArray =[];
             var blocksAndDisciplines=[];
             var studyGroups = [];
@@ -191,10 +192,7 @@ angular.module('ecampusApp')
                         blocks = [];
                     }
                 }
-                var tempBlock = new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName);
-                if(!~blocks.indexOf(tempBlock)){
-                    blocks.push(tempBlock);
-                }
+                blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
 
             });
             groupedBlocksArray.push(blocks);
@@ -202,12 +200,17 @@ angular.module('ecampusApp')
                 blocksForRequest=[];
                 studyGroups = [];
                 blocks=[];
+                blocksNames= [];
                 blocksArray.forEach(function (block ,iterator ,arra) {
-                    studyGroups.push(block.StudyGroupName);
-                    var compatreBlock = new BlockModel(block.BlockId,block.BlockName);
-                    if(!~blocksForRequest.indexOf(compatreBlock)) {
-                        blocksForRequest.push(compatreBlock);
-                        blocks.push(compatreBlock)
+                    if(!~studyGroups.indexOf(block.StudyGroupName)){
+                        studyGroups.push(block.StudyGroupName);
+                    }
+                    // studyGroups.push(block.StudyGroupName);
+                    var tempBlock = new BlockModel(block.BlockId,block.BlockName);
+                    if(!~blocksNames.indexOf(block.BlockName)) {
+                        blocksNames.push(block.BlockName);
+                        blocksForRequest.push(tempBlock);
+                        blocks.push(tempBlock)
                     }
                 });
                 blocksAndDisciplines.push(new SemestrsBlocksModel(blocksArray[0].Course,blocksArray[0].Semestr,studyGroups,blocks));
@@ -447,9 +450,8 @@ angular.module('ecampusApp')
                     var tatalOccupiedPercent =0;
                     var tatalSubscribed =0;
                     if (!response || response == "") {
-                        $scope.errorLabelText="На жаль записи у базі відсутні";
-                        $scope.blocksWidthDisciplines = null;
-                        $scope.safeApply();
+                        block.DisciplineArray = null;
+                        $scope.blocksWidthDisciplines = blocks;
                     }else {
                         response.forEach(function (item, i, arr) {
                             var disciplineBlockYearId = item.disciplineBlockYearId
@@ -621,7 +623,7 @@ angular.module('ecampusApp')
 
         // remove patterb
         $scope.removePattern = function(pattern) {
-            if (confirm("Ви впеврені що хочете видалити цей шаблон?"))
+            if (confirm("Ви впевнені, що хочете видалити цей шаблон?"))
             {
                 var payload = {
                     Id: pattern.PatternBlockChoice8Id
@@ -705,7 +707,7 @@ angular.module('ecampusApp')
         };
 
         $scope.deleteBlock =  function(block){
-            if (confirm("Ви впеврені що хочете видалити цей запис?"))
+            if (confirm("Ви впевнені, що хочете видалити цей запис?"))
             {
                 var path = "SelectiveDiscipline/BlockChoise";
                 var method = "DELETE";
