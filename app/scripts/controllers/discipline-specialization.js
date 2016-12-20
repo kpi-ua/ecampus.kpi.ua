@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('DisciplinesSpecializationCtrl', function($scope, $cookies, $window, Api , $filter, $http) {
+    .controller('DisciplinesSpecializationCtrl', function($scope, $cookies, $window, Api , $filter, $http ) {
         var subsystemIdMain = 20;
         var StydyYearFrom =2013;
         var StydyYearTo =2020;
@@ -17,6 +17,7 @@ angular.module('ecampusApp')
         $scope.selectData ={
             CathedraId : null,
             Okr : null,
+            StudyForm : null,
             Direction : null,
             StudyYear : null,
             RtProfTrainTotalSubdivisionId: null,
@@ -50,13 +51,14 @@ angular.module('ecampusApp')
                     sClaim = JSON.parse(sClaim);
                 }
                 $scope.subsystems = getPermissionSubsystemFromTokenBySubsystemId(subsystemIdMain);
+                // console.log(sClaim);
                 if($scope.subsystems==[]){
                     $scope.errorLabelText = "Кафедры не найдены.";
                 }
                 var path = "blocks";
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
-                        $scope.errorLabelText="На жаль, актуальні  у базі даних відсутні.";
+                        $scope.errorLabelText="На жаль, блоки  у базі даних відсутні.";
                     } else {
                         $scope.Dc.Blocks = response;
                     }
@@ -68,7 +70,7 @@ angular.module('ecampusApp')
                 path = "cycles";
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
-                        $scope.errorLabelText="На жаль, актуальні  у базі даних відсутні.";
+                        $scope.errorLabelText="На жаль, цикли дисциплін  у базі даних відсутні.";
                     } else {
                         $scope.Dc.Cycles = response;
                     }
@@ -77,8 +79,27 @@ angular.module('ecampusApp')
                     ErrorHandlerMy (response, status,headers);
                     $scope.safeApply();
                 });
+                path = "Attestation/studyYear";
+                Api.execute("GET", path).then(function(response) {
+                    if (!response || response == "") {
+                        $scope.errorLabelText="На жаль, роки  у базі даних відсутні.";
+                    } else {
+                        response.sort(compareYearsActuality);
+                        $scope.stydyYears = response;
+                        $scope.selectData.StudyYear = $scope.stydyYears[response.length-1].name;
+                    }
+                    $scope.safeApply();
+                },function(response, status,headers){
+                    ErrorHandlerMy (response, status,headers);
+                    $scope.safeApply();
+                });
             }
-            $scope.stydyYears = getStudyYearsArray(StydyYearFrom,StydyYearTo);
+
+        }
+
+        function compareYearsActuality(firstYear, secondYear) {
+            if(firstYear.isActual){return 1;}
+            return -1;
         }
 
         function getStudyYearsArray(from, to) {
@@ -135,7 +156,7 @@ angular.module('ecampusApp')
                     permissionArray.push(item);
                 }
             });
-            console.log(permissionArray);
+            // console.log(permissionArray);
             return permissionArray;
         }
 
@@ -277,10 +298,12 @@ angular.module('ecampusApp')
             $scope.selectData.Direction = null;
             var cathedraId = $scope.selectData.CathedraId;
             var path = "StudyOrganization/ProfTrains/"+ cathedraId;
+
             Api.execute("GET", path).then(function(response) {
                 if (!response || response == "") {
                     $scope.errorLabelText="На жаль, OKP у базі даних відсутні.";
                 } else {
+                    console.log(response);
                     var profTrains = [];
                     response.forEach(function(item, i, arr){
 
@@ -308,7 +331,7 @@ angular.module('ecampusApp')
             $scope.disciplines =null;
             $scope.selectData.Direction = null;
             $scope.specialities =[];
-            console.log($scope.profTrains);
+            // console.log($scope.profTrains);
             $scope.profTrains.forEach(function (profTrain, iterator ,arr) {
                 if(profTrain.OkrName == $scope.selectData.Okr){
                     switch ($scope.selectData.Okr) {
@@ -327,13 +350,14 @@ angular.module('ecampusApp')
 
                     }
                     $scope.specialities.push(profTrain.Speciality);
-                    console.log(profTrain.Speciality);
+                    // console.log(profTrain.Speciality);
                 }
             });
             $scope.safeApply();
         };
 
         $scope.OnFullSelect = function (onlyGroupUpdate) {
+
             $scope.errorLabelText="";
             var path="";
             $scope.disciplines =null;
@@ -342,8 +366,10 @@ angular.module('ecampusApp')
             var cathedraIdBool =    $scope.selectData.CathedraId != null;
             var directionBool =     $scope.selectData.Direction != null;
             var okrBool =           $scope.selectData.Okr != null;
+            var studyFormBool =     true;
             var studyYearBool =     $scope.selectData.StudyYear != null;
-            if (cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='specialization'){
+            var mainInfoBool = cathedraIdBool && directionBool && okrBool;
+            if ( mainInfoBool && studyFormBool && studyYearBool && $scope.section=='specialization'){
                 $scope.safeApply();
                 var blocks= [];
                 var groupedBlocksArray =[];
@@ -362,7 +388,7 @@ angular.module('ecampusApp')
                     ErrorHandlerMy (response, status,headers);
                     $scope.safeApply();
                 });
-            }else if(cathedraIdBool && directionBool && okrBool && ($scope.section=='patterns' || ($scope.section=='apply' && !onlyGroupUpdate))) {
+            }else if(mainInfoBool && ($scope.section=='patterns' || ($scope.section=='apply' && !onlyGroupUpdate))) {
                 $scope.selectData.Patterns = [];
                 $scope.safeApply();
                 var patterns= [];
@@ -404,7 +430,7 @@ angular.module('ecampusApp')
                     $scope.safeApply();
                 });
             }
-            if(cathedraIdBool && directionBool && okrBool && studyYearBool && $scope.section=='apply'){
+            if(mainInfoBool && studyFormBool &&  studyYearBool && $scope.section=='apply'){
                 $scope.safeApply();
                 path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
                 Api.execute("GET", path).then(function(response) {
@@ -415,7 +441,7 @@ angular.module('ecampusApp')
                         $scope.safeApply();
                     } else {
                         $scope.groups = response;
-                        console.log($scope.groups);
+                        // console.log($scope.groups);
                         path = "SelectiveDiscipline/BlockChoice/";
                         response.forEach(function(group, i, arr){
                             path+=group.id;
@@ -425,7 +451,7 @@ angular.module('ecampusApp')
                         });
                         Api.execute("GET", path).then(function(response) {
                             $scope.blocksChoise = response;
-                            console.log($scope.blocksChoise);
+                            // console.log($scope.blocksChoise);
                             $scope.safeApply();
                         },function(response, status,headers){
                             ErrorHandlerMy (response, status,headers);
@@ -533,7 +559,7 @@ angular.module('ecampusApp')
                 };
                 path = "SelectiveDiscipline/BlockChoiseImplement";
                 method = "POST";
-                console.log($scope.patterns);
+                // console.log($scope.patterns);
                 Api.execute(method, path,payload).then(function (resp) {
                     $scope.OnFullSelect();
                 },function(response, status,headers){
@@ -572,7 +598,7 @@ angular.module('ecampusApp')
         };
 
         $scope.checkAllForm = function (data) {
-            console.log(data);
+            // console.log(data);
             if(data == null || data==""){
                 return "Заполніть це поле!";
             }
@@ -593,7 +619,7 @@ angular.module('ecampusApp')
                 countDiscipline = data.CountDiscipline,
                 patternName =  data.PatternName;
             var newPattern =  new PatternModel(patternBlockChoice8Id, profTrainTotalSubdivisionId,blockName, blockId, cycleName, cycleId, course, semester, countDiscipline ,patternName);
-            console.log(newPattern);
+            // console.log(newPattern);
             $scope.patterns.splice($scope.patterns.indexOf(pattern),1,newPattern);
             var payload = {
                 Block:{
@@ -612,7 +638,7 @@ angular.module('ecampusApp')
             path = "SelectiveDiscipline/PatternBlockChoise";
             method = patternBlockChoice8Id==null? "POST": "PUT";
 
-            console.log(method);
+            // console.log(method);
             Api.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();
             },function(response, status,headers){
@@ -658,9 +684,9 @@ angular.module('ecampusApp')
             var path ="";
             var method= "";
             $scope.safeApply();
-            console.log($scope.groups);
-            console.log(data);
-            console.log(block);
+            // console.log($scope.groups);
+            // console.log(data);
+            // console.log(block);
             var groupChosen = FindGroupInGroups($scope.groups,data.groupId);
             var blockChoiceWhom8Id = block.id,
                 dcBlock8Id = data.blockId,

@@ -55,6 +55,14 @@
               <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
             </select>
           </div>
+          <!--<div class="row">-->
+            <!--<label for="studyForm" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Форма навчання</label>-->
+            <!--<select id="studyForm" class="col-md-3 col-sm-4 col-xs-12 select-form__select" ng-disabled="!okrNames"-->
+                    <!--ng-class="{'select-form__select_disabled':!okrNames}" ng-model="selectData.StudyForm"-->
+                    <!--ng-change="OnFullSelect()">-->
+              <!--<option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>-->
+            <!--</select>-->
+          <!--</div>-->
           <div class="row">
             <label for="Direction" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Напрям</label>
             <select id="Direction" class="col-md-3 col-sm-4 col-xs-12  select-form__select" ng-disabled="!specialities"
@@ -71,10 +79,10 @@
               рік</label>
             <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="apply">Рік
               вступу</label>
-            <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"
+            <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select" value=""
                     ng-model="selectData.StudyYear"
                     ng-change="OnFullSelect(true)">
-              <option value="{{year}}" ng-repeat="year in stydyYears">{{year}}</option>
+              <option value="{{year | yearOutput}}" ng-repeat="year in stydyYears">{{year | yearOutput}}</option>
             </select>
           </div>
           <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
