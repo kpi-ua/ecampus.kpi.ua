@@ -1,134 +1,60 @@
-/*ТАК ЭТО НЕ ДЕЛАЕТСЯ!!! НЕЛЬЗЯ ПЕРЕОПРЕДЕЛЯТЬ СТИЛИ ОСНОВНЫХ ЭЛЕМЕНТОВ!!!!*/
-/*В ПЕРВУЮ ОЧЕРЕДЬ ЭТО ОСНОВНЫЕ ТЭГИ html section table select*/
-
-/** {*/
-	/*margin: 0;*/
-	/*padding: 0;*/
-	/*text-decoration: none;*/
-	/*list-style: none;*/
-	/*!*font-size: 18px;*!*/
-/*}*/
-
-/*.wrapper {*/
-	/*background-color: lightgrey !important;*/
-/*}*/
-
-/*section {*/
-	/*min-height: 200px;*/
-	/*background-color: lightyellow;*/
-/*}*/
-
-/* bootstrap align left */
-
 .color-head {
-	color: #208944;
-
+  color: #208944;
 }
 
 .alignLeft {
-	text-align: left !important;
+  text-align: left !important;
 }
-
-/*.container-fluid {*/
-	/*z-index: 1;*/
-/*}*/
-
-/*table {*/
-	/*background-color: #fff;*/
-	/*margin-top: 15px;*/
-	/**/
-/*}*/
-
-/*!* bootstrap fade speed */
-/*.fade {*/
-   /*opacity: 0;*/
-   /*-webkit-transition: opacity 0.05s linear;*/
-      /*-moz-transition: opacity 0.05s linear;*/
-       /*-ms-transition: opacity 0.05s linear;*/
-        /*-o-transition: opacity 0.05s linear;*/
-           /*transition: opacity 0.05s linear;*/
- /*}*!*/
 
 .tdFullAlignCenter {
-	text-align: center;
-	vertical-align: middle !important;
-	font-weight: normal;
+  text-align: center;
+  vertical-align: middle !important;
+  font-weight: normal;
 }
-
-/*th {*/
-	/*cursor: pointer;*/
-	/*position: relative;*/
-/*}*/
-
-
-/*.loadingError {*/
-	/*padding: 10px;*/
-	/*background-color: lightblue;*/
-	/*border-radius: 5px;*/
-/*}*/
 
 .sortorder:after {
   content: '\25bc';
 }
+
 .sortorder.reverse:after {
   content: '\25b2';
 }
 
-.unresizeable { 
-	resize: none; 
+.unresizeable {
+  resize: none;
 }
 
 .text-align-left {
-	text-align: left;
-	/*padding-left: 10%;*/
-	
+  text-align: left;
 }
 
-#newCred::-webkit-inner-spin-button, #newCred::-webkit-outer-spin-button  {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    margin: 0; 
+#newCred::-webkit-inner-spin-button, #newCred::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
 }
 
-/*.tickSign:after {*/
-	/*content: '\2714';*/
-/*}*/
-
-/*.xSign:after {*/
-	/*content: '\2718';*/
-/*}*/
-
-/*.chosen-container .chosen-results {*/
-    /*max-height: 300px;*/
-/*}*/
-
-/*.noBorders {*/
-	/*margin: 0 !important;*/
-	/*padding: 0 !important;*/
-
-/*}*/
-
-.node_block{
-	color: #208944;
-	cursor: default;
+.node_block {
+  color: #208944;
+  cursor: default;
 }
 
 .node_child {
-	padding-left: 20px!important;
-	cursor: default;
+  padding-left: 20px !important;
+  cursor: default;
 }
 
 .fontNormal {
-	font-weight: normal !important;
+  font-weight: normal !important;
 }
 
 .chosenWidth {
-	width: 600px !important;
+  width: 600px !important;
 }
 
 .imgHeight {
-	height: 200px;
+  height: 200px;
 }
 
 .thumb {
@@ -138,35 +64,33 @@
 }
 
 .objImages {
-	height: 60px;
-	border: 1px solid #000;
+  height: 60px;
+  border: 1px solid #000;
 }
 
 .marginBottom {
-	margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .marginTop {
-	margin-top: 5px;
+  margin-top: 5px;
 }
 
 .marginLeftRight {
-	margin: 0 10px 0 10px;
+  margin: 0 10px 0 10px;
 }
 
 .minWidthTwoButtons {
-	min-width: 85px;
+  min-width: 85px;
 }
 
 .overflowHorizontal {
-	overflow: hidden !important;
-	white-space: pre-line !important;
+  overflow: hidden !important;
+  white-space: pre-line !important;
 }
-
-/* media */
 
 @media screen and (min-width: 768px) {
   .selectMarginTop {
-		margin-top: 10px!important;
-	}
+    margin-top: 10px !important;
+  }
 }
