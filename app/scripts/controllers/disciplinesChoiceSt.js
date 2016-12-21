@@ -73,8 +73,8 @@ angular.module('ecampusApp')
             $scope.secondCourse = [];
             $scope.thirdCourse = [];
             $scope.fourthCourse = [];
-
             for (var i = 0; i < response.length; i++) {
+              response[i]['selectedDiscipline'] = null;
               switch (response[i].course) {
                 case 1:
                   $scope.firstCourse.push(response[i]);
