@@ -158,6 +158,11 @@
 	min-width: 85px;
 }
 
+.overflowHorizontal {
+	overflow: hidden !important;
+	white-space: pre-line !important;
+}
+
 /* media */
 
 @media screen and (min-width: 768px) {

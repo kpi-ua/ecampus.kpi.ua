@@ -7,7 +7,6 @@
     <div class="col-md-12" id="selectYearAndOkr">
 
       <h1>Блок дисциплін</h1>
-
       <!--<section class="container-fluid discipline-specialization__navigation">
         <div class="btn-group btn-group-justified" role="group" aria-label="...">
           <div class="btn-group" role="group">
@@ -47,12 +46,18 @@
         </div>
       </section>
     </div>
+    <div class="col-md-12">
+      <div class="alert alert-warning" ng-show="!ifTreeLengthZero() && !ifYearAndOkr0Chosen()">
+        На жаль, дані відсутні
+      </div>
+      <div class="alert alert-warning" ng-show="ifTreeLengthZero()">
+        Заповніть, будь ласка, всі поля
+      </div>
+    </div>
+  </div>
+  
 
-
-    <div ng-show="ifYearAndOkr0Chosen()" class="marginLeftRight">
-      <fieldset>
-
-
+    <div ng-show="ifYearAndOkr0Chosen() && !ifTreeLengthZero()" class="row marginLeftRight">
         <div ui-tree>
           <ol ui-tree-nodes="" ng-model="dataInTree">
             <li ng-repeat="(block, disciplines) in dataInTree | groupBy: 'block'" ui-tree-node data-collapsed="true"
@@ -86,28 +91,29 @@
                                 </tr>
                             </table>
                             </div>
-
-                                            <!--<div class="col-lg-5 col-md-6 col-sm-6">
+                            <!--<li ng-repeat="discip in disciplines" ui-tree-node data-collapsed="true"
+                data-expand-on-hover="true">
+                                          <div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6">
                                                 - {{discip.discipline}}.
                                             </div>
                                             <div class="col-lg-7 col-md-6 col-sm-6 marginBottom">
                                                 <div>Викладає: {{discip.subdivision}}</div>
                                                 <div>Максимальна кількість студентів в рамках університету: {{discip.maxCountStudent}}</div>
                                                 <div>Кількість викладачів: {{discip.countLecture}}</div>
-                                            </div>-->
-                                        <!--</div>
+                                            </div>
+                                        </div>
 
 
 
-                                 </div>
+                                 
                              </li>-->
                          </ol>
                      </li>
 
 
           </ol>
-        </div>
-      </fieldset>
+        
     </div>
   </div>
 </div>

@@ -21,7 +21,7 @@
         <div class="panel panel-default" ng-repeat="block in blocksWidthDisciplines">
             <div class="panel-heading">Блок: {{block.BlockName}}</div>
             <div class="panel-body">
-                <table class="table table-hover table-bordered">
+                <table class="table table-hover table-bordered" ng-show="block.DisciplineArray!=null">
                     <thead>
                     <tr>
                         <td class="text-center">
@@ -70,6 +70,7 @@
                     </tr>
                     </tbody>
                 </table>
+                <p class="text-center" ng-show="block.DisciplineArray==null">[Пропозиції щодо викладання дисциплін в цьому навчальному році відсутні.]</p>
             </div>
         </div>
     </div>
