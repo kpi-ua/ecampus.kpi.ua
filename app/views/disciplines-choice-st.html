@@ -134,7 +134,8 @@
                         <div class="radio">
                           <label class="label-disciplines-choice">
                             <input type="radio" class="radio-disciplines-choice"
-                                   value="{{secondDisc.cDisciplineBlockYear8Id || 'ідентифікатор не вказано'}}"
+                                   value="{{secondDisc.nameUkr || 'назву дисциплін не вказано'}}"
+                                   ng-model="second.selectedDiscipline"
                                    name="selectedDisciplineSecondCourseSemesterNumber-{{fourth.semester}}">
                             {{secondDisc.nameUkr || "назву дисциплін не вказано"}}
                           </label>
@@ -161,6 +162,9 @@
                             {{secondDisc.studentCount}} / {{secondDisc.maxCountStudent}}
                           </div>
                         </div>
+                      </div>
+                      <div ng-show="second.selectedDiscipline">
+                        <h5>Ви обрали дисципліну - {{second.selectedDiscipline}}</h5>
                       </div>
                       <button type="submit" class="btn btn-primary btn-save-choice-result"
                               ng-show="!(second.status == 'not available' || second.status == 'done')">Зберегти
@@ -215,7 +219,8 @@
                         <div class="radio">
                           <label class="label-disciplines-choice">
                             <input type="radio" class="radio-disciplines-choice"
-                                   value="{{thirdDisc.cDisciplineBlockYear8Id || 'ідентифікатор не вказано'}}"
+                                   value="{{thirdDisc.nameUkr || 'назву дисциплін не вказано'}}"
+                                   ng-model="third.selectedDiscipline"
                                    name="selectedDisciplineThirdCourseSemesterNumber-{{third.semester}}">
                             {{thirdDisc.nameUkr || "назву дисциплін не вказано"}}
                           </label>
@@ -242,6 +247,9 @@
                             {{thirdDisc.studentCount}} / {{thirdDisc.maxCountStudent}}
                           </div>
                         </div>
+                      </div>
+                      <div ng-show="third.selectedDiscipline">
+                        <h5>Ви обрали дисципліну - {{third.selectedDiscipline}}</h5>
                       </div>
                       <button type="submit" class="btn btn-primary btn-save-choice-result"
                               ng-show="!(third.status == 'not available' || third.status == 'done')">Зберегти
@@ -297,7 +305,8 @@
                         <div class="radio">
                           <label class="label-disciplines-choice">
                             <input type="radio" class="radio-disciplines-choice"
-                                   value="{{fourthDisc.cDisciplineBlockYear8Id || 'ідентифікатор не вказано'}}"
+                                   value="{{fourthDisc.nameUkr || 'назву дисциплін не вказано'}}"
+                                   ng-model="fourth.selectedDiscipline"
                                    name="selectedDisciplineFourthCourseSemesterNumber-{{fourth.semester}}">
                             {{fourthDisc.nameUkr || "назву дисциплін не вказано"}}
                           </label>
@@ -324,6 +333,9 @@
                             {{fourthDisc.studentCount}} / {{fourthDisc.maxCountStudent}}
                           </div>
                         </div>
+                      </div>
+                      <div ng-show="fourth.selectedDiscipline">
+                        <h5>Ви обрали дисципліну - {{fourth.selectedDiscipline}}</h5>
                       </div>
                       <button type="submit" class="btn btn-primary btn-save-choice-result"
                               ng-show="!(fourth.status == 'not available' || fourth.status == 'done')">Зберегти
