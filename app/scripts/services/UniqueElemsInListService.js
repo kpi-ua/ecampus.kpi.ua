@@ -43,7 +43,7 @@ angular
             tmpItem = unmodifiedElementsOfQuery[i].studyyear;
             break;
           case 'studyPeriod.all':
-            tmpItem = unmodifiedElementsOfQuery[i].studyPeriod.start+"-"+unmodifiedElementsOfQuery[i].studyPeriod.end;
+            tmpItem = unmodifiedElementsOfQuery[i].studyPeriod.start + "-" + unmodifiedElementsOfQuery[i].studyPeriod.end;
             break;
           case 'subdivisionName':
             tmpItem = unmodifiedElementsOfQuery[i].subdivisionName;
@@ -72,15 +72,15 @@ angular
     this.getArrayOfBlocksAndDisc = function (year, okr, initialArr) {
 
       unmodifiedElementsOfQuery = [];
-      var studyYearFrom = year.substr(0,4),
-          studyYearTo = year.substr(5);
-      console.log("-----");    
+      var studyYearFrom = year.substr(0, 4),
+        studyYearTo = year.substr(5);
+      console.log("-----");
       for (var i = 0; i < initialArr.length; i++) {
 
         //console.log("initialArr[i]");
         //console.log(initialArr[i]);
         if ((studyYearFrom == initialArr[i].studyPeriod.start) && (studyYearTo == initialArr[i].studyPeriod.end) && (okr == initialArr[i].okr)) {
-        //if ((year == initialArr[i].studyyear) && (okr == initialArr[i].okr)) {
+          //if ((year == initialArr[i].studyyear) && (okr == initialArr[i].okr)) {
           console.log("pushed");
           //console.log(initialArr[i]);
           unmodifiedElementsOfQuery.push({
@@ -106,29 +106,29 @@ angular
 
     this.getStudyYearsArray = function (from, to) {
       var studyYears = [];
-      for(var i =from;i<to;i++){
-        studyYears.push(i+"-"+(i+1));
+      for (var i = from; i < to; i++) {
+        studyYears.push(i + "-" + (i + 1));
       }
       return studyYears;
     };
 
-    this.setCurrentYear = function(allYears){
+    this.setCurrentYear = function (allYears) {
       var currDate = new Date();
       var actualYear = currDate.getFullYear();
-      var actualMonth = currDate.getMonth()+1;
+      var actualMonth = currDate.getMonth() + 1;
 
-      if (actualMonth<7) {
+      if (actualMonth < 7) {
         actualYear -= 1;
       }
 
       for (var i = 0; i < allYears.length; i++) {
         if (allYears[i].name) {
-          if (actualYear == allYears[i].name.substr(0,4)) {
-           return allYears[i].name;
-          }  
+          if (actualYear == allYears[i].name.substr(0, 4)) {
+            return allYears[i].name;
+          }
         }
         else {
-          if (actualYear == allYears[i].substr(0,4)) {
+          if (actualYear == allYears[i].substr(0, 4)) {
             return allYears[i];
           }
         }

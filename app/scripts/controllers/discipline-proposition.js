@@ -19,7 +19,7 @@ angular.module('ecampusApp')
 
     var initialLoadCafedra = function () {
 
-    	//Api.execute("GET", "SelectiveDiscipline/ActualCathedra")
+      //Api.execute("GET", "SelectiveDiscipline/ActualCathedra")
       Api.execute("GET", "Subdivision")
         .then(function (response) {
           $scope.allSubdivisions = [];
@@ -30,25 +30,25 @@ angular.module('ecampusApp')
         });
     };
 
-    var getDataSelectBoxes = function() {
-              var url = "SelectiveDiscipline/ForDisciplineOffer";
-              var studyYears = UniqueElemsInList.getStudyYearsArray(studyYearFrom, studyYearTo);
+    var getDataSelectBoxes = function () {
+      var url = "SelectiveDiscipline/ForDisciplineOffer";
+      var studyYears = UniqueElemsInList.getStudyYearsArray(studyYearFrom, studyYearTo);
 
-              Api.execute("GET", url)
-              .then(function (response) {
-                
-                $scope.tempListData = response;
-                
-                //for (var i=0; i<$scope.tempListData.okr.length; i++){
-                //  console.log($scope.tempListData.okr[i].name);  
-                //}
-                $scope.tempListData.customYears = [];
-                //$scope.tempListData.push(customYears);
-                for (var i = 0; i < studyYears.length; i++) {
-                  $scope.tempListData.customYears.push(new YearListModel(studyYears[i]));
-                }
+      Api.execute("GET", url)
+        .then(function (response) {
 
-              }, function (response) {
+          $scope.tempListData = response;
+
+          //for (var i=0; i<$scope.tempListData.okr.length; i++){
+          //  console.log($scope.tempListData.okr[i].name);
+          //}
+          $scope.tempListData.customYears = [];
+          //$scope.tempListData.push(customYears);
+          for (var i = 0; i < studyYears.length; i++) {
+            $scope.tempListData.customYears.push(new YearListModel(studyYears[i]));
+          }
+
+        }, function (response) {
 
           $scope.tempListData = response;
 
@@ -77,18 +77,18 @@ angular.module('ecampusApp')
     $scope.checkProposForm = function (data) {
       console.log(data);
       if (data == null || data == "") {
-        return "Заполніть це поле!";
+        return "Заповніть це поле!";
       }
     };
 
     $scope.checkYearForm = function (data) {
-      for (var i = 0; i < $scope.CurrentYearData.yearData.length; i++){
+      for (var i = 0; i < $scope.CurrentYearData.yearData.length; i++) {
         if (data == $scope.CurrentYearData.yearData[i].studyYear.name) {
           return "Такі дані вже існують";
-        }        
+        }
       }
       if (data == null || data == "") {
-        return "Заполніть це поле!";
+        return "Заповніть це поле!";
       }
     };
 
@@ -271,7 +271,7 @@ angular.module('ecampusApp')
               console.log(data);
               console.log(proposition);
               for (var i = 0; i < $scope.alldisciplines.length; i++) {
-                if (($scope.alldisciplines[i].okr==data.okr)&&($scope.alldisciplines[i].blockName==data.blockName)&&($scope.alldisciplines[i].nameUkr==data.nameUkr)) {
+                if (($scope.alldisciplines[i].okr == data.okr) && ($scope.alldisciplines[i].blockName == data.blockName) && ($scope.alldisciplines[i].nameUkr == data.nameUkr)) {
                   console.log("повтор");
                   $scope.SendSubdivisionToServer();
                   return;
@@ -280,22 +280,22 @@ angular.module('ecampusApp')
               var url = "SelectiveDiscipline/BlocksDispline";
               var method = "";
               var BlockId = getBlockIdByName($scope.tempListData.dcBlock8, data.blockName),
-                  DisciplineId = getDisciplineIdByName($scope.tempListData.dcDiscipline8, data.nameUkr),
-                  DcOKRId = getOkrIdByName($scope.tempListData.okr, data.okr),
-                  DcSubdivisionWhoId = $scope.selectedDiscipline.id,
-                  Knowledge = proposition.knowledge,
-                  Competence = proposition.competence,
-                  Skill = proposition.skill,
-                  Annotation = proposition.annotation,
-                  Picture = "",
-                  CountCredit = data.countCredit,
-                  disciplineBlockId = proposition.disciplineBlockId;
-              
+                DisciplineId = getDisciplineIdByName($scope.tempListData.dcDiscipline8, data.nameUkr),
+                DcOKRId = getOkrIdByName($scope.tempListData.okr, data.okr),
+                DcSubdivisionWhoId = $scope.selectedDiscipline.id,
+                Knowledge = proposition.knowledge,
+                Competence = proposition.competence,
+                Skill = proposition.skill,
+                Annotation = proposition.annotation,
+                Picture = "",
+                CountCredit = data.countCredit,
+                disciplineBlockId = proposition.disciplineBlockId;
+
               if (proposition.pictures) {
                 Picture = proposition.pictures.substring(23);
-              }  
+              }
 
-              if (proposition.disciplineBlockId){
+              if (proposition.disciplineBlockId) {
                 url = url + "/" + proposition.disciplineBlockId;
                 method = "PUT";
               }

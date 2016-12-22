@@ -637,6 +637,10 @@ a.bulletin-title:hover {
 }*/
 
 /* disciplines choice styles*/
+.btn-save-choice-result {
+  margin: 10px 0 10px 0;
+}
+
 .info-load {
   color: #208843;
 }
@@ -779,6 +783,11 @@ div.progress-student-count {
   position: relative;
   display: block;
   padding: 0 0;
+}
+
+.choice-show-details {
+  color: #208843;
+  cursor: pointer;
 }
 
 /* end disciplines choice*/
