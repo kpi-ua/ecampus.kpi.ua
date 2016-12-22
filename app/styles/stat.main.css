@@ -569,11 +569,13 @@ input:checked+.side-label::after {
 }
 .nav-pills-campus .nav-pills-campus_active{
     border: 1px solid #208944;
-
 }
-
 /*PATTERNS*/
     /*PATTERNS BUTTONS CRUD*/
+.d-s-table{
+    margin-bottom: 0;
+}
+
 .patterns__table-header{
     text-align: center;
 }
@@ -620,5 +622,14 @@ input:checked+.side-label::after {
 
 .editable-number .editable-controls input[type="number"][name="CountDiscipline"]{
     max-width: 70px;
+}
+
+.apply__button{
+ margin: 20px 0;
+}
+
+.apply__checkbox{
+ width: 18px;
+ height: 18px;
 }
 

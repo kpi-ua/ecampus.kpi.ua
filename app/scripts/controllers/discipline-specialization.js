@@ -38,6 +38,7 @@ angular.module('ecampusApp')
             Cycles      : [],
             Blocks      : [],
             Courses     : [],
+            StudyForms     : [],
             Semesters   : []
         };
 
@@ -93,9 +94,31 @@ angular.module('ecampusApp')
                     ErrorHandlerMy (response, status,headers);
                     $scope.safeApply();
                 });
+                path = "studyForms";
+                Api.execute("GET", path).then(function(response) {
+                    if (!response || response == "") {
+                        $scope.errorLabelText="На жаль, форми навчання у базі даних відсутні.";
+                    } else {
+                        $scope.Dc.StudyForms = response;
+                    }
+                    $scope.safeApply();
+                },function(response, status,headers){
+                    ErrorHandlerMy (response, status,headers);
+                    $scope.safeApply();
+                });
             }
 
         }
+
+        // function getStudyForm(studyForms, studyFormName) {
+        //     var studyForm = studyForms[2];
+        //     studyForms.forEach(function (item, i,arr) {
+        //         if(item.name ==studyFormName){
+        //             studyForm =  item;
+        //         }
+        //     });
+        //     return studyForm;
+        // }
 
         function compareYearsActuality(firstYear, secondYear) {
             if(firstYear.isActual){return 1;}
@@ -366,7 +389,7 @@ angular.module('ecampusApp')
             var cathedraIdBool =    $scope.selectData.CathedraId != null;
             var directionBool =     $scope.selectData.Direction != null;
             var okrBool =           $scope.selectData.Okr != null;
-            var studyFormBool =     true;
+            var studyFormBool =      $scope.selectData.StudyForm != null;
             var studyYearBool =     $scope.selectData.StudyYear != null;
             var mainInfoBool = cathedraIdBool && directionBool && okrBool;
             if ( mainInfoBool && studyFormBool && studyYearBool && $scope.section=='specialization'){
@@ -374,7 +397,7 @@ angular.module('ecampusApp')
                 var blocks= [];
                 var groupedBlocksArray =[];
                 var compareSemester = 0;
-                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/BlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/BlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction+"/"+$scope.selectData.StudyForm;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль записи у базі відсутні";
@@ -421,7 +444,7 @@ angular.module('ecampusApp')
                                 patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName, blockId, cycleName, cycleId, course, semester, countDiscipline, patternName));
                             });
                             $scope.patterns = patterns;
-                            $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId; ///-----------------------------------------------------------------------------
+                            $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
                             $scope.safeApply();
                         }
                     }
@@ -432,7 +455,7 @@ angular.module('ecampusApp')
             }
             if(mainInfoBool && studyFormBool &&  studyYearBool && $scope.section=='apply'){
                 $scope.safeApply();
-                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction+"/"+$scope.selectData.StudyForm;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль групи у базі відсутні.";
@@ -469,7 +492,7 @@ angular.module('ecampusApp')
         $scope.GetAllDisciplines = function (blocks) {
             $scope.errorLabelText="";
             blocks.forEach(function (block,iter,arr) {
-                var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/DisciplineChosen/"+block.BlockId;
+                var path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/DisciplineChosen/"+block.BlockId+"/"+$scope.selectData.StudyForm;
                 Api.execute("GET", path).then(function(response) {
                     var disciplinesBlock =[];
                     var tatalMaxCountStudent =0;
