@@ -10,8 +10,6 @@
 angular.module('ecampusApp')
     .controller('DisciplinesSpecializationCtrl', function($scope, $cookies, $window, Api , $filter, $http ) {
         var subsystemIdMain = 20;
-        var StydyYearFrom =2013;
-        var StydyYearTo =2020;
 
         $scope.errorLabelText ="";
         $scope.selectData ={
@@ -21,7 +19,8 @@ angular.module('ecampusApp')
             Direction : null,
             StudyYear : null,
             RtProfTrainTotalSubdivisionId: null,
-            Patterns:[]
+            Patterns:[],
+            StudyGroup: null
         };
 
         $scope.sortType     = 'Course'; // значение сортировки по умолчанию
@@ -123,14 +122,6 @@ angular.module('ecampusApp')
         function compareYearsActuality(firstYear, secondYear) {
             if(firstYear.isActual){return 1;}
             return -1;
-        }
-
-        function getStudyYearsArray(from, to) {
-            var studyYears = [];
-            for(var i =from;i<to;i++){
-                studyYears.push(i+"-"+(i+1));
-            }
-            return studyYears;
         }
 
         function getPermissionSubsystemFromToken(){
@@ -453,9 +444,9 @@ angular.module('ecampusApp')
                     $scope.safeApply();
                 });
             }
-            if(mainInfoBool && studyFormBool &&  studyYearBool && $scope.section=='apply'){
+            if(mainInfoBool && studyFormBool &&  studyYearBool && ($scope.section=='apply' || $scope.section=='study-group')){
                 $scope.safeApply();
-                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction;
+                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction+"/"+$scope.selectData.StudyForm;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
                         $scope.errorLabelText="На жаль групи у базі відсутні.";
@@ -771,6 +762,14 @@ angular.module('ecampusApp')
                 });
                 $scope.blocksChoise.splice($scope.blocksChoise.indexOf(block),1);
             }
+        };
+        $scope.getYearByStartYearAndCourse = function (startYear ,course ) {
+            var years= startYear.replace(" ","").split('-');
+            years[0]=  parseInt(years[0],10) + (course-1);
+            years[1]=  parseInt(years[1],10) + (course-1);
+            console.log(years[0]+"-"+years[1]);
+            return years[0]+"-"+years[1];
+
         };
         //    MODELS!!!
         function SubdivisionModel(SubdivisionId,Name){
