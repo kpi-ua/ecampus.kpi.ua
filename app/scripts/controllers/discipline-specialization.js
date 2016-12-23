@@ -398,10 +398,10 @@ angular.module('ecampusApp')
             var studyYearBool =     $scope.selectData.StudyYear != null;
             var mainInfoBool = cathedraIdBool && directionBool && okrBool;
             if ( mainInfoBool && studyFormBool && studyYearBool && $scope.section=='specialization'){
-                $scope.safeApply();
-                var blocks= [];
-                var groupedBlocksArray =[];
-                var compareSemester = 0;
+                $scope.selectData.StudyGroup = null;
+                // var blocks= [];
+                // var groupedBlocksArray =[];
+                // var compareSemester = 0;
                 path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/BlockChoiceWhom/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction+"/"+$scope.selectData.StudyForm;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
@@ -418,6 +418,7 @@ angular.module('ecampusApp')
                     $scope.safeApply();
                 });
             }else if(mainInfoBool && ($scope.section=='patterns' || ($scope.section=='apply' && !onlyGroupUpdate))) {
+                $scope.selectData.StudyGroup = null;
                 $scope.selectData.Patterns = [];
                 $scope.safeApply();
                 var patterns= [];
@@ -467,9 +468,11 @@ angular.module('ecampusApp')
                         $scope.errorLabelText="На жаль групи у базі відсутні.";
                         $scope.groups = null;
                         $scope.blocksChoise = null;
+                        $scope.selectData.StudyGroup = null;
                         $scope.safeApply();
                     } else {
                         $scope.groups = response;
+
                         // console.log($scope.groups);
                         path = "SelectiveDiscipline/BlockChoice/";
                         response.forEach(function(group, i, arr){
