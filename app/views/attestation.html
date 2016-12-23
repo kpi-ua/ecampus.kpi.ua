@@ -65,8 +65,8 @@
         </div>
 
         <div class="text-center" ng-show="studyAttestationPeriod.selected">
-          <button class="btn btn-primary btn-result" type="submit" ng-hide="first"
-                  ng-click="getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);first = true;">
+          <button class="btn btn-primary btn-result" type="submit"
+                  ng-click="getAttestationPeriodId(studyYears.selected.id, studySemesters.selected.id, studyAttestationPeriod.selected.id);">
             Перевірити наявність даних про атестацію
           </button>
         </div>
