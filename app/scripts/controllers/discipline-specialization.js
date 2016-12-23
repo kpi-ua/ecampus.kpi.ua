@@ -23,6 +23,9 @@ angular.module('ecampusApp')
             StudyGroup: null
         };
 
+        $scope.sumStudCount = null;
+        $scope.sumStudCountResponse=[];
+
         $scope.sortType     = 'Course'; // значение сортировки по умолчанию
         $scope.sortReverse  = false;  // обратная сортировка
 
@@ -219,7 +222,8 @@ angular.module('ecampusApp')
                     , blockName = item.block.name
                     , course = item.course
                     , semestr = item.semestr
-                    , studyGroupName = item.studyGroup.name;
+                    , studyGroupName = item.studyGroup.name
+                    , studyGroupCount = item.countStud;
                 if(compareSemester!=semestr){
                     compareSemester = semestr;
                     if(blocks.length != 0) {
@@ -300,6 +304,16 @@ angular.module('ecampusApp')
             });
             return studyGroupId;
         }
+
+        $scope.SumStudCount = function (blocks,semester) {
+            $scope.sumStudCount =0;
+            var blocksForSemester = [];
+            blocks.forEach(function (block, i ,arr) {
+                if(block.semestr == semester){
+                    $scope.sumStudCount+=block.countStud;
+                }
+            });
+        };
 
         $scope.OnCathedraSelect = function () {
             $scope.errorLabelText="";
@@ -395,6 +409,7 @@ angular.module('ecampusApp')
                         $scope.safeApply();
                     } else {
                         var semestrForView  = BlockChoiceFromResponseToView(response);
+                        $scope.sumStudCountResponse = response;
                         $scope.semestrsForView = semestrForView;
                         $scope.safeApply();
                     }
@@ -693,7 +708,7 @@ angular.module('ecampusApp')
             $scope.safeApply();
         };
 
-        //save pattern
+        //save block
         $scope.saveBlock = function(data,block) {
             var path ="";
             var method= "";
@@ -763,6 +778,23 @@ angular.module('ecampusApp')
                 $scope.blocksChoise.splice($scope.blocksChoise.indexOf(block),1);
             }
         };
+
+        $scope.saveGroupCount = function(data,studyGroupId) {
+            var path ="SelectiveDiscipline/UpdateStudyGroupCountStudFact";
+            var method= "PUT";
+            var payload = {
+                StudyGroup : {
+                    Id: studyGroupId ,
+                } ,
+                CountStud : data.studyGroupsCountStud ,
+            };
+            Api.execute(method, path,payload).then(function (resp) {
+                $scope.OnFullSelect();
+            },function(response, status,headers){
+                ErrorHandlerMy (response, status,headers);
+                $scope.safeApply();
+            });
+        };
         $scope.getYearByStartYearAndCourse = function (startYear ,course ) {
             var years= startYear.replace(" ","").split('-');
             years[0]=  parseInt(years[0],10) + (course-1);
@@ -801,7 +833,6 @@ angular.module('ecampusApp')
             this.Course = course;
             this.Semestr = semestr;
             this.StudyGroupName = studyGroupName;
-
         }
 
         function DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName) {
