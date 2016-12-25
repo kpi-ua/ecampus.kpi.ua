@@ -32,6 +32,13 @@
                 Застосування шаблонів
               </button>
             </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="study-group"
+                      ng-click="SwitchSections($event)"
+                      ng-class="{'discipline-specialization__navigation-button_active':section=='study-group'}">
+                Навчальні групи
+              </button>
+            </div>
           </div>
         </section>
 
@@ -55,14 +62,7 @@
               <option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>
             </select>
           </div>
-          <!--<div class="row">-->
-            <!--<label for="studyForm" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Форма навчання</label>-->
-            <!--<select id="studyForm" class="col-md-3 col-sm-4 col-xs-12 select-form__select" ng-disabled="!okrNames"-->
-                    <!--ng-class="{'select-form__select_disabled':!okrNames}" ng-model="selectData.StudyForm"-->
-                    <!--ng-change="OnFullSelect()">-->
-              <!--<option value="{{name}}" ng-repeat="name in okrNames">{{name}}</option>-->
-            <!--</select>-->
-          <!--</div>-->
+
           <div class="row">
             <label for="Direction" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Напрям</label>
             <select id="Direction" class="col-md-3 col-sm-4 col-xs-12  select-form__select" ng-disabled="!specialities"
@@ -73,18 +73,27 @@
               </option>
             </select>
           </div>
-          <div ng-show="section=='specialization'||section=='apply'" class="row">
-            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label"
-                   ng-switch-when="specialization">Навчальний
-              рік</label>
-            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="apply">Рік
-              вступу</label>
-            <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select" value=""
+          <div class="row" ng-show="section=='specialization'||section=='apply'||section=='study-group'">
+            <label for="studyForm" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Форма навчання</label>
+            <select id="studyForm" class="col-md-3 col-sm-4 col-xs-12 select-form__select" ng-model="selectData.StudyForm"
+                    ng-change="OnFullSelect()">
+              <option value="{{studyForm.id}}" ng-repeat="studyForm in Dc.StudyForms">{{studyForm.name}}</option>
+            </select>
+          </div>
+          <div ng-show="section=='specialization'||section=='apply'||section=='study-group'" class="row">
+            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="specialization">
+              Навчальний рік
+            </label>
+            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-show="section=='apply'||section=='study-group'">
+              Рік вступу
+            </label>
+            <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"
                     ng-model="selectData.StudyYear"
                     ng-change="OnFullSelect(true)">
               <option value="{{year | yearOutput}}" ng-repeat="year in stydyYears">{{year | yearOutput}}</option>
             </select>
           </div>
+
           <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
         </section>
 
@@ -223,6 +232,9 @@
 
         <section class="container-fluid discipline-specialization__apply apply" pattern-implementation
                  ng-switch-when="apply"></section>
+
+        <section class="container-fluid discipline-specialization__study-group study-group" study-group
+                 ng-switch-when="study-group"></section>
 
       </div>
     </div>

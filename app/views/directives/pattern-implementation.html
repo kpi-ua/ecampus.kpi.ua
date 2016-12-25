@@ -46,8 +46,8 @@
         </thead>
         <tbody>
         <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
-            <td>
-                <input type="checkbox" value="pattern.PatternBlockChoice8Id" ng-click="PatternChecked(pattern)"/>
+            <td class="text-center" >
+                <input class="apply__checkbox" type="checkbox" value="pattern.PatternBlockChoice8Id" ng-click="PatternChecked(pattern)"/>
             </td>
             <td>
                 <span>
@@ -77,7 +77,7 @@
         </tr>
         </tbody>
     </table>
-    <input type="button" class="btn btn-success" value="Застосувати шаблони" ng-click="PatternImplement()">
+    <input type="button" class="btn btn-success apply__button" value="Застосувати шаблони" ng-click="PatternImplement()">
     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#implementReport" ng-show="implementReport!=null">Подивитися звіт про застосування шаблонівю</button>
 </section>
 
