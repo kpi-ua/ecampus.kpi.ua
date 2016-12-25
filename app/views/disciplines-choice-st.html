@@ -134,7 +134,7 @@
                         <div class="radio">
                           <label class="label-disciplines-choice">
                             <input type="radio" class="radio-disciplines-choice"
-                                   value="{{secondDisc.nameUkr || 'назву дисциплін не вказано'}}"
+                                   value="{{secondDisc.cDisciplineBlockYear8Id}}"
                                    ng-model="second.selectedDiscipline"
                                    name="selectedDisciplineSecondCourseSemesterNumber-{{fourth.semester}}">
                             {{secondDisc.nameUkr || "назву дисциплін не вказано"}}
@@ -162,9 +162,6 @@
                             {{secondDisc.studentCount}} / {{secondDisc.maxCountStudent}}
                           </div>
                         </div>
-                      </div>
-                      <div ng-show="second.selectedDiscipline">
-                        <h5>Ви обрали дисципліну - {{second.selectedDiscipline}}</h5>
                       </div>
                       <button type="submit" class="btn btn-primary btn-save-choice-result"
                               ng-show="!(second.status == 'not available' || second.status == 'done')">Зберегти
@@ -219,7 +216,7 @@
                         <div class="radio">
                           <label class="label-disciplines-choice">
                             <input type="radio" class="radio-disciplines-choice"
-                                   value="{{thirdDisc.nameUkr || 'назву дисциплін не вказано'}}"
+                                   value="{{thirdDisc.cDisciplineBlockYear8Id}}"
                                    ng-model="third.selectedDiscipline"
                                    name="selectedDisciplineThirdCourseSemesterNumber-{{third.semester}}">
                             {{thirdDisc.nameUkr || "назву дисциплін не вказано"}}
@@ -248,15 +245,35 @@
                           </div>
                         </div>
                       </div>
-                      <div ng-show="third.selectedDiscipline">
-                        <h5>Ви обрали дисципліну - {{third.selectedDiscipline}}</h5>
+                      <div ng-repeat="choice in third.blocks[0].blockDisc | filter:third.selectedDiscipline" ng-show="third.selectedDiscipline">
+                        <h4><strong>Ви обрали</strong></h4>
+                        <h5>Дисципліну - {{choice.nameUkr}}</h5>
+                        <h5>Кафедра - {{choice.subdivision}}</h5>
                       </div>
                       <button type="submit" class="btn btn-primary btn-save-choice-result"
+                              ng-click="resultSort = filterChoiceFromAllDisciplines(thirdCourse, third.semester, third.selectedDiscipline);
+                              saveDisciplinesChoiceInSemester(resultSort[$index]);"
+                              ng-hide="third.selectedDiscipline == null;"
                               ng-show="!(third.status == 'not available' || third.status == 'done')">Зберегти
                       </button>
+                      <div class="alert alert-info text-center fade in" ng-show="saveChoiceResult">
+                        {{saveChoiceResult}}
+                      </div>
+                      <div class="alert alert-danger text-center fade in" ng-show="errorChoiceResult">
+                        {{errorChoiceResult}}
+                      </div>
                     </form>
                   </div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 info about-disciplines">
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 info about-disciplines" ng-repeat="choice in third.blocks[0].blockDisc | filter:third.selectedDiscipline" ng-show="third.selectedDiscipline">
+                    <h4><strong>Опис обраної дисципліни</strong></h4>
+                    <h5 ng-hide="!choice.nameUkr">Дисципліна - {{choice.nameUkr}}</h5>
+                    <h5 ng-hide="!choice.nameEng">Дисципліна (англ.мова) - {{choice.nameEng}}</h5>
+                    <h5 ng-hide="!choice.subdivision">Кафедра - {{choice.subdivision}}</h5>
+                    <h5 ng-hide="!choice.annotationEng">Анотація (англ.мова) - {{choice.annotationEng}}</h5>
+                    <h5 ng-hide="!choice.pic">Картинка - {{choice.pic}}</h5>
+                    <h5 ng-hide="!choice.competence">Компетенції - {{choice.competence}}</h5>
+                    <h5 ng-hide="!choice.knowledge">Знання - {{choice.knowledge}}</h5>
+                    <h5 ng-hide="!choice.skill">Навички - {{choice.skill}}</h5>
                   </div>
                 </div>
               </div>
@@ -305,7 +322,7 @@
                         <div class="radio">
                           <label class="label-disciplines-choice">
                             <input type="radio" class="radio-disciplines-choice"
-                                   value="{{fourthDisc.nameUkr || 'назву дисциплін не вказано'}}"
+                                   value="{{fourthDisc.cDisciplineBlockYear8Id}}"
                                    ng-model="fourth.selectedDiscipline"
                                    name="selectedDisciplineFourthCourseSemesterNumber-{{fourth.semester}}">
                             {{fourthDisc.nameUkr || "назву дисциплін не вказано"}}
@@ -334,15 +351,35 @@
                           </div>
                         </div>
                       </div>
-                      <div ng-show="fourth.selectedDiscipline">
-                        <h5>Ви обрали дисципліну - {{fourth.selectedDiscipline}}</h5>
+                      <div ng-repeat="choice in fourth.blocks[0].blockDisc | filter:fourth.selectedDiscipline" ng-show="fourth.selectedDiscipline">
+                        <h4><strong>Ви обрали</strong></h4>
+                        <h5>Дисципліну - {{choice.nameUkr}}</h5>
+                        <h5>Кафедра - {{choice.subdivision}}</h5>
                       </div>
                       <button type="submit" class="btn btn-primary btn-save-choice-result"
+                              ng-click="resultSort = filterChoiceFromAllDisciplines(fourthCourse, fourth.semester, fourth.selectedDiscipline);
+                              saveDisciplinesChoiceInSemester(resultSort[$index]);"
+                              ng-hide="fourth.selectedDiscipline == null;"
                               ng-show="!(fourth.status == 'not available' || fourth.status == 'done')">Зберегти
                       </button>
+                      <div class="alert alert-info text-center fade in" ng-show="saveChoiceResult">
+                        {{saveChoiceResult}}
+                      </div>
+                      <div class="alert alert-danger text-center fade in" ng-show="errorChoiceResult">
+                        {{errorChoiceResult}}
+                      </div>
                     </form>
                   </div>
-                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 info about-disciplines">
+                  <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 info about-disciplines" ng-repeat="choice in fourth.blocks[0].blockDisc | filter:fourth.selectedDiscipline" ng-show="fourth.selectedDiscipline">
+                    <h4><strong>Опис обраної дисципліни</strong></h4>
+                    <h5 ng-hide="!choice.nameUkr">Дисципліна - {{choice.nameUkr}}</h5>
+                    <h5 ng-hide="!choice.nameEng">Дисципліна (англ.мова) - {{choice.nameEng}}</h5>
+                    <h5 ng-hide="!choice.subdivision">Кафедра - {{choice.subdivision}}</h5>
+                    <h5 ng-hide="!choice.annotationEng">Анотація (англ.мова) - {{choice.annotationEng}}</h5>
+                    <h5 ng-hide="!choice.pic">Картинка - {{choice.pic}}</h5>
+                    <h5 ng-hide="!choice.competence">Компетенції - {{choice.competence}}</h5>
+                    <h5 ng-hide="!choice.knowledge">Знання - {{choice.knowledge}}</h5>
+                    <h5 ng-hide="!choice.skill">Навички - {{choice.skill}}</h5>
                   </div>
                 </div>
               </div>

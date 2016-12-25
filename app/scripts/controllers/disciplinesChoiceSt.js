@@ -15,6 +15,9 @@ angular.module('ecampusApp')
     $scope.errorMessageDisc = '';
     $scope.hideInfoDisc = false;
 
+    $scope.saveChoiceResult = null;
+    $scope.errorChoiceResult = null;
+
     $scope.setTab = function (newTab) {
       $scope.tab = newTab;
     };
@@ -47,54 +50,76 @@ angular.module('ecampusApp')
     };
 
     function loadInfo() {
-      var url = '/Account/student/group';
-
-      Api.execute("GET", url)
-        .then(function (response) {
-          $scope.info = response[0];
-          $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
-          $scope.tab = +response[0].studyCourse;
-        });
+      var url = 'Account/student/group';
+      Api.execute("GET", url).then(function (response) {
+        $scope.info = response[0];
+        $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
+        $scope.tab = +response[0].studyCourse;
+      });
     }
 
     function getCurrStudyYear(yearIntake, studyCourse) {
       var startYear = yearIntake + studyCourse - 1;
       var endYear = yearIntake + studyCourse;
-
       return startYear + '-' + endYear;
     }
 
     function loadDisciplines() {
-      var url = '/SelectiveDiscipline/semesters/disciplines';
-
-      Api.execute("GET", url)
-        .then(function (response) {
-            $scope.firstCourse = [];
-            $scope.secondCourse = [];
-            $scope.thirdCourse = [];
-            $scope.fourthCourse = [];
-            for (var i = 0; i < response.length; i++) {
-              response[i]['selectedDiscipline'] = null;
-              switch (response[i].course) {
-                case 1:
-                  $scope.firstCourse.push(response[i]);
-                  break;
-                case 2:
-                  $scope.secondCourse.push(response[i]);
-                  break;
-                case 3:
-                  $scope.thirdCourse.push(response[i]);
-                  break;
-                case 4:
-                  $scope.fourthCourse.push(response[i]);
-                  break;
-              }
-            }
-          });
+      var url = 'SelectiveDiscipline/semesters/disciplines';
+      Api.execute("GET", url).then(function (response) {
+        $scope.responseResult = response;
+        $scope.firstCourse = [];
+        $scope.secondCourse = [];
+        $scope.thirdCourse = [];
+        $scope.fourthCourse = [];
+        for (var i = 0; i < response.length; i++) {
+          response[i]['selectedDiscipline'] = null;
+          switch (response[i].course) {
+            case 1:
+              $scope.firstCourse.push(response[i]);
+              break;
+            case 2:
+              $scope.secondCourse.push(response[i]);
+              break;
+            case 3:
+              $scope.thirdCourse.push(response[i]);
+              break;
+            case 4:
+              $scope.fourthCourse.push(response[i]);
+              break;
+          }
+        }
+      });
     }
 
-    // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням
-    // link: http://www.w3schools.com/angular/tryit.asp?filename=try_ng_form_radio
+    $scope.filterChoiceFromAllDisciplines = function (response, semester, value) {
+      return response.map(function (responseElement) {
+        if (responseElement.semester == semester) {
+          return Object.assign({}, responseElement, {
+            blocks: responseElement.blocks.map(function (blocksElement) {
+              return Object.assign({}, blocksElement, {
+                blockDisc: blocksElement.blockDisc.filter(function (blockDiscElement) {
+                  return blockDiscElement.cDisciplineBlockYear8Id == value;
+                })
+              });
+            })
+          });
+        }
+      });
+    };
+
+    $scope.saveDisciplinesChoiceInSemester = function (payload) {
+      var url = 'SelectiveDiscipline/semesters/disciplines';
+      Api.execute("POST", url, payload).then(function (response) {
+        console.log("success");
+        console.log(response);
+        $scope.saveChoiceResult = response;
+      }, function (response) {
+        console.log("fail");
+        console.log(response);
+        $scope.errorChoiceResult = response;
+      });
+    };
 
     loadInfo();
     loadDisciplines();
