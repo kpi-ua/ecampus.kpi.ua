@@ -98,9 +98,9 @@ app.config(function ($routeProvider, $locationProvider) {
       controllerAs: 'board'
     })
     .when('/disciplines-choice-st', {
-      templateUrl: "views/disciplines-choice-st.html",
+      templateUrl: "views/disciplines-choice-student.html",
       controller: "DisciplinesChoiceCtrl",
-      controllerAs: 'choiceSt'
+      controllerAs: 'choiceStudent'
     })
     .when('/settings', {
       templateUrl: 'views/settings.html',
@@ -123,9 +123,9 @@ app.config(function ($routeProvider, $locationProvider) {
       controllerAs: 'block'
     })
     .when('/disciplines-choice-t', {
-      templateUrl: "views/disciplines-choice-t.html",
+      templateUrl: "views/disciplines-choice-teacher.html",
       controller: "DisciplinesChoiceTCtrl",
-      controllerAs: 'choiceT'
+      controllerAs: 'choiceTeacher'
     })
     .when('/individual-plan', {
       templateUrl: 'views/individual-plan.html',
