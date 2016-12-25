@@ -97,7 +97,7 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: "HomeBulletinsBoardCtrl",
       controllerAs: 'board'
     })
-    .when('/disciplines-choice-st', {
+    .when('/disciplines-choice-student', {
       templateUrl: "views/disciplines-choice-student.html",
       controller: "DisciplinesChoiceCtrl",
       controllerAs: 'choiceStudent'
@@ -122,7 +122,7 @@ app.config(function ($routeProvider, $locationProvider) {
       controller: 'DisciplinesBlockCtrl',
       controllerAs: 'block'
     })
-    .when('/disciplines-choice-t', {
+    .when('/disciplines-choice-teacher', {
       templateUrl: "views/disciplines-choice-teacher.html",
       controller: "DisciplinesChoiceTCtrl",
       controllerAs: 'choiceTeacher'
