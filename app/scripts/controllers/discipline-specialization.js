@@ -26,8 +26,8 @@ angular.module('ecampusApp')
         $scope.sumStudCount = null;
         $scope.sumStudCountResponse=[];
 
-        $scope.sortType     = 'Course'; // значение сортировки по умолчанию
-        $scope.sortReverse  = false;  // обратная сортировка
+        $scope.sortType     = 'Cycle.Name'; // значение сортировки по умолчанию
+        $scope.sortReverse  = true;  // обратная сортировка
 
         $scope.sortTypeBlock     = 'MaxCountStudent'; // значение сортировки по умолчанию
         $scope.sortReverseBlock  = false;  // обратная сортировка
