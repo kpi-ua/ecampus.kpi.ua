@@ -524,6 +524,13 @@ input:checked + .side-label::after {
   font-size: 14px;
   font-weight: normal;
 }
+.select-form__hint-p {
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #898989;
+  margin: 15px 0 10px 0;
+}
 
 .select-form__select {
   font-size: 14px;
