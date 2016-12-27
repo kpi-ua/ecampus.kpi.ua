@@ -41,6 +41,20 @@ angular.module('ecampusApp')
             Blocks      : [],
             Courses     : [],
             StudyForms     : [],
+            StudyGroupsContract     : [
+                {   id: -1,
+                    name: ""
+                },
+                {   id: 0,
+                    name: "Бюджет"
+                },
+                {   id: 1,
+                    name: "Контракт"
+                },
+                {   id: 2,
+                    name: "Змішана"
+                },
+            ],
             Semesters   : []
         };
 
@@ -460,8 +474,7 @@ angular.module('ecampusApp')
                     $scope.safeApply();
                 });
             }
-            if(mainInfoBool && studyFormBool &&  studyYearBool && ($scope.section=='apply' || $scope.section=='study-group')){
-                $scope.safeApply();
+            if(mainInfoBool && studyFormBool &&  studyYearBool && $scope.section=='apply' ){
                 path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/GroupsByYearInTake/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction+"/"+$scope.selectData.StudyForm;
                 Api.execute("GET", path).then(function(response) {
                     if (!response || response == "") {
@@ -472,8 +485,6 @@ angular.module('ecampusApp')
                         $scope.safeApply();
                     } else {
                         $scope.groups = response;
-
-                        // console.log($scope.groups);
                         path = "SelectiveDiscipline/BlockChoice/";
                         response.forEach(function(group, i, arr){
                             path+=group.id;
@@ -494,6 +505,22 @@ angular.module('ecampusApp')
                 },function(response, status,headers){
                     ErrorHandlerMy (response, status,headers);
                     $scope.safeApply();
+                });
+            }
+            if(mainInfoBool && studyFormBool &&  studyYearBool &&  $scope.section=='study-group'){
+                $scope.groups =  null;
+                path = "SelectiveDiscipline/"+$scope.selectData.StudyYear+"/StudyGroupsByStudyYear/"+$scope.selectData.CathedraId+"/"+$scope.selectData.Direction+"/"+$scope.selectData.StudyForm;
+                Api.execute("GET", path).then(function(response) {
+                    if (!response || response == "") {
+                        $scope.errorLabelText="На жаль групи у базі відсутні.";
+                        $scope.blocksChoise = null;
+                        $scope.selectData.StudyGroup = null;
+                        $scope.safeApply();
+                    } else {
+                        // $scope.groups = response;
+                        $scope.selectData.StudyGroup = response;
+                        console.log($scope.selectData.StudyGroup);
+                    }
                 });
             }
         };
@@ -790,6 +817,7 @@ angular.module('ecampusApp')
                     Id: studyGroupId ,
                 } ,
                 CountStud : data.studyGroupsCountStud ,
+                StudyGroupsContractId : data.studyGroupsContract ,
             };
             Api.execute(method, path,payload).then(function (resp) {
                 $scope.OnFullSelect();

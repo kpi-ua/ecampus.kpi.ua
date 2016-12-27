@@ -81,10 +81,13 @@
             </select>
           </div>
           <div ng-show="section=='specialization'||section=='apply'||section=='study-group'" class="row">
-            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-switch-when="specialization">
+            <p class="col-md-12 col-sm-12 col-xs-12 select-form__hint-p" ng-show="section=='study-group'">
+              Фактична кількість студентів на:
+            </p>
+            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-show="section=='specialization'||section=='study-group'">
               Навчальний рік
             </label>
-            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-show="section=='apply'||section=='study-group'">
+            <label for="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__label" ng-show="section=='apply'">
               Рік вступу
             </label>
             <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"

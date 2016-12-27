@@ -11,58 +11,61 @@
         <thead>
         <tr class="patterns__table-header">
             <td>
-                <a href="#" ng-click="sortTypeBlock = 'studyGroupsId';sortReverseBlock = !sortReverseBlock">
-                    ID навчальної <br> групи
-                    <span ng-show="sortTypeBlock == 'studyGroupsId'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                <a href="#" ng-click="sortTypeBlock = 'studyGroupsName';sortReverseBlock = !sortReverseBlock">
+                    Навчальна <br> група
+                    <span ng-show="sortTypeBlock == 'studyGroupsName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
                 </a>
             </td>
             <td>
-                <a href="#">
-                    Навчальний рік
-                </a>
-            </td>
-            <td>
-                <a href="#" ng-click="sortTypeBlock = 'studyCourse';sortReverseBlock = !sortReverseBlock">
+                <a href="#" ng-click="sortTypeBlock = 'studyGroups[0].studyCourse';sortReverseBlock = !sortReverseBlock">
                     Курс
-                    <span ng-show="sortTypeBlock == 'studyCourse'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                    <span ng-show="sortTypeBlock == 'studyGroups[0].studyCourse'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
                 </a>
             </td>
 
             <td>
-                <a href="#" ng-click="sortTypeBlock = 'countStudFact';sortReverseBlock = !sortReverseBlock">
+                <a href="#" ng-click="sortTypeBlock = 'studyGroups[0].studyGroupsCountStud';sortReverseBlock = !sortReverseBlock">
                     Кількість студентів в групі
-                    <span ng-show="sortTypeBlock == 'countStudFact'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                    <span ng-show="sortTypeBlock == 'studyGroups[0].studyGroupsCountStud'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'studyGroups[0].payment';sortReverseBlock = !sortReverseBlock">
+                    Бюджет/Контракт<br>/Змішана
+                    <span ng-show="sortTypeBlock == 'studyGroups[0].payment'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
                 </a>
             </td>
             <td>Дія</td>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="group in selectData.StudyGroup.studyGroups| orderBy:sortTypeBlock:sortReverseBlock">
+        <tr ng-repeat="group in selectData.StudyGroup| orderBy:sortTypeBlock:sortReverseBlock">
             <td>
             <span>
-                {{ group.studyGroupsId || 'null' }}
+                {{ group.name || 'Не вказано' }}
             </span>
             </td>
             <td>
             <span>
-                {{ getYearByStartYearAndCourse(selectData.StudyYear,group.studyCourse)}}
+                {{ group.studyGroups[0].studyCourse || 'Не вказано' }}
             </span>
             </td>
             <td>
-            <span>
-                {{ group.studyCourse || 'null' }}
-            </span>
-            </td>
-            <td>
-            <span editable-number="group.studyGroupsCountStud" e-name="studyGroupsCountStud" e-form="studyGroupsCount"
+            <span editable-number="group.studyGroups[0].studyGroupsCountStud" e-name="studyGroupsCountStud" e-form="studyGroupsCount"
                   onbeforesave="checkAllBlockChoiseForm($data)" e-min="1" e-required>
-                {{ group.studyGroupsCountStud|| 'null' }}
+                {{ group.studyGroups[0].studyGroupsCountStud|| '-' }}
+            </span>
+            </td>
+            <td>
+            <span editable-select="group.studyGroups[0].studyGroupsContract.id" e-name="studyGroupsContract" e-form="studyGroupsCount"
+                  onbeforesave="checkAllBlockChoiseForm($data)" e-required
+                  e-ng-options="payment.id as payment.name for payment in Dc.StudyGroupsContract">
+                {{ group.studyGroups[0].studyGroupsContract.name|| '-' }}
             </span>
             </td>
             <td class="text-center">
                 <!-- form -->
-                <form editable-form name="studyGroupsCount" onbeforesave="saveGroupCount($data,group.studyGroupsId )"
+                <form editable-form name="studyGroupsCount" onbeforesave="saveGroupCount($data,group.studyGroups[0].studyGroupsId )"
                       ng-show="studyGroupsCount.$visible"
                       class="form-buttons form-inline" shown="">
                     <button type="submit" ng-disabled="studyGroupsCount.$waiting"
