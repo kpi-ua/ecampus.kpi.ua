@@ -17,6 +17,29 @@ angular.module('ecampusApp')
     var studyYearFrom = 2013;
     var studyYearTo = 2020;
 
+    $scope.user = {
+      status: [2, 3, 5]
+    }; 
+
+     $scope.statuses = [
+      {value: 1, text: '1'},
+      {value: 2, text: '2'},
+      {value: 3, text: '3'},
+      {value: 4, text: '4'},
+      {value: 5, text: '5'},
+      {value: 6, text: '6'}
+    ]; 
+
+     $scope.showStatus = function() {
+      var selected = [];
+      angular.forEach($scope.statuses, function(s) { 
+        if ($scope.user.status.indexOf(s.value) >= 0) {
+          selected.push(s.text);
+        }
+      });
+      return selected.length ? selected.join(', ') : 'не вказано';
+    };
+
     var initialLoadCafedra = function () {
 
       //Api.execute("GET", "SelectiveDiscipline/ActualCathedra")

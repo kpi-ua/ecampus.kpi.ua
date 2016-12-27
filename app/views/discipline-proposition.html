@@ -38,6 +38,7 @@
       <div ng-show="ifSubdivChosen()">
 
         <div class="table-responsive">
+          <caption>Перелік дисциплін, які запропоновані підрозділом для вільного вибору студентами у відповідній частині навчального плану</caption>
           <table class="table table-bordered table-hover table-condensed d-s-table" id="TablecDisciplinesblock8" )>
             <tr class="patterns__table-header color-head">
 
@@ -63,6 +64,9 @@
                 Зображення
               </th>
               <th class="tdFullAlignCenter">
+                Курси викладання
+              </th>
+              <th class="tdFullAlignCenter">
                 Кількість кредитів
               </th>
               <th class="tdFullAlignCenter minWidthTwoButtons">Дія</th>
@@ -70,13 +74,13 @@
             <!--<tr class="d-s-table patterns__table-button">
 </tr>-->
             <tr class="d-s-table patterns__table-button">
-              <td colspan="8" class="text-center" ng-click="addProposition()">
+              <td colspan="9" class="text-center" ng-click="addProposition()">
                 <i class="fa fa-plus" aria-hidden="true"></i>Додати нову пропозицію
               </td>
             </tr>
 
             <tr ng-show="alldisciplines!=null && alldisciplines.length == 0">
-              <td colspan="8">На жаль, записи у базі відсутні</td>
+              <td colspan="9">На жаль, записи у базі відсутні</td>
             </tr>
 
             <tr ng-repeat="obj in alldisciplines | orderObjectBy:sortName:sortReverse | unique:selectedDiscipline">
@@ -126,6 +130,14 @@
 
               <td>
                 <img class="objImages" ng-src="{{obj.pictures}}" ng-if="obj.pictures">
+              </td>
+              <td class="tdFullAlignCenter">
+                <!--<span editable-select="obj." e-name="nameUkr" e-form="rowformProposition" onbeforesave="checkProposForm($data)" e-required e-ng-options="discipline.name as discipline.name for discipline in tempListData.dcDiscipline8">
+                      {{obj.nameUkr || 'не вказано'}}
+                </span>-->
+                <span e-form="rowformProposition" e-name="Courses" editable-checklist="user.status" e-ng-options="s.value as s.text for s in statuses">
+                  {{ showStatus() }}
+                </span>
               </td>
               <td>
                       <span editable-number="obj.countCredit" e-name="countCredit" e-form="rowformProposition"
