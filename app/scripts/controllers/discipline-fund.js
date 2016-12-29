@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:StatisticCtrl
+ * @name ecampusApp.controller:DisciplineFundCtrl
  * @description
- * # StatisticCtrl
+ * # DisciplineFundCtrl
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('StatisticCtrl', function () {
+  .controller('DisciplineFundCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',

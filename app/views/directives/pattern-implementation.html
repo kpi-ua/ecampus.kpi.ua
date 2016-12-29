@@ -1,0 +1,212 @@
+<div class="table-choice-result__group-list" ng-show="groups!=null">
+    <p>Групи:
+        <span class="table-choice-result__group-item" ng-repeat="group in groups" data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(group.groupName)">
+              {{group.name}}
+        </span>
+    </p>
+</div>
+<section ng-show="patterns!=null">
+    <table class="table table-bordered table-hover table-condensed d-s-table" >
+        <thead>
+        <tr class="patterns__table-header">
+            <td>
+                Застосувати
+            </td>
+            <td>
+                <a href="#" ng-click="sortType = 'Course';sortReverse = !sortReverse">
+                    Курс навчання
+                    <span ng-show="sortType == 'Course'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortType = 'Semester';sortReverse = !sortReverse">
+                    Семестр
+                    <span ng-show="sortType == 'Semester'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortType = 'CycleName';sortReverse = !sortReverse">
+                    Цикл дисциплін
+                    <span ng-show="sortType == 'CycleName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortType = 'BlockName';sortReverse = !sortReverse">
+                    Назва блоку
+                    <span ng-show="sortType == 'BlockName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortType = 'PatternName';sortReverse = !sortReverse">
+                    Примітка
+                    <span ng-show="sortType == 'PatternName'" class="fa" ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                </a>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
+            <td class="text-center" >
+                <input class="apply__checkbox" type="checkbox" value="pattern.PatternBlockChoice8Id" ng-click="PatternChecked(pattern)"/>
+            </td>
+            <td>
+                <span>
+                    {{ pattern.Course || 'empty' }}
+                </span>
+            </td>
+            <td>
+                <span>
+                    {{ pattern.Semester || 'empty' }}
+                </span>
+            </td>
+            <td>
+                <span>
+                    {{ pattern.Cycle.Name|| 'empty' }}
+                </span>
+            </td>
+            <td>
+                <span>
+                    {{ pattern.Block.Name || 'empty' }}
+                </span>
+            </td>
+            <td>
+                <span>
+                    {{pattern.PatternName}}
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="button" class="btn btn-success apply__button" value="Застосувати шаблони" ng-click="PatternImplement()">
+    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#implementReport" ng-show="implementReport!=null">Подивитися звіт про застосування шаблонівю</button>
+</section>
+
+<section ng-show="blocksChoise!= null">
+    <table class="table table-bordered table-hover table-condensed d-s-table" ng-show="patterns!=null">
+        <thead>
+        <tr class="patterns__table-header">
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'studyYearCourse';sortReverseBlock = !sortReverseBlock">
+                    Навчальний <br> рік
+                    <span ng-show="sortTypeBlock == 'studyYearCourse'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'course';sortReverseBlock = !sortReverseBlock">
+                    Курс
+                    <span ng-show="sortTypeBlock == 'course'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'semestr';sortReverseBlock = !sortReverseBlock">
+                    Семестр
+                    <span ng-show="sortTypeBlock == 'semestr'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'studyGroupName';sortReverseBlock = !sortReverseBlock">
+                    Група
+                    <span ng-show="sortTypeBlock == 'studyGroupName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'cycleName';sortReverseBlock = !sortReverseBlock">
+                    Складова
+                    <span ng-show="sortTypeBlock == 'cycleName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'blockName';sortReverseBlock = !sortReverseBlock">
+                    Назва блоку
+                    <span ng-show="sortTypeBlock == 'blockName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#" ng-click="sortTypeBlock = 'studyGroupId';sortReverseBlock = !sortReverseBlock">
+                    Присутня <br> в АС<br> Деканат
+                    <span ng-show="sortTypeBlock == 'studyGroupId'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                </a>
+            </td>
+            <td>
+                <a href="#">
+                    Дія
+                </a>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="block in blocksChoise| orderBy:sortTypeBlock:sortReverseBlock">
+            <td>
+            <span>
+                {{ block.studyYearCourse || 'null' }}
+            </span>
+            </td>
+            <td>
+            <span>
+                {{ block.course || 'null' }}
+            </span>
+            </td>
+            <td>
+            <span editable-select="block.semestr" e-name="semester" e-form="blockChoiseForm"
+                  onbeforesave="checkAllBlockChoiseForm($data)" e-required
+                  e-ng-options="semester as semester for semester in Dc.Semesters">
+                {{ block.semestr || 'null' }}
+            </span>
+            </td>
+            <td>
+            <span editable-select="block.studyGroup.id" e-name="groupId" e-form="blockChoiseForm"
+                  onbeforesave="checkAllBlockChoiseForm($data)" e-required
+                  e-ng-options="group.id as group.name for group in groups">
+                {{ block.studyGroup.name|| 'null' }}
+            </span>
+            </td>
+            <td>
+            <span editable-select="block.cycle.id" e-name="cycleId" e-form="blockChoiseForm"
+                  onbeforesave="checkAllBlockChoiseForm($data)" e-required
+                  e-ng-options="cycle.id as cycle.name for cycle in Dc.Cycles">
+                {{ block.cycle.name || 'null' }}
+            </span>
+            </td>
+            <td>
+            <span editable-select="block.block.id" e-name="blockId" e-form="blockChoiseForm"
+                  onbeforesave="checkAllBlockChoiseForm($data)" e-required
+                  e-ng-options="dcBlock.id as dcBlock.name for dcBlock in Dc.Blocks">
+                {{block.block.name || 'null' }}
+            </span>
+            </td>
+            <td>
+            <span>
+                {{block.groupId == -1? "Ні": "Так" || 'null' }}
+            </span>
+            </td>
+            <td>
+                <!-- form -->
+                <form editable-form name="blockChoiseForm" onbeforesave="saveBlock($data,block)"
+                      ng-show="blockChoiseForm.$visible"
+                      class="form-buttons form-inline" shown="inserted == block">
+                    <button type="submit" ng-disabled="blockChoiseForm.$waiting"
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
+                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" ng-disabled="blockChoiseForm.$waiting" ng-click="blockChoiseForm.$cancel();OnFullSelect()"
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
+                </form>
+                <div class="buttons" ng-show="!blockChoiseForm.$visible">
+                    <button
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
+                            ng-click="blockChoiseForm.$show()">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </button>
+                    <button
+                            class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
+                            ng-click="deleteBlock(block)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>

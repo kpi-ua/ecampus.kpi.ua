@@ -1,0 +1,96 @@
+.color-head {
+  color: #208944;
+}
+
+.alignLeft {
+  text-align: left !important;
+}
+
+.tdFullAlignCenter {
+  text-align: center;
+  vertical-align: middle !important;
+  font-weight: normal;
+}
+
+.sortorder:after {
+  content: '\25bc';
+}
+
+.sortorder.reverse:after {
+  content: '\25b2';
+}
+
+.unresizeable {
+  resize: none;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+#newCred::-webkit-inner-spin-button, #newCred::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.node_block {
+  color: #208944;
+  cursor: default;
+}
+
+.node_child {
+  padding-left: 20px !important;
+  cursor: default;
+}
+
+.fontNormal {
+  font-weight: normal !important;
+}
+
+.chosenWidth {
+  width: 600px !important;
+}
+
+.imgHeight {
+  height: 200px;
+}
+
+.thumb {
+  height: 75px;
+  border: 1px solid #000;
+  margin: 10px 0 0 0;
+}
+
+.objImages {
+  height: 60px;
+  border: 1px solid #000;
+}
+
+.marginBottom {
+  margin-bottom: 10px;
+}
+
+.marginTop {
+  margin-top: 5px;
+}
+
+.marginLeftRight {
+  margin: 0 10px 0 10px;
+}
+
+.minWidthTwoButtons {
+  min-width: 85px;
+}
+
+.overflowHorizontal {
+  overflow: hidden !important;
+  white-space: pre-line !important;
+}
+
+@media screen and (min-width: 768px) {
+  .selectMarginTop {
+    margin-top: 10px !important;
+  }
+}
