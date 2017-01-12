@@ -1,0 +1,656 @@
+body {
+  font-family: Raleway, sans-serif;
+  font-weight: normal;
+  font-size: 14px;
+  min-width: 320px;
+  position: relative;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body {
+  background-size: cover;
+  min-height: 100vh;
+}
+
+body input:focus:required:invalid,
+body textarea:focus:required:invalid {
+  color: red;
+}
+
+body input:required:valid,
+body textarea:required:valid {
+  color: green;
+}
+
+.hidden {
+  display: none;
+}
+
+.flex-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.mainColor {
+  color: #208944;
+}
+
+.scroll-to-top-Btn {
+  position: fixed;
+  bottom: 19px;
+  right: 19px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  transition: all 0.4s;
+  padding: 20px;
+  z-index: 100;
+  display: none;
+}
+
+.border-bottom-main-color {
+  border-bottom: 1px solid #208944;
+}
+
+.border-top-main-color {
+  border-top: 1px solid #208944;
+}
+
+header .main-header-p {
+  padding-top: 15px;
+  font-size: 20px;
+  color: #208944;
+}
+
+header .logo {
+  margin-top: 15px;
+  height: 75px;
+  margin-bottom: 15px;
+  float: right;
+}
+
+header .user-greeting-p {
+  color: white;
+}
+
+.loginWrapper {
+  min-height: 400px;
+}
+
+.loginWrapper input {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.loginWrapper .initButtonsWrapper .row .initButtons {
+  min-height: 141px;
+}
+
+.loginContainer {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.loginContainer p {
+  font-size: 18px;
+  color: #208944;
+}
+
+.modal .modal-body a {
+  color: #208944;
+  margin-top: 15px;
+}
+
+.modal .modal-body i {
+  color: #208944;
+}
+
+.modal .modal-body p {
+  padding-bottom: 25px;
+}
+
+.modal .modal-content {
+  overflow: hidden;
+}
+
+.modal .modal-header,
+.modal .modal-footer {
+  box-shadow: 0 0 30px 5px #e5e5e5;
+}
+
+.modal .helpWrapper {
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+}
+
+footer .contactInfo {
+  color: white;
+  font-size: 12px;
+}
+
+footer .contactInfo p {
+  padding: 0;
+  margin: 0;
+}
+
+footer .contactInfo a {
+  color: #208944;
+}
+
+.nPPHeader {
+  background: #333333;
+  width: 100%;
+}
+
+.nPPHeader p {
+  color: white;
+  font-size: 18px;
+}
+
+.nPPHeader h1 {
+  color: white;
+}
+
+.panel .active {
+  color: black;
+  cursor: pointer;
+  transition: ease 0.3s;
+}
+
+.panelHeadingHover {
+  transition: ease 0.3s;
+  border-bottom: 3px solid;
+  font-size: 17px;
+}
+
+.panelHeadingHover i {
+  color: #333333;
+  transition: ease 0.3s;
+}
+
+.panelHeadingHover:hover {
+  color: black;
+  border-color: #208944;
+  cursor: pointer;
+}
+
+.panelHeadingHover:hover i {
+  color: #208944;
+}
+
+.nav .active a {
+  color: black;
+}
+
+.nPPBody {
+  background-color: white;
+}
+
+.nPPBody h2 {
+  color: white;
+}
+
+.topMenu .topMenu--control-btn,
+.download .topMenu--control-btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+#zkmWrapper {
+  padding: 0 10px;
+}
+
+#zkmWrapper .myBadge {
+  color: white;
+  background-color: #208944;
+  font-size: 20px;
+  font-family: sans-serif;
+  float: right;
+}
+
+#zkmWrapper .zkmContent .panel-default .panelHeadingHover.active p .myBadge {
+  background-color: white;
+  color: #208944;
+  border: 1px solid #208944;
+}
+
+#zkmWrapper .zkmContent .panel-default .tabLiStyle.active a .myBadge {
+  background-color: white;
+  color: #208944;
+  border: 1px solid #208944;
+}
+
+#zkmWrapper .panel-default {
+  margin-top: 20px;
+}
+
+.chosen-search input {
+  color: black;
+}
+
+body {
+  font-family: Raleway, sans-serif;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+header .main-header-p {
+  padding-top: 15px;
+  font-size: 20px;
+  color: #208944;
+}
+
+header .logo {
+  margin-top: 15px;
+  height: 75px;
+  margin-bottom: 15px;
+  float: right;
+}
+
+header .user-greeting-p {
+  color: white;
+}
+
+footer .contactInfo {
+  color: white;
+  font-size: 12px;
+}
+
+footer .contactInfo p {
+  padding: 0;
+  margin: 0;
+}
+
+footer .contactInfo a {
+  color: #208944;
+}
+
+.loginLinks a {
+  text-decoration: none;
+  color: #208944;
+  font-size: 14px;
+  padding: 0 15px;
+  transition: ease 0.5s;
+}
+
+.loginLinks a:hover {
+  color: #333333;
+}
+
+.myBtn {
+  background-color: #208944;
+  opacity: 0.8;
+  transition: ease 0.5s;
+  color: white;
+  border: 1px solid #208944;
+  outline: none;
+}
+
+.myBtn:hover {
+  opacity: 1;
+}
+
+.initButtonsWrapper a {
+  color: white;
+  text-decoration: none;
+}
+
+.initButtons {
+  background: #208944;
+  padding: 5px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  border: 1px solid #208944;
+}
+
+.initButtons i,
+.initButtons span {
+  color: white;
+  padding-top: 5px;
+}
+
+.initButtons p {
+  color: white;
+}
+
+.initButtons:hover {
+  background: white;
+  border: 1px solid #208944;
+}
+
+.initButtons:hover p {
+  color: #208944;
+}
+
+.initButtons:hover i,
+.initButtons:hover span {
+  color: #208944;
+}
+
+.download .menuButtons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: black;
+  font-size: 16px;
+  transition: all 0.5s ease;
+}
+
+.download .menuButtons i {
+  margin-right: 5px;
+}
+
+.download .menuButtons:hover {
+  border: 2px solid #208944;
+  opacity: 1;
+  background-color: #208944;
+}
+
+.download .menuButtons:hover i {
+  display: inline-block;
+}
+
+.menuButtons {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #208944;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  transition: all 0.5s ease;
+}
+
+.menuButtons i {
+  margin-right: 5px;
+}
+
+.menuButtons:hover {
+  background-color: #208944;
+  opacity: 0.8;
+  color: white;
+}
+
+.menuButtons:hover .menuButtons--img {
+  background-size: contain;
+  padding-left: 0;
+}
+
+.menuButtons:hover .menuButtons--img_campus,
+.menuButtons:hover .menuButtons--img_arrow-left {
+  background-position: -50px center;
+}
+
+.menuButtons .menuButtons--img {
+  display: block;
+  height: 25px;
+  transition: all 0.5s ease;
+  padding-left: 100%;
+  overflow: hidden;
+}
+
+.menuButtons .menuButtons--img_campus {
+  background: url("../images/campus-icon.png") no-repeat center center;
+  background-size: contain;
+}
+
+.menuButtons .menuButtons--img_arrow-left {
+  background: url("../images/left-arrow.png") no-repeat center center;
+  background-size: contain;
+}
+
+.background-dark,
+.scroll-to-top-Btn {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.background-light {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.background-white {
+  background-color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.flex-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.mainColor {
+  color: #208944;
+}
+
+.scroll-to-top-Btn {
+  position: fixed;
+  bottom: 19px;
+  right: 19px;
+  color: white;
+  transition: all 0.4s;
+  padding: 20px;
+  z-index: 100;
+  display: none;
+}
+
+.border-bottom-orange {
+  border-bottom: 1px solid #208944;
+}
+
+.border-top-orange {
+  border-top: 1px solid #208944;
+}
+
+.radioMenu {
+  color: black;
+  background-color: white;
+}
+
+input[type="radio"] {
+  position: absolute;
+  left: -9999px;
+}
+
+.topLabel {
+  margin: 15px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.side-label {
+  display: block;
+  position: relative;
+  margin: 10px 0;
+  padding-left: 35px;
+  cursor: pointer;
+}
+
+.side-label::before,
+.side-label::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+input[type="radio"] + .side-label::before,
+input[type="radio"] + .side-label::after {
+  border-radius: 50%;
+}
+
+.side-label::before {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+}
+
+input:focus + .side-label::before {
+  border-color: #208944;
+}
+
+.side-label::after {
+  display: none;
+  width: 12px;
+  height: 12px;
+  margin: 4px;
+  background-color: #208944;
+}
+
+input:checked + .side-label::after {
+  display: block;
+}
+
+.discipline-specialization__navigation {
+  margin-top: 10px;
+}
+
+.discipline-specialization__select-form {
+  margin-bottom: 10px;
+}
+
+.select-form__label {
+  font-size: 14px;
+  font-weight: normal;
+}
+.select-form__hint-p {
+  font-size: 14px;
+  font-weight: normal;
+  text-transform: uppercase;
+  color: #898989;
+  margin: 15px 0 10px 0;
+}
+
+.select-form__select {
+  font-size: 14px;
+}
+
+.select-form__select_disabled {
+  opacity: 0.5;
+  color: red;
+  border-color: red;
+
+}
+
+.discipline-specialization__navigation-button {
+  font-size: 16px;
+  border: 1px solid transparent;
+  white-space: normal;
+}
+
+.discipline-specialization__navigation-button_active {
+  background-color: #ccc;
+}
+
+/*SPECIALIZATION*/
+.nav-pills-campus {
+}
+
+.nav-pills-campus .nav-pills-campus__item {
+  color: #208944;
+  background-color: white;
+  border: 1px solid #208944;
+  box-sizing: border-box;
+  opacity: 1;
+  text-align: center;
+  transition: all .3s ease;
+}
+
+.nav-pills-campus .nav-pills-campus__item:hover {
+  color: black;
+  background-color: #cccccc;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  box-sizing: border-box;
+}
+
+.nav-pills-campus_fixed {
+  position: fixed;
+}
+
+.nav-pills-campus .nav-pills-campus_active {
+  border: 1px solid #208944;
+}
+/*PATTERNS*/
+    /*PATTERNS BUTTONS CRUD*/
+.d-s-table{
+    margin-bottom: 0;
+}
+
+.patterns__table-header{
+    text-align: center;
+}
+.patterns__table-button{
+    cursor: pointer;
+    font-size: 14px;
+    color: #208944;
+    background: white;
+    border: 1px solid #208944;
+    box-sizing: border-box;
+    transition: all .3s ease;
+    height: 35px;
+}
+.patterns__table-button:hover{
+    font-size: 16px;
+}
+.patterns__table-button_CRUD-button {
+    padding: 0;
+    width: 35px;
+}
+.patterns__table-button_CRUD-button:hover {
+    color: green;
+}
+.patterns__table-button_CRUD-button_save {
+}
+/*PATTERNS BUTTONS CRUD*/
+.patterns__table-header {
+  text-align: center;
+}
+
+.patterns__table-button {
+  cursor: pointer;
+  font-size: 14px;
+  color: #208944;
+  background: white;
+  border: 1px solid #208944;
+  box-sizing: border-box;
+  transition: all .3s ease;
+  height: 35px;
+}
+
+.patterns__table-button:hover {
+  font-size: 16px;
+}
+
+.patterns__table-button_CRUD-button {
+  padding: 0;
+  width: 35px;
+}
+
+.patterns__table-button_CRUD-button:hover {
+  color: green;
+}
+
+.editable-number .editable-controls input[type="number"][name="CountDiscipline"] {
+  max-width: 70px;
+}
+
+.apply__button{
+ margin: 20px 0;
+}
+
+.apply__checkbox{
+ width: 18px;
+ height: 18px;
+}

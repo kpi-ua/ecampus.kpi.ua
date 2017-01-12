@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('VotingProfileCtrl', function ($scope, $location, $routeParams, Api) {
+    .controller('VotingProfileCtrl', function($scope, $location, $routeParams, Api) {
 
         $scope.currentUser = null;
         $scope.criterions = [];
@@ -25,30 +25,28 @@ angular.module('ecampusApp')
             $scope.selectedEmployeId = $routeParams.id;
 
             if (!$scope.currentUser) {
-                $location.path("/login");
+                $location.path("/");
             }
 
-            Api.execute("GET", "Account/Employee/" + $scope.selectedEmployeId).then(function (data) {
+            Api.execute("GET", "Account/Employee/" + $scope.selectedEmployeId).then(function(data) {
                 $scope.selectedEmploye = data;
-                $scope.$apply();
             });
 
 
-            Api.execute("GET", "Vote/Criterions").then(function (data) {
+            Api.execute("GET", "Vote/Criterions").then(function(data) {
                 $scope.criterions = data;
-                $scope.$apply();
             });
 
         }
 
-        $scope.formIsValid = function () {
+        $scope.formIsValid = function() {
             var result = true;
 
             if (!$scope.criterions) {
                 return false;
             }
 
-            $scope.criterions.forEach(function (c) {
+            $scope.criterions.forEach(function(c) {
                 if (!c.mark || c.mark == 0) {
                     result = false;
                 }
@@ -57,11 +55,11 @@ angular.module('ecampusApp')
             return result;
         }
 
-        $scope.vote = function () {
+        $scope.vote = function() {
 
             var votes = [];
 
-            $scope.criterions.forEach(function (c) {
+            $scope.criterions.forEach(function(c) {
 
                 var vote = {
                     VoteTermId: 1,
@@ -78,11 +76,10 @@ angular.module('ecampusApp')
                 votes.push(vote);
             });
 
-            Api.execute("POST", "Vote", votes).then(function (data) {                
+            Api.execute("POST", "Vote", votes).then(function() {
                 alert('Дякуємо!');
                 $location.path("/voting");
-                $scope.$apply();
-            }).catch(function (reason) {
+            }).catch(function(reason) {
                 alert(reason.responseText);
             });
 

@@ -1,0 +1,119 @@
+<breadcrumbs>
+  <!--<span>Модулі</span> >--> <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Блок дисциплін</b>
+</breadcrumbs>
+
+<div class="container-fluid content">
+  <div class="row">
+    <div class="col-md-12" id="selectYearAndOkr">
+
+      <h1>Блок дисциплін</h1>
+      <!--<section class="container-fluid discipline-specialization__navigation">
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="btn-group" role="group">
+            <button type="button"
+                    class="btn btn-default discipline-specialization__navigation-button discipline-specialization__navigation-button_active text-align-left"
+                    value="specialization">
+              Дисципліни вибору
+            </button>
+          </div>
+
+        </div>
+      </section>-->
+
+      <section class="container-fluid discipline-specialization__select-form select-form">
+        <br>
+        <div class="row">
+          <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label"
+                 for="year">Навчальний рік:</label>
+          <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+            <select data-placeholder="Enter study year" id="year" class="select-form__select" ng-model="selectedYear"
+                    ng-options="currYear for currYear in allYears" ng-change="InitializeTree()">
+              <option></option> <!-- this option is necessary to provide correct index of data options -->
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <label class="control-label col-lg-2 col-md-2 col-sm-3 col-xs-4 fontNormal alignLeft select-form__label"
+                 for="okr">Освітній рівень:</label>
+          <div class="col-lg-10 col-md-10 col-sm-9 col-xs-8">
+            <select data-placeholder="Enter okr" id="okr" class="select-form__select" ng-model="selectedOkr"
+                    ng-options="currOkr for currOkr in allOkrs" ng-change="InitializeTree()">
+              <option></option><!-- this option is necessary to provide correct index of data options -->
+            </select>
+
+
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="col-md-12">
+      <div class="alert alert-warning" ng-show="!ifTreeLengthZero() && !ifYearAndOkr0Chosen()">
+        На жаль, дані відсутні
+      </div>
+      <div class="alert alert-warning" ng-show="ifTreeLengthZero()">
+        Заповніть, будь ласка, всі поля
+      </div>
+    </div>
+  </div>
+  
+
+    <div ng-show="ifYearAndOkr0Chosen() && !ifTreeLengthZero()" class="row marginLeftRight">
+        <div ui-tree>
+          <ol ui-tree-nodes="" ng-model="dataInTree">
+            <li ng-repeat="(block, disciplines) in dataInTree | groupBy: 'block'" ui-tree-node data-collapsed="true"
+                data-expand-on-hover="true">
+              <div ui-tree-handle data-nodrag class="node_block fontNormal">
+                <a class="btn btn-default btn-xs" ng-if="block && block.length>0" ng-click="toggle()">
+                                    <span class="glyphicon glyphicon-plus"
+                                          ng-class="{'glyphicon-plus': collapsed, 'glyphicon-minus': !collapsed}">
+
+                                    </span>
+
+                                </a>
+                                {{block}}
+                            </div>
+                            <ol ui-tree-nodes="" ng-model="disciplines" ng-class="{hidden: collapsed}">
+
+                        <div class="table-responsive">
+                            <table  class="table table-bordered table-hover table-condensed d-s-table marginTop" id="tableBlockYear")>
+                                <tr class="patterns__table-header color-head">
+                                    <th class="tdFullAlignCenter">Дисципліна</th>
+                                    <th class="tdFullAlignCenter">Викладає</th>
+                                    <th class="tdFullAlignCenter">Максимальна кількість студентів в рамках університету</th>
+                                    <th class="tdFullAlignCenter">Кількість викладачів</th>
+                                </tr>
+                                <tr ng-repeat="currDiscipline in disciplines">
+                                    <td>{{currDiscipline.discipline}}</td>
+                                    <td>{{currDiscipline.subdivision}}</td>
+                                    <td>{{currDiscipline.maxCountStudent}}</td>
+                                    <td>{{currDiscipline.countLecture}}</td>
+
+                                </tr>
+                            </table>
+                            </div>
+                            <!--<li ng-repeat="discip in disciplines" ui-tree-node data-collapsed="true"
+                data-expand-on-hover="true">
+                                          <div>
+                                            <div class="col-lg-5 col-md-6 col-sm-6">
+                                                - {{discip.discipline}}.
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-sm-6 marginBottom">
+                                                <div>Викладає: {{discip.subdivision}}</div>
+                                                <div>Максимальна кількість студентів в рамках університету: {{discip.maxCountStudent}}</div>
+                                                <div>Кількість викладачів: {{discip.countLecture}}</div>
+                                            </div>
+                                        </div>
+
+
+
+                                 
+                             </li>-->
+                         </ol>
+                     </li>
+
+
+          </ol>
+        
+    </div>
+  </div>
+</div>
