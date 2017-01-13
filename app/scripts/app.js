@@ -18,7 +18,8 @@ var app = angular.module('ecampusApp', [
   'angular-input-stars',
   'ui.tree',
   'ui.select',
-  'xeditable'
+  'xeditable',
+  'checklist-model'
 ]);
 
 
