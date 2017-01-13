@@ -19,6 +19,15 @@ angular.module('ecampusApp')
       $rootScope.requestCount = $rootScope.requestCount + i;
     };
 
+    $rootScope.isSessionExpired = null;
+
+    this.changeIsSessionExpiredValue = function (value) {
+      $rootScope.isSessionExpired = value;
+      $rootScope.$apply;
+    };
+
+    this.changeIsSessionExpiredValue(false);
+
 
     /**
      * Execute API method
@@ -75,32 +84,33 @@ angular.module('ecampusApp')
 
     this.removeToken = function () {
       var self = this;
-      var limit = tokenLimit;
-      var localStorageInitTime = self.getLoginInitTime();
-      if (+new Date() - localStorageInitTime > limit) {
+      var localStorageFinishTime = self.getLoginFinishTime();
+      if (+new Date() > localStorageFinishTime) {
         //redirect and remove items from local storage after 5 seconds
         setTimeout(function () {
           self.logout();
-          self.setLoginInitTime(null);
+          self.setLoginFinishTime(null);
           $window.location.href = '/';
         }, 5000);
         return true;
       }
-      return false;
+      else {
+        return false;
+      }
     };
 
     /**
-     * Set loginInitTime
+     * Set loginFinishTime
      */
-    this.setLoginInitTime = function (time) {
-      localStorage["loginInitTime"] = time;
+    this.setLoginFinishTime = function (time) {
+      localStorage["loginFinishTime"] = time;
     };
 
     /**
-     * Return current loginInitTime
+     * Return current loginFinishTime
      */
-    this.getLoginInitTime = function () {
-      var time = localStorage["loginInitTime"];
+    this.getLoginFinishTime = function () {
+      var time = localStorage["loginFinishTime"];
       return time == "null" ? null : time;
     };
 
@@ -135,10 +145,10 @@ angular.module('ecampusApp')
 
           self.setToken(response.data.access_token);
 
-          self.setLoginInitTime(+new Date());
-
-          // tokenLimit = 10000;  10 second for testing
-          tokenLimit = response.data.expires_in;
+          // tokenLimit = 10000; 10 second for testing
+          tokenLimit = response.data.expires_in * 1000;
+          // calculate finish time for token
+          self.setLoginFinishTime(+new Date() + tokenLimit);
 
           var session = response.data;
 
