@@ -8,7 +8,7 @@
  * Service in the ecampusApp.
  */
 angular.module('ecampusApp')
-  .service('Api', function ($http, $rootScope) {
+  .service('Api', function ($http, $rootScope, $window) {
 
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
@@ -67,6 +67,44 @@ angular.module('ecampusApp')
     };
 
     /**
+     * Remove auth token after session expired
+     * return true if session is expired
+     */
+
+    var tokenLimit = null;
+
+    this.removeToken = function () {
+      var self = this;
+      var limit = tokenLimit;
+      var localStorageInitTime = self.getLoginInitTime();
+      if (+new Date() - localStorageInitTime > limit) {
+        //redirect and remove items from local storage after 5 seconds
+        setTimeout(function () {
+          self.logout();
+          self.setLoginInitTime(null);
+          $window.location.href = '/';
+        }, 5000);
+        return true;
+      }
+      return false;
+    };
+
+    /**
+     * Set loginInitTime
+     */
+    this.setLoginInitTime = function (time) {
+      localStorage["loginInitTime"] = time;
+    };
+
+    /**
+     * Return current loginInitTime
+     */
+    this.getLoginInitTime = function () {
+      var time = localStorage["loginInitTime"];
+      return time == "null" ? null : time;
+    };
+
+    /**
      * Authorize and save auth token
      */
     this.auth = function (login, password) {
@@ -96,6 +134,11 @@ angular.module('ecampusApp')
         if (!!response && !!response.data) {
 
           self.setToken(response.data.access_token);
+
+          self.setLoginInitTime(+new Date());
+
+          // tokenLimit = 10000;  10 second for testing
+          tokenLimit = response.data.expires_in;
 
           var session = response.data;
 

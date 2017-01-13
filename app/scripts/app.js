@@ -151,3 +151,16 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $locationProvider.html5Mode(true);
 });
+
+app.run(function ($rootScope, Api) {
+  $rootScope.$on('$routeChangeSuccess', function () {
+    $rootScope.sessionExpired = false;
+    angular.element(document).ready(function () {
+      var isLogged = Api.getToken();
+      if (isLogged) {
+        $rootScope.sessionExpired = Api.removeToken();
+        $rootScope.$apply();
+      }
+    });
+  })
+});

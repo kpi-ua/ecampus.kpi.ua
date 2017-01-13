@@ -63,12 +63,17 @@
   <navigation class="container-fluid"></navigation>
 </header>
 
+<div class="old-session text-center" ng-show="sessionExpired === true;">
+  <h1>Час сесії закінчився!</h1>
+  <h3>Виконайте будь ласка вхід знову.</h3>
+</div>
+
 <div class="loader" ng-if="requestCount > 0">
   Завантаження даних...<br />
   <img src="/images/ajax-loader.png" />
 </div>
 
-<div class="white" ng-view></div>
+<div class="white" ng-hide="sessionExpired === true;" ng-view></div>
 
 <footer class="container-fluid">
   <div class="row">
