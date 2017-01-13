@@ -74,14 +74,14 @@ angular
       unmodifiedElementsOfQuery = [];
       var studyYearFrom = year.substr(0, 4),
         studyYearTo = year.substr(5);
-      console.log("-----");
+      
       for (var i = 0; i < initialArr.length; i++) {
 
         //console.log("initialArr[i]");
         //console.log(initialArr[i]);
         if ((studyYearFrom == initialArr[i].studyPeriod.start) && (studyYearTo == initialArr[i].studyPeriod.end) && (okr == initialArr[i].okr)) {
           //if ((year == initialArr[i].studyyear) && (okr == initialArr[i].okr)) {
-          console.log("pushed");
+          
           //console.log(initialArr[i]);
           unmodifiedElementsOfQuery.push({
 
@@ -124,7 +124,8 @@ angular
       for (var i = 0; i < allYears.length; i++) {
         if (allYears[i].name) {
           if (actualYear == allYears[i].name.substr(0, 4)) {
-            return allYears[i].name;
+            //return allYears[i].name;
+            return allYears[i];
           }
         }
         else {
