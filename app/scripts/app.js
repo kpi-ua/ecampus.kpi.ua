@@ -152,15 +152,15 @@ app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
 });
 
-app.run(function ($rootScope, Api) {
-  $rootScope.$on('$routeChangeSuccess', function () {
-    $rootScope.sessionExpired = false;
+app.run(['$rootScope', 'Api', function ($rootScope, Api) {
+  var deregister = $rootScope.$on('$routeChangeSuccess', function () {
     angular.element(document).ready(function () {
       var isLogged = Api.getToken();
       if (isLogged) {
-        $rootScope.sessionExpired = Api.removeToken();
-        $rootScope.$apply();
+        Api.changeIsSessionExpiredValue(Api.removeToken());
       }
     });
-  })
-});
+  });
+
+  $rootScope.$on('$destroy', deregister);
+}]);
