@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-2 col-sm-2 col-xs-2 nav-pills-campus nav-pills-campus_fixed" ng-show="semestrsForView!=null || semestrsForView.length !=0">
         <ul class="nav nav-pills nav-stacked">
-            <li  ng-repeat="semestr in semestrsForView" ng-click="GetAllDisciplines(semestr.Blocks);SumStudCount(sumStudCountResponse,semestr.Semestr);SwitchSemester(semestr.Semestr)" ng-class="{'nav-pills-campus_active':semester == semestr.Semestr}" >
+            <li  ng-repeat="semestr in semestrsForView" ng-click="GetAllDisciplines(semestr.Blocks);SumStudCount(semestr.Groups);SwitchSemester(semestr.Semestr)" ng-class="{'nav-pills-campus_active':semester == semestr.Semestr}" >
                 <a class="nav-pills-campus__item" href="#">{{semestr.Course}} курс {{semestr.Semestr}} семестр</a>
             </li>
         </ul>
@@ -9,8 +9,8 @@
     <div class="col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-2 col-xs-10 col-xs-offset-2 table-choice-result" ng-repeat="semestr in semestrsForView" ng-show="semester == semestr.Semestr">
         <div class="table-choice-result__group-list">
             <p>Групи:
-                <span class="table-choice-result__group-item" ng-repeat="groupName in semestr.Groups" data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(groupName)">
-                    {{groupName}}
+                <span class="table-choice-result__group-item" ng-repeat="group in semestr.Groups" data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(groupName)">
+                    {{group.name}}
                 </span>
             </p>
         </div>

@@ -10,7 +10,9 @@
         <thead>
         <tr class="patterns__table-header">
             <td>
-                Застосувати
+                Застосувати <br/>
+                Застосувати всі
+                <input class="apply__checkbox" type="checkbox" ng-click="SelectAllCheckboxes(patterns)" ng-checked="SelectAllCB"/>
             </td>
             <td>
                 <a href="#" ng-click="sortType = 'Course';sortReverse = !sortReverse">
@@ -47,7 +49,8 @@
         <tbody>
         <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
             <td class="text-center" >
-                <input class="apply__checkbox" type="checkbox" value="pattern.PatternBlockChoice8Id" ng-click="PatternChecked(pattern)"/>
+                <!--<input class="apply__checkbox" type="checkbox" value="pattern.PatternBlockChoice8Id" ng-click="PatternChecked(pattern)"/>-->
+                <input class="apply__checkbox" type="checkbox" value="pattern.PatternBlockChoice8Id" ng-click="PatternChecked(pattern)" ng-model="pattern.checked"/>
             </td>
             <td>
                 <span>

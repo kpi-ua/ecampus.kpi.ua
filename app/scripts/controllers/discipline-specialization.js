@@ -22,7 +22,7 @@ angular.module('ecampusApp')
             Patterns:[],
             StudyGroup: null
         };
-
+        $scope.SelectAllCB = false;
         $scope.sumStudCount = null;
         $scope.sumStudCountResponse=[];
 
@@ -245,7 +245,7 @@ angular.module('ecampusApp')
                         blocks = [];
                     }
                 }
-                blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName));
+                blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName, studyGroupCount));
 
             });
             groupedBlocksArray.push(blocks);
@@ -254,9 +254,15 @@ angular.module('ecampusApp')
                 studyGroups = [];
                 blocks=[];
                 blocksNames= [];
+                var studyGroupsNames=[];
                 blocksArray.forEach(function (block ,iterator ,arra) {
-                    if(!~studyGroups.indexOf(block.StudyGroupName)){
-                        studyGroups.push(block.StudyGroupName);
+                    var tempStudyGroups = {
+                        name: block.StudyGroupName,
+                        count: block.StudyGroupCount
+                    };
+                    if(!~studyGroupsNames.indexOf(tempStudyGroups.name)){
+                        studyGroupsNames.push(tempStudyGroups.name);
+                        studyGroups.push(tempStudyGroups);
                     }
                     // studyGroups.push(block.StudyGroupName);
                     var tempBlock = new BlockModel(block.BlockId,block.BlockName);
@@ -319,14 +325,18 @@ angular.module('ecampusApp')
             return studyGroupId;
         }
 
-        $scope.SumStudCount = function (blocks,semester) {
+        $scope.SumStudCount = function (groups) {
             $scope.sumStudCount =0;
-            var blocksForSemester = [];
-            blocks.forEach(function (block, i ,arr) {
-                if(block.semestr == semester){
-                    $scope.sumStudCount+=block.countStud;
-                }
+            groups.forEach(function(group, i ,arr){
+                $scope.sumStudCount+=group.count;
             });
+            // $scope.sumStudCount =0;
+            // var blocksForSemester = [];
+            // blocks.forEach(function (block, i ,arr) {
+            //     if(block.semestr == semester){
+            //         $scope.sumStudCount+=block.countStud;
+            //     }
+            // });
         };
 
         $scope.OnCathedraSelect = function () {
@@ -405,6 +415,7 @@ angular.module('ecampusApp')
             $scope.disciplines =null;
             $scope.semestrsForView = null;
             $scope.blocksWidthDisciplines = null;
+            $scope.SelectAllCB = false;
             var cathedraIdBool =    $scope.selectData.CathedraId != null;
             var directionBool =     $scope.selectData.Direction != null;
             var okrBool =           $scope.selectData.Okr != null;
@@ -463,6 +474,7 @@ angular.module('ecampusApp')
                                     , countDiscipline = item.countDiscipline
                                     , patternName = item.name;
                                 patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName, blockId, cycleName, cycleId, course, semester, countDiscipline, patternName));
+                                patterns[patterns.length-1].checked = false;
                             });
                             $scope.patterns = patterns;
                             $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
@@ -834,6 +846,20 @@ angular.module('ecampusApp')
             return years[0]+"-"+years[1];
 
         };
+        
+        $scope.SelectAllCheckboxes = function (items) {
+            $scope.SelectAllCB = ! $scope.SelectAllCB;
+            var curStatus = $scope.SelectAllCB;
+            $scope.selectData.Patterns = [];
+            items.forEach(function(item, i , arr){
+               item.checked = curStatus;
+                if(curStatus){
+                    $scope.selectData.Patterns.push(item);
+                }else{}
+            });
+            console.log( $scope.selectData.Patterns);
+
+        };
         //    MODELS!!!
         function SubdivisionModel(SubdivisionId,Name){
             this.SubdivisionId =SubdivisionId;
@@ -857,13 +883,14 @@ angular.module('ecampusApp')
             this.Speciality = Speciality;
         }
 
-        function BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName,course,semestr,studyGroupName) {
+        function BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName,course,semestr,studyGroupName, studyGroupCount) {
             this.BlockChoiceWhomId = blockChoiceWhomId;
             this.BlockId = blockId;
             this.BlockName = blockName;
             this.Course = course;
             this.Semestr = semestr;
             this.StudyGroupName = studyGroupName;
+            this.StudyGroupCount = studyGroupCount;
         }
 
         function DisciplineModel(disciplineBlockYearId, disciplineName, maxCountStudent, occupiedPercent, stydyCourse, subscribed, whoReadId, whoReadAbbreviation, whoReadName) {
@@ -914,5 +941,6 @@ angular.module('ecampusApp')
             this.CountDiscipline = countDiscipline ;
             this.PatternName = patternName ;
         }
+
 
     });
