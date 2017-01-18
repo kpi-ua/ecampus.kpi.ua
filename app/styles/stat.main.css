@@ -654,3 +654,7 @@ input:checked + .side-label::after {
  width: 18px;
  height: 18px;
 }
+
+.text-color_black{
+  color: #000;
+}

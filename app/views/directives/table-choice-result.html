@@ -57,9 +57,9 @@
                         <td>{{discipline.MaxCountStudent}}</td>
                         <td>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                <div class="progress-bar progress-bar-striped text-color_black" role="progressbar"
                                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                     ng-style="{width: discipline.OccupiedPercent*100+'%'}">
+                                     ng-style="{width: discipline.OccupiedPercent*100+'%'}" ng-class='{"progress-bar-warning":discipline.OccupiedPercent ==1, "progress-bar-success":discipline.OccupiedPercent<1}'>
                                     <span>{{discipline.Subscribed+"\\"+discipline.MaxCountStudent}}</span>
                                 </div>
                             </div>
