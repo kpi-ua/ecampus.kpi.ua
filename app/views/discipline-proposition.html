@@ -263,7 +263,18 @@
 
                     
                   </td>
-              <td>
+
+              <td class="tdFullAlignCenter">
+                <button type="button" ng-show="!rowformProposition2.$visible"
+                        class="btn patterns__table-button patterns__table-button_CRUD-button"
+                        aria-label="Description and additional information" data-toggle="modal"
+                        data-target="#ModalAddLecturer" ng-click="">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  
+                </button>
+                <!-- {{ showTeachersList(obj) }} -->
+              </td>
+              
                     <!--<span editable-select="obj.blockName" e-name="blockName" e-form="rowformProposition"
                           onbeforesave="checkProposForm($data)" e-required
                           e-ng-options="block.name as block.name for block in tempListData.dcBlock8">
@@ -272,9 +283,9 @@
 
                     
                     <!--<span e-form="rowformProposition" e-name="courses" editable-checklist="obj.courses" e-ng-options="currCourse as currCourse for currCourse in allCourses"></span>-->
-                      {{ showTeachersList(obj) }}
+                      
                     
-              </td>
+              
 
 
                     <td class="tdFullAlignCenter">
@@ -562,6 +573,57 @@
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- modal window which allows to add lecturers -->
+      <div id="ModalAddLecturer" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Додати викладачів</h4>
+            </div>
+
+            <div class="modal-body">
+              <p>тут буде таблиця</p>
+              <div class="table-responsive">   
+               <form editable-form name="lecturerForm" onaftersave="saveResultLecturers()" oncancel="cancel()">
+                <table class="table table-bordered table-hover table-condensed d-s-table">
+                  <tr>
+                    <td>Викладачі</td>
+                  </tr>
+                  <tr ng-repeat="lecturer in testLecturers">
+                    <td>
+                      <span editable-select="lecturer.name" e-name="name" e-form="lecturerForm" onbeforesave="" e-required e-ng-options="currentLecturer.name as currentLecturer.name for currentLecturer in allLecturers">
+                        {{ lecturer.name || 'не вказано'}}
+                      </span>
+                    </td>
+                    <td>
+                      <button type="button" ng-show="lecturerForm.$visible" ng-click="deleteLecturer(lecturer.id)" class="btn btn-danger pull-right">Del</button>
+                    </td>
+                  </tr>
+
+                </table>
+                <div class="btn-edit">
+                  <button type="button" class="btn btn-default" ng-show="!lecturerForm.$visible" ng-click="lecturerForm.$show()">
+                    edit
+                  </button>
+                </div>
+                <div class="btn-form" ng-show="lecturerForm.$visible">
+                  <button type="button" ng-disabled="lecturerForm.$waiting" ng-click="addUser()" class="btn btn-default pull-right">add row</button>
+                  <button type="submit" ng-disabled="lecturerForm.$waiting" class="btn btn-primary">save</button>
+                  <button type="button" ng-disabled="lecturerForm.$waiting" ng-click="lecturerForm.$cancel()" class="btn btn-default">cancel</button>
+                </div> 
+               </from> 
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
+            </div>
+          </div>
         </div>
       </div>
 
