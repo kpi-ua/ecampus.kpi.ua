@@ -12,8 +12,6 @@
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
     "angular-input-stars-directive": "angular-input-stars#^1.6.0",
-    "font-awesome": "^4.6.3",
-    "bootstrap-social": "^5.0.0",
     "kjur-jsrsasign": "jsrsasign#^6.1.4",
     "jwt-decode": "^2.1.0",
     "page-scroll-to-id": "^1.5.5",
