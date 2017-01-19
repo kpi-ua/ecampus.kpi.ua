@@ -27,25 +27,25 @@
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'DisciplineName';sortReverseBlock = !sortReverseBlock">
                                 Назва дисципліни
-                                <span ng-show="sortTypeBlock == 'DisciplineName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'DisciplineName'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'WhoReadAbbreviation';sortReverseBlock = !sortReverseBlock">
                                 Читаюча кафедра
-                                <span ng-show="sortTypeBlock == 'WhoReadAbbreviation'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'WhoReadAbbreviation'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'MaxCountStudent';sortReverseBlock = !sortReverseBlock">
                                 Мах <br/> кількість <br/> студентів
-                                <span ng-show="sortTypeBlock == 'MaxCountStudent'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'MaxCountStudent'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'OccupiedPercent';sortReverseBlock = !sortReverseBlock">
                                 Записалося студентів
-                                <span ng-show="sortTypeBlock == 'OccupiedPercent'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'OccupiedPercent'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                     </tr>
@@ -73,24 +73,5 @@
                 <p class="text-center" ng-show="block.DisciplineArray==null">[Пропозиції щодо викладання дисциплін в цьому навчальному році відсутні.]</p>
             </div>
         </div>
-    </div>
-</div>
-<div id="ModalForGroups" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ModalGroupInfo.GroupName}}</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
     </div>
 </div>
