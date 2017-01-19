@@ -13,26 +13,30 @@
             <td>
                 <a href="#" ng-click="sortTypeBlock = 'studyGroupsName';sortReverseBlock = !sortReverseBlock">
                     Навчальна <br> група
-                    <span ng-show="sortTypeBlock == 'studyGroupsName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                    <span ng-show="sortTypeBlock == 'studyGroupsName'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                 </a>
             </td>
             <td>
                 <a href="#" ng-click="sortTypeBlock = 'studyGroups[0].studyCourse';sortReverseBlock = !sortReverseBlock">
                     Курс
-                    <span ng-show="sortTypeBlock == 'studyGroups[0].studyCourse'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                    <span ng-show="sortTypeBlock == 'studyGroups[0].studyCourse'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                 </a>
             </td>
 
+            <td ng-show="ShowDecanatCount">
+                    Кількість студентів в групі <br>
+                    (АС Деканат)
+            </td>
             <td>
                 <a href="#" ng-click="sortTypeBlock = 'studyGroups[0].studyGroupsCountStud';sortReverseBlock = !sortReverseBlock">
                     Кількість студентів в групі
-                    <span ng-show="sortTypeBlock == 'studyGroups[0].studyGroupsCountStud'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                    <span ng-show="sortTypeBlock == 'studyGroups[0].studyGroupsCountStud'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                 </a>
             </td>
             <td>
                 <a href="#" ng-click="sortTypeBlock = 'studyGroups[0].payment';sortReverseBlock = !sortReverseBlock">
                     Бюджет/Контракт<br>/Змішана
-                    <span ng-show="sortTypeBlock == 'studyGroups[0].payment'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                    <span ng-show="sortTypeBlock == 'studyGroups[0].payment'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                 </a>
             </td>
             <td>Дія</td>
@@ -41,7 +45,7 @@
         <tbody>
         <tr ng-repeat="group in selectData.StudyGroup| orderBy:sortTypeBlock:sortReverseBlock">
             <td>
-            <span>
+            <span data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(group.name,true,group.studentsList )">
                 {{ group.name || 'Не вказано' }}
             </span>
             </td>
@@ -49,6 +53,10 @@
             <span>
                 {{ group.studyGroups[0].studyCourse || 'Не вказано' }}
             </span>
+            </td>
+
+            <td ng-show="ShowDecanatCount">
+                {{ group.studyGroups[0].studyGroupsCountStudFact|| '-' }}
             </td>
             <td>
             <span editable-number="group.studyGroups[0].studyGroupsCountStud" e-name="studyGroupsCountStud" e-form="studyGroupsCount"

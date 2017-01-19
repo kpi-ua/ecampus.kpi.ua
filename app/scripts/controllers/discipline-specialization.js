@@ -22,6 +22,8 @@ angular.module('ecampusApp')
             Patterns:[],
             StudyGroup: null
         };
+        $scope.ShowDecanatCount = false;
+
         $scope.SelectAllCB = false;
         $scope.sumStudCount = null;
         $scope.sumStudCountResponse=[];
@@ -530,7 +532,15 @@ angular.module('ecampusApp')
                         $scope.safeApply();
                     } else {
                         // $scope.groups = response;
+                        var factSumm=0;
+                        $scope.ShowDecanatCount = false;
                         $scope.selectData.StudyGroup = response;
+                        response.forEach(function(group, i ,arr){
+                            factSumm+=group.studyGroups[0].studyGroupsCountStudFact;
+                        });
+                        if(factSumm>0){
+                            $scope.ShowDecanatCount = true;
+                        }
                         console.log($scope.selectData.StudyGroup);
                     }
                 });
@@ -602,9 +612,12 @@ angular.module('ecampusApp')
             });
         };
 
-        $scope.UpdateModalForGroup = function(groupName){
-            $scope.ModalGroupInfo ={
-                GroupName: groupName,
+        $scope.UpdateModalForGroup = function(groupName,isListActual, studentList){
+            if(isListActual){
+                $scope.ModalGroupInfo ={
+                    Name: groupName,
+                    StudentList: studentList
+                }
             }
         };
 
@@ -838,6 +851,7 @@ angular.module('ecampusApp')
                 $scope.safeApply();
             });
         };
+
         $scope.getYearByStartYearAndCourse = function (startYear ,course ) {
             var years= startYear.replace(" ","").split('-');
             years[0]=  parseInt(years[0],10) + (course-1);
