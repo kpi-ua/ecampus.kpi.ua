@@ -8,6 +8,6 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-    .controller('HomeCtrl', function() {
+  .controller('HomeCtrl', function () {
 
-    });
+  });

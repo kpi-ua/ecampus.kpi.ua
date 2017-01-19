@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-2 col-sm-2 col-xs-2 nav-pills-campus nav-pills-campus_fixed" ng-show="semestrsForView!=null || semestrsForView.length !=0">
         <ul class="nav nav-pills nav-stacked">
-            <li  ng-repeat="semestr in semestrsForView" ng-click="GetAllDisciplines(semestr.Blocks);SumStudCount(sumStudCountResponse,semestr.Semestr);SwitchSemester(semestr.Semestr)" ng-class="{'nav-pills-campus_active':semester == semestr.Semestr}" >
+            <li  ng-repeat="semestr in semestrsForView" ng-click="GetAllDisciplines(semestr.Blocks);SumStudCount(semestr.Groups);SwitchSemester(semestr.Semestr)" ng-class="{'nav-pills-campus_active':semester == semestr.Semestr}" >
                 <a class="nav-pills-campus__item" href="#">{{semestr.Course}} курс {{semestr.Semestr}} семестр</a>
             </li>
         </ul>
@@ -9,8 +9,8 @@
     <div class="col-md-10 col-md-offset-2 col-sm-10 col-sm-offset-2 col-xs-10 col-xs-offset-2 table-choice-result" ng-repeat="semestr in semestrsForView" ng-show="semester == semestr.Semestr">
         <div class="table-choice-result__group-list">
             <p>Групи:
-                <span class="table-choice-result__group-item" ng-repeat="groupName in semestr.Groups" data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(groupName)">
-                    {{groupName}}
+                <span class="table-choice-result__group-item" ng-repeat="group in semestr.Groups" data-toggle="modal" data-target="#ModalForGroups" ng-click="UpdateModalForGroup(groupName)">
+                    {{group.name}}
                 </span>
             </p>
         </div>
@@ -27,25 +27,25 @@
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'DisciplineName';sortReverseBlock = !sortReverseBlock">
                                 Назва дисципліни
-                                <span ng-show="sortTypeBlock == 'DisciplineName'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'DisciplineName'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'WhoReadAbbreviation';sortReverseBlock = !sortReverseBlock">
                                 Читаюча кафедра
-                                <span ng-show="sortTypeBlock == 'WhoReadAbbreviation'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'WhoReadAbbreviation'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'MaxCountStudent';sortReverseBlock = !sortReverseBlock">
                                 Мах <br/> кількість <br/> студентів
-                                <span ng-show="sortTypeBlock == 'MaxCountStudent'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'MaxCountStudent'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                         <td class="text-center">
                             <a href="#" ng-click="sortTypeBlock = 'OccupiedPercent';sortReverseBlock = !sortReverseBlock">
                                 Записалося студентів
-                                <span ng-show="sortTypeBlock == 'OccupiedPercent'" class="fa" ng-class="{'fa-caret-down':sortReverseBlock,'fa-caret-up':!sortReverseBlock}"></span>
+                                <span ng-show="sortTypeBlock == 'OccupiedPercent'" class="glyphicon" ng-class="{'glyphicon-menu-down':sortReverseBlock,'glyphicon-menu-up':!sortReverseBlock}"></span>
                             </a>
                         </td>
                     </tr>
@@ -57,9 +57,9 @@
                         <td>{{discipline.MaxCountStudent}}</td>
                         <td>
                             <div class="progress">
-                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                <div class="progress-bar progress-bar-striped text-color_black" role="progressbar"
                                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                     ng-style="{width: discipline.OccupiedPercent*100+'%'}">
+                                     ng-style="{width: discipline.OccupiedPercent*100+'%'}" ng-class='{"progress-bar-warning":discipline.OccupiedPercent ==1, "progress-bar-success":discipline.OccupiedPercent<1}'>
                                     <span>{{discipline.Subscribed+"\\"+discipline.MaxCountStudent}}</span>
                                 </div>
                             </div>
@@ -73,24 +73,5 @@
                 <p class="text-center" ng-show="block.DisciplineArray==null">[Пропозиції щодо викладання дисциплін в цьому навчальному році відсутні.]</p>
             </div>
         </div>
-    </div>
-</div>
-<div id="ModalForGroups" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ModalGroupInfo.GroupName}}</h4>
-            </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
     </div>
 </div>

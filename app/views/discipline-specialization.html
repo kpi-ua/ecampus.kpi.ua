@@ -112,44 +112,44 @@
                 <td>
                   <a href="#" ng-click="sortType = 'Cycle.Name';sortReverse = !sortReverse">
                     Цикл дисциплін
-                    <span ng-show="sortType == 'Cycle.Name'" class="fa"
-                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                    <span ng-show="sortType == 'Cycle.Name'" class="glyphicon"
+                          ng-class="{'glyphicon-menu-down':sortReverse,'glyphicon-menu-up':!sortReverse}"></span>
                   </a>
                 </td>
                 <td>
                   <a href="#" ng-click="sortType = 'Block.Name';sortReverse = !sortReverse">
                     Назва блоку
-                    <span ng-show="sortType == 'Block.Name'" class="fa"
-                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                    <span ng-show="sortType == 'Block.Name'" class="glyphicon"
+                          ng-class="{'glyphicon-menu-down':sortReverse,'glyphicon-menu-up':!sortReverse}"></span>
                   </a>
                 </td>
                 <td>
                   <a href="#" ng-click="sortType = 'Course';sortReverse = !sortReverse">
                     Курс <br/> навчання
-                    <span ng-show="sortType == 'Course'" class="fa"
-                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                    <span ng-show="sortType == 'Course'" class="glyphicon"
+                          ng-class="{'glyphicon-menu-down':sortReverse,'glyphicon-menu-up':!sortReverse}"></span>
                   </a>
                 </td>
                 <td>
                   <a href="#" ng-click="sortType = 'Semester';sortReverse = !sortReverse">
                     Семестр
-                    <span ng-show="sortType == 'Semester'" class="fa"
-                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                    <span ng-show="sortType == 'Semester'" class="glyphicon"
+                          ng-class="{'glyphicon-menu-down':sortReverse,'glyphicon-menu-up':!sortReverse}"></span>
                   </a>
                 </td>
                 <td>
                   <a href="#" ng-click="sortType = 'CountDiscipline';sortReverse = !sortReverse">
                     Кількість <br/> дисциплін
-                    <span ng-show="sortType == 'CountDiscipline'" class="fa"
-                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                    <span ng-show="sortType == 'CountDiscipline'" class="glyphicon"
+                          ng-class="{'glyphicon-menu-down':sortReverse,'glyphicon-menu-up':!sortReverse}"></span>
                   </a>
 
                 </td>
                 <td>
                   <a href="#" ng-click="sortType = 'PatternName';sortReverse = !sortReverse">
                     Примітка
-                    <span ng-show="sortType == 'PatternName'" class="fa"
-                          ng-class="{'fa-caret-down':sortReverse,'fa-caret-up':!sortReverse}"></span>
+                    <span ng-show="sortType == 'PatternName'" class="glyphicon"
+                          ng-class="{'glyphicon-menu-down':sortReverse,'glyphicon-menu-up':!sortReverse}"></span>
                   </a>
                 </td>
                 <td>Дія</td>
@@ -158,7 +158,7 @@
               <tbody>
               <tr class="d-s-table patterns__table-button">
                 <td colspan="7" ng-click="addPattern()" class="text-center">
-                  <i class="fa fa-plus" aria-hidden="true"></i> Додати новий шаблон
+                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Додати новий шаблон
                 </td>
               </tr>
               <tr ng-repeat="pattern in patterns | orderBy:sortType:sortReverse">
@@ -241,5 +241,37 @@
 
       </div>
     </div>
+  </div>
+</div>
+<div id="ModalForGroups" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Група: {{ModalGroupInfo.Name}}</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered table-hover" id="student-list-table">
+          <tr>
+            <td>№</td>
+            <td>ПІБ</td>
+          </tr>
+          <tr ng-repeat="student in ModalGroupInfo.StudentList">
+            <td>{{$index+1}}</td>
+            <td>{{student}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-success pull-left" download="Список студентів групи {{ModalGroupInfo.Name}}.xls" href="#"
+           onclick="return ExcellentExport.excel(this, 'student-list-table', 'Список студентів');">
+          <i class="fa fa-file-excel-o "></i> Завантажини звіт
+        </a>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+      </div>
+    </div>
+
   </div>
 </div>

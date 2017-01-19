@@ -41,7 +41,7 @@ angular.module('ecampusApp')
     }
 
     function setRadioBtnForCathedras(responsive) {
-      var subdivisionId = responsive.Subdivision.SubdivisionId;
+      var subdivisionId = responsive.Subdivision.Id;
       var subdivisionName = responsive.Subdivision.Name;
       if (~subdivisionName.indexOf("Кафедра")) {
         $scope.cathedras.push({
@@ -97,17 +97,19 @@ angular.module('ecampusApp')
 
     function setFacultyAndInstituteLogic(item, kpiQuery) {
       var itemForEachJSON = JSON.parse(item);
-      if (itemForEachJSON.Subsystem == 1) {
-        var subdivisionId = itemForEachJSON.Subdivision.SubdivisionId;
+      if (itemForEachJSON.Subsystem == 1 ) {
+        var subdivisionId = itemForEachJSON.Subdivision.Id;
         var subdivisionName = itemForEachJSON.Subdivision.Name;
-        if (subdivisionId == 9998 && !kpiQuery) {
+
+        if (subdivisionId == 9998 && !kpiQuery ) {
           kpiQuery = true;
           var pathFaculty = "Subdivision";
           Api.execute("GET", pathFaculty).then(function (response) {
-            response.forEach(function (itemForEach, i, arr) {
-              if (itemForEach.typeId == 26 || itemForEach.typeId == 77) {
+            response.forEach(function (itemForEach) {
+              if (itemForEach.type.id == 26 || itemForEach.type.id == 77) {
                 var subdivisionName = itemForEach.name;
-                var subdivisionId = itemForEach.subdivisionId;
+                var subdivisionId = itemForEach.id;
+
                 $scope.subdivisions.push({
                   subdivisionId: subdivisionId,
                   subdivisionName: subdivisionName
