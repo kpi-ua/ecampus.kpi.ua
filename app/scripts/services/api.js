@@ -23,7 +23,7 @@ angular.module('ecampusApp')
 
     this.changeIsSessionExpiredValue = function (value) {
       $rootScope.isSessionExpired = value;
-      $rootScope.$apply;
+      $rootScope.$apply();
     };
 
     this.changeIsSessionExpiredValue(false);
