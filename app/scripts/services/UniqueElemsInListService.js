@@ -48,6 +48,9 @@ angular
           case 'subdivisionName':
             tmpItem = unmodifiedElementsOfQuery[i].subdivisionName;
             break;
+          case 'forSelectFullname':
+            tmpItem = unmodifiedElementsOfQuery[i].forSelectFullname;
+            break;
           default:
             tmpItem = unmodifiedElementsOfQuery[i];
             break;

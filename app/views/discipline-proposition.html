@@ -172,7 +172,7 @@
                     <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                   </button>
                   <button type="button" ng-disabled="rowformProposition.$waiting"
-                          ng-click="rowformProposition.$cancel()"
+                          ng-click="rowformProposition.$cancel(); reloadData();"
                           class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   </button>
@@ -263,7 +263,18 @@
 
                     
                   </td>
-              <td>
+
+              <td class="tdFullAlignCenter">
+                <button type="button" ng-show="!rowformProposition2.$visible"
+                        class="btn patterns__table-button patterns__table-button_CRUD-button"
+                        aria-label="Description and additional information" data-toggle="modal"
+                        data-target="#ModalAddLecturer" ng-click="getCurrentDataWithLecturers(obj);">
+                  <i class="fa fa-male" aria-hidden="true"></i>
+                  
+                </button>
+                <!-- {{ showTeachersList(obj) }} -->
+              </td>
+              
                     <!--<span editable-select="obj.blockName" e-name="blockName" e-form="rowformProposition"
                           onbeforesave="checkProposForm($data)" e-required
                           e-ng-options="block.name as block.name for block in tempListData.dcBlock8">
@@ -272,9 +283,9 @@
 
                     
                     <!--<span e-form="rowformProposition" e-name="courses" editable-checklist="obj.courses" e-ng-options="currCourse as currCourse for currCourse in allCourses"></span>-->
-                      {{ showTeachersList(obj) }}
+                      
                     
-              </td>
+              
 
 
                     <td class="tdFullAlignCenter">
@@ -286,7 +297,7 @@
                     <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                   </button>
                   <button type="button" ng-disabled="rowformProposition2.$waiting"
-                          ng-click="rowformProposition2.$cancel()"
+                          ng-click="rowformProposition2.$cancel(); reloadData();"
                           class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   </button>
@@ -373,7 +384,7 @@
                           ng-show="formDescription.$visible">
                     <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                   </button>
-                  <button type="button" ng-disabled="formDescription.$waiting" ng-click="formDescription.$cancel()"
+                  <button type="button" ng-disabled="formDescription.$waiting" ng-click="formDescription.$cancel(); reloadData();"
                           class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel"
                           ng-show="formDescription.$visible">
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -465,7 +476,7 @@
                                 class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
                           <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                         </button>
-                        <button type="button" ng-disabled="rowformYear.$waiting" ng-click="rowformYear.$cancel()"
+                        <button type="button" ng-disabled="rowformYear.$waiting" ng-click="rowformYear.$cancel(); reloadData();"
                                 class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
                           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                         </button>
@@ -562,6 +573,85 @@
             </div>
           </div>
 
+        </div>
+      </div>
+
+      <!-- modal window which allows to add lecturers -->
+      <div id="ModalAddLecturer" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Додати викладача</h4>
+            </div>
+
+            <div class="modal-body">                                              
+              <div class="table-responsive">                              
+                <table class="table table-bordered table-hover table-condensed d-s-table">
+                  <tr class="patterns__table-header color-head">
+                    <th class="tdFullAlignCenter">Прізвище Ім'я По-батькові викладачів</th>
+                    <th class="tdFullAlignCenter minWidthTwoButtons">Дія</th>
+                  </tr>
+                  <tr class="d-s-table patterns__table-button">
+                    <td colspan="2" class="text-center" ng-click="addLecturer()">
+                      <i class="fa fa-plus" aria-hidden="true"></i>Додати лектора
+                    </td>
+                  </tr>
+                  <tr ng-repeat="lecturer in dataWithLecturers.employee">
+    
+                    <td>
+                      
+                      <span ng-show="!lecturerForm.$visible">{{lecturer.name}}</span>
+                      <span ng-show="lecturerForm.$visible">
+                        <ui-select ng-keyup="loadLecturers($select.search);" ng-change="saveLectureFromUiSelect(lecturer);" class="select-form__select zindexHigh" ng-model="lecturer" append-to-body="true">
+                          <ui-select-match placeholder="Введіть ПІБ викладача">
+                            <span ng-bind="$select.selected.fullName || lecturer.name"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="lecturer in (lecturersList | filter: $select.search) track by lecturer.id"
+                                   position="down">
+                            <span ng-bind="lecturer.fullName"></span>
+                            <span class="lecturer-subdivision-name" ng-bind="lecturer.subdivisionName"></span>
+                          </ui-select-choices>
+                          <ui-select-no-choice>
+                            Викладача з таким ПІБ не знайдено
+                          </ui-select-no-choice>
+                        </ui-select>
+                      </span>
+                    </td>
+                    <td class="tdFullAlignCenter">
+                      <form editable-form name="lecturerForm" onbeforesave="saveLector(lecturer)" ng-show="lecturerForm.$visible" class="form-buttons form-inline" shown="insertedLecturer == lecturer">
+                        <button type="submit" ng-disabled="lecturerForm.$waiting" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
+                          <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" ng-disabled="lecturerForm.$waiting" ng-click="lecturerForm.$cancel(); reloadData();" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                      </form>
+
+                      <div class="buttons" ng-show="!lecturerForm.$visible">
+                        <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit" ng-click="lecturerForm.$show()">
+                          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete" ng-click="removeLecturer(lecturer)">
+                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                </table>
+
+                
+
+
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Повернутися</button>
+            </div>
+          </div>
         </div>
       </div>
 
