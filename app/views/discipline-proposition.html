@@ -1,5 +1,5 @@
 <breadcrumbs>
-  <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Пропозиції дисциплін</b>
+  <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Пропозиції дисциплін</b>  
 </breadcrumbs>
 
 <div class="container-fluid content">
@@ -219,7 +219,7 @@
               <caption>Детальна інформація для обраного року</caption>
                 <table class="table table-bordered table-hover table-condensed d-s-table" id="tableCurrentYearApproved">
                   <tr class="patterns__table-header color-head">
-                    <th class="tdFullAlignCenter">
+                    <th class="tdFullAlignCenter col-md-7">
                       Назва дисципліни                      
                     </th>
                     <th class="tdFullAlignCenter">
@@ -242,9 +242,25 @@
                   </tr>
                   <tr ng-repeat="obj in studyYearData">
                     <td>
-                      <span editable-select="obj.nameFull" e-name="nameFull" e-form="rowformProposition2" onbeforesave="" e-required e-ng-options="bigName.nameFull as bigName.nameFull for bigName in forSelectFullname">
+                      <ui-select ng-model="obj" theme="bootstrap" title="Choose a fullname" ng-show="rowformProposition2.$visible" ng-change="saveFullnameFromUiSelect(obj);" append-to-body="true">
+                        <ui-select-match placeholder="Оберіть повну назву">{{$select.selected.fullName || obj.nameFull}}</ui-select-match>
+                        <ui-select-choices repeat="nameFull in forSelectFullNameNew | filter: $select.search" position="down">
+                          <div ng-bind-html="nameFull.name | highlight: $select.search"></div>
+                          <small>
+                            <b>ОКР:</b> <span ng-bind-html="''+nameFull.okr | highlight: $select.search"></span>
+                            <b>Освітній рівень:</b> <span ng-bind-html="''+nameFull.cathedra | highlight: $select.search"></span>
+                          </small>
+                        </ui-select-choices>
+                        <ui-select-no-choice>
+                          Такого запису не існує
+                        </ui-select-no-choice>
+                      </ui-select>
+
+                      <span ng-show="!rowformProposition2.$visible">{{ obj.nameFull || 'не вказано'}}</span>
+                    
+                      <!--<span editable-select="obj.nameFull" e-name="nameFull" e-form="rowformProposition2" onbeforesave="" e-required e-ng-options="bigName.nameFull as bigName.nameFull for bigName in forSelectFullname">
                         {{ obj.nameFull || 'не вказано'}}
-                      </span>
+                      </span>-->
                     </td>
                     <td>                    
                       <span editable-number="obj.maxCountStudent" e-name="maxCountStudent" e-form="rowformProposition2" e-min="0">
@@ -284,9 +300,6 @@
                     
                     <!--<span e-form="rowformProposition" e-name="courses" editable-checklist="obj.courses" e-ng-options="currCourse as currCourse for currCourse in allCourses"></span>-->
                       
-                    
-              
-
 
                     <td class="tdFullAlignCenter">
                 <form editable-form name="rowformProposition2" onbeforesave="saveYear($data,obj)"
@@ -604,7 +617,7 @@
                       
                       <span ng-show="!lecturerForm.$visible">{{lecturer.name}}</span>
                       <span ng-show="lecturerForm.$visible">
-                        <ui-select ng-keyup="loadLecturers($select.search);" ng-change="saveLectureFromUiSelect(lecturer);" class="select-form__select zindexHigh" ng-model="lecturer" append-to-body="true">
+                        <ui-select ng-keyup="loadLecturers($select.search);" ng-init="saveLectureFromUiSelect(lecturer);" ng-change="saveLectureFromUiSelect(lecturer);" class="select-form__select zindexHigh" ng-model="lecturer" append-to-body="true">
                           <ui-select-match placeholder="Введіть ПІБ викладача">
                             <span ng-bind="$select.selected.fullName || lecturer.name"></span>
                           </ui-select-match>

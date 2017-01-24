@@ -19,6 +19,7 @@ angular.module('ecampusApp')
     $scope.sectionMenu = "generalListMenu"; //studyYearMenu
     //$scope.tempListData = {};
     $scope.selectedYear = "2013-2014";
+    $scope.forSelectFullNameNew = [];    
 
     $scope.showTempData = function() {
          
@@ -26,6 +27,10 @@ angular.module('ecampusApp')
 
     $scope.saveLectureFromUiSelect = function(lecturer) {
       $scope.selectedLecturer = lecturer;      
+    }
+
+    $scope.saveFullnameFromUiSelect = function(nameFull) {
+      $scope.selectedNameFull = nameFull;      
     }
 
     $scope.loadLecturers = function (namePattern) {
@@ -52,8 +57,11 @@ angular.module('ecampusApp')
       
 
       if ($scope.sectionMenu == "studyYearMenu") {
-        $scope.forSelectFullname = [];
+        $scope.forSelectFullname = [];   
+        $scope.forSelectFullNameNew = [];     
+        var name, okr, cathedra, fullName, disciplineBlockId;         
         var listOfFullnames = [], ifExist = false;
+
         for (var i=0; i<$scope.alldisciplines.length; i++ ){
           listOfFullnames.push($scope.alldisciplines[i].nameFull);
         }
@@ -62,15 +70,37 @@ angular.module('ecampusApp')
         listOfFullnames = UniqueElemsInList.getDataUnique();     
         listOfFullnames.sort();
 
+            
+            
+            //$scope.studyYearData[i].name = name;
+            //$scope.studyYearData[i].okr = okr;
+            //$scope.studyYearData[i].cathedra = cathedra;   
+                              console.log("$scope.alldisciplines");
+                              console.log($scope.alldisciplines);
+
         for (var i=0; i<listOfFullnames.length; i++) {   
           ifExist = false;
           for (var j=0; j<$scope.alldisciplines.length; j++ ){     
             if ((listOfFullnames[i]==$scope.alldisciplines[j].nameFull)&&(ifExist==false)) {
               ifExist = true;
+
+              name = separateFullname($scope.alldisciplines[j].nameFull, 0);
+              okr = separateFullname($scope.alldisciplines[j].nameFull, 1);
+              cathedra = separateFullname($scope.alldisciplines[j].nameFull, 2);
+              fullName = $scope.alldisciplines[j].nameFull;
+              disciplineBlockId = $scope.alldisciplines[j].disciplineBlockId;
+
+
+              $scope.forSelectFullNameNew.push(new forSelectFullNameNewModel(name, okr, cathedra, fullName, disciplineBlockId));            
               $scope.forSelectFullname.push(new forSelectFullnameModel($scope.alldisciplines[j].nameFull,$scope.alldisciplines[j].disciplineBlockId));
             }
           }
-        }        
+        }       
+        console.log("$scope.forSelectFullNameNew");
+        console.log($scope.forSelectFullNameNew);
+        console.log("$scope.forSelectFullname");
+        console.log($scope.forSelectFullname);
+
       }
     };
 
@@ -171,41 +201,11 @@ angular.module('ecampusApp')
     $scope.newSubmit = function (x) {
       
     }
-
-     /*$scope.showStatus = function() {
-      var selected = [];
-      angular.forEach($scope.statuses, function(s) { 
-        if ($scope.user.status.indexOf(s.value) >= 0) {
-          selected.push(s.text);
-        }
-      });
-      return selected.length ? selected.join(', ') : 'не вказано';
-    };*/
-
-    /*$scope.showStatus = function() {
-      var selected = [];
-      angular.forEach($scope.allCourses2, function(s) { 
-        if ($scope.user.status.indexOf(s.value) >= 0) {
-          selected.push(s.text);
-        }
-      });
-      return selected.length ? selected.join(', ') : 'не вказано';
-    };*/
-
-    $scope.showStatus = function(currentRow) {
-      
-      //var selected = [];
-   
-      /*for (var i=0; i<7; i++){
-        if ((currentRow.courses)&&(currentRow.courses.indexOf(i) >= 0)) {
-          selected.push(i);  
-        }
-        
-      }*/
+     
+    $scope.showStatus = function(currentRow) {      
       if (currentRow.courses) {
         return currentRow.courses.length ? currentRow.courses.join(', ') : 'не вказано';
-      }      
-      //return selected.length ? selected.join(', ') : 'не вказано';
+      }            
     };
 
     $scope.showTeachersList = function(currentTeachersList) {
@@ -235,12 +235,7 @@ angular.module('ecampusApp')
           $scope.alldisciplines = [];
           $scope.allSubdivisions = response;
           $scope.testLecturersShow = [];
-          //var selected = {};
-          //for (var i=0; i<$scope.testLecturers.length; i++ ) {
-            //$scope.alldisciplines.unshift($scope.insertedProposition);
-            //selected = 
-           // $scope.testLecturersShow.unshift(selected: $scope.testLecturers[i]);
-          //};
+          
         }, function (response) {
           $scope.allSubdivisions = [];
         });
@@ -248,15 +243,14 @@ angular.module('ecampusApp')
 
     var getDataSelectBoxes = function () {
       var url = "SelectiveDiscipline/ForDisciplineOffer";
-      //var studyYears = UniqueElemsInList.getStudyYearsArray(studyYearFrom, studyYearTo);
+      
 
       Api.execute("GET", url)
         .then(function (response) {
 
           $scope.tempListData = response;
           $scope.tempListData.years = [];
-          //reload();
-          //$scope.selectedYear = UniqueElemsInList.setCurrentYear($scope.tempListData.years);
+          
           console.log("some promises");
           reload();
           
@@ -287,12 +281,7 @@ angular.module('ecampusApp')
     };
 
     $scope.checkYearForm = function (data) {
-      //for (var i = 0; i < $scope.CurrentYearData.yearData.length; i++) {
-
-        //if (data == $scope.CurrentYearData.yearData[i].studyYear.name) {
-        //  return "Такі дані вже існують";
-        //}
-      //}
+      
       if (data == null || data == "") {
         return "Заповніть це поле!";
       }
@@ -620,7 +609,11 @@ angular.module('ecampusApp')
               ifWantToAddRowData = false;
             }
 
-            $scope.saveYear = function (data, year) {
+            $scope.saveYear = function (data, year) {              
+              console.log("data selectedNameFull year");
+              console.log(data);
+              console.log($scope.selectedNameFull);
+              console.log(year);
               var url = "SelectiveDiscipline/BlocksDisplineYear";
               var method = "";
               var //$scope.CurrentYearData.disciplineBlockId,
@@ -629,9 +622,13 @@ angular.module('ecampusApp')
                 MaxCountStudent = data.maxCountStudent,
                 IsApproved = getApprovedByName($scope.testIsApproved, data.isApproved),
                 DisciplineBlock8Id;
-              if ($scope.sectionMenu == "studyYearMenu") {
-                //DisciplineBlock8Id = $scope.alldisciplines.disciplineBlockId;
-                DisciplineBlock8Id = getDisciplineBlockIdByFullName($scope.forSelectFullname, data.nameFull);
+              if ($scope.sectionMenu == "studyYearMenu") {              
+                //DisciplineBlock8Id = getDisciplineBlockIdByFullName($scope.forSelectFullname, data.nameFull);                
+                //DisciplineBlock8Id = getDisciplineBlockIdByFullName($scope.forSelectFullNameNew, $scope.selectedNameFull.fullName);                
+                DisciplineBlock8Id = $scope.selectedNameFull.disciplineBlockId;
+                console.log("you selected: $scope.selectedNameFull");
+                console.log($scope.selectedNameFull);
+
                 // getDisciplineIdByName($scope.tempListData.dcDiscipline8, data.nameUkr),
                 StudyYear.Name = $scope.selectedYear.name;
               }
@@ -654,12 +651,17 @@ angular.module('ecampusApp')
                 method = "POST";
               }   
 
+              console.log("new checking obj before sending");
+              console.log(newRowYear);
+              console.log(url);
+
               Api.execute(method, url, newRowYear)
                 .then(function (response) {
         
                   console.log(response);
                   $('#ModalTableApproved').modal('hide');
                   //$scope.sectionMenu = "generalListMenu";
+                  $scope.selectedNameFull = {};
                   $scope.SendSubdivisionToServer();
                   $scope.initializeStudyYear();
                 }, function (response) {
@@ -705,7 +707,8 @@ angular.module('ecampusApp')
                 Api.execute(method, url)
                   .then(function (response) {                    
                     console.log(response);
-                    $scope.SendSubdivisionToServer();
+                    //$scope.SendSubdivisionToServer();
+                    $scope.reloadData();
                   }, function (response) {                    
                     console.log(response);
                   });                
@@ -719,24 +722,26 @@ angular.module('ecampusApp')
                 Api.execute(method, url)
                   .then(function (response) {                    
                     console.log(response);
-                    $('#ModalTableApproved').modal('hide');
-                    $scope.SendSubdivisionToServer();
+                    /*$('#ModalTableApproved').modal('hide');
+                    $scope.SendSubdivisionToServer();*/
+                    $scope.reloadData();
                   }, function (response) {                    
                     console.log(response);
                   });                
               }
             }
 
-            $scope.removePropositionOnStudyYear = function(proposition) {
+            $scope.removePropositionOnStudyYear = function(proposition) {             
               if (confirm("Ви впеврені що хочете видалити дані про поточну пропозицію?")) {
-                var url = "SelectiveDiscipline/BlocksDisplineYear/" + getDisciplineBlockIdByFullName($scope.forSelectFullname, proposition.nameFull);
+                var url = "SelectiveDiscipline/BlocksDisplineYear/" + proposition.idBlockYear; //getDisciplineBlockIdByFullName($scope.forSelectFullname, proposition.nameFull);                
 
                 var method = "DELETE";
                 Api.execute(method, url)
                   .then(function (response) {                    
                     console.log(response);                    
-                    $scope.SendSubdivisionToServer();
-                    $scope.initializeStudyYear();
+                    $scope.reloadData();
+                    /*$scope.SendSubdivisionToServer();
+                    $scope.initializeStudyYear();*/
                   }, function (response) {                    
                     console.log(response);
                   });               
@@ -752,9 +757,10 @@ angular.module('ecampusApp')
                 Api.execute(method, url)
                   .then(function (response) {                    
                     console.log(response);         
-                    $('#ModalAddLecturer').modal('hide');             
+                    $scope.reloadData();
+                    /*$('#ModalAddLecturer').modal('hide');             
                     $scope.SendSubdivisionToServer();
-                    $scope.initializeStudyYear();
+                    $scope.initializeStudyYear();*/
                   }, function (response) {                    
                     console.log(response);
                   });               
@@ -867,11 +873,20 @@ angular.module('ecampusApp')
 
             var getDisciplineBlockIdByFullName = function (disciplineBlockList, disciplineBlockName) {
               var disciplineBlockId = "";
-              disciplineBlockList.forEach(function (item, iter, arr) {
-                if (item.nameFull == disciplineBlockName) {
-                  disciplineBlockId = item.DisciplineBlock8Id;
+              console.log("get...");
+              console.log(disciplineBlockList);
+              console.log(disciplineBlockName);
+              console.log("..");
+              for (var i = 0; i < disciplineBlockList.length; i++) {
+                if (disciplineBlockList[i].fullName = disciplineBlockName) {
+                  disciplineBlockId = disciplineBlockList[i].disciplineBlockId;
                 }
-              });
+              }
+              /*disciplineBlockList.forEach(function (item, iter, arr) {
+                if (item.fullName == disciplineBlockName) {
+                  disciplineBlockId = item.disciplineBlockId;
+                }
+              });*/
               return disciplineBlockId;
             }
 
@@ -953,19 +968,47 @@ angular.module('ecampusApp')
           //{Id}/{studyyear}"
       if ($scope.ifCathedraAndYearChosen()) {
         url = url + "/" + $scope.selectedDiscipline.id + "/" + $scope.selectedYear.name;
+        console.log(url);
         Api.execute(method, url)
         .then(function (response) {
           $scope.studyYearData = response;
-          for (var i=0; i<$scope.studyYearData.length; i++){
-            $scope.studyYearData[i].isApproved = $scope.showUaWords($scope.studyYearData[i]);
+          
+          $scope.selectedNamefull = {};          
+
+          for (var i=0; i<$scope.studyYearData.length; i++){        
+            $scope.studyYearData[i].isApproved = $scope.showUaWords($scope.studyYearData[i]);            
           }          
-          console.log("$scope.studyYearData idBlockYear");
+
+          //for (var i=0; i< $scope.forSelectFullNameNew.length; i++) {
+            //console.log($scope.forSelectFullNameNew);
+          //}
+          console.log("after $scope.studyYearData ");
           console.log($scope.studyYearData);
         }, function (response) {
           
           
         }); 
       }
+    };
+
+    var separateFullname = function(fullName, field) {
+      var keyWords = ["Назва: ", "Освітній рівень: ", "Викладає: "];
+      var output = "";          
+      var pos1 = fullName.lastIndexOf(keyWords[field])+keyWords[field].length;
+      var pos2;
+
+      if (field === 2) {
+        pos2 = fullName.length;
+      }
+      else {
+        pos2 = fullName.indexOf(keyWords[field+1]) - 2;
+      }
+
+      for (var i=pos1; i<pos2; i++) {
+        output+=fullName[i];
+      }    
+            
+      return output;
     };
 
     $scope.reloadData = function() {
@@ -1099,6 +1142,14 @@ angular.module('ecampusApp')
     function forSelectFullnameModel(nameFull, DisciplineBlock8Id) {
       this.nameFull = nameFull;
       this.DisciplineBlock8Id = DisciplineBlock8Id;
+    }
+
+    function forSelectFullNameNewModel(name, okr, cathedra, fullName, disciplineBlockId) {
+      this.name = name;
+      this.okr = okr;
+      this.cathedra = cathedra;
+      this.fullName = fullName;
+      this.disciplineBlockId = disciplineBlockId;
     }
 
 

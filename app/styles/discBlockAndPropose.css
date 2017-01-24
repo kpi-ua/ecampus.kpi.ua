@@ -108,3 +108,10 @@
     margin-top: 10px !important;
   }
 }
+
+/*@media screen and (min-width: 768px) {
+  .fixedSizeOnScreen{
+    table-layout: fixed;
+    word-wrap: break-word;
+  }
+}*/
