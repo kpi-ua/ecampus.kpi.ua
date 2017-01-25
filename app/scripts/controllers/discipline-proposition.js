@@ -209,14 +209,26 @@ angular.module('ecampusApp')
     };
 
     $scope.showTeachersList = function(currentTeachersList) {
-      var output = "";
+      var output = "", sortedList = [];
       if (currentTeachersList.employee.length) {
-        for (var i=0; i<currentTeachersList.employee.length; i++) {
-          output = output + currentTeachersList.employee[i].name
-          if (i!=(currentTeachersList.employee.length-1)) {
-            output = output + ', ';
+        for (var i=0; i<currentTeachersList.employee.length; i++){
+          sortedList.push(currentTeachersList.employee[i].name);
+        }
+        sortedList.sort();
+
+        for (var i=0; i<sortedList.length; i++) {
+          output = output + sortedList[i];
+          if (i!=(sortedList.length-1)) {
+            output = output + ',\n';
           }
         }
+        
+        /*for (var i=0; i<currentTeachersList.employee.length; i++) {
+          output = output + currentTeachersList.employee[i].name
+          if (i!=(currentTeachersList.employee.length-1)) {
+            output = output + ', \n';
+          }
+        }*/
       }
       
       return output;
@@ -224,6 +236,10 @@ angular.module('ecampusApp')
 
     $scope.ifZeroInTable = function(currentObject, someValue) {
       return (currentObject != null) ?  currentObject[someValue] : 'не визначено2';
+    }
+
+    $scope.setColspan = function(colspan) {
+      $scope.amountColspan = colspan;
     }
 
     var initialLoadCafedra = function () {
@@ -270,6 +286,7 @@ angular.module('ecampusApp')
     angular.element(document).ready(function () {
       initialLoadCafedra();
       getDataSelectBoxes();
+
 
 
     });
@@ -358,8 +375,7 @@ angular.module('ecampusApp')
 
               $scope.alldisciplines.push(new DisciplinesModel(okr, blockName, nameUkr, countCredit, annotation, competence, knowledge, skill, pictures, yearData, disciplineBlockId, courses, nameFull));
               
-            });
-
+            });            
             
             $scope.ifSubdivChosen = function () {
               return Boolean($scope.alldisciplines);
@@ -515,13 +531,13 @@ angular.module('ecampusApp')
               //data is what you are editing  (current row in the table). Variables with e-name.
               //duting editing it is another, check out and be careful
               
-              /*for (var i = 0; i < $scope.alldisciplines.length; i++) {
+              for (var i = 0; i < $scope.alldisciplines.length; i++) {
                 if (($scope.alldisciplines[i].okr == data.okr) && ($scope.alldisciplines[i].blockName == data.blockName) && ($scope.alldisciplines[i].nameUkr == data.nameUkr)) {
                   console.log("повтор");
                   $scope.SendSubdivisionToServer();
                   return;
                 }
-              }*/
+              }
               var url = "SelectiveDiscipline/BlocksDispline";
               var method = "";
               var BlockId = getBlockIdByName($scope.tempListData.dcBlock8, data.blockName),
@@ -532,7 +548,7 @@ angular.module('ecampusApp')
                 Competence = proposition.competence,
                 Skill = proposition.skill,
                 Annotation = proposition.annotation,
-                Picture = "",
+                Picture = $scope.newData.Images,
                 CountCredit = data.countCredit,
                 disciplineBlockId = proposition.disciplineBlockId,
                 Course1 = true,
@@ -578,7 +594,7 @@ angular.module('ecampusApp')
                   };
                 }
 
-              if (proposition.pictures) {
+              if (proposition.pictures) {                
                 Picture = proposition.pictures.substring(23);
               }
 
@@ -595,7 +611,9 @@ angular.module('ecampusApp')
                 //Picture = "";
               }
               var newRowProposition = new PropositionModel(BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId, Knowledge, Competence, Skill, Annotation, CountCredit, Picture, disciplineBlockId, Course1, Course2, Course3, Course4, Course5, Course6);
-  
+              
+              console.log("newRowProposition ",newRowProposition);
+              console.log("$scope.newData ", $scope.newData)
               Api.execute(method, url, newRowProposition)
                 .then(function (response) {
   
@@ -1190,11 +1208,13 @@ angular.module('ecampusApp')
 
                 });                
             }
-        }
+        }      
 
-        
-
-
+    $scope.makeEvent = function(id) {
+      console.log("is", id);
+      $scope.idFilePreview = id;
+      document.getElementById("imgInp"+id).addEventListener('change', handleFileSelect, false);
+    }
 
     function handleFileSelect(evt) {
       var files = evt.target.files;
@@ -1207,9 +1227,9 @@ angular.module('ecampusApp')
         reader.onload = (function (theFile) {
           return function (e) {
 
-            var currImg = document.getElementById('preview');
+            var currImg = document.getElementById('imgPreview' + $scope.idFilePreview);
             currImg.src = e.target.result;
-            
+            //$scope.newData.Images = "";
             $scope.newData.Images = currImg.src.substring(23); //without data:image/jpeg;base64, part at the beginning
             currImg.title = escape(theFile.name);
 
@@ -1217,11 +1237,12 @@ angular.module('ecampusApp')
         })(files[0]);
 
         reader.readAsDataURL(files[0]);
+      } 
+      else {
+        console.log("img is not ok");  
+        $scope.newData.Images = "";              
       }
     }
-
-    document.getElementById('files').addEventListener('change', handleFileSelect, false);
-
 
   });
 

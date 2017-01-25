@@ -103,6 +103,11 @@
   font-weight: normal !important;
 }
 
+.listOfTeachers {
+  text-align: left!important;
+  white-space: pre-line !important;
+}
+
 @media screen and (min-width: 768px) {
   .selectMarginTop {
     margin-top: 10px !important;
