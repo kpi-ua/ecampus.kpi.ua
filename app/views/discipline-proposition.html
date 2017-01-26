@@ -1,5 +1,6 @@
 <breadcrumbs>
   <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Пропозиції дисциплін</b>  
+  {{sortReverse}}
 </breadcrumbs>
 
 <div class="container-fluid content">
@@ -251,11 +252,11 @@
                     <td>
                       <ui-select ng-model="obj" theme="bootstrap" title="Choose a fullname" ng-show="rowformProposition2.$visible" ng-change="saveFullnameFromUiSelect(obj);" append-to-body="true">
                         <ui-select-match placeholder="Оберіть повну назву">{{$select.selected.fullName || obj.nameFull}}</ui-select-match>
-                        <ui-select-choices repeat="nameFull in forSelectFullNameNew | filter: $select.search" position="down">
-                          <div ng-bind-html="nameFull.name | highlight: $select.search"></div>
+                        <ui-select-choices repeat="currentFullName in forSelectFullNameNew | filter: $select.search" position="down">
+                          <div ng-bind-html="currentFullName.name | highlight: $select.search"></div>
                           <small>
-                            <b>ОКР:</b> <span ng-bind-html="''+nameFull.okr | highlight: $select.search"></span>
-                            <b>Освітній рівень:</b> <span ng-bind-html="''+nameFull.cathedra | highlight: $select.search"></span>
+                            <b>ОКР:</b> <span ng-bind-html="''+currentFullName.okr | highlight: $select.search"></span>
+                            <b>Освітній рівень:</b> <span ng-bind-html="''+currentFullName.cathedra | highlight: $select.search"></span>                            
                           </small>
                         </ui-select-choices>
                         <ui-select-no-choice>
