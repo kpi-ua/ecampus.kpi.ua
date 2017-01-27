@@ -34,8 +34,10 @@
         </div>
 
     </div>
-    <div class="col-md-6">
-      <a class="btn btn-success pull-right" download="Індивідуальне навантаження викладачів.xls" href="#"
+    <div class="col-md-12">
+      <a class="btn btn-success pull-right"
+         ng-class="{disabled:semesters == null}"
+         download="Індивідуальне навантаження викладачів.xls" href="#"
          onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
         <i class="fa fa-file-excel-o "></i> Завантажини звіт
       </a>
@@ -46,10 +48,10 @@
 
     <div class="col-md-12">
 
-      <div class="nPPBody">
+      <div class="nPPBody" ng-show="semesters != null">
 
         <div class="row">
-          <div class="col-md-12 ">
+          <div class="col-md-12">
 
             <!-- Only required for left/right tabs -->
             <ul class="nav nav-tabs">
@@ -58,47 +60,36 @@
               <li class="tabLiStyle"><a href="#2" data-toggle="tab" onclick="event.preventDefault()">Друге півріччя
                 (весняний семестр)</a></li>
             </ul>
-            <div class="tab-content">
-              <div class="tab-pane" id="{{npp.semestr}}" ng-repeat="npp in npps">
-                <div class="panel panel-default" id="{{employee.id}}" ng-repeat="employee in npp.employees"
-                     ng-if="employee.subjects.length!=0" ng-click="showTabById(employee.id)">
+            <div class="tab-content tab-content_bordered">
+
+
+              <div class="tab-pane" id="{{$index+1}}" ng-repeat="semesterEmployees in semesters">
+                <div class="panel panel-default" id="empl{{$index}}" ng-repeat="employee in semesterEmployees"
+                     ng-if="employee.subjects.length!=0" ng-click="showTabById($index)">
                   <div class="panel-heading panelHeadingHover"
-                       ng-class="{active:employee.id==tabIdForShow}">
+                       ng-class="{active:$index==tabIdForShow}">
                     <i class="fa fa-sort-desc"></i>
                     {{employee.name}}
                     <i class="fa fa-sort-desc"></i>
                   </div>
-                  <table class="table table-bordered" ng-show="tabIdForShow==employee.id">
+                  <table class="table table-bordered" ng-show="tabIdForShow==$index">
                     <tbody>
                     <tr ng-repeat="subject in employee.subjects">
                       <td>{{subject.name}}</td>
-                      <td>{{subject.groups.join('\n')}}</td>
-                      <td>{{npp.semestr}}</td>
+                      <td>{{subject.groupsNames.join('\n')}}</td>
+                      <td>{{subject.year}}</td>
                     </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
-      <div class="hidden">
+      <div class="hidden" id="wrapper-for-download">
         <table id="table-for-download">
-          <tr>
-            <th colspan="3">Перше півріччя (осінній семестр)</th>
-          </tr>
-          <tbody id="semester1">
-
-          </tbody>
-          <tr>
-            <th colspan="3">Друге півріччя (весняний семестр)</th>
-          </tr>
-          <tbody id="semester2">
-
-          </tbody>
         </table>
       </div>
 

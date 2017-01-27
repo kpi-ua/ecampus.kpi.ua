@@ -658,3 +658,9 @@ input:checked + .side-label::after {
 .text-color_black{
   color: #000;
 }
+
+.tab-content_bordered{
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-top: 0;
+}
