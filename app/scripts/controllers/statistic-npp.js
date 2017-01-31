@@ -185,7 +185,7 @@ angular.module('ecampusApp')
 
         function FillTableRow(colspanNumber, content, isHeader) {
             var row = CreateTableRow();
-            content.forEach((cellText, i, arr)=>{
+            content.forEach(function(cellText, i, arr){
                 var cell = isHeader? CreateTableHeaderCell() :CreateTableCell();
                 cell.attr("colspan",colspanNumber);
                 cell.text(cellText);
@@ -214,16 +214,16 @@ angular.module('ecampusApp')
                     var tableForDownloadId = "table-for-download";
                     ClearTableWithId(tableForDownloadId,wrapperTableForDownloadId);
                     var tableForDownload=GetAngularDOMElement("#"+tableForDownloadId);
-                    response.forEach((employees, i, ar)=>{
+                    response.forEach(function(employees, i, ar){
                         if(i == 0){
                             tableForDownload.append(FillTableRow("3",["Перше півріччя (осінній семестр)"],true));
                         }else{
                             tableForDownload.append(FillTableRow("3",["Друге півріччя (весняний семестр)"],true));
                         }
-                        employees.forEach((employee, iter, arr)=>{
+                        employees.forEach(function(employee, iter, arr){
                             tableForDownload.append(FillTableRow("3",[employee.name],false));
                             console.log(employee);
-                            employee.subjects.forEach((subj, innerIter, arra)=>{
+                            employee.subjects.forEach(function(subj, innerIter, arra){
                                 tableForDownload.append(FillTableRow("1",[subj.name,(subj.groupsNames).join('\n'),subj.year],false));
                             });
                         });
