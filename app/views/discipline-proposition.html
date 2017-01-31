@@ -144,14 +144,23 @@
               </td>
 
 
-              <td>
+              <td>                
                 <img class="objImages" ng-src="{{obj.pictures}}" ng-if="obj.pictures" ng-show="!rowformProposition.$visible">
 
                 <div class="form-group marginBottom" ng-show="rowformProposition.$visible" ng-if="obj.okr">
                     <!--<input type="file" id="files{{index}}" name="files[]" accept="image/*" ng-click="previewFile({$index});" ng-model="obj.pictures">
                     <img class="thumb" id="preview{{$index}}" src="" alt="Зображення">-->
+                    <p>newData.Images {{newData.Images}}</p>
                     <input type='file' id="imgInp{{$index}}" accept="image/*" />
-                    <img id="imgPreview{{$index}}" class="thumb" src="#" alt="Зображення" />                  
+                    <img id="imgPreview{{$index}}" class="thumb" src="{{obj.pictures}}" alt="Зображення" />  
+                    <div style="display: inline-block; vertical-align: bottom;">
+                      <button type="button"
+                      class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
+                      ng-click="obj.pictures = ' '; removeImg();">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+
+                      </button>                
+                    </div>
                 </div>
               </td>
               <td>
