@@ -21,7 +21,19 @@ angular.module('ecampusApp')
     $scope.sectionMenu = "generalListMenu"; //studyYearMenu
     //$scope.tempListData = {};
     $scope.selectedYear = "2013-2014";
-    $scope.forSelectFullNameNew = [];    
+    $scope.forSelectFullNameNew = [];  
+    $scope.messageCurrent = "";
+
+    $scope.allMessages = [
+      "Дані було успішно збережено",
+      "Видалення даних пройшло успішно"      
+    ]; 
+
+    $scope.onSelected = function (selectedItem) {
+      setTimeout(function(){
+        $(':focus').blur();
+      })
+    };
 
     $scope.showTempData = function() {
          
@@ -654,6 +666,8 @@ angular.module('ecampusApp')
                   console.log(response);
                   $scope.SendSubdivisionToServer();
                   $scope.newData.Images = "";
+                  $scope.messageCurrent = $scope.allMessages[0];
+                  $("#messageView").addClass("hideMessage");
                 }, function (response) {
   
                   console.log(response);
@@ -766,6 +780,8 @@ angular.module('ecampusApp')
                     console.log(response);
                     //$scope.SendSubdivisionToServer();
                     $scope.reloadData();
+                    $scope.messageCurrent = $scope.allMessages[1];
+                    $("#messageView").addClass("hideMessage");
                   }, function (response) {                    
                     console.log(response);
                   });                

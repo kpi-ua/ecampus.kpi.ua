@@ -1,6 +1,5 @@
 <breadcrumbs>
-  <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Пропозиції дисциплін</b>  
-  {{sortReverse}}
+  <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Пропозиції дисциплін</b>    
 </breadcrumbs>
 
 <div class="container-fluid content">
@@ -24,6 +23,11 @@
                 <option></option>
               </select>
             </div>
+            <div class="col-md-12 paddingTop20" ng-show="messageCurrent != ''" id="messageView">
+              <div class="alert alert-success">
+                {{messageCurrent}}
+              </div>
+            </div>              
 
           </div>
 
@@ -147,32 +151,29 @@
               <td>                
                 <img class="objImages" ng-src="{{obj.pictures}}" ng-if="obj.pictures" ng-show="!rowformProposition.$visible">
 
-                <div class="form-group marginBottom" ng-show="rowformProposition.$visible" ng-if="obj.okr">
-                    <!--<input type="file" id="files{{index}}" name="files[]" accept="image/*" ng-click="previewFile({$index});" ng-model="obj.pictures">
-                    <img class="thumb" id="preview{{$index}}" src="" alt="Зображення">-->
-                    <p>newData.Images {{newData.Images}}</p>
-                    <input type='file' id="imgInp{{$index}}" accept="image/*" />
-                    <img id="imgPreview{{$index}}" class="thumb" src="{{obj.pictures}}" alt="Зображення" />  
-                    <div style="display: inline-block; vertical-align: bottom;">
-                      <button type="button"
-                      class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
+                <div class="form-group marginBottom imgPreview" ng-show="rowformProposition.$visible" ng-if="obj.okr">
+                                  
+                    <label for="imgInp{{$index}}" class="btn patterns__table-button patterns__table-button_CRUD-button displayInlineBlock">
+                      <i class="fa fa-upload marginTop9px" aria-hidden="true"></i>
+                    </label>
+
+                    <button type="button"
+                      class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete displayInlineBlock"
                       ng-click="obj.pictures = ' '; removeImg();">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 
-                      </button>                
-                    </div>
+                    </button>                
+                    
+                    <input type='file' class="displayNone" id="imgInp{{$index}}" accept="image/*" />
+                    <img id="imgPreview{{$index}}" class="thumb" src="{{obj.pictures}}" alt="Зображення" />  
+                    
+                                    
                 </div>
               </td>
-              <td>
-                
-                <!--<span e-form="rowformProposition" e-name="Courses" editable-checklist="user.status" e-ng-options="s.value as s.text for s in statuses">
-                  {{ showStatus() }}
-                </span>-->
-                
+              <td>                                             
                 <span e-form="rowformProposition" e-name="courses" editable-checklist="obj.courses" e-ng-options="currCourse as currCourse for currCourse in allCourses">
                   {{ showStatus(obj) }}
-                </span>
-                
+                </span>                
               </td>
               <!--<td>
                       <span editable-number="obj.countCredit" e-name="countCredit" e-form="rowformProposition"
@@ -259,7 +260,7 @@
                   </tr>
                   <tr ng-repeat="obj in studyYearData">
                     <td>
-                      <ui-select ng-model="obj" theme="bootstrap" title="Choose a fullname" ng-show="rowformProposition2.$visible" ng-change="saveFullnameFromUiSelect(obj);" append-to-body="true">
+                      <ui-select ng-model="obj" theme="bootstrap" title="Choose a fullname" ng-show="rowformProposition2.$visible" ng-change="saveFullnameFromUiSelect(obj); " append-to-body="true" on-select="onSelected($item)">
                         <ui-select-match placeholder="Оберіть повну назву">{{$select.selected.fullName || obj.nameFull}}</ui-select-match>
                         <ui-select-choices repeat="currentFullName in forSelectFullNameNew | filter: $select.search" position="down">
                           <div ng-bind-html="currentFullName.name | highlight: $select.search"></div>
@@ -630,7 +631,7 @@
                   </tr>
                   <tr class="d-s-table patterns__table-button">
                     <td colspan="2" class="text-center" ng-click="addLecturer()">
-                      <i class="fa fa-plus" aria-hidden="true"></i>Додати лектора
+                      <i class="fa fa-plus" aria-hidden="true"></i>Додати викладача
                     </td>
                   </tr>
                   <tr ng-repeat="lecturer in dataWithLecturers.employee">
