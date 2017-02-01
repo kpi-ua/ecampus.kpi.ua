@@ -88,9 +88,6 @@
   z-index: 1060 !important;
 }
 
-/*.minWidthCourses {
-  max-width: 90px !important;
-}*/
 
 .overflowHorizontal {
   overflow: hidden !important;
@@ -108,15 +105,59 @@
   white-space: pre-line !important;
 }
 
+.paddingTop20 {
+  padding-top: 20px;
+}
+
+.hideMessage {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+@keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        overflow:hidden;
+    }
+}
+@-webkit-keyframes cssAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility:hidden;
+    }
+}
+
+.ui-select-match-text > span {
+    width: 20%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    padding-right: 40px;
+    margin-right: 40px;
+}
+
+.marginTop9px {
+  margin-top: 9px;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.displayInlineBlock {
+  display: inline-block;
+}
+
 @media screen and (min-width: 768px) {
   .selectMarginTop {
     margin-top: 10px !important;
   }
 }
-
-/*@media screen and (min-width: 768px) {
-  .fixedSizeOnScreen{
-    table-layout: fixed;
-    word-wrap: break-word;
-  }
-}*/

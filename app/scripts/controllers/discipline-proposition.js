@@ -21,7 +21,19 @@ angular.module('ecampusApp')
     $scope.sectionMenu = "generalListMenu"; //studyYearMenu
     //$scope.tempListData = {};
     $scope.selectedYear = "2013-2014";
-    $scope.forSelectFullNameNew = [];    
+    $scope.forSelectFullNameNew = [];  
+    $scope.messageCurrent = "";
+
+    $scope.allMessages = [
+      "Дані було успішно збережено",
+      "Видалення даних пройшло успішно"      
+    ]; 
+
+    $scope.onSelected = function (selectedItem) {
+      setTimeout(function(){
+        $(':focus').blur();
+      })
+    };
 
     $scope.showTempData = function() {
          
@@ -77,8 +89,7 @@ angular.module('ecampusApp')
             //$scope.studyYearData[i].name = name;
             //$scope.studyYearData[i].okr = okr;
             //$scope.studyYearData[i].cathedra = cathedra;   
-                              console.log("$scope.alldisciplines");
-                              console.log($scope.alldisciplines);
+                              
 
         for (var i=0; i<listOfFullnames.length; i++) {   
           ifExist = false;
@@ -98,11 +109,6 @@ angular.module('ecampusApp')
             }
           }
         }       
-        console.log("$scope.forSelectFullNameNew");
-        console.log($scope.forSelectFullNameNew);
-        console.log("$scope.forSelectFullname");
-        console.log($scope.forSelectFullname);
-
       }
     };
 
@@ -461,6 +467,9 @@ angular.module('ecampusApp')
             $scope.addProposition = function () {
               //show or hide adding row in the Proposition-table
               if (!ifWantToAddRowData) {
+                if ($scope.sortReverse) {
+                  $scope.sortReverse = !$scope.sortReverse;
+                }
                 $scope.insertedProposition = {
                   okr: "",
                   blockName: "",
@@ -475,7 +484,17 @@ angular.module('ecampusApp')
                   disciplineBlockId: ""
                 };
 
-                $scope.alldisciplines.unshift($scope.insertedProposition);                  
+                $scope.alldisciplines.unshift($scope.insertedProposition);                    
+                console.log("unshift: ", $scope.alldisciplines);
+                /*if (!$scope.sortReverse) {                  
+                  $scope.alldisciplines.unshift($scope.insertedProposition);                    
+                  console.log("unshift: ", $scope.alldisciplines);
+                }
+                else {
+                  $scope.alldisciplines.push($scope.insertedProposition);                    
+                  console.log("push: ", $scope.alldisciplines); 
+                }*/
+                
                 ifWantToAddRowData = true;
               }
             }
@@ -483,6 +502,9 @@ angular.module('ecampusApp')
             $scope.addYear = function () {
               //objYear.studyYear.name
               if (!ifWantToAddRowData) {
+                if ($scope.sortReverse) {
+                  $scope.sortReverse = !$scope.sortReverse;
+                }
                 var currentYear = UniqueElemsInList.setCurrentYear($scope.tempListData.years);
                 $scope.insertedYear = {
                   //studyYear: UniqueElemsInList.setCurrentYear($scope.tempListData.cdiscipleneblockyear8),
@@ -502,6 +524,9 @@ angular.module('ecampusApp')
             $scope.addPropositionOnStudyYear = function() {
               //$scope.studyYearData
               if (!ifWantToAddRowData) {
+                if ($scope.sortReverse) {
+                  $scope.sortReverse = !$scope.sortReverse;
+                }
                 $scope.insertedPropositionOnStudyYear = {
                   employee: {},
                   maxCountStudent: "",
@@ -516,6 +541,9 @@ angular.module('ecampusApp')
 
             $scope.addLecturer = function() {              
               if (!ifWantToAddRowData) {
+                if ($scope.sortReverse) {
+                  $scope.sortReverse = !$scope.sortReverse;
+                }
                 $scope.insertedLecturer = {
                   id: "",
                   fullName: ""                  
@@ -529,7 +557,10 @@ angular.module('ecampusApp')
             $scope.saveProposition = function (data, proposition) {
               //data is what you are editing  (current row in the table). Variables with e-name.
               //duting editing it is another, check out and be careful
-              
+              console.log("data, proposition, $scope.newData.Images");
+              console.log(data);
+              console.log(proposition);
+              console.log("ккк",$scope.newData.Images, "ккк");
               
               var url = "SelectiveDiscipline/BlocksDispline";
               var method = "";
@@ -541,7 +572,7 @@ angular.module('ecampusApp')
                 Competence = proposition.competence,
                 Skill = proposition.skill,
                 Annotation = proposition.annotation,
-                Picture = $scope.newData.Images,
+                Picture = "",
                 CountCredit = data.countCredit,
                 disciplineBlockId = proposition.disciplineBlockId,
                 Course1 = true,
@@ -549,7 +580,26 @@ angular.module('ecampusApp')
                 Course3 = true,
                 Course4 = true,
                 Course5 = true,
-                Course6 = true;
+                Course6 = true;            
+
+                
+
+                if (($scope.newData.Images != "")&&($scope.newData.Images != " ")) {
+                  Picture = $scope.newData.Images;
+                  console.log("Picture = $scope.newData.Images;");
+                }
+                else {
+                  if ($scope.newData.Images == " ") {
+                    Picture = "";
+                    console.log('Picture = "";');
+                  }
+                  else {
+                    if ((proposition.pictures!= "")&&($scope.newData.Images=="")&&(proposition.pictures)) {
+                      Picture = proposition.pictures.substring(23);
+                      console.log("Picture = proposition.pictures.substring(23);");
+                    }
+                  }
+                }
 
                 /*for (var key in proposition) {
                     console.log( "Ключ: " + key + " значение: " + proposition[key] );
@@ -587,11 +637,7 @@ angular.module('ecampusApp')
                       break;
                     };
                   }
-                }
-
-              if (proposition.pictures) {                
-                Picture = proposition.pictures.substring(23);
-              }
+                }              
 
               if (proposition.disciplineBlockId) {
                 url = url + "/" + proposition.disciplineBlockId;
@@ -612,14 +658,16 @@ angular.module('ecampusApp')
                 //Picture = "";                
               }
               var newRowProposition = new PropositionModel(BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId, Knowledge, Competence, Skill, Annotation, CountCredit, Picture, disciplineBlockId, Course1, Course2, Course3, Course4, Course5, Course6);
-              
-              console.log("newRowProposition ",newRowProposition);
-              console.log("$scope.newData ", $scope.newData)
+
+              console.log("newRowProposition - .", newRowProposition,".");
               Api.execute(method, url, newRowProposition)
                 .then(function (response) {
   
                   console.log(response);
                   $scope.SendSubdivisionToServer();
+                  $scope.newData.Images = "";
+                  $scope.messageCurrent = $scope.allMessages[0];
+                  $("#messageView").addClass("hideMessage");
                 }, function (response) {
   
                   console.log(response);
@@ -642,14 +690,12 @@ angular.module('ecampusApp')
                 IsApproved = getApprovedByName($scope.testIsApproved, data.isApproved),
                 DisciplineBlock8Id;
               if ($scope.sectionMenu == "studyYearMenu") {                              
-                if ($scope.selectedNameFull) {
-                  DisciplineBlock8Id = $scope.selectedNameFull.disciplineBlockId;  
+                if (($scope.selectedNameFull)&&(!angular.equals($scope.selectedNameFull, {}))) {
+                  DisciplineBlock8Id = $scope.selectedNameFull.disciplineBlockId;                    
                 }
-                else {
-                  console.log("$scope.forSelectFullNameNew: ",$scope.forSelectFullNameNew);
+                else {                  
                   //DisciplineBlock8Id = getDisciplineBlockIdByFullName($scope.forSelectFullNameNew, year.nameFull);
-                  DisciplineBlock8Id = year.id;
-                  console.log("DisciplineBlock8Id: ", DisciplineBlock8Id);
+                  DisciplineBlock8Id = year.id;                  
                 }
                 
                 
@@ -734,6 +780,8 @@ angular.module('ecampusApp')
                     console.log(response);
                     //$scope.SendSubdivisionToServer();
                     $scope.reloadData();
+                    $scope.messageCurrent = $scope.allMessages[1];
+                    $("#messageView").addClass("hideMessage");
                   }, function (response) {                    
                     console.log(response);
                   });                
@@ -791,6 +839,12 @@ angular.module('ecampusApp')
                   });               
               }
             };            
+
+            $scope.removeImg = function() {
+              var currImg = document.getElementById('imgPreview' + $scope.idFilePreview);
+              currImg.src = " ";              
+              $scope.newData.Images = " ";
+            };
 
             $scope.addDescription = function () {
 
@@ -984,7 +1038,7 @@ angular.module('ecampusApp')
           //{Id}/{studyyear}"
       if ($scope.ifCathedraAndYearChosen()) {
         url = url + "/" + $scope.selectedDiscipline.id + "/" + $scope.selectedYear.name;
-        console.log(url);
+        
         Api.execute(method, url)
         .then(function (response) {
           $scope.studyYearData = response;
@@ -998,8 +1052,7 @@ angular.module('ecampusApp')
           //for (var i=0; i< $scope.forSelectFullNameNew.length; i++) {
             //console.log($scope.forSelectFullNameNew);
           //}
-          console.log("after $scope.studyYearData ");
-          console.log($scope.studyYearData);
+          
         }, function (response) {
           
           
@@ -1206,10 +1259,10 @@ angular.module('ecampusApp')
 
                 });                
             }
-        }      
+        }    
 
     $scope.makeEvent = function(id) {
-      console.log("is", id);
+      console.log("id", id);
       $scope.idFilePreview = id;
       document.getElementById("imgInp"+id).addEventListener('change', handleFileSelect, false);
     }
@@ -1217,6 +1270,7 @@ angular.module('ecampusApp')
     function handleFileSelect(evt) {
       var files = evt.target.files;
       $scope.currImgFormat = files[0].type;
+      var currImg = document.getElementById('imgPreview' + $scope.idFilePreview);
       //h('image.*')
       if (((files[0].type == "image/png") || (files[0].type == "image/jpeg") || (files[0].type == "image/gif")) && (files[0].size < 65535)) {
         var reader = new FileReader();
@@ -1224,10 +1278,8 @@ angular.module('ecampusApp')
 
         reader.onload = (function (theFile) {
           return function (e) {
-
-            var currImg = document.getElementById('imgPreview' + $scope.idFilePreview);
-            currImg.src = e.target.result;
-            //$scope.newData.Images = "";
+            
+            currImg.src = e.target.result;                        
             $scope.newData.Images = currImg.src.substring(23); //without data:image/jpeg;base64, part at the beginning
             currImg.title = escape(theFile.name);
 
@@ -1239,6 +1291,7 @@ angular.module('ecampusApp')
       else {
         console.log("img is not ok");  
         $scope.newData.Images = "";              
+        currImg.src = " ";
       }
     }
 
