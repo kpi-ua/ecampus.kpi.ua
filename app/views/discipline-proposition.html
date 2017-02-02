@@ -260,8 +260,8 @@
                   </tr>
                   <tr ng-repeat="obj in studyYearData">
                     <td>
-                      <ui-select ng-model="obj" theme="bootstrap" title="Choose a fullname" ng-show="rowformProposition2.$visible" ng-change="saveFullnameFromUiSelect(obj); " append-to-body="true" on-select="onSelected($item)">
-                        <ui-select-match placeholder="Оберіть повну назву">{{$select.selected.fullName || obj.nameFull}}</ui-select-match>
+                      <ui-select ng-model="obj" theme="bootstrap" title="Choose a fullname" ng-show="rowformProposition2.$visible" ng-change="saveFullnameFromUiSelect(obj); " append-to-body="true" on-select="onSelected($item)" class="uiSelectFullname">
+                        <ui-select-match placeholder="Оберіть повну назву" class="uiSelectMatchFullname">{{$select.selected.fullName || obj.nameFull}}</ui-select-match>
                         <ui-select-choices repeat="currentFullName in forSelectFullNameNew | filter: $select.search" position="down">
                           <div ng-bind-html="currentFullName.name | highlight: $select.search"></div>
                           <small>
