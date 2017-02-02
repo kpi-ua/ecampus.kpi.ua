@@ -1,0 +1,59 @@
+
+<div class="row">
+    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Навчальний рік</label>
+    <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
+            ng-model="selectData.studyYear">
+        <option ng-repeat="studyYear in options.StudyYears" value="{{studyYear.name}}">
+            {{studyYear.name}}
+        </option>
+    </select>
+</div>
+<div class="row">
+    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label select-form__label_ui ">Випускова кафедра</label>
+    <ui-select class="col-md-8 col-sm-8 col-xs-12 select-form__select select-form__select_ui"
+               ng-model="$parent.selectedData.departmentId" append-to-body="false">
+        <ui-select-match placeholder="Оберіть кафедру...">
+            <span ng-bind="$select.selected.name"></span>
+        </ui-select-match>
+        <ui-select-choices
+                repeat="department in (options.Departments) track by department.id">
+            <span ng-bind="department.name"></span>
+        </ui-select-choices>
+    </ui-select>
+</div>
+<div class="row">
+    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Освітньо-кваліфікаційний рівень</label>
+    <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
+            ng-model="selectData.okrId">
+        <option ng-repeat="okr in options.Okrs" value="{{okr.id}}">
+            {{okr.name}}
+        </option>
+    </select>
+</div>
+<div class="row">
+    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Напрям підготовки</label>
+    <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
+            ng-model="selectData.specializationId">
+        <option ng-repeat="specialization in options.Specializations" value="{{specialization.id}}">
+            {{specialization.code}} {{specialization.name}}
+        </option>
+    </select>
+</div>
+<div class="row">
+    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Форма навчання</label>
+    <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
+            ng-model="selectData.studyFormId">
+        <option ng-repeat="studyForm in options.StudyForms" value="{{studyForm.id}}" >
+            {{studyForm.name}}
+        </option>
+    </select>
+</div>
+<div class="row">
+    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">XML код РНП</label>
+    <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
+            ng-model="selectData.xmlCodeId">
+        <option ng-repeat="xmlCode in options.XmlCodes" value="{{xmlCode.id}}">
+            {{xmlCode.name}}
+        </option>
+    </select>
+</div>
