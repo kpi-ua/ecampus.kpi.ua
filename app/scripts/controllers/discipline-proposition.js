@@ -25,8 +25,11 @@ angular.module('ecampusApp')
     $scope.messageCurrent = "";
 
     $scope.allMessages = [
-      "Дані було успішно збережено",
-      "Видалення даних пройшло успішно"      
+      "Дані було успішно збережено.",
+      "Видалення даних пройшло успішно.",
+      "Не вдалося зберегти дані. Така інформація вже існує.",
+      "Не вдалося зберегти дані. Перевірте коректність інформації та стан підключення до Інтернету.",
+      "Не вдалося видалити дані. Перевірте стан підключення до Інтернету."      
     ]; 
 
     $scope.onSelected = function (selectedItem) {
@@ -44,7 +47,8 @@ angular.module('ecampusApp')
     }
 
     $scope.saveFullnameFromUiSelect = function(nameFull) {
-      $scope.selectedNameFull = nameFull;      
+      $scope.selectedNameFull = nameFull;    
+      $scope.selectedNameFullEdited = 1;  
     }
 
     $scope.loadLecturers = function (namePattern) {
@@ -85,10 +89,7 @@ angular.module('ecampusApp')
         listOfFullnames.sort();
 
             
-            
-            //$scope.studyYearData[i].name = name;
-            //$scope.studyYearData[i].okr = okr;
-            //$scope.studyYearData[i].cathedra = cathedra;   
+             
                               
 
         for (var i=0; i<listOfFullnames.length; i++) {   
@@ -402,6 +403,10 @@ angular.module('ecampusApp')
             $scope.getCurrentYearData = function (currentData) {
               $scope.CurrentYearData = currentData;
               $scope.CurrentData = currentData;
+              $scope.allYearsList = [];             
+              for (var i=0; i<$scope.CurrentYearData.yearData.length; i++) {
+                $scope.allYearsList.push($scope.CurrentYearData.yearData[i].studyYear.name);
+              }
               
               //$scope.showUaWords($scope.CurrentYearData);
             };
@@ -486,15 +491,7 @@ angular.module('ecampusApp')
 
                 $scope.alldisciplines.unshift($scope.insertedProposition);                    
                 console.log("unshift: ", $scope.alldisciplines);
-                /*if (!$scope.sortReverse) {                  
-                  $scope.alldisciplines.unshift($scope.insertedProposition);                    
-                  console.log("unshift: ", $scope.alldisciplines);
-                }
-                else {
-                  $scope.alldisciplines.push($scope.insertedProposition);                    
-                  console.log("push: ", $scope.alldisciplines); 
-                }*/
-                
+     
                 ifWantToAddRowData = true;
               }
             }
@@ -649,6 +646,8 @@ angular.module('ecampusApp')
                   if (($scope.alldisciplines[i].okr == data.okr) && ($scope.alldisciplines[i].blockName == data.blockName) && ($scope.alldisciplines[i].nameUkr == data.nameUkr)) {
                     console.log("повтор");
                     $scope.reloadData();
+                    //$scope.addMessage(2);
+                    return;
                   }
                 }
                 Knowledge = null;
@@ -666,10 +665,10 @@ angular.module('ecampusApp')
                   console.log(response);
                   $scope.SendSubdivisionToServer();
                   $scope.newData.Images = "";
-                  $scope.messageCurrent = $scope.allMessages[0];
-                  $("#messageView").addClass("hideMessage");
+                  //$scope.addMessage(0);
+                  
                 }, function (response) {
-  
+                  //$scope.addMessage(3);
                   console.log(response);
                 });
   
@@ -682,7 +681,8 @@ angular.module('ecampusApp')
               console.log($scope.selectedNameFull);
               console.log(year);
               var url = "SelectiveDiscipline/BlocksDisplineYear";
-              var method = "";
+              var method = "";       
+                                  
               var //$scope.CurrentYearData.disciplineBlockId,
                 //cDisciplineBlock8Id
                 StudyYear = {},
@@ -697,6 +697,7 @@ angular.module('ecampusApp')
                   //DisciplineBlock8Id = getDisciplineBlockIdByFullName($scope.forSelectFullNameNew, year.nameFull);
                   DisciplineBlock8Id = year.id;                  
                 }
+                
                 
                 
 
@@ -717,9 +718,54 @@ angular.module('ecampusApp')
                 //url = url + "/" + $scope.CurrentYearData.disciplineBlockId;
                 method = "PUT";
                 url = url + "/" + year.idBlockYear;
+                if ($scope.sectionMenu != "studyYearMenu") {                              
+                  for (var i=0; i<$scope.allYearsList.length; i++) {
+                    if ((data.studyYear == $scope.allYearsList[i] )&&(data.studyYear != year.studyYear.name)) {                    
+                      $scope.reloadData();
+                      //$scope.addMessage(2);
+                      console.log("error while edit");
+                      return;
+                    }
+                  }
+                }
+                else {
+                  for (var i=0; i<$scope.allDisciplinesList.length; i++) {
+                    if ((DisciplineBlock8Id == $scope.allDisciplinesList[i])&&($scope.selectedNameFullEdited == 1))  {
+                      console.log(i," ",$scope.selectedNameFullEdited);
+                      $scope.reloadData();
+                      //$scope.addMessage(2);
+
+                      console.log("error while edit right");
+                      return;
+                    }
+                  }
+                }                
               }
               else {
                 method = "POST";
+                if ($scope.sectionMenu != "studyYearMenu") {                              
+                  for (var i=0; i<$scope.allYearsList.length; i++) {
+                    if (data.studyYear == $scope.allYearsList[i] ) {                    
+                      $scope.reloadData();
+                      //$scope.addMessage(2);
+                      console.log("error while add");
+                      return;
+                    }
+                  }
+                }
+                else {
+                  for (var i=0; i<$scope.allDisciplinesList.length; i++) {
+                    console.log("$scope.allDisciplinesList[i]",$scope.allDisciplinesList[i]);
+                    console.log("DisciplineBlock8Id",DisciplineBlock8Id)
+                    if ((DisciplineBlock8Id == $scope.allDisciplinesList[i])||($scope.selectedNameFullEdited != 1))  {
+                      $scope.reloadData();
+                      //$scope.addMessage(2);
+                      console.log("error while add right");
+                      return;
+                    }
+                  }
+
+                }
               }   
 
               console.log("new checking obj before sending");
@@ -735,8 +781,11 @@ angular.module('ecampusApp')
                   $scope.selectedNameFull = {};
                   $scope.SendSubdivisionToServer();
                   $scope.initializeStudyYear();
+                  //$scope.addMessage(0);
+                  $scope.selectedNameFullEdited = 0;
                 }, function (response) {
-                  
+                  //$scope.addMessage(3);
+                  $scope.selectedNameFullEdited = 0;
                   console.log(response);
                 });
 
@@ -763,7 +812,9 @@ angular.module('ecampusApp')
                   $scope.selectedLecturer = {};              
                   $scope.SendSubdivisionToServer();
                   $scope.initializeStudyYear();
-                }, function (response) {                  
+                  //$scope.addMessage(0);
+                }, function (response) {     
+                  //$scope.addMessage(3);             
                   console.log(response);
                 });
 
@@ -780,9 +831,9 @@ angular.module('ecampusApp')
                     console.log(response);
                     //$scope.SendSubdivisionToServer();
                     $scope.reloadData();
-                    $scope.messageCurrent = $scope.allMessages[1];
-                    $("#messageView").addClass("hideMessage");
-                  }, function (response) {                    
+                    //$scope.addMessage(1);                 
+                  }, function (response) {    
+                    //$scope.addMessage(4);                    
                     console.log(response);
                   });                
               }
@@ -797,8 +848,10 @@ angular.module('ecampusApp')
                     console.log(response);
                     /*$('#ModalTableApproved').modal('hide');
                     $scope.SendSubdivisionToServer();*/
+                    //$scope.addMessage(1);
                     $scope.reloadData();
-                  }, function (response) {                    
+                  }, function (response) {     
+                    //$scope.addMessage(4);                   
                     console.log(response);
                   });                
               }
@@ -813,9 +866,11 @@ angular.module('ecampusApp')
                   .then(function (response) {                    
                     console.log(response);                    
                     $scope.reloadData();
+                    //$scope.addMessage(1);
                     /*$scope.SendSubdivisionToServer();
                     $scope.initializeStudyYear();*/
-                  }, function (response) {                    
+                  }, function (response) {     
+                    //$scope.addMessage(4);                   
                     console.log(response);
                   });               
               }
@@ -831,10 +886,12 @@ angular.module('ecampusApp')
                   .then(function (response) {                    
                     console.log(response);         
                     $scope.reloadData();
+                    //$scope.addMessage(1);
                     /*$('#ModalAddLecturer').modal('hide');             
                     $scope.SendSubdivisionToServer();
                     $scope.initializeStudyYear();*/
-                  }, function (response) {                    
+                  }, function (response) {     
+                    //$scope.addMessage(4);               
                     console.log(response);
                   });               
               }
@@ -847,7 +904,6 @@ angular.module('ecampusApp')
             };
 
             $scope.addDescription = function () {
-
               var BlockId = getBlockIdByName($scope.tempListData.dcBlock8, $scope.CurrentYearData.blockName),
                 DisciplineId = getDisciplineIdByName($scope.tempListData.dcDiscipline8, $scope.CurrentYearData.nameUkr),
                 DcOKRId = getOkrIdByName($scope.tempListData.okr, $scope.CurrentYearData.okr),
@@ -857,7 +913,7 @@ angular.module('ecampusApp')
                 Skill = $scope.CurrentYearData.skill,
                 Annotation = $scope.CurrentYearData.annotation,
                 CountCredit = $scope.CurrentYearData.countCredit,
-                Picture = $scope.newData.Images,
+                Picture = "",
                 //$scope.newData.Images;
                 disciplineBlockId = $scope.CurrentYearData.disciplineBlockId,
                 Course1 = true,
@@ -866,6 +922,9 @@ angular.module('ecampusApp')
                 Course4 = true,
                 Course5 = true,
                 Course6 = true;
+                if ($scope.CurrentYearData.pictures) {
+                  Picture = $scope.CurrentYearData.pictures.substring(23);
+                }
 
                 for (var i=0; i<7; i++) {
                   switch ($scope.CurrentYearData.courses[i]) {
@@ -904,8 +963,9 @@ angular.module('ecampusApp')
                   console.log(response);
                   $('#ModalAdditionalInfo').modal('hide');
                   $scope.SendSubdivisionToServer();
+                  //$scope.addMessage(0);
                 }, function (response) {
-                  
+                  //$scope.addMessage(3);
                   console.log(response);
                 });
             }
@@ -1042,11 +1102,14 @@ angular.module('ecampusApp')
         Api.execute(method, url)
         .then(function (response) {
           $scope.studyYearData = response;
+          console.log("$scope.studyYearData",$scope.studyYearData);
           
-          $scope.selectedNamefull = {};          
+          $scope.selectedNamefull = {};      
+          $scope.allDisciplinesList = [];
 
           for (var i=0; i<$scope.studyYearData.length; i++){        
-            $scope.studyYearData[i].isApproved = $scope.showUaWords($scope.studyYearData[i]);            
+            $scope.studyYearData[i].isApproved = $scope.showUaWords($scope.studyYearData[i]);    
+            $scope.allDisciplinesList.push($scope.studyYearData[i].id);        
           }          
 
           //for (var i=0; i< $scope.forSelectFullNameNew.length; i++) {
@@ -1088,6 +1151,12 @@ angular.module('ecampusApp')
       $scope.SendSubdivisionToServer();
       $scope.initializeStudyYear();
     };
+
+    $scope.addMessage = function(numberOfMessage) {
+      $scope.ifMessage = true;
+      $scope.messageCurrent = $scope.allMessages[numberOfMessage];
+      $timeout(function () { $scope.ifMessage = false; }, 6000);
+    }
 
     /* Control (integer + - adding) */
     $scope.MinusCred = function () {
@@ -1287,11 +1356,15 @@ angular.module('ecampusApp')
         })(files[0]);
 
         reader.readAsDataURL(files[0]);
+        $scope.msgImg = "";
+        document.getElementById("msgImg"+$scope.idFilePreview).innerHTML = $scope.msgImg;
       } 
       else {
         console.log("img is not ok");  
         $scope.newData.Images = "";              
-        currImg.src = " ";
+        currImg.src = " ";        
+        $scope.msgImg = "Розмір зображення не повинен перевищувати 64Кб";
+        document.getElementById("msgImg"+$scope.idFilePreview).innerHTML = $scope.msgImg;
       }
     }
 
