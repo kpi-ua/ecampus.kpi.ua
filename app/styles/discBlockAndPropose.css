@@ -135,13 +135,11 @@
     }
 }
 
-.ui-select-match-text > span {
-    width: 20%;
+.uiSelectMatchFullname > span > .ui-select-match-text > span {
+    width: 94%;
     overflow: hidden;
     text-overflow: ellipsis;
-    position: absolute;
-    padding-right: 40px;
-    margin-right: 40px;
+    position: absolute;    
 }
 
 .marginTop9px {
