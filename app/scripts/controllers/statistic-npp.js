@@ -9,6 +9,11 @@
  */
 angular.module('ecampusApp')
   .controller('NppCtrl', function ($scope, $cookies, $window, Api) {
+    const NTUUKpiSubdivisionId = 9998;
+    const InstituteTypeId = 26;
+    const FacultyTypeId = 77;
+    const CampusKpiSubsystemId = 1;
+
     $scope.cathedras = [];
     $scope.subdivisions = [];
     $scope.errorLabelText = "";
@@ -58,14 +63,14 @@ angular.module('ecampusApp')
       if (typeof(sClaim.resp) == "object") {
         sClaim.resp.forEach(function (itemForEach, i, arr) {
           var itemForEachJSON = JSON.parse(itemForEach);
-          if (itemForEachJSON.Subsystem == 1) {
+          if (itemForEachJSON.Subsystem == CampusKpiSubsystemId) {
             setRadioBtnForCathedras(itemForEachJSON);
           }
         });
       } else {
         if (typeof(sClaim.resp) == "string") {
           var responsive = JSON.parse(sClaim.resp);
-          if (responsive.Subsystem == 1) {
+          if (responsive.Subsystem == CampusKpiSubsystemId) {
             setRadioBtnForCathedras(responsive);
           }
         }
@@ -91,10 +96,6 @@ angular.module('ecampusApp')
     }
 
     function setFacultyAndInstituteLogic(item, kpiQuery) {
-      const NTUUKpiSubdivisionId = 9998;
-      const InstituteTypeId = 26;
-      const FacultyTypeId = 77;
-      const CampusKpiSubsystemId = 1;
 
       kpiQuery = !!kpiQuery;
 

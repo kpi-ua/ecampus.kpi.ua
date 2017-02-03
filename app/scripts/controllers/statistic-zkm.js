@@ -9,6 +9,10 @@
  */
 angular.module('ecampusApp')
   .controller('ZkmCtrl', function ($scope, $cookies, $window, Api) {
+    const NTUUKpiSubdivisionId = 9998;
+    const InstituteTypeId = 26;
+    const FacultyTypeId = 77;
+    const CampusKpiSubsystemId = 1;
 
     $scope.cathedras = [];
     $scope.subdivisions = [];
@@ -97,16 +101,16 @@ angular.module('ecampusApp')
 
     function setFacultyAndInstituteLogic(item, kpiQuery) {
       var itemForEachJSON = JSON.parse(item);
-      if (itemForEachJSON.Subsystem == 1 ) {
+      if (itemForEachJSON.Subsystem == CampusKpiSubsystemId ) {
         var subdivisionId = itemForEachJSON.Subdivision.Id;
         var subdivisionName = itemForEachJSON.Subdivision.Name;
 
-        if (subdivisionId == 9998 && !kpiQuery ) {
+        if (subdivisionId == NTUUKpiSubdivisionId && !kpiQuery ) {
           kpiQuery = true;
           var pathFaculty = "Subdivision";
           Api.execute("GET", pathFaculty).then(function (response) {
             response.forEach(function (itemForEach) {
-              if (itemForEach.type.id == 26 || itemForEach.type.id == 77) {
+              if (itemForEach.type.id == InstituteTypeId || itemForEach.type.id == FacultyTypeId) {
                 var subdivisionName = itemForEach.name;
                 var subdivisionId = itemForEach.id;
 
