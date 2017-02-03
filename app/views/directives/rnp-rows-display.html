@@ -1,0 +1,29 @@
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr class="text-center">
+                <td>Найменування кредитного модулю</td>
+                <td>Назва кафедри</td>
+                <td>Кредитів ECTS</td>
+                <td>Лекції</td>
+                <td>Практичні (семінарські)</td>
+                <td>Лабораторні (комп. практикум)</td>
+                <td>Самостійна робота студентів</td>
+            </tr>
+        </thead>
+        <tbody ng-repeat="cycle in data">
+            <tr class="text-center">
+                <td colspan="7" class="success">{{cycle.cycleName}}</td>
+            </tr>
+        <tr ng-repeat="row in cycle.rnpRows">
+            <td>{{row.rnp.name}}</td>
+            <td>{{row.subdivisionName}}</td>
+            <td>{{row.credits}}</td>
+            <td>{{row.countLecture}}</td>
+            <td>{{row.countPractice}}</td>
+            <td>{{row.countLaboratory}}</td>
+            <td>{{row.independentStudentWork}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
