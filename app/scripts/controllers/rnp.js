@@ -41,6 +41,7 @@ angular.module('ecampusApp')
           StudyForms: [],
           XmlCodes: []
       };
+
       $scope.selectData={
           studyYear:null,
           departmentId:null,
@@ -50,19 +51,179 @@ angular.module('ecampusApp')
           xmlCodeId:null
 
       };
+
+      $scope.display= {
+          StudyGroups: [],
+          //     {
+          //         "name": "ІК-41",
+          //         "id": 8503
+          //     },
+          //     {
+          //         "name": "ІК-31",
+          //         "id": 8502
+          //     },
+          //     {
+          //         "name": "ІК-21",
+          //         "id": 8501
+          //     },
+          // ],
+          RnpRows: []
+          //     {
+          //         "cycleName": "Цикл професійної та практичної підготовки",
+          //         "rnpRows": [
+          //             {
+          //                 "rnp": {
+          //                     "name": "Теорія автоматичного управління - 2. Теорія цифрових систем управління",
+          //                     "id": 98479
+          //                 },
+          //                 "subdivisionName": "Кафедра технічної кібернетики ФІОТ",
+          //                 "credits": 3,
+          //                 "countLecture": 36,
+          //                 "countPractice": 0,
+          //                 "countLaboratory": 18,
+          //                 "independentStudentWork": 51,
+          //                 "cycleName": "Цикл професійної та практичної підготовки"
+          //             }
+          //         ]
+          //
+          //     },
+          //     {
+          //         "cycleName": "Цикл професійної та практичної підготовки 2",
+          //         "rnpRows": [
+          //             {
+          //                 "rnp": {
+          //                     "name": "Теорія автоматичного управління - 2. Теорія цифрових систем управління",
+          //                     "id": 98479
+          //                 },
+          //                 "subdivisionName": "Кафедра технічної кібернетики ФІОТ",
+          //                 "credits": 3,
+          //                 "countLecture": 36,
+          //                 "countPractice": 0,
+          //                 "countLaboratory": 18,
+          //                 "independentStudentWork": 51,
+          //                 "cycleName": "Цикл професійної та практичної підготовки"
+          //             }
+          //         ]
+          //
+          //     }
+          // ],
+      };
+      $scope.RnpRows = null;
+      // $scope.RnpRows = $scope.display.RnpRows;
+
       onInit();
       function onInit(){
           $scope.selectData.studyYear = $scope.options.StudyYears[0].name;
+          $scope.selectData.departmentId =$scope.options.Departments[0];
           // $scope.selectData.departmentId = $scope.options.Departments [0].id;
           // $scope.selectData.okrId = $scope.options.Okrs[0].id;
           // $scope.selectData.specializationId = $scope.options.Specializations[0].id;
           // $scope.selectData.studyFormId = $scope.options.StudyForms[0].id;
           // $scope.selectData.xmlCodeId =$scope.options.XmlCodes[0].id;
-
       }
-      $scope.$watch('selectData.studyYear', function () {
-          console.log($scope.selectData.studyYear);
-          console.log();
-      });
+      $scope.testDataInit = function () {
+          if($scope.RnpRows == null){
+              $scope.RnpRows = [
+                  {
+                      "cycleName": "Цикл професійної та практичної підготовки",
+                      "rnpRows": [
+                          {
+                              "rnp": {
+                                  "name": "Теорія автоматичного управління - 2. Теорія цифрових систем управління",
+                                  "id": 98479
+                              },
+                              "subdivisionName": "Кафедра технічної кібернетики ФІОТ",
+                              "credits": 3,
+                              "countLecture": 36,
+                              "countPractice": 0,
+                              "countLaboratory": 18,
+                              "independentStudentWork": 51,
+                              "cycleName": "Цикл професійної та практичної підготовки"
+                          }
+                      ]
 
+                  },
+                  {
+                      "cycleName": "Цикл професійної та практичної підготовки 2",
+                      "rnpRows": [
+                          {
+                              "rnp": {
+                                  "name": "Теорія автоматичного управління - 2. Теорія цифрових систем управління",
+                                  "id": 98479
+                              },
+                              "subdivisionName": "Кафедра технічної кібернетики ФІОТ",
+                              "credits": 3,
+                              "countLecture": 36,
+                              "countPractice": 0,
+                              "countLaboratory": 18,
+                              "independentStudentWork": 51,
+                              "cycleName": "Цикл професійної та практичної підготовки"
+                          }
+                      ]
+
+                  }
+              ];
+          }
+          else{
+              $scope.RnpRows = [
+                  {
+                      "cycleName": "Цикл професійної та практичної підготовки",
+                      "rnpRows": [
+                          {
+                              "rnp": {
+                                  "name": "Теорія автоматичного управління - 2. Теорія цифрових систем управління",
+                                  "id": 98479
+                              },
+                              "subdivisionName": "Кафедра технічної кібернетики ФІОТ",
+                              "credits": 3,
+                              "countLecture": 36,
+                              "countPractice": 0,
+                              "countLaboratory": 18,
+                              "independentStudentWork": 51,
+                              "cycleName": "Цикл професійної та практичної підготовки"
+                          }
+                      ]
+
+                  },
+                  {
+                      "cycleName": "Цикл професійної та практичної підготовки 2",
+                      "rnpRows": [
+                          {
+                              "rnp": {
+                                  "name": "Теорія автоматичного управління - 2. Теорія цифрових систем управління",
+                                  "id": 98479
+                              },
+                              "subdivisionName": "Кафедра технічної кібернетики ФІОТ",
+                              "credits": 3,
+                              "countLecture": 36,
+                              "countPractice": 0,
+                              "countLaboratory": 18,
+                              "independentStudentWork": 51,
+                              "cycleName": "Цикл професійної та практичної підготовки"
+                          }
+                      ]
+
+                  },
+                  {
+                      "cycleName": "Цикл професійної та практичної підготовки 3",
+                      "rnpRows": [
+                          {
+                              "rnp": {
+                                  "name": "Теорія автоматичного управління - 2. Теорія цифрових систем управління",
+                                  "id": 98479
+                              },
+                              "subdivisionName": "Кафедра технічної кібернетики ФІОТ",
+                              "credits": 3,
+                              "countLecture": 36,
+                              "countPractice": 0,
+                              "countLaboratory": 18,
+                              "independentStudentWork": 51,
+                              "cycleName": "Цикл професійної та практичної підготовки"
+                          }
+                      ]
+
+                  }
+              ];
+          }
+      }
   });

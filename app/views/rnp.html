@@ -7,7 +7,12 @@
     <div class="col-md-12">
 
       <h1>РНП</h1>
+
       <rnp-input></rnp-input>
+
+      <group-display ng-repeat="studyGroup in display.StudyGroups" group="studyGroup"></group-display>
+
+      <rnp-rows-display ng-show="RnpRows!= null" rows="RnpRows"></rnp-rows-display>
 
     </div>
   </div>

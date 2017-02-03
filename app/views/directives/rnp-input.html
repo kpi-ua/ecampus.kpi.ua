@@ -1,4 +1,3 @@
-
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Навчальний рік</label>
     <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
@@ -11,12 +10,12 @@
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label select-form__label_ui ">Випускова кафедра</label>
     <ui-select class="col-md-8 col-sm-8 col-xs-12 select-form__select select-form__select_ui"
-               ng-model="$parent.selectedData.departmentId" append-to-body="false">
+               ng-model="$parent.selectData.departmentId" append-to-body="false">
         <ui-select-match placeholder="Оберіть кафедру...">
-            <span ng-bind="$select.selected.name"></span>
+            <span ng-bind="$select.selected.name" ></span>
         </ui-select-match>
         <ui-select-choices
-                repeat="department in (options.Departments) track by department.id">
+                repeat="department in (options.Departments)">
             <span ng-bind="department.name"></span>
         </ui-select-choices>
     </ui-select>
