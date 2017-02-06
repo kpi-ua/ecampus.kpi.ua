@@ -759,7 +759,7 @@ label.label-disciplines-choice {
   height: 80px;
   border: 1px solid #EEE;
   text-align: center;
-  position: absolute;
+  position: fixed;
   width: 200px;
   top: calc(50vh - (/* height */100px / 2));
   left: calc(50vw - (/* width */140px / 2));
@@ -767,6 +767,18 @@ label.label-disciplines-choice {
   background: #FFF;
   padding: 10px;
   margin-top: -70px;
+
+  /*height: 100vh;*/
+  /*width: 100vw;*/
+  /*text-align: center;*/
+  /*position: fixed;*/
+  /*z-index: 1000;*/
+  /*background: rgba(255,255,255,0.3);*/
+  /*top: 0;*/
+  /*display: flex;*/
+  /*align-items: center;*/
+  /*flex-direction: column;*/
+  /*justify-content: center;*/
 }
 
 .discipline-general-count {
