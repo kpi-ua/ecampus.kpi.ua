@@ -1,7 +1,7 @@
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Навчальний рік</label>
     <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
-            ng-model="selectData.studyYear">
+            ng-model="model.studyYearName" ng-change="onChange(model.studyYearName,'StudyYear',options.StudyYears)">
         <option ng-repeat="studyYear in options.StudyYears" value="{{studyYear.name}}">
             {{studyYear.name}}
         </option>
@@ -10,8 +10,8 @@
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label select-form__label_ui ">Випускова кафедра</label>
     <ui-select class="col-md-8 col-sm-8 col-xs-12 select-form__select select-form__select_ui"
-               ng-model="$parent.selectData.departmentId" append-to-body="false">
-        <ui-select-match placeholder="Оберіть кафедру...">
+               ng-model="$parent.model.departmentItem" append-to-body="false" ng-change="onChange($select.selected,'Department')">
+        <ui-select-match placeholder="Оберіть кафедру..." class="bg-success">
             <span ng-bind="$select.selected.name" ></span>
         </ui-select-match>
         <ui-select-choices
@@ -23,8 +23,8 @@
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Освітньо-кваліфікаційний рівень</label>
     <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
-            ng-model="selectData.okrId">
-        <option ng-repeat="okr in options.Okrs" value="{{okr.id}}">
+            ng-model="model.okrName" ng-change="onChange(model.okrName,'Okr',options.Okrs)">
+        <option ng-repeat="okr in options.Okrs" value="{{okr.name}}">
             {{okr.name}}
         </option>
     </select>
@@ -32,17 +32,17 @@
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Напрям підготовки</label>
     <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
-            ng-model="selectData.specializationId">
-        <option ng-repeat="specialization in options.Specializations" value="{{specialization.id}}">
-            {{specialization.code}} {{specialization.name}}
+            ng-model="model.specializationCodeName" ng-change="onChange(model.specializationCodeName.split('  ')[1],'Specialization',options.Specializations)">
+        <option ng-repeat="specialization in options.Specializations" value="{{specialization.code}}  {{specialization.name}}">
+            {{specialization.code}}  {{specialization.name}}
         </option>
     </select>
 </div>
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">Форма навчання</label>
     <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
-            ng-model="selectData.studyFormId">
-        <option ng-repeat="studyForm in options.StudyForms" value="{{studyForm.id}}" >
+            ng-model="model.studyFormName" ng-change="onChange(model.studyFormName,'StudyForm', options.StudyForms)">
+        <option ng-repeat="studyForm in options.StudyForms" value="{{studyForm.name}}" >
             {{studyForm.name}}
         </option>
     </select>
@@ -50,8 +50,8 @@
 <div class="row">
     <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">XML код РНП</label>
     <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
-            ng-model="selectData.xmlCodeId">
-        <option ng-repeat="xmlCode in options.XmlCodes" value="{{xmlCode.id}}">
+            ng-model="model.xmlCode" ng-change="onChange(model.xmlCode,'XmlCodes', options.XmlCodes)">
+        <option ng-repeat="xmlCode in options.XmlCodes" value="{{xmlCode.name}}">
             {{xmlCode.name}}
         </option>
     </select>
