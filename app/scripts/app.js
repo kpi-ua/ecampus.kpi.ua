@@ -23,7 +23,7 @@ var app = angular.module('ecampusApp', [
 ]);
 
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider) {
 
   $locationProvider.hashPrefix('!');
 
@@ -94,13 +94,13 @@ app.config(function ($routeProvider, $locationProvider) {
       controllerAs: 'home'
     })
     .when('/bulletins-board', {
-      templateUrl: "views/bulletins-board.html",
-      controller: "HomeBulletinsBoardCtrl",
+      templateUrl: 'views/bulletins-board.html',
+      controller: 'HomeBulletinsBoardCtrl',
       controllerAs: 'board'
     })
     .when('/disciplines-choice-st', {
-      templateUrl: "views/disciplines-choice-st.html",
-      controller: "DisciplinesChoiceCtrl",
+      templateUrl: 'views/disciplines-choice-st.html',
+      controller: 'DisciplinesChoiceCtrl',
       controllerAs: 'choiceSt'
     })
     .when('/settings', {
@@ -124,8 +124,8 @@ app.config(function ($routeProvider, $locationProvider) {
       controllerAs: 'block'
     })
     .when('/disciplines-choice-t', {
-      templateUrl: "views/disciplines-choice-t.html",
-      controller: "DisciplinesChoiceTCtrl",
+      templateUrl: 'views/disciplines-choice-t.html',
+      controller: 'DisciplinesChoiceTCtrl',
       controllerAs: 'choiceT'
     })
     .when('/individual-plan', {
@@ -149,12 +149,12 @@ app.config(function ($routeProvider, $locationProvider) {
       controllerAs: 'attest'
     });
 
-    $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode(true);
 });
 
-app.run(['$rootScope', 'Api', function ($rootScope, Api) {
-  var deregister = $rootScope.$on('$routeChangeSuccess', function () {
-    angular.element(document).ready(function () {
+app.run(['$rootScope', 'Api', function($rootScope, Api) {
+  var deregister = $rootScope.$on('$routeChangeSuccess', function() {
+    angular.element(document).ready(function() {
       var isLogged = Api.getToken();
       if (isLogged) {
         Api.changeIsSessionExpiredValue(Api.removeToken());

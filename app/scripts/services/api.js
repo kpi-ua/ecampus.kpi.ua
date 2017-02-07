@@ -8,20 +8,20 @@
  * Service in the ecampusApp.
  */
 angular.module('ecampusApp')
-  .service('Api', function ($http, $rootScope, $window) {
+  .service('Api', function($http, $rootScope, $window) {
 
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
 
     $rootScope.requestCount = 0;
 
-    this.changeRequestCount = function (i) {
-      $rootScope.requestCount = $rootScope.requestCount + i;
+    this.changeRequestCount = function(i) {
+      $rootScope.requestCount++;
     };
 
     $rootScope.isSessionExpired = null;
 
-    this.changeIsSessionExpiredValue = function (value) {
+    this.changeIsSessionExpiredValue = function(value) {
       $rootScope.isSessionExpired = value;
       $rootScope.$apply();
     };
@@ -32,7 +32,7 @@ angular.module('ecampusApp')
     /**
      * Execute API method
      */
-    this.execute = function (method, path, payload) {
+    this.execute = function(method, path, payload) {
 
       var self = this;
 
@@ -40,8 +40,8 @@ angular.module('ecampusApp')
 
       payload = $.isEmptyObject(payload) ? null : payload;
 
-      if (method == "POST" || method == "PUT" || method == "DELETE") {
-        payload = !!payload ? JSON.stringify(payload) : payload;
+      if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+        payload = payload ? JSON.stringify(payload) : payload;
       }
 
       self.changeRequestCount(1);
@@ -52,20 +52,20 @@ angular.module('ecampusApp')
         data: payload,
         processData: true,
         headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": "Bearer " + self.getToken()
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + self.getToken()
         }
-      }).then(function (response) {
+      }).then(function(response) {
 
         self.changeRequestCount(-1);
 
-        if (!!response) {
+        if (response) {
           return response.data;
         }
 
         return null;
-      }, function (err) {
+      }, function(err) {
 
         console.warn(err);
         self.changeRequestCount(-1);
@@ -82,19 +82,18 @@ angular.module('ecampusApp')
 
     var tokenLimit = null;
 
-    this.removeToken = function () {
+    this.removeToken = function() {
       var self = this;
       var localStorageFinishTime = self.getLoginFinishTime();
       if (+new Date() > localStorageFinishTime) {
         //redirect and remove items from local storage after 5 seconds
-        setTimeout(function () {
+        setTimeout(function() {
           self.logout();
           self.setLoginFinishTime(null);
           $window.location.href = '/';
         }, 5000);
         return true;
-      }
-      else {
+      } else {
         return false;
       }
     };
@@ -102,26 +101,26 @@ angular.module('ecampusApp')
     /**
      * Set loginFinishTime
      */
-    this.setLoginFinishTime = function (time) {
-      localStorage["loginFinishTime"] = time;
+    this.setLoginFinishTime = function(time) {
+      localStorage['loginFinishTime'] = time;
     };
 
     /**
      * Return current loginFinishTime
      */
-    this.getLoginFinishTime = function () {
-      var time = localStorage["loginFinishTime"];
-      return time == "null" ? null : time;
+    this.getLoginFinishTime = function() {
+      var time = localStorage['loginFinishTime'];
+      return time === 'null' ? null : time;
     };
 
     /**
      * Authorize and save auth token
      */
-    this.auth = function (login, password) {
+    this.auth = function(login, password) {
       var payload = {
         username: login,
         password: password,
-        grant_type: 'password'
+        'grant_type': 'password'
       };
 
       var self = this;
@@ -132,12 +131,12 @@ angular.module('ecampusApp')
 
       return $http({
         url: self.ApiEndpoint + 'oauth/token',
-        method: "POST",
+        method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
         data: payload
-      }).then(function (response) {
+      }).then(function(response) {
 
         self.changeRequestCount(-1);
 
@@ -152,7 +151,7 @@ angular.module('ecampusApp')
 
           var session = response.data;
 
-          return self.execute("GET", "Account/Info").then(function (response) {
+          return self.execute('GET', 'Account/Info').then(function(response) {
             //get current user details
             self.setCurrentUser(response);
 
@@ -161,7 +160,7 @@ angular.module('ecampusApp')
         }
 
         return null;
-      }, function (err) {
+      }, function(err) {
         self.changeRequestCount(-1);
         console.warn(err);
         self.logout();
@@ -172,7 +171,7 @@ angular.module('ecampusApp')
     /**
      * Logout and clear current auth token
      */
-    this.logout = function () {
+    this.logout = function() {
       this.setToken(null);
       this.setCurrentUser(null);
     };
@@ -181,72 +180,69 @@ angular.module('ecampusApp')
     /**
      * Set auth token
      */
-    this.setToken = function (token) {
-      localStorage["campus-access-token"] = token;
+    this.setToken = function(token) {
+      localStorage['campus-access-token'] = token;
     };
 
     /**
      * Return current auth token
      */
-    this.getToken = function () {
-      var token = localStorage["campus-access-token"];
-      return token == "null" ? null : token;
+    this.getToken = function() {
+      var token = localStorage['campus-access-token'];
+      return token === 'null' ? null : token;
     };
 
     /**
      * Set API endpoint
      */
-    this.setApiEndpoint = function (url) {
+    this.setApiEndpoint = function(url) {
       this.ApiEndpoint = url;
     };
 
     /**
      * Get API endpoint
      */
-    this.getApiEndpoint = function () {
+    this.getApiEndpoint = function() {
       return this.ApiEndpoint;
     };
 
     /**
      * Save current user
      */
-    this.setCurrentUser = function (data) {
-      if (!!data) {
-        localStorage["campus-current-user"] = JSON.stringify(data);
-      }
-      else {
-        localStorage["campus-current-user"] = '';
+    this.setCurrentUser = function(data) {
+      if (data) {
+        localStorage['campus-current-user'] = JSON.stringify(data);
+      } else {
+        localStorage['campus-current-user'] = '';
       }
     };
 
     /**
      * Get information about current logged user
      */
-    this.getCurrentUser = function () {
-      var json = localStorage["campus-current-user"];
-      if (!!json) {
-        return JSON.parse(json);
-      }
-
+    this.getCurrentUser = function() {
+      var json = localStorage['campus-current-user'];
+      if (json) return JSON.parse(json);
       return null;
     };
 
-    this.decodeToken = function (accessTokenIn) {
+    this.decodeToken = function(accessTokenIn) {
 
-      if (!accessTokenIn || accessTokenIn == 'null') {
+      if (!accessTokenIn || accessTokenIn === 'null') {
         return null;
       }
 
-      var a = accessTokenIn.split(".");
+      var a = accessTokenIn.split('.');
       var uHeader = b64utoutf8(a[0]);
       var uClaim = b64utoutf8(a[1]);
 
       var pHeader = KJUR.jws.JWS.readSafeJSONString(uHeader);
       var pClaim = KJUR.jws.JWS.readSafeJSONString(uClaim);
 
-      var sHeader = JSON.stringify(pHeader, null, "  ");
-      var sClaim = JSON.stringify(pClaim, null, "  ");
+      var sHeader = JSON.stringify(pHeader, null, '  ');
+      var sClaim = JSON.stringify(pClaim, null, '  ');
 
       return sClaim;
-    }
+    };
+
   });

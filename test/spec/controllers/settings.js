@@ -1,15 +1,14 @@
 'use strict';
 
-describe('Controller: SettingsCtrl', function () {
+describe('Controller: SettingsCtrl', function() {
 
   // load the controller's module
   beforeEach(module('ecampusApp'));
 
-  var SettingsCtrl,
-    scope;
+  var SettingsCtrl, scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new();
     SettingsCtrl = $controller('SettingsCtrl', {
       $scope: scope
@@ -17,7 +16,7 @@ describe('Controller: SettingsCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
+  it('should attach a list of awesomeThings to the scope', function() {
     expect(SettingsCtrl.awesomeThings.length).toBe(3);
   });
 });

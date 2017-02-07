@@ -1,5 +1,6 @@
-// Generated on 2016-08-12 using generator-angular 0.15.1
 'use strict';
+
+// Generated on 2016-08-12 using generator-angular 0.15.1
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -9,7 +10,7 @@
 
 var modRewrite = require('connect-modrewrite');
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -32,7 +33,7 @@ module.exports = function (grunt) {
   // Define the configuration for all the tasks
   grunt.initConfig({
 
-    css_url_replace: {
+    'css_url_replace': {
       options: {
         staticRoot: 'public'
       },
@@ -93,7 +94,7 @@ module.exports = function (grunt) {
       livereload: {
         options: {
           open: true,
-          middleware: function (connect) {
+          middleware: function(connect) {
 
             return [
               modRewrite(['!\\.html|\\.js|\\.woff|\\.ttf|\\.css|\\.png$ /index.html [L]']),
@@ -114,7 +115,7 @@ module.exports = function (grunt) {
       test: {
         options: {
           port: 9001,
-          middleware: function (connect) {
+          middleware: function(connect) {
             return [
               connect.static('.tmp'),
               connect.static('test'),
@@ -191,7 +192,7 @@ module.exports = function (grunt) {
     postcss: {
       options: {
         processors: [
-          require('autoprefixer-core')({browsers: ['last 1 version']})
+          require('autoprefixer-core')({ browsers: ['last 1 version'] })
         ]
       },
       server: {
@@ -286,7 +287,7 @@ module.exports = function (grunt) {
             [/(images\/[^''""]*\.(png|jpg|jpeg|gif|webp|svg))/g, 'Replacing references to images']
           ],
           css: [
-            [/((..\/fonts\/)|(\(fonts\/))/g, 'Fix webfonts path 1', function (match) {
+            [/((..\/fonts\/)|(\(fonts\/))/g, 'Fix webfonts path 1', function(match) {
               return match.replace('../fonts/', '/fonts/').replace('(fonts/', '(/fonts/');
             }]
           ]
@@ -458,7 +459,7 @@ module.exports = function (grunt) {
   });
 
 
-  grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
+  grunt.registerTask('serve', 'Compile then start a connect web server', function(target) {
     if (target === 'dist') {
       return grunt.task.run(['build', 'connect:dist:keepalive']);
     }
@@ -473,7 +474,7 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
+  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function(target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
   });

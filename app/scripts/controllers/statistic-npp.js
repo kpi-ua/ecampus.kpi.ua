@@ -8,15 +8,15 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('NppCtrl', function ($scope, $cookies, $window, Api) {
-    const NTUUKpiSubdivisionId = 9998;
-    const InstituteTypeId = 26;
-    const FacultyTypeId = 77;
-    const CampusKpiSubsystemId = 1;
+  .controller('NppCtrl', function($scope, $cookies, $window, Api) {
+    var NTUUKpiSubdivisionId = 9998;
+    var InstituteTypeId = 26;
+    var FacultyTypeId = 77;
+    var CampusKpiSubsystemId = 1;
 
     $scope.cathedras = [];
     $scope.subdivisions = [];
-    $scope.errorLabelText = "";
+    $scope.errorLabelText = '';
     $scope.tabIdForShow = -1;
     $scope.npps = [];
     $scope.chosenSubdivision = null;
@@ -24,22 +24,23 @@ angular.module('ecampusApp')
     reload();
 
     function reload() {
-      if (!!Api.getToken()) {
+      if (Api.getToken()) {
         var sClaim = Api.decodeToken(Api.getToken());
-
-        if (!!sClaim) {
+        if (sClaim) {
           sClaim = JSON.parse(sClaim);
         }
       }
-
-      if (!!Api.getToken()) {
+      if (Api.getToken()) {
         setFacultyAndInstitute();
         setSubdivisionDetails();
       }
     }
 
     function getParent(obj, parentTagName) {
-      return (obj.tagName == parentTagName) ? obj : getParent(obj.parentNode, parentTagName);
+      return (
+        obj.tagName === parentTagName ?
+        obj : getParent(obj.parentNode, parentTagName)
+      );
     }
 
     function setRadioBtnForCathedras(responsive) {
@@ -47,7 +48,7 @@ angular.module('ecampusApp')
       var subdivisionId = responsive.Subdivision.Id;
       var subdivisionName = responsive.Subdivision.Name;
 
-      if (~subdivisionName.indexOf("Кафедра")) {
+      if (~subdivisionName.indexOf('Кафедра')) {
         $scope.cathedras.push({
           cathedraId: subdivisionId,
           cathedraName: subdivisionName
@@ -60,19 +61,17 @@ angular.module('ecampusApp')
       var sClaim = Api.decodeToken(Api.getToken());
       sClaim = JSON.parse(sClaim);
 
-      if (typeof(sClaim.resp) == "object") {
-        sClaim.resp.forEach(function (itemForEach, i, arr) {
+      if (typeof(sClaim.resp) === 'object') {
+        sClaim.resp.forEach(function(itemForEach, i, arr) {
           var itemForEachJSON = JSON.parse(itemForEach);
-          if (itemForEachJSON.Subsystem == CampusKpiSubsystemId) {
+          if (itemForEachJSON.Subsystem === CampusKpiSubsystemId) {
             setRadioBtnForCathedras(itemForEachJSON);
           }
         });
-      } else {
-        if (typeof(sClaim.resp) == "string") {
-          var responsive = JSON.parse(sClaim.resp);
-          if (responsive.Subsystem == CampusKpiSubsystemId) {
-            setRadioBtnForCathedras(responsive);
-          }
+      } else if (typeof(sClaim.resp) === 'string') {
+        var responsive = JSON.parse(sClaim.resp);
+        if (responsive.Subsystem === CampusKpiSubsystemId) {
+          setRadioBtnForCathedras(responsive);
         }
       }
     }
@@ -83,14 +82,12 @@ angular.module('ecampusApp')
 
       sClaim = JSON.parse(sClaim);
 
-      if (typeof(sClaim.resp) == "object") {
-        sClaim.resp.forEach(function (itemForEach, i, arr) {
+      if (typeof(sClaim.resp) === 'object') {
+        sClaim.resp.forEach(function(itemForEach, i, arr) {
           kpiQuery = setFacultyAndInstituteLogic(itemForEach, kpiQuery);
         });
-      } else {
-        if (typeof(sClaim.resp) == "string") {
-          kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
-        }
+      } else if (typeof(sClaim.resp) === 'string') {
+        kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
       }
 
     }
@@ -101,18 +98,21 @@ angular.module('ecampusApp')
 
       var itemForEachJSON = JSON.parse(item);
 
-      if (itemForEachJSON.Subsystem == CampusKpiSubsystemId) {
+      if (itemForEachJSON.Subsystem === CampusKpiSubsystemId) {
 
         var subdivisionId = itemForEachJSON.Subdivision.Id;
         var subdivisionName = itemForEachJSON.Subdivision.Name;
 
-        if (subdivisionId == NTUUKpiSubdivisionId && !kpiQuery) {
+        if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
           kpiQuery = true;
-          var pathFaculty = "Subdivision";
-          Api.execute("GET", pathFaculty).then(function (response) {
-            response.forEach(function (itemForEach) {
+          var pathFaculty = 'Subdivision';
+          Api.execute('GET', pathFaculty).then(function(response) {
+            response.forEach(function(itemForEach) {
 
-              if (itemForEach.type.id == InstituteTypeId || itemForEach.type.id == FacultyTypeId) {
+              if (
+                itemForEach.type.id === InstituteTypeId ||
+                itemForEach.type.id === FacultyTypeId
+              ) {
                 var subdivisionName = itemForEach.name;
                 var subdivisionId = itemForEach.id;
 
@@ -125,8 +125,15 @@ angular.module('ecampusApp')
 
           });
         }
-        if (document.getElementById(subdivisionId + "") == null &&
-          (~subdivisionName.indexOf("факультет") || ~subdivisionName.indexOf("Факультет") || ~subdivisionName.indexOf("інститут") || ~subdivisionName.indexOf("Інститут"))) {
+        if (
+          document.getElementById(subdivisionId + '') === null &&
+          (
+            ~subdivisionName.indexOf('факультет') ||
+            ~subdivisionName.indexOf('Факультет') ||
+            ~subdivisionName.indexOf('інститут') ||
+            ~subdivisionName.indexOf('Інститут')
+          )
+        ) {
           $scope.subdivisions.push({
             subdivisionId: subdivisionId,
             subdivisionName: subdivisionName
@@ -144,49 +151,48 @@ angular.module('ecampusApp')
         return;
       }
       var parentId = $scope.chosenSubdivision.subdivisionId;
-      var subdivisionPath = "Subdivision/" + parentId + "/children";
+      var subdivisionPath = 'Subdivision/' + parentId + '/children';
 
-      Api.execute("GET", subdivisionPath).then(function (response) {
+      Api.execute('GET', subdivisionPath).then(function(response) {
         $scope.cathedras = [];
-        response.forEach(function (cathedra, i, arr) {
-          if (arr[i + 1] != undefined) {
+        response.forEach(function(cathedra, i, arr) {
+          if (arr[i + 1] !== undefined) {
             $scope.cathedras.push({
               cathedraId: cathedra.id,
               cathedraName: cathedra.name
             });
           }
         });
-
-      })
+      });
     }
 
     function ClearTableWithId(id, wrapperId) {
-      var curTable = GetAngularDOMElement("#" + id);
-      if (!!curTable) {
-        curTable.remove()
+      var curTable = GetAngularDOMElement('#' + id);
+      if (curTable) {
+        curTable.remove();
       }
-      var newTable = angular.element("<table>");
-      newTable.attr("id", id);
-      GetAngularDOMElement("#" + wrapperId).append(newTable);
+      var newTable = angular.element('<table>');
+      newTable.attr('id', id);
+      GetAngularDOMElement('#' + wrapperId).append(newTable);
     }
 
     function CreateTableRow() {
-      return angular.element("<tr>");
+      return angular.element('<tr>');
     }
 
     function CreateTableHeaderCell() {
-      return angular.element("<th>");
+      return angular.element('<th>');
     }
 
     function CreateTableCell() {
-      return angular.element("<td>");
+      return angular.element('<td>');
     }
 
     function FillTableRow(colspanNumber, content, isHeader) {
       var row = CreateTableRow();
-      content.forEach(function (cellText, i, arr) {
+      content.forEach(function(cellText, i, arr) {
         var cell = isHeader ? CreateTableHeaderCell() : CreateTableCell();
-        cell.attr("colspan", colspanNumber);
+        cell.attr('colspan', colspanNumber);
         cell.text(cellText);
         row.append(cell);
       });
@@ -199,53 +205,63 @@ angular.module('ecampusApp')
     }
 
     //  For section npp
-    $scope.checkNpp = function (chosenСathedraId) {
-      $scope.errorLabelText = "";
+    $scope.checkNpp = function(chosenСathedraId) {
+      $scope.errorLabelText = '';
       var cathedraId = chosenСathedraId;
-      var path = "Statistic/Cathedras/" + cathedraId + "/Emplloyers/WithIndividualLoad/List";
-      Api.execute("GET", path).then(function (response) {
-        if (!response || response == "") {
-          $scope.errorLabelText = "На жаль, записи у базі даних відсутні.";
+      var path = (
+        'Statistic/Cathedras/' + cathedraId +
+        '/Emplloyers/WithIndividualLoad/List'
+      );
+      Api.execute('GET', path).then(function(response) {
+        if (!response || response === '') {
+          $scope.errorLabelText = 'На жаль, записи у базі даних відсутні.';
         } else {
           $scope.semesters = response;
 
           //for download
-          var wrapperTableForDownloadId = "wrapper-for-download";
-          var tableForDownloadId = "table-for-download";
+          var wrapperTableForDownloadId = 'wrapper-for-download';
+          var tableForDownloadId = 'table-for-download';
           ClearTableWithId(tableForDownloadId, wrapperTableForDownloadId);
-          var tableForDownload = GetAngularDOMElement("#" + tableForDownloadId);
-          response.forEach(function (employees, i, ar) {
-            if (i == 0
-            ) {
-              tableForDownload.append(FillTableRow("3", ["Перше півріччя (осінній семестр)"], true));
+          var tableForDownload = GetAngularDOMElement('#' + tableForDownloadId);
+          response.forEach(function(employees, i, ar) {
+            if (i === 0) {
+              tableForDownload.append(
+                FillTableRow('3', ['Перше півріччя (осінній семестр)'], true)
+              );
+            } else {
+              tableForDownload.append(
+                FillTableRow('3', ['Друге півріччя (весняний семестр)'], true)
+              );
             }
-            else {
-              tableForDownload.append(FillTableRow("3", ["Друге півріччя (весняний семестр)"], true));
-            }
-            employees.forEach(function (employee, iter, arr) {
-              tableForDownload.append(FillTableRow("3", [employee.name], false));
+            employees.forEach(function(employee, iter, arr) {
+              tableForDownload.append(
+                FillTableRow('3', [employee.name], false)
+              );
               console.log(employee);
-              employee.subjects.forEach(function (subj, innerIter, arra) {
-                tableForDownload.append(FillTableRow("1", [subj.name, (subj.groupsNames).join('\n'), subj.year], false));
-              })
-              ;
-            })
-            ;
-          })
-          ;
+              employee.subjects.forEach(function(subj, innerIter, arra) {
+                tableForDownload.append(
+                  FillTableRow(
+                    '1',
+                    [subj.name, (subj.groupsNames).join('\n'), subj.year],
+                    false
+                  )
+                );
+              });
+            });
+          });
         }
       });
     };
 
-    $scope.showTabById = function (id) {
-      if ($scope.tabIdForShow != id) {
+    $scope.showTabById = function(id) {
+      if ($scope.tabIdForShow !== id) {
         $scope.tabIdForShow = id;
       } else {
         $scope.tabIdForShow = -1;
       }
     };
 
-    $scope.$watch('chosenSubdivision', function () {
+    $scope.$watch('chosenSubdivision', function() {
       loadCathedras();
     });
 

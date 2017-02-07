@@ -9,9 +9,9 @@
  */
 
 angular.module('ecampusApp')
-    .directive('studyGroup',function () {
-        return {
-            restrict: "A",
-            templateUrl: "views/directives/study-group.html"
-        }
-    });
+  .directive('studyGroup', function() {
+    return {
+      restrict: 'A',
+      templateUrl: 'views/directives/study-group.html'
+    };
+  });

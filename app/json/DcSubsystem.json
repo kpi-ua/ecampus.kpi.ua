@@ -1,65 +1,65 @@
 {
-    "1"  :{
-      "NameDB":"Кампус КПІ",
-      "NameForWeb":"Підсистема статистики",
-      "PageOrUrl":"/statistic",
-      "Icon":"glyphicon-stats",
-      "Enabled":"true"
-    },
-    "2"  :{
-      "NameDB":"Методичне забезпечення",
-      "NameForWeb":"Методичне забезпечення",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    },
-    "3"  :{
-      "NameDB":"РНП",
-      "NameForWeb":"РНП",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    },
-    "4"  :{
-      "NameDB":"Оголошення",
-      "NameForWeb":"Оголошення",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    },
-    "5"  :{
-      "NameDB":"Повідомлення",
-      "NameForWeb":"Повідомлення",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    },
-    "6"  :{
-      "NameDB":"Розклад",
-      "NameForWeb":"Розклад",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    },
-    "7"  :{
-      "NameDB":"Webometrics",
-      "NameForWeb":"Webometrics",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    },
-    "8"  :{
-      "NameDB":"КМ",
-      "NameForWeb":"КМ",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    },
-    "11"  :{
-      "NameDB":"Адміністрування голосування",
-      "NameForWeb":"Адміністрування голосування",
-      "PageOrUrl":"#",
-      "Icon":"fa-cogs",
-      "Enabled":"false"
-    }
+  "1"  :{
+    "NameDB":"Кампус КПІ",
+    "NameForWeb":"Підсистема статистики",
+    "PageOrUrl":"/statistic",
+    "Icon":"glyphicon-stats",
+    "Enabled":"true"
+  },
+  "2"  :{
+    "NameDB":"Методичне забезпечення",
+    "NameForWeb":"Методичне забезпечення",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  },
+  "3"  :{
+    "NameDB":"РНП",
+    "NameForWeb":"РНП",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  },
+  "4"  :{
+    "NameDB":"Оголошення",
+    "NameForWeb":"Оголошення",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  },
+  "5"  :{
+    "NameDB":"Повідомлення",
+    "NameForWeb":"Повідомлення",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  },
+  "6"  :{
+    "NameDB":"Розклад",
+    "NameForWeb":"Розклад",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  },
+  "7"  :{
+    "NameDB":"Webometrics",
+    "NameForWeb":"Webometrics",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  },
+  "8"  :{
+    "NameDB":"КМ",
+    "NameForWeb":"КМ",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  },
+  "11"  :{
+    "NameDB":"Адміністрування голосування",
+    "NameForWeb":"Адміністрування голосування",
+    "PageOrUrl":"#",
+    "Icon":"fa-cogs",
+    "Enabled":"false"
+  }
 }

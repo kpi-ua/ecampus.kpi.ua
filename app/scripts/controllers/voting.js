@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('VotingCtrl', function ($scope, $location, Api) {
+  .controller('VotingCtrl', function($scope, $location, Api) {
 
     $scope.currentUser = null;
     $scope.voteTerm = null;
@@ -19,13 +19,13 @@ angular.module('ecampusApp')
       $scope.currentUser = Api.getCurrentUser();
 
       if (!$scope.currentUser) {
-        $location.path("/");
+        $location.path('/');
       }
 
-      Api.execute("GET", "Vote/Term/Current").then(function (data) {
-        $scope.voteTerm = !!data && data.length > 0 ? data[0] : null;
+      Api.execute('GET', 'Vote/Term/Current').then(function(data) {
+        $scope.voteTerm = (!!data && data.length > 0) ? data[0] : null;
 
-        if (!!$scope.voteTerm) {
+        if ($scope.voteTerm) {
           getAllPersons();
           getAlreadyVotedPersons();
         }
@@ -33,7 +33,7 @@ angular.module('ecampusApp')
       });
 
       function getAllPersons() {
-        var action = "Vote/Persons/" + $scope.currentUser.id;
+        var action = 'Vote/Persons/' + $scope.currentUser.id;
 
         var payload = {
           page: 1,
@@ -41,7 +41,7 @@ angular.module('ecampusApp')
           envelope: false
         };
 
-        Api.execute("GET", action, payload).then(function (data) {
+        Api.execute('GET', action, payload).then(function(data) {
           $scope.personsForVote = data;
 
           console.log('$scope.personsForVote', $scope.personsForVote);
@@ -50,7 +50,7 @@ angular.module('ecampusApp')
 
       function getAlreadyVotedPersons() {
 
-        var action = "Vote/Persons/" + $scope.currentUser.id + "/Voted";
+        var action = 'Vote/Persons/' + $scope.currentUser.id + '/Voted';
 
         var payload = {
           voteTermId: $scope.voteTerm.id,
@@ -59,26 +59,22 @@ angular.module('ecampusApp')
           envelope: false
         };
 
-        Api.execute("GET", action, payload).then(function (data) {
+        Api.execute('GET', action, payload).then(function(data) {
           $scope.personsAlreadyVoted = data;
           console.log('$scope.personsAlreadyVoted', $scope.personsAlreadyVoted);
         });
 
       }
 
-      $scope.personVoted = function (person) {
+      $scope.personVoted = function(person) {
         var result = false;
-
-        if (!!$scope.personsAlreadyVoted) {
-
-          $scope.personsAlreadyVoted.forEach(function (p) {
-            if (p.employeesId == person.employeesId) {
+        if ($scope.personsAlreadyVoted) {
+          $scope.personsAlreadyVoted.forEach(function(p) {
+            if (p.employeesId === person.employeesId) {
               result = true;
             }
           });
-
         }
-
         return result;
       };
 

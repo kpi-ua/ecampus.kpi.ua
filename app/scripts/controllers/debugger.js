@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('DebuggerCtrl', function ($scope, $sce, Api) {
+  .controller('DebuggerCtrl', function($scope, $sce, Api) {
 
     $scope.progressBar = false;
     $scope.controllers = [];
@@ -16,7 +16,7 @@ angular.module('ecampusApp')
     $scope.message = '';
     $scope.methodTitle = '...';
     $scope.out = '';
-    $scope.url = ""; //URL of current controller
+    $scope.url = ''; //URL of current controller
     $scope.allMethods = [];
     $scope.selectedMethod = null;
     $scope.selectedController = null;
@@ -26,12 +26,10 @@ angular.module('ecampusApp')
     $scope.password = '';
 
     function getUnique(array) {
-      var u = {},
-        a = [];
+      var u = {};
+      var a = [];
       for (var i = 0, l = array.length; i < l; ++i) {
-        if (u.hasOwnProperty(array[i])) {
-          continue;
-        }
+        if (u.hasOwnProperty(array[i])) continue;
         a.push(array[i]);
         u[array[i]] = 1;
       }
@@ -41,7 +39,7 @@ angular.module('ecampusApp')
     function matchAll(str, regexp) {
       var matches = [];
 
-      str.replace(regexp, function () {
+      str.replace(regexp, function() {
         var arr = ([]).slice.call(arguments, 0);
         var extras = arr.splice(-2);
         arr.index = extras[0];
@@ -56,14 +54,14 @@ angular.module('ecampusApp')
 
       var scope = $scope;
 
-      Api.execute('GET', 'System/Structure').then(function (data) {
+      Api.execute('GET', 'System/Structure').then(function(data) {
 
         scope.allMethods = data;
 
-        var controllers = data.map(function (o) {
-          return !!o && !!o.route ? o.route.substring(0, o.route.indexOf('/')) : "unknown";
-        }).filter(function (o) {
-          return !!o && o != '';
+        var controllers = data.map(function(o) {
+          return !!o && !!o.route ? o.route.substring(0, o.route.indexOf('/')) : 'unknown';
+        }).filter(function(o) {
+          return !!o && o !== '';
         }).sort();
 
         scope.controllers = getUnique(controllers);
@@ -78,8 +76,8 @@ angular.module('ecampusApp')
 
       var controller = $scope.selectedController;
 
-      $scope.methods = $scope.allMethods.filter(function (o) {
-        return o.route.indexOf(controller) == 0;
+      $scope.methods = $scope.allMethods.filter(function(o) {
+        return o.route.indexOf(controller) === 0;
       });
 
       loadSelectedMethodMetadata();
@@ -87,13 +85,13 @@ angular.module('ecampusApp')
 
     function renderFormGroup(controlId, title, controlHtml) {
 
-      var html = '';
-      html += '<div class="form-group">';
-      html += '<label for="' + controlId + '" class="col-md-4 control-label">' + title + '</label>';
-      html += '<div class="col-md-8">';
-      html += controlHtml;
-      html += '</div>';
-      html += '</div>';
+      var html = (
+        '<div class="form-group">' +
+        '<label for="' + controlId + '" class="col-md-4 control-label">' + title + '</label>' +
+        '<div class="col-md-8">' +
+        controlHtml +
+        '</div></div>'
+      );
       return html;
     }
 
@@ -122,7 +120,7 @@ angular.module('ecampusApp')
 
       var html = '';
 
-      $.each(m.parameters, function (index, parameter) {
+      $.each(m.parameters, function(index, parameter) {
         html += createControl(parameter);
       });
 
@@ -132,8 +130,8 @@ angular.module('ecampusApp')
     function getSelectedMethod() {
       var url = $scope.selectedMethod;
 
-      return $scope.methods.filter(function (o) {
-        return o.route.indexOf(url) == 0;
+      return $scope.methods.filter(function(o) {
+        return o.route.indexOf(url) === 0;
       })[0];
     }
 
@@ -144,7 +142,7 @@ angular.module('ecampusApp')
       var data = {};
       var form = $('#out').serializeArray(); //Serialize form
 
-      $.each(form, function (index, e) {
+      $.each(form, function(index, e) {
         data[e.name] = e.value;
       });
 
@@ -154,8 +152,8 @@ angular.module('ecampusApp')
       var regexp = /{(.*?)\}/g; //find all 'markers': {param-name}
       var names = matchAll(url, regexp);
 
-      if (!!names) {
-        $.each(names, function (index, n) {
+      if (names) {
+        $.each(names, function(index, n) {
           var name = n.replace('{', '').replace('}', '');
           url = url.replace(n, data[name]);
           delete data[name];
@@ -165,11 +163,11 @@ angular.module('ecampusApp')
       var scope = $scope;
 
       Api.execute(m.method, url, data)
-        .then(function (result) {
+        .then(function(result) {
           $scope.message = JSON.stringify(result, null, '\t');
-            scope.progressBar = false;
+          scope.progressBar = false;
         },
-        function (result) {
+        function(result) {
           $scope.message = JSON.stringify(result, null, '\t');
           scope.progressBar = false;
         });
@@ -178,7 +176,7 @@ angular.module('ecampusApp')
     function loadSelectedMethodMetadata() {
       var m = getSelectedMethod();
 
-      if (!!m) {
+      if (m) {
         $scope.httpMethod = m.method;
         $scope.message = '';
 
@@ -186,19 +184,19 @@ angular.module('ecampusApp')
       }
     }
 
-    $scope.loadMethodForCurrentController = function () {
+    $scope.loadMethodForCurrentController = function() {
       loadMethodForCurrentController();
     };
 
-    $scope.executeRequest = function () {
+    $scope.executeRequest = function() {
       executeRequest();
     };
 
-    $scope.loadSelectedMethodMetadata = function () {
+    $scope.loadSelectedMethodMetadata = function() {
       loadSelectedMethodMetadata();
     };
 
-    $scope.setEndpoint = function () {
+    $scope.setEndpoint = function() {
       Api.setApiEndpoint($scope.apiEndpoint);
       $scope.controllers = [];
       $scope.methods = [];
@@ -208,7 +206,7 @@ angular.module('ecampusApp')
       alert('API endpoint successfully changed.');
     };
 
-    $scope.viewErrorLog = function () {
+    $scope.viewErrorLog = function() {
       var w = window.open(Api.getApiEndpoint() + 'system/logs/errors/', '_blank');
 
       if (w) {
@@ -218,12 +216,12 @@ angular.module('ecampusApp')
       }
     };
 
-    $scope.auth = function () {
+    $scope.auth = function() {
 
       var scope = $scope;
       $scope.progressBar = true;
 
-      Api.auth($scope.login, $scope.password).then(function (token) {
+      Api.auth($scope.login, $scope.password).then(function(token) {
         $scope.sessionToken = token;
 
         $scope.message = '';

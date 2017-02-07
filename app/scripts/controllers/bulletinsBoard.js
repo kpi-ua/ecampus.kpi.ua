@@ -8,28 +8,28 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('HomeBulletinsBoardCtrl', ['$scope', 'Api', function ($scope, Api) {
+  .controller('HomeBulletinsBoardCtrl', ['$scope', 'Api', function($scope, Api) {
     $scope.errorMessage = '';
     $scope.tab = 1;
 
-    $scope.setTab = function (newTab) {
+    $scope.setTab = function(newTab) {
       $scope.tab = newTab;
     };
 
-    $scope.isSet = function (tabNum) {
+    $scope.isSet = function(tabNum) {
       return $scope.tab === tabNum;
     };
 
-    $scope.stringToUaDate = function (str) {
+    $scope.stringToUaDate = function(str) {
       return stringToDate(str)
-        .toLocaleString("uk-ua", { year: 'numeric', month: 'long', day: 'numeric' });
+        .toLocaleString('uk-ua', { year: 'numeric', month: 'long', day: 'numeric' });
     };
 
     function loadBoards() {
       var url = '/Board/All';
 
-      Api.execute("GET", url)
-        .then(function (response) {
+      Api.execute('GET', url)
+        .then(function(response) {
           $scope.boardsList = response;
 
           sortBoards($scope.boardsList);
@@ -41,18 +41,18 @@ angular.module('ecampusApp')
     }
 
     function getAllBoards() {
-      return $scope.boardsList.filter(function (board) {
+      return $scope.boardsList.filter(function(board) {
         return board.actuality;
       });
     }
 
     function getBoardsForProfile() {
       var positions = [];
-      Api.getCurrentUser().position.forEach(function (entry) {
+      Api.getCurrentUser().position.forEach(function(entry) {
         positions.push(entry.id);
       });
 
-      return $scope.boardsList.filter(function (board) {
+      return $scope.boardsList.filter(function(board) {
         return ~positions.indexOf(board.profileId);
       });
     }
@@ -60,17 +60,17 @@ angular.module('ecampusApp')
     function getBoardsForSubdivision() {
       var subdivisions = [];
 
-      Api.getCurrentUser().subdivision.forEach(function (entry) {
+      Api.getCurrentUser().subdivision.forEach(function(entry) {
         subdivisions.push(entry.id);
       });
 
-      return $scope.boardsList.filter(function (board) {
+      return $scope.boardsList.filter(function(board) {
         return ~subdivisions.indexOf(board.subdivisionId);
       });
     }
 
     function sortBoards(boards) {
-      boards.sort(function (a, b) {
+      boards.sort(function(a, b) {
         return stringToDate(b.dateCreate) - stringToDate(a.dateCreate);
       });
     }

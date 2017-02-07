@@ -8,7 +8,7 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('SecurityCtrl', function ($scope, $cookies, $window, Api) {
+  .controller('SecurityCtrl', function($scope, $cookies, $window, Api) {
 
     $scope.step = 1;
     $scope.captcha = '';
@@ -25,17 +25,19 @@ angular.module('ecampusApp')
       };
 
 
-      Api.execute("POST", url, payload)
-        .then(function () {
+      Api.execute('POST', url, payload)
+        .then(function() {
           step(3);
-        }, function (result) {
+        }, function(result) {
 
           if (result.status === 403) {
-            showMessage("Невiрний код пiдтвердження");
+            showMessage('Невiрний код пiдтвердження');
             $scope.captcha = '';
             getCaptcha();
           } else if (result.status === 404) {
-            showMessage("Користувач з таким логiном, або електроною поштою не знайдений");
+            showMessage(
+              'Користувач з таким логiном, або електроною поштою не знайдений'
+            );
             location.reload();
           } else if (result.status === 409) {
             step(4);
@@ -46,7 +48,11 @@ angular.module('ecampusApp')
 
     function getCaptcha() {
       step(2);
-      $scope.captchaImage = Api.getApiEndpoint() + 'Account/Recovery/' + encodeURIComponent($scope.userId) + '/token?d=' + new Date().getTime();
+      $scope.captchaImage = (
+        Api.getApiEndpoint() + 'Account/Recovery/' +
+        encodeURIComponent($scope.userId) + '/token?d=' +
+        new Date().getTime()
+      );
     }
 
     function showMessage(message) {
@@ -57,11 +63,11 @@ angular.module('ecampusApp')
       $scope.step = n;
     }
 
-    $scope.getCaptcha = function () {
+    $scope.getCaptcha = function() {
       getCaptcha();
     };
 
-    $scope.restorePassword = function () {
+    $scope.restorePassword = function() {
       restorePassword();
     };
   });

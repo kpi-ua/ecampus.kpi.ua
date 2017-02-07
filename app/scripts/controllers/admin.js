@@ -8,7 +8,5 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('AdminCtrl', function ($scope, $cookies, $window, Api) {
-
-
+  .controller('AdminCtrl', function($scope, $cookies, $window, Api) {
   });

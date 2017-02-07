@@ -7,7 +7,7 @@
  * # breadcrumbs
  */
 angular.module('ecampusApp')
-  .directive('breadcrumbs', function () {
+  .directive('breadcrumbs', function() {
     return {
       templateUrl: 'views/directives/breadcrumbs.html',
       restrict: 'E',

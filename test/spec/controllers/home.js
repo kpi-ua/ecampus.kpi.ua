@@ -1,15 +1,14 @@
 'use strict';
 
-describe('Controller: HomeCtrl', function () {
+describe('Controller: HomeCtrl', function() {
 
   // load the controller's module
   beforeEach(module('ecampusApp'));
 
-  var HomeCtrl,
-    scope;
+  var HomeCtrl, scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new();
     HomeCtrl = $controller('HomeCtrl', {
       $scope: scope
@@ -17,7 +16,7 @@ describe('Controller: HomeCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
+  it('should attach a list of awesomeThings to the scope', function() {
     expect(HomeCtrl.awesomeThings.length).toBe(3);
   });
 });

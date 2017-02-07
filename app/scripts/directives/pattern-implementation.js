@@ -8,9 +8,9 @@
  *          for section apply
  */
 angular.module('ecampusApp')
-    .directive('patternImplementation',function () {
-       return {
-            restrict: "A",
-            templateUrl: "views/directives/pattern-implementation.html"
-        }
-    });
+  .directive('patternImplementation', function() {
+    return {
+      restrict: 'A',
+      templateUrl: 'views/directives/pattern-implementation.html'
+    };
+  });

@@ -1,15 +1,14 @@
 'use strict';
 
-describe('Controller: RnpCtrl', function () {
+describe('Controller: RnpCtrl', function() {
 
   // load the controller's module
   beforeEach(module('ecampusApp'));
 
-  var RnpCtrl,
-    scope;
+  var RnpCtrl, scope;
 
   // Initialize the controller and a mock scope
-  beforeEach(inject(function ($controller, $rootScope) {
+  beforeEach(inject(function($controller, $rootScope) {
     scope = $rootScope.$new();
     RnpCtrl = $controller('RnpCtrl', {
       $scope: scope
@@ -17,7 +16,7 @@ describe('Controller: RnpCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
+  it('should attach a list of awesomeThings to the scope', function() {
     expect(RnpCtrl.awesomeThings.length).toBe(3);
   });
 });
