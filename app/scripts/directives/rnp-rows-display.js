@@ -1,6 +1,10 @@
 'use strict';
 
-angular.module('ecampusApp').directive('rnpRowsDisplay', function() {
+angular
+  .module('ecampusApp')
+  .directive('rnpRowsDisplay', handler);
+
+function handler() {
   return {
     templateUrl: 'views/directives/rnp-rows-display.html',
     restrict: 'E',
@@ -12,4 +16,4 @@ angular.module('ecampusApp').directive('rnpRowsDisplay', function() {
       });
     }
   };
-});
+}

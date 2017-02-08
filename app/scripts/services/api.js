@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name ecampusApp.Api
+ * @name ecampusApp.api
  * @description
- * # Api
+ * # api
  * Service in the ecampusApp.
  */
 angular.module('ecampusApp')
-  .service('Api', function($http, $rootScope, $window) {
+  .service('api', function($http, $rootScope, $window) {
 
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';

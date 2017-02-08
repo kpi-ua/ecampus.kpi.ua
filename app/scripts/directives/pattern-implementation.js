@@ -7,10 +7,13 @@
  * # discipline-specialization page
  *          for section apply
  */
-angular.module('ecampusApp')
-  .directive('patternImplementation', function() {
-    return {
-      restrict: 'A',
-      templateUrl: 'views/directives/pattern-implementation.html'
-    };
-  });
+angular
+  .module('ecampusApp')
+  .directive('patternImplementation', handler);
+
+function handler() {
+  return {
+    restrict: 'A',
+    templateUrl: 'views/directives/pattern-implementation.html'
+  };
+}

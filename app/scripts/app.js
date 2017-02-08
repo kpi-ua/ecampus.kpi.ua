@@ -152,12 +152,12 @@ app.config(function($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
 });
 
-app.run(['$rootScope', 'Api', function($rootScope, Api) {
+app.run(['$rootScope', 'api', function($rootScope, api) {
   var deregister = $rootScope.$on('$routeChangeSuccess', function() {
     angular.element(document).ready(function() {
-      var isLogged = Api.getToken();
+      var isLogged = api.getToken();
       if (isLogged) {
-        Api.changeIsSessionExpiredValue(Api.removeToken());
+        api.changeIsSessionExpiredValue(api.removeToken());
       }
     });
   });

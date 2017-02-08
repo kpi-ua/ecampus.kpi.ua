@@ -6,28 +6,31 @@
  * @description
  * # header
  */
-angular.module('ecampusApp')
-  .directive('navigation', function() {
-    return {
-      restrict: 'E',
-      replace: true,
-      templateUrl: 'views/directives/navigation.html',
-      controller: ['$scope', '$cookies', '$window', 'Api', function($scope, $cookies, $window, Api) {
+angular
+  .module('ecampusApp')
+  .directive('navigation', handler);
+
+function handler() {
+  return {
+    restrict: 'E',
+    replace: true,
+    templateUrl: 'views/directives/navigation.html',
+    controller: [
+      '$scope', '$cookies', '$window', 'api',
+      function($scope, $cookies, $window, api) {
         $scope.userAuthenticated = false;
         $scope.user = null;
-
-
         init();
 
         $scope.redirectToLegacyCampus = function() {
-          var user = Api.getCurrentUser();
+          var user = api.getCurrentUser();
           $cookies.put('SID', user.sid, { domain: 'kpi.ua' });
           $cookies.put('SID', user.sid, { domain: 'campus.kpi.ua' });
           $window.location.href = 'http://campus.kpi.ua';
         };
 
         $scope.logout = function() {
-          Api.logout();
+          api.logout();
           $cookies.put('SID', null, { domain: 'kpi.ua' });
           $cookies.put('SID', null, { domain: 'campus.kpi.ua' });
           $window.location.href = '/#!/';
@@ -38,7 +41,7 @@ angular.module('ecampusApp')
         });
 
         function init() {
-          var user = Api.getCurrentUser();
+          var user = api.getCurrentUser();
           $scope.disableDisciplineChoiceForNotStudent = false;
           $scope.enableDisciplineForNotStudent = false;
           $scope.user = user;
@@ -47,7 +50,7 @@ angular.module('ecampusApp')
           if ($scope.userAuthenticated) {
             $scope.userName = user.name;
             $scope.userImage = (
-              Api.getApiEndpoint() + '/Account/' + user.id + '/ProfileImage'
+              api.getApiEndpoint() + '/Account/' + user.id + '/ProfileImage'
             );
             if (user.position[0].id !== 5) {
               $scope.disableDisciplineChoiceForNotStudent = true;
@@ -55,7 +58,7 @@ angular.module('ecampusApp')
             }
           }
         }
-
-      }]
-    };
-  });
+      }
+    ]
+  };
+}

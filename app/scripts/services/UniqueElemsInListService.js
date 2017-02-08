@@ -2,7 +2,7 @@
 
 angular
   .module('ecampusApp')
-  .service('UniqueElemsInList', function() {
+  .service('uniqueElemsInList', function() {
     var unmodifiedElementsOfQuery = [];
     var finalArr = [];
     var listAccordingToSubdivision = [];

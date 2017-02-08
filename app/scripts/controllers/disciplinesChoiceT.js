@@ -7,6 +7,10 @@
  * # DisciplinesChoiceTCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
-  .controller('DisciplinesChoiceTCtrl', ['$scope', 'Api', function($scope, Api) {
-  }]);
+angular
+  .module('ecampusApp')
+  .controller('DisciplinesChoiceTCtrl', ['$scope', 'api', handler]);
+
+function handler($scope, api) {
+  //
+}

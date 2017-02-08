@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Api', function() {
+describe('Service: api', function() {
 
   // load the service's module
   beforeEach(module('ecampusApp'));
 
   // instantiate service
-  var Api;
-  beforeEach(inject(function(_Api_) {
-    Api = _Api_;
+  var api;
+  beforeEach(inject(function(_api_) {
+    api = _api_;
   }));
 
   it('should do something', function() {
-    expect(!!Api).toBe(true);
+    expect(!!api).toBe(true);
   });
 
 });

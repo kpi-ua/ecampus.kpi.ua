@@ -7,83 +7,84 @@
  * # VotingProfileCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
-  .controller('VotingProfileCtrl', function(
-    $scope, $location, $routeParams, Api
-  ) {
-    $scope.currentUser = null;
-    $scope.criterions = [];
+angular
+  .module('ecampusApp')
+  .controller('VotingProfileCtrl', handler);
 
-    $scope.course = null;
+function handler($scope, $location, $routeParams, api) {
+  $scope.currentUser = null;
+  $scope.criterions = [];
 
-    $scope.selectedEmploye = null;
-    $scope.selectedEmployeId = null;
+  $scope.course = null;
 
-    function reload() {
+  $scope.selectedEmploye = null;
+  $scope.selectedEmployeId = null;
 
-      $scope.currentUser = Api.getCurrentUser();
-      $scope.selectedEmployeId = $routeParams.id;
+  function reload() {
 
-      if (!$scope.currentUser) {
-        $location.path('/');
-      }
+    $scope.currentUser = api.getCurrentUser();
+    $scope.selectedEmployeId = $routeParams.id;
 
-      Api.execute('GET', 'Account/Employee/' + $scope.selectedEmployeId).then(function(data) {
-        $scope.selectedEmploye = data;
-      });
-
-      Api.execute('GET', 'Vote/Criterions').then(function(data) {
-        $scope.criterions = data;
-      });
-
+    if (!$scope.currentUser) {
+      $location.path('/');
     }
 
-    $scope.formIsValid = function() {
-      var result = true;
+    api.execute('GET', 'Account/Employee/' + $scope.selectedEmployeId).then(function(data) {
+      $scope.selectedEmploye = data;
+    });
 
-      if (!$scope.criterions) {
-        return false;
+    api.execute('GET', 'Vote/Criterions').then(function(data) {
+      $scope.criterions = data;
+    });
+
+  }
+
+  $scope.formIsValid = function() {
+    var result = true;
+
+    if (!$scope.criterions) {
+      return false;
+    }
+
+    $scope.criterions.forEach(function(c) {
+      if (!c.mark || c.mark === 0) {
+        result = false;
       }
+    });
 
-      $scope.criterions.forEach(function(c) {
-        if (!c.mark || c.mark === 0) {
-          result = false;
-        }
-      });
+    return result;
+  };
 
-      return result;
-    };
+  $scope.vote = function() {
 
-    $scope.vote = function() {
+    var votes = [];
 
-      var votes = [];
+    $scope.criterions.forEach(function(c) {
 
-      $scope.criterions.forEach(function(c) {
+      var vote = {
+        VoteTermId: 1,
+        EmployeeId: $scope.selectedEmployeId,
+        DateVote: new Date(),
+        Actuality: true,
+        ChangeDate: new Date(),
+        PersonalityId: $scope.currentUser.Id,
+        VoteCriterionId: c.id,
+        Course: 1,
+        Mark: c.mark
+      };
 
-        var vote = {
-          VoteTermId: 1,
-          EmployeeId: $scope.selectedEmployeId,
-          DateVote: new Date(),
-          Actuality: true,
-          ChangeDate: new Date(),
-          PersonalityId: $scope.currentUser.Id,
-          VoteCriterionId: c.id,
-          Course: 1,
-          Mark: c.mark
-        };
+      votes.push(vote);
+    });
 
-        votes.push(vote);
-      });
+    api.execute('POST', 'Vote', votes).then(function() {
+      alert('Дякуємо!');
+      $location.path('/voting');
+    }).catch(function(reason) {
+      alert(reason.responseText);
+    });
 
-      Api.execute('POST', 'Vote', votes).then(function() {
-        alert('Дякуємо!');
-        $location.path('/voting');
-      }).catch(function(reason) {
-        alert(reason.responseText);
-      });
+  };
 
-    };
+  reload();
 
-    reload();
-
-  });
+}

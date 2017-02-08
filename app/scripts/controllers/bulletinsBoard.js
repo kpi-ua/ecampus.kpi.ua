@@ -7,79 +7,85 @@
  * # HomeBulletinsBoardCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
-  .controller('HomeBulletinsBoardCtrl', ['$scope', 'Api', function($scope, Api) {
-    $scope.errorMessage = '';
-    $scope.tab = 1;
+angular
+  .module('ecampusApp')
+  .controller('HomeBulletinsBoardCtrl', ['$scope', 'api', handler]);
 
-    $scope.setTab = function(newTab) {
-      $scope.tab = newTab;
-    };
+function handler($scope, api) {
+  $scope.errorMessage = '';
+  $scope.tab = 1;
 
-    $scope.isSet = function(tabNum) {
-      return $scope.tab === tabNum;
-    };
+  $scope.setTab = function(newTab) {
+    $scope.tab = newTab;
+  };
 
-    $scope.stringToUaDate = function(str) {
-      return stringToDate(str)
-        .toLocaleString('uk-ua', { year: 'numeric', month: 'long', day: 'numeric' });
-    };
+  $scope.isSet = function(tabNum) {
+    return $scope.tab === tabNum;
+  };
 
-    function loadBoards() {
-      var url = '/Board/All';
+  $scope.stringToUaDate = function(str) {
+    return (
+      stringToDate(str).toLocaleString(
+        'uk-ua', { year: 'numeric', month: 'long', day: 'numeric' }
+      )
+    );
+  };
 
-      Api.execute('GET', url)
-        .then(function(response) {
-          $scope.boardsList = response;
+  function loadBoards() {
+    var url = '/Board/All';
 
-          sortBoards($scope.boardsList);
-          $scope.allBoards = getAllBoards();
-          $scope.boardsForProfile = getBoardsForProfile();
-          $scope.boardsForSubdivision = getBoardsForSubdivision();
+    api.execute('GET', url)
+      .then(function(response) {
+        $scope.boardsList = response;
 
-        });
-    }
+        sortBoards($scope.boardsList);
+        $scope.allBoards = getAllBoards();
+        $scope.boardsForProfile = getBoardsForProfile();
+        $scope.boardsForSubdivision = getBoardsForSubdivision();
 
-    function getAllBoards() {
-      return $scope.boardsList.filter(function(board) {
-        return board.actuality;
       });
-    }
+  }
 
-    function getBoardsForProfile() {
-      var positions = [];
-      Api.getCurrentUser().position.forEach(function(entry) {
-        positions.push(entry.id);
-      });
+  function getAllBoards() {
+    return $scope.boardsList.filter(function(board) {
+      return board.actuality;
+    });
+  }
 
-      return $scope.boardsList.filter(function(board) {
-        return ~positions.indexOf(board.profileId);
-      });
-    }
+  function getBoardsForProfile() {
+    var positions = [];
+    api.getCurrentUser().position.forEach(function(entry) {
+      positions.push(entry.id);
+    });
 
-    function getBoardsForSubdivision() {
-      var subdivisions = [];
+    return $scope.boardsList.filter(function(board) {
+      return ~positions.indexOf(board.profileId);
+    });
+  }
 
-      Api.getCurrentUser().subdivision.forEach(function(entry) {
-        subdivisions.push(entry.id);
-      });
+  function getBoardsForSubdivision() {
+    var subdivisions = [];
 
-      return $scope.boardsList.filter(function(board) {
-        return ~subdivisions.indexOf(board.subdivisionId);
-      });
-    }
+    api.getCurrentUser().subdivision.forEach(function(entry) {
+      subdivisions.push(entry.id);
+    });
 
-    function sortBoards(boards) {
-      boards.sort(function(a, b) {
-        return stringToDate(b.dateCreate) - stringToDate(a.dateCreate);
-      });
-    }
+    return $scope.boardsList.filter(function(board) {
+      return ~subdivisions.indexOf(board.subdivisionId);
+    });
+  }
 
-    //Parse string to Date object. Standart parser doesn`t work with our format
-    function stringToDate(s) {
-      s = s.split(/[-: ]/);
-      return new Date(s[0], s[1] - 1, s[2], s[3], s[4], s[5]);
-    }
+  function sortBoards(boards) {
+    boards.sort(function(a, b) {
+      return stringToDate(b.dateCreate) - stringToDate(a.dateCreate);
+    });
+  }
 
-    loadBoards();
-  }]);
+  //Parse string to Date object. Standart parser doesn`t work with our format
+  function stringToDate(s) {
+    s = s.split(/[-: ]/);
+    return new Date(s[0], s[1] - 1, s[2], s[3], s[4], s[5]);
+  }
+
+  loadBoards();
+}

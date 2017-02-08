@@ -1,436 +1,442 @@
 'use strict';
 
-angular.module('ecampusApp')
-  .directive('rnpInput', function(Api) {
-    return {
-      link: function($scope, element, attrs) {
-        var useId = Api.getCurrentUser().id;
-        // $scope.model = {
-        //   studyYearName: null,
-        //   departmentItem: null,
-        //   okrName: null,
-        //   specializationCodeName: null,
-        //   studyFormName: null,
-        //   xmlCode: null
-        // };
-        // $scope.options = {
-        //   StudyYears: [],
-        //   Departments: [],
-        //   Okrs: [],
-        //   Specializations: [],
-        //   StudyForms: [],
-        //   XmlCodes: []
-        // };
-        // $scope.selectData = {
-        //   studyYear: null,
-        //   departmentId: null,
-        //   departmentMark: null,
-        //   okrId: null,
-        //   specializationId: null,
-        //   studyFormId: null,
-        //   xmlCodeId: null
-        //
-        // };
-        var chainResponsibility = [
-          'StudyYear', 'Department', 'Okr',
-          'Specialization', 'StudyForm', 'XmlCodes'
-        ];
-        onInit();
+angular
+  .module('ecampusApp')
+  .directive('rnpInput', handler);
 
-        function onInit() {
-          SetStudyYears(true);
-        }
+function handler(api) {
+  return {
+    link: function($scope, element, attrs) {
+      var useId = api.getCurrentUser().id;
+      // $scope.model = {
+      //   studyYearName: null,
+      //   departmentItem: null,
+      //   okrName: null,
+      //   specializationCodeName: null,
+      //   studyFormName: null,
+      //   xmlCode: null
+      // };
+      // $scope.options = {
+      //   StudyYears: [],
+      //   Departments: [],
+      //   Okrs: [],
+      //   Specializations: [],
+      //   StudyForms: [],
+      //   XmlCodes: []
+      // };
+      // $scope.selectData = {
+      //   studyYear: null,
+      //   departmentId: null,
+      //   departmentMark: null,
+      //   okrId: null,
+      //   specializationId: null,
+      //   studyFormId: null,
+      //   xmlCodeId: null
+      //
+      // };
+      var chainResponsibility = [
+        'StudyYear', 'Department', 'Okr',
+        'Specialization', 'StudyForm', 'XmlCodes'
+      ];
+      onInit();
 
-        function SetStudyYears(isInit) {
-          var path = 'studyYears';
+      function onInit() {
+        setStudyYears(true);
+      }
 
-          Api.execute('GET', path).then(function(response) {
-            var selectName = 'StudyYear';
-            var StudyYearsWatcher = $scope.$watch(
-              $scope.options.StudyYears, OnStudyYearsSet()
-            );
-            if (!response || response === '') {
-              $scope.errorLabelText = 'На жаль, дані відсутні.';
-              resetSelectDataOptionsAndModel(selectName);
-            } else {
-              $scope.options.StudyYears = response;
-              OnStudyYearsSet(isInit);
-            }
-          });
-        }
+      function setStudyYears(isInit) {
+        var path = 'studyYears';
 
-        function OnStudyYearsSet(isInit, chainObject) {
-          // var initStudyYearIndex = 0;
-          var initStudyYearIndex = 5;
+        api.execute('GET', path).then(function(response) {
           var selectName = 'StudyYear';
-          if (
-            $scope.options.StudyYears[initStudyYearIndex] !== undefined &&
-            isInit
-          ) {
-            var StudyYear = $scope.options.StudyYears[initStudyYearIndex];
-            $scope.selectData.studyYearId = StudyYear.id;
-            $scope.model.studyYearName = StudyYear.name;
-            SetDepartments(useId, $scope.selectData.studyYearId, isInit);
-          } else if (chainObject !== undefined) {
-            if (chainObject.selectName === selectName) {
-              $scope.selectData.studyYearId = chainObject.chosenObj.id;
-              SetDepartments(useId, $scope.selectData.studyYearId, true);
-            } else {
-              OnDepartmentSet(false, chainObject);
-            }
+          var StudyYearsWatcher = $scope.$watch(
+            $scope.options.StudyYears,
+            onStudyYearsSet()
+          );
+          if (!response || response === '') {
+            $scope.errorLabelText = 'На жаль, дані відсутні.';
+            resetSelectDataOptionsAndModel(selectName);
+          } else {
+            $scope.options.StudyYears = response;
+            onStudyYearsSet(isInit);
           }
-        }
+        });
+      }
 
-        function SetDepartments(userId, studyYear, isInit) {
-          var selectName = 'Department';
-          var path = 'Rnp/' + userId + '/Subdivision/' + studyYear;
-          Api.execute('GET', path).then(function(response) {
-            if (!response || response === '') {
-              $scope.errorLabelText = 'На жаль, дані відсутні';
-              resetSelectDataOptionsAndModel(selectName);
-            } else {
-              $scope.options.Departments = response;
-              OnDepartmentSet(isInit);
-            }
-          });
-        }
-
-        function OnDepartmentSet(isInit, chainObject) {
-          var initDepartmentsIndex = 0;
-          var selectName = 'Department';
-          if (
-            $scope.options.Departments[initDepartmentsIndex] !== undefined &&
-            isInit
-          ) {
-            var curDepartment = $scope.options.Departments[initDepartmentsIndex];
-            $scope.selectData.departmentId = curDepartment.id;
-            $scope.selectData.departmentMark = curDepartment.mark;
-            $scope.model.departmentItem = curDepartment;
-            SetOkr(
-              useId, $scope.selectData.studyYearId,
-              $scope.selectData.departmentId,
-              $scope.selectData.departmentMark, isInit
-            );
-          } else if (chainObject !== undefined) {
-            if (chainObject.selectName === selectName) {
-              $scope.selectData.departmentId = chainObject.chosenObj.id;
-              $scope.selectData.departmentMark = chainObject.chosenObj.mark;
-              SetOkr(
-                useId, $scope.selectData.studyYearId,
-                $scope.selectData.departmentId,
-                $scope.selectData.departmentMark, true
-              );
-            } else {
-              OnOkrSet(false, chainObject);
-            }
-          }
-        }
-
-        function SetOkr(
-          useId,
-          studyYearId,
-          chosenSubdivisionId,
-          chosenSubdivisionMark,
+      function onStudyYearsSet(isInit, chainObject) {
+        // var initStudyYearIndex = 0;
+        var initStudyYearIndex = 5;
+        var selectName = 'StudyYear';
+        if (
+          $scope.options.StudyYears[initStudyYearIndex] !== undefined &&
           isInit
         ) {
-          var selectName = 'Okr';
-          var path = (
-            'Rnp/' + useId + '/Okr/' + studyYearId + '/' +
-            chosenSubdivisionId + '/' + chosenSubdivisionMark
-          );
-          Api.execute('GET', path).then(function(response) {
-            if (!response || response === '') {
-              $scope.errorLabelText = 'На жаль, дані відсутні';
-              resetSelectDataOptionsAndModel(selectName);
-            } else {
-              $scope.options.Okrs = response;
-              OnOkrSet(isInit);
-            }
-          });
+          var StudyYear = $scope.options.StudyYears[initStudyYearIndex];
+          $scope.selectData.studyYearId = StudyYear.id;
+          $scope.model.studyYearName = StudyYear.name;
+          setDepartments(useId, $scope.selectData.studyYearId, isInit);
+        } else if (chainObject !== undefined) {
+          if (chainObject.selectName === selectName) {
+            $scope.selectData.studyYearId = chainObject.chosenObj.id;
+            setDepartments(useId, $scope.selectData.studyYearId, true);
+          } else {
+            onDepartmentSet(false, chainObject);
+          }
         }
+      }
 
-        function OnOkrSet(isInit, chainObject) {
-          var initOkrIndex = 0;
-          var selectName = 'Okr';
-          if ($scope.options.Okrs[initOkrIndex] !== undefined && isInit) {
-            var curOkr = $scope.options.Okrs[initOkrIndex];
-            $scope.selectData.okrId = curOkr.id;
-            $scope.model.okrName = curOkr.name;
-            console.log($scope.model.okrName);
-            SetSpecializations(
+      function setDepartments(userId, studyYear, isInit) {
+        var selectName = 'Department';
+        var path = 'Rnp/' + userId + '/Subdivision/' + studyYear;
+        api.execute('GET', path).then(function(response) {
+          if (!response || response === '') {
+            $scope.errorLabelText = 'На жаль, дані відсутні';
+            resetSelectDataOptionsAndModel(selectName);
+          } else {
+            $scope.options.Departments = response;
+            onDepartmentSet(isInit);
+          }
+        });
+      }
+
+      function onDepartmentSet(isInit, chainObject) {
+        var initDepartmentsIndex = 0;
+        var selectName = 'Department';
+        if (
+          $scope.options.Departments[initDepartmentsIndex] !== undefined &&
+          isInit
+        ) {
+          var curDepartment = (
+            $scope.options.Departments[initDepartmentsIndex]
+          );
+          $scope.selectData.departmentId = curDepartment.id;
+          $scope.selectData.departmentMark = curDepartment.mark;
+          $scope.model.departmentItem = curDepartment;
+          setOkr(
+            useId, $scope.selectData.studyYearId,
+            $scope.selectData.departmentId,
+            $scope.selectData.departmentMark, isInit
+          );
+        } else if (chainObject !== undefined) {
+          if (chainObject.selectName === selectName) {
+            $scope.selectData.departmentId = chainObject.chosenObj.id;
+            $scope.selectData.departmentMark = chainObject.chosenObj.mark;
+            setOkr(
+              useId, $scope.selectData.studyYearId,
+              $scope.selectData.departmentId,
+              $scope.selectData.departmentMark, true
+            );
+          } else {
+            onOkrSet(false, chainObject);
+          }
+        }
+      }
+
+      function setOkr(
+        useId,
+        studyYearId,
+        chosenSubdivisionId,
+        chosenSubdivisionMark,
+        isInit
+      ) {
+        var selectName = 'Okr';
+        var path = (
+          'Rnp/' + useId + '/Okr/' + studyYearId + '/' +
+          chosenSubdivisionId + '/' + chosenSubdivisionMark
+        );
+        api.execute('GET', path).then(function(response) {
+          if (!response || response === '') {
+            $scope.errorLabelText = 'На жаль, дані відсутні';
+            resetSelectDataOptionsAndModel(selectName);
+          } else {
+            $scope.options.Okrs = response;
+            onOkrSet(isInit);
+          }
+        });
+      }
+
+      function onOkrSet(isInit, chainObject) {
+        var initOkrIndex = 0;
+        var selectName = 'Okr';
+        if ($scope.options.Okrs[initOkrIndex] !== undefined && isInit) {
+          var curOkr = $scope.options.Okrs[initOkrIndex];
+          $scope.selectData.okrId = curOkr.id;
+          $scope.model.okrName = curOkr.name;
+          console.log($scope.model.okrName);
+          setSpecializations(
+            useId,
+            $scope.selectData.studyYearId,
+            $scope.selectData.departmentId,
+            $scope.selectData.departmentMark,
+            $scope.selectData.okrId,
+            isInit
+          );
+        } else if (chainObject !== undefined) {
+          if (chainObject.selectName === selectName) {
+            $scope.selectData.okrId = chainObject.chosenObj.id;
+            setSpecializations(
               useId,
               $scope.selectData.studyYearId,
               $scope.selectData.departmentId,
               $scope.selectData.departmentMark,
               $scope.selectData.okrId,
-              isInit
+              true
             );
-          } else if (chainObject !== undefined) {
-            if (chainObject.selectName === selectName) {
-              $scope.selectData.okrId = chainObject.chosenObj.id;
-              SetSpecializations(
-                useId,
-                $scope.selectData.studyYearId,
-                $scope.selectData.departmentId,
-                $scope.selectData.departmentMark,
-                $scope.selectData.okrId,
-                true
-              );
-            } else {
-              OnSpecializationsSet(false, chainObject);
-            }
+          } else {
+            onSpecializationsSet(false, chainObject);
           }
         }
+      }
 
-        function SetSpecializations(
-          useId,
-          studyYearId,
-          chosenSubdivisionId,
-          chosenSubdivisionMark,
-          okrId,
-          isInit
-        ) {
-          var selectName = 'Specialization';
-          var path = (
-            'Rnp/' + useId + '/Specialization/' + studyYearId + '/' +
-            chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' + okrId
+      function setSpecializations(
+        useId,
+        studyYearId,
+        chosenSubdivisionId,
+        chosenSubdivisionMark,
+        okrId,
+        isInit
+      ) {
+        var selectName = 'Specialization';
+        var path = (
+          'Rnp/' + useId + '/Specialization/' + studyYearId + '/' +
+          chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' + okrId
+        );
+        api.execute('GET', path).then(function(response) {
+          if (!response || response === '') {
+            $scope.errorLabelText = 'На жаль, дані відсутні';
+            resetSelectDataOptionsAndModel(selectName);
+          } else {
+            $scope.options.Specializations = response;
+            onSpecializationsSet(isInit);
+          }
+        });
+      }
+
+      function onSpecializationsSet(isInit, chainObject) {
+        var initSpecializationsIndex = 0;
+        var selectName = 'Specialization';
+        var curSpecialization = (
+          $scope.options.Specializations[initSpecializationsIndex]
+        );
+        if (curSpecialization !== undefined && isInit) {
+          $scope.selectData.specializationId = curSpecialization.id;
+          $scope.model.specializationCodeName = (
+            curSpecialization.code + '  ' + curSpecialization.name
           );
-          Api.execute('GET', path).then(function(response) {
-            if (!response || response === '') {
-              $scope.errorLabelText = 'На жаль, дані відсутні';
-              resetSelectDataOptionsAndModel(selectName);
-            } else {
-              $scope.options.Specializations = response;
-              OnSpecializationsSet(isInit);
-            }
-          });
-        }
-
-        function OnSpecializationsSet(isInit, chainObject) {
-          var initSpecializationsIndex = 0;
-          var selectName = 'Specialization';
-          if (
-            $scope.options.Specializations[initSpecializationsIndex] !== undefined &&
+          setStudyForms(
+            useId,
+            $scope.selectData.studyYearId,
+            $scope.selectData.departmentId,
+            $scope.selectData.departmentMark,
+            $scope.selectData.specializationId,
             isInit
-          ) {
-            var curSpecialization = $scope.options.Specializations[initSpecializationsIndex];
-            $scope.selectData.specializationId = curSpecialization.id;
-            $scope.model.specializationCodeName = (
-              curSpecialization.code + '  ' + curSpecialization.name
-            );
-            SetStudyForms(
+          );
+        } else if (chainObject !== undefined) {
+          if (chainObject.selectName === selectName) {
+            $scope.selectData.specializationId = chainObject.chosenObj.id;
+            setStudyForms(
               useId,
               $scope.selectData.studyYearId,
               $scope.selectData.departmentId,
               $scope.selectData.departmentMark,
               $scope.selectData.specializationId,
-              isInit
+              true
             );
-          } else if (chainObject !== undefined) {
-            if (chainObject.selectName === selectName) {
-              $scope.selectData.specializationId = chainObject.chosenObj.id;
-              SetStudyForms(
-                useId,
-                $scope.selectData.studyYearId,
-                $scope.selectData.departmentId,
-                $scope.selectData.departmentMark,
-                $scope.selectData.specializationId,
-                true
-              );
-            } else {
-              OnStudyFormsSet(false, chainObject);
-            }
+          } else {
+            onStudyFormsSet(false, chainObject);
           }
         }
+      }
 
-        function SetStudyForms(
-          useId,
-          studyYearId,
-          chosenSubdivisionId,
-          chosenSubdivisionMark,
-          specializationId,
+      function setStudyForms(
+        useId,
+        studyYearId,
+        chosenSubdivisionId,
+        chosenSubdivisionMark,
+        specializationId,
+        isInit
+      ) {
+        var selectName = 'StudyForm';
+        var path = (
+          'Rnp/' + useId + '/StudyForm/' + studyYearId + '/' +
+          chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' +
+          specializationId
+        );
+        api.execute('GET', path).then(function(response) {
+          if (!response || response === '') {
+            $scope.errorLabelText = 'На жаль, дані відсутні';
+            resetSelectDataOptionsAndModel(selectName);
+          } else {
+            $scope.options.StudyForms = response;
+            onStudyFormsSet(isInit);
+          }
+        });
+      }
+
+      function onStudyFormsSet(isInit, chainObject) {
+        var initStudyFormsIndex = 0;
+        var selectName = 'StudyForm';
+        if (
+          $scope.options.StudyForms[initStudyFormsIndex] !== undefined &&
           isInit
         ) {
-          var selectName = 'StudyForm';
-          var path = (
-            'Rnp/' + useId + '/StudyForm/' + studyYearId + '/' +
-            chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' +
-            specializationId
-          );
-          Api.execute('GET', path).then(function(response) {
-            if (!response || response === '') {
-              $scope.errorLabelText = 'На жаль, дані відсутні';
-              resetSelectDataOptionsAndModel(selectName);
-            } else {
-              $scope.options.StudyForms = response;
-              OnStudyFormsSet(isInit);
-            }
-          });
-        }
+          var curStudyForm = $scope.options.StudyForms[initStudyFormsIndex];
+          $scope.selectData.studyFormId = curStudyForm.id;
+          $scope.model.studyFormName = curStudyForm.name;
 
-        function OnStudyFormsSet(isInit, chainObject) {
-          var initStudyFormsIndex = 0;
-          var selectName = 'StudyForm';
-          if (
-            $scope.options.StudyForms[initStudyFormsIndex] !== undefined &&
+          setXmlCodes(
+            useId,
+            $scope.selectData.studyYearId,
+            $scope.selectData.departmentId,
+            $scope.selectData.departmentMark,
+            $scope.selectData.specializationId,
+            $scope.selectData.studyFormId,
             isInit
-          ) {
-            var curStudyForm = $scope.options.StudyForms[initStudyFormsIndex];
-            $scope.selectData.studyFormId = curStudyForm.id;
-            $scope.model.studyFormName = curStudyForm.name;
-
-            SetXmlCodes(
+          );
+        } else if (chainObject !== undefined) {
+          if (chainObject.selectName === selectName) {
+            $scope.selectData.studyFormId = chainObject.chosenObj.id;
+            setXmlCodes(
               useId,
               $scope.selectData.studyYearId,
               $scope.selectData.departmentId,
               $scope.selectData.departmentMark,
               $scope.selectData.specializationId,
               $scope.selectData.studyFormId,
-              isInit
+              true
             );
-          } else if (chainObject !== undefined) {
-            if (chainObject.selectName === selectName) {
-              $scope.selectData.studyFormId = chainObject.chosenObj.id;
-              SetXmlCodes(
-                useId,
-                $scope.selectData.studyYearId,
-                $scope.selectData.departmentId,
-                $scope.selectData.departmentMark,
-                $scope.selectData.specializationId,
-                $scope.selectData.studyFormId,
-                true
-              );
-            } else {
-              OnXmlCodesSet(false, chainObject);
-            }
+          } else {
+            onXmlCodesSet(false, chainObject);
           }
         }
+      }
 
-        function SetXmlCodes(
-          useId,
-          studyYearId,
-          chosenSubdivisionId,
-          chosenSubdivisionMark,
-          specializationId,
-          studyFormId,
+      function setXmlCodes(
+        useId,
+        studyYearId,
+        chosenSubdivisionId,
+        chosenSubdivisionMark,
+        specializationId,
+        studyFormId,
+        isInit
+      ) {
+        var selectName = 'XmlCodes';
+        var path = (
+          'Rnp/' + useId + '/XMLCode/' + studyYearId + '/' +
+          chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' +
+          specializationId + '/' + studyFormId
+        );
+        api.execute('GET', path).then(function(response) {
+          if (!response || response === '') {
+            $scope.errorLabelText = 'На жаль, дані відсутні';
+            resetSelectDataOptionsAndModel(selectName);
+          } else {
+            $scope.options.XmlCodes = response;
+            onXmlCodesSet(isInit);
+          }
+        });
+      }
+
+      function onXmlCodesSet(isInit) {
+        var initXmlCodesIndex = 0;
+        var selectName = 'XmlCodes';
+        if (
+          $scope.options.XmlCodes[initXmlCodesIndex] !== undefined &&
           isInit
         ) {
-          var selectName = 'XmlCodes';
-          var path = (
-            'Rnp/' + useId + '/XMLCode/' + studyYearId + '/' +
-            chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' +
-            specializationId + '/' + studyFormId
-          );
-          Api.execute('GET', path).then(function(response) {
-            if (!response || response === '') {
-              $scope.errorLabelText = 'На жаль, дані відсутні';
-              resetSelectDataOptionsAndModel(selectName);
-            } else {
-              $scope.options.XmlCodes = response;
-              OnXmlCodesSet(isInit);
-            }
-          });
-        }
+          var curXmlCodes = $scope.options.XmlCodes[initXmlCodesIndex];
+          $scope.selectData.xmlCodeId = curXmlCodes.id;
+          $scope.model.xmlCode = curXmlCodes.name;
 
-        function OnXmlCodesSet(isInit) {
-          var initXmlCodesIndex = 0;
-          var selectName = 'XmlCodes';
-          if (
-            $scope.options.XmlCodes[initXmlCodesIndex] !== undefined &&
-            isInit
-          ) {
-            var curXmlCodes = $scope.options.XmlCodes[initXmlCodesIndex];
-            $scope.selectData.xmlCodeId = curXmlCodes.id;
-            $scope.model.xmlCode = curXmlCodes.name;
-
-            // _SetOkr(useId, $scope.selectData.studyYearId,
-            //  $scope.selectData.departmentId,
-            //  $scope.selectData.departmentMark, isInit);
-          } else if (chainObject !== undefined) {
-            if (chainObject.selectName === selectName) {
-              $scope.selectData.xmlCodeId = chainObject.chosenObj.id;
-              // _SetOkr(useId, $scope.selectData.studyYearId,
-              // $scope.selectData.departmentId,
-              // $scope.selectData.departmentMark, isInit);
-            } else {
-              //
-            }
-          }
-        }
-
-        function GetItemByName(items, name) {
-          var item;
-          items.forEach(function(curItem) {
-            if (curItem.name === name) {
-              item = curItem;
-            }
-          });
-          return item;
-        }
-
-        function resetSelectDataOptionsAndModel(selectName) {
-          switch (chainResponsibility.indexOf(selectName)) {
-            case 0: {
-              $scope.options.StudyYears = [];
-              $scope.selectData.studyYear = null;
-              $scope.model.studyYearName = null;
-              break;
-            }
-            case 1: {
-              $scope.options.Departments = [];
-              $scope.selectData.departmentId = null;
-              $scope.selectData.departmentMark = null;
-              $scope.model.departmentItem = null;
-              break;
-            }
-            case 2: {
-              $scope.options.Okrs = [];
-              $scope.selectData.okrId = null;
-              $scope.model.okrName = null;
-              break;
-            }
-            case 3: {
-              $scope.options.Specializations = [];
-              $scope.selectData.specializationId = null;
-              $scope.model.specializationCodeName = null;
-              break;
-            }
-            case 4: {
-              $scope.options.StudyForms = [];
-              $scope.selectData.studyFormId = null;
-              $scope.model.studyFormName = null;
-              break;
-            }
-            case 5: {
-              $scope.options.XmlCodes = [];
-              $scope.selectData.xmlCodeId = null;
-              $scope.model.xmlCode = null;
-              break;
-            }
-            default: {
-              break;
-            }
-          }
-        }
-
-        $scope.onChange = function(selectedItem, selectName, items) {
-          $scope.errorLabelText = '';
-          var chosenObj;
-          if (typeof selectedItem !== 'object') {
-            chosenObj = GetItemByName(items, selectedItem);
+          // _setOkr(useId, $scope.selectData.studyYearId,
+          //  $scope.selectData.departmentId,
+          //  $scope.selectData.departmentMark, isInit);
+        } else if (chainObject !== undefined) {
+          if (chainObject.selectName === selectName) {
+            $scope.selectData.xmlCodeId = chainObject.chosenObj.id;
+            // _setOkr(useId, $scope.selectData.studyYearId,
+            // $scope.selectData.departmentId,
+            // $scope.selectData.departmentMark, isInit);
           } else {
-            chosenObj = selectedItem;
+            //
           }
-          var chainObject = {
-            selectName: selectName,
-            chosenObj: chosenObj
-          };
-          console.log(chainObject);
-          OnStudyYearsSet(false, chainObject);
-        };
+        }
+      }
 
-      },
-      templateUrl: 'views/directives/rnp-input.html',
-      restrict: 'EA'
-    };
-  });
+      function getItemByName(items, name) {
+        var item;
+        items.forEach(function(curItem) {
+          if (curItem.name === name) {
+            item = curItem;
+          }
+        });
+        return item;
+      }
+
+      function resetSelectDataOptionsAndModel(selectName) {
+        switch (chainResponsibility.indexOf(selectName)) {
+          case 0: {
+            $scope.options.StudyYears = [];
+            $scope.selectData.studyYear = null;
+            $scope.model.studyYearName = null;
+            break;
+          }
+          case 1: {
+            $scope.options.Departments = [];
+            $scope.selectData.departmentId = null;
+            $scope.selectData.departmentMark = null;
+            $scope.model.departmentItem = null;
+            break;
+          }
+          case 2: {
+            $scope.options.Okrs = [];
+            $scope.selectData.okrId = null;
+            $scope.model.okrName = null;
+            break;
+          }
+          case 3: {
+            $scope.options.Specializations = [];
+            $scope.selectData.specializationId = null;
+            $scope.model.specializationCodeName = null;
+            break;
+          }
+          case 4: {
+            $scope.options.StudyForms = [];
+            $scope.selectData.studyFormId = null;
+            $scope.model.studyFormName = null;
+            break;
+          }
+          case 5: {
+            $scope.options.XmlCodes = [];
+            $scope.selectData.xmlCodeId = null;
+            $scope.model.xmlCode = null;
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+      }
+
+      $scope.onChange = function(selectedItem, selectName, items) {
+        $scope.errorLabelText = '';
+        var chosenObj;
+        if (typeof selectedItem !== 'object') {
+          chosenObj = getItemByName(items, selectedItem);
+        } else {
+          chosenObj = selectedItem;
+        }
+        var chainObject = {
+          selectName: selectName,
+          chosenObj: chosenObj
+        };
+        console.log(chainObject);
+        onStudyYearsSet(false, chainObject);
+      };
+
+    },
+    templateUrl: 'views/directives/rnp-input.html',
+    restrict: 'EA'
+  };
+
+}
