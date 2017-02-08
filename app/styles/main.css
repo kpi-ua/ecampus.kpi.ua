@@ -527,7 +527,6 @@ input[type="radio"] + label {
 
 .sad-cat {
   width: 200px;
-  margin-top: 10px;
   margin: 0 auto;
 }
 
@@ -629,12 +628,6 @@ a.bulletin-title:hover {
   opacity: 0.3;
   filter: alpha(opacity=30);
 }
-
-/*.nav>li>a:hover,
-.nav>li>a:focus {
-    text-decoration: none;
-    background-color: #208843;
-}*/
 
 /* disciplines choice styles*/
 .btn-save-choice-result {
@@ -943,29 +936,23 @@ div.progress-student-count {
 }
 
 .navigation {
-  font-size: 9pt;
   background-color: #eee;
   margin-top: 10px;
   margin-bottom: 5px;
   min-height: 30px;
   border-radius: 0;
+  color: #208944;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 
-.navigation > .container {
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0;
-  width: 100%;
+.navigation li a {
+  font-size: 8pt !important;
 }
 
 .navigation > .container li a {
   font-size: 8pt;
-  /*padding: 5px;*/
-}
-
-.navigation > .container li a:hover {
-  /*background-color: #FFF;*/
 }
 
 .campus-navigation .nav > li > a:hover,
@@ -991,4 +978,12 @@ div.progress-student-count {
 
 .nav li a.group-title:hover {
   background-color: transparent;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a.group-title {
+    color: #AAA;
+    cursor: default;
+    padding-left: 15px;
+  }
 }
