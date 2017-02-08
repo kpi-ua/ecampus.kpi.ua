@@ -65,10 +65,10 @@ function handler($scope, $cookies, $window, api) {
     sClaim = JSON.parse(sClaim);
 
     if (typeof(sClaim.resp) === 'object') {
-      sClaim.resp.forEach(function(itemForEach, i, arr) {
-        var itemForEachJSON = JSON.parse(itemForEach);
-        if (itemForEachJSON.Subsystem === CampusKpiSubsystemId) {
-          setRadioBtnForCathedras(itemForEachJSON);
+      sClaim.resp.forEach(function(item) {
+        var itemJSON = JSON.parse(item);
+        if (itemJSON.Subsystem === CampusKpiSubsystemId) {
+          setRadioBtnForCathedras(itemJSON);
         }
       });
     } else if (typeof(sClaim.resp) === 'string') {
@@ -86,8 +86,8 @@ function handler($scope, $cookies, $window, api) {
     sClaim = JSON.parse(sClaim);
 
     if (typeof(sClaim.resp) === 'object') {
-      sClaim.resp.forEach(function(itemForEach, i, arr) {
-        kpiQuery = setFacultyAndInstituteLogic(itemForEach, kpiQuery);
+      sClaim.resp.forEach(function(item) {
+        kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
       });
     } else if (typeof(sClaim.resp) === 'string') {
       kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
@@ -99,33 +99,30 @@ function handler($scope, $cookies, $window, api) {
 
     kpiQuery = !!kpiQuery;
 
-    var itemForEachJSON = JSON.parse(item);
+    var itemJSON = JSON.parse(item);
 
-    if (itemForEachJSON.Subsystem === CampusKpiSubsystemId) {
+    if (itemJSON.Subsystem === CampusKpiSubsystemId) {
 
-      var subdivisionId = itemForEachJSON.Subdivision.Id;
-      var subdivisionName = itemForEachJSON.Subdivision.Name;
+      var subdivisionId = itemJSON.Subdivision.Id;
+      var subdivisionName = itemJSON.Subdivision.Name;
 
       if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
         kpiQuery = true;
         var pathFaculty = 'Subdivision';
         api.execute('GET', pathFaculty).then(function(response) {
-          response.forEach(function(itemForEach) {
-
+          response.forEach(function(item) {
             if (
-              itemForEach.type.id === InstituteTypeId ||
-              itemForEach.type.id === FacultyTypeId
+              item.type.id === InstituteTypeId ||
+              item.type.id === FacultyTypeId
             ) {
-              var subdivisionName = itemForEach.name;
-              var subdivisionId = itemForEach.id;
-
+              var subdivisionName = item.name;
+              var subdivisionId = item.id;
               $scope.subdivisions.push({
                 subdivisionId: subdivisionId,
                 subdivisionName: subdivisionName
               });
             }
           });
-
         });
       }
       if (
@@ -147,12 +144,9 @@ function handler($scope, $cookies, $window, api) {
   }
 
   function loadCathedras() {
-
     $scope.npps = [];
+    if (!$scope.chosenSubdivision) return;
 
-    if (!$scope.chosenSubdivision) {
-      return;
-    }
     var parentId = $scope.chosenSubdivision.subdivisionId;
     var subdivisionPath = 'Subdivision/' + parentId + '/children';
 
@@ -171,9 +165,7 @@ function handler($scope, $cookies, $window, api) {
 
   function clearTableWithId(id, wrapperId) {
     var curTable = getAngularDOMElement('#' + id);
-    if (curTable) {
-      curTable.remove();
-    }
+    if (curTable) curTable.remove();
     var newTable = angular.element('<table>');
     newTable.attr('id', id);
     getAngularDOMElement('#' + wrapperId).append(newTable);
@@ -193,7 +185,7 @@ function handler($scope, $cookies, $window, api) {
 
   function fillTableRow(colspanNumber, content, isHeader) {
     var row = createTableRow();
-    content.forEach(function(cellText, i, arr) {
+    content.forEach(function(cellText) {
       var cell = isHeader ? createTableHeaderCell() : createTableCell();
       cell.attr('colspan', colspanNumber);
       cell.text(cellText);
@@ -241,7 +233,7 @@ function handler($scope, $cookies, $window, api) {
               fillTableRow('3', [employee.name], false)
             );
             console.log(employee);
-            employee.subjects.forEach(function(subj, innerIter, arra) {
+            employee.subjects.forEach(function(subj, innerIter, arr) {
               tableForDownload.append(
                 fillTableRow(
                   '1',

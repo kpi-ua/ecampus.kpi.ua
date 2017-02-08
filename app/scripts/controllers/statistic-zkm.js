@@ -73,10 +73,10 @@ function handler($scope, $cookies, $window, api) {
 
     api.execute('GET', subdivisionPath).then(function(response) {
       $scope.cathedras = [];
-      response.forEach(function(itemForEach, i, arr) {
+      response.forEach(function(item, i, arr) {
         if (arr[i + 1] !== undefined) {
-          var cathedraId = itemForEach.id;
-          var cathedraName = itemForEach.name;
+          var cathedraId = item.id;
+          var cathedraName = item.name;
           $scope.cathedras.push({
             cathedraId: cathedraId,
             cathedraName: cathedraName
@@ -90,33 +90,33 @@ function handler($scope, $cookies, $window, api) {
     var kpiQuery = false;
     var sClaim = api.decodeToken(api.getToken());
     sClaim = JSON.parse(sClaim);
-
-    if (typeof(sClaim.resp) === 'object') {
-      sClaim.resp.forEach(function(itemForEach) {
-        kpiQuery = setFacultyAndInstituteLogic(itemForEach, kpiQuery);
+    var tof = typeof(sClaim.resp);
+    if (tof === 'object') {
+      sClaim.resp.forEach(function(item) {
+        kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
       });
-    } else if (typeof(sClaim.resp) === 'string') {
+    } else if (tof === 'string') {
       kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
     }
   }
 
   function setFacultyAndInstituteLogic(item, kpiQuery) {
-    var itemForEachJSON = JSON.parse(item);
-    if (itemForEachJSON.Subsystem === CampusKpiSubsystemId) {
-      var subdivisionId = itemForEachJSON.Subdivision.Id;
-      var subdivisionName = itemForEachJSON.Subdivision.Name;
+    var itemJSON = JSON.parse(item);
+    if (itemJSON.Subsystem === CampusKpiSubsystemId) {
+      var subdivisionId = itemJSON.Subdivision.Id;
+      var subdivisionName = itemJSON.Subdivision.Name;
 
       if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
         kpiQuery = true;
         var pathFaculty = 'Subdivision';
         api.execute('GET', pathFaculty).then(function(response) {
-          response.forEach(function(itemForEach) {
+          response.forEach(function(item) {
             if (
-              itemForEach.type.id === InstituteTypeId ||
-              itemForEach.type.id === FacultyTypeId
+              item.type.id === InstituteTypeId ||
+              item.type.id === FacultyTypeId
             ) {
-              var subdivisionName = itemForEach.name;
-              var subdivisionId = itemForEach.id;
+              var subdivisionName = item.name;
+              var subdivisionId = item.id;
 
               $scope.subdivisions.push({
                 subdivisionId: subdivisionId,
@@ -319,14 +319,14 @@ function handler($scope, $cookies, $window, api) {
                   responseArray[2].length + '</th></tr>'
                 );
                 //--
-                responseArray[2].forEach(function(itemForEach) {
-                  //console.log(itemForEach);
+                responseArray[2].forEach(function(item) {
+                  //console.log(item);
                   $('#15 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section1').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -337,13 +337,13 @@ function handler($scope, $cookies, $window, api) {
                   responseArray[3].length + '</th></tr>'
                 );
                 //--
-                responseArray[3].forEach(function(itemForEach) {
+                responseArray[3].forEach(function(item) {
                   $('#16 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section1').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -355,13 +355,13 @@ function handler($scope, $cookies, $window, api) {
                   responseArray[4].length + '</th></tr>'
                 );
                 //--
-                responseArray[4].forEach(function(itemForEach) {
+                responseArray[4].forEach(function(item) {
                   $('#17 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section1').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -371,10 +371,10 @@ function handler($scope, $cookies, $window, api) {
                   responseArray[0] + '</th></tr>'
                 );
                 //--
-                responseArray[1].forEach(function(itemForEach) {
-                  var subName = itemForEach.name;
-                  var kindOfDoc = itemForEach.className;
-                  var curCount = itemForEach.count;
+                responseArray[1].forEach(function(item) {
+                  var subName = item.name;
+                  var kindOfDoc = item.className;
+                  var curCount = item.count;
                   var subNameNext;
 
                   if (i + 1 >= responseArray[1].length) {
@@ -586,14 +586,14 @@ function handler($scope, $cookies, $window, api) {
                   responseArray2[2].length + '</th></tr>'
                 );
                 //--
-                responseArray2[2].forEach(function(itemForEach) {
-                  //console.log(itemForEach);
+                responseArray2[2].forEach(function(item) {
+                  //console.log(item);
                   $('#25 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section2').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -603,13 +603,13 @@ function handler($scope, $cookies, $window, api) {
                   responseArray2[3].length + '</th></tr>'
                 );
                 //--
-                responseArray2[3].forEach(function(itemForEach) {
+                responseArray2[3].forEach(function(item) {
                   $('#26 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section2').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -619,13 +619,13 @@ function handler($scope, $cookies, $window, api) {
                   responseArray2[4].length + '</th></tr>'
                 );
                 //--
-                responseArray2[4].forEach(function(itemForEach) {
+                responseArray2[4].forEach(function(item) {
                   $('#27 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section2').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -635,11 +635,11 @@ function handler($scope, $cookies, $window, api) {
                   responseArray2[0] + '</th></tr>'
                 );
                 //--
-                responseArray2[1].forEach(function(itemForEach) {
-                  var subName = itemForEach.name;
-                  var kindOfDoc = itemForEach.classNameFull;
-                  var curCount = itemForEach.count;
-                  var subdivName = itemForEach.subdivisionName;
+                responseArray2[1].forEach(function(item) {
+                  var subName = item.name;
+                  var kindOfDoc = item.classNameFull;
+                  var curCount = item.count;
+                  var subdivName = item.subdivisionName;
                   var subNameNext;
                   var subdivNameNext;
                   if (i + 1 >= responseArray2[1].length) {
@@ -922,14 +922,14 @@ function handler($scope, $cookies, $window, api) {
                   responseArray3[2].length + '</th></tr>'
                 );
                 //--
-                responseArray3[2].forEach(function(itemForEach) {
-                  // console.log(itemForEach);
+                responseArray3[2].forEach(function(item) {
+                  // console.log(item);
                   $('#35 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section3').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -940,13 +940,13 @@ function handler($scope, $cookies, $window, api) {
                 );
                 //--
 
-                responseArray3[3].forEach(function(itemForEach) {
+                responseArray3[3].forEach(function(item) {
                   $('#36 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section3').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -957,13 +957,13 @@ function handler($scope, $cookies, $window, api) {
                   responseArray3[4].length + '</th></tr>'
                 );
                 //--
-                responseArray3[4].forEach(function(itemForEach) {
+                responseArray3[4].forEach(function(item) {
                   $('#37 table tbody').append(
-                    '<tr><td>' + itemForEach + '</td></tr>'
+                    '<tr><td>' + item + '</td></tr>'
                   );
                   //for download
                   $('#section3').append(
-                    '<tr><td colspan="2">' + itemForEach + '</td></tr>'
+                    '<tr><td colspan="2">' + item + '</td></tr>'
                   );
                   //--
                 });
@@ -973,11 +973,11 @@ function handler($scope, $cookies, $window, api) {
                   responseArray3[0] + '</th></tr>'
                 );
                 //--
-                responseArray3[1].forEach(function(itemForEach) {
-                  var subName = itemForEach.name;
-                  var kindOfDoc = itemForEach.classNameFull;
-                  var curCount = itemForEach.count;
-                  var subdivName = itemForEach.subdivisionName;
+                responseArray3[1].forEach(function(item) {
+                  var subName = item.name;
+                  var kindOfDoc = item.classNameFull;
+                  var curCount = item.count;
+                  var subdivName = item.subdivisionName;
                   var subNameNext;
                   var subdivNameNext;
                   if (i + 1 >= responseArray3[1].length) {

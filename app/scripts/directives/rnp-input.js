@@ -374,7 +374,8 @@ function handler(api) {
       }
 
       function resetSelectDataOptionsAndModel(selectName) {
-        switch (chainResponsibility.indexOf(selectName)) {
+        var idx = chainResponsibility.indexOf(selectName);
+        switch (idx) {
           case 0: {
             $scope.options.StudyYears = [];
             $scope.selectData.studyYear = null;
@@ -421,7 +422,7 @@ function handler(api) {
       $scope.onChange = function(selectedItem, selectName, items) {
         $scope.errorLabelText = '';
         var chosenObj;
-        if (typeof selectedItem !== 'object') {
+        if (typeof(selectedItem) !== 'object') {
           chosenObj = getItemByName(items, selectedItem);
         } else {
           chosenObj = selectedItem;

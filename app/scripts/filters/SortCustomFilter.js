@@ -12,9 +12,9 @@ angular
 
       filtered.sort(function(a, b) {
         switch (field) {
-          case 'blockName': return (a.blockName.localeCompare(b.blockName));
-          case 'nameUkr': return (a.nameUkr.localeCompare(b.nameUkr));
-          case 'okr': return (a.okr.localeCompare(b.okr));
+          case 'blockName': return a.blockName.localeCompare(b.blockName);
+          case 'nameUkr': return a.nameUkr.localeCompare(b.nameUkr);
+          case 'okr': return a.okr.localeCompare(b.okr);
         }
       });
 

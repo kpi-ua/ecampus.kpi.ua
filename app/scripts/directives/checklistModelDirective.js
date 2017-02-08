@@ -83,10 +83,7 @@ function handler($parse, $compile) {
 
     // watch UI checked change
     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
-      if (newValue === oldValue) {
-        return;
-      }
-
+      if (newValue === oldValue) return;
       if (
         checklistBeforeChange &&
         !checklistBeforeChange(scope)
@@ -98,10 +95,7 @@ function handler($parse, $compile) {
       }
 
       setValueInChecklistModel(value, newValue);
-
-      if (checklistChange) {
-        checklistChange(scope);
-      }
+      if (checklistChange) checklistChange(scope);
     });
 
     function setValueInChecklistModel(value, checked) {
@@ -139,10 +133,10 @@ function handler($parse, $compile) {
     terminal: true,
     scope: true,
     compile: function(tElement, tAttrs) {
+      var tag = tElement[0].tagName;
       if (
-        (tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox') &&
-        (tElement[0].tagName !== 'MD-CHECKBOX') &&
-        (!tAttrs.btnCheckbox)
+        (tag !== 'INPUT' || tAttrs.type !== 'checkbox') &&
+        (tag !== 'MD-CHECKBOX') && (!tAttrs.btnCheckbox)
       ) {
         throw 'checklist-model should be applied to `input[type="checkbox"]` or `md-checkbox`.';
       }

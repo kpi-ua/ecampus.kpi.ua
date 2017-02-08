@@ -9,10 +9,8 @@
  */
 angular.module('ecampusApp')
   .service('api', function($http, $rootScope, $window) {
-
-    //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
+    // this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
-
     $rootScope.requestCount = 0;
 
     this.changeRequestCount = function(i) {
@@ -28,19 +26,17 @@ angular.module('ecampusApp')
 
     this.changeIsSessionExpiredValue(false);
 
-
     /**
      * Execute API method
      */
     this.execute = function(method, path, payload) {
 
       var self = this;
-
       var url = self.ApiEndpoint + path;
-
       payload = $.isEmptyObject(payload) ? null : payload;
 
-      if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+      var methods = ['POST', 'PUT', 'DELETE'];
+      if (methods.indexOf(method) > -1) {
         payload = payload ? JSON.stringify(payload) : payload;
       }
 
@@ -57,20 +53,13 @@ angular.module('ecampusApp')
           'Authorization': 'Bearer ' + self.getToken()
         }
       }).then(function(response) {
-
         self.changeRequestCount(-1);
-
-        if (response) {
-          return response.data;
-        }
-
+        if (response) return response.data;
         return null;
       }, function(err) {
-
         console.warn(err);
         self.changeRequestCount(-1);
         return err;
-
       });
 
     };
@@ -79,7 +68,6 @@ angular.module('ecampusApp')
      * Remove auth token after session expired
      * return true if session is expired
      */
-
     var tokenLimit = null;
 
     this.removeToken = function() {
@@ -124,9 +112,7 @@ angular.module('ecampusApp')
       };
 
       var self = this;
-
       payload = $.param(payload);
-
       self.changeRequestCount(1);
 
       return $http({
@@ -143,18 +129,15 @@ angular.module('ecampusApp')
         if (!!response && !!response.data) {
 
           self.setToken(response.data.access_token);
-
           // tokenLimit = 10000; 10 second for testing
           tokenLimit = response.data.expires_in * 1000;
           // calculate finish time for token
           self.setLoginFinishTime(+new Date() + tokenLimit);
-
           var session = response.data;
 
           return self.execute('GET', 'Account/Info').then(function(response) {
             //get current user details
             self.setCurrentUser(response);
-
             return session;
           });
         }

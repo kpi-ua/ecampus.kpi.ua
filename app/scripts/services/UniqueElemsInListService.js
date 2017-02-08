@@ -6,7 +6,7 @@ angular
     var unmodifiedElementsOfQuery = [];
     var finalArr = [];
     var listAccordingToSubdivision = [];
-    var tmpItem, ifPresent;
+    var item, ifPresent;
 
     this.setData = function(currListOfObj) {
       for (var i = 0; i < currListOfObj.length; i++) {
@@ -34,31 +34,22 @@ angular
 
       for (var i = 0; i < unmodifiedElementsOfQuery.length; i++) {
         // unmodifiedElementsOfQuery[i][field].discipline is not working
+        item = unmodifiedElementsOfQuery[i];
         switch (field) {
-          case 'discipline':
-            tmpItem = unmodifiedElementsOfQuery[i].discipline; break;
-          case 'okr':
-            tmpItem = unmodifiedElementsOfQuery[i].okr; break;
-          case 'studyyear':
-            tmpItem = unmodifiedElementsOfQuery[i].studyyear; break;
+          case 'discipline': item = item.discipline; break;
+          case 'okr': item = item.okr; break;
+          case 'studyyear': item = item.studyyear; break;
           case 'studyPeriod.all':
-            tmpItem = (
-              unmodifiedElementsOfQuery[i].studyPeriod.start + '-' +
-              unmodifiedElementsOfQuery[i].studyPeriod.end
-            );
+            item = item.studyPeriod.start + '-' + item.studyPeriod.end;
             break;
-          case 'subdivisionName':
-            tmpItem = unmodifiedElementsOfQuery[i].subdivisionName; break;
-          case 'forSelectFullname':
-            tmpItem = unmodifiedElementsOfQuery[i].forSelectFullname; break;
-          default:
-            tmpItem = unmodifiedElementsOfQuery[i]; break;
+          case 'subdivisionName': item = item.subdivisionName; break;
+          case 'forSelectFullname': item = item.forSelectFullname; break;
         }
         for (var j = 0; j < finalArr.length; j++) {
-          ifPresent = tmpItem === finalArr[j];
+          ifPresent = item === finalArr[j];
           if (ifPresent) break;
         }
-        if (!ifPresent) finalArr.push(tmpItem);
+        if (!ifPresent) finalArr.push(item);
       }
       finalArr.shift();
       return finalArr;
@@ -111,9 +102,7 @@ angular
       var actualYear = currDate.getFullYear();
       var actualMonth = currDate.getMonth() + 1;
 
-      if (actualMonth < 7) {
-        actualYear -= 1;
-      }
+      if (actualMonth < 7) actualYear -= 1;
 
       for (var i = 0; i < allYears.length; i++) {
         if (allYears[i].name) {

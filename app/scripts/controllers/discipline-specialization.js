@@ -151,12 +151,14 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
       var sClaim = api.decodeToken(api.getToken());
       sClaim = JSON.parse(sClaim);
       if (typeof(sClaim.resp) === 'object') {
-        sClaim.resp.forEach(function(itemForEach) {
-          var itemForEachJSON = JSON.parse(itemForEach);
-          var subsystemId = itemForEachJSON.Subsystem;
-          var subdivisionId = itemForEachJSON.Subdivision.Id;
-          var subdivisionName = itemForEachJSON.Subdivision.Name;
-          var subdivision = new SubdivisionModel(subdivisionId, subdivisionName);
+        sClaim.resp.forEach(function(item) {
+          var itemJSON = JSON.parse(item);
+          var subsystemId = itemJSON.Subsystem;
+          var subdivisionId = itemJSON.Subdivision.Id;
+          var subdivisionName = itemJSON.Subdivision.Name;
+          var subdivision = new SubdivisionModel(
+            subdivisionId, subdivisionName
+          );
 
           var subsystem = new SubsystemModel(subsystemId, subdivision);
 
