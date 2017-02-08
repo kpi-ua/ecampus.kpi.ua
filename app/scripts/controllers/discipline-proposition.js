@@ -15,14 +15,22 @@ angular
   })
   .controller('DisciplinesPropositionCtrl', handler);
 
-function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filter) {
+function handler(
+  $scope,
+  $window,
+  $http,
+  api,
+  uniqueElemsInList,
+  $timeout,
+  $filter
+) {
   var ifWantToAddRowData = false;
   var studyYearFrom = 2013;
   var studyYearTo = 2020;
   $scope.sortName = 'nameUkr';
   $scope.sortReverse = false;
   $scope.sectionMenu = 'generalListMenu'; //studyYearMenu
-  //$scope.tempListData = {};
+  // $scope.tempListData = {};
   $scope.selectedYear = '2013-2014';
   $scope.forSelectFullNameNew = [];
   $scope.messageCurrent = '';
@@ -93,7 +101,8 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
       $scope.forSelectFullname = [];
       $scope.forSelectFullNameNew = [];
       var name, okr, cathedra, fullName, disciplineBlockId;
-      var listOfFullnames = [], ifExist = false;
+      var listOfFullnames = [];
+      var ifExist = false;
 
       var i, j;
 
@@ -117,7 +126,6 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
             !ifExist
           ) {
             ifExist = true;
-
             name = separateFullname($scope.alldisciplines[j].nameFull, 0);
             okr = separateFullname($scope.alldisciplines[j].nameFull, 1);
             cathedra = separateFullname($scope.alldisciplines[j].nameFull, 2);
@@ -125,12 +133,12 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
             disciplineBlockId = $scope.alldisciplines[j].disciplineBlockId;
 
             $scope.forSelectFullNameNew.push(
-              new forSelectFullNameNewModel(
+              new ForSelectFullNameNewModel(
                 name, okr, cathedra, fullName, disciplineBlockId
               )
             );
             $scope.forSelectFullname.push(
-              new forSelectFullnameModel(
+              new ForSelectFullnameModel(
                 $scope.alldisciplines[j].nameFull,
                 $scope.alldisciplines[j].disciplineBlockId
               )
@@ -234,7 +242,8 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
   };
 
   $scope.showTeachersList = function(currentTeachersList) {
-    var output = '', sortedList = [];
+    var output = '';
+    var sortedList = [];
     if (currentTeachersList.employee.length) {
       var i;
       for (i = 0; i < currentTeachersList.employee.length; i++) {
@@ -260,7 +269,10 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
   };
 
   $scope.ifZeroInTable = function(currentObject, someValue) {
-    return (currentObject !== null) ? currentObject[someValue] : 'не визначено2';
+    return (
+      (currentObject !== null) ?
+      currentObject[someValue] : 'не визначено2'
+    );
   };
 
   $scope.setColspan = function(colspan) {
@@ -286,7 +298,6 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
 
     api.execute('GET', url)
       .then(function(response) {
-
         $scope.tempListData = response;
         $scope.tempListData.years = [];
         console.log('some promises');
@@ -294,6 +305,7 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
       }, function(response) {
         $scope.tempListData = response;
       }, function(response) {
+        //
       });
   };
 
@@ -447,9 +459,8 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
           Images: ''
         };
 
-
         $scope.addProposition = function() {
-          //show or hide adding row in the Proposition-table
+          // show or hide adding row in the Proposition-table
           if (!ifWantToAddRowData) {
             if ($scope.sortReverse) {
               $scope.sortReverse = !$scope.sortReverse;
@@ -482,7 +493,7 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
         };
 
         $scope.addYear = function() {
-            //objYear.studyYear.name
+          // objYear.studyYear.name
           if (!ifWantToAddRowData) {
             if ($scope.sortReverse) {
               $scope.sortReverse = !$scope.sortReverse;
@@ -555,45 +566,45 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
           console.log('ккк', $scope.newData.Images, 'ккк');
           var url = 'SelectiveDiscipline/BlocksDispline';
           var method = '';
-          var BlockId = getBlockIdByName(
+          var blockId = getBlockIdByName(
             $scope.tempListData.dcBlock8,
             data.blockName
           );
-          var DisciplineId = getDisciplineIdByName(
+          var disciplineId = getDisciplineIdByName(
             $scope.tempListData.dcDiscipline8,
             data.nameUkr
           );
-          var DcOKRId = getOkrIdByName($scope.tempListData.okr, data.okr);
-          var DcSubdivisionWhoId = $scope.selectedDiscipline.id;
-          var Knowledge = proposition.knowledge;
-          var Competence = proposition.competence;
-          var Skill = proposition.skill;
-          var Annotation = proposition.annotation;
-          var Picture = '';
-          var CountCredit = data.countCredit;
+          var dcOKRId = getOkrIdByName($scope.tempListData.okr, data.okr);
+          var dcSubdivisionWhoId = $scope.selectedDiscipline.id;
+          var knowledge = proposition.knowledge;
+          var competence = proposition.competence;
+          var skill = proposition.skill;
+          var annotation = proposition.annotation;
+          var picture = '';
+          var countCredit = data.countCredit;
           var disciplineBlockId = proposition.disciplineBlockId;
-          var Course1 = true;
-          var Course2 = true;
-          var Course3 = true;
-          var Course4 = true;
-          var Course5 = true;
-          var Course6 = true;
+          var course1 = true;
+          var course2 = true;
+          var course3 = true;
+          var course4 = true;
+          var course5 = true;
+          var course6 = true;
 
           if (
             $scope.newData.Images !== '' &&
             $scope.newData.Images !== ' '
           ) {
-            Picture = $scope.newData.Images;
+            picture = $scope.newData.Images;
             console.log('Picture = $scope.newData.Images;');
           } else if ($scope.newData.Images === ' ') {
-            Picture = '';
+            picture = '';
             console.log('Picture = "";');
           } else if (
             proposition.pictures !== '' &&
             $scope.newData.Images === '' &&
             proposition.pictures
           ) {
-            Picture = proposition.pictures.substring(23);
+            picture = proposition.pictures.substring(23);
             console.log('Picture = proposition.pictures.substring(23);');
           }
 
@@ -614,12 +625,12 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
           if (data.courses) {
             for (i = 0; i < 7; i++) {
               switch (data.courses[i]) {
-                case 1: Course1 = false; break;
-                case 2: Course2 = false; break;
-                case 3: Course3 = false; break;
-                case 4: Course4 = false; break;
-                case 5: Course5 = false; break;
-                case 6: Course6 = false; break;
+                case 1: course1 = false; break;
+                case 2: course2 = false; break;
+                case 3: course3 = false; break;
+                case 4: course4 = false; break;
+                case 5: course5 = false; break;
+                case 6: course6 = false; break;
               }
             }
           }
@@ -639,17 +650,17 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
                 $scope.reloadData();
               }
             }
-            Knowledge = null;
-            Competence = null;
-            Skill = null;
-            Annotation = null;
-            //Picture = '';
+            knowledge = null;
+            competence = null;
+            skill = null;
+            annotation = null;
+            // picture = '';
           }
           var newRowProposition = new PropositionModel(
-            BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId,
-            Knowledge, Competence, Skill, Annotation, CountCredit,
-            Picture, disciplineBlockId,
-            Course1, Course2, Course3, Course4, Course5, Course6
+            blockId, disciplineId, dcOKRId, dcSubdivisionWhoId,
+            knowledge, competence, skill, annotation, countCredit,
+            picture, disciplineBlockId,
+            course1, course2, course3, course4, course5, course6
           );
 
           console.log('newRowProposition - .', newRowProposition, '.');
@@ -675,43 +686,43 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
           var method = '';
           // var $scope.CurrentYearData.disciplineBlockId,
           // cDisciplineBlock8Id
-          var StudyYear = {};
-          var MaxCountStudent = data.maxCountStudent;
-          var IsApproved = getApprovedByName(
+          var studyYear = {};
+          var maxCountStudent = data.maxCountStudent;
+          var isApproved = getApprovedByName(
             $scope.testIsApproved,
             data.isApproved
           );
-          var DisciplineBlock8Id;
+          var disciplineBlock8Id;
           if ($scope.sectionMenu === 'studyYearMenu') {
             if (
-              ($scope.selectedNameFull) &&
-              (!angular.equals($scope.selectedNameFull, {}))
+              $scope.selectedNameFull &&
+              !angular.equals($scope.selectedNameFull, {})
             ) {
-              DisciplineBlock8Id = $scope.selectedNameFull.disciplineBlockId;
+              disciplineBlock8Id = $scope.selectedNameFull.disciplineBlockId;
             } else {
-              // DisciplineBlock8Id = getDisciplineBlockIdByFullName(
+              // disciplineBlock8Id = getDisciplineBlockIdByFullName(
               //   $scope.forSelectFullNameNew, year.nameFull
               // );
-              DisciplineBlock8Id = year.id;
+              disciplineBlock8Id = year.id;
             }
             // getDisciplineIdByName(
             //   $scope.tempListData.dcDiscipline8,
             //   data.nameUkr
             // ),
-            StudyYear.Name = $scope.selectedYear.name;
+            studyYear.Name = $scope.selectedYear.name;
           } else {
-            DisciplineBlock8Id = $scope.CurrentYearData.disciplineBlockId;
-            StudyYear.Name = data.studyYear;
+            disciplineBlock8Id = $scope.CurrentYearData.disciplineBlockId;
+            studyYear.Name = data.studyYear;
           }
 
           // DcSubdivisionWhoId = $scope.selectedDiscipline.id,
           // $scope.CurrentYearData.disciplineBlockId;
 
           var newRowYear = new YearModel(
-            StudyYear,
-            MaxCountStudent,
-            IsApproved,
-            DisciplineBlock8Id
+            studyYear,
+            maxCountStudent,
+            isApproved,
+            disciplineBlock8Id
           );
 
           if (year.idBlockYear) {
@@ -867,50 +878,50 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
 
         $scope.addDescription = function() {
 
-          var BlockId = getBlockIdByName(
+          var blockId = getBlockIdByName(
             $scope.tempListData.dcBlock8,
             $scope.CurrentYearData.blockName
           );
-          var DisciplineId = getDisciplineIdByName(
+          var disciplineId = getDisciplineIdByName(
             $scope.tempListData.dcDiscipline8,
             $scope.CurrentYearData.nameUkr
           );
-          var DcOKRId = getOkrIdByName(
+          var dcOKRId = getOkrIdByName(
             $scope.tempListData.okr,
             $scope.CurrentYearData.okr
           );
-          var DcSubdivisionWhoId = $scope.selectedDiscipline.id;
-          var Knowledge = $scope.CurrentYearData.knowledge;
-          var Competence = $scope.CurrentYearData.competence;
-          var Skill = $scope.CurrentYearData.skill;
-          var Annotation = $scope.CurrentYearData.annotation;
-          var CountCredit = $scope.CurrentYearData.countCredit;
-          var Picture = $scope.newData.Images;
+          var dcSubdivisionWhoId = $scope.selectedDiscipline.id;
+          var knowledge = $scope.CurrentYearData.knowledge;
+          var competence = $scope.CurrentYearData.competence;
+          var skill = $scope.CurrentYearData.skill;
+          var annotation = $scope.CurrentYearData.annotation;
+          var countCredit = $scope.CurrentYearData.countCredit;
+          var picture = $scope.newData.Images;
           // $scope.newData.Images;
           var disciplineBlockId = $scope.CurrentYearData.disciplineBlockId;
-          var Course1 = true;
-          var Course2 = true;
-          var Course3 = true;
-          var Course4 = true;
-          var Course5 = true;
-          var Course6 = true;
+          var course1 = true;
+          var course2 = true;
+          var course3 = true;
+          var course4 = true;
+          var course5 = true;
+          var course6 = true;
 
           for (var i = 0; i < 7; i++) {
             switch ($scope.CurrentYearData.courses[i]) {
-              case 1: Course1 = false; break;
-              case 2: Course2 = false; break;
-              case 3: Course3 = false; break;
-              case 4: Course4 = false; break;
-              case 5: Course5 = false; break;
-              case 6: Course6 = false; break;
+              case 1: course1 = false; break;
+              case 2: course2 = false; break;
+              case 3: course3 = false; break;
+              case 4: course4 = false; break;
+              case 5: course5 = false; break;
+              case 6: course6 = false; break;
             }
           }
 
           var editedRowProposition = new PropositionModel(
-            BlockId, DisciplineId, DcOKRId, DcSubdivisionWhoId,
-            Knowledge, Competence, Skill, Annotation, CountCredit,
-            Picture, disciplineBlockId,
-            Course1, Course2, Course3, Course4, Course5, Course6
+            blockId, disciplineId, dcOKRId, dcSubdivisionWhoId,
+            knowledge, competence, skill, annotation, countCredit,
+            picture, disciplineBlockId,
+            course1, course2, course3, course4, course5, course6
           );
 
           var method = 'PUT';
@@ -929,7 +940,7 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
             });
         };
 
-        var getOkrIdByName = function(okrList, okrName) {
+        function getOkrIdByName(okrList, okrName) {
           var okrId = '';
           okrList.forEach(function(item, iter, arr) {
             if (item.name === okrName) {
@@ -937,10 +948,9 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
             }
           });
           return okrId;
-        };
+        }
 
-
-        var getDisciplineIdByName = function(disciplineList, disciplineName) {
+        function getDisciplineIdByName(disciplineList, disciplineName) {
           var disciplineId = '';
           disciplineList.forEach(function(item, iter, arr) {
             if (item.name === disciplineName) {
@@ -948,9 +958,9 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
             }
           });
           return disciplineId;
-        };
+        }
 
-        var getApprovedByName = function(approveList, approveName) {
+        function getApprovedByName(approveList, approveName) {
           var approveStatus = '';
           approveList.forEach(function(item, iter, arr) {
             if (item.name === approveName) {
@@ -958,9 +968,9 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
             }
           });
           return approveStatus;
-        };
+        }
 
-        var getDisciplineBlockIdByFullName = function(
+        function getDisciplineBlockIdByFullName(
           disciplineBlockList,
           disciplineBlockName
         ) {
@@ -971,7 +981,7 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
             }
           }
           return disciplineBlockId;
-        };
+        }
 
         $scope.fileNameChanged1 = function() {
           console.log('select file');
@@ -993,9 +1003,9 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
         };
 
         $scope.sendToServer = function() {
-          //$scope.loader = true;
+          // $scope.loader = true;
           $scope.newData.countCredit = parseInt($scope.newData.countCredit);
-          //var data = angular.toJson($scope.newData);
+          // var data = angular.toJson($scope.newData);
           var data = $scope.newData;
           var config = {
             headers: {
@@ -1029,15 +1039,11 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
   $scope.ifCathedraAndYearChosen = function() {
     var currCathedra = $scope.selectedDiscipline;
     var currYear = $scope.selectedYear;
-    if (
+    return (
       currYear !== null &&
       currYear !== undefined &&
       currCathedra !== undefined
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    );
   };
 
   $scope.initializeStudyYear = function() {
@@ -1197,70 +1203,70 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
   }
 
   function PropositionModel(
-    BlockId,
-    DisciplineId,
-    DcOKRId,
-    DcSubdivisionWhoId,
-    Knowledge,
-    Competence,
-    Skill,
-    Annotation,
-    CountCredit,
-    Picture,
+    blockId,
+    disciplineId,
+    dcOKRId,
+    dcSubdivisionWhoId,
+    knowledge,
+    competence,
+    skill,
+    annotation,
+    countCredit,
+    picture,
     disciplineBlockId,
-    Course1,
-    Course2,
-    Course3,
-    Course4,
-    Course5,
-    Course6
+    course1,
+    course2,
+    course3,
+    course4,
+    course5,
+    course6
   ) {
-    this.BlockId = BlockId;
-    this.DisciplineId = DisciplineId;
-    this.DcOKRId = DcOKRId;
-    this.DcSubdivisionWhoId = DcSubdivisionWhoId;
-    this.Knowledge = Knowledge;
-    this.Competence = Competence;
-    this.Skill = Skill;
-    this.Annotation = Annotation;
-    this.CountCredit = CountCredit;
-    this.Picture = Picture;
+    this.BlockId = blockId;
+    this.DisciplineId = disciplineId;
+    this.DcOKRId = dcOKRId;
+    this.DcSubdivisionWhoId = dcSubdivisionWhoId;
+    this.Knowledge = knowledge;
+    this.Competence = competence;
+    this.Skill = skill;
+    this.Annotation = annotation;
+    this.CountCredit = countCredit;
+    this.Picture = picture;
     if (disciplineBlockId !== '') {
       this.disciplineBlockId = disciplineBlockId;
     }
-    this.Course1 = Course1;
-    this.Course2 = Course2;
-    this.Course3 = Course3;
-    this.Course4 = Course4;
-    this.Course5 = Course5;
-    this.Course6 = Course6;
+    this.Course1 = course1;
+    this.Course2 = course2;
+    this.Course3 = course3;
+    this.Course4 = course4;
+    this.Course5 = course5;
+    this.Course6 = course6;
   }
 
   function YearModel(
-    StudyYear,
-    MaxCountStudent,
-    IsApproved,
-    DisciplineBlock8Id
+    studyYear,
+    maxCountStudent,
+    isApproved,
+    disciplineBlock8Id
   ) {
-    this.StudyYear = StudyYear;
-    this.MaxCountStudent = MaxCountStudent;
-    this.IsApproved = IsApproved;
-    this.DisciplineBlock8Id = DisciplineBlock8Id;
+    this.StudyYear = studyYear;
+    this.MaxCountStudent = maxCountStudent;
+    this.IsApproved = isApproved;
+    this.DisciplineBlock8Id = disciplineBlock8Id;
   }
 
   function YearListModel(name) {
     this.name = name;
   }
 
-  function forSelectFullnameModel(
+  function ForSelectFullnameModel(
     nameFull,
-    DisciplineBlock8Id
+    disciplineBlock8Id
   ) {
     this.nameFull = nameFull;
-    this.DisciplineBlock8Id = DisciplineBlock8Id;
+    this.DisciplineBlock8Id = disciplineBlock8Id;
   }
 
-  function forSelectFullNameNewModel(
+  function ForSelectFullNameNewModel(
     name,
     okr,
     cathedra,
@@ -1274,7 +1280,7 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
     this.disciplineBlockId = disciplineBlockId;
   }
 
-  //var ifItIsAllowed = false; ok it works
+  // var ifItIsAllowed = false; ok it works
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     // Great success! All the File APIs are supported.
@@ -1322,13 +1328,10 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
     $scope.currImgFormat = files[0].type;
     var currImg = document.getElementById('imgPreview' + $scope.idFilePreview);
     //h('image.*')
-    if (
-      (
-        files[0].type === 'image/png' ||
-        files[0].type === 'image/jpeg' ||
-        files[0].type === 'image/gif'
-      ) && files[0].size < 65535
-    ) {
+    var ft = files[0].type;
+    var size = files[0].size;
+    var ext = ['image/png', 'image/jpeg', 'image/gif'];
+    if (ext.indexOf(ft) > -1 && size < 65535) {
       var reader = new FileReader();
       console.log('img is ok');
 
@@ -1336,9 +1339,8 @@ function handler($scope, $window, $http, api, uniqueElemsInList, $timeout, $filt
         return function(e) {
           currImg.src = e.target.result;
           $scope.newData.Images = currImg.src.substring(23);
-          //without data:image/jpeg;base64, part at the beginning
+          // without data:image/jpeg;base64, part at the beginning
           currImg.title = escape(theFile.name);
-
         };
       })(files[0]);
 

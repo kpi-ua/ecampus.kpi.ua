@@ -37,12 +37,10 @@ function handler($scope, api) {
     api.execute('GET', url)
       .then(function(response) {
         $scope.boardsList = response;
-
         sortBoards($scope.boardsList);
         $scope.allBoards = getAllBoards();
         $scope.boardsForProfile = getBoardsForProfile();
         $scope.boardsForSubdivision = getBoardsForSubdivision();
-
       });
   }
 

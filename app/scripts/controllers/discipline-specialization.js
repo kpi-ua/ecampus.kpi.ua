@@ -35,7 +35,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
   $scope.sortReverse = true; // обратная сортировка
 
   $scope.sortTypeBlock = 'MaxCountStudent'; // значение сортировки по умолчанию
-  $scope.sortReverseBlock  = false;  // обратная сортировка
+  $scope.sortReverseBlock = false;  // обратная сортировка
 
   $scope.section = 'specialization';
   $scope.semester = '';

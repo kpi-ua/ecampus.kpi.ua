@@ -16,8 +16,8 @@ function handler($scope, $http, api, uniqueElemsInList) {
 
   $scope.InitializeTree = function() {
     if (
-      ($scope.selectedYear !== undefined) &&
-      ($scope.selectedOkr !== undefined)
+      $scope.selectedYear !== undefined &&
+      $scope.selectedOkr !== undefined
     ) {
       $scope.dataInTree = uniqueElemsInList.getArrayOfBlocksAndDisc(
         $scope.selectedYear, $scope.selectedOkr, $scope.alldata
@@ -26,7 +26,7 @@ function handler($scope, $http, api, uniqueElemsInList) {
   };
 
   $scope.ifYearAndOkr0Chosen = function() {
-    if (($scope.dataInTree) && ($scope.dataInTree.length !== 0)) {
+    if ($scope.dataInTree && $scope.dataInTree.length !== 0) {
       return Boolean($scope.dataInTree);
     }
   };

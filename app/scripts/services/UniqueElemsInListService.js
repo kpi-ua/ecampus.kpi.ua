@@ -55,16 +55,10 @@ angular
             tmpItem = unmodifiedElementsOfQuery[i]; break;
         }
         for (var j = 0; j < finalArr.length; j++) {
-          if (tmpItem === finalArr[j]) {
-            ifPresent = true;
-            break;
-          } else {
-            ifPresent = false;
-          }
+          ifPresent = tmpItem === finalArr[j];
+          if (ifPresent) break;
         }
-        if (ifPresent === false) {
-          finalArr.push(tmpItem);
-        }
+        if (!ifPresent) finalArr.push(tmpItem);
       }
       finalArr.shift();
       return finalArr;

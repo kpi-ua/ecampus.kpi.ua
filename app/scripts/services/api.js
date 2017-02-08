@@ -86,7 +86,7 @@ angular.module('ecampusApp')
       var self = this;
       var localStorageFinishTime = self.getLoginFinishTime();
       if (+new Date() > localStorageFinishTime) {
-        //redirect and remove items from local storage after 5 seconds
+        // redirect and remove items from local storage after 5 seconds
         setTimeout(function() {
           self.logout();
           self.setLoginFinishTime(null);

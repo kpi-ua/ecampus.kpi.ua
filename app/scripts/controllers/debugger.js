@@ -101,34 +101,20 @@ function handler($scope, $sce, api) {
   }
 
   function createControl(parameter) {
-
-    var controlType = '';
-
-    if (
-      parameter.type === 'System.String' ||
-      parameter.type === 'String'
-    ) {
-      controlType = 'text';
-    } else if (
-      parameter.type === 'System.Int32' ||
-      parameter.type === 'Int32'
-    ) {
-      controlType = 'number';
-    } else if (
-      parameter.type === 'System.Web.HttpPostedFileBase' ||
-      parameter.type === 'HttpPostedFileBase'
-    ) {
-      controlType = 'file';
-    } else {
-      controlType = 'text';
-    }
-
+    var types = {
+      'System.String': 'text',
+      'String': 'text',
+      'System.Int32': 'number',
+      'Int32': 'number',
+      'System.Web.HttpPostedFileBase': 'file',
+      'HttpPostedFileBase': 'file'
+    };
+    var controlType = types[parameter.type] || 'text';
     var html = (
       '<input class="form-control" type="' + controlType + '" name="' +
       parameter.name + '" id = "' + parameter.name +
       '" value="" placeholder="' + parameter.name + '" />'
     );
-
     return renderFormGroup(parameter.name, parameter.name, html);
   }
 
@@ -193,11 +179,9 @@ function handler($scope, $sce, api) {
 
   function loadSelectedMethodMetadata() {
     var m = getSelectedMethod();
-
     if (m) {
       $scope.httpMethod = m.method;
       $scope.message = '';
-
       render(getSelectedMethod());
     }
   }
@@ -218,15 +202,12 @@ function handler($scope, $sce, api) {
     api.setApiEndpoint($scope.apiEndpoint);
     $scope.controllers = [];
     $scope.methods = [];
-
     loadControllerList();
-
     alert('API endpoint successfully changed.');
   };
 
   $scope.viewErrorLog = function() {
     var w = window.open(api.getApiEndpoint() + 'system/logs/errors/', '_blank');
-
     if (w) {
       w.focus(); //Browser has allowed it to be opened
     } else {
@@ -241,13 +222,10 @@ function handler($scope, $sce, api) {
 
     api.auth($scope.login, $scope.password).then(function(token) {
       $scope.sessionToken = token;
-
       $scope.message = '';
-
       if (!token) {
         $scope.message = 'Incorrect login or password.';
       }
-
       scope.progressBar = false;
     });
   };

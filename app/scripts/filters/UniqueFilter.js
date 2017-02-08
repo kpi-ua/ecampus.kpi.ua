@@ -6,16 +6,12 @@ angular
     return function(collection, discipline) {
       // array of output data, array of data with repetitions
       var output = [];
-      var YearData = [];
-      var RepeatableValuesPosition = [];
+      var yearData = [];
+      var repeatableValuesPosition = [];
 
       var ifAlreadyTaken = function(num) {
-        for (var i = 0; i < RepeatableValuesPosition.length; i++) {
-          if (num === RepeatableValuesPosition[i]) {
-            return true;
-          } else {
-            return false;
-          }
+        for (var i = 0; i < repeatableValuesPosition.length; i++) {
+          return num === repeatableValuesPosition[i];
         }
       };
 
@@ -39,11 +35,11 @@ angular
           ) {
             // if three fields watche then add
             // current object to array with repetitions
-            YearData.push(item);
+            yearData.push(item);
             ifPresent = true;
             //
             if (!ifAlreadyTaken(j)) {
-              RepeatableValuesPosition.push(j);
+              repeatableValuesPosition.push(j);
             }
           } else if (j !== (output.length - 1)) {
             // if not the end of output array, then go to another its object
@@ -57,8 +53,8 @@ angular
         }
       }
       //add repeatable values array
-      for (var k = 0; k < RepeatableValuesPosition.length; k++) {
-        YearData.push(output[RepeatableValuesPosition[k]]);
+      for (var k = 0; k < repeatableValuesPosition.length; k++) {
+        yearData.push(output[repeatableValuesPosition[k]]);
       }
       return output;
     };

@@ -107,7 +107,7 @@ function handler($parse, $compile) {
     function setValueInChecklistModel(value, checked) {
       var current = getter(scope.$parent);
       if (angular.isFunction(setter)) {
-        if (checked === true) {
+        if (checked) {
           setter(scope.$parent, add(current, value, comparator));
         } else {
           setter(scope.$parent, remove(current, value, comparator));
@@ -117,7 +117,7 @@ function handler($parse, $compile) {
 
     // declare one function to be used for both $watch functions
     function setChecked(newArr, oldArr) {
-      if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
+      if (checklistBeforeChange && !checklistBeforeChange(scope)) {
         setValueInChecklistModel(value, scope[attrs.ngModel]);
         return;
       }

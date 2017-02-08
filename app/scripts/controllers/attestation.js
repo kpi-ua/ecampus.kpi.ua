@@ -78,7 +78,8 @@ function handler($scope, api) {
   function getCurrentStudySemester() {
     var currentStudySemester = 0;
     var currentDate = new Date();
-    if (currentDate.getMonth() >= 8 && currentDate.getMonth() <= 11) {
+    var month = currentDate.getMonth();
+    if (month >= 8 && month <= 11) {
       currentStudySemester = 1;
     } else {
       currentStudySemester = 2;
@@ -128,12 +129,11 @@ function handler($scope, api) {
 
     var currentStudyAttestationPeriod = 'не визначено';
     var currentDate = new Date();
+    var week = currentDate.getWeek();
 
-    if ((currentDate.getWeek() >= 42 && currentDate.getWeek() <= 44) ||
-      (currentDate.getWeek() >= 12 && currentDate.getWeek() <= 14)) {
+    if ((week >= 42 && week <= 44) || (week >= 12 && week <= 14)) {
       currentStudyAttestationPeriod = 'Атестація №1';
-    } else if ((currentDate.getWeek() >= 48 && currentDate.getWeek() <= 50) ||
-      (currentDate.getWeek() >= 18 && currentDate.getWeek() <= 20)) {
+    } else if ((week >= 48 && week <= 50) || (week >= 18 && week <= 20)) {
       currentStudyAttestationPeriod = 'Атестація №2';
     }
     return currentStudyAttestationPeriod;
