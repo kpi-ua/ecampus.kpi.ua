@@ -679,7 +679,7 @@ input:checked + .side-label::after {
 }
 .group-display__group{
   padding: 5px 10px;
-  margin: 0 5px;
+  margin: 15px 5px;
   border: 1px solid green;
   background: #bcf4bc;
 }

@@ -3,35 +3,11 @@ angular.module('ecampusApp')
         return{
             link: function ($scope, element, attrs) {
                 var useId =Api.getCurrentUser().id;
-                // $scope.model = {
-                //     studyYearName:null,
-                //     departmentItem:null,
-                //     okrName:null,
-                //     specializationCodeName:null,
-                //     studyFormName:null,
-                //     xmlCode:null
-                // };
-                // $scope.options ={
-                //     StudyYears: [],
-                //     Departments : [],
-                //     Okrs: [],
-                //     Specializations: [],
-                //     StudyForms: [],
-                //     XmlCodes: []
-                // };
-                // $scope.selectData={
-                //     studyYear:null,
-                //     departmentId:null,
-                //     departmentMark:null,
-                //     okrId:null,
-                //     specializationId:null,
-                //     studyFormId:null,
-                //     xmlCodeId:null
-                //
-                // };
+
                 var chainResponsibility= [
                     'StudyYear','Department','Okr','Specialization','StudyForm','XmlCodes'
                 ];
+
                 onInit();
 
                 function onInit() {
@@ -130,7 +106,7 @@ angular.module('ecampusApp')
                         var curOkr = $scope.options.Okrs[initOkrIndex];
                         $scope.selectData.okrId = curOkr.id;
                         $scope.model.okrName = curOkr.name;
-                        console.log($scope.model.okrName);
+                        // console.log($scope.model.okrName);
                         SetSpecializations(useId, $scope.selectData.studyYearId,$scope.selectData.departmentId,
                             $scope.selectData.departmentMark,$scope.selectData.okrId, isInit);
                     }else if(chainObject!= undefined) {
@@ -237,13 +213,21 @@ angular.module('ecampusApp')
                         $scope.selectData.xmlCodeId = curXmlCodes.id;
                         $scope.model.xmlCode = curXmlCodes.name;
 
-                        // _SetOkr(useId, $scope.selectData.studyYearId,$scope.selectData.departmentId,
-                        //     $scope.selectData.departmentMark, isInit);
+                        $scope.$emit("rnpIdSelect", {
+                            userAccountId: useId,
+                            chosenDepartmentId: $scope.selectData.departmentId,
+                            chosenDepartmentMark: $scope.selectData.departmentMark,
+                            rnpId: curXmlCodes.id
+                        });
                     }else if(chainObject!= undefined) {
                         if (chainObject.selectName == selectName) {
                             $scope.selectData.xmlCodeId = chainObject.chosenObj.id;
-                            // _SetOkr(useId, $scope.selectData.studyYearId,$scope.selectData.departmentId,
-                            //     $scope.selectData.departmentMark, isInit);
+                            $scope.$emit("rnpIdSelect", {
+                                userAccountId: useId,
+                                chosenDepartmentId: $scope.selectData.departmentId,
+                                chosenDepartmentMark: $scope.selectData.departmentMark,
+                                rnpId: curXmlCodes.id
+                            });
                         }else{
 
                         }
@@ -262,6 +246,8 @@ angular.module('ecampusApp')
                 }
 
                 function resetSelectDataOptionsAndModel(selectName) {
+                    $scope.StudyGroups= null;
+                    $scope.RnpRows= null;
                     switch (chainResponsibility.indexOf(selectName)){
                         case 0 :{
                             $scope.options.StudyYears=[];
@@ -305,7 +291,6 @@ angular.module('ecampusApp')
                     }
                 }
 
-
                 $scope.onChange = function (selectedItem,selectName,items) {
                     $scope.errorLabelText="";
                     var chosenObj;
@@ -318,7 +303,7 @@ angular.module('ecampusApp')
                         selectName:selectName,
                         chosenObj:chosenObj
                     };
-                    console.log(chainObject);
+                    // console.log(chainObject);
                     OnStudyYearsSet(false,chainObject);
                 }
 
