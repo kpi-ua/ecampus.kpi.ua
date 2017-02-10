@@ -7,6 +7,6 @@ angular
 function tableChoiceResult() {
   return {
     restrict: 'A',
-    templateUrl: 'views/directives/table-choice-result.html'
+    templateUrl: 'views/directives/tableChoiceResult.html'
   };
 }

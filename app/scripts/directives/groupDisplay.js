@@ -6,7 +6,7 @@ angular
 
 function groupDisplay() {
   return {
-    templateUrl: 'views/directives/group-display.html',
+    templateUrl: 'views/directives/groupDisplay.html',
     restrict: 'E',
     link: function(scope, element, attrs) {
       scope.data = scope[attrs['group']];

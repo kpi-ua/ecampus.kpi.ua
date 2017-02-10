@@ -6,7 +6,7 @@ angular
 
 function rnpRowsDisplay() {
   return {
-    templateUrl: 'views/directives/rnp-rows-display.html',
+    templateUrl: 'views/directives/rnpRowsDisplay.html',
     restrict: 'E',
     link: function($scope, element, attr) {
       $scope.data = $scope[attr['rows']];

@@ -14,6 +14,6 @@ angular
 function patternImplementation() {
   return {
     restrict: 'A',
-    templateUrl: 'views/directives/pattern-implementation.html'
+    templateUrl: 'views/directives/patternImplementation.html'
   };
 }

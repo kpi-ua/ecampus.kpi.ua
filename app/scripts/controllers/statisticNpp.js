@@ -2,18 +2,18 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:NppCtrl
+ * @name ecampusApp.controller:StatisticNppCtrl
  * @description
- * # NppCtrl
+ * # StatisticNppCtrl
  * Controller of the ecampusApp
  */
 angular
   .module('ecampusApp')
-  .controller('NppCtrl', NppCtrl);
+  .controller('NppCtrl', StatisticNppCtrl);
 
-NppCtrl.$inject = ['$scope', 'api'];
+StatisticNppCtrl.$inject = ['$scope', 'api'];
 
-function NppCtrl($scope, api) {
+function StatisticNppCtrl($scope, api) {
 
   var NTUUKpiSubdivisionId = 9998;
   var InstituteTypeId = 26;

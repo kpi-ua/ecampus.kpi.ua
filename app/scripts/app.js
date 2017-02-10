@@ -54,12 +54,12 @@ function configRoutes ($routeProvider, $locationProvider) {
       controllerAs: 'privacy'
     })
     .when('/social-forbidden', {
-      templateUrl: 'views/social-forbidden.html',
+      templateUrl: 'views/socialForbidden.html',
       controller: 'SecurityCtrl',
       controllerAs: 'Security'
     })
-    .when('/restore-password.html', {
-      templateUrl: 'views/restore-password.html',
+    .when('/restorePassword.html', {
+      templateUrl: 'views/restorePassword.html',
       controller: 'SecurityCtrl',
       controllerAs: 'Security'
     })
@@ -69,7 +69,7 @@ function configRoutes ($routeProvider, $locationProvider) {
       controllerAs: 'Voting'
     })
     .when('/voting/profile/:id', {
-      templateUrl: 'views/voting-profile.html',
+      templateUrl: 'views/votingProfile.html',
       controller: 'VotingProfileCtrl',
       controllerAs: 'Voting'
     })
@@ -84,12 +84,12 @@ function configRoutes ($routeProvider, $locationProvider) {
       controllerAs: 'statistic'
     })
     .when('/statistic-npp', {
-      templateUrl: 'views/statistic-npp.html',
+      templateUrl: 'views/statisticNpp.html',
       controller: 'NppCtrl',
       controllerAs: 'npp'
     })
     .when('/statistic-zkm', {
-      templateUrl: 'views/statistic-zkm.html',
+      templateUrl: 'views/statisticZkm.html',
       controller: 'ZkmCtrl',
       controllerAs: 'zkm'
     })
@@ -99,12 +99,12 @@ function configRoutes ($routeProvider, $locationProvider) {
       controllerAs: 'home'
     })
     .when('/bulletins-board', {
-      templateUrl: 'views/bulletins-board.html',
+      templateUrl: 'views/bulletinsBoard.html',
       controller: 'HomeBulletinsBoardCtrl',
       controllerAs: 'board'
     })
     .when('/disciplines-choice-st', {
-      templateUrl: 'views/disciplines-choice-st.html',
+      templateUrl: 'views/disciplinesChoiceSt.html',
       controller: 'DisciplinesChoiceCtrl',
       controllerAs: 'choiceSt'
     })
@@ -114,32 +114,32 @@ function configRoutes ($routeProvider, $locationProvider) {
       controllerAs: 'settings'
     })
     .when('/discipline-specialization', {
-      templateUrl: 'views/discipline-specialization.html',
+      templateUrl: 'views/disciplineSpecialization.html',
       controller: 'DisciplinesSpecializationCtrl',
       controllerAs: 'specialization'
     })
     .when('/discipline-proposition', {
-      templateUrl: 'views/discipline-proposition.html',
+      templateUrl: 'views/disciplineProposition.html',
       controller: 'DisciplinesPropositionCtrl',
       controllerAs: 'proposition'
     })
     .when('/discipline-block', {
-      templateUrl: 'views/discipline-block.html',
+      templateUrl: 'views/disciplineBlock.html',
       controller: 'DisciplinesBlockCtrl',
       controllerAs: 'block'
     })
     .when('/disciplines-choice-t', {
-      templateUrl: 'views/disciplines-choice-t.html',
+      templateUrl: 'views/disciplinesChoiceT.html',
       controller: 'DisciplinesChoiceTCtrl',
       controllerAs: 'choiceT'
     })
     .when('/individual-plan', {
-      templateUrl: 'views/individual-plan.html',
+      templateUrl: 'views/individualPlan.html',
       controller: 'IndividualPlanCtrl',
       controllerAs: 'individualPlan'
     })
     .when('/discipline-fund', {
-      templateUrl: 'views/discipline-fund.html',
+      templateUrl: 'views/disciplineFund.html',
       controller: 'DisciplineFundCtrl',
       controllerAs: 'disciplineFund'
     })

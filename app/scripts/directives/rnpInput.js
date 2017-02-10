@@ -412,7 +412,7 @@ function rnpInput(api) {
       };
 
     },
-    templateUrl: 'views/directives/rnp-input.html',
+    templateUrl: 'views/directives/rnpInput.html',
     restrict: 'EA'
   };
 

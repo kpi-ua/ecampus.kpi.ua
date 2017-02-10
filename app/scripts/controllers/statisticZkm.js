@@ -2,18 +2,18 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:ZkmCtrl
+ * @name ecampusApp.controller:StatisticZkmCtrl
  * @description
- * # ZkmCtrl
+ * # StatisticZkmCtrl
  * Controller of the ecampusApp
  */
 angular
   .module('ecampusApp')
-  .controller('ZkmCtrl', ZkmCtrl);
+  .controller('ZkmCtrl', StatisticZkmCtrl);
 
-ZkmCtrl.$inject = ['$scope', 'api'];
+StatisticZkmCtrl.$inject = ['$scope', 'api'];
 
-function ZkmCtrl($scope, api) {
+function StatisticZkmCtrl($scope, api) {
   var NTUUKpiSubdivisionId = 9998;
   var InstituteTypeId = 26;
   var FacultyTypeId = 77;

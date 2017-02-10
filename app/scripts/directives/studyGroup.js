@@ -15,6 +15,6 @@ angular
 function studyGroup() {
   return {
     restrict: 'A',
-    templateUrl: 'views/directives/study-group.html'
+    templateUrl: 'views/directives/studyGroup.html'
   };
 }
