@@ -2,8 +2,8 @@
 
 angular
   .module('ecampusApp')
-  .filter('yearOutput', function () {
-    return function (yearObject) {
+  .filter('yearOutput', function() {
+    return function(yearObject) {
       return yearObject.name;
     };
   });

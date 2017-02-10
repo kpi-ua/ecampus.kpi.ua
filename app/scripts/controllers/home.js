@@ -7,7 +7,8 @@
  * # HomeCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
-  .controller('HomeCtrl', function () {
-
+angular
+  .module('ecampusApp')
+  .controller('HomeCtrl', function handler() {
+    //
   });

@@ -527,7 +527,6 @@ input[type="radio"] + label {
 
 .sad-cat {
   width: 200px;
-  margin-top: 10px;
   margin: 0 auto;
 }
 
@@ -629,12 +628,6 @@ a.bulletin-title:hover {
   opacity: 0.3;
   filter: alpha(opacity=30);
 }
-
-/*.nav>li>a:hover,
-.nav>li>a:focus {
-    text-decoration: none;
-    background-color: #208843;
-}*/
 
 /* disciplines choice styles*/
 .btn-save-choice-result {
@@ -767,18 +760,6 @@ label.label-disciplines-choice {
   background: #FFF;
   padding: 10px;
   margin-top: -70px;
-
-  /*height: 100vh;*/
-  /*width: 100vw;*/
-  /*text-align: center;*/
-  /*position: fixed;*/
-  /*z-index: 1000;*/
-  /*background: rgba(255,255,255,0.3);*/
-  /*top: 0;*/
-  /*display: flex;*/
-  /*align-items: center;*/
-  /*flex-direction: column;*/
-  /*justify-content: center;*/
 }
 
 .discipline-general-count {
@@ -814,7 +795,7 @@ div.progress-student-count {
   top: 36px;
 }
 
-.ui-select-bootstrap .ui-select-choices-row.active>span {
+.ui-select-bootstrap .ui-select-choices-row.active > span {
   background-color: #208944;
 }
 
@@ -836,9 +817,11 @@ div.progress-student-count {
 .attest-menu, .attest-alert {
   margin: 20px 0 20px 0;
 }
+
 .title-type-attest {
   margin-top: 0;
 }
+
 .nav-pills-attest > li.active > a, .nav-pills-attest > li.active > a:hover, .nav-pills-attest > li.active > a:focus {
   color: #fff;
   background-color: #208944;
@@ -953,29 +936,23 @@ div.progress-student-count {
 }
 
 .navigation {
-  font-size: 9pt;
   background-color: #eee;
   margin-top: 10px;
   margin-bottom: 5px;
   min-height: 30px;
   border-radius: 0;
+  color: #208944;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  vertical-align: middle;
 }
 
-.navigation > .container {
-  margin-left: 0;
-  margin-right: 0;
-  padding-left: 0;
-  padding-right: 0;
-  width: 100%;
+.navigation li a {
+  font-size: 8pt !important;
 }
 
 .navigation > .container li a {
   font-size: 8pt;
-  /*padding: 5px;*/
-}
-
-.navigation > .container li a:hover {
-  /*background-color: #FFF;*/
 }
 
 .campus-navigation .nav > li > a:hover,
@@ -993,50 +970,20 @@ div.progress-student-count {
   padding: 0 15px 5px;
 }
 
-.dropdown-submenu {
-  position: relative;
+.nav li a.group-title {
+  color: #AAA;
+  cursor: default;
+  padding-left: 15px;
 }
 
-.dropdown-submenu > .dropdown-menu {
-  top: 0;
-  left: 100%;
-  margin-top: -6px;
-  margin-left: -1px;
-  -webkit-border-radius: 0 6px 6px 6px;
-  -moz-border-radius: 0 6px 6px;
-  border-radius: 0 6px 6px 6px;
+.nav li a.group-title:hover {
+  background-color: transparent;
 }
 
-.dropdown-submenu:hover > .dropdown-menu {
-  display: block;
-}
-
-.dropdown-submenu > a:after {
-  display: block;
-  content: " ";
-  float: right;
-  width: 0;
-  height: 0;
-  border-color: transparent;
-  border-style: solid;
-  border-width: 5px 0 5px 5px;
-  border-left-color: #ccc;
-  margin-top: 5px;
-  margin-right: -10px;
-}
-
-.dropdown-submenu:hover > a:after {
-  border-left-color: #fff;
-}
-
-.dropdown-submenu.pull-left {
-  float: none;
-}
-
-.dropdown-submenu.pull-left > .dropdown-menu {
-  left: -100%;
-  margin-left: 10px;
-  -webkit-border-radius: 6px 0 6px 6px;
-  -moz-border-radius: 6px 0 6px 6px;
-  border-radius: 6px 0 6px 6px;
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a.group-title {
+    color: #AAA;
+    cursor: default;
+    padding-left: 15px;
+  }
 }

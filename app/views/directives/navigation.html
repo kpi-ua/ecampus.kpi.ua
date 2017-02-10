@@ -1,98 +1,88 @@
-<div class="row" ng-show="!!user">
-  <div class="navbar navbar-default navigation" role="navigation">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <!--<a class="navbar-brand" href="#">NavBar</a>-->
-      </div>
-      <div class="collapse navbar-collapse">
-
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Модулi<b class="caret"></b></a>
-            <ul class="dropdown-menu multi-level">
-              <li><a href="/#!/attestation">Атестація</a></li>
-              <li><a href="/#!/bulletins-board">Оголошення</a></li>
-
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Навчальний процесс</a>
-                <ul class="dropdown-menu">
-                  <li><a href="/#!/individual-plan">Індивідуальний план</a></li>
-                  <li ng-hide="disableDisciplineChoiceForNotStudent"><a href="/#!/disciplines-choice-st">Вибір дисциплін</a>
-                  </li>
-                  <li ng-show="enableDisciplineForNotStudent"><a href="/#!/disciplines-choice-t">Дисципліни вибору</a>
-                  </li>
-                </ul>
-              </li>
-
-              <li><a href="/#!/voting">Оцінювання викладачів</a></li>
-            </ul>
-          </li>
-
-
-          <li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Адміністрування<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Статистика</a>
-                <ul class="dropdown-menu">
-                  <li><a href="/#!/statistic-zkm">Забезпечення кредитного модуля</a></li>
-                  <li><a href="/#!/statistic-npp">Індивідуальне навантаження викладачів</a></li>
-                </ul>
-              </li>
-
-              <li class="dropdown-submenu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Дисципліни вибору</a>
-                <ul class="dropdown-menu">
-                  <li><a href="/#!/discipline-specialization">Дисципліни спеціалізації</a></li>
-                  <li><a href="/#!/discipline-proposition">Пропозиції дисциплін</a></li>
-                  <li><a href="/#!/discipline-block">Блок дисциплін</a></li>
-                </ul>
-              </li>
-              <li><a href="/#!/discipline-fund">Фонд дисциплін</a></li>
-              <li><a href="/#!/rnp">РНП</a></li>
-            </ul>
-          </li>
-
-          <li>
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iнформація<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="/#!/privacy">Правила використання інформації сайту</a></li>
-              <li><a href="/#!/about">Про систему</a></li>
-              <li><a data-toggle="modal" data-target="#support-modal">Служба підтримки</a></li>
-              <li><a href="/#!/contacts">Контактнi данi</a></li>
-            </ul>
-          </li>
-
-          <li><a ng-click="redirectToLegacyCampus()">До попередньої версії кампусу</a></li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-               aria-expanded="false">Вітаємо, {{userName}}! <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li>
-                <img class="img-responsive img-circle user-img" src="{{userImage}}"/>
-              </li>
-              <li role="separator" class="divider"></li>
-              <li><a href="/#!/settings">Налаштування</a></li>
-              <li role="separator" class="divider"></li>
-              <li><a ng-click="logout()">Вийти з системи</a></li>
-            </ul>
-          </li>
-
-
-        </ul>
-
-      </div>
-      <!--/.nav-collapse -->
+<nav ng-show="!!user" class="navbar navbar-default navigation" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--<a class="navbar-brand" href="#">NavBar</a>-->
     </div>
+    <div class="collapse navbar-collapse">
+
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Модулi<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+            <li><a href="/attestation">Атестація</a></li>
+            <li><a href="/bulletins-board">Оголошення</a></li>
+
+            <li role="separator" class="divider"></li>
+            <li><a class="group-title">Навчальний процесс</a></li>
+            <li><a href="/individual-plan">Індивідуальний план</a></li>
+            <li ng-hide="disableDisciplineChoiceForNotStudent"><a href="/disciplines-choice-st">Вибір дисциплін</a>
+            </li>
+            <li ng-show="enableDisciplineForNotStudent"><a href="/disciplines-choice-t">Дисципліни вибору</a></li>
+            <li role="separator" class="divider"></li>
+
+            <li><a href="/voting">Оцінювання викладачів</a></li>
+          </ul>
+        </li>
+
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Адміністрування<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+
+            <li><a class="group-title">Статистика</a></li>
+            <li><a href="/statistic-zkm">Забезпечення кредитного модуля</a></li>
+            <li><a href="/statistic-npp">Індивідуальне навантаження викладачів</a></li>
+
+            <li role="separator" class="divider"></li>
+            <li><a class="group-title">Дисципліни вибору</a></li>
+            <li><a href="/discipline-specialization">Дисципліни спеціалізації</a></li>
+            <li><a href="/discipline-proposition">Пропозиції дисциплін</a></li>
+            <li><a href="/discipline-block">Блок дисциплін</a></li>
+            <li role="separator" class="divider"></li>
+
+            <li><a href="/discipline-fund">Фонд дисциплін</a></li>
+            <li><a href="/rnp">РНП</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iнформація<b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/privacy">Правила використання інформації сайту</a></li>
+            <li><a href="/about">Про систему</a></li>
+            <li><a data-toggle="modal" data-target="#support-modal">Служба підтримки</a></li>
+            <li><a href="/contacts">Контактнi данi</a></li>
+          </ul>
+        </li>
+
+        <li><a ng-click="redirectToLegacyCampus()">До попередньої версії кампусу</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+             aria-expanded="false">Вітаємо, {{userName}}! <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li>
+              <img class="img-responsive img-circle user-img" src="{{userImage}}"/>
+            </li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/settings">Налаштування</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ng-click="logout()">Вийти з системи</a></li>
+          </ul>
+        </li>
+
+
+      </ul>
+
+    </div>
+    <!--/.nav-collapse -->
   </div>
-</div>
+</nav>

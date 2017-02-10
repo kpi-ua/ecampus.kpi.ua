@@ -7,11 +7,14 @@
  * # SettingsCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
-  .controller('SettingsCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+angular
+  .module('ecampusApp')
+  .controller('SettingsCtrl', handler);
+
+function handler() {
+  this.awesomeThings = [
+    'HTML5 Boilerplate',
+    'AngularJS',
+    'Karma'
+  ];
+}

@@ -1,11 +1,13 @@
+'use strict';
+
 // Karma configuration
 // Generated on 2016-08-12
 
 module.exports = function(config) {
-  'use strict';
 
   config.set({
-    // enable / disable watching file and executing tests whenever any file changes
+    // enable / disable watching file and executing
+    // tests whenever any file changes
     autoWatch: true,
 
     // base path, that will be used to resolve files and exclude

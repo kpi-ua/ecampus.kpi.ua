@@ -8,10 +8,13 @@
  *          for section study-group
  */
 
-angular.module('ecampusApp')
-    .directive('studyGroup',function () {
-        return {
-            restrict: "A",
-            templateUrl: "views/directives/study-group.html"
-        }
-    });
+angular
+  .module('ecampusApp')
+  .directive('studyGroup', handler);
+
+function handler() {
+  return {
+    restrict: 'A',
+    templateUrl: 'views/directives/study-group.html'
+  };
+}

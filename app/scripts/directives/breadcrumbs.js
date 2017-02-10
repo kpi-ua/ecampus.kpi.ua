@@ -6,14 +6,17 @@
  * @description
  * # breadcrumbs
  */
-angular.module('ecampusApp')
-  .directive('breadcrumbs', function () {
-    return {
-      templateUrl: 'views/directives/breadcrumbs.html',
-      restrict: 'E',
-      transclude: true,
-      link: function postLink(scope, element, attrs) {
+angular
+  .module('ecampusApp')
+  .directive('breadcrumbs', handler);
 
-      }
-    };
-  });
+function handler() {
+  return {
+    templateUrl: 'views/directives/breadcrumbs.html',
+    restrict: 'E',
+    transclude: true,
+    link: function postLink(scope, element, attrs) {
+      //
+    }
+  };
+}

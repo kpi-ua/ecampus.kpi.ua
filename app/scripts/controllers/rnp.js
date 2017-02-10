@@ -7,70 +7,87 @@
  * # RnpCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
+angular
+  .module('ecampusApp')
   .controller('RnpCtrl', handler);
 
-function handler($scope, $cookies, $window, Api , $filter, $http){
-      $scope.options ={
-          StudyYears: [],
-          Departments : [],
-          Okrs: [],
-          Specializations: [],
-          StudyForms: [],
-          XmlCodes: []
-      };
+function handler($scope, $cookies, $window, api, $filter, $http) {
 
-      $scope.model = {
-          studyYearName:null,
-          departmentItem:null,
-          okrName:null,
-          specializationCodeName:null,
-          studyFormName:null,
-          xmlCode:null
-      };
+  $scope.options = {
+    StudyYears: [],
+    Departments: [],
+    Okrs: [],
+    Specializations: [],
+    StudyForms: [],
+    XmlCodes: []
+  };
 
-      $scope.selectData={
-          studyYearId:null,
-          departmentId:null,
-          departmentMark:null,
-          okrId:null,
-          specializationId:null,
-          studyFormId:null,
-          xmlCodeId:null
+  $scope.model = {
+    studyYearName: null,
+    departmentItem: null,
+    okrName: null,
+    specializationCodeName: null,
+    studyFormName: null,
+    xmlCode: null
+  };
 
-      };
+  $scope.selectData = {
+    studyYearId: null,
+    departmentId: null,
+    departmentMark: null,
+    okrId: null,
+    specializationId: null,
+    studyFormId: null,
+    xmlCodeId: null
+  };
 
-      // $scope.display= {
-      //     StudyGroups: [],
-      //     RnpRows: []
-      // };
-      $scope.StudyGroups = null;
-      $scope.RnpRows = null;
-      $scope.errorLabelText="";
+  // $scope.display = {
+  //   StudyGroups: [],
+  //   RnpRows: []
+  // };
+  $scope.RnpRows = null;
+  $scope.errorLabelText = '';
 
-      $scope.$on('rnpIdSelect', function SetGroups(event, param){
-          $scope.errorLabelText ="";
-          var path ="Rnp/"+param.userAccountId+"/StudyGroup/"+param.chosenDepartmentId+"/"+param.chosenDepartmentMark+"/"+param.rnpId;
-          Api.execute('GET',path).then(function (response) {
-              if (!response || response == "") {
-                  $scope.errorLabelText = "На жаль, дані відсутні";
-                  $scope.StudyGroups = null
-              } else {
-                  $scope.StudyGroups = response;
-                  SetRnpRows(param.userAccountId, param.chosenDepartmentId, param.chosenDepartmentMark, param.rnpId);
-              }
-          });
-      });
-
-      function SetRnpRows(useId,chosenSubdivisionId,chosenSubdivisionMar, rnpId) {
-          var path = "Rnp/"+useId+"/RNPRows/"+chosenSubdivisionId+"/"+chosenSubdivisionMar+"/"+rnpId;
-          Api.execute('GET',path).then(function (response) {
-              if (!response || response == "") {
-                  $scope.errorLabelText = "На жаль, дані відсутні";
-                  $scope.RnpRows = null
-              } else {
-                  $scope.RnpRows = response;
-              }
-          });
+  $scope.$on('rnpIdSelect', function SetGroups(event, param) {
+    $scope.errorLabelText = '';
+    var path = (
+      'Rnp/' + param.userAccountId + '/StudyGroup/' +
+      param.chosenDepartmentId + '/' + param.chosenDepartmentMark +
+      '/' + param.rnpId
+    );
+    api.execute('GET', path).then(function(response) {
+      if (!response || response === '') {
+        $scope.errorLabelText = 'На жаль, дані відсутні';
+        $scope.StudyGroups = null;
+      } else {
+        $scope.StudyGroups = response;
+        setRnpRows(
+          param.userAccountId,
+          param.chosenDepartmentId,
+          param.chosenDepartmentMark,
+          param.rnpId
+        );
       }
+    });
+  });
+
+  function setRnpRows(
+    useId,
+    chosenSubdivisionId,
+    chosenSubdivisionMar,
+    rnpId
+  ) {
+    var path = (
+      'Rnp/' + useId + '/RNPRows/' + chosenSubdivisionId + '/' +
+      chosenSubdivisionMar + '/' + rnpId
+    );
+    api.execute('GET',path).then(function (response) {
+      if (!response || response === '') {
+        $scope.errorLabelText = 'На жаль, дані відсутні';
+        $scope.RnpRows = null;
+      } else {
+        $scope.RnpRows = response;
+      }
+    });
   }
+}

@@ -7,65 +7,72 @@
  * # MainCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $cookies, $location, Api) {
+angular
+  .module('ecampusApp')
+  .controller('MainCtrl', handler);
 
-    $scope.login = '';
-    $scope.password = '';
+function handler($scope, $rootScope, $cookies, $location, api) {
 
-    $scope.vkAuthUrl = '';
-    $scope.fbAuthUrl = '';
+  $scope.login = '';
+  $scope.password = '';
 
-    var config = {
-      fb: {
-        appId: '1214335051921931',
-        redirectUrl: Api.getApiEndpoint() + 'account/oauth/login/fb'
-      },
-      vk: {
-        appId: '5621042',
-        redirectUrl: Api.getApiEndpoint() + 'account/oauth/login/vk'
-      }
-    };
+  $scope.vkAuthUrl = '';
+  $scope.fbAuthUrl = '';
 
-    function init() {
-      $scope.vkAuthUrl = generateVkAuthUrl();
-      $scope.fbAuthUrl = generateFbAuthUrl();
+  var config = {
+    fb: {
+      appId: '1214335051921931',
+      redirectUrl: api.getApiEndpoint() + 'account/oauth/login/fb'
+    },
+    vk: {
+      appId: '5621042',
+      redirectUrl: api.getApiEndpoint() + 'account/oauth/login/vk'
+    }
+  };
 
-      if (Api.getCurrentUser() != null) {
-        $location.path("/home");
-      }
+  function init() {
+    $scope.vkAuthUrl = generateVkAuthUrl();
+    $scope.fbAuthUrl = generateFbAuthUrl();
 
+    if (api.getCurrentUser() !== null) {
+      $location.path('/home');
     }
 
-    function generateVkAuthUrl() {
-      return 'https://oauth.vk.com/authorize?client_id=' + config.vk.appId + '&scope=notify, email, status&redirect_uri=' + config.vk.redirectUrl + '&response_type=code&v=5.28&display=popup&state="SESSION_STATE"';
-    }
+  }
 
-    function generateFbAuthUrl() {
-      var scope = "email";
-      return 'https://www.facebook.com/dialog/oauth?client_id=' + config.fb.appId + '&redirect_uri=' + config.fb.redirectUrl + '&scope=' + scope;
-    }
+  function generateVkAuthUrl() {
+    return (
+      'https://oauth.vk.com/authorize?client_id=' + config.vk.appId +
+      '&scope=notify, email, status&redirect_uri=' + config.vk.redirectUrl +
+      '&response_type=code&v=5.28&display=popup&state="SESSION_STATE"'
+    );
+  }
 
-    init();
-    $scope.auth = function () {
-      Api.auth($scope.login, $scope.password).then(function (token) {
+  function generateFbAuthUrl() {
+    var scope = 'email';
+    return (
+      'https://www.facebook.com/dialog/oauth?client_id=' + config.fb.appId +
+      '&redirect_uri=' + config.fb.redirectUrl + '&scope=' + scope
+    );
+  }
 
-        $scope.error = !token;
+  init();
+  $scope.auth = function() {
+    api.auth($scope.login, $scope.password).then(function(token) {
 
-        if (!$scope.error) {
-          var user = Api.getCurrentUser();
+      $scope.error = !token;
 
-          if (user != null) {
-            $cookies.put('SID', user.sid, {domain: 'kpi.ua'});
-            $cookies.put('SID', user.sid, {domain: 'campus.kpi.ua'});
-          }
+      if (!$scope.error) {
+        var user = api.getCurrentUser();
 
-          $location.path("/home");
-
-          $rootScope.$broadcast('update-navigation');
-
+        if (user !== null) {
+          $cookies.put('SID', user.sid, { domain: 'kpi.ua' });
+          $cookies.put('SID', user.sid, { domain: 'campus.kpi.ua' });
         }
-      });
-    };
+        $location.path('/home');
+        $rootScope.$broadcast('update-navigation');
+      }
+    });
+  };
 
-  });
+}

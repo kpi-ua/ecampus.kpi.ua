@@ -7,8 +7,10 @@
  * # AdminCtrl
  * Controller of the ecampusApp
  */
-angular.module('ecampusApp')
-  .controller('AdminCtrl', function ($scope, $cookies, $window, Api) {
+angular
+  .module('ecampusApp')
+  .controller('AdminCtrl', handler);
 
-
-  });
+function handler($scope, $cookies, $window, api) {
+  //
+}

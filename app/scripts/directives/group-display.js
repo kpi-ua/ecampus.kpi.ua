@@ -1,12 +1,15 @@
-angular.module('ecampusApp')
-    .directive('groupDisplay', function() {
-        return{
-            templateUrl: 'views/directives/group-display.html',
-            restrict: 'E',
-            link: function (scope, element, attrs) {
+'use strict';
 
-                scope.data = scope[attrs["group"]];
+angular
+  .module('ecampusApp')
+  .directive('groupDisplay', handlers);
 
-            }
-        }
-    });
+function handlers() {
+  return {
+    templateUrl: 'views/directives/group-display.html',
+    restrict: 'E',
+    link: function(scope, element, attrs) {
+      scope.data = scope[attrs['group']];
+    }
+  };
+}
