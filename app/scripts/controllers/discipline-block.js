@@ -9,12 +9,14 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplinesBlockCtrl', handler);
+  .controller('DisciplinesBlockCtrl', DisciplinesBlockCtrl);
 
-function handler($scope, $http, api, uniqueElemsInList) {
+DisciplinesBlockCtrl.$inject = ['$scope', 'api', 'uniqueElemsInList'];
+
+function DisciplinesBlockCtrl($scope, api, uniqueElemsInList) {
   reload();
 
-  $scope.InitializeTree = function() {
+  $scope.InitializeTree = function () {
     if (
       $scope.selectedYear !== undefined &&
       $scope.selectedOkr !== undefined
@@ -25,13 +27,13 @@ function handler($scope, $http, api, uniqueElemsInList) {
     }
   };
 
-  $scope.ifYearAndOkr0Chosen = function() {
+  $scope.ifYearAndOkr0Chosen = function () {
     if ($scope.dataInTree && $scope.dataInTree.length !== 0) {
       return Boolean($scope.dataInTree);
     }
   };
 
-  $scope.ifTreeLengthZero = function() {
+  $scope.ifTreeLengthZero = function () {
     if (($scope.selectedYear === null) || ($scope.selectedOkr === null)) {
       return true;
     }
@@ -44,7 +46,7 @@ function handler($scope, $http, api, uniqueElemsInList) {
     }
   };
 
-  $scope.ifNull = function(inputData) {
+  $scope.ifNull = function (inputData) {
     if (inputData === null) {
       inputData = 'Не визначено';
     }
@@ -55,7 +57,7 @@ function handler($scope, $http, api, uniqueElemsInList) {
       var sClaim = api.decodeToken(api.getToken());
       if (sClaim) sClaim = JSON.parse(sClaim);
       var path = 'SelectiveDiscipline/Blocksyear';
-      api.execute('GET', path).then(function(response) {
+      api.execute('GET', path).then(function (response) {
         if (!response || response === '') {
           $scope.errorLabelText = 'На жаль, роки  у базі даних відсутні.';
         } else {
@@ -71,7 +73,7 @@ function handler($scope, $http, api, uniqueElemsInList) {
           $scope.allOkrs = uniqueElemsInList.getDataUnique('okr');
           $scope.selectedYear = uniqueElemsInList.setCurrentYear($scope.allYears);
         }
-      }, function(response, status, headers) {
+      }, function (response, status, headers) {
         //
       });
     }

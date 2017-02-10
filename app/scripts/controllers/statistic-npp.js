@@ -9,9 +9,12 @@
  */
 angular
   .module('ecampusApp')
-  .controller('NppCtrl', handler);
+  .controller('NppCtrl', NppCtrl);
 
-function handler($scope, $cookies, $window, api) {
+NppCtrl.$inject = ['$scope', 'api'];
+
+function NppCtrl($scope, api) {
+
   var NTUUKpiSubdivisionId = 9998;
   var InstituteTypeId = 26;
   var FacultyTypeId = 77;
@@ -42,7 +45,7 @@ function handler($scope, $cookies, $window, api) {
   function getParent(obj, parentTagName) {
     return (
       obj.tagName === parentTagName ?
-      obj : getParent(obj.parentNode, parentTagName)
+        obj : getParent(obj.parentNode, parentTagName)
     );
   }
 
@@ -65,7 +68,7 @@ function handler($scope, $cookies, $window, api) {
     sClaim = JSON.parse(sClaim);
 
     if (typeof(sClaim.resp) === 'object') {
-      sClaim.resp.forEach(function(item) {
+      sClaim.resp.forEach(function (item) {
         var itemJSON = JSON.parse(item);
         if (itemJSON.Subsystem === CampusKpiSubsystemId) {
           setRadioBtnForCathedras(itemJSON);
@@ -86,7 +89,7 @@ function handler($scope, $cookies, $window, api) {
     sClaim = JSON.parse(sClaim);
 
     if (typeof(sClaim.resp) === 'object') {
-      sClaim.resp.forEach(function(item) {
+      sClaim.resp.forEach(function (item) {
         kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
       });
     } else if (typeof(sClaim.resp) === 'string') {
@@ -109,8 +112,8 @@ function handler($scope, $cookies, $window, api) {
       if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
         kpiQuery = true;
         var pathFaculty = 'Subdivision';
-        api.execute('GET', pathFaculty).then(function(response) {
-          response.forEach(function(item) {
+        api.execute('GET', pathFaculty).then(function (response) {
+          response.forEach(function (item) {
             if (
               item.type.id === InstituteTypeId ||
               item.type.id === FacultyTypeId
@@ -128,10 +131,7 @@ function handler($scope, $cookies, $window, api) {
       if (
         document.getElementById(subdivisionId + '') === null &&
         (
-          ~subdivisionName.indexOf('факультет') ||
-          ~subdivisionName.indexOf('Факультет') ||
-          ~subdivisionName.indexOf('інститут') ||
-          ~subdivisionName.indexOf('Інститут')
+          ~subdivisionName.indexOf('факультет') || ~subdivisionName.indexOf('Факультет') || ~subdivisionName.indexOf('інститут') || ~subdivisionName.indexOf('Інститут')
         )
       ) {
         $scope.subdivisions.push({
@@ -150,9 +150,9 @@ function handler($scope, $cookies, $window, api) {
     var parentId = $scope.chosenSubdivision.subdivisionId;
     var subdivisionPath = 'Subdivision/' + parentId + '/children';
 
-    api.execute('GET', subdivisionPath).then(function(response) {
+    api.execute('GET', subdivisionPath).then(function (response) {
       $scope.cathedras = [];
-      response.forEach(function(cathedra, i, arr) {
+      response.forEach(function (cathedra, i, arr) {
         if (arr[i + 1] !== undefined) {
           $scope.cathedras.push({
             cathedraId: cathedra.id,
@@ -185,7 +185,7 @@ function handler($scope, $cookies, $window, api) {
 
   function fillTableRow(colspanNumber, content, isHeader) {
     var row = createTableRow();
-    content.forEach(function(cellText) {
+    content.forEach(function (cellText) {
       var cell = isHeader ? createTableHeaderCell() : createTableCell();
       cell.attr('colspan', colspanNumber);
       cell.text(cellText);
@@ -200,14 +200,14 @@ function handler($scope, $cookies, $window, api) {
   }
 
   //  For section npp
-  $scope.checkNpp = function(chosenСathedraId) {
+  $scope.checkNpp = function (chosenСathedraId) {
     $scope.errorLabelText = '';
     var cathedraId = chosenСathedraId;
     var path = (
       'Statistic/Cathedras/' + cathedraId +
       '/Emplloyers/WithIndividualLoad/List'
     );
-    api.execute('GET', path).then(function(response) {
+    api.execute('GET', path).then(function (response) {
       if (!response || response === '') {
         $scope.errorLabelText = 'На жаль, записи у базі даних відсутні.';
       } else {
@@ -218,7 +218,7 @@ function handler($scope, $cookies, $window, api) {
         var tableForDownloadId = 'table-for-download';
         clearTableWithId(tableForDownloadId, wrapperTableForDownloadId);
         var tableForDownload = getAngularDOMElement('#' + tableForDownloadId);
-        response.forEach(function(employees, i, ar) {
+        response.forEach(function (employees, i, ar) {
           if (i === 0) {
             tableForDownload.append(
               fillTableRow('3', ['Перше півріччя (осінній семестр)'], true)
@@ -228,12 +228,12 @@ function handler($scope, $cookies, $window, api) {
               fillTableRow('3', ['Друге півріччя (весняний семестр)'], true)
             );
           }
-          employees.forEach(function(employee, iter, arr) {
+          employees.forEach(function (employee, iter, arr) {
             tableForDownload.append(
               fillTableRow('3', [employee.name], false)
             );
             console.log(employee);
-            employee.subjects.forEach(function(subj, innerIter, arr) {
+            employee.subjects.forEach(function (subj, innerIter, arr) {
               tableForDownload.append(
                 fillTableRow(
                   '1',
@@ -248,7 +248,7 @@ function handler($scope, $cookies, $window, api) {
     });
   };
 
-  $scope.showTabById = function(id) {
+  $scope.showTabById = function (id) {
     if ($scope.tabIdForShow !== id) {
       $scope.tabIdForShow = id;
     } else {
@@ -256,7 +256,7 @@ function handler($scope, $cookies, $window, api) {
     }
   };
 
-  $scope.$watch('chosenSubdivision', function() {
+  $scope.$watch('chosenSubdivision', function () {
     loadCathedras();
   });
 

@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('RnpCtrl', handler);
+  .controller('RnpCtrl', RnpCtrl);
 
-function handler($scope, $cookies, $window, api, $filter, $http) {
+RnpCtrl.$inject = ['$scope', 'api'];
+
+function RnpCtrl($scope, api) {
 
   $scope.options = {
     StudyYears: [],
@@ -55,7 +57,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
       param.chosenDepartmentId + '/' + param.chosenDepartmentMark +
       '/' + param.rnpId
     );
-    api.execute('GET', path).then(function(response) {
+    api.execute('GET', path).then(function (response) {
       if (!response || response === '') {
         $scope.errorLabelText = 'На жаль, дані відсутні';
         $scope.StudyGroups = null;
@@ -71,17 +73,15 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
     });
   });
 
-  function setRnpRows(
-    useId,
-    chosenSubdivisionId,
-    chosenSubdivisionMar,
-    rnpId
-  ) {
+  function setRnpRows(useId,
+                      chosenSubdivisionId,
+                      chosenSubdivisionMar,
+                      rnpId) {
     var path = (
       'Rnp/' + useId + '/RNPRows/' + chosenSubdivisionId + '/' +
       chosenSubdivisionMar + '/' + rnpId
     );
-    api.execute('GET',path).then(function (response) {
+    api.execute('GET', path).then(function (response) {
       if (!response || response === '') {
         $scope.errorLabelText = 'На жаль, дані відсутні';
         $scope.RnpRows = null;

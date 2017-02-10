@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplinesSpecializationCtrl', handler);
+  .controller('DisciplinesSpecializationCtrl', DisciplinesSpecializationCtrl);
 
-function handler($scope, $cookies, $window, api, $filter, $http) {
+DisciplinesSpecializationCtrl.$inject = ['$scope', 'api'];
+
+function DisciplinesSpecializationCtrl($scope, api) {
   var subsystemIdMain = 20;
 
   $scope.errorLabelText = '';

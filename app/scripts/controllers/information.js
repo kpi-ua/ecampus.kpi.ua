@@ -8,5 +8,9 @@
  * Controller of the ecampusApp
  */
 angular.module('ecampusApp')
-  .controller('InformationCtrl', function handler() {
-  });
+  .controller('InformationCtrl', InformationCtrl);
+
+InformationCtrl.$inject = ['$scope', 'api'];
+
+function InformationCtrl($scope, api) {
+}

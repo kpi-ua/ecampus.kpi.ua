@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('SecurityCtrl', handler);
+  .controller('SecurityCtrl', SecurityCtrl);
 
-function handler($scope, $cookies, $window, api) {
+SecurityCtrl.$inject = ['$scope', 'api'];
+
+function SecurityCtrl($scope, api) {
   $scope.step = 1;
   $scope.captcha = '';
   $scope.userId = '';
@@ -28,9 +30,9 @@ function handler($scope, $cookies, $window, api) {
 
 
     api.execute('POST', url, payload)
-      .then(function() {
+      .then(function () {
         step(3);
-      }, function(result) {
+      }, function (result) {
 
         if (result.status === 403) {
           showMessage('Невiрний код пiдтвердження');
@@ -65,11 +67,11 @@ function handler($scope, $cookies, $window, api) {
     $scope.step = n;
   }
 
-  $scope.getCaptcha = function() {
+  $scope.getCaptcha = function () {
     getCaptcha();
   };
 
-  $scope.restorePassword = function() {
+  $scope.restorePassword = function () {
     restorePassword();
   };
 }
