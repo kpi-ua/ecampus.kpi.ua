@@ -1,6 +1,5 @@
 <breadcrumbs>
   <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Пропозиції дисциплін</b>  
-  <div>{{selectedNameFullEdited}}</div>  
 </breadcrumbs>
 
 <div class="container-fluid content">
@@ -19,7 +18,7 @@
             <div class="col-lg-4 col-md-5 col-sm-7 col-xs-12">
               <select data-placeholder="Оберіть підрозділ..." chosen class="chosen-select chosenWidth" chosen
                       class="chosen-select" id="subdivisionSelect" ng-model="selectedDiscipline"
-                      ng-change="SendSubdivisionToServer(); initializeStudyYear()"
+                      ng-change="sendSubdivisionToServer(); initializeStudyYear();"
                       ng-options="subdivision.name for subdivision in allSubdivisions">
                 <option></option>
               </select>
