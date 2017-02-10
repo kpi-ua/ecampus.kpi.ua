@@ -10,14 +10,13 @@
 angular
   .module('ecampusApp')
   .run(function (editableOptions) {
-    editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+    editableOptions.theme = 'bs3';    // bootstrap3 theme. Can be also 'bs2', 'default'
   })
   .controller('DisciplinesPropositionCtrl', DisciplinesPropositionCtrl);
 
-DisciplinesPropositionCtrl.$inject = ['$scope', 'api', '$timeout', 'uniqueElemsInList'];
+DisciplinesPropositionCtrl.$inject = ['$scope', '$timeout', 'api', 'uniqueElemsInList']
 
-function DisciplinesPropositionCtrl($scope, api, $timeout, uniqueElemsInList) {
-
+function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
   var ifWantToAddRowData = false;
 
   $scope.sortName = 'nameUkr';
