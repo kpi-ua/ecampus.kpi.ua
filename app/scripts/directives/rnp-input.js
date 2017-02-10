@@ -8,32 +8,7 @@ function handler(api) {
   return {
     link: function($scope, element, attrs) {
       var useId = api.getCurrentUser().id;
-      // $scope.model = {
-      //   studyYearName: null,
-      //   departmentItem: null,
-      //   okrName: null,
-      //   specializationCodeName: null,
-      //   studyFormName: null,
-      //   xmlCode: null
-      // };
-      // $scope.options = {
-      //   StudyYears: [],
-      //   Departments: [],
-      //   Okrs: [],
-      //   Specializations: [],
-      //   StudyForms: [],
-      //   XmlCodes: []
-      // };
-      // $scope.selectData = {
-      //   studyYear: null,
-      //   departmentId: null,
-      //   departmentMark: null,
-      //   okrId: null,
-      //   specializationId: null,
-      //   studyFormId: null,
-      //   xmlCodeId: null
-      //
-      // };
+
       var chainResponsibility = [
         'StudyYear', 'Department', 'Okr',
         'Specialization', 'StudyForm', 'XmlCodes'
@@ -162,7 +137,7 @@ function handler(api) {
           var curOkr = $scope.options.Okrs[initOkrIndex];
           $scope.selectData.okrId = curOkr.id;
           $scope.model.okrName = curOkr.name;
-          console.log($scope.model.okrName);
+          // console.log($scope.model.okrName);
           setSpecializations(
             useId,
             $scope.selectData.studyYearId,
@@ -347,16 +322,21 @@ function handler(api) {
           var curXmlCodes = $scope.options.XmlCodes[initXmlCodesIndex];
           $scope.selectData.xmlCodeId = curXmlCodes.id;
           $scope.model.xmlCode = curXmlCodes.name;
-
-          // _setOkr(useId, $scope.selectData.studyYearId,
-          //  $scope.selectData.departmentId,
-          //  $scope.selectData.departmentMark, isInit);
+          $scope.$emit('rnpIdSelect', {
+            userAccountId: useId,
+            chosenDepartmentId: $scope.selectData.departmentId,
+            chosenDepartmentMark: $scope.selectData.departmentMark,
+            rnpId: curXmlCodes.id
+          });
         } else if (chainObject !== undefined) {
           if (chainObject.selectName === selectName) {
             $scope.selectData.xmlCodeId = chainObject.chosenObj.id;
-            // _setOkr(useId, $scope.selectData.studyYearId,
-            // $scope.selectData.departmentId,
-            // $scope.selectData.departmentMark, isInit);
+            $scope.$emit('rnpIdSelect', {
+              userAccountId: useId,
+              chosenDepartmentId: $scope.selectData.departmentId,
+              chosenDepartmentMark: $scope.selectData.departmentMark,
+              rnpId: curXmlCodes.id
+            });
           } else {
             //
           }
@@ -374,6 +354,8 @@ function handler(api) {
       }
 
       function resetSelectDataOptionsAndModel(selectName) {
+        $scope.StudyGroups = null;
+        $scope.RnpRows = null;
         var idx = chainResponsibility.indexOf(selectName);
         switch (idx) {
           case 0: {
@@ -431,7 +413,7 @@ function handler(api) {
           selectName: selectName,
           chosenObj: chosenObj
         };
-        console.log(chainObject);
+        // console.log(chainObject);
         onStudyYearsSet(false, chainObject);
       };
 

@@ -109,37 +109,40 @@
   padding-top: 20px;
 }
 
-.hideMessage {
-    -moz-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Firefox */
-    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Safari and Chrome */
-    -o-animation: cssAnimation 0s ease-in 5s forwards;
-    /* Opera */
-    animation: cssAnimation 0s ease-in 5s forwards;
-    -webkit-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
+/*.hideMessage {
+  -moz-animation: cssAnimation 0s ease-in 5s forwards;
+  -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+  -o-animation: cssAnimation 0s ease-in 5s forwards;
+  animation: cssAnimation 0s ease-in 5s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 @keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        overflow:hidden;
-    }
+  0% { opacity: 1; }
+  75% { opacity: 1; }
+  100% {
+    opacity: 0;
+    width:0;
+    height:0;
+    overflow:hidden;
+  }
 }
 @-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
-    }
-}
+  0% { opacity: 1; }
+  75% { opacity: 1; }
+  100% {
+    opacity: 0;
+    width:0;
+    height:0;
+    overflow:hidden;
+  }
+}*/
 
 .uiSelectMatchFullname > span > .ui-select-match-text > span {
-    width: 94%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: absolute;    
+  width: 94%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: absolute;
 }
 
 .marginTop9px {

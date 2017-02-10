@@ -37,7 +37,10 @@ function handler(
 
   $scope.allMessages = [
     'Дані було успішно збережено',
-    'Видалення даних пройшло успішно'
+    'Видалення даних пройшло успішно',
+    'Не вдалося зберегти дані. Така інформація вже існує.',
+    'Не вдалося зберегти дані. Перевірте коректність інформації та стан підключення до Інтернету.',
+    'Не вдалося видалити дані. Перевірте стан підключення до Інтернету.'
   ];
 
   $scope.onSelected = function(selectedItem) {
@@ -55,6 +58,7 @@ function handler(
 
   $scope.saveFullnameFromUiSelect = function(nameFull) {
     $scope.selectedNameFull = nameFull;
+    $scope.selectedNameFullEdited = 1;
   };
 
   $scope.loadLecturers = function(namePattern) {
@@ -113,10 +117,6 @@ function handler(
       uniqueElemsInList.setData(listOfFullnames);
       listOfFullnames = uniqueElemsInList.getDataUnique();
       listOfFullnames.sort();
-
-      // $scope.studyYearData[i].name = name;
-      // $scope.studyYearData[i].okr = okr;
-      // $scope.studyYearData[i].cathedra = cathedra;
 
       for (i = 0; i < listOfFullnames.length; i++) {
         ifExist = false;
@@ -411,6 +411,11 @@ function handler(
         $scope.getCurrentYearData = function(currentData) {
           $scope.CurrentYearData = currentData;
           $scope.CurrentData = currentData;
+          for (var i = 0; i < $scope.CurrentYearData.yearData.length; i++) {
+            $scope.allYearsList.push(
+              $scope.CurrentYearData.yearData[i].studyYear.name
+            );
+          }
           // $scope.showUaWords($scope.CurrentYearData);
         };
 
@@ -481,13 +486,6 @@ function handler(
 
             $scope.alldisciplines.unshift($scope.insertedProposition);
             console.log('unshift: ', $scope.alldisciplines);
-            /*if (!$scope.sortReverse) {
-              $scope.alldisciplines.unshift($scope.insertedProposition);
-              console.log('unshift: ', $scope.alldisciplines);
-            } else {
-              $scope.alldisciplines.push($scope.insertedProposition);
-              console.log('push: ', $scope.alldisciplines);
-            }*/
             ifWantToAddRowData = true;
           }
         };
@@ -648,6 +646,8 @@ function handler(
               ) {
                 console.log('повтор');
                 $scope.reloadData();
+                // $scope.addMessage(2);
+                return;
               }
             }
             knowledge = null;
@@ -669,9 +669,11 @@ function handler(
               console.log(response);
               $scope.sendSubdivisionToServer();
               $scope.newData.Images = '';
+              // $scope.addMessage(0);
               $scope.messageCurrent = $scope.allMessages[0];
               $('#messageView').addClass('hideMessage');
             }, function(response) {
+              // $scope.addMessage(3);
               console.log(response);
             });
           ifWantToAddRowData = false;
@@ -729,8 +731,57 @@ function handler(
             // url += '/' + $scope.CurrentYearData.disciplineBlockId;
             method = 'PUT';
             url += '/' + year.idBlockYear;
+            if ($scope.sectionMenu != 'studyYearMenu') {
+              for (var i = 0; i < $scope.allYearsList.length; i++) {
+                if (
+                  data.studyYear === $scope.allYearsList[i] &&
+                  data.studyYear != year.studyYear.name
+                ) {
+                  $scope.reloadData();
+                  // $scope.addMessage(2);
+                  console.log('error while edit');
+                  return;
+                }
+              }
+            } else {
+              for (var i=0; i<$scope.allDisciplinesList.length; i++) {
+                if ((DisciplineBlock8Id == $scope.allDisciplinesList[i])&&($scope.selectedNameFullEdited == 1))  {
+                  console.log(i," ",$scope.selectedNameFullEdited);
+                  $scope.reloadData();
+                  //$scope.addMessage(2);
+                  console.log("error while edit right");
+                  return;
+                }
+              }
+            }
           } else {
             method = 'POST';
+            if ($scope.sectionMenu !== 'studyYearMenu') {
+              for (var i = 0; i < $scope.allYearsList.length; i++) {
+                if (data.studyYear === $scope.allYearsList[i]) {
+                  $scope.reloadData();
+                  // $scope.addMessage(2);
+                  console.log('error while add');
+                  return;
+                }
+              }
+            } else {
+              for (var i = 0; i < $scope.allDisciplinesList.length; i++) {
+                console.log(
+                  '$scope.allDisciplinesList[i]', $scope.allDisciplinesList[i]
+                );
+                console.log('DisciplineBlock8Id', DisciplineBlock8Id);
+                if (
+                  DisciplineBlock8Id === $scope.allDisciplinesList[i] ||
+                  $scope.selectedNameFullEdited !== 1
+                ) {
+                  $scope.reloadData();
+                  // $scope.addMessage(2);
+                  console.log('error while add right');
+                  return;
+                }
+              }
+            }
           }
 
           console.log('new checking obj before sending');
@@ -745,7 +796,11 @@ function handler(
               $scope.selectedNameFull = {};
               $scope.sendSubdivisionToServer();
               $scope.initializeStudyYear();
+              // $scope.addMessage(0);
+              $scope.selectedNameFullEdited = 0;
             }, function(response) {
+              // $scope.addMessage(3);
+              $scope.selectedNameFullEdited = 0;
               console.log(response);
             });
 
@@ -775,7 +830,9 @@ function handler(
               $scope.selectedLecturer = {};
               $scope.sendSubdivisionToServer();
               $scope.initializeStudyYear();
+              // $scope.addMessage(0);
             }, function(response) {
+              // $scope.addMessage(3);
               console.log(response);
             });
 
@@ -792,10 +849,9 @@ function handler(
             api.execute(method, url)
               .then(function(response) {
                 console.log(response);
-                //$scope.sendSubdivisionToServer();
+                // $scope.sendSubdivisionToServer();
                 $scope.reloadData();
-                $scope.messageCurrent = $scope.allMessages[1];
-                $('#messageView').addClass('hideMessage');
+                // $scope.addMessage(1);
               }, function(response) {
                 console.log(response);
               });
@@ -814,10 +870,12 @@ function handler(
             api.execute(method, url)
               .then(function(response) {
                 console.log(response);
-                  /*$('#ModalTableApproved').modal('hide');
-                  $scope.sendSubdivisionToServer();*/
+                // $('#ModalTableApproved').modal('hide');
+                // $scope.sendSubdivisionToServer();
+                // $scope.addMessage(1);
                 $scope.reloadData();
               }, function(response) {
+                // $scope.addMessage(4);
                 console.log(response);
               });
           }
@@ -859,10 +917,12 @@ function handler(
               .then(function(response) {
                 console.log(response);
                 $scope.reloadData();
-                  /*$('#ModalAddLecturer').modal('hide');
-                  $scope.sendSubdivisionToServer();
-                  $scope.initializeStudyYear();*/
+                // $scope.addMessage(1);
+                // $('#ModalAddLecturer').modal('hide');
+                // $scope.sendSubdivisionToServer();
+                // $scope.initializeStudyYear();
               }, function(response) {
+                // $scope.addMessage(4);
                 console.log(response);
               });
           }
@@ -896,7 +956,7 @@ function handler(
           var skill = $scope.CurrentYearData.skill;
           var annotation = $scope.CurrentYearData.annotation;
           var countCredit = $scope.CurrentYearData.countCredit;
-          var picture = $scope.newData.Images;
+          var picture = '';
           // $scope.newData.Images;
           var disciplineBlockId = $scope.CurrentYearData.disciplineBlockId;
           var course1 = true;
@@ -905,6 +965,10 @@ function handler(
           var course4 = true;
           var course5 = true;
           var course6 = true;
+
+          if ($scope.CurrentYearData.pictures) {
+            picture = $scope.CurrentYearData.pictures.substring(23);
+          }
 
           for (var i = 0; i < 7; i++) {
             switch ($scope.CurrentYearData.courses[i]) {
@@ -1058,12 +1122,15 @@ function handler(
       api.execute(method, url)
         .then(function(response) {
           $scope.studyYearData = response;
+          console.log('$scope.studyYearData', $scope.studyYearData);
           $scope.selectedNamefull = {};
+          $scope.allDisciplinesList = [];
 
           for (var i = 0; i < $scope.studyYearData.length; i++) {
             $scope.studyYearData[i].isApproved = $scope.showUaWords(
               $scope.studyYearData[i]
             );
+            $scope.allDisciplinesList.push($scope.studyYearData[i].id);
           }
           // for (var i = 0; i < $scope.forSelectFullNameNew.length; i++) {
           //   console.log($scope.forSelectFullNameNew);
@@ -1082,6 +1149,14 @@ function handler(
     ifWantToAddRowData = false;
     $scope.sendSubdivisionToServer();
     $scope.initializeStudyYear();
+  };
+
+  $scope.addMessage = function(numberOfMessage) {
+    $scope.ifMessage = true;
+    $scope.messageCurrent = $scope.allMessages[numberOfMessage];
+    $timeout(function() {
+      $scope.ifMessage = false;
+    }, 6000);
   };
 
   /* Control (integer + - adding) */
@@ -1345,10 +1420,18 @@ function handler(
       })(files[0]);
 
       reader.readAsDataURL(files[0]);
+      $scope.msgImg = '';
+      document.getElementById(
+        'msgImg' + $scope.idFilePreview
+      ).innerHTML = $scope.msgImg;
     } else {
       console.log('img is not ok');
       $scope.newData.Images = '';
       currImg.src = ' ';
+      $scope.msgImg = 'Розмір зображення не повинен перевищувати 64Кб';
+      document.getElementById(
+        'msgImg' + $scope.idFilePreview
+      ).innerHTML = $scope.msgImg;
     }
   }
 

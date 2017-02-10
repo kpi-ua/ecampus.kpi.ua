@@ -10,7 +10,6 @@ function handlers() {
     restrict: 'E',
     link: function(scope, element, attrs) {
       scope.data = scope[attrs['group']];
-      console.log(scope.data);
     }
   };
 }

@@ -12,11 +12,7 @@ angular
   .controller('RnpCtrl', handler);
 
 function handler($scope, $cookies, $window, api, $filter, $http) {
-  this.awesomeThings = [
-    'HTML5 Boilerplate',
-    'AngularJS',
-    'Karma'
-  ];
+
   $scope.options = {
     StudyYears: [],
     Departments: [],
@@ -45,119 +41,53 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
     xmlCodeId: null
   };
 
-  $scope.display = {
-    StudyGroups: [],
-    RnpRows: []
-  };
+  // $scope.display = {
+  //   StudyGroups: [],
+  //   RnpRows: []
+  // };
   $scope.RnpRows = null;
   $scope.errorLabelText = '';
-  // $scope.RnpRows = $scope.display.RnpRows;
 
-  onInit();
-  function onInit() {
-    // $scope.selectData.departmentId = $scope.options.Departments [0].id;
-    // $scope.selectData.okrId = $scope.options.Okrs[0].id;
-    // $scope.selectData.specializationId = $scope.options.Specializations[0].id;
-    // $scope.selectData.studyFormId = $scope.options.StudyForms[0].id;
-    // $scope.selectData.xmlCodeId =$scope.options.XmlCodes[0].id;
+  $scope.$on('rnpIdSelect', function SetGroups(event, param) {
+    $scope.errorLabelText = '';
+    var path = (
+      'Rnp/' + param.userAccountId + '/StudyGroup/' +
+      param.chosenDepartmentId + '/' + param.chosenDepartmentMark +
+      '/' + param.rnpId
+    );
+    api.execute('GET', path).then(function(response) {
+      if (!response || response === '') {
+        $scope.errorLabelText = 'На жаль, дані відсутні';
+        $scope.StudyGroups = null;
+      } else {
+        $scope.StudyGroups = response;
+        setRnpRows(
+          param.userAccountId,
+          param.chosenDepartmentId,
+          param.chosenDepartmentMark,
+          param.rnpId
+        );
+      }
+    });
+  });
+
+  function setRnpRows(
+    useId,
+    chosenSubdivisionId,
+    chosenSubdivisionMar,
+    rnpId
+  ) {
+    var path = (
+      'Rnp/' + useId + '/RNPRows/' + chosenSubdivisionId + '/' +
+      chosenSubdivisionMar + '/' + rnpId
+    );
+    api.execute('GET',path).then(function (response) {
+      if (!response || response === '') {
+        $scope.errorLabelText = 'На жаль, дані відсутні';
+        $scope.RnpRows = null;
+      } else {
+        $scope.RnpRows = response;
+      }
+    });
   }
-  $scope.testDataInit = function() {
-    if ($scope.RnpRows === null) {
-      $scope.RnpRows = [
-        {
-          cycleName: 'Цикл професійної та практичної підготовки',
-          rnpRows: [
-            {
-              rnp: {
-                name: 'Теорія автоматичного управління - 2. Теорія цифрових систем управління',
-                id: 98479
-              },
-              subdivisionName: 'Кафедра технічної кібернетики ФІОТ',
-              credits: 3,
-              countLecture: 36,
-              countPractice: 0,
-              countLaboratory: 18,
-              independentStudentWork: 51,
-              cycleName: 'Цикл професійної та практичної підготовки'
-            }
-          ]
-        },
-        {
-          cycleName: 'Цикл професійної та практичної підготовки 2',
-          rnpRows: [
-            {
-              rnp: {
-                name: 'Теорія автоматичного управління - 2. Теорія цифрових систем управління',
-                id: 98479
-              },
-              subdivisionName: 'Кафедра технічної кібернетики ФІОТ',
-              credits: 3,
-              countLecture: 36,
-              countPractice: 0,
-              countLaboratory: 18,
-              independentStudentWork: 51,
-              cycleName: 'Цикл професійної та практичної підготовки'
-            }
-          ]
-        }
-      ];
-    } else {
-      $scope.RnpRows = [
-        {
-          cycleName: 'Цикл професійної та практичної підготовки',
-          rnpRows: [
-            {
-              rnp: {
-                name: 'Теорія автоматичного управління - 2. Теорія цифрових систем управління',
-                id: 98479
-              },
-              subdivisionName: 'Кафедра технічної кібернетики ФІОТ',
-              credits: 3,
-              countLecture: 36,
-              countPractice: 0,
-              countLaboratory: 18,
-              independentStudentWork: 51,
-              cycleName: 'Цикл професійної та практичної підготовки'
-            }
-          ]
-        },
-        {
-          cycleName: 'Цикл професійної та практичної підготовки 2',
-          rnpRows: [
-            {
-              rnp: {
-                name: 'Теорія автоматичного управління - 2. Теорія цифрових систем управління',
-                id: 98479
-              },
-              subdivisionName: 'Кафедра технічної кібернетики ФІОТ',
-              credits: 3,
-              countLecture: 36,
-              countPractice: 0,
-              countLaboratory: 18,
-              independentStudentWork: 51,
-              cycleName: 'Цикл професійної та практичної підготовки'
-            }
-          ]
-        },
-        {
-          cycleName: 'Цикл професійної та практичної підготовки 3',
-          rnpRows: [
-            {
-              rnp: {
-                name: 'Теорія автоматичного управління - 2. Теорія цифрових систем управління',
-                id: 98479
-              },
-              subdivisionName: 'Кафедра технічної кібернетики ФІОТ',
-              credits: 3,
-              countLecture: 36,
-              countPractice: 0,
-              countLaboratory: 18,
-              independentStudentWork: 51,
-              cycleName: 'Цикл професійної та практичної підготовки'
-            }
-          ]
-        }
-      ];
-    }
-  };
 }
