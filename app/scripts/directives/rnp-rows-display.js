@@ -2,9 +2,9 @@
 
 angular
   .module('ecampusApp')
-  .directive('rnpRowsDisplay', handler);
+  .directive('rnpRowsDisplay', rnpRowsDisplay);
 
-function handler() {
+function rnpRowsDisplay() {
   return {
     templateUrl: 'views/directives/rnp-rows-display.html',
     restrict: 'E',

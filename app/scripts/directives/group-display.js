@@ -2,9 +2,9 @@
 
 angular
   .module('ecampusApp')
-  .directive('groupDisplay', handlers);
+  .directive('groupDisplay', groupDisplay);
 
-function handlers() {
+function groupDisplay() {
   return {
     templateUrl: 'views/directives/group-display.html',
     restrict: 'E',

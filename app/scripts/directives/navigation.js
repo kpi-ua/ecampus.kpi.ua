@@ -8,9 +8,9 @@
  */
 angular
   .module('ecampusApp')
-  .directive('navigation', handler);
+  .directive('navigation', navigation);
 
-function handler() {
+function navigation() {
   return {
     restrict: 'E',
     replace: true,

@@ -2,11 +2,13 @@
 
 angular
   .module('ecampusApp')
-  .directive('rnpInput', handler);
+  .directive('rnpInput', rnpInput);
 
-function handler(api) {
+rnpInput.$inject = ['$scope'];
+
+function rnpInput(api) {
   return {
-    link: function($scope, element, attrs) {
+    link: function ($scope) {
       var useId = api.getCurrentUser().id;
 
       var chainResponsibility = [
@@ -22,7 +24,7 @@ function handler(api) {
       function setStudyYears(isInit) {
         var path = 'studyYears';
 
-        api.execute('GET', path).then(function(response) {
+        api.execute('GET', path).then(function (response) {
           var selectName = 'StudyYear';
           var StudyYearsWatcher = $scope.$watch(
             $scope.options.StudyYears,
@@ -63,7 +65,7 @@ function handler(api) {
       function setDepartments(userId, studyYear, isInit) {
         var selectName = 'Department';
         var path = 'Rnp/' + userId + '/Subdivision/' + studyYear;
-        api.execute('GET', path).then(function(response) {
+        api.execute('GET', path).then(function (response) {
           if (!response || response === '') {
             $scope.errorLabelText = 'На жаль, дані відсутні';
             resetSelectDataOptionsAndModel(selectName);
@@ -107,19 +109,17 @@ function handler(api) {
         }
       }
 
-      function setOkr(
-        useId,
-        studyYearId,
-        chosenSubdivisionId,
-        chosenSubdivisionMark,
-        isInit
-      ) {
+      function setOkr(useId,
+                      studyYearId,
+                      chosenSubdivisionId,
+                      chosenSubdivisionMark,
+                      isInit) {
         var selectName = 'Okr';
         var path = (
           'Rnp/' + useId + '/Okr/' + studyYearId + '/' +
           chosenSubdivisionId + '/' + chosenSubdivisionMark
         );
-        api.execute('GET', path).then(function(response) {
+        api.execute('GET', path).then(function (response) {
           if (!response || response === '') {
             $scope.errorLabelText = 'На жаль, дані відсутні';
             resetSelectDataOptionsAndModel(selectName);
@@ -163,20 +163,18 @@ function handler(api) {
         }
       }
 
-      function setSpecializations(
-        useId,
-        studyYearId,
-        chosenSubdivisionId,
-        chosenSubdivisionMark,
-        okrId,
-        isInit
-      ) {
+      function setSpecializations(useId,
+                                  studyYearId,
+                                  chosenSubdivisionId,
+                                  chosenSubdivisionMark,
+                                  okrId,
+                                  isInit) {
         var selectName = 'Specialization';
         var path = (
           'Rnp/' + useId + '/Specialization/' + studyYearId + '/' +
           chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' + okrId
         );
-        api.execute('GET', path).then(function(response) {
+        api.execute('GET', path).then(function (response) {
           if (!response || response === '') {
             $scope.errorLabelText = 'На жаль, дані відсутні';
             resetSelectDataOptionsAndModel(selectName);
@@ -223,21 +221,19 @@ function handler(api) {
         }
       }
 
-      function setStudyForms(
-        useId,
-        studyYearId,
-        chosenSubdivisionId,
-        chosenSubdivisionMark,
-        specializationId,
-        isInit
-      ) {
+      function setStudyForms(useId,
+                             studyYearId,
+                             chosenSubdivisionId,
+                             chosenSubdivisionMark,
+                             specializationId,
+                             isInit) {
         var selectName = 'StudyForm';
         var path = (
           'Rnp/' + useId + '/StudyForm/' + studyYearId + '/' +
           chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' +
           specializationId
         );
-        api.execute('GET', path).then(function(response) {
+        api.execute('GET', path).then(function (response) {
           if (!response || response === '') {
             $scope.errorLabelText = 'На жаль, дані відсутні';
             resetSelectDataOptionsAndModel(selectName);
@@ -286,22 +282,20 @@ function handler(api) {
         }
       }
 
-      function setXmlCodes(
-        useId,
-        studyYearId,
-        chosenSubdivisionId,
-        chosenSubdivisionMark,
-        specializationId,
-        studyFormId,
-        isInit
-      ) {
+      function setXmlCodes(useId,
+                           studyYearId,
+                           chosenSubdivisionId,
+                           chosenSubdivisionMark,
+                           specializationId,
+                           studyFormId,
+                           isInit) {
         var selectName = 'XmlCodes';
         var path = (
           'Rnp/' + useId + '/XMLCode/' + studyYearId + '/' +
           chosenSubdivisionId + '/' + chosenSubdivisionMark + '/' +
           specializationId + '/' + studyFormId
         );
-        api.execute('GET', path).then(function(response) {
+        api.execute('GET', path).then(function (response) {
           if (!response || response === '') {
             $scope.errorLabelText = 'На жаль, дані відсутні';
             resetSelectDataOptionsAndModel(selectName);
@@ -345,7 +339,7 @@ function handler(api) {
 
       function getItemByName(items, name) {
         var item;
-        items.forEach(function(curItem) {
+        items.forEach(function (curItem) {
           if (curItem.name === name) {
             item = curItem;
           }
@@ -401,7 +395,7 @@ function handler(api) {
         }
       }
 
-      $scope.onChange = function(selectedItem, selectName, items) {
+      $scope.onChange = function (selectedItem, selectName, items) {
         $scope.errorLabelText = '';
         var chosenObj;
         if (typeof(selectedItem) !== 'object') {

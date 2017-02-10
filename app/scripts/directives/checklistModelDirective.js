@@ -9,9 +9,11 @@
 
 angular
   .module('checklist-model', [])
-  .directive('checklistModel', ['$parse', '$compile', handler]);
+  .directive('checklistModel', checklistModel);
 
-function handler($parse, $compile) {
+checklistModel.$inject = ['$parse', '$compile'];
+
+function checklistModel($parse, $compile) {
 
   // contains
   function contains(arr, item, comparator) {
@@ -65,7 +67,7 @@ function handler($parse, $compile) {
     // value added to list
     var value = (
       attrs.checklistValue ?
-      $parse(attrs.checklistValue)(scope.$parent) : attrs.value
+        $parse(attrs.checklistValue)(scope.$parent) : attrs.value
     );
 
     var comparator = angular.equals;
@@ -73,7 +75,7 @@ function handler($parse, $compile) {
     if (attrs.hasOwnProperty('checklistComparator')) {
       if (attrs.checklistComparator[0] === '.') {
         var comparatorExpression = attrs.checklistComparator.substring(1);
-        comparator = function(a, b) {
+        comparator = function (a, b) {
           return a[comparatorExpression] === b[comparatorExpression];
         };
       } else {
@@ -82,11 +84,10 @@ function handler($parse, $compile) {
     }
 
     // watch UI checked change
-    scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+    scope.$watch(attrs.ngModel, function (newValue, oldValue) {
       if (newValue === oldValue) return;
       if (
-        checklistBeforeChange &&
-        !checklistBeforeChange(scope)
+        checklistBeforeChange && !checklistBeforeChange(scope)
       ) {
         scope[attrs.ngModel] = contains(
           getter(scope.$parent), value, comparator
@@ -132,7 +133,7 @@ function handler($parse, $compile) {
     priority: 1000,
     terminal: true,
     scope: true,
-    compile: function(tElement, tAttrs) {
+    compile: function (tElement, tAttrs) {
       var tag = tElement[0].tagName;
       if (
         (tag !== 'INPUT' || tAttrs.type !== 'checkbox') &&

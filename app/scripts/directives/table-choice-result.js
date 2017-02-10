@@ -2,12 +2,11 @@
 
 angular
   .module('ecampusApp')
-  .directive('tableChoiceResult', handler);
+  .directive('tableChoiceResult', tableChoiceResult);
 
-function handler() {
+function tableChoiceResult() {
   return {
     restrict: 'A',
-    // templateUrl: 'views/directives/table-choice-result-old.html'
     templateUrl: 'views/directives/table-choice-result.html'
   };
 }

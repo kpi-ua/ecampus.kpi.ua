@@ -10,9 +10,9 @@
 
 angular
   .module('ecampusApp')
-  .directive('studyGroup', handler);
+  .directive('studyGroup', studyGroup);
 
-function handler() {
+function studyGroup() {
   return {
     restrict: 'A',
     templateUrl: 'views/directives/study-group.html'

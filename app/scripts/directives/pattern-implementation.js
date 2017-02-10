@@ -9,9 +9,9 @@
  */
 angular
   .module('ecampusApp')
-  .directive('patternImplementation', handler);
+  .directive('patternImplementation', patternImplementation);
 
-function handler() {
+function patternImplementation() {
   return {
     restrict: 'A',
     templateUrl: 'views/directives/pattern-implementation.html'
