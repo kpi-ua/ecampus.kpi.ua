@@ -149,88 +149,7 @@ function handler(
     }
   };
 
-  $scope.user = {
-    status: [2, 3, 5]
-  };
-
-  $scope.statuses = [
-    { value: 1, text: '1' },
-    { value: 2, text: '2' },
-    { value: 3, text: '3' },
-    { value: 4, text: '4' },
-    { value: 5, text: '5' },
-    { value: 6, text: '6' }
-  ];
-  $scope.allCourses = [1, 2, 3, 4, 5, 6];
-
-  $scope.allCourses2 = [
-    { value: 1, text: '1' },
-    { value: 2, text: '2' },
-    { value: 3, text: '3' },
-    { value: 4, text: '4' },
-    { value: 5, text: '5' },
-    { value: 6, text: '6' }
-  ];
-
-  $scope.allLecturers = [
-    { name: 'Mr. One', id: 1 },
-    { name: 'Mr. Two', id: 2 },
-    { name: 'Mrs. Three', id: 3 }
-  ];
-
-  $scope.testLecturers = [
-    { name: 'Mr. One', id: 1 },
-    { name: 'Mr. Two', id: 2 }
-  ];
-
-  $scope.tempEmployeesData = [
-    {
-      employeeName: 'Захарченко  Валерій Никанорович',
-      id: 1,
-      studyYear: {
-        isActual: false,
-        name: '2016-2017',
-        id: -1
-      },
-      maxCountStudent: 0,
-      isApproved: null,
-      actuality: true,
-      changeDate: '2016-11-21 12-49-08',
-      nameFull: 'Назва: Екологічні навчальні дисципліни; Екологічна безпека інженерної діяльності; Освітній рівень: Бакалавр; Викладає: Кафедра екології та технології рослинних полімерів ІХФ'
-    },
-    {
-      employeeName: 'Цукор Валентина Семенівна',
-      id: 2,
-      studyYear: {
-        isActual: false,
-        name: '2016-2017',
-        id: -1
-      },
-      maxCountStudent: 1000,
-      isApproved: null,
-      actuality: true,
-      changeDate: '2016-11-21 12-49-08',
-      nameFull: 'Назва: Екологічні навчальні дисципліни; Екологічна безпека інженерної діяльності; Освітній рівень: Бакалавр; Викладає: Кафедра екології та технології рослинних полімерів ІХФ'
-    },
-    {
-      employeeName: 'Галанко Андрій Денисович',
-      id: 3,
-      studyYear: {
-        isActual: false,
-        name: '2016-2017',
-        id: -1
-      },
-      maxCountStudent: 200,
-      isApproved: null,
-      actuality: true,
-      changeDate: '2016-11-21 12-49-08',
-      nameFull: 'Назва: Екологічні навчальні дисципліни; Екологічна безпека інженерної діяльності; Освітній рівень: Бакалавр; Викладає: Кафедра екології та технології рослинних полімерів ІХФ'
-    }
-  ];
-
-  $scope.newSubmit = function(x) {
-    //
-  };
+  $scope.allCourses = [1, 2, 3, 4, 5, 6];    
 
   $scope.showStatus = function(currentRow) {
     if (currentRow.courses) {
@@ -286,8 +205,7 @@ function handler(
       .then(function(response) {
         $scope.allSubdivisions = [];
         $scope.alldisciplines = [];
-        $scope.allSubdivisions = response;
-        $scope.testLecturersShow = [];
+        $scope.allSubdivisions = response;        
       }, function(response) {
         $scope.allSubdivisions = [];
       });
@@ -364,7 +282,7 @@ function handler(
 
           for (var i = 0; i < item.courses.length; i++) {
             for (var j = 1; j < 7; j++) {
-              if (j === item.courses[i]) {
+              if ((''+j) === item.courses[i]) {
                 courses.push(j);
               }
             }
@@ -392,7 +310,7 @@ function handler(
           );
         });
 
-        $scope.ifSubdivChosen = function() {
+        $scope.ifSubdivChosen = function() {          
           return Boolean($scope.alldisciplines);
         };
 

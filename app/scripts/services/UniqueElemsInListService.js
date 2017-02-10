@@ -61,17 +61,12 @@ angular
       var studyYearFrom = year.substr(0, 4);
       var studyYearTo = year.substr(5);
 
-      for (var i = 0; i < initialArr.length; i++) {
-        // console.log('initialArr[i]');
-        // console.log(initialArr[i]);
+      for (var i = 0; i < initialArr.length; i++) {        
         if (
-          studyYearFrom === initialArr[i].studyPeriod.start &&
-          studyYearTo === initialArr[i].studyPeriod.end &&
+          studyYearFrom === (''+initialArr[i].studyPeriod.start) &&
+          studyYearTo === (''+initialArr[i].studyPeriod.end) &&
           okr === initialArr[i].okr
-        ) {
-          // if ((year === initialArr[i].studyyear) &&
-          // (okr === initialArr[i].okr)) {
-          // console.log(initialArr[i]);
+        ) {         
           unmodifiedElementsOfQuery.push({
             block: initialArr[i].blockName,
             discipline: initialArr[i].discipline,
@@ -106,11 +101,11 @@ angular
 
       for (var i = 0; i < allYears.length; i++) {
         if (allYears[i].name) {
-          if (actualYear === allYears[i].name.substr(0, 4)) {
+          if (('' + actualYear) === allYears[i].name.substr(0, 4)) {
             // return allYears[i].name;
             return allYears[i];
           }
-        } else if (actualYear === allYears[i].substr(0, 4)) {
+        } else if (('' + actualYear) === allYears[i].substr(0, 4)) {
           return allYears[i];
         }
       }
