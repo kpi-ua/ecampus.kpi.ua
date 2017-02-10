@@ -23,7 +23,7 @@ function DisciplinesBlockCtrl($scope, api, uniqueElemsInList) {
     ) {
       $scope.dataInTree = uniqueElemsInList.getArrayOfBlocksAndDisc(
         $scope.selectedYear, $scope.selectedOkr, $scope.alldata
-      );
+      );      
     }
   };
 
