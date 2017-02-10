@@ -14,7 +14,7 @@ angular.module('ecampusApp')
     $rootScope.requestCount = 0;
 
     this.changeRequestCount = function(i) {
-      $rootScope.requestCount++;
+      $rootScope.requestCount+=i;
     };
 
     $rootScope.isSessionExpired = null;
