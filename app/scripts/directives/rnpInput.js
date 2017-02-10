@@ -4,7 +4,7 @@ angular
   .module('ecampusApp')
   .directive('rnpInput', rnpInput);
 
-rnpInput.$inject = ['$scope'];
+rnpInput.$inject = ['api'];
 
 function rnpInput(api) {
   return {
@@ -12,9 +12,14 @@ function rnpInput(api) {
       var useId = api.getCurrentUser().id;
 
       var chainResponsibility = [
-        'StudyYear', 'Department', 'Okr',
-        'Specialization', 'StudyForm', 'XmlCodes'
+        'StudyYear',
+        'Department',
+        'Okr',
+        'Specialization',
+        'StudyForm',
+        'XmlCodes'
       ];
+
       onInit();
 
       function onInit() {
@@ -26,10 +31,9 @@ function rnpInput(api) {
 
         api.execute('GET', path).then(function (response) {
           var selectName = 'StudyYear';
-          var StudyYearsWatcher = $scope.$watch(
-            $scope.options.StudyYears,
-            onStudyYearsSet()
-          );
+
+          $scope.$watch($scope.options.StudyYears, onStudyYearsSet());
+
           if (!response || response === '') {
             $scope.errorLabelText = 'На жаль, дані відсутні.';
             resetSelectDataOptionsAndModel(selectName);
