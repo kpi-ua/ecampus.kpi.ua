@@ -22,8 +22,13 @@ var app = angular.module('ecampusApp', [
   'checklist-model'
 ]);
 
+app.config(configRoutes);
+app.run(['$rootScope', 'api', appRun]);
 
-app.config(function($routeProvider, $locationProvider) {
+appRun.$inject  = ['$rootScope', 'api'];
+configRoutes.$inject  = ['$routeProvider', '$locationProvider'];
+
+function configRoutes ($routeProvider, $locationProvider) {
 
   $locationProvider.hashPrefix('!');
 
@@ -150,11 +155,12 @@ app.config(function($routeProvider, $locationProvider) {
     });
 
   $locationProvider.html5Mode(true);
-});
+}
 
-app.run(['$rootScope', 'api', function($rootScope, api) {
-  var deregister = $rootScope.$on('$routeChangeSuccess', function() {
-    angular.element(document).ready(function() {
+function appRun($rootScope, api) {
+
+  var deregister = $rootScope.$on('$routeChangeSuccess', function () {
+    angular.element(document).ready(function () {
       var isLogged = api.getToken();
       if (isLogged) {
         api.changeIsSessionExpiredValue(api.removeToken());
@@ -163,4 +169,4 @@ app.run(['$rootScope', 'api', function($rootScope, api) {
   });
 
   $rootScope.$on('$destroy', deregister);
-}]);
+}
