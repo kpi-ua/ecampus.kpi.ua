@@ -321,6 +321,11 @@ function AttestationCtrl($scope, api) {
     api.execute('GET', url)
       .then(function (response) {
         if (response) {
+          if (response.data !== undefined) {
+            if (response.data.message === 'No attestation period with this params') {
+              $scope.attestationPeriodId = null;
+            }
+          }
           $scope.attestationPeriodId = +response;
         } else {
           $scope.attestationPeriodId = null;
@@ -334,7 +339,7 @@ function AttestationCtrl($scope, api) {
 
   $scope.loadGroups = function (namePattern, year) {
     if (namePattern.length > 1) {
-      var url = 'Attestation/group/find/' + namePattern + '/year/' + year;
+      var url = 'Account/group/find/' + namePattern + '/year/' + year;
       // url + namePattern (2 first symbol of group)
       api.execute('GET', url)
         .then(function (response) {
@@ -379,7 +384,7 @@ function AttestationCtrl($scope, api) {
 
   $scope.loadLecturers = function (namePattern) {
     if (namePattern.length > 2) {
-      var url = 'Attestation/lecturer/find/' + namePattern;
+      var url = 'Account/employee/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
         .then(function (response) {
@@ -428,7 +433,7 @@ function AttestationCtrl($scope, api) {
 
   $scope.loadStudents = function (namePattern) {
     if (namePattern.length > 2) {
-      var url = 'Attestation/student/find/' + namePattern;
+      var url = 'Account/student/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
         .then(function (response) {
