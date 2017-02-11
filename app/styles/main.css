@@ -814,12 +814,24 @@ div.progress-student-count {
   max-height: 400px;
 }
 
-.attest-menu, .attest-alert {
-  margin: 20px 0 20px 0;
+.year-select, .semester-select, .attest-num-select, .student-select,
+.lecturers-select, .group-select, .course-select, .discipline-select,
+.group-lect-select {
+  margin-bottom: 5px;
+}
+
+.attest-menu {
+  margin: 0 0 5px 0;
+}
+
+.attest-alert {
+  margin: 5px 0 5px 0;
 }
 
 .title-type-attest {
   margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 14px;
 }
 
 .nav-pills-attest > li.active > a, .nav-pills-attest > li.active > a:hover, .nav-pills-attest > li.active > a:focus {
@@ -827,12 +839,23 @@ div.progress-student-count {
   background-color: #208944;
 }
 
+.attest-navigation > li:nth-child(1) > a {
+  margin: 0 5px 0 0;
+}
+
+.attest-navigation > li:nth-child(2) > a {
+  margin: 0 5px 0 5px;
+}
+
+.attest-navigation > li:nth-child(3) > a {
+  margin: 0 0 0 5px;
+}
+
 .attest-navigation > li > a {
   position: relative;
   display: block;
   padding: 10px 15px;
   border: 1px solid #208944;
-  margin: 5px 5px 5px 5px;
 }
 
 .nav-pills-attest > li + li {
@@ -843,8 +866,16 @@ div.progress-student-count {
   background-color: #e8f3ec;
 }
 
+#table-attest-lecturer {
+  margin: 22px 0 27px 0;
+}
+
+#table-attest-for-student, #table-attest-group {
+  margin: 5px 0 27px 0;
+}
+
 .btn-result {
-  margin: 20px 0
+  margin: 22px 0 22px 0;
 }
 
 .lecturer-subdivision-name {

@@ -321,12 +321,13 @@ function AttestationCtrl($scope, api) {
     api.execute('GET', url)
       .then(function (response) {
         if (response) {
+          $scope.attestationPeriodId = +response;
           if (response.data !== undefined) {
             if (response.data.message === 'No attestation period with this params') {
               $scope.attestationPeriodId = null;
             }
+
           }
-          $scope.attestationPeriodId = +response;
         } else {
           $scope.attestationPeriodId = null;
         }
