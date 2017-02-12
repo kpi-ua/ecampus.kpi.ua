@@ -61,7 +61,7 @@
   </div>
 </header>
 
-<navigation></navigation>
+<navigation ng-hide="isSessionExpired === true;"></navigation>
 
 <div class="loader" ng-if="requestCount > 0">
   Завантаження даних...<br/>
