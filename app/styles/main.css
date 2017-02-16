@@ -821,8 +821,11 @@ li.row.list-group-item.blocks-list-item {
   padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
-  border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
+}
+
+.blocks-list-item {
+  border: none;
 }
 
 .list-group-item:first-child {
