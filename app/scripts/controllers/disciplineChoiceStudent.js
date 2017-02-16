@@ -36,7 +36,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   };
 
   $scope.getStudyCoursesWithYears = function(yearIntake) {
-    var result = {
+    return {
       firstCourse: yearIntake + '-' + (1 + yearIntake),
       secondCourse: (1 + yearIntake) + '-' + (2 + yearIntake),
       thirdCourse: (2 + yearIntake) + '-' + (3 + yearIntake),
@@ -44,7 +44,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       fifthCourse: (4 + yearIntake) + '-' + (5 + yearIntake),
       sixthCourse: (5 + yearIntake) + '-' + (6 + yearIntake)
     };
-    return result;
   };
 
   function loadInfo() {
@@ -74,7 +73,12 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       $scope.thirdCourse = [];
       $scope.fourthCourse = [];
       for (var i = 0; i < response.length; i++) {
-        response[i]['selectedDiscipline'] = null;
+        for (var j = 0; j < response[i].blocks.length; j++) {
+          response[i].blocks[j]['selectedDiscipline'] = {
+            id: null,
+            name: null
+          };
+        }
         switch (response[i].course) {
           case 1: $scope.firstCourse.push(response[i]); break;
           case 2: $scope.secondCourse.push(response[i]); break;

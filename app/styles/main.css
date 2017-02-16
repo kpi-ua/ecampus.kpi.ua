@@ -737,11 +737,17 @@ div.row.account-info {
   overflow: hidden;
 }
 
-input[type="radio"].radio-disciplines-choice {
-  margin: 0 2px 0 2px;
+/*input[type="radio"].radio-disciplines-choice {*/
+/*margin: 0 2px 0 2px;*/
+/*position: relative;*/
+/*left: 0;*/
+/*vertical-align: baseline;*/
+/*}*/
+
+.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
   position: relative;
-  left: 0;
-  vertical-align: baseline;
+  margin-top: 4px \9;
+  margin-left: 0;
 }
 
 label.label-disciplines-choice {
@@ -783,6 +789,49 @@ div.progress-student-count {
   cursor: pointer;
 }
 
+.panel-body.blocks-panel {
+  padding: 0 15px;
+}
+
+.panel-default > div.panel-heading.semester-heading {
+  color: #111;
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.blocks-list {
+  margin-bottom: 0;
+}
+
+.labels-group {
+  padding: 0 0 0 30px;
+}
+
+.loading-data {
+  padding: 0 30px 0 0;
+}
+
+li.row.list-group-item.blocks-list-item {
+  padding: 15px 0;
+}
+
+.list-group-item.blocks-list-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.list-group-item:first-child {
+  border-radius: 0;
+}
+
+.list-group-item:last-child {
+  border-radius: 0;
+}
 /* end disciplines choice*/
 
 /* attestation styles */
