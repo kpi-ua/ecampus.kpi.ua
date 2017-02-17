@@ -59,6 +59,7 @@ angular.module('ecampusApp')
       }, function(err) {
         console.warn(err);
         self.changeRequestCount(-1);
+          // throw err;
         return err;
       });
 
