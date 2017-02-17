@@ -57,10 +57,10 @@ angular.module('ecampusApp')
         if (response) return response.data;
         return null;
       }, function(err) {
-        console.warn(err);
-        self.changeRequestCount(-1);
-          // throw err;
-        return err;
+          console.warn(err);
+          self.changeRequestCount(-1);
+          throw err;
+        // return err;
       });
 
     };
@@ -209,7 +209,9 @@ angular.module('ecampusApp')
       if (json) return JSON.parse(json);
       return null;
     };
-
+      /**
+       * Get decoded token
+       */
     this.decodeToken = function(accessTokenIn) {
 
       if (!accessTokenIn || accessTokenIn === 'null') {
@@ -228,5 +230,22 @@ angular.module('ecampusApp')
 
       return sClaim;
     };
+      /**
+       * Handle an error. Put it in the .catch() - function, after .then()- function
+       * return: string.
+       */
+    this.errorHandler = function(response, status, headers) {
+          var errorDetails = '';
+          switch (response.statusText) {
+              case 'Internal Server Error': {
+                  errorDetails = 'Помилка сервера, спробуйте пізніше. Статус: ' + response.status;
+                  break;
+              }
+              default: {
+                  errorDetails = 'Перевірте інтернет з\'єднання.';
+              }
+          }
+          return 'Помилка. ' + errorDetails;
+      }
 
   });
