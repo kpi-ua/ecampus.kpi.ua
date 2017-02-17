@@ -58,7 +58,7 @@ function RnpCtrl($scope, api) {
       '/' + param.rnpId
     );
     api.execute('GET', path).then(function (response) {
-      if (!response || response === '') {
+      if (!response || response === '' || response.length===0) {
         $scope.errorLabelText = 'На жаль, дані відсутні';
         $scope.StudyGroups = null;
       } else {
@@ -82,7 +82,7 @@ function RnpCtrl($scope, api) {
       chosenSubdivisionMar + '/' + rnpId
     );
     api.execute('GET', path).then(function (response) {
-      if (!response || response === '') {
+      if (!response || response === '' || response.length===0) {
         $scope.errorLabelText = 'На жаль, дані відсутні';
         $scope.RnpRows = null;
       } else {

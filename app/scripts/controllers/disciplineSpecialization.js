@@ -74,7 +74,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
       }
       var path = 'blocks';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль, блоки  у базі даних відсутні.';
         } else {
           $scope.Dc.Blocks = response;
@@ -86,7 +86,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
       });
       path = 'cycles';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = (
             'На жаль, цикли дисциплін  у базі даних відсутні.'
           );
@@ -100,7 +100,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
       });
       path = 'Attestation/studyYear';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль, роки  у базі даних відсутні.';
         } else {
           response.sort(compareYearsActuality);
@@ -116,7 +116,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
       });
       path = 'studyForms';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = (
             'На жаль, форми навчання у базі даних відсутні.'
           );
@@ -358,7 +358,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
     var path = 'StudyOrganization/ProfTrains/' + cathedraId;
 
     api.execute('GET', path).then(function(response) {
-      if (!response || response === '') {
+      if (!response || response === '' || response.length===0) {
         $scope.errorLabelText = 'На жаль, OKP у базі даних відсутні.';
       } else {
         console.log(response);
@@ -442,7 +442,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         '/' + $scope.selectData.StudyForm
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль записи у базі відсутні';
           $scope.safeApply();
         } else {
@@ -471,7 +471,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         $scope.selectData.CathedraId + '/' + $scope.selectData.Direction
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль, записи у базі відсутні.';
           $scope.patterns = [];
           $scope.safeApply();
@@ -517,7 +517,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         '/' + $scope.selectData.Direction + '/' + $scope.selectData.StudyForm
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль групи у базі відсутні.';
           $scope.groups = null;
           $scope.blocksChoise = null;
@@ -554,7 +554,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         $scope.selectData.Direction + '/' + $scope.selectData.StudyForm
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль групи у базі відсутні.';
           $scope.blocksChoise = null;
           $scope.selectData.StudyGroup = null;
@@ -589,7 +589,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         var tatalMaxCountStudent = 0;
         var tatalOccupiedPercent = 0;
         var tatalSubscribed = 0;
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           block.DisciplineArray = null;
           $scope.blocksWidthDisciplines = blocks;
         } else {

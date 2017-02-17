@@ -208,7 +208,7 @@ function StatisticNppCtrl($scope, api) {
       '/Emplloyers/WithIndividualLoad/List'
     );
     api.execute('GET', path).then(function (response) {
-      if (!response || response === '') {
+      if (!response || response === '' || response.length===0) {
         $scope.errorLabelText = 'На жаль, записи у базі даних відсутні.';
       } else {
         $scope.semesters = response;
