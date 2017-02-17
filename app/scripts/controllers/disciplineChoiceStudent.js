@@ -89,6 +89,12 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   }
 
+  $scope.isDisciplinesSelected = function (object) {
+    return Object.keys(object).some(function (key) {
+      return object[key];
+    });
+  };
+
   // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням
   // link: http://www.w3schools.com/angular/tryit.asp?filename=try_ng_form_radio
 

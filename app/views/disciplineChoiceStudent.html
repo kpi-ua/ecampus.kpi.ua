@@ -226,12 +226,13 @@
                                 <label class="label-disciplines-choice">
                                   <input type="checkbox" class="checkbox-disciplines-choice"
                                          checklist-model="thirdBlocks.selectedDiscipline"
-                                         checklist-value="{id, name}">
+                                         checklist-value="{id, name}"
+                                         ng-required="!isDisciplinesSelected(thirdBlocks.selectedDiscipline)">
                                   {{thirdDisc.nameUkr || "назву дисциплін не вказано"}}
                                 </label>
                                 <span class="disciplines-subdivision-name">
-                            {{thirdDisc.subdivision || "назву кафедри не вказано"}}
-                          </span>
+                                  {{thirdDisc.subdivision || "назву кафедри не вказано"}}
+                                </span>
                                 <i class="fa fa-info fa-fw info-load" aria-hidden="true"></i>
                               </div>
                               <div ng-show="!(third.status === 'not available' || third.status === 'done')">
@@ -263,10 +264,15 @@
                               </ul>
                             </div>
                             <button type="submit" class="btn btn-primary btn-save-choice-result"
-                                    ng-show="!(third.status == 'not available' || third.status === 'done')">Зберегти
+                                    ng-show="!(third.status == 'not available' || third.status === 'done')"
+                                    ng-disabled="thirdBlocks.selectedDiscipline.length > thirdBlocks.disciplineCount ||
+                                    thirdBlocks.selectedDiscipline.id === null">Зберегти
                             </button>
                           </form>
-                        </div>
+                          <div class="messages"
+                               ng-show="thirdBlocks.selectedDiscipline.length > thirdBlocks.disciplineCount">
+                            <h5 style="color: red;">Ви обрали невірну кількість дисциплін.</h5>
+                          </div>
                         <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 info about-disciplines">
                           <div class="discipline" ng-show="thirdBlocks.length === 0">Не вказано дисциплін</div>
                         </div>
