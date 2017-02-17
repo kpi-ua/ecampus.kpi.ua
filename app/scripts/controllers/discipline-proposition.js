@@ -282,7 +282,7 @@ function handler(
 
           for (var i = 0; i < item.courses.length; i++) {
             for (var j = 1; j < 7; j++) {
-              if ((''+j) === item.courses[i]) {
+              if (('' + j) === item.courses[i]) {
                 courses.push(j);
               }
             }
@@ -310,7 +310,7 @@ function handler(
           );
         });
 
-        $scope.ifSubdivChosen = function() {          
+        $scope.ifSubdivChosen = function() {
           return Boolean($scope.alldisciplines);
         };
 
