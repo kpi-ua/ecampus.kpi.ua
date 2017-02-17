@@ -43,11 +43,8 @@ function RnpCtrl($scope, api) {
     xmlCodeId: null
   };
 
-  // $scope.display = {
-  //   StudyGroups: [],
-  //   RnpRows: []
-  // };
   $scope.RnpRows = null;
+
   $scope.errorLabelText = '';
 
   $scope.$on('rnpIdSelect', function SetGroups(event, param) {

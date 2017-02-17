@@ -8,8 +8,9 @@ function groupDisplay() {
   return {
     templateUrl: 'views/directives/groupDisplay.html',
     restrict: 'E',
-    link: function(scope, element, attrs) {
-      scope.data = scope[attrs['group']];
-    }
+    link: link
   };
+  function link(scope, element, attrs) {
+    scope.data = scope[attrs['group']];
+  }
 }
