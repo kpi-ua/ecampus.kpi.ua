@@ -80,10 +80,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           $scope.Dc.Blocks = response;
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       path = 'cycles';
       api.execute('GET', path).then(function(response) {
         if (!response || response === '' || response.length===0) {
@@ -94,10 +92,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           $scope.Dc.Cycles = response;
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       path = 'Attestation/studyYear';
       api.execute('GET', path).then(function(response) {
         if (!response || response === '' || response.length===0) {
@@ -110,10 +106,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           );
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       path = 'studyForms';
       api.execute('GET', path).then(function(response) {
         if (!response || response === '' || response.length===0) {
@@ -124,10 +118,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           $scope.Dc.StudyForms = response;
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     }
 
   }
@@ -284,17 +276,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
   }
 
   function errorHandlerMy(response, status, headers) {
-    var errorDetails = '';
-    switch (response.statusText) {
-      case 'Internal Server Error': {
-        errorDetails = 'Помилка сервера, спробуйте пізніше. Статус: ' + response.status;
-        break;
-      }
-      default: {
-        errorDetails = 'Перевірте інтернет з\'єднання.';
-      }
-    }
-    $scope.errorLabelText = 'Помилка. ' + errorDetails;
+    $scope.errorLabelText = api.errorHandler(response);
   }
 
   function getCourseBySemester(semester) {
@@ -451,10 +433,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           $scope.semestrsForView = semestrForView;
           $scope.safeApply();
         }
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     } else if (
       mainInfoBool && (
         $scope.section === 'patterns' ||
@@ -500,10 +480,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
           $scope.safeApply();
         }
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     }
     if (
       mainInfoBool &&
@@ -541,10 +519,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
             $scope.safeApply();
           });
         }
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     }
     if (mainInfoBool && studyFormBool &&  studyYearBool &&  $scope.section === 'study-group') {
       $scope.groups =  null;
@@ -654,10 +630,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           whoReadAbbreviation, whoReadName
         );
         disciplines.push(dm3);
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       $scope.disciplines = disciplines;
       // console.log($scope.disciplines);
       $scope.safeApply();
@@ -700,10 +674,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
       // console.log($scope.patterns);
       api.execute(method, path, payload).then(function(resp) {
         $scope.onFullSelect();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     } else {
       if ($scope.selectData.Patterns.length === 0) {
         $scope.errorLabelText = 'Помилка! Оберіть хочаб один шаблон. ';
@@ -776,12 +748,13 @@ function DisciplinesSpecializationCtrl($scope, api) {
     method = patternBlockChoice8Id === null ? 'POST' : 'PUT';
 
     // console.log(method);
-    api.execute(method, path, payload).then(function(resp) {
-      $scope.onFullSelect();
-    }, function(response, status, headers) {
-      errorHandlerMy(response, status, headers);
-      $scope.safeApply();
-    });
+    api.execute(method, path, payload)
+        .then(function(resp) {$scope.onFullSelect()})
+        .catch(errorHandlerMy);
+    // , function(response, status, headers) {
+    //   errorHandlerMy(response, status, headers);
+    //   $scope.safeApply();
+    // });
   };
 
   // remove patterb
@@ -871,10 +844,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
       var payload = { Id: block.id };
       api.execute(method, path, payload).then(function(resp) {
         $scope.onFullSelect();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       $scope.blocksChoise.splice($scope.blocksChoise.indexOf(block), 1);
     }
   };
