@@ -8,7 +8,7 @@
  * Service in the ecampusApp.
  */
 angular.module('ecampusApp')
-  .service('api', function($http, $rootScope, $window) {
+  .service('api', function($http, $rootScope, $window, $q) {
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
     $rootScope.requestCount = 0;
@@ -59,8 +59,7 @@ angular.module('ecampusApp')
       }, function(err) {
           console.warn(err);
           self.changeRequestCount(-1);
-          throw err;
-        // return err;
+          return $q.reject(err);
       });
 
     };
