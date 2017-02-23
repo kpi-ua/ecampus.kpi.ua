@@ -14,6 +14,7 @@ angular
 DisciplineChoiceStudentCtrl.$inject = ['$scope', 'api'];
 
 function DisciplineChoiceStudentCtrl($scope, api) {
+  $scope.selectedForInfo = {'cDisciplineBlockYear8Id': null};
   $scope.errorMessage = '';
   $scope.hideInfo = false;
   $scope.errorMessageDisc = '';
@@ -95,8 +96,22 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   };
 
-  // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням
-  // link: http://www.w3schools.com/angular/tryit.asp?filename=try_ng_form_radio
+  $scope.filterChoiceFromAllDisciplines = function (response, semester, value) {
+    return response.map(function (responseElement) {
+      if (responseElement.semester == semester) {
+        return Object.assign({}, responseElement, {
+          blocks: responseElement.blocks.map(function (blocksElement) {
+            return Object.assign({}, blocksElement, {
+              blockDisc: blocksElement.blockDisc.filter(function (blockDiscElement) {
+                return blockDiscElement.cDisciplineBlockYear8Id == value;
+              })
+            });
+          })
+        });
+      }
+    });
+  };
+
 
   loadInfo();
   loadDisciplines();
