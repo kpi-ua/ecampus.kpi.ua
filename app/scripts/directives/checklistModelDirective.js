@@ -73,10 +73,9 @@ function checklistModel($parse, $compile) {
     if (attrs.hasOwnProperty('checklistComparator')){
       if (attrs.checklistComparator[0] == '.') {
         var comparatorExpression = attrs.checklistComparator.substring(1);
-        comparator = function (a, b) {
+        comparator = function(a, b) {
           return a[comparatorExpression] === b[comparatorExpression];
         };
-
       } else {
         comparator = $parse(attrs.checklistComparator)(scope.$parent);
       }

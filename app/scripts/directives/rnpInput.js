@@ -235,7 +235,7 @@ function rnpInput(api) {
 
     function getItemByName(items, name) {
       var item;
-      items.forEach(function (curItem) {
+      items.forEach(function(curItem) {
         if (curItem.name === name) {
           item = curItem;
         }
@@ -250,10 +250,10 @@ function rnpInput(api) {
       this.nextChainFunction = nextChainFunction;
       this.completeHandler =completeHandler;
       this.failureHandler = failureHandler;
-      this.set = function (requestPath, isInit) {
+      this.set = function(requestPath, isInit) {
         api.execute('GET', requestPath)
-            .then(function (response) {self.completeHandler(response,isInit,self.selectName,self.nextChainFunction,self.optionDestination)})
-            .catch(self.failureHandler);
+          .then(function(response) {self.completeHandler(response,isInit,self.selectName,self.nextChainFunction,self.optionDestination)})
+          .catch(self.failureHandler);
       };
     }
 

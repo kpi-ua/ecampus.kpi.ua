@@ -45,11 +45,11 @@ function AttestationCtrl($scope, api) {
     $scope.studentsResult = [];
   }
 
-  $scope.setPill = function (newPill) {
+  $scope.setPill = function(newPill) {
     $scope.pill = newPill;
   };
 
-  $scope.isSet = function (pillNum) {
+  $scope.isSet = function(pillNum) {
     return $scope.pill === pillNum;
   };
 
@@ -65,11 +65,11 @@ function AttestationCtrl($scope, api) {
   function loadStudyYears() {
     var url = 'Attestation/studyYear';
     api.execute('GET', url)
-      .then(function (response) {
+      .then(function(response) {
           $scope.studyYears = response;
           $scope.studyYears.selected = setCurrentStudyYear(response);
         },
-        function () {
+        function() {
           $scope.errorMessageYears = (
             'Не вдалося завантажити список навчальних років'
           );
@@ -114,7 +114,7 @@ function AttestationCtrl($scope, api) {
   // 1 period - (7 - 9) study year week
   // 2 period - (13 - 15) study year week
   function getCurrentStudyAttestationPeriod() {
-    Date.prototype.getWeek = function () {
+    Date.prototype.getWeek = function() {
       var date = new Date(this.getTime());
       date.setHours(0, 0, 0, 0);
       // Thursday in current week decides the year.
@@ -156,13 +156,13 @@ function AttestationCtrl($scope, api) {
   function loadAttestations() {
     var url = 'Attestation';
     api.execute('GET', url)
-      .then(function (response) {
+      .then(function(response) {
           $scope.studyAttestationPeriod = response;
           $scope.studyAttestationPeriod.selected = (
             setCurrentStudyAttestationPeriod(response)
           );
         },
-        function () {
+        function() {
           $scope.errorMessageAttests = 'Не вдалося завантажити список атестацій';
           $scope.attestations = null;
         });
@@ -173,7 +173,7 @@ function AttestationCtrl($scope, api) {
     this.teacherName = teacherName;
   }
 
-  $scope.getDisciplineName = function (name) {
+  $scope.getDisciplineName = function(name) {
     var result = name.split(',');
     return result[0];
   };
@@ -310,16 +310,18 @@ function AttestationCtrl($scope, api) {
     );
   }
 
-  $scope.getAttestationPeriodId = function (dcStudingYearId,
-                                            semesterYear,
-                                            dcLoadId) {
+  $scope.getAttestationPeriodId = function(
+    dcStudingYearId,
+    semesterYear,
+    dcLoadId
+  ) {
     var url = generateUrlForAttestPeriod(
       dcStudingYearId,
       semesterYear,
       dcLoadId
     );
     api.execute('GET', url)
-      .then(function (response) {
+      .then(function(response) {
         if (response) {
           $scope.attestationPeriodId = +response;
           if (response.data !== undefined) {
@@ -334,20 +336,20 @@ function AttestationCtrl($scope, api) {
       });
   };
 
-  $scope.clearAttestationPeriodId = function () {
+  $scope.clearAttestationPeriodId = function() {
     initAttestationPeriodId();
   };
 
-  $scope.loadGroups = function (namePattern, year) {
+  $scope.loadGroups = function(namePattern, year) {
     if (namePattern.length > 1) {
       var url = 'Account/group/find/' + namePattern + '/year/' + year;
       // url + namePattern (2 first symbol of group)
       api.execute('GET', url)
-        .then(function (response) {
+        .then(function(response) {
             $scope.errorMessageGroups = '';
             $scope.Groups = response;
           },
-          function () {
+          function() {
             $scope.errorMessageGroups = 'Не вдалося завантажити список груп';
             $scope.Groups = null;
           });
@@ -358,20 +360,20 @@ function AttestationCtrl($scope, api) {
     }
   };
 
-  $scope.loadGroupsResult = function (rtStudyGroupId, cAttestationPeriodId) {
+  $scope.loadGroupsResult = function(rtStudyGroupId, cAttestationPeriodId) {
     initGroupsResult();
     var url = (
       'Attestation/group/' + rtStudyGroupId + '/period/' +
       cAttestationPeriodId + '/result'
     );
     api.execute('GET', url)
-      .then(function (response) {
+      .then(function(response) {
           $scope.errorLoadGroupsResult = '';
           $scope.groupsResult = response.sort(sortRuleForGroupsResult);
           getStudentsAndDisciplinesLists(response);
           $scope.getGroupsResults = true;
         },
-        function () {
+        function() {
           $scope.errorLoadGroupsResult = (
             'Не вдалося завантажити результати для даної групи'
           );
@@ -379,20 +381,20 @@ function AttestationCtrl($scope, api) {
         });
   };
 
-  $scope.clearGroupsResult = function () {
+  $scope.clearGroupsResult = function() {
     initGroupsResult();
   };
 
-  $scope.loadLecturers = function (namePattern) {
+  $scope.loadLecturers = function(namePattern) {
     if (namePattern.length > 2) {
       var url = 'Account/employee/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
-        .then(function (response) {
+        .then(function(response) {
             $scope.errorMessageLecturers = '';
             $scope.lecturersList = response;
           },
-          function () {
+          function() {
             $scope.errorMessageLecturers = 'Не вдалося завантажити список груп';
             $scope.lecturersList = null;
           });
@@ -403,14 +405,14 @@ function AttestationCtrl($scope, api) {
     }
   };
 
-  $scope.loadLecturersResult = function (eEmployees1Id, cAttestationPeriodId) {
+  $scope.loadLecturersResult = function(eEmployees1Id, cAttestationPeriodId) {
     initLecturersResult();
     var url = (
       'Attestation/lecturer/' + eEmployees1Id + '/period/' +
       cAttestationPeriodId + '/result'
     );
     api.execute('GET', url)
-      .then(function (response) {
+      .then(function(response) {
           var sortedResponse = response.sort(sortRuleForLecturersResult);
           getGroupsList(sortedResponse);
           getCoursesList(sortedResponse);
@@ -419,7 +421,7 @@ function AttestationCtrl($scope, api) {
           $scope.getLecturersResults = true;
           $scope.lecturersResult = sortedResponse;
         },
-        function () {
+        function() {
           $scope.errorLecturersResult = (
             'Не вдалося завантажити результати для даного викладача'
           );
@@ -428,20 +430,20 @@ function AttestationCtrl($scope, api) {
         });
   };
 
-  $scope.clearLecturersResult = function () {
+  $scope.clearLecturersResult = function() {
     initLecturersResult();
   };
 
-  $scope.loadStudents = function (namePattern) {
+  $scope.loadStudents = function(namePattern) {
     if (namePattern.length > 2) {
       var url = 'Account/student/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
-        .then(function (response) {
+        .then(function(response) {
             $scope.errorMessageStudents = '';
             $scope.students = response;
           },
-          function () {
+          function() {
             $scope.errorMessageStudents = 'Не вдалося завантажити список груп';
             $scope.students = null;
           });
@@ -452,23 +454,23 @@ function AttestationCtrl($scope, api) {
     }
   };
 
-  $scope.loadStudentsResult = function (sPersonalityId, cAttestationPeriodId) {
+  $scope.loadStudentsResult = function(sPersonalityId, cAttestationPeriodId) {
     initStudentsResult();
     var url = (
       'Attestation/student/' + sPersonalityId + '/period/' +
       cAttestationPeriodId + '/result'
     );
     api.execute('GET', url)
-      .then(function (response) {
+      .then(function(response) {
           $scope.getStudentsResult = true;
           $scope.studentsResult = response.sort(sortStudentsResults);
         },
-        function () {
+        function() {
           $scope.studentsResult = null;
         });
   };
 
-  $scope.clearStudentsResult = function () {
+  $scope.clearStudentsResult = function() {
     initStudentsResult();
   };
 

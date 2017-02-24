@@ -159,8 +159,8 @@ function configRoutes ($routeProvider, $locationProvider) {
 
 function appRun($rootScope, api) {
 
-  var deregister = $rootScope.$on('$routeChangeSuccess', function () {
-    angular.element(document).ready(function () {
+  var deregister = $rootScope.$on('$routeChangeSuccess', function() {
+    angular.element(document).ready(function() {
       var isLogged = api.getToken();
       if (isLogged) {
         api.changeIsSessionExpiredValue(api.removeToken());

@@ -9,7 +9,7 @@
  */
 angular
   .module('ecampusApp')
-  .run(function (editableOptions) {
+  .run(function(editableOptions) {
     editableOptions.theme = 'bs3';    // bootstrap3 theme. Can be also 'bs2', 'default'
   })
   .controller('DisciplinesPropositionCtrl', DisciplinesPropositionCtrl);
@@ -35,33 +35,33 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     'Не вдалося видалити дані. Перевірте стан підключення до Інтернету.'
   ];
 
-  $scope.onSelected = function (selectedItem) {
-    setTimeout(function () {
+  $scope.onSelected = function(selectedItem) {
+    setTimeout(function() {
       $(':focus').blur();
     });
   };
 
-  $scope.showTempData = function () {
+  $scope.showTempData = function() {
   };
 
-  $scope.saveLectureFromUiSelect = function (lecturer) {
+  $scope.saveLectureFromUiSelect = function(lecturer) {
     $scope.selectedLecturer = lecturer;
   };
 
-  $scope.saveFullnameFromUiSelect = function (nameFull) {
+  $scope.saveFullnameFromUiSelect = function(nameFull) {
     $scope.selectedNameFull = nameFull;
     $scope.selectedNameFullEdited = 1;
   };
 
-  $scope.loadLecturers = function (namePattern) {
+  $scope.loadLecturers = function(namePattern) {
     if (namePattern.length > 2) {
       var url = 'account/employee/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
-        .then(function (response) {
+        .then(function(response) {
           $scope.errorMessageLecturers = '';
           $scope.lecturersList = response;
-        }, function () {
+        }, function() {
           $scope.errorMessageLecturers = 'Не вдалося завантажити список груп';
           $scope.lecturersList = null;
         });
@@ -72,7 +72,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     }
   };
 
-  var separateFullname = function (fullName, field) {
+  var separateFullname = function(fullName, field) {
     var keyWords = ['Назва: ', 'Освітній рівень: ', 'Викладає: '];
     var output = '';
     var pos1 = fullName.lastIndexOf(keyWords[field]) + keyWords[field].length;
@@ -90,7 +90,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     return output;
   };
 
-  $scope.SwitchSections = function (event) {
+  $scope.SwitchSections = function(event) {
     $scope.sectionMenu = event.target.value;
 
     if ($scope.sectionMenu === 'studyYearMenu') {
@@ -219,11 +219,11 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     }
   ];
 
-  $scope.newSubmit = function (x) {
+  $scope.newSubmit = function(x) {
     //
   };
 
-  $scope.showStatus = function (currentRow) {
+  $scope.showStatus = function(currentRow) {
     if (currentRow.courses) {
       return (
         currentRow.courses.length ?
@@ -232,7 +232,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     }
   };
 
-  $scope.showTeachersList = function (currentTeachersList) {
+  $scope.showTeachersList = function(currentTeachersList) {
     var output = '';
     var sortedList = [];
     if (currentTeachersList.employee.length) {
@@ -259,65 +259,65 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     return output;
   };
 
-  $scope.ifZeroInTable = function (currentObject, someValue) {
+  $scope.ifZeroInTable = function(currentObject, someValue) {
     return (
       (currentObject !== null) ?
         currentObject[someValue] : 'не визначено2'
     );
   };
 
-  $scope.setColspan = function (colspan) {
+  $scope.setColspan = function(colspan) {
     $scope.amountColspan = colspan;
   };
 
-  var initialLoadCafedra = function () {
+  var initialLoadCafedra = function() {
 
     //api.execute('GET', 'SelectiveDiscipline/ActualCathedra')
     api.execute('GET', 'Subdivision')
-      .then(function (response) {
+      .then(function(response) {
         $scope.allSubdivisions = [];
         $scope.alldisciplines = [];
         $scope.allSubdivisions = response;
         $scope.testLecturersShow = [];
-      }, function (response) {
+      }, function(response) {
         $scope.allSubdivisions = [];
       });
   };
 
-  var getDataSelectBoxes = function () {
+  var getDataSelectBoxes = function() {
     var url = 'SelectiveDiscipline/ForDisciplineOffer';
 
     api.execute('GET', url)
-      .then(function (response) {
+      .then(function(response) {
         $scope.tempListData = response;
         $scope.tempListData.years = [];
         console.log('some promises');
         reload();
-      }, function (response) {
+      }, function(response) {
         $scope.tempListData = response;
-      }, function (response) {
+      }, function(response) {
         //
       });
   };
 
-  angular.element(document).ready(function () {
+  angular.element(document).ready(function() {
     initialLoadCafedra();
     getDataSelectBoxes();
   });
 
-  $scope.checkProposForm = function (data) {
+  $scope.checkProposForm = function(data) {
     if (data === null || data === '') {
       return 'Заповніть це поле!';
     }
   };
 
-  $scope.checkYearForm = function (data) {
+  $scope.checkYearForm = function(data) {
     if (data === null || data === '') {
       return 'Заповніть це поле!';
     }
   };
 
-  $scope.showUaWords = function (current) {
+  $scope.showUaWords = function(current) {
     switch (current.isApproved) {
       case true:
         current.isApproved = 'так';
@@ -333,15 +333,15 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
   };
 
 
-  $scope.sendSubdivisionToServer = function () {
+  $scope.sendSubdivisionToServer = function() {
 
     $scope.alldisciplines = [];
     var data = $scope.selectedDiscipline.id;
     var url = 'SelectiveDiscipline/BlocksDispline/' + data;
 
     api.execute('GET', url)
-      .then(function (response) {
-          response.forEach(function (item) {
+      .then(function(response) {
+          response.forEach(function(item) {
             var okr = item.okr;
             var blockName = item.blockName;
             var nameUkr = item.nameUkr;
@@ -367,7 +367,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
               }
             }
 
-            item.disciplineBlockYear.forEach(function (item2) {
+            item.disciplineBlockYear.forEach(function(item2) {
               var studyYear = item2.studyYear;
               var maxCountStudent = item2.maxCountStudent;
               // var isApproved = item2.isApproved;
@@ -389,11 +389,11 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             );
           });
 
-          $scope.ifSubdivChosen = function () {
+          $scope.ifSubdivChosen = function() {
             return Boolean($scope.alldisciplines);
           };
 
-          $scope.sortBy = function (propertyName) {
+          $scope.sortBy = function(propertyName) {
             $scope.sortReverse = (
               $scope.sortName === propertyName ? !$scope.sortReverse : true
             );
@@ -405,7 +405,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
           $scope.CurrentData = {}; //--------------------------------
           $scope.dataWithLecturers = {};
 
-          $scope.getCurrentYearData = function (currentData) {
+          $scope.getCurrentYearData = function(currentData) {
             $scope.CurrentYearData = currentData;
             $scope.CurrentData = currentData;
             for (var i = 0; i < $scope.CurrentYearData.yearData.length; i++) {
@@ -416,7 +416,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             // $scope.showUaWords($scope.CurrentYearData);
           };
 
-          $scope.getCurrentDataWithLecturers = function (obj) {
+          $scope.getCurrentDataWithLecturers = function(obj) {
             $scope.dataWithLecturers = obj;
           };
 
@@ -461,7 +461,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             Images: ''
           };
 
-          $scope.addProposition = function () {
+          $scope.addProposition = function() {
             // show or hide adding row in the Proposition-table
             if (!ifWantToAddRowData) {
               if ($scope.sortReverse) {
@@ -487,7 +487,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             }
           };
 
-          $scope.addYear = function () {
+          $scope.addYear = function() {
             // objYear.studyYear.name
             if (!ifWantToAddRowData) {
               if ($scope.sortReverse) {
@@ -509,7 +509,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             }
           };
 
-          $scope.addPropositionOnStudyYear = function () {
+          $scope.addPropositionOnStudyYear = function() {
             // $scope.studyYearData
             if (!ifWantToAddRowData) {
               if ($scope.sortReverse) {
@@ -527,7 +527,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             }
           };
 
-          $scope.addLecturer = function () {
+          $scope.addLecturer = function() {
             if (!ifWantToAddRowData) {
               if ($scope.sortReverse) {
                 $scope.sortReverse = !$scope.sortReverse;
@@ -541,9 +541,9 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             }
           };
 
-          var getBlockIdByName = function (blockList, blockName) {
+          var getBlockIdByName = function(blockList, blockName) {
             var blockId = '';
-            blockList.forEach(function (item, iter, arr) {
+            blockList.forEach(function(item, iter, arr) {
               if (item.name === blockName) {
                 blockId = item.id;
               }
@@ -551,7 +551,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             return blockId;
           };
 
-          $scope.saveProposition = function (data, proposition) {
+          $scope.saveProposition = function(data, proposition) {
             // data is what you are editing  (current row in the table).
             // Variables with e-name.
             // duting editing it is another, check out and be careful
@@ -674,21 +674,21 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
 
             console.log('newRowProposition - .', newRowProposition, '.');
             api.execute(method, url, newRowProposition)
-              .then(function (response) {
+              .then(function(response) {
                 console.log(response);
                 $scope.sendSubdivisionToServer();
                 $scope.newData.Images = '';
                 // $scope.addMessage(0);
                 $scope.messageCurrent = $scope.allMessages[0];
                 $('#messageView').addClass('hideMessage');
-              }, function (response) {
+              }, function(response) {
                 // $scope.addMessage(3);
                 console.log(response);
               });
             ifWantToAddRowData = false;
           };
 
-          $scope.saveYear = function (data, year) {
+          $scope.saveYear = function(data, year) {
             console.log('data selectedNameFull year');
             console.log(data);
             console.log($scope.selectedNameFull);
@@ -797,7 +797,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             console.log(url);
 
             api.execute(method, url, newRowYear)
-              .then(function (response) {
+              .then(function(response) {
                 console.log(response);
                 $('#ModalTableApproved').modal('hide');
                 //$scope.sectionMenu = 'generalListMenu';
@@ -806,7 +806,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
                 $scope.initializeStudyYear();
                 // $scope.addMessage(0);
                 $scope.selectedNameFullEdited = 0;
-              }, function (response) {
+              }, function(response) {
                 // $scope.addMessage(3);
                 $scope.selectedNameFullEdited = 0;
                 console.log(response);
@@ -815,7 +815,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             ifWantToAddRowData = false;
           };
 
-          $scope.saveLector = function (teacher) {
+          $scope.saveLector = function(teacher) {
             var method = 'PUT';
             var url = 'SelectiveDiscipline/DisciplineEmployee/';
             // + teacher.yeardata.idBlockYear + '/' + $scope.lecturer.id
@@ -832,14 +832,14 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
               );
             }
             api.execute(method, url)
-              .then(function (response) {
+              .then(function(response) {
                 console.log(response);
                 $('#ModalAddLecturer').modal('hide');
                 $scope.selectedLecturer = {};
                 $scope.sendSubdivisionToServer();
                 $scope.initializeStudyYear();
                 // $scope.addMessage(0);
-              }, function (response) {
+              }, function(response) {
                 // $scope.addMessage(3);
                 console.log(response);
               });
@@ -847,7 +847,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             ifWantToAddRowData = false;
           };
 
-          $scope.removeProposition = function (proposition) {
+          $scope.removeProposition = function(proposition) {
             if (confirm('Ви впеврені що хочете видалити цю пропозицію?')) {
               var url = (
                 'SelectiveDiscipline/BlocksDispline/' +
@@ -855,18 +855,18 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
               );
               var method = 'DELETE';
               api.execute(method, url)
-                .then(function (response) {
+                .then(function(response) {
                   console.log(response);
                   // $scope.sendSubdivisionToServer();
                   $scope.reloadData();
                   // $scope.addMessage(1);
-                }, function (response) {
+                }, function(response) {
                   console.log(response);
                 });
             }
           };
 
-          $scope.removeYear = function (year) {
+          $scope.removeYear = function(year) {
             if (
               confirm('Ви впеврені що хочете видалити дані про поточний рік?')
             ) {
@@ -876,20 +876,20 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
               );
               var method = 'DELETE';
               api.execute(method, url)
-                .then(function (response) {
+                .then(function(response) {
                   console.log(response);
                   // $('#ModalTableApproved').modal('hide');
                   // $scope.sendSubdivisionToServer();
                   // $scope.addMessage(1);
                   $scope.reloadData();
-                }, function (response) {
+                }, function(response) {
                   // $scope.addMessage(4);
                   console.log(response);
                 });
             }
           };
 
-          $scope.removePropositionOnStudyYear = function (proposition) {
+          $scope.removePropositionOnStudyYear = function(proposition) {
             if (confirm(
                 'Ви впеврені що хочете видалити дані про поточну пропозицію?'
               )) {
@@ -904,39 +904,39 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
 
               var method = 'DELETE';
               api.execute(method, url)
-                .then(function (response) {
+                .then(function(response) {
                   console.log(response);
                   $scope.reloadData();
                   //$scope.sendSubdivisionToServer();
                   //$scope.initializeStudyYear();
-                }, function (response) {
+                }, function(response) {
                   console.log(response);
                 });
             }
           };
 
 
-          $scope.removeLecturer = function (lecturer) {
+          $scope.removeLecturer = function(lecturer) {
             if (confirm('Ви впеврені що хочете видалити дані про викладача?')) {
               var url = 'SelectiveDiscipline/DisciplineEmployee/' + lecturer.id;
 
               var method = 'DELETE';
               api.execute(method, url)
-                .then(function (response) {
+                .then(function(response) {
                   console.log(response);
                   $scope.reloadData();
                   // $scope.addMessage(1);
                   // $('#ModalAddLecturer').modal('hide');
                   // $scope.sendSubdivisionToServer();
                   // $scope.initializeStudyYear();
-                }, function (response) {
+                }, function(response) {
                   // $scope.addMessage(4);
                   console.log(response);
                 });
             }
           };
 
-          $scope.removeImg = function () {
+          $scope.removeImg = function() {
             var currImg = document.getElementById(
               'imgPreview' + $scope.idFilePreview
             );
@@ -944,7 +944,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             $scope.newData.Images = ' ';
           };
 
-          $scope.addDescription = function () {
+          $scope.addDescription = function() {
 
             var blockId = getBlockIdByName(
               $scope.tempListData.dcBlock8,
@@ -1015,18 +1015,18 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             );
 
             api.execute(method, url, editedRowProposition)
-              .then(function (response) {
+              .then(function(response) {
                 console.log(response);
                 $('#ModalAdditionalInfo').modal('hide');
                 $scope.sendSubdivisionToServer();
-              }, function (response) {
+              }, function(response) {
                 console.log(response);
               });
           };
 
           function getOkrIdByName(okrList, okrName) {
             var okrId = '';
-            okrList.forEach(function (item, iter, arr) {
+            okrList.forEach(function(item, iter, arr) {
               if (item.name === okrName) {
                 okrId = item.id;
               }
@@ -1036,7 +1036,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
 
           function getDisciplineIdByName(disciplineList, disciplineName) {
             var disciplineId = '';
-            disciplineList.forEach(function (item, iter, arr) {
+            disciplineList.forEach(function(item, iter, arr) {
               if (item.name === disciplineName) {
                 disciplineId = item.id;
               }
@@ -1046,7 +1046,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
 
           function getApprovedByName(approveList, approveName) {
             var approveStatus = '';
-            approveList.forEach(function (item, iter, arr) {
+            approveList.forEach(function(item, iter, arr) {
               if (item.name === approveName) {
                 approveStatus = item.status;
               }
@@ -1065,11 +1065,11 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             return disciplineBlockId;
           }
 
-          $scope.fileNameChanged1 = function () {
+          $scope.fileNameChanged1 = function() {
             console.log('select file');
           };
 
-          $scope.editRowFromTable = function (objToEdit) {
+          $scope.editRowFromTable = function(objToEdit) {
             $scope.newData = objToEdit;
             for (var i = 0; i < $scope.tempListData.allOkr.length; i++) {
               if (
@@ -1080,11 +1080,11 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             }
           };
 
-          $scope.functionOkr = function () {
+          $scope.functionOkr = function() {
             $scope.newData.DcOKRId = $scope.CurrOkr.currentOkrId;
           };
 
-          $scope.sendToServer = function () {
+          $scope.sendToServer = function() {
             // $scope.loader = true;
             $scope.newData.countCredit = parseInt($scope.newData.countCredit);
             // var data = angular.toJson($scope.newData);
@@ -1112,13 +1112,13 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
           };
 
         },
-        function (response) {
+        function(response) {
           $scope.alldisciplines = null;
         }
       );
   };
 
-  $scope.ifCathedraAndYearChosen = function () {
+  $scope.ifCathedraAndYearChosen = function() {
     var currCathedra = $scope.selectedDiscipline;
     var currYear = $scope.selectedYear;
     return (
@@ -1128,7 +1128,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     );
   };
 
-  $scope.initializeStudyYear = function () {
+  $scope.initializeStudyYear = function() {
     var method = 'GET';
     var url = 'SelectiveDiscipline/DisciplineEmployee';
     // {Id}/{studyyear}'
@@ -1138,7 +1138,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
         $scope.selectedYear.name
       );
       api.execute(method, url)
-        .then(function (response) {
+        .then(function(response) {
           $scope.studyYearData = response;
           console.log('$scope.studyYearData', $scope.studyYearData);
           $scope.selectedNamefull = {};
@@ -1153,14 +1153,14 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
           // for (var i = 0; i < $scope.forSelectFullNameNew.length; i++) {
           //   console.log($scope.forSelectFullNameNew);
           // }
-        }, function (response) {
+        }, function(response) {
           //
         });
     }
   };
 
 
-  $scope.reloadData = function () {
+  $scope.reloadData = function() {
     $('#ModalAdditionalInfo').modal('hide');
     $('#ModalTableApproved').modal('hide');
     $('#ModalAddLecturer').modal('hide');
@@ -1169,16 +1169,16 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     $scope.initializeStudyYear();
   };
 
-  $scope.addMessage = function (numberOfMessage) {
+  $scope.addMessage = function(numberOfMessage) {
     $scope.ifMessage = true;
     $scope.messageCurrent = $scope.allMessages[numberOfMessage];
-    $timeout(function () {
+    $timeout(function() {
       $scope.ifMessage = false;
     }, 6000);
   };
 
   /* Control (integer + - adding) */
-  $scope.MinusCred = function () {
+  $scope.MinusCred = function() {
     $scope.newData.countCredit = parseInt($scope.newData.countCredit);
     if ($scope.newData.countCredit !== 0) {
       $scope.newData.countCredit--;
@@ -1189,7 +1189,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
     }
   };
 
-  $scope.PlusCred = function () {
+  $scope.PlusCred = function() {
     $scope.newData.countCredit = parseInt($scope.newData.countCredit);
     if ($scope.newData.countCredit !== 9) {
       $scope.newData.countCredit++;
@@ -1202,7 +1202,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
 
   var number = document.getElementById('newCred');
 
-  number.onkeydown = function (e) {
+  number.onkeydown = function(e) {
     if (!(
         (e.keyCode > 95 && e.keyCode < 106) ||
         (e.keyCode > 47 && e.keyCode < 58) ||
@@ -1368,7 +1368,7 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
         sClaim = JSON.parse(sClaim);
       }
       var path = 'Attestation/studyYear';
-      api.execute('GET', path).then(function (response) {
+      api.execute('GET', path).then(function(response) {
         if (!response || response === '') {
           $scope.errorLabelText = 'На жаль, роки  у базі даних відсутні.';
         } else {
@@ -1382,13 +1382,13 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
           // $scope.selectData.StudyYear =
           //   $scope.stydyYears[response.length-1].name;
         }
-      }, function (response, status, headers) {
+      }, function(response, status, headers) {
         //
       });
     }
   }
 
-  $scope.makeEvent = function (id) {
+  $scope.makeEvent = function(id) {
     console.log('id', id);
     $scope.idFilePreview = id;
     document
@@ -1408,8 +1408,8 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
       var reader = new FileReader();
       console.log('img is ok');
 
-      reader.onload = (function (theFile) {
-        return function (e) {
+      reader.onload = (function(theFile) {
+        return function(e) {
           currImg.src = e.target.result;
           $scope.newData.Images = currImg.src.substring(23);
           // without data:image/jpeg;base64, part at the beginning

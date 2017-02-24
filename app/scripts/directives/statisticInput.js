@@ -22,7 +22,7 @@ function statInput(api) {
         activate();
 
         function activate() {
-            subdivisionWatcher = $scope.$watch('chosenSubdivision', function () {
+            subdivisionWatcher = $scope.$watch('chosenSubdivision', function() {
                 loadCathedras();
             });
             if (api.getToken()) {
@@ -38,8 +38,8 @@ function statInput(api) {
             var kpiQuery = false;
 
             var path = 'Account/employee/responsibility/'+id;
-            api.execute('GET', path).then(function (responsibilities) {
-                responsibilities.forEach(function (responsibility) {
+            api.execute('GET', path).then(function(responsibilities) {
+                responsibilities.forEach(function(responsibility) {
                     if(responsibility.subsystem == CampusKpiSubsystemId){
                         kpiQuery = setFacultyAndInstituteLogic(responsibility.subdivision, kpiQuery);
                     }
@@ -53,8 +53,8 @@ function statInput(api) {
             if (subdivisionId == NTUUKpiSubdivisionId && !kpiQuery) {
                 kpiQuery = true;
                 var pathFaculty = 'Subdivision';
-                api.execute('GET', pathFaculty).then(function (subdivisions) {
-                    subdivisions.forEach(function (subdivision) {
+                api.execute('GET', pathFaculty).then(function(subdivisions) {
+                    subdivisions.forEach(function(subdivision) {
                         if (subdivision.type.id == InstituteTypeId || subdivision.type.id == FacultyTypeId) {
                             $scope.subdivisions.push({
                                 subdivisionId: subdivision.id,
@@ -84,9 +84,9 @@ function statInput(api) {
             var parentId = $scope.chosenSubdivision.subdivisionId;
             var subdivisionPath = 'Subdivision/' + parentId + '/children';
 
-            api.execute('GET', subdivisionPath).then(function (response) {
+            api.execute('GET', subdivisionPath).then(function(response) {
                 $scope.cathedras = [];
-                response.forEach(function (cathedra, i, arr) {
+                response.forEach(function(cathedra, i, arr) {
                     if (arr[i + 1] !== undefined) {
                         $scope.cathedras.push({
                             cathedraId: cathedra.id,
