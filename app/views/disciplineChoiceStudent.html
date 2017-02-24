@@ -223,7 +223,7 @@
                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 labels-group" ng-hide="third.status === 'done'">
                           <form ng-hide="thirdBlocks.length === 0 || third.status === 'not available'">
                             <div class="discipline" ng-repeat="thirdDisc in thirdBlocks.blockDisc"
-                                 ng-init="id = thirdDisc.cDisciplineBlockYear8Id; name = thirdDisc.nameUkr">
+                                 ng-init="id = thirdDisc.cDisciplineBlockYear8Id; name = thirdDisc.nameUkr;">
                               <div class="checkbox">
                                 <label class="label-disciplines-choice">
                                   <input type="checkbox" class="checkbox-disciplines-choice"
@@ -235,7 +235,7 @@
                                 <span class="disciplines-subdivision-name">
                                   {{thirdDisc.subdivision || "назву кафедри не вказано"}}
                                 </span>
-                                <a ng-click="selectedForInfo.cDisciplineBlockYear8Id = id;">
+                                <a ng-click="toggleDisciplineDescription(id);">
                                   <i class="fa fa-info fa-fw info-load" aria-hidden="true"></i>
                                 </a>
                                 <!--resultSort = filterChoiceFromAllDisciplines(thirdCourse, third.semester, id)-->
@@ -271,7 +271,8 @@
                             <button type="submit" class="btn btn-primary btn-save-choice-result"
                                     ng-show="!(third.status === 'not available' || third.status === 'done')"
                                     ng-disabled="thirdBlocks.selectedDiscipline.length > thirdBlocks.disciplineCount
-                                    || thirdBlocks.selectedDiscipline.id === null">Зберегти
+                                    || thirdBlocks.selectedDiscipline.id === null
+                                    || thirdBlocks.selectedDiscipline.length === 0">Зберегти
                             </button>
                           </form>
                           <div class="messages"
