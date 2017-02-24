@@ -14,10 +14,10 @@ angular
 StatisticZkmCtrl.$inject = ['$scope', 'api'];
 
 function StatisticZkmCtrl($scope, api) {
-  var NTUUKpiSubdivisionId = 9998;
-  var InstituteTypeId = 26;
-  var FacultyTypeId = 77;
-  var CampusKpiSubsystemId = 1;
+  // var NTUUKpiSubdivisionId = 9998;
+  // var InstituteTypeId = 26;
+  // var FacultyTypeId = 77;
+  // var CampusKpiSubsystemId = 1;
 
   $scope.cathedras = [];
   $scope.subdivisions = [];
@@ -25,14 +25,15 @@ function StatisticZkmCtrl($scope, api) {
 
   $scope.selecteCathedraId = null;
 
+  // activate();
+  //
+  // function activate() {
+  //
+  // }
   reload();
 
   function reload() {
 
-    if (api.getToken()) {
-      setFacultyAndInstitute();
-      //setSubdivisionDetails();
-    }
     //!!!!
     $('#zkmWrapper').on('click', '.panel-heading', function () {
       var panelId = this.parentNode.id;
@@ -43,135 +44,128 @@ function StatisticZkmCtrl($scope, api) {
 
   }
 
+  // function getParent(obj, parentTagName) {
+  //   return (
+  //     (obj.tagName === parentTagName) ?
+  //       obj : getParent(obj.parentNode, parentTagName)
+  //   );
+  // }
+  //
+  // function setRadioBtnForCathedras(responsive) {
+  //   var subdivisionId = responsive.Subdivision.Id;
+  //   var subdivisionName = responsive.Subdivision.Name;
+  //   if (~subdivisionName.indexOf('Кафедра')) {
+  //     $scope.cathedras.push({
+  //       cathedraId: subdivisionId,
+  //       cathedraName: subdivisionName
+  //     });
+  //   }
+  // }
+  // function loadCathedras() {
+  //
+  //   $scope.npps = [];
+  //
+  //   if (!$scope.chosenSubdivision) {
+  //     return;
+  //   }
+  //
+  //   var parentId = $scope.chosenSubdivision.subdivisionId;
+  //   var subdivisionPath = 'Subdivision/' + parentId + '/children';
+  //
+  //   api.execute('GET', subdivisionPath).then(function (response) {
+  //     $scope.cathedras = [];
+  //     response.forEach(function (item, i, arr) {
+  //       if (arr[i + 1] !== undefined) {
+  //         var cathedraId = item.id;
+  //         var cathedraName = item.name;
+  //         $scope.cathedras.push({
+  //           cathedraId: cathedraId,
+  //           cathedraName: cathedraName
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+  //
+  // function setFacultyAndInstitute() {
+  //   var kpiQuery = false;
+  //   var sClaim = api.decodeToken(api.getToken());
+  //   sClaim = JSON.parse(sClaim);
+  //   var tof = typeof(sClaim.resp);
+  //   if (tof === 'object') {
+  //     sClaim.resp.forEach(function (item) {
+  //       kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
+  //     });
+  //   } else if (tof === 'string') {
+  //     kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
+  //   }
+  // }
+  // function setFacultyAndInstituteLogic(item, kpiQuery) {
+  //   var itemJSON = JSON.parse(item);
+  //   if (itemJSON.Subsystem === CampusKpiSubsystemId) {
+  //     var subdivisionId = itemJSON.Subdivision.Id;
+  //     var subdivisionName = itemJSON.Subdivision.Name;
+  //
+  //     if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
+  //       kpiQuery = true;
+  //       var pathFaculty = 'Subdivision';
+  //       api.execute('GET', pathFaculty).then(function (response) {
+  //         response.forEach(function (item) {
+  //           if (
+  //             item.type.id === InstituteTypeId ||
+  //             item.type.id === FacultyTypeId
+  //           ) {
+  //             var subdivisionName = item.name;
+  //             var subdivisionId = item.id;
+  //
+  //             $scope.subdivisions.push({
+  //               subdivisionId: subdivisionId,
+  //               subdivisionName: subdivisionName
+  //             });
+  //           }
+  //         });
+  //
+  //         // var config = {
+  //         //   '.chosen-select': {},
+  //         //   '.chosen-select-deselect': { allow_single_deselect: true },
+  //         //   '.chosen-select-no-single': { disable_search_threshold: 10 },
+  //         //   '.chosen-select-no-results':
+  //         //     { no_results_text: 'Співпадінь не знайдено...' },
+  //         //   '.chosen-select-width': { width: '95%' }
+  //         // };
+  //         // for (var selector in config) {
+  //         //   $(selector).chosen(config[selector]);
+  //         // }
+  //       });
+  //     }
+  //     if (document.getElementById(subdivisionId + '') === null &&
+  //       (
+  //       ~subdivisionName.indexOf('факультет') || ~subdivisionName.indexOf('Факультет') || ~subdivisionName.indexOf('інститут') || ~subdivisionName.indexOf('Інститут'))
+  //     ) {
+  //       $scope.subdivisions.push({
+  //         subdivisionId: subdivisionId,
+  //         subdivisionName: subdivisionName
+  //       });
+  //     }
+  //
+  //   }
+  //   return kpiQuery;
+  // }
 
-  function getParent(obj, parentTagName) {
-    return (
-      (obj.tagName === parentTagName) ?
-        obj : getParent(obj.parentNode, parentTagName)
-    );
-  }
-
-  function setRadioBtnForCathedras(responsive) {
-    var subdivisionId = responsive.Subdivision.Id;
-    var subdivisionName = responsive.Subdivision.Name;
-    if (~subdivisionName.indexOf('Кафедра')) {
-      $scope.cathedras.push({
-        cathedraId: subdivisionId,
-        cathedraName: subdivisionName
-      });
-    }
-  }
-
-  function loadCathedras() {
-
-    $scope.npps = [];
-
-    if (!$scope.chosenSubdivision) {
-      return;
-    }
-
-    var parentId = $scope.chosenSubdivision.subdivisionId;
-    var subdivisionPath = 'Subdivision/' + parentId + '/children';
-
-    api.execute('GET', subdivisionPath).then(function (response) {
-      $scope.cathedras = [];
-      response.forEach(function (item, i, arr) {
-        if (arr[i + 1] !== undefined) {
-          var cathedraId = item.id;
-          var cathedraName = item.name;
-          $scope.cathedras.push({
-            cathedraId: cathedraId,
-            cathedraName: cathedraName
-          });
-        }
-      });
-    });
-  }
-
-  function setFacultyAndInstitute() {
-    var kpiQuery = false;
-    var sClaim = api.decodeToken(api.getToken());
-    sClaim = JSON.parse(sClaim);
-    var tof = typeof(sClaim.resp);
-    if (tof === 'object') {
-      sClaim.resp.forEach(function (item) {
-        kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
-      });
-    } else if (tof === 'string') {
-      kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
-    }
-  }
-
-  function setFacultyAndInstituteLogic(item, kpiQuery) {
-    var itemJSON = JSON.parse(item);
-    if (itemJSON.Subsystem === CampusKpiSubsystemId) {
-      var subdivisionId = itemJSON.Subdivision.Id;
-      var subdivisionName = itemJSON.Subdivision.Name;
-
-      if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
-        kpiQuery = true;
-        var pathFaculty = 'Subdivision';
-        api.execute('GET', pathFaculty).then(function (response) {
-          response.forEach(function (item) {
-            if (
-              item.type.id === InstituteTypeId ||
-              item.type.id === FacultyTypeId
-            ) {
-              var subdivisionName = item.name;
-              var subdivisionId = item.id;
-
-              $scope.subdivisions.push({
-                subdivisionId: subdivisionId,
-                subdivisionName: subdivisionName
-              });
-            }
-          });
-
-          // var config = {
-          //   '.chosen-select': {},
-          //   '.chosen-select-deselect': { allow_single_deselect: true },
-          //   '.chosen-select-no-single': { disable_search_threshold: 10 },
-          //   '.chosen-select-no-results':
-          //     { no_results_text: 'Співпадінь не знайдено...' },
-          //   '.chosen-select-width': { width: '95%' }
-          // };
-          // for (var selector in config) {
-          //   $(selector).chosen(config[selector]);
-          // }
-        });
-      }
-      if (document.getElementById(subdivisionId + '') === null &&
-        (
-        ~subdivisionName.indexOf('факультет') || ~subdivisionName.indexOf('Факультет') || ~subdivisionName.indexOf('інститут') || ~subdivisionName.indexOf('Інститут'))
-      ) {
-        $scope.subdivisions.push({
-          subdivisionId: subdivisionId,
-          subdivisionName: subdivisionName
-        });
-      }
-
-    }
-    return kpiQuery;
-  }
-
-  $scope.checkZkm = function (id, name) {
-    $scope.statusLine = '';
-    $scope.zkm = null;
-    $scope.errorLabelText = '';
-
-    $scope.selecteCathedraId = id;
-
-    $('#zkmWrapper').empty();
-    $('#table-for-download').empty();
-
-
+  $scope.check = function (cathedra) {
     var isFinish = [];
-    var cathedraId = id;
-    var cathedraName = name;
-
+    var cathedraId = cathedra.cathedraId;
+    var cathedraName = cathedra.cathedraName;
     var cathedraNameRV = cathedraName;
     var cathedraNameDV = cathedraName;
 
+    $scope.statusLine = '';
+    $scope.zkm = null;
+    $scope.errorLabelText = '';
+    $scope.selecteCathedraId = cathedraId;
+
+    $('#zkmWrapper').empty();
+    $('#table-for-download').empty();
 
     cathedraNameDV = !cathedraNameDV ? '' : cathedraNameDV;
 
@@ -1153,8 +1147,8 @@ function StatisticZkmCtrl($scope, api) {
 
   };
 
-  $scope.$watch('chosenSubdivision', function () {
-    loadCathedras();
-  });
+  // $scope.$watch('chosenSubdivision', function () {
+  //   loadCathedras();
+  // });
 
 }
