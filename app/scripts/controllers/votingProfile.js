@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('VotingProfileCtrl', handler);
+  .controller('VotingProfileCtrl', VotingProfileCtrl);
 
-function handler($scope, $location, $routeParams, api) {
+VotingProfileCtrl.$inject = ['$scope', '$location', '$routeParams', 'api'];
+
+function VotingProfileCtrl($scope, $location, $routeParams, api) {
   $scope.currentUser = null;
   $scope.criterions = [];
 

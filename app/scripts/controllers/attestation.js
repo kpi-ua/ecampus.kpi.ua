@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('AttestationCtrl', ['$scope', 'api', handler]);
+  .controller('AttestationCtrl', AttestationCtrl);
 
-function handler($scope, api) {
+AttestationCtrl.$inject = ['$scope', 'api'];
+
+function AttestationCtrl($scope, api) {
   $scope.errorMessageYears = '';
   $scope.errorMessageAttests = '';
   $scope.errorMessageGroups = '';
@@ -64,9 +66,9 @@ function handler($scope, api) {
     var url = 'Attestation/studyYear';
     api.execute('GET', url)
       .then(function(response) {
-        $scope.studyYears = response;
-        $scope.studyYears.selected = setCurrentStudyYear(response);
-      },
+          $scope.studyYears = response;
+          $scope.studyYears.selected = setCurrentStudyYear(response);
+        },
         function() {
           $scope.errorMessageYears = (
             'Не вдалося завантажити список навчальних років'
@@ -101,8 +103,8 @@ function handler($scope, api) {
 
   function loadSemesters() {
     $scope.studySemesters = [
-      { id: 1, name: 'Перший семестр' },
-      { id: 2, name: 'Другий семестр' }
+      {id: 1, name: 'Перший семестр'},
+      {id: 2, name: 'Другий семестр'}
     ];
     $scope.studySemesters.selected = setCurrentStudySemester(
       $scope.studySemesters
@@ -123,7 +125,7 @@ function handler($scope, api) {
       // count number of weeks from date to week1.
       return (
         1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 -
-        3 + (week1.getDay() + 6) % 7) / 7)
+          3 + (week1.getDay() + 6) % 7) / 7)
       );
     };
 
@@ -155,15 +157,15 @@ function handler($scope, api) {
     var url = 'Attestation';
     api.execute('GET', url)
       .then(function(response) {
-        $scope.studyAttestationPeriod = response;
-        $scope.studyAttestationPeriod.selected = (
-          setCurrentStudyAttestationPeriod(response)
-        );
-      },
-      function() {
-        $scope.errorMessageAttests = 'Не вдалося завантажити список атестацій';
-        $scope.attestations = null;
-      });
+          $scope.studyAttestationPeriod = response;
+          $scope.studyAttestationPeriod.selected = (
+            setCurrentStudyAttestationPeriod(response)
+          );
+        },
+        function() {
+          $scope.errorMessageAttests = 'Не вдалося завантажити список атестацій';
+          $scope.attestations = null;
+        });
   }
 
   function DisciplinesTeachersModel(disciplineName, teacherName) {
@@ -322,6 +324,12 @@ function handler($scope, api) {
       .then(function(response) {
         if (response) {
           $scope.attestationPeriodId = +response;
+          if (response.data !== undefined) {
+            if (response.data.message === 'No attestation period with this params') {
+              $scope.attestationPeriodId = null;
+            }
+
+          }
         } else {
           $scope.attestationPeriodId = null;
         }
@@ -334,17 +342,17 @@ function handler($scope, api) {
 
   $scope.loadGroups = function(namePattern, year) {
     if (namePattern.length > 1) {
-      var url = 'Attestation/group/find/' + namePattern + '/year/' + year;
+      var url = 'Account/group/find/' + namePattern + '/year/' + year;
       // url + namePattern (2 first symbol of group)
       api.execute('GET', url)
         .then(function(response) {
-          $scope.errorMessageGroups = '';
-          $scope.Groups = response;
-        },
-        function() {
-          $scope.errorMessageGroups = 'Не вдалося завантажити список груп';
-          $scope.Groups = null;
-        });
+            $scope.errorMessageGroups = '';
+            $scope.Groups = response;
+          },
+          function() {
+            $scope.errorMessageGroups = 'Не вдалося завантажити список груп';
+            $scope.Groups = null;
+          });
     } else {
       $scope.errorMessageGroups = (
         'Введіть більше 2-х символів для пошуку групи'
@@ -360,17 +368,17 @@ function handler($scope, api) {
     );
     api.execute('GET', url)
       .then(function(response) {
-        $scope.errorLoadGroupsResult = '';
-        $scope.groupsResult = response.sort(sortRuleForGroupsResult);
-        getStudentsAndDisciplinesLists(response);
-        $scope.getGroupsResults = true;
-      },
-      function() {
-        $scope.errorLoadGroupsResult = (
-          'Не вдалося завантажити результати для даної групи'
-        );
-        $scope.groupsResult = null;
-      });
+          $scope.errorLoadGroupsResult = '';
+          $scope.groupsResult = response.sort(sortRuleForGroupsResult);
+          getStudentsAndDisciplinesLists(response);
+          $scope.getGroupsResults = true;
+        },
+        function() {
+          $scope.errorLoadGroupsResult = (
+            'Не вдалося завантажити результати для даної групи'
+          );
+          $scope.groupsResult = null;
+        });
   };
 
   $scope.clearGroupsResult = function() {
@@ -379,17 +387,17 @@ function handler($scope, api) {
 
   $scope.loadLecturers = function(namePattern) {
     if (namePattern.length > 2) {
-      var url = 'Attestation/lecturer/find/' + namePattern;
+      var url = 'Account/employee/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
         .then(function(response) {
-          $scope.errorMessageLecturers = '';
-          $scope.lecturersList = response;
-        },
-        function() {
-          $scope.errorMessageLecturers = 'Не вдалося завантажити список груп';
-          $scope.lecturersList = null;
-        });
+            $scope.errorMessageLecturers = '';
+            $scope.lecturersList = response;
+          },
+          function() {
+            $scope.errorMessageLecturers = 'Не вдалося завантажити список груп';
+            $scope.lecturersList = null;
+          });
     } else {
       $scope.errorMessageLecturers = (
         'Введіть більше 3-х символів для пошуку викладача'
@@ -405,21 +413,21 @@ function handler($scope, api) {
     );
     api.execute('GET', url)
       .then(function(response) {
-        var sortedResponse = response.sort(sortRuleForLecturersResult);
-        getGroupsList(sortedResponse);
-        getCoursesList(sortedResponse);
-        getDisciplinesList(sortedResponse);
-        $scope.errorLecturersResult = '';
-        $scope.getLecturersResults = true;
-        $scope.lecturersResult = sortedResponse;
-      },
-      function() {
-        $scope.errorLecturersResult = (
-          'Не вдалося завантажити результати для даного викладача'
-        );
-        $scope.lecturersResult = null;
-        $scope.getLecturersResults = false;
-      });
+          var sortedResponse = response.sort(sortRuleForLecturersResult);
+          getGroupsList(sortedResponse);
+          getCoursesList(sortedResponse);
+          getDisciplinesList(sortedResponse);
+          $scope.errorLecturersResult = '';
+          $scope.getLecturersResults = true;
+          $scope.lecturersResult = sortedResponse;
+        },
+        function() {
+          $scope.errorLecturersResult = (
+            'Не вдалося завантажити результати для даного викладача'
+          );
+          $scope.lecturersResult = null;
+          $scope.getLecturersResults = false;
+        });
   };
 
   $scope.clearLecturersResult = function() {
@@ -428,17 +436,17 @@ function handler($scope, api) {
 
   $scope.loadStudents = function(namePattern) {
     if (namePattern.length > 2) {
-      var url = 'Attestation/student/find/' + namePattern;
+      var url = 'Account/student/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
         .then(function(response) {
-          $scope.errorMessageStudents = '';
-          $scope.students = response;
-        },
-        function() {
-          $scope.errorMessageStudents = 'Не вдалося завантажити список груп';
-          $scope.students = null;
-        });
+            $scope.errorMessageStudents = '';
+            $scope.students = response;
+          },
+          function() {
+            $scope.errorMessageStudents = 'Не вдалося завантажити список груп';
+            $scope.students = null;
+          });
     } else {
       $scope.errorMessageStudents = (
         'Введіть більше 3-х символів для пошуку студента'
@@ -454,12 +462,12 @@ function handler($scope, api) {
     );
     api.execute('GET', url)
       .then(function(response) {
-        $scope.getStudentsResult = true;
-        $scope.studentsResult = response.sort(sortStudentsResults);
-      },
-      function() {
-        $scope.studentsResult = null;
-      });
+          $scope.getStudentsResult = true;
+          $scope.studentsResult = response.sort(sortStudentsResults);
+        },
+        function() {
+          $scope.studentsResult = null;
+        });
   };
 
   $scope.clearStudentsResult = function() {

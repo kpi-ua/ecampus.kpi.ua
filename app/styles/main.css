@@ -195,7 +195,7 @@ header {
   color: #208944;
   padding-top: 10px;
   letter-spacing: 1px;
-  font-size: 10pt;
+  font-size: 8pt;
   text-transform: uppercase;
   vertical-align: middle;
 }
@@ -814,12 +814,24 @@ div.progress-student-count {
   max-height: 400px;
 }
 
-.attest-menu, .attest-alert {
-  margin: 20px 0 20px 0;
+.year-select, .semester-select, .attest-num-select, .student-select,
+.lecturers-select, .group-select, .course-select, .discipline-select,
+.group-lect-select {
+  margin-bottom: 5px;
+}
+
+.attest-menu {
+  margin: 0 0 5px 0;
+}
+
+.attest-alert {
+  margin: 5px 0 5px 0;
 }
 
 .title-type-attest {
   margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 14px;
 }
 
 .nav-pills-attest > li.active > a, .nav-pills-attest > li.active > a:hover, .nav-pills-attest > li.active > a:focus {
@@ -827,12 +839,23 @@ div.progress-student-count {
   background-color: #208944;
 }
 
+.attest-navigation > li:nth-child(1) > a {
+  margin: 0 5px 0 0;
+}
+
+.attest-navigation > li:nth-child(2) > a {
+  margin: 0 5px 0 5px;
+}
+
+.attest-navigation > li:nth-child(3) > a {
+  margin: 0 0 0 5px;
+}
+
 .attest-navigation > li > a {
   position: relative;
   display: block;
   padding: 10px 15px;
   border: 1px solid #208944;
-  margin: 5px 5px 5px 5px;
 }
 
 .nav-pills-attest > li + li {
@@ -843,8 +866,16 @@ div.progress-student-count {
   background-color: #e8f3ec;
 }
 
+#table-attest-lecturer {
+  margin: 22px 0 27px 0;
+}
+
+#table-attest-for-student, #table-attest-group {
+  margin: 5px 0 27px 0;
+}
+
 .btn-result {
-  margin: 20px 0
+  margin: 22px 0 22px 0;
 }
 
 .lecturer-subdivision-name {
@@ -985,5 +1016,140 @@ div.progress-student-count {
     color: #AAA;
     cursor: default;
     padding-left: 15px;
+  }
+}
+
+.color-head {
+  color: #208944;
+}
+
+.alignLeft {
+  text-align: left !important;
+}
+
+.tdFullAlignCenter {
+  text-align: center;
+  vertical-align: middle !important;
+  font-weight: normal;
+}
+
+.sortorder:after {
+  content: '\25bc';
+}
+
+.sortorder.reverse:after {
+  content: '\25b2';
+}
+
+.unresizeable {
+  resize: none;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+#newCred::-webkit-inner-spin-button, #newCred::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.node_block {
+  color: #208944;
+  cursor: default;
+}
+
+.node_child {
+  padding-left: 20px !important;
+  cursor: default;
+}
+
+.fontNormal {
+  font-weight: normal !important;
+}
+
+.chosenWidth {
+  width: 600px !important;
+}
+
+.imgHeight {
+  height: 200px;
+}
+
+.thumb {
+  height: 75px;
+  border: 1px solid #000;
+  margin: 10px 0 0 0;
+}
+
+.objImages {
+  height: 60px;
+  border: 1px solid #000;
+}
+
+.marginBottom {
+  margin-bottom: 10px;
+}
+
+.marginTop {
+  margin-top: 5px;
+}
+
+.marginLeftRight {
+  margin: 0 10px 0 10px;
+}
+
+.minWidthTwoButtons {
+  min-width: 85px;
+}
+
+.zindexHigh {
+  z-index: 1060 !important;
+}
+
+.overflowHorizontal {
+  overflow: hidden !important;
+  white-space: pre-line !important;
+}
+
+/*temp solution!!!*/
+.editable-checklist label {
+  display: block;
+  font-weight: normal !important;
+}
+
+.listOfTeachers {
+  text-align: left !important;
+  white-space: pre-line !important;
+}
+
+.paddingTop20 {
+  padding-top: 20px;
+}
+
+.uiSelectMatchFullname > span > .ui-select-match-text > span {
+  width: 94%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: absolute;
+}
+
+.marginTop9px {
+  margin-top: 9px;
+}
+
+.displayNone {
+  display: none !important;
+}
+
+.displayInlineBlock {
+  display: inline-block;
+}
+
+@media screen and (min-width: 768px) {
+  .selectMarginTop {
+    margin-top: 10px !important;
   }
 }

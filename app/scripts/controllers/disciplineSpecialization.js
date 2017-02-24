@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplinesSpecializationCtrl', handler);
+  .controller('DisciplinesSpecializationCtrl', DisciplinesSpecializationCtrl);
 
-function handler($scope, $cookies, $window, api, $filter, $http) {
+DisciplinesSpecializationCtrl.$inject = ['$scope', 'api'];
+
+function DisciplinesSpecializationCtrl($scope, api) {
   var subsystemIdMain = 20;
 
   $scope.errorLabelText = '';
@@ -72,19 +74,17 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
       }
       var path = 'blocks';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль, блоки  у базі даних відсутні.';
         } else {
           $scope.Dc.Blocks = response;
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       path = 'cycles';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = (
             'На жаль, цикли дисциплін  у базі даних відсутні.'
           );
@@ -92,13 +92,11 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
           $scope.Dc.Cycles = response;
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       path = 'Attestation/studyYear';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль, роки  у базі даних відсутні.';
         } else {
           response.sort(compareYearsActuality);
@@ -108,13 +106,11 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
           );
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       path = 'studyForms';
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = (
             'На жаль, форми навчання у базі даних відсутні.'
           );
@@ -122,10 +118,8 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
           $scope.Dc.StudyForms = response;
         }
         $scope.safeApply();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     }
 
   }
@@ -282,17 +276,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
   }
 
   function errorHandlerMy(response, status, headers) {
-    var errorDetails = '';
-    switch (response.statusText) {
-      case 'Internal Server Error': {
-        errorDetails = 'Помилка сервера, спробуйте пізніше. Статус: ' + response.status;
-        break;
-      }
-      default: {
-        errorDetails = 'Перевірте інтернет з\'єднання.';
-      }
-    }
-    $scope.errorLabelText = 'Помилка. ' + errorDetails;
+    $scope.errorLabelText = api.errorHandler(response);
   }
 
   function getCourseBySemester(semester) {
@@ -356,7 +340,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
     var path = 'StudyOrganization/ProfTrains/' + cathedraId;
 
     api.execute('GET', path).then(function(response) {
-      if (!response || response === '') {
+      if (!response || response === '' || response.length===0) {
         $scope.errorLabelText = 'На жаль, OKP у базі даних відсутні.';
       } else {
         console.log(response);
@@ -440,7 +424,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
         '/' + $scope.selectData.StudyForm
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль записи у базі відсутні';
           $scope.safeApply();
         } else {
@@ -449,10 +433,8 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
           $scope.semestrsForView = semestrForView;
           $scope.safeApply();
         }
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     } else if (
       mainInfoBool && (
         $scope.section === 'patterns' ||
@@ -469,7 +451,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
         $scope.selectData.CathedraId + '/' + $scope.selectData.Direction
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль, записи у базі відсутні.';
           $scope.patterns = [];
           $scope.safeApply();
@@ -498,10 +480,8 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
           $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
           $scope.safeApply();
         }
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     }
     if (
       mainInfoBool &&
@@ -515,7 +495,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
         '/' + $scope.selectData.Direction + '/' + $scope.selectData.StudyForm
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль групи у базі відсутні.';
           $scope.groups = null;
           $scope.blocksChoise = null;
@@ -539,10 +519,8 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
             $scope.safeApply();
           });
         }
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     }
     if (mainInfoBool && studyFormBool &&  studyYearBool &&  $scope.section === 'study-group') {
       $scope.groups =  null;
@@ -552,7 +530,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
         $scope.selectData.Direction + '/' + $scope.selectData.StudyForm
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           $scope.errorLabelText = 'На жаль групи у базі відсутні.';
           $scope.blocksChoise = null;
           $scope.selectData.StudyGroup = null;
@@ -587,7 +565,7 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
         var tatalMaxCountStudent = 0;
         var tatalOccupiedPercent = 0;
         var tatalSubscribed = 0;
-        if (!response || response === '') {
+        if (!response || response === '' || response.length===0) {
           block.DisciplineArray = null;
           $scope.blocksWidthDisciplines = blocks;
         } else {
@@ -652,10 +630,8 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
           whoReadAbbreviation, whoReadName
         );
         disciplines.push(dm3);
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       $scope.disciplines = disciplines;
       // console.log($scope.disciplines);
       $scope.safeApply();
@@ -698,10 +674,8 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
       // console.log($scope.patterns);
       api.execute(method, path, payload).then(function(resp) {
         $scope.onFullSelect();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
     } else {
       if ($scope.selectData.Patterns.length === 0) {
         $scope.errorLabelText = 'Помилка! Оберіть хочаб один шаблон. ';
@@ -774,12 +748,13 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
     method = patternBlockChoice8Id === null ? 'POST' : 'PUT';
 
     // console.log(method);
-    api.execute(method, path, payload).then(function(resp) {
-      $scope.onFullSelect();
-    }, function(response, status, headers) {
-      errorHandlerMy(response, status, headers);
-      $scope.safeApply();
-    });
+    api.execute(method, path, payload)
+        .then(function(resp) {$scope.onFullSelect()})
+        .catch(errorHandlerMy);
+    // , function(response, status, headers) {
+    //   errorHandlerMy(response, status, headers);
+    //   $scope.safeApply();
+    // });
   };
 
   // remove patterb
@@ -869,10 +844,8 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
       var payload = { Id: block.id };
       api.execute(method, path, payload).then(function(resp) {
         $scope.onFullSelect();
-      }, function(response, status, headers) {
-        errorHandlerMy(response, status, headers);
-        $scope.safeApply();
-      });
+      })
+          .catch(errorHandlerMy);
       $scope.blocksChoise.splice($scope.blocksChoise.indexOf(block), 1);
     }
   };

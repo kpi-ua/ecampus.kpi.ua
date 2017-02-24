@@ -9,12 +9,12 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplineFundCtrl', handler);
+  .controller('DisciplineFundCtrl', DisciplineFundCtrl);
 
-function handler() {
-  this.awesomeThings = [
-    'HTML5 Boilerplate',
-    'AngularJS',
-    'Karma'
-  ];
+
+DisciplineFundCtrl.$inject = ['$scope', 'api'];
+
+function DisciplineFundCtrl($scope, api) {
+
+
 }

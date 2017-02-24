@@ -8,10 +8,12 @@
  * Controller of the ecampusApp
  */
 angular
-  .module('ecampusApp')
-  .controller('RnpCtrl', handler);
+    .module('ecampusApp')
+    .controller('RnpCtrl', RnpCtrl);
 
-function handler($scope, $cookies, $window, api, $filter, $http) {
+RnpCtrl.$inject = ['$scope', 'api'];
+
+function RnpCtrl($scope, api) {
 
   $scope.options = {
     StudyYears: [],
@@ -41,53 +43,55 @@ function handler($scope, $cookies, $window, api, $filter, $http) {
     xmlCodeId: null
   };
 
-  // $scope.display = {
-  //   StudyGroups: [],
-  //   RnpRows: []
-  // };
   $scope.RnpRows = null;
+
   $scope.errorLabelText = '';
 
   $scope.$on('rnpIdSelect', function SetGroups(event, param) {
     $scope.errorLabelText = '';
     var path = (
-      'Rnp/' + param.userAccountId + '/StudyGroup/' +
-      param.chosenDepartmentId + '/' + param.chosenDepartmentMark +
-      '/' + param.rnpId
+        'Rnp/' + param.userAccountId + '/StudyGroup/' +
+        param.chosenDepartmentId + '/' + param.chosenDepartmentMark +
+        '/' + param.rnpId
     );
-    api.execute('GET', path).then(function(response) {
-      if (!response || response === '') {
-        $scope.errorLabelText = 'На жаль, дані відсутні';
-        $scope.StudyGroups = null;
-      } else {
-        $scope.StudyGroups = response;
-        setRnpRows(
-          param.userAccountId,
-          param.chosenDepartmentId,
-          param.chosenDepartmentMark,
-          param.rnpId
-        );
-      }
-    });
+    api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length===0) {
+            $scope.errorLabelText = 'На жаль, дані відсутні';
+            $scope.StudyGroups = null;
+          } else {
+            $scope.StudyGroups = response;
+            setRnpRows(
+                param.userAccountId,
+                param.chosenDepartmentId,
+                param.chosenDepartmentMark,
+                param.rnpId
+            );
+          }
+        })
+        .catch(errorHandlerMy);
   });
 
-  function setRnpRows(
-    useId,
-    chosenSubdivisionId,
-    chosenSubdivisionMar,
-    rnpId
-  ) {
+  function setRnpRows(useId,
+                      chosenSubdivisionId,
+                      chosenSubdivisionMar,
+                      rnpId) {
     var path = (
-      'Rnp/' + useId + '/RNPRows/' + chosenSubdivisionId + '/' +
-      chosenSubdivisionMar + '/' + rnpId
+        'Rnp/' + useId + '/RNPRows/' + chosenSubdivisionId + '/' +
+        chosenSubdivisionMar + '/' + rnpId
     );
-    api.execute('GET',path).then(function (response) {
-      if (!response || response === '') {
-        $scope.errorLabelText = 'На жаль, дані відсутні';
-        $scope.RnpRows = null;
-      } else {
-        $scope.RnpRows = response;
-      }
-    });
+    api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length===0) {
+            $scope.errorLabelText = 'На жаль, дані відсутні';
+            $scope.RnpRows = null;
+          } else {
+            $scope.RnpRows = response;
+          }
+        })
+        .catch(errorHandlerMy);
+  }
+  function errorHandlerMy(response, status, headers) {
+    $scope.errorLabelText = api.errorHandler(response);
   }
 }

@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DebuggerCtrl', handler);
+  .controller('DebuggerCtrl', DebuggerCtrl);
 
-function handler($scope, $sce, api) {
+DebuggerCtrl.$inject = ['$scope', '$sce', 'api'];
+
+function DebuggerCtrl($scope, $sce, api) {
 
   $scope.progressBar = false;
   $scope.controllers = [];
@@ -64,7 +66,7 @@ function handler($scope, $sce, api) {
       var controllers = data.map(function(o) {
         return (
           !!o && !!o.route ?
-          o.route.substring(0, o.route.indexOf('/')) : 'unknown'
+            o.route.substring(0, o.route.indexOf('/')) : 'unknown'
         );
       }).filter(function(o) {
         return !!o && o !== '';
@@ -168,13 +170,13 @@ function handler($scope, $sce, api) {
 
     api.execute(m.method, url, data)
       .then(function(result) {
-        $scope.message = JSON.stringify(result, null, '\t');
-        scope.progressBar = false;
-      },
-      function(result) {
-        $scope.message = JSON.stringify(result, null, '\t');
-        scope.progressBar = false;
-      });
+          $scope.message = JSON.stringify(result, null, '\t');
+          scope.progressBar = false;
+        },
+        function(result) {
+          $scope.message = JSON.stringify(result, null, '\t');
+          scope.progressBar = false;
+        });
   }
 
   function loadSelectedMethodMetadata() {

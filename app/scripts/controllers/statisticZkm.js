@@ -2,20 +2,22 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:ZkmCtrl
+ * @name ecampusApp.controller:StatisticZkmCtrl
  * @description
- * # ZkmCtrl
+ * # StatisticZkmCtrl
  * Controller of the ecampusApp
  */
 angular
   .module('ecampusApp')
-  .controller('ZkmCtrl', handler);
+  .controller('ZkmCtrl', StatisticZkmCtrl);
 
-function handler($scope, $cookies, $window, api) {
-  var NTUUKpiSubdivisionId = 9998;
-  var InstituteTypeId = 26;
-  var FacultyTypeId = 77;
-  var CampusKpiSubsystemId = 1;
+StatisticZkmCtrl.$inject = ['$scope', 'api'];
+
+function StatisticZkmCtrl($scope, api) {
+  // var NTUUKpiSubdivisionId = 9998;
+  // var InstituteTypeId = 26;
+  // var FacultyTypeId = 77;
+  // var CampusKpiSubsystemId = 1;
 
   $scope.cathedras = [];
   $scope.subdivisions = [];
@@ -23,14 +25,15 @@ function handler($scope, $cookies, $window, api) {
 
   $scope.selecteCathedraId = null;
 
+  // activate();
+  //
+  // function activate() {
+  //
+  // }
   reload();
 
   function reload() {
 
-    if (api.getToken()) {
-      setFacultyAndInstitute();
-      //setSubdivisionDetails();
-    }
     //!!!!
     $('#zkmWrapper').on('click', '.panel-heading', function() {
       var panelId = this.parentNode.id;
@@ -41,138 +44,131 @@ function handler($scope, $cookies, $window, api) {
 
   }
 
+  // function getParent(obj, parentTagName) {
+  //   return (
+  //     (obj.tagName === parentTagName) ?
+  //       obj : getParent(obj.parentNode, parentTagName)
+  //   );
+  // }
+  //
+  // function setRadioBtnForCathedras(responsive) {
+  //   var subdivisionId = responsive.Subdivision.Id;
+  //   var subdivisionName = responsive.Subdivision.Name;
+  //   if (~subdivisionName.indexOf('Кафедра')) {
+  //     $scope.cathedras.push({
+  //       cathedraId: subdivisionId,
+  //       cathedraName: subdivisionName
+  //     });
+  //   }
+  // }
+  // function loadCathedras() {
+  //
+  //   $scope.npps = [];
+  //
+  //   if (!$scope.chosenSubdivision) {
+  //     return;
+  //   }
+  //
+  //   var parentId = $scope.chosenSubdivision.subdivisionId;
+  //   var subdivisionPath = 'Subdivision/' + parentId + '/children';
+  //
+  //   api.execute('GET', subdivisionPath).then(function(response) {
+  //     $scope.cathedras = [];
+  //     response.forEach(function(item, i, arr) {
+  //       if (arr[i + 1] !== undefined) {
+  //         var cathedraId = item.id;
+  //         var cathedraName = item.name;
+  //         $scope.cathedras.push({
+  //           cathedraId: cathedraId,
+  //           cathedraName: cathedraName
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+  //
+  // function setFacultyAndInstitute() {
+  //   var kpiQuery = false;
+  //   var sClaim = api.decodeToken(api.getToken());
+  //   sClaim = JSON.parse(sClaim);
+  //   var tof = typeof(sClaim.resp);
+  //   if (tof === 'object') {
+  //     sClaim.resp.forEach(function(item) {
+  //       kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
+  //     });
+  //   } else if (tof === 'string') {
+  //     kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
+  //   }
+  // }
+  // function setFacultyAndInstituteLogic(item, kpiQuery) {
+  //   var itemJSON = JSON.parse(item);
+  //   if (itemJSON.Subsystem === CampusKpiSubsystemId) {
+  //     var subdivisionId = itemJSON.Subdivision.Id;
+  //     var subdivisionName = itemJSON.Subdivision.Name;
+  //
+  //     if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
+  //       kpiQuery = true;
+  //       var pathFaculty = 'Subdivision';
+  //       api.execute('GET', pathFaculty).then(function(response) {
+  //         response.forEach(function(item) {
+  //           if (
+  //             item.type.id === InstituteTypeId ||
+  //             item.type.id === FacultyTypeId
+  //           ) {
+  //             var subdivisionName = item.name;
+  //             var subdivisionId = item.id;
+  //
+  //             $scope.subdivisions.push({
+  //               subdivisionId: subdivisionId,
+  //               subdivisionName: subdivisionName
+  //             });
+  //           }
+  //         });
+  //
+  //         // var config = {
+  //         //   '.chosen-select': {},
+  //         //   '.chosen-select-deselect': { allow_single_deselect: true },
+  //         //   '.chosen-select-no-single': { disable_search_threshold: 10 },
+  //         //   '.chosen-select-no-results':
+  //         //     { no_results_text: 'Співпадінь не знайдено...' },
+  //         //   '.chosen-select-width': { width: '95%' }
+  //         // };
+  //         // for (var selector in config) {
+  //         //   $(selector).chosen(config[selector]);
+  //         // }
+  //       });
+  //     }
+  //     if (document.getElementById(subdivisionId + '') === null &&
+  //       (
+  //       ~subdivisionName.indexOf('факультет') ||
+  //       ~subdivisionName.indexOf('Факультет') ||
+  //       ~subdivisionName.indexOf('інститут') ||
+  //       ~subdivisionName.indexOf('Інститут'))
+  //     ) {
+  //       $scope.subdivisions.push({
+  //         subdivisionId: subdivisionId,
+  //         subdivisionName: subdivisionName
+  //       });
+  //     }
+  //
+  //   }
+  //   return kpiQuery;
+  // }
 
-  function getParent(obj, parentTagName) {
-    return (
-      (obj.tagName === parentTagName) ?
-      obj : getParent(obj.parentNode, parentTagName)
-    );
-  }
-
-  function setRadioBtnForCathedras(responsive) {
-    var subdivisionId = responsive.Subdivision.Id;
-    var subdivisionName = responsive.Subdivision.Name;
-    if (~subdivisionName.indexOf('Кафедра')) {
-      $scope.cathedras.push({
-        cathedraId: subdivisionId,
-        cathedraName: subdivisionName
-      });
-    }
-  }
-
-  function loadCathedras() {
-
-    $scope.npps = [];
-
-    if (!$scope.chosenSubdivision) {
-      return;
-    }
-
-    var parentId = $scope.chosenSubdivision.subdivisionId;
-    var subdivisionPath = 'Subdivision/' + parentId + '/children';
-
-    api.execute('GET', subdivisionPath).then(function(response) {
-      $scope.cathedras = [];
-      response.forEach(function(item, i, arr) {
-        if (arr[i + 1] !== undefined) {
-          var cathedraId = item.id;
-          var cathedraName = item.name;
-          $scope.cathedras.push({
-            cathedraId: cathedraId,
-            cathedraName: cathedraName
-          });
-        }
-      });
-    });
-  }
-
-  function setFacultyAndInstitute() {
-    var kpiQuery = false;
-    var sClaim = api.decodeToken(api.getToken());
-    sClaim = JSON.parse(sClaim);
-    var tof = typeof(sClaim.resp);
-    if (tof === 'object') {
-      sClaim.resp.forEach(function(item) {
-        kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
-      });
-    } else if (tof === 'string') {
-      kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
-    }
-  }
-
-  function setFacultyAndInstituteLogic(item, kpiQuery) {
-    var itemJSON = JSON.parse(item);
-    if (itemJSON.Subsystem === CampusKpiSubsystemId) {
-      var subdivisionId = itemJSON.Subdivision.Id;
-      var subdivisionName = itemJSON.Subdivision.Name;
-
-      if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
-        kpiQuery = true;
-        var pathFaculty = 'Subdivision';
-        api.execute('GET', pathFaculty).then(function(response) {
-          response.forEach(function(item) {
-            if (
-              item.type.id === InstituteTypeId ||
-              item.type.id === FacultyTypeId
-            ) {
-              var subdivisionName = item.name;
-              var subdivisionId = item.id;
-
-              $scope.subdivisions.push({
-                subdivisionId: subdivisionId,
-                subdivisionName: subdivisionName
-              });
-            }
-          });
-
-          // var config = {
-          //   '.chosen-select': {},
-          //   '.chosen-select-deselect': { allow_single_deselect: true },
-          //   '.chosen-select-no-single': { disable_search_threshold: 10 },
-          //   '.chosen-select-no-results':
-          //     { no_results_text: 'Співпадінь не знайдено...' },
-          //   '.chosen-select-width': { width: '95%' }
-          // };
-          // for (var selector in config) {
-          //   $(selector).chosen(config[selector]);
-          // }
-        });
-      }
-      if (document.getElementById(subdivisionId + '') === null &&
-        (
-          ~subdivisionName.indexOf('факультет') ||
-          ~subdivisionName.indexOf('Факультет') ||
-          ~subdivisionName.indexOf('інститут') ||
-          ~subdivisionName.indexOf('Інститут'))
-        ) {
-        $scope.subdivisions.push({
-          subdivisionId: subdivisionId,
-          subdivisionName: subdivisionName
-        });
-      }
-
-    }
-    return kpiQuery;
-  }
-
-  $scope.checkZkm = function(id, name) {
-    $scope.statusLine = '';
-    $scope.zkm = null;
-    $scope.errorLabelText = '';
-
-    $scope.selecteCathedraId = id;
-
-    $('#zkmWrapper').empty();
-    $('#table-for-download').empty();
-
-
+  $scope.check = function(cathedra) {
     var isFinish = [];
-    var cathedraId = id;
-    var cathedraName = name;
-
+    var cathedraId = cathedra.cathedraId;
+    var cathedraName = cathedra.cathedraName;
     var cathedraNameRV = cathedraName;
     var cathedraNameDV = cathedraName;
 
+    $scope.statusLine = '';
+    $scope.zkm = null;
+    $scope.errorLabelText = '';
+    $scope.selecteCathedraId = cathedraId;
+
+    $('#zkmWrapper').empty();
+    $('#table-for-download').empty();
 
     cathedraNameDV = !cathedraNameDV ? '' : cathedraNameDV;
 
@@ -249,7 +245,9 @@ function handler($scope, $cookies, $window, api) {
       //console.log(response);
       $('#zkm1').append(
         '<div class="row">' +
-        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+        '<div class="zkmContent hidden col-md-10 ' +
+        'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+        'col-xs-10 col-xs-offset-1">' +
         '<div class="panel panel-default" id="zkm11">' +
         '<div class="panel-heading panelHeadingHover active">' +
         '<p>Кількість КМ, що читає ' + cathedraName +
@@ -416,7 +414,8 @@ function handler($scope, $cookies, $window, api) {
                   //downloadCounter ++;
                   if (subName !== subNameNext) {
                     $('#zkm14' + baseSubCounter + ' .table').before(
-                      '<div class="panel-heading panelHeadingHover extCentre">' +
+                      '<div class="panel-heading ' +
+                      'panelHeadingHover extCentre">' +
                       '<p>' + baseSubName + '<span class="badge myBadge" >' +
                       baseCounter + '</span> </p></div>'
                     );
@@ -434,9 +433,12 @@ function handler($scope, $cookies, $window, api) {
                   var resultCounter = 0;
                   $('#zkm1').append(
                     '<div class="row">' +
-                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                    '<div class="zkmContent hidden col-md-10 ' +
+                    'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+                    'col-xs-10 col-xs-offset-1">' +
                     '<div class="panel panel-default" id="zkm12">' +
-                    '<table class="table table-bordered "><tbody></tbody></table>' +
+                    '<table class="table table-bordered ">' +
+                    '<tbody></tbody></table>' +
                     '</div></div></div>'
                   );
                   //for download
@@ -448,19 +450,23 @@ function handler($scope, $cookies, $window, api) {
                     var subName = key;
                     var curCount = response[key];
                     $('#zkm12 table tbody').append(
-                      '<tr><td>' + subName + '</td><td>' + curCount + '</td></tr>'
+                      '<tr><td>' + subName +
+                      '</td><td>' + curCount + '</td></tr>'
                     );
                     resultCounter += curCount;
                     //for download
                     $('#section1').append(
-                      '<tr><td>' + subName + '</td><td>' + curCount + '</td></tr>'
+                      '<tr><td>' + subName +
+                      '</td><td>' + curCount + '</td></tr>'
                     );
                     //--
                   }
                   $('#zkm12 table').before(
-                    '<div class="panel-heading panelHeadingHover extCentre active">' +
+                    '<div class="panel-heading panelHeadingHover ' +
+                    'extCentre active">' +
                     '<p>Кількість завантажених ЕІР, що читає ' + cathedraName +
-                    ' - <span class="badge myBadge" >' + resultCounter + '</span> </p></div>'
+                    ' - <span class="badge myBadge" >' + resultCounter +
+                    '</span> </p></div>'
                   );
                   //for download
                   $('#section1 #sec12').append(
@@ -483,7 +489,8 @@ function handler($scope, $cookies, $window, api) {
     var path2 = [
       '/Modules/FromForeignCathedras/Count',
       '/MethodicalManual/FromForeignCathedras/Count',
-      '/Modules/WithoutMethodicalmanualByItself/Count', // не используется отсутствует для раздела 2
+      '/Modules/WithoutMethodicalmanualByItself/Count',
+      // не используется отсутствует для раздела 2
       '/EIRSByCreditModules/FromForeignCathedras/List',
       '/EIRByCreditModules/FromForeignCathedras/Count',
       '/Modules/WithMethodicalManual/FromForeignCathedras/List',
@@ -507,7 +514,8 @@ function handler($scope, $cookies, $window, api) {
       //console.log(response);
       $('#zkm2').append(
         '<div class="row">' +
-        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+        '<div class="zkmContent hidden col-md-10 col-md-offset-1 ' +
+        'col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
         '<div class="panel panel-default" id="zkm21">' +
         '<div class="panel-heading panelHeadingHover extCentre active">' +
         '<p>Кількість КМ, що читають інші кафедри для ' + cathedraNameRV +
@@ -561,11 +569,15 @@ function handler($scope, $cookies, $window, api) {
                   '<li><a href="#25" data-toggle="tab">Відсутнє МЗ - ' +
                   '<span class="badge myBadge" >' + responseArray2[2].length +
                   '</span></a></li>' +
-                  '<li><a href="#26" data-toggle="tab">Частково забезпечені МЗ - ' +
-                  '<span class="badge myBadge" >' + responseArray2[3].length +
+                  '<li><a href="#26" data-toggle="tab">' +
+                  'Частково забезпечені МЗ - ' +
+                  '<span class="badge myBadge" >' +
+                  responseArray2[3].length +
                   '</span></a></li>' +
-                  '<li><a href="#27" data-toggle="tab">Відсутні файли або посилання на МЗ - ' +
-                  '<span class="badge myBadge" >' + responseArray2[4].length +
+                  '<li><a href="#27" data-toggle="tab">' +
+                  'Відсутні файли або посилання на МЗ - ' +
+                  '<span class="badge myBadge" >' +
+                  responseArray2[4].length +
                   '</span></a></li></ul>' +
                   '<div class="tab-content">' +
                   '<div class="tab-pane" id="24"></div>' +
@@ -703,10 +715,13 @@ function handler($scope, $cookies, $window, api) {
                     baseSubjCounter++;
                     $('#zkm24' + baseSubdivCounter).append(
                       '<div class="row">' +
-                      '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                      '<div class="zkmContent hidden col-md-10 ' +
+                      'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+                      'col-xs-10 col-xs-offset-1">' +
                       '<div class="panel panel-default" id="zkm24' +
                       baseSubdivCounter + '_' + baseSubCounter + '">' +
-                      '<table class="table table-bordered "><tbody></tbody></table>' +
+                      '<table class="table table-bordered ">' +
+                      '<tbody></tbody></table>' +
                       '</div></div></div>'
                     );
                     //for download
@@ -741,9 +756,11 @@ function handler($scope, $cookies, $window, api) {
                     )
                   ) {
                     $(
-                      '#zkm24' + baseSubdivCounter + '_' + baseSubCounter + ' .table'
+                      '#zkm24' + baseSubdivCounter +
+                      '_' + baseSubCounter + ' .table'
                     ).before(
-                      '<div class="panel-heading panelHeadingHover extCentre active">' +
+                      '<div class="panel-heading panelHeadingHover ' +
+                      'extCentre active">' +
                       '<p>' + baseSubName +
                       '<span class="badge myBadge" >' + baseCounter +
                       '</span></p></div>'
@@ -762,9 +779,11 @@ function handler($scope, $cookies, $window, api) {
                   var resultCounter = 0;
                   $('#zkm2').append(
                     '<div class="row">' +
-                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 ' +
+                    'col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
                     '<div class="panel panel-default" id="zkm22">' +
-                    '<table class="table table-bordered "><tbody></tbody></table>' +
+                    '<table class="table table-bordered ">' +
+                    '<tbody></tbody></table>' +
                     '</div></div></div>'
                   );
                   //for download
@@ -788,7 +807,8 @@ function handler($scope, $cookies, $window, api) {
                     resultCounter += curCount;
                   }
                   $('#zkm22 table').before(
-                    '<div class="panel-heading panelHeadingHover extCentre active">' +
+                    '<div class="panel-heading panelHeadingHover ' +
+                    'extCentre active">' +
                     '<p>Кількість завантажених ЕІР, що читає ' + cathedraName +
                     ' - <span class="badge myBadge" >' + resultCounter +
                     '</span> </p></div>'
@@ -838,7 +858,8 @@ function handler($scope, $cookies, $window, api) {
 
       $('#zkm3').append(
         '<div class="row">' +
-        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 ' +
+        'col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
         '<div class="panel panel-default" id="zkm31">' +
         '<div class="panel-heading panelHeadingHover extCentre active">' +
         '<p>Кількість КМ, що читає ' + cathedraName +
@@ -1043,7 +1064,9 @@ function handler($scope, $cookies, $window, api) {
                     baseSubjCounter++;
                     $('#zkm34' + baseSubdivCounter).append(
                       '<div class="row">' +
-                      '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                      '<div class="zkmContent hidden col-md-10 ' +
+                      'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+                      'col-xs-10 col-xs-offset-1">' +
                       '<div class="panel panel-default" id="zkm34' +
                       baseSubdivCounter + '_' + baseSubCounter + '">' +
                       '<table class="table table-bordered ">' +
@@ -1085,7 +1108,8 @@ function handler($scope, $cookies, $window, api) {
                       '#zkm34' + baseSubdivCounter + '_' +
                       baseSubCounter + ' .table'
                     ).before(
-                      '<div class="panel-heading panelHeadingHover extCentre active">' +
+                      '<div class="panel-heading panelHeadingHover ' +
+                      'extCentre active">' +
                       '<p>' + baseSubName + '<span class="badge myBadge" >' +
                       baseCounter + '</span></p></div>'
                     );
@@ -1101,7 +1125,8 @@ function handler($scope, $cookies, $window, api) {
                   var resultCounter = 0;
                   $('#zkm3').append(
                     '<div class="row">' +
-                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 ' +
+                    'col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
                     '<div class="panel panel-default" id="zkm32">' +
                     '<table class="table table-bordered ">' +
                     '<tbody></tbody></table>' +
@@ -1128,7 +1153,8 @@ function handler($scope, $cookies, $window, api) {
                     resultCounter += curCount;
                   }
                   $('#zkm32 table').before(
-                    '<div class="panel-heading panelHeadingHover extCentre active">' +
+                    '<div class="panel-heading panelHeadingHover ' +
+                    'extCentre active">' +
                     '<p>Кількість завантажених ЕІР, що читає ' +
                     cathedraName +
                     ' - <span class="badge myBadge" >' +
@@ -1154,8 +1180,8 @@ function handler($scope, $cookies, $window, api) {
 
   };
 
-  $scope.$watch('chosenSubdivision', function() {
-    loadCathedras();
-  });
+  // $scope.$watch('chosenSubdivision', function() {
+  //   loadCathedras();
+  // });
 
 }

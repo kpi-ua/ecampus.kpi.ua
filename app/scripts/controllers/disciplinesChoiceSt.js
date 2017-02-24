@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplinesChoiceCtrl', ['$scope', 'api', handler]);
+  .controller('DisciplinesChoiceCtrl', DisciplinesChoiceCtrl);
 
-function handler($scope, api) {
+DisciplinesChoiceCtrl.$inject = ['$scope', 'api'];
+
+function DisciplinesChoiceCtrl($scope, api) {
   $scope.errorMessage = '';
   $scope.hideInfo = false;
   $scope.errorMessageDisc = '';

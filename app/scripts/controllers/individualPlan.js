@@ -9,10 +9,10 @@
  */
 angular
   .module('ecampusApp')
-  .controller('IndividualPlanCtrl', function handler() {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('IndividualPlanCtrl', IndividualPlanCtrl);
+
+IndividualPlanCtrl.$inject = ['$scope', 'api'];
+
+function IndividualPlanCtrl($scope, api) {
+
+}

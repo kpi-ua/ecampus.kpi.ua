@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('VotingCtrl', handler);
+  .controller('VotingCtrl', VotingCtrl);
 
-function handler($scope, $location, api) {
+VotingCtrl.$inject = ['$scope', '$location', 'api'];
+
+function VotingCtrl($scope, $location, api) {
 
   $scope.currentUser = null;
   $scope.voteTerm = null;
