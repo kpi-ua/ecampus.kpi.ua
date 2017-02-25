@@ -97,7 +97,10 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   };
 
   $scope.toggleDisciplineDescription = function (id) {
-    $scope.selectedForInfo.cDisciplineBlockYear8Id = $scope.selectedForInfo.cDisciplineBlockYear8Id === null ? id : null;
+    $scope.selectedForInfo.cDisciplineBlockYear8Id = (
+      $scope.selectedForInfo.cDisciplineBlockYear8Id === null ||
+      $scope.selectedForInfo.cDisciplineBlockYear8Id !== id ? id : null
+    );
   };
 
   $scope.filterChoiceFromAllDisciplines = function (response, semester, value) {

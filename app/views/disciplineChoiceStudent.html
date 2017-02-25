@@ -235,7 +235,9 @@
                                 <span class="disciplines-subdivision-name">
                                   {{thirdDisc.subdivision || "назву кафедри не вказано"}}
                                 </span>
-                                <a ng-click="toggleDisciplineDescription(id);">
+                                <a ng-click="toggleDisciplineDescription(id);" data-toggle="tooltip"
+                                   data-placement="auto right"
+                                   title="Натисність тут для перегляду опису дисципліни">
                                   <i class="fa fa-info fa-fw info-load" aria-hidden="true"></i>
                                 </a>
                                 <!--resultSort = filterChoiceFromAllDisciplines(thirdCourse, third.semester, id)-->
