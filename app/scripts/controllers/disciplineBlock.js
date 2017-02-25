@@ -23,7 +23,7 @@ function DisciplinesBlockCtrl($scope, api, uniqueElemsInList) {
     ) {
       $scope.dataInTree = uniqueElemsInList.getArrayOfBlocksAndDisc(
         $scope.selectedYear, $scope.selectedOkr, $scope.alldata
-      );      
+      );
     }
   };
 
@@ -71,7 +71,9 @@ function DisciplinesBlockCtrl($scope, api, uniqueElemsInList) {
           $scope.allYears = uniqueElemsInList.getDataUnique('studyPeriod.all');
           $scope.allYears.sort();
           $scope.allOkrs = uniqueElemsInList.getDataUnique('okr');
-          $scope.selectedYear = uniqueElemsInList.setCurrentYear($scope.allYears);
+          $scope.selectedYear = uniqueElemsInList.setCurrentYear(
+            $scope.allYears
+          );
         }
       }, function(response, status, headers) {
         //

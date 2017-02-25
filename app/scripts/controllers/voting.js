@@ -48,7 +48,6 @@ function VotingCtrl($scope, $location, api) {
 
       api.execute('GET', action, payload).then(function(data) {
         $scope.personsForVote = data;
-
         console.log('$scope.personsForVote', $scope.personsForVote);
       });
     }

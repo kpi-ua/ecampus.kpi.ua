@@ -1,8 +1,8 @@
 'use strict';
 
 angular
-    .module('ecampusApp')
-    .directive('rnpInput', rnpInput);
+  .module('ecampusApp')
+  .directive('rnpInput', rnpInput);
 
 rnpInput.$inject = ['api'];
 
@@ -13,12 +13,12 @@ function rnpInput(api) {
     restrict: 'EA'
   };
 
-  function link ($scope) {
+  function link($scope) {
 
     var useId = api.getCurrentUser().id;
     var chainResponsibility = [];
-    var completeHandler= requestComplete;
-    var failureHandler= errorHandlerMy;
+    var completeHandler = requestComplete;
+    var failureHandler = errorHandlerMy;
     var settersOption = getSettersOptions();
     $scope.onChange = onChange;
 
@@ -34,38 +34,52 @@ function rnpInput(api) {
         'XmlCodes'
       ];
 
-      var studyYearsOptions=settersOption["StudyYear"];
-      var studyYearsSetter =new setSelectOptionForRnp(studyYearsOptions.selectName, studyYearsOptions.optionDestination, studyYearsOptions.nextChainFunction);
+      var studyYearsOptions = settersOption['StudyYear'];
+      var studyYearsSetter = new SetSelectOptionForRnp(
+        studyYearsOptions.selectName, studyYearsOptions.optionDestination,
+        studyYearsOptions.nextChainFunction
+      );
       var path = 'studyYears';
       studyYearsSetter.set(path, true);
     }
 
-    function onStudyYearsSet(isInit, chainObject, userId=useId) {
+    function onStudyYearsSet(isInit, chainObject, userId) {
+      userId = userId || useId;
       // var initStudyYearIndex = 0;
       var initStudyYearIndex = 5;
-      var path ="";
+      var path = '';
 
-      var departmentOptions=settersOption["Department"];
-      var departmentSetter =new setSelectOptionForRnp(departmentOptions.selectName, departmentOptions.optionDestination, departmentOptions.nextChainFunction);
+      var departmentOptions = settersOption['Department'];
+      var departmentSetter = new SetSelectOptionForRnp(
+        departmentOptions.selectName,
+        departmentOptions.optionDestination,
+        departmentOptions.nextChainFunction
+      );
 
       var selectName = 'StudyYear';
       if (
-          $scope.options.StudyYears[initStudyYearIndex] !== undefined &&
-          isInit
+        $scope.options.StudyYears[initStudyYearIndex] !== undefined &&
+        isInit
       ) {
         var StudyYear = $scope.options.StudyYears[initStudyYearIndex];
         $scope.selectData.studyYearId = StudyYear.id;
         $scope.model.studyYearName = StudyYear.name;
 
-        path = 'Rnp/' + userId + '/Subdivision/' + $scope.selectData.studyYearId;
+        path = (
+          'Rnp/' + userId +
+          '/Subdivision/' + $scope.selectData.studyYearId
+        );
         departmentSetter.set(path, isInit);
 
       } else if (chainObject !== undefined) {
         if (chainObject.selectName === selectName) {
           $scope.selectData.studyYearId = chainObject.chosenObj.id;
 
-          path = 'Rnp/' + userId + '/Subdivision/' + $scope.selectData.studyYearId;
-          departmentSetter.set(path,true);
+          path = (
+            'Rnp/' + userId +
+            '/Subdivision/' + $scope.selectData.studyYearId
+          );
+          departmentSetter.set(path, true);
 
         } else {
           onDepartmentSet(false, chainObject);
@@ -73,15 +87,20 @@ function rnpInput(api) {
       }
     }
 
-    function onDepartmentSet(isInit, chainObject, userId=useId) {
+    function onDepartmentSet(isInit, chainObject, userId) {
+      userId = userId || useId;
       var initDepartmentsIndex = 0;
       var selectName = 'Department';
-      var path ="";
-      var okrOptions=settersOption["Okr"];
-      var okrSetter =new setSelectOptionForRnp(okrOptions.selectName, okrOptions.optionDestination, okrOptions.nextChainFunction);
+      var path = '';
+      var okrOptions = settersOption['Okr'];
+      var okrSetter = new SetSelectOptionForRnp(
+        okrOptions.selectName,
+        okrOptions.optionDestination,
+        okrOptions.nextChainFunction
+      );
       if (
-          $scope.options.Departments[initDepartmentsIndex] !== undefined &&
-          isInit
+        $scope.options.Departments[initDepartmentsIndex] !== undefined &&
+        isInit
       ) {
         var curDepartment = (
             $scope.options.Departments[initDepartmentsIndex]
@@ -90,42 +109,58 @@ function rnpInput(api) {
         $scope.selectData.departmentMark = curDepartment.mark;
         $scope.model.departmentItem = curDepartment;
 
-        path='Rnp/' + useId + '/Okr/' + $scope.selectData.studyYearId + '/' +
-            $scope.selectData.departmentId + '/' + $scope.selectData.departmentMark;
-        okrSetter.set(path,isInit);
+        path = (
+          'Rnp/' + useId + '/Okr/' + $scope.selectData.studyYearId +
+          '/' + $scope.selectData.departmentId +
+          '/' + $scope.selectData.departmentMark
+        );
+        okrSetter.set(path, isInit);
       } else if (chainObject !== undefined) {
         if (chainObject.selectName === selectName) {
           $scope.selectData.departmentId = chainObject.chosenObj.id;
           $scope.selectData.departmentMark = chainObject.chosenObj.mark;
 
-          path='Rnp/' + useId + '/Okr/' + $scope.selectData.studyYearId + '/' +
-              $scope.selectData.departmentId + '/' + $scope.selectData.departmentMark;
-          okrSetter.set(path,true);
+          path = (
+            'Rnp/' + useId + '/Okr/' + $scope.selectData.studyYearId +
+            '/' + $scope.selectData.departmentId +
+            '/' + $scope.selectData.departmentMark
+          );
+          okrSetter.set(path, true);
         } else {
           onOkrSet(false, chainObject);
         }
       }
     }
 
-    function onOkrSet(isInit, chainObject, userId=useId) {
+    function onOkrSet(isInit, chainObject, userId) {
+      userId = userId || useId;
       var initOkrIndex = 0;
       var selectName = 'Okr';
-      var path ="";
-      var specializationOptions=settersOption["Specialization"];
-      var specializationSetter =new setSelectOptionForRnp(specializationOptions.selectName, specializationOptions.optionDestination, specializationOptions.nextChainFunction);
+      var path = '';
+      var specializationOptions = settersOption['Specialization'];
+      var specializationSetter = new SetSelectOptionForRnp(
+        specializationOptions.selectName,
+        specializationOptions.optionDestination,
+        specializationOptions.nextChainFunction
+      );
       if ($scope.options.Okrs[initOkrIndex] !== undefined && isInit) {
         var curOkr = $scope.options.Okrs[initOkrIndex];
         $scope.selectData.okrId = curOkr.id;
         $scope.model.okrName = curOkr.name;
-        path = 'Rnp/' + useId + '/Specialization/' + $scope.selectData.studyYearId + '/' +
-            $scope.selectData.departmentId + '/' +  $scope.selectData.departmentMark + '/' + $scope.selectData.okrId;
+        path = 'Rnp/' + useId + '/Specialization/' +
+          $scope.selectData.studyYearId + '/' +
+          $scope.selectData.departmentId + '/' +
+          $scope.selectData.departmentMark + '/' +
+          $scope.selectData.okrId;
         specializationSetter.set(path, isInit);
       } else if (chainObject !== undefined) {
         if (chainObject.selectName === selectName) {
           $scope.selectData.okrId = chainObject.chosenObj.id;
-
-          path = 'Rnp/' + useId + '/Specialization/' + $scope.selectData.studyYearId + '/' +
-              $scope.selectData.departmentId + '/' +  $scope.selectData.departmentMark + '/' + $scope.selectData.okrId;
+          path = 'Rnp/' + useId + '/Specialization/' +
+            $scope.selectData.studyYearId + '/' +
+            $scope.selectData.departmentId + '/' +
+            $scope.selectData.departmentMark + '/' +
+            $scope.selectData.okrId;
           specializationSetter.set(path, true);
         } else {
           onSpecializationsSet(false, chainObject);
@@ -133,33 +168,41 @@ function rnpInput(api) {
       }
     }
 
-    function onSpecializationsSet(isInit, chainObject, userId=useId) {
+    function onSpecializationsSet(isInit, chainObject, userId) {
+      userId = userId || useId;
       var initSpecializationsIndex = 0;
       var selectName = 'Specialization';
-      var path ="";
-      var studyFormOptions=settersOption["StudyForm"];
-      var studyFormSetter =new setSelectOptionForRnp(studyFormOptions.selectName, studyFormOptions.optionDestination, studyFormOptions.nextChainFunction);
+      var path = '';
+      var studyFormOptions = settersOption['StudyForm'];
+      var studyFormSetter = new SetSelectOptionForRnp(
+        studyFormOptions.selectName,
+        studyFormOptions.optionDestination,
+        studyFormOptions.nextChainFunction
+      );
       var curSpecialization = (
-          $scope.options.Specializations[initSpecializationsIndex]
+        $scope.options.Specializations[initSpecializationsIndex]
       );
       if (curSpecialization !== undefined && isInit) {
         $scope.selectData.specializationId = curSpecialization.id;
         $scope.model.specializationCodeName = (
-            curSpecialization.code + '  ' + curSpecialization.name
+          curSpecialization.code + '  ' + curSpecialization.name
         );
         path = (
-            'Rnp/' + useId + '/StudyForm/' + $scope.selectData.studyYearId + '/' +
-            $scope.selectData.departmentId + '/' + $scope.selectData.departmentMark + '/' +
-            $scope.selectData.specializationId
+          'Rnp/' + useId + '/StudyForm/' + $scope.selectData.studyYearId +
+          '/' + $scope.selectData.departmentId +
+          '/' + $scope.selectData.departmentMark +
+          '/' + $scope.selectData.specializationId
         );
         studyFormSetter.set(path, isInit);
       } else if (chainObject !== undefined) {
         if (chainObject.selectName === selectName) {
           $scope.selectData.specializationId = chainObject.chosenObj.id;
           path = (
-              'Rnp/' + useId + '/StudyForm/' + $scope.selectData.studyYearId + '/' +
-              $scope.selectData.departmentId + '/' + $scope.selectData.departmentMark + '/' +
-              $scope.selectData.specializationId
+            'Rnp/' + useId + '/StudyForm/' +
+            $scope.selectData.studyYearId + '/' +
+            $scope.selectData.departmentId + '/' +
+            $scope.selectData.departmentMark + '/' +
+            $scope.selectData.specializationId
           );
           studyFormSetter.set(path, true);
         } else {
@@ -168,46 +211,57 @@ function rnpInput(api) {
       }
     }
 
-    function onStudyFormsSet(isInit, chainObject, userId=useId) {
+    function onStudyFormsSet(isInit, chainObject, userId) {
+      userId = userId || useId;
       var initStudyFormsIndex = 0;
       var selectName = 'StudyForm';
-      var path ="";
-      var xmlCodesOptions=settersOption["XmlCodes"];
-      var xmlCodesSetter =new setSelectOptionForRnp(xmlCodesOptions.selectName, xmlCodesOptions.optionDestination, xmlCodesOptions.nextChainFunction);
+      var path = '';
+      var xmlCodesOptions = settersOption['XmlCodes'];
+      var xmlCodesSetter = new SetSelectOptionForRnp(
+        xmlCodesOptions.selectName,
+        xmlCodesOptions.optionDestination,
+        xmlCodesOptions.nextChainFunction
+      );
       if (
-          $scope.options.StudyForms[initStudyFormsIndex] !== undefined &&
-          isInit
+        $scope.options.StudyForms[initStudyFormsIndex] !== undefined &&
+        isInit
       ) {
         var curStudyForm = $scope.options.StudyForms[initStudyFormsIndex];
         $scope.selectData.studyFormId = curStudyForm.id;
         $scope.model.studyFormName = curStudyForm.name;
-        path= (
-            'Rnp/' + useId + '/XMLCode/' + $scope.selectData.studyYearId + '/' +
-            $scope.selectData.departmentId + '/' + $scope.selectData.departmentMark + '/' +
-            $scope.selectData.specializationId + '/' + $scope.selectData.studyFormId
+        path = (
+          'Rnp/' + useId + '/XMLCode/' +
+          $scope.selectData.studyYearId + '/' +
+          $scope.selectData.departmentId + '/' +
+          $scope.selectData.departmentMark + '/' +
+          $scope.selectData.specializationId + '/' +
+          $scope.selectData.studyFormId
         );
-        xmlCodesSetter.set(path,isInit);
+        xmlCodesSetter.set(path, isInit);
       } else if (chainObject !== undefined) {
         if (chainObject.selectName === selectName) {
           $scope.selectData.studyFormId = chainObject.chosenObj.id;
-          path= (
-              'Rnp/' + useId + '/XMLCode/' + $scope.selectData.studyYearId + '/' +
-              $scope.selectData.departmentId + '/' + $scope.selectData.departmentMark + '/' +
-              $scope.selectData.specializationId + '/' + $scope.selectData.studyFormId
+          path = (
+            'Rnp/' + useId + '/XMLCode/' +
+            $scope.selectData.studyYearId + '/' +
+            $scope.selectData.departmentId + '/' +
+            $scope.selectData.departmentMark + '/' +
+            $scope.selectData.specializationId + '/' +
+            $scope.selectData.studyFormId
           );
-          xmlCodesSetter.set(path,true);
+          xmlCodesSetter.set(path, true);
         } else {
           onXmlCodesSet(false, chainObject);
         }
       }
     }
 
-    function onXmlCodesSet(isInit) {
+    function onXmlCodesSet(isInit, chainObject) {
       var initXmlCodesIndex = 0;
       var selectName = 'XmlCodes';
       if (
-          $scope.options.XmlCodes[initXmlCodesIndex] !== undefined &&
-          isInit
+        $scope.options.XmlCodes[initXmlCodesIndex] !== undefined &&
+        isInit
       ) {
         var curXmlCodes = $scope.options.XmlCodes[initXmlCodesIndex];
         $scope.selectData.xmlCodeId = curXmlCodes.id;
@@ -243,22 +297,44 @@ function rnpInput(api) {
       return item;
     }
 
-    function setSelectOptionForRnp(selectName,optionDestination,nextChainFunction, completeHandler=requestComplete, failureHandler=errorHandlerMy){
+    function SetSelectOptionForRnp(
+      selectName,
+      optionDestination,
+      nextChainFunction,
+      completeHandler,
+      failureHandler
+    ) {
+      completeHandler = completeHandler || requestComplete;
+      failureHandler = failureHandler || errorHandlerMy;
       var self = this;
       this.selectName = selectName;
       this.optionDestination = optionDestination;
       this.nextChainFunction = nextChainFunction;
-      this.completeHandler =completeHandler;
+      this.completeHandler = completeHandler;
       this.failureHandler = failureHandler;
       this.set = function(requestPath, isInit) {
         api.execute('GET', requestPath)
-          .then(function(response) {self.completeHandler(response,isInit,self.selectName,self.nextChainFunction,self.optionDestination)})
+          .then(function(response) {
+            self.completeHandler(
+              response,
+              isInit,
+              self.selectName,
+              self.nextChainFunction,
+              self.optionDestination
+            );
+          })
           .catch(self.failureHandler);
       };
     }
 
-    function requestComplete(response, isInit,selectName,nextChainFunction, optionDestination){
-      if (!response || response === '' || response.length===0) {
+    function requestComplete(
+      response,
+      isInit,
+      selectName,
+      nextChainFunction,
+      optionDestination
+    ) {
+      if (!response || response === '' || response.length === 0) {
         $scope.errorLabelText = 'На жаль, дані відсутні.';
         resetSelectDataOptionsAndModel(selectName);
       } else {
@@ -271,38 +347,45 @@ function rnpInput(api) {
       $scope.StudyGroups = null;
       $scope.RnpRows = null;
       var idx = chainResponsibility.indexOf(selectName);
-      // This switch have cascade cleaning, So we must clean ALL fields below the chosen field/
+      // This switch have cascade cleaning,
+      // So we must clean ALL fields below the chosen field/
       switch (idx) {
         case 0: {
           $scope.options.StudyYears = [];
           $scope.selectData.studyYear = null;
           $scope.model.studyYearName = null;
+          break;
         }
         case 1: {
           $scope.options.Departments = [];
           $scope.selectData.departmentId = null;
           $scope.selectData.departmentMark = null;
           $scope.model.departmentItem = null;
+          break;
         }
         case 2: {
           $scope.options.Okrs = [];
           $scope.selectData.okrId = null;
           $scope.model.okrName = null;
+          break;
         }
         case 3: {
           $scope.options.Specializations = [];
           $scope.selectData.specializationId = null;
           $scope.model.specializationCodeName = null;
+          break;
         }
         case 4: {
           $scope.options.StudyForms = [];
           $scope.selectData.studyFormId = null;
           $scope.model.studyFormName = null;
+          break;
         }
         case 5: {
           $scope.options.XmlCodes = [];
           $scope.selectData.xmlCodeId = null;
           $scope.model.xmlCode = null;
+          break;
         }
         default: {
           break;
@@ -310,7 +393,7 @@ function rnpInput(api) {
       }
     }
 
-    function onChange (selectedItem, selectName, items) {
+    function onChange(selectedItem, selectName, items) {
       $scope.errorLabelText = '';
       var chosenObj;
       if (typeof(selectedItem) !== 'object') {
@@ -362,8 +445,8 @@ function rnpInput(api) {
           optionDestination: 'XmlCodes',
           nextChainFunction: onXmlCodesSet,
         }
-      }
-
+      };
     }
+
   }
 }

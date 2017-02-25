@@ -53,7 +53,10 @@ function DisciplinesChoiceCtrl($scope, api) {
     api.execute('GET', url)
       .then(function(response) {
         $scope.info = response[0];
-        $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
+        $scope.info.currentStudyYear = getCurrStudyYear(
+          +response[0].yearIntake,
+          +response[0].studyCourse
+        );
         $scope.tab = +response[0].studyCourse;
       });
   }
@@ -61,7 +64,6 @@ function DisciplinesChoiceCtrl($scope, api) {
   function getCurrStudyYear(yearIntake, studyCourse) {
     var startYear = yearIntake + studyCourse - 1;
     var endYear = yearIntake + studyCourse;
-
     return startYear + '-' + endYear;
   }
 
@@ -73,19 +75,22 @@ function DisciplinesChoiceCtrl($scope, api) {
       $scope.secondCourse = [];
       $scope.thirdCourse = [];
       $scope.fourthCourse = [];
-      for (var i = 0; i < response.length; i++) {
-        response[i]['selectedDiscipline'] = null;
+      var i, res;
+      for (i = 0; i < response.length; i++) {
+        res = response[i];
+        res['selectedDiscipline'] = null;
         switch (response[i].course) {
-          case 1: $scope.firstCourse.push(response[i]); break;
-          case 2: $scope.secondCourse.push(response[i]); break;
-          case 3: $scope.thirdCourse.push(response[i]); break;
-          case 4: $scope.fourthCourse.push(response[i]); break;
+          case 1: $scope.firstCourse.push(res); break;
+          case 2: $scope.secondCourse.push(res); break;
+          case 3: $scope.thirdCourse.push(res); break;
+          case 4: $scope.fourthCourse.push(res); break;
         }
       }
     });
   }
 
-  // TODO: Зробити димічне відображення інфи про предмети як у прикладі за посиланням
+  // TODO: Зробити димічне відображення інфи про предмети
+  // як у прикладі за посиланням
   // link: http://www.w3schools.com/angular/tryit.asp?filename=try_ng_form_radio
 
   loadInfo();

@@ -14,9 +14,6 @@ angular
 StatisticNppCtrl.$inject = ['$scope', 'api'];
 
 function StatisticNppCtrl($scope, api) {
-
-
-
   $scope.cathedras = [];
   $scope.subdivisions = [];
   $scope.errorLabelText = '';
@@ -77,7 +74,7 @@ function StatisticNppCtrl($scope, api) {
       '/Emplloyers/WithIndividualLoad/List'
     );
     api.execute('GET', path).then(function(response) {
-      if (!response || response == '' || response.length==0) {
+      if (!response || response === '' || response.length === 0) {
         $scope.errorLabelText = 'На жаль, записи у базі даних відсутні.';
       } else {
         $scope.semesters = response;
@@ -88,7 +85,7 @@ function StatisticNppCtrl($scope, api) {
         clearTableWithId(tableForDownloadId, wrapperTableForDownloadId);
         var tableForDownload = getAngularDOMElement('#' + tableForDownloadId);
         response.forEach(function(employees, i, ar) {
-          if (i == 0) {
+          if (i === 0) {
             tableForDownload.append(
               fillTableRow('3', ['Перше півріччя (осінній семестр)'], true)
             );
@@ -124,7 +121,5 @@ function StatisticNppCtrl($scope, api) {
       $scope.tabIdForShow = -1;
     }
   }
-
-
 
 }

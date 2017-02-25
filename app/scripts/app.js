@@ -28,7 +28,7 @@ app.run(['$rootScope', 'api', appRun]);
 appRun.$inject  = ['$rootScope', 'api'];
 configRoutes.$inject  = ['$routeProvider', '$locationProvider'];
 
-function configRoutes ($routeProvider, $locationProvider) {
+function configRoutes($routeProvider, $locationProvider) {
 
   $locationProvider.hashPrefix('!');
 

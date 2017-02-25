@@ -61,12 +61,12 @@ angular
       var studyYearFrom = year.substr(0, 4);
       var studyYearTo = year.substr(5);
 
-      for (var i = 0; i < initialArr.length; i++) {        
+      for (var i = 0; i < initialArr.length; i++) {
         if (
-          studyYearFrom === (''+initialArr[i].studyPeriod.start) &&
-          studyYearTo === (''+initialArr[i].studyPeriod.end) &&
+          studyYearFrom === ('' + initialArr[i].studyPeriod.start) &&
+          studyYearTo === ('' + initialArr[i].studyPeriod.end) &&
           okr === initialArr[i].okr
-        ) {         
+        ) {
           unmodifiedElementsOfQuery.push({
             block: initialArr[i].blockName,
             discipline: initialArr[i].discipline,

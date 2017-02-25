@@ -697,7 +697,8 @@ function StatisticZkmCtrl($scope, api) {
                     $('#24').append(
                       '<div class="panel panel-default" id="zkm24' +
                       baseSubdivCounter + '">' +
-                      '<div class="panel-heading panelHeadingHover extCentre">' +
+                      '<div class="panel-heading panelHeadingHover ' +
+                      'extCentre">' +
                       '<p class="nestingFix">' + baseSubdivName +
                       '</p></div> '
                     );
@@ -1044,7 +1045,8 @@ function StatisticZkmCtrl($scope, api) {
                     $('#34').append(
                       '<div class="panel panel-default" id="zkm34' +
                       baseSubdivCounter + '">' +
-                      '<div class="panel-heading panelHeadingHover extCentre">' +
+                      '<div class="panel-heading ' +
+                      'panelHeadingHover extCentre">' +
                       '<p class="nestingFix">' + baseSubdivName + '</p>' +
                       '</div> '
                     );

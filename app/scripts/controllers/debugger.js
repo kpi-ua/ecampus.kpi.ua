@@ -170,13 +170,13 @@ function DebuggerCtrl($scope, $sce, api) {
 
     api.execute(m.method, url, data)
       .then(function(result) {
-          $scope.message = JSON.stringify(result, null, '\t');
-          scope.progressBar = false;
-        },
-        function(result) {
-          $scope.message = JSON.stringify(result, null, '\t');
-          scope.progressBar = false;
-        });
+        $scope.message = JSON.stringify(result, null, '\t');
+        scope.progressBar = false;
+      },
+      function(result) {
+        $scope.message = JSON.stringify(result, null, '\t');
+        scope.progressBar = false;
+      });
   }
 
   function loadSelectedMethodMetadata() {
