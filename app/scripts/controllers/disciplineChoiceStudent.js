@@ -90,26 +90,26 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   }
 
-  $scope.isDisciplinesSelected = function (object) {
-    return Object.keys(object).some(function (key) {
+  $scope.isDisciplinesSelected = function(object) {
+    return Object.keys(object).some(function(key) {
       return object[key];
     });
   };
 
-  $scope.toggleDisciplineDescription = function (id) {
+  $scope.toggleDisciplineDescription = function(id) {
     $scope.selectedForInfo.cDisciplineBlockYear8Id = (
       $scope.selectedForInfo.cDisciplineBlockYear8Id === null ||
       $scope.selectedForInfo.cDisciplineBlockYear8Id !== id ? id : null
     );
   };
 
-  $scope.filterChoiceFromAllDisciplines = function (response, semester, value) {
-    return response.map(function (responseElement) {
+  $scope.filterChoiceFromAllDisciplines = function(response, semester, value) {
+    return response.map(function(responseElement) {
       if (responseElement.semester === semester) {
         return Object.assign({}, responseElement, {
-          blocks: responseElement.blocks.map(function (blocksElement) {
+          blocks: responseElement.blocks.map(function(blocksElement) {
             return Object.assign({}, blocksElement, {
-              blockDisc: blocksElement.blockDisc.filter(function (blockDiscElement) {
+              blockDisc: blocksElement.blockDisc.filter(function(blockDiscElement) {
                 return blockDiscElement.cDisciplineBlockYear8Id === value;
               })
             });
