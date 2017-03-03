@@ -47,6 +47,13 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     };
   };
 
+  function getCurrStudyYear(yearIntake, studyCourse) {
+    var startYear = yearIntake + studyCourse - 1;
+    var endYear = yearIntake + studyCourse;
+
+    return startYear + '-' + endYear;
+  }
+
   function loadInfo() {
     var url = '/Account/student/group';
 
@@ -56,13 +63,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
         $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
         $scope.tab = +response[0].studyCourse;
       });
-  }
-
-  function getCurrStudyYear(yearIntake, studyCourse) {
-    var startYear = yearIntake + studyCourse - 1;
-    var endYear = yearIntake + studyCourse;
-
-    return startYear + '-' + endYear;
   }
 
   function loadDisciplines() {

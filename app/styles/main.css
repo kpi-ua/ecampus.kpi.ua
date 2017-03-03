@@ -882,6 +882,11 @@ li.row.list-group-item.blocks-list-item {
   margin-top: 10px;
 }
 
+.blocks-unavailable {
+  padding-left: 15px;
+  color: red;
+}
+
 /* end disciplines choice*/
 
 /* attestation styles */
