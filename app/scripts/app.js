@@ -103,10 +103,15 @@ function configRoutes($routeProvider, $locationProvider) {
       controller: 'HomeBulletinsBoardCtrl',
       controllerAs: 'board'
     })
-    .when('/discipline-choice-student', {
+    .when('/disciplines-choice-st', {
       templateUrl: 'views/disciplineChoiceStudent.html',
       controller: 'DisciplineChoiceStudentCtrl',
       controllerAs: 'disciplineChoiceStudent'
+    })
+    .when('/disciplines-choice-t', {
+      templateUrl: 'views/disciplineChoiceTeacher.html',
+      controller: 'DisciplineChoiceTeacherCtrl',
+      controllerAs: 'disciplineChoiceTeacher'
     })
     .when('/settings', {
       templateUrl: 'views/settings.html',
@@ -127,11 +132,6 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/disciplineBlock.html',
       controller: 'DisciplinesBlockCtrl',
       controllerAs: 'block'
-    })
-    .when('/discipline-choice-teacher', {
-      templateUrl: 'views/disciplineChoiceTeacher.html',
-      controller: 'DisciplineChoiceTeacherCtrl',
-      controllerAs: 'disciplineChoiceTeacher'
     })
     .when('/individual-plan', {
       templateUrl: 'views/individualPlan.html',
