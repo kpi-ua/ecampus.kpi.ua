@@ -9,11 +9,12 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplinesChoiceCtrl', DisciplinesChoiceCtrl);
+  .controller('DisciplineChoiceStudentCtrl', DisciplineChoiceStudentCtrl);
 
-DisciplinesChoiceCtrl.$inject = ['$scope', 'api'];
+DisciplineChoiceStudentCtrl.$inject = ['$scope', 'api'];
 
-function DisciplinesChoiceCtrl($scope, api) {
+function DisciplineChoiceStudentCtrl($scope, api) {
+  $scope.selectedForInfo = {'cDisciplineBlockYear8Id': null};
   $scope.errorMessage = '';
   $scope.hideInfo = false;
   $scope.errorMessageDisc = '';
@@ -36,7 +37,7 @@ function DisciplinesChoiceCtrl($scope, api) {
   };
 
   $scope.getStudyCoursesWithYears = function(yearIntake) {
-    var result = {
+    return {
       firstCourse: yearIntake + '-' + (1 + yearIntake),
       secondCourse: (1 + yearIntake) + '-' + (2 + yearIntake),
       thirdCourse: (2 + yearIntake) + '-' + (3 + yearIntake),
@@ -44,8 +45,13 @@ function DisciplinesChoiceCtrl($scope, api) {
       fifthCourse: (4 + yearIntake) + '-' + (5 + yearIntake),
       sixthCourse: (5 + yearIntake) + '-' + (6 + yearIntake)
     };
-    return result;
   };
+
+  function getCurrStudyYear(yearIntake, studyCourse) {
+    var startYear = yearIntake + studyCourse - 1;
+    var endYear = yearIntake + studyCourse;
+    return startYear + '-' + endYear;
+  }
 
   function loadInfo() {
     var url = '/Account/student/group';
@@ -61,12 +67,6 @@ function DisciplinesChoiceCtrl($scope, api) {
       });
   }
 
-  function getCurrStudyYear(yearIntake, studyCourse) {
-    var startYear = yearIntake + studyCourse - 1;
-    var endYear = yearIntake + studyCourse;
-    return startYear + '-' + endYear;
-  }
-
   function loadDisciplines() {
     var url = '/SelectiveDiscipline/semesters/disciplines';
 
@@ -75,11 +75,17 @@ function DisciplinesChoiceCtrl($scope, api) {
       $scope.secondCourse = [];
       $scope.thirdCourse = [];
       $scope.fourthCourse = [];
-      var i, res;
+      var i, j, res, resBlocks;
       for (i = 0; i < response.length; i++) {
         res = response[i];
-        res['selectedDiscipline'] = null;
-        switch (response[i].course) {
+        for (j = 0; j < res.blocks.length; j++) {
+          resBlocks = res.blocks[j];
+          resBlocks['selectedDiscipline'] = {
+            id: null,
+            name: null
+          };
+        }
+        switch (res.course) {
           case 1: $scope.firstCourse.push(res); break;
           case 2: $scope.secondCourse.push(res); break;
           case 3: $scope.thirdCourse.push(res); break;
@@ -89,9 +95,34 @@ function DisciplinesChoiceCtrl($scope, api) {
     });
   }
 
-  // TODO: Зробити димічне відображення інфи про предмети
-  // як у прикладі за посиланням
-  // link: http://www.w3schools.com/angular/tryit.asp?filename=try_ng_form_radio
+  $scope.isDisciplinesSelected = function(object) {
+    return Object.keys(object).some(function(key) {
+      return object[key];
+    });
+  };
+
+  $scope.toggleDisciplineDescription = function(id) {
+    $scope.selectedForInfo.cDisciplineBlockYear8Id = (
+      $scope.selectedForInfo.cDisciplineBlockYear8Id === null ||
+      $scope.selectedForInfo.cDisciplineBlockYear8Id !== id ? id : null
+    );
+  };
+
+  $scope.filterChoiceFromAllDisciplines = function(response, semester, value) {
+    return response.map(function(responseElement) {
+      if (responseElement.semester === semester) {
+        return Object.assign({}, responseElement, {
+          blocks: responseElement.blocks.map(function(blocksElement) {
+            return Object.assign({}, blocksElement, {
+              blockDisc: blocksElement.blockDisc.filter(function(blockDiscElement) {
+                return blockDiscElement.cDisciplineBlockYear8Id === value;
+              })
+            });
+          })
+        });
+      }
+    });
+  };
 
   loadInfo();
   loadDisciplines();
