@@ -50,7 +50,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   function getCurrStudyYear(yearIntake, studyCourse) {
     var startYear = yearIntake + studyCourse - 1;
     var endYear = yearIntake + studyCourse;
-
     return startYear + '-' + endYear;
   }
 
@@ -60,7 +59,10 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     api.execute('GET', url)
       .then(function(response) {
         $scope.info = response[0];
-        $scope.info.currentStudyYear = getCurrStudyYear(+response[0].yearIntake, +response[0].studyCourse);
+        $scope.info.currentStudyYear = getCurrStudyYear(
+          +response[0].yearIntake,
+          +response[0].studyCourse
+        );
         $scope.tab = +response[0].studyCourse;
       });
   }
@@ -73,18 +75,21 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       $scope.secondCourse = [];
       $scope.thirdCourse = [];
       $scope.fourthCourse = [];
-      for (var i = 0; i < response.length; i++) {
-        for (var j = 0; j < response[i].blocks.length; j++) {
-          response[i].blocks[j]['selectedDiscipline'] = {
+      var i, j, res, resBlocks;
+      for (i = 0; i < response.length; i++) {
+        res = response[i];
+        for (j = 0; j < res.blocks.length; j++) {
+          resBlocks = res.blocks[j];
+          resBlocks['selectedDiscipline'] = {
             id: null,
             name: null
           };
         }
-        switch (response[i].course) {
-          case 1: $scope.firstCourse.push(response[i]); break;
-          case 2: $scope.secondCourse.push(response[i]); break;
-          case 3: $scope.thirdCourse.push(response[i]); break;
-          case 4: $scope.fourthCourse.push(response[i]); break;
+        switch (res.course) {
+          case 1: $scope.firstCourse.push(res); break;
+          case 2: $scope.secondCourse.push(res); break;
+          case 3: $scope.thirdCourse.push(res); break;
+          case 4: $scope.fourthCourse.push(res); break;
         }
       }
     });
@@ -118,7 +123,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       }
     });
   };
-
 
   loadInfo();
   loadDisciplines();

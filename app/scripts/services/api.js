@@ -8,13 +8,13 @@
  * Service in the ecampusApp.
  */
 angular.module('ecampusApp')
-  .service('api', function($http, $rootScope, $window) {
+  .service('api', function($http, $rootScope, $window, $q) {
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
     this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
     $rootScope.requestCount = 0;
 
     this.changeRequestCount = function(i) {
-      $rootScope.requestCount+=i;
+      $rootScope.requestCount += i;
     };
 
     $rootScope.isSessionExpired = null;
@@ -59,7 +59,7 @@ angular.module('ecampusApp')
       }, function(err) {
         console.warn(err);
         self.changeRequestCount(-1);
-        return err;
+        return $q.reject(err);
       });
 
     };
@@ -208,7 +208,9 @@ angular.module('ecampusApp')
       if (json) return JSON.parse(json);
       return null;
     };
-
+      /**
+       * Get decoded token
+       */
     this.decodeToken = function(accessTokenIn) {
 
       if (!accessTokenIn || accessTokenIn === 'null') {
@@ -226,6 +228,27 @@ angular.module('ecampusApp')
       var sClaim = JSON.stringify(pClaim, null, '  ');
 
       return sClaim;
+    };
+
+    // Handle an error.
+    // Put it in the .catch() - function,
+    // after .then()- function
+    // return: string.
+    this.errorHandler = function(response, status, headers) {
+      var errorDetails = '';
+      switch (response.statusText) {
+        case 'Internal Server Error': {
+          errorDetails = (
+            'Помилка сервера, спробуйте пізніше. Статус: ' +
+            response.status
+          );
+          break;
+        }
+        default: {
+          errorDetails = 'Перевірте інтернет з\'єднання.';
+        }
+      }
+      return 'Помилка. ' + errorDetails;
     };
 
   });

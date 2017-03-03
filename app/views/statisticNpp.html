@@ -3,37 +3,14 @@
   викладачів</b>
 </breadcrumbs>
 
-<div class="container-fluid content">
+<div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
       <h1>Індивідуальне навантаження викладачів</h1>
     </div>
   </div>
+  <statistic-input></statistic-input>
 
-  <div class="row">
-    <div class="col-md-6">
-        <ui-select ng-model="$parent.chosenSubdivision" append-to-body="true">
-          <ui-select-match placeholder="Оберіть факультет або інститут...">
-            <span ng-bind="$select.selected.subdivisionName"></span>
-          </ui-select-match>
-          <ui-select-choices
-            repeat="subdivision in (subdivisions | filter: $select.search) track by subdivision.subdivisionId">
-            <span ng-bind="subdivision.subdivisionName"></span>
-          </ui-select-choices>
-        </ui-select>
-
-        <div class="radioBtnWrapper" ng-show="!!chosenSubdivision">
-          <label class="topLabel">Оберіть кафедру</label>
-          <ng-repeat ng-repeat="cathedra in cathedras">
-            <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio"
-                   value='{{cathedra.cathedraId}}'
-                   ng-model="chosenId" ng-click="checkNpp(cathedra.cathedraId)">
-            <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
-          </ng-repeat>
-          <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
-        </div>
-
-    </div>
     <div class="col-md-12">
       <a class="btn btn-success pull-right"
          ng-class="{disabled:semesters == null}"
@@ -43,6 +20,7 @@
       </a>
     </div>
   </div>
+
 
   <div class="row">
 
@@ -54,7 +32,7 @@
           <div class="col-md-12">
 
             <!-- Only required for left/right tabs -->
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs nav-tabs-lg">
               <li><a href="#1" data-toggle="tab" onclick="event.preventDefault()">Перше півріччя
                 (осінній семестр)</a></li>
               <li class="tabLiStyle"><a href="#2" data-toggle="tab" onclick="event.preventDefault()">Друге півріччя
@@ -66,7 +44,7 @@
               <div class="tab-pane" id="{{$index+1}}" ng-repeat="semesterEmployees in semesters">
                 <div class="panel panel-default" id="empl{{$index}}" ng-repeat="employee in semesterEmployees"
                      ng-if="employee.subjects.length!=0" ng-click="showTabById($index)">
-                  <div class="panel-heading panelHeadingHover"
+                  <div class="panel-heading panelHeadingHover my-panel-heading"
                        ng-class="{active:$index==tabIdForShow}">
                     <i class="fa fa-sort-desc"></i>
                     {{employee.name}}

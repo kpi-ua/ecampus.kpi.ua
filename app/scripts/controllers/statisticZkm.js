@@ -14,10 +14,10 @@ angular
 StatisticZkmCtrl.$inject = ['$scope', 'api'];
 
 function StatisticZkmCtrl($scope, api) {
-  var NTUUKpiSubdivisionId = 9998;
-  var InstituteTypeId = 26;
-  var FacultyTypeId = 77;
-  var CampusKpiSubsystemId = 1;
+  // var NTUUKpiSubdivisionId = 9998;
+  // var InstituteTypeId = 26;
+  // var FacultyTypeId = 77;
+  // var CampusKpiSubsystemId = 1;
 
   $scope.cathedras = [];
   $scope.subdivisions = [];
@@ -25,16 +25,17 @@ function StatisticZkmCtrl($scope, api) {
 
   $scope.selecteCathedraId = null;
 
+  // activate();
+  //
+  // function activate() {
+  //
+  // }
   reload();
 
   function reload() {
 
-    if (api.getToken()) {
-      setFacultyAndInstitute();
-      //setSubdivisionDetails();
-    }
     //!!!!
-    $('#zkmWrapper').on('click', '.panel-heading', function () {
+    $('#zkmWrapper').on('click', '.panel-heading', function() {
       var panelId = this.parentNode.id;
       $('#' + panelId + ' .table').toggleClass('hidden');
       $('#' + panelId + ' .zkmContent').toggleClass('hidden');
@@ -43,135 +44,131 @@ function StatisticZkmCtrl($scope, api) {
 
   }
 
+  // function getParent(obj, parentTagName) {
+  //   return (
+  //     (obj.tagName === parentTagName) ?
+  //       obj : getParent(obj.parentNode, parentTagName)
+  //   );
+  // }
+  //
+  // function setRadioBtnForCathedras(responsive) {
+  //   var subdivisionId = responsive.Subdivision.Id;
+  //   var subdivisionName = responsive.Subdivision.Name;
+  //   if (~subdivisionName.indexOf('Кафедра')) {
+  //     $scope.cathedras.push({
+  //       cathedraId: subdivisionId,
+  //       cathedraName: subdivisionName
+  //     });
+  //   }
+  // }
+  // function loadCathedras() {
+  //
+  //   $scope.npps = [];
+  //
+  //   if (!$scope.chosenSubdivision) {
+  //     return;
+  //   }
+  //
+  //   var parentId = $scope.chosenSubdivision.subdivisionId;
+  //   var subdivisionPath = 'Subdivision/' + parentId + '/children';
+  //
+  //   api.execute('GET', subdivisionPath).then(function(response) {
+  //     $scope.cathedras = [];
+  //     response.forEach(function(item, i, arr) {
+  //       if (arr[i + 1] !== undefined) {
+  //         var cathedraId = item.id;
+  //         var cathedraName = item.name;
+  //         $scope.cathedras.push({
+  //           cathedraId: cathedraId,
+  //           cathedraName: cathedraName
+  //         });
+  //       }
+  //     });
+  //   });
+  // }
+  //
+  // function setFacultyAndInstitute() {
+  //   var kpiQuery = false;
+  //   var sClaim = api.decodeToken(api.getToken());
+  //   sClaim = JSON.parse(sClaim);
+  //   var tof = typeof(sClaim.resp);
+  //   if (tof === 'object') {
+  //     sClaim.resp.forEach(function(item) {
+  //       kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
+  //     });
+  //   } else if (tof === 'string') {
+  //     kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
+  //   }
+  // }
+  // function setFacultyAndInstituteLogic(item, kpiQuery) {
+  //   var itemJSON = JSON.parse(item);
+  //   if (itemJSON.Subsystem === CampusKpiSubsystemId) {
+  //     var subdivisionId = itemJSON.Subdivision.Id;
+  //     var subdivisionName = itemJSON.Subdivision.Name;
+  //
+  //     if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
+  //       kpiQuery = true;
+  //       var pathFaculty = 'Subdivision';
+  //       api.execute('GET', pathFaculty).then(function(response) {
+  //         response.forEach(function(item) {
+  //           if (
+  //             item.type.id === InstituteTypeId ||
+  //             item.type.id === FacultyTypeId
+  //           ) {
+  //             var subdivisionName = item.name;
+  //             var subdivisionId = item.id;
+  //
+  //             $scope.subdivisions.push({
+  //               subdivisionId: subdivisionId,
+  //               subdivisionName: subdivisionName
+  //             });
+  //           }
+  //         });
+  //
+  //         // var config = {
+  //         //   '.chosen-select': {},
+  //         //   '.chosen-select-deselect': { allow_single_deselect: true },
+  //         //   '.chosen-select-no-single': { disable_search_threshold: 10 },
+  //         //   '.chosen-select-no-results':
+  //         //     { no_results_text: 'Співпадінь не знайдено...' },
+  //         //   '.chosen-select-width': { width: '95%' }
+  //         // };
+  //         // for (var selector in config) {
+  //         //   $(selector).chosen(config[selector]);
+  //         // }
+  //       });
+  //     }
+  //     if (document.getElementById(subdivisionId + '') === null &&
+  //       (
+  //       ~subdivisionName.indexOf('факультет') ||
+  //       ~subdivisionName.indexOf('Факультет') ||
+  //       ~subdivisionName.indexOf('інститут') ||
+  //       ~subdivisionName.indexOf('Інститут'))
+  //     ) {
+  //       $scope.subdivisions.push({
+  //         subdivisionId: subdivisionId,
+  //         subdivisionName: subdivisionName
+  //       });
+  //     }
+  //
+  //   }
+  //   return kpiQuery;
+  // }
 
-  function getParent(obj, parentTagName) {
-    return (
-      (obj.tagName === parentTagName) ?
-        obj : getParent(obj.parentNode, parentTagName)
-    );
-  }
-
-  function setRadioBtnForCathedras(responsive) {
-    var subdivisionId = responsive.Subdivision.Id;
-    var subdivisionName = responsive.Subdivision.Name;
-    if (~subdivisionName.indexOf('Кафедра')) {
-      $scope.cathedras.push({
-        cathedraId: subdivisionId,
-        cathedraName: subdivisionName
-      });
-    }
-  }
-
-  function loadCathedras() {
-
-    $scope.npps = [];
-
-    if (!$scope.chosenSubdivision) {
-      return;
-    }
-
-    var parentId = $scope.chosenSubdivision.subdivisionId;
-    var subdivisionPath = 'Subdivision/' + parentId + '/children';
-
-    api.execute('GET', subdivisionPath).then(function (response) {
-      $scope.cathedras = [];
-      response.forEach(function (item, i, arr) {
-        if (arr[i + 1] !== undefined) {
-          var cathedraId = item.id;
-          var cathedraName = item.name;
-          $scope.cathedras.push({
-            cathedraId: cathedraId,
-            cathedraName: cathedraName
-          });
-        }
-      });
-    });
-  }
-
-  function setFacultyAndInstitute() {
-    var kpiQuery = false;
-    var sClaim = api.decodeToken(api.getToken());
-    sClaim = JSON.parse(sClaim);
-    var tof = typeof(sClaim.resp);
-    if (tof === 'object') {
-      sClaim.resp.forEach(function (item) {
-        kpiQuery = setFacultyAndInstituteLogic(item, kpiQuery);
-      });
-    } else if (tof === 'string') {
-      kpiQuery = setFacultyAndInstituteLogic(sClaim.resp, kpiQuery);
-    }
-  }
-
-  function setFacultyAndInstituteLogic(item, kpiQuery) {
-    var itemJSON = JSON.parse(item);
-    if (itemJSON.Subsystem === CampusKpiSubsystemId) {
-      var subdivisionId = itemJSON.Subdivision.Id;
-      var subdivisionName = itemJSON.Subdivision.Name;
-
-      if (subdivisionId === NTUUKpiSubdivisionId && !kpiQuery) {
-        kpiQuery = true;
-        var pathFaculty = 'Subdivision';
-        api.execute('GET', pathFaculty).then(function (response) {
-          response.forEach(function (item) {
-            if (
-              item.type.id === InstituteTypeId ||
-              item.type.id === FacultyTypeId
-            ) {
-              var subdivisionName = item.name;
-              var subdivisionId = item.id;
-
-              $scope.subdivisions.push({
-                subdivisionId: subdivisionId,
-                subdivisionName: subdivisionName
-              });
-            }
-          });
-
-          // var config = {
-          //   '.chosen-select': {},
-          //   '.chosen-select-deselect': { allow_single_deselect: true },
-          //   '.chosen-select-no-single': { disable_search_threshold: 10 },
-          //   '.chosen-select-no-results':
-          //     { no_results_text: 'Співпадінь не знайдено...' },
-          //   '.chosen-select-width': { width: '95%' }
-          // };
-          // for (var selector in config) {
-          //   $(selector).chosen(config[selector]);
-          // }
-        });
-      }
-      if (document.getElementById(subdivisionId + '') === null &&
-        (
-        ~subdivisionName.indexOf('факультет') || ~subdivisionName.indexOf('Факультет') || ~subdivisionName.indexOf('інститут') || ~subdivisionName.indexOf('Інститут'))
-      ) {
-        $scope.subdivisions.push({
-          subdivisionId: subdivisionId,
-          subdivisionName: subdivisionName
-        });
-      }
-
-    }
-    return kpiQuery;
-  }
-
-  $scope.checkZkm = function (id, name) {
-    $scope.statusLine = '';
-    $scope.zkm = null;
-    $scope.errorLabelText = '';
-
-    $scope.selecteCathedraId = id;
-
-    $('#zkmWrapper').empty();
-    $('#table-for-download').empty();
-
-
+  $scope.check = function(cathedra) {
     var isFinish = [];
-    var cathedraId = id;
-    var cathedraName = name;
-
+    var cathedraId = cathedra.cathedraId;
+    var cathedraName = cathedra.cathedraName;
     var cathedraNameRV = cathedraName;
     var cathedraNameDV = cathedraName;
 
+    $scope.statusLine = '';
+    $scope.zkm = null;
+    $scope.errorLabelText = '';
+    $scope.selecteCathedraId = cathedraId;
+
+    $('#zkmWrapper').empty();
+    $('#table-for-download').empty();
 
     cathedraNameDV = !cathedraNameDV ? '' : cathedraNameDV;
 
@@ -234,11 +231,11 @@ function StatisticZkmCtrl($scope, api) {
       '/Modules/WithoutMethodicalManul/List',
       '/Modules/WithPartialMethodicalManul/List',
       '/Modules/WithoutFiles/List'
-    ].map(function (s) {
+    ].map(function(s) {
       return 'Statistic/Cathedras/' + cathedraId + s;
     });
 
-    api.execute('GET', path[0]).then(function (response) {
+    api.execute('GET', path[0]).then(function(response) {
 
       var baseSubName = '';
       var baseCounter = 0;
@@ -248,7 +245,9 @@ function StatisticZkmCtrl($scope, api) {
       //console.log(response);
       $('#zkm1').append(
         '<div class="row">' +
-        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+        '<div class="zkmContent hidden col-md-10 ' +
+        'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+        'col-xs-10 col-xs-offset-1">' +
         '<div class="panel panel-default" id="zkm11">' +
         '<div class="panel-heading panelHeadingHover active">' +
         '<p>Кількість КМ, що читає ' + cathedraName +
@@ -262,19 +261,19 @@ function StatisticZkmCtrl($scope, api) {
         cathedraName + ' - ' + response + '</th></tr>'
       );
       //--
-      api.execute('GET', path[1]).then(function (response) {
+      api.execute('GET', path[1]).then(function(response) {
         //console.log(response);
         responseArray[0] = response;
-        api.execute('GET', path[5]).then(function (response) {
+        api.execute('GET', path[5]).then(function(response) {
           //console.log(response);
           responseArray[1] = response;
-          api.execute('GET', path[6]).then(function (response) {
+          api.execute('GET', path[6]).then(function(response) {
             //console.log(response);
             responseArray[2] = response;
-            api.execute('GET', path[7]).then(function (response) {
+            api.execute('GET', path[7]).then(function(response) {
               //console.log(response);
               responseArray[3] = response;
-              api.execute('GET', path[8]).then(function (response) {
+              api.execute('GET', path[8]).then(function(response) {
                 //console.log(response);
                 responseArray[4] = response;
                 //console.log(responseArray);
@@ -318,7 +317,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray[2].length + '</th></tr>'
                 );
                 //--
-                responseArray[2].forEach(function (item) {
+                responseArray[2].forEach(function(item) {
                   //console.log(item);
                   $('#15 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
@@ -336,7 +335,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray[3].length + '</th></tr>'
                 );
                 //--
-                responseArray[3].forEach(function (item) {
+                responseArray[3].forEach(function(item) {
                   $('#16 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
                   );
@@ -354,7 +353,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray[4].length + '</th></tr>'
                 );
                 //--
-                responseArray[4].forEach(function (item) {
+                responseArray[4].forEach(function(item) {
                   $('#17 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
                   );
@@ -370,7 +369,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray[0] + '</th></tr>'
                 );
                 //--
-                responseArray[1].forEach(function (item) {
+                responseArray[1].forEach(function(item) {
                   var subName = item.name;
                   var kindOfDoc = item.className;
                   var curCount = item.count;
@@ -415,7 +414,8 @@ function StatisticZkmCtrl($scope, api) {
                   //downloadCounter ++;
                   if (subName !== subNameNext) {
                     $('#zkm14' + baseSubCounter + ' .table').before(
-                      '<div class="panel-heading panelHeadingHover extCentre">' +
+                      '<div class="panel-heading ' +
+                      'panelHeadingHover extCentre">' +
                       '<p>' + baseSubName + '<span class="badge myBadge" >' +
                       baseCounter + '</span> </p></div>'
                     );
@@ -429,13 +429,16 @@ function StatisticZkmCtrl($scope, api) {
 
                 //console.log('baseSubCounter ' +baseSubCounter);
                 //console.log('downloadCounter ' +downloadCounter);
-                api.execute('GET', path[3]).then(function (response) {
+                api.execute('GET', path[3]).then(function(response) {
                   var resultCounter = 0;
                   $('#zkm1').append(
                     '<div class="row">' +
-                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                    '<div class="zkmContent hidden col-md-10 ' +
+                    'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+                    'col-xs-10 col-xs-offset-1">' +
                     '<div class="panel panel-default" id="zkm12">' +
-                    '<table class="table table-bordered "><tbody></tbody></table>' +
+                    '<table class="table table-bordered ">' +
+                    '<tbody></tbody></table>' +
                     '</div></div></div>'
                   );
                   //for download
@@ -447,19 +450,23 @@ function StatisticZkmCtrl($scope, api) {
                     var subName = key;
                     var curCount = response[key];
                     $('#zkm12 table tbody').append(
-                      '<tr><td>' + subName + '</td><td>' + curCount + '</td></tr>'
+                      '<tr><td>' + subName +
+                      '</td><td>' + curCount + '</td></tr>'
                     );
                     resultCounter += curCount;
                     //for download
                     $('#section1').append(
-                      '<tr><td>' + subName + '</td><td>' + curCount + '</td></tr>'
+                      '<tr><td>' + subName +
+                      '</td><td>' + curCount + '</td></tr>'
                     );
                     //--
                   }
                   $('#zkm12 table').before(
-                    '<div class="panel-heading panelHeadingHover extCentre active">' +
+                    '<div class="panel-heading panelHeadingHover ' +
+                    'extCentre active">' +
                     '<p>Кількість завантажених ЕІР, що читає ' + cathedraName +
-                    ' - <span class="badge myBadge" >' + resultCounter + '</span> </p></div>'
+                    ' - <span class="badge myBadge" >' + resultCounter +
+                    '</span> </p></div>'
                   );
                   //for download
                   $('#section1 #sec12').append(
@@ -482,18 +489,19 @@ function StatisticZkmCtrl($scope, api) {
     var path2 = [
       '/Modules/FromForeignCathedras/Count',
       '/MethodicalManual/FromForeignCathedras/Count',
-      '/Modules/WithoutMethodicalmanualByItself/Count', // не используется отсутствует для раздела 2
+      '/Modules/WithoutMethodicalmanualByItself/Count',
+      // не используется отсутствует для раздела 2
       '/EIRSByCreditModules/FromForeignCathedras/List',
       '/EIRByCreditModules/FromForeignCathedras/Count',
       '/Modules/WithMethodicalManual/FromForeignCathedras/List',
       '/Modules/WithoutMethodicalManual/FromForeignCathedras/List',
       '/Modules/WithPartialMethodicalManual/FromForeignCathedras/List',
       '/Modules/WithoutFiles/FromForeignCathedras/List'
-    ].map(function (s) {
+    ].map(function(s) {
       return 'Statistic/Cathedras/' + cathedraId + s;
     });
 
-    api.execute('GET', path2[0]).then(function (response) {
+    api.execute('GET', path2[0]).then(function(response) {
 
       var baseSubName = '';
       var baseSubdivName = '';
@@ -506,7 +514,8 @@ function StatisticZkmCtrl($scope, api) {
       //console.log(response);
       $('#zkm2').append(
         '<div class="row">' +
-        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+        '<div class="zkmContent hidden col-md-10 col-md-offset-1 ' +
+        'col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
         '<div class="panel panel-default" id="zkm21">' +
         '<div class="panel-heading panelHeadingHover extCentre active">' +
         '<p>Кількість КМ, що читають інші кафедри для ' + cathedraNameRV +
@@ -519,12 +528,12 @@ function StatisticZkmCtrl($scope, api) {
         cathedraNameRV + ' - ' + response + '</th></tr>'
       );
       //--
-      api.execute('GET', path2[1]).then(function (response) {
+      api.execute('GET', path2[1]).then(function(response) {
         //console.log(response);
         responseArray2[0] = response;
-        api.execute('GET', path2[5]).then(function (response) {
+        api.execute('GET', path2[5]).then(function(response) {
           response.sort(
-            function (a, b) {
+            function(a, b) {
               if (a.subdivisionName > b.subdivisionName) {
                 return 1;
               }
@@ -540,13 +549,13 @@ function StatisticZkmCtrl($scope, api) {
               return 0;
             });
           responseArray2[1] = response;
-          api.execute('GET', path2[6]).then(function (response) {
+          api.execute('GET', path2[6]).then(function(response) {
             //console.log(response);
             responseArray2[2] = response;
-            api.execute('GET', path2[7]).then(function (response) {
+            api.execute('GET', path2[7]).then(function(response) {
               //console.log(response);
               responseArray2[3] = response;
-              api.execute('GET', path2[8]).then(function (response) {
+              api.execute('GET', path2[8]).then(function(response) {
                 //console.log(response);
                 responseArray2[4] = response;
                 //console.log(responseArray2);
@@ -560,11 +569,15 @@ function StatisticZkmCtrl($scope, api) {
                   '<li><a href="#25" data-toggle="tab">Відсутнє МЗ - ' +
                   '<span class="badge myBadge" >' + responseArray2[2].length +
                   '</span></a></li>' +
-                  '<li><a href="#26" data-toggle="tab">Частково забезпечені МЗ - ' +
-                  '<span class="badge myBadge" >' + responseArray2[3].length +
+                  '<li><a href="#26" data-toggle="tab">' +
+                  'Частково забезпечені МЗ - ' +
+                  '<span class="badge myBadge" >' +
+                  responseArray2[3].length +
                   '</span></a></li>' +
-                  '<li><a href="#27" data-toggle="tab">Відсутні файли або посилання на МЗ - ' +
-                  '<span class="badge myBadge" >' + responseArray2[4].length +
+                  '<li><a href="#27" data-toggle="tab">' +
+                  'Відсутні файли або посилання на МЗ - ' +
+                  '<span class="badge myBadge" >' +
+                  responseArray2[4].length +
                   '</span></a></li></ul>' +
                   '<div class="tab-content">' +
                   '<div class="tab-pane" id="24"></div>' +
@@ -585,7 +598,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray2[2].length + '</th></tr>'
                 );
                 //--
-                responseArray2[2].forEach(function (item) {
+                responseArray2[2].forEach(function(item) {
                   //console.log(item);
                   $('#25 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
@@ -602,7 +615,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray2[3].length + '</th></tr>'
                 );
                 //--
-                responseArray2[3].forEach(function (item) {
+                responseArray2[3].forEach(function(item) {
                   $('#26 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
                   );
@@ -618,7 +631,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray2[4].length + '</th></tr>'
                 );
                 //--
-                responseArray2[4].forEach(function (item) {
+                responseArray2[4].forEach(function(item) {
                   $('#27 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
                   );
@@ -634,7 +647,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray2[0] + '</th></tr>'
                 );
                 //--
-                responseArray2[1].forEach(function (item) {
+                responseArray2[1].forEach(function(item) {
                   var subName = item.name;
                   var kindOfDoc = item.classNameFull;
                   var curCount = item.count;
@@ -684,7 +697,8 @@ function StatisticZkmCtrl($scope, api) {
                     $('#24').append(
                       '<div class="panel panel-default" id="zkm24' +
                       baseSubdivCounter + '">' +
-                      '<div class="panel-heading panelHeadingHover extCentre">' +
+                      '<div class="panel-heading panelHeadingHover ' +
+                      'extCentre">' +
                       '<p class="nestingFix">' + baseSubdivName +
                       '</p></div> '
                     );
@@ -702,10 +716,13 @@ function StatisticZkmCtrl($scope, api) {
                     baseSubjCounter++;
                     $('#zkm24' + baseSubdivCounter).append(
                       '<div class="row">' +
-                      '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                      '<div class="zkmContent hidden col-md-10 ' +
+                      'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+                      'col-xs-10 col-xs-offset-1">' +
                       '<div class="panel panel-default" id="zkm24' +
                       baseSubdivCounter + '_' + baseSubCounter + '">' +
-                      '<table class="table table-bordered "><tbody></tbody></table>' +
+                      '<table class="table table-bordered ">' +
+                      '<tbody></tbody></table>' +
                       '</div></div></div>'
                     );
                     //for download
@@ -740,9 +757,11 @@ function StatisticZkmCtrl($scope, api) {
                     )
                   ) {
                     $(
-                      '#zkm24' + baseSubdivCounter + '_' + baseSubCounter + ' .table'
+                      '#zkm24' + baseSubdivCounter +
+                      '_' + baseSubCounter + ' .table'
                     ).before(
-                      '<div class="panel-heading panelHeadingHover extCentre active">' +
+                      '<div class="panel-heading panelHeadingHover ' +
+                      'extCentre active">' +
                       '<p>' + baseSubName +
                       '<span class="badge myBadge" >' + baseCounter +
                       '</span></p></div>'
@@ -757,13 +776,15 @@ function StatisticZkmCtrl($scope, api) {
                     //--
                   }
                 });
-                api.execute('GET', path2[3]).then(function (response) {
+                api.execute('GET', path2[3]).then(function(response) {
                   var resultCounter = 0;
                   $('#zkm2').append(
                     '<div class="row">' +
-                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 ' +
+                    'col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
                     '<div class="panel panel-default" id="zkm22">' +
-                    '<table class="table table-bordered "><tbody></tbody></table>' +
+                    '<table class="table table-bordered ">' +
+                    '<tbody></tbody></table>' +
                     '</div></div></div>'
                   );
                   //for download
@@ -787,7 +808,8 @@ function StatisticZkmCtrl($scope, api) {
                     resultCounter += curCount;
                   }
                   $('#zkm22 table').before(
-                    '<div class="panel-heading panelHeadingHover extCentre active">' +
+                    '<div class="panel-heading panelHeadingHover ' +
+                    'extCentre active">' +
                     '<p>Кількість завантажених ЕІР, що читає ' + cathedraName +
                     ' - <span class="badge myBadge" >' + resultCounter +
                     '</span> </p></div>'
@@ -822,11 +844,11 @@ function StatisticZkmCtrl($scope, api) {
       '/Modules/WithoutMethodicalManual/ForForeignCathedras/List',
       '/Modules/WithPartialMethodicalManual/ForForeignCathedras/List',
       '/Modules/WithoutFiles/ForForeignCathedras/List'
-    ].map(function (s) {
+    ].map(function(s) {
       return 'Statistic/Cathedras/' + cathedraId + s;
     });
 
-    api.execute('GET', path3[0]).then(function (response) {
+    api.execute('GET', path3[0]).then(function(response) {
       var baseSubName = '';
       var baseSubdivName = '';
       var baseCounter = 0;
@@ -837,7 +859,8 @@ function StatisticZkmCtrl($scope, api) {
 
       $('#zkm3').append(
         '<div class="row">' +
-        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+        '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 ' +
+        'col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
         '<div class="panel panel-default" id="zkm31">' +
         '<div class="panel-heading panelHeadingHover extCentre active">' +
         '<p>Кількість КМ, що читає ' + cathedraName +
@@ -851,13 +874,13 @@ function StatisticZkmCtrl($scope, api) {
         cathedraName + ' для інших кафедр - ' + response + '</th></tr>'
       );
 
-      api.execute('GET', path3[1]).then(function (response) {
+      api.execute('GET', path3[1]).then(function(response) {
 
         responseArray3[0] = response;
-        api.execute('GET', path3[5]).then(function (response) {
+        api.execute('GET', path3[5]).then(function(response) {
 
           response.sort(
-            function (a, b) {
+            function(a, b) {
               if (a.subdivisionName > b.subdivisionName) {
                 return 1;
               }
@@ -874,13 +897,13 @@ function StatisticZkmCtrl($scope, api) {
             });
 
           responseArray3[1] = response;
-          api.execute('GET', path3[6]).then(function (response) {
+          api.execute('GET', path3[6]).then(function(response) {
 
             responseArray3[2] = response;
-            api.execute('GET', path3[7]).then(function (response) {
+            api.execute('GET', path3[7]).then(function(response) {
 
               responseArray3[3] = response;
-              api.execute('GET', path3[8]).then(function (response) {
+              api.execute('GET', path3[8]).then(function(response) {
 
                 responseArray3[4] = response;
 
@@ -921,7 +944,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray3[2].length + '</th></tr>'
                 );
                 //--
-                responseArray3[2].forEach(function (item) {
+                responseArray3[2].forEach(function(item) {
                   // console.log(item);
                   $('#35 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
@@ -939,7 +962,7 @@ function StatisticZkmCtrl($scope, api) {
                 );
                 //--
 
-                responseArray3[3].forEach(function (item) {
+                responseArray3[3].forEach(function(item) {
                   $('#36 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
                   );
@@ -956,7 +979,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray3[4].length + '</th></tr>'
                 );
                 //--
-                responseArray3[4].forEach(function (item) {
+                responseArray3[4].forEach(function(item) {
                   $('#37 table tbody').append(
                     '<tr><td>' + item + '</td></tr>'
                   );
@@ -972,7 +995,7 @@ function StatisticZkmCtrl($scope, api) {
                   responseArray3[0] + '</th></tr>'
                 );
                 //--
-                responseArray3[1].forEach(function (item) {
+                responseArray3[1].forEach(function(item) {
                   var subName = item.name;
                   var kindOfDoc = item.classNameFull;
                   var curCount = item.count;
@@ -1022,7 +1045,8 @@ function StatisticZkmCtrl($scope, api) {
                     $('#34').append(
                       '<div class="panel panel-default" id="zkm34' +
                       baseSubdivCounter + '">' +
-                      '<div class="panel-heading panelHeadingHover extCentre">' +
+                      '<div class="panel-heading ' +
+                      'panelHeadingHover extCentre">' +
                       '<p class="nestingFix">' + baseSubdivName + '</p>' +
                       '</div> '
                     );
@@ -1042,7 +1066,9 @@ function StatisticZkmCtrl($scope, api) {
                     baseSubjCounter++;
                     $('#zkm34' + baseSubdivCounter).append(
                       '<div class="row">' +
-                      '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                      '<div class="zkmContent hidden col-md-10 ' +
+                      'col-md-offset-1 col-sm-10 col-sm-offset-1 ' +
+                      'col-xs-10 col-xs-offset-1">' +
                       '<div class="panel panel-default" id="zkm34' +
                       baseSubdivCounter + '_' + baseSubCounter + '">' +
                       '<table class="table table-bordered ">' +
@@ -1084,7 +1110,8 @@ function StatisticZkmCtrl($scope, api) {
                       '#zkm34' + baseSubdivCounter + '_' +
                       baseSubCounter + ' .table'
                     ).before(
-                      '<div class="panel-heading panelHeadingHover extCentre active">' +
+                      '<div class="panel-heading panelHeadingHover ' +
+                      'extCentre active">' +
                       '<p>' + baseSubName + '<span class="badge myBadge" >' +
                       baseCounter + '</span></p></div>'
                     );
@@ -1096,11 +1123,12 @@ function StatisticZkmCtrl($scope, api) {
                     //--
                   }
                 });
-                api.execute('GET', path3[3]).then(function (response) {
+                api.execute('GET', path3[3]).then(function(response) {
                   var resultCounter = 0;
                   $('#zkm3').append(
                     '<div class="row">' +
-                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
+                    '<div class="zkmContent hidden col-md-10 col-md-offset-1 ' +
+                    'col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">' +
                     '<div class="panel panel-default" id="zkm32">' +
                     '<table class="table table-bordered ">' +
                     '<tbody></tbody></table>' +
@@ -1127,7 +1155,8 @@ function StatisticZkmCtrl($scope, api) {
                     resultCounter += curCount;
                   }
                   $('#zkm32 table').before(
-                    '<div class="panel-heading panelHeadingHover extCentre active">' +
+                    '<div class="panel-heading panelHeadingHover ' +
+                    'extCentre active">' +
                     '<p>Кількість завантажених ЕІР, що читає ' +
                     cathedraName +
                     ' - <span class="badge myBadge" >' +
@@ -1153,8 +1182,8 @@ function StatisticZkmCtrl($scope, api) {
 
   };
 
-  $scope.$watch('chosenSubdivision', function () {
-    loadCathedras();
-  });
+  // $scope.$watch('chosenSubdivision', function() {
+  //   loadCathedras();
+  // });
 
 }

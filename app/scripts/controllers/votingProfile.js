@@ -31,24 +31,22 @@ function VotingProfileCtrl($scope, $location, $routeParams, api) {
       $location.path('/');
     }
 
-    api.execute('GET', 'Account/Employee/' + $scope.selectedEmployeId).then(function (data) {
+    var urlEmploye = 'Account/Employee/' + $scope.selectedEmployeId;
+    api.execute('GET', urlEmploye).then(function(data) {
       $scope.selectedEmploye = data;
     });
 
-    api.execute('GET', 'Vote/Criterions').then(function (data) {
+    api.execute('GET', 'Vote/Criterions').then(function(data) {
       $scope.criterions = data;
     });
 
   }
 
-  $scope.formIsValid = function () {
+  $scope.formIsValid = function() {
     var result = true;
+    if (!$scope.criterions) return false;
 
-    if (!$scope.criterions) {
-      return false;
-    }
-
-    $scope.criterions.forEach(function (c) {
+    $scope.criterions.forEach(function(c) {
       if (!c.mark || c.mark === 0) {
         result = false;
       }
@@ -57,11 +55,9 @@ function VotingProfileCtrl($scope, $location, $routeParams, api) {
     return result;
   };
 
-  $scope.vote = function () {
-
+  $scope.vote = function() {
     var votes = [];
-
-    $scope.criterions.forEach(function (c) {
+    $scope.criterions.forEach(function(c) {
 
       var vote = {
         VoteTermId: 1,
@@ -78,10 +74,10 @@ function VotingProfileCtrl($scope, $location, $routeParams, api) {
       votes.push(vote);
     });
 
-    api.execute('POST', 'Vote', votes).then(function () {
+    api.execute('POST', 'Vote', votes).then(function() {
       alert('Дякуємо!');
       $location.path('/voting');
-    }).catch(function (reason) {
+    }).catch(function(reason) {
       alert(reason.responseText);
     });
 

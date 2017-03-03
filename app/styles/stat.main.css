@@ -683,3 +683,10 @@ input:checked + .side-label::after {
   border: 1px solid green;
   background: #bcf4bc;
 }
+.panel-default > .panel-heading.my-panel-heading{
+  font-size: 16px;
+  padding: 5px 10px;
+}
+.nav.nav-tabs-lg{
+  font-size: 18px;
+}

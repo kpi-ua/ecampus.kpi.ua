@@ -43,11 +43,8 @@ function RnpCtrl($scope, api) {
     xmlCodeId: null
   };
 
-  // $scope.display = {
-  //   StudyGroups: [],
-  //   RnpRows: []
-  // };
   $scope.RnpRows = null;
+
   $scope.errorLabelText = '';
 
   $scope.$on('rnpIdSelect', function SetGroups(event, param) {
@@ -57,37 +54,46 @@ function RnpCtrl($scope, api) {
       param.chosenDepartmentId + '/' + param.chosenDepartmentMark +
       '/' + param.rnpId
     );
-    api.execute('GET', path).then(function (response) {
-      if (!response || response === '') {
-        $scope.errorLabelText = 'На жаль, дані відсутні';
-        $scope.StudyGroups = null;
-      } else {
-        $scope.StudyGroups = response;
-        setRnpRows(
-          param.userAccountId,
-          param.chosenDepartmentId,
-          param.chosenDepartmentMark,
-          param.rnpId
-        );
-      }
-    });
+    api.execute('GET', path)
+      .then(function(response) {
+        if (!response || response === '' || response.length === 0) {
+          $scope.errorLabelText = 'На жаль, дані відсутні';
+          $scope.StudyGroups = null;
+        } else {
+          $scope.StudyGroups = response;
+          setRnpRows(
+            param.userAccountId,
+            param.chosenDepartmentId,
+            param.chosenDepartmentMark,
+            param.rnpId
+          );
+        }
+      })
+      .catch(errorHandlerMy);
   });
 
-  function setRnpRows(useId,
-                      chosenSubdivisionId,
-                      chosenSubdivisionMar,
-                      rnpId) {
+  function setRnpRows(
+    useId,
+    chosenSubdivisionId,
+    chosenSubdivisionMar,
+    rnpId
+  ) {
     var path = (
       'Rnp/' + useId + '/RNPRows/' + chosenSubdivisionId + '/' +
       chosenSubdivisionMar + '/' + rnpId
     );
-    api.execute('GET', path).then(function (response) {
-      if (!response || response === '') {
-        $scope.errorLabelText = 'На жаль, дані відсутні';
-        $scope.RnpRows = null;
-      } else {
-        $scope.RnpRows = response;
-      }
-    });
+    api.execute('GET', path)
+      .then(function(response) {
+        if (!response || response === '' || response.length === 0) {
+          $scope.errorLabelText = 'На жаль, дані відсутні';
+          $scope.RnpRows = null;
+        } else {
+          $scope.RnpRows = response;
+        }
+      })
+      .catch(errorHandlerMy);
+  }
+  function errorHandlerMy(response, status, headers) {
+    $scope.errorLabelText = api.errorHandler(response);
   }
 }
