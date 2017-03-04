@@ -108,6 +108,17 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     );
   };
 
+  $scope.countSelectedDiscipline = function(response) {
+    var i, res, result = 0;
+    for (i = 0; i < response.blocks.length; i++) {
+        res = response.blocks[i].selectedDiscipline;
+        if (res.id !== null) {
+          result++;
+        }
+      }
+    return result;
+  };
+
   $scope.filterChoiceFromAllDisciplines = function(response, semester, value) {
     return response.map(function(responseElement) {
       if (responseElement.semester === semester) {

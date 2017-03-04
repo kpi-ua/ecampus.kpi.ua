@@ -887,6 +887,11 @@ li.row.list-group-item.blocks-list-item {
   color: red;
 }
 
+.send-result {
+  padding-left: 30px;
+}
+
+
 /* end disciplines choice*/
 
 /* attestation styles */

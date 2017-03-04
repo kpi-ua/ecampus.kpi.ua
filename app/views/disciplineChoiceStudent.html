@@ -200,7 +200,7 @@
                                     ng-show="!(second.status === 'not available' || second.status === 'done')"
                                     ng-disabled="secondBlocks.selectedDiscipline.length > secondBlocks.disciplineCount
                                     || secondBlocks.selectedDiscipline.id === null
-                                    || secondBlocks.selectedDiscipline.length === 0">Зберегти
+                                    || secondBlocks.selectedDiscipline.length === 0">Обрати
                             </button>
                           </form>
                           <div class="messages"
@@ -346,7 +346,7 @@
                                     ng-show="!(third.status === 'not available' || third.status === 'done')"
                                     ng-disabled="thirdBlocks.selectedDiscipline.length > thirdBlocks.disciplineCount
                                     || thirdBlocks.selectedDiscipline.id === null
-                                    || thirdBlocks.selectedDiscipline.length === 0">Зберегти
+                                    || thirdBlocks.selectedDiscipline.length === 0">Обрати
                             </button>
                           </form>
                           <div class="messages"
@@ -388,6 +388,12 @@
                       </div>
                     </li>
                   </ul>
+                </div>
+                <div class="panel-footer send-result" ng-hide="third.status !== 'available' ">
+                  <button type="submit" class="btn btn-primary btn-send-choice-result"
+                  ng-disabled="third.blocks.length > countSelectedDiscipline(third)">
+                    Зберегти результати
+                  </button>
                 </div>
               </div>
             </div>
@@ -492,7 +498,7 @@
                                       ng-show="!(fourth.status === 'not available' || fourth.status === 'done')"
                                       ng-disabled="fourthBlocks.selectedDiscipline.length > fourthBlocks.disciplineCount
                                     || fourthBlocks.selectedDiscipline.id === null
-                                    || fourthBlocks.selectedDiscipline.length === 0">Зберегти
+                                    || fourthBlocks.selectedDiscipline.length === 0">Обрати
                               </button>
                             </form>
                             <div class="messages"
