@@ -21,8 +21,7 @@
     "angular-xeditable": "^0.5.0"
   },
   "resolutions": {
-    "angular": "1.5.8",
-    "font-awesome": "^4.6.3"
+    "angular": "1.6.2"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
