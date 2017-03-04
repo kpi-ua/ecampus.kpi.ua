@@ -1,5 +1,5 @@
 <breadcrumbs>
-  <span>Адміністрування</span> > <span>Дисципліни вибору</span> > <b>Пропозиції дисциплін</b>  
+  <span>Дисципліни вибору</span> > <span>Пропозиції дисциплін</span>
 </breadcrumbs>
 
 <div class="container-fluid content">
@@ -27,7 +27,7 @@
               <div class="alert alert-warning">
                 {{messageCurrent}}
               </div>
-            </div>                  
+            </div>
 
           </div>
 
@@ -104,7 +104,7 @@
             </tr>
 
             <tr ng-repeat="obj in alldisciplines | orderObjectBy:sortName:sortReverse | unique:selectedDiscipline">
-              
+
               <td>
                       <span editable-select="obj.okr" e-name="okr" e-form="rowformProposition"
                             onbeforesave="checkProposForm($data)" e-required
@@ -133,7 +133,7 @@
                         aria-label="Description and additional information" data-toggle="modal"
                         data-target="#ModalAdditionalInfo" ng-click="getCurrentYearData(obj)">
                   <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                  
+
                 </button>
 
               </td>
@@ -142,17 +142,17 @@
                         class="btn patterns__table-button patterns__table-button_CRUD-button"
                         aria-label="Maximum amount of approved students according to years" data-toggle="modal"
                         data-target="#ModalTableApproved" ng-click="getCurrentYearData(obj)">
-                  
+
                   <i class="fa fa-calendar" aria-hidden="true"></i>
                 </button>
               </td>
 
 
-              <td>                
+              <td>
                 <img class="objImages" ng-src="{{obj.pictures}}" ng-if="obj.pictures" ng-show="!rowformProposition.$visible">
 
                 <div class="form-group marginBottom imgPreview" ng-show="rowformProposition.$visible" ng-if="obj.okr">
-                                  
+
                     <label for="imgInp{{$index}}" class="btn patterns__table-button patterns__table-button_CRUD-button displayInlineBlock">
                       <i class="fa fa-upload marginTop9px" aria-hidden="true"></i>
                     </label>
@@ -162,20 +162,20 @@
                       ng-click="obj.pictures = ' '; removeImg();">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 
-                    </button>                
-                    
+                    </button>
+
                     <input type='file' class="displayNone" id="imgInp{{$index}}" accept="image/*" />
                     <div><img id="imgPreview{{$index}}" class="thumb" src="{{obj.pictures}}" alt="Зображення" />  </div>
-                    <div id="msgImg{{$index}}">                      
+                    <div id="msgImg{{$index}}">
                     </div>
-                    
-                                    
+
+
                 </div>
               </td>
-              <td>                                             
+              <td>
                 <span e-form="rowformProposition" e-name="courses" editable-checklist="obj.courses" e-ng-options="currCourse as currCourse for currCourse in allCourses">
                   {{ showStatus(obj) }}
-                </span>                
+                </span>
               </td>
               <!--<td>
                       <span editable-number="obj.countCredit" e-name="countCredit" e-form="rowformProposition"
@@ -203,13 +203,13 @@
                           class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
                           ng-click="rowformProposition.$show(); makeEvent($index);">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    
+
                   </button>
                   <button type="button"
                           class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
                           ng-click="removeProposition(obj)">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    
+
                   </button>
                 </div>
 
@@ -224,32 +224,32 @@
 
           </div>
           <div ng-show="sectionMenu=='studyYearMenu'">
-            <div class="row"> 
-              <br>              
+            <div class="row">
+              <br>
               <label for="subdivisionSelect" class="fontNormal col-lg-3 col-md-5 col-sm-5 col-xs-12">Навчальний рік:</label>
               <div class="col-lg-4 col-md-5 col-sm-7 col-xs-12">
-                <select id="StudyYearAttest" class="select-form__select" ng-model="selectedYear" ng-change="initializeStudyYear()" ng-options="year.name for year in tempListData.years">       
+                <select id="StudyYearAttest" class="select-form__select" ng-model="selectedYear" ng-change="initializeStudyYear()" ng-options="year.name for year in tempListData.years">
 
                 </select>
               </div>
             </div>
             <div ng-show="ifCathedraAndYearChosen()">
-              
+
               <div class="table-responsive">
               <caption>Детальна інформація для обраного року</caption>
                 <table class="table table-bordered table-hover table-condensed d-s-table" id="tableCurrentYearApproved">
                   <tr class="patterns__table-header color-head">
                     <th class="tdFullAlignCenter col-md-7">
-                      Назва дисципліни                      
+                      Назва дисципліни
                     </th>
                     <th class="tdFullAlignCenter">
-                      Максимальна кількість студентів                      
+                      Максимальна кількість студентів
                     </th>
                     <th class="tdFullAlignCenter">
-                      Затвердження                      
+                      Затвердження
                     </th>
                     <th class="tdFullAlignCenter col-md-3" colspan="2">
-                      Викладачі                      
+                      Викладачі
                     </th>
                     <th class="tdFullAlignCenter minWidthTwoButtons">
                       Дія
@@ -268,7 +268,7 @@
                           <div ng-bind-html="currentFullName.name | highlight: $select.search"></div>
                           <small>
                             <b>ОКР:</b> <span ng-bind-html="''+currentFullName.okr | highlight: $select.search"></span>
-                            <b>Освітній рівень:</b> <span ng-bind-html="''+currentFullName.cathedra | highlight: $select.search"></span>                            
+                            <b>Освітній рівень:</b> <span ng-bind-html="''+currentFullName.cathedra | highlight: $select.search"></span>
                           </small>
                         </ui-select-choices>
                         <ui-select-no-choice>
@@ -277,19 +277,19 @@
                       </ui-select>
 
                       <span ng-show="!rowformProposition2.$visible">{{ obj.nameFull || 'не вказано'}}</span>
-                    
+
                       <!--<span editable-select="obj.nameFull" e-name="nameFull" e-form="rowformProposition2" onbeforesave="" e-required e-ng-options="bigName.nameFull as bigName.nameFull for bigName in forSelectFullname">
                         {{ obj.nameFull || 'не вказано'}}
                       </span>-->
                     </td>
-                    <td>                    
+                    <td>
                       <span editable-number="obj.maxCountStudent" e-name="maxCountStudent" e-form="rowformProposition2" onbeforesave="checkYearForm($data)" e-required e-min="0">
                         {{ifZeroInTable(obj, 'maxCountStudent') }}
                       </span>
                       <!--{{ifZeroInTable(obj, 'maxCountStudent') }}-->
-                      
+
                     </td>
-                  <td>                    
+                  <td>
                     <span editable-select="obj.isApproved" e-name="isApproved" e-form="rowformProposition2" onbeforesave="checkYearForm($data)" e-required e-ng-options="isApproved.name as isApproved.name for isApproved in testIsApproved">
                             {{obj.isApproved || 'не вказано'}}
                     </span>
@@ -297,34 +297,34 @@
 
 
 
-                    
+
                   </td>
                   <td class="tdFullAlignCenter">
                     <p class="listOfTeachers">{{ showTeachersList(obj) }}</p>
                   </td>
               <td class="tdFullAlignCenter">
-               
+
                 <button type="button"
                         class="btn patterns__table-button patterns__table-button_CRUD-button"
                         aria-label="Description and additional information" data-toggle="modal"
                         data-target="#ModalAddLecturer" ng-click="getCurrentDataWithLecturers(obj);"
                         ng-show="!rowformProposition2.$visible">
                   <i class="fa fa-male" aria-hidden="true"></i>
-                  
+
                 </button>
-               
+
                 <!-- {{ showTeachersList(obj) }} -->
               </td>
-              
+
                     <!--<span editable-select="obj.blockName" e-name="blockName" e-form="rowformProposition"
                           onbeforesave="checkProposForm($data)" e-required
                           e-ng-options="block.name as block.name for block in tempListData.dcBlock8">
                     {{obj.blockName || 'не вказано'}}
                     </span>-->
 
-                    
+
                     <!--<span e-form="rowformProposition" e-name="courses" editable-checklist="obj.courses" e-ng-options="currCourse as currCourse for currCourse in allCourses"></span>-->
-                      
+
 
                     <td class="tdFullAlignCenter">
                 <form editable-form name="rowformProposition2" onbeforesave="saveYear($data,obj)"
@@ -346,13 +346,13 @@
                           class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
                           ng-click="rowformProposition2.$show();">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    
+
                   </button>
                   <button type="button"
                           class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
                           ng-click="removePropositionOnStudyYear(obj)">
                     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                    
+
                   </button>
                 </div>
 
@@ -371,10 +371,10 @@
         </section>
       </div>
 
-      
 
 
-      
+
+
 
       <!--All of this will be modified soon into single modal with appropriate content-->
       <div id="ModalAdditionalInfo" class="modal fade" role="dialog">
@@ -406,7 +406,7 @@
                     <!-- editable username (text with validation) -->
                     <span class="title col-xs-3">Анотація: </span>
                     <span editable-textarea="CurrentYearData.annotation" e-name="annotation" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ CurrentYearData.annotation || 'не вказано' }}</pre></span>
-                  </div> 
+                  </div>
                   <!--<div class="form-group marginBottom" ng-show="formDescription.$visible">
                     <label for="files" class="control-label col-xs-3 alignLeft select-form__label">
                     Зображення:
@@ -435,7 +435,7 @@
                           ng-click="formDescription.$show()">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 
-                  </button>                  
+                  </button>
                 </div>
 
 
@@ -618,8 +618,8 @@
               <h4 class="modal-title">Додати викладача</h4>
             </div>
 
-            <div class="modal-body">                                              
-              <div class="table-responsive">                              
+            <div class="modal-body">
+              <div class="table-responsive">
                 <table class="table table-bordered table-hover table-condensed d-s-table">
                   <tr class="patterns__table-header color-head">
                     <th class="tdFullAlignCenter">Прізвище Ім'я По-батькові викладачів</th>
@@ -631,9 +631,9 @@
                     </td>
                   </tr>
                   <tr ng-repeat="lecturer in dataWithLecturers.employee">
-    
+
                     <td>
-                      
+
                       <span ng-show="!lecturerForm.$visible">{{lecturer.name}}</span>
                       <span ng-show="lecturerForm.$visible">
                         <ui-select ng-keyup="loadLecturers($select.search);" ng-init="saveLectureFromUiSelect(lecturer);" ng-change="saveLectureFromUiSelect(lecturer);" class="select-form__select zindexHigh" ng-model="lecturer" append-to-body="true">
@@ -674,7 +674,7 @@
 
                 </table>
 
-                
+
 
 
               </div>
