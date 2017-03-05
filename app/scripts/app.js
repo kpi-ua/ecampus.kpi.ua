@@ -23,10 +23,8 @@ var app = angular.module('ecampusApp', [
 ]);
 
 app.config(configRoutes);
-app.run(['$rootScope', 'api', appRun]);
 
-appRun.$inject  = ['$rootScope', 'api'];
-configRoutes.$inject  = ['$routeProvider', '$locationProvider'];
+configRoutes.$inject = ['$routeProvider', '$locationProvider'];
 
 function configRoutes($routeProvider, $locationProvider) {
 
@@ -155,18 +153,4 @@ function configRoutes($routeProvider, $locationProvider) {
     });
 
   $locationProvider.html5Mode(true);
-}
-
-function appRun($rootScope, api) {
-
-  var deregister = $rootScope.$on('$routeChangeSuccess', function() {
-    angular.element(document).ready(function() {
-      var isLogged = api.getToken();
-      if (isLogged) {
-        api.changeIsSessionExpiredValue(api.removeToken());
-      }
-    });
-  });
-
-  $rootScope.$on('$destroy', deregister);
 }

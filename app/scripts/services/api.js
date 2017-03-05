@@ -17,11 +17,11 @@ angular.module('ecampusApp')
       $rootScope.requestCount += i;
     };
 
-    $rootScope.isSessionExpired = null;
+    $rootScope.isSessionExpired = false;
 
     this.changeIsSessionExpiredValue = function(value) {
       $rootScope.isSessionExpired = value;
-      $rootScope.$apply();
+      //$rootScope.$apply();
     };
 
     this.changeIsSessionExpiredValue(false);
