@@ -119,14 +119,19 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     return result;
   };
 
-  $scope.filterChoiceFromAllDisciplines = function(response, semester, value) {
+  $scope.filterChoiceFromAllDisciplines = function(response, semester, arrayValues) {
     return response.map(function(responseElement) {
       if (responseElement.semester === semester) {
         return Object.assign({}, responseElement, {
           blocks: responseElement.blocks.map(function(blocksElement) {
             return Object.assign({}, blocksElement, {
               blockDisc: blocksElement.blockDisc.filter(function(blockDiscElement) {
-                return blockDiscElement.cDisciplineBlockYear8Id === value;
+                for (var i = 0; i < arrayValues.length; i++) {
+                  var value = arrayValues[i];
+                  if (blockDiscElement.cDisciplineBlockYear8Id === value.id) {
+                    return blockDiscElement;
+                  }
+                }
               })
             });
           })
