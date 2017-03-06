@@ -1,65 +1,69 @@
 <breadcrumbs>
-  <span>Статистика</span> > <b>Забезпечення кредитного модуля</b>
+    <span>Статистика</span> > <b>Забезпечення кредитного модуля</b>
 </breadcrumbs>
 
 <div class="container-fluid content">
-  <div class="row">
-    <div class="col-md-12">
-      <h1>Забезпечення кредитного модуля</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Забезпечення кредитного модуля</h1>
+        </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12">
-      <statistic-input></statistic-input>
+    <div class="row">
+        <div class="col-md-12">
+            <statistic-input></statistic-input>
+        </div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
+               download="Забеспечення кредитного модуля.xls" href="#"
+               onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
+                <i class="fa fa-file-excel-o "></i> Завантажини звіт (Всі розділи)
+            </a>
 
-  <div class="row">
-    <div class="col-md-6">
-      <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
-         download="Забеспечення кредитного модуля.xls" href="#"
-         onclick="return ExcellentExport.excel(this, 'table-for-download', 'NPP');">
-        <i class="fa fa-file-excel-o "></i> Завантажини звіт (Всі розділи)
-      </a>
+            <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
+               download="Забеспечення кредитного модуля РОЗДІЛ 1.xls" href="#"
+               onclick="return ExcellentExport.excel(this, 'section1', 'NPP');">
+                <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 1)
+            </a>
 
-      <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
-         download="Забеспечення кредитного модуля РОЗДІЛ 1.xls" href="#"
-         onclick="return ExcellentExport.excel(this, 'section1', 'NPP');">
-        <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 1)
-      </a>
+            <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
+               download="Забеспечення кредитного модуля РОЗДІЛ 2.xls" href="#"
+               onclick="return ExcellentExport.excel(this, 'section2', 'NPP');">
+                <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 2)
+            </a>
 
-      <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
-         download="Забеспечення кредитного модуля РОЗДІЛ 2.xls" href="#"
-         onclick="return ExcellentExport.excel(this, 'section2', 'NPP');">
-        <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 2)
-      </a>
-
-      <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
-         download="Забеспечення кредитного модуля РОЗДІЛ 3.xls" href="#"
-         onclick="return ExcellentExport.excel(this, 'section3', 'NPP');">
-        <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 3)
-      </a>
+            <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
+               download="Забеспечення кредитного модуля РОЗДІЛ 3.xls" href="#"
+               onclick="return ExcellentExport.excel(this, 'section3', 'NPP');">
+                <i class="fa fa-file-excel-o "></i> Завантажини звіт (Розділ 3)
+            </a>
+        </div>
+        <div class="col-md-6"></div>
     </div>
-    <div class="col-md-6"></div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-12 ">
-      <div id="zkmWrapper">
+    <div class="row">
+        <div class="col-md-12 ">
+            <div id="zkmWrapper">
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
     <ul class="nav nav-tabs nav-justified">
-        <li role="presentation" class="active"><a>РОЗДІЛ 1. Статистичні дані по {{cathedraNameDV}}, що сама себе забезпечує, тобто сама собі читає кредитні модулі(КМ).</a></li>
-        <li role="presentation" ><a>РОЗДІЛ 2. Статистичні дані по {{cathedraNameDV}}, для якої читають інші кафедри університету.</a></li>
-        <li role="presentation" ><a>РОЗДІЛ 3. Статистичні дані по {{cathedraNameDV}}, яка читає іншим кафедрам університету.</a></li>
+        <li role="presentation" ng-click="onSectionSelect('section1')" ng-class="{'active':chosenSection=='section1'}"><a>РОЗДІЛ 1. Статистичні дані по {{$scope.cathedraNames["NV"]}}, що сама себе забезпечує, тобто сама собі читає кредитні модулі(КМ).</a></li>
+        <li role="presentation" ng-click="onSectionSelect('section2')" ng-class="{'active':chosenSection=='section2'}"><a>РОЗДІЛ 2. Статистичні дані по {{$scope.cathedraNames["NV"]}}, для якої читають інші кафедри університету.</a></li>
+        <li role="presentation" ng-click="onSectionSelect('section3')" ng-class="{'active':chosenSection=='section3'}"><a>РОЗДІЛ 3. Статистичні дані по {{$scope.cathedraNames["NV"]}}, яка читає іншим кафедрам університету.</a></li>
     </ul>
+    <div ng-switch on="chosenSection">
+        <statistic-subject-provider-section ng-switch-when="section1" stat-data="loadedSatistic['section1']" stat-headings="cathedraHeadings['section1']"></statistic-subject-provider-section>
+        <statistic-subject-provider-section ng-switch-when="section2" stat-data="loadedSatistic['section2']" stat-headings="cathedraHeadings['section2']"></statistic-subject-provider-section>
+        <statistic-subject-provider-section ng-switch-when="section3" stat-data="loadedSatistic['section3']" stat-headings="cathedraHeadings['section3']"></statistic-subject-provider-section>
+    </div>
 
-  <div class="hidden">
-    <table class="table" id="table-for-download">
-    </table>
-  </div>
+    <div class="hidden">
+        <table class="table" id="table-for-download">
+        </table>
+    </div>
 
 </div>

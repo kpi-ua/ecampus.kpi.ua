@@ -73,7 +73,8 @@ function StatisticNppCtrl($scope, api) {
       'Statistic/Cathedras/' + cathedraId +
       '/Emplloyers/WithIndividualLoad/List'
     );
-    api.execute('GET', path).then(function(response) {
+    api.execute('GET', path)
+        .then(function(response) {
       if (!response || response === '' || response.length === 0) {
         $scope.errorLabelText = 'На жаль, записи у базі даних відсутні.';
       } else {
