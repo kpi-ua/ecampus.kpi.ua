@@ -10,8 +10,7 @@
 angular.module('ecampusApp')
   .service('api', function($http, $rootScope, $window, $q) {
     //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
-    // this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
-    this.ApiEndpoint = 'http://localhost:45554/';
+    this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
     $rootScope.requestCount = 0;
 
     this.changeRequestCount = function(i) {
