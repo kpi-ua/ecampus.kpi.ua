@@ -11,30 +11,10 @@
   </div>
 
   <div class="row">
-    <!--<div class="col-md-6">-->
-      <!--<ui-select ng-model="$parent.chosenSubdivision" append-to-body="true">-->
-        <!--<ui-select-match placeholder="Оберіть факультет або інститут...">-->
-          <!--<span ng-bind="$select.selected.subdivisionName"></span>-->
-        <!--</ui-select-match>-->
-        <!--<ui-select-choices-->
-          <!--repeat="subdivision in (subdivisions | filter: $select.search) track by subdivision.subdivisionId">-->
-          <!--<span ng-bind="subdivision.subdivisionName"></span>-->
-        <!--</ui-select-choices>-->
-      <!--</ui-select>-->
 
-      <!--<div ng-show="!!chosenSubdivision">-->
-        <!--<label class="topLabel">Оберіть кафедру</label>-->
-        <!--<ng-repeat ng-repeat="cathedra in cathedras">-->
-          <!--<input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio"-->
-                 <!--value='{{cathedra.cathedraId}}'-->
-                 <!--ng-model="chosenId" ng-click="checkZkm(cathedra.cathedraId,cathedra.cathedraName)">-->
-          <!--<label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>-->
-        <!--</ng-repeat>-->
-        <!--<div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>-->
-      <!--</div>-->
-
-    <!--</div>-->
     <statistic-input></statistic-input>
+
+
     <div class="col-md-6">
       <a class="btn btn-default btn-block" ng-disabled="!selecteCathedraId"
          download="Забеспечення кредитного модуля.xls" href="#"
@@ -66,9 +46,15 @@
   <div class="row">
     <div class="col-md-12 ">
       <div id="zkmWrapper">
+
       </div>
     </div>
   </div>
+    <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" class="active"><a>РОЗДІЛ 1. Статистичні дані по {{cathedraNameDV}}, що сама себе забезпечує, тобто сама собі читає кредитні модулі(КМ).</a></li>
+        <li role="presentation" ><a>РОЗДІЛ 2. Статистичні дані по {{cathedraNameDV}}, для якої читають інші кафедри університету.</a></li>
+        <li role="presentation" ><a>РОЗДІЛ 3. Статистичні дані по {{cathedraNameDV}}, яка читає іншим кафедрам університету.</a></li>
+    </ul>
 
   <div class="hidden">
     <table class="table" id="table-for-download">

@@ -177,6 +177,7 @@ function StatisticZkmCtrl($scope, api) {
     for (var i = 0; i < 3; i++) {
       isFinish[i] = false;
     }
+    $scope.cathedraNameDV = cathedraNameDV;
 
     $('#zkmWrapper').append(
       '<div class="panel panel-default" id="zkm1">' +
@@ -221,9 +222,9 @@ function StatisticZkmCtrl($scope, api) {
     var path = [
       '/Modules/ByItself/Count',
       '/Modules/WithMethodicalmanualByItself/Count',
-      '/Modules/WithoutMethodicalmanualByItself/Count',
+      '--/Modules/WithoutMethodicalmanualByItself/Count',
       '/Modules/EIRSByItself/List',
-      '/Modules/EIRSByItself/Count',
+      '--/Modules/EIRSByItself/Count',
       '/Modules/WithMethodicalManual/List',
       '/Modules/WithoutMethodicalManul/List',
       '/Modules/WithPartialMethodicalManul/List',
@@ -462,6 +463,7 @@ function StatisticZkmCtrl($scope, api) {
                   );
                   //--
                   isFinish[0] = true;
+                  statusLine
                   $('.statusLine').append('<p>Розділ 1 - завантажено.</p>');
                 });
               });
@@ -476,9 +478,9 @@ function StatisticZkmCtrl($scope, api) {
     var path2 = [
       '/Modules/FromForeignCathedras/Count',
       '/MethodicalManual/FromForeignCathedras/Count',
-      '/Modules/WithoutMethodicalmanualByItself/Count', // не используется отсутствует для раздела 2
+      '--/Modules/WithoutMethodicalmanualByItself/Count', // не используется отсутствует для раздела 2
       '/EIRSByCreditModules/FromForeignCathedras/List',
-      '/EIRByCreditModules/FromForeignCathedras/Count',
+      '--/EIRByCreditModules/FromForeignCathedras/Count',
       '/Modules/WithMethodicalManual/FromForeignCathedras/List',
       '/Modules/WithoutMethodicalManual/FromForeignCathedras/List',
       '/Modules/WithPartialMethodicalManual/FromForeignCathedras/List',
@@ -808,10 +810,9 @@ function StatisticZkmCtrl($scope, api) {
     var path3 = [
       '/Modules/ForForeignCathedras/Count',
       '/WithMethodicalManual/ForForeignCathedras/Count',
-      '/WithoutMethodicalManual/ForForeignCathedras/Count',
-      //не используется отсутствует для раздела 2
+      '--/WithoutMethodicalManual/ForForeignCathedras/Count', //не используется отсутствует для раздела 3
       '/EIRByCreditModules/ForForeignCathedras/List',
-      '/EIRByCreditModules/ForForeignCathedras/Count',
+      '--/EIRByCreditModules/ForForeignCathedras/Count',
       '/Modules/WithMethodicalManual/ForForeignCathedras/List',
       '/Modules/WithoutMethodicalManual/ForForeignCathedras/List',
       '/Modules/WithPartialMethodicalManual/ForForeignCathedras/List',
