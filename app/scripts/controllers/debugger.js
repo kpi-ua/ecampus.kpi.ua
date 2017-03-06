@@ -44,7 +44,7 @@ function DebuggerCtrl($scope, $sce, api) {
   function matchAll(str, regexp) {
     var matches = [];
 
-    str.replace(regexp, function () {
+    str.replace(regexp, function() {
       var arr = ([]).slice.call(arguments, 0);
       var extras = arr.splice(-2);
       arr.index = extras[0];
@@ -59,16 +59,16 @@ function DebuggerCtrl($scope, $sce, api) {
 
     var scope = $scope;
 
-    api.execute('GET', 'System/Structure').then(function (data) {
+    api.execute('GET', 'System/Structure').then(function(data) {
 
       scope.allMethods = data;
 
-      var controllers = data.map(function (o) {
+      var controllers = data.map(function(o) {
         return (
           !!o && !!o.route ?
             o.route.substring(0, o.route.indexOf('/')) : 'unknown'
         );
-      }).filter(function (o) {
+      }).filter(function(o) {
         return !!o && o !== '';
       }).sort();
 
@@ -84,7 +84,7 @@ function DebuggerCtrl($scope, $sce, api) {
 
     var controller = $scope.selectedController;
 
-    $scope.methods = $scope.allMethods.filter(function (o) {
+    $scope.methods = $scope.allMethods.filter(function(o) {
       return o.route.indexOf(controller) === 0;
     });
 
@@ -126,7 +126,7 @@ function DebuggerCtrl($scope, $sce, api) {
 
     var html = '';
 
-    $.each(m.parameters, function (index, parameter) {
+    $.each(m.parameters, function(index, parameter) {
       html += createControl(parameter);
     });
 
@@ -136,7 +136,7 @@ function DebuggerCtrl($scope, $sce, api) {
   function getSelectedMethod() {
     var url = $scope.selectedMethod;
 
-    return $scope.methods.filter(function (o) {
+    return $scope.methods.filter(function(o) {
       return o.route.indexOf(url) === 0;
     })[0];
   }
@@ -148,7 +148,7 @@ function DebuggerCtrl($scope, $sce, api) {
     var data = {};
     var form = $('#out').serializeArray(); //Serialize form
 
-    $.each(form, function (index, e) {
+    $.each(form, function(index, e) {
       data[e.name] = e.value;
     });
 
@@ -159,7 +159,7 @@ function DebuggerCtrl($scope, $sce, api) {
     var names = matchAll(url, regexp);
 
     if (names) {
-      $.each(names, function (index, n) {
+      $.each(names, function(index, n) {
         var name = n.replace('{', '').replace('}', '');
         url = url.replace(n, data[name]);
         delete data[name];
@@ -169,14 +169,14 @@ function DebuggerCtrl($scope, $sce, api) {
     var scope = $scope;
 
     api.execute(m.method, url, data)
-      .then(function (result) {
-          $scope.message = JSON.stringify(result, null, '\t');
-          scope.progressBar = false;
-        },
-        function (result) {
-          $scope.message = JSON.stringify(result, null, '\t');
-          scope.progressBar = false;
-        });
+      .then(function(result) {
+        $scope.message = JSON.stringify(result, null, '\t');
+        scope.progressBar = false;
+      },
+      function(result) {
+        $scope.message = JSON.stringify(result, null, '\t');
+        scope.progressBar = false;
+      });
   }
 
   function loadSelectedMethodMetadata() {
@@ -188,19 +188,19 @@ function DebuggerCtrl($scope, $sce, api) {
     }
   }
 
-  $scope.loadMethodForCurrentController = function () {
+  $scope.loadMethodForCurrentController = function() {
     loadMethodForCurrentController();
   };
 
-  $scope.executeRequest = function () {
+  $scope.executeRequest = function() {
     executeRequest();
   };
 
-  $scope.loadSelectedMethodMetadata = function () {
+  $scope.loadSelectedMethodMetadata = function() {
     loadSelectedMethodMetadata();
   };
 
-  $scope.setEndpoint = function () {
+  $scope.setEndpoint = function() {
     api.setApiEndpoint($scope.apiEndpoint);
     $scope.controllers = [];
     $scope.methods = [];
@@ -208,7 +208,7 @@ function DebuggerCtrl($scope, $sce, api) {
     alert('API endpoint successfully changed.');
   };
 
-  $scope.viewErrorLog = function () {
+  $scope.viewErrorLog = function() {
     var w = window.open(api.getApiEndpoint() + 'system/logs/errors/', '_blank');
     if (w) {
       w.focus(); //Browser has allowed it to be opened
@@ -217,12 +217,12 @@ function DebuggerCtrl($scope, $sce, api) {
     }
   };
 
-  $scope.auth = function () {
+  $scope.auth = function() {
 
     var scope = $scope;
     $scope.progressBar = true;
 
-    api.auth($scope.login, $scope.password).then(function (token) {
+    api.auth($scope.login, $scope.password).then(function(token) {
       $scope.sessionToken = token;
       $scope.message = '';
       if (!token) {

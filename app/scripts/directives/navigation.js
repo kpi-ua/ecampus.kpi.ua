@@ -42,8 +42,9 @@ function navigation() {
 
         function init() {
           var user = api.getCurrentUser();
-          $scope.disableDisciplineChoiceForNotStudent = false;
-          $scope.enableDisciplineForNotStudent = false;
+
+          $scope.userIsStudent = true;
+
           $scope.user = user;
           if (user) $scope.userAuthenticated = true;
 
@@ -52,12 +53,15 @@ function navigation() {
             $scope.userImage = (
               api.getApiEndpoint() + '/Account/' + user.id + '/ProfileImage'
             );
+
             if (user.position[0].id !== 5) {
-              $scope.disableDisciplineChoiceForNotStudent = true;
-              $scope.enableDisciplineForNotStudent = true;
+
+              $scope.userIsStudent = false;
+
             }
           }
         }
+
       }
     ]
   };

@@ -73,53 +73,57 @@ function DisciplinesSpecializationCtrl($scope, api) {
         $scope.errorLabelText = 'Кафедры не найдены.';
       }
       var path = 'blocks';
-      api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
-          $scope.errorLabelText = 'На жаль, блоки  у базі даних відсутні.';
-        } else {
-          $scope.Dc.Blocks = response;
-        }
-        $scope.safeApply();
-      })
-          .catch(errorHandlerMy);
+      api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length === 0) {
+            $scope.errorLabelText = 'На жаль, блоки  у базі даних відсутні.';
+          } else {
+            $scope.Dc.Blocks = response;
+          }
+          $scope.safeApply();
+        })
+        .catch(errorHandlerMy);
       path = 'cycles';
-      api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
-          $scope.errorLabelText = (
-            'На жаль, цикли дисциплін  у базі даних відсутні.'
-          );
-        } else {
-          $scope.Dc.Cycles = response;
-        }
-        $scope.safeApply();
-      })
-          .catch(errorHandlerMy);
+      api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length === 0) {
+            $scope.errorLabelText = (
+              'На жаль, цикли дисциплін  у базі даних відсутні.'
+            );
+          } else {
+            $scope.Dc.Cycles = response;
+          }
+          $scope.safeApply();
+        })
+        .catch(errorHandlerMy);
       path = 'Attestation/studyYear';
-      api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
-          $scope.errorLabelText = 'На жаль, роки  у базі даних відсутні.';
-        } else {
-          response.sort(compareYearsActuality);
-          $scope.stydyYears = response;
-          $scope.selectData.StudyYear = (
-            $scope.stydyYears[response.length - 1].name
-          );
-        }
-        $scope.safeApply();
-      })
-          .catch(errorHandlerMy);
+      api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length === 0) {
+            $scope.errorLabelText = 'На жаль, роки  у базі даних відсутні.';
+          } else {
+            response.sort(compareYearsActuality);
+            $scope.stydyYears = response;
+            $scope.selectData.StudyYear = (
+              $scope.stydyYears[response.length - 1].name
+            );
+          }
+          $scope.safeApply();
+        })
+        .catch(errorHandlerMy);
       path = 'studyForms';
-      api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
-          $scope.errorLabelText = (
-            'На жаль, форми навчання у базі даних відсутні.'
-          );
-        } else {
-          $scope.Dc.StudyForms = response;
-        }
-        $scope.safeApply();
-      })
-          .catch(errorHandlerMy);
+      api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length === 0) {
+            $scope.errorLabelText = (
+              'На жаль, форми навчання у базі даних відсутні.'
+            );
+          } else {
+            $scope.Dc.StudyForms = response;
+          }
+          $scope.safeApply();
+        })
+        .catch(errorHandlerMy);
     }
 
   }
@@ -220,7 +224,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
     return cycleName;
   }
 
-  function BlockChoiceFromResponseToView(response) {
+  function blockChoiceFromResponseToView(response) {
     var blocks = [];
     var blocksNames = [];
     var groupedBlocksArray = [];
@@ -243,8 +247,12 @@ function DisciplinesSpecializationCtrl($scope, api) {
           blocks = [];
         }
       }
-      blocks.push(new BlockChoiceWhomModel(blockChoiceWhomId, blockId, blockName, course, semestr, studyGroupName, studyGroupCount));
-
+      blocks.push(
+        new BlockChoiceWhomModel(
+          blockChoiceWhomId, blockId, blockName, course, semestr,
+          studyGroupName, studyGroupCount
+        )
+      );
     });
     groupedBlocksArray.push(blocks);
     groupedBlocksArray.forEach(function(blocksArray) {
@@ -270,7 +278,11 @@ function DisciplinesSpecializationCtrl($scope, api) {
           blocks.push(tempBlock);
         }
       });
-      blocksAndDisciplines.push(new SemestrsBlocksModel(blocksArray[0].Course, blocksArray[0].Semestr, studyGroups, blocks));
+      blocksAndDisciplines.push(
+        new SemestrsBlocksModel(
+          blocksArray[0].Course, blocksArray[0].Semestr, studyGroups, blocks
+        )
+      );
     });
     return blocksAndDisciplines;
   }
@@ -302,7 +314,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
     });
     return groupById;
   }
-  // выполняем поиск Id учебной группы в группе,  в случае его отсутсвия возвращаем null
+  // выполняем поиск Id учебной группы в группе,
+  // в случае его отсутсвия возвращаем null
   function getStudyGroupIdFromGroupByCourse(group, course) {
     var studyGroupId = null;
     group.studyGroups.forEach(function(item) {
@@ -340,7 +353,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
     var path = 'StudyOrganization/ProfTrains/' + cathedraId;
 
     api.execute('GET', path).then(function(response) {
-      if (!response || response === '' || response.length===0) {
+      if (!response || response === '' || response.length === 0) {
         $scope.errorLabelText = 'На жаль, OKP у базі даних відсутні.';
       } else {
         console.log(response);
@@ -350,7 +363,9 @@ function DisciplinesSpecializationCtrl($scope, api) {
           var profTrainTotalId = item.profTrainTotal.id;
           var specialityCode = item.specialtyCode;
           var specialityName = item.name;
-          var speciality = new SpecialityModel(specialityCode, specialityName, profTrainTotalId);
+          var speciality = new SpecialityModel(
+            specialityCode, specialityName, profTrainTotalId
+          );
           profTrains.push(new ProfTrainModel(okrName, speciality));
         });
         $scope.profTrains = profTrains;
@@ -385,7 +400,6 @@ function DisciplinesSpecializationCtrl($scope, api) {
             $scope.Dc.Semesters = [9, 10];
             break;
           }
-
         }
         $scope.specialities.push(profTrain.Speciality);
         // console.log(profTrain.Speciality);
@@ -419,22 +433,24 @@ function DisciplinesSpecializationCtrl($scope, api) {
       // var groupedBlocksArray = [];
       // var compareSemester = 0;
       path = (
-        'SelectiveDiscipline/' + $scope.selectData.StudyYear + '/BlockChoiceWhom/' +
+        'SelectiveDiscipline/' + $scope.selectData.StudyYear +
+        '/BlockChoiceWhom/' +
         $scope.selectData.CathedraId + '/' + $scope.selectData.Direction +
         '/' + $scope.selectData.StudyForm
       );
-      api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
-          $scope.errorLabelText = 'На жаль записи у базі відсутні';
-          $scope.safeApply();
-        } else {
-          var semestrForView  = BlockChoiceFromResponseToView(response);
-          $scope.sumStudCountResponse = response;
-          $scope.semestrsForView = semestrForView;
-          $scope.safeApply();
-        }
-      })
-          .catch(errorHandlerMy);
+      api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length === 0) {
+            $scope.errorLabelText = 'На жаль записи у базі відсутні';
+            $scope.safeApply();
+          } else {
+            var semestrForView = blockChoiceFromResponseToView(response);
+            $scope.sumStudCountResponse = response;
+            $scope.semestrsForView = semestrForView;
+            $scope.safeApply();
+          }
+        })
+        .catch(errorHandlerMy);
     } else if (
       mainInfoBool && (
         $scope.section === 'patterns' ||
@@ -451,7 +467,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         $scope.selectData.CathedraId + '/' + $scope.selectData.Direction
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
+        if (!response || response === '' || response.length === 0) {
           $scope.errorLabelText = 'На жаль, записи у базі відсутні.';
           $scope.patterns = [];
           $scope.safeApply();
@@ -464,7 +480,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
           $scope.patterns = [];
           response.forEach(function(item) {
             var patternBlockChoice8Id = item.patternBlockChoice8Id;
-            var rtProfTrainTotalSubdivisionId = item.profTrainTotalSubdivisionId;
+            var rtProfTrainTotalSubdivisionId = item
+              .profTrainTotalSubdivisionId;
             var blockName = item.block.name;
             var blockId = item.block.id;
             var cycleName = item.cycle.name;
@@ -473,15 +490,21 @@ function DisciplinesSpecializationCtrl($scope, api) {
             var semester = item.semester;
             var countDiscipline = item.countDiscipline;
             var patternName = item.name;
-            patterns.push(new PatternModel(patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName, blockId, cycleName, cycleId, course, semester, countDiscipline, patternName));
+            patterns.push(
+              new PatternModel(
+                patternBlockChoice8Id, rtProfTrainTotalSubdivisionId, blockName,
+                blockId, cycleName, cycleId, course, semester, countDiscipline,
+                patternName
+              )
+            );
             patterns[patterns.length - 1].checked = false;
           });
           $scope.patterns = patterns;
-          $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0].ProfTrainTotalSubdivisionId;
+          $scope.selectData.ProfTrainTotalSubdivisionId = patterns[0]
+            .ProfTrainTotalSubdivisionId;
           $scope.safeApply();
         }
-      })
-          .catch(errorHandlerMy);
+      }).catch(errorHandlerMy);
     }
     if (
       mainInfoBool &&
@@ -494,35 +517,37 @@ function DisciplinesSpecializationCtrl($scope, api) {
         '/GroupsByYearInTake/' + $scope.selectData.CathedraId +
         '/' + $scope.selectData.Direction + '/' + $scope.selectData.StudyForm
       );
-      api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
-          $scope.errorLabelText = 'На жаль групи у базі відсутні.';
-          $scope.groups = null;
-          $scope.blocksChoise = null;
-          $scope.selectData.StudyGroup = null;
-          $scope.safeApply();
-        } else {
-          $scope.groups = response;
-          path = 'SelectiveDiscipline/BlockChoice/';
-          response.forEach(function(group, i, arr) {
-            path += group.id;
-            if (arr[i + 1] !== undefined) {
-              path += ',';
-            }
-          });
-          api.execute('GET', path).then(function(response) {
-            $scope.blocksChoise = response;
-            // console.log($scope.blocksChoise);
+      api.execute('GET', path)
+        .then(function(response) {
+          if (!response || response === '' || response.length === 0) {
+            $scope.errorLabelText = 'На жаль групи у базі відсутні.';
+            $scope.groups = null;
+            $scope.blocksChoise = null;
+            $scope.selectData.StudyGroup = null;
             $scope.safeApply();
-          }, function(response, status, headers) {
-            errorHandlerMy(response, status, headers);
-            $scope.safeApply();
-          });
-        }
-      })
-          .catch(errorHandlerMy);
+          } else {
+            $scope.groups = response;
+            path = 'SelectiveDiscipline/BlockChoice/';
+            response.forEach(function(group, i, arr) {
+              path += group.id;
+              if (arr[i + 1] !== undefined) {
+                path += ',';
+              }
+            });
+            api.execute('GET', path).then(function(response) {
+              $scope.blocksChoise = response;
+              // console.log($scope.blocksChoise);
+              $scope.safeApply();
+            }, function(response, status, headers) {
+              errorHandlerMy(response, status, headers);
+              $scope.safeApply();
+            });
+          }
+        })
+        .catch(errorHandlerMy);
     }
-    if (mainInfoBool && studyFormBool &&  studyYearBool &&  $scope.section === 'study-group') {
+    var isStudyGroup = $scope.section === 'study-group';
+    if (mainInfoBool && studyFormBool && studyYearBool && isStudyGroup) {
       $scope.groups =  null;
       path = (
         'SelectiveDiscipline/' + $scope.selectData.StudyYear +
@@ -530,7 +555,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         $scope.selectData.Direction + '/' + $scope.selectData.StudyForm
       );
       api.execute('GET', path).then(function(response) {
-        if (!response || response === '' || response.length===0) {
+        if (!response || response === '' || response.length === 0) {
           $scope.errorLabelText = 'На жаль групи у базі відсутні.';
           $scope.blocksChoise = null;
           $scope.selectData.StudyGroup = null;
@@ -565,7 +590,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
         var tatalMaxCountStudent = 0;
         var tatalOccupiedPercent = 0;
         var tatalSubscribed = 0;
-        if (!response || response === '' || response.length===0) {
+        if (!response || response === '' || response.length === 0) {
           block.DisciplineArray = null;
           $scope.blocksWidthDisciplines = blocks;
         } else {
@@ -630,8 +655,7 @@ function DisciplinesSpecializationCtrl($scope, api) {
           whoReadAbbreviation, whoReadName
         );
         disciplines.push(dm3);
-      })
-          .catch(errorHandlerMy);
+      }).catch(errorHandlerMy);
       $scope.disciplines = disciplines;
       // console.log($scope.disciplines);
       $scope.safeApply();
@@ -674,14 +698,15 @@ function DisciplinesSpecializationCtrl($scope, api) {
       // console.log($scope.patterns);
       api.execute(method, path, payload).then(function(resp) {
         $scope.onFullSelect();
-      })
-          .catch(errorHandlerMy);
+      }).catch(errorHandlerMy);
     } else {
       if ($scope.selectData.Patterns.length === 0) {
         $scope.errorLabelText = 'Помилка! Оберіть хочаб один шаблон. ';
       }
       if ($scope.groups === null) {
-        $scope.errorLabelText += '| Оберіть рік вступу для якого у базі є записи про группи.';
+        $scope.errorLabelText += (
+          '| Оберіть рік вступу для якого у базі є записи про группи.'
+        );
       }
       $scope.safeApply();
     }
@@ -718,7 +743,9 @@ function DisciplinesSpecializationCtrl($scope, api) {
     var path = '';
     var method = '';
     var patternBlockChoice8Id = pattern.PatternBlockChoice8Id;
-    var profTrainTotalSubdivisionId = $scope.selectData.ProfTrainTotalSubdivisionId;
+    var profTrainTotalSubdivisionId = $scope
+      .selectData
+      .ProfTrainTotalSubdivisionId;
     var blockName = getBlockNameById($scope.Dc.Blocks, data.BlockId);
     var blockId = data.BlockId;
     var cycleName = getCycleNameById($scope.Dc.Cycles, data.CycleId);
@@ -749,8 +776,8 @@ function DisciplinesSpecializationCtrl($scope, api) {
 
     // console.log(method);
     api.execute(method, path, payload)
-        .then(function(resp) {$scope.onFullSelect()})
-        .catch(errorHandlerMy);
+      .then(function(resp) { $scope.onFullSelect(); })
+      .catch(errorHandlerMy);
     // , function(response, status, headers) {
     //   errorHandlerMy(response, status, headers);
     //   $scope.safeApply();
@@ -842,10 +869,9 @@ function DisciplinesSpecializationCtrl($scope, api) {
       var path = 'SelectiveDiscipline/BlockChoise';
       var method = 'DELETE';
       var payload = { Id: block.id };
-      api.execute(method, path, payload).then(function(resp) {
-        $scope.onFullSelect();
-      })
-          .catch(errorHandlerMy);
+      api.execute(method, path, payload)
+        .then(function(resp) { $scope.onFullSelect(); })
+        .catch(errorHandlerMy);
       $scope.blocksChoise.splice($scope.blocksChoise.indexOf(block), 1);
     }
   };

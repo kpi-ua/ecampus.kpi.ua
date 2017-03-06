@@ -725,6 +725,10 @@ div.row.well.well-md.disciplines-info {
   padding-right: 0;
 }
 
+.disciplines-title {
+  padding-left: 30px;
+}
+
 div.row.account-info {
   padding: 0 15px 0 15px;
 }
@@ -737,11 +741,10 @@ div.row.account-info {
   overflow: hidden;
 }
 
-input[type="radio"].radio-disciplines-choice {
-  margin: 0 2px 0 2px;
+.checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
   position: relative;
-  left: 0;
-  vertical-align: baseline;
+  margin-top: 4px \9;
+  margin-left: 0;
 }
 
 label.label-disciplines-choice {
@@ -781,6 +784,107 @@ div.progress-student-count {
 .choice-show-details {
   color: #208843;
   cursor: pointer;
+}
+
+.panel-body.blocks-panel {
+  padding: 0 15px;
+}
+
+.panel-default > div.panel-heading.semester-heading {
+  color: #111;
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+.blocks-list {
+  margin-bottom: 0;
+}
+
+.labels-group {
+  padding: 0 0 0 30px;
+}
+
+.loading-data {
+  padding: 0 30px 0 0;
+}
+
+li.row.list-group-item.blocks-list-item {
+  padding: 15px 0;
+}
+
+.list-group-item.blocks-list-item {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.blocks-list-item {
+  border-top: 1px solid #ddd;
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+}
+
+.list-group-item:first-child {
+  border-top: none;
+  border-radius: 0;
+}
+
+.box {
+  position: relative;
+  border-radius: 3px;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.box.box-solid {
+  border-top: 0;
+}
+
+.box.box-solid > .box-header .btn.btn-default {
+  background: transparent;
+}
+
+.box-header {
+  color: #444;
+  display: block;
+  padding: 10px;
+  position: relative;
+}
+
+.box-header.with-border {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.box-header .box-title {
+  display: inline-block;
+  font-size: 14px;
+  margin: 0;
+  line-height: 1;
+  font-weight: bold;
+}
+
+.box-body {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 10px;
+}
+
+.go-back {
+  margin-top: 10px;
+}
+
+.blocks-unavailable {
+  padding-left: 15px;
+  color: red;
 }
 
 /* end disciplines choice*/

@@ -23,12 +23,10 @@ var app = angular.module('ecampusApp', [
 ]);
 
 app.config(configRoutes);
-app.run(['$rootScope', 'api', appRun]);
 
-appRun.$inject  = ['$rootScope', 'api'];
-configRoutes.$inject  = ['$routeProvider', '$locationProvider'];
+configRoutes.$inject = ['$routeProvider', '$locationProvider'];
 
-function configRoutes ($routeProvider, $locationProvider) {
+function configRoutes($routeProvider, $locationProvider) {
 
   $locationProvider.hashPrefix('!');
 
@@ -104,9 +102,14 @@ function configRoutes ($routeProvider, $locationProvider) {
       controllerAs: 'board'
     })
     .when('/disciplines-choice-st', {
-      templateUrl: 'views/disciplinesChoiceSt.html',
-      controller: 'DisciplinesChoiceCtrl',
-      controllerAs: 'choiceSt'
+      templateUrl: 'views/disciplineChoiceStudent.html',
+      controller: 'DisciplineChoiceStudentCtrl',
+      controllerAs: 'disciplineChoiceStudent'
+    })
+    .when('/disciplines-choice-t', {
+      templateUrl: 'views/disciplineChoiceTeacher.html',
+      controller: 'DisciplineChoiceTeacherCtrl',
+      controllerAs: 'disciplineChoiceTeacher'
     })
     .when('/settings', {
       templateUrl: 'views/settings.html',
@@ -127,11 +130,6 @@ function configRoutes ($routeProvider, $locationProvider) {
       templateUrl: 'views/disciplineBlock.html',
       controller: 'DisciplinesBlockCtrl',
       controllerAs: 'block'
-    })
-    .when('/disciplines-choice-t', {
-      templateUrl: 'views/disciplinesChoiceT.html',
-      controller: 'DisciplinesChoiceTCtrl',
-      controllerAs: 'choiceT'
     })
     .when('/individual-plan', {
       templateUrl: 'views/individualPlan.html',
@@ -155,18 +153,4 @@ function configRoutes ($routeProvider, $locationProvider) {
     });
 
   $locationProvider.html5Mode(true);
-}
-
-function appRun($rootScope, api) {
-
-  var deregister = $rootScope.$on('$routeChangeSuccess', function () {
-    angular.element(document).ready(function () {
-      var isLogged = api.getToken();
-      if (isLogged) {
-        api.changeIsSessionExpiredValue(api.removeToken());
-      }
-    });
-  });
-
-  $rootScope.$on('$destroy', deregister);
 }

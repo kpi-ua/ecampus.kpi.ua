@@ -30,9 +30,9 @@ function checklistModel($parse, $compile) {
   // add
   function add(arr, item, comparator) {
     arr = angular.isArray(arr) ? arr : [];
-      if(!contains(arr, item, comparator)) {
-          arr.push(item);
-      }
+    if (!contains(arr, item, comparator)) {
+      arr.push(item);
+    }
     return arr;
   }
 
@@ -65,18 +65,19 @@ function checklistModel($parse, $compile) {
     var checklistBeforeChange = $parse(attrs.checklistBeforeChange);
 
     // value added to list
-    var value = attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
-
+    var value = (
+      attrs.checklistValue ?
+      $parse(attrs.checklistValue)(scope.$parent) : attrs.value
+    );
 
     var comparator = angular.equals;
 
-    if (attrs.hasOwnProperty('checklistComparator')){
-      if (attrs.checklistComparator[0] == '.') {
+    if (attrs.hasOwnProperty('checklistComparator')) {
+      if (attrs.checklistComparator[0] === '.') {
         var comparatorExpression = attrs.checklistComparator.substring(1);
-        comparator = function (a, b) {
+        comparator = function(a, b) {
           return a[comparatorExpression] === b[comparatorExpression];
         };
-
       } else {
         comparator = $parse(attrs.checklistComparator)(scope.$parent);
       }
@@ -89,7 +90,11 @@ function checklistModel($parse, $compile) {
       }
 
       if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
-        scope[attrs.ngModel] = contains(getter(scope.$parent), value, comparator);
+        scope[attrs.ngModel] = contains(
+          getter(scope.$parent),
+          value,
+          comparator
+        );
         return;
       }
 
@@ -124,9 +129,9 @@ function checklistModel($parse, $compile) {
     // watch original model change
     // use the faster $watchCollection method if it's available
     if (angular.isFunction(scope.$parent.$watchCollection)) {
-        scope.$parent.$watchCollection(checklistModel, setChecked);
+      scope.$parent.$watchCollection(checklistModel, setChecked);
     } else {
-        scope.$parent.$watch(checklistModel, setChecked, true);
+      scope.$parent.$watch(checklistModel, setChecked, true);
     }
   }
 
@@ -136,8 +141,14 @@ function checklistModel($parse, $compile) {
     terminal: true,
     scope: true,
     compile: function(tElement, tAttrs) {
-      if ((tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox') && (tElement[0].tagName !== 'MD-CHECKBOX') && (!tAttrs.btnCheckbox)) {
-        throw 'checklist-model should be applied to `input[type="checkbox"]` or `md-checkbox`.';
+      if (
+        (tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox') &&
+        (tElement[0].tagName !== 'MD-CHECKBOX') && (!tAttrs.btnCheckbox)
+      ) {
+        throw new Error(
+          'checklist-model should be applied ' +
+          'to `input[type="checkbox"]` or `md-checkbox`.'
+        );
       }
 
       if (!tAttrs.checklistValue && !tAttrs.value) {

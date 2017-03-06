@@ -14,9 +14,6 @@ angular
 StatisticNppCtrl.$inject = ['$scope', 'api'];
 
 function StatisticNppCtrl($scope, api) {
-
-
-
   $scope.cathedras = [];
   $scope.subdivisions = [];
   $scope.errorLabelText = '';
@@ -54,7 +51,7 @@ function StatisticNppCtrl($scope, api) {
 
   function fillTableRow(colspanNumber, content, isHeader) {
     var row = createTableRow();
-    content.forEach(function (cellText) {
+    content.forEach(function(cellText) {
       var cell = isHeader ? createTableHeaderCell() : createTableCell();
       cell.attr('colspan', colspanNumber);
       cell.text(cellText);
@@ -76,8 +73,8 @@ function StatisticNppCtrl($scope, api) {
       'Statistic/Cathedras/' + cathedraId +
       '/Emplloyers/WithIndividualLoad/List'
     );
-    api.execute('GET', path).then(function (response) {
-      if (!response || response == '' || response.length==0) {
+    api.execute('GET', path).then(function(response) {
+      if (!response || response === '' || response.length === 0) {
         $scope.errorLabelText = 'На жаль, записи у базі даних відсутні.';
       } else {
         $scope.semesters = response;
@@ -87,8 +84,8 @@ function StatisticNppCtrl($scope, api) {
         var tableForDownloadId = 'table-for-download';
         clearTableWithId(tableForDownloadId, wrapperTableForDownloadId);
         var tableForDownload = getAngularDOMElement('#' + tableForDownloadId);
-        response.forEach(function (employees, i, ar) {
-          if (i == 0) {
+        response.forEach(function(employees, i, ar) {
+          if (i === 0) {
             tableForDownload.append(
               fillTableRow('3', ['Перше півріччя (осінній семестр)'], true)
             );
@@ -97,12 +94,12 @@ function StatisticNppCtrl($scope, api) {
               fillTableRow('3', ['Друге півріччя (весняний семестр)'], true)
             );
           }
-          employees.forEach(function (employee, iter, arr) {
+          employees.forEach(function(employee, iter, arr) {
             tableForDownload.append(
               fillTableRow('3', [employee.name], false)
             );
             console.log(employee);
-            employee.subjects.forEach(function (subj, innerIter, arr) {
+            employee.subjects.forEach(function(subj, innerIter, arr) {
               tableForDownload.append(
                 fillTableRow(
                   '1',
@@ -124,7 +121,5 @@ function StatisticNppCtrl($scope, api) {
       $scope.tabIdForShow = -1;
     }
   }
-
-
 
 }

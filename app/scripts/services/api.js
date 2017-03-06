@@ -15,14 +15,14 @@ angular.module('ecampusApp')
     $rootScope.requestCount = 0;
 
     this.changeRequestCount = function(i) {
-      $rootScope.requestCount+=i;
+      $rootScope.requestCount += i;
     };
 
-    $rootScope.isSessionExpired = null;
+    $rootScope.isSessionExpired = false;
 
     this.changeIsSessionExpiredValue = function(value) {
       $rootScope.isSessionExpired = value;
-      $rootScope.$apply();
+      //$rootScope.$apply();
     };
 
     this.changeIsSessionExpiredValue(false);
@@ -58,9 +58,9 @@ angular.module('ecampusApp')
         if (response) return response.data;
         return null;
       }, function(err) {
-          console.warn(err);
-          self.changeRequestCount(-1);
-          return $q.reject(err);
+        console.warn(err);
+        self.changeRequestCount(-1);
+        return $q.reject(err);
       });
 
     };
@@ -230,22 +230,26 @@ angular.module('ecampusApp')
 
       return sClaim;
     };
-      /**
-       * Handle an error. Put it in the .catch() - function, after .then()- function
-       * return: string.
-       */
+
+    // Handle an error.
+    // Put it in the .catch() - function,
+    // after .then()- function
+    // return: string.
     this.errorHandler = function(response, status, headers) {
-          var errorDetails = '';
-          switch (response.statusText) {
-              case 'Internal Server Error': {
-                  errorDetails = 'Помилка сервера, спробуйте пізніше. Статус: ' + response.status;
-                  break;
-              }
-              default: {
-                  errorDetails = 'Перевірте інтернет з\'єднання.';
-              }
-          }
-          return 'Помилка. ' + errorDetails;
+      var errorDetails = '';
+      switch (response.statusText) {
+        case 'Internal Server Error': {
+          errorDetails = (
+            'Помилка сервера, спробуйте пізніше. Статус: ' +
+            response.status
+          );
+          break;
+        }
+        default: {
+          errorDetails = 'Перевірте інтернет з\'єднання.';
+        }
       }
+      return 'Помилка. ' + errorDetails;
+    };
 
   });
