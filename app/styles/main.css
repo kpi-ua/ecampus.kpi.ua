@@ -891,7 +891,10 @@ li.row.list-group-item.blocks-list-item {
   padding-left: 30px;
 }
 
-
+.chosen-blocks-list-item {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
 /* end disciplines choice*/
 
 /* attestation styles */
