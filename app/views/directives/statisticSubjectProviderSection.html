@@ -4,11 +4,11 @@
         <li role="presentation" ng-click="onSectionSelect('section1')" ng-class="{'active':section=='section1'}"><a>{{sectionsHeaders["withManualList"]}}
             <span class="badge" >{{statData.countByItselfManual}}</span> </a></li>
         <li role="presentation" ng-click="onSectionSelect('section2')" ng-class="{'active':section=='section2'}"><a>{{sectionsHeaders["withoutManualList"]}}
-            <span class="badge" ></span> </a></li>
+            <span class="badge" >{{statData.withoutManualNumber}}</span> </a></li>
         <li role="presentation" ng-click="onSectionSelect('section3')" ng-class="{'active':section=='section3'}"><a>{{sectionsHeaders["withPartialList"]}}
-            <span class="badge" ></span></a></li>
+            <span class="badge" >{{statData.withPartialNumber}}</span></a></li>
         <li role="presentation" ng-click="onSectionSelect('section4')" ng-class="{'active':section=='section4'}"><a>{{sectionsHeaders["withoutFileList"]}}
-            <span class="badge" ></span></a></li>
+            <span class="badge" >{{statData.withoutFileNumber}}</span></a></li>
     </ul>
     <div ng-switch on="section">
         <div ng-switch-when="section1">
@@ -36,6 +36,6 @@
     </div>
 
 </table-panel>
-<table-panel panel-header="statHeadings.second" label-content="''">
+<table-panel panel-header="statHeadings.second" label-content="statData.eirsByItselfNumber">
     <table-from-array table="statData.eirsByItselfList" table-headers-array="headers"></table-from-array>
 </table-panel>
