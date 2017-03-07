@@ -78,6 +78,8 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       var i, j, res, resBlocks;
       for (i = 0; i < response.length; i++) {
         res = response[i];
+        res['payload'] = {};
+        res['block'] = [];
         for (j = 0; j < res.blocks.length; j++) {
           resBlocks = res.blocks[j];
           resBlocks['selectedDiscipline'] = {
@@ -111,33 +113,58 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   $scope.countSelectedDiscipline = function(response) {
     var i, res, result = 0;
     for (i = 0; i < response.blocks.length; i++) {
-        res = response.blocks[i].selectedDiscipline;
-        if (res.id !== null) {
-          result++;
-        }
+      res = response.blocks[i].selectedDiscipline;
+      if (res.id !== null) {
+        result++;
       }
+    }
     return result;
   };
 
-  $scope.filterChoiceFromAllDisciplines = function(response, semester, arrayValues) {
+  $scope.removeFilteredValue = function(result, value) {
+    return result.filter(function(element) {
+      return element !== value;
+    })[0];
+  };
+
+  $scope.filterDisciplines = function(response, arrayValue) {
+    return Object.assign({}, response, {
+      blockDisc: response.blockDisc.filter(function (blockDiscElement) {
+        for (var i = 0; i < arrayValue.length; i++) {
+          if (blockDiscElement.cDisciplineBlockYear8Id === arrayValue[i].id) {
+            return blockDiscElement;
+          }
+        }
+      })
+    });
+  };
+
+  $scope.filterSemesters = function(response, semester) {
     return response.map(function(responseElement) {
       if (responseElement.semester === semester) {
         return Object.assign({}, responseElement, {
-          blocks: responseElement.blocks.map(function(blocksElement) {
-            return Object.assign({}, blocksElement, {
-              blockDisc: blocksElement.blockDisc.filter(function(blockDiscElement) {
-                for (var i = 0; i < arrayValues.length; i++) {
-                  var value = arrayValues[i];
-                  if (blockDiscElement.cDisciplineBlockYear8Id === value.id) {
-                    return blockDiscElement;
-                  }
-                }
-              })
-            });
-          })
+          blocks: []
         });
       }
     });
+  };
+
+  $scope.uniqueBlocks = function(array) {
+    var result = [];
+
+    nextInput:
+      for (var i = 0; i < array.length; i++) {
+        var str = array[i];
+        for (var j = 0; j < result.length; j++) {
+          if (
+            JSON.stringify(str) === JSON.stringify(array[j])
+          ) {
+            continue nextInput;
+          }
+        }
+        result.push(str);
+      }
+    return result;
   };
 
   loadInfo();
