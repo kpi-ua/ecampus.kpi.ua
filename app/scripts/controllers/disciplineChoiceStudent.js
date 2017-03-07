@@ -167,6 +167,17 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     return result;
   };
 
+  $scope.deleteAdditionalProperties = function(object) {
+    var result = object;
+    delete result.payload;
+    delete result.block;
+    for (var i = 0; i < result.blocks.length; i++) {
+      var block = result.blocks[i];
+      delete block.selectedDiscipline;
+    }
+    return result;
+  };
+
   loadInfo();
   loadDisciplines();
 }
