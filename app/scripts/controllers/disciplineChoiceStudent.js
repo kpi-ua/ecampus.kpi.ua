@@ -19,6 +19,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   $scope.hideInfo = false;
   $scope.errorMessageDisc = '';
   $scope.hideInfoDisc = false;
+  $scope.saveChoiceResult = '';
 
   $scope.setTab = function(newTab) {
     $scope.tab = newTab;
@@ -176,6 +177,16 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       delete block.selectedDiscipline;
     }
     return result;
+  };
+
+  $scope.saveDisciplinesChoice = function(payload) {
+    console.log(payload);
+    var url = '/SelectiveDiscipline/semesters/disciplines';
+
+    api.execute('POST', url, payload)
+      .then(function(response) {
+        $scope.saveChoiceResult = response;
+    });
   };
 
   loadInfo();
