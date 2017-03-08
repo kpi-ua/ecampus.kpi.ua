@@ -55,7 +55,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   }
 
   function loadInfo() {
-    var url = '/Account/student/group';
+    var url = 'Account/student/group';
 
     api.execute('GET', url)
       .then(function(response) {
@@ -69,7 +69,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   }
 
   function loadDisciplines() {
-    var url = '/SelectiveDiscipline/semesters/disciplines';
+    var url = 'SelectiveDiscipline/semesters/disciplines';
 
     api.execute('GET', url).then(function(response) {
       $scope.firstCourse = [];
@@ -180,7 +180,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   };
 
   $scope.saveDisciplinesChoice = function(payload) {
-    var url = '/SelectiveDiscipline/semesters/disciplines';
+    var url = 'SelectiveDiscipline/semesters/disciplines';
 
     api.execute('POST', url, payload)
       .then(function(response) {
