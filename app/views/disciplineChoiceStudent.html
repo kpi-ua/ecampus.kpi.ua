@@ -397,7 +397,7 @@
                 <div class="panel-footer send-result" ng-hide="third.status !== 'available' ">
                   <button type="submit" class="btn btn-primary btn-send-choice-result"
                           ng-disabled="third.blocks.length > countSelectedDiscipline(third)
-                                  || isDisabled(third.semester, third.blocks.length)"
+                                  || isDisabledSaveButton(third.semester, third.blocks.length)"
                           data-toggle="modal" data-target="#thirdModal-{{thirdIndex}}">
                     Зберегти результати
                   </button>

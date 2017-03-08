@@ -188,7 +188,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   };
 
-  $scope.isDisabled = function(semester, length) {
+  $scope.isDisabledSaveButton = function(semester, length) {
     var className = "btn-save-choice-result-" + semester + "-";
     for (var i = 0; i < length; i++) {
       var button = document.getElementsByClassName(className + i);
