@@ -180,13 +180,23 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   };
 
   $scope.saveDisciplinesChoice = function(payload) {
-    console.log(payload);
     var url = '/SelectiveDiscipline/semesters/disciplines';
 
     api.execute('POST', url, payload)
       .then(function(response) {
         $scope.saveChoiceResult = response;
     });
+  };
+
+  $scope.isDisabled = function(semester, length) {
+    var className = "btn-save-choice-result-" + semester + "-";
+    for (var i = 0; i < length; i++) {
+      var button = document.getElementsByClassName(className + i);
+      if (button[0].disabled) {
+        return true;
+      }
+    }
+    return false;
   };
 
   loadInfo();

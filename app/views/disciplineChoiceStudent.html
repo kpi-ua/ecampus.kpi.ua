@@ -269,12 +269,13 @@
                     Не вказано навчальні блоки для вибору дисциплін
                   </div>
                   <ul class="list-group blocks-list" ng-hide="third.blocks.length === 0">
-                    <li class="row list-group-item blocks-list-item" ng-repeat="thirdBlocks in third.blocks">
+                    <li class="row list-group-item blocks-list-item" ng-repeat="thirdBlocks in third.blocks"
+                    ng-init="indexBlock = $index">
                       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
                         <div class="labels">Опис блоку</div>
                         <div class="labels">Назва блоку</div>
                         <div class="labels">Кількість дисциплін для вибору</div>
-                        <div class="labels"ng-show="thirdBlocks.length != 0 && third.status != 'available'">
+                        <div class="labels" ng-show="thirdBlocks.length != 0 && third.status != 'available'">
                           Обрано дисципліну</div>
                         <div class="labels choice-show-details" ng-show="third.status === 'available'"
                              ng-click="showDetails = !showDetails">Показати деталі
@@ -342,11 +343,11 @@
                                 </li>
                               </ul>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-save-choice-result"
+                            <button type="submit" class="btn btn-primary btn-save-choice-result-{{third.semester}}-{{indexBlock}}"
                                     ng-show="!(third.status === 'not available' || third.status === 'done')"
                                     ng-disabled="thirdBlocks.selectedDiscipline.length > thirdBlocks.disciplineCount
                                     || thirdBlocks.selectedDiscipline.id === null
-                                    || thirdBlocks.selectedDiscipline.length === 0"
+                                    || thirdBlocks.selectedDiscipline.length === 0 "
                                     ng-click="
                                     third.payload = removeFilteredValue(filterSemesters(thirdCourse, third.semester), undefined);
                                     third.block.push(filterDisciplines(thirdBlocks, thirdBlocks.selectedDiscipline));
@@ -395,7 +396,8 @@
                 </div>
                 <div class="panel-footer send-result" ng-hide="third.status !== 'available' ">
                   <button type="submit" class="btn btn-primary btn-send-choice-result"
-                          ng-disabled="third.blocks.length > countSelectedDiscipline(third)"
+                          ng-disabled="third.blocks.length > countSelectedDiscipline(third)
+                                  || isDisabled(third.semester, third.blocks.length)"
                           data-toggle="modal" data-target="#thirdModal-{{thirdIndex}}">
                     Зберегти результати
                   </button>
