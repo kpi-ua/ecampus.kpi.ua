@@ -192,7 +192,8 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     var className = "btn-save-choice-result-" + semester + "-";
     for (var i = 0; i < length; i++) {
       var button = document.getElementsByClassName(className + i);
-      if (button[0].disabled) {
+      var isFirstButtonDisabled = button[0].disabled;
+      if (isFirstButtonDisabled) {
         return true;
       }
     }
@@ -200,16 +201,22 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   };
 
   $scope.isDisabledChoiceButton = function(block) {
+    var selected = block.selectedDiscipline;
+    var count = block.disciplineCount;
+
     return (
-      block.selectedDiscipline.length > block.disciplineCount ||
-      block.selectedDiscipline.id === null ||
-      block.selectedDiscipline.length === 0
+      selected.length > count ||
+      selected.id === null ||
+      selected.length === 0
     );
   };
 
   $scope.addBlock = function(courseElement, course, block) {
-    courseElement.payload = removeFilteredValue(filterSemesters(course, courseElement.semester), undefined);
-    courseElement.block.push(filterDisciplines(block, block.selectedDiscipline));
+    var filteredSemester = filterSemesters(course, courseElement.semester);
+    var filteredDisciplines = filterDisciplines(block, block.selectedDiscipline);
+
+    courseElement.payload = removeFilteredValue(filteredSemester, undefined);
+    courseElement.block.push(filteredDisciplines);
     courseElement.payload.blocks = uniqueBlocks(courseElement.block);
   };
 
