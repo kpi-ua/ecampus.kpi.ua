@@ -19,7 +19,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   $scope.hideInfo = false;
   $scope.errorMessageDisc = '';
   $scope.hideInfoDisc = false;
-  $scope.saveChoiceResult = '';
 
   $scope.setTab = function(newTab) {
     $scope.tab = newTab;
@@ -172,6 +171,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     var result = object;
     delete result.payload;
     delete result.block;
+    delete result.saveChoiceResult;
     for (var i = 0; i < result.blocks.length; i++) {
       var block = result.blocks[i];
       delete block.selectedDiscipline;
@@ -179,12 +179,12 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     return result;
   };
 
-  $scope.saveDisciplinesChoice = function(payload) {
+  $scope.saveDisciplinesChoice = function(payload, semester) {
     var url = 'SelectiveDiscipline/semesters/disciplines';
 
     api.execute('POST', url, payload)
       .then(function(response) {
-        $scope.saveChoiceResult = response;
+        semester.saveChoiceResult = response;
     });
   };
 

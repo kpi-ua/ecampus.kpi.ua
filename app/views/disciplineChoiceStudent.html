@@ -465,8 +465,8 @@
                             <h4 class="text-center">Робіть вибір свідомо!</h4>
                           </div>
                           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info messages"
-                          ng-show="saveChoiceResult">
-                            {{saveChoiceResult}}
+                          ng-show="third.saveChoiceResult">
+                            {{third.saveChoiceResult}}
                           </div>
                         </div>
                       </div>
@@ -474,7 +474,7 @@
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-primary"
                       ng-click="saveDisciplinesChoice(
-                      deleteAdditionalProperties(third.payload));">Надіслати результати</button>
+                      deleteAdditionalProperties(third.payload), third);">Надіслати результати</button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
                     </div>
                   </div>
