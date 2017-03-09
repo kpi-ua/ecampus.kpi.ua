@@ -345,13 +345,8 @@
                             </div>
                             <button type="submit" class="btn btn-primary btn-save-choice-result-{{third.semester}}-{{indexBlock}}"
                                     ng-show="!(third.status === 'not available' || third.status === 'done')"
-                                    ng-disabled="thirdBlocks.selectedDiscipline.length > thirdBlocks.disciplineCount
-                                    || thirdBlocks.selectedDiscipline.id === null
-                                    || thirdBlocks.selectedDiscipline.length === 0 "
-                                    ng-click="
-                                    third.payload = removeFilteredValue(filterSemesters(thirdCourse, third.semester), undefined);
-                                    third.block.push(filterDisciplines(thirdBlocks, thirdBlocks.selectedDiscipline));
-                                    third.payload.blocks = uniqueBlocks(third.block);">Обрати
+                                    ng-disabled="isDisabledChoiceButton(thirdBlocks);"
+                                    ng-click="addBlock(third, thirdCourse, thirdBlocks);">Обрати
                             </button>
                           </form>
                           <div class="messages"

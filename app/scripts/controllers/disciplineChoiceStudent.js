@@ -122,13 +122,13 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     return result;
   };
 
-  $scope.removeFilteredValue = function(result, value) {
+  function removeFilteredValue(result, value) {
     return result.filter(function(element) {
       return element !== value;
     })[0];
-  };
+  }
 
-  $scope.filterDisciplines = function(response, arrayValue) {
+  function filterDisciplines(response, arrayValue) {
     return Object.assign({}, response, {
       blockDisc: response.blockDisc.filter(function (blockDiscElement) {
         for (var i = 0; i < arrayValue.length; i++) {
@@ -138,9 +138,9 @@ function DisciplineChoiceStudentCtrl($scope, api) {
         }
       })
     });
-  };
+  }
 
-  $scope.filterSemesters = function(response, semester) {
+  function filterSemesters(response, semester) {
     return response.map(function(responseElement) {
       if (responseElement.semester === semester) {
         return Object.assign({}, responseElement, {
@@ -148,9 +148,9 @@ function DisciplineChoiceStudentCtrl($scope, api) {
         });
       }
     });
-  };
+  }
 
-  $scope.uniqueBlocks = function(array) {
+  function uniqueBlocks(array) {
     var result = [];
 
     nextInput:
@@ -166,7 +166,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
         result.push(str);
       }
     return result;
-  };
+  }
 
   $scope.deleteAdditionalProperties = function(object) {
     var result = object;
@@ -197,6 +197,20 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       }
     }
     return false;
+  };
+
+  $scope.isDisabledChoiceButton = function(block) {
+    return (
+      block.selectedDiscipline.length > block.disciplineCount ||
+      block.selectedDiscipline.id === null ||
+      block.selectedDiscipline.length === 0
+    );
+  };
+
+  $scope.addBlock = function(courseElement, course, block) {
+    courseElement.payload = removeFilteredValue(filterSemesters(course, courseElement.semester), undefined);
+    courseElement.block.push(filterDisciplines(block, block.selectedDiscipline));
+    courseElement.payload.blocks = uniqueBlocks(courseElement.block);
   };
 
   loadInfo();
