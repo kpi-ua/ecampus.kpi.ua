@@ -15,10 +15,6 @@ DisciplineChoiceStudentCtrl.$inject = ['$scope', 'api'];
 
 function DisciplineChoiceStudentCtrl($scope, api) {
   $scope.selectedForInfo = {'cDisciplineBlockYear8Id': null};
-  $scope.errorMessage = '';
-  $scope.hideInfo = false;
-  $scope.errorMessageDisc = '';
-  $scope.hideInfoDisc = false;
 
   $scope.setTab = function(newTab) {
     $scope.tab = newTab;
@@ -189,7 +185,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
   };
 
   $scope.isDisabledSaveButton = function(semester, length) {
-    var className = "btn-save-choice-result-" + semester + "-";
+    var className = "btn-choice-result-" + semester + "-";
     for (var i = 0; i < length; i++) {
       var button = document.getElementsByClassName(className + i);
       var isFirstButtonDisabled = button[0].disabled;
