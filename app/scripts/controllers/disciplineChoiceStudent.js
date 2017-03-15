@@ -127,7 +127,9 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     return Object.assign({}, response, {
       blockDisc: response.blockDisc.filter(function (blockDiscElement) {
         for (var i = 0; i < arrayValue.length; i++) {
-          if (blockDiscElement.cDisciplineBlockYear8Id === arrayValue[i].id) {
+          var disciplineId = blockDiscElement.cDisciplineBlockYear8Id;
+          var selectedDisciplineId = arrayValue[i].id;
+          if (disciplineId === selectedDisciplineId) {
             return blockDiscElement;
           }
         }
@@ -135,9 +137,10 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   }
 
-  function filterSemesters(response, semester) {
+  function filterSemesters(response, currentSemester) {
     return response.map(function(responseElement) {
-      if (responseElement.semester === semester) {
+      var responseSemester = responseElement.semester;
+      if (responseSemester === currentSemester) {
         return Object.assign({}, responseElement, {
           blocks: []
         });
