@@ -137,15 +137,15 @@
                                 </div>
                               </div>
                               <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                                <div class="description">{{thirdBlocks.component.name || "інформацію не вказано"}}</div>
-                                <div class="block-name">{{thirdBlocks.name || "інформацію не вказано"}}</div>
-                                <div class="discipline-сount-for-choice">{{thirdBlocks.disciplineCount}}</div>
-                                <div class="discipline" ng-show="thirdBlocks.length != 0 && third.status != 'available'">
-                                  {{thirdBlocks.blockDisc[0].nameUkr || "назву дисциплін не вказано"}}
+                                <div class="description">{{secondBlocks.component.name || "інформацію не вказано"}}</div>
+                                <div class="block-name">{{secondBlocks.block.name || "інформацію не вказано"}}</div>
+                                <div class="discipline-сount-for-choice">{{secondBlocks.disciplineCount}}</div>
+                                <div class="discipline" ng-show="secondBlocks.length != 0 && second.status != 'available'">
+                                  {{secondBlocks.blockDisc[0].nameUkr || "назву дисциплін не вказано"}}
                                   <span class="discipline-subdivision-name">,
-                                    {{thirdBlocks.blockDisc[0].subdivision || "назву кафедри не вказано"}}</span>
+                                    {{secondBlocks.blockDisc[0].subdivision || "назву кафедри не вказано"}}</span>
                                 </div>
-                                <div class="labels choice-show-details" ng-show="third.status === 'available'"><br></div>
+                                <div class="labels choice-show-details" ng-show="second.status === 'available'"><br></div>
                               </div>
                             </div>
                             <div class="row disciplines" ng-show="showDetails">
@@ -388,7 +388,7 @@
                               </div>
                               <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
                                 <div class="description">{{thirdBlocks.component.name || "інформацію не вказано"}}</div>
-                                <div class="block-name">{{thirdBlocks.name || "інформацію не вказано"}}</div>
+                                <div class="block-name">{{thirdBlocks.block.name || "інформацію не вказано"}}</div>
                                 <div class="discipline-сount-for-choice">{{thirdBlocks.disciplineCount}}</div>
                                 <div class="discipline" ng-show="thirdBlocks.length != 0 && third.status != 'available'">
                                   {{thirdBlocks.blockDisc[0].nameUkr || "назву дисциплін не вказано"}}
@@ -637,21 +637,21 @@
                                 </div>
                               </div>
                               <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                                <div class="description">{{thirdBlocks.component.name || "інформацію не вказано"}}</div>
-                                <div class="block-name">{{thirdBlocks.name || "інформацію не вказано"}}</div>
-                                <div class="discipline-сount-for-choice">{{thirdBlocks.disciplineCount}}</div>
-                                <div class="discipline" ng-show="thirdBlocks.length != 0 && third.status != 'available'">
-                                  {{thirdBlocks.blockDisc[0].nameUkr || "назву дисциплін не вказано"}}
+                                <div class="description">{{fourthBlocks.component.name || "інформацію не вказано"}}</div>
+                                <div class="block-name">{{fourthBlocks.block.name || "інформацію не вказано"}}</div>
+                                <div class="discipline-сount-for-choice">{{fourthBlocks.disciplineCount}}</div>
+                                <div class="discipline" ng-show="fourthBlocks.length != 0 && fourth.status != 'available'">
+                                  {{fourthBlocks.blockDisc[0].nameUkr || "назву дисциплін не вказано"}}
                                   <span class="discipline-subdivision-name">,
-                                    {{thirdBlocks.blockDisc[0].subdivision || "назву кафедри не вказано"}}</span>
+                                    {{fourthBlocks.blockDisc[0].subdivision || "назву кафедри не вказано"}}</span>
                                 </div>
-                                <div class="labels choice-show-details" ng-show="third.status === 'available'"><br></div>
+                                <div class="labels choice-show-details" ng-show="fourth.status === 'available'"><br></div>
                               </div>
                             </div>
                             <div class="row disciplines" ng-show="showDetails">
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 disciplines-title">Дисципліни :</div>
                               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 disciplines-list" ng-hide="fourth.status === 'done'">
-                                <form ng-hide="secondBlocks.length === 0 || fourth.status === 'not available'">
+                                <form ng-hide="fourthBlocks.length === 0 || fourth.status === 'not available'">
                                   <div class="discipline" ng-repeat="fourthDisc in fourthBlocks.blockDisc"
                                        ng-init="id = fourthDisc.cDisciplineBlockYear8Id; name = fourthDisc.nameUkr;">
                                     <div class="checkbox discipline-choice-checkbox">
