@@ -1,0 +1,8 @@
+<div class="panel" ng-class="{'panel-default':!isClosed,'panel-success':isClosed}">
+    <div class="panel-heading" ng-click="isClosed=!isClosed;">
+        <h3 class="panel-title">{{panelHeader}} <span class="badge pull-right">{{labelContent}}</span></h3>
+    </div>
+    <div class="panel-body" ng-class="{'hidden':!isClosed}" >
+        <ng-transclude></ng-transclude>
+    </div>
+</div>

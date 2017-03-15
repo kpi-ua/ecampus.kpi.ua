@@ -1,0 +1,41 @@
+<table-panel panel-header="statHeadings.first" label-content="statData.countByItself">
+
+    <ul class="nav nav-tabs nav-justified">
+        <li role="presentation" ng-click="onSectionSelect('section1')" ng-class="{'active':section=='section1'}"><a>{{sectionsHeaders["withManualList"]}}
+            <span class="badge" >{{statData.countByItselfManual}}</span> </a></li>
+        <li role="presentation" ng-click="onSectionSelect('section2')" ng-class="{'active':section=='section2'}"><a>{{sectionsHeaders["withoutManualList"]}}
+            <span class="badge" >{{statData.withoutManualNumber}}</span> </a></li>
+        <li role="presentation" ng-click="onSectionSelect('section3')" ng-class="{'active':section=='section3'}"><a>{{sectionsHeaders["withPartialList"]}}
+            <span class="badge" >{{statData.withPartialNumber}}</span></a></li>
+        <li role="presentation" ng-click="onSectionSelect('section4')" ng-class="{'active':section=='section4'}"><a>{{sectionsHeaders["withoutFileList"]}}
+            <span class="badge" >{{statData.withoutFileNumber}}</span></a></li>
+    </ul>
+    <div ng-switch on="section">
+        <div ng-switch-when="section1">
+            <table-panel panel-header="component.item.name" label-content="component.item.id" ng-repeat="component in statData.withManualList">
+
+                <table-panel panel-header="leafComponent.item.name" label-content="leafComponent.item.id" ng-show="!component.children[0].isLeaf" ng-repeat="leafComponent in component.children">
+
+                    <table-from-array table="leafComponent.children" table-headers-array="headers" mid-header="'item'" ng-show="leafComponent.children[0].isLeaf"></table-from-array>
+
+                </table-panel>
+
+                <table-from-array table="component.children" table-headers-array="headers" mid-header="'item'" ng-show="component.children[0].isLeaf"></table-from-array>
+
+            </table-panel>
+        </div>
+        <div ng-switch-when="section2">
+            <table-from-array table="statData.withoutManualList" table-headers-array="''"></table-from-array>
+        </div>
+        <div ng-switch-when="section3">
+            <table-from-array table="statData.withPartialList" table-headers-array="''"></table-from-array>
+        </div>
+        <div ng-switch-when="section4">
+            <table-from-array table="statData.withoutFileList" table-headers-array="''"></table-from-array>
+        </div>
+    </div>
+
+</table-panel>
+<table-panel panel-header="statHeadings.second" label-content="statData.eirsByItselfNumber">
+    <table-from-array table="statData.eirsByItselfList" table-headers-array="headers"></table-from-array>
+</table-panel>
