@@ -204,7 +204,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     var count = block.disciplineCount;
 
     return (
-      selected.length > count ||
+      selected.length !== count ||
       selected.id === null ||
       selected.length === 0
     );
