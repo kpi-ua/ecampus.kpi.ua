@@ -630,28 +630,38 @@ a.bulletin-title:hover {
 }
 
 /* disciplines choice styles*/
-.btn-save-choice-result {
-  margin: 10px 0 10px 0;
+.title-panel-student-info {
+  padding: 15px;
 }
 
 .info-load {
   color: #208843;
 }
 
-.panel .active .disciplines-panel {
+.panel .active .panel-student-info {
   cursor: default;
 }
 
-.disciplines-subdivision-name {
+.panel-student-info {
+  margin: 0;
+}
+
+.discipline-subdivision-name {
   color: gray;
 }
 
-.disciplines-students-count {
+.discipline-students-count {
   color: gray;
+  margin: 3px 0;
+  padding: 0;
 }
 
-.selective-disciplines-wrapper {
-  margin-top: 15px;
+.info-about-student {
+  margin: 0;
+}
+
+.show-choice h5, h4 {
+  margin: 3px 0;
 }
 
 .panel-title-image {
@@ -659,7 +669,7 @@ a.bulletin-title:hover {
   min-height: 30px;
   font-size: 18px;
   line-height: 30px;
-  margin: 0 0 0 0;
+  margin: 0;
   background: url("/images/home/open-book.png") no-repeat;
   background-size: 30px 30px;
 }
@@ -669,27 +679,28 @@ a.bulletin-title:hover {
     min-height: 20px;
     font-size: 14px;
     line-height: 20px;
-    margin: 0 0 0 0;
+    margin: 0;
     background: url("/images/home/open-book.png") no-repeat;
     background-size: 20px 20px;
   }
 
   .disciplines-header {
     text-align: center;
-    min-height: 40px;
     font-size: 1px;
-    line-height: 40px;
-    margin: 0 0 0 0;
+    margin: 0;
   }
 }
 
 .disciplines-header {
   text-align: center;
-  min-height: 40px;
   font-size: 18px;
-  line-height: 40px;
-  margin: 0 0 20px 0;
+  padding: 15px 0;
   color: #208843;
+}
+
+.panel-student-info-body {
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
 }
 
 .specialization-info, .okr-info {
@@ -702,17 +713,46 @@ a.bulletin-title:hover {
   font-size: 22px;
 }
 
+.confirm-title {
+  padding: 0;
+  margin: 0;
+}
+
+.attention-text, .choice-list {
+  padding: 0;
+  margin: 0;
+}
+
+.chosen-confirm-blocks-list {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ddd;
+}
+
+.chosen-confirm-disciplines-list {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #ddd;
+}
+
+.chosen-element {
+  margin: 0;
+}
+
 .tab-pane.course {
-  margin: 0 0 0 0;
-  padding: 0 0 0 0;
+  margin: 0;
+  padding: 0;
   cursor: default;
 }
 
-div.row.well.well-md.disciplines-info {
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 15px;
+.disciplines-info {
+  margin: 0;
+  padding: 0;
   border-radius: 0;
+}
+
+.choice-semester {
+  margin: 0 0 15px 0;
 }
 
 .selective-disciplines-navs {
@@ -721,16 +761,15 @@ div.row.well.well-md.disciplines-info {
 }
 
 .selective-disciplines-info {
-  padding-top: 0;
   padding-right: 0;
 }
 
-.disciplines-title {
-  padding-left: 30px;
+.disciplines-list {
+  padding: 0 0 0 35px;
 }
 
-div.row.account-info {
-  padding: 0 15px 0 15px;
+.block-info {
+  padding-bottom: 0;
 }
 
 .course, .group, .start-year, .current-year {
@@ -745,6 +784,11 @@ div.row.account-info {
   position: relative;
   margin-top: 4px \9;
   margin-left: 0;
+}
+
+.discipline-choice-checkbox {
+  margin: 3px 0;
+  padding: 0;
 }
 
 label.label-disciplines-choice {
@@ -765,10 +809,27 @@ label.label-disciplines-choice {
   margin-top: -70px;
 }
 
-.discipline-general-count {
-  margin-bottom: 0;
+.text-student-count {
+  margin: 0;
+}
+
+.discipline-count-info {
+  margin: 3px 0;
+  padding: 0;
+}
+
+.student-general-count {
+  margin: 3px 0;
+  padding: 0;
   background-color: #ffffff;
   border: solid #208843 1px;
+}
+
+.student-count {
+  color: black;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
 }
 
 div.progress-student-count {
@@ -778,7 +839,7 @@ div.progress-student-count {
 .nav > li > a.nav-pills-campus__item {
   position: relative;
   display: block;
-  padding: 0 0;
+  padding: 0;
 }
 
 .choice-show-details {
@@ -787,7 +848,7 @@ div.progress-student-count {
 }
 
 .panel-body.blocks-panel {
-  padding: 0 15px;
+  padding: 0;
 }
 
 .panel-default > div.panel-heading.semester-heading {
@@ -796,26 +857,36 @@ div.progress-student-count {
   font-weight: lighter;
 }
 
+.semester-heading {
+  padding: 0;
+}
+
 .blocks-list {
   margin-bottom: 0;
 }
 
+.labels {
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
+}
+
 .labels-group {
-  padding: 0 0 0 30px;
+  padding: 15px 0 15px 15px;
 }
 
 .loading-data {
-  padding: 0 30px 0 0;
+  line-height: 1.5;
+  padding: 15px 15px 15px 0;
 }
 
-li.row.list-group-item.blocks-list-item {
-  padding: 15px 0;
+li.list-group-item.blocks-list-item {
+  padding: 0;
 }
 
 .list-group-item.blocks-list-item {
   position: relative;
   display: block;
-  padding: 10px 15px;
   margin-bottom: -1px;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
@@ -844,6 +915,7 @@ li.row.list-group-item.blocks-list-item {
 
 .box.box-solid {
   border-top: 0;
+  margin-bottom: 0;
 }
 
 .box.box-solid > .box-header .btn.btn-default {
@@ -878,6 +950,10 @@ li.row.list-group-item.blocks-list-item {
   padding: 10px;
 }
 
+.description-list {
+  margin-bottom: 0;
+}
+
 .go-back {
   margin-top: 10px;
 }
@@ -885,6 +961,19 @@ li.row.list-group-item.blocks-list-item {
 .blocks-unavailable {
   padding-left: 15px;
   color: red;
+}
+
+.choice-result {
+  padding: 15px 0 15px 15px;
+}
+
+.save-result {
+  padding: 15px 0 15px 15px;
+}
+
+.chosen-blocks-list-item {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
 }
 
 /* end disciplines choice*/
