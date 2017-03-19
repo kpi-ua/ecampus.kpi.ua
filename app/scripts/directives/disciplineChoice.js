@@ -21,11 +21,7 @@ angular.module('ecampusApp')
   function postLink(scope, element, attrs) {
     scope.block = scope[attrs['block']];
     scope.course = scope[attrs['course']];
-
-    scope.initVariables = function(currentDiscipline) {
-      scope.id = currentDiscipline.cDisciplineBlockYear8Id;
-      scope.name = currentDiscipline.nameUkr;
-    };
+    scope.selectedForInfo = {'cDisciplineBlockYear8Id': null};
 
     scope.isDisciplinesSelected = function(object) {
       return Object.keys(object).some(function(key) {
