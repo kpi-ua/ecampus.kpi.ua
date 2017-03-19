@@ -954,6 +954,10 @@ li.list-group-item.blocks-list-item {
   margin-bottom: 0;
 }
 
+.chosen-blocks-list {
+  list-style: circle;
+}
+
 .go-back {
   margin-top: 10px;
 }

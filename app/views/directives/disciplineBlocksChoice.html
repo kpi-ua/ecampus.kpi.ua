@@ -1,0 +1,101 @@
+<li class="list-group-item blocks-list-item" ng-repeat="courseBlocks in course.blocks"
+    ng-init="indexBlock = $index">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
+        <div class="labels">Опис блоку</div>
+        <div class="labels">Назва блоку</div>
+        <div class="labels">Кількість дисциплін для вибору</div>
+        <div class="labels"
+             ng-show="courseBlocks.length != 0 && course.status != 'available'">
+          Обрано дисципліну
+        </div>
+        <div class="labels choice-show-details"
+             ng-show="course.status === 'available'"
+             ng-click="showDetails = !showDetails">
+          Показати деталі
+        </div>
+      </div>
+      <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
+        <div class="description">{{courseBlocks.component.name || "інформацію не вказано"}}</div>
+        <div class="block-name">{{courseBlocks.block.name || "інформацію не вказано"}}</div>
+        <div class="disciplines-сount">{{courseBlocks.disciplineCount}}</div>
+        <div class="discipline"
+             ng-show="courseBlocks.length != 0 && course.status != 'available'">
+          {{courseBlocks.blockDisc[0].nameUkr || "назву дисциплін не вказано"}}
+          <span class="discipline-subdivision-name">,
+            {{courseBlocks.blockDisc[0].subdivision || "назву кафедри не вказано"}}
+          </span>
+        </div>
+        <div class="labels choice-show-details"
+             ng-show="course.status === 'available'"><br>
+        </div>
+      </div>
+    </div>
+    <div class="row disciplines" ng-show="showDetails">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 disciplines-title">Дисципліни :</div>
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 disciplines-list"
+           ng-hide="second.status === 'done'">
+        <form
+          ng-hide="courseBlocks.length === 0 || second.status === 'not available'">
+          <discipline-choice block="courseBlocks" course="course"></discipline-choice>
+          <div class="show-choice"
+               ng-show="courseBlocks.selectedDiscipline.id !== null">
+            <h4
+              ng-hide="courseBlocks.selectedDiscipline.length === 0">
+              Ваш вибір
+            </h4>
+            <ul class="chosen-blocks-list"
+                ng-hide="courseBlocks.selectedDiscipline.id === null">
+              <li ng-repeat="disc in courseBlocks.selectedDiscipline">
+                <h5>{{disc.name}}</h5>
+              </li>
+            </ul>
+          </div>
+        </form>
+        <div class="messages"
+             ng-show="courseBlocks.selectedDiscipline.length > courseBlocks.disciplineCount">
+          <h5 style="color: red;">Ви обрали невірну кількість дисциплін.</h5>
+        </div>
+      </div>
+      <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 block-info additional-info">
+        <div ng-repeat="choice in courseBlocks.blockDisc | filter: selectedForInfo"
+             ng-show="selectedForInfo.cDisciplineBlockYear8Id !== null">
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <i class="fa fa-info"></i>
+              <h6 class="box-title">Опис обраної дисципліни</h6>
+            </div>
+            <div class="box-body">
+              <dl class="dl-horizontal description-list">
+                <dt ng-hide="!choice.nameUkr">Дисципліна</dt>
+                <dd ng-hide="!choice.nameUkr">{{choice.nameUkr}}</dd>
+                <dt ng-hide="!choice.nameEng">Дисципліна (англ.)</dt>
+                <dd ng-hide="!choice.nameEng">{{choice.nameEng}}</dd>
+                <dt ng-hide="!choice.subdivision">Кафедра</dt>
+                <dd ng-hide="!choice.subdivision">{{choice.subdivision}}</dd>
+                <dt ng-hide="!choice.annotationEng">Анотація (англ.)</dt>
+                <dd ng-hide="!choice.annotationEng">{{choice.annotationEng}}</dd>
+                <dt ng-hide="!choice.pic">Картинка</dt>
+                <dd ng-hide="!choice.pic">{{choice.pic}}</dd>
+                <dt ng-hide="!choice.competence">Компетенції</dt>
+                <dd ng-hide="!choice.competence">{{choice.competence}}</dd>
+                <dt ng-hide="!choice.knowledge">Знання</dt>
+                <dd ng-hide="!choice.knowledge">{{choice.knowledge}}</dd>
+                <dt ng-hide="!choice.skill">Навички</dt>
+                <dd ng-hide="!choice.skill">{{choice.skill}}</dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 choice-result">
+        <button type="submit" class="btn btn-primary btn-choice-result-{{course.semester}}-{{indexBlock}}"
+                ng-show="!(course.status === 'not available' || course.status === 'done')"
+                ng-disabled="isDisabledChoiceButton(courseBlocks);"
+                ng-click="addBlock(course, studyYear, courseBlocks);">Обрати
+        </button>
+      </div>
+    </div>
+  </div>
+</li>
