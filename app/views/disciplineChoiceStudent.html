@@ -47,7 +47,7 @@
             <ul class="nav nav-stacked" ng-hide="hideInfoDisc">
               <li ng-class="{ 'nav-pills-campus_active': isSet(1)}">
                 <a class="nav-pills-campus__item" ng-click="setTab(1)">1 курс<br>
-                  {{getStudyCoursesWithYears(+ (info.yearIntake)).firstCourse}}</a>
+              {{getStudyCoursesWithYears(+ (info.yearIntake)).firstCourse}}</a>
               </li>
               <li ng-class="{ 'nav-pills-campus_active': isSet(2)}">
                 <a class="nav-pills-campus__item" ng-click="setTab(2)">2 курс<br>
@@ -152,46 +152,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 disciplines-title">Дисципліни :</div>
                               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 disciplines-list" ng-hide="second.status === 'done'">
                                 <form ng-hide="secondBlocks.length === 0 || second.status === 'not available'">
-                                  <div class="discipline" ng-repeat="secondDisc in secondBlocks.blockDisc"
-                                       ng-init="id = secondDisc.cDisciplineBlockYear8Id; name = secondDisc.nameUkr;">
-                                    <div class="checkbox discipline-choice-checkbox">
-                                      <label class="label-disciplines-choice">
-                                        <input type="checkbox" class="checkbox-disciplines-choice"
-                                               checklist-model="secondBlocks.selectedDiscipline"
-                                               checklist-value="{id, name}"
-                                               ng-required="!isDisciplinesSelected(secondBlocks.selectedDiscipline)">
-                                        {{secondDisc.nameUkr || "назву дисциплін не вказано"}}
-                                      </label>
-                                      <span class="discipline-subdivision-name">
-                                          {{secondDisc.subdivision || "назву кафедри не вказано"}}
-                                        </span>
-                                      <a ng-click="toggleDisciplineDescription(id);" data-toggle="tooltip"
-                                         data-placement="auto right"
-                                         title="Натисність тут для перегляду опису дисципліни">
-                                        <i class="fa fa-info fa-fw info-load" aria-hidden="true"></i>
-                                      </a>
-                                    </div>
-                                    <div class="discipline-count-info" ng-show="!(second.status === 'not available' || second.status === 'done')">
-                                      <p class="text-student-count" ng-hide="secondDisc.maxCountStudent === 0">
-                                        Кількість записаних студентів із максимальної кількості місць в потоці навчання.
-                                      </p>
-                                      <p class="discipline-students-count" ng-show="secondDisc.maxCountStudent == 0">
-                                        Вказано нульову кількість студентів.
-                                      </p>
-                                    </div>
-                                    <div class="progress student-general-count" ng-hide="secondDisc.maxCountStudent == 0">
-                                      <div
-                                        class="progress-bar progress-bar-success progress-bar-striped progress-student-count"
-                                        role="progressbar"
-                                        aria-valuenow="{{secondDisc.studentCount}}" aria-valuemin="0"
-                                        aria-valuemax="{{secondDisc.maxCountStudent}}"
-                                        ng-init="percent=((+ secondDisc.studentCount)/(+ secondDisc.maxCountStudent))*100"
-                                        ng-style="{'width' : percent + '%'}">
-                                        <span class="student-count" ng-hide="percent === 0">{{secondDisc.studentCount}} / {{secondDisc.maxCountStudent}}</span>
-                                      </div>
-                                      <p class="student-count" ng-show="percent === 0">{{secondDisc.studentCount}} / {{secondDisc.maxCountStudent}}</p>
-                                    </div>
-                                  </div>
+                                  <discipline-choice block="secondBlocks" course="second"></discipline-choice>
                                   <div class="show-choice" ng-show="secondBlocks.selectedDiscipline.id !== null">
                                     <h4 ng-hide="secondBlocks.selectedDiscipline.length === 0">Ваш вибір</h4>
                                     <ul style="list-style: circle;" ng-hide="secondBlocks.selectedDiscipline.id === null">
@@ -406,46 +367,7 @@
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 disciplines-title">Дисципліни :</div>
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 disciplines-list" ng-hide="third.status === 'done'">
                                   <form ng-hide="thirdBlocks.length === 0 || third.status === 'not available'">
-                                    <div class="discipline" ng-repeat="thirdDisc in thirdBlocks.blockDisc"
-                                         ng-init="id = thirdDisc.cDisciplineBlockYear8Id; name = thirdDisc.nameUkr;">
-                                      <div class="checkbox discipline-choice-checkbox">
-                                        <label class="label-disciplines-choice">
-                                          <input type="checkbox" class="checkbox-disciplines-choice"
-                                                 checklist-model="thirdBlocks.selectedDiscipline"
-                                                 checklist-value="{id, name}"
-                                                 ng-required="!isDisciplinesSelected(thirdBlocks.selectedDiscipline)">
-                                          {{thirdDisc.nameUkr || "назву дисциплін не вказано"}}
-                                        </label>
-                                        <span class="discipline-subdivision-name">
-                                          {{thirdDisc.subdivision || "назву кафедри не вказано"}}
-                                        </span>
-                                        <a ng-click="toggleDisciplineDescription(id);" data-toggle="tooltip"
-                                           data-placement="auto right"
-                                           title="Натисність тут для перегляду опису дисципліни">
-                                          <i class="fa fa-info fa-fw info-load" aria-hidden="true"></i>
-                                        </a>
-                                      </div>
-                                      <div class="discipline-count-info" ng-show="!(third.status === 'not available' || third.status === 'done')">
-                                        <p class="text-student-count" ng-hide="thirdDisc.maxCountStudent === 0">
-                                          Кількість записаних студентів із максимальної кількості місць в потоці навчання.
-                                        </p>
-                                        <p class="discipline-students-count" ng-show="thirdDisc.maxCountStudent == 0">
-                                          Вказано нульову кількість студентів.
-                                        </p>
-                                      </div>
-                                      <div class="progress student-general-count" ng-hide="thirdDisc.maxCountStudent == 0">
-                                        <div
-                                          class="progress-bar progress-bar-success progress-bar-striped progress-student-count"
-                                          role="progressbar"
-                                          aria-valuenow="{{thirdDisc.studentCount}}" aria-valuemin="0"
-                                          aria-valuemax="{{thirdDisc.maxCountStudent}}"
-                                          ng-init="percent=((+ thirdDisc.studentCount)/(+ thirdDisc.maxCountStudent))*100"
-                                          ng-style="{'width' : percent + '%'}">
-                                          <span class="student-count" ng-hide="percent === 0">{{thirdDisc.studentCount}} / {{thirdDisc.maxCountStudent}}</span>
-                                        </div>
-                                        <p class="student-count" ng-show="percent === 0">{{thirdDisc.studentCount}} / {{thirdDisc.maxCountStudent}}</p>
-                                      </div>
-                                    </div>
+                                    <discipline-choice block="thirdBlocks" course="third"></discipline-choice>
                                     <div class="show-choice" ng-show="thirdBlocks.selectedDiscipline.id !== null">
                                       <h4 ng-hide="thirdBlocks.selectedDiscipline.length === 0">Ваш вибір</h4>
                                       <ul style="list-style: circle;" ng-hide="thirdBlocks.selectedDiscipline.id === null">
@@ -660,46 +582,7 @@
                               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 disciplines-title">Дисципліни :</div>
                               <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 disciplines-list" ng-hide="fourth.status === 'done'">
                                 <form ng-hide="fourthBlocks.length === 0 || fourth.status === 'not available'">
-                                  <div class="discipline" ng-repeat="fourthDisc in fourthBlocks.blockDisc"
-                                       ng-init="id = fourthDisc.cDisciplineBlockYear8Id; name = fourthDisc.nameUkr;">
-                                    <div class="checkbox discipline-choice-checkbox">
-                                      <label class="label-disciplines-choice">
-                                        <input type="checkbox" class="checkbox-disciplines-choice"
-                                               checklist-model="fourthBlocks.selectedDiscipline"
-                                               checklist-value="{id, name}"
-                                               ng-required="!isDisciplinesSelected(fourthBlocks.selectedDiscipline)">
-                                        {{fourthDisc.nameUkr || "назву дисциплін не вказано"}}
-                                      </label>
-                                      <span class="discipline-subdivision-name">
-                                          {{fourthDisc.subdivision || "назву кафедри не вказано"}}
-                                        </span>
-                                      <a ng-click="toggleDisciplineDescription(id);" data-toggle="tooltip"
-                                         data-placement="auto right"
-                                         title="Натисність тут для перегляду опису дисципліни">
-                                        <i class="fa fa-info fa-fw info-load" aria-hidden="true"></i>
-                                      </a>
-                                    </div>
-                                    <div class="discipline-count-info" ng-show="!(fourth.status === 'not available' || fourth.status === 'done')">
-                                      <p class="text-student-count" ng-hide="fourthDisc.maxCountStudent === 0">
-                                        Кількість записаних студентів із максимальної кількості місць в потоці навчання.
-                                      </p>
-                                      <p class="discipline-students-count" ng-show="fourthDisc.maxCountStudent == 0">
-                                        Вказано нульову кількість студентів.
-                                      </p>
-                                    </div>
-                                    <div class="progress student-general-count" ng-hide="fourthDisc.maxCountStudent == 0">
-                                      <div
-                                        class="progress-bar progress-bar-success progress-bar-striped progress-student-count"
-                                        role="progressbar"
-                                        aria-valuenow="{{fourthDisc.studentCount}}" aria-valuemin="0"
-                                        aria-valuemax="{{fourthDisc.maxCountStudent}}"
-                                        ng-init="percent=((+ fourthDisc.studentCount)/(+ fourthDisc.maxCountStudent))*100"
-                                        ng-style="{'width' : percent + '%'}">
-                                        <span class="student-count" ng-hide="percent === 0">{{fourthDisc.studentCount}} / {{fourthDisc.maxCountStudent}}</span>
-                                      </div>
-                                      <p class="student-count" ng-show="percent === 0">{{fourthDisc.studentCount}} / {{fourthDisc.maxCountStudent}}</p>
-                                    </div>
-                                  </div>
+                                  <discipline-choice block="fourthBlocks" course="fourth"></discipline-choice>
                                   <div class="show-choice" ng-show="fourthBlocks.selectedDiscipline.id !== null">
                                     <h4 ng-hide="fourthBlocks.selectedDiscipline.length === 0">Ваш вибір</h4>
                                     <ul style="list-style: circle;" ng-hide="fourthBlocks.selectedDiscipline.id === null">

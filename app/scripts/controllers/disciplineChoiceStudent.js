@@ -93,19 +93,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   }
 
-  $scope.isDisciplinesSelected = function(object) {
-    return Object.keys(object).some(function(key) {
-      return object[key];
-    });
-  };
-
-  $scope.toggleDisciplineDescription = function(id) {
-    $scope.selectedForInfo.cDisciplineBlockYear8Id = (
-      $scope.selectedForInfo.cDisciplineBlockYear8Id === null ||
-      $scope.selectedForInfo.cDisciplineBlockYear8Id !== id ? id : null
-    );
-  };
-
   $scope.countSelectedDiscipline = function(response) {
     var i, res, result = 0;
     for (i = 0; i < response.blocks.length; i++) {
