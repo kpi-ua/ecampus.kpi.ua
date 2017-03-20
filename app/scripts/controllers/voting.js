@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('VotingCtrl', handler);
+  .controller('VotingCtrl', VotingCtrl);
 
-function handler($scope, $location, api) {
+VotingCtrl.$inject = ['$scope', '$location', 'api'];
+
+function VotingCtrl($scope, $location, api) {
 
   $scope.currentUser = null;
   $scope.voteTerm = null;
@@ -46,7 +48,6 @@ function handler($scope, $location, api) {
 
       api.execute('GET', action, payload).then(function(data) {
         $scope.personsForVote = data;
-
         console.log('$scope.personsForVote', $scope.personsForVote);
       });
     }

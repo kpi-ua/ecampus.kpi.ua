@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplinesBlockCtrl', handler);
+  .controller('DisciplinesBlockCtrl', DisciplinesBlockCtrl);
 
-function handler($scope, $http, api, uniqueElemsInList) {
+DisciplinesBlockCtrl.$inject = ['$scope', 'api', 'uniqueElemsInList'];
+
+function DisciplinesBlockCtrl($scope, api, uniqueElemsInList) {
   reload();
 
   $scope.InitializeTree = function() {
@@ -69,7 +71,9 @@ function handler($scope, $http, api, uniqueElemsInList) {
           $scope.allYears = uniqueElemsInList.getDataUnique('studyPeriod.all');
           $scope.allYears.sort();
           $scope.allOkrs = uniqueElemsInList.getDataUnique('okr');
-          $scope.selectedYear = uniqueElemsInList.setCurrentYear($scope.allYears);
+          $scope.selectedYear = uniqueElemsInList.setCurrentYear(
+            $scope.allYears
+          );
         }
       }, function(response, status, headers) {
         //

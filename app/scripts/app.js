@@ -22,8 +22,11 @@ var app = angular.module('ecampusApp', [
   'checklist-model'
 ]);
 
+app.config(configRoutes);
 
-app.config(function($routeProvider, $locationProvider) {
+configRoutes.$inject = ['$routeProvider', '$locationProvider'];
+
+function configRoutes($routeProvider, $locationProvider) {
 
   $locationProvider.hashPrefix('!');
 
@@ -49,12 +52,12 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: 'privacy'
     })
     .when('/social-forbidden', {
-      templateUrl: 'views/social-forbidden.html',
+      templateUrl: 'views/socialForbidden.html',
       controller: 'SecurityCtrl',
       controllerAs: 'Security'
     })
-    .when('/restore-password.html', {
-      templateUrl: 'views/restore-password.html',
+    .when('/restorePassword.html', {
+      templateUrl: 'views/restorePassword.html',
       controller: 'SecurityCtrl',
       controllerAs: 'Security'
     })
@@ -64,7 +67,7 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: 'Voting'
     })
     .when('/voting/profile/:id', {
-      templateUrl: 'views/voting-profile.html',
+      templateUrl: 'views/votingProfile.html',
       controller: 'VotingProfileCtrl',
       controllerAs: 'Voting'
     })
@@ -79,12 +82,12 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: 'statistic'
     })
     .when('/statistic-npp', {
-      templateUrl: 'views/statistic-npp.html',
+      templateUrl: 'views/statisticNpp.html',
       controller: 'NppCtrl',
       controllerAs: 'npp'
     })
     .when('/statistic-zkm', {
-      templateUrl: 'views/statistic-zkm.html',
+      templateUrl: 'views/statisticZkm.html',
       controller: 'ZkmCtrl',
       controllerAs: 'zkm'
     })
@@ -94,14 +97,19 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: 'home'
     })
     .when('/bulletins-board', {
-      templateUrl: 'views/bulletins-board.html',
+      templateUrl: 'views/bulletinsBoard.html',
       controller: 'HomeBulletinsBoardCtrl',
       controllerAs: 'board'
     })
     .when('/disciplines-choice-st', {
-      templateUrl: 'views/disciplines-choice-st.html',
-      controller: 'DisciplinesChoiceCtrl',
-      controllerAs: 'choiceSt'
+      templateUrl: 'views/disciplineChoiceStudent.html',
+      controller: 'DisciplineChoiceStudentCtrl',
+      controllerAs: 'disciplineChoiceStudent'
+    })
+    .when('/disciplines-choice-t', {
+      templateUrl: 'views/disciplineChoiceTeacher.html',
+      controller: 'DisciplineChoiceTeacherCtrl',
+      controllerAs: 'disciplineChoiceTeacher'
     })
     .when('/settings', {
       templateUrl: 'views/settings.html',
@@ -109,32 +117,27 @@ app.config(function($routeProvider, $locationProvider) {
       controllerAs: 'settings'
     })
     .when('/discipline-specialization', {
-      templateUrl: 'views/discipline-specialization.html',
+      templateUrl: 'views/disciplineSpecialization.html',
       controller: 'DisciplinesSpecializationCtrl',
       controllerAs: 'specialization'
     })
     .when('/discipline-proposition', {
-      templateUrl: 'views/discipline-proposition.html',
+      templateUrl: 'views/disciplineProposition.html',
       controller: 'DisciplinesPropositionCtrl',
       controllerAs: 'proposition'
     })
     .when('/discipline-block', {
-      templateUrl: 'views/discipline-block.html',
+      templateUrl: 'views/disciplineBlock.html',
       controller: 'DisciplinesBlockCtrl',
       controllerAs: 'block'
     })
-    .when('/disciplines-choice-t', {
-      templateUrl: 'views/disciplines-choice-t.html',
-      controller: 'DisciplinesChoiceTCtrl',
-      controllerAs: 'choiceT'
-    })
     .when('/individual-plan', {
-      templateUrl: 'views/individual-plan.html',
+      templateUrl: 'views/individualPlan.html',
       controller: 'IndividualPlanCtrl',
       controllerAs: 'individualPlan'
     })
     .when('/discipline-fund', {
-      templateUrl: 'views/discipline-fund.html',
+      templateUrl: 'views/disciplineFund.html',
       controller: 'DisciplineFundCtrl',
       controllerAs: 'disciplineFund'
     })
@@ -150,17 +153,4 @@ app.config(function($routeProvider, $locationProvider) {
     });
 
   $locationProvider.html5Mode(true);
-});
-
-app.run(['$rootScope', 'api', function($rootScope, api) {
-  var deregister = $rootScope.$on('$routeChangeSuccess', function() {
-    angular.element(document).ready(function() {
-      var isLogged = api.getToken();
-      if (isLogged) {
-        api.changeIsSessionExpiredValue(api.removeToken());
-      }
-    });
-  });
-
-  $rootScope.$on('$destroy', deregister);
-}]);
+}

@@ -9,8 +9,10 @@
  */
 angular
   .module('ecampusApp')
-  .controller('AdminCtrl', handler);
+  .controller('AdminCtrl', AdminCtrl);
 
-function handler($scope, $cookies, $window, api) {
-  //
+AdminCtrl.$inject = ['$scope', 'api'];
+
+function AdminCtrl($scope, api) {
+
 }

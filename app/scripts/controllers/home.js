@@ -9,6 +9,10 @@
  */
 angular
   .module('ecampusApp')
-  .controller('HomeCtrl', function handler() {
-    //
-  });
+  .controller('HomeCtrl', HomeCtrl);
+
+HomeCtrl.$inject = ['$scope', 'api'];
+
+function HomeCtrl($scope, api) {
+
+}

@@ -9,28 +9,19 @@
  */
 angular
   .module('ecampusApp')
-  .run(function(editableOptions) {
-    editableOptions.theme = 'bs3';
-    // bootstrap3 theme. Can be also 'bs2', 'default'
-  })
-  .controller('DisciplinesPropositionCtrl', handler);
+  .controller('DisciplinesPropositionCtrl', DisciplinesPropositionCtrl);
 
-function handler(
-  $scope,
-  $window,
-  $http,
-  api,
-  uniqueElemsInList,
-  $timeout,
-  $filter
-) {
+DisciplinesPropositionCtrl.$inject = [
+  '$scope', '$timeout', 'api', 'uniqueElemsInList'
+];
+
+function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
   var ifWantToAddRowData = false;
-  var studyYearFrom = 2013;
-  var studyYearTo = 2020;
+
   $scope.sortName = 'nameUkr';
   $scope.sortReverse = false;
   $scope.sectionMenu = 'generalListMenu'; //studyYearMenu
-  // $scope.tempListData = {};
+
   $scope.selectedYear = '2013-2014';
   $scope.forSelectFullNameNew = [];
   $scope.messageCurrent = '';
@@ -39,7 +30,8 @@ function handler(
     'Дані було успішно збережено',
     'Видалення даних пройшло успішно',
     'Не вдалося зберегти дані. Така інформація вже існує.',
-    'Не вдалося зберегти дані. Перевірте коректність інформації та стан підключення до Інтернету.',
+    'Не вдалося зберегти дані. ' +
+    'Перевірте коректність інформації та стан підключення до Інтернету.',
     'Не вдалося видалити дані. Перевірте стан підключення до Інтернету.'
   ];
 
@@ -122,8 +114,7 @@ function handler(
         ifExist = false;
         for (j = 0; j < $scope.alldisciplines.length; j++) {
           if (
-            listOfFullnames[i] === $scope.alldisciplines[j].nameFull &&
-            !ifExist
+            listOfFullnames[i] === $scope.alldisciplines[j].nameFull && !ifExist
           ) {
             ifExist = true;
             name = separateFullname($scope.alldisciplines[j].nameFull, 0);
@@ -149,13 +140,103 @@ function handler(
     }
   };
 
-  $scope.allCourses = [1, 2, 3, 4, 5, 6];    
+  $scope.user = {
+    status: [2, 3, 5]
+  };
+
+  $scope.statuses = [
+    { value: 1, text: '1' },
+    { value: 2, text: '2' },
+    { value: 3, text: '3' },
+    { value: 4, text: '4' },
+    { value: 5, text: '5' },
+    { value: 6, text: '6' }
+  ];
+  $scope.allCourses = [1, 2, 3, 4, 5, 6];
+
+  $scope.allCourses2 = [
+    { value: 1, text: '1' },
+    { value: 2, text: '2' },
+    { value: 3, text: '3' },
+    { value: 4, text: '4' },
+    { value: 5, text: '5' },
+    { value: 6, text: '6' }
+  ];
+
+  $scope.allLecturers = [
+    { name: 'Mr. One', id: 1 },
+    { name: 'Mr. Two', id: 2 },
+    { name: 'Mrs. Three', id: 3 }
+  ];
+
+  $scope.testLecturers = [
+    { name: 'Mr. One', id: 1 },
+    { name: 'Mr. Two', id: 2 }
+  ];
+
+  $scope.tempEmployeesData = [
+    {
+      employeeName: 'Захарченко  Валерій Никанорович',
+      id: 1,
+      studyYear: {
+        isActual: false,
+        name: '2016-2017',
+        id: -1
+      },
+      maxCountStudent: 0,
+      isApproved: null,
+      actuality: true,
+      changeDate: '2016-11-21 12-49-08',
+      nameFull: 'Назва: Екологічні навчальні дисципліни; ' +
+        'Екологічна безпека інженерної діяльності; ' +
+        'Освітній рівень: Бакалавр; ' +
+        'Викладає: Кафедра екології та технології рослинних полімерів ІХФ'
+    },
+    {
+      employeeName: 'Цукор Валентина Семенівна',
+      id: 2,
+      studyYear: {
+        isActual: false,
+        name: '2016-2017',
+        id: -1
+      },
+      maxCountStudent: 1000,
+      isApproved: null,
+      actuality: true,
+      changeDate: '2016-11-21 12-49-08',
+      nameFull: 'Назва: Екологічні навчальні дисципліни; ' +
+        'Екологічна безпека інженерної діяльності; ' +
+        'Освітній рівень: Бакалавр; ' +
+        'Викладає: Кафедра екології та технології рослинних полімерів ІХФ'
+    },
+    {
+      employeeName: 'Галанко Андрій Денисович',
+      id: 3,
+      studyYear: {
+        isActual: false,
+        name: '2016-2017',
+        id: -1
+      },
+      maxCountStudent: 200,
+      isApproved: null,
+      actuality: true,
+      changeDate: '2016-11-21 12-49-08',
+      nameFull: 'Назва: Екологічні навчальні дисципліни; ' +
+        'Екологічна безпека інженерної діяльності; ' +
+        'Освітній рівень: Бакалавр; ' +
+        'Викладає: Кафедра екології та технології рослинних полімерів ІХФ'
+    }
+  ];
+
+  $scope.newSubmit = function(x) {
+    //
+  };
 
   $scope.showStatus = function(currentRow) {
     if (currentRow.courses) {
       return (
         currentRow.courses.length ?
-        currentRow.courses.join(', ') : 'не вказано'
+          currentRow.courses.join(', ') : 'не вказано'
       );
     }
   };
@@ -178,19 +259,18 @@ function handler(
       }
 
       /*for (var i = 0; i < currentTeachersList.employee.length; i++) {
-        output = output + currentTeachersList.employee[i].name
-        if (i!=(currentTeachersList.employee.length-1)) {
-          output = output + ', \n';
-        }
-      }*/
+       output = output + currentTeachersList.employee[i].name
+       if (i!=(currentTeachersList.employee.length-1)) {
+       output = output + ', \n';
+       }
+       }*/
     }
     return output;
   };
 
   $scope.ifZeroInTable = function(currentObject, someValue) {
     return (
-      (currentObject !== null) ?
-      currentObject[someValue] : 'не визначено2'
+      (currentObject !== null) ? currentObject[someValue] : 'не визначено2'
     );
   };
 
@@ -205,7 +285,8 @@ function handler(
       .then(function(response) {
         $scope.allSubdivisions = [];
         $scope.alldisciplines = [];
-        $scope.allSubdivisions = response;        
+        $scope.allSubdivisions = response;
+        $scope.testLecturersShow = [];
       }, function(response) {
         $scope.allSubdivisions = [];
       });
@@ -252,7 +333,6 @@ function handler(
     }
     return current.isApproved;
   };
-
 
   $scope.sendSubdivisionToServer = function() {
 
@@ -352,7 +432,6 @@ function handler(
             { currentApprove: '-' },
             { currentApprove: '+/-' }
           ]
-
         };
 
         $scope.testIsApproved = [
@@ -414,9 +493,13 @@ function handler(
             if ($scope.sortReverse) {
               $scope.sortReverse = !$scope.sortReverse;
             }
-            var currentYear = uniqueElemsInList.setCurrentYear($scope.tempListData.years);
+            var currentYear = uniqueElemsInList.setCurrentYear(
+              $scope.tempListData.years
+            );
             $scope.insertedYear = {
-              // studyYear: uniqueElemsInList.setCurrentYear($scope.tempListData.cdiscipleneblockyear8),
+              // studyYear: uniqueElemsInList.setCurrentYear(
+              //   $scope.tempListData.cdiscipleneblockyear8
+              // ),
               // studyYear: '',
               studyYear: {
                 name: currentYear.name  //cdiscipleneblockyear8)
@@ -525,13 +608,13 @@ function handler(
           }
 
           /*for (var key in proposition) {
-              console.log( 'Ключ: ' + key + ' значение: ' + proposition[key] );
-              if (key === 'courses') {
-                for (var i = 0; i < key.length; i++) {
-                  console.log(key[i]);
-                }
-              }
-          }*/
+           console.log( 'Ключ: ' + key + ' значение: ' + proposition[key] );
+           if (key === 'courses') {
+           for (var i = 0; i < key.length; i++) {
+           console.log(key[i]);
+           }
+           }
+           }*/
           //arr.forEach(function(item, i, arr) {
           //  alert( i + ': ' + item + ' (массив:' + arr + ')' );
           //});
@@ -541,12 +624,24 @@ function handler(
           if (data.courses) {
             for (i = 0; i < 7; i++) {
               switch (data.courses[i]) {
-                case 1: course1 = false; break;
-                case 2: course2 = false; break;
-                case 3: course3 = false; break;
-                case 4: course4 = false; break;
-                case 5: course5 = false; break;
-                case 6: course6 = false; break;
+                case 1:
+                  course1 = false;
+                  break;
+                case 2:
+                  course2 = false;
+                  break;
+                case 3:
+                  course3 = false;
+                  break;
+                case 4:
+                  course4 = false;
+                  break;
+                case 5:
+                  course5 = false;
+                  break;
+                case 6:
+                  course6 = false;
+                  break;
               }
             }
           }
@@ -615,8 +710,9 @@ function handler(
           var disciplineBlock8Id;
           if ($scope.sectionMenu === 'studyYearMenu') {
             if (
-              $scope.selectedNameFull &&
-              !angular.equals($scope.selectedNameFull, {})
+              $scope.selectedNameFull && !angular.equals(
+                $scope.selectedNameFull, {}
+              )
             ) {
               disciplineBlock8Id = $scope.selectedNameFull.disciplineBlockId;
             } else {
@@ -645,15 +741,16 @@ function handler(
             disciplineBlock8Id
           );
 
+          var i;
           if (year.idBlockYear) {
             // url += '/' + $scope.CurrentYearData.disciplineBlockId;
             method = 'PUT';
             url += '/' + year.idBlockYear;
-            if ($scope.sectionMenu != 'studyYearMenu') {
-              for (var i = 0; i < $scope.allYearsList.length; i++) {
+            if ($scope.sectionMenu !== 'studyYearMenu') {
+              for (i = 0; i < $scope.allYearsList.length; i++) {
                 if (
                   data.studyYear === $scope.allYearsList[i] &&
-                  data.studyYear != year.studyYear.name
+                  data.studyYear !== year.studyYear.name
                 ) {
                   $scope.reloadData();
                   // $scope.addMessage(2);
@@ -662,12 +759,15 @@ function handler(
                 }
               }
             } else {
-              for (var i=0; i<$scope.allDisciplinesList.length; i++) {
-                if ((DisciplineBlock8Id == $scope.allDisciplinesList[i])&&($scope.selectedNameFullEdited == 1))  {
-                  console.log(i," ",$scope.selectedNameFullEdited);
+              for (i = 0; i < $scope.allDisciplinesList.length; i++) {
+                if (
+                  (disciplineBlock8Id === $scope.allDisciplinesList[i]) &&
+                  ($scope.selectedNameFullEdited === 1)
+                ) {
+                  console.log(i, ' ', $scope.selectedNameFullEdited);
                   $scope.reloadData();
-                  //$scope.addMessage(2);
-                  console.log("error while edit right");
+                  // $scope.addMessage(2);
+                  console.log('error while edit right');
                   return;
                 }
               }
@@ -675,7 +775,7 @@ function handler(
           } else {
             method = 'POST';
             if ($scope.sectionMenu !== 'studyYearMenu') {
-              for (var i = 0; i < $scope.allYearsList.length; i++) {
+              for (i = 0; i < $scope.allYearsList.length; i++) {
                 if (data.studyYear === $scope.allYearsList[i]) {
                   $scope.reloadData();
                   // $scope.addMessage(2);
@@ -684,13 +784,13 @@ function handler(
                 }
               }
             } else {
-              for (var i = 0; i < $scope.allDisciplinesList.length; i++) {
+              for (i = 0; i < $scope.allDisciplinesList.length; i++) {
                 console.log(
                   '$scope.allDisciplinesList[i]', $scope.allDisciplinesList[i]
                 );
-                console.log('DisciplineBlock8Id', DisciplineBlock8Id);
+                console.log('disciplineBlock8Id', disciplineBlock8Id);
                 if (
-                  DisciplineBlock8Id === $scope.allDisciplinesList[i] ||
+                  disciplineBlock8Id === $scope.allDisciplinesList[i] ||
                   $scope.selectedNameFullEdited !== 1
                 ) {
                   $scope.reloadData();
@@ -710,7 +810,7 @@ function handler(
             .then(function(response) {
               console.log(response);
               $('#ModalTableApproved').modal('hide');
-                //$scope.sectionMenu = 'generalListMenu';
+              //$scope.sectionMenu = 'generalListMenu';
               $scope.selectedNameFull = {};
               $scope.sendSubdivisionToServer();
               $scope.initializeStudyYear();
@@ -801,8 +901,8 @@ function handler(
 
         $scope.removePropositionOnStudyYear = function(proposition) {
           if (confirm(
-            'Ви впеврені що хочете видалити дані про поточну пропозицію?'
-          )) {
+              'Ви впеврені що хочете видалити дані про поточну пропозицію?'
+            )) {
             var url = (
               'SelectiveDiscipline/BlocksDisplineYear/' +
               proposition.idBlockYear
@@ -890,12 +990,24 @@ function handler(
 
           for (var i = 0; i < 7; i++) {
             switch ($scope.CurrentYearData.courses[i]) {
-              case 1: course1 = false; break;
-              case 2: course2 = false; break;
-              case 3: course3 = false; break;
-              case 4: course4 = false; break;
-              case 5: course5 = false; break;
-              case 6: course6 = false; break;
+              case 1:
+                course1 = false;
+                break;
+              case 2:
+                course2 = false;
+                break;
+              case 3:
+                course3 = false;
+                break;
+              case 4:
+                course4 = false;
+                break;
+              case 5:
+                course5 = false;
+                break;
+              case 6:
+                course6 = false;
+                break;
             }
           }
 
@@ -952,10 +1064,8 @@ function handler(
           return approveStatus;
         }
 
-        function getDisciplineBlockIdByFullName(
-          disciplineBlockList,
-          disciplineBlockName
-        ) {
+        function getDisciplineBlockIdByFullName(disciplineBlockList,
+                                                disciplineBlockName) {
           var disciplineBlockId = '';
           for (var i = 0; i < disciplineBlockList.length; i++) {
             if (disciplineBlockList[i].fullName === disciplineBlockName) {
@@ -1104,10 +1214,10 @@ function handler(
 
   number.onkeydown = function(e) {
     if (!(
-      (e.keyCode > 95 && e.keyCode < 106) ||
-      (e.keyCode > 47 && e.keyCode < 58) ||
-      e.keyCode === 8
-    )) {
+        (e.keyCode > 95 && e.keyCode < 106) ||
+        (e.keyCode > 47 && e.keyCode < 58) ||
+        e.keyCode === 8
+      )) {
       return false;
     }
   };

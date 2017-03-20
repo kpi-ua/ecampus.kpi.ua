@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('HomeBulletinsBoardCtrl', ['$scope', 'api', handler]);
+  .controller('HomeBulletinsBoardCtrl', HomeBulletinsBoardCtrl);
 
-function handler($scope, api) {
+HomeBulletinsBoardCtrl.$inject = ['$scope', 'api'];
+
+function HomeBulletinsBoardCtrl($scope, api) {
   $scope.errorMessage = '';
   $scope.tab = 1;
 

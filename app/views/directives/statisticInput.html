@@ -1,0 +1,28 @@
+<!--ng-click="check(cathedra)-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <ui-select ng-model="$parent.chosenSubdivision" append-to-body="true">
+                <ui-select-match placeholder="Оберіть факультет або інститут...">
+                    <span ng-bind="$select.selected.subdivisionName"></span>
+                </ui-select-match>
+                <ui-select-choices
+                        repeat="subdivision in (subdivisions | filter: $select.search) track by subdivision.subdivisionId">
+                    <span ng-bind="subdivision.subdivisionName"></span>
+                </ui-select-choices>
+            </ui-select>
+
+            <div class="radioBtnWrapper" ng-show="!!chosenSubdivision">
+                <label class="topLabel">Оберіть кафедру</label>
+                <ng-repeat ng-repeat="cathedra in cathedras">
+                    <input class="radioBtn" id="{{cathedra.cathedraId}}" name="cathedra" type="radio"
+                           value='{{cathedra.cathedraId}}'
+                           ng-model="chosenId" ng-click="check(cathedra)">
+                    <label for="{{cathedra.cathedraId}}" class="side-label"> {{cathedra.cathedraName}}</label>
+                </ng-repeat>
+                <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
+            </div>
+        </div>
+    </div>
+    <p>{{statusLine}}</p>
+</div>

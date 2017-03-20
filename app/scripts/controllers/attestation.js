@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('AttestationCtrl', ['$scope', 'api', handler]);
+  .controller('AttestationCtrl', AttestationCtrl);
 
-function handler($scope, api) {
+AttestationCtrl.$inject = ['$scope', 'api'];
+
+function AttestationCtrl($scope, api) {
   $scope.errorMessageYears = '';
   $scope.errorMessageAttests = '';
   $scope.errorMessageGroups = '';
@@ -67,12 +69,12 @@ function handler($scope, api) {
         $scope.studyYears = response;
         $scope.studyYears.selected = setCurrentStudyYear(response);
       },
-        function() {
-          $scope.errorMessageYears = (
-            'Не вдалося завантажити список навчальних років'
-          );
-          $scope.studyYears = null;
-        });
+      function() {
+        $scope.errorMessageYears = (
+          'Не вдалося завантажити список навчальних років'
+        );
+        $scope.studyYears = null;
+      });
   }
 
   function getCurrentStudySemester() {
@@ -322,6 +324,12 @@ function handler($scope, api) {
       .then(function(response) {
         if (response) {
           $scope.attestationPeriodId = +response;
+          if (response.data !== undefined) {
+            var msg = 'No attestation period with this params';
+            if (response.data.message === msg) {
+              $scope.attestationPeriodId = null;
+            }
+          }
         } else {
           $scope.attestationPeriodId = null;
         }
@@ -334,7 +342,7 @@ function handler($scope, api) {
 
   $scope.loadGroups = function(namePattern, year) {
     if (namePattern.length > 1) {
-      var url = 'Attestation/group/find/' + namePattern + '/year/' + year;
+      var url = 'Account/group/find/' + namePattern + '/year/' + year;
       // url + namePattern (2 first symbol of group)
       api.execute('GET', url)
         .then(function(response) {
@@ -379,7 +387,7 @@ function handler($scope, api) {
 
   $scope.loadLecturers = function(namePattern) {
     if (namePattern.length > 2) {
-      var url = 'Attestation/lecturer/find/' + namePattern;
+      var url = 'Account/employee/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
         .then(function(response) {
@@ -428,7 +436,7 @@ function handler($scope, api) {
 
   $scope.loadStudents = function(namePattern) {
     if (namePattern.length > 2) {
-      var url = 'Attestation/student/find/' + namePattern;
+      var url = 'Account/student/find/' + namePattern;
       // url + namePattern (3 first symbol of group)
       api.execute('GET', url)
         .then(function(response) {

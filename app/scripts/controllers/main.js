@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('MainCtrl', handler);
+  .controller('MainCtrl', MainCtrl);
 
-function handler($scope, $rootScope, $cookies, $location, api) {
+MainCtrl.$inject = ['$scope', '$rootScope', '$cookies', '$location', 'api'];
+
+function MainCtrl($scope, $rootScope, $cookies, $location, api) {
 
   $scope.login = '';
   $scope.password = '';

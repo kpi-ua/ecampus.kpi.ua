@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('SecurityCtrl', handler);
+  .controller('SecurityCtrl', SecurityCtrl);
 
-function handler($scope, $cookies, $window, api) {
+SecurityCtrl.$inject = ['$scope', 'api'];
+
+function SecurityCtrl($scope, api) {
   $scope.step = 1;
   $scope.captcha = '';
   $scope.userId = '';

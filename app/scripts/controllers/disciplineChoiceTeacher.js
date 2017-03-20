@@ -9,8 +9,10 @@
  */
 angular
   .module('ecampusApp')
-  .controller('DisciplinesChoiceTCtrl', ['$scope', 'api', handler]);
+  .controller('DisciplineChoiceTeacherCtrl', DisciplineChoiceTeacherCtrl);
 
-function handler($scope, api) {
+DisciplineChoiceTeacherCtrl.$inject = ['$scope', 'api'];
+
+function DisciplineChoiceTeacherCtrl($scope, api) {
   //
 }

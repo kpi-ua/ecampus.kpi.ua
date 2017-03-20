@@ -85,7 +85,11 @@ function handler($parse, $compile) {
       if (newValue === oldValue) return;
 
       if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
-        scope[attrs.ngModel] = contains(getter(scope.$parent), value, comparator);
+        scope[attrs.ngModel] = contains(
+          getter(scope.$parent),
+          value,
+          comparator
+        );
         return;
       }
 

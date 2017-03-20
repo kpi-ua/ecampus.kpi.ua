@@ -1,0 +1,15 @@
+<table class="table table-bordered table-hover">
+    <tbody>
+    <tr ng-repeat="row in table">
+        <td ng-repeat="columnName in tableHeadersArray" ng-show="tableHeadersArray!==''&& midHeader===undefined">
+            {{row[columnName]}}
+        </td>
+        <td ng-show="tableHeadersArray===''">
+            {{row}}
+        </td>
+        <td ng-repeat="columnName in tableHeadersArray" ng-show="midHeader!==undefined" >
+            {{row[midHeader][columnName]}}
+        </td>
+    </tr>
+    </tbody>
+</table>

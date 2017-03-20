@@ -11,10 +11,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
   <meta name='yandex-verification' content='4ce42a0173a1c976'/>
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,300,700&subset=latin,cyrillic,cyrillic-ext"/>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Ubuntu:400,300,700&subset=latin,cyrillic,cyrillic-ext"/>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css"/>
 
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -30,7 +31,6 @@
   <!-- build:css(.tmp) styles/main.css -->
   <link rel="stylesheet" href="styles/stat.main.css">
   <link rel="stylesheet" href="styles/main.css">
-  <link rel="stylesheet" href="styles/discBlockAndPropose.css">
   <!-- endbuild -->
 
   <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
@@ -49,9 +49,8 @@
 <![endif]-->
 
 <header class="container-fluid">
-  <div class="row center-block">
+  <div class="row">
     <div class="col-md-6">
-      <!--<a href="/#/">Електронний кампус</a>-->
       <a href="/#!/">
         <img src="/images/logo-big-green.png" class="logo"/>
       </a>
@@ -62,11 +61,11 @@
   </div>
 </header>
 
-<navigation></navigation>
+<navigation ng-hide="isSessionExpired === true;"></navigation>
 
 <div class="loader" ng-if="requestCount > 0">
-  Завантаження даних...<br />
-  <img src="/images/ajax-loader.png" />
+  Завантаження даних...<br/>
+  <img src="/images/ajax-loader.png"/>
 </div>
 
 <div class="old-session text-center ng-cloak" ng-if="isSessionExpired === true;">
@@ -119,73 +118,75 @@
   </div>
 </div>
 
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-input-stars-directive/angular-input-stars.js"></script>
+<script src="bower_components/kjur-jsrsasign/jsrsasign-latest-all-min.js"></script>
+<script src="bower_components/jwt-decode/build/jwt-decode.js"></script>
+<script src="bower_components/page-scroll-to-id/jquery.malihu.PageScroll2id.js"></script>
+<script src="bower_components/chosen/chosen.jquery.js"></script>
+<script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.js"></script>
+<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
 
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/services/api.js"></script>
+<script src="scripts/services/uniqueElemsInList.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/information.js"></script>
+<script src="scripts/controllers/voting.js"></script>
+<script src="scripts/controllers/debugger.js"></script>
+<script src="scripts/controllers/security.js"></script>
+<script src="scripts/controllers/votingProfile.js"></script>
+<script src="scripts/controllers/admin.js"></script>
+<script src="scripts/controllers/statisticNpp.js"></script>
+<script src="scripts/controllers/statisticZkm.js"></script>
+<script src="scripts/controllers/home.js"></script>
+<script src="scripts/controllers/bulletinsBoard.js"></script>
+<script src="scripts/controllers/disciplineChoiceStudent.js"></script>
+<script src="scripts/controllers/disciplineChoiceTeacher.js"></script>
+<script src="scripts/controllers/disciplineBlock.js"></script>
+<script src="scripts/controllers/disciplineProposition.js"></script>
+<script src="scripts/controllers/disciplineSpecialization.js"></script>
+<script src="scripts/controllers/settings.js"></script>
+<script src="scripts/directives/chosen.js"></script>
+<script src="scripts/directives/navigation.js"></script>
+<script src="scripts/directives/breadcrumbs.js"></script>
+<script src="scripts/directives/tableChoiceResult.js"></script>
+<script src="scripts/directives/patternImplementation.js"></script>
+<script src="scripts/directives/studyGroup.js"></script>
+<script src="scripts/directives/checklistModelDirective.js"></script>
+<script src="scripts/directives/rnpInput.js"></script>
+<script src="scripts/directives/groupDisplay.js"></script>
+<script src="scripts/directives/rnpRowsDisplay.js"></script>
+<script src="scripts/directives/statisticInput.js"></script>
+<script src="scripts/directives/customPanel.js"></script>
+<script src="scripts/directives/tableFromArray.js"></script>
+<script src="scripts/directives/statisticSubjectProviderSection.js"></script>
+<script src="scripts/filters/orderObjectBy.js"></script>
+<script src="scripts/filters/unique.js"></script>
+<script src="scripts/filters/groupBy.js"></script>
+<script src="scripts/filters/yearOutput.js"></script>
+<script src="scripts/controllers/individualPlan.js"></script>
+<script src="scripts/controllers/disciplineFund.js"></script>
+<script src="scripts/controllers/rnp.js"></script>
+<script src="scripts/controllers/attestation.js"></script>
+<!-- endbuild -->
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-input-stars-directive/angular-input-stars.js"></script>
-    <script src="bower_components/kjur-jsrsasign/jsrsasign-latest-all-min.js"></script>
-    <script src="bower_components/jwt-decode/build/jwt-decode.js"></script>
-    <script src="bower_components/page-scroll-to-id/jquery.malihu.PageScroll2id.js"></script>
-    <script src="bower_components/chosen/chosen.jquery.js"></script>
-    <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.js"></script>
-    <script src="bower_components/angular-ui-select/dist/select.js"></script>
-    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/services/api.js"></script>
-    <script src="scripts/services/UniqueElemsInListService.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/information.js"></script>
-    <script src="scripts/controllers/voting.js"></script>
-    <script src="scripts/controllers/debugger.js"></script>
-    <script src="scripts/controllers/security.js"></script>
-    <script src="scripts/controllers/votingProfile.js"></script>
-    <script src="scripts/controllers/admin.js"></script>
-    <script src="scripts/controllers/statistic-npp.js"></script>
-    <script src="scripts/controllers/statistic-zkm.js"></script>
-    <script src="scripts/controllers/home.js"></script>
-    <script src="scripts/controllers/bulletinsBoard.js"></script>
-    <script src="scripts/controllers/disciplinesChoiceSt.js"></script>
-    <script src="scripts/controllers/disciplinesChoiceT.js"></script>
-    <script src="scripts/controllers/discipline-block.js"></script>
-    <script src="scripts/controllers/discipline-proposition.js"></script>
-    <script src="scripts/controllers/discipline-specialization.js"></script>
-    <script src="scripts/controllers/settings.js"></script>
-    <script src="scripts/directives/ChosenDirective.js"></script>
-    <script src="scripts/directives/navigation.js"></script>
-    <script src="scripts/directives/breadcrumbs.js"></script>
-    <script src="scripts/directives/table-choice-result.js"></script>
-    <script src="scripts/directives/pattern-implementation.js"></script>
-    <script src="scripts/directives/study-group.js"></script>
-    <script src="scripts/directives/checklistModelDirective.js"></script>
-    <script src="scripts/directives/rnp-input.js"></script>
-    <script src="scripts/directives/group-display.js"></script>
-    <script src="scripts/directives/rnp-rows-display.js"></script>
-    <script src="scripts/filters/SortCustomFilter.js"></script>
-    <script src="scripts/filters/UniqueFilter.js"></script>
-    <script src="scripts/filters/groupByFilter.js"></script>
-    <script src="scripts/filters/yearOutputFilter.js"></script>
-    <script src="scripts/controllers/individual-plan.js"></script>
-    <script src="scripts/controllers/discipline-fund.js"></script>
-    <script src="scripts/controllers/rnp.js"></script>
-    <script src="scripts/controllers/attestation.js"></script>
-    <!-- endbuild -->
-
-    <!--Referenced from 'CDN' because problems with minifying -->
-    <script src="https://cdn.rawgit.com/jmaister/excellentexport/master/excellentexport.js"></script>
+<!--Referenced from 'CDN' because problems with minifying -->
+<script src="https://cdn.rawgit.com/jmaister/excellentexport/master/excellentexport.js"></script>
 
 
 </body>

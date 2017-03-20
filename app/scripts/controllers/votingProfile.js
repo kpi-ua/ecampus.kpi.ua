@@ -9,9 +9,11 @@
  */
 angular
   .module('ecampusApp')
-  .controller('VotingProfileCtrl', handler);
+  .controller('VotingProfileCtrl', VotingProfileCtrl);
 
-function handler($scope, $location, $routeParams, api) {
+VotingProfileCtrl.$inject = ['$scope', '$location', '$routeParams', 'api'];
+
+function VotingProfileCtrl($scope, $location, $routeParams, api) {
   $scope.currentUser = null;
   $scope.criterions = [];
 
@@ -29,7 +31,8 @@ function handler($scope, $location, $routeParams, api) {
       $location.path('/');
     }
 
-    api.execute('GET', 'Account/Employee/' + $scope.selectedEmployeId).then(function(data) {
+    var urlEmploye = 'Account/Employee/' + $scope.selectedEmployeId;
+    api.execute('GET', urlEmploye).then(function(data) {
       $scope.selectedEmploye = data;
     });
 
@@ -41,10 +44,7 @@ function handler($scope, $location, $routeParams, api) {
 
   $scope.formIsValid = function() {
     var result = true;
-
-    if (!$scope.criterions) {
-      return false;
-    }
+    if (!$scope.criterions) return false;
 
     $scope.criterions.forEach(function(c) {
       if (!c.mark || c.mark === 0) {
@@ -56,9 +56,7 @@ function handler($scope, $location, $routeParams, api) {
   };
 
   $scope.vote = function() {
-
     var votes = [];
-
     $scope.criterions.forEach(function(c) {
 
       var vote = {

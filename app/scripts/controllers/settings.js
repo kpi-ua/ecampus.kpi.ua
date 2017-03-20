@@ -9,12 +9,10 @@
  */
 angular
   .module('ecampusApp')
-  .controller('SettingsCtrl', handler);
+  .controller('SettingsCtrl', SettingsCtrl);
 
-function handler() {
-  this.awesomeThings = [
-    'HTML5 Boilerplate',
-    'AngularJS',
-    'Karma'
-  ];
+SettingsCtrl.$inject = ['$scope', 'api'];
+
+function SettingsCtrl($scope, api) {
+
 }
