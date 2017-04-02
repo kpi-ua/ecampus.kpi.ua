@@ -44,7 +44,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 nav-pills-campus selective-disciplines-navs">
-            <ul class="nav nav-stacked" ng-hide="hideInfoDisc">
+            <ul class="nav nav-stacked">
               <li ng-class="{ 'nav-pills-campus_active': isSet(1)}">
                 <a class="nav-pills-campus__item" ng-click="setTab(1)">1 курс<br>
               {{getStudyCoursesWithYears(+ (info.yearIntake)).firstCourse}}</a>
@@ -72,208 +72,65 @@
             </ul>
           </div>
           <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9 selective-disciplines-info">
-            <div class="tab-content selective-disciplines-tabs" ng-hide="hideInfoDisc">
+            <div class="tab-content selective-disciplines-tabs">
               <div class="tab-pane course" ng-class="{ active: isSet(1)}">
-                <div class="choice-semester" ng-repeat="first in firstCourse">
-                  <div class="panel panel-default disciplines-info">
-                    <div class="panel-heading semester-heading">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
-                            <div class="labels">Навчальний рік</div>
-                            <div class="labels">Семестр</div>
-                            <div class="labels">Статус</div>
-                          </div>
-                          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                            <div class="studyYear">{{first.studyPeriod.start}}-{{first.studyPeriod.end}}</div>
-                            <div class="semester">{{first.semester || "інформацію не вказано"}}</div>
-                            <div class="status">{{translateStatus(first.status) || "інформацію не вказано"}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <discipline-choice-course study-course="firstCourse"></discipline-choice-course>
               </div>
               <div class="tab-pane course" ng-class="{ active: isSet(2)}">
-                <div class="choice-semester" ng-repeat="second in secondCourse"
-                     ng-init="secondModalName = 'secondModal-' + $index">
-                  <div class="panel panel-default disciplines-info">
-                    <div class="panel-heading semester-heading">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
-                            <div class="labels">Навчальний рік</div>
-                            <div class="labels">Семестр</div>
-                            <div class="labels">Статус</div>
-                          </div>
-                          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                            <div class="studyYear">{{second.studyPeriod.start}}-{{second.studyPeriod.end}}</div>
-                            <div class="semester">{{second.semester || "інформацію не вказано"}}</div>
-                            <div class="status">{{translateStatus(second.status) || "інформацію не вказано"}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel-body blocks-panel">
-                      <div class="blocks-unavailable" ng-show="second.blocks.length === 0"
-                           ng-hide="second.status !== 'available' || second.blocks.length !== 0">
-                        Не вказано навчальні блоки для вибору дисциплін
-                      </div>
-                      <ul class="list-group blocks-list" ng-hide="second.blocks.length === 0">
-                        <discipline-blocks-choice course="second" year="secondCourse"></discipline-blocks-choice>
-                      </ul>
-                    </div>
-                    <div class="panel-footer save-result" ng-hide="second.status !== 'available' ">
-                      <button type="submit" class="btn btn-primary btn-save-choice-result"
-                              ng-disabled="second.blocks.length > countSelectedDiscipline(second)
-                                      || isDisabledSaveButton(second.semester, second.blocks.length)
-                                      || second.blocks.length === 0"
-                              data-toggle="modal" data-target="#{{secondModalName}}">
-                        Зберегти результати
-                      </button>
-                    </div>
-                  </div>
-                  <!-- Modal -->
-                  <discipline-choice-modal course="second" index="secondModalName"></discipline-choice-modal>
-                </div>
+                <discipline-choice-course study-course="secondCourse"></discipline-choice-course>
               </div>
               <div class="tab-pane course" ng-class="{ active: isSet(3)}">
-                <div class="choice-semester" ng-repeat="third in thirdCourse"
-                     ng-init="thirdModalName = 'thirdModal-' + $index">
-                  <div class="panel panel-default disciplines-info">
-                    <div class="panel-heading semester-heading">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
-                            <div class="labels">Навчальний рік</div>
-                            <div class="labels">Семестр</div>
-                            <div class="labels">Статус</div>
-                          </div>
-                          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                            <div class="studyYear">{{third.studyPeriod.start}}-{{third.studyPeriod.end}}</div>
-                            <div class="semester">{{third.semester || "інформацію не вказано"}}</div>
-                            <div class="status">{{translateStatus(third.status) || "інформацію не вказано"}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel-body blocks-panel">
-                      <div class="blocks-unavailable" ng-show="third.blocks.length === 0"
-                           ng-hide="third.status !== 'available' || third.blocks.length !== 0">
-                        Не вказано навчальні блоки для вибору дисциплін
-                      </div>
-                      <ul class="list-group blocks-list" ng-hide="third.blocks.length === 0">
-                        <discipline-blocks-choice course="third" year="thirdCourse"></discipline-blocks-choice>
-                      </ul>
-                    </div>
-                    <div class="panel-footer save-result" ng-hide="third.status !== 'available' ">
-                      <button type="submit" class="btn btn-primary btn-save-choice-result"
-                              ng-disabled="third.blocks.length > countSelectedDiscipline(third)
-                                      || isDisabledSaveButton(third.semester, third.blocks.length)
-                                      || third.blocks.length === 0"
-                              data-toggle="modal" data-target="#{{thirdModalName}}">
-                        Зберегти результати
-                      </button>
-                    </div>
-                  </div>
-                  <!-- Modal -->
-                  <discipline-choice-modal course="third" index="thirdModalName"></discipline-choice-modal>
-                </div>
+                <discipline-choice-course study-course="thirdCourse"></discipline-choice-course>
               </div>
               <div class="tab-pane course" ng-class="{ active: isSet(4)}">
-                <div class="choice-semester" ng-repeat="fourth in fourthCourse"
-                     ng-init="fourthModalName = 'fourthModal-' + $index">
-                  <div class="panel panel-default disciplines-info">
-                    <div class="panel-heading semester-heading">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
-                            <div class="labels">Навчальний рік</div>
-                            <div class="labels">Семестр</div>
-                            <div class="labels">Статус</div>
-                          </div>
-                          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                            <div class="studyYear">{{fourth.studyPeriod.start}}-{{fourth.studyPeriod.end}}</div>
-                            <div class="semester">{{fourth.semester || "інформацію не вказано"}}</div>
-                            <div class="status">{{translateStatus(fourth.status) || "інформацію не вказано"}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel-body blocks-panel">
-                      <div class="blocks-unavailable" ng-show="fourth.blocks.length === 0"
-                           ng-hide="fourth.status !== 'available' || fourth.blocks.length !== 0">
-                        Не вказано навчальні блоки для вибору дисциплін
-                      </div>
-                      <ul class="list-group blocks-list" ng-hide="fourth.blocks.length === 0">
-                        <discipline-blocks-choice course="fourth" year="fourthCourse"></discipline-blocks-choice>
-                      </ul>
-                    </div>
-                    <div class="panel-footer save-result" ng-hide="fourth.status !== 'available' ">
-                      <button type="submit" class="btn btn-primary btn-save-choice-result"
-                              ng-disabled="fourth.blocks.length > countSelectedDiscipline(fourth)
-                                      || isDisabledSaveButton(fourth.semester, fourth.blocks.length)
-                                      || fourth.blocks.length === 0"
-                              data-toggle="modal" data-target="#{{fourthModalName}}">
-                        Зберегти результати
-                      </button>
-                    </div>
-                  </div>
-                  <!-- Modal -->
-                  <discipline-choice-modal course="fourth" index="fourthModalName"></discipline-choice-modal>
-                </div>
+                <discipline-choice-course study-course="fourthCourse"></discipline-choice-course>
               </div>
-              <div class="tab-pane course" ng-class="{ active: isSet(5)}" ng-hide="info.okr != 'Магістр'">
-                <div class="choice-semester" ng-repeat="fifth in fifthCourse">
-                  <div class="panel panel-default disciplines-info">
-                    <div class="panel-heading semester-heading">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
-                            <div class="labels">Навчальний рік</div>
-                            <div class="labels">Семестр</div>
-                            <div class="labels">Статус</div>
-                          </div>
-                          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                            <div class="studyYear">{{fifth.studyPeriod.start}}-{{fifth.studyPeriod.end}}</div>
-                            <div class="semester">{{fifth.semester || "інформацію не вказано"}}</div>
-                            <div class="status">{{translateStatus(fifth.status) || "інформацію не вказано"}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane course" ng-class="{ active: isSet(6)}" ng-hide="info.okr != 'Магістр'">
-                <div class="choice-semester" ng-repeat="sixth in sixthCourse">
-                  <div class="panel panel-default disciplines-info">
-                    <div class="panel-heading semester-heading">
-                      <div class="container-fluid">
-                        <div class="row">
-                          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">
-                            <div class="labels">Навчальний рік</div>
-                            <div class="labels">Семестр</div>
-                            <div class="labels">Статус</div>
-                          </div>
-                          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">
-                            <div class="studyYear">{{sixth.studyPeriod.start}}-{{sixth.studyPeriod.end}}</div>
-                            <div class="semester">{{sixth.semester || "інформацію не вказано"}}</div>
-                            <div class="status">{{translateStatus(sixth.status) || "інформацію не вказано"}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <!--<div class="tab-pane course" ng-class="{ active: isSet(5)}" ng-hide="info.okr != 'Магістр'">-->
+                <!--<div class="choice-semester" ng-repeat="fifth in fifthCourse">-->
+                  <!--<div class="panel panel-default disciplines-info">-->
+                    <!--<div class="panel-heading semester-heading">-->
+                      <!--<div class="container-fluid">-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">-->
+                            <!--<div class="labels">Навчальний рік</div>-->
+                            <!--<div class="labels">Семестр</div>-->
+                            <!--<div class="labels">Статус</div>-->
+                          <!--</div>-->
+                          <!--<div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">-->
+                            <!--<div class="studyYear">{{fifth.studyPeriod.start}}-{{fifth.studyPeriod.end}}</div>-->
+                            <!--<div class="semester">{{fifth.semester || "інформацію не вказано"}}</div>-->
+                            <!--<div class="status">{{translateStatus(fifth.status) || "інформацію не вказано"}}-->
+                            <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="tab-pane course" ng-class="{ active: isSet(6)}" ng-hide="info.okr != 'Магістр'">-->
+                <!--<div class="choice-semester" ng-repeat="sixth in sixthCourse">-->
+                  <!--<div class="panel panel-default disciplines-info">-->
+                    <!--<div class="panel-heading semester-heading">-->
+                      <!--<div class="container-fluid">-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 labels-group">-->
+                            <!--<div class="labels">Навчальний рік</div>-->
+                            <!--<div class="labels">Семестр</div>-->
+                            <!--<div class="labels">Статус</div>-->
+                          <!--</div>-->
+                          <!--<div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 loading-data">-->
+                            <!--<div class="studyYear">{{sixth.studyPeriod.start}}-{{sixth.studyPeriod.end}}</div>-->
+                            <!--<div class="semester">{{sixth.semester || "інформацію не вказано"}}</div>-->
+                            <!--<div class="status">{{translateStatus(sixth.status) || "інформацію не вказано"}}-->
+                            <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
             </div>
           </div>
         </div>

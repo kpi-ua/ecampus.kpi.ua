@@ -23,14 +23,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     return $scope.tab === tabNum;
   };
 
-  $scope.translateStatus = function(englishStatus) {
-    switch (englishStatus) {
-      case 'not available': return 'вибір не доступний';
-      case 'available': return 'вибір доступний';
-      case 'done': return 'вибір здійснено';
-    }
-  };
-
   $scope.getStudyCoursesWithYears = function(yearIntake) {
     return {
       firstCourse: yearIntake + '-' + (1 + yearIntake),
@@ -92,17 +84,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   }
 
-  $scope.countSelectedDiscipline = function(response) {
-    var i, res, result = 0;
-    for (i = 0; i < response.blocks.length; i++) {
-      res = response.blocks[i].selectedDiscipline;
-      if (res.id !== null) {
-        result++;
-      }
-    }
-    return result;
-  };
-
   $scope.saveDisciplinesChoice = function(payload, semester) {
     var url = 'SelectiveDiscipline/semesters/disciplines';
 
@@ -110,18 +91,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       .then(function(response) {
         semester.saveChoiceResult = response;
     });
-  };
-
-  $scope.isDisabledSaveButton = function(semester, length) {
-    var className = "btn-choice-result-" + semester + "-";
-    for (var i = 0; i < length; i++) {
-      var button = document.getElementsByClassName(className + i);
-      var isFirstButtonDisabled = button[0].disabled;
-      if (isFirstButtonDisabled) {
-        return true;
-      }
-    }
-    return false;
   };
 
   loadInfo();
