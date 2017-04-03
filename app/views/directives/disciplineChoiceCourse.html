@@ -30,8 +30,8 @@
     <div class="panel-footer save-result" ng-hide="course.status !== 'available' ">
       <button type="submit" class="btn btn-primary btn-save-choice-result"
               ng-disabled="course.blocks.length > countSelectedDiscipline(course)
-                                      || isDisabledSaveButton(course.semester, course.blocks.length)
-                                      || course.blocks.length === 0"
+              || isDisabledSaveButton(course.semester, course.blocks.length)
+              || course.blocks.length === 0"
               data-toggle="modal" data-target="#{{courseModalName}}">
         Зберегти результати
       </button>

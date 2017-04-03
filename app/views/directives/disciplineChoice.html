@@ -1,5 +1,5 @@
 <div ng-repeat="discipline in block.blockDisc"
-     ng-init="id = discipline.cDisciplineBlockYear8Id; name = discipline.nameUkr;">
+     ng-init="initVariables(discipline)">
   <div class="checkbox discipline-choice-checkbox">
     <label class="label-disciplines-choice">
       <input type="checkbox"
