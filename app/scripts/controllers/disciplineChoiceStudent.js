@@ -84,15 +84,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
     });
   }
 
-  $scope.saveDisciplinesChoice = function(payload, semester) {
-    var url = 'SelectiveDiscipline/semesters/disciplines';
-
-    api.execute('POST', url, payload)
-      .then(function(response) {
-        semester.saveChoiceResult = response;
-    });
-  };
-
   loadInfo();
   loadDisciplines();
 }
