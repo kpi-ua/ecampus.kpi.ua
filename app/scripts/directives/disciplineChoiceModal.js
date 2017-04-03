@@ -16,12 +16,14 @@
     return {
       templateUrl: 'views/directives/disciplineChoiceModal.html',
       restrict: 'E',
+      scope: {
+        modalCourse: '=modalCourse',
+        modalIndex: '=modalIndex'
+      },
       link: postLink
     };
 
     function postLink(scope, element, attrs) {
-      scope.course = scope[attrs['course']];
-      scope.index = scope[attrs['index']];
 
       scope.deleteAdditionalProperties = function(object) {
         var result = object;
