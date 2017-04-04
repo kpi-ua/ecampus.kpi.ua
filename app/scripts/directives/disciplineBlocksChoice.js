@@ -73,7 +73,7 @@
       scope.course = scope[attrs['course']];
       scope.studyYear = scope[attrs['year']];
 
-      scope.isDisabledChoiceButton = function (block) {
+      scope.isDisabledChoiceButton = function(block) {
         var selected = block.selectedDiscipline;
         var count = block.disciplineCount;
 
@@ -84,7 +84,7 @@
         );
       };
 
-      scope.addBlock = function (courseElement, course, block) {
+      scope.addBlock = function(courseElement, course, block) {
         var filteredSemester = filterSemesters(course, courseElement.semester);
         var filteredDisciplines = filterDisciplines(block, block.selectedDiscipline);
 

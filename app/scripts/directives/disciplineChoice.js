@@ -22,25 +22,25 @@
       scope.course = scope[attrs['course']];
       scope.selectedForInfo = {'cDisciplineBlockYear8Id': null};
 
-      scope.initVariables = function (discipline) {
+      scope.initVariables = function(discipline) {
         scope.id = discipline.cDisciplineBlockYear8Id;
         scope.name = discipline.nameUkr;
       };
 
-      scope.isDisciplinesSelected = function (object) {
+      scope.isDisciplinesSelected = function(object) {
         return Object.keys(object).some(function (key) {
           return object[key];
         });
       };
 
-      scope.toggleDisciplineDescription = function (id) {
+      scope.toggleDisciplineDescription = function(id) {
         scope.selectedForInfo.cDisciplineBlockYear8Id = (
           scope.selectedForInfo.cDisciplineBlockYear8Id === null ||
           scope.selectedForInfo.cDisciplineBlockYear8Id !== id ? id : null
         );
       };
 
-      scope.calculatePercent = function (currentDiscipline) {
+      scope.calculatePercent = function(currentDiscipline) {
         var currentStudentCount = +(currentDiscipline.studentCount);
         var maxStudentCount = +(currentDiscipline.maxCountStudent);
 

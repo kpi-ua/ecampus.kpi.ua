@@ -33,7 +33,7 @@
         }
       };
 
-      scope.countSelectedDiscipline = function (response) {
+      scope.countSelectedDiscipline = function(response) {
         var i, res, result = 0;
 
         for (i = 0; i < response.blocks.length; i++) {
@@ -45,7 +45,7 @@
         return result;
       };
 
-      scope.isDisabledSaveButton = function (semester, length) {
+      scope.isDisabledSaveButton = function(semester, length) {
         var className = "btn-cancel-" + semester + "-";
 
         for (var i = 0; i < length; i++) {
