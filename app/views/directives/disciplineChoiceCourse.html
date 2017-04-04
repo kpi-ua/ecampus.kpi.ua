@@ -27,7 +27,7 @@
         <discipline-blocks-choice course="course" year="studyCourse"></discipline-blocks-choice>
       </ul>
     </div>
-    <div class="panel-footer save-result" ng-hide="course.status !== 'available' ">
+    <div class="panel-footer save-result" ng-hide="course.status !== 'available'">
       <button type="submit" class="btn btn-primary btn-save-choice-result"
               ng-disabled="course.blocks.length > countSelectedDiscipline(course)
               || isDisabledSaveButton(course.semester, course.blocks.length)

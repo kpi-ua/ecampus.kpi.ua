@@ -35,6 +35,7 @@
           var block = result.blocks[i];
 
           delete block.selectedDiscipline;
+          delete block.isSelected;
         }
         return result;
       };

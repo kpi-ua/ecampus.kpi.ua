@@ -73,6 +73,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
             id: null,
             name: null
           };
+          resBlocks['isSelected'] = false;
         }
         switch (res.course) {
           case 1: $scope.firstCourse.push(res); break;

@@ -88,10 +88,23 @@
         var filteredSemester = filterSemesters(course, courseElement.semester);
         var filteredDisciplines = filterDisciplines(block, block.selectedDiscipline);
 
+        block.isSelected = true;
         courseElement.payload = removeFilteredValue(filteredSemester, undefined);
         courseElement.block.push(filteredDisciplines);
         courseElement.payload.blocks = uniqueBlocks(courseElement.block);
       };
+
+      scope.removeCheckedItems = function(block) {
+        block.selectedDiscipline = [];
+      };
+
+      scope.clearPayloadInfo = function(courseElement, block) {
+        block.isSelected = false;
+        courseElement.payload = [];
+        courseElement.block = [];
+        courseElement.payload.blocks = [];
+      };
+
     }
 
   }

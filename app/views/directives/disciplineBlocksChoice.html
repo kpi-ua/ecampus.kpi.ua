@@ -90,11 +90,18 @@
         </div>
       </div>
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 choice-result">
-        <button type="submit" class="btn btn-primary btn-choice-result-{{course.semester}}-{{indexBlock}}"
-                ng-show="!(course.status === 'not available' || course.status === 'done')"
-                ng-disabled="isDisabledChoiceButton(courseBlocks);"
-                ng-click="addBlock(course, studyYear, courseBlocks);">Обрати
-        </button>
+        <div class="col-md-5" style="padding: 0;">
+          <button type="submit" class="btn btn-primary btn-choice-result-{{course.semester}}-{{indexBlock}}"
+                  ng-show="!(course.status === 'not available' || course.status === 'done')"
+                  ng-disabled="isDisabledChoiceButton(courseBlocks) || courseBlocks.isSelected"
+                  ng-click="addBlock(course, studyYear, courseBlocks)">Обрати
+          </button>
+          <button type="reset" class="btn btn-default btn-cancel btn-cancel-{{course.semester}}-{{indexBlock}} pull-right"
+                  ng-click="removeCheckedItems(courseBlocks);clearPayloadInfo(course, courseBlocks);"
+                  ng-disabled="!courseBlocks.isSelected">
+            Скасувати
+          </button>
+        </div>
       </div>
     </div>
   </div>

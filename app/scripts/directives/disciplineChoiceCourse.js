@@ -46,7 +46,7 @@
       };
 
       scope.isDisabledSaveButton = function (semester, length) {
-        var className = "btn-choice-result-" + semester + "-";
+        var className = "btn-cancel-" + semester + "-";
 
         for (var i = 0; i < length; i++) {
           var button = document.getElementsByClassName(className + i);
