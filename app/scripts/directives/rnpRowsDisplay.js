@@ -11,6 +11,7 @@ function rnpRowsDisplay() {
     link: link
   };
   function link($scope, element, attr) {
+    $scope.showRows = true;
     $scope.data = $scope[attr['rows']];
     var watch = attr['rows'];
     $scope.$watch(watch, function() {

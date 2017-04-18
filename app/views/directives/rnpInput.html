@@ -48,7 +48,7 @@
     </select>
 </div>
 <div class="row">
-    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">XML код РНП</label>
+    <label class="col-md-3 col-sm-3 col-xs-12 select-form__label ">XML код РНП/Специализация</label>
     <select class="col-md-3 col-sm-4 col-xs-12 select-form__select"
             ng-model="model.xmlCode" ng-change="onChange(model.xmlCode,'XmlCodes', options.XmlCodes)">
         <option ng-repeat="xmlCode in options.XmlCodes" value="{{xmlCode.name}}">
