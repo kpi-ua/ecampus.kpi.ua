@@ -9,12 +9,9 @@
 
 angular
   .module('checklist-model', [])
-  .directive('checklistModel', checklistModel);
+  .directive('checklistModel', ['$parse', '$compile', handler]);
 
-checklistModel.$inject = ['$parse', '$compile'];
-
-function checklistModel($parse, $compile) {
-
+function handler($parse, $compile) {
   // contains
   function contains(arr, item, comparator) {
     if (angular.isArray(arr)) {
@@ -85,9 +82,7 @@ function checklistModel($parse, $compile) {
 
     // watch UI checked change
     scope.$watch(attrs.ngModel, function(newValue, oldValue) {
-      if (newValue === oldValue) {
-        return;
-      }
+      if (newValue === oldValue) return;
 
       if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
         scope[attrs.ngModel] = contains(
@@ -99,22 +94,18 @@ function checklistModel($parse, $compile) {
       }
 
       setValueInChecklistModel(value, newValue);
-
-      if (checklistChange) {
-        checklistChange(scope);
-      }
+      if (checklistChange) checklistChange(scope);
     });
 
     function setValueInChecklistModel(value, checked) {
       var current = getter(scope.$parent);
       if (angular.isFunction(setter)) {
-        if (checked === true) {
+        if (checked) {
           setter(scope.$parent, add(current, value, comparator));
         } else {
           setter(scope.$parent, remove(current, value, comparator));
         }
       }
-
     }
 
     // declare one function to be used for both $watch functions
@@ -141,14 +132,12 @@ function checklistModel($parse, $compile) {
     terminal: true,
     scope: true,
     compile: function(tElement, tAttrs) {
+      var tag = tElement[0].tagName;
       if (
-        (tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox') &&
-        (tElement[0].tagName !== 'MD-CHECKBOX') && (!tAttrs.btnCheckbox)
+        (tag !== 'INPUT' || tAttrs.type !== 'checkbox') &&
+        (tag !== 'MD-CHECKBOX') && (!tAttrs.btnCheckbox)
       ) {
-        throw new Error(
-          'checklist-model should be applied ' +
-          'to `input[type="checkbox"]` or `md-checkbox`.'
-        );
+        throw 'checklist-model should be applied to `input[type="checkbox"]` or `md-checkbox`.';
       }
 
       if (!tAttrs.checklistValue && !tAttrs.value) {
@@ -160,7 +149,6 @@ function checklistModel($parse, $compile) {
         // local scope var storing individual checkbox model
         tAttrs.$set('ngModel', 'checked');
       }
-
       return postLinkFn;
     }
   };
