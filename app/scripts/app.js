@@ -150,6 +150,11 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/attestation.html',
       controller: 'AttestationCtrl',
       controllerAs: 'attest'
+    })
+    .when('/np-specializations', {
+      templateUrl: 'views/npSpecializations.html',
+      controller: 'NpSpecializationsCtrl',
+      controllerAs: 'NpSpec'
     });
 
   $locationProvider.html5Mode(true);
