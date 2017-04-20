@@ -1086,6 +1086,14 @@ li.list-group-item.blocks-list-item {
 }
 
 /* end attestation styles*/
+
+/* np styles */
+
+.btn-filters {
+  margin: 15px 0;
+}
+
+/* end np styles*/
 .study-profile,
 .item {
   padding-left: 30px;

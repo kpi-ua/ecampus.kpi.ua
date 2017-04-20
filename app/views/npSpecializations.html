@@ -11,7 +11,15 @@
       </div>
     </div>
 
-    <div id="filter" class="col-md-4">
+    <div class="col-md-12 toggle">
+      <button id="filter-toggle" type="button" class="col-md-12 btn btn-primary btn-filters"
+              ng-click="showFilter = !showFilter">
+        Показати фільтри
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div id="filter" class="col-md-4" ng-show="showFilter">
       <div class="faculty-select">
         <label for="faculty" class="select-form__label">Факультет</label>
         <ui-select id="faculty" class="select-form__select_attest" ng-model="faculties.selected"
@@ -80,6 +88,9 @@
             Спеціалізацію не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div>
+          {{specialization}}
+        </div>
       </div>
       <div class="study-year-select">
         <label for="study-year" class="select-form__label">Навчальний рік (рік вступу)</label>
@@ -168,5 +179,4 @@
     </div>
 
   </div>
-
 </div>
