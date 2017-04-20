@@ -10,6 +10,132 @@
         <h1>НП спеціалізацій</h1>
       </div>
     </div>
+
+    <div id="filter" class="col-md-4">
+      <div class="faculty-select">
+        <label for="faculty" class="select-form__label">Факультет</label>
+        <ui-select id="faculty" class="select-form__select_attest" ng-model="faculties.selected"
+                   append-to-body="true"
+                   on-select="filterSubdivision(fullSubdivisionResponse, faculties.selected.id);">
+          <ui-select-match placeholder="Оберіть факультет">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="faculty in (faculties | filter: $select.search) track by faculty.id"
+                             position="down">
+            <span ng-bind="faculty.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Факультет не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="subdivision-select">
+        <label for="subdivision" class="select-form__label">Кафедра</label>
+        <ui-select id="subdivision" class="select-form__select_attest" ng-model="subdivisions.selected"
+                   append-to-body="true"
+                   on-select="loadSpecialities(subdivisions.selected.id)">
+          <ui-select-match placeholder="Оберіть кафедру">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="subdivision in (subdivisions | filter: $select.search) track by subdivision.id"
+                             position="down">
+            <span ng-bind="subdivision.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Кафедру не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="speciality-select">
+        <label for="speciality" class="select-form__label">Спеціальність</label>
+        <ui-select id="speciality" class="select-form__select_attest" ng-model="specialities.selected"
+                   append-to-body="true"
+                   on-select="loadOkr(specialities.selected.id)">
+          <ui-select-match placeholder="Оберіть спеціальність">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="speciality in (specialities | filter: $select.search)"
+                             position="down">
+            <span ng-bind="speciality.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Спеціальність не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="specialization-select">
+        <label for="specialization" class="select-form__label">Спеціалізація</label>
+        <ui-select id="specialization" class="select-form__select_attest" ng-model="specializations.selected"
+                   append-to-body="true"
+                   on-select="reloadNp(specializations.selected.id, 'not set', 'not set')">
+          <ui-select-match placeholder="Оберіть спеціалізацію">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices
+            repeat="specialization in (specializations | filter: $select.search) track by specialization.id"
+            position="down">
+            <span ng-bind="specialization.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Спеціалізацію не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="study-year-select">
+        <label for="study-year" class="select-form__label">Навчальний рік (рік вступу)</label>
+        <ui-select id="study-year" class="select-form__select_attest" ng-model="studyYears.selected"
+                   append-to-body="true"
+                   on-select="reloadNp(specializations.selected.id, studyYears.selected.id, 'not set')">
+          <ui-select-match placeholder="Оберіть навчальний рік">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="studyYear in (studyYears | filter: $select.search) track by studyYear.id"
+                             position="down">
+            <span ng-bind="studyYear.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Навчальний рік не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="okr-select">
+        <label for="okr" class="select-form__label">ОКР</label>
+        <ui-select id="okr" class="select-form__select_attest" ng-model="allOkr.selected" append-to-body="true">
+          <ui-select-match placeholder="Оберіть ОКР">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="okr in (allOkr | filter: $select.search)"
+                             position="down">
+            <span ng-bind="okr.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            ОКР не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="study-form-select">
+        <label for="study-form" class="select-form__label">Форма навчання</label>
+        <ui-select id="study-form" class="select-form__select_attest" ng-model="studyForms.selected"
+                   append-to-body="true"
+                   on-select="reloadNp(specializations.selected.id, studyYears.selected.id, studyForms.selected.id)">
+          <ui-select-match placeholder="Оберіть форму навчання">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="studyForm in (studyForms | filter: $select.search) track by studyForm.id"
+                             position="down">
+            <span ng-bind="studyForm.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Форму навчання не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+    </div>
+
+    <div class="col-md-12" id="np-content">
+
+    </div>
+
   </div>
 
 </div>
