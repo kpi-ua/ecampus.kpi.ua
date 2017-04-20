@@ -58,7 +58,7 @@
         <label for="speciality" class="select-form__label">Спеціальність</label>
         <ui-select id="speciality" class="select-form__select_attest" ng-model="specialities.selected"
                    append-to-body="true"
-                   on-select="loadOkr(specialities.selected.id)">
+                   on-select="loadOkr(specialities.selected.id);loadSpecializations(specialities.selected.id);">
           <ui-select-match placeholder="Оберіть спеціальність">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>

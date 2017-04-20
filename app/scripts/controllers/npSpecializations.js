@@ -117,8 +117,7 @@
         });
     };
 
-    // loadSpecializations(specialities.selected.id);
-    // $scope.loadSpecializations = loadSpecializations;
+    $scope.loadSpecializations = loadSpecializations;
 
     function loadSpecializations(specialityId) {
       var url = '';
@@ -290,7 +289,6 @@
     loadFaculties();
     loadStudyYears();
     loadStudyForms();
-    loadSpecializations();
     loadNp();
   }
 })();
