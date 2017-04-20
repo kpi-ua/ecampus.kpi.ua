@@ -133,7 +133,38 @@
     </div>
 
     <div class="col-md-12" id="np-content">
-
+      <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-hover">
+          <thead>
+          <tr>
+            <th>№</th>
+            <th>Актуальність</th>
+            <th>Спеціалізація</th>
+            <th>Навчальний рік</th>
+            <th>Форма навчання</th>
+            <th>Назва</th>
+            <th>Дата зміни</th>
+            <th>ОКР</th>
+            <th>Термін рік</th>
+            <th>Термін місяць</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="np in (nps | filter: allOkr.selected.name)">
+            <td>{{np.id}}</td>
+            <td>{{np.actuality}}</td>
+            <td>{{np.specialization.name}}</td>
+            <td>{{np.studyingYear.name}}</td>
+            <td>{{np.studyForm.name}}</td>
+            <td>{{np.name}}</td>
+            <td>{{np.changeDate}}</td>
+            <td>{{np.okr.name}}</td>
+            <td>{{np.studyTermYear}}</td>
+            <td>{{np.studyTermMonth}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </div>

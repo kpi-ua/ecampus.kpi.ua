@@ -169,10 +169,81 @@
         });
     }
 
+    function checkParameter(value) {
+      return value === 'not set';
+    }
+
+    function checkForUndefined(value) {
+      return typeof value == 'undefined';
+    }
+
+    $scope.reloadNp = loadNp;
+
+    function loadNp(specializationId, studyingYearId, studyFormId) {
+      var url;
+
+      if (
+        !checkForUndefined(specializationId) ||
+        !checkForUndefined(studyingYearId) ||
+        !checkForUndefined(studyFormId)
+      ) {
+        var parameters = [];
+        url = 'Np?';
+
+        if (
+          !checkParameter(specializationId) &&
+          !checkForUndefined(specializationId)
+        ) {
+          var specializationParameter = {
+            name: 'specializationId', value: specializationId
+          };
+
+          parameters.push(specializationParameter);
+        }
+
+        if (
+          !checkParameter(studyingYearId) &&
+          !checkForUndefined(studyingYearId)
+        ) {
+          var studyingYearParameter = {
+            name: 'studyingYearId', value: studyingYearId
+          };
+
+          parameters.push(studyingYearParameter);
+        }
+
+        if (
+          !checkParameter(studyFormId) &&
+          !checkForUndefined(studyFormId)
+        ) {
+          var studyFormParameter = {
+            name: 'studyFormId', value: studyFormId
+          };
+
+          parameters.push(studyFormParameter);
+        }
+
+        var len = parameters.length;
+
+        for(var i = 0; i < len; i++) {
+          var currentParameter = parameters[i];
+
+          url += ('&' + currentParameter.name + '=' + (+currentParameter.value));
+        }
+      } else {
+        url = 'Np';
+      }
+
+      api.execute('GET', url)
+        .then(function(response) {
+          $scope.nps = response;
+        });
+    }
 
     loadFaculties();
     loadStudyYears();
     loadStudyForms();
     loadSpecializations();
+    loadNp();
   }
 })();
