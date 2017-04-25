@@ -17,6 +17,16 @@
         Показати фільтри
         <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
       </button>
+      <button type="button" class="col-md-12 btn btn-primary btn-np"
+              ng-click="editable = !editable">
+        Редагувати
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+      </button>
+      <button type="button" class="col-md-12 btn btn-primary btn-np"
+              ng-show="editable" data-toggle="modal" data-target="#newNp">
+        Додати новий навчальний план
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      </button>
     </div>
 
     <div id="filter" class="col-md-4" ng-show="showFilter">
@@ -88,9 +98,6 @@
             Спеціалізацію не знайдено
           </ui-select-no-choice>
         </ui-select>
-        <div>
-          {{specialization}}
-        </div>
       </div>
       <div class="study-year-select">
         <label for="study-year" class="select-form__label">Навчальний рік (рік вступу)</label>
@@ -158,23 +165,241 @@
             <th>ОКР</th>
             <th>Термін рік</th>
             <th>Термін місяць</th>
+            <th ng-show="editable">Дії з НП</th>
           </tr>
           </thead>
           <tbody>
           <tr ng-repeat="np in (nps | filter: allOkr.selected.name)">
             <td>{{np.id}}</td>
-            <td>{{np.actuality}}</td>
-            <td>{{np.specialization.name}}</td>
-            <td>{{np.studyingYear.name}}</td>
-            <td>{{np.studyForm.name}}</td>
-            <td>{{np.name}}</td>
+            <td>
+              <span editable-checkbox="np.actuality" e-name="actuality" e-form="npForm">
+                <input type="checkbox" ng-disabled="true" ng-model="np.actuality">
+                {{showStatus(np.actuality)}}
+              </span>
+            </td>
+            <td>
+              <div editable-ui-select="np.specialization" data-e-form="npForm"
+                   data-e-append-to-body="true"
+                   data-e-name="specialization" name="specialization" theme="bootstrap"
+                   data-e-ng-model="np.specialization"
+                   onbeforesave="checkSpecialization($data)"
+                   data-e-style="width:auto;">
+                {{np.specialization.name}}
+                <editable-ui-select-match placeholder="Вкажіть спеціалізацію">
+                  {{$select.selected.name}}
+                </editable-ui-select-match>
+                <editable-ui-select-choices
+                  repeat="specialization in (specializations | filter: $select.search) track by specialization.id"
+                  position="down">
+                  {{specialization.name}}
+                </editable-ui-select-choices>
+              </div>
+            </td>
+            <td>
+              <div editable-ui-select="np.studyingYear" data-e-form="npForm"
+                   data-e-append-to-body="true"
+                   data-e-name="studyingYear" name="studyingYear" theme="bootstrap"
+                   data-e-ng-model="np.studyingYear"
+                   onbeforesave="checkStudyYear($data)"
+                   data-e-style="width:auto;">
+                {{np.studyingYear.name}}
+                <editable-ui-select-match placeholder="Вкажіть навчальний рік">
+                  {{$select.selected.name}}
+                </editable-ui-select-match>
+                <editable-ui-select-choices
+                  repeat="studyYear in (studyYears | filter: $select.search) track by studyYear.id"
+                  position="down">
+                  {{studyYear.name}}
+                </editable-ui-select-choices>
+              </div>
+            </td>
+            <td>
+              <div editable-ui-select="np.studyForm" data-e-form="npForm"
+                   data-e-append-to-body="true"
+                   data-e-name="studyForm" name="studyForm" theme="bootstrap"
+                   data-e-ng-model="np.studyForm"
+                   data-e-style="width:auto;">
+                {{np.studyForm.name}}
+                <editable-ui-select-match placeholder="Вкажіть навчальний рік">
+                  {{$select.selected.name}}
+                </editable-ui-select-match>
+                <editable-ui-select-choices
+                  repeat="studyForm in (studyForms | filter: $select.search) track by studyForm.id"
+                  position="down">
+                  {{studyForm.name}}
+                </editable-ui-select-choices>
+              </div>
+            </td>
+            <td>
+              <span onbeforesave="checkName($data)" editable-text="np.name" e-name="name" e-form="npForm">
+               {{ np.name || 'empty' }}
+              </span>
+            </td>
             <td>{{np.changeDate}}</td>
-            <td>{{np.okr.name}}</td>
-            <td>{{np.studyTermYear}}</td>
-            <td>{{np.studyTermMonth}}</td>
+            <td>
+              <div editable-ui-select="np.okr" data-e-form="npForm"
+                   data-e-append-to-body="true"
+                   data-e-name="okr" name="okr" theme="bootstrap"
+                   data-e-ng-model="np.okr"
+                   onbeforesave="checkOkr($data)"
+                   data-e-style="width:auto;">
+                {{np.okr.name}}
+                <editable-ui-select-match placeholder="Вкажіть окр">
+                  {{$select.selected.name}}
+                </editable-ui-select-match>
+                <editable-ui-select-choices
+                  repeat="okr in (allOkr | filter: $select.search)"
+                  position="down">
+                  {{okr.name}}
+                </editable-ui-select-choices>
+              </div>
+            </td>
+            <td>
+              <span editable-number="np.studyTermYear" e-name="studyTermYear" e-form="npForm" e-min="0" e-max="4">
+                {{np.studyTermYear}}
+              </span>
+            </td>
+            <td>
+              <span editable-number="np.studyTermMonth" e-name="studyTermMonth" e-form="npForm" e-min="0" e-max="12">
+                {{np.studyTermMonth}}
+              </span>
+            </td>
+            <td ng-show="editable">
+              <!-- form -->
+              <form editable-form name="npForm" ng-show="npForm.$visible" onbeforesave="editNp(np.id, $data);"
+                   class="form-buttons form-inline">
+                <button type="submit" class="btn"
+                        ng-disabled="npForm.$waiting">
+                  <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn" ng-click="npForm.$cancel()"
+                        ng-disabled="npForm.$waiting">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button>
+              </form>
+              <div class="buttons" ng-show="!npForm.$visible">
+                <button type="button" class="btn" ng-click="npForm.$show()">
+                  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn" ng-click="deleteNp(np.id);">
+                  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+              </div>
+            </td>
           </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="newNp" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Створення нового НП</h4>
+          </div>
+          <div class="modal-body">
+            <p>Обов'язкові для заповнення поля</p>
+            <div class="form-group">
+              <label class="select-form__label" for="npName">Назва НП</label>
+              <input class="form-control" type="text" id="npName" required ng-model="npName">
+
+              <div class="np-studying-year-modal">
+                <label for="np-studying-year" class="select-form__label">Навчальний рік</label>
+                <ui-select id="np-studying-year" class="select-form__select_attest"
+                           ng-model="studyYears.selected">
+                  <ui-select-match placeholder="Оберіть навчальний рік">
+                    <span ng-bind="$select.selected.name"></span>
+                  </ui-select-match>
+                  <ui-select-choices
+                    repeat="studyYear in (studyYears | filter: $select.search) track by studyYear.id"
+                    position="down">
+                    <span ng-bind="studyYear.name"></span>
+                  </ui-select-choices>
+                  <ui-select-no-choice>
+                    Навчальний рік не знайдено
+                  </ui-select-no-choice>
+                </ui-select>
+              </div>
+
+              <div class="np-specialization-modal">
+                <label for="np-specialization" class="select-form__label">Спеціалізація</label>
+                <ui-select id="np-specialization" class="select-form__select_attest"
+                           ng-model="specializationsForModal.selected">
+                  <ui-select-match placeholder="Оберіть спеціалізацію">
+                    <span ng-bind="$select.selected.name"></span>
+                  </ui-select-match>
+                  <ui-select-choices
+                    repeat="specModal in (specializationsForModal | filter: $select.search) track by specModal.id"
+                    position="down">
+                    <span ng-bind="specModal.name"></span>
+                  </ui-select-choices>
+                  <ui-select-no-choice>
+                    Спеціалізацію не знайдено
+                  </ui-select-no-choice>
+                </ui-select>
+              </div>
+
+              <div class="np-study-form-select">
+                <label for="np-study-form" class="select-form__label">Форма навчання</label>
+                <ui-select id="np-study-form" class="select-form__select_attest" ng-model="studyForms.selected">
+                  <ui-select-match placeholder="Оберіть форму навчання">
+                    <span ng-bind="$select.selected.name"></span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="studyForm in (studyForms | filter: $select.search) track by studyForm.id"
+                                     position="down">
+                    <span ng-bind="studyForm.name"></span>
+                  </ui-select-choices>
+                  <ui-select-no-choice>
+                    Форму навчання не знайдено
+                  </ui-select-no-choice>
+                </ui-select>
+              </div>
+
+              <label class="select-form__label" for="StudyTermYear">Термін РІК</label>
+              <input class="form-control" ng-model="StudyTermYear" type="number" id="StudyTermYear" min="0" max="4" required>
+
+              <label class="select-form__label" for="StudyTermMonth">Термін Місяць</label>
+              <input class="form-control" ng-model="StudyTermMonth" type="number" id="StudyTermMonth" min="0" max="12" required>
+            </div>
+            <a ng-click="showAdditionalFiels = !showAdditionalFiels">
+              Показати додаткові поля
+            </a>
+            <div class="col-md-12" ng-show="showAdditionalFiels">
+              <p>Додаткові поля</p>
+              Additional <br>
+              okr <br>
+              Actuality <br>
+              ProtocolNumber <br>
+              Dean <br>
+              ProtocolDate <br>
+              HeadDepartment
+            </div>
+              <h4 class="text-center">Ви створюєте НП з наступними параметрами</h4>
+              <p>
+                Назва - {{npName}} <br>
+                Навч рік - {{studyYears.selected.name}} <br>
+                Спеціаліз - {{specializationsForModal.selected.name}} <br>
+                Форма навч - {{studyForms.selected.name}} <br>
+                Термін рік - {{StudyTermYear}} <br>
+                Термін місяць - {{StudyTermMonth}}
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary btn-np pull-left"
+                    ng-click="saveNp(createPayloadForSave(
+                    specializationsForModal.selected.id, studyYears.selected.id, studyForms.selected.id,
+                    StudyTermYear, StudyTermMonth, npName
+                    ))">
+              Зберегти
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Закрити</button>
+          </div>
+        </div>
+
       </div>
     </div>
 

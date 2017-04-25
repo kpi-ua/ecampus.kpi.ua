@@ -1093,6 +1093,10 @@ li.list-group-item.blocks-list-item {
   margin: 15px 0;
 }
 
+.btn-np {
+  margin: 0 0 15px 0;
+}
+
 /* end np styles*/
 .study-profile,
 .item {

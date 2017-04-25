@@ -302,6 +302,40 @@
       return value === true ? 'Aктуально' : 'Не актуально' ;
     }
 
+    $scope.createPayloadForSave = createPayloadForSave;
+
+    function createPayloadForSave(
+      specializationId, studyingYearId,
+      studyFormId, studyTermYear, studyTermMonth, name
+    ) {
+      var result = {};
+
+      // required properties
+      result.specializationId = specializationId;
+      result.studyingYearId = studyingYearId;
+      result.studyFormId = studyFormId;
+      result.studyTermYear = studyTermYear;
+      result.studyTermMonth = studyTermMonth;
+      result.name = name;
+
+      // additional properties
+      // result.okrId = okrId || null;
+      // result.npQualificationId = npQualificationId || null;
+      // result.actuality = actuality || null;
+
+      return result;
+    }
+
+    $scope.saveNp = saveNp;
+
+    function saveNp(payload) {
+      var url = 'Np';
+
+      api.execute('POST', url, payload)
+        .then(function(response) {
+          console.log(response);
+        });
+    }
 
     toggleSidebar();
     loadFaculties();
