@@ -130,6 +130,7 @@
 
       api.execute('GET', url)
         .then(function(response) {
+          $scope.specializationsForModal = response;
           $scope.specializations = response;
         });
     }
@@ -143,10 +144,10 @@
         });
     }
 
-    $scope.loadOkr = function(specialityId) {
+    $scope.loadOkr = function (specialityId) {
       var allSpecialities = $scope.allSpecialities;
       var result = [];
-      var filteredSpecialities = allSpecialities.filter(function(element) {
+      var filteredSpecialities = allSpecialities.filter(function (element) {
         return element.id === specialityId
       });
 
@@ -159,11 +160,21 @@
       $scope.allOkr = result.sort(sortNames)
     };
 
+    function loadOkr() {
+      var url = 'StudyOrganization/okr';
+
+      api.execute('GET', url)
+        .then(function (response) {
+          $scope.allOkr = response.sort(sortNames);
+        });
+    }
+
     function loadStudyForms() {
       var url = 'studyForms';
 
       api.execute('GET', url)
         .then(function(response) {
+          $scope.studyFormsForModal = response.sort(sortNames);
           $scope.studyForms = response.sort(sortNames);
         });
     }
@@ -289,6 +300,8 @@
     loadFaculties();
     loadStudyYears();
     loadStudyForms();
+    loadSpecializations();
     loadNp();
+    loadOkr();
   }
 })();
