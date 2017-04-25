@@ -68,7 +68,7 @@
         <label for="speciality" class="select-form__label">Спеціальність</label>
         <ui-select id="speciality" class="select-form__select_attest" ng-model="specialities.selected"
                    append-to-body="true"
-                   on-select="loadOkr(specialities.selected.id);loadSpecializations(specialities.selected.id);">
+                   on-select="loadSpecializations(specialities.selected.id);">
           <ui-select-match placeholder="Оберіть спеціальність">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
@@ -267,7 +267,7 @@
             <td ng-show="editable">
               <!-- form -->
               <form editable-form name="npForm" ng-show="npForm.$visible" onbeforesave="editNp(np.id, $data);"
-                   class="form-buttons form-inline">
+                    class="form-buttons form-inline">
                 <button type="submit" class="btn"
                         ng-disabled="npForm.$waiting">
                   <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
@@ -288,6 +288,9 @@
           </tr>
           </tbody>
         </table>
+        <div ng-show="hideTable === true;" class="alert alert-warning">
+          на жаль НП з такими параметрами не існує
+        </div>
       </div>
     </div>
 

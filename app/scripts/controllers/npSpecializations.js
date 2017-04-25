@@ -14,6 +14,7 @@
   NpSpecializationsCtrl.$inject = ['$scope', 'api'];
 
   function NpSpecializationsCtrl($scope, api) {
+    $scope.hideTable = false;
 
     function sortNames(a, b) {
       var name1 = a.name;
@@ -144,21 +145,24 @@
         });
     }
 
-    $scope.loadOkr = function (specialityId) {
-      var allSpecialities = $scope.allSpecialities;
-      var result = [];
-      var filteredSpecialities = allSpecialities.filter(function (element) {
-        return element.id === specialityId
-      });
+    // спеціальність on-select="loadOkr(specialities.selected.id);
+    // loadSpecializations(specialities.selected.id);"
 
-      for (var i = 0; i < filteredSpecialities.length; i++) {
-        var specialitiesElement = filteredSpecialities[i];
-        var okrSpecialitiesElement = specialitiesElement.okr;
-
-        result.push(okrSpecialitiesElement);
-      }
-      $scope.allOkr = result.sort(sortNames)
-    };
+    // $scope.loadOkr = function (specialityId) {
+    //   var allSpecialities = $scope.allSpecialities;
+    //   var result = [];
+    //   var filteredSpecialities = allSpecialities.filter(function (element) {
+    //     return element.id === specialityId
+    //   });
+    //
+    //   for (var i = 0; i < filteredSpecialities.length; i++) {
+    //     var specialitiesElement = filteredSpecialities[i];
+    //     var okrSpecialitiesElement = specialitiesElement.okr;
+    //
+    //     result.push(okrSpecialitiesElement);
+    //   }
+    //   $scope.allOkr = result.sort(sortNames)
+    // };
 
     function loadOkr() {
       var url = 'StudyOrganization/okr';
@@ -246,7 +250,10 @@
 
       api.execute('GET', url)
         .then(function(response) {
+          var responseLen = response.length;
+
           $scope.nps = response;
+          $scope.hideTable = responseLen === 0;
         });
     }
 
