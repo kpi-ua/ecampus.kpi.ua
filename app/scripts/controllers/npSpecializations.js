@@ -296,6 +296,13 @@
       toggleButton.addEventListener('click', toggle);
     }
 
+    $scope.showStatus = showStatus;
+
+    function showStatus(value) {
+      return value === true ? 'Aктуально' : 'Не актуально' ;
+    }
+
+
     toggleSidebar();
     loadFaculties();
     loadStudyYears();
