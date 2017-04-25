@@ -337,6 +337,48 @@
         });
     }
 
+    $scope.editNp = editNp;
+
+    function editNp(npId, data) {
+      console.log('data');
+      console.log(data);
+
+      var url = 'Np/' + npId;
+
+      var payload = {};
+
+      // required properties
+      payload.actuality = data.actuality;
+      payload.specializationId = data.specialization.id;
+      payload.studyingYearId = data.studyingYear.id;
+      payload.studyFormId = data.studyForm.id;
+      payload.studyTermYear = data.studyTermYear;
+      payload.studyTermMonth = data.studyTermMonth;
+      payload.name = data.name;
+      payload.okr = data.okr.id;
+
+      console.log('payload');
+      console.log(payload);
+
+      api.execute('PUT', url, payload)
+        .then(function(response) {
+          console.log('response');
+          console.log(response);
+        });
+    }
+
+    $scope.checkName = checkEmptyProperties;
+    $scope.checkStudyYear = checkEmptyProperties;
+    $scope.checkStudyForm = checkEmptyProperties;
+    $scope.checkOkr = checkEmptyProperties;
+    $scope.checkSpecialization = checkEmptyProperties;
+
+    function checkEmptyProperties(data) {
+      if (data === null || data === '') {
+        return 'Заповніть це поле!';
+      }
+    }
+
     toggleSidebar();
     loadFaculties();
     loadStudyYears();
