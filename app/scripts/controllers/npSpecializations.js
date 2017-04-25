@@ -379,6 +379,17 @@
       }
     }
 
+    $scope.deleteNp = deleteNp;
+
+    function deleteNp(npId) {
+      var url = 'Np/' + npId;
+
+      api.execute('DELETE', url)
+        .then(function(response) {
+          console.log(response);
+        });
+    }
+
     toggleSidebar();
     loadFaculties();
     loadStudyYears();
