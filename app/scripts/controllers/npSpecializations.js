@@ -355,7 +355,7 @@
       payload.studyTermYear = data.studyTermYear;
       payload.studyTermMonth = data.studyTermMonth;
       payload.name = data.name;
-      payload.okr = data.okr.id;
+      payload.okrId = data.okr.id;
 
       console.log('payload');
       console.log(payload);
