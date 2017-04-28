@@ -23,8 +23,15 @@ var app = angular.module('ecampusApp', [
 ]);
 
 app.config(configRoutes);
+app.run(configXeditable);
 
 configRoutes.$inject = ['$routeProvider', '$locationProvider'];
+
+function configXeditable(editableOptions, editableThemes) {
+  editableThemes.bs3.inputClass = 'input-md';
+  editableThemes.bs3.buttonsClass = 'btn-md';
+  editableOptions.theme = 'bs3';
+}
 
 function configRoutes($routeProvider, $locationProvider) {
 
@@ -150,6 +157,11 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/attestation.html',
       controller: 'AttestationCtrl',
       controllerAs: 'attest'
+    })
+    .when('/np-specializations', {
+      templateUrl: 'views/npSpecializations.html',
+      controller: 'NpSpecializationsCtrl',
+      controllerAs: 'NpSpec'
     });
 
   $locationProvider.html5Mode(true);
