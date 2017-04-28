@@ -151,8 +151,9 @@
     </div>
 
     <div class="col-md-12" id="np-content">
-      <div class="table-responsive">
+      <div ng-hide="hideTable === true;" class="table-responsive">
         <table class="table table-bordered table-condensed table-hover">
+          <caption class="text-center">Навчальний план для спеціалізації</caption>
           <thead>
           <tr>
             <th>№</th>
@@ -288,9 +289,9 @@
           </tr>
           </tbody>
         </table>
-        <div ng-show="hideTable === true;" class="alert alert-warning">
-          на жаль НП з такими параметрами не існує
-        </div>
+      </div>
+      <div ng-show="hideTable === true;" class="alert alert-warning">
+        на жаль НП з такими параметрами не існує
       </div>
     </div>
 
@@ -308,13 +309,14 @@
             <p>Обов'язкові для заповнення поля</p>
             <div class="form-group">
               <label class="select-form__label" for="npName">Назва НП</label>
-              <input class="form-control" type="text" id="npName" required ng-model="npName">
+              <input class="form-control" type="text" id="npName" ng-model="npName"
+                     required placeholder="Введіть назву навчального плану">
 
               <div class="np-studying-year-modal">
                 <label for="np-studying-year" class="select-form__label">Навчальний рік</label>
                 <ui-select id="np-studying-year" class="select-form__select_attest"
                            ng-model="studyYears.selected">
-                  <ui-select-match placeholder="Оберіть навчальний рік">
+                  <ui-select-match placeholder="Вкажіть навчальний рік">
                     <span ng-bind="$select.selected.name"></span>
                   </ui-select-match>
                   <ui-select-choices
@@ -332,7 +334,7 @@
                 <label for="np-specialization" class="select-form__label">Спеціалізація</label>
                 <ui-select id="np-specialization" class="select-form__select_attest"
                            ng-model="specializationsForModal.selected">
-                  <ui-select-match placeholder="Оберіть спеціалізацію">
+                  <ui-select-match placeholder="Вкажіть спеціалізацію">
                     <span ng-bind="$select.selected.name"></span>
                   </ui-select-match>
                   <ui-select-choices
@@ -349,7 +351,7 @@
               <div class="np-study-form-select">
                 <label for="np-study-form" class="select-form__label">Форма навчання</label>
                 <ui-select id="np-study-form" class="select-form__select_attest" ng-model="studyForms.selected">
-                  <ui-select-match placeholder="Оберіть форму навчання">
+                  <ui-select-match placeholder="Вкажіть форму навчання">
                     <span ng-bind="$select.selected.name"></span>
                   </ui-select-match>
                   <ui-select-choices repeat="studyForm in (studyForms | filter: $select.search) track by studyForm.id"
@@ -363,17 +365,18 @@
               </div>
 
               <label class="select-form__label" for="StudyTermYear">Термін РІК</label>
-              <input class="form-control" ng-model="StudyTermYear" type="number" id="StudyTermYear" min="0" max="4" required>
+              <input class="form-control" ng-model="StudyTermYear" type="number" id="studyTermYear" min="0" max="4"
+                     required placeholder="Вкажіть кількості років для НП">
 
               <label class="select-form__label" for="StudyTermMonth">Термін Місяць</label>
-              <input class="form-control" ng-model="StudyTermMonth" type="number" id="StudyTermMonth" min="0" max="12" required>
+              <input class="form-control" ng-model="StudyTermMonth" type="number" id="studyTermMonth" min="0" max="12"
+                     required placeholder="Вкажіть кількості місяців для НП">
             </div>
             <a ng-click="showAdditionalFiels = !showAdditionalFiels">
               Показати додаткові поля
             </a>
             <div class="col-md-12" ng-show="showAdditionalFiels">
               <p>Додаткові поля</p>
-              Additional <br>
               okr <br>
               Actuality <br>
               ProtocolNumber <br>
@@ -393,7 +396,7 @@
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-primary btn-np pull-left"
-                    ng-click="saveNp(createPayloadForSave(
+                    ng-click="addNewNp(createPayloadForSave(
                     specializationsForModal.selected.id, studyYears.selected.id, studyForms.selected.id,
                     StudyTermYear, StudyTermMonth, npName
                     ))">

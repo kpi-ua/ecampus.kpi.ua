@@ -112,6 +112,9 @@
 
       api.execute('GET', url)
         .then(function(response) {
+          console.log('ProfTrains');
+          console.log(JSON.stringify(response));
+
           var specialitiesWithOkr = filterSpecialities(response, subdivisionId);
           $scope.allSpecialities = specialitiesWithOkr;
           $scope.specialities = uniqueSpecialities(specialitiesWithOkr).sort(sortNames);
@@ -333,9 +336,9 @@
       return result;
     }
 
-    $scope.saveNp = saveNp;
+    $scope.addNewNp = addNewNp;
 
-    function saveNp(payload) {
+    function addNewNp(payload) {
       var url = 'Np';
 
       api.execute('POST', url, payload)
