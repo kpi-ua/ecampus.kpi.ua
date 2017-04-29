@@ -146,6 +146,11 @@ function configRoutes($routeProvider, $locationProvider) {
       controller: 'RnpCtrl',
       controllerAs: 'rnp'
     })
+    .when('/rnp-create', {
+      templateUrl: 'views/rnpCreate.html',
+      controller: 'RnpCreateCtrl',
+      controllerAs: 'RnpCreate'
+    })
     .when('/attestation', {
       templateUrl: 'views/attestation.html',
       controller: 'AttestationCtrl',
