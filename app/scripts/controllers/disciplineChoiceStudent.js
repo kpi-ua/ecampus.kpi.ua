@@ -42,8 +42,9 @@ function DisciplineChoiceStudentCtrl($scope, api) {
 
   function loadInfo() {
     var url = 'Account/student/group';
+    var method = 'GET';
 
-    api.execute('GET', url)
+    api.execute(method, url)
       .then(function(response) {
         $scope.info = response[0];
         $scope.info.currentStudyYear = getCurrStudyYear(
@@ -56,8 +57,10 @@ function DisciplineChoiceStudentCtrl($scope, api) {
 
   function loadDisciplines() {
     var url = 'SelectiveDiscipline/semesters/disciplines';
+    var method = 'GET';
 
-    api.execute('GET', url).then(function(response) {
+    api.execute(method, url)
+      .then(function(response) {
       $scope.firstCourse = [];
       $scope.secondCourse = [];
       $scope.thirdCourse = [];
