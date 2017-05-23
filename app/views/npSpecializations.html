@@ -46,6 +46,9 @@
             Факультет не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorFaculties" class="error-np-messages">
+          {{errorFaculties}}
+        </div>
       </div>
       <div class="subdivision-select">
         <label for="subdivision" class="select-form__label">Кафедра</label>
@@ -80,6 +83,9 @@
             Спеціальність не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorSpecialities" class="error-np-messages">
+          {{errorSpecialities}}
+        </div>
       </div>
       <div class="specialization-select">
         <label for="specialization" class="select-form__label">Спеціалізація</label>
@@ -98,6 +104,9 @@
             Спеціалізацію не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorSpecializations" class="error-np-messages">
+          {{errorSpecializations}}
+        </div>
       </div>
       <div class="study-year-select">
         <label for="study-year" class="select-form__label">Навчальний рік (рік вступу)</label>
@@ -115,6 +124,9 @@
             Навчальний рік не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorStudyYears" class="error-np-messages">
+          {{errorStudyYears}}
+        </div>
       </div>
       <div class="okr-select">
         <label for="okr" class="select-form__label">ОКР</label>
@@ -130,6 +142,9 @@
             ОКР не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorOkr" class="error-np-messages">
+          {{errorOkr}}
+        </div>
       </div>
       <div class="study-form-select">
         <label for="study-form" class="select-form__label">Форма навчання</label>
@@ -147,11 +162,17 @@
             Форму навчання не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorStudyForms" class="error-np-messages">
+          {{errorStudyForms}}
+        </div>
       </div>
     </div>
 
     <div class="col-md-12" id="np-content">
-      <div ng-hide="hideTable === true;" class="table-responsive">
+      <div ng-show="errorNp" class="alert alert-danger">
+      {{errorNp}}
+      </div>
+      <div ng-hide="hideTable === true || errorNp" class="table-responsive">
         <table class="table table-bordered table-condensed table-hover">
           <caption class="text-center">Навчальний план для спеціалізації</caption>
           <thead>
