@@ -8,9 +8,9 @@
    * # disciplineChoiceCourse
    */
   angular.module('ecampusApp')
-    .directive('disciplineChoiceCourse', disciplineChoice);
+    .directive('disciplineChoiceCourse', disciplineChoiceCourse);
 
-  function disciplineChoice() {
+  function disciplineChoiceCourse() {
     return {
       templateUrl: 'views/directives/disciplineChoiceCourse.html',
       restrict: 'E',
