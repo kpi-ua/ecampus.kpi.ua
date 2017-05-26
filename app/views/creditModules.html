@@ -1,0 +1,430 @@
+<breadcrumbs>    
+  <span>Довідники</span> > <span><b>Довідник крединтих модулів</b></span>
+</breadcrumbs>
+
+<div class="container-fluid content">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Довідник кредитних модулів</h1>
+      <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
+    </div>
+
+    <div id="filter" class="col-md-5 margin_top_15 filter__padding" ng-show="showFilter">
+      <div class="faculty-select">
+        <label for="faculty" class="select-form__label">Факультет</label>
+        <ui-select id="faculty" class="select-form__select_attest" ng-model="faculties.selected"
+                   append-to-body="true"
+                   on-select="filterSubdivision(fullSubdivisionResponse, faculties.selected.id); loadCM();">
+          <ui-select-match placeholder="Оберіть факультет">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="faculty in (faculties | filter: $select.search) track by faculty.id"
+                             position="down">
+            <span ng-bind="faculty.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Факультет не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="subdivision-select">
+        <label for="subdivision" class="select-form__label">Кафедра</label>
+        <ui-select id="subdivision" class="select-form__select_attest" ng-model="subdivisions.selected"
+                   append-to-body="true"
+                   on-select="loadSpecialities(subdivisions.selected.id); loadCM();">
+          <ui-select-match placeholder="Оберіть кафедру">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="subdivision in (subdivisions | filter: $select.search) track by subdivision.id"
+                             position="down">
+            <span ng-bind="subdivision.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Кафедру не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="speciality-select">
+        <label for="speciality" class="select-form__label">Спеціальність</label>
+        <ui-select id="speciality" class="select-form__select_attest" ng-model="specialities.selected"
+                   append-to-body="true"
+                   on-select="loadSpecializations(specialities.selected.id); loadOkr(specialities.selected.id); loadCM();">
+          <ui-select-match placeholder="Оберіть спеціальність">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="speciality in (specialities | filter: $select.search)"
+                             position="down">
+            <span ng-bind="speciality.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Спеціальність не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div> 
+
+      <div class="okr-select">
+        <input type="radio" class="filterDependsOnYearCls" id="filterOkr" name="filterDependsOnYear" ng-model="filterOkr" ng-change="filterSpecialization=false; selectedSpecialization=''; reloadDisciplines('not set', specialities.selected.profTrainTotal.subdivisionId); loadCM();" ng-value="true">
+        <label for="filterOkr" class="select-form__label">до 2016 р. вступу</label>      
+        <!--<ui-select id="okr" class="select-form__select_attest" ng-model="allOkr.selected" append-to-body="true" on-select="reloadDisciplines('not set', allOkr.selected.profTrainTotal.subdivisionId);" ng-disabled="filterSpecialization" ng-class="{'notActive':filterSpecialization === true}">
+          <ui-select-match placeholder="Оберіть ОКР">
+            <span ng-bind="$select.selected.okr.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="okr in (allOkr | filter: $select.search)"
+                             position="down">
+            <span ng-bind="okr.okr.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            ОКР не знайдено
+          </ui-select-no-choice>
+        </ui-select>-->
+      </div>           
+      
+      <div class="specialization-select">
+        <input type="radio" class="filterDependsOnYearCls" id="filteredSpecialization" name="filterDependsOnYear" ng-model="filterSpecialization" ng-change="filterOkr=false; selectedOkr=''; loadCM();" ng-value="true">       
+        <label for="filteredSpecialization" class="select-form__label">після 2016 року вступу (Спеціалізація)</label>      
+        <ui-select id="Specialization" class="select-form__select_attest" ng-model="specializations.selected"
+                   append-to-body="true"
+                   on-select="reloadDisciplines(specializations.selected.id, 'not set');"
+                   ng-disabled="filterOkr" ng-class="{'notActive':filterOkr === true}">
+          <ui-select-match placeholder="Оберіть спеціалізацію">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices
+            repeat="specialization in (specializations | filter: $select.search) track by specialization.id"
+            position="down">
+            <span ng-bind="specialization.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Спеціалізацію не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>      
+
+      <div class="discipline-select">
+        <label for="discipline" class="select-form__label">Дисципліна</label>
+        <ui-select id="discipline" class="select-form__select_attest" ng-model="disciplines.selected"
+                   append-to-body="true"
+                   on-select="loadCM(disciplines.selected.rtDisciplineId);">
+          <ui-select-match placeholder="Оберіть дисципліну">
+            <span ng-bind="$select.selected.discipline8.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="discipline in (disciplines | filter: $select.search) track by discipline.discipline8.id"
+                             position="down">
+            <span ng-bind="discipline.discipline8.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Дисципліну не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+    </div>
+
+    <div class="col-md-12" id="np-content">
+      <button id="filter-toggle" type="button" class="btn btn-primary btn_filter_green btn-filters"
+              ng-click="showFilter = !showFilter">
+        Показати фільтри
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+      </button> 
+      <button type="button" class="btn btn-primary btn_filter_green btn-filters"
+              ng-click="editable = !editable">
+        Редагувати
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+      </button>  
+
+      <div class="table-responsive" style="padding-bottom: 200px">
+        <table class="table table-bordered table-condensed table-hover">
+          <caption class="text-right">Наявні кредитні модулі</caption>
+          <thead>
+          <tr>
+            <tr class="patterns__table-header color-head">
+              <th class="tdFullAlignCenter">
+                Назва КМ
+              </th>
+              <th class="tdFullAlignCenter">
+                Скорочена назва дисципліни
+              </th>
+              <th class="tdFullAlignCenter">
+                Кафедра, для кого викладається
+              </th>
+              <th class="tdFullAlignCenter">
+                Розподіл за наказом
+              </th>            
+              <th class="tdFullAlignCenter">
+                Опис
+              </th>
+              <th class="tdFullAlignCenter" ng-show="editable">
+                Дія
+              </th>
+            </tr>
+          </tr>
+          <tr class="d-s-table patterns__table-button" ng-show="editable && disciplines.selected">
+            <td colspan="6" class="text-center" ng-click="addCM();">
+              <i class="fa fa-plus" aria-hidden="true"></i>Додати новий кредитний модуль
+            </td>
+          </tr>
+          </thead>
+          <tbody>
+            <!--<tr>
+              <td>КМ_192_1</td>
+              <td>Ек.теор.</td>
+              <td>ФІОТ</td>
+              <td class="tdFullAlignCenter">
+                <button type="button" ng-show="!rowformCM.$visible"
+                        class="btn patterns__table-button patterns__table-button_CRUD-button"
+                        aria-label="Description and additional information" data-toggle="modal"
+                        data-target="#ModalDistribution" ng-click="getCurrentData(objCM)">
+                  <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+
+                </button>
+              </td>
+              <td>КМ для основної дисципліни</td>
+              <td class="tdFullAlignCenter">
+                <div class="buttons" ng-show="!rowformCM.$visible">
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
+                          ng-click="rowformCM.$show();">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+                  </button>
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
+                          ng-click="removeCM(objCM)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+
+                  </button>
+                </div>
+              </td>
+            </tr>-->
+            <tr ng-repeat="objCM in creditModules">  
+              <td>
+                <!--<span e-ng-hide="showEditableNameCM($data,objCM)">
+                  {{objCM.name}}
+                </span>-->
+                <!-- e-ng-show="showEditableNameCM($data,objCM)" -->
+                <span editable-text="objCM.name" e-name="name" e-form="rowformCM" onbeforesave="checkCMForm($data)" e-required>
+                  {{objCM.name}}
+                </span> 
+              </td>
+              <!-- edit-disabled="true" edit-disabled="ifCanEditNameCM($data,objCM);" e-ng-readonly="flag" id="nameCM{{$index}}"-->         
+              <td>              
+                <span editable-text="objCM.nameShort" e-name="nameShort" e-form="rowformCM">
+                  {{objCM.nameShort || 'не вказано'}}
+                </span>
+              </td>
+              <td class="editable_select_subdiv">
+                <div editable-ui-select="objCM.readWhomName" theme="bootstrap" data-e-form="rowformCM" data-e-name="readWhomName" name="readWhomName" data-e-ng-model="objCM.readWhomName" append-to-body="true" onbeforesave="checkCMForm($data)" e-required>
+                  {{objCM.readWhomName.name || objCM.readWhomName || 'не вказано'}}
+                  <editable-ui-select-match placeholder="Кафедра">
+                    {{$select.selected.name || objCM.readWhomName}}
+                  </editable-ui-select-match>
+                  <editable-ui-select-choices repeat="subdivision in allSubdivisions | filter: $select.search track by subdivision.id" position="down" style="width: 400px!important;">
+                    {{subdivision.name}}
+                  </editable-ui-select-choices>
+                </div>
+              </td>              
+              <td class="tdFullAlignCenter">
+                <button type="button" ng-show="!rowformCM.$visible"
+                        class="btn patterns__table-button patterns__table-button_CRUD-button"
+                        aria-label="Distribution" data-toggle="modal"
+                        data-target="#ModalDistribution" ng-click="getCurrentData(objCM)">
+                  <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+
+                </button>
+              </td>
+              <td class="tdFullAlignCenter">
+                <button type="button" ng-show="!rowformCM.$visible"
+                        class="btn patterns__table-button patterns__table-button_CRUD-button"
+                        aria-label="Description and additional information" data-toggle="modal"
+                        data-target="#ModalAdditionalInfo" ng-click="getCurrentData(objCM)">
+                  <i class="fa fa-info" aria-hidden="true"></i>
+                </button>
+              </td>              
+              <td class="tdFullAlignCenter" ng-show="editable && disciplines.selected">
+                <form editable-form name="rowformCM" onbeforesave="saveCM($data,objCM);"
+                      ng-show="rowformCM.$visible"
+                      class="form-buttons form-inline" shown="insertedCM == objCM">
+                  <button type="submit" ng-disabled="rowformCM.$waiting"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
+                    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" ng-disabled="rowformCM.$waiting"
+                          ng-click="rowformCM.$cancel(); cancelCM(objCM);"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  </button>
+                </form>
+
+                <div class="buttons" ng-show="!rowformCM.$visible">
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
+                          ng-click="rowformCM.$show();">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+                  </button>
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete"
+                          ng-click="removeCM(objCM)">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div id="ModalAdditionalInfo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>              
+              <h4 class="modal-title">Додаткова інформація</h4>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <h4>Назва КМ: <span>{{currentData.name}}</span></h4>                
+                <form editable-form name="formDescription" onaftersave="addDescription()">
+                  <div class="marginBottom">
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-3">Знання: </span>
+                    <span editable-textarea="currentData.knowledge" e-name="knowledge" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.knowledge || 'не вказано' }}</pre></span>
+                  </div>
+                  <div class="marginBottom">
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-3">Уміння: </span>
+                    <span editable-textarea="currentData.competence" e-name="competence" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.competence || 'не вказано' }}</pre></span>
+                  </div>
+                  <div class="marginBottom">
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-3">Навички: </span>
+                    <span editable-textarea="currentData.skill" e-name="skill" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.skill || 'не вказано' }}</pre></span>
+                  </div>
+                  <div class="marginBottom">
+                    <!-- editable username (text with validation) -->
+                    <span class="title col-xs-3">Анотація: </span>
+                    <span editable-textarea="currentData.annotation" e-name="annotation" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.annotation || 'не вказано' }}</pre></span>
+                  </div>
+                  <!--<div class="form-group marginBottom" ng-show="formDescription.$visible">
+                    <label for="files" class="control-label col-xs-3 alignLeft select-form__label">
+                    Зображення:
+                    </label>
+                    <div class="col-xs-9">
+
+                      <input type="file" id="files" name="files[]" accept="image/*">
+                      <img class="thumb" id="preview" src="" alt="Зображення">
+                    </div>
+                  </div>-->
+                  <button type="submit" ng-disabled="formDescription.$waiting"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save"
+                          ng-show="formDescription.$visible">
+                    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" ng-disabled="formDescription.$waiting" ng-click="formDescription.$cancel();"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel"
+                          ng-show="formDescription.$visible">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  </button>
+                </form>
+
+                <div class="buttons" ng-show="!formDescription.$visible">
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
+                          ng-click="formDescription.$show()">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+                  </button>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary btn_filter_green btn-filters"
+              ng-click="editable = !editable" ng-hide="true">
+                Редагувати
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn btn-primary btn_filter_green btn-filters" data-dismiss="modal">
+                Повернутися
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+<div id="ModalDistribution" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Розподіл за наказом</h4>
+            </div>
+
+            <div class="modal-body">
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-condensed d-s-table">
+                  <tr class="patterns__table-header color-head">
+                    <th class="tdFullAlignCenter">Кафедра, що викладає</th>
+                    <th class="tdFullAlignCenter">Навчальний рік</th>
+                    <th class="tdFullAlignCenter minWidthTwoButtons" ng-show="editable">Дія</th>
+                  </tr>
+                  <tr class="d-s-table patterns__table-button" ng-show="editable">
+                    <td colspan="3" class="text-center" ng-click="addSubdivision()">
+                      <i class="fa fa-plus" aria-hidden="true"></i>Додати кафедру, що викладає
+                    </td>
+                  </tr>
+                  <tr ng-repeat="objWhoRead in currentData.disciplineWhoRead">
+                    <td>
+                      {{objWhoRead.whoRead}}
+                    </td>
+                    <td>
+                      {{objWhoRead.name}}
+                    </td>
+                    <td class="tdFullAlignCenter">
+                      <form editable-form name="whoReadForm" onbeforesave="saveWhoRead(objWhoRead)" ng-show="whoReadForm.$visible" class="form-buttons form-inline" shown="insertedWhoRead == whoReadForm">
+                        <button type="submit" ng-disabled="whoReadForm.$waiting" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
+                          <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" ng-disabled="whoReadForm.$waiting" ng-click="whoReadForm.$cancel();" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                      </form>
+
+                      <div class="buttons" ng-show="!whoReadForm.$visible">
+                        <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit" ng-click="whoReadForm.$show()">
+                          <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete" ng-click="removeWhoRead(objWhoRead)">
+                          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary btn_filter_green btn-filters"
+              ng-click="editable = !editable" ng-hide="true">
+                Редагувати
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn btn-primary btn_filter_green btn-filters" data-dismiss="modal">
+                Повернутися
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </button>          
+            </div>
+          </div>
+        </div>
+      </div>

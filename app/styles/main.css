@@ -954,6 +954,10 @@ li.list-group-item.blocks-list-item {
   margin-bottom: 0;
 }
 
+.chosen-blocks-list {
+  list-style: circle;
+}
+
 .go-back {
   margin-top: 10px;
 }
@@ -1009,7 +1013,8 @@ li.list-group-item.blocks-list-item {
 
 .year-select, .semester-select, .attest-num-select, .student-select,
 .lecturers-select, .group-select, .course-select, .discipline-select,
-.group-lect-select {
+.group-lect-select, .speciality-select, .subdivision-select, 
+.faculty-select, .specialization-select, .okr-select {
   margin-bottom: 5px;
 }
 
@@ -1082,6 +1087,18 @@ li.list-group-item.blocks-list-item {
 }
 
 /* end attestation styles*/
+
+/* np styles */
+
+.btn-filters {
+  margin: 15px 0;
+}
+
+.btn-np {
+  margin: 0 0 15px 0;
+}
+
+/* end np styles*/
 .study-profile,
 .item {
   padding-left: 30px;
@@ -1502,4 +1519,43 @@ li.list-group-item.blocks-list-item {
 
 .width100 {
   width: 100%;
+}
+
+.btn_filter_green {
+  background-color: #208944 !important;
+  border-color: #208944 !important;  
+}
+
+.margin_left_15 {
+  margin-left: 15px;
+}
+
+.margin_top_15 {
+ margin-top: 15px; 
+}
+
+.filter__padding {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+#filter {
+  background-color: #e8f3ec;
+}
+
+.float_left {
+  float: left;
+}
+
+.float_right {
+  float: right;
+}
+
+.editable_select_subdiv > .editable-ui-select > .editable-controls > .ui-select-container {
+  width: 400px!important;
+}
+
+.editable_select_subdiv > .editable-ui-select > .editable-controls > .ui-select-container > 
+.ui-select-choices {
+  height: 200px;
 }

@@ -14,7 +14,6 @@ angular
 DisciplineChoiceStudentCtrl.$inject = ['$scope', 'api'];
 
 function DisciplineChoiceStudentCtrl($scope, api) {
-  $scope.selectedForInfo = {'cDisciplineBlockYear8Id': null};
 
   $scope.setTab = function(newTab) {
     $scope.tab = newTab;
@@ -22,14 +21,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
 
   $scope.isSet = function(tabNum) {
     return $scope.tab === tabNum;
-  };
-
-  $scope.translateStatus = function(englishStatus) {
-    switch (englishStatus) {
-      case 'not available': return 'вибір не доступний';
-      case 'available': return 'вибір доступний';
-      case 'done': return 'вибір здійснено';
-    }
   };
 
   $scope.getStudyCoursesWithYears = function(yearIntake) {
@@ -82,6 +73,7 @@ function DisciplineChoiceStudentCtrl($scope, api) {
             id: null,
             name: null
           };
+          resBlocks['isSelected'] = false;
         }
         switch (res.course) {
           case 1: $scope.firstCourse.push(res); break;
@@ -92,132 +84,6 @@ function DisciplineChoiceStudentCtrl($scope, api) {
       }
     });
   }
-
-  $scope.isDisciplinesSelected = function(object) {
-    return Object.keys(object).some(function(key) {
-      return object[key];
-    });
-  };
-
-  $scope.toggleDisciplineDescription = function(id) {
-    $scope.selectedForInfo.cDisciplineBlockYear8Id = (
-      $scope.selectedForInfo.cDisciplineBlockYear8Id === null ||
-      $scope.selectedForInfo.cDisciplineBlockYear8Id !== id ? id : null
-    );
-  };
-
-  $scope.countSelectedDiscipline = function(response) {
-    var i, res, result = 0;
-    for (i = 0; i < response.blocks.length; i++) {
-      res = response.blocks[i].selectedDiscipline;
-      if (res.id !== null) {
-        result++;
-      }
-    }
-    return result;
-  };
-
-  function removeFilteredValue(result, value) {
-    return result.filter(function(element) {
-      return element !== value;
-    })[0];
-  }
-
-  function filterDisciplines(response, arrayValue) {
-    return Object.assign({}, response, {
-      blockDisc: response.blockDisc.filter(function (blockDiscElement) {
-        for (var i = 0; i < arrayValue.length; i++) {
-          var disciplineId = blockDiscElement.cDisciplineBlockYear8Id;
-          var selectedDisciplineId = arrayValue[i].id;
-          if (disciplineId === selectedDisciplineId) {
-            return blockDiscElement;
-          }
-        }
-      })
-    });
-  }
-
-  function filterSemesters(response, currentSemester) {
-    return response.map(function(responseElement) {
-      var responseSemester = responseElement.semester;
-      if (responseSemester === currentSemester) {
-        return Object.assign({}, responseElement, {
-          blocks: []
-        });
-      }
-    });
-  }
-
-  function uniqueBlocks(array) {
-    var result = [];
-
-    nextInput:
-      for (var i = 0; i < array.length; i++) {
-        var str = array[i];
-        for (var j = 0; j < result.length; j++) {
-          if (
-            JSON.stringify(str) === JSON.stringify(array[j])
-          ) {
-            continue nextInput;
-          }
-        }
-        result.push(str);
-      }
-    return result;
-  }
-
-  $scope.deleteAdditionalProperties = function(object) {
-    var result = object;
-    delete result.payload;
-    delete result.block;
-    delete result.saveChoiceResult;
-    for (var i = 0; i < result.blocks.length; i++) {
-      var block = result.blocks[i];
-      delete block.selectedDiscipline;
-    }
-    return result;
-  };
-
-  $scope.saveDisciplinesChoice = function(payload, semester) {
-    var url = 'SelectiveDiscipline/semesters/disciplines';
-
-    api.execute('POST', url, payload)
-      .then(function(response) {
-        semester.saveChoiceResult = response;
-    });
-  };
-
-  $scope.isDisabledSaveButton = function(semester, length) {
-    var className = "btn-choice-result-" + semester + "-";
-    for (var i = 0; i < length; i++) {
-      var button = document.getElementsByClassName(className + i);
-      var isFirstButtonDisabled = button[0].disabled;
-      if (isFirstButtonDisabled) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  $scope.isDisabledChoiceButton = function(block) {
-    var selected = block.selectedDiscipline;
-    var count = block.disciplineCount;
-
-    return (
-      selected.length !== count ||
-      selected.id === null ||
-      selected.length === 0
-    );
-  };
-
-  $scope.addBlock = function(courseElement, course, block) {
-    var filteredSemester = filterSemesters(course, courseElement.semester);
-    var filteredDisciplines = filterDisciplines(block, block.selectedDiscipline);
-
-    courseElement.payload = removeFilteredValue(filteredSemester, undefined);
-    courseElement.block.push(filteredDisciplines);
-    courseElement.payload.blocks = uniqueBlocks(courseElement.block);
-  };
 
   loadInfo();
   loadDisciplines();

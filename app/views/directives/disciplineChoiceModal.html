@@ -1,0 +1,89 @@
+<div id="{{modalIndex}}" class="modal fade" role="dialog">
+<div class="modal-dialog modal-lg">
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title">Підтвердження вибраних дисциплін</h4>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 confirm-title">
+            <h2 class="text-center attention-text">УВАГА!!!</h2>
+            <div class="choice-list">Вами було здійснено наступний вибір:</div>
+          </div>
+          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5 confirm-element">
+            <div class="labels">Навчальний рік</div>
+            <div class="labels">Семестр</div>
+          </div>
+          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7 confirm-element">
+            <div class="studyYear">{{modalCourse.payload.studyPeriod.start}}-{{modalCourse.payload.studyPeriod.end}}</div>
+            <div class="semester">{{modalCourse.payload.semester || "інформацію не вказано"}}</div>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 labels confirm-element">Обрані блоки :</div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 confirm-element">
+            <ul class="list-group chosen-confirm-blocks-list">
+              <li class="list-group-item" ng-repeat="chosenBlock in modalCourse.payload.blocks">
+                <div class="row">
+                  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
+                    <div class="labels">Опис блоку</div>
+                    <div class="labels">Назва блоку</div>
+                    <div class="labels">Кількість дисциплін для вибору</div>
+                  </div>
+                  <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
+                    <div class="description">
+                      {{chosenBlock.component.name || "інформацію не вказано"}}
+                    </div>
+                    <div class="block-name">
+                      {{chosenBlock.block.name || "інформацію не вказано"}}
+                    </div>
+                    <div class="discipline-сount-for-choice">
+                      {{chosenBlock.disciplineCount || "інформацію не вказано"}}
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">Дисципліни :
+                    <ul class="list-group chosen-confirm-disciplines-list">
+                      <li class="list-group-item" ng-repeat="chosenDisc in chosenBlock.blockDisc">
+                        <div class="row">
+                          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-5">
+                            <div class="labels">Назва дисципліни</div>
+                            <div class="labels">Кафедра яка викладає дисципліну</div>
+                          </div>
+                          <div class="col-lg-8 col-md-9 col-sm-9 col-xs-7">
+                            <div class="discipline-name">
+                              {{chosenDisc.nameUkr || "інформацію не вказано"}}
+                            </div>
+                            <div class="labels">
+                              {{chosenDisc.subdivision || "інформацію не вказано"}}
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h4 class="text-center">Після підтвердження дані змінити вже буде не можливо.</h4>
+            <h4 class="text-center">Робіть вибір свідомо!</h4>
+          </div>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info messages"
+               ng-show="modalCourse.saveChoiceResult">
+            {{modalCourse.saveChoiceResult}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary btn-send-result"
+              ng-click="saveDisciplinesChoice(deleteAdditionalProperties(modalCourse.payload), modalCourse);">
+        Надіслати результати
+      </button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Скасувати</button>
+    </div>
+  </div>
+</div>
+</div>

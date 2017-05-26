@@ -1,0 +1,46 @@
+<div ng-repeat="discipline in block.blockDisc"
+     ng-init="id = discipline.cDisciplineBlockYear8Id; name = discipline.nameUkr;">
+  <div class="checkbox discipline-choice-checkbox">
+    <label class="label-disciplines-choice">
+      <input type="checkbox"
+             checklist-model="block.selectedDiscipline"
+             checklist-value="{id, name}"
+             ng-required="!isDisciplinesSelected(block.selectedDiscipline)">
+      {{discipline.nameUkr || "назву дисципліни не вказано"}}
+    </label>
+    <span class="discipline-subdivision-name">
+      {{discipline.subdivision || "кафедру не вказано"}}
+    </span>
+    <a ng-click="toggleDisciplineDescription(id)" data-toggle="tooltip"
+       data-placement="auto right"
+       title="Натисність тут для перегляду опису дисципліни">
+      <i class="fa fa-info fa-fw info-load" aria-hidden="true"></i>
+    </a>
+  </div>
+  <div class="discipline-count-info"
+       ng-show="!(course.status === 'not available' || course.status === 'done')">
+    <p class="text-student-count" ng-hide="discipline.maxCountStudent === 0">
+      Кількість записаних студентів із максимальної кількості місць в потоці навчання.
+    </p>
+    <p class="discipline-students-count" ng-show="discipline.maxCountStudent === 0">
+      Вказано нульову кількість студентів.
+    </p>
+  </div>
+  <div class="progress student-general-count"
+       ng-hide="discipline.maxCountStudent === 0">
+    <div class="progress-bar progress-bar-success progress-bar-striped progress-student-count"
+         role="progressbar"
+         aria-valuenow="{{discipline.studentCount}}" aria-valuemin="0"
+         aria-valuemax="{{discipline.maxCountStudent}}"
+         ng-style="{'width' : calculatePercent(discipline) + '%'}">
+      <span class="student-count"
+            ng-hide="calculatePercent(discipline) === 0">
+        {{discipline.studentCount}} / {{discipline.maxCountStudent}}
+      </span>
+    </div>
+    <p class="student-count"
+       ng-show="calculatePercent(discipline) === 0">
+      {{discipline.studentCount}} / {{discipline.maxCountStudent}}
+    </p>
+  </div>
+</div>
