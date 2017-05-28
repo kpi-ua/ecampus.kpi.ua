@@ -1,4 +1,5 @@
-'use strict';
+(function () {
+	'use strict';
 
 /**
  * @ngdoc function
@@ -7,245 +8,274 @@
  * # RnpCreateCtrl
  * Controller of the ecampusApp
  */
-angular
-  .module('ecampusApp')
-  .controller('RnpCreateCtrl', RnpCreateCtrl);
+	angular
+  	.module('ecampusApp')
+  	.controller('RnpCreateCtrl', RnpCreateCtrl);
 
-RnpCreateCtrl.$inject = ['$scope', 'api'];
+	RnpCreateCtrl.$inject = ['$scope', 'api'];
 
-function RnpCreateCtrl($scope, api) {
-	$scope.editRnpTab = 'firstTab';
-	var ifWantToAddRowData = false;
+	function RnpCreateCtrl($scope, api) {
+		var ifWantToAddRowData = false;
+		$scope.hideTable = false;
+		$scope.filterSpecialization = true; //!change name!!!
+		
+		function toggleClass(el, className) {
+      if (el.classList) {
+        el.classList.toggle(className);
+      } else {
+        var classes = el.className.split(' ');
+        var existingIndex = classes.indexOf(className);
 
-	$scope.options = {
-    cathedras: [],
-    specialities: [],    
-    specializations: [],
-    okrs: []
-  };
-//somwhere ITem, Name, Code name...
-  $scope.model = {
-    cathedraName: null,
-    specialityItem: null,    
-    specializationCodeName: null,
-    okrName: null
-  };
+        if (existingIndex >= 0)
+          classes.splice(existingIndex, 1);
+        else
+          classes.push(className);
 
-  $scope.selectData = {
-    cathedraId: null,
-    specialityId: null,    
-    specializationId: null,
-    okrId: null
-  };
-
-//test
-$scope.tempResponseAndrew = {
-  "studingYear": {
-    "1": "2011-2012",
-    "2": "2012-2013",
-    "3": "2013-2014",
-    "4": "2014-2015",
-    "5": "2015-2016",
-    "6": "2016-2017",
-    "7": "2017-2018",
-    "8": "2018-2019",
-    "9": "2019-2020"
-  },
-  "studyForm": {
-    "1": "Вечірня",
-    "2": "Денна",
-    "3": "Дистанційна",
-    "4": "Екстернат",
-    "5": "Заочна"
-  },
-  "profTrain": {
-    "кафедра інженерії поверхні ЗФ": {
-      "бакалавр": {
-        "131 Прикладна механіка": "1070",
-        "6.050504 Зварювання": "82"
-      },
-      "магістр": {
-        "131 Прикладна механіка": "1071",
-        "8.05050403 Відновлення та підвищення зносостійкості деталей і конструкцій": "642",
-        "8.092303 Технологія і устаткування відновлення та підвищення зносостійкості машин і конструкцій": "212"
-      },
-      "спеціаліст": {
-        "131 Прикладна механіка": "1072",
-        "7.05050403 Відновлення та підвищення зносостійкості деталей і конструкцій": "641",
-        "7.092303 Технологія і устаткування відновлення та підвищення зносостійкості машин і конструкцій": "211"
-      }
-    },
-    "кафедра інженерної екології ІЕЕ": {
-      "бакалавр": {
-        "101 Екологія": "884",
-        "6.040106 Екологія, охорона навколишнього середовища та збалансоване природокористування": "19"
-      },
-      "магістр": {
-        "101 Екологія": "885",
-        "8.04010601 Екологія та охорона навколишнього середовища": "495",
-        "8.070801 Екологія та охорона навколишнього середовища": "346"
-      },
-      "спеціаліст": {
-        "101 Екологія": "886",
-        "7.04010601 Екологія та охорона навколишнього середовища": "494",
-        "7.070801 Екологія та охорона навколишнього середовища": "345"
-      }
-    },
-    "кафедра інтегрованих технологій машинобудування ММІ": {
-      "бакалавр": {
-        "133 Галузеве машинобудування": "863",
-        "6.050502 Інженерна механіка": "8",
-        "6.050503 Машинобудування": "444"
-      },
-      "магістр": {
-        "133 Галузеве машинобудування": "864",
-        "8.05050302 Інструментальне виробництво": "473",
-        "8.090204 Інструментальне виробництво": "374"
-      },
-      "спеціаліст": {
-        "133 Галузеве машинобудування": "865",
-        "7.05050302 Інструментальне виробництво": "472",
-        "7.090204 Інструментальне виробництво": "373"
-      }
-    },
-    "кафедра інформаційно-вимірювальної техніки ФАКС": {
-      "бакалавр": {
-        "152 Метрологія та інформаційно-вимірювальна техніка": "1073",
-        "6.051001 Метрологія та інформаційно-вимірювальні технології": "84"
-      },
-      "магістр": {
-        "152 Метрологія та інформаційно-вимірювальна техніка": "1074",
-        "8.05100101 Метрологія та вимірювальна техніка": "646",
-        "8.091302 Метрологія та вимірювальна техніка": "202"
-      },
-      "спеціаліст": {
-        "152 Метрологія та інформаційно-вимірювальна техніка": "1075",
-        "7.05100101 Метрологія та вимірювальна техніка": "645",
-        "7.091302 Метрологія та вимірювальна техніка": "201"
-      }
-    },
-    "кафедра інформаційно-телекомунікаційних мереж ІТС": {
-      "бакалавр": {
-        "172 Телекомунікації та радіотехніка": "833",
-        "6.050903 Телекомунікації": "3"
-      },
-      "магістр": {
-        "172 Телекомунікації та радіотехніка": "834",
-        "8.05090301 Інформаційні мережі зв'язку": "463",
-        "8.092402 Інформаційні мережі зв'язку": "126"
-      },
-      "спеціаліст": {
-        "172 Телекомунікації та радіотехніка": "835",
-        "7.05090301 Інформаційні мережі зв'язку": "462",
-        "7.092402 Інформаційні мережі зв'язку": "125"
+        el.className = classes.join(' ');
       }
     }
-  }
-};
+
+    function createIconElement() {
+      var icon = document.createElement('span');
+
+      icon.className = 'glyphicon glyphicon-filter';
+      icon.setAttribute('aria-hidden', 'true');
+      return icon;
+    }
+
+    function changeButtonText(button) {
+      var show = 'Показати фільтри';
+      var hide = 'Сховати фільтри';
+      var filterIcon = createIconElement();
+
+      button.innerText = button.innerText === hide ? show : hide;
+      button.appendChild(filterIcon);
+    }
+
+    function toggleSidebar() {
+      var toggleButton = document.getElementById('filter-toggle');
+      var npContent = document.getElementById('np-content');
+
+      function toggle(e) {
+        e.preventDefault();
+        toggleClass(npContent, 'col-md-7');
+        changeButtonText(toggleButton);
+      }
+
+      toggleButton.addEventListener('click', toggle);      
+    }
+
+  //any other solution (exept the one below) leads to work only after page reload in Chrome
+  	$(document).ready(toggleSidebar);
+
+  	function sortNames(a, b) {
+  		var name1 = a.name;
+  		var name2 = b.name;
+
+  		return name1.localeCompare(name2);
+  	}
+
+    function getAllFacultySubdivision(allSubdivisions, facultyId) {
+      return allSubdivisions.filter(function(element) {
+        return (
+          element.parentId === facultyId
+        );
+      });
+    }
+
+    function filterAllSubdivision(allSubdivisions, subdivisionId) {
+      // typeId value for faculty subdivisions
+      var typeId = 30;
+
+      return allSubdivisions.filter(function(element) {
+        return (
+          element.parentId === subdivisionId &&
+          element.type.id === typeId
+        );
+      });
+    }
+
+    $scope.filterSubdivision = function(response, facultyId) {
+      var allFacultySubdivisions = getAllFacultySubdivision(response, facultyId);
+      $scope.subdivisions = [];      
+
+      for (var i = 0; i < allFacultySubdivisions.length; i++) {
+        var subdivisionId = allFacultySubdivisions[i].id;
+        var filteredSubdivision = filterAllSubdivision(response, subdivisionId);
+
+        if (filteredSubdivision.length !== 0) {
+          $scope.subdivisions = filteredSubdivision.sort(sortNames);
+        }
+      }    
+
+    };
+
+    function filterFaculty(response) {      
+      var facultiesId = 10437;      
+      var institutesId = 10436;
+
+      return response.filter(function(element) {
+        return (
+          element.parentId === facultiesId ||
+          element.parentId === institutesId
+        );
+      });
+    }
+
+    function loadFaculties() {
+      var url = 'Subdivision';
+
+      api.execute('GET', url)
+        .then(function(response) {
+          $scope.fullSubdivisionResponse = response;
+          $scope.faculties = filterFaculty(response).sort(sortNames);
+        });
+
+    }
+
+    function filterSpecialities(allSpecialities, subdivisionId) {
+      return allSpecialities.filter(function(element) {
+        return (
+          element.subdivision.id === subdivisionId          
+        );
+      });
+    }
+
+    function uniqueSpecialities(arr, criterion) {
+      var result = [];
+
+      nextInput:
+        for (var i = 0; i < arr.length; i++) {
+          var str = arr[i];
+          for (var j = 0; j < result.length; j++) {
+            if (
+              (result[j].id === str.id)
+            ) {
+              continue nextInput;
+            }
+          }
+       
+          result.push(str);
+        }
+      return result;
+    }    
+
+    $scope.loadSpecialities = function(subdivisionId) {    	
+      var url = ('StudyOrganization/ProfTrains/' + subdivisionId);
+
+      api.execute('GET', url)
+        .then(function(response) {        
+          var specialitiesWithOkr = filterSpecialities(response, subdivisionId);
+          $scope.allSpecialities = specialitiesWithOkr;
+          
+          $scope.specialities = uniqueSpecialities(specialitiesWithOkr, 'specialization').sort(sortNames);          
+        });      
+    };
+
+    function uniqueSpecializations(arr) {    
+    	var filteredArr = [];
+    	var arrOfNames = [];
+    	for (var i=0, l=arr.length; i<l; i++) {    		
+    		if (arrOfNames.indexOf(arr[i].specialization) === -1 && 
+    		arr[i].specialization !== '' && 
+    		arr[i].specialization !== null) {
+    			filteredArr.push(arr[i]);
+    			arrOfNames.push(arr[i].specialization);
+    		}
+    	}
+
+    	return filteredArr;
+    }
+
+    function filterSpecializations(allSpecializations, subdivId) {
+    	return allSpecializations.filter(function(element) {
+        return (
+          element.rtProfTrainTotalSubdivisionId === subdivId
+        );
+      });
+    }    
+
+    $scope.loadSpecializations = loadSpecializations;
+
+    function loadSpecializations(specialityId) {
+      var url = ('StudyOrganization/Specialization?specialityId=' + specialityId);
+
+      api.execute('GET', url)
+        .then(function(response) {
+          $scope.specializationsForModal = response;
+          var specializationsResponse = response;
+ 
+    			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);    			
+        });      
+    }
+
+    $scope.reloadDisciplines = loadDisciplines;
+
+    function loadDisciplines(idSubdiv, idSpec) {
+      var url = '';
+
+      if (idSpec === 'not set') {
+      	url += ('CreditModule/Specializations/' + idSubdiv);	
+      } else {
+      	url += ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSpec);
+      }
+
+      api.execute('GET', url)
+        .then(function(response) {          
+          $scope.disciplines = response;                    
+        });      
+    }
+
+    $scope.loadCM = loadCM;
+
+    function loadCM(rtdisciplineId) {    	
+    	if (!rtdisciplineId) {
+				$scope.creditModules = [];
+				$scope.disciplines.selected = null;
+				return;
+    	}
+    	var url = ('CreditModule/' + rtdisciplineId);
+
+    	api.execute('GET', url)
+        .then(function(response) {
+          var responseLen = response.length;
+
+          $scope.creditModules = response;     
+        });
+       
+    }
+
+    function checkParameter(value) {
+      return value === 'not set';
+    }
+
+    function checkForUndefined(value) {
+      return typeof value == 'undefined';
+    }
+
+	$scope.editRnpTab = 'firstTab';
 
   $scope.setCathedras = function() {
-  	var path = 'Rnp/Headers';
-  	/*api.execute('GET', path)
-		.then(function(response) {
-			requestComplete(response);
-		});
-
-		function requestComplete(response) {
-      if (!response || response === '' || response.length === 0) {
-        $scope.errorLabelText = 'На жаль, дані відсутні.';        
-      } else {
-      	console.log('дані є:');
-      	for (var cathedraName in response.profTrain) {
-      		$scope.options.cathedras.push(cathedraName);
-      	}
-      	for (var i=0; i<$scope.options.cathedras.length; i++) {
-      		console.log($scope.options.cathedras[i]);
-      	}
-        //$scope. = response;        
-        //console.log(response.profTrain);
-      }
-    }*/
-    
-    for (var cathedraName in $scope.tempResponseAndrew.profTrain) {
-    	$scope.options.cathedras.push(cathedraName);
-    }
-    for (var i=0; i<$scope.options.cathedras.length; i++) {
-    	console.log($scope.options.cathedras[i]);
-    }
+  	var path = 'Rnp/Headers';  
+        
   }
 
-
-
-
   $scope.setCathedras();
-
-
-	//activate();
-
-	/*function activate() {
-		var chainResponsibility = [
-		'cathedra',
-		'speciality',		
-		'specialization',
-		'okr'
-		];
-	}*/
-
 	
 	$scope.SwitchSections = function(event) {
   	$scope.editRnpTab = event.target.value;
 	}
 
-	$('#menu-toggle-1').click(function(e) {
+	$('#menu-toggle').click(function(e) {
 		e.preventDefault();
 		$('.wrapperMenuAndResult').toggleClass('activeMenu');
 	});
-
-	$('#menu-toggle-2').click(function(e) {
-		e.preventDefault();
-		$('.wrapperMenuAndResult').toggleClass('activeMenu');
-	});
-
-	$('#menu-toggle-3').click(function(e) {
-		e.preventDefault();
-		$('.wrapperMenuAndResult').toggleClass('activeMenu');
-	});
-
-	/*$scope.saveCM = function(editableObj, objCM) {
-		console.log("obj:");
-		console.log(objCM);
-		console.log("editableObj:");
-		console.log(editableObj);
-	};*/
 
 	$scope.showEditableNameCM = function(editableObj,objCM) {		
 		return (objCM.nameCM === '') ? true : false;		
 	}	
 
-	//$scope.selectedYear;
-	//temp solutions
-
-	$scope.listSpecialityTmp = [];	
-	$scope.listSpecializationTmp = [];
-	$scope.listOkrTmp = [];
-	$scope.listDisciplinesTmp = [{disc:'дисципліна2',idDisc:2}, {disc:'дисципліна3',idDisc:3}, {disc:'дисципліна5',idDisc:5}, {disc:'дисципліна8',idDisc:8}, {disc:'дисципліна9',idDisc:9}, {disc:'дисципліна10',idDisc:10}, {disc:'дисципліна11',idDisc:11}];
-	$scope.resultIhorsApiTmp = [];
-	$scope.tempListData = [
-			{cathForWhom: 'tk1', shortNameDis: 'dis1', nameCM: 'name1'},
-			{cathForWhom: 'tk2', shortNameDis: 'dis2', nameCM: 'name2'},
-			{cathForWhom: 'tk3', shortNameDis: 'dis3', nameCM: 'name3'},
-			{cathForWhom: 'tk4', shortNameDis: 'dis4', nameCM: 'name4'},		
-			{cathForWhom: 'tk5', shortNameDis: 'dis5', nameCM: 'name5'},
-			{cathForWhom: 'tk6', shortNameDis: 'dis6', nameCM: 'name6'}
-	];
-
-	$scope.onChange = function(){
-
-
-		$scope.listSpecialityTmp = [{specty:'specialty1'},{specty:'specialty2'},{specty:'specialty3'}];
-		$scope.listSpecializationTmp = [{specion:'specialization1'},{specion:'specialization2'},{specion:'specialization3'}];
-		$scope.listOkrTmp = [{okr: 'бакалавр'}, {okr: 'магістр'},{okr: 'спеціаліст'}];	
-		
+	$scope.onChange = function(){		
 		var id = $scope.selectedDiscipline.idDisc;
 		var path = 'StudyOrganizationDiscipline/CreditModule/' + id;
 
@@ -261,75 +291,135 @@ $scope.tempResponseAndrew = {
         $scope.resultIhorsApiTmp = response;        
       }
     }
+	}		
+
+	function filterSubdivisionSelect(arr) {
+		var result=[];
+
+		for (var i=0, l=arr.length; i<l; i++) {
+			if (arr[i].name.indexOf('Кафедра') !== -1) {
+				result.push(arr[i]);
+			}
+		}	
+
+		return result;
 	}
 
-		/*
-		switch ($scope.selectedDiscipline.disc) {
-			case 'дисципліна1': $scope.resultIhorsApiTmp = [
-		{nameCM:'name1', shortNameDis:'dis1',cathForWhom:'tk1',disstribution:'11', description:'aha1'}
-	]; break;
-			case 'дисципліна2': $scope.resultIhorsApiTmp = [
-		{nameCM:'name1', shortNameDis:'dis1',cathForWhom:'tk1',disstribution:'11', description:'aha1'},
-		{nameCM:'name2', shortNameDis:'dis2',cathForWhom:'tk2',disstribution:'12', description:'aha2'}
-	]; break;
-			case 'дисципліна3': $scope.resultIhorsApiTmp = [
-		{nameCM:'name1', shortNameDis:'dis1',cathForWhom:'tk1',disstribution:'11', description:'aha1'},
-		{nameCM:'name2', shortNameDis:'dis2',cathForWhom:'tk2',disstribution:'12', description:'aha2'},
-		{nameCM:'name3', shortNameDis:'dis3',cathForWhom:'tk3',disstribution:'13', description:'aha3'}
-	];break;
-		}*/
-	
+	function loadAllSubdivisions() {
+		var url = 'Subdivision';
+		var method = 'GET';
+		$scope.allSubdivisions = [];
 
-	$scope.listCathedraTmp = [{cathedra: 'cathedra1'}, {cathedra: 'cathedra2'}, {cathedra: 'cathedra3'}];
+		api.execute(method, url)
+      .then(function(response) {        
+        var allSubdiv = response;
+        $scope.allSubdivisions = filterSubdivisionSelect(allSubdiv);
 
-	
+      }, function(response) {
+        $scope.allSubdivisions = [];
+      });
+	};
 
 	$scope.addCM = function() {
 		if (!ifWantToAddRowData) {
-			//if ($scope.sortReverse) {
-			//	$scope.sortReverse = !$scope.sortReverse;
-			//}
 			$scope.insertedCM = {
-				nameCM:'',
-				shortNameDis:'',
-				cathForWhom:'',
-				disstribution:'',
-				description:''
+				nameFull: $scope.disciplines.selected.discipline8.name,
+				name:'',
+				nameShort:'',
+				whomRead: {
+					name: $scope.subdivisions.selected.name, 
+					id: $scope.subdivisions.selected.id
+				}				
 			};
 
-			$scope.resultIhorsApiTmp.unshift($scope.insertedCM);			
+			$scope.creditModules.unshift($scope.insertedCM);			
 			ifWantToAddRowData = true;
 		}
 	};
 
+	$scope.saveCM = function(editableObj, objCM) {
+		var nameFull, name, nameShort, method, whomRead;
+		var url = 'CreditModule/';
+
+		if (objCM.name !== '') {			
+			method = 'PUT';
+			url += $scope.disciplines.selected.discipline8.id;
+		} else {			
+			method = 'POST';
+		}
+
+		if (editableObj.name) {
+			name = editableObj.name;
+		} else {
+			name = objCM.name;
+		}
+
+		if (editableObj.whomRead.id) {
+			whomRead = editableObj.whomRead.id;
+		} else {
+			whomRead = objCM.id;
+		}
+
+		if (editableObj.nameShort) {
+			nameShort = editableObj.nameShort;
+		} else {
+			nameShort = objCM.nameShort;
+		}
+
+		var sendCM = new CreditModuleModel(            
+            name, whomRead
+          );
+
+		ifWantToAddRowData = false;
+		/*api.execute(method, url, sendCM)
+			.then(function(response) {										
+			}, function(response) {				
+				loadCM($scope.disciplines.selected.rtDisciplineId);
+			});*/
+
+	};
+
 	$scope.removeCM = function(currentRowCM) {
-		if (
-			confirm('Ви впеврені що хочете видалити дані про поточний кредитний модуль?')
+		/*if (
+			confirm('Ви впеврені що хочете видалити поточний кредитний модуль?')
 		) {
 			var url = (
-				'some/api/Ihors' //+
-				//dataCM.Ihors;
-				);
+				'/CreditModule/' +
+				currentRowCM.id				
+			);
+		
 			var method = 'DELETE';
-			api.execute(method, url)
-			.then(function(response) {
-				console.log(response);
-                // $('#ModalTableApproved').modal('hide');
-                // $scope.sendSubdivisionToServer();
-                // $scope.addMessage(1);
-        $scope.reloadData();
-      }, function(response) {
-                // $scope.addMessage(4);
-        console.log(response);
-      });
-		}
+			
+		}*/
 	};
+
+	$scope.cancelCM = function(objCM) {
+		if (!objCM.name) {
+			$scope.creditModules.shift(objCM);
+		}
+	}
+
+	$scope.checkCMForm = function(data) {
+    if (data === null || data === '' || data === undefined) {
+      return 'Заповніть це поле!';
+    }
+  };
+
+	function CreditModuleModel(
+    name,
+    whomRead    
+  ) {
+    this.name = name;
+    this.whomRead = whomRead;    
+  }
 
 	$scope.reloadData = function() {
     ifWantToAddRowData = false;
     location.reload();    
   };
-	
-	
 
+	loadFaculties();		
+	loadAllSubdivisions();
 }
+
+})();
