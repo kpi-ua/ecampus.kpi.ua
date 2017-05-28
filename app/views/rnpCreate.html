@@ -1,0 +1,741 @@
+<breadcrumbs>    
+  <span>РНП</span> > <span><b>Робота з РНП</b></span>
+</breadcrumbs>
+
+<div class="container-fluid content">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Робочі навчальні плани</h1>
+    </div>    
+
+    <div id="filter" class="col-md-5" ng-show="showFilter">
+      <div class="faculty-select">
+        <label for="faculty" class="select-form__label">Факультет</label>
+        <ui-select id="faculty" class="select-form__select_attest" ng-model="faculties.selected"
+                   append-to-body="true"
+                   on-select="filterSubdivision(fullSubdivisionResponse, faculties.selected.id);">
+          <ui-select-match placeholder="Оберіть факультет">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="faculty in (faculties | filter: $select.search) track by faculty.id"
+                             position="down">
+            <span ng-bind="faculty.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Факультет не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="subdivision-select">
+        <label for="subdivision" class="select-form__label">Кафедра</label>
+        <ui-select id="subdivision" class="select-form__select_attest" ng-model="subdivisions.selected"
+                   append-to-body="true"
+                   on-select="loadSpecialities(subdivisions.selected.id)">
+          <ui-select-match placeholder="Оберіть кафедру">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="subdivision in (subdivisions | filter: $select.search) track by subdivision.id"
+                             position="down">
+            <span ng-bind="subdivision.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Кафедру не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="speciality-select">
+        <label for="speciality" class="select-form__label">Спеціальність</label>
+        <ui-select id="speciality" class="select-form__select_attest" ng-model="specialities.selected"
+                   append-to-body="true"
+                   on-select="loadSpecializations(specialities.selected.id);">
+          <ui-select-match placeholder="Оберіть спеціальність">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="speciality in (specialities | filter: $select.search)"
+                             position="down">
+            <span ng-bind="speciality.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Спеціальність не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="specialization-select">
+        <label for="specialization" class="select-form__label">Спеціалізація</label>
+        <ui-select id="specialization" class="select-form__select_attest" ng-model="specializations.selected"
+                   append-to-body="true"
+                   on-select="reloadNp(specializations.selected.id, 'not set', 'not set')">
+          <ui-select-match placeholder="Оберіть спеціалізацію">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices
+            repeat="specialization in (specializations | filter: $select.search) track by specialization.id"
+            position="down">
+            <span ng-bind="specialization.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Спеціалізацію не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="study-year-select">
+        <label for="study-year" class="select-form__label">Навчальний рік</label>
+        <ui-select id="study-year" class="select-form__select_attest" ng-model="studyYears.selected"
+                   append-to-body="true"
+                   on-select="reloadNp(specializations.selected.id, studyYears.selected.id, 'not set')">
+          <ui-select-match placeholder="Оберіть навчальний рік">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="studyYear in (studyYears | filter: $select.search) track by studyYear.id"
+                             position="down">
+            <span ng-bind="studyYear.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Навчальний рік не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="okr-select">
+        <label for="okr" class="select-form__label">ОКР</label>
+        <ui-select id="okr" class="select-form__select_attest" ng-model="allOkr.selected" append-to-body="true">
+          <ui-select-match placeholder="Оберіть ОКР">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="okr in (allOkr | filter: $select.search)"
+                             position="down">
+            <span ng-bind="okr.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            ОКР не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="study-form-select">
+        <label for="study-form" class="select-form__label">Форма навчання</label>
+        <ui-select id="study-form" class="select-form__select_attest" ng-model="studyForms.selected"
+                   append-to-body="true"
+                   on-select="reloadNp(specializations.selected.id, studyYears.selected.id, studyForms.selected.id)">
+          <ui-select-match placeholder="Оберіть форму навчання">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="studyForm in (studyForms | filter: $select.search) track by studyForm.id"
+                             position="down">
+            <span ng-bind="studyForm.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Форму навчання не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+      <div class="course-select">
+        <label for="course" class="select-form__label">Курс</label>
+        <ui-select id="course" class="select-form__select_attest" ng-model="studyForms.selected"
+                   append-to-body="true"
+                   on-select="reloadNp(specializations.selected.id, studyYears.selected.id, studyForms.selected.id)">
+          <ui-select-match placeholder="Оберіть форму навчання">
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="studyForm in (studyForms | filter: $select.search) track by studyForm.id"
+                             position="down">
+            <span ng-bind="studyForm.name"></span>
+          </ui-select-choices>
+          <ui-select-no-choice>
+            Курс не знайдено
+          </ui-select-no-choice>
+        </ui-select>
+      </div>
+    </div>
+
+    <div class="col-md-12" id="np-content">
+      <button id="filter-toggle" type="button" class="btn btn-primary btn_filter_green btn-filters"
+              ng-click="showFilter = !showFilter">
+        Показати фільтри
+        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
+      </button>
+      
+      <button id="rnp-excel" type="button" class="btn btn-primary btn_filter_green btn-filters"
+              ng-click="showFilter = !showFilter">
+        Перегляд в Excel
+        <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+      </button>
+
+
+      <div ng-hide="hideTable === true;" class="table-responsive">
+        <table class="table table-bordered table-condensed table-hover">
+          <tr class="patterns__table-header color-head">
+            <th class="tdFullAlignCenter">
+              назва РНП
+            </th>
+            <th class="tdFullAlignCenter">
+              статус  
+            </th>
+            <th class="tdFullAlignCenter">
+              № протоколу
+            </th>
+            <th class="tdFullAlignCenter">
+              групи
+            </th>
+            <th class="tdFullAlignCenter">
+              спеціалізація
+            </th>
+            <th class="tdFullAlignCenter">
+              навч рік
+            </th>
+            <th class="tdFullAlignCenter">
+              ОКР              
+            </th>
+            <th class="tdFullAlignCenter">
+              форма навч
+            </th>
+            <th class="tdFullAlignCenter">
+              курс
+            </th>
+            <th class="tdFullAlignCenter">
+              Дія
+            </th>
+          </tr>
+          <tr class="d-s-table patterns__table-button">
+            <td colspan="10" class="text-center" ng-click="">
+              <i class="fa fa-plus" aria-hidden="true"></i>Додати новий робочий навчальний план
+            </td>
+          </tr>          
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container-fluid content" ng-show="false">
+  <div class="row">    
+    <div class="col-md-12">
+      <h1>Форма редагування РНП</h1>
+    </div>
+      
+    <div class="col-md-12" ng-switch on="editRnpTab">
+      <div class="btn-group btn-group-justified" role="group" aria-label="variants of editing rnp">
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="firstTab" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':editRnpTab=='firstTab'}">
+            Форма редагування РНП
+          </button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="generalInfoTab" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':editRnpTab=='generalInfoTab'}">
+            Основні відомості
+          </button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="creditModulesTab" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':editRnpTab=='creditModulesTab'}">
+            Кредитні модулі
+          </button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="practiceAttestTab" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':editRnpTab=='practiceAttestTab'}">
+            Практики і державна атестація
+          </button>
+        </div>
+        <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default discipline-specialization__navigation-button" value="groupsTab" ng-click="SwitchSections($event)" ng-class="{'discipline-specialization__navigation-button_active':editRnpTab=='groupsTab'}">
+            Групи
+          </button>
+        </div>
+      </div>
+
+      <div ng-show="editRnpTab=='firstTab'">
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Назва РНП, що редагується</h3>
+          </div>          
+        </div>        
+
+        <div class="row">
+          <div class="col-md-9">
+            <div class="row">              
+                <label for="" class="col-md-3 select-form__label">Статус:</label>            
+                <label for="" class="col-md-3 select-form__label">не затверджено</label>            
+                <button class="btn btn-default">Затвердити</button>
+            </div>
+            
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Дата затвердження:</label>            
+              <label for="" class="col-md-3 select-form__label">не затверджено</label>            
+            </div>
+
+            <div class="row">          
+              <label for="" class="col-md-3 select-form__label">Навчальний рік:</label>            
+              <select data-placeholder="Oбрати навчальний рік" ng-model="x" ng-change="x" class="col-md-3 select-form__select input_margin">
+                <option value="">Oбрати навчальний рік</option>
+              </select>
+            </div>
+
+            <div class="row">          
+              <label for="" class="col-md-3 select-form__label">Курс:</label>            
+              <select data-placeholder="Курс" ng-model="x" ng-change="x" class="col-md-3 select-form__select input_margin">
+                <option value="">Курс</option>
+              </select>              
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Створено на основі НП:</label>              
+              <select data-placeholder="назва НП" ng-model="x" ng-change="x" class="col-md-9 select-form__select input_margin">
+                <option value="">Назва НП</option>
+              </select>                      
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Випускова кафедра:</label>            
+              <input type="text" class="col-md-9 select-form__label input_margin" id="usr" placeholder="випускова кафедра">            
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Спеціальність:</label>            
+              <input type="text" class="col-md-9 select-form__label input_margin" id="usr" placeholder="спеціальність шифр та назва">        
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Спеціалізація:</label>
+
+              <input type="text" class="col-md-9 select-form__label input_margin" id="usr" placeholder="спеціалізація шифр та назва">
+
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">ОКР:</label>
+                          
+              <select data-placeholder="Oбрати окр" ng-model="x" ng-change="x" class="col-md-3 select-form__select input_margin">
+                <option value="">Oбрати окр</option>
+              </select>
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Форма навчання:</label>
+              
+              <select data-placeholder="Oбрати форму навчання" ng-model="x" ng-change="x" class="col-md-3 select-form__select input_margin">
+                <option value="">Oбрати форму навчання</option>
+              </select>
+
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Рік вступу:</label>
+                      
+              <select data-placeholder="Oбрати навчальний рік" ng-model="x" ng-change="x" class="col-md-3 select-form__select input_margin">
+                <option value="">Oбрати рік вступу</option>
+              </select>
+
+            </div>
+
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label">Навчальні групи:</label>
+
+              <textarea class="col-md-9 select-form__label input_margin" id="usr" placeholder="перелік навчальних груп"></textarea>
+
+            </div>
+          </div>
+        </div>
+
+
+    </div>          
+  
+        
+
+      <div ng-show="editRnpTab=='generalInfoTab'">
+       <div class="activeMenu wrapperMenuAndResult">
+        <div class="sidebar-wrapper">
+          <ul class="sidebar-nav sidebar_menu">
+            <li class="sidebar-brand"><a id="menu-toggle" href="#">Фільтри<span class="glyphicon glyphicon-align-justify main_icon"></span></a></li>
+          </ul>
+          <div style="width:100%; padding-left: 0px; padding-right: 40px">
+            <div class="col-md-12">
+              <p style="margin:0!important;">спеціальність</p>
+              <select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+                <option>обрати спеціальність</option>
+              </select>
+              <p style="margin:0!important;">спеціалізація</p>
+              <select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+                <option>обрати спеціалізацію</option>
+              </select>
+              <p style="margin:0!important;">ОКР</p>
+              <select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+                <option>ОКР</option>
+              </select>
+              <p style="margin:0!important;">форма навчання</p>
+              <select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+                <option>обрати форму навчання</option>
+              </select>
+              <p style="margin:0!important;">рік вступу</p>
+              <select style="width: 100%; margin-bottom: 20px;" class="select-form__select">
+                <option>рік вступу</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="page-content-wrapper">    
+          <div class="page-content inset">
+            <div class="row" style="padding-right:20px">             
+              <h3>Форма вибору НП, на основі якої буде створено поточну РНП</h3>
+              <div class="col-md-12">
+                <table class="table table-bordered">
+                  <tr class="patterns__table-header color-head">
+                    <th class="tdFullAlignCenter">
+                      Назва НП
+                    </th>
+                    <th class="tdFullAlignCenter minWidthTwoButtons">
+                      Дія
+                    </th>
+                  </tr>
+                  <tr>
+                    <td>Навчальний план 1</td>
+                    <td class="tdFullAlignCenter">
+                      <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button notActive">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </button> 
+                      <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </button> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Навчальний план 2</td>
+                    <td class="tdFullAlignCenter">
+                      <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button notActive">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </button> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Навчальний план 3</td>
+                    <td class="tdFullAlignCenter">
+                      <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button notActive">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </button> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Навчальний план 4</td>
+                    <td class="tdFullAlignCenter">
+                      <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button notActive">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </button> 
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div ng-show="editRnpTab=='creditModulesTab'">        
+        <div class="row">
+          <div class="col-md-12">
+          <h3>Перелік кредитних модулів</h3>
+            <table class="table table-bordered">
+              <tr class="patterns__table-header color-head">
+                <th class="tdFullAlignCenter">
+                  назва дисципліни
+                </th>
+                <th class="tdFullAlignCenter">
+                  назва кредитного модуля
+                </th>
+                <th class="tdFullAlignCenter">
+                  аудиторні години
+                </th>
+                <th class="tdFullAlignCenter">
+                  кількість годин аудиторних занять на тиждень за семестром
+                </th>   
+                <th class="tdFullAlignCenter">
+                  Дія
+                </th>         
+              </tr>
+              <tr class="d-s-table patterns__table-button">
+                <td colspan="5" class="text-center" ng-click="addCM();">
+                  <i class="fa fa-plus" aria-hidden="true"></i>Додати новий кредитний модуль
+                </td>
+              </tr>
+              <tr>
+                <td>кібернетика</td>
+                <td>кредитний модуль</td>
+                <td>102</td>
+                <td>60</td>      
+                <td>
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+                  </button>
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  </button>
+                </td>      
+              </tr>                  
+            </table>        
+          </div>
+        
+          <div class="col-md-6">
+            <h3>Контрольні суми</h3>
+            <table class="table table-bordered">
+              <tr class="patterns__table-header color-head">
+                <th class="tdFullAlignCenter">
+                  контрольний захід
+                </th>
+                <th class="tdFullAlignCenter">
+                  всього
+                </th>
+                <th class="tdFullAlignCenter">
+                  1 сем
+                </th>
+                <th class="tdFullAlignCenter">
+                  2 сем
+                </th>            
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">Екзаменів</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">Заліків</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">МКР</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">КП</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">КР</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">РГР, РР, ГР</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">ДКР</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">Рефератів</td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+                <td class="tdFullAlignCenter"></td>
+              </tr>
+
+            </table>  
+          </div>
+          
+        </div>
+      </div>
+    
+      <div ng-show="editRnpTab=='practiceAttestTab'">                
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label marginTop7px">Практика:</label>            
+              <select data-placeholder="Oбрати вид практики" ng-model="x" ng-change="x" class="col-md-3 select-form__select input_margin">
+                <option value="">Oбрати вид практики</option>
+              </select>
+            </div>
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label marginTop7px">Семестр:</label>            
+              <select data-placeholder="Oбрати семестр" ng-model="x" ng-change="x" class="col-md-3 select-form__select input_margin">
+                <option value="">Oбрати семестр</option>
+              </select>
+            </div> 
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label marginTop7px">Термін проведення з</label>
+              
+              <select style="margin-bottom: 5px;" class="col-md-3 select-form__select input_margin">
+                <option>дата початку практики</option>
+              </select>
+              
+              <label for="" class="col-md-1 select-form__label marginTop7px">по</label>
+              
+              <select style="margin-bottom: 5px;" class="col-md-3 select-form__select input_margin">
+                <option>дата закінчення</option>
+              </select>
+            </div>     
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label marginTop7px">Тривалість:</label>                          
+              <input type="text" class="col-md-3 select-form__label input_margin" id="usr" placeholder="Обрати тривалість">
+            </div>
+
+          </div>
+          
+        </div>        
+        
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <label for="" class="fontNormal col-md-3 control-label marginTop7px">Державна атестація:</label>
+              <select style="margin-bottom: 5px;" class="col-md-3 select-form__select input_margin">
+                <option>Обрати форму державної атестації</option>
+              </select>
+
+            </div>  
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <label for="" class="col-md-3 select-form__label marginTop7px">Термін проведення з</label>
+              
+              <select style="margin-bottom: 5px;" class="col-md-3 select-form__select input_margin">
+                <option>дата початку практики</option>
+              </select>
+              
+              <label for="" class="col-md-1 select-form__label marginTop7px">по</label>
+              
+              <select style="margin-bottom: 5px;" class="col-md-3 select-form__select input_margin">
+                <option>дата закінчення</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!--<p>паттерн компоновщик</p>-->
+        <div class="row">
+          <div class="col-md-12">
+          <table class="table table-bordered">
+            <tr class="patterns__table-header color-head">
+              <th class="tdFullAlignCenter">
+                Вид роботи
+              </th>
+              <th class="tdFullAlignCenter">
+                годин на 1 студента
+              </th>
+              <th class="tdFullAlignCenter">
+                Кафедра, що проводить
+              </th>
+            </tr>
+            <tr>
+              <td>
+                Керівництво
+              </td>
+              <td>
+                <input type="text" class="form-control" id="usr" placeholder="ке">
+              </td>  
+              <td>
+                <select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+            <option>обрати кафедру керівництва</option>
+            </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Консультування</td>
+                   <td><input type="text" class="form-control" id="usr" placeholder="ко"></td>
+                   <td><select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+              <option>обрати кафедру консультацій</option>
+            </select></td>     
+            </tr>
+            <tr>
+              <td>Рецензування</td>
+              <td><input type="text" class="form-control" id="usr" placeholder="ре"></td>
+              <td><select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+              <option>обрати кафедру рецензування</option>
+            </select></td>
+            </tr>
+            <tr>
+              <td>
+                ЕК1
+              </td>
+              <td><input type="text" class="form-control" id="usr" placeholder="ек1"></td>
+              <td><select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+              <option>обрати кафедру ек1</option>
+            </select></td>
+            </tr>
+            <tr>
+              <td>
+                ЕК2
+              </td>
+              <td><input type="text" class="form-control" id="usr" placeholder="ек2"></td>
+              <td><select style="width: 100%; margin-bottom: 5px;" class="select-form__select">
+              <option>обрати кафедру ек2</option>
+            </select></td>
+            </tr>
+          </table>
+          </div>
+
+          
+          
+        </div>
+      </div>
+
+      <div ng-show="editRnpTab=='groupsTab'">        
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table table-bordered">
+              <tr class="patterns__table-header color-head">
+                <th class="tdFullAlignCenter">
+                  назва групи
+                </th>
+                <th class="tdFullAlignCenter">
+                  тип групи
+                </th>
+                <th class="tdFullAlignCenter">
+                  проектна кіл-сть студентів (бюджет)
+                </th>
+                <th class="tdFullAlignCenter">
+                  (контракт)
+                </th>    
+                <th class="tdFullAlignCenter">
+                   Дія
+                </th>        
+              </tr>
+              <tr>
+                <td class="tdFullAlignCenter">ік-01</td>
+                <td class="tdFullAlignCenter">молодіжна</td>
+                <td class="tdFullAlignCenter">25</td>
+                <td class="tdFullAlignCenter">0</td>
+                <td>
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+
+                  </button>
+                  <button type="button"
+                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_delete">
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-offset-10 col-md-1">
+          <button class="btn btn-default">Зберегти</button>
+        </div>
+      </div>
+
+    </div>  
+  </div>
+</div>
