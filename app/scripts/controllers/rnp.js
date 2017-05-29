@@ -14,7 +14,7 @@ angular
 RnpCtrl.$inject = ['$scope', 'api'];
 
 function RnpCtrl($scope, api) {
-
+  $scope.hoursPerCredit = 36;
   $scope.options = {
     StudyYears: [],
     Departments: [],
@@ -60,7 +60,7 @@ function RnpCtrl($scope, api) {
           $scope.errorLabelText = 'На жаль, дані відсутні';
           $scope.StudyGroups = null;
         } else {
-          $scope.StudyGroups = response;
+          $scope.StudyGroups = response.sort(GroupCompare);
           setRnpRows(
             param.userAccountId,
             param.chosenDepartmentId,
@@ -88,10 +88,25 @@ function RnpCtrl($scope, api) {
           $scope.errorLabelText = 'На жаль, дані відсутні';
           $scope.RnpRows = null;
         } else {
-          $scope.RnpRows = response;
+          var tempArray = response;
+          tempArray.forEach(function (rnp) {
+            rnp.rnpRows.forEach(function (row) {
+              row.creditsHours = row.credits * $scope.hoursPerCredit;
+              row.totalCount = row.countLaboratory + row.countLecture+ row.countPractice;
+            })
+          });
+          $scope.RnpRows = tempArray;
         }
       })
       .catch(errorHandlerMy);
+  }
+
+  function GroupCompare(groupA,groupB) {
+      if (groupA.name < groupB.name)
+        return -1;
+      if (groupA.name > groupB.name)
+        return 1;
+      return 0;
   }
   function errorHandlerMy(response, status, headers) {
     $scope.errorLabelText = api.errorHandler(response);

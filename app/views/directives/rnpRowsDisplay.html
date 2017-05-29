@@ -2,26 +2,36 @@
     <table class="table table-hover table-bordered">
         <thead>
             <tr class="text-center">
+                <td>№</td>
                 <td>Найменування кредитного модулю</td>
                 <td>Назва кафедри</td>
                 <td>Кредитів ECTS</td>
+                <td>Години(кредити)</td>
                 <td>Лекції</td>
                 <td>Практичні (семінарські)</td>
                 <td>Лабораторні (комп. практикум)</td>
+                <td>Всього годин</td>
                 <td>Самостійна робота студентів</td>
             </tr>
         </thead>
-        <tbody ng-repeat="cycle in data">
+        <tbody ng-repeat="cycle in data" ng-click="showRows=!showRows">
             <tr class="text-center">
-                <td colspan="7" class="success">{{cycle.cycleName}}</td>
+                <td colspan="10" class="success">
+                    {{cycle.cycleName}}
+                    <span class="glyphicon glyphicon glyphicon-chevron-up" aria-hidden="true" ng-show="showRows"></span>
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true" ng-show="!showRows"></span>
+                </td>
             </tr>
-        <tr ng-repeat="row in cycle.rnpRows">
+        <tr ng-repeat="row in cycle.rnpRows" ng-show="showRows">
+            <td>{{$index+1}}</td>
             <td>{{row.rnp.name}}</td>
             <td>{{row.subdivisionName}}</td>
             <td>{{row.credits}}</td>
+            <td>{{row.creditsHours}}</td>
             <td>{{row.countLecture}}</td>
             <td>{{row.countPractice}}</td>
             <td>{{row.countLaboratory}}</td>
+            <td>{{row.totalCount}}</td>
             <td>{{row.independentStudentWork}}</td>
         </tr>
         </tbody>

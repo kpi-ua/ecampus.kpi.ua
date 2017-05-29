@@ -49,7 +49,7 @@
             <select id="Cathedra" class="col-md-3 col-sm-4 col-xs-12 select-form__select"
                     ng-model="selectData.CathedraId"
                     ng-change="OnCathedraSelect()">
-              <option value="{{subsystem.Subdivision.SubdivisionId}}" ng-repeat="subsystem in subsystems">
+              <option value="{{subsystem.Subdivision.Id}}" ng-repeat="subsystem in subsystems">
                 {{subsystem.Subdivision.Name}}
               </option>
             </select>
@@ -76,7 +76,7 @@
           <div class="row" ng-show="section=='specialization'||section=='apply'||section=='study-group'">
             <label for="studyForm" class="col-md-2 col-sm-3 col-xs-12 select-form__label  ">Форма навчання</label>
             <select id="studyForm" class="col-md-3 col-sm-4 col-xs-12 select-form__select" ng-model="selectData.StudyForm"
-                    ng-change="OnFullSelect()">
+                    ng-change="onFullSelect()">
               <option value="{{studyForm.id}}" ng-repeat="studyForm in Dc.StudyForms">{{studyForm.name}}</option>
             </select>
           </div>
@@ -92,7 +92,7 @@
             </label>
             <select id="StudyYear" class="col-md-2 col-sm-3 col-xs-12 select-form__select"
                     ng-model="selectData.StudyYear"
-                    ng-change="OnFullSelect(true)">
+                    ng-change="onFullSelect(true)">
               <option value="{{year | yearOutput}}" ng-repeat="year in stydyYears">{{year | yearOutput}}</option>
             </select>
           </div>
@@ -209,7 +209,7 @@
                             class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save">
                       <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                     </button>
-                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();OnFullSelect()"
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel();onFullSelect()"
                             class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel">
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </button>
