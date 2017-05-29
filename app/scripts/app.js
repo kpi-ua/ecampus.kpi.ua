@@ -18,8 +18,7 @@ var app = angular.module('ecampusApp', [
   'angular-input-stars',
   'ui.tree',
   'ui.select',
-  'xeditable',
-  'checklist-model'
+  'xeditable'
 ]);
 
 app.config(configRoutes);

@@ -34,7 +34,7 @@ function statInput(api) {
       }
 
     }
-
+////TODO get rid of this (Permission)
     function setFacultyAndInstitute(id) {
       var kpiQuery = false;
       var path = 'Account/employee/responsibility/' + id;

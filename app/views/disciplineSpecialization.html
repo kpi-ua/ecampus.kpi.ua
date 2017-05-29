@@ -49,8 +49,8 @@
             <select id="Cathedra" class="col-md-3 col-sm-4 col-xs-12 select-form__select"
                     ng-model="selectData.CathedraId"
                     ng-change="OnCathedraSelect()">
-              <option value="{{subsystem.Subdivision.Id}}" ng-repeat="subsystem in subsystems">
-                {{subsystem.Subdivision.Name}}
+              <option value="{{subsystem.id}}" ng-repeat="subsystem in subsystems">
+                {{subsystem.name}}
               </option>
             </select>
           </div>
