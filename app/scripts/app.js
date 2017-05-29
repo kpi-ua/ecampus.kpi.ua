@@ -152,6 +152,11 @@ function configRoutes($routeProvider, $locationProvider) {
       controller: 'RnpCtrl',
       controllerAs: 'rnp'
     })
+    .when('/rnp-create', {
+      templateUrl: 'views/rnpCreate.html',
+      controller: 'RnpCreateCtrl',
+      controllerAs: 'RnpCreate'
+    })
     .when('/attestation', {
       templateUrl: 'views/attestation.html',
       controller: 'AttestationCtrl',
@@ -161,7 +166,27 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/npSpecializations.html',
       controller: 'NpSpecializationsCtrl',
       controllerAs: 'NpSpec'
-    });
+    })
+    .when('/catalogue-okr', {
+      templateUrl: 'views/catalogueOkr.html',
+      controller: 'CatalogueOkrCtrl',
+      controllerAs: 'ctOkr'
+    })
+    .when('/study-group-main', {
+      templateUrl: 'views/studyGroupMain.html',
+      controller: 'StudyGroupMainCtrl',
+      controllerAs: 'stGrMain'
+    })
+    .when('/study-group-combined', {
+      templateUrl: 'views/studyGroupCombined.html',
+      controller: 'StudyGroupCombinedCtrl',
+      controllerAs: 'stGrCombined'
+    })
+    .when('/catalogue-credit-module', {
+      templateUrl: 'views/creditModules.html',
+      controller: 'CreditModulesCtrl',
+      controllerAs: 'crModules'
+    });    
 
   $locationProvider.html5Mode(true);
 }
