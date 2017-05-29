@@ -18,7 +18,8 @@ var app = angular.module('ecampusApp', [
   'angular-input-stars',
   'ui.tree',
   'ui.select',
-  'xeditable'
+  'xeditable',
+  'checklist-model'
 ]);
 
 app.config(configRoutes);
@@ -186,7 +187,7 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/creditModules.html',
       controller: 'CreditModulesCtrl',
       controllerAs: 'crModules'
-    });    
+    });
 
   $locationProvider.html5Mode(true);
 }
