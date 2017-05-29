@@ -52,7 +52,11 @@ function DisciplineChoiceStudentCtrl($scope, api) {
           +response[0].studyCourse
         );
         $scope.tab = +response[0].studyCourse;
-      });
+      })
+      .catch(function(response) {
+        $scope.errorInfo = api.errorHandler(response);
+        $scope.errorInfo += 'Не вдалося завантажити інформацію про студента.';
+      })
   }
 
   function loadDisciplines() {
@@ -85,7 +89,11 @@ function DisciplineChoiceStudentCtrl($scope, api) {
           case 4: $scope.fourthCourse.push(res); break;
         }
       }
-    });
+    })
+      .catch(function(response) {
+        $scope.errorDisciplines = api.errorHandler(response);
+        $scope.errorDisciplines += 'Не вдалося завантажити дисципліни.';
+      })
   }
 
   loadInfo();

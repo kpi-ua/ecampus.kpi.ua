@@ -10,7 +10,10 @@
 
       <div header></div>
 
-      <div class="info-about-student">
+      <div ng-show="errorInfo" class="alert alert-danger text-center">
+        {{errorInfo}}
+      </div>
+      <div ng-hide="errorInfo" class="info-about-student">
         <div class="panel panel-default panel-student-info">
           <div class="panel-heading title-panel-student-info">
             <div class="panel-title-image">Загальна інформація</div>
@@ -38,11 +41,14 @@
             </div>
           </div>
         </div>
-        <div class="disciplines-header">Дисципліни вільного вибору</div>
+        <div ng-hide="errorDisciplines" class="disciplines-header">Дисципліни вільного вибору</div>
       </div>
 
       <div class="container-fluid">
-        <div class="row">
+        <div ng-show="errorDisciplines" class="alert alert-danger text-center">
+          {{errorDisciplines}}
+        </div>
+        <div ng-hide="errorDisciplines" class="row">
           <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3 nav-pills-campus selective-disciplines-navs">
             <ul class="nav nav-stacked">
               <li ng-class="{ 'nav-pills-campus_active': isSet(1)}">
