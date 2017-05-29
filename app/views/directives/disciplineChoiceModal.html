@@ -70,9 +70,18 @@
             <h4 class="text-center">Після підтвердження дані змінити вже буде не можливо.</h4>
             <h4 class="text-center">Робіть вибір свідомо!</h4>
           </div>
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 alert alert-info messages"
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 messages"
                ng-show="modalCourse.saveChoiceResult">
-            {{modalCourse.saveChoiceResult}}
+            <div ng-repeat="choice in modalCourse.saveChoiceResult">
+              <div class="alert alert-danger text-center" ng-if="choice.status === false">
+                {{'Дисципліну - ' + choice.discipline.nameUkr.toLowerCase() +
+                ' ' + translateChoiceStatus(choice.status) + '.' }}
+              </div>
+              <div class="alert alert-success text-center" ng-if="choice.status === true">
+                {{'Дисципліну - ' + choice.discipline.nameUkr.toLowerCase() +
+                ' ' + translateChoiceStatus(choice.status) + '.' }}
+              </div>
+            </div>
           </div>
         </div>
       </div>

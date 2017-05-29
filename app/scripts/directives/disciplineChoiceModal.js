@@ -40,6 +40,19 @@
         return result;
       };
 
+      function translateChoiceStatus(englishStatus) {
+        switch (englishStatus) {
+          case true:
+            return 'було обрано';
+          case false:
+            return 'не було обрано';
+          default:
+            return 'помилка на сервері';
+        }
+      }
+
+      scope.translateChoiceStatus = translateChoiceStatus;
+
       scope.saveDisciplinesChoice = function(payload, semester) {
         var url = 'SelectiveDiscipline/semesters/disciplines';
 
