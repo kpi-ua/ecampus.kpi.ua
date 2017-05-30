@@ -187,7 +187,12 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/creditModules.html',
       controller: 'CreditModulesCtrl',
       controllerAs: 'crModules'
-    });    
+    })
+    .when('/catalogue-discipline', {
+      templateUrl: 'views/catalogueDisciplines.html',
+      controller: 'CatalogueDisciplinesCtrl',
+      controllerAs: 'ctlDisciplines'
+    });
 
   $locationProvider.html5Mode(true);
 }

@@ -3,20 +3,34 @@
 
 /**
  * @ngdoc function
- * @name ecampusApp.controller:CreditModulesCtrl
+ * @name ecampusApp.controller:CatalogueDisciplinesCtrl
  * @description
- * # CreditModulesCtrl
+ * # CatalogueDisciplinesCtrl
  * Controller of the ecampusApp
  */
 	angular
   	.module('ecampusApp')
-  	.controller('CreditModulesCtrl', CreditModulesCtrl);
+  	.controller('CatalogueDisciplinesCtrl', CatalogueDisciplinesCtrl);
 
-	CreditModulesCtrl.$inject = ['$scope', 'api', 'sharedFiltersData', '$location'];
+	CatalogueDisciplinesCtrl.$inject = ['$scope', 'api', 'sharedFiltersData'];
 
-	function CreditModulesCtrl($scope, api, sharedFiltersData, $location) {
+	function CatalogueDisciplinesCtrl($scope, api, sharedFiltersData) {
+		//console.log('token : ',api.getToken());
+		console.log('token : ',api.getCurrentUser());		
 		var ifWantToAddRowData = false;
 		$scope.hideTable = false;
+		var sharedData = sharedFiltersData.getAllFiltersShared();
+		if (sharedData.faculties !== '') {
+			$scope.faculties = sharedData.faculties;
+		} else {
+			loadFaculties();
+		}
+		
+		$scope.subdivisions = sharedData.subdivisions;
+		$scope.specialities = sharedData.specialities;
+		$scope.specializations = sharedData.specializations;		
+		
+
 		$scope.filterSpecialization = true; //!change name		
     $scope.errorLabelText = '';    
 
@@ -230,259 +244,249 @@
 
     $scope.reloadDisciplines = loadDisciplines;
 
-    function loadDisciplines(idSubdiv, idSpec) {
+    function loadDisciplines(idSpec, idSubdiv, idSpeciality) {      
       var url = '';
 
-      if (idSpec === 'not set') {
-      	url += ('CreditModule/Specializations/' + idSubdiv);	
+      if (idSpec !== 'not set') {
+      	url = ('CreditModule/Specializations/' + idSpec);      	
       } else {
-      	url += ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSpec);
-      }      
+      	if (idSubdiv !== 'not set') {
+      		url = ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSubdiv); 
+      	} else {
+      		url = ('StudyOrganization/Discipline/rtProfTrainTotal/' + idSpeciality);
+      	}
+      }
 
+      console.log('url', url);
+      
       api.execute('GET', url)
-        .then(function(response) {          
-          $scope.disciplines = response;     
+        .then(function(response) {
+          $scope.disciplines = response;   
+          console.log('$scope.disciplines : ', $scope.disciplines);
           if (!response || response === '' || response.length === 0) {
             $scope.errorLabelText = 'На жаль, дані відсутні';
           }             
         }, function(response){
           $scope.errorLabelText = api.errorHandler(response);
-        });      
+        });        
     }
 
-    $scope.loadCM = loadCM;
-
-    function loadCM(rtdisciplineId) {    	
-    	if (!rtdisciplineId) {
-				$scope.creditModules = [];
-        $scope.disciplines = [];
-				$scope.disciplines.selected = null;
-				return;
-    	}
-    	var url = ('CreditModule/' + rtdisciplineId);
+    function loadFilterAdd() {
+    	var url = 'StudyOrganization/Discipline/Filters';
 
     	api.execute('GET', url)
-        .then(function(response) {
-          var responseLen = response.length;
-          if (!response || response === '' || response.length === 0) {
-            $scope.errorLabelText = 'На жаль, дані відсутні';
-          }
-          $scope.creditModules = response;                         
-        }, function(response){
-          $scope.errorLabelText = api.errorHandler(response);
+        .then(function (response) {
+          $scope.allDisciplines = response.discipline;
+          $scope.allComponents = response.component;
+          //console.log("response : ", response);
+          //console.log("$scope.allDisciplines : ", $scope.allDisciplines);
+          //console.log("$scope.allComponents : ", $scope.allComponents);
         });
     }
 
-    function checkParameter(value) {
-      return value === 'not set';
-    }
-
-    function checkForUndefined(value) {
-      return typeof value == 'undefined';
-    }
-
-    $scope.showEditableNameCM = function(editableObj,objCM) {		
-      return (objCM.nameCM === '') ? true : false;		
-    }	
-
-    function filterSubdivisionSelect(arr) {
-      var result=[];
-
-      for (var i=0, l=arr.length; i<l; i++) {
-        if (arr[i].name.indexOf('Кафедра') !== -1) {
-          result.push(arr[i]);
-        }
-      }
-
-      return result;
-    }
-
-    function loadAllSubdivisions() {
-      var url = 'Subdivision';
-      var method = 'GET';
-      $scope.allSubdivisions = [];
-
-      api.execute(method, url)
-      .then(function(response) {        
-        var allSubdiv = response;
-        $scope.allSubdivisions = filterSubdivisionSelect(allSubdiv);
-        if (!response || response === '' || response.length === 0) {
-          $scope.errorLabelText = 'На жаль, дані відсутні';
-        }
-
-      }, function(response) {
-        $scope.allSubdivisions = [];
-        $scope.errorLabelText = api.errorHandler(response);
-      });
-    };
-	
-	  $scope.addCM = function() {
+    $scope.addDisc = function(subdivId, specialityId, specializationId) {
 		  if (!ifWantToAddRowData) {
 			//if ($scope.sortReverse) {
 			//	$scope.sortReverse = !$scope.sortReverse;
 			//}
-			  $scope.insertedCM = {
-				  id: $scope.disciplines.selected.rtDisciplineId,
-          nameFull: $scope.disciplines.selected.discipline8.name,
-				  name:'',
-				  nameShort:'',
-          readWhomName: $scope.subdivisions.selected.name,
-				  whomRead: {
-  					name: $scope.subdivisions.selected.name, 
-					 id: $scope.subdivisions.selected.id
-				  }//,
-				//disstribution:''				
-			   };
+				var ProfTrainTotalId = '';
+  			var ProfTrainTotalSubdivisionId = '';
+  			var DcSpecializationId = '';
 
-			 $scope.creditModules.unshift($scope.insertedCM);			
+				if (specializationId) {
+					DcSpecializationId = specializationId;
+				} else {
+					if (specialityId) {
+						ProfTrainTotalId = specialityId;
+					} else {
+						if (subdivId) {
+							ProfTrainTotalSubdivisionId = subdivId;
+						}
+					}
+				}
+  	 
+			  $scope.insertedDisc = {
+  				ProfTrainTotalId:ProfTrainTotalId,
+  				ProfTrainTotalSubdivisionId:ProfTrainTotalSubdivisionId,
+  				Component: {
+    				id:''
+  				},
+  				Discipline8: {
+    				id:''
+					},
+  				Shifr:'',
+  				outCredit:'',
+  				Description:'',
+				  DcSpecializationId:DcSpecializationId
+				};
+
+			 $scope.disciplines.unshift($scope.insertedDisc);
 			 ifWantToAddRowData = true;
 		  }
-	 };
+		};
 
-	$scope.saveCM = function(editableObj, objCM) {
-		console.log("obj:");
-		console.log(objCM);
-		console.log("editableObj:");
-		console.log(editableObj);
+    $scope.saveDisc = function(editableObj, objDisc) {
+    	console.log("obj:");
+			console.log(objDisc);
+			console.log("editableObj:");
+			console.log(editableObj);
 
-		var nameFull, name, nameShort, method, whomRead;
-		var url = 'CreditModule/';
-    var competence = '';
-    var knowledge = '';
-    var skill = '';
-    var PropositionId = '';
+			var method = '';
+			var url = 'StudyOrganization/Discipline/';
 
-//whomRead = editableObj.whomRead.id
-		if (objCM.name !== '') {
-			//nameCM = editableObj.name;			
-			method = 'PUT';
-			url += objCM.id;
-		} else {
-			//nameCM = objCM.name;
-			method = 'POST';
-		}
+			if (objDisc.Shifr !== '') {			
+				method = 'PUT';
+				url += objDisc.rtDisciplineId;
+			} else {			
+				method = 'POST';
+			}
 
-		if (editableObj.name) {
-			name = editableObj.name;
-		} else {
-			name = objCM.name;
-		}
+			var ProfTrainTotalId = '';
+  		var ProfTrainTotalSubdivisionId = '';
+  		var DcSpecializationId = '';
 
-		if (editableObj.readWhomName.id) {
-			whomRead = editableObj.readWhomName.id;
-		} else {    
-      if (!objCM.readWhomId) {
-        whomRead = $scope.subdivisions.selected.id;
-      } else {
-	      whomRead = objCM.readWhomId;
-      }
-		}
+			if ($scope.specializations.selected) {
+					DcSpecializationId = $scope.specializations.selected.id;
+				} else {
+					if ($scope.specialities.selected) {
+						ProfTrainTotalId = $scope.specialities.selected.id;
+					} else {
+						if ($scope.specialities.selected) {
+							ProfTrainTotalSubdivisionId = $scope.specialities.selected.profTrainTotal.subdivisionId;
+						}
+					}
+				}
 
-		if (editableObj.nameShort) {
-			nameShort = editableObj.nameShort;
-		} else {
-			nameShort = objCM.nameShort;
-		}
+				console.log('$scope.specialities.selected : ', $scope.specialities.selected);
+  	 			  
+  			var Component = {};
 
-		var sendCM = new CreditModuleModel(
-            //nameCM, subdivisions.selected.id
-            name, whomRead, $scope.disciplines.selected.rtDisciplineId,
-            nameShort, competence, knowledge, skill, PropositionId
+  			if (editableObj['objDisc.component']) {
+  				Component.id = editableObj['objDisc.component'].id;
+  			} else {
+  				Component.id = objDisc.component.id;
+  			}
+  			var Discipline8 = {};
+
+  			if (editableObj['objDisc.discipline8']) {
+  				Discipline8.id = editableObj['objDisc.discipline8'].id;
+  			} else {
+  				Discipline8.id = objDisc.discipline8.id;
+  			}
+
+  			var Shifr;
+				if (editableObj.shifr) {
+  				Shifr = editableObj.shifr;
+  			} else {
+  				Shifr = objDisc.Shifr;
+  			}
+
+  			var OutCredit;
+  			/*if (editableObj.outCredit === objDisc.outCredit) {
+  				OutCredit = !editableObj.outCredit;
+  			} else {
+  				OutCredit = !objDisc.outCredit;
+  			}*/
+  			OutCredit = !editableObj.outCredit;
+
+  			/*if (OutCredit) {
+  				OutCredit = !OutCredit;
+  			} else {
+  				OutCredit = true;
+  			}*/
+
+				var Description;
+				if (editableObj.description) {
+  				Description = editableObj.description;
+  			} else {
+  				Description = objDisc.description;
+  			}				  
+				
+				var sendDisc = new DisciplineModel(
+            ProfTrainTotalId, ProfTrainTotalSubdivisionId, DcSpecializationId,
+            Component, Discipline8, Shifr, OutCredit, Description
           );
 
-		ifWantToAddRowData = false;
-		api.execute(method, url, sendCM)
-			.then(function(response) {
-							
-        loadCM($scope.disciplines.selected.rtDisciplineId);
-        $scope.errorLabelText = 'Дані було успішно збережено';		
-			}, function(response) {
-				
-				loadCM($scope.disciplines.selected.rtDisciplineId);
-        $scope.errorLabelText = api.errorHandler(response);
-			});
+				console.log('sendDisc : ', sendDisc);
+				console.log('method : ', method);
+				console.log('url : ', url);
 
-	};
+				api.execute(method, url, sendDisc)
+				.then(function(response) {					
+					//по специализации
+					$scope.reloadDisciplines($scope.specializations.selected.id);
+					$scope.errorLabelText = 'Дані було успішно збережено';		
+				}, function(response) {					
+					$scope.errorLabelText = api.errorHandler(response);
+				});
 
-	$scope.removeCM = function(currentRowCM) {
-		if (
-			confirm('Ви впеврені що хочете видалити поточний кредитний модуль?')
-		) {
-			var url = (
-				'/CreditModule/' +
-				currentRowCM.id				
-			);
-			
-			var method = 'DELETE';
-			
-			api.execute(method, url)
-			.then(function(response) {		
-				loadCM($scope.disciplines.selected.rtDisciplineId);      
-      }, function(response) {
-                // $scope.addMessage(4);      
-        $scope.errorLabelText = api.errorHandler(response);
-      });
-		}
-	};
 
-  $scope.addDescription = function() {
-    
-  };
-
-	$scope.cancelCM = function(objCM) {
-		if (!objCM.name) {
-			$scope.creditModules.shift(objCM);
-		}
-	}
-
-	$scope.checkCMForm = function(data) {
-    if (data === null || data === '' || data === undefined) {
-      return 'Заповніть це поле!';
+			ifWantToAddRowData = false;
     }
-  };
 
-	function CreditModuleModel(
-    name,
-    whomRead,
-    rtDisciplineId,
-    nameShort,
-    Competence,
-    Knowledge,
-    Skill,
-    PropositionId
-  ) {
-    this.Name = name;
-    this.WhomReadId = whomRead;
-    this.Id = rtDisciplineId;    
-    this.ShortName = nameShort
-    this.Competence = Competence;
-    this.Knowledge = Knowledge;
-    this.Skill = Skill;
-    this.PropositionId = PropositionId;
-  };
+    $scope.removeDisc = function(currentRowDisc) {
+    	if (
+    		confirm('Ви впеврені що хочете видалити поточну дисципліну?')
+    		) {
+    		var url = (
+    			'StudyOrganization/Discipline/' +
+    			currentRowDisc.rtDisciplineId
+    			);
 
-	$scope.reloadData = function() {
-    ifWantToAddRowData = false;
-    location.reload();    
-  };
+    	var method = 'DELETE';
 
-  $scope.getCurrentData = function(objCM) {          
-    $scope.currentData = objCM;          
-  };
+    	api.execute(method, url)
+    	.then(function(response) {		
+    		//по специализации
+    		$scope.reloadDisciplines($scope.specializations.selected.id); 
+    	}, function(response) {
+                // $scope.addMessage(4);      
+                $scope.errorLabelText = api.errorHandler(response);
+              });
+    	}
+    };
 
-  $scope.shareFilters = function(
-    faculties, subdivisions,
-    specialities, specializations
-  ) {    
-    sharedFiltersData.setAllFiltersShared(
-      faculties, subdivisions,
-      specialities, specializations);
-    $location.path('/catalogue-discipline');
-  }
-	
-	loadFaculties();
-	//loadCM(14);
-	loadAllSubdivisions();
-}
+    $scope.cancelDisc = function(objDisc) {
+    	if (!objDisc.name) {
+    		$scope.creditModules.shift(objDisc);
+    	}
+    };
+
+    $scope.checkDiscForm = function(data) {
+    	if (data === null || data === '' || data === undefined) {
+    		return 'Заповніть це поле!';
+    	}
+    };
+
+    $scope.showStatus = showStatus;
+
+    function showStatus(value) {
+      return value === true ? 'Наявні' : 'Відсутні';
+    }
+
+    function DisciplineModel(
+      ProfTrainTotalId,
+      ProfTrainTotalSubdivisionId,
+      DcSpecializationId,
+      Component,
+      Discipline8,
+      Shifr,
+      OutCredit,
+      Description
+    ) {
+    	this.ProfTrainTotalId = ProfTrainTotalId;
+      this.ProfTrainTotalSubdivisionId = ProfTrainTotalSubdivisionId;
+      this.DcSpecializationId = DcSpecializationId;
+      this.Component = Component;
+      this.Discipline8 = Discipline8;
+      this.Shifr = Shifr;
+      this.OutCredit = OutCredit;
+      this.Description = Description;
+    };
+
+
+		//loadFaculties();
+		loadFilterAdd();
+	}
 
 })();
