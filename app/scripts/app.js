@@ -23,7 +23,7 @@ var app = angular.module('ecampusApp', [
 ]);
 
 app.config(configRoutes);
-app.run(configXeditable);
+app.run(checkSessionTime, configXeditable);
 
 configRoutes.$inject = ['$routeProvider', '$locationProvider'];
 
@@ -190,4 +190,18 @@ function configRoutes($routeProvider, $locationProvider) {
     });
 
   $locationProvider.html5Mode(true);
+}
+
+checkSessionTime.$inject  = ['$rootScope', 'api'];
+
+function checkSessionTime($rootScope, api) {
+  var deregister = $rootScope.$on('$viewContentLoaded', function () {
+    var isLogged = api.getToken();
+
+    if (isLogged) {
+      api.changeIsSessionExpiredValue(api.removeToken());
+    }
+  });
+
+  $rootScope.$on('$destroy', deregister);
 }
