@@ -1098,6 +1098,9 @@ li.list-group-item.blocks-list-item {
   margin: 0 0 15px 0;
 }
 
+.error-np-messages {
+  color: red;
+}
 /* end np styles*/
 .study-profile,
 .item {

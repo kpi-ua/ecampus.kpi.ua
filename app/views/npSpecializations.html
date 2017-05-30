@@ -9,7 +9,7 @@
       <div>
         <h1>НП спеціалізацій</h1>
       </div>
-    </div>    
+    </div>
 
     <div id="filter" class="col-md-4 margin_top_15 filter__padding" ng-show="showFilter">
       <div class="faculty-select">
@@ -28,6 +28,9 @@
             Факультет не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorFaculties" class="error-np-messages">
+          {{errorFaculties}}
+        </div>
       </div>
       <div class="subdivision-select">
         <label for="subdivision" class="select-form__label">Кафедра</label>
@@ -62,6 +65,9 @@
             Спеціальність не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorSpecialities" class="error-np-messages">
+          {{errorSpecialities}}
+        </div>
       </div>
       <div class="specialization-select">
         <label for="specialization" class="select-form__label">Спеціалізація</label>
@@ -80,6 +86,9 @@
             Спеціалізацію не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorSpecializations" class="error-np-messages">
+          {{errorSpecializations}}
+        </div>
       </div>
       <div class="study-year-select">
         <label for="study-year" class="select-form__label">Навчальний рік (рік вступу)</label>
@@ -97,6 +106,9 @@
             Навчальний рік не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorStudyYears" class="error-np-messages">
+          {{errorStudyYears}}
+        </div>
       </div>
       <div class="okr-select">
         <label for="okr" class="select-form__label">ОКР</label>
@@ -112,6 +124,9 @@
             ОКР не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorOkr" class="error-np-messages">
+          {{errorOkr}}
+        </div>
       </div>
       <div class="study-form-select">
         <label for="study-form" class="select-form__label">Форма навчання</label>
@@ -129,6 +144,9 @@
             Форму навчання не знайдено
           </ui-select-no-choice>
         </ui-select>
+        <div ng-show="errorStudyForms" class="error-np-messages">
+          {{errorStudyForms}}
+        </div>
       </div>
     </div>
 
@@ -143,7 +161,7 @@
               ng-click="editable = !editable">
         Редагувати
         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-      </button>      
+      </button>
     </div>
 
       <div ng-hide="hideTable === true;" class="table-responsive">
@@ -162,7 +180,7 @@
             <th class="tdFullAlignCenter">Термін рік</th>
             <th class="tdFullAlignCenter">Термін місяць</th>
             <th class="tdFullAlignCenter" ng-show="editable">Дії з НП</th>
-          </tr>          
+          </tr>
           <tr class="d-s-table patterns__table-button" ng-show="editable">
             <td colspan="11" class="text-center" ng-click="addCM();">
               <button data-toggle="modal" data-target="#newNp"><i class="fa fa-plus" aria-hidden="true" ></i>Додати новий кредитний модуль</button>

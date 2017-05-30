@@ -42,8 +42,9 @@ function DisciplineChoiceStudentCtrl($scope, api) {
 
   function loadInfo() {
     var url = 'Account/student/group';
+    var method = 'GET';
 
-    api.execute('GET', url)
+    api.execute(method, url)
       .then(function(response) {
         $scope.info = response[0];
         $scope.info.currentStudyYear = getCurrStudyYear(
@@ -51,13 +52,19 @@ function DisciplineChoiceStudentCtrl($scope, api) {
           +response[0].studyCourse
         );
         $scope.tab = +response[0].studyCourse;
-      });
+      })
+      .catch(function(response) {
+        $scope.errorInfo = api.errorHandler(response);
+        $scope.errorInfo += 'Не вдалося завантажити інформацію про студента.';
+      })
   }
 
   function loadDisciplines() {
     var url = 'SelectiveDiscipline/semesters/disciplines';
+    var method = 'GET';
 
-    api.execute('GET', url).then(function(response) {
+    api.execute(method, url)
+      .then(function(response) {
       $scope.firstCourse = [];
       $scope.secondCourse = [];
       $scope.thirdCourse = [];
@@ -82,7 +89,11 @@ function DisciplineChoiceStudentCtrl($scope, api) {
           case 4: $scope.fourthCourse.push(res); break;
         }
       }
-    });
+    })
+      .catch(function(response) {
+        $scope.errorDisciplines = api.errorHandler(response);
+        $scope.errorDisciplines += 'Не вдалося завантажити дисципліни.';
+      })
   }
 
   loadInfo();

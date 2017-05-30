@@ -3,16 +3,16 @@
 
   /**
    * @ngdoc directive
-   * @name ecampusApp.directive:disciplineChoiceCourse
+   * @name ecampusApp.directive:disciplineChoiceSemester
    * @description
-   * # disciplineChoiceCourse
+   * # disciplineChoiceSemester
    */
   angular.module('ecampusApp')
-    .directive('disciplineChoiceCourse', disciplineChoice);
+    .directive('disciplineChoiceSemester', disciplineChoiceSemester);
 
-  function disciplineChoice() {
+  function disciplineChoiceSemester() {
     return {
-      templateUrl: 'views/directives/disciplineChoiceCourse.html',
+      templateUrl: 'views/directives/disciplineChoiceSemester.html',
       restrict: 'E',
       scope: {
         studyCourse: '=studyCourse'

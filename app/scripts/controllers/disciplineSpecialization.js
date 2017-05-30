@@ -11,9 +11,9 @@ angular
     .module('ecampusApp')
     .controller('DisciplinesSpecializationCtrl', DisciplinesSpecializationCtrl);
 
-DisciplinesSpecializationCtrl.$inject = ['$scope', 'api'];
+DisciplinesSpecializationCtrl.$inject = ['$scope', 'api', 'permission'];
 
-function DisciplinesSpecializationCtrl($scope, api) {
+function DisciplinesSpecializationCtrl($scope, api, permission) {
   var subsystemIdMain = 20;
 
   $scope.errorLabelText = '';
@@ -64,7 +64,11 @@ function DisciplinesSpecializationCtrl($scope, api) {
       var sClaim = api.decodeToken(api.getToken());
       if (sClaim) {
         sClaim = JSON.parse(sClaim);
-        getPermissionSubsystemFromTokenBySubsystemId(sClaim.id,subsystemIdMain,setSubsystems);
+        setSubsystems(permission.getSubsystemPermission(subsystemIdMain));
+        console.log(permission.getPermission());
+        console.log(permission.getSubsystemPermission(2));
+        console.log(permission.getSubsystemCathedraPermission(2,10193));
+        console.log(permission.getSubsystemCathedraCRUD(2,10193));
       }
 
       // console.log(sClaim);
@@ -180,36 +184,37 @@ function DisciplinesSpecializationCtrl($scope, api) {
     }
     return permissionArray;
   }
-
-  function getPermissionSubsystemFromTokenBySubsystemId(userId,subsystemId,callback) {
-    var permissionArray = [];
-    var path = 'Account/employee/responsibility/' + userId;
-    api.execute('GET', path).then(function(responsibilities) {
-      responsibilities.forEach(function(responsibility) {
-        if (responsibility.subsystem === subsystemId) {
-          permissionArray.push(
-              {Subdivision:{
-                Id: responsibility.subdivision.id,
-                Name: responsibility.subdivision.name
-              }
-              });
-        }
-      });
-      if(callback){
-        callback(permissionArray);
-      }
-    });
-    // getPermissionSubsystemFromToken().forEach(function(item) {
-    //   if (item.SubsystemId === SubsystemId) {
-    //
-    //   }
-    // });
-    // // console.log(permissionArray);
-    // return permissionArray;
-  }
+////TODO get rid on this (Permission)
+//   function getPermissionSubsystemFromTokenBySubsystemId(userId,subsystemId,callback) {
+//     var permissionArray = [];
+//     var path = 'Account/employee/responsibility/' + userId;
+//     api.execute('GET', path).then(function(responsibilities) {
+//       permission.setPermission(responsibilities);
+//       responsibilities.forEach(function(responsibility) {
+//         if (responsibility.subsystem === subsystemId) {
+//           permissionArray.push(
+//               {Subdivision:{
+//                 Id: responsibility.subdivision.id,
+//                 Name: responsibility.subdivision.name
+//               }
+//               });
+//         }
+//       });
+//       if(callback){
+//         callback(permissionArray);
+//       }
+//     });
+//     // getPermissionSubsystemFromToken().forEach(function(item) {
+//     //   if (item.SubsystemId === SubsystemId) {
+//     //
+//     //   }
+//     // });
+//     // // console.log(permissionArray);
+//     // return permissionArray;
+//   }
 
   function setSubsystems(permissionArray) {
-    $scope.subsystems = permissionArray;
+    $scope.subsystems = permissionArray.subdivisions;
   }
   function getOkrNamesArrayFromProfTrains(profTrains) {
     var okrArray = [];

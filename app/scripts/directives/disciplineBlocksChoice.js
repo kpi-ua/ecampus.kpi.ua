@@ -73,15 +73,23 @@
       scope.course = scope[attrs['course']];
       scope.studyYear = scope[attrs['year']];
 
-      scope.isDisabledChoiceButton = function(block) {
+      scope.isNotSelected = function(block) {
+        var selected = block.selectedDiscipline;
+
+        return selected.length === 0;
+      };
+
+      scope.isNotEnoughSelected = function(block) {
         var selected = block.selectedDiscipline;
         var count = block.disciplineCount;
 
-        return (
-          selected.length !== count ||
-          selected.id === null ||
-          selected.length === 0
-        );
+        return selected.length !== count;
+      };
+
+      scope.isNotComplete = function(block) {
+        var selected = block.selectedDiscipline;
+
+        return selected.id === null;
       };
 
       scope.addBlock = function(courseElement, course, block) {
