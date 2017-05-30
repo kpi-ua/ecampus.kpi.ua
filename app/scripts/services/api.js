@@ -12,7 +12,6 @@ angular
     .service('api', function($http, $rootScope, $window, $q,permission) {
         //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
         this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
-        this.ApiEndpoint = 'http://localhost:45554/';
         $rootScope.requestCount = 0;
 
         this.changeRequestCount = function(i) {
@@ -23,7 +22,7 @@ angular
 
         this.changeIsSessionExpiredValue = function(value) {
             $rootScope.isSessionExpired = value;
-            //$rootScope.$apply();
+            // $rootScope.$apply();
         };
 
         this.changeIsSessionExpiredValue(false);
@@ -131,7 +130,6 @@ angular
                 if (!!response && !!response.data) {
 
                     self.setToken(response.data.access_token);
-                    // tokenLimit = 10000; 10 second for testing
                     tokenLimit = response.data.expires_in * 1000;
                     // calculate finish time for token
                     self.setLoginFinishTime(+new Date() + tokenLimit);

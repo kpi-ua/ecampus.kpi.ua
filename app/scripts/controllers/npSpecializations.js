@@ -78,7 +78,10 @@
         .then(function(response) {
           $scope.fullSubdivisionResponse = response;
           $scope.faculties = filterFaculty(response).sort(sortNames);
-        });
+        })
+        .catch(function(response) {
+          $scope.errorFaculties = api.errorHandler(response);
+        })
     }
 
     function filterSpecialities(allSpecialities, subdivisionId) {
@@ -112,13 +115,13 @@
 
       api.execute('GET', url)
         .then(function(response) {
-          console.log('ProfTrains');
-          console.log(JSON.stringify(response));
-
           var specialitiesWithOkr = filterSpecialities(response, subdivisionId);
           $scope.allSpecialities = specialitiesWithOkr;
           $scope.specialities = uniqueSpecialities(specialitiesWithOkr).sort(sortNames);
-        });
+        })
+        .catch(function(response) {
+          $scope.errorSpecialities = api.errorHandler(response);
+        })
     };
 
     $scope.loadSpecializations = loadSpecializations;
@@ -136,7 +139,10 @@
         .then(function(response) {
           $scope.specializationsForModal = response;
           $scope.specializations = response;
-        });
+        })
+        .catch(function(response) {
+          $scope.errorSpecializations = api.errorHandler(response);
+        })
     }
 
     function loadStudyYears() {
@@ -145,7 +151,10 @@
       api.execute('GET', url)
         .then(function(response) {
           $scope.studyYears = response.sort(sortNames);
-        });
+        })
+        .catch(function(response) {
+          $scope.errorStudyYears = api.errorHandler(response);
+        })
     }
 
     // спеціальність on-select="loadOkr(specialities.selected.id);
@@ -173,7 +182,10 @@
       api.execute('GET', url)
         .then(function (response) {
           $scope.allOkr = response.sort(sortNames);
-        });
+        })
+        .catch(function(response) {
+          $scope.errorOkr = api.errorHandler(response);
+        })
     }
 
     function loadStudyForms() {
@@ -183,7 +195,10 @@
         .then(function(response) {
           $scope.studyFormsForModal = response.sort(sortNames);
           $scope.studyForms = response.sort(sortNames);
-        });
+        })
+        .catch(function(response) {
+          $scope.errorStudyForms = api.errorHandler(response);
+        })
     }
 
     function checkParameter(value) {
@@ -257,7 +272,10 @@
 
           $scope.nps = response;
           $scope.hideTable = responseLen === 0;
-        });
+        })
+        .catch(function(response) {
+            $scope.errorNp = api.errorHandler(response);
+        })
     }
 
     function toggleClass(el, className) {

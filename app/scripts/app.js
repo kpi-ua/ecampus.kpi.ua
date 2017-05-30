@@ -18,11 +18,12 @@ var app = angular.module('ecampusApp', [
   'angular-input-stars',
   'ui.tree',
   'ui.select',
-  'xeditable'
+  'xeditable',
+  'checklist-model'
 ]);
 
 app.config(configRoutes);
-app.run(configXeditable);
+app.run(checkSessionTime, configXeditable);
 
 configRoutes.$inject = ['$routeProvider', '$locationProvider'];
 
@@ -186,7 +187,21 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/creditModules.html',
       controller: 'CreditModulesCtrl',
       controllerAs: 'crModules'
-    });    
+    });
 
   $locationProvider.html5Mode(true);
+}
+
+checkSessionTime.$inject  = ['$rootScope', 'api'];
+
+function checkSessionTime($rootScope, api) {
+  var deregister = $rootScope.$on('$viewContentLoaded', function () {
+    var isLogged = api.getToken();
+
+    if (isLogged) {
+      api.changeIsSessionExpiredValue(api.removeToken());
+    }
+  });
+
+  $rootScope.$on('$destroy', deregister);
 }
