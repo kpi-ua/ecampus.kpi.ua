@@ -17,11 +17,26 @@
 	function CatalogueDisciplinesCtrl($scope, api, sharedFiltersData) {
 		//console.log('token : ',api.getToken());
 		console.log('token : ',api.getCurrentUser());		
+		$scope.disciplines = [];
 		var ifWantToAddRowData = false;
 		$scope.hideTable = false;
+		$scope.lastEdit = {id: '', name: ''};
 		var sharedData = sharedFiltersData.getAllFiltersShared();
 		if (sharedData.faculties !== '') {
 			$scope.faculties = sharedData.faculties;
+			switch (sharedData.lastEdit.name) {
+				case 'subdivision': 
+					$scope.reloadDisciplines('not set', sharedData.lastEdit.id, 'not set');
+					break;
+				case 'speciality': 
+					$scope.reloadDisciplines('not set', 'not set', sharedData.lastEdit.id);
+					break;
+				case 'specialization': 
+					$scope.reloadDisciplines(sharedData.lastEdit.id, 'not set', 'not set');
+					break;
+				default:
+
+			}
 		} else {
 			loadFaculties();
 		}
@@ -248,13 +263,19 @@
       var url = '';
 
       if (idSpec !== 'not set') {
-      	url = ('CreditModule/Specializations/' + idSpec);      	
+        url = ('CreditModule/Specializations/' + idSpec);
+        $scope.lastEdit.name = 'specialization';
+        $scope.lastEdit.id = idSpec;
       } else {
-      	if (idSubdiv !== 'not set') {
-      		url = ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSubdiv); 
-      	} else {
-      		url = ('StudyOrganization/Discipline/rtProfTrainTotal/' + idSpeciality);
-      	}
+        if (idSubdiv !== 'not set') {
+          url = ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSubdiv);
+          $scope.lastEdit.name = 'subdivision';
+          $scope.lastEdit.id = idSubdiv;
+        } else {
+          url = ('StudyOrganization/Discipline/rtProfTrainTotal/' + idSpeciality);
+          $scope.lastEdit.name = 'speciality';
+          $scope.lastEdit.id = idSpeciality;
+        }
       }
 
       console.log('url', url);
@@ -413,8 +434,20 @@
 
 				api.execute(method, url, sendDisc)
 				.then(function(response) {					
-					//по специализации
-					$scope.reloadDisciplines($scope.specializations.selected.id);
+					//по специализации			
+					switch ($scope.lastEdit.name) {
+						case 'subdivision': 
+						$scope.reloadDisciplines('not set', $scope.lastEdit.id, 'not set');
+						break;
+						case 'speciality': 
+						$scope.reloadDisciplines('not set', 'not set', $scope.lastEdit.id);
+						break;
+						case 'specialization': 
+						$scope.reloadDisciplines($scope.lastEdit.id, 'not set', 'not set');
+						break;
+						default:
+
+					}
 					$scope.errorLabelText = 'Дані було успішно збережено';		
 				}, function(response) {					
 					$scope.errorLabelText = api.errorHandler(response);
@@ -438,7 +471,19 @@
     	api.execute(method, url)
     	.then(function(response) {		
     		//по специализации
-    		$scope.reloadDisciplines($scope.specializations.selected.id); 
+    		switch ($scope.lastEdit.name) {
+				case 'subdivision': 
+					$scope.reloadDisciplines('not set', $scope.lastEdit.id, 'not set');
+					break;
+				case 'speciality': 
+					$scope.reloadDisciplines('not set', 'not set', $scope.lastEdit.id);
+					break;
+				case 'specialization': 
+					$scope.reloadDisciplines($scope.lastEdit.id, 'not set', 'not set');
+					break;
+				default:
+
+			}
     	}, function(response) {
                 // $scope.addMessage(4);      
                 $scope.errorLabelText = api.errorHandler(response);

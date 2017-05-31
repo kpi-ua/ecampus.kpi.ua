@@ -7,7 +7,11 @@ angular
         faculties: '',
         subdivisions: '',
         specialities: '',
-        specializations: ''
+        specializations: '',
+        lastEdit: {
+            id: '',
+            name: ''
+        }
     };
 
     return {
@@ -16,11 +20,13 @@ angular
             return allFiltersShared;
         },
         setAllFiltersShared: function (faculties, subdivisions,
-        specialities, specializations) {
+        specialities, specializations, lastEdit) {
             allFiltersShared.faculties = faculties;
             allFiltersShared.subdivisions = subdivisions;
             allFiltersShared.specialities = specialities;
             allFiltersShared.specializations = specializations;
+            allFiltersShared.lastEdit.name = lastEdit.name;
+            allFiltersShared.lastEdit.id = lastEdit.id;
         }
     };
 
