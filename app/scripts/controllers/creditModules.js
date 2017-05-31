@@ -12,13 +12,14 @@
   	.module('ecampusApp')
   	.controller('CreditModulesCtrl', CreditModulesCtrl);
 
-	CreditModulesCtrl.$inject = ['$scope', 'api'];
+	CreditModulesCtrl.$inject = ['$scope', 'api', 'sharedFiltersData', '$location', 'permission'];
 
-	function CreditModulesCtrl($scope, api) {
+	function CreditModulesCtrl($scope, api, sharedFiltersData, $location, permission) {
 		var ifWantToAddRowData = false;
 		$scope.hideTable = false;
 		$scope.filterSpecialization = true; //!change name		
-    $scope.errorLabelText = '';    
+    $scope.errorLabelText = '';
+    $scope.lastEdit = {id: '', name: ''};
 
 		function toggleClass(el, className) {
       if (el.classList) {
@@ -230,14 +231,34 @@
 
     $scope.reloadDisciplines = loadDisciplines;
 
-    function loadDisciplines(idSubdiv, idSpec) {
+    function loadDisciplines(idSpec, idSubdiv, idSpeciality) {
       var url = '';
 
-      if (idSpec === 'not set') {
-      	url += ('CreditModule/Specializations/' + idSubdiv);	
+      if (idSpec !== 'not set') {
+        url = ('CreditModule/Specializations/' + idSpec);
+        $scope.lastEdit.name = 'specialization';
+        $scope.lastEdit.id = idSpec;
+      } else {
+        if (idSubdiv !== 'not set') {
+          url = ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSubdiv);
+          $scope.lastEdit.name = 'subdivision';
+          $scope.lastEdit.id = idSubdiv;
+        } else {
+          url = ('StudyOrganization/Discipline/rtProfTrainTotal/' + idSpeciality);
+          $scope.lastEdit.name = 'speciality';
+          $scope.lastEdit.id = idSpeciality;
+        }
+      }
+
+      /*if (idSpec === 'not set') {
+      	url += ('CreditModule/Specializations/' + idSubdiv);
+        $scope.lastEdit.name = 'specialization';
+        $scope.lastEdit.id = idSubdiv;
       } else {
       	url += ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSpec);
-      }      
+        $scope.lastEdit.name = 'subdivision';
+        $scope.lastEdit.id = idSpec;
+      }*/
 
       api.execute('GET', url)
         .then(function(response) {          
@@ -255,6 +276,7 @@
     function loadCM(rtdisciplineId) {    	
     	if (!rtdisciplineId) {
 				$scope.creditModules = [];
+        $scope.disciplines = [];
 				$scope.disciplines.selected = null;
 				return;
     	}
@@ -333,8 +355,8 @@
 				//disstribution:''				
 			   };
 
-			 $scope.creditModules.unshift($scope.insertedCM);			
-			 ifWantToAddRowData = true;
+        $scope.creditModules.unshift($scope.insertedCM);			
+        ifWantToAddRowData = true;
 		  }
 	 };
 
@@ -468,8 +490,21 @@
   $scope.getCurrentData = function(objCM) {          
     $scope.currentData = objCM;          
   };
+
+  $scope.shareFilters = function(
+    faculties, subdivisions,
+    specialities, specializations,
+    lastEdit
+  ) {    
+    sharedFiltersData.setAllFiltersShared(
+      faculties, subdivisions,
+      specialities, specializations,
+      lastEdit
+      );
+    $location.path('/catalogue-discipline');
+  }
 	
-	loadFaculties();	
+	loadFaculties();
 	//loadCM(14);
 	loadAllSubdivisions();
 }
