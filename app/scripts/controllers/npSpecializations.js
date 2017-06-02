@@ -43,7 +43,9 @@
       });
     }
 
-    $scope.filterSubdivision = function(response, facultyId) {
+    $scope.filterSubdivision = filterSubdivision;
+
+    function filterSubdivision(response, facultyId) {
       var allFacultySubdivisions = getAllFacultySubdivision(response, facultyId);
       $scope.subdivisions = [];
 
@@ -55,7 +57,7 @@
           $scope.subdivisions = filteredSubdivision.sort(sortNames);
         }
       }
-    };
+    }
 
     function filterFaculty(response) {
       // parentId value for faculties
@@ -110,7 +112,9 @@
       return result;
     }
 
-    $scope.loadSpecialities = function(subdivisionId) {
+    $scope.loadSpecialities = loadSpecialities;
+
+    function loadSpecialities(subdivisionId) {
       var url = 'StudyOrganization/ProfTrains';
 
       api.execute('GET', url)
@@ -122,7 +126,7 @@
         .catch(function(response) {
           $scope.errorSpecialities = api.errorHandler(response);
         })
-    };
+    }
 
     $scope.loadSpecializations = loadSpecializations;
 
@@ -137,8 +141,8 @@
 
       api.execute('GET', url)
         .then(function(response) {
-          $scope.specializationsForModal = response;
-          $scope.specializations = response;
+          $scope.specializationsForModal = response.sort(sortNames);
+          $scope.specializations = response.sort(sortNames);
         })
         .catch(function(response) {
           $scope.errorSpecializations = api.errorHandler(response);
@@ -151,6 +155,7 @@
       api.execute('GET', url)
         .then(function(response) {
           $scope.studyYears = response.sort(sortNames);
+
         })
         .catch(function(response) {
           $scope.errorStudyYears = api.errorHandler(response);
@@ -201,9 +206,9 @@
         })
     }
 
-    function checkParameter(value) {
-      return value === 'not set';
-    }
+    // function checkParameter(value) {
+    //   return value === 'not set';
+    // }
 
     function checkForUndefined(value) {
       return typeof value == 'undefined';
@@ -222,8 +227,8 @@
         var parameters = [];
         url = 'Np?';
 
+        // !checkParameter(specializationId) &&
         if (
-          !checkParameter(specializationId) &&
           !checkForUndefined(specializationId)
         ) {
           var specializationParameter = {
@@ -233,8 +238,8 @@
           parameters.push(specializationParameter);
         }
 
+        // !checkParameter(studyingYearId) &&
         if (
-          !checkParameter(studyingYearId) &&
           !checkForUndefined(studyingYearId)
         ) {
           var studyingYearParameter = {
@@ -244,8 +249,8 @@
           parameters.push(studyingYearParameter);
         }
 
+        // !checkParameter(studyFormId) &&
         if (
-          !checkParameter(studyFormId) &&
           !checkForUndefined(studyFormId)
         ) {
           var studyFormParameter = {
@@ -418,11 +423,23 @@
         });
     }
 
+    //TODO implement after API 'StudyOrganization/methodist/specializations' refactoring
+    // function loadSpecializationsForMethodist() {
+    //   var url = 'StudyOrganization/methodist/specializations';
+    //   var method = 'GET';
+    //
+    //   api.execute(method, url)
+    //     .then(function(response) {
+    //       $scope.specializationsForModal = response.sort(sortNames);
+    //       console.log(response);
+    //     });
+    // }
+
     toggleSidebar();
     loadFaculties();
     loadStudyYears();
     loadStudyForms();
-    loadSpecializations();
+    // loadSpecializations();
     loadNp();
     loadOkr();
   }

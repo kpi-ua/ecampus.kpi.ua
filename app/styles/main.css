@@ -1013,7 +1013,7 @@ li.list-group-item.blocks-list-item {
 
 .year-select, .semester-select, .attest-num-select, .student-select,
 .lecturers-select, .group-select, .course-select, .discipline-select,
-.group-lect-select, .speciality-select, .subdivision-select, 
+.group-lect-select, .speciality-select, .subdivision-select,
 .faculty-select, .specialization-select, .okr-select {
   margin-bottom: 5px;
 }
@@ -1089,6 +1089,10 @@ li.list-group-item.blocks-list-item {
 /* end attestation styles*/
 
 /* np styles */
+
+.add-new-np,.add-new-np:hover {
+  text-decoration: none;
+}
 
 .btn-filters {
   margin: 15px 0;
@@ -1370,7 +1374,7 @@ li.list-group-item.blocks-list-item {
 .wrapperMenuAndResult {
     padding-left: 70px;
     transition: all .4s ease 0s;
-    height: 100%;    
+    height: 100%;
 }
 
 .sidebar-wrapper {
@@ -1378,9 +1382,9 @@ li.list-group-item.blocks-list-item {
     left: 70px;
     width: 360px;
     background: #e7e7e7;
-    position: absolute; /* fixed*/   
+    position: absolute; /* fixed*/
     z-index: 10000;
-    transition: all .4s ease 0s;    
+    transition: all .4s ease 0s;
     margin-top: 20px;
 }
 
@@ -1415,7 +1419,7 @@ li.list-group-item.blocks-list-item {
     float: left;
     text-decoration: none;
     width: 360px;
-    background: #e7e7e7;        
+    background: #e7e7e7;
     -webkit-transition: background .5s;
     -moz-transition: background .5s;
     -o-transition: background .5s;
@@ -1434,7 +1438,7 @@ li.list-group-item.blocks-list-item {
   text-decoration: none;
 }
 
-.sidebar-nav li a:hover {  
+.sidebar-nav li a:hover {
   text-decoration: none;
 }
 
@@ -1450,7 +1454,7 @@ li.list-group-item.blocks-list-item {
 }
 
 .sidebar-nav > .sidebar-brand a {
-  
+
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -1526,7 +1530,7 @@ li.list-group-item.blocks-list-item {
 
 .btn_filter_green {
   background-color: #208944 !important;
-  border-color: #208944 !important;  
+  border-color: #208944 !important;
 }
 
 .margin_left_15 {
@@ -1534,7 +1538,7 @@ li.list-group-item.blocks-list-item {
 }
 
 .margin_top_15 {
- margin-top: 15px; 
+ margin-top: 15px;
 }
 
 .filter__padding {
@@ -1558,7 +1562,7 @@ li.list-group-item.blocks-list-item {
   width: 400px!important;
 }
 
-.editable_select_subdiv > .editable-ui-select > .editable-controls > .ui-select-container > 
+.editable_select_subdiv > .editable-ui-select > .editable-controls > .ui-select-container >
 .ui-select-choices {
   height: 200px;
 }
