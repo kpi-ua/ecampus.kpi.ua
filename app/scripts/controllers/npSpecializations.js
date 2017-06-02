@@ -75,8 +75,9 @@
 
     function loadFaculties() {
       var url = 'Subdivision';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           $scope.fullSubdivisionResponse = response;
           $scope.faculties = filterFaculty(response).sort(sortNames);
@@ -116,8 +117,9 @@
 
     function loadSpecialities(subdivisionId) {
       var url = 'StudyOrganization/ProfTrains';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           var specialitiesWithOkr = filterSpecialities(response, subdivisionId);
           $scope.allSpecialities = specialitiesWithOkr;
@@ -132,6 +134,7 @@
 
     function loadSpecializations(specialityId) {
       var url = '';
+      var method = 'GET';
 
       if (!specialityId) {
         url = 'StudyOrganization/Specialization';
@@ -139,7 +142,7 @@
         url = 'StudyOrganization/Specialization?specialityId=' + specialityId;
       }
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           $scope.specializationsForModal = response.sort(sortNames);
           $scope.specializations = response.sort(sortNames);
@@ -151,8 +154,9 @@
 
     function loadStudyYears() {
       var url = 'studyYears';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           $scope.studyYears = response.sort(sortNames);
 
@@ -183,8 +187,9 @@
 
     function loadOkr() {
       var url = 'StudyOrganization/okr';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function (response) {
           $scope.allOkr = response.sort(sortNames);
         })
@@ -195,8 +200,9 @@
 
     function loadStudyForms() {
       var url = 'studyForms';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           $scope.studyFormsForModal = response.sort(sortNames);
           $scope.studyForms = response.sort(sortNames);
@@ -218,6 +224,7 @@
 
     function loadNp(specializationId, studyingYearId, studyFormId) {
       var url;
+      var method = 'GET';
 
       if (
         !checkForUndefined(specializationId) ||
@@ -271,7 +278,7 @@
         url = 'Np';
       }
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           var responseLen = response.length;
 
@@ -363,8 +370,9 @@
 
     function addNewNp(payload) {
       var url = 'Np';
+      var method = 'POST';
 
-      api.execute('POST', url, payload)
+      api.execute(method, url, payload)
         .then(function(response) {
           console.log(response);
         });
@@ -377,6 +385,7 @@
       console.log(data);
 
       var url = 'Np/' + npId;
+      var method = 'PUT';
 
       var payload = {};
 
@@ -393,7 +402,7 @@
       console.log('payload');
       console.log(payload);
 
-      api.execute('PUT', url, payload)
+      api.execute(method, url, payload)
         .then(function(response) {
           console.log('response');
           console.log(response);
@@ -416,8 +425,9 @@
 
     function deleteNp(npId) {
       var url = 'Np/' + npId;
+      var method = 'DELETE';
 
-      api.execute('DELETE', url)
+      api.execute(method, url)
         .then(function(response) {
           console.log(response);
         });
