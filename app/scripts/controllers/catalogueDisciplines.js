@@ -12,18 +12,32 @@
   	.module('ecampusApp')
   	.controller('CatalogueDisciplinesCtrl', CatalogueDisciplinesCtrl);
 
-	CatalogueDisciplinesCtrl.$inject = ['$scope', 'api', 'sharedFiltersData'];
+	CatalogueDisciplinesCtrl.$inject = ['$scope', 'api', 'sharedFiltersData', 'permission'];
 
-	function CatalogueDisciplinesCtrl($scope, api, sharedFiltersData) {
-		//console.log('token : ',api.getToken());
-		console.log('token : ',api.getCurrentUser());		
+	function CatalogueDisciplinesCtrl($scope, api, sharedFiltersData, permission) {		
+		/*console.log('token : ',api.getCurrentUser());
+		console.log(permission.getPermission());
+		console.log(permission.getSubsystemPermission(3));*/
+
+		$scope.loadSpecialities = loadSpecialities;
+		$scope.loadSubdivisionsAccordingToPermission = loadSubdivisionsAccordingToPermission;
+
+		var permissionSubdivisions;
+		loadSubdivisionsAccordingToPermission();
+		$scope.subdivisions = permissionSubdivisions.subdivisions;
+		$scope.subdivisions.selected = permissionSubdivisions.subdivisions[0];
+						
 		$scope.disciplines = [];
 		var ifWantToAddRowData = false;
 		$scope.hideTable = false;
 		$scope.lastEdit = {id: '', name: ''};
+		$scope.reloadDisciplines = loadDisciplines;
 		var sharedData = sharedFiltersData.getAllFiltersShared();
-		if (sharedData.faculties !== '') {
+		if (sharedData.faculties !== '') {			
 			$scope.faculties = sharedData.faculties;
+			$scope.subdivisions = sharedData.subdivisions;
+			$scope.specialities = sharedData.specialities;
+			$scope.specializations = sharedData.specializations;
 			switch (sharedData.lastEdit.name) {
 				case 'subdivision': 
 					$scope.reloadDisciplines('not set', sharedData.lastEdit.id, 'not set');
@@ -34,20 +48,16 @@
 				case 'specialization': 
 					$scope.reloadDisciplines(sharedData.lastEdit.id, 'not set', 'not set');
 					break;
-				default:
+				default: break;
 
 			}
-		} else {
-			loadFaculties();
+		} else {			
+			$scope.loadSpecialities($scope.subdivisions.selected.id);
 		}
 		
-		$scope.subdivisions = sharedData.subdivisions;
-		$scope.specialities = sharedData.specialities;
-		$scope.specializations = sharedData.specializations;		
-		
-
 		$scope.filterSpecialization = true; //!change name		
-    $scope.errorLabelText = '';    
+    $scope.errorLabelText = '';
+    $scope.errorLabelTextModal = '';
 
 		function toggleClass(el, className) {
       if (el.classList) {
@@ -96,7 +106,7 @@
     }
 
   //any other solution (exept the one below) leads to work only after page reload in Chrome
-  	$(document).ready(toggleSidebar);
+  	$(document).ready(toggleSidebar);  	
 
   	function sortNames(a, b) {
   		var name1 = a.name;
@@ -105,33 +115,47 @@
   		return name1.localeCompare(name2);
   	}
 
-    function getAllFacultySubdivision(allSubdivisions, facultyId) {
+  	//$scope.
+  	/*
+  	function getAllSubdivisionsByPermSubdiv(allSubdiv, permissionSubdivisions) {
+  		return allSubdiv.filter(function(element) {
+        return (
+          element.parentId === facultyId
+        );
+      });
+  	}*/
+
+    /*function getAllFacultySubdivision(allSubdivisions, facultyId) {
       return allSubdivisions.filter(function(element) {
         return (
           element.parentId === facultyId
         );
       });
-    }
+    }*/
 
-    function filterAllSubdivision(allSubdivisions, subdivisionId) {
-      // typeId value for faculty subdivisions
+    /*function filterAllSubdivision(allSubdivisions, subdivisionId) {      
       var typeId = 30;
 
-      return allSubdivisions.filter(function(element) {
-        return (
-          element.parentId === subdivisionId &&
-          element.type.id === typeId
-        );
+      return allSubdivisions.filter(function(element) {      	
+      		return (      			
+          	element.parentId === subdivisionId &&
+          	element.type.id === typeId
+        	);      	
       });
-    }
+    }*/
 
-    $scope.filterSubdivision = function(response, facultyId) {
+    //function getFacultuBySubdivision(facultySubdivision, subdivisionId) {
+    //	if (facultySubdivision)
+    //	return
+    //}
+
+    /*$scope.filterSubdivision = function(response, facultyId) {
       var allFacultySubdivisions = getAllFacultySubdivision(response, facultyId);
       $scope.subdivisions = [];      
 
       for (var i = 0; i < allFacultySubdivisions.length; i++) {
         var subdivisionId = allFacultySubdivisions[i].id;
-        var filteredSubdivision = filterAllSubdivision(response, subdivisionId);
+        var filteredSubdivision = filterAllSubdivision(response, subdivisionId);               
 
         if (filteredSubdivision.length !== 0) {
           $scope.subdivisions = filteredSubdivision.sort(sortNames);
@@ -144,16 +168,17 @@
       var facultiesId = 10437;
       // parentId value for institutes
       var institutesId = 10436;
+     
 
-      return response.filter(function(element) {
-        return (
-          element.parentId === facultiesId ||
-          element.parentId === institutesId
-        );
+      return response.filter(function(element) {      	
+      		return (
+        		element.parentId === facultiesId ||
+        		element.parentId === institutesId
+        	);	
       });
-    }
+    }*/
 
-    function loadFaculties() {
+    /*function loadFaculties() {
       var url = 'Subdivision';
 
       api.execute('GET', url)
@@ -163,12 +188,19 @@
         }, function(response){
           $scope.errorLabelText = api.errorHandler(response);
         });      
+    }*/
+
+    function loadSubdivisionsAccordingToPermission() {
+    	permissionSubdivisions = permission.getSubsystemPermission(3);
     }
 
     function filterSpecialities(allSpecialities, subdivisionId) {
+      var actuality = true;
+
       return allSpecialities.filter(function(element) {
         return (
-          element.subdivision.id === subdivisionId          
+          element.subdivision.id === subdivisionId &&
+          element.actualityDcprof === actuality
         );
       });
     }
@@ -205,18 +237,23 @@
           console.log("$scope.allOkr : ", $scope.allOkr);
         });*/
     //}
-
-    $scope.loadSpecialities = function(subdivisionId) {
-      var url = ('StudyOrganization/ProfTrains/' + subdivisionId);
+  
+    function loadSpecialities(subdivisionId) {
+      var url;
+      if (subdivisionId != undefined) {
+      	url = ('StudyOrganization/ProfTrains/' + subdivisionId);
+      } else {return;}
 
       api.execute('GET', url)
         .then(function(response) {             
           var specialitiesWithOkr = filterSpecialities(response, subdivisionId);
           $scope.allSpecialities = specialitiesWithOkr;          
           $scope.specialities = uniqueSpecialities(specialitiesWithOkr, 'specialization').sort(sortNames);          
-        }, function(response){
-          $scope.errorLabelText = api.errorHandler(response);
-        });      
+          $scope.errorSpecialities = '';
+        })
+        .catch(function(response) {
+          $scope.errorSpecialities = api.errorHandler(response);
+        });
     };
     
     function uniqueSpecializations(arr) {    
@@ -245,63 +282,71 @@
     $scope.loadSpecializations = loadSpecializations;
 
     function loadSpecializations(specialityId) {    	
-      var url = ('StudyOrganization/Specialization?specialityId=' + specialityId);
+      var url;
+      if (specialityId != undefined) {
+      	url = ('StudyOrganization/Specialization?specialityId=' + specialityId);
+      } else {return;}
 
       api.execute('GET', url)
         .then(function(response) {
           $scope.specializationsForModal = response;
           var specializationsResponse = response;       
     			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);    			
-        }, function(response){
-          $scope.errorLabelText = api.errorHandler(response);
-        });      
-    }
+        })
+        .catch(function(response) {
+          $scope.errorSpecializations = api.errorHandler(response);
+        });
+    }    
 
-    $scope.reloadDisciplines = loadDisciplines;
-
-    function loadDisciplines(idSpec, idSubdiv, idSpeciality) {      
+    function loadDisciplines(idSpec, idSubdiv, idSpeciality) {
       var url = '';
 
-      if (idSpec !== 'not set') {
+      if ((idSpec !== 'not set')&&(idSpec !== undefined)) {
         url = ('CreditModule/Specializations/' + idSpec);
         $scope.lastEdit.name = 'specialization';
         $scope.lastEdit.id = idSpec;
       } else {
-        if (idSubdiv !== 'not set') {
+        if ((idSubdiv !== 'not set')&&(idSubdiv !== undefined)) {
           url = ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSubdiv);
           $scope.lastEdit.name = 'subdivision';
           $scope.lastEdit.id = idSubdiv;
         } else {
-          url = ('StudyOrganization/Discipline/rtProfTrainTotal/' + idSpeciality);
-          $scope.lastEdit.name = 'speciality';
-          $scope.lastEdit.id = idSpeciality;
+        	if ((idSpeciality !== 'not set') && (idSpeciality !== undefined)) {
+        		url = ('StudyOrganization/Discipline/rtProfTrainTotal/' + idSpeciality);
+          	$scope.lastEdit.name = 'speciality';
+          	$scope.lastEdit.id = idSpeciality;	
+        	} else {
+        		return;
+        	}
         }
-      }
-
-      console.log('url', url);
+      }      
       
       api.execute('GET', url)
         .then(function(response) {
-          $scope.disciplines = response;   
-          console.log('$scope.disciplines : ', $scope.disciplines);
+          $scope.disciplines = response;             
           if (!response || response === '' || response.length === 0) {
             $scope.errorLabelText = 'На жаль, дані відсутні';
-          }             
-        }, function(response){
-          $scope.errorLabelText = api.errorHandler(response);
-        });        
-    }
+          } else {
+          	$scope.errorLabelText = '';
+          }   
+        })
+        .catch(function(response) {
+          $scope.errorDisciplines = api.errorHandler(response);
+        });
+    };
+
+    $scope.refreshDisc = loadFilterAdd;
 
     function loadFilterAdd() {
     	var url = 'StudyOrganization/Discipline/Filters';
 
     	api.execute('GET', url)
         .then(function (response) {
-          $scope.allDisciplines = response.discipline;
+        	$scope.allDisciplines = response.discipline.sort(sortNames);
           $scope.allComponents = response.component;
-          //console.log("response : ", response);
-          //console.log("$scope.allDisciplines : ", $scope.allDisciplines);
-          //console.log("$scope.allComponents : ", $scope.allComponents);
+        })
+        .catch(function(response) {
+          $scope.errorForSelect = api.errorHandler(response);
         });
     }
 
@@ -364,21 +409,19 @@
 
 			var ProfTrainTotalId = '';
   		var ProfTrainTotalSubdivisionId = '';
-  		var DcSpecializationId = '';
+  		var DcSpecializationId = '';  		
 
-			if ($scope.specializations.selected) {
+			if ($scope.specializations.selected && !$scope.filterOkr) {
 					DcSpecializationId = $scope.specializations.selected.id;
 				} else {
-					if ($scope.specialities.selected) {
+					if ($scope.specialities.selected && !$scope.filterOkr) {						
 						ProfTrainTotalId = $scope.specialities.selected.id;
 					} else {
-						if ($scope.specialities.selected) {
+						if ($scope.specialities.selected && $scope.filterOkr) {
 							ProfTrainTotalSubdivisionId = $scope.specialities.selected.profTrainTotal.subdivisionId;
 						}
 					}
-				}
-
-				console.log('$scope.specialities.selected : ', $scope.specialities.selected);
+				}				
   	 			  
   			var Component = {};
 
@@ -403,22 +446,15 @@
   			}
 
   			var OutCredit;
-  			/*if (editableObj.outCredit === objDisc.outCredit) {
-  				OutCredit = !editableObj.outCredit;
-  			} else {
-  				OutCredit = !objDisc.outCredit;
-  			}*/
   			OutCredit = !editableObj.outCredit;
-
-  			/*if (OutCredit) {
-  				OutCredit = !OutCredit;
-  			} else {
-  				OutCredit = true;
-  			}*/
 
 				var Description;
 				if (editableObj.description) {
-  				Description = editableObj.description;
+					if (editableObj.description===undefined) {
+						Description = '';	
+					} else {
+						Description = editableObj.description;
+					}  				
   			} else {
   				Description = objDisc.description;
   			}				  
@@ -431,7 +467,7 @@
 				console.log('sendDisc : ', sendDisc);
 				console.log('method : ', method);
 				console.log('url : ', url);
-
+				
 				api.execute(method, url, sendDisc)
 				.then(function(response) {					
 					//по специализации			
@@ -449,6 +485,7 @@
 
 					}
 					$scope.errorLabelText = 'Дані було успішно збережено';		
+					console.log(response);
 				}, function(response) {					
 					$scope.errorLabelText = api.errorHandler(response);
 				});
@@ -506,7 +543,7 @@
     $scope.showStatus = showStatus;
 
     function showStatus(value) {
-      return value === true ? 'Наявні' : 'Відсутні';
+      return value === true ? 'Так' : 'Ні';
     }
 
     function DisciplineModel(
@@ -529,9 +566,62 @@
       this.Description = Description;
     };
 
+    function DisciplineNewModel(
+      Name, 
+      NameShort,
+      Abbreviation,
+      UserAccount
+    ) {
+    	this.Name = Name;
+    	this.NameShort = NameShort;
+			this.Abbreviation = Abbreviation;
+			this.UserAccount = UserAccount;
+    };
 
-		//loadFaculties();
+    $scope.getFilterDisciplines = function(search) {
+    	//search = search.substring(1, search.length-1);
+    	var discList = $scope.allDisciplines.slice();    
+    	//var result = '';	
+    	for (var i=0, l=discList.length; i<l; i++) {
+    		if (search && discList[i].name.toLowerCase().indexOf(search) === -1 ) {    			
+    			$scope.errorFilterDisciplines = 'Такої дисципліни не існує';    			
+    			$scope.newDiscipline = {};
+    			$scope.newDiscipline.Name = search;    			
+    		} else {
+    			$scope.errorFilterDisciplines = '';
+    			break;
+    		}
+    	}
+    };    
+
+    $scope.saveDisciplineModal = function() {
+    	$scope.errorLabelTextModal = 'Дисципліну створено успішно';
+    	var url = 'StudyOrganization/Discipline/Implement/';
+    	var method = 'POST';
+			var Name = $scope.newDiscipline.Name;
+			var NameShort = $scope.newDiscipline.NameShort;
+      var	Abbreviation = $scope.newDiscipline.Abbreviation;
+      var UserAccount = '';
+
+
+      var sendDisc = new DisciplineNewModel(Name, NameShort,
+      		Abbreviation, UserAccount);
+
+				console.log('sendDisc : ', sendDisc);
+				console.log('method : ', method);
+				console.log('url : ', url);
+
+				api.execute(method, url, sendDisc)
+				.then(function(response) {										
+					$scope.errorLabelText = 'Дані було успішно збережено';
+					loadFilterAdd();					
+				}, function(response) {					
+					$scope.errorLabelText = api.errorHandler(response);
+				});
+    }
+
 		loadFilterAdd();
+		$scope.allDisciplines = [{'id':1, 'name': 'na00me1'},{'id':2, 'name': 'name2'}];
 	}
 
 })();

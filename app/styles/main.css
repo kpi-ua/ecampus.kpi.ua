@@ -1554,11 +1554,37 @@ li.list-group-item.blocks-list-item {
   float: right;
 }
 
-.editable_select_subdiv > .editable-ui-select > .editable-controls > .ui-select-container {
-  width: 400px!important;
+.editable_select_subdiv, .editable_select_discipline > .editable-ui-select > .editable-controls > .ui-select-container {
+/*  width: 400px!important;*/
+  width: 100%!important;
 }
 
-.editable_select_subdiv > .editable-ui-select > .editable-controls > .ui-select-container > 
+.editable_select_subdiv, .editable_select_discipline > .editable-ui-select > .editable-controls > .ui-select-container > 
 .ui-select-choices {
-  height: 200px;
+  max-height: 200px;
 }
+
+.editable_select_subdiv, .editable_select_discipline > .editable-ui-select {
+  white-space: normal;
+  width: 80%!important;
+}
+
+#subdivision>.ui-select-match>.ui-select-toggle>.btn-link,
+#speciality >.ui-select-match>.ui-select-toggle>.btn-link,  
+#Specialization >.ui-select-match>.ui-select-toggle>.btn-link  {
+  color: #208944;
+}
+
+#tableDisciplines > tbody > tr > td > .editable-text > .editable-controls > .editable-input,
+#tableCMs > tbody > tr > td > .editable-text > .editable-controls > .editable-input {
+  color: black !important;
+}
+
+.btn_refresh {
+  margin-right: 20px; 
+  padding: 0; 
+  float: right;
+}
+
+
+
