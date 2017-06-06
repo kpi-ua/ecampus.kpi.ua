@@ -1571,7 +1571,12 @@ li.list-group-item.blocks-list-item {
 
 #subdivision>.ui-select-match>.ui-select-toggle>.btn-link,
 #speciality >.ui-select-match>.ui-select-toggle>.btn-link,  
-#Specialization >.ui-select-match>.ui-select-toggle>.btn-link  {
+#Specialization >.ui-select-match>.ui-select-toggle>.btn-link,
+#study-year >.ui-select-match>.ui-select-toggle>.btn-link,
+#okr >.ui-select-match>.ui-select-toggle>.btn-link,
+#study-form >.ui-select-match>.ui-select-toggle>.btn-link,
+#course >.ui-select-match>.ui-select-toggle>.btn-link
+  {
   color: #208944;
 }
 
