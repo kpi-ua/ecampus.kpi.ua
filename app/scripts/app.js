@@ -167,26 +167,16 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/npSpecializations.html',
       controller: 'NpSpecializationsCtrl',
       controllerAs: 'NpSpec'
-    })
-    .when('/catalogue-okr', {
-      templateUrl: 'views/catalogueOkr.html',
-      controller: 'CatalogueOkrCtrl',
-      controllerAs: 'ctOkr'
-    })
-    .when('/study-group-main', {
-      templateUrl: 'views/studyGroupMain.html',
-      controller: 'StudyGroupMainCtrl',
-      controllerAs: 'stGrMain'
-    })
-    .when('/study-group-combined', {
-      templateUrl: 'views/studyGroupCombined.html',
-      controller: 'StudyGroupCombinedCtrl',
-      controllerAs: 'stGrCombined'
-    })
+    })    
     .when('/catalogue-credit-module', {
       templateUrl: 'views/creditModules.html',
       controller: 'CreditModulesCtrl',
       controllerAs: 'crModules'
+    })
+    .when('/catalogue-discipline', {
+      templateUrl: 'views/catalogueDisciplines.html',
+      controller: 'CatalogueDisciplinesCtrl',
+      controllerAs: 'ctlDisciplines'
     });
 
   $locationProvider.html5Mode(true);
