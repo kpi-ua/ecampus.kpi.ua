@@ -14,11 +14,7 @@
 
 	CatalogueDisciplinesCtrl.$inject = ['$scope', 'api', 'sharedFiltersData', 'permission'];
 
-	function CatalogueDisciplinesCtrl($scope, api, sharedFiltersData, permission) {		
-		/*console.log('token : ',api.getCurrentUser());
-		console.log(permission.getPermission());
-		console.log(permission.getSubsystemPermission(3));*/
-
+	function CatalogueDisciplinesCtrl($scope, api, sharedFiltersData, permission) {			
 		$scope.loadSpecialities = loadSpecialities;
 		$scope.loadSubdivisionsAccordingToPermission = loadSubdivisionsAccordingToPermission;
 
@@ -55,7 +51,7 @@
 			$scope.loadSpecialities($scope.subdivisions.selected.id);
 		}
 		
-		$scope.filterSpecialization = true; //!change name		
+		$scope.filterSpecialization = true;
     $scope.errorLabelText = '';
     $scope.errorLabelTextModal = '';
 
@@ -115,81 +111,6 @@
   		return name1.localeCompare(name2);
   	}
 
-  	//$scope.
-  	/*
-  	function getAllSubdivisionsByPermSubdiv(allSubdiv, permissionSubdivisions) {
-  		return allSubdiv.filter(function(element) {
-        return (
-          element.parentId === facultyId
-        );
-      });
-  	}*/
-
-    /*function getAllFacultySubdivision(allSubdivisions, facultyId) {
-      return allSubdivisions.filter(function(element) {
-        return (
-          element.parentId === facultyId
-        );
-      });
-    }*/
-
-    /*function filterAllSubdivision(allSubdivisions, subdivisionId) {      
-      var typeId = 30;
-
-      return allSubdivisions.filter(function(element) {      	
-      		return (      			
-          	element.parentId === subdivisionId &&
-          	element.type.id === typeId
-        	);      	
-      });
-    }*/
-
-    //function getFacultuBySubdivision(facultySubdivision, subdivisionId) {
-    //	if (facultySubdivision)
-    //	return
-    //}
-
-    /*$scope.filterSubdivision = function(response, facultyId) {
-      var allFacultySubdivisions = getAllFacultySubdivision(response, facultyId);
-      $scope.subdivisions = [];      
-
-      for (var i = 0; i < allFacultySubdivisions.length; i++) {
-        var subdivisionId = allFacultySubdivisions[i].id;
-        var filteredSubdivision = filterAllSubdivision(response, subdivisionId);               
-
-        if (filteredSubdivision.length !== 0) {
-          $scope.subdivisions = filteredSubdivision.sort(sortNames);
-        }
-      }
-    };
-
-    function filterFaculty(response) {
-      // parentId value for faculties
-      var facultiesId = 10437;
-      // parentId value for institutes
-      var institutesId = 10436;
-     
-
-      return response.filter(function(element) {      	
-      		return (
-        		element.parentId === facultiesId ||
-        		element.parentId === institutesId
-        	);	
-      });
-    }*/
-
-    /*function loadFaculties() {
-      var url = 'Subdivision';
-
-      api.execute('GET', url)
-        .then(function(response) {          
-          $scope.fullSubdivisionResponse = response;
-          $scope.faculties = filterFaculty(response).sort(sortNames);
-        }, function(response){
-          $scope.errorLabelText = api.errorHandler(response);
-        });      
-    }*/
-
     function loadSubdivisionsAccordingToPermission() {
     	permissionSubdivisions = permission.getSubsystemPermission(3);
     }
@@ -224,19 +145,18 @@
       return result;
     }
 
-    /*$scope.loadOkr = function (specialityId) {
-    	//$scope.allOkr = uniqueSpecialities($scope.specialities, 'okr').sort(sortNames);
-    	$scope.allOkr = filterSpecializations($scope.specialities, specialityId);
-    	console.log('$scope.allOkr : ', $scope.allOkr);
-*/
-      /*var url = 'StudyOrganization/okr';
+    $scope.loadOkr = function() {
+      var url = 'StudyOrganization/okr';
 
       api.execute('GET', url)
         .then(function (response) {
           $scope.allOkr = response.sort(sortNames);
-          console.log("$scope.allOkr : ", $scope.allOkr);
-        });*/
-    //}
+          $scope.errorOkrModal = '';
+        })
+        .catch(function (response) {
+        	$scope.errorOkrModal = api.errorHandler(response);
+        });
+    }
   
     function loadSpecialities(subdivisionId) {
       var url;
@@ -291,7 +211,8 @@
         .then(function(response) {
           $scope.specializationsForModal = response;
           var specializationsResponse = response;       
-    			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);    			
+    			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);
+    			$scope.errorSpecializations = '';
         })
         .catch(function(response) {
           $scope.errorSpecializations = api.errorHandler(response);
@@ -338,12 +259,13 @@
     $scope.refreshDisc = loadFilterAdd;
 
     function loadFilterAdd() {
-    	var url = 'StudyOrganization/Discipline/Filters';
+    	var url = ('StudyOrganization/Discipline/Filters/' + $scope.subdivisions.selected.id);
 
     	api.execute('GET', url)
         .then(function (response) {
         	$scope.allDisciplines = response.discipline.sort(sortNames);
-          $scope.allComponents = response.component;
+          $scope.allComponents = response.component.sort(sortNames);;
+          $scope.errorForSelect = '';
         })
         .catch(function(response) {
           $scope.errorForSelect = api.errorHandler(response);
@@ -352,9 +274,6 @@
 
     $scope.addDisc = function(subdivId, specialityId, specializationId) {
 		  if (!ifWantToAddRowData) {
-			//if ($scope.sortReverse) {
-			//	$scope.sortReverse = !$scope.sortReverse;
-			//}
 				var ProfTrainTotalId = '';
   			var ProfTrainTotalSubdivisionId = '';
   			var DcSpecializationId = '';
@@ -392,11 +311,6 @@
 		};
 
     $scope.saveDisc = function(editableObj, objDisc) {
-    	console.log("obj:");
-			console.log(objDisc);
-			console.log("editableObj:");
-			console.log(editableObj);
-
 			var method = '';
 			var url = 'StudyOrganization/Discipline/';
 
@@ -409,7 +323,7 @@
 
 			var ProfTrainTotalId = '';
   		var ProfTrainTotalSubdivisionId = '';
-  		var DcSpecializationId = '';  		
+  		var DcSpecializationId = '';
 
 			if ($scope.specializations.selected && !$scope.filterOkr) {
 					DcSpecializationId = $scope.specializations.selected.id;
@@ -448,29 +362,19 @@
   			var OutCredit;
   			OutCredit = !editableObj.outCredit;
 
-				var Description;
-				if (editableObj.description) {
-					if (editableObj.description===undefined) {
-						Description = '';	
-					} else {
-						Description = editableObj.description;
-					}  				
-  			} else {
-  				Description = objDisc.description;
-  			}				  
+				var Description = objDisc.description;
+  			var Competence = objDisc.competence;
+  			var Knowledge = objDisc.knowledge;
+  			var Skill = objDisc.skill;
 				
 				var sendDisc = new DisciplineModel(
             ProfTrainTotalId, ProfTrainTotalSubdivisionId, DcSpecializationId,
-            Component, Discipline8, Shifr, OutCredit, Description
-          );
-
-				console.log('sendDisc : ', sendDisc);
-				console.log('method : ', method);
-				console.log('url : ', url);
+            Component, Discipline8, Shifr, OutCredit, Description,
+            Competence, Knowledge, Skill
+          );				
 				
 				api.execute(method, url, sendDisc)
-				.then(function(response) {					
-					//по специализации			
+				.then(function(response) {										
 					switch ($scope.lastEdit.name) {
 						case 'subdivision': 
 						$scope.reloadDisciplines('not set', $scope.lastEdit.id, 'not set');
@@ -485,13 +389,10 @@
 
 					}
 					$scope.errorLabelText = 'Дані було успішно збережено';		
-					console.log(response);
+					ifWantToAddRowData = false;
 				}, function(response) {					
 					$scope.errorLabelText = api.errorHandler(response);
-				});
-
-
-			ifWantToAddRowData = false;
+				});			
     }
 
     $scope.removeDisc = function(currentRowDisc) {
@@ -503,34 +404,34 @@
     			currentRowDisc.rtDisciplineId
     			);
 
-    	var method = 'DELETE';
+    		var method = 'DELETE';
 
-    	api.execute(method, url)
-    	.then(function(response) {		
-    		//по специализации
-    		switch ($scope.lastEdit.name) {
-				case 'subdivision': 
-					$scope.reloadDisciplines('not set', $scope.lastEdit.id, 'not set');
-					break;
-				case 'speciality': 
-					$scope.reloadDisciplines('not set', 'not set', $scope.lastEdit.id);
-					break;
-				case 'specialization': 
-					$scope.reloadDisciplines($scope.lastEdit.id, 'not set', 'not set');
-					break;
-				default:
+    		api.execute(method, url)
+    		.then(function(response) {		
+    		
+    			switch ($scope.lastEdit.name) {
+	    			case 'subdivision': 
+  	  			$scope.reloadDisciplines('not set', $scope.lastEdit.id, 'not set');
+    				break;
+    				case 'speciality': 
+    				$scope.reloadDisciplines('not set', 'not set', $scope.lastEdit.id);
+    				break;
+	    			case 'specialization': 
+  	  			$scope.reloadDisciplines($scope.lastEdit.id, 'not set', 'not set');
+    				break;
+    				default:
 
-			}
-    	}, function(response) {
-                // $scope.addMessage(4);      
-                $scope.errorLabelText = api.errorHandler(response);
-              });
+	    		}
+  	  		$scope.errorLabelText = 'Видалення дисципліни пройшло успішно';
+    		}, function(response) {                   
+         $scope.errorLabelText = api.errorHandler(response);
+      	});
     	}
-    };
+  	};
 
     $scope.cancelDisc = function(objDisc) {
     	if (!objDisc.name) {
-    		$scope.creditModules.shift(objDisc);
+    		$scope.disciplines.shift(objDisc);
     	}
     };
 
@@ -554,7 +455,10 @@
       Discipline8,
       Shifr,
       OutCredit,
-      Description
+      Description,
+      Competence, 
+      Knowledge, 
+      Skill
     ) {
     	this.ProfTrainTotalId = ProfTrainTotalId;
       this.ProfTrainTotalSubdivisionId = ProfTrainTotalSubdivisionId;
@@ -564,29 +468,46 @@
       this.Shifr = Shifr;
       this.OutCredit = OutCredit;
       this.Description = Description;
+      this.Competence = Competence;
+      this.Knowledge = Knowledge;
+      this.Skill = Skill;
     };
 
     function DisciplineNewModel(
       Name, 
       NameShort,
       Abbreviation,
-      UserAccount
+      UserAccount,
+      DcOKRId,
+      DcSubdivisionWhoId
     ) {
     	this.Name = Name;
     	this.NameShort = NameShort;
 			this.Abbreviation = Abbreviation;
 			this.UserAccount = UserAccount;
+			this.DcOKRId = DcOKRId;
+      this.DcSubdivisionWhoId = DcSubdivisionWhoId;
     };
 
-    $scope.getFilterDisciplines = function(search) {
-    	//search = search.substring(1, search.length-1);
-    	var discList = $scope.allDisciplines.slice();    
-    	//var result = '';	
-    	for (var i=0, l=discList.length; i<l; i++) {
-    		if (search && discList[i].name.toLowerCase().indexOf(search) === -1 ) {    			
-    			$scope.errorFilterDisciplines = 'Такої дисципліни не існує';    			
+    $scope.getFilterDisciplines = function(search) {    	
+    	var discList = $scope.allDisciplines.slice();
+    	var l=discList.length;
+    	if (l===0){
+    		if (search!=='') {
     			$scope.newDiscipline = {};
-    			$scope.newDiscipline.Name = search;    			
+    			$scope.newDiscipline.Name = search;
+    			return;
+    		} else {
+    			$scope.errorFilterDisciplines = 'Дисципліни відсутні';
+    			return;
+    		}
+    	}
+    	
+    	for (var i=0; i<l; i++) {
+    		if (search && discList[i].name.toLowerCase().indexOf(search) === -1 ) {    			
+    			$scope.errorFilterDisciplines = 'Такої дисципліни не існує';
+    			$scope.newDiscipline = {};
+    			$scope.newDiscipline.Name = search;
     		} else {
     			$scope.errorFilterDisciplines = '';
     			break;
@@ -595,33 +516,135 @@
     };    
 
     $scope.saveDisciplineModal = function() {
-    	$scope.errorLabelTextModal = 'Дисципліну створено успішно';
+    	
     	var url = 'StudyOrganization/Discipline/Implement/';
     	var method = 'POST';
-			var Name = $scope.newDiscipline.Name;
-			var NameShort = $scope.newDiscipline.NameShort;
-      var	Abbreviation = $scope.newDiscipline.Abbreviation;
+			var Name;   			
+			var NameShort = $scope.newDiscipline ? $scope.newDiscipline.NameShort : '';
+      var	Abbreviation = $scope.newDiscipline ? $scope.newDiscipline.Abbreviation : '';
       var UserAccount = '';
+      var DcOKRId;
+			var DcSubdivisionWhoId;			
+			
+    	if ((!$scope.newDiscipline) || ($scope.newDiscipline === undefined)) {
+    		$scope.errorNameModal = 'Заповніть це поле';				
+    	} else {
+				Name = $scope.newDiscipline.Name;
+    		$scope.errorNameModal = '';
+    	}
+      
 
+      if ((!$scope.allOkr.selected) || ($scope.allOkr.selected === undefined)) {
+    		$scope.errorOkrModal = 'Заповніть це поле';				 		
+    	} else {
+				DcOKRId = $scope.allOkr.selected.id;				
+    		$scope.errorOkrModal = '';
+    	}
+    	
+      if ((!$scope.allSubdivisions.selected) || ($scope.allSubdivisions.selected === undefined)) {
+    		$scope.errorSubdivModal = 'Заповніть це поле';			
+    	} else {
+				DcSubdivisionWhoId = $scope.allSubdivisions.selected.id				
+    		$scope.errorSubdivModal = '';
+    	}
 
       var sendDisc = new DisciplineNewModel(Name, NameShort,
-      		Abbreviation, UserAccount);
-
-				console.log('sendDisc : ', sendDisc);
-				console.log('method : ', method);
-				console.log('url : ', url);
+      		Abbreviation, UserAccount, DcOKRId, DcSubdivisionWhoId);
 
 				api.execute(method, url, sendDisc)
 				.then(function(response) {										
-					$scope.errorLabelText = 'Дані було успішно збережено';
+					$scope.errorLabelTextModal = 'Дисципліну створено успішно';							
 					loadFilterAdd();					
 				}, function(response) {					
-					$scope.errorLabelText = api.errorHandler(response);
+					$scope.errorLabelTextModal = api.errorHandler(response);
 				});
     }
 
-		loadFilterAdd();
-		$scope.allDisciplines = [{'id':1, 'name': 'na00me1'},{'id':2, 'name': 'name2'}];
+    $scope.getCurrentData = function(objDisc) {
+    	$scope.currentData = objDisc;
+  	};
+
+  	$scope.addDescription = function() {
+  		var url = ('StudyOrganization/Discipline/' + $scope.currentData.rtDisciplineId);
+  		var method = 'PUT';
+  		var ProfTrainTotalId = $scope.currentData.profTrainTotalId;
+  		var ProfTrainTotalSubdivisionId = $scope.currentData.profTrainTotalSubdivisionId;
+  		var DcSpecializationId = $scope.currentData.dcSpecializationId;
+  		var Component = $scope.currentData.component;
+  		var Discipline8 = $scope.currentData.discipline8;
+  		var Shifr = $scope.currentData.shifr;
+  		var OutCredit = !$scope.currentData.outCredit;
+  		var Description = $scope.currentData.description;
+  		var Competence = $scope.currentData.competence;
+  		var Knowledge = $scope.currentData.knowledge;
+  		var Skill = $scope.currentData.skill;
+
+  		var sendDisc = new DisciplineModel(
+  			ProfTrainTotalId, ProfTrainTotalSubdivisionId, DcSpecializationId,
+  			Component, Discipline8, Shifr, OutCredit, Description,
+  			Competence, Knowledge, Skill
+  			);
+
+				api.execute(method, url, sendDisc)
+				.then(function(response) {										
+					switch ($scope.lastEdit.name) {
+						case 'subdivision': 
+						$scope.reloadDisciplines('not set', $scope.lastEdit.id, 'not set');
+						break;
+						case 'speciality': 
+						$scope.reloadDisciplines('not set', 'not set', $scope.lastEdit.id);
+						break;
+						case 'specialization': 
+						$scope.reloadDisciplines($scope.lastEdit.id, 'not set', 'not set');
+						break;
+						default:
+					}
+					$scope.errorLabelTextModal = 'Дані було успішно збережено';							
+				}, function(response) {					
+					$scope.errorLabelTextModal = api.errorHandler(response);
+				});
+  	};
+
+  	function filterSubdivisionSelect(arr) {
+      var result=[];
+
+      for (var i=0, l=arr.length; i<l; i++) {
+        if (arr[i].name.indexOf('Кафедра') !== -1) {
+          result.push(arr[i]);
+        }
+      }
+
+      return result;
+    }
+
+  	function loadAllSubdivisions() {
+      var url = 'Subdivision';
+      var method = 'GET';
+      $scope.allSubdivisions = [];
+
+      api.execute(method, url)
+      .then(function(response) {        
+        var allSubdiv = response;        
+        
+        if (!response || response === '' || response.length === 0) {
+          $scope.errorLabelText = 'На жаль, дані відсутні';
+        } else {
+        	$scope.allSubdivisions = filterSubdivisionSelect(allSubdiv);
+        	$scope.allSubdivisions.selected = permissionSubdivisions.subdivisions[0];
+        	$scope.errorSubdivModal = '';
+        }
+
+      }, function(response) {
+        $scope.allSubdivisions = [];
+        $scope.errorSubdivModal = api.errorHandler(response);
+      });
+    };
+
+    $scope.loadAllSubdivisions = loadAllSubdivisions;
+
+		loadFilterAdd();		
+		$scope.loadOkr();
+		loadAllSubdivisions();
 	}
 
 })();

@@ -15,10 +15,6 @@
 	RnpCreateCtrl.$inject = ['$scope', 'api', '$timeout', 'permission', 'uniqueElemsInList'];
 
 	function RnpCreateCtrl($scope, api, $timeout, permission, uniqueElemsInList) {
-    console.log('token : ',api.getCurrentUser());
-    console.log(permission.getPermission());
-    console.log(permission.getSubsystemPermission(3));
-
     $scope.loadSpecialities = loadSpecialities;
     $scope.loadSubdivisionsAccordingToPermission = loadSubdivisionsAccordingToPermission;
     $scope.loadStudyYears = loadStudyYears;
@@ -33,7 +29,7 @@
 
 		var ifWantToAddRowData = false;
 		$scope.hideTable = false;
-		$scope.filterSpecialization = true; //!change name!!!
+		$scope.filterSpecialization = true;
 
     $scope.courses = [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5},{id: 6},{id: 7},{id: 8}];
 		
@@ -98,8 +94,7 @@
 
       return allSpecialities.filter(function(element) {
         return (
-          element.subdivision.id === subdivisionId //&&
-          //element.actualityDcprof === actuality
+          element.subdivision.id === subdivisionId
         );
       });
     }
@@ -157,9 +152,7 @@
     }
 
     function filterSpecializations(allSpecializations, subdivId) {
-    	return allSpecializations.filter(function(element) {
-        console.log('element.rtProfTrainTotalSubdivisionId',element.rtProfTrainTotalSubdivisionId);
-        console.log('subdivId',subdivId);
+    	return allSpecializations.filter(function(element) {        
         return (
           element.rtProfTrainTotalSubdivisionId === subdivId
         );
@@ -169,42 +162,23 @@
     $scope.loadSpecializations = loadSpecializations;
 
     function loadSpecializations(specialityId) {
-      var url = '';
+      var url = 'StudyOrganization/Specialization';
 
-      if (!specialityId) {
-        url = 'StudyOrganization/Specialization';
-      } else {
-        url = 'StudyOrganization/Specialization?specialityId=' + specialityId;
+      if (!!specialityId){
+        url += '?specialityId=' + specialityId;
       }
-console.log('url:', url);
+
       api.execute('GET', url)
         .then(function(response) {
           $scope.specializationsForModal = response;
           var specializationsResponse = response;
           $scope.errorSpecializations = '';
-          console.log(response);
-          console.log('$scope.specialities.selected:', $scope.specialities.selected);
-    			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);    			
-          console.log('$scope.specializations: ', $scope.specializations);
+    			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);
         })
         .catch(function(response) {
           $scope.errorSpecializations = api.errorHandler(response);
         });      
     }
-
-    /*$scope.getRnpsWithOkr = function(allRnps, okrName) {
-      var allRnpsWithOkr = allRnps;
-      allRnpsWithOkr = filterOkr(allRnpsWithOkr, okrName);
-      $scope.rnps = allRnpsWithOkr;
-    }
-
-    function filterOkr(allRnps, okrName) {
-      return allRnps.filter(function(element) {                
-          return (
-            element.okr === okrName
-          );  
-      });
-    }*/
 
     function loadStudyYears() {
       var url = 'studyYears';
@@ -330,19 +304,12 @@ console.log('url:', url);
             urlNp += ('&' + currentParameter.name + '=' + (+currentParameter.value));
           }
         }
-      } else {
-        //url = 'Rnp';
-      }
-      //url = 'RNP/NP?&specializationId=1001';
-      console.log('url: ', url);
+      }          
 
       api.execute('GET', url)
         .then(function(response) {
           var responseLen = response.length;
-
-          $scope.rnps = response;
-          console.log('rnps: ', $scope.rnps);
-          
+          $scope.rnps = response;          
         })
         .catch(function(response) {
             $scope.errorRnp = api.errorHandler(response);
@@ -352,10 +319,7 @@ console.log('url:', url);
       api.execute('GET', urlNp)
         .then(function(response) {
           var responseLen = response.length;
-
           $scope.nps = response;
-          console.log('nps: ', $scope.nps);
-          
         })
         .catch(function(response) {
             $scope.errorNp = api.errorHandler(response);
@@ -388,11 +352,6 @@ console.log('url:', url);
     }
 
     $scope.saveRnp = function(editableObj, objRnp) {
-      console.log("obj:");
-      console.log(objRnp);
-      console.log("editableObj:");
-      console.log(editableObj);
-
       var method = '';
       var url = 'RNP/NP/';
       if (objRnp.name) {
@@ -404,9 +363,9 @@ console.log('url:', url);
 
       var Id;
       if (editableObj.np_name) {
-        Id = '';//editableObj.np_name.id;
+        Id = editableObj.np_name.id;
       } else {
-        Id = ''; //objRnp.np_name.id;
+        Id = objRnp.np_name.id;
       }
 
       var StudyYearId;
@@ -431,14 +390,9 @@ console.log('url:', url);
             Course, ProtocolNumber
           );
 
-        console.log('sendRnd : ', sendRnp);
-        console.log('method : ', method);
-        console.log('url : ', url);
-
         api.execute(method, url, sendRnp)
         .then(function(response) {                    
-          $scope.errorLabelText = 'Дані було успішно збережено'; 
-          console.log(response);          
+          $scope.errorLabelText = 'Дані було успішно збережено';                 
         }, function(response) {         
           $scope.errorLabelText = api.errorHandler(response);
         });
@@ -457,12 +411,10 @@ console.log('url:', url);
 
       api.execute(method, url)
       .then(function(response) {    
-        //по специализации
-        console.log(response);
+        //по специализации        
       }, function(response) {
-                // $scope.addMessage(4);      
-                $scope.errorLabelText = api.errorHandler(response);
-              });
+        $scope.errorLabelText = api.errorHandler(response);
+        });
       }
     };
 
@@ -515,12 +467,6 @@ console.log('url:', url);
 		return result;
 	}
 
-
-
-	
-
-	
-
 	$scope.checkCMForm = function(data) {
     if (data === null || data === '' || data === undefined) {
       return 'Заповніть це поле!';
@@ -540,20 +486,30 @@ console.log('url:', url);
     location.reload();    
   };
 
+  $scope.applyFilterRnp = function(objRnp){    
+    if ($scope.allOkr.selected) {
+      if (objRnp.okr !== $scope.allOkr.selected.name) {
+        return false;
+      }      
+    }
 
+    if ($scope.studyForms.selected) {
+      if (objRnp.studyForm !== $scope.studyForms.selected.name) {
+        return false;
+      }
+    }
 
-	
+    if ($scope.courses.selected) {
+      if (objRnp.course !== $scope.courses.selected.name) {
+        return false;
+      }
+    }
+    return true;
+  }
   
   loadStudyYears();
-  
-  $timeout(function() {
-    loadStudyForms();
-    loadOkr();
-  }, 7000);
-  //loadRnp();
-  
-  //loadSpecializations();
-  //loadRnp();
+  loadStudyForms();
+  loadOkr();  
   
 }
 

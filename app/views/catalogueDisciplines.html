@@ -9,23 +9,6 @@
       <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
     </div>
     <div id="filter" class="col-md-5 margin_top_15 filter__padding" ng-show="showFilter">
-      <!--<div class="faculty-select">
-        <label for="faculty" class="select-form__label">Факультет</label>
-        <ui-select id="faculty" class="select-form__select_attest" ng-model="faculties.selected"
-                   append-to-body="true"
-                   on-select="filterSubdivision(fullSubdivisionResponse, faculties.selected.id); loadCM();">
-          <ui-select-match placeholder="Оберіть факультет">
-            <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="faculty in (faculties | filter: $select.search) track by faculty.id"
-                             position="down">
-            <span ng-bind="faculty.name"></span>
-          </ui-select-choices>
-          <ui-select-no-choice>
-            Факультет не знайдено
-          </ui-select-no-choice>
-        </ui-select>
-      </div>-->
       <div class="subdivision-select row">
         <label for="subdivision" class="select-form__label col-xs-12">Кафедра</label>
         <div class="col-xs-10 col-sm-11 col-md-10" style="padding-right:0!important">
@@ -84,18 +67,6 @@
       <div class="okr-select">
         <input type="radio" class="filterDependsOnYearCls" id="filterOkr" name="filterDependsOnYear" ng-model="filterOkr" ng-change="filterSpecialization=false; selectedSpecialization=''; reloadDisciplines('not set', specialities.selected.profTrainTotal.subdivisionId);" ng-value="true">
         <label for="filterOkr" class="select-form__label">до 2016 р. вступу</label>      
-        <!--<ui-select id="okr" class="select-form__select_attest" ng-model="allOkr.selected" append-to-body="true" on-select="reloadDisciplines('not set', allOkr.selected.profTrainTotal.subdivisionId);" ng-disabled="filterSpecialization" ng-class="{'notActive':filterSpecialization === true}">
-          <ui-select-match placeholder="Оберіть ОКР">
-            <span ng-bind="$select.selected.okr.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="okr in (allOkr | filter: $select.search)"
-                             position="down">
-            <span ng-bind="okr.okr.name"></span>
-          </ui-select-choices>
-          <ui-select-no-choice>
-            ОКР не знайдено
-          </ui-select-no-choice>
-        </ui-select>-->
       </div>           
       
       <div class="specialization-select row">
@@ -240,10 +211,13 @@
                 	{{showStatus(objDisc.outCredit)}}
               	</span>
               </td>
-              <td>
-              	<span editable-text="objDisc.description" e-name="description" e-form="rowformDisciplines">
-                  {{objDisc.description || 'не вказано'}}
-                </span>
+              <td class="tdFullAlignCenter">
+                <button type="button" ng-show="!rowformDisciplines.$visible"
+                        class="btn patterns__table-button patterns__table-button_CRUD-button"
+                        aria-label="Description and additional information" data-toggle="modal"
+                        data-target="#ModalAdditionalInfo" ng-click="getCurrentData(objDisc)">
+                  <i class="fa fa-info" aria-hidden="true"></i>
+                </button>
               </td>
 							<td class="tdFullAlignCenter" ng-show="editable && subdivisions.selected">
                 <form editable-form name="rowformDisciplines" onbeforesave="saveDisc($data,objDisc);"
@@ -296,6 +270,61 @@
             	<div class="form-group">
             		<label for="name_disc" class="select-form__label">Назва</label>
             		<input type="text" class="form-control" id="name_disc" ng-model="newDiscipline.Name">
+            		<div ng-show="errorNameModal" class="error-np-messages">
+          				{{errorNameModal}}
+        				</div>
+            	</div>
+
+            	<div class="subdivision-select row">
+        				<label for="subdivisionModal" class="select-form__label col-xs-12">Кафедра</label>
+        				<div class="col-xs-10 col-sm-11 col-md-10" style="padding-right:0!important">
+        				<ui-select id="subdivisionModal" class="select-form__select_attest zindexHigh" ng-model="allSubdivisions.selected" append-to-body="true">
+          					<ui-select-match placeholder="Оберіть кафедру">
+            				<span ng-bind="$select.selected.name"></span>
+          				</ui-select-match>
+          				<ui-select-choices repeat="subdivision in (allSubdivisions | filter: $select.search) track by subdivision.id"
+                             position="down">
+            				<span ng-bind="subdivision.name"></span>
+          				</ui-select-choices>
+          				<ui-select-no-choice>
+            				Кафедру не знайдено
+          				</ui-select-no-choice>
+        				</ui-select>        
+        				</div>			
+        					<div class="btn_refresh">
+        						<button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_refresh" ng-click="loadAllSubdivisions()">
+          						<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        						</button>
+        					</div>
+        					<div ng-show="errorSubdivModal" class="error-np-messages col-xs-12">
+          				{{errorSubdivModal}}
+        				</div>
+      				</div>
+
+            	<div class="row">
+            		<label for="okrId" class="select-form__label col-xs-12">ОКР</label>
+            		<div class="col-xs-10 col-sm-11 col-md-10" style="padding-right:0!important">
+            		<ui-select id="okrId" class="select-form__select_attest zindexHigh" ng-model="allOkr.selected" append-to-body="true">
+          				<ui-select-match placeholder="Оберіть ОКР">
+            					<span ng-bind="$select.selected.name"></span>
+					          </ui-select-match>
+          				<ui-select-choices repeat="okr in (allOkr | filter: $select.search) track by okr.id"
+                             position="down">
+				            <span ng-bind="okr.name"></span>
+          				</ui-select-choices>
+          					<ui-select-no-choice>
+            				ОКР не знайдено
+          				</ui-select-no-choice>
+        					</ui-select>          
+        					</div>
+        					<div class="btn_refresh">
+        					<button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_refresh" ng-click="loadOkr();">
+        							<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        						</button>
+        					</div>
+        					<div ng-show="errorOkrModal" class="error-np-messages col-xs-12">
+        						{{errorOkrModal}}
+        					</div> 		
             	</div>
 							
 							<div class="form-group">
@@ -307,24 +336,88 @@
             		<label for="cipher_disc" class="select-form__label">Аббревіатура</label>
             		<input type="text" class="form-control" id="cipher_disc" ng-model="newDiscipline.Abbreviation">
             	</div>
-
-      
-            	
-
-            	
-
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary btn_filter_green"
+							<div>
+								<button type="button" class="btn btn-primary btn_filter_green"
               ng-click="saveDisciplineModal();">
                 Зберегти
                 <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
               </button>
+							</div>
+            </div>
+            <div class="modal-footer">              
               <button type="button" class="btn btn-primary btn_filter_green" data-dismiss="modal">
                 Повернутися
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
-              </button>          
+              </button>
             </div>
           </div>
         </div>
     </div>
+
+    <div id="ModalAdditionalInfo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>              
+              <h4 class="modal-title">Додаткова інформація</h4>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+              	<div class="row">
+              		<h4>Дисципліна: <span>{{currentData.discipline8.name}}</span></h4>	
+              		<div class="alert alert-warning col-xs-12" ng-hide="errorLabelTextModal===''" role="alert">{{errorLabelTextModal}}</div>
+              	</div>              	
+                                
+                <form editable-form name="formDescription" onaftersave="addDescription()">
+                  <div class="marginBottom row" style="margin-top:10px">
+                    <!-- editable username (text with validation) -->                    
+                    <label for="" class="select-form__label">Знання</label>
+                    <span editable-textarea="currentData.knowledge" e-name="knowledge" e-class="unresizeable col-xs-12" e-rows="6" e-cols="73"><pre class="overflowHorizontal">{{ currentData.knowledge || 'не вказано' }}</pre></span>
+                  </div>
+                  <div class="marginBottom row">
+                    <!-- editable username (text with validation) -->
+                    <label for="" class="select-form__label">Уміння</label>
+                    <span editable-textarea="currentData.competence" e-name="competence" e-class="unresizeable col-xs-12" e-rows="6" e-cols="73"><pre class="overflowHorizontal">{{ currentData.competence || 'не вказано' }}</pre></span>
+                  </div>
+                  <div class="marginBottom row">
+                    <!-- editable username (text with validation) -->
+                    <label for="" class="select-form__label">Навички</label>
+                    <span editable-textarea="currentData.skill" e-name="skill" e-class="unresizeable col-xs-12" e-rows="6" e-cols="73"><pre class="overflowHorizontal">{{ currentData.skill || 'не вказано' }}</pre></span>
+                  </div>
+                  <div class="marginBottom row">
+                    <!-- editable username (text with validation) -->
+                    <label for="" class="select-form__label">Опис</label>
+                    <span editable-textarea="currentData.description" e-name="description" e-class="unresizeable col-xs-12" e-rows="6" e-cols="73"><pre class="overflowHorizontal">{{ currentData.description || 'не вказано' }}</pre></span>
+                  </div>              
+									                  	
+                  <button type="submit" ng-disabled="formDescription.$waiting"
+                          class="btn btn-primary btn_filter_green btn-filters"
+                          ng-show="formDescription.$visible">
+                    Зберегти
+                    <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                  </button>
+                  <button type="button" ng-disabled="formDescription.$waiting" ng-click="formDescription.$cancel();"
+                          class="btn btn-primary btn_filter_green btn-filters"
+                          ng-show="formDescription.$visible">
+                    Відмінити
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  </button>
+									
+                </form>                
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" ng-show="!formDescription.$visible" class="btn btn-primary btn_filter_green" ng-click="editable = !editable; formDescription.$show()">
+                Редагувати
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="btn btn-primary btn_filter_green" data-dismiss="modal">
+                Повернутися
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>

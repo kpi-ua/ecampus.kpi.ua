@@ -256,7 +256,7 @@
               <i class="fa fa-plus" aria-hidden="true"></i>Додати новий робочий навчальний план
             </td>
           </tr>
-          <tr ng-repeat="objRnp in rnps" ng-show="(objRnp.okr === allOkr.selected.name || allOkr.selected.name === undefined) && (objRnp.studyForm === studyForms.selected.name || studyForms.selected.name === undefined) && (objRnp.course === courses.selected.name || courses.selected.name === undefined)">
+          <tr ng-repeat="objRnp in rnps" ng-show="applyFilterRnp(objRnp);">
             <td>
               <span editable-text="objRnp.name" e-name="name" e-form="rowformRnps" onbeforesave="checkRnpForm($data)" e-required>
                 {{objRnp.name || 'не вказано'}}
@@ -748,7 +748,7 @@
             </div>
           </div>
         </div>
-        <!--<p>паттерн компоновщик</p>-->
+        
         <div class="row">
           <div class="col-md-12">
           <table class="table table-bordered">

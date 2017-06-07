@@ -17,13 +17,10 @@
 	function CreditModulesCtrl($scope, api, sharedFiltersData, $location, permission) {
 		var ifWantToAddRowData = false;
 		$scope.hideTable = false;
-		$scope.filterSpecialization = true; //!change name		
+		$scope.filterSpecialization = true;
     $scope.errorLabelText = '';
+    $scope.errorLabelTextModal = '';
     $scope.lastEdit = {id: '', name: ''};
-
-    console.log('token : ',api.getCurrentUser());   
-    console.log(permission.getPermission());
-    console.log(permission.getSubsystemPermission(3));
 
     $scope.loadSpecialities = loadSpecialities;
 
@@ -37,16 +34,14 @@
 
     $scope.allowPermission = function() {      
       if ($scope.permissionSubdivisions!=null) {
-      for (var i=0, l=$scope.permissionSubdivisions.subdivisions.length; i<l; i++) {
-        
+        for (var i=0, l=$scope.permissionSubdivisions.subdivisions.length; i<l; i++) {      
           if ($scope.permissionSubdivisions.subdivisions[i].id == $scope.subdivisions.selected.id) {
             return true;  
           } else {
             return false;  
           }
-        
-      } 
-      }                
+        } 
+      }
     }
 
 		function toggleClass(el, className) {
@@ -135,20 +130,6 @@
       return result;
     }
 
-    /*$scope.loadOkr = function (specialityId) {
-    	//$scope.allOkr = uniqueSpecialities($scope.specialities, 'okr').sort(sortNames);
-    	$scope.allOkr = filterSpecializations($scope.specialities, specialityId);
-    	console.log('$scope.allOkr : ', $scope.allOkr);
-*/
-      /*var url = 'StudyOrganization/okr';
-
-      api.execute('GET', url)
-        .then(function (response) {
-          $scope.allOkr = response.sort(sortNames);
-          console.log("$scope.allOkr : ", $scope.allOkr);
-        });*/
-    //}
-
     function loadSpecialities(subdivisionId) {
       var url;
       if (subdivisionId != undefined) {
@@ -203,6 +184,7 @@
           $scope.specializationsForModal = response;
           var specializationsResponse = response;       
     			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);    			
+          $scope.errorSpecializations = '';
         })
         .catch(function(response) {
           $scope.errorSpecializations = api.errorHandler(response);
@@ -232,9 +214,7 @@
             return;
           }
         }
-      }
-
-      console.log('url_loadDisc : ',url);
+      }  
 
       api.execute('GET', url)
         .then(function(response) {          
@@ -242,7 +222,7 @@
           if (!response || response === '' || response.length === 0) {
             $scope.errorLabelText = 'На жаль, дані відсутні';
           } else {
-            $scope.errorLabelText = '';
+            $scope.errorDisciplines = '';
           }
         })
         .catch(function(response) {
@@ -259,7 +239,7 @@
 				$scope.disciplines.selected = null;
 				return;
     	}
-    	var url = ('CreditModule/' + rtdisciplineId);
+    	var url = ('CreditModule/' + rtdisciplineId);      
 
     	api.execute('GET', url)
         .then(function(response) {
@@ -318,9 +298,6 @@
 	
 	  $scope.addCM = function() {
 		  if (!ifWantToAddRowData) {
-			//if ($scope.sortReverse) {
-			//	$scope.sortReverse = !$scope.sortReverse;
-			//}
 			  $scope.insertedCM = {
 				  id: $scope.disciplines.selected.rtDisciplineId,
           nameFull: $scope.disciplines.selected.discipline8.name,
@@ -330,8 +307,7 @@
 				  whomRead: {
   					name: $scope.subdivisions.selected.name, 
 					 id: $scope.subdivisions.selected.id
-				  }//,
-				//disstribution:''				
+				  }			
 			   };
 
         $scope.creditModules.unshift($scope.insertedCM);			
@@ -340,11 +316,6 @@
 	 };
 
 	$scope.saveCM = function(editableObj, objCM) {
-		console.log("obj:");
-		console.log(objCM);
-		console.log("editableObj:");
-		console.log(editableObj);
-
 		var nameFull, name, nameShort, method, whomRead;
 		var url = 'CreditModule/';
     var competence = '';
@@ -385,13 +356,13 @@
             name, whomRead, $scope.disciplines.selected.rtDisciplineId,
             nameShort, competence, knowledge, skill, PropositionId
           );
-
-		ifWantToAddRowData = false;
+		
 		api.execute(method, url, sendCM)
 			.then(function(response) {
 							
         loadCM($scope.disciplines.selected.rtDisciplineId);
-        $scope.errorLabelText = 'Дані було успішно збережено';		
+        $scope.errorLabelText = 'Дані було успішно збережено';
+        ifWantToAddRowData = false;
 			}, function(response) {
 				
 				loadCM($scope.disciplines.selected.rtDisciplineId);
@@ -421,8 +392,34 @@
 		}
 	};
 
-  $scope.addDescription = function() {
-    
+  $scope.addDescription = function() {    
+    var url = ('CreditModule/' + $scope.currentData.id);
+    var method = 'PUT';
+    var nameFull = $scope.currentData.nameFull;
+    var name = $scope.currentData.nameShort;
+    var nameShort = $scope.currentData.nameShort;
+    var whomRead = $scope.currentData.readWhomId;
+    var competence = $scope.currentData.competence;
+    var knowledge = $scope.currentData.knowledge;
+    var skill = $scope.currentData.skill;    
+    var PropositionId = '';
+
+    var sendCM = new CreditModuleModel(            
+            name, whomRead, $scope.disciplines.selected.rtDisciplineId,
+            nameShort, competence, knowledge, skill, PropositionId
+          );
+
+    api.execute(method, url, sendCM)
+      .then(function(response) {
+              
+        loadCM($scope.disciplines.selected.rtDisciplineId);
+        $scope.errorLabelTextModal = 'Дані було успішно збережено';    
+        ifWantToAddRowData = false;
+      }, function(response) {
+        
+        loadCM($scope.disciplines.selected.rtDisciplineId);
+        $scope.errorLabelTextModal = api.errorHandler(response);
+      });
   };
 
 	$scope.cancelCM = function(objCM) {
@@ -445,7 +442,7 @@
     Competence,
     Knowledge,
     Skill,
-    PropositionId
+    PropositionId    
   ) {
     this.Name = name;
     this.WhomReadId = whomRead;
@@ -454,7 +451,7 @@
     this.Competence = Competence;
     this.Knowledge = Knowledge;
     this.Skill = Skill;
-    this.PropositionId = PropositionId;
+    this.PropositionId = PropositionId;    
   };
 
 	$scope.reloadData = function() {
@@ -462,8 +459,8 @@
     location.reload();    
   };
 
-  $scope.getCurrentData = function(objCM) {          
-    $scope.currentData = objCM;          
+  $scope.getCurrentData = function(objCM) {
+    $scope.currentData = objCM;
   };
 
   $scope.shareFilters = function(

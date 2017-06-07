@@ -67,19 +67,7 @@
 
       <div class="okr-select">
         <input type="radio" class="filterDependsOnYearCls" id="filterOkr" name="filterDependsOnYear" ng-model="filterOkr" ng-change="filterSpecialization=false; selectedSpecialization=''; reloadDisciplines('not set', specialities.selected.profTrainTotal.subdivisionId); loadCM();" ng-value="true">
-        <label for="filterOkr" class="select-form__label">до 2016 р. вступу</label>      
-        <!--<ui-select id="okr" class="select-form__select_attest" ng-model="allOkr.selected" append-to-body="true" on-select="reloadDisciplines('not set', allOkr.selected.profTrainTotal.subdivisionId);" ng-disabled="filterSpecialization" ng-class="{'notActive':filterSpecialization === true}">
-          <ui-select-match placeholder="Оберіть ОКР">
-            <span ng-bind="$select.selected.okr.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="okr in (allOkr | filter: $select.search)"
-                             position="down">
-            <span ng-bind="okr.okr.name"></span>
-          </ui-select-choices>
-          <ui-select-no-choice>
-            ОКР не знайдено
-          </ui-select-no-choice>
-        </ui-select>-->
+        <label for="filterOkr" class="select-form__label">до 2016 р. вступу</label>
       </div>           
       
       <div class="specialization-select row">
@@ -196,16 +184,11 @@
           </thead>
           <tbody>
             <tr ng-repeat="objCM in creditModules">  
-              <td>
-                <!--<span e-ng-hide="showEditableNameCM($data,objCM)">
-                  {{objCM.name}}
-                </span>-->
-                <!-- e-ng-show="showEditableNameCM($data,objCM)" -->
+              <td>                
                 <span editable-text="objCM.name" e-name="name" e-form="rowformCM" onbeforesave="checkCMForm($data)" e-required>
                   {{objCM.name}}
                 </span> 
-              </td>
-              <!-- edit-disabled="true" edit-disabled="ifCanEditNameCM($data,objCM);" e-ng-readonly="flag" id="nameCM{{$index}}"-->         
+              </td>              
               <td>              
                 <span editable-text="objCM.nameShort" e-name="nameShort" e-form="rowformCM">
                   {{objCM.nameShort || 'не вказано'}}
@@ -288,68 +271,51 @@
             </div>
             <div class="modal-body">
               <div class="container-fluid">
-                <h4>Назва КМ: <span>{{currentData.name}}</span></h4>                
+                <div class="row">
+                  <h4>Назва КМ: <span>{{currentData.name}}</span></h4>
+                  <div class="alert alert-warning col-xs-12" ng-hide="errorLabelTextModal===''" role="alert">{{errorLabelTextModal}}</div>  
+                </div>
+                                
                 <form editable-form name="formDescription" onaftersave="addDescription()">
-                  <div class="marginBottom">
+                  <div class="marginBottom row" style="margin-top:10px">
                     <!-- editable username (text with validation) -->
-                    <span class="title col-xs-3">Знання: </span>
-                    <span editable-textarea="currentData.knowledge" e-name="knowledge" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.knowledge || 'не вказано' }}</pre></span>
+                    <label for="" class="select-form__label">Знання</label>
+                    <span editable-textarea="currentData.knowledge" e-name="knowledge" e-class="unresizeable col-xs-12" e-rows="6" e-cols="73"><pre class="overflowHorizontal">{{ currentData.knowledge || 'не вказано' }}</pre></span>
                   </div>
-                  <div class="marginBottom">
+                  <div class="marginBottom row">
                     <!-- editable username (text with validation) -->
-                    <span class="title col-xs-3">Уміння: </span>
-                    <span editable-textarea="currentData.competence" e-name="competence" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.competence || 'не вказано' }}</pre></span>
+                    <label for="" class="select-form__label">Уміння</label>
+                    <span editable-textarea="currentData.competence" e-name="competence" e-class="unresizeable col-xs-12" e-rows="6" e-cols="73"><pre class="overflowHorizontal">{{ currentData.competence || 'не вказано' }}</pre></span>
                   </div>
-                  <div class="marginBottom">
+                  <div class="marginBottom row">
                     <!-- editable username (text with validation) -->
-                    <span class="title col-xs-3">Навички: </span>
-                    <span editable-textarea="currentData.skill" e-name="skill" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.skill || 'не вказано' }}</pre></span>
+                    <label for="" class="select-form__label">Навички</label>
+                    <span editable-textarea="currentData.skill" e-name="skill" e-class="unresizeable col-xs-12" e-rows="6" e-cols="73"><pre class="overflowHorizontal">{{ currentData.skill || 'не вказано' }}</pre></span>
                   </div>
-                  <div class="marginBottom">
-                    <!-- editable username (text with validation) -->
-                    <span class="title col-xs-3">Анотація: </span>
-                    <span editable-textarea="currentData.annotation" e-name="annotation" class="col-xs-9" e-class="unresizeable" e-rows="6" e-cols="30"><pre class="overflowHorizontal">{{ currentData.annotation || 'не вказано' }}</pre></span>
-                  </div>
-                  <!--<div class="form-group marginBottom" ng-show="formDescription.$visible">
-                    <label for="files" class="control-label col-xs-3 alignLeft select-form__label">
-                    Зображення:
-                    </label>
-                    <div class="col-xs-9">
 
-                      <input type="file" id="files" name="files[]" accept="image/*">
-                      <img class="thumb" id="preview" src="" alt="Зображення">
-                    </div>
-                  </div>-->
                   <button type="submit" ng-disabled="formDescription.$waiting"
-                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_save"
+                          class="btn btn-primary btn_filter_green btn-filters"
                           ng-show="formDescription.$visible">
+                    Зберегти
                     <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                   </button>
                   <button type="button" ng-disabled="formDescription.$waiting" ng-click="formDescription.$cancel();"
-                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__CRUD-buttons_cancel"
+                          class="btn btn-primary btn_filter_green btn-filters"
                           ng-show="formDescription.$visible">
+                    Вшдмінити
                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                   </button>
-                </form>
-
-                <div class="buttons" ng-show="!formDescription.$visible">
-                  <button type="button"
-                          class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_edit"
-                          ng-click="formDescription.$show()">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-
-                  </button>
-                </div>
+                </form>                
               </div>
 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary btn_filter_green btn-filters"
-              ng-click="editable = !editable" ng-hide="true">
+              <button type="button" class="btn btn-primary btn_filter_green"
+              ng-click="editable = !editable; formDescription.$show()" ng-show="!formDescription.$visible">
                 Редагувати
-                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               </button>
-              <button type="button" class="btn btn-primary btn_filter_green btn-filters" data-dismiss="modal">
+              <button type="button" class="btn btn-primary btn_filter_green" data-dismiss="modal">
                 Повернутися
                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
               </button>
