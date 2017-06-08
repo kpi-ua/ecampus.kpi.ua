@@ -43,7 +43,9 @@
       });
     }
 
-    $scope.filterSubdivision = function(response, facultyId) {
+    $scope.filterSubdivision = filterSubdivision;
+
+    function filterSubdivision(response, facultyId) {
       var allFacultySubdivisions = getAllFacultySubdivision(response, facultyId);
       $scope.subdivisions = [];
 
@@ -55,7 +57,7 @@
           $scope.subdivisions = filteredSubdivision.sort(sortNames);
         }
       }
-    };
+    }
 
     function filterFaculty(response) {
       // parentId value for faculties
@@ -73,8 +75,9 @@
 
     function loadFaculties() {
       var url = 'Subdivision';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           $scope.fullSubdivisionResponse = response;
           $scope.faculties = filterFaculty(response).sort(sortNames);
@@ -110,10 +113,13 @@
       return result;
     }
 
-    $scope.loadSpecialities = function(subdivisionId) {
-      var url = 'StudyOrganization/ProfTrains';
+    $scope.loadSpecialities = loadSpecialities;
 
-      api.execute('GET', url)
+    function loadSpecialities(subdivisionId) {
+      var url = 'StudyOrganization/ProfTrains';
+      var method = 'GET';
+
+      api.execute(method, url)
         .then(function(response) {
           var specialitiesWithOkr = filterSpecialities(response, subdivisionId);
           $scope.allSpecialities = specialitiesWithOkr;
@@ -122,12 +128,13 @@
         .catch(function(response) {
           $scope.errorSpecialities = api.errorHandler(response);
         })
-    };
+    }
 
     $scope.loadSpecializations = loadSpecializations;
 
     function loadSpecializations(specialityId) {
       var url = '';
+      var method = 'GET';
 
       if (!specialityId) {
         url = 'StudyOrganization/Specialization';
@@ -135,10 +142,10 @@
         url = 'StudyOrganization/Specialization?specialityId=' + specialityId;
       }
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
-          $scope.specializationsForModal = response;
-          $scope.specializations = response;
+          $scope.specializationsModal = response.sort(sortNames);
+          $scope.specializations = response.sort(sortNames);
         })
         .catch(function(response) {
           $scope.errorSpecializations = api.errorHandler(response);
@@ -147,9 +154,11 @@
 
     function loadStudyYears() {
       var url = 'studyYears';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
+          $scope.studyYearsModal = response.sort(sortNames);
           $scope.studyYears = response.sort(sortNames);
         })
         .catch(function(response) {
@@ -160,27 +169,29 @@
     // спеціальність on-select="loadOkr(specialities.selected.id);
     // loadSpecializations(specialities.selected.id);"
 
-    // $scope.loadOkr = function (specialityId) {
-    //   var allSpecialities = $scope.allSpecialities;
-    //   var result = [];
-    //   var filteredSpecialities = allSpecialities.filter(function (element) {
-    //     return element.id === specialityId
-    //   });
-    //
-    //   for (var i = 0; i < filteredSpecialities.length; i++) {
-    //     var specialitiesElement = filteredSpecialities[i];
-    //     var okrSpecialitiesElement = specialitiesElement.okr;
-    //
-    //     result.push(okrSpecialitiesElement);
-    //   }
-    //   $scope.allOkr = result.sort(sortNames)
-    // };
+    $scope.loadOkr = function(specialityId) {
+      var allSpecialities = $scope.allSpecialities;
+      var result = [];
+      var filteredSpecialities = allSpecialities.filter(function (element) {
+        return element.id === specialityId
+      });
+
+      for (var i = 0; i < filteredSpecialities.length; i++) {
+        var specialitiesElement = filteredSpecialities[i];
+        var okrSpecialitiesElement = specialitiesElement.okr;
+
+        result.push(okrSpecialitiesElement);
+      }
+      $scope.allOkr = result.sort(sortNames)
+    };
 
     function loadOkr() {
       var url = 'StudyOrganization/okr';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function (response) {
+          $scope.allOkrsModal = response.sort(sortNames);
           $scope.allOkr = response.sort(sortNames);
         })
         .catch(function(response) {
@@ -190,19 +201,16 @@
 
     function loadStudyForms() {
       var url = 'studyForms';
+      var method = 'GET';
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
-          $scope.studyFormsForModal = response.sort(sortNames);
+          $scope.studyFormsModal = response.sort(sortNames);
           $scope.studyForms = response.sort(sortNames);
         })
         .catch(function(response) {
           $scope.errorStudyForms = api.errorHandler(response);
         })
-    }
-
-    function checkParameter(value) {
-      return value === 'not set';
     }
 
     function checkForUndefined(value) {
@@ -213,6 +221,7 @@
 
     function loadNp(specializationId, studyingYearId, studyFormId) {
       var url;
+      var method = 'GET';
 
       if (
         !checkForUndefined(specializationId) ||
@@ -223,7 +232,6 @@
         url = 'Np?';
 
         if (
-          !checkParameter(specializationId) &&
           !checkForUndefined(specializationId)
         ) {
           var specializationParameter = {
@@ -234,7 +242,6 @@
         }
 
         if (
-          !checkParameter(studyingYearId) &&
           !checkForUndefined(studyingYearId)
         ) {
           var studyingYearParameter = {
@@ -245,7 +252,6 @@
         }
 
         if (
-          !checkParameter(studyFormId) &&
           !checkForUndefined(studyFormId)
         ) {
           var studyFormParameter = {
@@ -266,7 +272,7 @@
         url = 'Np';
       }
 
-      api.execute('GET', url)
+      api.execute(method, url)
         .then(function(response) {
           var responseLen = response.length;
 
@@ -275,6 +281,7 @@
         })
         .catch(function(response) {
             $scope.errorNp = api.errorHandler(response);
+          $scope.errorNp += 'Не вдалося завантажити навчальні плани. Спробуйте будь ласка пізніше.';
         })
     }
 
@@ -334,7 +341,8 @@
 
     function createPayloadForSave(
       specializationId, studyingYearId,
-      studyFormId, studyTermYear, studyTermMonth, name
+      studyFormId, studyTermYear, studyTermMonth, name,
+      okrId, actuality, protocolNumber, protocolDate
     ) {
       var result = {};
 
@@ -347,9 +355,13 @@
       result.name = name;
 
       // additional properties
-      // result.okrId = okrId || null;
-      // result.npQualificationId = npQualificationId || null;
-      // result.actuality = actuality || null;
+      result.okrId = !okrId ? null : okrId;
+      result.actuality = !actuality ? false : actuality;
+      result.protocolNumber = !protocolNumber ? null : okrId;
+      // temp solution before backend fix problem with null protocolDate property
+      if (protocolDate) {
+        result.protocolDate = !protocolDate ? null : okrId;
+      }
 
       return result;
     }
@@ -358,11 +370,27 @@
 
     function addNewNp(payload) {
       var url = 'Np';
+      var method = 'POST';
 
-      api.execute('POST', url, payload)
+      console.log('payload');
+      console.log(payload);
+
+      api.execute(method, url, payload)
         .then(function(response) {
-          console.log(response);
-        });
+          $scope.addNewNpResults = response;
+        })
+        .catch(function(response) {
+            var modelStateResults = response.data;
+            var modelStateResultsLen = modelStateResults.length;
+
+            for (var i = 0; i < modelStateResultsLen; i++) {
+              var modelStateResult = modelStateResults[i];
+              var addNewNpResults = "";
+
+              addNewNpResults += modelStateResult[0];
+            }
+          console.log(modelStateResults);
+        })
     }
 
     $scope.editNp = editNp;
@@ -372,6 +400,7 @@
       console.log(data);
 
       var url = 'Np/' + npId;
+      var method = 'PUT';
 
       var payload = {};
 
@@ -388,7 +417,7 @@
       console.log('payload');
       console.log(payload);
 
-      api.execute('PUT', url, payload)
+      api.execute(method, url, payload)
         .then(function(response) {
           console.log('response');
           console.log(response);
@@ -411,9 +440,22 @@
 
     function deleteNp(npId) {
       var url = 'Np/' + npId;
+      var method = 'DELETE';
 
-      api.execute('DELETE', url)
+      api.execute(method, url)
         .then(function(response) {
+          console.log(response);
+        });
+    }
+
+    //TODO implement after API 'StudyOrganization/methodist/specializations' refactoring
+    function loadSpecializationsForMethodist() {
+      var url = 'StudyOrganization/methodist/specializations';
+      var method = 'GET';
+
+      api.execute(method, url)
+        .then(function(response) {
+          $scope.specializationsModal = response.sort(sortNames);
           console.log(response);
         });
     }
@@ -422,7 +464,7 @@
     loadFaculties();
     loadStudyYears();
     loadStudyForms();
-    loadSpecializations();
+    // loadSpecializations();
     loadNp();
     loadOkr();
   }
