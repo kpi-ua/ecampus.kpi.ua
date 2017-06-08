@@ -183,7 +183,7 @@
             <th class="tdFullAlignCenter">ОКР</th>
             <th class="tdFullAlignCenter">Термін рік</th>
             <th class="tdFullAlignCenter">Термін місяць</th>
-            <th class="tdFullAlignCenter" ng-show="editable">Дії з НП</th>
+            <th class="tdFullAlignCenter" ng-show="editable">Дія</th>
           </tr>
           <tr class="d-s-table patterns__table-button" ng-show="editable">
             <td colspan="11" class="text-center">
@@ -290,7 +290,7 @@
                 {{np.studyTermMonth}}
               </span>
             </td>
-            <td ng-show="editable">
+            <td class="tdFullAlignCenter" ng-show="editable">
               <!-- form -->
               <form editable-form name="npForm" ng-show="npForm.$visible" onbeforesave="editNp(np.id, $data);"
                     class="form-buttons form-inline">

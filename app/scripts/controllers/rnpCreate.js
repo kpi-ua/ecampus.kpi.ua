@@ -12,12 +12,26 @@
   	.module('ecampusApp')
   	.controller('RnpCreateCtrl', RnpCreateCtrl);
 
-	RnpCreateCtrl.$inject = ['$scope', 'api'];
+	RnpCreateCtrl.$inject = ['$scope', 'api', '$timeout', 'permission', 'uniqueElemsInList'];
 
-	function RnpCreateCtrl($scope, api) {
+	function RnpCreateCtrl($scope, api, $timeout, permission, uniqueElemsInList) {
+    $scope.loadSpecialities = loadSpecialities;
+    $scope.loadSubdivisionsAccordingToPermission = loadSubdivisionsAccordingToPermission;
+    $scope.loadStudyYears = loadStudyYears;
+    $scope.loadOkr = loadOkr;
+    $scope.loadStudyForms = loadStudyForms;
+
+    var permissionSubdivisions;
+    loadSubdivisionsAccordingToPermission();
+    $scope.subdivisions = permissionSubdivisions.subdivisions;
+    $scope.subdivisions.selected = permissionSubdivisions.subdivisions[0];
+    $scope.loadSpecialities($scope.subdivisions.selected.id);
+
 		var ifWantToAddRowData = false;
 		$scope.hideTable = false;
-		$scope.filterSpecialization = true; //!change name!!!
+		$scope.filterSpecialization = true;
+
+    $scope.courses = [{id: 1},{id: 2},{id: 3},{id: 4},{id: 5},{id: 6},{id: 7},{id: 8}];
 		
 		function toggleClass(el, className) {
       if (el.classList) {
@@ -75,68 +89,12 @@
   		return name1.localeCompare(name2);
   	}
 
-    function getAllFacultySubdivision(allSubdivisions, facultyId) {
-      return allSubdivisions.filter(function(element) {
-        return (
-          element.parentId === facultyId
-        );
-      });
-    }
-
-    function filterAllSubdivision(allSubdivisions, subdivisionId) {
-      // typeId value for faculty subdivisions
-      var typeId = 30;
-
-      return allSubdivisions.filter(function(element) {
-        return (
-          element.parentId === subdivisionId &&
-          element.type.id === typeId
-        );
-      });
-    }
-
-    $scope.filterSubdivision = function(response, facultyId) {
-      var allFacultySubdivisions = getAllFacultySubdivision(response, facultyId);
-      $scope.subdivisions = [];      
-
-      for (var i = 0; i < allFacultySubdivisions.length; i++) {
-        var subdivisionId = allFacultySubdivisions[i].id;
-        var filteredSubdivision = filterAllSubdivision(response, subdivisionId);
-
-        if (filteredSubdivision.length !== 0) {
-          $scope.subdivisions = filteredSubdivision.sort(sortNames);
-        }
-      }    
-
-    };
-
-    function filterFaculty(response) {      
-      var facultiesId = 10437;      
-      var institutesId = 10436;
-
-      return response.filter(function(element) {
-        return (
-          element.parentId === facultiesId ||
-          element.parentId === institutesId
-        );
-      });
-    }
-
-    function loadFaculties() {
-      var url = 'Subdivision';
-
-      api.execute('GET', url)
-        .then(function(response) {
-          $scope.fullSubdivisionResponse = response;
-          $scope.faculties = filterFaculty(response).sort(sortNames);
-        });
-
-    }
-
     function filterSpecialities(allSpecialities, subdivisionId) {
+      var actuality = true;
+
       return allSpecialities.filter(function(element) {
         return (
-          element.subdivision.id === subdivisionId          
+          element.subdivision.id === subdivisionId
         );
       });
     }
@@ -160,15 +118,21 @@
       return result;
     }    
 
-    $scope.loadSpecialities = function(subdivisionId) {    	
-      var url = ('StudyOrganization/ProfTrains/' + subdivisionId);
+    function loadSpecialities(subdivisionId) {    	
+      var url;
+      if (subdivisionId != undefined) {
+        url = ('StudyOrganization/ProfTrains/' + subdivisionId);
+      } else {return;}
 
       api.execute('GET', url)
         .then(function(response) {        
           var specialitiesWithOkr = filterSpecialities(response, subdivisionId);
           $scope.allSpecialities = specialitiesWithOkr;
-          
+          $scope.errorSpecialities = '';          
           $scope.specialities = uniqueSpecialities(specialitiesWithOkr, 'specialization').sort(sortNames);          
+        })
+        .catch(function(response) {
+          $scope.errorSpecialities = api.errorHandler(response);
         });      
     };
 
@@ -188,7 +152,7 @@
     }
 
     function filterSpecializations(allSpecializations, subdivId) {
-    	return allSpecializations.filter(function(element) {
+    	return allSpecializations.filter(function(element) {        
         return (
           element.rtProfTrainTotalSubdivisionId === subdivId
         );
@@ -198,53 +162,71 @@
     $scope.loadSpecializations = loadSpecializations;
 
     function loadSpecializations(specialityId) {
-      var url = ('StudyOrganization/Specialization?specialityId=' + specialityId);
+      var url = 'StudyOrganization/Specialization';
+
+      if (!!specialityId){
+        url += '?specialityId=' + specialityId;
+      }
 
       api.execute('GET', url)
         .then(function(response) {
           $scope.specializationsForModal = response;
           var specializationsResponse = response;
- 
-    			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);    			
+          $scope.errorSpecializations = '';
+    			$scope.specializations = filterSpecializations(specializationsResponse,$scope.specialities.selected.profTrainTotal.subdivisionId);
+        })
+        .catch(function(response) {
+          $scope.errorSpecializations = api.errorHandler(response);
         });      
     }
 
-    $scope.reloadDisciplines = loadDisciplines;
-
-    function loadDisciplines(idSubdiv, idSpec) {
-      var url = '';
-
-      if (idSpec === 'not set') {
-      	url += ('CreditModule/Specializations/' + idSubdiv);	
-      } else {
-      	url += ('StudyOrganization/Discipline/rtProfTrainTotalSubdiv/' + idSpec);
-      }
+    function loadStudyYears() {
+      var url = 'studyYears';
 
       api.execute('GET', url)
-        .then(function(response) {          
-          $scope.disciplines = response;                    
-        });      
-    }
-
-    $scope.loadCM = loadCM;
-
-    function loadCM(rtdisciplineId) {    	
-    	if (!rtdisciplineId) {
-				$scope.creditModules = [];
-				$scope.disciplines.selected = null;
-				return;
-    	}
-    	var url = ('CreditModule/' + rtdisciplineId);
-
-    	api.execute('GET', url)
         .then(function(response) {
-          var responseLen = response.length;
+          $scope.studyYears = response.sort(sortNames);
+          $scope.errorStudyYears = '';    
+          $scope.studyYears.selected = uniqueElemsInList.setCurrentYear(
+            $scope.studyYears
+          );    
+        })
+        .catch(function(response) {
+          $scope.errorStudyYears = api.errorHandler(response);
+        })
+    }    
 
-          $scope.creditModules = response;     
-        });
-       
+    function loadOkr() {
+      var url = 'StudyOrganization/okr';
+
+      api.execute('GET', url)
+        .then(function (response) {
+          $scope.allOkr = response.sort(sortNames);
+          $scope.errorOkr = '';
+        })
+        .catch(function(response) {
+          $scope.errorOkr = api.errorHandler(response);
+        })
     }
 
+    function loadStudyForms() {
+      var url = 'studyForms';
+
+      api.execute('GET', url)
+        .then(function(response) {
+          $scope.studyFormsForModal = response.sort(sortNames);
+          $scope.studyForms = response.sort(sortNames);
+          $scope.errorStudyForms = '';
+        })
+        .catch(function(response) {
+          $scope.errorStudyForms = api.errorHandler(response);
+        })
+    }
+
+    function loadSubdivisionsAccordingToPermission() {
+      permissionSubdivisions = permission.getSubsystemPermission(3);
+    }
+    
     function checkParameter(value) {
       return value === 'not set';
     }
@@ -252,6 +234,204 @@
     function checkForUndefined(value) {
       return typeof value == 'undefined';
     }
+
+    $scope.reloadRnp = loadRnp;
+
+    function loadRnp(specializationId, studyingYearId, studyFormId, courseId) {
+      var url = 'RNP';
+      var urlNp = 'Np?';      
+
+      if (
+        !checkForUndefined(specializationId) ||
+        !checkForUndefined(studyingYearId) ||
+        !checkForUndefined(studyFormId) ||
+        !checkForUndefined(courseId)
+      ) {
+        var parameters = [];
+        url += '/NP?';
+
+        if (
+          !checkParameter(specializationId) &&
+          !checkForUndefined(specializationId)
+        ) {
+          var specializationParameter = {
+            name: 'specializationId', value: specializationId
+          };
+
+          parameters.push(specializationParameter);
+        }
+
+        if (
+          !checkParameter(studyingYearId) &&
+          !checkForUndefined(studyingYearId)
+        ) {
+          var studyingYearParameter = {
+            name: 'studyingYearId', value: studyingYearId
+          };
+
+          parameters.push(studyingYearParameter);
+        }
+
+        if (
+          !checkParameter(studyFormId) &&
+          !checkForUndefined(studyFormId)
+        ) {
+          var studyFormParameter = {
+            name: 'studyFormId', value: studyFormId
+          };
+
+          parameters.push(studyFormParameter);
+        }
+
+        if (
+          !checkParameter(courseId) &&
+          !checkForUndefined(courseId)
+        ) {
+          var courseParameter = {
+            name: 'Course', value: courseId
+          };
+
+          parameters.push(courseParameter);
+        }
+
+        var len = parameters.length;
+
+        for(var i = 0; i < len; i++) {
+          var currentParameter = parameters[i];
+
+          url += ('&' + currentParameter.name + '=' + (+currentParameter.value));
+          if (currentParameter.name != 'Course') {
+            urlNp += ('&' + currentParameter.name + '=' + (+currentParameter.value));
+          }
+        }
+      }          
+
+      api.execute('GET', url)
+        .then(function(response) {
+          var responseLen = response.length;
+          $scope.rnps = response;          
+        })
+        .catch(function(response) {
+            $scope.errorRnp = api.errorHandler(response);
+        })
+      
+      $timeout(function() {
+      api.execute('GET', urlNp)
+        .then(function(response) {
+          var responseLen = response.length;
+          $scope.nps = response;
+        })
+        .catch(function(response) {
+            $scope.errorNp = api.errorHandler(response);
+        })
+        }, 2000);
+    }
+
+    $scope.showStatus = showStatus;
+
+    function showStatus(value) {
+      return value === true ? 'Aктуально' : 'Не актуально' ;
+    }
+
+    $scope.addRnp = function() {
+      if (!ifWantToAddRowData) {
+        $scope.insertedRnp = {
+          name: '',
+          actuality: '',
+          protocolNumber: '',           
+          speciality: '',
+          yearRnp: '',
+          okr: '',
+          studyForm: '',
+          course: ''          
+        };
+
+        $scope.rnps.unshift($scope.insertedRnp);
+        ifWantToAddRowData = true;
+      }
+    }
+
+    $scope.saveRnp = function(editableObj, objRnp) {
+      var method = '';
+      var url = 'RNP/NP/';
+      if (objRnp.name) {
+        method = 'PUT';
+        url += objRnp.id;
+      } else {
+        method = 'POST';
+      }
+
+      var Id;
+      if (editableObj.np_name) {
+        Id = editableObj.np_name.id;
+      } else {
+        Id = objRnp.np_name.id;
+      }
+
+      var StudyYearId;
+      if (editableObj.yearRnp) {
+        StudyYearId = editableObj.yearRnp.id;
+      } else {
+        StudyYearId = objRnp.yearRnp.id;
+      }
+
+      var Name;
+      if (editableObj.name) {
+        Name = editableObj.name;
+      } else {
+        Name = objRnp.name;
+      }
+
+      var Course = '';
+      var ProtocolNumber = '';
+
+      var sendRnp = new RnpModel(
+            Name, Id, StudyYearId,
+            Course, ProtocolNumber
+          );
+
+        api.execute(method, url, sendRnp)
+        .then(function(response) {                    
+          $scope.errorLabelText = 'Дані було успішно збережено';                 
+        }, function(response) {         
+          $scope.errorLabelText = api.errorHandler(response);
+        });
+    }
+
+    $scope.removeRnp = function(currentRowRnp) {
+      if (
+        confirm('Ви впеврені що хочете видалити поточний РНП?')
+        ) {
+        var url = (
+          'RNP/NP/' +
+          currentRowRnp.id
+          );
+
+      var method = 'DELETE';
+
+      api.execute(method, url)
+      .then(function(response) {    
+        //по специализации        
+      }, function(response) {
+        $scope.errorLabelText = api.errorHandler(response);
+        });
+      }
+    };
+
+    function RnpModel(
+      Name, 
+      Id, 
+      StudyYearId,
+      Course, 
+      ProtocolNumber
+    ) {
+      this.Name = Name;
+      this.Id = Id;
+      this.StudyYearId = StudyYearId;
+      this.Course = Course;
+      this.ProtocolNumber = ProtocolNumber;
+    };
+
 
 	$scope.editRnpTab = 'firstTab';
 
@@ -273,24 +453,6 @@
 
 	$scope.showEditableNameCM = function(editableObj,objCM) {		
 		return (objCM.nameCM === '') ? true : false;		
-	}	
-
-	$scope.onChange = function(){		
-		var id = $scope.selectedDiscipline.idDisc;
-		var path = 'StudyOrganizationDiscipline/CreditModule/' + id;
-
-		api.execute('GET', path)
-		.then(function(response) {
-			requestComplete(response);
-		});
-
-		function requestComplete(response) {
-      if (!response || response === '' || response.length === 0) {
-        $scope.errorLabelText = 'На жаль, дані відсутні.';        
-      } else {
-        $scope.resultIhorsApiTmp = response;        
-      }
-    }
 	}		
 
 	function filterSubdivisionSelect(arr) {
@@ -303,100 +465,6 @@
 		}	
 
 		return result;
-	}
-
-	function loadAllSubdivisions() {
-		var url = 'Subdivision';
-		var method = 'GET';
-		$scope.allSubdivisions = [];
-
-		api.execute(method, url)
-      .then(function(response) {        
-        var allSubdiv = response;
-        $scope.allSubdivisions = filterSubdivisionSelect(allSubdiv);
-
-      }, function(response) {
-        $scope.allSubdivisions = [];
-      });
-	};
-
-	$scope.addCM = function() {
-		if (!ifWantToAddRowData) {
-			$scope.insertedCM = {
-				nameFull: $scope.disciplines.selected.discipline8.name,
-				name:'',
-				nameShort:'',
-				whomRead: {
-					name: $scope.subdivisions.selected.name, 
-					id: $scope.subdivisions.selected.id
-				}				
-			};
-
-			$scope.creditModules.unshift($scope.insertedCM);			
-			ifWantToAddRowData = true;
-		}
-	};
-
-	$scope.saveCM = function(editableObj, objCM) {
-		var nameFull, name, nameShort, method, whomRead;
-		var url = 'CreditModule/';
-
-		if (objCM.name !== '') {			
-			method = 'PUT';
-			url += $scope.disciplines.selected.discipline8.id;
-		} else {			
-			method = 'POST';
-		}
-
-		if (editableObj.name) {
-			name = editableObj.name;
-		} else {
-			name = objCM.name;
-		}
-
-		if (editableObj.whomRead.id) {
-			whomRead = editableObj.whomRead.id;
-		} else {
-			whomRead = objCM.id;
-		}
-
-		if (editableObj.nameShort) {
-			nameShort = editableObj.nameShort;
-		} else {
-			nameShort = objCM.nameShort;
-		}
-
-		var sendCM = new CreditModuleModel(            
-            name, whomRead
-          );
-
-		ifWantToAddRowData = false;
-		/*api.execute(method, url, sendCM)
-			.then(function(response) {										
-			}, function(response) {				
-				loadCM($scope.disciplines.selected.rtDisciplineId);
-			});*/
-
-	};
-
-	$scope.removeCM = function(currentRowCM) {
-		/*if (
-			confirm('Ви впеврені що хочете видалити поточний кредитний модуль?')
-		) {
-			var url = (
-				'/CreditModule/' +
-				currentRowCM.id				
-			);
-		
-			var method = 'DELETE';
-			
-		}*/
-	};
-
-	$scope.cancelCM = function(objCM) {
-		if (!objCM.name) {
-			$scope.creditModules.shift(objCM);
-		}
 	}
 
 	$scope.checkCMForm = function(data) {
@@ -418,8 +486,31 @@
     location.reload();    
   };
 
-	loadFaculties();		
-	loadAllSubdivisions();
+  $scope.applyFilterRnp = function(objRnp){    
+    if ($scope.allOkr.selected) {
+      if (objRnp.okr !== $scope.allOkr.selected.name) {
+        return false;
+      }      
+    }
+
+    if ($scope.studyForms.selected) {
+      if (objRnp.studyForm !== $scope.studyForms.selected.name) {
+        return false;
+      }
+    }
+
+    if ($scope.courses.selected) {
+      if (objRnp.course !== $scope.courses.selected.name) {
+        return false;
+      }
+    }
+    return true;
+  }
+  
+  loadStudyYears();
+  loadStudyForms();
+  loadOkr();  
+  
 }
 
 })();
