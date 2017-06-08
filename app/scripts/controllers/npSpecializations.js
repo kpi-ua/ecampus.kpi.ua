@@ -213,10 +213,6 @@
         })
     }
 
-    function checkParameter(value) {
-      return value === 'not set';
-    }
-
     function checkForUndefined(value) {
       return typeof value == 'undefined';
     }
@@ -235,7 +231,6 @@
         var parameters = [];
         url = 'Np?';
 
-        // !checkParameter(specializationId) &&
         if (
           !checkForUndefined(specializationId)
         ) {
@@ -246,7 +241,6 @@
           parameters.push(specializationParameter);
         }
 
-        // !checkParameter(studyingYearId) &&
         if (
           !checkForUndefined(studyingYearId)
         ) {
@@ -257,7 +251,6 @@
           parameters.push(studyingYearParameter);
         }
 
-        // !checkParameter(studyFormId) &&
         if (
           !checkForUndefined(studyFormId)
         ) {
