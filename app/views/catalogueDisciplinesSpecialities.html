@@ -1,11 +1,11 @@
 <breadcrumbs>    
-  <span>Довідники</span> > <span><b>Довідник дисциплін</b></span>
+  <span>Довідники</span> > <span><b>Довідник дисциплін спеціальності</b></span>
 </breadcrumbs>
 
 <div class="container-fluid content">
   <div class="row">
     <div class="col-md-12">
-      <h1>Довідник дисциплін спеціалізації</h1>
+      <h1>Довідник дисциплін спеціальності</h1>
       <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
     </div>
     <div id="filter" class="col-md-5 margin_top_15 filter__padding" ng-show="showFilter">
@@ -41,7 +41,7 @@
         <div class="col-xs-10 col-sm-11 col-md-10" style="padding-right:0!important">
         <ui-select id="speciality" class="select-form__select_attest" ng-model="specialities.selected"
                    append-to-body="true"
-                   on-select="loadOkrOrSpecialization(specialities.selected); reloadDisciplines('not set', 'not set', specialities.selected.id);">
+                   on-select="loadOkr(specialities.selected.id); reloadDisciplines('not set', 'not set', specialities.selected.id);">
           <ui-select-match placeholder="Оберіть спеціальність" allow-clear="true">
             <span ng-bind="$select.selected.specialtyCode + ' '+ $select.selected.name"></span>
           </ui-select-match>
@@ -51,7 +51,7 @@
           </ui-select-choices>
           <ui-select-no-choice>
             Спеціальність не знайдено
-          </ui-select-no-choice>          
+          </ui-select-no-choice>
         </ui-select>
         </div>
         <div class="btn_refresh">
@@ -62,13 +62,13 @@
         <div ng-show="errorSpecialities" class="error-np-messages col-xs-12">
           {{errorSpecialities}}
         </div>
-      </div> 
+      </div>
 
       <div class="okr-select row">
-      		<label for="okr" ng-class="{'notActive':filtOkr === false}" class="select-form__label col-xs-12">до 2016 р. вступу</label>
+        <label for="okr" class="select-form__label col-xs-12">до 2016 р. вступу</label>
 
-      		<div class="col-xs-12" style="padding-right:18px!important">        
-        <ui-select id="okr" class="select-form__select_attest" ng-model="allOkr.selected" append-to-body="true" on-select="reloadDisciplines('not set', 'not set', allOkr.selected.id);" ng-disabled="!filtOkr" ng-class="{'notActive':filtOkr === false}">
+        <div class="col-xs-12" style="padding-right:18px!important">        
+        <ui-select id="okr" class="select-form__select_attest" ng-model="allOkr.selected" append-to-body="true" on-select="reloadDisciplines('not set', 'not set', allOkr.selected.id);">
           <ui-select-match placeholder="Оберіть освітній рівень">
             <span ng-bind="$select.selected.okr.name"></span>
           </ui-select-match>
@@ -85,38 +85,6 @@
             {{errorOkr}}
         </div>
 
-      </div>           
-      
-      <div class="specialization-select row">
-      	<div class="col-xs-12">  
-        	<label for="filteredSpecialization" ng-class="{'notActive':filtOkr === true}" class="select-form__label">після 2016 року вступу (Спеціалізація)</label>      	
-      	</div>        
-        <div class="col-xs-10 col-sm-11 col-md-10" style="padding-right:0!important">
-        <ui-select id="Specialization" class="select-form__select_attest" ng-model="specializations.selected"
-                   append-to-body="true"
-                   on-select="reloadDisciplines(specializations.selected.id, 'not set');"
-                   ng-disabled="filtOkr" ng-class="{'notActive':filtOkr === true}">
-          <ui-select-match placeholder="Оберіть спеціалізацію" allow-clear="true">
-            <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices
-            repeat="specialization in (specializations | filter: $select.search) track by specialization.id"
-            position="down">
-            <span ng-bind="specialization.name"></span>
-          </ui-select-choices>
-          <ui-select-no-choice>
-            Спеціалізацію не знайдено
-          </ui-select-no-choice>          
-        </ui-select>
-        </div>
-        <div class="btn_refresh">
-        	<button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_refresh" ng-click="loadSpecializations(specialities.selected.id)">
-          <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-        	</button>
-        </div>
-        <div ng-show="errorSpecializations" class="error-np-messages col-xs-12">
-          	{{errorSpecializations}}
-       	</div>
       </div>
     </div>
 
@@ -127,11 +95,11 @@
         <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
       </button> 
       <button type="button" class="btn btn-primary btn_filter_green btn-filters"
-              ng-click="editable = !editable" ng-show="ifPermissionAllowed">
+              ng-click="editable = !editable">
         Редагувати
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
       </button>
-			<div class="row" ng-show="subdivisions.selected">
+      <div class="row" ng-show="subdivisions.selected">
         <div class="col-md-2"><b>Підрозділ:</b></div>
         <div class="col-md-10">{{subdivisions.selected.name}}</div>
       </div>
@@ -139,11 +107,9 @@
         <div class="col-md-2"><b>Спеціальність:</b></div>
         <div class="col-md-10">{{specialities.selected.specialtyCode}} {{specialities.selected.name}}</div>
       </div>
-      <div class="row" ng-show="filtOkr || specializations.selected">
-        <div class="col-md-2" ng-show="filtOkr"><b>Освітній рівень:</b></div>
-        <div class="col-md-10" ng-show="filtOkr">{{allOkr.selected.okr.name}}</div><!--{{filtOkr}}</div>-->
-        <div class="col-md-2" ng-show="!filtOkr"><b>Спеціалізація:</b></div>
-        <div class="col-md-10" ng-show="!filtOkr">{{specializations.selected.name}}</div>
+      <div class="row" ng-show="allOkr.selected">
+        <div class="col-md-2"><b>Освітній рівень:</b></div>
+        <div class="col-md-10">{{allOkr.selected.okr.name}}</div>
       </div>
 
       <div class="table-responsive" style="padding-bottom: 200px">
@@ -151,9 +117,9 @@
           <caption class="text-right">Наявні дисципліни</caption>
           <thead>          
           	<tr class="patterns__table-header color-head">
-          		<th class="tdFullAlignCenter">
-          			Шифр
-          		</th>
+              <th class="tdFullAlignCenter">
+                Шифр
+              </th>
           		<th class="tdFullAlignCenter">
           			Назва дисципліни
           		</th>
@@ -166,17 +132,17 @@
           		<th class="tdFullAlignCenter">
           			Опис дисципліни
           		</th>
-          		<th class="tdFullAlignCenter">
+              <th class="tdFullAlignCenter">
                 Актуальність
               </th>
               <th class="tdFullAlignCenter">
                 Дата зміни
               </th>
-          		<th class="tdFullAlignCenter" ng-show="editable && filtOkr || editable && specializations.selected">
+          		<th class="tdFullAlignCenter" ng-show="editable">
           			Дія
           		</th>
           	</tr>          
-          	<tr class="d-s-table patterns__table-button" ng-show="editable && filtOkr || editable && specializations.selected">
+          	<tr class="d-s-table patterns__table-button" ng-show="editable && subdivisions.selected">
           		<td colspan="8" class="text-center" ng-click="addDisc();">
           			<i class="fa fa-plus" aria-hidden="true"></i>Додати нову дисципліну
           		</td>
@@ -184,8 +150,8 @@
           </thead>
           <tbody>
           	<tr ng-repeat="objDisc in disciplines">
-          		<td>
-              	<span editable-text="objDisc.shifr" e-name="shifr" e-form="rowformDisciplines" onbeforesave="checkDiscForm($data)" e-required>
+              <td>
+                <span editable-text="objDisc.shifr" e-name="shifr" e-form="rowformDisciplines" onbeforesave="checkDiscForm($data)" e-required>
                   {{objDisc.shifr || 'не вказано'}}
                 </span>
               </td>
@@ -247,7 +213,7 @@
                 {{showStatus(objDisc.actuality)}}
               </td>
               <td>{{objDisc.changeDate}}</td>
-							<td class="tdFullAlignCenter" ng-show="editable && filtOkr || editable && specializations.selected">
+							<td class="tdFullAlignCenter" ng-show="editable && subdivisions.selected">
                 <form editable-form name="rowformDisciplines" onbeforesave="saveDisc($data,objDisc);"
                       ng-show="rowformDisciplines.$visible"
                       class="form-buttons form-inline" shown="insertedDisc == objDisc">
@@ -355,3 +321,5 @@
           </div>
         </div>
     </div>
+
+

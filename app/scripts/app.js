@@ -177,6 +177,11 @@ function configRoutes($routeProvider, $locationProvider) {
       templateUrl: 'views/catalogueDisciplines.html',
       controller: 'CatalogueDisciplinesCtrl',
       controllerAs: 'ctlDisciplines'
+    })
+    .when('/catalogue-discipline-specialities', {
+      templateUrl: 'views/catalogueDisciplinesSpecialities.html',
+      controller: 'CatalogueDisciplinesCpesialitiesCtrl',
+      controllerAs: 'ctlDisciplinesSpecialities'
     });
 
   $locationProvider.html5Mode(true);
