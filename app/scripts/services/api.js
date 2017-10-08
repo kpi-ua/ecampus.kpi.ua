@@ -12,6 +12,7 @@ angular
     .service('api', function($http, $rootScope, $window, $q,permission) {
         //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
         this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
+        // this.ApiEndpoint = 'http://localhost:45554/';
         $rootScope.requestCount = 0;
 
         this.changeRequestCount = function(i) {

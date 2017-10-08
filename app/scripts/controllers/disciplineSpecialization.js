@@ -716,6 +716,7 @@ function DisciplinesSpecializationCtrl($scope, api, permission) {
         GroupList: $scope.groups,
         StudyYearPublish: $scope.selectData.StudyYear
       };
+
       path = 'SelectiveDiscipline/BlockChoiseImplement';
       method = 'POST';
       // console.log($scope.patterns);
@@ -878,6 +879,7 @@ function DisciplinesSpecializationCtrl($scope, api, permission) {
       }
     };
     path = 'SelectiveDiscipline/BlockChoise';
+    console.log(JSON.stringify(payload));
     method = blockChoiceWhom8Id === null ? 'POST' : 'PUT';
     api.execute(method, path, payload).then(function(resp) {
       $scope.onFullSelect();
