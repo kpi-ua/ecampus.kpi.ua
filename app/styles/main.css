@@ -1594,3 +1594,13 @@ li.list-group-item.blocks-list-item {
   padding: 0;
   float: right;
 }
+
+#okr > .ui-select-match > .ui-select-search {
+  width: 100%;
+}
+
+.editable > pre {
+  background-color: inherit;
+  border: none;
+  padding: 0;
+}
