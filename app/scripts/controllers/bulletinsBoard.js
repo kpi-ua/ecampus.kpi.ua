@@ -34,7 +34,7 @@ function HomeBulletinsBoardCtrl($scope, api) {
   };
 
   function loadBoards() {
-    var url = '/Board/All';
+    var url = 'Board/All';
 
     api.execute('GET', url)
       .then(function(response) {
