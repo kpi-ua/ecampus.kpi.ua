@@ -13,3 +13,11 @@ Run `grunt` for building and `grunt serve` for preview.
 
 ### Testing
 Running `grunt test` will run the unit tests with karma.
+
+### Deploy
+
+* npm install
+* npm install bower -g
+* npm install grunt -g
+* npm install grunt-cli -g
+* grunt build
