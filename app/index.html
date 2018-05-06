@@ -141,9 +141,12 @@
 <!-- endbuild -->
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/utils/helper.function.js"></script>
 <script src="scripts/app.js"></script>
 <script src="scripts/services/api.js"></script>
+<script src="scripts/services/permission.js"></script>
 <script src="scripts/services/uniqueElemsInList.js"></script>
+<script src="scripts/services/sharedFiltersData.js"></script>
 <script src="scripts/controllers/main.js"></script>
 <script src="scripts/controllers/information.js"></script>
 <script src="scripts/controllers/voting.js"></script>
@@ -183,10 +186,15 @@
 <script src="scripts/controllers/individualPlan.js"></script>
 <script src="scripts/controllers/disciplineFund.js"></script>
 <script src="scripts/controllers/rnp.js"></script>
+<script src="scripts/controllers/RnpCreate.js"></script>
 <script src="scripts/controllers/attestation.js"></script>
 <script src="scripts/directives/disciplineBlocksChoice.js"></script>
 <script src="scripts/directives/disciplineChoiceModal.js"></script>
-<script src="scripts/directives/disciplineChoiceCourse.js"></script>
+<script src="scripts/directives/disciplineChoiceSemester.js"></script>
+<script src="scripts/controllers/npSpecializations.js"></script>
+<script src="scripts/controllers/creditModules.js"></script>
+<script src="scripts/controllers/catalogueDisciplines.js"></script>
+<script src="scripts/controllers/catalogueDisciplinesSpecialities.js"></script>
 <!-- endbuild -->
 
 <!--Referenced from 'CDN' because problems with minifying -->

@@ -12,13 +12,7 @@
 
       <ul class="nav navbar-nav">
         <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Дисципліни вибору<b class="caret"></b></a>
-          <ul class="dropdown-menu multi-level">
-            <li><a ng-hide="!!userIsStudent" href="/disciplines-choice-t">Вибір студента​</a></li>
-            <li><a ng-hide="!userIsStudent" href="/disciplines-choice-st">Вибір студента​</a></li>
-            <li><a href="/discipline-proposition">Пропозиції дисциплін​</a></li>
-            <li><a href="/discipline-specialization">П​Дисципліни спеціалізації</a></li>
-          </ul>
+          <a href="/bulletins-board">Оголошення</a>
         </li>
 
         <li><a href="/attestation">Результати аттестації​</a></li>
@@ -31,57 +25,21 @@
           </ul>
         </li>
 
-        <li><a href="/rnp">РНП</a></li>
-
         <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Iнформація<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/privacy">Правила використання інформації сайту</a></li>
-            <li><a href="/about">Про систему</a></li>
-            <li><a data-toggle="modal" data-target="#support-modal">Служба підтримки</a></li>
-            <li><a href="/contacts">Контактнi данi</a></li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Довідники<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">            
+            <li><a href="/catalogue-credit-module">Кредитні модулі</a></li>
+            <li><a href="/catalogue-discipline">Дисципліни спеціалізації</a></li>
+            <li><a href="/catalogue-discipline-specialities">Дисципліни спеціальності</a></li>
           </ul>
         </li>
 
-        <li><a ng-click="redirectToLegacyCampus()">До попередньої версії кампусу</a></li>
-      </ul>
-
-      <!--<ul class="nav navbar-nav">
         <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Модулi<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Навчальний процес<b class="caret"></b></a>
           <ul class="dropdown-menu multi-level">
-            <li><a href="/attestation">Атестація</a></li>
-            <li><a href="/bulletins-board">Оголошення</a></li>
-
-            <li role="separator" class="divider"></li>
-            <li><a class="group-title">Навчальний процесс</a></li>
+            <li><a href="/attestation">Аттестація</a></li>
             <li><a href="/individual-plan">Індивідуальний план</a></li>
-            <li ng-hide="disableDisciplineChoiceForNotStudent"><a href="/discipline-choice-student">Вибір дисциплін</a>
-            </li>
-            <li ng-show="enableDisciplineForNotStudent"><a href="/discipline-choice-teacher">Дисципліни вибору</a></li>
-            <li role="separator" class="divider"></li>
-
-            <li><a href="/voting">Оцінювання викладачів</a></li>
-          </ul>
-        </li>
-
-
-        <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Адміністрування<b class="caret"></b></a>
-          <ul class="dropdown-menu">
-
-            <li><a class="group-title">Статистика</a></li>
-            <li><a href="/statistic-zkm">Забезпечення кредитного модуля</a></li>
-            <li><a href="/statistic-npp">Індивідуальне навантаження викладачів</a></li>
-
-            <li role="separator" class="divider"></li>
-            <li><a class="group-title">Дисципліни вибору</a></li>
-            <li><a href="/discipline-specialization">Дисципліни спеціалізації</a></li>
-            <li><a href="/discipline-proposition">Пропозиції дисциплін</a></li>
-            <li><a href="/discipline-block">Блок дисциплін</a></li>
-            <li role="separator" class="divider"></li>
-
-            <li><a href="/discipline-fund">Фонд дисциплін</a></li>
+            <li><a ng-hide="!userIsStudent" href="/disciplines-choice-st">Вибір дисциплін</a></li>
             <li><a href="/rnp">РНП</a></li>
           </ul>
         </li>
@@ -96,8 +54,15 @@
           </ul>
         </li>
 
-        <li><a ng-click="redirectToLegacyCampus()">До попередньої версії кампусу</a></li>
-      </ul>-->
+        <li>
+          <a ng-click="redirectToLegacyCampus()">До попередньої версії кампусу</a>
+        </li>
+
+        <li ng-show="!userIsStudent">
+          <a href="#" ng-click="showAdminMenu = !showAdminMenu" style="color: #208843 !important;">Адміністрування</a>
+        </li>
+
+      </ul>
 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -114,10 +79,64 @@
           </ul>
         </li>
 
-
       </ul>
 
     </div>
     <!--/.nav-collapse -->
   </div>
+
+  <div class="container-fluid" ng-show="showAdminMenu">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">НП<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+            <li><a href="/np-specializations">НП спеціалізацій​</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">РНП<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+            <!--<li><a href="/rnp">Перегляд РНП</a></li>-->
+            <li><a href="/rnp-create">Створення РНП</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Дисципліни вибору<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+            <li><a href="/discipline-block">Блок дисциплін</a></li>
+            <li><a href="/discipline-proposition">Пропозиції дисциплін</a></li>
+            <li><a href="/discipline-specialization">Дисципліни спеціалізації</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Статистика<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+            <li><a href="/statistic-zkm">Забезпечення кредитного модуля</a></li>
+            <li><a href="/statistic-npp">Індивідуальне навантаження викладачів</a></li>
+          </ul>
+        </li>
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Довідники<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+            <li><a href="/catalogue-discipline">Дисципліни</a></li>
+            <li><a href="/catalogue-credit-module">Кредитні модулі</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </nav>

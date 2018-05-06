@@ -53,9 +53,10 @@
             </ul>
           </div>
         </form>
-        <div class="messages"
-             ng-show="courseBlocks.selectedDiscipline.length > courseBlocks.disciplineCount">
-          <h5 style="color: red;">Ви обрали невірну кількість дисциплін.</h5>
+        <div class="messages" style="color: red;">
+          <p ng-show="isNotEnoughSelected(courseBlocks)">Обрано невірну кількість дисциплін</p>
+          <!--<p ng-show="isNotSelected(courseBlocks)">Не обрано дисциплін</p>-->
+          <!--<p ng-show="isNotComplete(courseBlocks)">Вибір не здійснювався</p>-->
         </div>
       </div>
       <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7 block-info additional-info">
@@ -93,7 +94,11 @@
         <div class="col-md-5" style="padding: 0;">
           <button type="submit" class="btn btn-primary btn-choice-result-{{course.semester}}-{{indexBlock}}"
                   ng-show="!(course.status === 'not available' || course.status === 'done')"
-                  ng-disabled="isDisabledChoiceButton(courseBlocks) || courseBlocks.isSelected"
+                  ng-disabled="
+                  isNotEnoughSelected(courseBlocks)
+                  || isNotSelected(courseBlocks)
+                  || isNotComplete(courseBlocks)
+                  || courseBlocks.isSelected"
                   ng-click="addBlock(course, studyYear, courseBlocks)">Обрати
           </button>
           <button type="reset" class="btn btn-default btn-cancel btn-cancel-{{course.semester}}-{{indexBlock}} pull-right"

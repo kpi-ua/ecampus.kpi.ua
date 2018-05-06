@@ -23,8 +23,15 @@ var app = angular.module('ecampusApp', [
 ]);
 
 app.config(configRoutes);
+app.run(checkSessionTime, configXeditable);
 
 configRoutes.$inject = ['$routeProvider', '$locationProvider'];
+
+function configXeditable(editableOptions, editableThemes) {
+  editableThemes.bs3.inputClass = 'input-md';
+  editableThemes.bs3.buttonsClass = 'btn-md';
+  editableOptions.theme = 'bs3';
+}
 
 function configRoutes($routeProvider, $locationProvider) {
 
@@ -146,11 +153,50 @@ function configRoutes($routeProvider, $locationProvider) {
       controller: 'RnpCtrl',
       controllerAs: 'rnp'
     })
+    .when('/rnp-create', {
+      templateUrl: 'views/rnpCreate.html',
+      controller: 'RnpCreateCtrl',
+      controllerAs: 'RnpCreate'
+    })
     .when('/attestation', {
       templateUrl: 'views/attestation.html',
       controller: 'AttestationCtrl',
       controllerAs: 'attest'
+    })
+    .when('/np-specializations', {
+      templateUrl: 'views/npSpecializations.html',
+      controller: 'NpSpecializationsCtrl',
+      controllerAs: 'NpSpec'
+    })    
+    .when('/catalogue-credit-module', {
+      templateUrl: 'views/creditModules.html',
+      controller: 'CreditModulesCtrl',
+      controllerAs: 'crModules'
+    })
+    .when('/catalogue-discipline', {
+      templateUrl: 'views/catalogueDisciplines.html',
+      controller: 'CatalogueDisciplinesCtrl',
+      controllerAs: 'ctlDisciplines'
+    })
+    .when('/catalogue-discipline-specialities', {
+      templateUrl: 'views/catalogueDisciplinesSpecialities.html',
+      controller: 'CatalogueDisciplinesCpesialitiesCtrl',
+      controllerAs: 'ctlDisciplinesSpecialities'
     });
 
   $locationProvider.html5Mode(true);
+}
+
+checkSessionTime.$inject  = ['$rootScope', 'api'];
+
+function checkSessionTime($rootScope, api) {
+  var deregister = $rootScope.$on('$viewContentLoaded', function () {
+    var isLogged = api.getToken();
+
+    if (isLogged) {
+      api.changeIsSessionExpiredValue(api.removeToken());
+    }
+  });
+
+  $rootScope.$on('$destroy', deregister);
 }

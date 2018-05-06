@@ -299,7 +299,6 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
       .then(function(response) {
         $scope.tempListData = response;
         $scope.tempListData.years = [];
-        console.log('some promises');
         reload();
       }, function(response) {
         $scope.tempListData = response;
@@ -482,7 +481,6 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             };
 
             $scope.alldisciplines.unshift($scope.insertedProposition);
-            console.log('unshift: ', $scope.alldisciplines);
             ifWantToAddRowData = true;
           }
         };
@@ -559,10 +557,6 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
           // data is what you are editing  (current row in the table).
           // Variables with e-name.
           // duting editing it is another, check out and be careful
-          console.log('data, proposition, $scope.newData.Images');
-          console.log(data);
-          console.log(proposition);
-          console.log('ккк', $scope.newData.Images, 'ккк');
           var url = 'SelectiveDiscipline/BlocksDispline';
           var method = '';
           var blockId = getBlockIdByName(
@@ -594,17 +588,14 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             $scope.newData.Images !== ' '
           ) {
             picture = $scope.newData.Images;
-            console.log('Picture = $scope.newData.Images;');
           } else if ($scope.newData.Images === ' ') {
             picture = '';
-            console.log('Picture = "";');
           } else if (
             proposition.pictures !== '' &&
             $scope.newData.Images === '' &&
             proposition.pictures
           ) {
             picture = proposition.pictures.substring(23);
-            console.log('Picture = proposition.pictures.substring(23);');
           }
 
           /*for (var key in proposition) {
@@ -657,7 +648,6 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
                 $scope.alldisciplines[i].blockName === data.blockName &&
                 $scope.alldisciplines[i].nameUkr === data.nameUkr
               ) {
-                console.log('повтор');
                 $scope.reloadData();
                 // $scope.addMessage(2);
                 return;
@@ -676,10 +666,8 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
             course1, course2, course3, course4, course5, course6
           );
 
-          console.log('newRowProposition - .', newRowProposition, '.');
           api.execute(method, url, newRowProposition)
             .then(function(response) {
-              console.log(response);
               $scope.sendSubdivisionToServer();
               $scope.newData.Images = '';
               // $scope.addMessage(0);
@@ -687,16 +675,11 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
               $('#messageView').addClass('hideMessage');
             }, function(response) {
               // $scope.addMessage(3);
-              console.log(response);
             });
           ifWantToAddRowData = false;
         };
 
         $scope.saveYear = function(data, year) {
-          console.log('data selectedNameFull year');
-          console.log(data);
-          console.log($scope.selectedNameFull);
-          console.log(year);
           var url = 'SelectiveDiscipline/BlocksDisplineYear';
           var method = '';
           // var $scope.CurrentYearData.disciplineBlockId,
@@ -754,7 +737,6 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
                 ) {
                   $scope.reloadData();
                   // $scope.addMessage(2);
-                  console.log('error while edit');
                   return;
                 }
               }
@@ -764,10 +746,8 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
                   (disciplineBlock8Id === $scope.allDisciplinesList[i]) &&
                   ($scope.selectedNameFullEdited === 1)
                 ) {
-                  console.log(i, ' ', $scope.selectedNameFullEdited);
                   $scope.reloadData();
                   // $scope.addMessage(2);
-                  console.log('error while edit right');
                   return;
                 }
               }
@@ -779,7 +759,6 @@ function DisciplinesPropositionCtrl($scope, $timeout, api, uniqueElemsInList) {
                 if (data.studyYear === $scope.allYearsList[i]) {
                   $scope.reloadData();
                   // $scope.addMessage(2);
-                  console.log('error while add');
                   return;
                 }
               }

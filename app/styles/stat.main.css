@@ -610,9 +610,9 @@ input:checked + .side-label::after {
     transition: all .3s ease;
     height: 35px;
 }
-.patterns__table-button:hover{
+/* .patterns__table-button:hover{
     font-size: 16px;
-}
+} */
 .patterns__table-button_CRUD-button {
     padding: 0;
     width: 35px;
@@ -638,9 +638,9 @@ input:checked + .side-label::after {
   height: 35px;
 }
 
-.patterns__table-button:hover {
+/* .patterns__table-button:hover {
   font-size: 16px;
-}
+} */
 
 .patterns__table-button_CRUD-button {
   padding: 0;
