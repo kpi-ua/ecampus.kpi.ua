@@ -9,7 +9,8 @@
       <div class="alert alert-warning" ng-hide="errorLabelText===''" role="alert">{{errorLabelText}}</div>
     </div>
     <div id="filter" class="col-md-5 margin_top_15 filter__padding" ng-show="showFilter">
-      <div class="subdivision-select row">
+<!-- Кафедра -->
+      <!-- <div class="subdivision-select row">
         <label for="subdivision" class="select-form__label col-xs-12">Кафедра</label>
         <div class="col-xs-10 col-sm-11 col-md-10" style="padding-right:0!important">
         <ui-select id="subdivision" class="select-form__select_attest" ng-model="subdivisions.selected"
@@ -35,19 +36,20 @@
         <div ng-show="errorSubdivisions" class="error-np-messages col-xs-12">
           	{{errorSubdivisions}}
         </div>
-      </div>
+      </div> -->
+<!-- Спеціальність -->
       <div class="speciality-select row">
-        <label for="speciality" class="select-form__label col-xs-12">Спеціальність</label>
+        <label for="speciality" class="select-form__label col-xs-12">ОКР - Спеціальність</label>
         <div class="col-xs-10 col-sm-11 col-md-10" style="padding-right:0!important">
         <ui-select id="speciality" class="select-form__select_attest" ng-model="specialities.selected"
                    append-to-body="true"
-                   on-select="loadOkr(specialities.selected.id); reloadDisciplines('not set', 'not set', specialities.selected.id);">
+                   on-select="reloadDisciplines('not set', 'not set', specialities.selected.profTrainTotal.id);">
           <ui-select-match placeholder="Оберіть спеціальність" allow-clear="true">
-            <span ng-bind="$select.selected.specialtyCode + ' '+ $select.selected.name"></span>
+            <span ng-bind="$select.selected.nameToDisplay"></span>
           </ui-select-match>
           <ui-select-choices repeat="speciality in (specialities | filter: $select.search)"
                              position="down">
-            <span ng-bind="speciality.specialtyCode + ' ' + speciality.name"></span>
+            <span ng-bind="speciality.nameToDisplay"></span>
           </ui-select-choices>
           <ui-select-no-choice>
             Спеціальність не знайдено
@@ -55,7 +57,7 @@
         </ui-select>
         </div>
         <div class="btn_refresh">
-        	<button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_refresh" ng-click="loadSpecialities(subdivisions.selected.id)">
+        	<button type="button" class="btn patterns__table-button patterns__table-button_CRUD-button patterns__table-button_CRUD-button_refresh" ng-click="loadSubdivisionsAccordingToPermission()">
           <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
         	</button>
         </div>
@@ -63,8 +65,8 @@
           {{errorSpecialities}}
         </div>
       </div>
-
-      <div class="okr-select row">
+<!-- okr-select -->
+      <!-- <div class="okr-select row">
         <label for="okr" class="select-form__label col-xs-12">до 2016 р. вступу</label>
 
         <div class="col-xs-12" style="padding-right:18px!important">        
@@ -85,7 +87,7 @@
             {{errorOkr}}
         </div>
 
-      </div>
+      </div> -->
     </div>
 
     <div class="col-md-12" id="np-content">
@@ -99,9 +101,9 @@
         Редагувати
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
       </button>
-      <div class="row" ng-show="subdivisions.selected">
+      <div class="row" ng-show="specialities.selected">
         <div class="col-md-2"><b>Підрозділ:</b></div>
-        <div class="col-md-10">{{subdivisions.selected.name}}</div>
+        <div class="col-md-10">{{specialities.selected.name}}</div>
       </div>
       <div class="row" ng-show="specialities.selected">
         <div class="col-md-2"><b>Спеціальність:</b></div>
@@ -142,7 +144,7 @@
           			Дія
           		</th>
           	</tr>          
-          	<tr class="d-s-table patterns__table-button" ng-show="editable && subdivisions.selected">
+          	<tr class="d-s-table patterns__table-button" ng-show="editable && specialities.selected">
           		<td colspan="8" class="text-center" ng-click="addDisc();">
           			<i class="fa fa-plus" aria-hidden="true"></i>Додати нову дисципліну
           		</td>
@@ -213,7 +215,7 @@
                 {{showStatus(objDisc.actuality)}}
               </td>
               <td>{{objDisc.changeDate}}</td>
-							<td class="tdFullAlignCenter" ng-show="editable && subdivisions.selected">
+							<td class="tdFullAlignCenter" ng-show="editable && specialities.selected">
                 <form editable-form name="rowformDisciplines" onbeforesave="saveDisc($data,objDisc);"
                       ng-show="rowformDisciplines.$visible"
                       class="form-buttons form-inline" shown="insertedDisc == objDisc">

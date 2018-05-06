@@ -122,14 +122,12 @@
       var permissionSubdivisions;
       permissionSubdivisions = permission.getSubsystemPermission(27);
       if (permissionSubdivisions) {
-        console.log('ok, it has permission, some subdivisions...');
         $scope.subdivisions = permissionSubdivisions.subdivisions;
         $scope.subdivisions.selected = permissionSubdivisions.subdivisions[0];
         $scope.reloadDisciplines('not set', $scope.subdivisions.selected.id);
         $scope.loadSpecialities($scope.subdivisions.selected.id);
         $scope.ifPermissionAllowed = true;
       } else {
-        console.log('no, there is no permission, load all subdivisions');
         loadFaculties();
         $scope.ifPermissionAllowed = false;
       }
@@ -188,7 +186,6 @@
           $scope.allSpecialities = specialitiesWithOkr;          
           $scope.specialities = uniqueSpecialities(specialitiesWithOkr, 'specialization').sort(sortNames);          
           $scope.errorSpecialities = '';
-          console.log($scope.specialities);
         })
         .catch(function(response) {
           $scope.errorSpecialities = api.errorHandler(response);
@@ -613,11 +610,9 @@
     	if (specializationId !== null) {
     		$scope.loadSpecializations(specialityId);
     		$scope.filtOkr = false;
-    		console.log('loaded Specializations');
     	} else {
     		$scope.loadOkr(specialityId);
     		$scope.filtOkr = true;
-    		console.log('loaded Okr');
     	}
     }
 

@@ -12,7 +12,7 @@ angular.module('ecampusApp').service('permission', PermissionService);
 
 
 function PermissionService() {
-
+  var CampusKpiSubsystemId = 1;
   this.setPermissions = setPermissions;
   this.getPermission = getPermission;
   this.getSubsystemPermission = getSubsystemPermission;
@@ -30,7 +30,7 @@ function PermissionService() {
   function getSubsystemPermission(subsystemId) {
     var subsystemPermission = null;
     getPermission().subsystems.forEach(function (subsystem) {
-      if (subsystem.id === subsystemId) {
+      if (subsystem.id === subsystemId || subsystem.id === CampusKpiSubsystemId) {
         subsystemPermission = subsystem;
         return;
       }
