@@ -11,9 +11,9 @@ angular
     .module('ecampusApp')
     .service('api', function($http, $rootScope, $window, $q,permission) {
         //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
-        // this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
+        this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
         // this.ApiEndpoint = 'http://campusapitesting2017.azurewebsites.net/';
-        this.ApiEndpoint = 'http://localhost:51308/';
+        // this.ApiEndpoint = 'http://localhost:51308/';
         
         $rootScope.requestCount = 0;
 
