@@ -132,21 +132,26 @@
       Promise.all(
         queriesArray.map(apiExecuteGet)
       ).then(function ([subsystemCathedras, kpiCathedras, profTrains, ...rest]) {
-        const allPermissions = subsystemCathedras.concat(kpiCathedras);
-        const availableCathedrasId = allPermissions.map(cathedra => cathedra.id);
-        const availableProfTrains = profTrains
-          .filter(profTrain => availableCathedrasId.indexOf(profTrain.subdivision.id) !== -1)
-          .filter(profTrain => profTrain.specialtyCode.indexOf('.') !== -1);
-        $scope.allSpecialities = availableProfTrains;
-        $scope.specialities =
-          uniqueSpecialities(availableProfTrains)
+
+          const allPermissions = subsystemCathedras.concat(kpiCathedras);
+
+          const availableCathedrasId = allPermissions.map(cathedra => cathedra.id);
+
+          const availableProfTrains = profTrains
+            .filter(profTrain => availableCathedrasId.indexOf(profTrain.subdivision.id) !== -1)
+            .filter(profTrain => profTrain.specialtyCode.indexOf('.') !== -1);
+
+          $scope.allSpecialities = availableProfTrains;
+
+          $scope.specialities = uniqueSpecialities(availableProfTrains)
             .sort(sortNames)
             .map(speciality => ({
-              ...speciality,
-              nameToDisplay: `${speciality.okr.name} - ${speciality.specialtyCode} ${speciality.name}`
-            }))
-        $scope.errorSpecialities = '';
-      })
+                ...speciality,
+                nameToDisplay: `${speciality.okr.name} - ${speciality.specialtyCode} ${speciality.name}`
+            }));
+
+          $scope.errorSpecialities = '';
+        })
         .catch(function (response) {
           $scope.errorSpecialities = api.errorHandler(response);
         });

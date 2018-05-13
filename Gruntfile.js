@@ -29,18 +29,28 @@ module.exports = function(grunt) {
   };
 
   grunt.loadNpmTasks('grunt-css-url-replace');
+  grunt.loadNpmTasks('grunt-babel');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
-
-    'css_url_replace': {
+    css_url_replace: {
       options: {
         staticRoot: 'public'
       },
       replace: {
         files: {
-          'dest/*.css': ['../fonts/', '../fonts/'],
+          'dest/*.css': ['../fonts/', '../fonts/']
         }
+      }
+    },
+    babel :{
+      options: {
+        sourceMap: true
+      },
+      files: {
+        expand: true,
+        src: ['**/*.es6'],
+        ext: '-compiled.js'
       }
     },
 
@@ -494,6 +504,7 @@ module.exports = function(grunt) {
     'useminPrepare',
     'concurrent:dist',
     'postcss',
+    'babel',
     'ngtemplates',
     'concat',
     'ngAnnotate',
