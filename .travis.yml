@@ -2,19 +2,14 @@ language: node_js
 node_js:
   - "8"
 dist: trusty
-sudo: false
 
 cache:
   directories:
     - node_modules
 
-addons:
-  chrome: stable
-
 install:
   - npm install -g grunt-cli bower
-sudo: required
-
+  
 build:
   - bower install 
   - grunt build
