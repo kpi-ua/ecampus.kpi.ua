@@ -10,7 +10,7 @@ cache:
 install:
   - npm install -g grunt-cli bower
   
-build:
+build_project:
   - bower install 
   - grunt build
 
