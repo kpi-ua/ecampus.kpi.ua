@@ -2,7 +2,7 @@
 
 [![License](http://img.shields.io/:license-apache-blue.svg)](https://raw.githubusercontent.com/DOIS/ecampus.kpi.ua/master/LICENSE.md)
 
-API v2.0 structure: http://api-campus-kpi-ua.azurewebsites.net/system/structure
+API v2.0 structure: https://api-ecampus.azurewebsites.net/system/structure
 
 ### Documentation
 

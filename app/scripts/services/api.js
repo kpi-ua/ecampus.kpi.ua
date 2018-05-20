@@ -9,12 +9,11 @@
  */
 angular
     .module('ecampusApp')
-    .service('api', function($http, $rootScope, $window, $q,permission) {
+    .service('api', function($http, $rootScope, $window, $q, permission) {
         //this.ApiEndpoint = 'https://api.campus.kpi.ua/';
-        this.ApiEndpoint = 'https://api-campus-kpi-ua.azurewebsites.net/';
-        // this.ApiEndpoint = 'http://campusapitesting2017.azurewebsites.net/';
-        // this.ApiEndpoint = 'http://localhost:51308/';
-        
+        //this.ApiEndpoint = 'http://localhost:51308/';
+        this.ApiEndpoint = 'https://api-ecampus.azurewebsites.net/';
+
         $rootScope.requestCount = 0;
 
         this.changeRequestCount = function(i) {
@@ -143,7 +142,7 @@ angular
                         //get current user details
                         self.setCurrentUser(response);
 
-                        requestPermission(response.id,self,permission.setPermissions);
+                        requestPermission(response.id, self, permission.setPermissions);
                         return session;
                     });
 
@@ -248,23 +247,26 @@ angular
         this.errorHandler = function(response, status, headers) {
             var errorDetails = '';
             switch (response.statusText) {
-                case 'Internal Server Error': {
-                    errorDetails = (
-                        'Помилка сервера, спробуйте пізніше. Статус: ' +
-                        response.status
-                    );
-                    break;
-                }
-                default: {
-                    errorDetails = 'Перевірте інтернет з\'єднання.';
-                }
+                case 'Internal Server Error':
+                    {
+                        errorDetails = (
+                            'Помилка сервера, спробуйте пізніше. Статус: ' +
+                            response.status
+                        );
+                        break;
+                    }
+                default:
+                    {
+                        errorDetails = 'Перевірте інтернет з\'єднання.';
+                    }
             }
             return 'Помилка. ' + errorDetails;
         };
-        function requestPermission(userId,self,callback) {
+
+        function requestPermission(userId, self, callback) {
             var path = 'Account/employee/responsibility/' + userId;
             self.execute('GET', path).then(function(responsibilities) {
-                if(callback){
+                if (callback) {
                     callback(responsibilities);
                 }
             });
