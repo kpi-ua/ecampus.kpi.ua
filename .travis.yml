@@ -11,10 +11,16 @@ cache:
 addons:
   chrome: stable
 
-before_install:
+install:
   - npm install -g grunt-cli bower
 sudo: required
 
-script:
+build:
   - bower install 
   - grunt build
+
+before_deploy:
+  - cd build
+  
+deploy:
+  provider: azure_web_apps
