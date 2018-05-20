@@ -11,7 +11,10 @@ cache:
 addons:
   chrome: stable
 
+before_install:
+  - npm install -g grunt-cli bower
+sudo: required
+
 script:
-  - npm install
   - bower install 
   - grunt build
