@@ -1,0 +1,1 @@
+Welcome to Igor Sikorsky Kyiv Polytechnic Institute integrated information system!

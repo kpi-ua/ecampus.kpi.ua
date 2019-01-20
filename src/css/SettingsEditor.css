@@ -1,0 +1,16 @@
+.spinner {
+    font-size: 14pt;
+}
+
+.spinner .spinner-grow {
+    margin-top: 2px;
+    margin-left: 10px;
+}
+
+.spinner div:first-child {
+    float: left;
+}
+
+.hidden {
+    display: none;
+}
