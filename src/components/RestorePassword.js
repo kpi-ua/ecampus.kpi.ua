@@ -52,7 +52,7 @@ class RestorePassword extends React.Component {
       this.showMessage('Невiрний код пiдтвердження.');
       this.getCaptcha();
     } else if (response.status === 404) {
-      this.showMessage('Користувача з таким логiном, або електроною поштою не знайденио.');
+      this.showMessage('Користувача з таким логiном або електронною поштою не знайдено.');
       this.setState({step: 1, userId: ''});
     } else if (response.status === 409) {
       this.setState({step: 4});

@@ -1,0 +1,41 @@
+.card {
+    margin-bottom: 10px;
+    border-radius: 0 !important;
+    background-color: #f7f7f9  !important;
+}
+
+.card:hover {
+    background-color: #FFF  !important;
+}
+
+.card-title {
+    margin-bottom: .75rem;
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 5px;
+}
+
+.card-title {
+    font-size: 14pt;
+    color: #208843;
+    margin-bottom: 25px;
+}
+
+.pagination {
+    margin-left: 1px;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+}
+
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #208843;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+}

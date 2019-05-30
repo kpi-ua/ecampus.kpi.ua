@@ -11,7 +11,9 @@ import TelegramLoginWidget from "./TelegramLoginWidget";
 class SettingsEditor extends React.Component {
  
   state = {
-    user: {},
+    user: {
+      tgAuthLinked: ''
+    },
     selectedFile: null,
     email: '',
     currentPassword: '',
@@ -58,40 +60,13 @@ class SettingsEditor extends React.Component {
     return true;
   };
 
-  /**
-   * Update user password
-   * @returns {Promise<boolean>}
-   */
-  updateUserPassword = async () => {
 
-    if (this.state.password === '' && this.state.currentPassword === '' && this.state.passwordConfirmation === '' ) {
-      //Nothing changed
-      return true;
-    }
-
-    if (!this.validatePassword()) {
-      alert('Паролi не спiвпадають');
-      return false;
-    }
-
-    const response = await campus.callApi('Account/Info', 'PUT', {
-      currentPassword: this.state.currentPassword,
-      password: this.state.password
-    });
-
-    if (response.status === 403){
-      alert('Перевiрте корректнicть поточного паролю.');
-      return false;
-    }
-
-    return true;
-  };
 
   /**
    * Update user profile details
    * @returns {Promise<boolean>}
    */
-  updateUserDetails = async () => {
+  updateUser = async () => {
 
     const payload = {
       email: this.state.email,
@@ -99,6 +74,15 @@ class SettingsEditor extends React.Component {
       scientificInterest: this.state.scientificInterest,
       credo: this.state.credo
     };
+
+
+    if (!this.validatePassword()) {
+      alert('Паролi не спiвпадають');
+      return false;
+    } else {
+      payload.currentPassword = this.state.currentPassword;
+      payload.password = this.state.password;
+    }
 
     const response = await campus.callApi('Account/Info', 'PUT', payload);
 
@@ -141,15 +125,14 @@ class SettingsEditor extends React.Component {
       return false;
     }
 
-    const [r1, r2, r3] = await Promise
+    const [r1, r2] = await Promise
         .all([
-          this.updateUserPassword(),
-          this.updateUserDetails(),
+          this.updateUser(),
           this.updateUserAvatar()]);
 
     this.setState({inProgress : false});
 
-    if (r1 && r2 && r3){
+    if (r1 && r2){
       this.props.history.push('/settings');
       return true;
     }
@@ -192,9 +175,7 @@ class SettingsEditor extends React.Component {
                 </div>
               </div>
               <div className="col-md-7">
-                {this.state.inProgress &&
-                 <ProgressBar text="Збереження"/>
-                }
+                {this.state.inProgress && <ProgressBar text="Збереження"/>                 }
 
                 <div className={`profile-head ${this.state.inProgress ? 'hidden' : '' }`}>
                   <h2>{user.name}</h2>
@@ -232,7 +213,7 @@ class SettingsEditor extends React.Component {
                   <br />
 
                   <h4>Telegram (beta)</h4>
-                  <TelegramLoginWidget callbackOnAuth={this.handleTelegramResponse} botName={config.telegram.botName} />
+                  <TelegramLoginWidget callbackOnAuth={this.handleTelegramResponse} botName={campus.config.telegram.botName} />
                   Cтатус: <b>{ !!this.state.user.tgAuthLinked ? `пiдключено` : `не пiдключено` }</b>
                   <br />
                   <br />

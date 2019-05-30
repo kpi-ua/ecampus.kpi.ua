@@ -593,3 +593,18 @@ input[type="radio"] + label {
     width: 200px;
     margin: 0 auto;
 }
+.info-button{
+    vertical-align: middle;
+    padding-right: 25px;
+    font-size: 15pt;
+    padding-top: 25px;
+}
+
+.info-button span{
+    font-size: 20pt;
+    padding-right: 10px;
+}
+
+.left-border{
+    border-left: 1px solid rgba(0,0,0,.1);
+}

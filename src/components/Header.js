@@ -13,7 +13,7 @@ import {
   UncontrolledDropdown
 } from "reactstrap";
 import * as campus from "../CampusClient";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 
 class Header extends React.Component {
@@ -39,7 +39,18 @@ class Header extends React.Component {
 
     return <header className="container-fluid">
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Електронний кампус</NavbarBrand>
+
+        { !!user &&
+          <>
+          <NavbarBrand href="/home">Електронний кампус</NavbarBrand>
+          </>
+        }
+        { !user &&
+        <>
+          <NavbarBrand href="/">Електронний кампус</NavbarBrand>
+        </>
+        }
+
         <NavbarToggler onClick={this.toggle}/>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav navbar>
@@ -76,7 +87,7 @@ class Header extends React.Component {
                 </NavItem>
 
                 <NavItem>
-                  <NavLink href="/messages">Повідомлення</NavLink>
+                  <NavLink disabled={true} href="#">Повідомлення</NavLink>
                 </NavItem>
               </>
             }
@@ -86,17 +97,14 @@ class Header extends React.Component {
                 Iнформація
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem href="http://rozklad.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link"/></DropdownItem>
-                <DropdownItem disabled={true} href="#">Дошка оголошень</DropdownItem>
+                <DropdownItem target="_blank" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link"/></DropdownItem>
+                <DropdownItem href="/bb">Дошка оголошень</DropdownItem>
                 <DropdownItem divider/>
-                <DropdownItem href="http://kbis.kpi.ua/kbis/images/stories/lira/InstructionTeacherCampusV1.pdf">Інструкція користувача <i className="fa fa-external-link"/></DropdownItem>
+                <DropdownItem href="/help">Інструкція користувача</DropdownItem>
                 <DropdownItem href="/privacy">Правила використання інформації сайту</DropdownItem>
                 <DropdownItem href="/about">Про систему</DropdownItem>
+                <DropdownItem href="/documents">Документи КПІ ім. Ігоря Сікорського</DropdownItem>
                 <DropdownItem href="/contacts">Контактнi данi</DropdownItem>
-                <DropdownItem divider/>
-                <DropdownItem href="http://kpi.ua/code">Кодекс честi <i className="fa fa-external-link"/></DropdownItem>
-                <DropdownItem href="http://kpi.ua/admin-rule">Правила внутрішнього розпорядку <i className="fa fa-external-link"/></DropdownItem>
-                <DropdownItem href="http://kpi.ua/regulations">Тимчасове положення про організацію освітнього процесу в Університеті <i className="fa fa-external-link"/></DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
 

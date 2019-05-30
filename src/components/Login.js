@@ -15,7 +15,7 @@ class Login extends React.Component {
 
   componentDidMount = async () => {
     if (!!await campus.getCurrentUser()) {
-      this.props.history.push('/');
+      this.props.history.push('/home');
     }
   };
 
@@ -34,7 +34,7 @@ class Login extends React.Component {
     await this.setState({authFail: !user});
 
     if (!!user) {
-      this.props.history.push(`/`);
+      this.props.history.push(`/home`);
       window.location.reload();
     }
   };
@@ -45,7 +45,7 @@ class Login extends React.Component {
     await this.setState({authFail: !user});
 
     if (!!user) {
-      this.props.history.push(`/`);
+      this.props.history.push(`/home`);
       window.location.reload();
     }
   };

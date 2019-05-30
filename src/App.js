@@ -3,6 +3,7 @@ import './css/App.css';
 import {Switch, Route} from 'react-router-dom'
 import Home from "./components/Home";
 import Privacy from "./components/Privacy";
+import Documents from "./components/Documents";
 import About from "./components/About";
 import Contacts from "./components/Contacts";
 import RestorePassword from "./components/RestorePassword";
@@ -12,6 +13,9 @@ import Login from "./components/Login";
 import * as campus from "./CampusClient";
 import Settings from "./components/Settings";
 import SettingsEditor from "./components/SettingsEditor";
+import Help from "./components/Help";
+import MessagesIndex from "./components/Messages/MessagesIndex";
+import BbIndex from "./components/Bb/BbIndex";
 
 
 class App extends Component {
@@ -39,11 +43,16 @@ class App extends Component {
           <div className="content">
 
             <Switch>
-              <Route exact path='/' component={Home}/>
+              <Route exact path='/' component={Login}/>
+              <Route exact path='/home' component={Home}/>
               <Route exact path='/login' component={Login}/>
               <Route exact path='/privacy' component={Privacy}/>
+              <Route exact path='/documents' component={Documents}/>
               <Route exact path='/about' component={About}/>
+              <Route exact path='/help' component={Help}/>
               <Route exact path='/contacts' component={Contacts}/>
+              <Route exact path='/messages' component={MessagesIndex}/>
+              <Route exact path='/bb' component={BbIndex}/>
               <Route exact path='/settings' component={Settings}/>
               <Route exact path='/settings-editor' component={SettingsEditor}/>
               <Route exact path='/restore-password' component={RestorePassword}/>
@@ -55,8 +64,9 @@ class App extends Component {
 
         <footer className="container-fluid">
           <div className="row">
-            <div className="col-md-12">
-              Усі права застережено. &copy; {new Date().getFullYear()} <a href="http://kpi.ua/">НТУУ «КПІ імені Ігоря Сікорського»</a> <br/>
+            <div className="col-md-6">
+              Усі права застережено. &copy; {new Date().getFullYear()} <a href="http://kpi.ua/">КПІ ім. Ігоря Сікорського</a>
+              <br/>
               Розробник: <a href="http://kbis.kpi.ua/">Конструкторське бюро інформаційних систем</a>
             </div>
           </div>

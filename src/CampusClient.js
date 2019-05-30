@@ -14,6 +14,7 @@ export const config = {
   appDomains: [
     'kpi.ua',
     'campus.kpi.ua',
+    'ecampus.kpi.ua',
     'login.kpi.ua',
   ]
 };
@@ -48,19 +49,13 @@ export const auth = async (login, password) => {
 
   const credentials = await response.json();
 
-  if (!credentials || !credentials.access_token) {
-    return null
+  if (!credentials) {
+    return null;
   }
 
-  localStorage.setItem('token', credentials.access_token);
+  await storeCredentials(credentials.sessionId, credentials.access_token);
 
-  const user = await getCurrentUser();
-
-  if (!!user){
-    await setAuthCookies(user.sid);
-  }
-
-  return user;
+  return await getCurrentUser();
 };
 
 /**
@@ -77,17 +72,9 @@ export const authViaTelegram = async (telegramResponse) => {
   }
 
   const credentials = await response.json();
+  await storeCredentials(credentials.sessionId, credentials.access_token);
 
-  localStorage.setItem('token', credentials.access_token);
-  const user = await getCurrentUser();
-
-  if (!user){
-    return null;
-  }
-
-  await setAuthCookies(user.sid);
-
-  return user;
+  return await getCurrentUser();
 };
 
 /**
@@ -95,8 +82,7 @@ export const authViaTelegram = async (telegramResponse) => {
  * @returns {Promise<void>}
  */
 export const logout = async () => {
-  localStorage.setItem('token', null);
-  await setAuthCookies(null);
+  await storeCredentials(null, null);
 };
 
 /**
@@ -115,7 +101,7 @@ export const callApi = async (path, method, payload = null) => {
     headers: {
       "Accept": 'application/json',
       "Content-Type": 'application/json',
-      "Authorization": `Bearer ${localStorage.getItem('token')}`
+      "Authorization": `Bearer ${getToken()}`
     }
   };
 
@@ -129,6 +115,7 @@ export const callApi = async (path, method, payload = null) => {
 
   return await fetch(url, request);
 };
+
 /**
  * Get URL for Facebook auth
  * @returns {string}
@@ -144,7 +131,8 @@ export const generateFacebookAuthorizationLink = () => {
  * @returns {Promise<*>}
  */
 export const getCurrentUser = async () => {
-  const token = localStorage.getItem('token');
+
+  let token = getToken();
 
   if (!token){
     return null
@@ -160,13 +148,32 @@ export const getCurrentUser = async () => {
 };
 
 /**
+ *
+ * @returns {string}
+ */
+const getToken = () => {
+  const tokenFromLocalStorage = localStorage.getItem('token');
+
+  if (!tokenFromLocalStorage || tokenFromLocalStorage === 'null') {
+    const tokenFromCookie = getCookie('token');
+
+    if (!!tokenFromCookie){
+      localStorage.setItem('token', tokenFromCookie);
+      return tokenFromCookie;
+    }
+  }
+
+  return tokenFromLocalStorage;
+};
+
+/**
  * Update current user profile image
  * @param file
  * @returns {Promise<string>}
  */
 export const updateUserProfileImage = async (file) => {
   const user = await getCurrentUser();
-  const token = localStorage.getItem('token');
+  const token = getToken();
   const endpoint = `${ApiEndpoint}Account/${user.id}/ProfileImage`;
 
   const formData = new FormData();
@@ -196,6 +203,82 @@ export const updateUserProfileImage = async (file) => {
  */
 export const getRandomNumber = (min = 1, max = 1000) => Math.random() * (max - min) + min;
 
+/**
+ * Store token and session ids
+ * @param sessionId
+ * @param token
+ * @returns {Promise<void>}
+ */
+const storeCredentials = async (sessionId, token) => {
+
+  if (!token) {
+    localStorage.removeItem('token');
+  } else {
+    localStorage.setItem('token', token);
+  }
+
+  await setAuthCookies(sessionId, token);
+};
+
+const toUrlEncode = (obj) => {
+  return Object.keys(obj).map(function (k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])
+  }).join('&');
+};
+
+/**
+ * Load bulletins for current user
+ * @param page
+ * @returns {Promise<void>}
+ */
+export const getBulletinBoardForCurrentUser = async (page, size) => {
+
+  const response = await callApi(`Board/All?page=${page}&size=${size}`, 'GET');
+
+  if (response.status < 200 || response.status >= 300) {
+    return null;
+  }
+
+  return await response.json();
+};
+
+/**
+ * Function that returns the value of a specified cookie
+ * https://www.w3schools.com/js/js_cookies.asp
+ * @param cname
+ * @returns {string}
+ */
+const getCookie = (cname) => {
+  const name = cname + "=";
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) === ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) === 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+};
+
+/**
+ *
+ * Store token and session ids
+ * @param sessionId
+ * @param token
+ * @returns {Promise<void>}
+ */
+const setAuthCookies = async (sessionId, token) => {
+  config.appDomains.forEach(function (domain) {
+    setCookie('SID', sessionId, domain, 1);
+    setCookie('token', token, domain, 1);
+  });
+};
+
 const setCookie = (name, value, domain, days) => {
 
   let date = new Date();
@@ -203,21 +286,4 @@ const setCookie = (name, value, domain, days) => {
   const expires = date.toUTCString();
 
   document.cookie = name + "=" + (value || "") + ";expires=" + expires + ";domain=." + domain + ";path=/";
-};
-
-/**
- *
- * @param sessionId
- * @returns {Promise<void>}
- */
-const setAuthCookies = async (sessionId) => {
-  config.appDomains.forEach(function(domain) {
-    setCookie('SID', sessionId, domain, 1);
-  });
-};
-
-const toUrlEncode = (obj) => {
-  return Object.keys(obj).map(function (k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])
-  }).join('&');
 };

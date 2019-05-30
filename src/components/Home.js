@@ -2,6 +2,8 @@ import React from 'react'
 import '../css/Home.css';
 import * as campus from "../CampusClient";
 import {Link} from "react-router-dom";
+import {DropdownItem} from "reactstrap";
+import BbList from "./Bb/BbList";
 
 class Home extends React.Component {
   state = {
@@ -24,6 +26,7 @@ class Home extends React.Component {
 
     return <div>
       <br />
+
       <div className="jumbotron">
         <h1 className="display-4">Вітаємо, {!!user && user.name}!</h1>
         <p className="lead">
@@ -45,58 +48,91 @@ class Home extends React.Component {
       </div>
 
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-8">
+          <div className="row">
+            <div className="col-md-4">
 
-          <h3>Дисципліни вибору</h3>
+              <h3>Дисципліни вибору</h3>
 
-          <ul>
-            <li><span href="#">Вибір студента​</span><span className="badge badge-light">У розробцi</span></li>
-            <li><span href="#">Пропозиції дисциплін​</span><span className="badge badge-light">У розробцi</span></li>
-            <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>
-          </ul>
+              <ul>
+                <li><span href="#">Вибір студента​</span><span className="badge badge-light">У розробцi</span></li>
+                <li><span href="#">Пропозиції дисциплін​</span><span className="badge badge-light">У розробцi</span></li>
+                <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>
+              </ul>
 
 
-          <h3><span href="#">Результати аттестації​</span><span className="badge badge-light">У розробцi</span></h3>
+              <h3><span href="#">Результати аттестації​</span><span className="badge badge-light">У розробцi</span></h3>
 
-          <h3>Статистика</h3>
+              <h3>Статистика</h3>
 
-          <ul>
-            <li><span href="#">Забезпечення кредитного модуля</span><span className="badge badge-light">У розробцi</span></li>
-            <li><span href="#">Індивідуальне навантаження викладачів</span><span className="badge badge-light">У розробцi</span></li>
-          </ul>
+              <ul>
+                <li><span href="#">Забезпечення кредитного модуля</span><span className="badge badge-light">У розробцi</span></li>
+                <li><span href="#">Індивідуальне навантаження викладачів</span><span className="badge badge-light">У розробцi</span></li>
+              </ul>
 
-          <h3><span href="#">РНП</span><span className="badge badge-light">У розробцi</span></h3>
+              <h3><span href="#">РНП</span><span className="badge badge-light">У розробцi</span></h3>
 
-          <h3><Link to="/messages">Повідомлення</Link><span className="badge badge-light">У розробцi</span></h3>
+              <h3><span href="#">Повідомлення</span><span className="badge badge-light">У розробцi</span></h3>
 
+            </div>
+
+            <div className="col-md-4">
+
+              <h3>Iнформація</h3>
+              <ul>
+                <li><a target="_campus_calendar" href="http://rozklad.kpi.ua/" >Розклад занять та сесії <i className="fa fa-external-link"/></a></li>
+                <li><Link to="/bb">Дошка оголошень</Link></li>
+                <li><Link to="/help">Інструкція користувача</Link></li>
+                <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
+                <li><Link to="/about">Про систему</Link></li>
+                <li><Link to="/documents">Документи КПІ ім. Ігоря Сікорського</Link></li>
+                <li><Link to="/contacts">Контактнi данi</Link></li>
+              </ul>
+
+            </div>
+
+            <div className="col-md-4">
+              <h3>Аккаунт</h3>
+              <ul>
+                <li><Link to="/settings">Налаштування</Link></li>
+              </ul>
+
+            </div>
+
+          </div>
+
+          <hr />
+
+          <div className="row">
+            <div className="col-md-7">
+
+              <h2>Соціальні мережі</h2>
+
+              Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також нашому телеграм каналі:
+              <br />
+              <a className="info-button" href=""><span className="fa fa-facebook"></span>Facebook</a>
+              <a className="info-button" href=""><span className="fa fa-telegram"></span>Telegram</a>
+              <br /><br />
+            </div>
+            <div className="col-md-5">
+              <h2>Служба пiдтримки</h2>
+
+              Ви завжди можете звернутися в службу підтримки:
+              <br />
+              <a className="info-button" href=""><span className="fa fa-envelope"></span>Email</a>
+            </div>
+          </div>
         </div>
 
         <div className="col-md-4">
-
-          <h3>Iнформація</h3>
-          <ul>
-            <li><a href="http://rozklad.kpi.ua/" target="_campus_calendar">Розклад занять та сесії <i className="fa fa-external-link"/></a></li>
-            <li><span href="#">Дошка оголошень</span><span className="badge badge-light">У розробцi</span></li>
-            <li><a href="http://kbis.kpi.ua/kbis/images/stories/lira/InstructionTeacherCampusV1.pdf" target="_campus_manual">Інструкція користувача <i className="fa fa-external-link"/></a></li>
-            <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
-            <li><Link to="/about">Про систему</Link></li>
-            <li><Link to="/contacts">Контактнi данi</Link></li>
-            <li><a href="http://kpi.ua/code" target="_campus_code">Кодекс честi <i className="fa fa-external-link"/></a></li>
-            <li><a href="http://kpi.ua/admin-rule" target="_campus_rule">Правила внутрішнього розпорядку <i className="fa fa-external-link"/></a></li>
-            <li><a href="http://kpi.ua/regulations" target="_campus_regulations">Тимчасове положення про організацію освітнього процесу в Університеті <i className="fa fa-external-link"/></a></li>
-          </ul>
-
+          <h3>Оголошення</h3>
+          <BbList enablePaging={false} pageSize={3}/>
+          <Link to="/bb">Читати усi оголошення</Link>
         </div>
-
-        <div className="col-md-4">
-          <h3>Аккаунт</h3>
-          <ul>
-            <li><Link to="/settings">Налаштування</Link></li>
-          </ul>
-
-        </div>
-
       </div>
+
+
+
     </div>;
   }
 }
