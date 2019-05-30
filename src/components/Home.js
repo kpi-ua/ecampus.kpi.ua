@@ -110,8 +110,8 @@ class Home extends React.Component {
 
               Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також нашому телеграм каналі:
               <br />
-              <a className="info-button" href=""><span className="fa fa-facebook"></span>Facebook</a>
-              <a className="info-button" href=""><span className="fa fa-telegram"></span>Telegram</a>
+              <a className="info-button" href="https://www.facebook.com/kbis.kpi.ua/"><span className="fa fa-facebook"></span>Facebook</a>
+              <a className="info-button" href="https://t.me/kpikb"><span className="fa fa-telegram"></span>Telegram</a>
               <br /><br />
             </div>
             <div className="col-md-5">
@@ -119,7 +119,7 @@ class Home extends React.Component {
 
               Ви завжди можете звернутися в службу підтримки:
               <br />
-              <a className="info-button" href=""><span className="fa fa-envelope"></span>Email</a>
+              <a className="info-button" href="mailto:ecampus@kpi.ua"><span className="fa fa-envelope"></span>Email</a>
             </div>
           </div>
         </div>
@@ -130,8 +130,6 @@ class Home extends React.Component {
           <Link to="/bb">Читати усi оголошення</Link>
         </div>
       </div>
-
-
 
     </div>;
   }
