@@ -28,7 +28,7 @@ class Home extends React.Component {
       <br />
 
       <div className="jumbotron">
-        <h1 className="display-4">Вітаємо, {!!user && user.name}!</h1>
+        <h1 className="display-4">Вітаємо, {!!user && user.fullName}!</h1>
         <p className="lead">
           Електронний кампус  – це система підтримки навчального процесу університету.
         </p>
