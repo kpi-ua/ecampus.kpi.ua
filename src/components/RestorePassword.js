@@ -118,7 +118,7 @@ class RestorePassword extends React.Component {
                     }
                     {this.state.step === 3 &&
                     <div className="form-group">
-                      <h4>Пароль було надiслано на вашу електрону пошту</h4>
+                      <h4>Лист з iнструкцiями по вiдновленню паролю було надiслано на вашу електрону пошту</h4>
                       <Link to={'/'}>Перейти на головну</Link>
                     </div>
                     }

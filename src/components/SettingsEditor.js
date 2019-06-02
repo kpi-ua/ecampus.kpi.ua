@@ -178,7 +178,7 @@ class SettingsEditor extends React.Component {
                 {this.state.inProgress && <ProgressBar text="Збереження"/>                 }
 
                 <div className={`profile-head ${this.state.inProgress ? 'hidden' : '' }`}>
-                  <h2>{user.name}</h2>
+                  <h2>{user.fullName}</h2>
 
                   <h4>Кредо</h4>
                     <input type="text" className="form-control" maxLength="500" value={this.state.credo}
