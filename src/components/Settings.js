@@ -37,7 +37,7 @@ class Settings extends React.Component {
               </div>
               <div className="col-md-7">
                 <div className="profile-head">
-                  <h2>{user.name}</h2>
+                  <h2>{user.fullName}</h2>
 
                   <div className="credo">
                     {this.state.user.credo}
