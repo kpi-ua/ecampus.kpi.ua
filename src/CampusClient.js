@@ -229,6 +229,7 @@ const toUrlEncode = (obj) => {
 /**
  * Load bulletins for current user
  * @param page
+ * @param size
  * @returns {Promise<void>}
  */
 export const getBulletinBoardForCurrentUser = async (page, size) => {
@@ -273,9 +274,11 @@ const getCookie = (cname) => {
  * @returns {Promise<void>}
  */
 const setAuthCookies = async (sessionId, token) => {
+  let days = 365;
+
   config.appDomains.forEach(function (domain) {
-    setCookie('SID', sessionId, domain, 1);
-    setCookie('token', token, domain, 1);
+    setCookie('SID', sessionId, domain, days);
+    setCookie('token', token, domain, days);
   });
 };
 

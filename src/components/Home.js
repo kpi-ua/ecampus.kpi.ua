@@ -108,7 +108,7 @@ class Home extends React.Component {
 
               <h2>Соціальні мережі</h2>
 
-              Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також нашому телеграм каналі:
+              Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також нашому Телеграм каналі:
               <br />
               <a className="info-button" href="https://www.facebook.com/kbis.kpi.ua/"><span className="fa fa-facebook"></span>Facebook</a>
               <a className="info-button" href="https://t.me/kpikb"><span className="fa fa-telegram"></span>Telegram</a>
