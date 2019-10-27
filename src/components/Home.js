@@ -2,7 +2,6 @@ import React from 'react'
 import '../css/Home.css';
 import * as campus from "../CampusClient";
 import {Link} from "react-router-dom";
-import {DropdownItem} from "reactstrap";
 import BbList from "./Bb/BbList";
 
 class Home extends React.Component {

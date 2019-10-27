@@ -13,7 +13,7 @@ import {
   UncontrolledDropdown
 } from "reactstrap";
 import * as campus from "../CampusClient";
-import {Link, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 
 class Header extends React.Component {
@@ -27,12 +27,20 @@ class Header extends React.Component {
     });
   };
 
+  /**
+   * Handle when user logged out
+   */
+  onLogout;
+
   exit = async (e) => {
     e.preventDefault();
     await campus.logout();
     this.props.history.push('/login');
-  };
 
+    if (!!this.props.onLogout){
+      this.props.onLogout();
+    }
+  };
 
   render() {
     const { user } = this.props;

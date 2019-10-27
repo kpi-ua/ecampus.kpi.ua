@@ -37,7 +37,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Header user={this.state.user} />
+        <Header user={this.state.user} onLogout={() => this.setState({user: null})} />
 
         <div className="container-fluid content">
           <div className="content">

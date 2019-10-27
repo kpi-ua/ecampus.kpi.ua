@@ -1,6 +1,5 @@
 import React from 'react'
 import '../../css/Mail.css';
-import * as campus from "../../CampusClient";
 
 const MessagesIndex = () =>
   <div className="row">

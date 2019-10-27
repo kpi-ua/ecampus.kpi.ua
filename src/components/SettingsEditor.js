@@ -60,8 +60,6 @@ class SettingsEditor extends React.Component {
     return true;
   };
 
-
-
   /**
    * Update user profile details
    * @returns {Promise<boolean>}
@@ -74,7 +72,6 @@ class SettingsEditor extends React.Component {
       scientificInterest: this.state.scientificInterest,
       credo: this.state.credo
     };
-
 
     if (!this.validatePassword()) {
       alert('Паролi не спiвпадають');

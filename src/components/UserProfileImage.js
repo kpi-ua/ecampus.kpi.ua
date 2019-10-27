@@ -1,8 +1,5 @@
 import React from 'react'
-import {ApiEndpoint, default as campus, getRandomNumber} from "../CampusClient";
-import ProgressBar from "./ProgressBar";
-import TelegramLoginWidget from "./TelegramLoginWidget";
-import {Link} from "react-router-dom";
+import {ApiEndpoint, getRandomNumber} from "../CampusClient";
 
 class UserProfileImage extends React.Component {
 

@@ -103,7 +103,6 @@ class Login extends React.Component {
                         botName={campus.config.telegram.botName}/>
                     </div>
 
-
                   </fieldset>
                 </form>
                 <br/>

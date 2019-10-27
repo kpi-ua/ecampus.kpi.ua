@@ -10,7 +10,7 @@ const SocialForbidden = () =>
       <br/>
 
       <div className="text-center">
-        <img className="img-responsive sad-cat" src="/images/sad-cat.png"/>
+        <img alt="forbidden" className="img-responsive sad-cat" src="/images/sad-cat.png"/>
       </div>
     </div>
   </div>;

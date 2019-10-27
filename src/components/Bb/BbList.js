@@ -1,6 +1,5 @@
 import React from 'react'
 import * as campus from "../../CampusClient";
-import {Link} from "react-router-dom";
 import '../../css/Bb.css';
 import Pagination from "react-js-pagination";
 

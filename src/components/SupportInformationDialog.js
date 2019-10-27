@@ -11,7 +11,9 @@ class SupportInformationDialog extends React.Component {
   render = () =>
     <div>
       <span className="link" onClick={this.toggle}>Служба підтримки</span> (<a target="_tg" href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw">Telegram чат</a>)
-
+      <br />
+      Корпус 13, 4 поверх, 25 кабінет
+      <br />
       <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
         <ModalHeader toggle={this.toggle}>Служба підтримки</ModalHeader>
         <ModalBody>

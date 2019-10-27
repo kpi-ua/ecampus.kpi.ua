@@ -14,11 +14,11 @@ const Documents = () =>
       <br />
       Прийняття принципів і норм, що наведені в цих документах, засвідчується згодою члена університетської громади.
       <hr />
-      <a target="_blank" href="http://kpi.ua/code">Кодекс честі</a>
+      <a target="_blank" rel="noopener noreferrer" href="http://kpi.ua/code">Кодекс честі</a>
       <hr />
-      <a target="_blank" href="http://kpi.ua/admin-rule">Правила внутрішнього розпорядку</a>
+      <a target="_blank" rel="noopener noreferrer" href="http://kpi.ua/admin-rule">Правила внутрішнього розпорядку</a>
       <hr />
-      <a target="_blank" href="http://kpi.ua/regulations">Тимчасове положення про організацію освітнього процесу в Університеті</a>
+      <a target="_blank" rel="noopener noreferrer" href="http://kpi.ua/regulations">Тимчасове положення про організацію освітнього процесу в Університеті</a>
       <br />
   </div>
 </div>;
