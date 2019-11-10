@@ -1,1 +1,1 @@
-Welcome to Igor Sikorsky Kyiv Polytechnic Institute integrated information system!
+# Electronic Campus of Igor Sikorsky Kyiv Polytechnic Institute
