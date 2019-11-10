@@ -10,6 +10,7 @@ import RestorePassword from "./components/RestorePassword";
 import SocialForbidden from "./components/SocialForbidden";
 import Header from "./components/Header";
 import Login from "./components/Login";
+import KPIIDLogin from "./components/KPIIDLogin";
 import * as campus from "./CampusClient";
 import Settings from "./components/Settings";
 import SettingsEditor from "./components/SettingsEditor";
@@ -46,6 +47,7 @@ class App extends Component {
               <Route exact path='/' component={Login}/>
               <Route exact path='/home' component={Home}/>
               <Route exact path='/login' component={Login}/>
+              <Route exact path='/kpiid' component={KPIIDLogin}/>
               <Route exact path='/privacy' component={Privacy}/>
               <Route exact path='/documents' component={Documents}/>
               <Route exact path='/about' component={About}/>
