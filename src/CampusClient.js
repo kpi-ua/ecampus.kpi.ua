@@ -59,6 +59,50 @@ export const auth = async (login, password) => {
 };
 
 /**
+ * Request secret code for KPI ID auth
+ * @param phone
+ * @returns {Promise<void>}
+ */
+export const requestKpiIdSecret = async (phone) =>{
+  const response = await callApi('Account/oauth/login/kpiid/secret?phone=' + phone, 'GET');
+};
+
+/**
+ *
+ * @param phone
+ * @param secret
+ * @returns {Promise<null|*>}
+ */
+export const authByKpiId = async (phone, secret) =>{
+  const payload = {
+    phone: phone,
+    secret: secret
+  };
+  const response = await fetch(`${ApiEndpoint}Account/oauth/login/kpiid`, {
+    method: "POST",
+    cache: "no-cache",
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  if (response.status < 200 || response.status >= 300) {
+    console.warn(`Incorrect credentials`);
+    return null;
+  }
+
+  const credentials = await response.json();
+
+  if (!credentials) {
+    return null;
+  }
+
+  await storeCredentials(credentials.sessionId, credentials.access_token);
+
+  return await getCurrentUser();
+
+};
+
+/**
  * Authorize in Campus API with Telegram
  * @param telegramResponse
  * @returns {Promise<*>}
