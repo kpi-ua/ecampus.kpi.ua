@@ -13,7 +13,8 @@ import {
   UncontrolledDropdown
 } from "reactstrap";
 import * as campus from "../CampusClient";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import * as Security from "../Security";
 
 
 class Header extends React.Component {
@@ -65,30 +66,31 @@ class Header extends React.Component {
 
             { !!user &&
               <>
-                <UncontrolledDropdown nav>
-                  <DropdownToggle nav caret>
-                    Дисципліни вибору
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem disabled={true} href="#">Вибір студента​</DropdownItem>
-                    <DropdownItem disabled={true} href="#">Пропозиції дисциплін​</DropdownItem>
-                    <DropdownItem disabled={true} href="#">Дисципліни спеціалізації</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                {/*<UncontrolledDropdown nav>*/}
+                {/*  <DropdownToggle nav caret>*/}
+                {/*    Дисципліни вибору*/}
+                {/*  </DropdownToggle>*/}
+                {/*  <DropdownMenu>*/}
+                {/*    <DropdownItem disabled={true} href="#">Вибір студента​</DropdownItem>*/}
+                {/*    <DropdownItem disabled={true} href="#">Пропозиції дисциплін​</DropdownItem>*/}
+                {/*    <DropdownItem disabled={true} href="#">Дисципліни спеціалізації</DropdownItem>*/}
+                {/*  </DropdownMenu>*/}
+                {/*</UncontrolledDropdown>*/}
 
-                <NavItem>
-                  <NavLink disabled={true} href="#">Результати аттестації​</NavLink>
-                </NavItem>
+                {/*<NavItem>*/}
+                {/*  <NavLink disabled={true} href="#">Результати аттестації​</NavLink>*/}
+                {/*</NavItem>*/}
 
+                { Security.userHasProfile(user, 'Lecturer') &&
                 <UncontrolledDropdown nav>
                   <DropdownToggle nav caret>
                     Статистика
                   </DropdownToggle>
                   <DropdownMenu>
-                    <DropdownItem disabled={true} href="#">Забезпечення кредитного модуля</DropdownItem>
-                    <DropdownItem disabled={true} href="#">Індивідуальне навантаження викладачів</DropdownItem>
+                    <DropdownItem href="/statistic/zkm">Забезпечення кредитного модуля</DropdownItem>
+                    <DropdownItem href="/statistic/npp">Індивідуальне навантаження викладачів</DropdownItem>
                   </DropdownMenu>
-                </UncontrolledDropdown>
+                </UncontrolledDropdown> }
 
                 <NavItem>
                   <NavLink disabled={true} href="#">РНП</NavLink>
