@@ -1,4 +1,5 @@
-export const ApiEndpoint = 'https://api.campus.kpi.ua/';
+ export const ApiEndpoint = 'https://api.campus.kpi.ua/';
+// export const ApiEndpoint = 'http://localhost:5000/';
 
 /**
  * Application configuration

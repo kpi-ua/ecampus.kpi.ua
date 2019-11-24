@@ -1,17 +1,25 @@
 /**
- * Check that user has profile
+ *
  * @param user
- * @param profile
+ * @param module
  * @returns {boolean}
  */
-export const userHasProfile = (user, profile) => {
+export const hasAccessToModule = (user, module) => {
 
-  if (!user || !user.userProfiles) {
+  if (!user || !user.modules) {
     return false;
   }
 
-  return user.userProfiles.some(function (p) {
-    return  !!p &&  p.profile === profile;
+  return user.modules.some(function (m) {
+    return m === module;
   });
+};
 
+export const Modules = {
+  RNP: 'RNP',
+  Statistic: 'Statistic',
+  Messages: 'Messages',
+  PersonalArea: 'PersonalArea',
+  AttestationResult: 'AttestationResult',
+  Information: 'Information'
 };
