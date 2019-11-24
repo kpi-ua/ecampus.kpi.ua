@@ -15,7 +15,6 @@ import * as campus from "./CampusClient";
 import Settings from "./components/Settings";
 import SettingsEditor from "./components/SettingsEditor";
 import Help from "./components/Help";
-import MessagesIndex from "./components/Messages/MessagesIndex";
 import BbIndex from "./components/Bb/BbIndex";
 import StatisticIndex from "./components/Statistic/StatisticIndex";
 import NPP from "./components/Statistic/NPP";
@@ -56,7 +55,6 @@ class App extends Component {
               <Route exact path='/about' component={About}/>
               <Route exact path='/help' component={Help}/>
               <Route exact path='/contacts' component={Contacts}/>
-              <Route exact path='/messages' component={MessagesIndex}/>
               <Route exact path='/bb' component={BbIndex}/>
               <Route exact path='/settings' component={Settings}/>
               <Route exact path='/settings-editor' component={SettingsEditor}/>
