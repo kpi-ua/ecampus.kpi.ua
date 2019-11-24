@@ -97,11 +97,13 @@ class Home extends React.Component {
                 </ul>
               }
 
+
             </div>
 
             <div className="col-md-8">
 
               {Security.hasAccessToModule(user, Security.Modules.Information) && <h3>Iнформація</h3> }
+
 
               {Security.hasAccessToModule(user, Security.Modules.Information) &&
                 <ul>
