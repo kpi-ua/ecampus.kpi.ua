@@ -618,3 +618,8 @@ input[type="radio"] + label {
 .left-border{
     border-left: 1px solid rgba(0,0,0,.1);
 }
+
+.btn-statistic {
+    width: 100%;
+    margin-top: 15px;
+}
