@@ -1,4 +1,5 @@
-export const ApiEndpoint = 'https://api.campus.kpi.ua/';
+ export const ApiEndpoint = 'https://api.campus.kpi.ua/';
+// export const ApiEndpoint = 'http://localhost:5000/';
 
 /**
  * Application configuration
@@ -127,6 +128,8 @@ export const authViaTelegram = async (telegramResponse) => {
  */
 export const logout = async () => {
   await storeCredentials(null, null);
+
+  localStorage.clear();
 };
 
 /**
@@ -176,10 +179,21 @@ export const generateFacebookAuthorizationLink = () => {
  */
 export const getCurrentUser = async () => {
 
+  const cachedUserInfoKey = 'currentUser';
+
   let token = getToken();
 
   if (!token){
+    localStorage.setItem(cachedUserInfoKey, '');
     return null
+  }
+
+  const cachedUserInfoJson = localStorage.getItem(cachedUserInfoKey)
+  const cachedUserInfo = !!cachedUserInfoJson ? JSON.parse(cachedUserInfoJson) : null;
+
+  if (!!cachedUserInfo) {
+    console.log('Used cached user info');
+    return cachedUserInfo;
   }
 
   const response = await callApi('Account/Info', 'GET');
@@ -188,7 +202,14 @@ export const getCurrentUser = async () => {
     return null;
   }
 
-  return await response.json();
+  const user = await response.json();
+
+  if (!!user) {
+    localStorage.setItem(cachedUserInfoKey, JSON.stringify(user));
+  }
+
+  console.log('user from api', user)
+  return user;
 };
 
 /**

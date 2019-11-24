@@ -13,7 +13,8 @@ import {
   UncontrolledDropdown
 } from "reactstrap";
 import * as campus from "../CampusClient";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import * as Security from "../Security";
 
 
 class Header extends React.Component {
@@ -65,63 +66,70 @@ class Header extends React.Component {
 
             { !!user &&
               <>
-                <UncontrolledDropdown nav>
-                  <DropdownToggle nav caret>
-                    Дисципліни вибору
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem disabled={true} href="#">Вибір студента​</DropdownItem>
-                    <DropdownItem disabled={true} href="#">Пропозиції дисциплін​</DropdownItem>
-                    <DropdownItem disabled={true} href="#">Дисципліни спеціалізації</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                {/*<UncontrolledDropdown nav>*/}
+                {/*  <DropdownToggle nav caret>*/}
+                {/*    Дисципліни вибору*/}
+                {/*  </DropdownToggle>*/}
+                {/*  <DropdownMenu>*/}
+                {/*    <DropdownItem disabled={true} href="#">Вибір студента​</DropdownItem>*/}
+                {/*    <DropdownItem disabled={true} href="#">Пропозиції дисциплін​</DropdownItem>*/}
+                {/*    <DropdownItem disabled={true} href="#">Дисципліни спеціалізації</DropdownItem>*/}
+                {/*  </DropdownMenu>*/}
+                {/*</UncontrolledDropdown>*/}
 
-                <NavItem>
-                  <NavLink disabled={true} href="#">Результати аттестації​</NavLink>
-                </NavItem>
+                {Security.hasAccessToModule(user, Security.Modules.AttestationResult) &&
+                  <NavItem>
+                    <NavLink disabled={true} href="#">Результати аттестації​</NavLink>
+                  </NavItem>
+                }
 
-                <UncontrolledDropdown nav>
-                  <DropdownToggle nav caret>
-                    Статистика
-                  </DropdownToggle>
-                  <DropdownMenu>
-                    <DropdownItem disabled={true} href="#">Забезпечення кредитного модуля</DropdownItem>
-                    <DropdownItem disabled={true} href="#">Індивідуальне навантаження викладачів</DropdownItem>
-                  </DropdownMenu>
-                </UncontrolledDropdown>
+                { Security.hasAccessToModule(user, Security.Modules.Statistic) &&
+                  <UncontrolledDropdown nav>
+                    <DropdownToggle nav caret>
+                      Статистика
+                    </DropdownToggle>
+                    <DropdownMenu>
+                      <DropdownItem href="/statistic/zkm">Забезпечення кредитного модуля</DropdownItem>
+                      <DropdownItem href="/statistic/npp">Індивідуальне навантаження викладачів</DropdownItem>
+                    </DropdownMenu>
+                  </UncontrolledDropdown>
+                }
 
-                <NavItem>
-                  <NavLink disabled={true} href="#">РНП</NavLink>
-                </NavItem>
+                {Security.hasAccessToModule(user, Security.Modules.RNP) &&
+                  <NavItem>
+                    <NavLink disabled={true} href="#">РНП</NavLink>
+                  </NavItem>
+                }
 
-                <NavItem>
-                  <NavLink disabled={true} href="#">Повідомлення</NavLink>
-                </NavItem>
+                {Security.hasAccessToModule(user, Security.Modules.Messages) &&
+                  <NavItem>
+                    <NavLink disabled={true} href="#">Повідомлення</NavLink>
+                  </NavItem>
+                }
               </>
             }
 
-            <UncontrolledDropdown nav>
-              <DropdownToggle nav caret>
-                Iнформація
-              </DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem target="_blank" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link"/></DropdownItem>
-                <DropdownItem href="/bb">Дошка оголошень</DropdownItem>
-                <DropdownItem divider/>
-                <DropdownItem href="/help">Інструкція користувача</DropdownItem>
-                <DropdownItem href="/privacy">Правила використання інформації сайту</DropdownItem>
-                <DropdownItem href="/about">Про систему</DropdownItem>
-                <DropdownItem href="/documents">Документи КПІ ім. Ігоря Сікорського</DropdownItem>
-                <DropdownItem href="/contacts">Контактнi данi</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            {Security.hasAccessToModule(user, Security.Modules.Information) &&
+              <UncontrolledDropdown nav>
+                <DropdownToggle nav caret>
+                  Iнформація
+                </DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem target="_blank" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i
+                    className="fa fa-external-link"/></DropdownItem>
+                  <DropdownItem href="/bb">Дошка оголошень</DropdownItem>
+                  <DropdownItem divider/>
+                  <DropdownItem href="/help">Інструкція користувача</DropdownItem>
+                  <DropdownItem href="/privacy">Правила використання інформації сайту</DropdownItem>
+                  <DropdownItem href="/about">Про систему</DropdownItem>
+                  <DropdownItem href="/documents">Документи КПІ ім. Ігоря Сікорського</DropdownItem>
+                  <DropdownItem href="/contacts">Контактнi данi</DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            }
 
-            { !!user &&
+            {Security.hasAccessToModule(user, Security.Modules.PersonalArea) &&
               <>
-                <NavItem>
-                  <NavLink href="http://campus.kpi.ua">До попередньої версії кампусу <i
-                    className="fa fa-external-link"/></NavLink>
-                </NavItem>
 
                 <UncontrolledDropdown nav>
                   <DropdownToggle nav caret>
@@ -133,6 +141,13 @@ class Header extends React.Component {
                     <DropdownItem href="#" onClick={this.exit}>Вихід з системи</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
+
+                <NavItem>
+                  <NavLink href="http://campus.kpi.ua">
+                    До поточної версії кампусу <i className="fa fa-external-link"/>
+                  </NavLink>
+                </NavItem>
+
               </>
             }
 
