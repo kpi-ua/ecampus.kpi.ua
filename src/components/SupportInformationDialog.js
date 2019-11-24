@@ -22,7 +22,7 @@ class SupportInformationDialog extends React.Component {
             href="mailto:ecampus@kpi.ua">ecampus@kpi.ua</a>
           </p>
           <p>
-            Для термінового зв'язку ви можете подзвонити за номером:<br/><a href="tel:+380442048004">+380 (44) 204 80 06</a>.
+            Для термінового зв'язку ви можете подзвонити за номером:<br/><a href="tel:+380442048006">+380 (44) 204 80 06</a>.
           </p>
           <p>
             Також ви можете завітати до констуркторського бюро, за адресою: <a href="http://maps.yandex.ua/-/CVremSol">Україна,

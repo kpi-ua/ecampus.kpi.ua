@@ -17,6 +17,9 @@ import SettingsEditor from "./components/SettingsEditor";
 import Help from "./components/Help";
 import MessagesIndex from "./components/Messages/MessagesIndex";
 import BbIndex from "./components/Bb/BbIndex";
+import StatisticIndex from "./components/Statistic/StatisticIndex";
+import NPP from "./components/Statistic/NPP";
+import ZKM from "./components/Statistic/ZKM";
 
 
 class App extends Component {
@@ -59,6 +62,9 @@ class App extends Component {
               <Route exact path='/settings-editor' component={SettingsEditor}/>
               <Route exact path='/restore-password' component={RestorePassword}/>
               <Route exact path='/social-forbidden' component={SocialForbidden}/>
+              <Route exact path='/statistic' component={StatisticIndex}/>
+              <Route exact path='/statistic/npp' component={NPP}/>
+              <Route exact path='/statistic/zkm' component={ZKM}/>
             </Switch>
 
           </div>

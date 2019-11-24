@@ -3,6 +3,7 @@ import '../css/Home.css';
 import * as campus from "../CampusClient";
 import {Link} from "react-router-dom";
 import BbList from "./Bb/BbList";
+import * as Security from "../Security";
 
 class Home extends React.Component {
   state = {
@@ -51,31 +52,37 @@ class Home extends React.Component {
           <div className="row">
             <div className="col-md-4">
 
-              <h3>Дисципліни вибору</h3>
+              {/*<h3>Дисципліни вибору</h3>*/}
 
+              {/*<ul>*/}
+              {/*  <li><span href="#">Вибір студента​</span><span className="badge badge-light">У розробцi</span></li>*/}
+              {/*  <li><span href="#">Пропозиції дисциплін​</span><span className="badge badge-light">У розробцi</span></li>*/}
+              {/*  <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>*/}
+              {/*</ul>*/}
+
+              {/*<h3><span href="#">Результати аттестації​</span><span className="badge badge-light">У розробцi</span></h3>*/}
+
+              { Security.userHasProfile(user, 'Lecturer') && <h3>Статистика</h3> }
+
+              { Security.userHasProfile(user, 'Lecturer') &&
+                <ul>
+                  <li><Link to="/statistic/zkm">Забезпечення кредитного модуля</Link></li>
+                  <li><Link to="/statistic/npp">Індивідуальне навантаження викладачів</Link></li>
+                </ul>
+              }
+
+              {/*<h3><span href="#">РНП</span><span className="badge badge-light">У розробцi</span></h3>*/}
+
+              {/*<h3><span href="#">Повідомлення</span><span className="badge badge-light">У розробцi</span></h3>*/}
+
+              <h3>Аккаунт</h3>
               <ul>
-                <li><span href="#">Вибір студента​</span><span className="badge badge-light">У розробцi</span></li>
-                <li><span href="#">Пропозиції дисциплін​</span><span className="badge badge-light">У розробцi</span></li>
-                <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>
+                <li><Link to="/settings">Налаштування</Link></li>
               </ul>
-
-
-              <h3><span href="#">Результати аттестації​</span><span className="badge badge-light">У розробцi</span></h3>
-
-              <h3>Статистика</h3>
-
-              <ul>
-                <li><span href="#">Забезпечення кредитного модуля</span><span className="badge badge-light">У розробцi</span></li>
-                <li><span href="#">Індивідуальне навантаження викладачів</span><span className="badge badge-light">У розробцi</span></li>
-              </ul>
-
-              <h3><span href="#">РНП</span><span className="badge badge-light">У розробцi</span></h3>
-
-              <h3><span href="#">Повідомлення</span><span className="badge badge-light">У розробцi</span></h3>
 
             </div>
 
-            <div className="col-md-4">
+            <div className="col-md-8">
 
               <h3>Iнформація</h3>
               <ul>
@@ -86,14 +93,6 @@ class Home extends React.Component {
                 <li><Link to="/about">Про систему</Link></li>
                 <li><Link to="/documents">Документи КПІ ім. Ігоря Сікорського</Link></li>
                 <li><Link to="/contacts">Контактнi данi</Link></li>
-              </ul>
-
-            </div>
-
-            <div className="col-md-4">
-              <h3>Аккаунт</h3>
-              <ul>
-                <li><Link to="/settings">Налаштування</Link></li>
               </ul>
 
             </div>
