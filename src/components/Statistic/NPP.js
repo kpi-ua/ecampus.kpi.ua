@@ -10,7 +10,7 @@ const NPP = () =>
         <div className="col-md-12">
 
           <a className="btn btn-primary btn-lg"  role="button" href="https://statistic.ecampus.kpi.ua/npp.html" target="_campus">
-            До попередньої версії підсистеми статистики <i className="fa fa-external-link"/>
+            Перейти до модуля <i className="fa fa-external-link"/>
           </a>
 
         </div>

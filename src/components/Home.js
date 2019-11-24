@@ -17,6 +17,13 @@ class Home extends React.Component {
     if (!user) {
       this.props.history.push('/login');
       return;
+    } else {
+
+      if (!user.modules){
+        await campus.logout();
+        window.location.href = 'https://ecampus.kpi.ua/'
+      }
+
     }
 
     this.setState({user});
@@ -122,6 +129,7 @@ class Home extends React.Component {
 
               Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також нашому Телеграм каналі:
               <br />
+              <br />
               <a className="info-button" href="https://www.facebook.com/kbis.kpi.ua/"><span className="fa fa-facebook"></span>Facebook</a>
               <a className="info-button" href="https://t.me/kpikb"><span className="fa fa-telegram"></span>Telegram</a>
               <br /><br />
@@ -130,6 +138,7 @@ class Home extends React.Component {
               <h2>Служба пiдтримки</h2>
 
               Ви завжди можете звернутися в службу підтримки:
+              <br />
               <br />
               <a className="info-button" href="mailto:ecampus@kpi.ua"><span className="fa fa-envelope"></span>Email</a>
             </div>
