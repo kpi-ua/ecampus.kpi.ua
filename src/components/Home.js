@@ -4,6 +4,7 @@ import * as campus from "../CampusClient";
 import {Link} from "react-router-dom";
 import BbList from "./Bb/BbList";
 import * as Security from "../Security";
+import {NavLink} from "reactstrap";
 
 class Home extends React.Component {
   state = {
@@ -41,7 +42,7 @@ class Home extends React.Component {
           </p>
           <p className="lead">
             <a className="btn btn-primary btn-lg"  role="button" href="http://campus.kpi.ua" target="_campus">
-              До попередньої версії кампусу <i className="fa fa-external-link"/>
+              До поточної версії кампусу <i className="fa fa-external-link"/>
             </a>
 
           </p>
@@ -60,40 +61,53 @@ class Home extends React.Component {
               {/*  <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>*/}
               {/*</ul>*/}
 
-              {/*<h3><span href="#">Результати аттестації​</span><span className="badge badge-light">У розробцi</span></h3>*/}
+              {Security.hasAccessToModule(user, Security.Modules.AttestationResult) &&
+                <h3><span href="#">Результати аттестації​</span><span className="badge badge-light">У розробцi</span></h3>
+              }
 
-              { Security.userHasProfile(user, 'Lecturer') && <h3>Статистика</h3> }
+              { Security.hasAccessToModule(user, Security.Modules.Statistic) && <h3>Статистика</h3> }
 
-              { Security.userHasProfile(user, 'Lecturer') &&
+              { Security.hasAccessToModule(user, Security.Modules.Statistic) &&
                 <ul>
                   <li><Link to="/statistic/zkm">Забезпечення кредитного модуля</Link></li>
                   <li><Link to="/statistic/npp">Індивідуальне навантаження викладачів</Link></li>
                 </ul>
               }
 
-              {/*<h3><span href="#">РНП</span><span className="badge badge-light">У розробцi</span></h3>*/}
+              {Security.hasAccessToModule(user, Security.Modules.RNP) &&
+                <h3><span href="#">РНП</span><span className="badge badge-light">У розробцi</span></h3>
+              }
 
-              {/*<h3><span href="#">Повідомлення</span><span className="badge badge-light">У розробцi</span></h3>*/}
+              {Security.hasAccessToModule(user, Security.Modules.Messages) &&
+                <h3><span href="#">Повідомлення</span><span className="badge badge-light">У розробцi</span></h3>
+              }
 
-              <h3>Аккаунт</h3>
-              <ul>
-                <li><Link to="/settings">Налаштування</Link></li>
-              </ul>
+              {Security.hasAccessToModule(user, Security.Modules.PersonalArea) && <h3>Аккаунт</h3> }
+
+              {Security.hasAccessToModule(user, Security.Modules.PersonalArea) &&
+                <ul>
+                  <li><Link to="/settings">Налаштування</Link></li>
+                </ul>
+              }
 
             </div>
 
             <div className="col-md-8">
 
-              <h3>Iнформація</h3>
-              <ul>
-                <li><a target="_campus_calendar" href="http://rozklad.kpi.ua/" >Розклад занять та сесії <i className="fa fa-external-link"/></a></li>
-                <li><Link to="/bb">Дошка оголошень</Link></li>
-                <li><Link to="/help">Інструкція користувача</Link></li>
-                <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
-                <li><Link to="/about">Про систему</Link></li>
-                <li><Link to="/documents">Документи КПІ ім. Ігоря Сікорського</Link></li>
-                <li><Link to="/contacts">Контактнi данi</Link></li>
-              </ul>
+              {Security.hasAccessToModule(user, Security.Modules.Information) && <h3>Iнформація</h3> }
+
+              {Security.hasAccessToModule(user, Security.Modules.Information) &&
+                <ul>
+                  <li><a target="_campus_calendar" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i
+                    className="fa fa-external-link"/></a></li>
+                  <li><Link to="/bb">Дошка оголошень</Link></li>
+                  <li><Link to="/help">Інструкція користувача</Link></li>
+                  <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
+                  <li><Link to="/about">Про систему</Link></li>
+                  <li><Link to="/documents">Документи КПІ ім. Ігоря Сікорського</Link></li>
+                  <li><Link to="/contacts">Контактнi данi</Link></li>
+                </ul>
+              }
 
             </div>
 
