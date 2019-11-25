@@ -131,6 +131,12 @@ class Header extends React.Component {
             {Security.hasAccessToModule(user, Security.Modules.PersonalArea) &&
               <>
 
+                <NavItem>
+                  <NavLink href="http://campus.kpi.ua">
+                    До поточної версії кампусу <i className="fa fa-external-link"/>
+                  </NavLink>
+                </NavItem>
+
                 <UncontrolledDropdown nav>
                   <DropdownToggle nav caret>
                     Аккаунт
@@ -141,12 +147,6 @@ class Header extends React.Component {
                     <DropdownItem href="#" onClick={this.exit}>Вихід з системи</DropdownItem>
                   </DropdownMenu>
                 </UncontrolledDropdown>
-
-                <NavItem>
-                  <NavLink href="http://campus.kpi.ua">
-                    До поточної версії кампусу <i className="fa fa-external-link"/>
-                  </NavLink>
-                </NavItem>
 
               </>
             }
