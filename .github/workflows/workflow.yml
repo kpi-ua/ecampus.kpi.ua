@@ -1,56 +1,21 @@
-name: Build ecampus.kpi.ua project
-
-env:
-  project: 'ecampus-kpi-ua'
-  tag: ${{ github.sha }}
-  tag-latest: 'latest'
-  github-registry-url: 'docker.pkg.github.com/kpi-ua/ecampus.kpi.ua/'
-  dockerhub-organization: 'kpiua/'
+name: Build ecampus.kpi.ua
 
 on: [push]
 
 jobs:
-  build:
+  build-and-deploy:
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: 10.x
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
 
-      - name: Install packages & build project
-        run: |
-          npm install
-          npm run-script build
-
-      - name: Build Docker image
-        run: |
-          mv ./build ./docker/
-          docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag }}
-          docker build ./docker --file ./docker/Dockerfile --tag ${{ env.project }}:${{ env.tag-latest }}
-
-      - name: Docker Auth (Github packages)
-        run: docker login -u ${{ secrets.GH_USERNAME }} -p ${{ secrets.GITHUB_TOKEN }} docker.pkg.github.com
-
-      - name: Push Docker images (Github packages)
-        run: |
-          docker tag ${{ env.project }}:${{ env.tag }} ${{ env.github-registry-url }}${{ env.project }}:${{ env.tag }}
-          docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.github-registry-url }}${{ env.project }}:${{ env.tag-latest }}
-          docker push ${{ env.github-registry-url }}${{ env.project }}:${{ env.tag }}
-          docker push ${{ env.github-registry-url }}${{ env.project }}:${{ env.tag-latest }}
-        
-      - name: Docker Auth (Dockerhub packages)
-        run: docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} -p ${{ secrets.DOCKER_HUB_TOKEN }}       
-        
-      - name: Push Docker images (Dockerhub packages)
-        run: |
-          docker tag ${{ env.project }}:${{ env.tag }} ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag }}
-          docker tag ${{ env.project }}:${{ env.tag-latest }} ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag-latest }}
-          docker push ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag }}
-          docker push ${{ env.dockerhub-organization }}${{ env.project }}:${{ env.tag-latest }}      
-
-
+    - name: Build and Publish
+      run: |
+        chmod +x ./docker/build.sh
+        ./docker/build.sh ${{ secrets.GH_USERNAME }} ${{ secrets.GITHUB_TOKEN }} ${{ secrets.DOCKER_HUB_USERNAME }} ${{ secrets.DOCKER_HUB_TOKEN }}
