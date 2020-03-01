@@ -42,6 +42,8 @@ cd $root_dir
 
 npm install
 npm run-script build
+mv build ./docker
+cp default.conf ./docker/default.conf
 
 #################################################################################
 
