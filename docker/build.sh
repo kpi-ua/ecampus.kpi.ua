@@ -4,13 +4,13 @@ project="ecampus-kpi-ua"
 now=$(date +%Y%m%d%H%M%S)
 root_dir=$(cd -P -- "$(dirname -- "$0")" && pwd -P)/../
 
-github_organization='docker.pkg.github.com/kpi-ua/ecampus.kpi.ua'
-github_registry_url='docker.pkg.github.com'
+github_organization="docker.pkg.github.com/kpi-ua/ecampus.kpi.ua"
+github_registry_url="docker.pkg.github.com"
 github_registry_username=$1
 github_registry_pwd=$2
 
-dockerhub_organization='kpiua'
-dockerhub_registry_url=''
+dockerhub_organization="kpiua"
+dockerhub_registry_url=""
 dockerhub_registry_username=$3
 dockerhub_registry_pwd=$4
 
