@@ -24,14 +24,18 @@ push_to_docker_registry()  {
     local registry_username=$5
     local registry_pwd=$6
 
+    image_name=$project:$tag
+
     echo "Docker Auth ${registry_url}"
     
-    docker login -u $registry_username -p $registry_pwd $registry_url
+    docker login -u "$registry_username" -p "$registry_pwd" "$registry_url"
 
     echo "Push Docker images ${registry_url}"
 
-    docker tag $project:$tag $organization/$project:$tag
-    docker push $organization/$project:$tag
+    docker tag "$image_name" "$organization"/"$image_name"
+    docker push "$organization"/"$image_name"
+
+    docker logout
 }
 
 #################################################################################
@@ -47,11 +51,12 @@ cp default.conf ./docker/default.conf
 
 #################################################################################
 
-cd $root_dir/docker
+cd "$root_dir"/docker
 
 echo "Build docker images"
 
-docker build ./ --file ./.dockerfile --tag $project:$now --tag $project:latest
+docker build ./ --file ./.dockerfile --tag "$project":"$now"
+docker build ./ --file ./.dockerfile --tag "$project":latest
 
 echo "Publish docker images"
 
