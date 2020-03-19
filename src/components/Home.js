@@ -97,20 +97,18 @@ class Home extends React.Component {
                 </ul>
               }
 
-
             </div>
 
             <div className="col-md-8">
 
               {Security.hasAccessToModule(user, Security.Modules.Information) && <h3>Iнформація</h3> }
 
-
               {Security.hasAccessToModule(user, Security.Modules.Information) &&
                 <ul>
-                  <li><a target="_campus_calendar" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i
-                    className="fa fa-external-link"/></a></li>
+                  <li><a target="_campus_calendar" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link"/></a></li>
                   <li><Link to="/bb">Дошка оголошень</Link></li>
                   <li><Link to="/help">Інструкція користувача</Link></li>
+                  <li className="actual"><Link to="/lecturer-help">Послідовність роботи викладача</Link></li>
                   <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
                   <li><Link to="/about">Про систему</Link></li>
                   <li><Link to="/documents">Документи КПІ ім. Ігоря Сікорського</Link></li>
@@ -129,11 +127,11 @@ class Home extends React.Component {
 
               <h2>Соціальні мережі</h2>
 
-              Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також нашому Телеграм каналі:
+              Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також у нашому Телеграм-каналі:
               <br />
               <br />
-              <a className="info-button" href="https://www.facebook.com/kbis.kpi.ua/"><span className="fa fa-facebook"></span>Facebook</a>
-              <a className="info-button" href="https://t.me/kpikb"><span className="fa fa-telegram"></span>Telegram</a>
+              <a className="info-button" target="_tg" href="https://www.facebook.com/kbis.kpi.ua/"><span className="fa fa-facebook"></span>Facebook</a>
+              <a className="info-button" target="_fb" href="https://t.me/kpikb"><span className="fa fa-telegram"></span>Telegram</a>
               <br /><br />
             </div>
             <div className="col-md-5">
