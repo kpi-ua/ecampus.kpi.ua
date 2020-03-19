@@ -120,6 +120,7 @@ class Header extends React.Component {
                   <DropdownItem href="/bb">Дошка оголошень</DropdownItem>
                   <DropdownItem divider/>
                   <DropdownItem href="/help">Інструкція користувача</DropdownItem>
+                  <DropdownItem href="/lecturer-help">Послідовність роботи викладача</DropdownItem>
                   <DropdownItem href="/privacy">Правила використання інформації сайту</DropdownItem>
                   <DropdownItem href="/about">Про систему</DropdownItem>
                   <DropdownItem href="/documents">Документи КПІ ім. Ігоря Сікорського</DropdownItem>

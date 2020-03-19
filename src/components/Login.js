@@ -96,14 +96,14 @@ class Login extends React.Component {
                       </a>
                     </div>
 
-                    <div className="form-group">
-                      <a className="btn btn-block btn-social btn-kpi-id" href="/kpiid">
-                        <div className="icon">
-                          <span className="fa fa-key"/>
-                        </div>
-                        Увiйти через KPI ID
-                      </a>
-                    </div>
+                    {/*<div className="form-group">*/}
+                    {/*  <a className="btn btn-block btn-social btn-kpi-id" href="/kpiid">*/}
+                    {/*    <div className="icon">*/}
+                    {/*      <span className="fa fa-key"/>*/}
+                    {/*    </div>*/}
+                    {/*    Увiйти через KPI ID*/}
+                    {/*  </a>*/}
+                    {/*</div>*/}
 
                     <div className="form-group">
                       <TelegramLoginWidget
