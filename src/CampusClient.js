@@ -1,5 +1,6 @@
  export const ApiEndpoint = 'https://api.campus.kpi.ua/';
  export const OldUIAddress = 'http://campus.kpi.ua/';
+ export const LoginPageAddress = 'https://ecampus.kpi.ua/login';
 
 /**
  * Application configuration
@@ -142,11 +143,16 @@ export const redirectToOldUI = async () => {
   const response = await callApi('Auth/refresh', 'GET');
 
   if (response.status === 200) {
-    window.location.replace(OldUIAddress);
+    const credentials = await response.json();
+
+    if (credentials) {
+      await storeCredentials(credentials.sessionId, credentials.access_token);
+      window.location.replace(OldUIAddress);
+    }
   }
-  else{
-    await logout();
-  }
+
+  await logout();
+  window.location.replace(LoginPageAddress);
 };
 
 /**
@@ -356,7 +362,7 @@ const getCookie = (cname) => {
  * @returns {Promise<void>}
  */
 const setAuthCookies = async (sessionId, token) => {
-  let days = 365;
+  const days = 365;
 
   config.appDomains.forEach(function (domain) {
     setCookie('SID', sessionId, domain, days);
