@@ -29,6 +29,11 @@ class Home extends React.Component {
     this.setState({user});
   }
 
+  redirectToOldUI = async (e) => {
+    e.preventDefault();
+    await campus.redirectToOldUI();
+  };
+
   render() {
     const { user } = this.state;
 
@@ -48,7 +53,8 @@ class Home extends React.Component {
 
           </p>
           <p className="lead">
-            <a className="btn btn-primary btn-lg"  role="button" href="http://campus.kpi.ua" target="_campus">
+
+            <a className="btn btn-primary btn-lg" role="button" href="#" onClick={this.redirectToOldUI}>
               До поточної версії кампусу <i className="fa fa-external-link"/>
             </a>
 

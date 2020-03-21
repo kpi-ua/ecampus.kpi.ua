@@ -1,5 +1,5 @@
  export const ApiEndpoint = 'https://api.campus.kpi.ua/';
-// export const ApiEndpoint = 'http://localhost:5000/';
+ export const OldUIAddress = 'http://campus.kpi.ua/';
 
 /**
  * Application configuration
@@ -130,6 +130,23 @@ export const logout = async () => {
   await storeCredentials(null, null);
 
   localStorage.clear();
+};
+
+
+/**
+ * Redirect to old API after refresh session
+ * @returns {Promise<void>}
+*/
+export const redirectToOldUI = async () => {
+
+  const response = await callApi('Auth/refresh', 'GET');
+
+  if (response.status === 200) {
+    window.location.replace(OldUIAddress);
+  }
+  else{
+    await logout();
+  }
 };
 
 /**

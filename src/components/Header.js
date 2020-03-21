@@ -18,6 +18,12 @@ import * as Security from "../Security";
 
 
 class Header extends React.Component {
+
+  /**
+   * Handle when user logged out
+   */
+  onLogout;
+
   state = {
     isOpen: false,
   };
@@ -28,11 +34,6 @@ class Header extends React.Component {
     });
   };
 
-  /**
-   * Handle when user logged out
-   */
-  onLogout;
-
   exit = async (e) => {
     e.preventDefault();
     await campus.logout();
@@ -41,6 +42,11 @@ class Header extends React.Component {
     if (!!this.props.onLogout){
       this.props.onLogout();
     }
+  };
+
+  redirectToOldUI = async (e) => {
+    e.preventDefault();
+    await campus.redirectToOldUI();
   };
 
   render() {
@@ -132,7 +138,7 @@ class Header extends React.Component {
               <>
 
                 <NavItem>
-                  <NavLink href="http://campus.kpi.ua">
+                  <NavLink href="#" onClick={this.redirectToOldUI}>
                     До поточної версії кампусу <i className="fa fa-external-link"/>
                   </NavLink>
                 </NavItem>
