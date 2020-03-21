@@ -148,6 +148,7 @@ export const redirectToOldUI = async () => {
     if (credentials) {
       await storeCredentials(credentials.sessionId, credentials.access_token);
       window.location.replace(OldUIAddress);
+      return;
     }
   }
 
