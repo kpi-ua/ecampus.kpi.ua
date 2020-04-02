@@ -55,8 +55,8 @@ class Home extends React.Component {
                 <hr className="my-4" />
                 <p>
                   Ви авторизовані у версії, що на даний час знаходиться у процесі розробки.
-                  Частина функцій системи ще не реалізовані у поточній версії.
-                  Для доступу до цих можливостей, ви можете перейти у попередню версію системи.
+                  Частина функцій системи ще не реалізовані.
+                  Для доступу до цих можливостей, ви можете перейти у поточну версію системи.
 
                 </p>
                 <p className="lead">
@@ -101,17 +101,9 @@ class Home extends React.Component {
                 <h3><span href="#">Повідомлення</span><span className="badge badge-light">У розробцi</span></h3>
               }
 
-              {Security.hasAccessToModule(user, Security.Modules.PersonalArea) && <h3>Аккаунт</h3> }
-
-              {Security.hasAccessToModule(user, Security.Modules.PersonalArea) &&
-                <ul>
-                  <li><Link to="/settings">Налаштування</Link></li>
-                </ul>
-              }
-
             </div>
 
-            <div className="col-md-8">
+            <div className="col-md-4">
 
               {Security.hasAccessToModule(user, Security.Modules.Information) && <h3>Iнформація</h3> }
 
@@ -131,6 +123,16 @@ class Home extends React.Component {
 
             </div>
 
+            <div className="col-md-4">
+              {Security.hasAccessToModule(user, Security.Modules.PersonalArea) && <h3>Аккаунт</h3> }
+
+              {Security.hasAccessToModule(user, Security.Modules.PersonalArea) &&
+                <ul>
+                  <li><Link to="/settings">Налаштування</Link></li>
+                </ul>
+              }
+            </div>
+
           </div>
 
           <hr />
@@ -143,8 +145,8 @@ class Home extends React.Component {
               Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи "Електронний кампус КПІ", а також інших сервісів на нашій сторінці в Facebook, та також у нашому Телеграм-каналі:
               <br />
               <br />
-              <a className="info-button" target="_tg" href="https://www.facebook.com/kbis.kpi.ua/"><span className="fa fa-facebook"></span>Facebook</a>
-              <a className="info-button" target="_fb" href="https://t.me/kpikb"><span className="fa fa-telegram"></span>Telegram</a>
+              <a className="info-button" target="_tg" href="https://www.facebook.com/kbis.kpi.ua/"><i className="fa fa-facebook" />Facebook</a>
+              <a className="info-button" target="_fb" href="https://t.me/kpikb"><i className="fa fa-telegram" />Telegram канал</a>
               <br /><br />
             </div>
             <div className="col-md-5">
@@ -153,10 +155,10 @@ class Home extends React.Component {
               Ви завжди можете звернутися в службу підтримки:
               <br />
               <br />
-              <a className="info-button" href="mailto:ecampus@kpi.ua"><i className="fa fa-envelope" />&nbsp;Email</a>
+              <a className="info-button" href="mailto:ecampus@kpi.ua"><i className="fa fa-envelope" />Email</a>
               <br />
               <br />
-              <Link className="info-button" to={`/feedback`}><i className="fa fa-comments-o" aria-hidden="true" />&nbsp;Форма скарг i пропозицiй</Link>
+              <Link className="info-button" to={`/feedback`}><i className="fa fa-comments-o" aria-hidden="true" />Форма скарг i пропозицiй</Link>
             </div>
           </div>
         </div>

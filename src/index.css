@@ -21,7 +21,7 @@ h5 {
 }
 
 .navbar-inverse.navbar {
-    background-color: #208944;
+    background-color: #449d44;
 }
 
 .about {
@@ -41,6 +41,25 @@ h5 {
 .btn-primary:hover:not(.btn-link):not(.btn-flat) {
     background-color: #449d44;
     border-color: #398439;
+}
+
+a, .link {
+    color: #208843;
+    cursor: pointer;
+}
+
+a:hover, .link:hover {
+    color: #449d44;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-success {
+    background-color: #208843;
+}
+
+.btn-success:hover {
+    background-color: #449d44;
 }
 
 #campus-session-id {
@@ -148,17 +167,6 @@ a:hover,
     text-align: center;
 }
 
-a, a:hover, .link {
-    color: #208843;
-    cursor: pointer;
-}
-
-a:hover,
-.link:hover {
-    color: #208843;
-    text-decoration: underline;
-}
-
 .dummy .btn-default {
     background-color: #00a651;
     color: #FFF;
@@ -170,17 +178,12 @@ a:hover,
     color: #FFF;
 }
 
-.dummy a,
-footer a {
+.dummy a{
     color: #ecc103;
 }
 
 .dummy a:hover {
     color: #fff;
-}
-
-footer a:hover {
-    color: #208843;
 }
 
 .public-wrap {
@@ -362,12 +365,6 @@ footer:after {
     content: "";
 }
 
-footer a {
-    color: #555;
-}
-
-footer a:hover {
-}
 
 @media screen and (max-width: 1200px) {
     .logo-kpi {
@@ -610,7 +607,7 @@ input[type="radio"] + label {
     padding-top: 25px;
 }
 
-.info-button span{
+.info-button i{
     font-size: 20pt;
     padding-right: 10px;
 }
@@ -637,4 +634,8 @@ a:hover .menu-icon {
     font-size: 35pt;
     display: block;
     text-align: center;
+}
+
+.modal-body br {
+    margin-bottom: 10px;
 }

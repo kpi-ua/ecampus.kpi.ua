@@ -84,7 +84,7 @@ class BbList extends React.Component {
       }
 
       {
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} size="lg">
           <ModalHeader toggle={this.toggle}>{this.state.modalSubject}</ModalHeader>
           <ModalBody>
               <p dangerouslySetInnerHTML={this.getHtml(this.state.modalText)} />
