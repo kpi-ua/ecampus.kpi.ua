@@ -40,29 +40,35 @@ class Home extends React.Component {
     return <div>
       <br />
 
-      <div className="jumbotron">
-        <h1 className="display-4">Вітаємо, {!!user && user.fullName}!</h1>
-        <p className="lead">
-          Електронний кампус  – це система підтримки навчального процесу університету.
-        </p>
-        <hr className="my-4" />
-          <p>
-            Ви авторизовані у версії, що на даний час знаходиться у процесі розробки.
-            Частина функцій системи ще не реалізовані у поточній версії.
-            Для доступу до цих можливостей, ви можете перейти у попередню версію системи.
 
-          </p>
-          <p className="lead">
-
-            <a className="btn btn-primary btn-lg" role="button" href="#" onClick={this.redirectToOldUI}>
-              До поточної версії кампусу <i className="fa fa-external-link"/>
-            </a>
-
-          </p>
-      </div>
 
       <div className="row">
         <div className="col-md-8">
+          <div className="row">
+            <div className="col-md-12">
+              <h1 className="display-4">Вітаємо, {!!user && user.fullName}!</h1>
+              <div className="jumbotron">
+
+                <p className="lead">
+                  Електронний кампус  – це система підтримки навчального процесу університету.
+                </p>
+                <hr className="my-4" />
+                <p>
+                  Ви авторизовані у версії, що на даний час знаходиться у процесі розробки.
+                  Частина функцій системи ще не реалізовані у поточній версії.
+                  Для доступу до цих можливостей, ви можете перейти у попередню версію системи.
+
+                </p>
+                <p className="lead">
+
+                  <a className="btn btn-primary btn-lg" role="button" href="#" onClick={this.redirectToOldUI}>
+                    До поточної версії кампусу <i className="fa fa-external-link"/>
+                  </a>
+
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="row">
             <div className="col-md-4">
 
