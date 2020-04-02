@@ -4,7 +4,7 @@ import * as campus from "../CampusClient";
 import {Link} from "react-router-dom";
 import BbList from "./Bb/BbList";
 import * as Security from "../Security";
-import {NavLink} from "reactstrap";
+import {DropdownItem, NavLink} from "reactstrap";
 
 class Home extends React.Component {
   state = {
@@ -114,6 +114,7 @@ class Home extends React.Component {
                   <li><a target="_campus_calendar" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link"/></a></li>
                   <li><Link to="/bb">Дошка оголошень</Link></li>
                   <li><Link to="/help">Інструкція користувача</Link></li>
+                  <li><Link to="/faq">Поширенi запитання</Link></li>
                   <li className="actual"><Link to="/lecturer-help">Послідовність роботи викладача</Link></li>
                   <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
                   <li><Link to="/about">Про систему</Link></li>
@@ -146,7 +147,10 @@ class Home extends React.Component {
               Ви завжди можете звернутися в службу підтримки:
               <br />
               <br />
-              <a className="info-button" href="mailto:ecampus@kpi.ua"><span className="fa fa-envelope"></span>Email</a>
+              <a className="info-button" href="mailto:ecampus@kpi.ua"><i className="fa fa-envelope" />&nbsp;Email</a>
+              <br />
+              <br />
+              <Link className="info-button" to={`/feedback`}><i className="fa fa-comments-o" aria-hidden="true" />&nbsp;Форма скарг i пропозицiй</Link>
             </div>
           </div>
         </div>

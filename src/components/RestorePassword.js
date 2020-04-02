@@ -163,7 +163,7 @@ class RestorePassword extends React.Component {
                     }
                   </fieldset>
                 </form>
-                <SupportInformationDialog/>
+                <Link className='btn btn-md btn-info btn-block' to={'/login'}>Повернутися</Link>
               </div>
             </div>
           </div>

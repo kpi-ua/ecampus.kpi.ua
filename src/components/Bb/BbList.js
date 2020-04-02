@@ -2,6 +2,7 @@ import React from 'react'
 import * as campus from "../../CampusClient";
 import '../../css/Bb.css';
 import Pagination from "react-js-pagination";
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
 
 
 class BbList extends React.Component {
@@ -20,12 +21,33 @@ class BbList extends React.Component {
 
   async componentDidMount() {
     const response = await campus.getBulletinBoardForCurrentUser(1, this.state.pageSize);
-    this.setState({items: response.data, activePage: 1, paging: response.paging});
+    if (!!response) {
+      this.setState({items: response.data, activePage: 1, paging: response.paging});
+    }
   }
 
   dateToString = date => !date ? '...' : new Date(date).toLocaleDateString();
 
   getHtml = text => ({__html: text});
+
+  /**
+   *
+   * @param e
+   * @param subject
+   * @param text
+   */
+  showDetail = (e, subject, text) => {
+
+    if (!!e) {
+      e.preventDefault();
+    }
+
+    this.setState({
+      modal: !this.state.modal,
+      modalSubject: subject,
+      modalText: text
+    });
+  };
 
   render() {
 
@@ -42,6 +64,7 @@ class BbList extends React.Component {
               <h5 className="card-title">{item.subject}</h5>
               <h6 className="card-subtitle mb-2 text-muted">{this.dateToString(item.start)} - {this.dateToString(item.end)}</h6>
               <p className="card-text" dangerouslySetInnerHTML={this.getHtml(item.text)} key={item.id} />
+              <a href="#" className="btn btn-primary btn-lg" onClick={(e) =>this.showDetail(e, item.subject, item.text)}>Докладніше</a>
             </div>
           </div>)
         })
@@ -58,6 +81,18 @@ class BbList extends React.Component {
             this.setState({items: response.data, activePage: pageNumber, paging: response.paging});
           }}
         />
+      }
+
+      {
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader toggle={this.toggle}>{this.state.modalSubject}</ModalHeader>
+          <ModalBody>
+              <p dangerouslySetInnerHTML={this.getHtml(this.state.modalText)} />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={() => this.showDetail(null,'', '')}>OK</Button>
+          </ModalFooter>
+        </Modal>
       }
 
     </div>

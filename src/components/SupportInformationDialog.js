@@ -10,13 +10,16 @@ class SupportInformationDialog extends React.Component {
 
   render = () =>
     <div>
-      <span className="link" onClick={this.toggle}>Служба підтримки</span> (<a target="_tg" href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw">Telegram чат</a>)
-      <br />
-      Корпус 13, 4 поверх, 25 кабінет
-      <br />
+      <span className="link  menu-icon" onClick={this.toggle}>
+        <i className="fa fa-phone-square" />
+        Підтримка користувачiв
+      </span>
       <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
         <ModalHeader toggle={this.toggle}>Служба підтримки</ModalHeader>
         <ModalBody>
+          <p>
+            Чaт підтримки у <a target="_tg" href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw">Telegram</a>.
+          </p>
           <p>
             Якщо у вас є питання, ви можете надіслати його на email служби підтримки: <a
             href="mailto:ecampus@kpi.ua">ecampus@kpi.ua</a>

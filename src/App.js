@@ -20,6 +20,8 @@ import BbIndex from "./components/Bb/BbIndex";
 import StatisticIndex from "./components/Statistic/StatisticIndex";
 import NPP from "./components/Statistic/NPP";
 import ZKM from "./components/Statistic/ZKM";
+import Feedback from "./components/Feedback";
+import Faq from "./components/Faq";
 
 
 class App extends Component {
@@ -58,6 +60,8 @@ class App extends Component {
               <Route exact path='/lecturer-help' component={LecturerHelp}/>
               <Route exact path='/contacts' component={Contacts}/>
               <Route exact path='/bb' component={BbIndex}/>
+              <Route exact path='/feedback' component={Feedback}/>
+              <Route exact path='/faq' component={Faq}/>
               <Route exact path='/settings' component={Settings}/>
               <Route exact path='/settings-editor' component={SettingsEditor}/>
               <Route exact path='/restore-password' component={RestorePassword}/>

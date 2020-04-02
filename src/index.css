@@ -623,3 +623,14 @@ input[type="radio"] + label {
     width: 100%;
     margin-top: 15px;
 }
+
+.menu-icon:hover,
+a:hover .menu-icon {
+    text-decoration: none !important;
+}
+
+.menu-icon .fa {
+    font-size: 35pt;
+    display: block;
+    text-align: center;
+}
