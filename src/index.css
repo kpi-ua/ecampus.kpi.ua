@@ -629,6 +629,10 @@ a:hover .menu-icon {
     text-decoration: none !important;
 }
 
+.menu-icon {
+    padding-top: 15px;
+}
+
 .menu-icon .fa {
     font-size: 35pt;
     display: block;

@@ -126,35 +126,20 @@ class Login extends React.Component {
 
 
       <div className="row">
-        <div className="col-md-3"/>
-        <div className="col-md-6">
+        <div className="col-md-4"/>
+        <div className="col-md-4">
           <div className="card">
             <div className="card-body">
               <div className="text-center">
                 <div className="panel-body">
                   <div className="row">
-                    <div className="col-md-2">
-                      <SupportInformationDialog />
-                    </div>
-                    <div className="col-md-3">
-                      <a target="_tg" href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw" className="menu-icon">
-                        <i className="fa fa-telegram" aria-hidden="true" />
-                        Telegram чат
-                      </a>
-                    </div>
-                    <div className="col-md-2">
-                      <Link className="menu-icon" to={`/faq`}>
-                        <i className="fa fa-question-circle" aria-hidden="true" />
-                        Поширенi запитання
-                      </Link>
-                    </div>
-                    <div className="col-md-3">
+                    <div className="col-md-6">
                       <Link className="menu-icon" to={`/restore-password`}>
                         <i className="fa fa-unlock-alt" aria-hidden="true" />
                         Вiдновити втрачений пароль
                       </Link>
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-6">
                       <Link className="menu-icon" to={`/feedback`}>
                         <i className="fa fa-comments-o" aria-hidden="true" />
                         Форма скарг i пропозицiй
@@ -166,30 +151,41 @@ class Login extends React.Component {
             </div>
           </div>
         </div>
-        <div className="col-md-3"/>
+        <div className="col-md-4"/>
       </div>
 
+      <div className="row">
+        <div className="col-md-4"/>
+        <div className="col-md-4">
+          <div className="card">
+            <div className="card-body">
+              <div className="text-center">
+                <div className="panel-body">
+                  <div className="row">
+                    <div className="col-md-4">
+                      <SupportInformationDialog />
+                    </div>
+                    <div className="col-md-4">
+                      <a target="_tg" href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw" className="menu-icon">
+                        <i className="fa fa-telegram" aria-hidden="true" />
+                        Telegram чат
+                      </a>
+                    </div>
+                    <div className="col-md-4">
+                      <Link className="menu-icon" to={`/faq`}>
+                        <i className="fa fa-question-circle" aria-hidden="true" />
+                        Поширенi запитання
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4"/>
+      </div>
 
-      {/*<div className="row">*/}
-      {/*  <div className="col-md-3"/>*/}
-      {/*  <div className="col-md-6">*/}
-      {/*    <div className="row">*/}
-      {/*      <div className="col-md-3">*/}
-      {/*        <FaqDialog />*/}
-      {/*      </div>*/}
-      {/*      <div className="col-md-3">*/}
-      {/*        <SupportInformationDialog />*/}
-      {/*      </div>*/}
-      {/*      <div className="col-md-3">*/}
-      {/*        <Link to={`/restore-password`}>Вiдновити втрачений пароль</Link>*/}
-      {/*      </div>*/}
-      {/*      <div className="col-md-3">*/}
-      {/*        <a to={`/restore-password`}>Форма скарг i пропозицiй</a>*/}
-      {/*      </div>*/}
-      {/*    </div>*/}
-      {/*  </div>*/}
-      {/*  <div className="col-md-3"/>*/}
-      {/*</div>*/}
     </section>;
 }
 
