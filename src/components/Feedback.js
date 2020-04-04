@@ -9,10 +9,10 @@ class Feedback extends Component {
         <div className="col-md-12">
           <h1>Форма скарг i пропозицiй</h1>
 
-          <iframe width="100%" height="1400px"
+          <iframe width="100%" height="1200px"
                   src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__pj8rjRUOUFNWTNVU0VIWFlRWTZXNzRaVklaUUVPTS4u&embed=true"
                   frameBorder="0" marginWidth="0" marginHeight="0"
-                  style={{border: "none", maxWidth: "100%", maxHeight: "100vh"}}
+                  style={{border: "none", maxWidth: "100%"}}
                   allowFullScreen webkitallowfullscreen
                   mozallowfullscreen msallowfullscreen>
           </iframe>
