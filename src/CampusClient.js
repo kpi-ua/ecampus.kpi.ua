@@ -1,5 +1,5 @@
  export const ApiEndpoint = 'https://api.campus.kpi.ua/';
- export const OldUIAddress = 'http://campus.kpi.ua/';
+ export const OldUIAddress = 'https://campus.kpi.ua/';
  export const LoginPageAddress = 'https://ecampus.kpi.ua/login';
 
 /**
