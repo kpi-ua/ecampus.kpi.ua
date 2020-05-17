@@ -9,7 +9,7 @@ const Contacts = () => (
       Також ви можете завітати до констуркторського бюро, за адресою: <a href="https://goo.gl/maps/UUNyXm7wFiw">Україна,
       м. Київ, вул. Політехнічна 14-в, корпус 13, 4 поверх, 25 кабінет</a>.<br />
       <br />
-      Дзовнть нам:
+      Дзвонiть нам:
       <ul>
         <li>тел.: <a href="tel:+380442048006">+380 (44) 204 80 06</a></li>
         <li>тел/факс.:<a href="tel:+380444549845">+38 (044) 454 98 45</a></li>
@@ -20,7 +20,7 @@ const Contacts = () => (
 
       <ul>
         <li><a href="https://github.com/kpi-ua">Аккаунт КПI у GitHub</a></li>
-        <li><a href="https://www.facebook.com/kbis.kpi.ua">Сторiнка КБ IC у Facebook</a></li>
+        <li><a href="https://www.facebook.com/kbis.kpi.ua">Сторiнка КБIC у Facebook</a></li>          
       </ul>
     </div>
   </div>
