@@ -25,6 +25,10 @@ const Contacts = () => (
       <br />
       <Link className="info-button" to={`/feedback`}><i className="fa fa-comments-o" aria-hidden="true" />Форма скарг i пропозицiй</Link>
 
+      <ul>
+        <li><a href="https://github.com/kpi-ua">Аккаунт КПI у GitHub</a></li>
+        <li><a href="https://www.facebook.com/kbis.kpi.ua">Сторiнка КБIC у Facebook</a></li>          
+      </ul>
     </div>
   </div>
 )
