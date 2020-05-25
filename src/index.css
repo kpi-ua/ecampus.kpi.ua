@@ -639,3 +639,19 @@ a:hover .menu-icon {
 .modal-body br {
     margin-bottom: 10px;
 }
+
+.study-group-info {
+    text-align: left;
+    border: 1px solid #AAA;
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.study-group-info:hover {
+    background-color: #AAA;
+}
+
+.study-group-info i {
+    font-size: 8pt;
+}

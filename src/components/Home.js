@@ -4,7 +4,6 @@ import * as campus from "../CampusClient";
 import {Link} from "react-router-dom";
 import BbList from "./Bb/BbList";
 import * as Security from "../Security";
-import {DropdownItem, NavLink} from "reactstrap";
 
 class Home extends React.Component {
   state = {
@@ -109,15 +108,19 @@ class Home extends React.Component {
 
               {Security.hasAccessToModule(user, Security.Modules.Information) &&
                 <ul>
-                  <li><a target="_campus_calendar" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link"/></a></li>
+                  <li><Link to="/schedule">Розклад занять та сесії</Link></li>
                   <li><Link to="/bb">Дошка оголошень</Link></li>
                   <li><Link to="/help">Інструкція користувача</Link></li>
                   <li><Link to="/faq">Поширенi запитання</Link></li>
+
+                  {Security.hasProfile(user, Security.Profiles.Lecturer) &&
                   <li className="actual"><Link to="/lecturer-help">Послідовність роботи викладача</Link></li>
-                  <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
+                  }
+
                   <li><Link to="/about">Про систему</Link></li>
                   <li><Link to="/documents">Документи КПІ ім. Ігоря Сікорського</Link></li>
                   <li><Link to="/contacts">Контактнi данi</Link></li>
+                  <li><Link to="/privacy">Правила використання інформації сайту</Link></li>
                 </ul>
               }
 
