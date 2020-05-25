@@ -22,6 +22,8 @@ import NPP from "./components/Statistic/NPP";
 import ZKM from "./components/Statistic/ZKM";
 import Feedback from "./components/Feedback";
 import Faq from "./components/Faq";
+import FindCurator from "./components/FindCurator";
+import Schedule from "./components/Schedule";
 
 
 class App extends Component {
@@ -60,11 +62,13 @@ class App extends Component {
               <Route exact path='/lecturer-help' component={LecturerHelp}/>
               <Route exact path='/contacts' component={Contacts}/>
               <Route exact path='/bb' component={BbIndex}/>
+              <Route exact path='/schedule' component={Schedule}/>
               <Route exact path='/feedback' component={Feedback}/>
               <Route exact path='/faq' component={Faq}/>
               <Route exact path='/settings' component={Settings}/>
               <Route exact path='/settings-editor' component={SettingsEditor}/>
               <Route exact path='/restore-password' component={RestorePassword}/>
+              <Route exact path='/find-curator' component={FindCurator}/>
               <Route exact path='/social-forbidden' component={SocialForbidden}/>
               <Route exact path='/statistic' component={StatisticIndex}/>
               <Route exact path='/statistic/npp' component={NPP}/>

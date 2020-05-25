@@ -196,26 +196,26 @@ export const generateFacebookAuthorizationLink = () => {
   return `https://www.facebook.com/dialog/oauth?client_id=${config.fb.appId}&redirect_uri=${config.fb.redirectUrl}&scope=${scope}`;
 };
 
-/**
- * Check authorization status for current user
- * For authorization saved to local storage token will be used
- * @returns {Promise<*>}
- */
-export const getCurrentUser = async () => {
-
+ /**
+  * Check authorization status for current user
+  * For authorization saved to local storage token will be used
+  * @param ignoreCache
+  * @returns {Promise<null|any>}
+  */
+ export const getCurrentUser = async (ignoreCache) => {
   const cachedUserInfoKey = 'currentUser';
 
   let token = getToken();
 
   if (!token){
     localStorage.setItem(cachedUserInfoKey, '');
-    return null
+    return null;
   }
 
   const cachedUserInfoJson = localStorage.getItem(cachedUserInfoKey)
   const cachedUserInfo = !!cachedUserInfoJson ? JSON.parse(cachedUserInfoJson) : null;
 
-  if (!!cachedUserInfo) {
+  if (!!cachedUserInfo && !ignoreCache) {
     console.log('Used cached user info');
     return cachedUserInfo;
   }

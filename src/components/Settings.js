@@ -12,7 +12,7 @@ class Settings extends React.Component {
   };
 
   async componentDidMount() {
-    const user = await campus.getCurrentUser();
+    const user = await campus.getCurrentUser(true);
 
     if (!user) {
       this.props.history.push('/login');

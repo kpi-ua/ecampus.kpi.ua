@@ -121,16 +121,19 @@ class Header extends React.Component {
                   Iнформація
                 </DropdownToggle>
                 <DropdownMenu>
-                  <DropdownItem target="_blank" href="http://rozklad.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link"/></DropdownItem>
+                  <DropdownItem href="/schedule">Розклад занять та сесії</DropdownItem>
                   <DropdownItem href="/bb">Дошка оголошень</DropdownItem>
                   <DropdownItem divider/>
                   <DropdownItem href="/help">Інструкція користувача</DropdownItem>
                   <DropdownItem href="/faq">Поширенi запитання</DropdownItem>
-                  <DropdownItem href="/lecturer-help">Послідовність роботи викладача</DropdownItem>
-                  <DropdownItem href="/privacy">Правила використання інформації сайту</DropdownItem>
+                  {Security.hasProfile(user, Security.Profiles.Lecturer) &&
+                    <DropdownItem href="/lecturer-help">Послідовність роботи викладача</DropdownItem>
+                  }
                   <DropdownItem href="/about">Про систему</DropdownItem>
                   <DropdownItem href="/documents">Документи КПІ ім. Ігоря Сікорського</DropdownItem>
                   <DropdownItem href="/contacts">Контактнi данi</DropdownItem>
+                  <DropdownItem divider/>
+                  <DropdownItem href="/privacy">Правила використання інформації сайту</DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
             }
