@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const link = "http://rozklad.kpi.ua/";
+const link = "https://rozklad.kpi.ua/";
 
 class Schedule extends Component {
 
@@ -11,7 +11,7 @@ class Schedule extends Component {
         <div className="col-md-12">
           <h1>Розклад</h1>
 
-          <a target="_campus_calendar" href="http://rozklad.kpi.ua/">Відкрити у новій вкладці<i className="fa fa-external-link"/></a>
+          <a target="_campus_calendar" href={link}>Відкрити у новій вкладці<i className="fa fa-external-link"/></a>
 
           <div>
             <iframe style={{border: 'none'}}
