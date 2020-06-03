@@ -1,6 +1,6 @@
- export const ApiEndpoint = 'https://api.campus.kpi.ua/';
- export const OldUIAddress = 'https://campus.kpi.ua/';
- export const LoginPageAddress = 'https://ecampus.kpi.ua/login';
+export const ApiEndpoint = 'https://api.campus.kpi.ua/';
+export const OldUIAddress = 'https://campus.kpi.ua/';
+export const LoginPageAddress = 'https://ecampus.kpi.ua/login';
 
 /**
  * Application configuration
@@ -8,17 +8,12 @@
 export const config = {
   fb: {
     appId: '1214335051921931',
-    redirectUrl: `${ApiEndpoint}account/oauth/login/fb`
+    redirectUrl: `${ApiEndpoint}account/oauth/login/fb`,
   },
   telegram: {
-    botName: 'kpi_ua_bot'
+    botName: 'kpi_ua_bot',
   },
-  appDomains: [
-    'kpi.ua',
-    'campus.kpi.ua',
-    'ecampus.kpi.ua',
-    'login.kpi.ua',
-  ]
+  appDomains: ['kpi.ua', 'campus.kpi.ua', 'ecampus.kpi.ua', 'login.kpi.ua'],
 };
 
 /**
@@ -28,20 +23,19 @@ export const config = {
  * @returns {Promise<Object>}
  */
 export const auth = async (login, password) => {
-
   const payload = {
     username: login,
     password: password,
-    grant_type: 'password'
+    grant_type: 'password',
   };
 
   const response = await fetch(`${ApiEndpoint}oauth/token`, {
-    method: "POST",
-    cache: "no-cache",
+    method: 'POST',
+    cache: 'no-cache',
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: toUrlEncode(payload)
+    body: toUrlEncode(payload),
   });
 
   if (response.status < 200 || response.status >= 300) {
@@ -65,8 +59,11 @@ export const auth = async (login, password) => {
  * @param phone
  * @returns {Promise<void>}
  */
-export const requestKpiIdSecret = async (phone) =>{
-  const response = await callApi('Account/oauth/login/kpiid/secret?phone=' + phone, 'GET');
+export const requestKpiIdSecret = async phone => {
+  const response = await callApi(
+    'Account/oauth/login/kpiid/secret?phone=' + phone,
+    'GET',
+  );
 };
 
 /**
@@ -75,16 +72,16 @@ export const requestKpiIdSecret = async (phone) =>{
  * @param secret
  * @returns {Promise<null|*>}
  */
-export const authByKpiId = async (phone, secret) =>{
+export const authByKpiId = async (phone, secret) => {
   const payload = {
     phone: phone,
-    secret: secret
+    secret: secret,
   };
   const response = await fetch(`${ApiEndpoint}Account/oauth/login/kpiid`, {
-    method: "POST",
-    cache: "no-cache",
+    method: 'POST',
+    cache: 'no-cache',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
 
   if (response.status < 200 || response.status >= 300) {
@@ -101,7 +98,6 @@ export const authByKpiId = async (phone, secret) =>{
   await storeCredentials(credentials.sessionId, credentials.access_token);
 
   return await getCurrentUser();
-
 };
 
 /**
@@ -109,9 +105,12 @@ export const authByKpiId = async (phone, secret) =>{
  * @param telegramResponse
  * @returns {Promise<*>}
  */
-export const authViaTelegram = async (telegramResponse) => {
-
-  const response = await callApi('Account/oauth/login/telegram', 'POST', telegramResponse);
+export const authViaTelegram = async telegramResponse => {
+  const response = await callApi(
+    'Account/oauth/login/telegram',
+    'POST',
+    telegramResponse,
+  );
 
   if (response.status < 200 || response.status >= 300) {
     return null;
@@ -133,13 +132,11 @@ export const logout = async () => {
   localStorage.clear();
 };
 
-
 /**
  * Redirect to old API after refresh session
  * @returns {Promise<void>}
-*/
+ */
 export const redirectToOldUI = async () => {
-
   const response = await callApi('Auth/refresh', 'GET');
 
   if (response.status === 200) {
@@ -164,21 +161,22 @@ export const redirectToOldUI = async () => {
  * @returns {Promise<Response>}
  */
 export const callApi = async (path, method, payload = null) => {
-
   let url = `${ApiEndpoint}${path}`;
 
   let request = {
     method: method,
     headers: {
-      "Accept": 'application/json',
-      "Content-Type": 'application/json',
-      "Authorization": `Bearer ${getToken()}`
-    }
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${getToken()}`,
+    },
   };
 
-  if (!!payload){
-    if (method === 'GET'){
-      url += `?${Object.keys(payload).map(key => key + '=' + payload[key]).join('&')}`;
+  if (!!payload) {
+    if (method === 'GET') {
+      url += `?${Object.keys(payload)
+        .map(key => key + '=' + payload[key])
+        .join('&')}`;
     } else {
       request.body = JSON.stringify(payload);
     }
@@ -192,28 +190,30 @@ export const callApi = async (path, method, payload = null) => {
  * @returns {string}
  */
 export const generateFacebookAuthorizationLink = () => {
-  const scope = "email";
+  const scope = 'email';
   return `https://www.facebook.com/dialog/oauth?client_id=${config.fb.appId}&redirect_uri=${config.fb.redirectUrl}&scope=${scope}`;
 };
 
- /**
-  * Check authorization status for current user
-  * For authorization saved to local storage token will be used
-  * @param ignoreCache
-  * @returns {Promise<null|any>}
-  */
- export const getCurrentUser = async (ignoreCache) => {
+/**
+ * Check authorization status for current user
+ * For authorization saved to local storage token will be used
+ * @param ignoreCache
+ * @returns {Promise<null|any>}
+ */
+export const getCurrentUser = async ignoreCache => {
   const cachedUserInfoKey = 'currentUser';
 
   let token = getToken();
 
-  if (!token){
+  if (!token) {
     localStorage.setItem(cachedUserInfoKey, '');
     return null;
   }
 
-  const cachedUserInfoJson = localStorage.getItem(cachedUserInfoKey)
-  const cachedUserInfo = !!cachedUserInfoJson ? JSON.parse(cachedUserInfoJson) : null;
+  const cachedUserInfoJson = localStorage.getItem(cachedUserInfoKey);
+  const cachedUserInfo = !!cachedUserInfoJson
+    ? JSON.parse(cachedUserInfoJson)
+    : null;
 
   if (!!cachedUserInfo && !ignoreCache) {
     console.log('Used cached user info');
@@ -232,7 +232,7 @@ export const generateFacebookAuthorizationLink = () => {
     localStorage.setItem(cachedUserInfoKey, JSON.stringify(user));
   }
 
-  console.log('user from api', user)
+  console.log('user from api', user);
   return user;
 };
 
@@ -246,7 +246,7 @@ const getToken = () => {
   if (!tokenFromLocalStorage || tokenFromLocalStorage === 'null') {
     const tokenFromCookie = getCookie('token');
 
-    if (!!tokenFromCookie){
+    if (!!tokenFromCookie) {
       localStorage.setItem('token', tokenFromCookie);
       return tokenFromCookie;
     }
@@ -260,7 +260,7 @@ const getToken = () => {
  * @param file
  * @returns {Promise<string>}
  */
-export const updateUserProfileImage = async (file) => {
+export const updateUserProfileImage = async file => {
   const user = await getCurrentUser();
   const token = getToken();
   const endpoint = `${ApiEndpoint}Account/${user.id}/ProfileImage`;
@@ -271,9 +271,9 @@ export const updateUserProfileImage = async (file) => {
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: {
-      "Authorization": `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     },
-    body: formData
+    body: formData,
   });
 
   if (response.status < 200 || response.status >= 300) {
@@ -281,7 +281,9 @@ export const updateUserProfileImage = async (file) => {
     return null;
   }
 
-  return `${ApiEndpoint}Account/${user.id}/ProfileImage?tmp=${getRandomNumber()}`;
+  return `${ApiEndpoint}Account/${
+    user.id
+  }/ProfileImage?tmp=${getRandomNumber()}`;
 };
 
 /**
@@ -290,7 +292,8 @@ export const updateUserProfileImage = async (file) => {
  * @param {number} max
  * @returns {number}
  */
-export const getRandomNumber = (min = 1, max = 1000) => Math.random() * (max - min) + min;
+export const getRandomNumber = (min = 1, max = 1000) =>
+  Math.random() * (max - min) + min;
 
 /**
  * Store token and session ids
@@ -299,7 +302,6 @@ export const getRandomNumber = (min = 1, max = 1000) => Math.random() * (max - m
  * @returns {Promise<void>}
  */
 const storeCredentials = async (sessionId, token) => {
-
   if (!token) {
     localStorage.removeItem('token');
   } else {
@@ -309,10 +311,12 @@ const storeCredentials = async (sessionId, token) => {
   await setAuthCookies(sessionId, token);
 };
 
-const toUrlEncode = (obj) => {
-  return Object.keys(obj).map(function (k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k])
-  }).join('&');
+const toUrlEncode = obj => {
+  return Object.keys(obj)
+    .map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]);
+    })
+    .join('&');
 };
 
 /**
@@ -322,7 +326,6 @@ const toUrlEncode = (obj) => {
  * @returns {Promise<void>}
  */
 export const getBulletinBoardForCurrentUser = async (page, size) => {
-
   const response = await callApi(`Board/All?page=${page}&size=${size}`, 'GET');
 
   if (response.status < 200 || response.status >= 300) {
@@ -338,12 +341,12 @@ export const getBulletinBoardForCurrentUser = async (page, size) => {
  * @param cname
  * @returns {string}
  */
-const getCookie = (cname) => {
-  const name = cname + "=";
+const getCookie = cname => {
+  const name = cname + '=';
   const decodedCookie = decodeURIComponent(document.cookie);
   const ca = decodedCookie.split(';');
 
-  for(let i = 0; i <ca.length; i++) {
+  for (let i = 0; i < ca.length; i++) {
     let c = ca[i];
     while (c.charAt(0) === ' ') {
       c = c.substring(1);
@@ -352,7 +355,7 @@ const getCookie = (cname) => {
       return c.substring(name.length, c.length);
     }
   }
-  return "";
+  return '';
 };
 
 /**
@@ -365,17 +368,24 @@ const getCookie = (cname) => {
 const setAuthCookies = async (sessionId, token) => {
   const days = 365;
 
-  config.appDomains.forEach(function (domain) {
+  config.appDomains.forEach(function(domain) {
     setCookie('SID', sessionId, domain, days);
     setCookie('token', token, domain, days);
   });
 };
 
 const setCookie = (name, value, domain, days) => {
-
   let date = new Date();
-  date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+  date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
   const expires = date.toUTCString();
 
-  document.cookie = name + "=" + (value || "") + ";expires=" + expires + ";domain=." + domain + ";path=/";
+  document.cookie =
+    name +
+    '=' +
+    (value || '') +
+    ';expires=' +
+    expires +
+    ';domain=.' +
+    domain +
+    ';path=/';
 };

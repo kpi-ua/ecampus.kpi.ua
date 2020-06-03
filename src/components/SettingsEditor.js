@@ -1,18 +1,16 @@
-import React from 'react'
+import React from 'react';
 import '../css/Settings.css';
 import '../css/SettingsEditor.css';
-import * as campus from "../CampusClient";
-import {Link} from "react-router-dom";
-import ProgressBar from "./ProgressBar";
-import UserProfileImage from "./UserProfileImage";
-import TelegramLoginWidget from "./TelegramLoginWidget";
-
+import * as campus from '../CampusClient';
+import { Link } from 'react-router-dom';
+import ProgressBar from './ProgressBar';
+import UserProfileImage from './UserProfileImage';
+import TelegramLoginWidget from './TelegramLoginWidget';
 
 class SettingsEditor extends React.Component {
- 
   state = {
     user: {
-      tgAuthLinked: ''
+      tgAuthLinked: '',
     },
     selectedFile: null,
     email: '',
@@ -22,11 +20,10 @@ class SettingsEditor extends React.Component {
     fullName: '',
     credo: '',
     scientificInterest: '',
-    inProgress: false
+    inProgress: false,
   };
 
   async componentDidMount() {
-
     const user = await campus.getCurrentUser();
 
     if (!user) {
@@ -34,14 +31,14 @@ class SettingsEditor extends React.Component {
       return;
     }
 
-    this.setState({user});
-    this.setState({email: user.email});
-    this.setState({credo: user.credo});
-    this.setState({scientificInterest: user.scientificInterest});
-    this.setState({fullName: user.fullName});
-    this.setState({currentPassword: ''});
-    this.setState({password: ''});
-    this.setState({passwordConfirmation: ''});
+    this.setState({ user });
+    this.setState({ email: user.email });
+    this.setState({ credo: user.credo });
+    this.setState({ scientificInterest: user.scientificInterest });
+    this.setState({ fullName: user.fullName });
+    this.setState({ currentPassword: '' });
+    this.setState({ password: '' });
+    this.setState({ passwordConfirmation: '' });
   }
 
   /**
@@ -49,11 +46,21 @@ class SettingsEditor extends React.Component {
    * @returns {boolean}
    */
   validatePassword = () => {
-    if (this.state.password !== '' || this.state.currentPassword !== '' || this.state.passwordConfirmation !== '') {
-      if (this.state.currentPassword === '' || (this.state.password !== this.state.passwordConfirmation)) {
+    if (
+      this.state.password !== '' ||
+      this.state.currentPassword !== '' ||
+      this.state.passwordConfirmation !== ''
+    ) {
+      if (
+        this.state.currentPassword === '' ||
+        this.state.password !== this.state.passwordConfirmation
+      ) {
         return false;
       }
-      if (this.state.password === '' && this.state.passwordConfirmation === '') {
+      if (
+        this.state.password === '' &&
+        this.state.passwordConfirmation === ''
+      ) {
         return false;
       }
     }
@@ -65,12 +72,11 @@ class SettingsEditor extends React.Component {
    * @returns {Promise<boolean>}
    */
   updateUser = async () => {
-
     const payload = {
       email: this.state.email,
       fullName: this.state.fullName,
       scientificInterest: this.state.scientificInterest,
-      credo: this.state.credo
+      credo: this.state.credo,
     };
 
     if (!this.validatePassword()) {
@@ -96,9 +102,10 @@ class SettingsEditor extends React.Component {
    * @returns {Promise<boolean>}
    */
   updateUserAvatar = async () => {
-
     if (!!this.state.selectedFile) {
-      const newProfileImageUrl = await campus.updateUserProfileImage(this.state.selectedFile);
+      const newProfileImageUrl = await campus.updateUserProfileImage(
+        this.state.selectedFile,
+      );
 
       if (newProfileImageUrl == null) {
         alert('Не вдалося зберегти зображення');
@@ -113,129 +120,196 @@ class SettingsEditor extends React.Component {
    * @returns {Promise<boolean>}
    */
   updateProfile = async () => {
-
-    this.setState({inProgress : true});
+    this.setState({ inProgress: true });
 
     //Check session
-    if (!await campus.getCurrentUser()) {
+    if (!(await campus.getCurrentUser())) {
       this.props.history.push('/login');
       return false;
     }
 
-    const [r1, r2] = await Promise
-        .all([
-          this.updateUser(),
-          this.updateUserAvatar()]);
+    const [r1, r2] = await Promise.all([
+      this.updateUser(),
+      this.updateUserAvatar(),
+    ]);
 
-    this.setState({inProgress : false});
+    this.setState({ inProgress: false });
 
-    if (r1 && r2){
+    if (r1 && r2) {
       this.props.history.push('/settings');
       return true;
     }
 
-    this.setState({user: await campus.getCurrentUser()});
+    this.setState({ user: await campus.getCurrentUser() });
 
     return false;
   };
 
-  handleSelectedFile = async (event) => this.setState({ selectedFile: event.target.files[0] });
+  handleSelectedFile = async event =>
+    this.setState({ selectedFile: event.target.files[0] });
 
-  handleTelegramResponse = async (telegramResponse) => {
+  handleTelegramResponse = async telegramResponse => {
     const user = await campus.authViaTelegram(telegramResponse);
 
-    await this.setState({authFail: !user});
+    await this.setState({ authFail: !user });
 
     if (!!user) {
       this.props.history.push(`/settings-editor`);
-      this.setState({user});
+      this.setState({ user });
 
-      alert('Ви пiдключили авторизацiю через Telegram.')
+      alert('Ви пiдключили авторизацiю через Telegram.');
     }
   };
 
   render() {
     const { user } = this.state;
 
-    return <div className="row">1
-      <div className="col-md-12">
-        <h1>Налаштування</h1>
+    return (
+      <div className="row">
+        1
+        <div className="col-md-12">
+          <h1>Налаштування</h1>
 
-            <div className="row">
-              <div className="col-md-3">
-                <div className="profile-img">
-                  <UserProfileImage user={this.state.user} />
-                  <div className="file btn btn-lg btn-primary">
-                    Оновити фото
-                    <input type="file" name="file" onChange={this.handleSelectedFile}/>
-                  </div>
+          <div className="row">
+            <div className="col-md-3">
+              <div className="profile-img">
+                <UserProfileImage user={this.state.user} />
+                <div className="file btn btn-lg btn-primary">
+                  Оновити фото
+                  <input
+                    type="file"
+                    name="file"
+                    onChange={this.handleSelectedFile}
+                  />
                 </div>
               </div>
-              <div className="col-md-7">
-                {this.state.inProgress && <ProgressBar text="Збереження"/>                 }
+            </div>
+            <div className="col-md-7">
+              {this.state.inProgress && <ProgressBar text="Збереження" />}
 
-                <div className={`profile-head ${this.state.inProgress ? 'hidden' : '' }`}>
-                  <h2>{user.fullName}</h2>
-
-                  <h4>Кредо</h4>
-                    <input type="text" className="form-control" maxLength="500" value={this.state.credo}
-                           onChange={(e) => { this.setState({credo: e.target.value}) }} />
-
-                  <h4>Науковi iнтереси</h4>
-                  <input type="text" className="form-control" maxLength="300" value={this.state.scientificInterest}
-                         onChange={(e) => { this.setState({scientificInterest: e.target.value}) }} />
-
-                  <h4>Електрона пошта</h4>
-                  <input type="email" className="form-control" maxLength="50" value={this.state.email}
-                         onChange={(e) => { this.setState({email: e.target.value}) }} />
-
-                  <h4>Логiн</h4>
-                  <input type="text" className="form-control" readOnly={true} maxLength="50" value={this.state.user.username} />
-
-                  <h4>Пароль </h4>
-                  <strong>Поточний:</strong><br />
-                  <input type="password" className="form-control" maxLength="50" value={this.state.currentPassword}
-                         onChange={(e) => { this.setState({currentPassword: e.target.value}); }} />
-                  <br />
-
-                  <strong>Новий:</strong><br />
-                  <input type="password" className="form-control" maxLength="50" value={this.state.password}
-                         onChange={(e) => { this.setState({password: e.target.value}); }} />
-                  <br />
-
-                  <strong>Пiдтвердження:</strong><br />
-                  <input type="password" className="form-control" maxLength="50" value={this.state.passwordConfirmation}
-                         onChange={(e) => { this.setState({passwordConfirmation: e.target.value}); }} />
-                  <br />
-                  <br />
-
-                  <h4>Telegram (beta)</h4>
-                  <TelegramLoginWidget callbackOnAuth={this.handleTelegramResponse} botName={campus.config.telegram.botName} />
-                  Cтатус: <b>{ !!this.state.user.tgAuthLinked ? `пiдключено` : `не пiдключено` }</b>
-                  <br />
-                  <br />
-
-                </div>
-              </div>
-
-              <div className="col-md-2 state-buttons">
-                <input type="button" className="btn btn-success" value="Зберегти" onClick={this.updateProfile}/>
+              <div
+                className={`profile-head ${
+                  this.state.inProgress ? 'hidden' : ''
+                }`}
+              >
+                <h2>{user.fullName}</h2>
+                <h4>Кредо</h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  maxLength="500"
+                  value={this.state.credo}
+                  onChange={e => {
+                    this.setState({ credo: e.target.value });
+                  }}
+                />
+                <h4>Науковi iнтереси</h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  maxLength="300"
+                  value={this.state.scientificInterest}
+                  onChange={e => {
+                    this.setState({ scientificInterest: e.target.value });
+                  }}
+                />
+                <h4>Електрона пошта</h4>
+                <input
+                  type="email"
+                  className="form-control"
+                  maxLength="50"
+                  value={this.state.email}
+                  onChange={e => {
+                    this.setState({ email: e.target.value });
+                  }}
+                />
+                <h4>Логiн</h4>
+                <input
+                  type="text"
+                  className="form-control"
+                  readOnly={true}
+                  maxLength="50"
+                  value={this.state.user.username}
+                />
+                <h4>Пароль </h4>
+                <strong>Поточний:</strong>
+                <br />
+                <input
+                  type="password"
+                  className="form-control"
+                  maxLength="50"
+                  value={this.state.currentPassword}
+                  onChange={e => {
+                    this.setState({ currentPassword: e.target.value });
+                  }}
+                />
+                <br />
+                <strong>Новий:</strong>
+                <br />
+                <input
+                  type="password"
+                  className="form-control"
+                  maxLength="50"
+                  value={this.state.password}
+                  onChange={e => {
+                    this.setState({ password: e.target.value });
+                  }}
+                />
+                <br />
+                <strong>Пiдтвердження:</strong>
+                <br />
+                <input
+                  type="password"
+                  className="form-control"
+                  maxLength="50"
+                  value={this.state.passwordConfirmation}
+                  onChange={e => {
+                    this.setState({ passwordConfirmation: e.target.value });
+                  }}
+                />
                 <br />
                 <br />
-                <Link className="btn btn-danger"  to="/settings">Вiдмiнити змiни</Link>
+                <h4>Telegram (beta)</h4>
+                <TelegramLoginWidget
+                  callbackOnAuth={this.handleTelegramResponse}
+                  botName={campus.config.telegram.botName}
+                />
+                Cтатус:{' '}
+                <b>
+                  {!!this.state.user.tgAuthLinked
+                    ? `пiдключено`
+                    : `не пiдключено`}
+                </b>
+                <br />
+                <br />
               </div>
             </div>
 
-            <div className="row">
-              <div className="col-md-4">
-                <div className="profile-work" />
-              </div>
-              <div className="col-md-8" />
+            <div className="col-md-2 state-buttons">
+              <input
+                type="button"
+                className="btn btn-success"
+                value="Зберегти"
+                onClick={this.updateProfile}
+              />
+              <br />
+              <br />
+              <Link className="btn btn-danger" to="/settings">
+                Вiдмiнити змiни
+              </Link>
             </div>
+          </div>
 
+          <div className="row">
+            <div className="col-md-4">
+              <div className="profile-work" />
+            </div>
+            <div className="col-md-8" />
+          </div>
+        </div>
       </div>
-    </div>
+    );
   }
 }
 
-export default SettingsEditor
+export default SettingsEditor;
