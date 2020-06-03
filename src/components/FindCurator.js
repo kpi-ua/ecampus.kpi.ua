@@ -10,12 +10,12 @@ class FindCurator extends React.Component {
     groups: [],
   };
 
-  showMessage = message => {
+  showMessage = (message) => {
     console.log(`${message}`);
     alert(message);
   };
 
-  findGroup = async event => {
+  findGroup = async (event) => {
     const payload = {
       name: event.currentTarget.value,
     };

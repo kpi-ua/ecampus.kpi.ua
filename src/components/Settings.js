@@ -52,7 +52,7 @@ class Settings extends React.Component {
                 <h4>Пiдроздiл</h4>
                 {!!user &&
                   !!user.subdivision &&
-                  user.subdivision.map(s => (
+                  user.subdivision.map((s) => (
                     <span key={s.id} href="#">
                       {s.name}
                     </span>
@@ -61,7 +61,7 @@ class Settings extends React.Component {
                 <h4>Позицiя</h4>
                 {!!user &&
                   !!user.position &&
-                  user.position.map(p => (
+                  user.position.map((p) => (
                     <span key={p.id} href="#">
                       {p.name}
                     </span>

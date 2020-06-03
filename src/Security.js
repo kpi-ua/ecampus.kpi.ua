@@ -9,7 +9,7 @@ export const hasAccessToModule = (user, module) => {
     return false;
   }
 
-  return user.modules.some(function(m) {
+  return user.modules.some(function (m) {
     return m === module;
   });
 };
@@ -19,11 +19,11 @@ export const hasProfile = (user, profile) => {
     return false;
   }
 
-  return user.profiles.some(function(p) {
+  return user.profiles.some(function (p) {
     return p.profile === profile;
   });
 
-  return true;
+  // return true;
 };
 
 export const Modules = {

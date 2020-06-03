@@ -16,6 +16,7 @@ class Schedule extends Component {
 
           <div>
             <iframe
+              title="Розклад"
               style={{ border: 'none' }}
               src={link}
               width="100%"

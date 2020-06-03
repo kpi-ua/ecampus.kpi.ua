@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DropdownItem } from 'reactstrap';
+// import { DropdownItem } from 'reactstrap';
 
 const link =
   'https://a2c27d7243ea.blob.core.windows.net/kpi/files/current_control.pdf';

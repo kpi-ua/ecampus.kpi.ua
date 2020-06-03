@@ -145,10 +145,10 @@ class SettingsEditor extends React.Component {
     return false;
   };
 
-  handleSelectedFile = async event =>
+  handleSelectedFile = async (event) =>
     this.setState({ selectedFile: event.target.files[0] });
 
-  handleTelegramResponse = async telegramResponse => {
+  handleTelegramResponse = async (telegramResponse) => {
     const user = await campus.authViaTelegram(telegramResponse);
 
     await this.setState({ authFail: !user });
@@ -199,7 +199,7 @@ class SettingsEditor extends React.Component {
                   className="form-control"
                   maxLength="500"
                   value={this.state.credo}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({ credo: e.target.value });
                   }}
                 />
@@ -209,7 +209,7 @@ class SettingsEditor extends React.Component {
                   className="form-control"
                   maxLength="300"
                   value={this.state.scientificInterest}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({ scientificInterest: e.target.value });
                   }}
                 />
@@ -219,7 +219,7 @@ class SettingsEditor extends React.Component {
                   className="form-control"
                   maxLength="50"
                   value={this.state.email}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({ email: e.target.value });
                   }}
                 />
@@ -239,7 +239,7 @@ class SettingsEditor extends React.Component {
                   className="form-control"
                   maxLength="50"
                   value={this.state.currentPassword}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({ currentPassword: e.target.value });
                   }}
                 />
@@ -251,7 +251,7 @@ class SettingsEditor extends React.Component {
                   className="form-control"
                   maxLength="50"
                   value={this.state.password}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({ password: e.target.value });
                   }}
                 />
@@ -263,7 +263,7 @@ class SettingsEditor extends React.Component {
                   className="form-control"
                   maxLength="50"
                   value={this.state.passwordConfirmation}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.setState({ passwordConfirmation: e.target.value });
                   }}
                 />

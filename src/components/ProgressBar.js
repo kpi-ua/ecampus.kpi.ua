@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProgressBar = props => (
+const ProgressBar = (props) => (
   <div className="spinner">
     <div>{props.text}</div>
     <div className="spinner-grow text-success" role="status">

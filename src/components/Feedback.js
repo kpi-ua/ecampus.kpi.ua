@@ -8,6 +8,7 @@ class Feedback extends Component {
           <h1>Форма скарг i пропозицiй</h1>
 
           <iframe
+            title="Форма скарг i пропозицiй"
             width="100%"
             height="1200px"
             src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__pj8rjRUOUFNWTNVU0VIWFlRWTZXNzRaVklaUUVPTS4u&embed=true"

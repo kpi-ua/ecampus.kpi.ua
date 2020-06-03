@@ -59,11 +59,13 @@ export const auth = async (login, password) => {
  * @param phone
  * @returns {Promise<void>}
  */
-export const requestKpiIdSecret = async phone => {
+export const requestKpiIdSecret = async (phone) => {
   const response = await callApi(
     'Account/oauth/login/kpiid/secret?phone=' + phone,
     'GET',
   );
+
+  return response;
 };
 
 /**
@@ -105,7 +107,7 @@ export const authByKpiId = async (phone, secret) => {
  * @param telegramResponse
  * @returns {Promise<*>}
  */
-export const authViaTelegram = async telegramResponse => {
+export const authViaTelegram = async (telegramResponse) => {
   const response = await callApi(
     'Account/oauth/login/telegram',
     'POST',
@@ -175,7 +177,7 @@ export const callApi = async (path, method, payload = null) => {
   if (!!payload) {
     if (method === 'GET') {
       url += `?${Object.keys(payload)
-        .map(key => key + '=' + payload[key])
+        .map((key) => key + '=' + payload[key])
         .join('&')}`;
     } else {
       request.body = JSON.stringify(payload);
@@ -200,7 +202,7 @@ export const generateFacebookAuthorizationLink = () => {
  * @param ignoreCache
  * @returns {Promise<null|any>}
  */
-export const getCurrentUser = async ignoreCache => {
+export const getCurrentUser = async (ignoreCache) => {
   const cachedUserInfoKey = 'currentUser';
 
   let token = getToken();
@@ -260,7 +262,7 @@ const getToken = () => {
  * @param file
  * @returns {Promise<string>}
  */
-export const updateUserProfileImage = async file => {
+export const updateUserProfileImage = async (file) => {
   const user = await getCurrentUser();
   const token = getToken();
   const endpoint = `${ApiEndpoint}Account/${user.id}/ProfileImage`;
@@ -311,9 +313,9 @@ const storeCredentials = async (sessionId, token) => {
   await setAuthCookies(sessionId, token);
 };
 
-const toUrlEncode = obj => {
+const toUrlEncode = (obj) => {
   return Object.keys(obj)
-    .map(function(k) {
+    .map(function (k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(obj[k]);
     })
     .join('&');
@@ -341,7 +343,7 @@ export const getBulletinBoardForCurrentUser = async (page, size) => {
  * @param cname
  * @returns {string}
  */
-const getCookie = cname => {
+const getCookie = (cname) => {
   const name = cname + '=';
   const decodedCookie = decodeURIComponent(document.cookie);
   const ca = decodedCookie.split(';');
@@ -368,7 +370,7 @@ const getCookie = cname => {
 const setAuthCookies = async (sessionId, token) => {
   const days = 365;
 
-  config.appDomains.forEach(function(domain) {
+  config.appDomains.forEach(function (domain) {
     setCookie('SID', sessionId, domain, days);
     setCookie('token', token, domain, days);
   });

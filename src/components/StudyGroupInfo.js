@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StudyGroupInfo = props => (
+const StudyGroupInfo = (props) => (
   <div className="study-group-info">
     <strong>{props.value.name}</strong>
     <br />

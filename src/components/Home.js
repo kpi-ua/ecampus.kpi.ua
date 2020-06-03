@@ -26,7 +26,7 @@ class Home extends React.Component {
     this.setState({ user });
   }
 
-  redirectToOldUI = async e => {
+  redirectToOldUI = async (e) => {
     e.preventDefault();
     await campus.redirectToOldUI();
   };
@@ -58,15 +58,13 @@ class Home extends React.Component {
                     версію системи.
                   </p>
                   <p className="lead">
-                    <a
+                    <button
                       className="btn btn-primary btn-lg"
-                      role="button"
-                      href="#"
                       onClick={this.redirectToOldUI}
                     >
                       До поточної версії кампусу{' '}
                       <i className="fa fa-external-link" />
-                    </a>
+                    </button>
                   </p>
                 </div>
               </div>

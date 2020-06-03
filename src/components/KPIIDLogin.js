@@ -17,15 +17,15 @@ class KPIIDLogin extends React.Component {
     }
   };
 
-  setPhone = event => {
+  setPhone = (event) => {
     this.setState({ phone: event.target.value });
   };
 
-  setSecret = event => {
+  setSecret = (event) => {
     this.setState({ secret: event.target.value });
   };
 
-  getCode = async e => {
+  getCode = async (e) => {
     e.preventDefault();
 
     await campus.requestKpiIdSecret(this.state.phone);
@@ -33,7 +33,7 @@ class KPIIDLogin extends React.Component {
     this.setState({ codeWasRequested: true });
   };
 
-  authorize = async e => {
+  authorize = async (e) => {
     e.preventDefault();
 
     const user = await campus.authByKpiId(this.state.phone, this.state.secret);

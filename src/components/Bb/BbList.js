@@ -31,9 +31,10 @@ class BbList extends React.Component {
     }
   }
 
-  dateToString = date => (!date ? '...' : new Date(date).toLocaleDateString());
+  dateToString = (date) =>
+    !date ? '...' : new Date(date).toLocaleDateString();
 
-  getHtml = text => ({ __html: text });
+  getHtml = (text) => ({ __html: text });
 
   /**
    *
@@ -62,7 +63,7 @@ class BbList extends React.Component {
       <div>
         {items.map((item, i) => {
           return (
-            <div className="card w-auto">
+            <div className="card w-auto" key={item.id}>
               <div className="card-body">
                 <h5 className="card-title">{item.subject}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">
@@ -74,13 +75,13 @@ class BbList extends React.Component {
                   dangerouslySetInnerHTML={this.getHtml(item.text)}
                   key={item.id}
                 />
-                <a
+                <button
                   href="#"
                   className="btn btn-primary btn-lg"
-                  onClick={e => this.showDetail(e, item.subject, item.text)}
+                  onClick={(e) => this.showDetail(e, item.subject, item.text)}
                 >
                   Докладніше
-                </a>
+                </button>
               </div>
             </div>
           );
@@ -92,7 +93,7 @@ class BbList extends React.Component {
             itemsCountPerPage={this.state.paging.pageSize}
             totalItemsCount={this.state.paging.totalItemCount}
             pageRangeDisplayed={5}
-            onChange={async pageNumber => {
+            onChange={async (pageNumber) => {
               const response = await campus.getBulletinBoardForCurrentUser(
                 pageNumber,
                 this.state.pageSize,

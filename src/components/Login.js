@@ -18,15 +18,15 @@ class Login extends React.Component {
     }
   };
 
-  setLogin = event => {
+  setLogin = (event) => {
     this.setState({ login: event.target.value });
   };
 
-  setPassword = event => {
+  setPassword = (event) => {
     this.setState({ password: event.target.value });
   };
 
-  authorize = async e => {
+  authorize = async (e) => {
     e.preventDefault();
 
     const user = await campus.auth(this.state.login, this.state.password);
@@ -38,7 +38,7 @@ class Login extends React.Component {
     }
   };
 
-  handleTelegramResponse = async telegramResponse => {
+  handleTelegramResponse = async (telegramResponse) => {
     const user = await campus.authViaTelegram(telegramResponse);
 
     await this.setState({ authFail: !user });

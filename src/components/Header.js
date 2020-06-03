@@ -13,7 +13,7 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import * as campus from '../CampusClient';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as Security from '../Security';
 
 class Header extends React.Component {
@@ -32,7 +32,7 @@ class Header extends React.Component {
     });
   };
 
-  exit = async e => {
+  exit = async (e) => {
     e.preventDefault();
     await campus.logout();
     this.props.history.push('/login');
@@ -42,7 +42,7 @@ class Header extends React.Component {
     }
   };
 
-  redirectToOldUI = async e => {
+  redirectToOldUI = async (e) => {
     e.preventDefault();
     await campus.redirectToOldUI();
   };

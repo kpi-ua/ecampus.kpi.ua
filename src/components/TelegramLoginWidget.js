@@ -11,7 +11,7 @@ class TelegramLoginWidget extends React.Component {
       callbackOnAuth,
     } = this.props;
     window.TelegramLoginWidget = {
-      callbackOnAuth: user => callbackOnAuth(user),
+      callbackOnAuth: (user) => callbackOnAuth(user),
     };
     const script = document.createElement('script');
     script.src = 'https://telegram.org/js/telegram-widget.js?5';
@@ -30,7 +30,7 @@ class TelegramLoginWidget extends React.Component {
 
   render() {
     return (
-      <div ref={component => (this.instance = component)}>
+      <div ref={(component) => (this.instance = component)}>
         {this.props.children}
       </div>
     );

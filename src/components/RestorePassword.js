@@ -1,5 +1,5 @@
 import React from 'react';
-import SupportInformationDialog from './SupportInformationDialog';
+// import SupportInformationDialog from './SupportInformationDialog';
 import * as campus from '../CampusClient';
 import { Link } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -13,19 +13,19 @@ class RestorePassword extends React.Component {
     loader: false,
   };
 
-  showMessage = message => {
+  showMessage = (message) => {
     console.log(`${message}`);
     alert(message);
   };
 
-  handleSubmit = event => event.preventDefault();
+  handleSubmit = (event) => event.preventDefault();
 
-  onCaptchaVerified = code => {
+  onCaptchaVerified = (code) => {
     this.setState({ captcha: code });
     this.setState({ userEnteredCaptcha: true });
   };
 
-  updateUserId = event => this.setState({ userId: event.target.value });
+  updateUserId = (event) => this.setState({ userId: event.target.value });
 
   getCaptcha = () =>
     this.setState({
