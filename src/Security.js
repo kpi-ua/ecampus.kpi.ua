@@ -5,7 +5,6 @@
  * @returns {boolean}
  */
 export const hasAccessToModule = (user, module) => {
-
   if (!user || !user.modules) {
     return false;
   }
@@ -14,7 +13,6 @@ export const hasAccessToModule = (user, module) => {
     return m === module;
   });
 };
-
 
 export const hasProfile = (user, profile) => {
   if (!user || !user.profiles) {
@@ -25,8 +23,8 @@ export const hasProfile = (user, profile) => {
     return p.profile === profile;
   });
 
-  return true;
-}
+  // return true;
+};
 
 export const Modules = {
   RNP: 'RNP',
@@ -34,7 +32,7 @@ export const Modules = {
   Messages: 'Messages',
   PersonalArea: 'PersonalArea',
   AttestationResult: 'AttestationResult',
-  Information: 'Information'
+  Information: 'Information',
 };
 
 export const Profiles = {
@@ -49,5 +47,5 @@ export const Profiles = {
   GroupCurator: 'GroupCurator',
   Analyst: 'Analyst',
   Tester: 'Tester',
-  Moderator: 'Moderator'
+  Moderator: 'Moderator',
 };
