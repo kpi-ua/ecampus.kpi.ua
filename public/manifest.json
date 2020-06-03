@@ -1,6 +1,6 @@
 {
-  "short_name": "campus",
-  "name": "ecampus.kpi.ua",
+  "short_name": "Е-Кампус",
+  "name": "Електронний Кампус КПІ",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,6 +10,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#208843",
   "background_color": "#ffffff"
 }
