@@ -76,7 +76,8 @@ class Login extends React.Component {
                           value={this.state.login}
                           onChange={this.setLogin}
                           className="form-control"
-                          placeholder="Логін"
+													placeholder="Логін"
+													autoComplete="current-username"
                         />
                       </div>
 
@@ -86,7 +87,8 @@ class Login extends React.Component {
                           value={this.state.password}
                           onChange={this.setPassword}
                           className="form-control"
-                          placeholder="Пароль"
+													placeholder="Пароль"
+													autoComplete="current-password"
                         />
                       </div>
 
