@@ -165,13 +165,19 @@ class Login extends React.Component {
               <div className="text-center">
                 <div className="panel-body">
                   <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-4">
                       <Link className="menu-icon" to={`/restore-password`}>
                         <i className="fa fa-unlock-alt" aria-hidden="true" />
                         Вiдновити втрачений пароль
                       </Link>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-4">
+                      <Link className="menu-icon" to={`/find-curator`}>
+                        <i className="fa fa-search" aria-hidden="true" />
+                        Знайти куратора групи
+                      </Link>
+                    </div>
+                    <div className="col-md-4">
                       <Link className="menu-icon" to={`/feedback`}>
                         <i className="fa fa-comments-o" aria-hidden="true" />
                         Форма скарг i пропозицiй
