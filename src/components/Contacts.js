@@ -41,6 +41,7 @@ const Contacts = () => (
       <h3>Служба підтримки</h3>
       Якщо у вас є питання, ви можете звернутися до служби підтримки:
       <br />
+      <br />
       <a className="info-button" href="mailto:ecampus@kpi.ua">
         <i className="fa fa-envelope" />
         ecampus@kpi.ua
@@ -51,16 +52,6 @@ const Contacts = () => (
         <i className="fa fa-comments-o" aria-hidden="true" />
         Форма скарг i пропозицiй
       </Link>
-      <ul>
-        <li>
-          <a href="https://github.com/kpi-ua">Аккаунт КПI у GitHub</a>
-        </li>
-        <li>
-          <a href="https://www.facebook.com/kbis.kpi.ua">
-            Сторiнка КБIC у Facebook
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
 );
