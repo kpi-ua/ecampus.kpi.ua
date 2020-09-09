@@ -142,7 +142,8 @@ class Home extends React.Component {
                 ) && (
                   <ul>
                     <li>
-                      <Link to="/schedule">Розклад занять та сесії</Link>
+                      {/*<Link to="/schedule">Розклад занять та сесії</Link>*/}
+                      <a href="http://rozklad.kpi.ua" target="_blank">Розклад занять та сесії <i className="fa fa-external-link" /></a>
                     </li>
                     <li>
                       <Link to="/bb">Дошка оголошень</Link>
