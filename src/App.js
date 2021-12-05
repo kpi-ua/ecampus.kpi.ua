@@ -24,6 +24,8 @@ import Feedback from './components/Feedback';
 import Faq from './components/Faq';
 import FindCurator from './components/FindCurator';
 import Schedule from './components/Schedule';
+import AuthContainerDefault from './components/AuthContainerDefault';
+import AuthContainerExternal from './components/AuthContainerExternal';
 
 class App extends Component {
   constructor(props) {
@@ -51,7 +53,16 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/home" component={Home} />
-              <Route exact path="/login" component={Login} />
+              <Route exact path="/login">
+                <Login>
+                  <AuthContainerDefault />
+                </Login>
+              </Route>
+              <Route exact path="/login/external">
+                <Login isExternal={true}>
+                  <AuthContainerExternal />
+                </Login>
+              </Route>
               <Route exact path="/kpiid" component={KPIIDLogin} />
               <Route exact path="/privacy" component={Privacy} />
               <Route exact path="/documents" component={Documents} />
