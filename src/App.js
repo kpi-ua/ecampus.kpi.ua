@@ -54,7 +54,7 @@ class App extends Component {
               <Route exact path="/" component={Login} />
               <Route exact path="/home" component={Home} />
               <Route exact path="/login">
-                <Login>
+                <Login isExternal={false}>
                   <AuthContainerDefault />
                 </Login>
               </Route>
