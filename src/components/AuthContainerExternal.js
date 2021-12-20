@@ -16,10 +16,13 @@ const AuthContainerExternal = () => {
   const authorize = async (e, { login, password }) => {
     e.preventDefault();
 
+    const redirectionUrl = query.get('redirect_url');
+
     try {
-      const req = await campus.externalAuth(login, password, query.get('appId'), query.get('redirect_uri'));
+      const req = await campus.externalAuth(login, password, query.get('appId'), redirectionUrl);
 
       if (req.ok) {
+        location.replace(redirectionUrl);
         // TODO redirection back + passing auth token
       } else {
         setAuthFail(true);
