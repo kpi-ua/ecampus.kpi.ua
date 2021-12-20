@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './css/App.css';
-import { Switch, Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Privacy from './components/Privacy';
 import Documents from './components/Documents';
@@ -27,6 +27,22 @@ import Schedule from './components/Schedule';
 import AuthContainerDefault from './components/AuthContainerDefault';
 import AuthContainerExternal from './components/AuthContainerExternal';
 
+const InternalLogin = () => {
+  return (
+    <Login isExternal={false}>
+      <AuthContainerDefault />
+    </Login>
+  );
+};
+
+const ExternalLogin = () => {
+  return (
+    <Login isExternal={true}>
+      <AuthContainerExternal />
+    </Login>
+  );
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -51,18 +67,10 @@ class App extends Component {
         <div className="container-fluid content">
           <div className="content">
             <Switch>
-              <Route exact path="/" component={Login} />
+              <Route exact path="/" component={InternalLogin} />
               <Route exact path="/home" component={Home} />
-              <Route exact path="/login">
-                <Login isExternal={false}>
-                  <AuthContainerDefault />
-                </Login>
-              </Route>
-              <Route exact path="/login/external">
-                <Login isExternal={true}>
-                  <AuthContainerExternal />
-                </Login>
-              </Route>
+              <Route exact path="/login" component={InternalLogin} />
+              <Route exact path="/login/external" component={ExternalLogin} />
               <Route exact path="/kpiid" component={KPIIDLogin} />
               <Route exact path="/privacy" component={Privacy} />
               <Route exact path="/documents" component={Documents} />

@@ -22,7 +22,7 @@ const AuthContainerExternal = () => {
       const req = await campus.externalAuth(login, password, query.get('appId'), redirectionUrl);
 
       if (req.ok) {
-        location.replace(redirectionUrl);
+        document.location.replace(redirectionUrl);
         // TODO redirection back + passing auth token
       } else {
         setAuthFail(true);
