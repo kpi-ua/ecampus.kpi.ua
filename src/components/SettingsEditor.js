@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Settings.css';
 import '../css/SettingsEditor.css';
 import * as campus from '../CampusClient';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ProgressBar from './ProgressBar';
 import UserProfileImage from './UserProfileImage';
 import TelegramLoginWidget from './TelegramLoginWidget';
@@ -25,10 +25,9 @@ class SettingsEditor extends React.Component {
 
   async componentDidMount() {
     const user = await campus.getCurrentUser();
-    const history = useHistory();
 
     if (!user) {
-      history.push('/login');
+      this.props.history.push('/login');
       return;
     }
 
@@ -122,11 +121,10 @@ class SettingsEditor extends React.Component {
    */
   updateProfile = async () => {
     this.setState({ inProgress: true });
-    const history = useHistory();
 
     //Check session
     if (!(await campus.getCurrentUser())) {
-      history.push('/login');
+      this.props.history.push('/login');
       return false;
     }
 
@@ -138,7 +136,7 @@ class SettingsEditor extends React.Component {
     this.setState({ inProgress: false });
 
     if (r1 && r2) {
-      history.push('/settings');
+      this.props.history.push('/settings');
       return true;
     }
 
@@ -152,12 +150,11 @@ class SettingsEditor extends React.Component {
 
   handleTelegramResponse = async (telegramResponse) => {
     const user = await campus.authViaTelegram(telegramResponse);
-    const history = useHistory();
 
     await this.setState({ authFail: !user });
 
     if (!!user) {
-      history.push(`/settings-editor`);
+      this.props.history.push(`/settings-editor`);
       this.setState({ user });
 
       alert('Ви пiдключили авторизацiю через Telegram.');

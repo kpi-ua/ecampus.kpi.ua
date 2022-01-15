@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Home.css';
 import * as campus from '../CampusClient';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import BbList from './Bb/BbList';
 import * as Security from '../Security';
 
@@ -11,11 +11,10 @@ class Home extends React.Component {
   };
 
   async componentDidMount() {
-    const user = await campus.getCurrentUser(true);
-    const history = useHistory();
+    const user = await campus.getCurrentUser();
 
     if (!user) {
-      history.push('/login');
+      this.props.history.push('/login');
       return;
     } else {
       if (!user.modules) {

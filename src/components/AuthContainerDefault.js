@@ -22,6 +22,7 @@ const AuthContainerDefault = () => {
 
   const handleTelegramResponse = async (telegramResponse) => {
     const user = await campus.authViaTelegram(telegramResponse);
+
     setAuthFail(!user);
 
     if (!!user) {
