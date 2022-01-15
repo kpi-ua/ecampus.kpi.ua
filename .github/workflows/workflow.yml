@@ -1,4 +1,4 @@
-name: Build campus API docker image
+name: Build ecampus.kpi.ua
 
 on:
   push:
