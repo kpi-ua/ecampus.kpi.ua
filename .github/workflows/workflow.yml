@@ -3,7 +3,7 @@ name: Build campus API docker image
 on:
   push:
     branches:
-      - fix-tg-login
+      - master
   workflow_dispatch:
 
 jobs:
@@ -26,7 +26,11 @@ jobs:
 
       - name: Build Docker image
         run: |          
-          now=$(date +%Y%m%d%H%M%S)          
-          image="kpiua/ecampus-kpi-ua:ui-$now"
-          docker build ./ --file ./.dockerfile --tag $image
-          docker push $image
+          now=$(date +%Y%m%d%H%M%S)
+          tag1="kpiua/ecampus-kpi-ua:$now"
+          tag2="kpiua/ecampus-kpi-ua:latest"
+          
+          docker build ./ --file ./.dockerfile --tag $tag1 --tag $tag2
+          
+          docker push $tag1
+          docker push $tag2
