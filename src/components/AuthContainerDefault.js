@@ -26,7 +26,7 @@ const AuthContainerDefault = () => {
     setAuthFail(!user);
 
     if (!!user) {
-      this.props.history.push(`/home`);
+      history.push(`/home`);
       window.location.reload();
     }
   };

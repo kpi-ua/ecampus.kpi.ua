@@ -11,14 +11,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+    - name: Docker Login
+      uses: docker/login-action@v1.10.0
       with:
-        node-version: 10.x
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_TOKEN }}
+        logout: true
 
-    - name: Build and Publish
-      run: |
-        chmod +x ./docker/build.sh
-        ./docker/build.sh ${{ secrets.GH_USERNAME }} ${{ secrets.GITHUB_TOKEN }} ${{ secrets.DOCKER_HUB_USERNAME }} ${{ secrets.DOCKER_HUB_TOKEN }}
+    - name: Checkout
+      uses: actions/checkout@v2.4.0
+      with:
+        repository: ${{ github.repository }}
+
+    - name: Build Docker image
+      run: |          
+        now=$(date +%Y%m%d%H%M%S)
+        tag1="kpiua/ecampus-kpi-ua:$now"
+        tag2="kpiua/ecampus-kpi-ua:latest"
+        
+        docker build ./ --file ./.dockerfile --tag $tag1 --tag $tag2
+        
+        docker push $tag1
+        docker push $tag2
