@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Settings.css';
 import * as campus from '../CampusClient';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import UserProfileImage from './UserProfileImage';
 
 class Settings extends React.Component {
@@ -11,9 +11,10 @@ class Settings extends React.Component {
 
   async componentDidMount() {
     const user = await campus.getCurrentUser(true);
+    const history = useHistory();
 
     if (!user) {
-      this.props.history.push('/login');
+      history.push('/login');
       return;
     }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import SupportInformationDialog from './SupportInformationDialog';
 import * as campus from '../CampusClient';
 
@@ -9,8 +9,10 @@ class Login extends React.Component {
   };
 
   componentDidMount = async () => {
+    const history = useHistory();
+
     if (!!(await campus.getCurrentUser())) {
-      this.props.history.push('/home');
+      history.push('/home');
     }
   };
 

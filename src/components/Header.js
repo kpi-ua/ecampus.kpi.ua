@@ -13,7 +13,7 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import * as campus from '../CampusClient';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import * as Security from '../Security';
 
 class Header extends React.Component {
@@ -35,7 +35,9 @@ class Header extends React.Component {
   exit = async (e) => {
     e.preventDefault();
     await campus.logout();
-    this.props.history.push('/login');
+    const history = useHistory();
+
+    history.push('/login');
 
     if (!!this.props.onLogout) {
       this.props.onLogout();
