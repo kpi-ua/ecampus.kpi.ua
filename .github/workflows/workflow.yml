@@ -1,9 +1,10 @@
-name: Build ecampus.kpi.ua
+name: Build campus API docker image
 
 on:
   push:
     branches:
       - fix-tg-login
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -11,14 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Docker Login
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          logout: true
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10.x
+      - name: Checkout
+        uses: actions/checkout@v2.4.0
+        with:
+          repository: ${{ github.repository }}
 
-    - name: Build and Publish
-      run: |
-        chmod +x ./docker/build.sh
-        ./docker/build.sh ${{ secrets.GH_USERNAME }} ${{ secrets.GITHUB_TOKEN }} ${{ secrets.DOCKER_HUB_USERNAME }} ${{ secrets.DOCKER_HUB_TOKEN }}
+      - name: Build Docker image
+        run: |          
+          now=$(date +%Y%m%d%H%M%S)          
+          image="kpiua/ecampus-kpi-ua:ui-$now"
+          docker build ./ --file ./.dockerfile --tag $image
+          docker push $image
