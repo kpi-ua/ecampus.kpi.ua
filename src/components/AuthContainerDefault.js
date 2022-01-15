@@ -22,11 +22,12 @@ const AuthContainerDefault = () => {
 
   const handleTelegramResponse = async (telegramResponse) => {
     const user = await campus.authViaTelegram(telegramResponse);
+    const history = useHistory();
 
     setAuthFail(!user);
 
     if (!!user) {
-      this.props.history.push(`/home`);
+      history.push(`/home`);
       window.location.reload();
     }
   };
