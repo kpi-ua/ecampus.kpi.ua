@@ -3,7 +3,7 @@ name: Build ecampus.kpi.ua
 on:
   push:
     branches:
-      - master
+      - fix-tg-login
 
 jobs:
   build-and-deploy:
