@@ -139,7 +139,7 @@ export const authViaTelegram = async (telegramResponse) => {
   const credentials = await response.json();
   await storeCredentials(credentials.sessionId, credentials.access_token);
 
-  return await getCurrentUser();
+  return await getCurrentUser(true);
 };
 
 /**

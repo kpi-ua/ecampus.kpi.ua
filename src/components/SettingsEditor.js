@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Settings.css';
 import '../css/SettingsEditor.css';
 import * as campus from '../CampusClient';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ProgressBar from './ProgressBar';
 import UserProfileImage from './UserProfileImage';
 import TelegramLoginWidget from './TelegramLoginWidget';
@@ -21,6 +21,7 @@ class SettingsEditor extends React.Component {
     credo: '',
     scientificInterest: '',
     inProgress: false,
+    redirect: null
   };
 
   async componentDidMount() {
@@ -158,10 +159,17 @@ class SettingsEditor extends React.Component {
       this.setState({ user });
 
       alert('Ви пiдключили авторизацiю через Telegram.');
+
+      this.setState({redirect: '/settings'});
     }
   };
 
   render() {
+
+    if (!!this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+
     const { user } = this.state;
 
     return (
