@@ -39,7 +39,7 @@ class SupportInformationDialog extends React.Component {
           </p>
           <p>
             Також ви можете завітати до констуркторського бюро, за адресою:{' '}
-            <a href="http://maps.yandex.ua/-/CVremSol">
+            <a href="https://goo.gl/maps/ij4s8vuHPpLB92ZFA">
               Україна, м. Київ, вул. Політехнічна 14-в, корпус 13, 4 поверх, 25
               кабінет
             </a>
