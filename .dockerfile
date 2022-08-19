@@ -29,5 +29,15 @@ RUN rm -rf ./*
 # Copies static resources from builder stage
 COPY --from=builder /app/build .
 COPY ./default.conf /etc/nginx/conf.d/default.conf
+
+# storing environmental variables
+ARG API_ENDPOINT
+ARG OLD_UI_ADDRESS
+ARG LOGIN_PAGE_ADDRESS
+
+ENV API_ENDPOINT = $API_ENDPOINT
+ENV OLD_UI_ADDRESS = $OLD_UI_ADDRESS
+ENV LOGIN_PAGE_ADDRESS = $LOGIN_PAGE_ADDRESS
+
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]

@@ -1,6 +1,6 @@
-export const ApiEndpoint = 'https://api.campus.kpi.ua/';
-export const OldUIAddress = 'https://campus.kpi.ua/';
-export const LoginPageAddress = 'https://ecampus.kpi.ua/login';
+export const ApiEndpoint = process.env.API_ENDPOINT || 'https://api.campus.kpi.ua/';
+export const OldUIAddress = process.env.OLD_UI_ADDRESS || 'https://campus.kpi.ua/';
+export const LoginPageAddress = process.env.LOGIN_PAGE_ADDRESS || 'https://ecampus.kpi.ua/login';
 
 /**
  * Application configuration
