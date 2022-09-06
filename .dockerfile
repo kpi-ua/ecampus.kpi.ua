@@ -29,5 +29,7 @@ RUN rm -rf ./*
 # Copies static resources from builder stage
 COPY --from=builder /app/build .
 COPY ./default.conf /etc/nginx/conf.d/default.conf
+COPY ./start.sh /docker-entrypoint.d
+
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
