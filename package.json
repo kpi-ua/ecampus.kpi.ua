@@ -16,11 +16,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && cp ./src/config.json build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.js\""
   },
+  "files": ["./src/config.*"],
   "eslintConfig": {
     "extends": "react-app"
   },

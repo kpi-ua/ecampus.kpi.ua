@@ -1,5 +1,6 @@
 import React from 'react';
-import { ApiEndpoint, getRandomNumber } from '../CampusClient';
+import { getRandomNumber } from '../CampusClient';
+import ApplicationConfiguration from "../ApplicationConfiguration";
 
 class UserProfileImage extends React.Component {
   state = {
@@ -14,7 +15,7 @@ class UserProfileImage extends React.Component {
     return (
       <img
         className="img-fluid"
-        src={`${ApiEndpoint}Account/${this.props.user.id}/ProfileImage?tmp=${this.state.rnd}`}
+        src={`${ApplicationConfiguration.ApiEndpoint}Account/${this.props.user.id}/ProfileImage?tmp=${this.state.rnd}`}
         alt={this.props.user.fullName}
       />
     );
