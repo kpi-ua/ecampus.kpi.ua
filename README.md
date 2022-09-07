@@ -10,6 +10,9 @@
 # Build project
 `npm run build`
 
+# Run project
+`npm run start`
+
 ## Docker
 ### Build container
 
@@ -18,4 +21,7 @@
 ### Run
 `docker run --rm -it  -p 80:80/tcp test:latest`
 
-`docker run --rm -it -e API_ENDPOINT=https://xxx.campus.kpi.ua/ -p 80:80/tcp test:latest`
+`docker run --rm -it -e API_ENDPOINT=https://api-v2.campus.kpi.ua/ -p 80:80/tcp test:latest`
+
+`docker run --rm -it -e API_ENDPOINT=https://api-endpoint.local/ -e OLD_UI_ADDRESS=https://old-ui.local/  -e LOGIN_PAGE_ADDRESS_LINE=https://ecampus.local/login -p 80:80/tcp test:latest`
+
