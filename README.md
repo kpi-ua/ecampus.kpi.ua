@@ -16,7 +16,7 @@
 ## Docker
 ### Build container
 
-`docker build ./ --file ./.dockerfile --tag test:latest`
+`docker build ./ --file ./Dockerfile --tag test:latest`
 
 ### Run
 `docker run --rm -it  -p 80:80/tcp test:latest`
