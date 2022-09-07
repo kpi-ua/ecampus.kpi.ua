@@ -21,7 +21,6 @@
     "eject": "react-scripts eject",
     "format": "prettier --write \"src/**/*.js\""
   },
-  "files": ["./src/config.*"],
   "eslintConfig": {
     "extends": "react-app"
   },
