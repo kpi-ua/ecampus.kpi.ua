@@ -3,6 +3,7 @@
 [![GitHub issues](https://img.shields.io/github/issues/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/issues/)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/pulls/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/ecampus-kpi-ua)
 
 [![GitHub watchers](https://img.shields.io/github/watchers/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Watch)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/watchers/)
 [![GitHub forks](https://img.shields.io/github/forks/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Fork)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/network/)
@@ -36,7 +37,7 @@ docker build ./ --file ./Dockerfile --tag kpiua/ecampus-kpi-ua:latest
 
 ### Run
 ```
-docker run --rm -it -p 80:80/tcp test:latest
+docker run --rm -it -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
 ```
 
 ```
