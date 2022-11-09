@@ -1,6 +1,7 @@
 class ApplicationConfiguration {
     constructor() {
-        this.configuratiun = require('./config.json');
+        this.configuratiun = require('/config.json');
+        console.log(this.configuratiun);
     }
 
     get ApiEndpoint() {
