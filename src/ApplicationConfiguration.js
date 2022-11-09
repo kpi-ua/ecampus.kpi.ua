@@ -2,7 +2,7 @@ class ApplicationConfiguration {
     constructor() {
         //this.configuratiun = require('./config.json');
 
-        const json = this.loadTextFileAjaxSync('/config.json');
+        const json = this.loadTextFileAjaxSync('config.json');
         this.configuratiun = JSON.parse(json);
 
         console.log(this.configuratiun);
