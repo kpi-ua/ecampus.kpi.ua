@@ -11,7 +11,15 @@ export const config = {
     telegram: {
         botName: 'kpi_ua_bot',
     },
-    appDomains: ['kpi.ua', 'campus.kpi.ua', 'ecampus.kpi.ua', 'login.kpi.ua'],
+    appDomains: [
+        'kpi.ua',
+        'campus.kpi.ua',
+        'ecampus.kpi.ua',
+        'login.kpi.ua',
+        'localtest.me',
+        'api.localtest.me',
+        'ecampus.localtest.me'
+    ]
 };
 
 /**
