@@ -6,6 +6,7 @@ import TelegramLoginWidget from './TelegramLoginWidget';
 
 const AuthContainerDefault = () => {
   const [authFail, setAuthFail] = useState(false);
+  const [apiFail, setApiFail] = useState(false);
   const history = useHistory();
 
   const authorize = async (e, { login, password }) => {
@@ -18,7 +19,7 @@ const AuthContainerDefault = () => {
         history.push(`/home`);
         window.location.reload();
       }
-    })).catch(console.info);
+    })).catch(err=>setApiFail(!!err));
   };
 
   const handleTelegramResponse = async (telegramResponse) => {
@@ -38,6 +39,7 @@ const AuthContainerDefault = () => {
     <AuthForm
       authorize={authorize}
       authFail={authFail}
+      apiFail={apiFail}
       dismissInvalid={dismissInvalid}
     >
       <div className='form-group'>
