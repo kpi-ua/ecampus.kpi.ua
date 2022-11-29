@@ -74,8 +74,8 @@ class Home extends React.Component {
                 {/*<h3>Дисципліни вибору</h3>*/}
 
                 {/*<ul>*/}
-                {/*  <li><span href="#">Вибір студента​</span><span className="badge badge-light">У розробцi</span></li>*/}
-                {/*  <li><span href="#">Пропозиції дисциплін​</span><span className="badge badge-light">У розробцi</span></li>*/}
+                {/*  <li><span href="#">Вибір студента</span><span className="badge badge-light">У розробцi</span></li>*/}
+                {/*  <li><span href="#">Пропозиції дисциплін</span><span className="badge badge-light">У розробцi</span></li>*/}
                 {/*  <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>*/}
                 {/*</ul>*/}
 
@@ -84,7 +84,7 @@ class Home extends React.Component {
                   Security.Modules.AttestationResult,
                 ) && (
                   <h3>
-                    <span href='#'>Результати аттестації​</span>
+                    <span href='#'>Результати аттестації</span>
                     <span className='badge badge-light'>У розробцi</span>
                   </h3>
                 )}
@@ -142,8 +142,7 @@ class Home extends React.Component {
                 ) && (
                   <ul>
                     <li>
-                      {/*<Link to="/schedule">Розклад занять та сесії</Link>*/}
-                      <a href='http://rozklad.kpi.ua' target='_blank' rel='noopener noreferrer'>Розклад занять та
+                      <a href='https://schedule.kpi.ua/' target='_blank' rel='noopener noreferrer'>Розклад занять та
                         сесії <i className='fa fa-external-link' /></a>
                     </li>
                     <li>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const link = 'https://rozklad.kpi.ua/';
+const link = 'https://schedule.kpi.ua/';
 
 class Schedule extends Component {
   render() {
