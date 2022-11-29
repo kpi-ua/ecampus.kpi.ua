@@ -6,18 +6,20 @@ import TelegramLoginWidget from './TelegramLoginWidget';
 
 const AuthContainerDefault = () => {
   const [authFail, setAuthFail] = useState(false);
+  const [apiFail, setApiFail] = useState(false);
   const history = useHistory();
 
   const authorize = async (e, { login, password }) => {
     e.preventDefault();
 
-    const user = await campus.auth(login, password);
-    setAuthFail(!user);
-
-    if (!!user) {
-      history.push(`/home`);
-      window.location.reload();
-    }
+   campus.newAuth(login, password).then((user => {
+     console.info(user)
+      setAuthFail(!user);
+      if (!!user) {
+        history.push(`/home`);
+        window.location.reload();
+      }
+    })).catch(err=>setApiFail(!!err));
   };
 
   const handleTelegramResponse = async (telegramResponse) => {
@@ -37,15 +39,16 @@ const AuthContainerDefault = () => {
     <AuthForm
       authorize={authorize}
       authFail={authFail}
+      apiFail={apiFail}
       dismissInvalid={dismissInvalid}
     >
-      <div className="form-group">
+      <div className='form-group'>
         <a
-          className="btn btn-block btn-social btn-facebook"
+          className='btn btn-block btn-social btn-facebook'
           href={campus.generateFacebookAuthorizationLink()}
         >
-          <div className="icon">
-            <span className="fa fa-facebook" />
+          <div className='icon'>
+            <span className='fa fa-facebook' />
           </div>
           Увiйти через Facebook
         </a>
@@ -60,7 +63,7 @@ const AuthContainerDefault = () => {
       {/*  </a>*/}
       {/*</div>*/}
 
-      <div className="form-group">
+      <div className='form-group'>
         <TelegramLoginWidget
           callbackOnAuth={handleTelegramResponse}
           botName={campus.config.telegram.botName}

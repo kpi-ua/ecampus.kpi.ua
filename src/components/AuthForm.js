@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const AuthForm = ({
   authorize,
-  authFail,
+  authFail, apiFail,
   dismissInvalid,
   children
 }) => {
@@ -57,6 +57,22 @@ const AuthForm = ({
                 &times;
               </button>
               Перевірте корректність логіну та паролю.
+            </div>
+          </div>
+        )}
+        {apiFail && (
+          <div className="form-group">
+            <div className="alert alert-danger">
+              <button
+                type="button"
+                className="close"
+                onClick={dismissInvalid}
+                data-dismiss="alert"
+                aria-hidden="true"
+              >
+                &times;
+              </button>
+              Немає зв'язку з сервером, спробуйте пізніше.
             </div>
           </div>
         )}

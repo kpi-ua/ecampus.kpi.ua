@@ -38,44 +38,44 @@ class Home extends React.Component {
       <div>
         <br />
 
-        <div className="row">
-          <div className="col-md-8">
-            <div className="row">
-              <div className="col-md-12">
-                <h1 className="display-4">
+        <div className='row'>
+          <div className='col-md-8'>
+            <div className='row'>
+              <div className='col-md-12'>
+                <h1 className='display-4'>
                   Вітаємо, {!!user && user.fullName}!
                 </h1>
-                <div className="jumbotron">
-                  <p className="lead">
+                <div className='jumbotron'>
+                  <p className='lead'>
                     Електронний кампус – це система підтримки навчального
                     процесу університету.
                   </p>
-                  <hr className="my-4" />
+                  <hr className='my-4' />
                   <p>
                     Ви авторизовані у версії, що знаходиться у процесі розробки.
                     Оновлення частини функцій системи ще не реалізовано. Для
                     доступу до цих можливостей, ви можете перейти у поточну
                     версію системи.
                   </p>
-                  <p className="lead">
+                  <p className='lead'>
                     <button
-                      className="btn btn-primary btn-lg"
+                      className='btn btn-primary btn-lg'
                       onClick={this.redirectToOldUI}
                     >
                       До поточної версії кампусу{' '}
-                      <i className="fa fa-external-link" />
+                      <i className='fa fa-external-link' />
                     </button>
                   </p>
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-md-4">
+            <div className='row'>
+              <div className='col-md-4'>
                 {/*<h3>Дисципліни вибору</h3>*/}
 
                 {/*<ul>*/}
-                {/*  <li><span href="#">Вибір студента​</span><span className="badge badge-light">У розробцi</span></li>*/}
-                {/*  <li><span href="#">Пропозиції дисциплін​</span><span className="badge badge-light">У розробцi</span></li>*/}
+                {/*  <li><span href="#">Вибір студента</span><span className="badge badge-light">У розробцi</span></li>*/}
+                {/*  <li><span href="#">Пропозиції дисциплін</span><span className="badge badge-light">У розробцi</span></li>*/}
                 {/*  <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>*/}
                 {/*</ul>*/}
 
@@ -84,8 +84,8 @@ class Home extends React.Component {
                   Security.Modules.AttestationResult,
                 ) && (
                   <h3>
-                    <span href="#">Результати аттестації​</span>
-                    <span className="badge badge-light">У розробцi</span>
+                    <span href='#'>Результати аттестації</span>
+                    <span className='badge badge-light'>У розробцi</span>
                   </h3>
                 )}
 
@@ -100,12 +100,12 @@ class Home extends React.Component {
                 ) && (
                   <ul>
                     <li>
-                      <Link to="/statistic/zkm">
+                      <Link to='/statistic/zkm'>
                         Забезпечення кредитного модуля
                       </Link>
                     </li>
                     <li>
-                      <Link to="/statistic/npp">
+                      <Link to='/statistic/npp'>
                         Індивідуальне навантаження викладачів
                       </Link>
                     </li>
@@ -114,8 +114,8 @@ class Home extends React.Component {
 
                 {Security.hasAccessToModule(user, Security.Modules.RNP) && (
                   <h3>
-                    <span href="#">РНП</span>
-                    <span className="badge badge-light">У розробцi</span>
+                    <span href='#'>РНП</span>
+                    <span className='badge badge-light'>У розробцi</span>
                   </h3>
                 )}
 
@@ -124,13 +124,13 @@ class Home extends React.Component {
                   Security.Modules.Messages,
                 ) && (
                   <h3>
-                    <span href="#">Повідомлення</span>
-                    <span className="badge badge-light">У розробцi</span>
+                    <span href='#'>Повідомлення</span>
+                    <span className='badge badge-light'>У розробцi</span>
                   </h3>
                 )}
               </div>
 
-              <div className="col-md-4">
+              <div className='col-md-4'>
                 {Security.hasAccessToModule(
                   user,
                   Security.Modules.Information,
@@ -142,40 +142,40 @@ class Home extends React.Component {
                 ) && (
                   <ul>
                     <li>
-                      {/*<Link to="/schedule">Розклад занять та сесії</Link>*/}
-                      <a href="http://rozklad.kpi.ua" target="_blank">Розклад занять та сесії <i className="fa fa-external-link" /></a>
+                      <a href='https://schedule.kpi.ua/' target='_blank' rel='noopener noreferrer'>Розклад занять та
+                        сесії <i className='fa fa-external-link' /></a>
                     </li>
                     <li>
-                      <Link to="/bb">Дошка оголошень</Link>
+                      <Link to='/bb'>Дошка оголошень</Link>
                     </li>
                     <li>
-                      <Link to="/help">Інструкція користувача</Link>
+                      <Link to='/help'>Інструкція користувача</Link>
                     </li>
                     <li>
-                      <Link to="/faq">Поширенi запитання</Link>
+                      <Link to='/faq'>Поширенi запитання</Link>
                     </li>
 
                     {Security.hasProfile(user, Security.Profiles.Lecturer) && (
-                      <li className="actual">
-                        <Link to="/lecturer-help">
+                      <li className='actual'>
+                        <Link to='/lecturer-help'>
                           Послідовність роботи викладача
                         </Link>
                       </li>
                     )}
 
                     <li>
-                      <Link to="/about">Про систему</Link>
+                      <Link to='/about'>Про систему</Link>
                     </li>
                     <li>
-                      <Link to="/documents">
+                      <Link to='/documents'>
                         Документи КПІ ім. Ігоря Сікорського
                       </Link>
                     </li>
                     <li>
-                      <Link to="/contacts">Контактнi данi</Link>
+                      <Link to='/contacts'>Контактнi данi</Link>
                     </li>
                     <li>
-                      <Link to="/privacy">
+                      <Link to='/privacy'>
                         Правила використання інформації сайту
                       </Link>
                     </li>
@@ -183,7 +183,7 @@ class Home extends React.Component {
                 )}
               </div>
 
-              <div className="col-md-4">
+              <div className='col-md-4'>
                 {Security.hasAccessToModule(
                   user,
                   Security.Modules.PersonalArea,
@@ -195,7 +195,7 @@ class Home extends React.Component {
                 ) && (
                   <ul>
                     <li>
-                      <Link to="/settings">Налаштування</Link>
+                      <Link to='/settings'>Налаштування</Link>
                     </li>
                   </ul>
                 )}
@@ -204,8 +204,8 @@ class Home extends React.Component {
 
             <hr />
 
-            <div className="row">
-              <div className="col-md-7">
+            <div className='row'>
+              <div className='col-md-7'>
                 <h2>Соціальні мережі</h2>
                 Ви завжди можете знайти найактуальнішу інформацію щодо роботи
                 системи "Електронний кампус КПІ", а також інших сервісів на
@@ -213,47 +213,47 @@ class Home extends React.Component {
                 <br />
                 <br />
                 <a
-                  className="info-button"
-                  target="_tg"
-                  href="https://www.facebook.com/kbis.kpi.ua/"
+                  className='info-button'
+                  target='_tg'
+                  href='https://www.facebook.com/kbis.kpi.ua/'
                 >
-                  <i className="fa fa-facebook" />
+                  <i className='fa fa-facebook' />
                   Facebook
                 </a>
                 <a
-                  className="info-button"
-                  target="_fb"
-                  href="https://t.me/kpikb"
+                  className='info-button'
+                  target='_fb'
+                  href='https://t.me/kpikb'
                 >
-                  <i className="fa fa-telegram" />
+                  <i className='fa fa-telegram' />
                   Telegram канал
                 </a>
                 <br />
                 <br />
               </div>
-              <div className="col-md-5">
+              <div className='col-md-5'>
                 <h2>Служба пiдтримки</h2>
                 Ви завжди можете звернутися в службу підтримки:
                 <br />
                 <br />
-                <a className="info-button" href="mailto:ecampus@kpi.ua">
-                  <i className="fa fa-envelope" />
+                <a className='info-button' href='mailto:ecampus@kpi.ua'>
+                  <i className='fa fa-envelope' />
                   Email
                 </a>
                 <br />
                 <br />
-                <Link className="info-button" to={`/feedback`}>
-                  <i className="fa fa-comments-o" aria-hidden="true" />
+                <Link className='info-button' to={`/feedback`}>
+                  <i className='fa fa-comments-o' aria-hidden='true' />
                   Форма скарг i пропозицiй
                 </Link>
               </div>
             </div>
           </div>
 
-          <div className="col-md-4">
+          <div className='col-md-4'>
             <h3>Оголошення</h3>
             <BbList enablePaging={false} pageSize={3} />
-            <Link to="/bb">Читати усi оголошення</Link>
+            <Link to='/bb'>Читати усi оголошення</Link>
           </div>
         </div>
       </div>
