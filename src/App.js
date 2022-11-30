@@ -27,6 +27,7 @@ import Schedule from './components/Schedule';
 import AuthContainerDefault from './components/AuthContainerDefault';
 import AuthContainerExternal from './components/AuthContainerExternal';
 import Unavailable from './components/Unavailable';
+import Loader from './components/Loader';
 
 const InternalLogin = () => {
   return (
@@ -58,12 +59,15 @@ class App extends Component {
   async componentDidMount() {
     // this.setState({ user: await campus.getCurrentUser() });
     campus.getCurrentUser()
-      .then(user => this.setState({
-        user: user,
-        loading: false,
-      }))
+      .then(user => {
+        console.info('app');
+        this.setState({
+          user: user,
+          loading: false,
+        });
+      })
       .catch(err => {
-        console.info(err);
+        console.info('app', err);
         this.setState({
           error: `service currently unavailable: ${err}`,
         });
@@ -82,43 +86,53 @@ class App extends Component {
           this.state.error ?
             <Unavailable /> :
             (
-              this.state.loading ? <div>Loading</div> : <div className='container-fluid content'>
-                <div className='content'>
-                  <Switch>
-                    <Route exact path='/' component={InternalLogin} />
-                    <Route exact path='/home' component={Home} />
-                    <Route exact path='/login' component={InternalLogin} />
-                    <Route exact path='/login/external' component={ExternalLogin} />
-                    <Route exact path='/kpiid' component={KPIIDLogin} />
-                    <Route exact path='/privacy' component={Privacy} />
-                    <Route exact path='/documents' component={Documents} />
-                    <Route exact path='/about' component={About} />
-                    <Route exact path='/help' component={Help} />
-                    <Route exact path='/lecturer-help' component={LecturerHelp} />
-                    <Route exact path='/contacts' component={Contacts} />
-                    <Route exact path='/bb' component={BbIndex} />
-                    <Route exact path='/schedule' component={Schedule} />
-                    <Route exact path='/feedback' component={Feedback} />
-                    <Route exact path='/faq' component={Faq} />
-                    <Route exact path='/settings' component={Settings} />
-                    <Route exact path='/settings-editor' component={SettingsEditor} />
-                    <Route
-                      exact
-                      path='/restore-password'
-                      component={RestorePassword}
-                    />
-                    <Route exact path='/find-curator' component={FindCurator} />
-                    <Route
-                      exact
-                      path='/social-forbidden'
-                      component={SocialForbidden}
-                    />
-                    <Route exact path='/statistic' component={StatisticIndex} />
-                    <Route exact path='/statistic/npp' component={NPP} />
-                    <Route exact path='/statistic/zkm' component={ZKM} />
-                  </Switch>
+              this.state.loading ?
+                <div style={{
+                  width: '100%',
+                  height: '70vh',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                  <Loader />
                 </div>
-              </div>
+                : <div className='container-fluid content'>
+                  <div className='content'>
+                    <Switch>
+                      <Route exact path='/' component={InternalLogin} />
+                      <Route exact path='/home' component={Home} />
+                      <Route exact path='/login' component={InternalLogin} />
+                      <Route exact path='/login/external' component={ExternalLogin} />
+                      <Route exact path='/kpiid' component={KPIIDLogin} />
+                      <Route exact path='/privacy' component={Privacy} />
+                      <Route exact path='/documents' component={Documents} />
+                      <Route exact path='/about' component={About} />
+                      <Route exact path='/help' component={Help} />
+                      <Route exact path='/lecturer-help' component={LecturerHelp} />
+                      <Route exact path='/contacts' component={Contacts} />
+                      <Route exact path='/bb' component={BbIndex} />
+                      <Route exact path='/schedule' component={Schedule} />
+                      <Route exact path='/feedback' component={Feedback} />
+                      <Route exact path='/faq' component={Faq} />
+                      <Route exact path='/settings' component={Settings} />
+                      <Route exact path='/settings-editor' component={SettingsEditor} />
+                      <Route
+                        exact
+                        path='/restore-password'
+                        component={RestorePassword}
+                      />
+                      <Route exact path='/find-curator' component={FindCurator} />
+                      <Route
+                        exact
+                        path='/social-forbidden'
+                        component={SocialForbidden}
+                      />
+                      <Route exact path='/statistic' component={StatisticIndex} />
+                      <Route exact path='/statistic/npp' component={NPP} />
+                      <Route exact path='/statistic/zkm' component={ZKM} />
+                    </Switch>
+                  </div>
+                </div>
             )
         }
 
