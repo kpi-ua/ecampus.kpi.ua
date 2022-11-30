@@ -11,15 +11,25 @@ const AuthContainerDefault = () => {
 
   const authorize = async (e, { login, password }) => {
     e.preventDefault();
+    setApiFail(false);
+    setAuthFail(false);
 
-   campus.newAuth(login, password).then((user => {
-     console.info(user)
+    campus.newAuth(login, password).then((user => {
+      console.info(user);
       setAuthFail(!user);
       if (!!user) {
         history.push(`/home`);
         window.location.reload();
       }
-    })).catch(err=>setApiFail(!!err));
+    })).catch(err => {
+      console.info('catch', err);
+      if (err === 'failed to fetch') {
+        setApiFail(true);
+      } else {
+        setAuthFail(true);
+
+      }
+    });
   };
 
   const handleTelegramResponse = async (telegramResponse) => {

@@ -98,7 +98,7 @@ export const newAuth = (login, password) => new Promise((resolve, reject) => {
       resolve(getCurrentUser());
     })
     .catch(err => {
-      reject(err);
+      reject("failed to fetch");
     });
 });
 
