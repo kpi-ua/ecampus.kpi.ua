@@ -97,7 +97,7 @@ export const newAuth = (login, password) => new Promise((resolve, reject) => {
     .then(() => {
       resolve(getCurrentUser());
     })
-    .catch(err => {
+    .catch(() => {
       reject("failed to fetch");
     });
 });
@@ -268,7 +268,9 @@ export const newCallApi = (path, method, payload = null) => new Promise((resolve
       })
         .then(response => {
           clearTimeout(id);
-          return response.json();
+          if (response.status >= 200 && response.status < 300){
+            return response.json();
+          }
         })
         .then(data => {
           resolve(data);
