@@ -153,6 +153,8 @@ export const authViaTelegram = async (telegramResponse) => {
 export const logout = async () => {
   await storeCredentials(null, null);
 
+  await callApi('Account/logout', 'GET');
+
   localStorage.clear();
 };
 
