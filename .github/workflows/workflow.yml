@@ -37,7 +37,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            kpilab/ecampus-kpi-ua
+            kpiua/ecampus-kpi-ua
           # Docker tags based on the following events/attributes
           tags: |
             type=schedule,pattern={{date 'YYYYMMDD'}}
