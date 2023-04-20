@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const link =
-  'https://a2c27d7243ea.blob.core.windows.net/kpi/files/InstructionTeacherCampusV1.pdf';
+  'https://do4rt9wur3t6m.cloudfront.net/campus-user-manual.pdf';
 
 class Help extends Component {
   render() {
