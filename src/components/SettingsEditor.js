@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Settings.css';
 import '../css/SettingsEditor.css';
 import * as campus from '../CampusClient';
-import { Link, Redirect } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import ProgressBar from './ProgressBar';
 import UserProfileImage from './UserProfileImage';
 import TelegramLoginWidget from './TelegramLoginWidget';
@@ -53,20 +53,33 @@ class SettingsEditor extends React.Component {
       this.state.passwordConfirmation !== ''
     ) {
       if (
-        this.state.currentPassword === '' ||
-        this.state.password !== this.state.passwordConfirmation
+          this.state.currentPassword === '' ||
+          this.state.password !== this.state.passwordConfirmation
       ) {
         return false;
       }
       if (
-        this.state.password === '' &&
-        this.state.passwordConfirmation === ''
+          this.state.password === '' &&
+          this.state.passwordConfirmation === ''
       ) {
         return false;
       }
     }
     return true;
   };
+  isValidEmail = (email) => {
+    let re;
+    re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+
+  }
+  focusOut = () => {
+    if (!this.isValidEmail(this.state.email)) {
+      alert('Електронну пошту вказано некоректно')
+      return true
+    }
+  }
 
   /**
    * Update user profile details
@@ -87,6 +100,10 @@ class SettingsEditor extends React.Component {
       payload.currentPassword = this.state.currentPassword;
       payload.password = this.state.password;
     }
+    if (this.state.email === ''){
+      alert('Електронну пошту не вказано')
+      return false
+    }
 
     const response = await campus.callApi('Account/Info', 'PUT', payload);
 
@@ -94,6 +111,7 @@ class SettingsEditor extends React.Component {
       alert('Не вдалося зберегти змiни.');
       return false;
     }
+
 
     return true;
   };
@@ -134,25 +152,25 @@ class SettingsEditor extends React.Component {
       this.updateUserAvatar(),
     ]);
 
-    this.setState({ inProgress: false });
+    this.setState({inProgress: false});
 
     if (r1 && r2) {
       this.props.history.push('/settings');
       return true;
     }
 
-    this.setState({ user: await campus.getCurrentUser() });
+    this.setState({user: await campus.getCurrentUser()});
 
     return false;
   };
 
   handleSelectedFile = async (event) =>
-    this.setState({ selectedFile: event.target.files[0] });
+      this.setState({selectedFile: event.target.files[0]});
 
   handleTelegramResponse = async (telegramResponse) => {
     const user = await campus.authViaTelegram(telegramResponse);
 
-    await this.setState({ authFail: !user });
+    await this.setState({authFail: !user});
 
     if (!!user) {
       this.props.history.push(`/settings-editor`);
@@ -223,13 +241,15 @@ class SettingsEditor extends React.Component {
                 />
                 <h4>Електрона пошта</h4>
                 <input
-                  type="email"
-                  className="form-control"
-                  maxLength="50"
-                  value={this.state.email}
-                  onChange={(e) => {
-                    this.setState({ email: e.target.value });
-                  }}
+                    onBlur={() => this.focusOut()}
+                    required={true}
+                    type="email"
+                    className="form-control"
+                    maxLength="50"
+                    value={this.state.email}
+                    onChange={(e) => {
+                      this.setState({email: e.target.value});
+                    }}
                 />
                 <h4>Логiн</h4>
                 <input
