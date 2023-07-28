@@ -19,7 +19,7 @@ RUN npm run build
 #Stage 2
 #######################################
 # Pull the official nginx base image
-FROM nginx:1.23.1
+FROM nginx:1.24
 
 # Set working directory to nginx resources directory
 WORKDIR /usr/share/nginx/html
