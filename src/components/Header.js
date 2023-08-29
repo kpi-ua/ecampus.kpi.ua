@@ -91,10 +91,10 @@ class Header extends React.Component {
                     </NavItem>
                   )}
 
-                  {(Security.hasAccessToModule(
+                  {Security.hasAccessToModule(
                       user,
                       Security.Modules.EmploymentSystem,
-                  )|| true) && ( // Show to all users
+                  ) && (
                       <NavItem>
                         <NavLink href="/employment-system">
                           Система працевлаштування
