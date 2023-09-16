@@ -10,10 +10,18 @@ COPY package.json ./
 # Installs all node packages
 RUN npm install
 
-# Note: No need to COPY all files or run the build command for development
+COPY entrypoint-script.sh ./
+
+# Make the script executable
+RUN chmod +x ./entrypoint-script.sh
 
 # Add node_modules bin to PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
+# Always run this script when the container starts
+#ENTRYPOINT ["./entrypoint-script.sh"]
+
 # Start the app
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
+
+CMD ["bash", "./entrypoint-script.sh"]
