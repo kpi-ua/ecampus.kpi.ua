@@ -1,6 +1,7 @@
 version: '3'
 services:
   app:
+    stdin_open: true
     build:
       context: .
       dockerfile: dev.dockerfile
@@ -11,5 +12,3 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=development
-    command: tail -f /dev/null  # keep container running
-    #command:
