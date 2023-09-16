@@ -86,9 +86,20 @@ class Header extends React.Component {
                   ) && (
                     <NavItem>
                       <NavLink disabled={true} href="#">
-                        Результати аттестації​
+                        Результати аттестації
                       </NavLink>
                     </NavItem>
+                  )}
+
+                  {Security.hasAccessToModule(
+                      user,
+                      Security.Modules.EmploymentSystem,
+                  ) && (
+                      <NavItem>
+                        <NavLink href="/employment-system">
+                          Система працевлаштування
+                        </NavLink>
+                      </NavItem>
                   )}
 
                   {Security.hasAccessToModule(

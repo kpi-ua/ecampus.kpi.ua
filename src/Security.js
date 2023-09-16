@@ -33,6 +33,7 @@ export const Modules = {
   PersonalArea: 'PersonalArea',
   AttestationResult: 'AttestationResult',
   Information: 'Information',
+  EmploymentSystem: 'EmploymentSystem'
 };
 
 export const Profiles = {

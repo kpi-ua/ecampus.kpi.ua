@@ -26,6 +26,7 @@ import FindCurator from './components/FindCurator';
 import Schedule from './components/Schedule';
 import AuthContainerDefault from './components/AuthContainerDefault';
 import AuthContainerExternal from './components/AuthContainerExternal';
+import EmploymentSystem from './components/EmploymentSystem';
 
 const InternalLogin = () => {
   return (
@@ -77,6 +78,7 @@ class App extends Component {
               <Route exact path="/about" component={About} />
               <Route exact path="/help" component={Help} />
               <Route exact path="/lecturer-help" component={LecturerHelp} />
+              <Route exact path="/employment-system" component={EmploymentSystem} />
               <Route exact path="/contacts" component={Contacts} />
               <Route exact path="/bb" component={BbIndex} />
               <Route exact path="/schedule" component={Schedule} />
