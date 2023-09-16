@@ -15,7 +15,7 @@
     "reactstrap": "^8.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "HOST=0.0.0.0 PORT=3000 react-scripts start",
     "build": "react-scripts build && cp ./src/config.json build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

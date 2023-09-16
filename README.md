@@ -52,3 +52,7 @@ docker run --rm -it \
   -e LOGIN_PAGE_ADDRESS_LINE=https://ecampus.local/login \
   -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
 ```
+
+
+
+docker-compose -f dev-docker-compose.yml up --build
