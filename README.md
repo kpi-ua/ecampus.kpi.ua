@@ -19,12 +19,12 @@
 * LOGIN_PAGE_ADDRESS - location of login page. Used for redirect from external authorization providers. Default value: `https://ecampus.kpi.ua/login` 
 
 ## Build project
-```
+```shell
 npm run build
 ```
 
 ## Run project
-```
+```shell
 npm run start
 ```
 
@@ -32,20 +32,22 @@ npm run start
 
 ### Build container
 
-```
+```shell
 docker build ./ --file ./Dockerfile --tag kpiua/ecampus-kpi-ua:latest
 ```
 
 ### Run
-```
+#### Run with default settings
+```shell
 docker run --rm -it -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
 ```
 
+#### Run with custom settings
+```shell
+ docker run --rm -it -e API_ENDPOINT=https://api-v2.campus.kpi.ua/ -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
 ```
-docker run --rm -it -e API_ENDPOINT=https://api-v2.campus.kpi.ua/ -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
-```
-
-```
+or
+```shell
 docker run --rm -it \
   -e API_ENDPOINT=https://api.local/ \
   -e OLD_UI_ADDRESS=https://old-ui.local/  \
@@ -54,5 +56,10 @@ docker run --rm -it \
 ```
 
 
+#### Run locally for debug
 
+Update _config.json_ file to set proper API endpoints and then run docker image:
+```shell
 docker-compose -f dev-docker-compose.yml up --build
+```
+
