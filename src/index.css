@@ -34,7 +34,7 @@ h5 {
 }
 
 .btn-primary:not(.btn-link):not(.btn-flat) {
-    background-color: #449d44;
+    background-color: #208843;
     border-color: #398439;
 }
 
@@ -504,11 +504,6 @@ input[type="radio"] + label {
 .form-control {
     -ms-border-radius: 0;
     border-radius: 0;
-}
-
-.btn-primary {
-    background-color: #f0a433 !important;
-    border-color: #f08833 !important;
 }
 
 .content {
