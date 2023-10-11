@@ -115,13 +115,16 @@ class BbList extends React.Component {
             size="lg"
           >
             <ModalHeader toggle={this.toggle}>
-              {this.state.modalSubject}
+              <b>
+                {this.state.modalSubject}
+              </b>
             </ModalHeader>
             <ModalBody>
               <p dangerouslySetInnerHTML={this.getHtml(this.state.modalText)} />
             </ModalBody>
             <ModalFooter>
               <Button
+                style={{ width: '100px' }}
                 color="primary"
                 onClick={() => this.showDetail(null, '', '')}
               >

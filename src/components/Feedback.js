@@ -3,24 +3,26 @@ import React, { Component } from 'react';
 class Feedback extends Component {
   render() {
     return (
-      <div className="row">
-        <div className="col-md-12">
+      <div className='row'>
+        <div className='col-md-12'>
           <h1>Форма скарг i пропозицiй</h1>
 
           <iframe
-            title="Форма скарг i пропозицiй"
-            width="100%"
-            height="1200px"
-            src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZ__pj8rjRUOUFNWTNVU0VIWFlRWTZXNzRaVklaUUVPTS4u&embed=true"
-            frameBorder="0"
-            marginWidth="0"
-            marginHeight="0"
-            style={{ border: 'none', maxWidth: '100%' }}
+            src='https://docs.google.com/forms/d/e/1FAIpQLSdlWaMSxcYVSfYDZpVgygSIl8reTZBM2Nl2ZzyuZzdaFwef_w/viewform?embedded=true'
+            width='90%'
+            height='1200px'
+            frameBorder='0'
+            marginHeight='0'
+            marginWidth='0'
+            scrolling='no'
+            style={{ border: 'none', maxWidth: '90%', overflow: 'hidden' }}
             allowFullScreen
             webkitallowfullscreen
             mozallowfullscreen
             msallowfullscreen
-          ></iframe>
+          >
+            Завантаження…
+          </iframe>
         </div>
       </div>
     );

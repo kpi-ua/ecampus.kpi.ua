@@ -86,9 +86,21 @@ class Header extends React.Component {
                   ) && (
                     <NavItem>
                       <NavLink disabled={true} href="#">
-                        Результати аттестації​
+                        Результати аттестації
                       </NavLink>
                     </NavItem>
+                  )}
+
+                  {Security.hasAccessToModule(
+                      user,
+                      Security.Modules.EmploymentSystem,
+                  ) && (
+                      <NavItem>
+                        <NavLink href="/employment-system">
+                          Система працевлаштування
+                          <i className="fa fa-external-link" />
+                        </NavLink>
+                      </NavItem>
                   )}
 
                   {Security.hasAccessToModule(
@@ -118,16 +130,6 @@ class Header extends React.Component {
                     </NavItem>
                   )}
 
-                  {Security.hasAccessToModule(
-                    user,
-                    Security.Modules.Messages,
-                  ) && (
-                    <NavItem>
-                      <NavLink disabled={true} href="#">
-                        Повідомлення
-                      </NavLink>
-                    </NavItem>
-                  )}
                 </>
               )}
 
@@ -172,7 +174,7 @@ class Header extends React.Component {
                 <>
                   <NavItem>
                     <NavLink href="#" onClick={this.redirectToOldUI}>
-                      До поточної версії кампусу{' '}
+                      До поточної версії кампусу {' '}
                       <i className="fa fa-external-link" />
                     </NavLink>
                   </NavItem>
