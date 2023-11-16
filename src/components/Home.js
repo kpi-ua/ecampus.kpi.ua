@@ -164,7 +164,7 @@ class Home extends React.Component {
                 {Security.hasAccessToModule(
                   user,
                   Security.Modules.PersonalArea,
-                ) && <h3>Аккаунт</h3>}
+                ) && <h3>Обліковий запис</h3>}
 
                 {Security.hasAccessToModule(
                   user,
@@ -192,7 +192,7 @@ class Home extends React.Component {
                   Security.Modules.AttestationResult,
                 ) && (
                   <h3>
-                    <span href='#'>Результати аттестації</span>
+                    <span href='#'>Результати атестації</span>
                     <span className='badge badge-light'>У розробцi</span>
                   </h3>
                 )}
