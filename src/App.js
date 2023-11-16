@@ -108,10 +108,10 @@ class App extends Component {
           <div className="row">
             <div className="col-md-6">
               Усі права застережено. &copy; {new Date().getFullYear()}{' '}
-              <a href="http://kpi.ua/">КПІ ім. Ігоря Сікорського</a>
+              <a href="https://kpi.ua/">КПІ ім. Ігоря Сікорського</a>
               <br />
               Розробник:{' '}
-              <a href="http://kbis.kpi.ua/">
+              <a href="https://kbis.kpi.ua/">
                 Конструкторське бюро інформаційних систем
               </a>
             </div>
