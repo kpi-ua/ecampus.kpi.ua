@@ -71,7 +71,7 @@ class Settings extends React.Component {
                   <div>
                     <h4>Публiчний профiль</h4>
                     <a
-                      href={`http://intellect.kpi.ua/profile/${this.state.user.userIdentifier}`}
+                      href={`https://intellect.kpi.ua/profile/${this.state.user.userIdentifier}`}
                       target="_intellect"
                     >
                       {`intellect.kpi.ua/profile/${this.state.user.userIdentifier}`}{' '}
