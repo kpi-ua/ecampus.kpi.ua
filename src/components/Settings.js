@@ -40,7 +40,7 @@ class Settings extends React.Component {
 
                 <div className="credo">{this.state.user.credo}</div>
 
-                <h4>Електрона пошта</h4>
+                <h4>Електронна пошта</h4>
                 <span>{this.state.user.email}</span>
 
                 <h4>Логiн</h4>

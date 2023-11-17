@@ -86,7 +86,7 @@ class Header extends React.Component {
                   ) && (
                     <NavItem>
                       <NavLink disabled={true} href="#">
-                        Результати аттестації
+                        Результати атестації
                       </NavLink>
                     </NavItem>
                   )}
@@ -181,7 +181,7 @@ class Header extends React.Component {
 
                   <UncontrolledDropdown nav>
                     <DropdownToggle nav caret>
-                      Аккаунт
+                      Обліковий запис
                     </DropdownToggle>
                     <DropdownMenu>
                       <DropdownItem href="/settings">Налаштування</DropdownItem>

@@ -221,7 +221,7 @@ class SettingsEditor extends React.Component {
                     this.setState({ scientificInterest: e.target.value });
                   }}
                 />
-                <h4>Електрона пошта</h4>
+                <h4>Електронна пошта</h4>
                 <input
                   type="email"
                   className="form-control"
