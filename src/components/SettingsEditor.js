@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Settings.css';
 import '../css/SettingsEditor.css';
-import * as campus from '../CampusClient';
+import * as campus from '../utils/CampusClient';
 import { Link, Redirect } from 'react-router-dom';
 import ProgressBar from './ProgressBar';
 import UserProfileImage from './UserProfileImage';

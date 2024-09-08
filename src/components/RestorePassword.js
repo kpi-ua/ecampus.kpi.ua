@@ -1,6 +1,6 @@
 import React from 'react';
 // import SupportInformationDialog from './SupportInformationDialog';
-import * as campus from '../CampusClient';
+import * as campus from '../utils/CampusClient';
 import { Link } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 

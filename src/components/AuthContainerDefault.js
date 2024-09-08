@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AuthForm from './AuthForm';
-import * as campus from '../CampusClient';
+import * as campus from '../utils/CampusClient';
 import { useHistory } from 'react-router-dom';
 import TelegramLoginWidget from './TelegramLoginWidget';
 

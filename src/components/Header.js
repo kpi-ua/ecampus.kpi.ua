@@ -12,9 +12,9 @@ import {
   NavLink,
   UncontrolledDropdown,
 } from 'reactstrap';
-import * as campus from '../CampusClient';
+import * as campus from '../utils/CampusClient';
 import { withRouter } from 'react-router-dom';
-import * as Security from '../Security';
+import * as Security from '../utils/Security';
 
 class Header extends React.Component {
   /**

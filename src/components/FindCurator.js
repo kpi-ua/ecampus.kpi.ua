@@ -1,5 +1,5 @@
 import React from 'react';
-import * as campus from '../CampusClient';
+import * as campus from '../utils/CampusClient';
 import { Link } from 'react-router-dom';
 import StudyGroupInfo from './StudyGroupInfo';
 

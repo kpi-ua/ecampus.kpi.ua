@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SupportInformationDialog from './SupportInformationDialog';
-import * as campus from '../CampusClient';
+import * as campus from '../utils/CampusClient';
 
 class KPIIDLogin extends React.Component {
   state = {

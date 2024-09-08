@@ -1,5 +1,5 @@
 import React from 'react';
-import * as campus from '../../CampusClient';
+import * as campus from '../../utils/CampusClient';
 import '../../css/Bb.css';
 import Pagination from 'react-js-pagination';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';

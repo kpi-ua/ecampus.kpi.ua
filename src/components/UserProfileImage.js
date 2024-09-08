@@ -1,6 +1,6 @@
 import React from 'react';
-import { getRandomNumber } from '../CampusClient';
-import ApplicationConfiguration from "../ApplicationConfiguration";
+import { getRandomNumber } from '../utils/CampusClient';
+import ApplicationConfiguration from "../utils/ApplicationConfiguration";
 
 class UserProfileImage extends React.Component {
   state = {

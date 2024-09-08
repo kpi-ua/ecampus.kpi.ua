@@ -6,7 +6,7 @@ import ApplicationConfiguration from './ApplicationConfiguration';
 export const config = {
   fb: {
     appId: '1214335051921931',
-    redirectUrl: `${ApplicationConfiguration.ApiEndpoint}account/oauth/login/fb`,
+    redirectUrl: '',  // We'll populate this after loading the config
   },
   telegram: {
     botName: 'kpi_ua_bot',
@@ -18,9 +18,16 @@ export const config = {
     'login.kpi.ua',
     'localtest.me',
     'api.localtest.me',
-    'ecampus.localtest.me'
-  ]
+    'ecampus.localtest.me',
+  ],
 };
+
+const populateFacebookRedirectUrl = async () => {
+  const apiEndpoint = await ApplicationConfiguration.getApiEndpoint();
+  config.fb.redirectUrl = `${apiEndpoint}account/oauth/login/fb`;
+};
+
+populateFacebookRedirectUrl(); // Initialize FB redirect URL asynchronously
 
 /**
  * Authorize in Campus API
@@ -35,7 +42,8 @@ export const auth = async (login, password) => {
     grant_type: 'password',
   };
 
-  const response = await fetch(`${ApplicationConfiguration.ApiEndpoint}oauth/token`, {
+  const apiEndpoint = await ApplicationConfiguration.getApiEndpoint();
+  const response = await fetch(`${apiEndpoint}oauth/token`, {
     method: 'POST',
     cache: 'no-cache',
     headers: {
@@ -60,7 +68,7 @@ export const auth = async (login, password) => {
   return await getCurrentUser();
 };
 
-export const externalAuth = (login, password, appId, redirectionId) => {
+export const externalAuth = async (login, password, appId, redirectionId) => {
   const payload = {
     Username: login,
     Password: password,
@@ -68,7 +76,7 @@ export const externalAuth = (login, password, appId, redirectionId) => {
     RedirectUrl: redirectionId,
   };
 
-  return fetch(`https://ecampus.kpi.ua/oauth/app/authorize`, {
+  return fetch('https://ecampus.kpi.ua/oauth/app/authorize', {
     method: 'POST',
     cache: 'no-cache',
     headers: {
@@ -84,14 +92,15 @@ export const externalAuth = (login, password, appId, redirectionId) => {
  * @returns {Promise<Response>}
  */
 export const requestKpiIdSecret = async (phone) => {
+  const apiEndpoint = await ApplicationConfiguration.getApiEndpoint();
   return await callApi(
-    'Account/oauth/login/kpiid/secret?phone=' + phone,
+    `${apiEndpoint}Account/oauth/login/kpiid/secret?phone=${phone}`,
     'GET',
   );
 };
 
 /**
- *
+ * Authenticate by KPI ID
  * @param phone
  * @param secret
  * @returns {Promise<null|*>}
@@ -101,7 +110,9 @@ export const authByKpiId = async (phone, secret) => {
     phone: phone,
     secret: secret,
   };
-  const response = await fetch(`${ApplicationConfiguration.ApiEndpoint}Account/oauth/login/kpiid`, {
+
+  const apiEndpoint = await ApplicationConfiguration.getApiEndpoint();
+  const response = await fetch(`${apiEndpoint}Account/oauth/login/kpiid`, {
     method: 'POST',
     cache: 'no-cache',
     headers: { 'Content-Type': 'application/json' },
@@ -163,20 +174,23 @@ export const logout = async () => {
  * @returns {Promise<void>}
  */
 export const redirectToOldUI = async () => {
-  const response = await callApi('Auth/refresh', 'GET');
+  const apiEndpoint = await ApplicationConfiguration.getApiEndpoint();
+  const response = await callApi(`${apiEndpoint}Auth/refresh`, 'GET');
 
   if (response.status === 200) {
     const credentials = await response.json();
 
     if (credentials) {
       await storeCredentials(credentials.sessionId, credentials.access_token);
-      window.location.replace(ApplicationConfiguration.OldUIAddress);
+      const oldUIAddress = await ApplicationConfiguration.getOldUIAddress();
+      window.location.replace(oldUIAddress);
       return;
     }
   }
 
   await logout();
-  window.location.replace(ApplicationConfiguration.LoginPageAddress);
+  const loginPageAddress = await ApplicationConfiguration.getLoginPageAddress();
+  window.location.replace(loginPageAddress);
 };
 
 /**
@@ -187,7 +201,8 @@ export const redirectToOldUI = async () => {
  * @returns {Promise<Response>}
  */
 export const callApi = async (path, method, payload = null) => {
-  let url = `${ApplicationConfiguration.ApiEndpoint}${path}`;
+  const apiEndpoint = await ApplicationConfiguration.getApiEndpoint();
+  let url = `${apiEndpoint}${path}`;
 
   let request = {
     method: method,
@@ -199,7 +214,7 @@ export const callApi = async (path, method, payload = null) => {
     query: {},
   };
 
-  if (!!payload) {
+  if (payload) {
     if (method === 'GET') {
       url += `?${Object.keys(payload)
         .map((key) => key + '=' + payload[key])
@@ -238,11 +253,9 @@ export const getCurrentUser = async (ignoreCache) => {
   }
 
   const cachedUserInfoJson = localStorage.getItem(cachedUserInfoKey);
-  const cachedUserInfo = !!cachedUserInfoJson
-    ? JSON.parse(cachedUserInfoJson)
-    : null;
+  const cachedUserInfo = cachedUserInfoJson ? JSON.parse(cachedUserInfoJson) : null;
 
-  if (!!cachedUserInfo && !ignoreCache) {
+  if (cachedUserInfo && !ignoreCache) {
     console.log('Used cached user info');
     return cachedUserInfo;
   }
@@ -255,7 +268,7 @@ export const getCurrentUser = async (ignoreCache) => {
 
   const user = await response.json();
 
-  if (!!user) {
+  if (user) {
     localStorage.setItem(cachedUserInfoKey, JSON.stringify(user));
   }
 
@@ -264,7 +277,7 @@ export const getCurrentUser = async (ignoreCache) => {
 };
 
 /**
- *
+ * Get token from local storage or cookies
  * @returns {string}
  */
 const getToken = () => {
@@ -273,7 +286,7 @@ const getToken = () => {
   if (!tokenFromLocalStorage || tokenFromLocalStorage === 'null') {
     const tokenFromCookie = getCookie('token');
 
-    if (!!tokenFromCookie) {
+    if (tokenFromCookie) {
       localStorage.setItem('token', tokenFromCookie);
       return tokenFromCookie;
     }
@@ -290,7 +303,8 @@ const getToken = () => {
 export const updateUserProfileImage = async (file) => {
   const user = await getCurrentUser();
   const token = getToken();
-  const endpoint = `${ApplicationConfiguration.ApiEndpoint}Account/${user.id}/ProfileImage`;
+  const apiEndpoint = await ApplicationConfiguration.getApiEndpoint();
+  const endpoint = `${apiEndpoint}Account/${user.id}/ProfileImage`;
 
   const formData = new FormData();
   formData.append('file', file);
@@ -308,7 +322,7 @@ export const updateUserProfileImage = async (file) => {
     return null;
   }
 
-  return `${ApplicationConfiguration.ApiEndpoint}Account/${user.id}/ProfileImage?tmp=${getRandomNumber()}`;
+  return `${apiEndpoint}Account/${user.id}/ProfileImage?tmp=${getRandomNumber()}`;
 };
 
 /**

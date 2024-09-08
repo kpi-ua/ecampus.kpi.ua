@@ -1,9 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import '../css/Home.css';
-import * as campus from '../CampusClient';
+import * as campus from '../utils/CampusClient';
 import { Link } from 'react-router-dom';
 import BbList from './Bb/BbList';
-import * as Security from '../Security';
+import * as Security from '../utils/Security';
 
 class Home extends React.Component {
   state = {
@@ -298,4 +299,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
