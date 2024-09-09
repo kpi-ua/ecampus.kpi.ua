@@ -1,8 +1,9 @@
-import React from 'react';
-import '../css/Settings.css';
-import '../css/SettingsEditor.css';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+import React, { useEffect } from 'react';
+import styles from '../css/Settings.module.css';
+import '../css/SettingsEditor.module.css';
 import * as campus from '../utils/CampusClient';
-import { Link, Redirect } from 'react-router-dom';
 import ProgressBar from './ProgressBar';
 import UserProfileImage from './UserProfileImage';
 import TelegramLoginWidget from './TelegramLoginWidget';
@@ -167,7 +168,11 @@ class SettingsEditor extends React.Component {
   render() {
 
     if (!!this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      const { push } = useRouter();
+
+      useEffect(() => {
+         push(this.state.redirect);
+      }, []);
     }
 
     const { user } = this.state;
@@ -201,7 +206,7 @@ class SettingsEditor extends React.Component {
                 }`}
               >
                 <h2>{user.fullName}</h2>
-                <h4>Кредо</h4>
+                <h4 className={styles.header}>Кредо</h4>
                 <input
                   type="text"
                   className="form-control"
@@ -211,7 +216,7 @@ class SettingsEditor extends React.Component {
                     this.setState({ credo: e.target.value });
                   }}
                 />
-                <h4>Науковi iнтереси</h4>
+                <h4 className={styles.header}>Науковi iнтереси</h4>
                 <input
                   type="text"
                   className="form-control"
@@ -221,7 +226,7 @@ class SettingsEditor extends React.Component {
                     this.setState({ scientificInterest: e.target.value });
                   }}
                 />
-                <h4>Електронна пошта</h4>
+                <h4 className={styles.header}>Електронна пошта</h4>
                 <input
                   type="email"
                   className="form-control"
@@ -231,7 +236,7 @@ class SettingsEditor extends React.Component {
                     this.setState({ email: e.target.value });
                   }}
                 />
-                <h4>Логiн</h4>
+                <h4 className={styles.header}>Логiн</h4>
                 <input
                   type="text"
                   className="form-control"
@@ -239,7 +244,7 @@ class SettingsEditor extends React.Component {
                   maxLength="50"
                   value={this.state.user.username}
                 />
-                <h4>Пароль </h4>
+                <h4 className={styles.header}>Пароль </h4>
                 <strong>Поточний:</strong>
                 <br />
                 <input
@@ -277,7 +282,7 @@ class SettingsEditor extends React.Component {
                 />
                 <br />
                 <br />
-                <h4>Telegram (beta)</h4>
+                <h4 className={styles.header}>Telegram (beta)</h4>
                 <TelegramLoginWidget
                   callbackOnAuth={this.handleTelegramResponse}
                   botName={campus.config.telegram.botName}
@@ -302,7 +307,7 @@ class SettingsEditor extends React.Component {
               />
               <br />
               <br />
-              <Link className="btn btn-danger" to="/settings">
+              <Link className="btn btn-danger" href="/settings">
                 Вiдмiнити змiни
               </Link>
             </div>

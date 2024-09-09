@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import React from 'react';
 // import SupportInformationDialog from './SupportInformationDialog';
 import * as campus from '../utils/CampusClient';
-import { Link } from 'react-router-dom';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 class RestorePassword extends React.Component {
@@ -152,7 +152,7 @@ class RestorePassword extends React.Component {
                             Лист з iнструкцiями по вiдновленню паролю було
                             надiслано на вашу електрону пошту
                           </h4>
-                          <Link to={'/'}>Перейти на головну</Link>
+                          <Link href={'/'}>Перейти на головну</Link>
                         </div>
                       )}
                       {this.state.step === 4 && (
@@ -213,7 +213,7 @@ class RestorePassword extends React.Component {
                       )}
                     </fieldset>
                   </form>
-                  <Link className="btn btn-md btn-info btn-block" to={'/login'}>
+                  <Link className="btn btn-md btn-info btn-block" href={'/login'}>
                     Повернутися
                   </Link>
                 </div>

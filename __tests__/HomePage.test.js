@@ -1,19 +1,13 @@
-// Example test file __tests__/HomePage.test.js
+// __tests__/HomePage.test.js
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { render, screen } from '@testing-library/react'; // Using @testing-library/react for rendering
 import HomePage from '../src/pages/home';
 import fetchMock from 'jest-fetch-mock';
 
 fetchMock.mockResponseOnce(JSON.stringify({ /* mock user data */ }));
 
 it('renders HomePage without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
-    <Router>
-      <HomePage />
-    </Router>,
-    div
-  );
-  ReactDOM.unmountComponentAtNode(div);
+  render(<HomePage />);
+  // Add assertions here to check if the HomePage is rendering correctly
+  expect(screen.getByText(/some expected text/i)).toBeInTheDocument();
 });

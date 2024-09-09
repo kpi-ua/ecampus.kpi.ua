@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import * as campus from '../utils/CampusClient';
 
 const EmploymentSystem = () => {

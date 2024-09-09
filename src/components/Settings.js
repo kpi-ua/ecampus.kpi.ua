@@ -1,7 +1,7 @@
+import Link from 'next/link';
 import React from 'react';
-import '../css/Settings.css';
+import styles from '../css/Settings.module.css';
 import * as campus from '../utils/CampusClient';
-import { Link } from 'react-router-dom';
 import UserProfileImage from './UserProfileImage';
 
 class Settings extends React.Component {
@@ -40,16 +40,16 @@ class Settings extends React.Component {
 
                 <div className="credo">{this.state.user.credo}</div>
 
-                <h4>Електронна пошта</h4>
+                <h4 className={styles.header}>Електронна пошта</h4>
                 <span>{this.state.user.email}</span>
 
-                <h4>Логiн</h4>
+                <h4 className={styles.header}>Логiн</h4>
                 <span>{this.state.user.username}</span>
 
-                <h4>Науковi iнтереси</h4>
+                <h4 className={styles.header}>Науковi iнтереси</h4>
                 {this.state.user.scientificInterest}
 
-                <h4>Пiдроздiл</h4>
+                <h4 className={styles.header}>Пiдроздiл</h4>
                 {!!user &&
                   !!user.subdivision &&
                   user.subdivision.map((s) => (
@@ -58,7 +58,7 @@ class Settings extends React.Component {
                     </span>
                   ))}
 
-                <h4>Позицiя</h4>
+                <h4 className={styles.header}>Позицiя</h4>
                 {!!user &&
                   !!user.position &&
                   user.position.map((p) => (
@@ -69,7 +69,7 @@ class Settings extends React.Component {
 
                 {!!this.state.user.userIdentifier && (
                   <div>
-                    <h4>Публiчний профiль</h4>
+                    <h4 className={styles.header}>Публiчний профiль</h4>
                     <a
                       href={`https://intellect.kpi.ua/profile/${this.state.user.userIdentifier}`}
                       target="_intellect"
@@ -82,7 +82,7 @@ class Settings extends React.Component {
               </div>
             </div>
             <div className="col-md-2 state-buttons">
-              <Link to="settings-editor" className="btn btn-success">
+              <Link href="settings-editor" className="btn btn-success">
                 Редагувати
               </Link>
             </div>

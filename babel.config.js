@@ -1,10 +1,9 @@
 // babel.config.js
 module.exports = {
   presets: [
-    '@babel/preset-env', // For transforming modern JavaScript
-    '@babel/preset-react' // For transforming React JSX
+    '@babel/preset-env',
+    ["@babel/preset-react", {"runtime": "automatic"}]
   ],
   plugins: [
-    // You can add plugins here if needed
   ]
 };

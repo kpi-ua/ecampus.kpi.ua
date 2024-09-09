@@ -1,8 +1,7 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import '../css/Home.css';
+import Link from 'next/link';
+import React, { useEffect } from 'react';
+import styles from '../css/Home.module.css';
 import * as campus from '../utils/CampusClient';
-import { Link } from 'react-router-dom';
 import BbList from './Bb/BbList';
 import * as Security from '../utils/Security';
 
@@ -20,7 +19,10 @@ class Home extends React.Component {
     } else {
       if (!user.modules) {
         await campus.logout();
-        window.location.href = 'https://ecampus.kpi.ua/';
+        useEffect(() => {
+          // This code runs only on the client side
+          window.location.href = 'https://ecampus.kpi.ua/';
+        }, []); // Empty dependency array ensures this runs only once on mount
       }
     }
 
@@ -112,7 +114,7 @@ class Home extends React.Component {
                 {Security.hasAccessToModule(
                   user,
                   Security.Modules.Information,
-                ) && <h3>Iнформація</h3>}
+                ) && <h3 className={styles.header}>Iнформація</h3>}
 
                 {Security.hasAccessToModule(
                   user,
@@ -124,36 +126,36 @@ class Home extends React.Component {
                         сесії <i className='fa fa-external-link' /></a>
                     </li>
                     <li>
-                      <Link to='/bb'>Дошка оголошень</Link>
+                      <Link href='/bb'>Дошка оголошень</Link>
                     </li>
                     <li>
-                      <Link to='/help'>Інструкція користувача</Link>
+                      <Link href='/help'>Інструкція користувача</Link>
                     </li>
                     <li>
-                      <Link to='/faq'>Поширенi запитання</Link>
+                      <Link href='/faq'>Поширенi запитання</Link>
                     </li>
 
                     {Security.hasProfile(user, Security.Profiles.Lecturer) && (
                       <li className='actual'>
-                        <Link to='/lecturer-help'>
+                        <Link href='/lecturer-help'>
                           Послідовність роботи викладача
                         </Link>
                       </li>
                     )}
 
                     <li>
-                      <Link to='/about'>Про систему</Link>
+                      <Link href='/about'>Про систему</Link>
                     </li>
                     <li>
-                      <Link to='/documents'>
+                      <Link href='/documents'>
                         Документи КПІ ім. Ігоря Сікорського
                       </Link>
                     </li>
                     <li>
-                      <Link to='/contacts'>Контактнi данi</Link>
+                      <Link href='/contacts'>Контактнi данi</Link>
                     </li>
                     <li>
-                      <Link to='/privacy'>
+                      <Link href='/privacy'>
                         Правила використання інформації сайту
                       </Link>
                     </li>
@@ -165,7 +167,7 @@ class Home extends React.Component {
                 {Security.hasAccessToModule(
                   user,
                   Security.Modules.PersonalArea,
-                ) && <h3>Обліковий запис</h3>}
+                ) && <h3 className={styles.header}>Обліковий запис</h3>}
 
                 {Security.hasAccessToModule(
                   user,
@@ -173,14 +175,14 @@ class Home extends React.Component {
                 ) && (
                   <ul>
                     <li>
-                      <Link to='/settings'>Налаштування</Link>
+                      <Link href='/settings'>Налаштування</Link>
                     </li>
                   </ul>
                 )}
               </div>
 
               <div className='col-md-4'>
-                {/*<h3>Дисципліни вибору</h3>*/}
+                {/*<h3 className={styles.header}>Дисципліни вибору</h3>*/}
 
                 {/*<ul>*/}
                 {/*  <li><span href="#">Вибір студента</span><span className="badge badge-light">У розробцi</span></li>*/}
@@ -192,7 +194,7 @@ class Home extends React.Component {
                   user,
                   Security.Modules.AttestationResult,
                 ) && (
-                  <h3>
+                  <h3 className={styles.header}>
                     <span href='#'>Результати атестації</span>
                     <span className='badge badge-light'>У розробцi</span>
                   </h3>
@@ -201,7 +203,7 @@ class Home extends React.Component {
                 {Security.hasAccessToModule(
                   user,
                   Security.Modules.Statistic,
-                ) && <h3>Статистика</h3>}
+                ) && <h3 className={styles.header}>Статистика</h3>}
 
                 {Security.hasAccessToModule(
                   user,
@@ -209,12 +211,12 @@ class Home extends React.Component {
                 ) && (
                   <ul>
                     <li>
-                      <Link to='/statistic/zkm'>
+                      <Link href='/statistic/zkm'>
                         Забезпечення кредитного модуля
                       </Link>
                     </li>
                     <li>
-                      <Link to='/statistic/npp'>
+                      <Link href='/statistic/npp'>
                         Індивідуальне навантаження викладачів
                       </Link>
                     </li>
@@ -222,7 +224,7 @@ class Home extends React.Component {
                 )}
 
                 {Security.hasAccessToModule(user, Security.Modules.RNP) && (
-                  <h3>
+                  <h3 className={styles.header}>
                     <span href='#'>РНП</span>
                     <span className='badge badge-light'>У розробцi</span>
                   </h3>
@@ -232,7 +234,7 @@ class Home extends React.Component {
                 {/*  user,*/}
                 {/*  Security.Modules.Messages,*/}
                 {/*) && (*/}
-                {/*  <h3>*/}
+                {/*  <h3 className={styles.header}>*/}
                 {/*    <span href='#'>Повідомлення</span>*/}
                 {/*    <span className='badge badge-light'>У розробцi</span>*/}
                 {/*  </h3>*/}
@@ -280,7 +282,7 @@ class Home extends React.Component {
                 </a>
                 <br />
                 <br />
-                <Link className='info-button' to={`/feedback`}>
+                <Link className='info-button' href={`/feedback`}>
                   <i className='fa fa-comments-o' aria-hidden='true' />
                   Форма скарг i пропозицiй
                 </Link>
@@ -289,9 +291,9 @@ class Home extends React.Component {
           </div>
 
           <div className='col-md-4'>
-            <h3>Оголошення</h3>
+            <h3 className={styles.header}>Оголошення</h3>
             <BbList enablePaging={false} pageSize={3} />
-            <Link to='/bb'>Читати усi оголошення</Link>
+            <Link href='/bb'>Читати усi оголошення</Link>
           </div>
         </div>
       </div>
@@ -299,4 +301,4 @@ class Home extends React.Component {
   }
 }
 
-export default withRouter(Home);
+export default Home;

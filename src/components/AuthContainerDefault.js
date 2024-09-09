@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import AuthForm from './AuthForm';
 import * as campus from '../utils/CampusClient';
-import { useHistory } from 'react-router-dom';
 import TelegramLoginWidget from './TelegramLoginWidget';
+import { useRouter } from 'next/router'; // Import useRouter from next/router
 
 const AuthContainerDefault = () => {
   const [authFail, setAuthFail] = useState(false);
-  const history = useHistory();
+  const router = useRouter(); // Initialize useRouter
 
   const authorize = async (e, { login, password }) => {
     e.preventDefault();
@@ -14,8 +14,8 @@ const AuthContainerDefault = () => {
     const user = await campus.auth(login, password);
     setAuthFail(!user);
 
-    if (!!user) {
-      history.push(`/home`);
+    if (user) {
+      router.push('/home'); // Use router.push for navigation
       window.location.reload();
     }
   };
@@ -25,8 +25,8 @@ const AuthContainerDefault = () => {
 
     setAuthFail(!user);
 
-    if (!!user) {
-      history.push(`/home`);
+    if (user) {
+      router.push('/home'); // Use router.push for navigation
       window.location.reload();
     }
   };

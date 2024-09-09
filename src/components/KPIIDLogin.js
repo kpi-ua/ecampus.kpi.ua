@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import SupportInformationDialog from './SupportInformationDialog';
 import * as campus from '../utils/CampusClient';
 
@@ -129,7 +129,7 @@ class KPIIDLogin extends React.Component {
                 <br />
 
                 <SupportInformationDialog />
-                <Link to={`/restore-password`}>Вiдновити втрачений пароль</Link>
+                <Link href={`/restore-password`}>Вiдновити втрачений пароль</Link>
               </div>
             </div>
           </div>

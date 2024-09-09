@@ -1,6 +1,6 @@
+import Link from 'next/link';
 import React from 'react';
 import * as campus from '../utils/CampusClient';
-import { Link } from 'react-router-dom';
 import StudyGroupInfo from './StudyGroupInfo';
 
 class FindCurator extends React.Component {
@@ -71,7 +71,7 @@ class FindCurator extends React.Component {
                       </div>
                     </div>
                   </fieldset>
-                  <Link className="btn btn-md btn-info btn-block" to={'/login'}>
+                  <Link className="btn btn-md btn-info btn-block" href={'/login'}>
                     Повернутися
                   </Link>
                 </div>

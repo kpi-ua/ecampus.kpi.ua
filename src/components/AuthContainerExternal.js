@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router'; // Import useRouter from next/router
 import AuthForm from './AuthForm';
 import * as campus from '../utils/CampusClient';
-import { useLocation } from 'react-router-dom';
-
-const useQuery = () => {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-};
 
 const AuthContainerExternal = () => {
   const [authFail, setAuthFail] = useState(false);
-  const query = useQuery();
+  const router = useRouter(); // Get router object
+  const { query } = router; // Access query parameters
 
   const authorize = async (e, { login, password }) => {
     e.preventDefault();
 
-    const redirectionUrl = query.get('redirect_url');
+    const redirectionUrl = query.redirect_url || ''; // Use query parameter
 
     try {
-      const req = await campus.externalAuth(login, password, query.get('appId'), redirectionUrl);
+      const req = await campus.externalAuth(login, password, query.appId, redirectionUrl);
 
       if (req.ok) {
-        document.location.replace(redirectionUrl);
+        window.location.replace(redirectionUrl); // Use window for client-side redirect
         // TODO redirection back + passing auth token
       } else {
         setAuthFail(true);

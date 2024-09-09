@@ -1,5 +1,5 @@
+import Link from 'next/link';
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Contacts = () => (
   <div className="row">
@@ -49,7 +49,7 @@ const Contacts = () => (
       </a>
       <br />
       <br />
-      <Link className="info-button" to={`/feedback`}>
+      <Link className="info-button" href={`/feedback`}>
         <i className="fa fa-comments-o" aria-hidden="true" />
         Форма скарг i пропозицiй
       </Link>

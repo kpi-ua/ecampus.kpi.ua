@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
 import SupportInformationDialog from './SupportInformationDialog';
 import * as campus from '../utils/CampusClient';
 
@@ -18,9 +20,12 @@ class Login extends React.Component {
   };
 
   render() {
-
     if (!!this.state.redirect) {
-      return <Redirect to={this.state.redirect} />;
+      const { push } = useRouter();
+
+      useEffect(() => {
+         push(this.state.redirect);
+      }, []);
     }
 
     return (
@@ -60,19 +65,19 @@ class Login extends React.Component {
                       <div className='panel-body'>
                         <div className='row'>
                           <div className='col-md-4'>
-                            <Link className='menu-icon' to={`/restore-password`}>
+                            <Link className='menu-icon' href={`/restore-password`}>
                               <i className='fa fa-unlock-alt' aria-hidden='true' />
                               Вiдновити втрачений пароль
                             </Link>
                           </div>
                           <div className='col-md-4'>
-                            <Link className='menu-icon' to={`/find-curator`}>
+                            <Link className='menu-icon' href={`/find-curator`}>
                               <i className='fa fa-search' aria-hidden='true' />
                               Знайти куратора групи
                             </Link>
                           </div>
                           <div className='col-md-4'>
-                            <Link className='menu-icon' to={`/feedback`}>
+                            <Link className='menu-icon' href={`/feedback`}>
                               <i className='fa fa-comments-o' aria-hidden='true' />
                               Форма скарг i пропозицiй
                             </Link>
@@ -108,7 +113,7 @@ class Login extends React.Component {
                             </a>
                           </div>
                           <div className='col-md-4'>
-                            <Link className='menu-icon' to={`/faq`}>
+                            <Link className='menu-icon' href={`/faq`}>
                               <i
                                 className='fa fa-question-circle'
                                 aria-hidden='true'

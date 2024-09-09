@@ -13,7 +13,6 @@ import {
   UncontrolledDropdown,
 } from 'reactstrap';
 import * as campus from '../utils/CampusClient';
-import { withRouter } from 'react-router-dom';
 import * as Security from '../utils/Security';
 
 class Header extends React.Component {
@@ -201,4 +200,4 @@ class Header extends React.Component {
   }
 }
 
-export default withRouter(Header);
+export default Header;

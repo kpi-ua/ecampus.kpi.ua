@@ -183,14 +183,18 @@ export const redirectToOldUI = async () => {
     if (credentials) {
       await storeCredentials(credentials.sessionId, credentials.access_token);
       const oldUIAddress = await ApplicationConfiguration.getOldUIAddress();
-      window.location.replace(oldUIAddress);
+      if (typeof window !== 'undefined') {
+        window.location.replace(oldUIAddress);
+      }
       return;
     }
   }
 
   await logout();
   const loginPageAddress = await ApplicationConfiguration.getLoginPageAddress();
-  window.location.replace(loginPageAddress);
+  if (typeof window !== 'undefined') {
+    window.location.replace(loginPageAddress);
+  }
 };
 
 /**

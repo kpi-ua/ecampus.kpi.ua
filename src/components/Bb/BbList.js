@@ -1,6 +1,6 @@
 import React from 'react';
 import * as campus from '../../utils/CampusClient';
-import '../../css/Bb.css';
+import '../../css/Bb.module.css';
 import Pagination from 'react-js-pagination';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
 
@@ -57,7 +57,10 @@ class BbList extends React.Component {
   render() {
     const items = this.state.items;
 
-    window.scrollTo(0, 0);
+    // Client-side only: safe to use window here
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
 
     return (
       <div>
