@@ -1,0 +1,51 @@
+{
+  "auth": {
+    "login": {
+      "header": "Sign-in",
+      "description": "Welcome back! Please enter your credentials or sign in with Telegram.",
+      "divider": "or",
+      "rememberMe": "Remember me",
+      "passwordReset": "Forgot my password",
+      "field": {
+        "email": "Email address",
+        "password": "Password"
+      },
+      "button": {
+        "login": "Sign-in",
+        "telegramLogin": "Sign-in with Telegram"
+      }
+    },
+    "passwordChange": {
+      "header": "Change password",
+      "description": "Now create a new password. Secure password includes digits, letters and delimiter symbols.",
+      "button": {
+        "set": "Set new password"
+      },
+      "field": {
+        "password": "New password",
+        "passwordRepeat": "Repeat password"
+      },
+      "success": {
+        "header": "Password changed",
+        "description": "Ваш пароль успішно змінено. Натисніть нижче, щоби увійти в обліковий запис.",
+        "button": "Continue"
+      }
+    },
+    "passwordReset": {
+      "header": "Reset your password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "button": {
+        "reset": "Reset password"
+      },
+      "field": {
+        "email": "Email address"
+      },
+      "success": {
+        "header": "Check your inbox",
+        "description": "We've sent you a link to reset your password on email {email}",
+        "retryMessage": "Didn't get an email? <resendlink>Click to resend.</resendlink>"
+      }
+    },
+    "footer": "<p>All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute</p><p>Developer: <kbislink>Design bureau of information systems</kbislink></p>"
+  }
+}
