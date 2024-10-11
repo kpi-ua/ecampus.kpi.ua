@@ -1,42 +1,23 @@
-# Stage 1
-#######################################
-# Pull official node image
-FROM node:16.13.2-buster-slim AS builder
+# Use an official Node.js runtime as a parent image
+FROM node:18-alpine
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to Docker environment
-COPY package.json ./
+# Copy package.json and package-lock.json (or yarn.lock) files
+COPY package*.json ./
 
-# Installs all node packages
+# Install dependencies
 RUN npm install
 
-# Copies everything over to Docker environment
-COPY . ./
+# Copy the rest of the application code
+COPY . .
+
+# Build the Next.js app
 RUN npm run build
 
-#Stage 2
-#######################################
-# Pull the official nginx base image
-FROM nginx:1.25.1
+# Expose the port the app runs on
+EXPOSE 3000
 
-# Set working directory to nginx resources directory
-WORKDIR /usr/share/nginx/html
-
-# Remove default nginx static resources
-RUN rm -rf ./*
-
-# Copies static resources from builder stage
-COPY --from=builder /app/build .
-COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY ./start.sh /docker-entrypoint.d
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
-EXPOSE 80
-
-STOPSIGNAL SIGQUIT
-
-# Containers run nginx with global directives and daemon off
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Next.js app
+CMD ["npm", "run", "start"]
