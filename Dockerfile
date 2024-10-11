@@ -1,23 +1,34 @@
-# Use an official Node.js runtime as a parent image
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock) files
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
+# Install all dependencies (production + development)
 RUN npm install
 
-# Copy the rest of the application code
+# Copy the rest of the application
 COPY . .
 
 # Build the Next.js app
 RUN npm run build
 
-# Expose the port the app runs on
+# -- Production Image -- #
+FROM node:18-alpine AS runner
+
+# Set working directory
+WORKDIR /app
+
+# Copy the build output from the build stage
+COPY --from=builder /app ./
+
+# Set NODE_ENV to production
+ENV NODE_ENV=production
+
+# Expose the port
 EXPOSE 3000
 
-# Start the Next.js app
+# Run the app
 CMD ["npm", "run", "start"]

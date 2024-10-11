@@ -1,15 +1,3 @@
-[![GitHub license](https://img.shields.io/github/license/kpi-ua/ecampus.kpi.ua.svg)](https://github.com/kpi-ua/ecampus.kpi.ua/blob/master/LICENSE)
-[![GitHub contributors](https://img.shields.io/github/contributors/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/graphs/contributors/)
-[![GitHub issues](https://img.shields.io/github/issues/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/issues/)
-[![GitHub pull-requests](https://img.shields.io/github/issues-pr/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/pulls/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/ecampus-kpi-ua)
-
-[![GitHub watchers](https://img.shields.io/github/watchers/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Watch)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/watchers/)
-[![GitHub forks](https://img.shields.io/github/forks/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Fork)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/network/)
-[![GitHub stars](https://img.shields.io/github/stars/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Star)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/stargazers/)
-
-
 # Electronic Campus of Igor Sikorsky Kyiv Polytechnic Institute
 
 ## Environment variables
@@ -39,12 +27,12 @@ docker build ./ --file ./Dockerfile --tag kpiua/ecampus-kpi-ua:latest
 ### Run
 #### Run with default settings
 ```shell
-docker run --rm -it -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
+docker run --rm -it -p 3000:3000/tcp kpiua/ecampus-kpi-ua:latest
 ```
 
 #### Run with custom settings
 ```shell
- docker run --rm -it -e API_ENDPOINT=https://api-v2.campus.kpi.ua/ -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
+ docker run --rm -it -e API_ENDPOINT=https://api-v2.campus.kpi.ua/ -p 3000:3000/tcp kpiua/ecampus-kpi-ua:latest
 ```
 or
 ```shell
@@ -52,14 +40,5 @@ docker run --rm -it \
   -e API_ENDPOINT=https://api.local/ \
   -e OLD_UI_ADDRESS=https://old-ui.local/  \
   -e LOGIN_PAGE_ADDRESS_LINE=https://ecampus.local/login \
-  -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
+  -p 3000:3000/tcp kpiua/ecampus-kpi-ua:latest
 ```
-
-
-#### Run locally for debug
-
-Update _config.json_ file to set proper API endpoints and then run docker image:
-```shell
-docker-compose -f dev-docker-compose.yml up --build
-```
-
