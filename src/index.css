@@ -207,14 +207,6 @@ header {
     vertical-align: middle;
 }
 
-header .logo-kpi {
-    margin-top: 6px;
-    padding: 0 15px;
-    width: 64px;
-    height: 48px;
-    background: url("/images/logo-kpi.png") center no-repeat;
-}
-
 .header-logo {
     margin: 0 0 0 50px;
     height: 60px;
@@ -367,10 +359,6 @@ footer:after {
 
 
 @media screen and (max-width: 1200px) {
-    .logo-kpi {
-        padding: 0 46px !important;
-    }
-
     .header-logo {
         margin-left: 20px !important;
     }
@@ -609,11 +597,6 @@ input[type="radio"] + label {
 
 .left-border{
     border-left: 1px solid rgba(0,0,0,.1);
-}
-
-.btn-statistic {
-    width: 100%;
-    margin-top: 15px;
 }
 
 .menu-icon:hover,

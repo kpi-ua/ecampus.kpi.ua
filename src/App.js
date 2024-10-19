@@ -17,13 +17,9 @@ import Settings from './components/Settings';
 import SettingsEditor from './components/SettingsEditor';
 import Help from './components/Help';
 import BbIndex from './components/Bb/BbIndex';
-import StatisticIndex from './components/Statistic/StatisticIndex';
-import NPP from './components/Statistic/NPP';
-import ZKM from './components/Statistic/ZKM';
 import Feedback from './components/Feedback';
 import Faq from './components/Faq';
 import FindCurator from './components/FindCurator';
-import Schedule from './components/Schedule';
 import AuthContainerDefault from './components/AuthContainerDefault';
 import AuthContainerExternal from './components/AuthContainerExternal';
 import EmploymentSystem from './components/EmploymentSystem';
@@ -81,7 +77,6 @@ class App extends Component {
               <Route exact path="/employment-system" component={EmploymentSystem} />
               <Route exact path="/contacts" component={Contacts} />
               <Route exact path="/bb" component={BbIndex} />
-              <Route exact path="/schedule" component={Schedule} />
               <Route exact path="/feedback" component={Feedback} />
               <Route exact path="/faq" component={Faq} />
               <Route exact path="/settings" component={Settings} />
@@ -97,9 +92,6 @@ class App extends Component {
                 path="/social-forbidden"
                 component={SocialForbidden}
               />
-              <Route exact path="/statistic" component={StatisticIndex} />
-              <Route exact path="/statistic/npp" component={NPP} />
-              <Route exact path="/statistic/zkm" component={ZKM} />
             </Switch>
           </div>
         </div>

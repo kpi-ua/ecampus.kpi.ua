@@ -1,6 +1,6 @@
 {
   "name": "ecampus.kpi.ua",
-  "version": "2019.01.20",
+  "version": "2024.10.19",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",

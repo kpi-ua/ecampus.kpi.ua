@@ -69,28 +69,6 @@ class Header extends React.Component {
             <Nav navbar>
               {!!user && (
                 <>
-                  {/*<UncontrolledDropdown nav>*/}
-                  {/*  <DropdownToggle nav caret>*/}
-                  {/*    Дисципліни вибору*/}
-                  {/*  </DropdownToggle>*/}
-                  {/*  <DropdownMenu>*/}
-                  {/*    <DropdownItem disabled={true} href="#">Вибір студента​</DropdownItem>*/}
-                  {/*    <DropdownItem disabled={true} href="#">Пропозиції дисциплін​</DropdownItem>*/}
-                  {/*    <DropdownItem disabled={true} href="#">Дисципліни спеціалізації</DropdownItem>*/}
-                  {/*  </DropdownMenu>*/}
-                  {/*</UncontrolledDropdown>*/}
-
-                  {Security.hasAccessToModule(
-                    user,
-                    Security.Modules.AttestationResult,
-                  ) && (
-                    <NavItem>
-                      <NavLink disabled={true} href="#">
-                        Результати атестації
-                      </NavLink>
-                    </NavItem>
-                  )}
-
                   {Security.hasAccessToModule(
                       user,
                       Security.Modules.EmploymentSystem,
@@ -101,33 +79,6 @@ class Header extends React.Component {
                           <i className="fa fa-external-link" />
                         </NavLink>
                       </NavItem>
-                  )}
-
-                  {Security.hasAccessToModule(
-                    user,
-                    Security.Modules.Statistic,
-                  ) && (
-                    <UncontrolledDropdown nav>
-                      <DropdownToggle nav caret>
-                        Статистика
-                      </DropdownToggle>
-                      <DropdownMenu>
-                        <DropdownItem href="/statistic/zkm">
-                          Забезпечення кредитного модуля
-                        </DropdownItem>
-                        <DropdownItem href="/statistic/npp">
-                          Індивідуальне навантаження викладачів
-                        </DropdownItem>
-                      </DropdownMenu>
-                    </UncontrolledDropdown>
-                  )}
-
-                  {Security.hasAccessToModule(user, Security.Modules.RNP) && (
-                    <NavItem>
-                      <NavLink disabled={true} href="#">
-                        РНП
-                      </NavLink>
-                    </NavItem>
                   )}
 
                 </>
@@ -149,11 +100,6 @@ class Header extends React.Component {
                       Інструкція користувача
                     </DropdownItem>
                     <DropdownItem href="/faq">Поширенi запитання</DropdownItem>
-                    {Security.hasProfile(user, Security.Profiles.Lecturer) && (
-                      <DropdownItem href="/lecturer-help">
-                        Послідовність роботи викладача
-                      </DropdownItem>
-                    )}
                     <DropdownItem href="/about">Про систему</DropdownItem>
                     <DropdownItem href="/documents">
                       Документи КПІ ім. Ігоря Сікорського

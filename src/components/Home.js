@@ -92,12 +92,11 @@ class Home extends React.Component {
                         Перейти до анкети {' '}
                         <i className='fa fa-external-link' />
                       </a>
-                      <span className='btn btn-primary btn-lg btn-home disabled'
-                         style={{ backgroundColor: '#FF0000', borderColor: '#FF8800' }}
-                         href='https://youtube.com/'>
-                        Переглянути інструкцію {' '}
-                        <i className="fa fa-youtube-play" aria-hidden="true"></i>
-                      </span>
+                      {/*<span className='btn btn-primary btn-lg btn-home disabled'*/}
+                      {/*   style={{ backgroundColor: '#FF0000', borderColor: '#FF8800' }}>*/}
+                      {/*  Переглянути інструкцію {' '}*/}
+                      {/*  <i className="fa fa-youtube-play" aria-hidden="true"></i>*/}
+                      {/*</span>*/}
                     </p>
                   </div>
                 </div>
@@ -179,63 +178,6 @@ class Home extends React.Component {
               </div>
 
               <div className='col-md-4'>
-                {/*<h3>Дисципліни вибору</h3>*/}
-
-                {/*<ul>*/}
-                {/*  <li><span href="#">Вибір студента</span><span className="badge badge-light">У розробцi</span></li>*/}
-                {/*  <li><span href="#">Пропозиції дисциплін</span><span className="badge badge-light">У розробцi</span></li>*/}
-                {/*  <li><span href="#">Дисципліни спеціалізації</span><span className="badge badge-light">У розробцi</span></li>*/}
-                {/*</ul>*/}
-
-                {Security.hasAccessToModule(
-                  user,
-                  Security.Modules.AttestationResult,
-                ) && (
-                  <h3>
-                    <span href='#'>Результати атестації</span>
-                    <span className='badge badge-light'>У розробцi</span>
-                  </h3>
-                )}
-
-                {Security.hasAccessToModule(
-                  user,
-                  Security.Modules.Statistic,
-                ) && <h3>Статистика</h3>}
-
-                {Security.hasAccessToModule(
-                  user,
-                  Security.Modules.Statistic,
-                ) && (
-                  <ul>
-                    <li>
-                      <Link to='/statistic/zkm'>
-                        Забезпечення кредитного модуля
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to='/statistic/npp'>
-                        Індивідуальне навантаження викладачів
-                      </Link>
-                    </li>
-                  </ul>
-                )}
-
-                {Security.hasAccessToModule(user, Security.Modules.RNP) && (
-                  <h3>
-                    <span href='#'>РНП</span>
-                    <span className='badge badge-light'>У розробцi</span>
-                  </h3>
-                )}
-
-                {/*{Security.hasAccessToModule(*/}
-                {/*  user,*/}
-                {/*  Security.Modules.Messages,*/}
-                {/*) && (*/}
-                {/*  <h3>*/}
-                {/*    <span href='#'>Повідомлення</span>*/}
-                {/*    <span className='badge badge-light'>У розробцi</span>*/}
-                {/*  </h3>*/}
-                {/*)}*/}
               </div>
             </div>
 

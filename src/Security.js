@@ -27,11 +27,7 @@ export const hasProfile = (user, profile) => {
 };
 
 export const Modules = {
-  RNP: 'RNP',
-  Statistic: 'Statistic',
-  Messages: 'Messages',
   PersonalArea: 'PersonalArea',
-  AttestationResult: 'AttestationResult',
   Information: 'Information',
   EmploymentSystem: 'EmploymentSystem'
 };
