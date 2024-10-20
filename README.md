@@ -1,16 +1,9 @@
-[![GitHub license](https://img.shields.io/github/license/kpi-ua/ecampus.kpi.ua.svg)](https://github.com/kpi-ua/ecampus.kpi.ua/blob/master/LICENSE)
-[![GitHub contributors](https://img.shields.io/github/contributors/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/graphs/contributors/)
-[![GitHub issues](https://img.shields.io/github/issues/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/issues/)
-[![GitHub pull-requests](https://img.shields.io/github/issues-pr/kpi-ua/ecampus.kpi.ua.svg)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/pulls/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/ecampus-kpi-ua)
-
-[![GitHub watchers](https://img.shields.io/github/watchers/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Watch)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/watchers/)
-[![GitHub forks](https://img.shields.io/github/forks/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Fork)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/network/)
-[![GitHub stars](https://img.shields.io/github/stars/kpi-ua/ecampus.kpi.ua.svg?style=social&label=Star)](https://GitHub.com/kpi-ua/ecampus.kpi.ua/stargazers/)
-
-
 # Electronic Campus of Igor Sikorsky Kyiv Polytechnic Institute
+
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/ecampus.kpi.ua)](https://hub.docker.com/r/kpiua/ecampus.kpi.ua)
+
+The information system "Electronic Campus of Igor Sikorsky Kyiv Polytechnic Institute" is an automated system supporting educational process informatization. It provides digital communication tools for students, faculty, and department heads, enhancing educational quality through modern technology.
 
 ## Environment variables
 
@@ -28,7 +21,7 @@ npm run build
 npm run start
 ```
 
-## [Docker](https://hub.docker.com/r/kpiua/ecampus-kpi-ua)
+## Docker
 
 ### Build container
 
