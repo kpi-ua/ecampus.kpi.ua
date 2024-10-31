@@ -5,30 +5,56 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
-        destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        outline:
-          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        primary: "bg-basic-blue text-primary-foreground hover:bg-brand-700 active:bg-basic-blue active:border-brand-900 active:border-[1px] active:border-solid disabled:opacity-40",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-transparent text-neutral-900 border-[1px] border-solid border-neutral-300 hover:border-neutral-900 active:bg-brand-00 active:border-basic-blue active:text-basic-blue disabled:bg-neutral-50 disabled:border-neutral-300 disabled:text-neutral-300",
+        tertiary: "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-700 active:text-neutral-900 active:bg-transparent disabled:text-neutral-400",
       },
       size: {
-        default: "h-10 px-4 py-[12px] text-base",
-        sm: "h-9 rounded-md px-[10px] text-sm",
-        lg: "h-[56px] rounded-md px-[16px] text-lg",
-        icon: "h-10 w-10",
+        small: "p-[10px] text-sm [&_svg]:size-[16px] leading-[16px]",
+        medium: "p-[12px] text-base [&_svg]:size-[20px] leading-[20px]",
+        big: "p-[16px] text-lg [&_svg]:size-[24px] leading-[24px]",
       },
     },
+    compoundVariants: [
+      {
+        variant: ['primary'],
+        size: 'big',
+        class: 'active:p-[15px]'
+      },
+      {
+        variant: ['primary'],
+        size: 'medium',
+        class: 'active:p-[11px]'
+      },
+      {
+        variant: ['primary'],
+        size: 'small',
+        class: 'active:p-[9px]'
+      },
+      {
+        variant: ['secondary'],
+        size: 'big',
+        class: 'p-[15px]'
+      },
+      {
+        variant: ['secondary'],
+        size: 'medium',
+        class: 'p-[11px]'
+      },
+      {
+        variant: ['secondary'],
+        size: 'small',
+        class: 'p-[9px]'
+      },
+    ],
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: "primary",
+      size: "medium",
     },
   }
 )
