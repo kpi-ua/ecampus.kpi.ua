@@ -8,7 +8,7 @@ export default function PasswordChangeSuccess() {
     <>
       <h2>{t('header')}</h2>
       <p className="py-4 text-neutral-600">{t('description')}</p>
-      <Button size="lg" className="w-[100%] my-4">{t('button')}</Button>
+      <Button size="big" className="w-[100%] my-4">{t('button')}</Button>
     </>
   );
 }

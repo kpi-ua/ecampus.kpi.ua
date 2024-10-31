@@ -15,7 +15,7 @@ export default function PasswordReset() {
         <Label htmlFor="email">{t('field.email')}</Label>
         <Input type="email" id="email" />
       </Field>
-      <Button size="lg" className="w-[100%] my-4">{t('button.reset')}</Button>
+      <Button size="big" className="w-[100%] my-4">{t('button.reset')}</Button>
     </>
   );
 }

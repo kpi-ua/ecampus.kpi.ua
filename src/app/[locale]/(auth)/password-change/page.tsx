@@ -19,7 +19,7 @@ export default function PasswordChange() {
         <Label htmlFor="password-repeat">{t('field.passwordRepeat')}</Label>
         <Input type="password-repeat" id="password-repeat" />
       </Field>
-      <Button size="lg" className="w-[100%] my-4">{t('button.set')}</Button>
+      <Button size="big" className="w-[100%] my-4">{t('button.set')}</Button>
     </>
   );
 }
