@@ -1,5 +1,6 @@
 'use server';
 
+import { redirect } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
 import { cookies } from 'next/headers';
 import qs from 'query-string';
@@ -57,6 +58,13 @@ export async function loginWithCredentials(username: string, password: string, r
   }
 }
 
+export async function logout() {
+  cookies().delete('SID');
+  cookies().delete('token');
+
+  redirect('/');
+}
+
 export async function resetPassword(username: string, recaptchaToken: string) {
   try {
     const payload = {
@@ -75,7 +83,6 @@ export async function resetPassword(username: string, recaptchaToken: string) {
 
     return null;
   } catch (error) {
-    console.log(error);
     throw new Error('Bad request');
   }
 }

@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Field } from './field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link } from '@/i18n/routing';
@@ -97,7 +96,7 @@ export const CredentialsLogin = () => {
               </div>
             )}
           />
-          <Link className="text-sm" href="password-reset">{t('passwordReset')}</Link>
+          <Link className="text-sm" href="/password-reset">{t('passwordReset')}</Link>
         </div>
         <FormMessage>
           {form.formState.errors.root?.message}
