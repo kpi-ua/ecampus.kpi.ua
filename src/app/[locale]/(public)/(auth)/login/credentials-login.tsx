@@ -9,7 +9,7 @@ import { Field } from './field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link } from '@/i18n/routing';
-import { loginWithCredentials } from '@/app/actions/auth.actions';
+import { loginWithCredentials } from '@/actions/auth.actions';
 import { useTranslations } from 'next-intl';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import PasswordInput from '@/components/ui/password-input';

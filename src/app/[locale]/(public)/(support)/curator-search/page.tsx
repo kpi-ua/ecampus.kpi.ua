@@ -1,7 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { SupportLayout } from '../support-layout';
 import { CuratorSearch } from './curator-search';
-import { EmptyPlaceholder } from './empty-placeholder';
 
 export default function CuratorSearchPage() {
   const t = useTranslations('public.curator-search');

@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { resetPassword } from '@/app/actions/auth.actions';
+import { resetPassword } from '@/actions/auth.actions';
 import { Form, FormField, FormItem } from '@/components/ui/form';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';

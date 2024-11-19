@@ -70,8 +70,6 @@ export async function resetPassword(username: string, recaptchaToken: string) {
     });
 
     if (response.status < 200 || response.status >= 300) {
-      const t = await response.text();
-      console.log(t);
       return null;
     }
 
