@@ -1,17 +1,15 @@
 import { TextButton } from '@/components/ui/text-button';
 import CaretLeftRegular from '@/app/images/icons/CaretLeftRegular.svg';
 import { useTranslations } from 'next-intl';
-import { cn } from '@/lib/utils';
 import { Heading2 } from '@/components/typography/headers';
 
-interface SupportLayoutProps {
+export interface AuthNavLayoutProps {
   children: React.ReactNode;
   header: string;
   description?: string;
-  className?: string;
 }
 
-export const SupportLayout = ({ children, header, description, className }: SupportLayoutProps) => {
+export const AuthNavLayout = ({ children, header, description }: AuthNavLayoutProps) => {
   const t = useTranslations('global.navigation');
 
   return (
@@ -26,9 +24,7 @@ export const SupportLayout = ({ children, header, description, className }: Supp
       </TextButton>
       <Heading2>{header}</Heading2>
       {description && <p className="py-4 text-neutral-600">{description}</p>}
-      <section className={cn("mt-8 text-lg leading-normal", className)}>
-        {children}
-      </section>
+      {children}
     </>
   );
 }

@@ -1,17 +1,26 @@
 import { useTranslations } from 'next-intl';
-import { SupportLayout } from '../support-layout';
+import { SupportNavLayout } from '../support-nav-layout';
+import { getTranslations } from 'next-intl/server';
 
-export default function Complaints() {
+export async function generateMetadata({ params: { locale } }: any) {
+  const t = await getTranslations({ locale, namespace: 'public.complaints'});
+
+  return {
+    title: t('header'),
+  };
+}
+
+export default function ComplaintsPage() {
   const t = useTranslations('public.complaints');
 
   return (
-    <SupportLayout header={t('header')} className="w-full grow">
+    <SupportNavLayout header={t('header')} className="w-full grow">
       <iframe
         src="https://docs.google.com/forms/d/e/1FAIpQLSdlWaMSxcYVSfYDZpVgygSIl8reTZBM2Nl2ZzyuZzdaFwef_w/viewform?embedded=true"
         width="100%"
         height="950"
         className="-mx-[5%] w-[110%]"
       ></iframe>
-    </SupportLayout>
+    </SupportNavLayout>
   );
 }
