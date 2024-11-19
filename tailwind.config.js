@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ["class"],
@@ -26,17 +28,17 @@ module.exports = {
         '7xl': '48px',
       },
       lineHeight: {
-        xs: '0.8rem',
-        sm: '0.9rem',
-        base: '1rem',
-        lg: '1.2rem',
-        xl: '1.4rem',
-        '2xl': '1.2rem',
-        '3xl': '1.6rem',
-        '4xl': '1.8rem',
-        '5xl': '2rem',
-        '6xl': '2.4rem',
-        '7xl': '2.8rem',
+        xs: '16px',
+        sm: '18px',
+        base: '20px',
+        lg: '24px',
+        xl: '28px',
+        '2xl': '32px',
+        '3xl': '36px',
+        '4xl': '40px',
+        '5xl': '48px',
+        '6xl': '56px',
+        '7xl': '56px',
       },
       fontWeight: {
         semibold: '600',
@@ -61,7 +63,7 @@ module.exports = {
         'secondary-foreground': 'hsl(var(--secondary-foreground))',
         'accent': 'hsl(var(--accent))',
         'accent-foreground': 'hsl(var(--accent-foreground))',
-        'destructive': 'hsl(var(--destructive))',
+        'destructive': 'rgb(var(--destructive))',
         'destructive-foreground': 'hsl(var(--destructive-foreground))',
         'ring': 'hsl(var(--ring))',
 

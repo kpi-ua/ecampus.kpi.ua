@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { exo2Font } from './font';
 import { getMessages } from 'next-intl/server';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: "Кампус КПІ",
@@ -32,6 +33,7 @@ export default async function RootLayout({
       <body className={`${exo2Font.className}`}>
         <NextIntlClientProvider messages={messages}>
           {children}
+          <Toaster />
         </NextIntlClientProvider>
       </body>
     </html>

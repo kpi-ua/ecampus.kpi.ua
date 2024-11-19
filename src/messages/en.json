@@ -1,4 +1,13 @@
 {
+  "global": {
+    "server-error": {
+      "title": "Something went wrong",
+      "description": "There was a problem with your request"
+    },
+    "navigation": {
+      "back": "Back"
+    }
+  },
   "auth": {
     "login": {
       "header": "Sign-in",
@@ -6,9 +15,17 @@
       "divider": "or",
       "rememberMe": "Remember me",
       "passwordReset": "Forgot my password",
+      "publicLink": {
+        "support": "User support",
+        "curator-search": "Find curator",
+        "complaints": "Complaints and suggestions",
+        "telegram-chat": "Telegram chat",
+        "faq": "Frequently asked questions"
+      },
       "field": {
-        "email": "Email address",
-        "password": "Password"
+        "username": "Email address or username",
+        "password": "Password",
+        "error": "Invalid credentials"
       },
       "button": {
         "login": "Sign-in",
@@ -38,14 +55,32 @@
         "reset": "Reset password"
       },
       "field": {
-        "email": "Email address"
+        "username": "Username or email address"
       },
       "success": {
         "header": "Check your inbox",
-        "description": "We've sent you a link to reset your password on email {email}",
-        "retryMessage": "Didn't get an email? <resendlink>Click to resend.</resendlink>"
+        "description": "We've sent you a link to reset your password on email {username}. Click below to sign in to your account.",
+        "retryMessage": "Didn't get an email? <link>Click to resend.</link>",
+        "button": "Continue"
       }
     },
-    "footer": "<p>All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute</p><p>Developer: <kbislink>Design bureau of information systems</kbislink></p>"
+    "footer": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute<br></br>Developer: <kbislink>Design bureau of information systems</kbislink>"
+  },
+  "public": {
+    "support": {
+      "header": "Support",
+      "content": "<p>Чaт підтримки у <tglink>Telegram</tglink>.</p><p>Якщо у вас є питання, ви можете надіслати його на email служби підтримки: <email>ecampus@kpi.ua</email>.</p><p>Для термінового зв'язку ви можете подзвонити за номером: <tel>+380 (44) 204 80 06</tel>.</p><p>Також ви можете завітати до конструкторського бюро, за адресою:<br></br><addresslink>Україна, м. Київ, вул. Політехнічна 14-в, корпус 13, 4 поверх, 25 кабінет.</addresslink></p>"
+    },
+    "complaints": {
+      "header": "Complaints"
+    },
+    "curator-search": {
+      "header": "Curator search",
+      "description": "Enter the name of your group to find a curator"
+    },
+    "faq": {
+      "header": "Frequently-asked questions",
+      "content": "<h2>Як зареєструватися в кампусі?</h2><p>Якщо ви офіційно працевлаштований викладач і з моменту подачі ваших документів до відділу кадрів пройшло більше двох тижнів - зверніться до відповідального на кафедрі або зав. кафедрою для подачі службової. Якщо ви студент або аспірант - зверніться до вашого академкуратора.</p><h2>Як відновити пароль?</h2><p>Для відновлення паролю скористайтесь кнопкою на панелі авторизації. Якщо ви не користувалися раніше кампусом - зверніться до вашого куратора.</p>"
+    }
   }
 }

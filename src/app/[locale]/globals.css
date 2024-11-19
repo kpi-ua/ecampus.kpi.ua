@@ -21,7 +21,7 @@
     --secondary-foreground: 222.2 47.4% 11.2%;
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 100% 50%;
+    --destructive: 248 59 81;
     --destructive-foreground: 210 40% 98%;
     --ring: 215 20.2% 65.1%;
 
@@ -53,7 +53,7 @@
     --neutral-100: 238 238 247;
     --neutral-50: 248 248 255;
 
-    --status-danger-300: 248 259 81;
+    --status-danger-300: 248 59 81;
     --status-danger-200: 255 148 160;
     --status-danger-100: 255 235 238;
     --status-warning-300: 244 176 1;
@@ -99,28 +99,4 @@ a {
   color: rgb(var(--primary));
   text-decoration: none;
   font-weight: 600;
-}
-
-h1 {
-  @apply text-6xl font-semibold leading-10;
-}
-
-h2 {
-  @apply text-5xl font-semibold leading-9;
-}
-
-h3 {
-  @apply text-4xl font-semibold leading-8;
-}
-
-h4 {
-  @apply text-3xl font-semibold leading-7;
-}
-
-h5 {
-  @apply text-2xl font-semibold leading-6;
-}
-
-h6 {
-  @apply text-xl font-semibold leading-5;
 }

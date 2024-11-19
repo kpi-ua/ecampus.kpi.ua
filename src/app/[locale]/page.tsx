@@ -1,5 +1,7 @@
+import { Heading1 } from '@/components/typography/headers';
+
 export default function Home() {
   return (
-    <h1>Page</h1>
+    <Heading1>Dashboard</Heading1>
   );
 }

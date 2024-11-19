@@ -1,21 +1,22 @@
 'use server';
 
+import { campusFetch } from '@/lib/client';
 import { cookies } from 'next/headers';
 import qs from 'query-string';
 
-export async function loginWithCredentials(username: string, password: string) {
+// 30 Days
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
+
+export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
   try {
     const payload = {
       username,
       password,
       grant_type: 'password',
     };
-  
-    console.log('body', qs.stringify(payload));
 
-    const response = await fetch(`${process.env.API_ENDPOINT}oauth/token`, {
+    const response = await campusFetch('oauth/token', {
       method: 'POST',
-      cache: 'no-cache',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
@@ -32,27 +33,51 @@ export async function loginWithCredentials(username: string, password: string) {
       return null;
     }
 
-    const userResponse = await fetch(`${process.env.API_ENDPOINT}account/info`, {
+    const userResponse = await campusFetch('account/info', {
       method: 'GET',
-      cache: 'no-cache',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${jsonResponse.access_token}`,
       },
     });
 
     if (!userResponse.ok) {
-      return ;
+      return null;
     }
 
     const user = await userResponse.json();
 
-    cookies().set('SID', jsonResponse.session_id, { domain: 'localhost', httpOnly: true });
-    cookies().set('token', jsonResponse.access_token, { domain: 'localhost', httpOnly: true });
+    const maxAge = rememberMe ? COOKIE_MAX_AGE : undefined;
+
+    cookies().set('SID', jsonResponse.session_id, { domain: 'localhost', httpOnly: true, maxAge });
+    cookies().set('token', jsonResponse.access_token, { domain: 'localhost', httpOnly: true, maxAge });
 
     return user;
   } catch (error) {
-    console.error('Authentication error', error);
     return null;
+  }
+}
+
+export async function resetPassword(username: string, recaptchaToken: string) {
+  try {
+    const payload = {
+      Captcha: recaptchaToken,
+      UserIdentifier: username,
+    };
+
+    const response = await campusFetch('account/recovery', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+
+    if (response.status < 200 || response.status >= 300) {
+      const t = await response.text();
+      console.log(t);
+      return null;
+    }
+
+    return null;
+  } catch (error) {
+    console.log(error);
+    throw new Error('Bad request');
   }
 }

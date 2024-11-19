@@ -20,15 +20,15 @@ const rootRegExp = new RegExp('^\/?$', 'i');
 
 const authPathRegExp = composePathsRegExp([
   '/login',
-  '/password-change',
+  '/password-reset/success',
   '/password-reset',
 ]);
 
 const publicPathRegExp = composePathsRegExp([
   '/',
   '/login',
-  '/password-change',
   '/password-reset',
+  '/password-reset/success',
   '/curator-search',
   '/complaints',
   '/support',
