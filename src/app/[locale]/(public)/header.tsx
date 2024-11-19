@@ -1,5 +1,7 @@
+'use client';
+
 import Logo from '@/app/images/logo.svg';
-import { Link, LOCALE } from '@/i18n/routing';
+import { Link, LOCALE, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { useLocale } from 'next-intl';
 
@@ -9,13 +11,14 @@ interface HeaderProps {
 
 export const Header = ({ className }: HeaderProps) => {
   const locale = useLocale();
+  const pathname = usePathname();
 
   const renderLocaleSwitch = () => {
     switch (locale) {
       case LOCALE.UK:
-        return (<Link href="/" locale={LOCALE.EN}>Switch to english 🇬🇧</Link>);
+        return (<Link href={pathname} locale={LOCALE.EN}>Switch to english 🇬🇧</Link>);
       default:
-        return (<Link href="/" locale={LOCALE.UK}>Перейти на українську 🇺🇦</Link>);
+        return (<Link href={pathname} locale={LOCALE.UK}>Перейти на українську 🇺🇦</Link>);
     }
   };
 

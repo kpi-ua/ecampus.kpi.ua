@@ -76,7 +76,11 @@
     },
     "curator-search": {
       "header": "Curator search",
-      "description": "Enter the name of your group to find a curator"
+      "description": "Enter the name of your group to find a curator",
+      "search-placeholder": "Group name",
+      "searching": "Searching...",
+      "not-found": "Nothing's found",
+      "search-default": "Enter the name of your group in the field above to find a curator."
     },
     "faq": {
       "header": "Frequently-asked questions",

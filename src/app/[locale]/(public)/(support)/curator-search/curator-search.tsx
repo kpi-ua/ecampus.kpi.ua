@@ -10,8 +10,10 @@ import { useEffect, useState } from 'react';
 import { Group } from '@/types/group';
 import { debounce } from 'radash';
 import { Show } from '@/components/utils/show';
+import { useTranslations } from 'next-intl';
 
 export const CuratorSearch = () => {
+  const t = useTranslations('public.curator-search');
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [groups, setGroups] = useState<Group[]>([]);
@@ -42,14 +44,14 @@ export const CuratorSearch = () => {
 
   return (
     <div className="flex flex-col gap-4 grow border-[1px] border-solid border-neutral-200 w-full rounded-lg p-4">
-      <Input placeholder="Назва групи" icon={<MagnifyingGlassRegular />} onChange={debounce({ delay: 200 }, handleChange)} />
+      <Input placeholder={t('search-placeholder')} icon={<MagnifyingGlassRegular />} onChange={debounce({ delay: 200 }, handleChange)} />
       <div className="relative grow">
         <Show when={!search && !groups.length}>
-          <EmptyPlaceholder text="Введіть назву свої групи в поле вище для пошуку куратора" />
+          <EmptyPlaceholder text={t('search-default')} />
         </Show>
         <Show when={!!search && !groups.length}>
-          <Show when={isLoading} fallback={<EmptyPlaceholder text="Нічого не знайдено" />}>
-            <EmptyPlaceholder text="Пошук..." />
+          <Show when={isLoading} fallback={<EmptyPlaceholder text={t('not-found')} />}>
+            <EmptyPlaceholder text={t('searching')} />
           </Show>
         </Show>
         <Show when={!!groups.length}>
