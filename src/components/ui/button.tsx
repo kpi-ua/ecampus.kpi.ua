@@ -1,8 +1,9 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
-
+import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
 import { cn } from "@/lib/utils"
+import { IconPosition } from '../types';
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none [&_svg]:shrink-0",
@@ -62,18 +63,44 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
+  asChild?: boolean;
+  loading?: boolean;
+  icon?: React.ReactNode;
+  iconPosition?: IconPosition;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  ({
+    className,
+    variant,
+    size,
+    asChild = false,
+    loading = false,
+    icon,
+    iconPosition = 'start',
+    disabled,
+    children,
+    ...props
+  }, ref) => {
+    const Comp = asChild ? Slot : "button";
+
+    const iconAtPosition = (position: IconPosition) => {
+      if (loading) {
+        return position === 'start' ? <SpinnerGap /> : null;
+      }
+
+      return icon && position === iconPosition ? icon : null;
+    }
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        disabled={loading ? true : disabled}
         {...props}
-      />
+      >
+        <>{iconAtPosition('start')}{children}{iconAtPosition('end')}</>
+      </Comp>
     )
   }
 )
