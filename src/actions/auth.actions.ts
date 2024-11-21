@@ -60,8 +60,8 @@ export async function loginWithCredentials(username: string, password: string, r
 }
 
 export async function logout() {
-  cookies().delete('SID');
-  cookies().delete('token');
+  cookies().delete({ domain: COOKIE_DOMAIN, name: 'SID' });
+  cookies().delete({ domain: COOKIE_DOMAIN, name: 'token' });
 
   redirect('/');
 }
