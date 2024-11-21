@@ -11,6 +11,11 @@
 
 # Electronic Campus of Igor Sikorsky Kyiv Polytechnic Institute
 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/kpiua/ecampus.kpi.ua)](https://hub.docker.com/r/kpiua/ecampus.kpi.ua)
+
+The information system "Electronic Campus of Igor Sikorsky Kyiv Polytechnic Institute" is an automated system supporting educational process informatization. It provides digital communication tools for students, faculty, and department heads, enhancing educational quality through modern technology.
+
 ## Environment variables
 
 - CAMPUS_API_BASE_PATH - Campus API URL. Dev value: `https://dev-api.campus.cloud.kpi.ua`
