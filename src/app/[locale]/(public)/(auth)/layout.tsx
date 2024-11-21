@@ -17,13 +17,13 @@ export default function AuthLayout({
       <div className="flex flex-col md:px-[28px] md:py-[16px] grow basis-0 min-h-fit">
         <Header />
         <div className="relative flex flex-col py-8 grow">
-          <div className="mx-auto max-w-[455px] top-[50%] -translate-y-[50%] relative">
+          <div className="mx-auto max-w-[455px] tall:mt-[15%] mt-2 relative">
             {children}
           </div>
         </div>
         <Footer />
       </div>
-      <div className="relative hidden grow basis-0 lg:block">
+      <div className="relative hidden grow basis-0 xl:block">
         <LoginCarousel />
       </div>
     </div>

@@ -7,6 +7,7 @@ import qs from 'query-string';
 
 // 30 Days
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
+const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
   try {
@@ -49,8 +50,8 @@ export async function loginWithCredentials(username: string, password: string, r
 
     const maxAge = rememberMe ? COOKIE_MAX_AGE : undefined;
 
-    cookies().set('SID', jsonResponse.session_id, { domain: 'localhost', httpOnly: true, maxAge });
-    cookies().set('token', jsonResponse.access_token, { domain: 'localhost', httpOnly: true, maxAge });
+    cookies().set('SID', jsonResponse.session_id, { domain: COOKIE_DOMAIN, httpOnly: true, maxAge });
+    cookies().set('token', jsonResponse.access_token, { domain: COOKIE_DOMAIN, httpOnly: true, maxAge });
 
     return user;
   } catch (error) {
@@ -78,7 +79,7 @@ export async function resetPassword(username: string, recaptchaToken: string) {
     });
 
     if (response.status < 200 || response.status >= 300) {
-      return null;
+      throw new Error(`${response.status} Error`);
     }
 
     return null;

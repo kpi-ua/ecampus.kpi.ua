@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        tall: { raw: '(min-height: 933px)' },
+      },
       borderRadius: {
         xl: 'calc(var(--radius) * 4.5)',
         lg: 'calc(var(--radius) * 2)' ,

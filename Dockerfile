@@ -1,42 +1,51 @@
-# Stage 1
-#######################################
-# Pull official node image
-FROM node:16.13.2-buster-slim AS builder
+# syntax=docker.io/docker/dockerfile:1
 
-# Set working directory
+FROM node:18-alpine AS base
+
+# Install dependencies only when needed
+FROM base AS deps
+# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Copy package.json and package-lock.json to Docker environment
-COPY package.json ./
+# Install dependencies based on the preferred package manager
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
+RUN npm ci
 
-# Installs all node packages
-RUN npm install
 
-# Copies everything over to Docker environment
-COPY . ./
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+ENV NEXT_TELEMETRY_DISABLED=1
+
 RUN npm run build
 
-#Stage 2
-#######################################
-# Pull the official nginx base image
-FROM nginx:1.25.1
+# Production image, copy all the files and run next
+FROM base AS runner
+WORKDIR /app
 
-# Set working directory to nginx resources directory
-WORKDIR /usr/share/nginx/html
+ENV NODE_ENV=production
 
-# Remove default nginx static resources
-RUN rm -rf ./*
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Copies static resources from builder stage
-COPY --from=builder /app/build .
-COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY ./start.sh /docker-entrypoint.d
+COPY --from=builder /app/public ./public
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+# Automatically leverage output traces to reduce image size
+# https://nextjs.org/docs/advanced-features/output-file-tracing
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-EXPOSE 80
+USER nextjs
 
-STOPSIGNAL SIGQUIT
+EXPOSE 3000
 
-# Containers run nginx with global directives and daemon off
-CMD ["nginx", "-g", "daemon off;"]
+ENV PORT=3000
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+ENV HOSTNAME="0.0.0.0"
+CMD ["node", "server.js"]
