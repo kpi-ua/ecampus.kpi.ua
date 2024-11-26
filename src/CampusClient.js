@@ -4,12 +4,8 @@ import ApplicationConfiguration from './ApplicationConfiguration';
  * Application configuration
  */
 export const config = {
-  fb: {
-    appId: '1214335051921931',
-    redirectUrl: `${ApplicationConfiguration.ApiEndpoint}account/oauth/login/fb`,
-  },
-  telegram: {
-    botName: 'kpi_ua_bot',
+  kpiId: {
+    appId: '3d1488ae-128e-4655-8ca2-1ef554379335',
   },
   appDomains: [
     'kpi.ua',
@@ -79,74 +75,6 @@ export const externalAuth = (login, password, appId, redirectionId) => {
 };
 
 /**
- * Request secret code for KPI ID auth
- * @param phone
- * @returns {Promise<Response>}
- */
-export const requestKpiIdSecret = async (phone) => {
-  return await callApi(
-    'Account/oauth/login/kpiid/secret?phone=' + phone,
-    'GET',
-  );
-};
-
-/**
- *
- * @param phone
- * @param secret
- * @returns {Promise<null|*>}
- */
-export const authByKpiId = async (phone, secret) => {
-  const payload = {
-    phone: phone,
-    secret: secret,
-  };
-  const response = await fetch(`${ApplicationConfiguration.ApiEndpoint}Account/oauth/login/kpiid`, {
-    method: 'POST',
-    cache: 'no-cache',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  if (response.status < 200 || response.status >= 300) {
-    console.warn(`Incorrect credentials`);
-    return null;
-  }
-
-  const credentials = await response.json();
-
-  if (!credentials) {
-    return null;
-  }
-
-  await storeCredentials(credentials.sessionId, credentials.access_token);
-
-  return await getCurrentUser();
-};
-
-/**
- * Authorize in Campus API with Telegram
- * @param telegramResponse
- * @returns {Promise<*>}
- */
-export const authViaTelegram = async (telegramResponse) => {
-  const response = await callApi(
-    'Account/oauth/login/telegram',
-    'POST',
-    telegramResponse,
-  );
-
-  if (response.status < 200 || response.status >= 300) {
-    return null;
-  }
-
-  const credentials = await response.json();
-  await storeCredentials(credentials.sessionId, credentials.access_token);
-
-  return await getCurrentUser(true);
-};
-
-/**
  * Logout from system
  * @returns {Promise<void>}
  */
@@ -210,15 +138,6 @@ export const callApi = async (path, method, payload = null) => {
   }
 
   return await fetch(url, request);
-};
-
-/**
- * Get URL for Facebook auth
- * @returns {string}
- */
-export const generateFacebookAuthorizationLink = () => {
-  const scope = 'email';
-  return `https://www.facebook.com/dialog/oauth?client_id=${config.fb.appId}&redirect_uri=${config.fb.redirectUrl}&scope=${scope}`;
 };
 
 /**
