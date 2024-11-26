@@ -27,26 +27,15 @@ const AuthContainerDefault = () => {
       authFail={authFail}
       dismissInvalid={dismissInvalid}
     >
-      {/*<div className="form-group">*/}
-      {/*  <a*/}
-      {/*    className="btn btn-block btn-social btn-facebook"*/}
-      {/*    href={campus.generateFacebookAuthorizationLink()}*/}
-      {/*  >*/}
-      {/*    <div className="icon">*/}
-      {/*      <span className="fa fa-facebook" />*/}
-      {/*    </div>*/}
-      {/*    Увiйти через Facebook*/}
-      {/*  </a>*/}
-      {/*</div>*/}
 
-      {/*<div className="form-group">*/}
-      {/*  <a className="btn btn-block btn-social btn-kpi-id" href="/kpiid">*/}
-      {/*    <div className="icon">*/}
-      {/*      <span className="fa fa-key"/>*/}
-      {/*    </div>*/}
-      {/*    Увiйти через KPI ID*/}
-      {/*  </a>*/}
-      {/*</div>*/}
+      <div className="form-group">
+        <a className="btn btn-block btn-social btn-kpi-id" href="https://auth.kpi.ua?appId=3d1488ae-128e-4655-8ca2-1ef554379335">
+          <div className="icon">
+            <span className="fa fa-key"/>
+          </div>
+          Увiйти через KPI ID
+        </a>
+      </div>
 
     </AuthForm>
   );
