@@ -7,6 +7,8 @@ const AuthContainerDefault = () => {
   const [authFail, setAuthFail] = useState(false);
   const history = useHistory();
 
+  const KPI_ID_LINK = "https://auth.kpi.ua?appId=3d1488ae-128e-4655-8ca2-1ef554379335";
+
   const authorize = async (e, { login, password }) => {
     e.preventDefault();
 
@@ -27,16 +29,14 @@ const AuthContainerDefault = () => {
       authFail={authFail}
       dismissInvalid={dismissInvalid}
     >
-
       <div className="form-group">
-        <a className="btn btn-block btn-social btn-kpi-id" href="https://auth.kpi.ua?appId=3d1488ae-128e-4655-8ca2-1ef554379335">
+        <a className="btn btn-block btn-social btn-kpi-id" href={KPI_ID_LINK}>
           <div className="icon">
             <span className="fa fa-key"/>
           </div>
           Увiйти через KPI ID
         </a>
       </div>
-
     </AuthForm>
   );
 };
