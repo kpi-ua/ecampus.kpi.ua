@@ -13,7 +13,7 @@ export const Footer = ({ className }: FooterProps) => {
   return (
     <div className={cn('text-sm', className)}>
       {t.rich('footer', {
-        kbislink: (chunks) => <Link href="https://kbis.kpi.ua/" target="_blank">{chunks}</Link>,
+        kbislink: (chunks) => <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">{chunks}</Link>,
         year: dayjs().year()
       })}
     </div>

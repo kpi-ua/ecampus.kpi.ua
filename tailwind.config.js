@@ -70,6 +70,7 @@ module.exports = {
         destructive: 'rgb(var(--destructive))',
         'destructive-foreground': 'hsl(var(--destructive-foreground))',
         ring: 'hsl(var(--ring))',
+        'uncategorized-main': 'rgb(var(--uncategorized-main))',
         'basic-black': 'rgb(var(--basic-black))',
         'basic-blue': 'rgb(var(--basic-blue))',
         'basic-white': 'rgb(var(--basic-white))',
@@ -117,8 +118,8 @@ module.exports = {
           foreground: 'hsl(var(--sidebar-foreground))',
           primary: 'hsl(var(--sidebar-primary))',
           'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          accent: 'rgb(var(--basic-blue))',
+          'accent-foreground': 'rgb(var(--basic-white))',
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
         }
