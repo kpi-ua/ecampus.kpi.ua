@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Кампус КПІ",
 };
 
-export default async function MainPageLayout({
+export default function MainPageLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

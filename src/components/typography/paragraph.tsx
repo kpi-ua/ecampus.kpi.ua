@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
-import React from 'react'
+import React from 'react';
 
-export interface HeadingProps extends React.HTMLAttributes<HTMLParagraphElement> {}
+export interface ParagraphProps extends React.HTMLAttributes<HTMLParagraphElement> {}
 
-export const Paragraph = React.forwardRef<HTMLHeadingElement, HeadingProps>(
+export const Paragraph = React.forwardRef<HTMLParagraphElement, ParagraphProps>(
   ({ className, ...props }, ref) => {
     return (
       <p

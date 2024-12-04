@@ -1,6 +1,7 @@
 'use client';
 
-import { useLocalStorage } from '@/hooks/useStorage';
+import { Show } from '@/components/utils/show';
+import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/user';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import { CircleUserRound } from 'lucide-react';
@@ -12,19 +13,17 @@ export const ProfilePicture = () => {
 
   useEffect(() => {
     setIsClient(true);
-  }, [])
-
-  if (!isClient) {
-    return null;
-  }
+  }, []);
 
   return (
     <div className="w-[48px]">
       <AspectRatio ratio={1 / 1}>
-        {user?.photo
-          ? <img src={user.photo} alt={user.fullName} className="rounded-full" />
-          : <CircleUserRound width={48} height={48} className="text-basic-blue" strokeWidth={1} />
-        }
+        <Show when={isClient}>
+          {user?.photo
+            ? <img src={user.photo} alt={user.fullName} className="rounded-full" />
+            : <CircleUserRound width={48} height={48} className="text-basic-blue" strokeWidth={1} />
+          }
+        </Show>
       </AspectRatio>
     </div>
   );
