@@ -25,7 +25,8 @@
       "about": "Про систему",
       "documents": "Документи КПІ",
       "terms-of-service": "Правила використання"
-    }
+    },
+    "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
   },
   "auth": {
     "login": {

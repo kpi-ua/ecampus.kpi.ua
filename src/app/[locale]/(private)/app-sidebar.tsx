@@ -113,6 +113,7 @@ const createSubMenuLinks = (t: ReturnType<typeof useTranslations>) => ([
 
 export function AppSidebar() {
   const t = useTranslations('global.menu');
+  const footerT = useTranslations('global');
   const pathname = usePathname();
   const mainMenuGroups = createMenuGroups(t);
   const subMenuLinks = createSubMenuLinks(t);
@@ -150,12 +151,11 @@ export function AppSidebar() {
                 <React.Fragment key={link.url}><TextButton href={link.url} variant="link" size="small">{link.title}</TextButton>&nbsp;&nbsp;</React.Fragment>
               ))}
             </Paragraph>
-            <Paragraph>
-              Розробник:&nbsp;<Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">КБІС</Link>
-            </Paragraph>
-            <Paragraph>
-              © {dayjs().year()} КПІ ім. Ігоря Сікорського
-            </Paragraph>
+            {footerT.rich('footer', {
+              kbislink: (chunks) => <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">{chunks}</Link>,
+              year: dayjs().year(),
+              paragraph: (chunks) => <Paragraph>{chunks}</Paragraph>
+            })}
           </section>
         </SidebarContent>
       </SidebarContent>

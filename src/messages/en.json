@@ -25,7 +25,8 @@
       "about": "About",
       "documents": "KPI documents",
       "terms-of-service": "Terms of service"
-    }
+    },
+    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
   },
   "auth": {
     "login": {
