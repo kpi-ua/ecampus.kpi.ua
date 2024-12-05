@@ -9,11 +9,13 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        tall: { raw: '(min-height: 933px)' },
+        tall: {
+          raw: '(min-height: 933px)'
+        }
       },
       borderRadius: {
         xl: 'calc(var(--radius) * 4.5)',
-        lg: 'calc(var(--radius) * 2)' ,
+        lg: 'calc(var(--radius) * 2)',
         md: 'var(--radius)',
         sm: 'calc(var(--radius) / 2)'
       },
@@ -28,7 +30,7 @@ module.exports = {
         '4xl': '30px',
         '5xl': '36px',
         '6xl': '40px',
-        '7xl': '48px',
+        '7xl': '48px'
       },
       lineHeight: {
         xs: '16px',
@@ -41,41 +43,38 @@ module.exports = {
         '4xl': '40px',
         '5xl': '48px',
         '6xl': '56px',
-        '7xl': '56px',
+        '7xl': '56px'
       },
       fontWeight: {
         semibold: '600',
         normal: '400',
-        medium: '500',
+        medium: '500'
       },
       colors: {
-        // shadcn-related colors
-        'background': 'hsl(var(--background))',
-        'foreground': 'hsl(var(--foreground))',
-        'muted': 'hsl(var(--muted))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        muted: 'hsl(var(--muted))',
         'muted-foreground': 'hsl(var(--muted-foreground))',
-        'card': 'hsl(var(--card))',
+        card: 'hsl(var(--card))',
         'card-foreground': 'hsl(var(--card-foreground))',
-        'popover': 'hsl(var(--popover))',
+        popover: 'hsl(var(--popover))',
         'popover-foreground': 'hsl(var(--popover-foreground))',
-        'border': 'hsl(var(--border))',
-        'input': 'hsl(var(--input))',
-        'primary': 'rgb(var(--primary))',
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        primary: 'rgb(var(--primary))',
         'primary-foreground': 'hsl(var(--primary-foreground))',
-        'secondary': 'hsl(var(--secondary))',
+        secondary: 'hsl(var(--secondary))',
         'secondary-foreground': 'hsl(var(--secondary-foreground))',
-        'accent': 'hsl(var(--accent))',
+        accent: 'hsl(var(--accent))',
         'accent-foreground': 'hsl(var(--accent-foreground))',
-        'destructive': 'rgb(var(--destructive))',
+        destructive: 'rgb(var(--destructive))',
         'destructive-foreground': 'hsl(var(--destructive-foreground))',
-        'ring': 'hsl(var(--ring))',
-
-        // design-related colors
+        ring: 'hsl(var(--ring))',
+        'uncategorized-main': 'rgb(var(--uncategorized-main))',
         'basic-black': 'rgb(var(--basic-black))',
         'basic-blue': 'rgb(var(--basic-blue))',
         'basic-white': 'rgb(var(--basic-white))',
         'basic-grey': 'rgb(var(--basic-grey))',
-
         'brand-900': 'rgb(var(--brand-900))',
         'brand-800': 'rgb(var(--brand-800))',
         'brand-700': 'rgb(var(--brand-700))',
@@ -86,7 +85,6 @@ module.exports = {
         'brand-200': 'rgb(var(--brand-200))',
         'brand-100': 'rgb(var(--brand-100))',
         'brand-00': 'rgb(var(--brand-00))',
-
         'neutral-divider': 'rgb(var(--neutral-divider))',
         'neutral-900': 'rgb(var(--neutral-900))',
         'neutral-800': 'rgb(var(--neutral-800))',
@@ -98,7 +96,6 @@ module.exports = {
         'neutral-200': 'rgb(var(--neutral-200))',
         'neutral-100': 'rgb(var(--neutral-100))',
         'neutral-50': 'rgb(var(--neutral-50))',
-
         'status-danger-300': 'rgb(var(--status-danger-300))',
         'status-danger-200': 'rgb(var(--status-danger-200))',
         'status-danger-100': 'rgb(var(--status-danger-100))',
@@ -108,7 +105,6 @@ module.exports = {
         'status-success-300': 'rgb(var(--status-success-300))',
         'status-success-200': 'rgb(var(--status-success-200))',
         'status-success-100': 'rgb(var(--status-success-100))',
-
         'other-purple': 'rgb(var(--other-purple))',
         'other-purple-10': 'rgba(var(--other-purple-10))',
         'other-red': 'rgb(var(--other-red))',
@@ -117,7 +113,17 @@ module.exports = {
         'other-orange-10': 'rgba(var(--other-orange-10))',
         'other-blue': 'rgb(var(--other-blue))',
         'other-blue-10': 'rgba(var(--other-blue-10))',
-      },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'rgb(var(--basic-blue))',
+          'accent-foreground': 'rgb(var(--basic-white))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))'
+        }
+      }
     }
   },
   plugins: [require("tailwindcss-animate")],

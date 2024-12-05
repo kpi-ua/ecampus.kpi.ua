@@ -6,7 +6,27 @@
     },
     "navigation": {
       "back": "Back"
-    }
+    },
+    "menu": {
+      "main": "Home",
+      "profile": "Profile",
+      "current-superintendence": "Current superintendence",
+      "certification-results": "Certification results",
+      "disciplines": "Disciplines",
+      "term": "Term",
+      "methodological-support": "Methodological support",
+      "poll": "Poll",
+      "curriculum": "Curriculum",
+      "contacts": "Contacts",
+      "feedback": "Send feedback",
+      "settings": "Settings",
+      "user-manual": "User manual",
+      "faq": "Frequently asked questions",
+      "about": "About",
+      "documents": "KPI documents",
+      "terms-of-service": "Terms of service"
+    },
+    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
   },
   "auth": {
     "login": {
@@ -69,7 +89,7 @@
   "public": {
     "support": {
       "header": "Support",
-      "content": "<p><tglink>Telegram</tglink> support chat.</p><p>If you have any questions, you can send them to the support email: <email>ecampus@kpi.ua</email>.</p><p>For urgent communication, you can call: <tel>+380 (44) 204 80 06</tel>.</p><p>You can also visit the design office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, building 13, 4th floor, room 25.</addresslink></p>"
+      "content": "<p><tglink>Telegram</tglink> support chat.</p><p>If you have any questions, you can send them to the support email: <email>ecampus@kpi.ua</email>.</p><p>You can also visit the design office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, building 13, 4th floor, room 25.</addresslink></p>"
     },
     "complaints": {
       "header": "Complaints and suggestions"
