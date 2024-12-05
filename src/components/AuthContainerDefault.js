@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import AuthForm from './AuthForm';
 import * as campus from '../CampusClient';
 import { useHistory } from 'react-router-dom';
-import TelegramLoginWidget from './TelegramLoginWidget';
 
 const AuthContainerDefault = () => {
   const [authFail, setAuthFail] = useState(false);
@@ -12,17 +11,6 @@ const AuthContainerDefault = () => {
     e.preventDefault();
 
     const user = await campus.auth(login, password);
-    setAuthFail(!user);
-
-    if (!!user) {
-      history.push(`/home`);
-      window.location.reload();
-    }
-  };
-
-  const handleTelegramResponse = async (telegramResponse) => {
-    const user = await campus.authViaTelegram(telegramResponse);
-
     setAuthFail(!user);
 
     if (!!user) {
@@ -60,12 +48,6 @@ const AuthContainerDefault = () => {
       {/*  </a>*/}
       {/*</div>*/}
 
-      <div className="form-group">
-        <TelegramLoginWidget
-          callbackOnAuth={handleTelegramResponse}
-          botName={campus.config.telegram.botName}
-        />
-      </div>
     </AuthForm>
   );
 };

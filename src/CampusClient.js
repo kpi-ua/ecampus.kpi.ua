@@ -8,9 +8,6 @@ export const config = {
     appId: '1214335051921931',
     redirectUrl: `${ApplicationConfiguration.ApiEndpoint}account/oauth/login/fb`,
   },
-  telegram: {
-    botName: 'kpi_ua_bot',
-  },
   appDomains: [
     'kpi.ua',
     'campus.kpi.ua',
@@ -124,27 +121,7 @@ export const authByKpiId = async (phone, secret) => {
   return await getCurrentUser();
 };
 
-/**
- * Authorize in Campus API with Telegram
- * @param telegramResponse
- * @returns {Promise<*>}
- */
-export const authViaTelegram = async (telegramResponse) => {
-  const response = await callApi(
-    'Account/oauth/login/telegram',
-    'POST',
-    telegramResponse,
-  );
 
-  if (response.status < 200 || response.status >= 300) {
-    return null;
-  }
-
-  const credentials = await response.json();
-  await storeCredentials(credentials.sessionId, credentials.access_token);
-
-  return await getCurrentUser(true);
-};
 
 /**
  * Logout from system
