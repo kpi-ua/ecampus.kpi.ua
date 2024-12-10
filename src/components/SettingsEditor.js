@@ -5,13 +5,10 @@ import * as campus from '../CampusClient';
 import { Link, Redirect } from 'react-router-dom';
 import ProgressBar from './ProgressBar';
 import UserProfileImage from './UserProfileImage';
-import TelegramLoginWidget from './TelegramLoginWidget';
 
 class SettingsEditor extends React.Component {
   state = {
-    user: {
-      tgAuthLinked: '',
-    },
+    user: { },
     selectedFile: null,
     email: '',
     currentPassword: '',
@@ -149,20 +146,7 @@ class SettingsEditor extends React.Component {
   handleSelectedFile = async (event) =>
     this.setState({ selectedFile: event.target.files[0] });
 
-  handleTelegramResponse = async (telegramResponse) => {
-    const user = await campus.authViaTelegram(telegramResponse);
 
-    await this.setState({ authFail: !user });
-
-    if (!!user) {
-      this.props.history.push(`/settings-editor`);
-      this.setState({ user });
-
-      alert('Ви пiдключили авторизацiю через Telegram.');
-
-      this.setState({redirect: '/settings'});
-    }
-  };
 
   render() {
 
@@ -275,19 +259,6 @@ class SettingsEditor extends React.Component {
                     this.setState({ passwordConfirmation: e.target.value });
                   }}
                 />
-                <br />
-                <br />
-                <h4>Telegram (beta)</h4>
-                <TelegramLoginWidget
-                  callbackOnAuth={this.handleTelegramResponse}
-                  botName={campus.config.telegram.botName}
-                />
-                Cтатус:{' '}
-                <b>
-                  {!!this.state.user.tgAuthLinked
-                    ? `пiдключено`
-                    : `не пiдключено`}
-                </b>
                 <br />
                 <br />
               </div>
