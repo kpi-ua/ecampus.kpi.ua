@@ -11,7 +11,8 @@ class ApplicationConfiguration {
   }
 
   get KpiIdRedirectAddress() {
-    return `https://auth.kpi.ua?appId=${this.configuratiun.AppId}`;
+    const appId = '3d1488ae-128e-4655-8ca2-1ef554379335';
+    return `https://auth.kpi.ua?appId=${appId}`;
   }
 
   get OldUIAddress() {
