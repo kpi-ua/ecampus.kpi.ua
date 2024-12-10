@@ -56,24 +56,6 @@ export const auth = async (login, password) => {
   return await getCurrentUser();
 };
 
-export const externalAuth = (login, password, appId, redirectionId) => {
-  const payload = {
-    Username: login,
-    Password: password,
-    AppId: appId,
-    RedirectUrl: redirectionId,
-  };
-
-  return fetch(`https://ecampus.kpi.ua/oauth/app/authorize`, {
-    method: 'POST',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: toUrlEncode(payload),
-  });
-};
-
 /**
  * Logout from system
  * @returns {Promise<void>}

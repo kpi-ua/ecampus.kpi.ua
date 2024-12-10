@@ -20,7 +20,6 @@ import Feedback from './components/Feedback';
 import Faq from './components/Faq';
 import FindCurator from './components/FindCurator';
 import AuthContainerDefault from './components/AuthContainerDefault';
-import AuthContainerExternal from './components/AuthContainerExternal';
 import EmploymentSystem from './components/EmploymentSystem';
 
 const InternalLogin = () => {
@@ -31,13 +30,6 @@ const InternalLogin = () => {
   );
 };
 
-const ExternalLogin = () => {
-  return (
-    <Login isExternal={true}>
-      <AuthContainerExternal />
-    </Login>
-  );
-};
 
 class App extends Component {
   constructor(props) {
@@ -49,7 +41,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    this.setState({ user: await campus.getCurrentUser() });
+    this.setState({ user: await campus.getCurrentUser(true) });
   }
 
   render() {
@@ -66,7 +58,6 @@ class App extends Component {
               <Route exact path="/" component={InternalLogin} />
               <Route exact path="/home" component={Home} />
               <Route exact path="/login" component={InternalLogin} />
-              <Route exact path="/login/external" component={ExternalLogin} />
               <Route exact path="/privacy" component={Privacy} />
               <Route exact path="/documents" component={Documents} />
               <Route exact path="/about" component={About} />
