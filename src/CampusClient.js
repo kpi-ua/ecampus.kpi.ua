@@ -4,9 +4,6 @@ import ApplicationConfiguration from './ApplicationConfiguration';
  * Application configuration
  */
 export const config = {
-  kpiId: {
-    appId: '3d1488ae-128e-4655-8ca2-1ef554379335',
-  },
   appDomains: [
     'kpi.ua',
     'campus.kpi.ua',
