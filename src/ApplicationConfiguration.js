@@ -10,6 +10,12 @@ class ApplicationConfiguration {
     return this.configuratiun.ApiEndpoint;
   }
 
+  get KpiIdRedirectAddress() {
+    const appId = '3d1488ae-128e-4655-8ca2-1ef554379335'
+
+    return `https://auth.kpi.ua?appId=${appId}`;
+  }
+
   get OldUIAddress() {
     return this.configuratiun.OldUIAddress;
   }
