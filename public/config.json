@@ -1,5 +1,6 @@
 {
   "ApiEndpoint": "https://api.campus.kpi.ua/",
   "OldUIAddress": "https://campus.kpi.ua/",
-  "LoginPageAddress": "https://ecampus.kpi.ua/login"
+  "LoginPageAddress": "https://ecampus.kpi.ua/login",
+  "AppId": "3d1488ae-128e-4655-8ca2-1ef554379335"
 }

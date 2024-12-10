@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import AuthForm from './AuthForm';
 import * as campus from '../CampusClient';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
+import ApplicationConfiguration from '../ApplicationConfiguration';
 
 const AuthContainerDefault = () => {
   const [authFail, setAuthFail] = useState(false);
   const history = useHistory();
+  const location = useLocation();
+
+  // Parse query parameters
+  const queryParams = new URLSearchParams(location.search);
+  const showKpiIdAuthButton = queryParams.get('kid') === 'true';
 
   const authorize = async (e, { login, password }) => {
     e.preventDefault();
@@ -27,27 +33,19 @@ const AuthContainerDefault = () => {
       authFail={authFail}
       dismissInvalid={dismissInvalid}
     >
-      {/*<div className="form-group">*/}
-      {/*  <a*/}
-      {/*    className="btn btn-block btn-social btn-facebook"*/}
-      {/*    href={campus.generateFacebookAuthorizationLink()}*/}
-      {/*  >*/}
-      {/*    <div className="icon">*/}
-      {/*      <span className="fa fa-facebook" />*/}
-      {/*    </div>*/}
-      {/*    Увiйти через Facebook*/}
-      {/*  </a>*/}
-      {/*</div>*/}
-
-      {/*<div className="form-group">*/}
-      {/*  <a className="btn btn-block btn-social btn-kpi-id" href="/kpiid">*/}
-      {/*    <div className="icon">*/}
-      {/*      <span className="fa fa-key"/>*/}
-      {/*    </div>*/}
-      {/*    Увiйти через KPI ID*/}
-      {/*  </a>*/}
-      {/*</div>*/}
-
+      {showKpiIdAuthButton && (
+        <div className="form-group">
+          <a
+            className="btn btn-block btn-social btn-kpi-id"
+            href={ApplicationConfiguration.KpiIdRedirectAddress}
+          >
+            <div className="icon">
+              <span className="fa fa-key" />
+            </div>
+            Увiйти через KPI ID
+          </a>
+        </div>
+      )}
     </AuthForm>
   );
 };
