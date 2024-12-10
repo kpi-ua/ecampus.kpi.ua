@@ -11,8 +11,8 @@ export const config = {
     'login.kpi.ua',
     'localtest.me',
     'api.localtest.me',
-    'ecampus.localtest.me'
-  ]
+    'ecampus.localtest.me',
+  ],
 };
 
 /**
@@ -303,12 +303,8 @@ const setCookie = (name, value, domain, days) => {
   const expires = date.toUTCString();
 
   document.cookie =
-    name +
-    '=' +
-    (value || '') +
-    ';expires=' +
-    expires +
-    ';domain=.' +
-    domain +
+    name + '=' + (value || '') +
+    ';expires=' + expires +
+    ';domain=.' + domain +
     ';path=/';
 };
