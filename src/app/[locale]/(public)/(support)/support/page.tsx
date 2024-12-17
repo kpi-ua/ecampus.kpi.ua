@@ -4,7 +4,7 @@ import { SupportNavLayout } from '../support-nav-layout';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({ params: { locale } }: any) {
-  const t = await getTranslations({ locale, namespace: 'public.support'});
+  const t = await getTranslations({ locale, namespace: 'public.support' });
 
   return {
     title: t('header'),
@@ -18,7 +18,7 @@ export default function Support() {
     <SupportNavLayout header={t('header')}>
       {t.rich('content', {
         tglink: (chunks) => <Link href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw">{chunks}</Link>,
-        addresslink: (chunks) => <Link href="https://goo.gl/maps/ij4s8vuHPpLB92ZFA">{chunks}</Link>
+        addresslink: (chunks) => <Link href={process.env.NEXT_PUBLIC_ADDRESS_URL!}>{chunks}</Link>,
       })}
     </SupportNavLayout>
   );

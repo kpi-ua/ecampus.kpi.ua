@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({ params: { locale } }: any) {
-  const t = await getTranslations({ locale, namespace: 'auth.login'});
+  const t = await getTranslations({ locale, namespace: 'auth.login' });
 
   return {
     title: t('header'),

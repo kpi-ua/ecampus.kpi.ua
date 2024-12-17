@@ -1,25 +1,37 @@
-import "../globals.css";
+import '../globals.css';
 
-import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { exo2Font } from './font';
-import { getMessages } from 'next-intl/server';
+import { getMessages, getTranslations } from 'next-intl/server';
 import { Toaster } from '@/components/ui/toaster';
+import { Viewport } from 'next';
 
-export const metadata: Metadata = {
-  title: "Кампус КПІ",
-  description: "Кампус КПІ",
-  icons: [
-    { type: 'image/png', sizes: '48x48', url: '/favicon-48x48.png' },
-    { type: 'image/svg+xml', url: '/favicon.svg' },
-    { rel: 'shortcut icon', url: '/favicon.ico' },
-    { rel: 'apple-touch-icon', sizes: '180x180', url: '/apple-touch-icon.png' },
-  ],
-  manifest: '/site.webmanifest',
-  appleWebApp: {
-    title: 'Е-Кампус',
-  }
+export const viewport: Viewport = {
+  initialScale: 1,
+  maximumScale: 1,
 };
+
+export async function generateMetadata({ params: { locale } }: any) {
+  const t = await getTranslations({ locale, namespace: 'global.metadata' });
+
+  return {
+    title: {
+      default: t('title'),
+      template: `%s | ${t('title')}`,
+    },
+    description: t('description'),
+    icons: [
+      { type: 'image/png', sizes: '48x48', url: '/favicon-48x48.png' },
+      { type: 'image/svg+xml', url: '/favicon.svg' },
+      { rel: 'shortcut icon', url: '/favicon.ico' },
+      { rel: 'apple-touch-icon', sizes: '180x180', url: '/apple-touch-icon.png' },
+    ],
+    manifest: '/site.webmanifest',
+    appleWebApp: {
+      title: t('title'),
+    },
+  };
+}
 
 export default async function RootLayout({
   children,

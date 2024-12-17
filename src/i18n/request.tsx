@@ -2,6 +2,7 @@ import { getRequestConfig } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from './routing';
 import { Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from '@/components/typography/headers';
+import { UList } from '@/components/typography/lists';
 
 export default getRequestConfig(async ({ locale }) => {
   if (!routing.locales.includes(locale as any)) notFound();
@@ -17,8 +18,18 @@ export default getRequestConfig(async ({ locale }) => {
       h4: (chunks) => <Heading4>{chunks}</Heading4>,
       h5: (chunks) => <Heading5>{chunks}</Heading5>,
       h6: (chunks) => <Heading6>{chunks}</Heading6>,
-      tel: (chunks) => <a className="whitespace-nowrap" href={`tel:${chunks}`}>{chunks}</a>,
-      email: (chunks) => <a className="whitespace-nowrap" href={`mailto:${chunks}`}>{chunks}</a>,
-    }
+      ul: (chunks) => <UList>{chunks}</UList>,
+      li: (chunks) => <li>{chunks}</li>,
+      tel: (chunks) => (
+        <a className="whitespace-nowrap" href={`tel:${chunks}`}>
+          {chunks}
+        </a>
+      ),
+      email: (chunks) => (
+        <a className="whitespace-nowrap" href={`mailto:${chunks}`}>
+          {chunks}
+        </a>
+      ),
+    },
   };
 });

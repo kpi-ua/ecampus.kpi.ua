@@ -2,22 +2,20 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    darkMode: ["class"],
-    content: [
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  darkMode: ['class'],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       screens: {
         tall: {
-          raw: '(min-height: 933px)'
-        }
+          raw: '(min-height: 933px)',
+        },
       },
       borderRadius: {
         xl: 'calc(var(--radius) * 4.5)',
         lg: 'calc(var(--radius) * 2)',
         md: 'var(--radius)',
-        sm: 'calc(var(--radius) / 2)'
+        sm: 'calc(var(--radius) / 2)',
       },
       fontSize: {
         xs: '12px',
@@ -30,7 +28,7 @@ module.exports = {
         '4xl': '30px',
         '5xl': '36px',
         '6xl': '40px',
-        '7xl': '48px'
+        '7xl': '48px',
       },
       lineHeight: {
         xs: '16px',
@@ -43,12 +41,12 @@ module.exports = {
         '4xl': '40px',
         '5xl': '48px',
         '6xl': '56px',
-        '7xl': '56px'
+        '7xl': '56px',
       },
       fontWeight: {
         semibold: '600',
         normal: '400',
-        medium: '500'
+        medium: '500',
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -121,11 +119,32 @@ module.exports = {
           accent: 'rgb(var(--basic-blue))',
           'accent-foreground': 'rgb(var(--basic-white))',
           border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))'
-        }
-      }
-    }
+          ring: 'hsl(var(--sidebar-ring))',
+        },
+      },
+      keyframes: {
+        'accordion-down': {
+          from: {
+            height: '0',
+          },
+          to: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+        },
+        'accordion-up': {
+          from: {
+            height: 'var(--radix-accordion-content-height)',
+          },
+          to: {
+            height: '0',
+          },
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+    },
   },
-  plugins: [require("tailwindcss-animate")],
-}
-
+  plugins: [require('tailwindcss-animate')],
+};
