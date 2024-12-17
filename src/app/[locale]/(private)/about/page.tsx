@@ -2,7 +2,6 @@ import { Heading1, Heading4 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import { Paragraph } from '@/components/typography/paragraph';
 
 const INTL_NAMESPACE = 'private.about';
 

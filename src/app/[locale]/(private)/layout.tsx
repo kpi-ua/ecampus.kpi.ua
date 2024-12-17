@@ -1,5 +1,4 @@
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import type { Metadata } from 'next';
 import { AppSidebar } from './app-sidebar';
 import { Header } from './header';
 

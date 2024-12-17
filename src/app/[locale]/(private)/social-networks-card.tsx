@@ -4,7 +4,6 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { TextButton } from '@/components/ui/text-button';
 import { cn } from '@/lib/utils';
-import { Github } from 'lucide-react';
 
 interface SocialNetworksCardProps {
   className?: string;

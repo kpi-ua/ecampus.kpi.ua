@@ -1,6 +1,6 @@
 import { Heading3 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 
