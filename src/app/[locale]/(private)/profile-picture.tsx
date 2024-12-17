@@ -10,10 +10,10 @@ export const ProfilePicture = () => {
   const [user] = useLocalStorage<User>('user');
 
   return (
-    <Avatar className='h-[48px] w-[48px]'>
+    <Avatar className="h-[48px] w-[48px]">
       <AvatarImage src={user?.photo} />
       <AvatarFallback>
-        <CircleUserRound width={48} height={48} className='text-basic-blue' strokeWidth={1} />
+        <CircleUserRound width={48} height={48} className="text-basic-blue" strokeWidth={1} />
       </AvatarFallback>
     </Avatar>
   );

@@ -19,14 +19,12 @@ export default function AboutPage() {
 
   return (
     <SubLayout pageTitle={t('title')}>
-      <div className="col-span-6">
+      <article className="col-span-6">
         <Heading1>{t('title')}</Heading1>
-        <Paragraph className="text-lg">
-          {t.rich('content', {
-            h4: (chunks) => <Heading4 className="mt-10">{chunks}</Heading4>,
-          })}
-        </Paragraph>
-      </div>
+        {t.rich('content', {
+          h4: (chunks) => <Heading4 className="mt-10">{chunks}</Heading4>,
+        })}
+      </article>
     </SubLayout>
   );
 }

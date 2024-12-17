@@ -21,7 +21,7 @@ export const SubLayout = ({ children, breadcrumbs = [], pageTitle, className }: 
 
   return (
     <section>
-      <Breadcrumb className="mb-12">
+      <Breadcrumb className="mb-8">
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink href="/">{t('main')}</BreadcrumbLink>

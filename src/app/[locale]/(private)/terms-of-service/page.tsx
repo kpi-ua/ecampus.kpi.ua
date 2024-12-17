@@ -19,10 +19,10 @@ export default function TermsOfServicePage() {
 
   return (
     <SubLayout pageTitle={t('title')}>
-      <div className="col-span-6">
+      <article className="col-span-6">
         <Heading1>{t('header')}</Heading1>
-        <Paragraph>{t.rich('content')}</Paragraph>
-      </div>
+        {t.rich('content')}
+      </article>
     </SubLayout>
   );
 }

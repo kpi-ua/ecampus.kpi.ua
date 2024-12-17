@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { routing } from './routing';
 import { Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from '@/components/typography/headers';
 import { UList } from '@/components/typography/lists';
+import { Paragraph } from '@/components/typography/paragraph';
 
 export default getRequestConfig(async ({ locale }) => {
   if (!routing.locales.includes(locale as any)) notFound();
@@ -10,7 +11,7 @@ export default getRequestConfig(async ({ locale }) => {
   return {
     messages: (await import(`../messages/${locale}.json`)).default,
     defaultTranslationValues: {
-      p: (chunks) => <p className="my-5">{chunks}</p>,
+      p: (chunks) => <Paragraph>{chunks}</Paragraph>,
       br: () => <br />,
       h1: (chunks) => <Heading1>{chunks}</Heading1>,
       h2: (chunks) => <Heading2>{chunks}</Heading2>,
