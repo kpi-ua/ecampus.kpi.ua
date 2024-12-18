@@ -1,9 +1,9 @@
 'use server';
 
-import { redirect } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
 import { User } from '@/types/user';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import qs from 'query-string';
 
 // 30 Days
