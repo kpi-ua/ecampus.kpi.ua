@@ -5,10 +5,17 @@ import { Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from '@/co
 import { UList } from '@/components/typography/lists';
 import { Paragraph } from '@/components/typography/paragraph';
 
-export default getRequestConfig(async ({ locale }) => {
-  if (!routing.locales.includes(locale as any)) notFound();
+export default getRequestConfig(async ({ requestLocale }) => {
+  // This typically corresponds to the `[locale]` segment
+  let locale = await requestLocale;
+
+  // Ensure that a valid locale is used
+  if (!locale || !routing.locales.includes(locale as any)) {
+    locale = routing.defaultLocale;
+  }
 
   return {
+    locale,
     messages: (await import(`../messages/${locale}.json`)).default,
     defaultTranslationValues: {
       p: (chunks) => <Paragraph>{chunks}</Paragraph>,
