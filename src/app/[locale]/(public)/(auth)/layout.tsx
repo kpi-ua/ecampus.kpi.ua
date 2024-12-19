@@ -13,7 +13,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex h-svh min-h-fit min-w-[344px] gap-[20px] p-[20px]">
+    <div className="flex h-dvh min-h-fit min-w-[344px] gap-[20px] p-[20px]">
       <div className="flex min-h-fit grow basis-0 flex-col md:px-[28px] md:py-[16px]">
         <Header />
         <div className="relative flex grow flex-col py-8">

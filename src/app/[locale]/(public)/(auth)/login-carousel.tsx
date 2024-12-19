@@ -103,7 +103,7 @@ export const LoginCarousel = () => {
                 width={914}
                 height={1280}
                 quality={100}
-                className="h-[calc(100vh_-_40px)] w-full shrink-0 object-cover"
+                className="h-[calc(100dvh_-_40px)] w-full shrink-0 object-cover"
               />
               <div className="absolute bottom-0 left-0 w-full rounded-b-xl bg-gradient-to-t from-basic-black/80 from-10% to-basic-black/0 px-14 pb-14 pt-32 text-basic-white">
                 <h6>{image.description}</h6>
