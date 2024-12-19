@@ -1,4 +1,4 @@
-import { createSharedPathnamesNavigation } from 'next-intl/navigation';
+import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
 
 export enum LOCALE {
@@ -6,13 +6,13 @@ export enum LOCALE {
   EN = 'en',
 }
 
-export const LOCALES = [LOCALE.UK, LOCALE.EN];
+export const LOCALES = ['uk', 'en'];
 
-export const DEFAULT_LOCALE = LOCALE.UK;
+export const DEFAULT_LOCALE = 'uk';
 
 export const routing = defineRouting({
   locales: LOCALES,
   defaultLocale: DEFAULT_LOCALE,
 });
 
-export const { Link, redirect, usePathname, useRouter } = createSharedPathnamesNavigation(routing);
+export const { Link, redirect, usePathname, useRouter } = createNavigation(routing);

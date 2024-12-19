@@ -11,21 +11,21 @@ const Client = (basePath: string) => {
     const response = await fetch(input, {
       cache: 'no-cache',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Authorizatin': jwt ? `Bearer ${cookies().get('token')?.value}` : '',
+        Authorization: jwt ? `Bearer ${cookies().get('token')?.value}` : '',
         ...headers,
       },
       ...otherOptions,
     });
 
-    if (response.status === 403) {
+    if (response.status === 401) {
       cookies().delete('token');
       redirect('/');
     }
 
     return response;
   };
-}
+};
 
 export const campusFetch = Client(process.env.CAMPUS_API_BASE_PATH!);

@@ -43,8 +43,12 @@ export const CuratorSearch = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 grow border-[1px] border-solid border-neutral-200 w-full rounded-lg p-4">
-      <Input placeholder={t('search-placeholder')} icon={<MagnifyingGlassRegular />} onChange={debounce({ delay: 200 }, handleChange)} />
+    <div className="flex w-full grow flex-col gap-4 rounded-lg border-[1px] border-solid border-neutral-200 p-4">
+      <Input
+        placeholder={t('search-placeholder')}
+        icon={<MagnifyingGlassRegular />}
+        onChange={debounce({ delay: 200 }, handleChange)}
+      />
       <div className="relative grow">
         <Show when={!search && !groups.length}>
           <EmptyPlaceholder text={t('search-default')} />
@@ -56,8 +60,14 @@ export const CuratorSearch = () => {
         </Show>
         <Show when={!!groups.length}>
           <div className="absolute inset-0 overflow-y-auto">
-            {groups.map(group => (
-              <CuratorSearchItem group={group.name} department={group.cathedra.name} curatorName={group.curator.fullName} link={group.curator.profile} />
+            {groups.map((group) => (
+              <CuratorSearchItem
+                key={group.id}
+                group={group.name}
+                department={group.cathedra.name}
+                curatorName={group.curator.fullName}
+                link={group.curator.profile}
+              />
             ))}
           </div>
         </Show>

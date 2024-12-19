@@ -8,11 +8,11 @@ interface HeaderProps {
 
 export const Header = ({ className }: HeaderProps) => {
   return (
-    <div className={cn("flex items-center justify-between", className)}>
+    <header className={cn('flex items-center justify-between', className)}>
       <div className="flex max-w-[120px] md:max-w-[140px]">
         <Logo />
       </div>
       <LocaleSwitch />
-    </div>
+    </header>
   );
 };

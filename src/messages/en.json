@@ -1,11 +1,19 @@
 {
   "global": {
+    "metadata": {
+      "title": "Campus KPI",
+      "description": "Campus KPI"
+    },
     "server-error": {
       "title": "Something went wrong",
       "description": "There was a problem with your request"
     },
     "navigation": {
       "back": "Back"
+    },
+    "misc": {
+      "download": "Download",
+      "view": "View"
     },
     "menu": {
       "main": "Home",
@@ -17,14 +25,15 @@
       "methodological-support": "Methodological support",
       "poll": "Poll",
       "curriculum": "Curriculum",
-      "contacts": "Contacts",
+      "lecturer-contacts": "Contacts",
       "feedback": "Send feedback",
       "settings": "Settings",
       "user-manual": "User manual",
       "faq": "Frequently asked questions",
       "about": "About",
       "documents": "KPI documents",
-      "terms-of-service": "Terms of service"
+      "terms-of-service": "Terms of service",
+      "contacts": "Contacts"
     },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
   },
@@ -105,6 +114,44 @@
     "faq": {
       "header": "Frequently-asked questions",
       "content": "<h4>How to register on the campus?</h4><p>If you are an officially employed teacher and more than two weeks have passed since submitting your documents to the HR department - contact the person in charge at the department or the head of the department to submit an official letter. If you are a student or graduate student - contact your academic curator.</p><h4>How to recover your password?</h4><p>To recover your password, use the button on the authorization panel. If you have not used the campus before - contact your curator.</p>"
+    }
+  },
+  "private": {
+    "about": {
+      "title": "About",
+      "content": "<p>Information and telecommunications system \"Electronic Campus\" - application software, which is an element of the information and telecommunications environment of the university and is used for information support of the daily activities of students, teachers, university employees, as well as for information support of all types of innovative activities at the university (hereinafter referred to as ITS EC).</p><p>ITS EC unites internal information resources (educational, methodological and others), provides centralized access to them on the basis of unified system and technological solutions and ensures their use for effective management and planning of the scientific and educational process.</p><h3>Main functions of ITS EC</h3><p>ITS EC ensures the implementation of the following main functions:</p><ul><li>multilateral communication between students, teachers, scientific community;</li><li>formation of a single information resource that reflects the state of the scientific and educational process of the university;</li><li>ensuring timely and operational placement of: complete, objective, reliable and consistent information about the educational process of the university;</li><li>dissemination of information about upcoming events and activities and other reference information;</li><li>ensuring centralized and convenient access to information about the activities of the administration and university departments;</li><li>ensuring navigation through the entire information content of the ITS EC;</li><li>organizing interaction and information exchange between the ITS EC and other information resources and systems of the university.</li></ul><p>The ITS EC system has developed virtual offices according to user profiles: student, lecturer-scientist, methodologist of the department.</p>"
+    },
+    "user-manual": {
+      "title": "User manual"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "sections": {
+        "how-to-register": {
+          "header": "How do I register on campus?",
+          "content": "<p>If you are an officially employed teacher and more than two weeks have passed since submitting your documents to the HR department - contact the person in charge at the department or the head of the department to submit an official letter.</p><p>If you are a student or graduate student - contact your academic curator.</p>"
+        },
+        "how-to-restore-password": {
+          "header": "How to recover password?",
+          "content": "<p>To recover your password, use the button on the authorization panel. If you have not used the campus before, contact your supervisor.</p>"
+        }
+      }
+    },
+    "documents": {
+      "title": "KPI Documens",
+      "header": "Igor Sikorsky Kyiv Polytechnic Institute Documents",
+      "code-of-honor": "Code of honor",
+      "internal-regulations": "Internal regulations",
+      "educational-organization-regulation": "Temporary Regulation on the Organization of the Educational Process at the University"
+    },
+    "terms-of-service": {
+      "title": "Terms of service",
+      "header": "Terms of service",
+      "content": "<p>The editorial board of the project \"Electronic Campus «KPI»\" is not responsible for the consequences of using the project information. The visitor uses the project information at his own risk. The opinion of the editorial board may not coincide with the opinion of the authors of the publications.</p><p>All rights reserved. All copyright materials created specifically for the project \"Electronic Campus «KPI»\", or translations from other sources, as well as the layout are the property of the project.</p><p>Reproduction of any copyright information provided on the site is possible only under the condition of mandatory placement of a link to the site \"Electronic Campus «KPI»\" (ecampus.kpi.ua), in web-based media a hyperlink is mandatory.</p><p>It is forbidden to hide hyperlinks, use JavaScript in a hyperlink or limit the indexing of hyperlinks by search engines! The hyperlink must be placed above or below the material, unless otherwise provided for by the design of the site using the material.</p><p>All methodological materials presented in the Campus are the intellectual property of the authors, their use is allowed only for the educational process of KPI. Teaching methodological materials of the Campus on social networks without the written permission of the authors is prosecuted in accordance with the Law of Ukraine “On Copyright”.</p>"
+    },
+    "contacts": {
+      "title": "Contacts",
+      "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><complaintslink>Complaints and suggestions form</complaintslink><br></br><emaillink>Email</emaillink>"
     }
   }
 }

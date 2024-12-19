@@ -3,7 +3,7 @@ import { SupportNavLayout } from '../support-nav-layout';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({ params: { locale } }: any) {
-  const t = await getTranslations({ locale, namespace: 'public.complaints'});
+  const t = await getTranslations({ locale, namespace: 'public.complaints' });
 
   return {
     title: t('header'),
@@ -16,7 +16,7 @@ export default function ComplaintsPage() {
   return (
     <SupportNavLayout header={t('header')} className="w-full grow">
       <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLSdlWaMSxcYVSfYDZpVgygSIl8reTZBM2Nl2ZzyuZzdaFwef_w/viewform?embedded=true"
+        src={process.env.NEXT_PUBLIC_COMPLAINTS_FORM!}
         width="100%"
         height="950"
         className="-mx-[5%] w-[110%]"

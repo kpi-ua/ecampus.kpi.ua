@@ -14,9 +14,11 @@ import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import PasswordInput from '@/components/ui/password-input';
 import { useRouter } from 'next/navigation';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useLocalStorage } from '@/hooks/use-storage';
 
 export const CredentialsLogin = () => {
   const t = useTranslations('auth.login');
+  const [, setUser] = useLocalStorage('user');
   const router = useRouter();
   const { errorToast } = useServerErrorToast();
 
@@ -41,16 +43,14 @@ export const CredentialsLogin = () => {
     try {
       form.clearErrors();
 
-      const response = await loginWithCredentials(
-        data.username,
-        data.password,
-        data.rememberMe,
-      );
+      const response = await loginWithCredentials(data.username, data.password, data.rememberMe);
 
       if (!response) {
         form.setError('root', { message: t('field.error') });
       } else {
-        localStorage.setItem('user', JSON.stringify(response));
+        console.log('response', response);
+        console.log('REEE', JSON.stringify(response));
+        setUser(response);
         router.replace('/');
       }
     } catch (error) {
@@ -65,7 +65,7 @@ export const CredentialsLogin = () => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="grid items-center w-full gap-2 my-6">
+            <FormItem className="my-6 grid w-full items-center gap-2">
               <Label htmlFor="username">{t('field.username')}</Label>
               <Input {...field} />
             </FormItem>
@@ -75,35 +75,32 @@ export const CredentialsLogin = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="grid items-center w-full gap-2 my-6">
+            <FormItem className="my-6 grid w-full items-center gap-2">
               <Label htmlFor="password">{t('field.password')}</Label>
               <PasswordInput {...field} />
               {/* <Input {...field} type="password" /> */}
             </FormItem>
           )}
         />
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <FormField
             control={form.control}
             name="rememberMe"
             render={({ field }) => (
               <div className="flex items-center space-x-2">
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={(checked) => field.onChange(checked)}
-                />
+                <Checkbox checked={field.value} onCheckedChange={(checked) => field.onChange(checked)} />
                 <Label className="text-neutral-800">{t('rememberMe')}</Label>
               </div>
             )}
           />
-          <Link className="text-sm" href="/password-reset">{t('passwordReset')}</Link>
+          <Link className="text-sm" href="/password-reset">
+            {t('passwordReset')}
+          </Link>
         </div>
-        <FormMessage>
-          {form.formState.errors.root?.message}
-        </FormMessage>
+        <FormMessage>{form.formState.errors.root?.message}</FormMessage>
         <Button
           size="big"
-          className="w-[100%] my-4"
+          className="my-4 w-full"
           type="submit"
           disabled={!form.formState.isValid}
           loading={form.formState.isSubmitting}

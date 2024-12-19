@@ -10,19 +10,23 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'api.campus.kpi.ua',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'dev-ecampus.cloud.kpi.ua',
+      },
     ],
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find(rule => rule.test?.test?.('.svg'));
+    const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
 
     config.module.rules.push(
       // Reapply the existing rule, but only for svg imports ending in ?url
       {
         ...fileLoaderRule,
         test: /\.svg$/i,
-        resourceQuery: /url/ // *.svg?url
+        resourceQuery: /url/, // *.svg?url
       },
       // Convert all other *.svg imports to React components
       {
@@ -42,11 +46,11 @@ const nextConfig = {
                     },
                   },
                 },
-              ]
-            }
-          }
-        }
-      }
+              ],
+            },
+          },
+        },
+      },
     );
 
     // Modify the file loader rule to ignore *.svg, since we have it handled now.
