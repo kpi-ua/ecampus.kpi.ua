@@ -16,10 +16,10 @@ export async function generateMetadata({ params: { locale } }: any) {
 
 export default function ComplaintsPage() {
   const t = useTranslations(INTL_NAMESPACE);
-  const conttactsT = useTranslations('private.contacts');
+  const contactsT = useTranslations('private.contacts');
 
   return (
-    <SubLayout pageTitle={t('header')} breadcrumbs={[['/contacts', conttactsT('title')]]}>
+    <SubLayout pageTitle={t('header')} breadcrumbs={[['/contacts', contactsT('title')]]}>
       <div className="col-span-4">
         <Heading1>{t('header')}</Heading1>
         <Paragraph>

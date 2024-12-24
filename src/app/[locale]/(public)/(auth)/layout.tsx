@@ -1,11 +1,6 @@
 import { Footer } from '../footer';
 import { Header } from '../header';
 import { LoginCarousel } from './login-carousel';
-import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Sign-In',
-};
 
 export default function AuthLayout({
   children,

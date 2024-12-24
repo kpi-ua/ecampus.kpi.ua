@@ -24,7 +24,14 @@ export const MainCard = ({ className }: MainCardProps) => {
           </Paragraph>
         </div>
         <div className="hidden grow basis-0 xl:block">
-          <Image src="/images/Saly-10.png" width={482} height={422} alt="saly" className="he-full w-full" />
+          <Image
+            src="/images/Saly-10.png"
+            quality={100}
+            width={482}
+            height={422}
+            alt="saly"
+            className="he-full w-full"
+          />
         </div>
       </CardContent>
     </Card>
