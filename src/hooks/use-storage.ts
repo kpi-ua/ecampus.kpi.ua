@@ -33,7 +33,6 @@ export const useLocalStorage = <T extends Object>(
       return window.localStorage.removeItem(key);
     }
 
-    console.log('SER VALUE', JSON.stringify(value));
     window.localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 

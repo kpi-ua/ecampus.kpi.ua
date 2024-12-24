@@ -48,8 +48,6 @@ export const CredentialsLogin = () => {
       if (!response) {
         form.setError('root', { message: t('field.error') });
       } else {
-        console.log('response', response);
-        console.log('REEE', JSON.stringify(response));
         setUser(response);
         router.replace('/');
       }
