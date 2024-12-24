@@ -9,20 +9,14 @@ import { trim } from 'radash';
 const intlMiddleware = createMiddleware(routing);
 
 export const config = {
-  matcher: ['/', `/(uk|en)/:path*`]
+  matcher: ['/', `/(uk|en)/:path*`],
 };
 
-const composePathsRegExp = (paths: string[]) => RegExp(
-  `^(/(${LOCALES.join('|')}))?(${paths.join("|")})/?$`, "i"
-);
+const composePathsRegExp = (paths: string[]) => RegExp(`^(/(${LOCALES.join('|')}))?(${paths.join('|')})/?$`, 'i');
 
 const rootRegExp = new RegExp('^\/?$', 'i');
 
-const authPathRegExp = composePathsRegExp([
-  '/login',
-  '/password-reset/success',
-  '/password-reset',
-]);
+const authPathRegExp = composePathsRegExp(['/login', '/password-reset/success', '/password-reset']);
 
 const publicPathRegExp = composePathsRegExp([
   '/',
@@ -35,7 +29,7 @@ const publicPathRegExp = composePathsRegExp([
   '/faq',
 ]);
 
-const isRoot = (request: NextRequest) => rootRegExp.test(request.nextUrl.pathname)
+const isRoot = (request: NextRequest) => rootRegExp.test(request.nextUrl.pathname);
 const isPublicPath = (request: NextRequest) => publicPathRegExp.test(request.nextUrl.pathname);
 const isAuthPath = (request: NextRequest) => authPathRegExp.test(request.nextUrl.pathname);
 
@@ -59,12 +53,12 @@ const isAuthenticated = (request: NextRequest) => {
   } catch (error) {
     return false;
   }
-}
+};
 
 const redirectWithIntl = (request: NextRequest, path: string) => {
   const url = request.nextUrl.clone();
 
-  const [,locale] = url.pathname.split('/');
+  const [, locale] = url.pathname.split('/');
 
   url.pathname = `/${locale}/${trim(path, '/')}`;
   return NextResponse.redirect(url);
@@ -95,6 +89,6 @@ export async function middleware(request: NextRequest) {
 
     return intlMiddleware(request);
   }
-  
+
   return (authMiddleware as any)(request);
 }

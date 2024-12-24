@@ -40,6 +40,7 @@ import DotsThreeDownLight from './icons/DotsThreeDownLight.svg';
 import DotsThreeDownRegular from './icons/DotsThreeDownRegular.svg';
 import DotsThreeLight from './icons/DotsThreeLight.svg';
 import DotsThreeRegular from './icons/DotsThreeRegular.svg';
+import Facebook from './icons/Facebook.svg';
 import Exam from './icons/Exam.svg';
 import EyeBold from './icons/EyeBold.svg';
 import EyeClosedBold from './icons/EyeClosedBold.svg';
@@ -67,6 +68,9 @@ import ListNumbers from './icons/ListNumbers.svg';
 import MagnifyingGlassBold from './icons/MagnifyingGlassBold.svg';
 import MagnifyingGlassLight from './icons/MagnifyingGlassLight.svg';
 import MagnifyingGlassRegular from './icons/MagnifyingGlassRegular.svg';
+import MinusBold from './icons/MinusBold.svg';
+import MinusLight from './icons/MinusLight.svg';
+import MinusRegular from './icons/MinusRegular.svg';
 import MinusSquareBold from './icons/MinusSquareBold.svg';
 import MinusSquareLight from './icons/MinusSquareLight.svg';
 import MinusSquareRegular from './icons/MinusSquareRegular.svg';
@@ -108,6 +112,17 @@ import X from './icons/X.svg';
 import XBold from './icons/XBold.svg';
 import XLight from './icons/XLight.svg';
 import XRegular from './icons/XRegular.svg';
+import ChatsTeardrop from './icons/ChatsTeardrop.svg';
+import EnvelopeSimple from './icons/EnvelopeSimple.svg';
+
+import Instagram from './icons/instagram.svg';
+import TwitterX from './icons/twitter-x.svg';
+import GitHub from './icons/github.svg';
+
+import Logo from './logo.svg';
+import BookBookmark from './BookBookmark.svg';
+import BookOpen from './BookOpen.svg';
+import Roll from './Roll.svg';
 
 export {
   ArrowsDownUpBold,
@@ -162,6 +177,7 @@ export {
   EyeSlashBold,
   EyeSlashLight,
   EyeSlashRegular,
+  Facebook,
   FinnTheHumanBold,
   FinnTheHumanLight,
   FinnTheHumanRegular,
@@ -179,6 +195,9 @@ export {
   MagnifyingGlassBold,
   MagnifyingGlassLight,
   MagnifyingGlassRegular,
+  MinusBold,
+  MinusLight,
+  MinusRegular,
   MinusSquareBold,
   MinusSquareLight,
   MinusSquareRegular,
@@ -220,4 +239,13 @@ export {
   XBold,
   XLight,
   XRegular,
+  Logo,
+  BookBookmark,
+  BookOpen,
+  Roll,
+  ChatsTeardrop,
+  EnvelopeSimple,
+  Instagram,
+  TwitterX,
+  GitHub,
 };

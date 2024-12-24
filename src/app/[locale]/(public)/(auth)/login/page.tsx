@@ -2,17 +2,18 @@ import { Heading2 } from '@/components/typography/headers';
 import { CredentialsLogin } from './credentials-login';
 import { PublicLinks } from './public-links';
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({ params: { locale } }: any) {
-  const t = await getTranslations({ locale, namespace: 'auth.login'});
+  const t = await getTranslations({ locale, namespace: 'auth.login' });
 
   return {
     title: t('header'),
   };
 }
 
-export default function LoginPage() {
+export default function LoginPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
   const t = useTranslations('auth.login');
 
   return (

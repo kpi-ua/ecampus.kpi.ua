@@ -1,8 +1,9 @@
 'use server';
 
-import { redirect } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
+import { User } from '@/types/user';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import qs from 'query-string';
 
 // 30 Days
@@ -38,7 +39,7 @@ export async function loginWithCredentials(username: string, password: string, r
     const userResponse = await campusFetch('account/info', {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${jsonResponse.access_token}`,
+        Authorization: `Bearer ${jsonResponse.access_token}`,
       },
     });
 
@@ -86,4 +87,16 @@ export async function resetPassword(username: string, recaptchaToken: string) {
   } catch (error) {
     throw new Error('Bad request');
   }
+}
+
+export async function getUserDetails(): Promise<User | null> {
+  const userResponse = await campusFetch('account/info', {
+    method: 'GET',
+  });
+
+  if (!userResponse.ok) {
+    return null;
+  }
+
+  return userResponse.json();
 }
