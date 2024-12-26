@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({ params: { locale } }: any) {
   const t = await getTranslations({ locale, namespace: 'public.complaints' });
@@ -10,7 +10,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function ComplaintsPage() {
+export default function ComplaintsPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations('public.complaints');
 
   return (

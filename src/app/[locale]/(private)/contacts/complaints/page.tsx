@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SubLayout } from '../../sub-layout';
 import { Heading1 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
@@ -14,7 +14,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function ComplaintsPage() {
+export default function ComplaintsPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations(INTL_NAMESPACE);
   const contactsT = useTranslations('private.contacts');
 

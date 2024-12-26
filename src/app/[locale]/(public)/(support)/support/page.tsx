@@ -1,7 +1,7 @@
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({ params: { locale } }: any) {
   const t = await getTranslations({ locale, namespace: 'public.support' });
@@ -11,7 +11,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function Support() {
+export default function Support({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations('public.support');
 
   return (

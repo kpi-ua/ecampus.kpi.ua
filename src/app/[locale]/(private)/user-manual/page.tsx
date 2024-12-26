@@ -2,7 +2,7 @@ import { Heading1 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { SubLayout } from '../sub-layout';
 import { DownloadButton } from './download-button';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 const USER_MANUAL_URL = process.env.NEXT_PUBLIC_USER_MANUAL_URL!;
 
@@ -16,7 +16,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function UserManualPage() {
+export default function UserManualPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations(INTL_NAMESPACE);
 
   return (
