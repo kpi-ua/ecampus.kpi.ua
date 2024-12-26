@@ -2,7 +2,7 @@ import { Heading1, Heading4 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 const SECTIONS = ['how-to-register', 'how-to-restore-password'];
 
@@ -16,7 +16,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function FAQPage() {
+export default function FAQPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations(INTL_NAMESPACE);
 
   return (
