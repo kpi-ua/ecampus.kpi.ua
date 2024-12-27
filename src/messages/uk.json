@@ -153,6 +153,33 @@
       "title": "Контакти",
       "header": "Контакти",
       "content": "<h3>Контактнi данi</h3><p>Адреса конструкторського бюро: <addresslink>Україна, м. Київ, вул. Політехнічна 14-в</addresslink>, корпус 13, 4 поверх, 25 кабінет</p><h3>Соцiальнi мережi</h3><p><githublink>КПI у GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Служба підтримки</h3><p>Якщо у вас є питання, ви можете звернутися до служби підтримки:</p><complaintslink>Форма скарг i пропозицiй</complaintslink><br></br><emaillink>Email</emaillink>"
+    },
+
+    "settings": {
+      "title": "Налаштування",
+      "subtitle": "Тут ви можете змінити фото, пошту та пароль для свого профілю.",
+      "section": {
+        "photo": "Фотографія",
+        "contacts": "Контакти",
+        "password": "Пароль"
+      },
+      "button": {
+        "edit": "Змінити",
+        "save-changes": "Зберегти зміни"
+      },
+      "field": {
+        "current-password": "Поточний пароль",
+        "new-password": "Новий пароль",
+        "confirm-password": "Підтвердіть пароль",
+        "error": "Помилка"
+      },
+      "error": {
+        "invalid-email": "Некоректа пошта",
+        "password-mismatch": "Паролі не співпадають"
+      },
+      "success": {
+        "update": "Успішно оновлено"
+      }
     }
   }
 }
