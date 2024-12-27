@@ -138,7 +138,7 @@
       }
     },
     "documents": {
-      "title": "KPI Documens",
+      "title": "KPI Documents",
       "header": "Igor Sikorsky Kyiv Polytechnic Institute Documents",
       "code-of-honor": "Code of honor",
       "internal-regulations": "Internal regulations",
@@ -152,6 +152,33 @@
     "contacts": {
       "title": "Contacts",
       "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><complaintslink>Complaints and suggestions form</complaintslink><br></br><emaillink>Email</emaillink>"
+    },
+
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Here you can change your photo, e-mail and password for your profile.",
+      "section": {
+        "photo": "Photo",
+        "contacts": "Contacts",
+        "password": "Password"
+      },
+      "button": {
+        "edit": "Edit",
+        "save-changes": "Save changes"
+      },
+      "field": {
+        "current-password": "Current password",
+        "new-password": "New password",
+        "confirm-password": "Confirm password",
+        "error": "Error"
+      },
+      "error": {
+        "invalid-email": "Invalid email",
+        "password-mismatch": "Password mismatch"
+      },
+      "success": {
+        "update": "Updated successfully"
+      }
     }
   }
 }
