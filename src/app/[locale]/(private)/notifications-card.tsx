@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 interface NotificationsCardProps {
   className?: string;
@@ -44,6 +45,9 @@ export const NotificationsCard = ({ className }: NotificationsCardProps) => {
         <Paragraph className="my-1">
           <Link href="#">Правила використання інформації сайту</Link>
         </Paragraph>
+        <Link href="https://campus.kpi.ua">
+          <Button className="my-5">Перейти на стару версію Кампусу</Button>
+        </Link>
         <Heading3 className="mb-6 mt-12">Аккаунт</Heading3>
         <Paragraph className="my-1">
           <Link href="#">Налаштування</Link>
