@@ -36,7 +36,7 @@ export async function loginWithCredentials(username: string, password: string, r
       return null;
     }
 
-    const userResponse = await campusFetch('account/info', {
+    const userResponse = await campusFetch('profile', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${jsonResponse.access_token}`,
@@ -47,7 +47,7 @@ export async function loginWithCredentials(username: string, password: string, r
       return null;
     }
 
-    const user = await userResponse.json();
+    const user: User = await userResponse.json();
 
     const maxAge = rememberMe ? COOKIE_MAX_AGE : undefined;
 
@@ -90,7 +90,7 @@ export async function resetPassword(username: string, recaptchaToken: string) {
 }
 
 export async function getUserDetails(): Promise<User | null> {
-  const userResponse = await campusFetch('account/info', {
+  const userResponse = await campusFetch('profile', {
     method: 'GET',
   });
 
