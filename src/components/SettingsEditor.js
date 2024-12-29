@@ -16,7 +16,7 @@ class SettingsEditor extends React.Component {
     passwordConfirmation: '',
     fullName: '',
     credo: '',
-    scientificInterest: '',
+    scientificInterests: '',
     inProgress: false,
     redirect: null
   };
@@ -32,7 +32,7 @@ class SettingsEditor extends React.Component {
     this.setState({ user });
     this.setState({ email: user.email });
     this.setState({ credo: user.credo });
-    this.setState({ scientificInterest: user.scientificInterest });
+    this.setState({ scientificInterests: user.scientificInterests });
     this.setState({ fullName: user.fullName });
     this.setState({ currentPassword: '' });
     this.setState({ password: '' });
@@ -73,7 +73,7 @@ class SettingsEditor extends React.Component {
     const payload = {
       email: this.state.email,
       fullName: this.state.fullName,
-      scientificInterest: this.state.scientificInterest,
+      scientificInterests: this.state.scientificInterests,
       credo: this.state.credo,
     };
 
@@ -200,9 +200,9 @@ class SettingsEditor extends React.Component {
                   type="text"
                   className="form-control"
                   maxLength="300"
-                  value={this.state.scientificInterest}
+                  value={this.state.scientificInterests}
                   onChange={(e) => {
-                    this.setState({ scientificInterest: e.target.value });
+                    this.setState({ scientificInterests: e.target.value });
                   }}
                 />
                 <h4>Електронна пошта</h4>

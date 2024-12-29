@@ -47,7 +47,7 @@ class Settings extends React.Component {
                 <span>{this.state.user.username}</span>
 
                 <h4>Науковi iнтереси</h4>
-                {this.state.user.scientificInterest}
+                {this.state.user.scientificInterests}
 
                 <h4>Пiдроздiл</h4>
                 {!!user &&
