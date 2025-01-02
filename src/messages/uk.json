@@ -35,7 +35,8 @@
       "terms-of-service": "Правила використання",
       "contacts": "Контакти"
     },
-    "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
+    "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>",
+    "goto-old": "Перейти на стару версію Кампусу"
   },
   "auth": {
     "login": {
