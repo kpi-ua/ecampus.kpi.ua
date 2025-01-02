@@ -61,7 +61,7 @@ export default function PasswordResetForm({ username }: PasswordResetFormProps) 
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="grid items-center w-full gap-2 my-6">
+            <FormItem className="my-6 grid w-full items-center gap-2">
               <Label htmlFor="username">{t('field.username')}</Label>
               <Input {...field} />
             </FormItem>
@@ -69,7 +69,7 @@ export default function PasswordResetForm({ username }: PasswordResetFormProps) 
         />
         <Button
           size="big"
-          className="w-[100%] my-4"
+          className="my-4 w-[100%]"
           type="submit"
           disabled={!form.formState.isValid || !executeRecaptcha}
           loading={form.formState.isSubmitting}

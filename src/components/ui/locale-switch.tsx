@@ -14,7 +14,7 @@ export const LocaleSwitch = ({ className }: Props) => {
   const getTitle = () => {
     switch (locale) {
       case LOCALE.UK:
-        return 'Switch to english 🇬🇧';
+        return 'Switch to English 🇬🇧';
       default:
         return 'Перейти на українську 🇺🇦';
     }
