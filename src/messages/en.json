@@ -152,6 +152,47 @@
     "contacts": {
       "title": "Contacts",
       "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><complaintslink>Complaints and suggestions form</complaintslink><br></br><emaillink>Email</emaillink>"
+    },
+
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Here you can view your profile, edit contacts, add links to accounts, and set appointment details.",
+      "info": {
+        "title": "Information about place of study (work)",
+        "subdivision": "Subdivision",
+        "group": "Group",
+        "grade-book": "Grade book number",
+        "study-form": "Form of study",
+        "course": "Course of study:",
+        "specialty": "Specialty",
+        "fullNameEN": "Full name in English"
+      },
+      "contact": {
+        "title": "Contact",
+        "add-contact": "Add contact",
+        "contact-type": "Contact Type",
+        "choose-contact-type": "Choose contact type"
+      },
+      "intellect": {
+        "info-title": "Information for publication on the intellect.kpi.ua website on the Internet",
+        "agreement-title": "Consent for publication of data on the intellect.kpi.ua website on the Internet",
+        "intellectProfileEnabled": "You have allowed the placement of your personal information on the intellect.kpi.ua website on the Internet.",
+        "intellectProfileDisabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
+        "credo": "Favorite quote",
+        "scientificInterests": "Research areas"
+      },
+      "codeOfHonor": {
+        "title": "Code of honor",
+        "content":"<paragraph>The presented <documentsLink>documents</documentsLink> of the National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\" were developed taking into account the experience and examples of the best universities in the world.\n\nThe text was formed on the basis of proposals from the university community, student self-government bodies and trade union organizations.\n\nThe adoption of the principles and norms given in these documents is certified by the consent of a member of the university community.\n\n<paragraph>"
+      },
+      "button": {
+        "save": "Save",
+        "grant-permission": "Grant permission",
+        "revoke-permission": "Revoke permission",
+        "add-new": "Add new",
+        "edit": "Edit",
+        "agree": "Agree"
+      }
     }
   }
 }
