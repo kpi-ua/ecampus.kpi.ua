@@ -30,7 +30,7 @@ const PageContents = () => {
   );
 };
 
-export default function PasswordRestoreSuccess() {
+export default function PasswordRestoreSuccessPage() {
   const t = useTranslations('auth.passwordReset.success');
 
   return (

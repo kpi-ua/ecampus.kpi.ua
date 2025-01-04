@@ -1,7 +1,7 @@
 import { Heading1, Heading4 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 const INTL_NAMESPACE = 'private.about';
 
@@ -13,7 +13,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function AboutPage() {
+export default function AboutPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations(INTL_NAMESPACE);
 
   return (

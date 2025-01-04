@@ -1,7 +1,7 @@
 import { Heading1 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { SubLayout } from '../sub-layout';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BookBookmark, BookOpen, Roll } from '@/app/images';
 import { DocumentCard } from './document-card';
 
@@ -15,7 +15,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function KPIDocumentsPage() {
+export default function KPIDocumentsPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations(INTL_NAMESPACE);
 
   return (

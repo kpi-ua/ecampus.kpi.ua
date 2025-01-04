@@ -2,14 +2,18 @@ import { Heading3 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
+import Link from 'next/link';
+import { redirectToOldCampus } from '@/actions/redirectToOldCampus.action';
 
 interface NotificationsCardProps {
   className?: string;
 }
 
 export const NotificationsCard = ({ className }: NotificationsCardProps) => {
+  const t = useTranslations('global');
   return (
     <Card className={cn(className)}>
       <CardHeader>
@@ -44,6 +48,11 @@ export const NotificationsCard = ({ className }: NotificationsCardProps) => {
         <Paragraph className="my-1">
           <Link href="#">Правила використання інформації сайту</Link>
         </Paragraph>
+        <form>
+          <Button type="submit" formAction={redirectToOldCampus} className="my-5">
+            {t('goto-old')}
+          </Button>
+        </form>
         <Heading3 className="mb-6 mt-12">Аккаунт</Heading3>
         <Paragraph className="my-1">
           <Link href="#">Налаштування</Link>
