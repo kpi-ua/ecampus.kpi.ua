@@ -10,7 +10,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/user';
 import { updateIntellectInfo } from '@/actions/profile.actions';
-import { getUserDetails } from '@/actions/auth.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useTranslations } from 'next-intl';
 

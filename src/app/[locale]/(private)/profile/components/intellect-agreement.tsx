@@ -14,11 +14,15 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 export function IntellectAgreement() {
   const isMobile = useIsMobile();
+
   const t = useTranslations('private.profile');
+
   const { errorToast } = useServerErrorToast();
 
   const [user, setUser] = useLocalStorage<User>('user');
+
   const [loading, setLoading] = useState(false);
+
   const handleClick = async () => {
     setLoading(true);
     const res = await setIntellectAgreement(!user?.intellectProfileEnabled);

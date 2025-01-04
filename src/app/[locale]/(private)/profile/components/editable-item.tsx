@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { PencilBold, XBold } from '@/app/images';
@@ -14,6 +14,7 @@ interface Props {
 export function EditableItem({ label, value, onSave, onDelete }: Props) {
   const [isEditing, setIsEditing] = useState(!value);
   const [currentValue, setCurrentValue] = useState(value);
+
   const t = useTranslations('private.profile');
 
   const handleSave = () => {

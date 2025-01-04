@@ -8,16 +8,13 @@ import { User, USER_CATEGORIES } from '@/types/user';
 import { Heading4, Heading6 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { Separator } from '@/components/ui/separator';
-import { EditableItem } from '@/app/[locale]/(private)/profile/components/EditableItem';
 import { updateEnglishFullName } from '@/actions/profile.actions';
-import { getUserDetails } from '@/actions/auth.actions';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PencilBold } from '@/app/images';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { useToast } from '@/hooks/use-toast';
 
 interface Props {
   className?: string;

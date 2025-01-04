@@ -15,10 +15,14 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 
 export function CodeOfHonor() {
-  const isMobile = useIsMobile();
-  const [user, setUser] = useLocalStorage<User>('user');
   const { errorToast } = useServerErrorToast();
+
+  const isMobile = useIsMobile();
+
+  const [user, setUser] = useLocalStorage<User>('user');
+
   const [loading, setLoading] = useState(false);
+
   const t = useTranslations('private.profile');
 
   const handleClick = async () => {

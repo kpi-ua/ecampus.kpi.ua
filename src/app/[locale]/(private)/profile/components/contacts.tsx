@@ -11,7 +11,7 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { EditableItem } from '@/app/[locale]/(private)/profile/components/EditableItem';
+import { EditableItem } from '@/app/[locale]/(private)/profile/components/editable-item';
 import { useTranslations } from 'next-intl';
 
 interface Props {

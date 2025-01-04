@@ -1,5 +1,5 @@
 import { getContacts, getContactTypes } from '@/actions/profile.actions';
-import { Profile } from '@/app/[locale]/(private)/profile/Profile';
+import { Profile } from '@/app/[locale]/(private)/profile/profile';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
