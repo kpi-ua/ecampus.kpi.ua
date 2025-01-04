@@ -1,7 +1,7 @@
 import { Heading1, Heading3 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
-import { getTranslations } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { TextButton } from '@/components/ui/text-button';
 import { ChatsTeardrop, EnvelopeSimple } from '@/app/images';
@@ -16,7 +16,9 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function ContactsPage() {
+export default function ContactsPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
+
   const t = useTranslations(INTL_NAMESPACE);
 
   return (

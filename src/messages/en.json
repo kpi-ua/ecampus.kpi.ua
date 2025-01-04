@@ -35,7 +35,8 @@
       "terms-of-service": "Terms of service",
       "contacts": "Contacts"
     },
-    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
+    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>",
+    "goto-old": "Go to the old version of Campus"
   },
   "auth": {
     "login": {

@@ -1,11 +1,16 @@
+import { setRequestLocale } from 'next-intl/server';
 import { Footer } from '../footer';
 import { Header } from '../header';
 
 export default function PublicPagesLayout({
   children,
+  params: { locale },
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  setRequestLocale(locale);
+
   return (
     <div className="flex h-[100vh] min-h-fit min-w-[344px] gap-[20px] p-[20px]">
       <div className="flex min-h-fit grow basis-0 flex-col md:px-[28px] md:py-[16px]">

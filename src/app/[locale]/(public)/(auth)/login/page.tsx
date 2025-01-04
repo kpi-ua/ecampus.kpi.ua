@@ -14,6 +14,7 @@ export async function generateMetadata({ params: { locale } }: any) {
 
 export default function LoginPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
+
   const t = useTranslations('auth.login');
 
   return (

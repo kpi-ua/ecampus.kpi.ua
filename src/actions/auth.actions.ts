@@ -51,7 +51,7 @@ export async function loginWithCredentials(username: string, password: string, r
 
     const maxAge = rememberMe ? COOKIE_MAX_AGE : undefined;
 
-    cookies().set('SID', jsonResponse.session_id, { domain: COOKIE_DOMAIN, httpOnly: true, maxAge });
+    cookies().set('SID', jsonResponse.sessionId, { domain: COOKIE_DOMAIN, httpOnly: true, maxAge });
     cookies().set('token', jsonResponse.access_token, { domain: COOKIE_DOMAIN, httpOnly: true, maxAge });
 
     return user;
