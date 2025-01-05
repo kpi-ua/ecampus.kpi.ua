@@ -16,7 +16,6 @@ import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { User } from '@/types/user';
 import { useRef, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
 import { changeEmail, changePassword, changePhoto } from '@/actions/settings.actions';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -25,7 +24,6 @@ interface SettingsFormProps {
 }
 
 export function SettingsForm({ className }: SettingsFormProps) {
-  const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
 
   const isMobile = useIsMobile();

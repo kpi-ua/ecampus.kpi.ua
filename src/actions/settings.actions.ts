@@ -23,7 +23,7 @@ export async function changeEmail(email: string) {
 
 export async function changePhoto(formData: FormData) {
   try {
-    const res = await campusFetch('profile/photo', {
+    await campusFetch('profile/photo', {
       method: 'POST',
       body: formData,
     });
