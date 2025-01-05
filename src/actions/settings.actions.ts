@@ -1,6 +1,7 @@
 'use server';
 
 import { campusFetch } from '@/lib/client';
+import { getUserDetails } from '@/actions/auth.actions';
 
 export async function changeEmail(email: string) {
   try {
@@ -8,6 +9,8 @@ export async function changeEmail(email: string) {
       method: 'PUT',
       body: JSON.stringify({ email }),
     });
+
+    return await getUserDetails();
   } catch (error) {
     throw new Error('Error changing email.');
   }
@@ -18,6 +21,9 @@ export async function changePhoto(file: FormData) {
     await campusFetch('profile/photo', {
       method: 'POST',
       body: file,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
   } catch (error) {
     throw new Error('Error changing photo.');
