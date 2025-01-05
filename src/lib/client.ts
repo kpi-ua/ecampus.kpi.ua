@@ -8,12 +8,14 @@ const Client = (basePath: string) => {
 
     const input = new URL(url, basePath).href;
 
+    const isFormData = options.body instanceof FormData;
+
     const response = await fetch(input, {
       cache: 'no-cache',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json',
         Authorization: jwt ? `Bearer ${cookies().get('token')?.value}` : '',
+        ...(isFormData ? {} : { 'Content-Type': 'application/json' }), // Skip Content-Type for FormData
         ...headers,
       },
       ...otherOptions,
