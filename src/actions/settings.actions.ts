@@ -5,16 +5,16 @@ import { getUserDetails } from '@/actions/auth.actions';
 import { fileUpload } from '@/lib/file-upload';
 
 export async function changeEmail(email: string) {
-  try {
-    await campusFetch('settings/email', {
-      method: 'PUT',
-      body: JSON.stringify({ email }),
-    });
+  const response = await campusFetch('settings/email', {
+    method: 'PUT',
+    body: JSON.stringify({ email }),
+  });
 
-    return await getUserDetails();
-  } catch (error) {
-    throw new Error('Error changing email.');
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
   }
+
+  return getUserDetails();
 }
 
 export async function changePhoto(formData: FormData) {
@@ -22,12 +22,12 @@ export async function changePhoto(formData: FormData) {
 }
 
 export async function changePassword(password: string, currentPassword: string, passwordRepeat: string) {
-  try {
-    await campusFetch('settings/password', {
-      method: 'PUT',
-      body: JSON.stringify({ password, currentPassword, passwordRepeat }),
-    });
-  } catch (error) {
-    throw new Error('Error changing password.');
+  const response = await campusFetch('settings/password', {
+    method: 'PUT',
+    body: JSON.stringify({ password, currentPassword, passwordRepeat }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
   }
 }

@@ -175,7 +175,9 @@
       },
       "error": {
         "invalid-email": "Invalid email",
-        "password-mismatch": "Password mismatch"
+        "password-mismatch": "Password mismatch",
+        "file-size": "Please upload a picture smaller than 1 MB.",
+        "file-type": "We only support PNG, JPEG, or JPG pictures."
       }
     }
   }

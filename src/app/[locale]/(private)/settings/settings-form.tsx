@@ -2,7 +2,6 @@
 
 import { Heading5 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
-import { ProfilePicture } from '@/app/[locale]/(private)/profile-picture';
 import { Input } from '@/components/ui/input';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import PasswordInput from '@/components/ui/password-input';
@@ -12,41 +11,34 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
 import { User } from '@/types/user';
-import { useRef, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from 'react';
 import { changeEmail, changePassword, changePhoto } from '@/actions/settings.actions';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
 
-interface SettingsFormProps {
-  className?: string;
-}
-
-export function SettingsForm({ className }: SettingsFormProps) {
-  const { toast } = useToast();
+export function SettingsForm() {
   const { errorToast } = useServerErrorToast();
 
   const isMobile = useIsMobile();
 
   const t = useTranslations('private.settings');
 
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const [user, setUser] = useLocalStorage<User>('user');
+
   const [file, setFile] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState(user?.photo);
 
   const FormSchema = z
     .object({
       email: z
         .string()
+        .trim()
         .min(1)
         .email({ message: t('error.invalid-email') }),
-      currentPassword: z.string().optional(),
-      newPassword: z.string().optional(),
-      confirmPassword: z.string().optional(),
+      currentPassword: z.string().trim().optional(),
+      newPassword: z.string().trim().optional(),
+      confirmPassword: z.string().trim().optional(),
     })
     .refine((data) => data.newPassword === data.confirmPassword, {
       message: t('error.password-mismatch'),
@@ -65,25 +57,10 @@ export function SettingsForm({ className }: SettingsFormProps) {
     },
   });
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    const file = files?.[0];
-    if (!files || !file) {
-      return;
-    }
-    setFile(file);
-    setPreviewImage(URL.createObjectURL(file));
-  };
-
-  const handleClick = () => {
-    if (!inputRef || !inputRef.current) return;
-    inputRef.current.click();
-  };
-
   const handleFormSubmit = async (data: FormData) => {
     try {
-      if (user?.email.trim() !== data.email.trim()) {
-        const newUser = await changeEmail(data.email.trim());
+      if (user?.email !== data.email) {
+        const newUser = await changeEmail(data.email);
         if (newUser) {
           setUser(newUser);
         }
@@ -95,7 +72,7 @@ export function SettingsForm({ className }: SettingsFormProps) {
         await changePhoto(formData);
       }
 
-      if (data.newPassword?.trim() && data.currentPassword?.trim() && data.confirmPassword?.trim()) {
+      if (data.newPassword && data.currentPassword && data.confirmPassword) {
         await changePassword(data.newPassword, data.currentPassword, data.confirmPassword);
       }
     } catch (error) {
@@ -104,16 +81,10 @@ export function SettingsForm({ className }: SettingsFormProps) {
   };
 
   return (
-    <Card className={cn(className)}>
+    <Card>
       <CardContent className="flex flex-col gap-8 space-y-1.5 p-10">
         <Heading5>{t('section.photo')}</Heading5>
-        <div className="flex items-center gap-4">
-          <ProfilePicture variant="xl" src={previewImage} />
-          <Button className="h-fit" variant="secondary" onClick={handleClick}>
-            {t('button.edit')}
-          </Button>
-          <input ref={inputRef} type="file" hidden onChange={handleFileUpload} />
-        </div>
+        <PhotoUploader photoSrc={user?.photo || ''} onFileUpload={setFile} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col items-start space-y-4">
             <Heading5>{t('section.contacts')}</Heading5>
@@ -159,9 +130,7 @@ export function SettingsForm({ className }: SettingsFormProps) {
                 <FormItem className="my-6 grid w-full items-center gap-2">
                   <FormLabel htmlFor="confirmPassword">{t('field.confirm-password')}</FormLabel>
                   <PasswordInput {...field} value={field.value || ''} />
-                  {form.formState.errors.confirmPassword && (
-                    <span className="text-red-500">{form.formState.errors.confirmPassword?.message}</span>
-                  )}
+                  <FormMessage />
                 </FormItem>
               )}
             />
