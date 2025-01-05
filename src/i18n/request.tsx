@@ -1,5 +1,4 @@
 import { getRequestConfig } from 'next-intl/server';
-import { notFound } from 'next/navigation';
 import { routing } from './routing';
 import { Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from '@/components/typography/headers';
 import { UList } from '@/components/typography/lists';

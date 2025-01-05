@@ -82,6 +82,9 @@ import Notebook from './icons/Notebook.svg';
 import PasswordBold from './icons/PasswordBold.svg';
 import PasswordLight from './icons/PasswordLight.svg';
 import PasswordRegular from './icons/PasswordRegular.svg';
+import PencilBold from './icons/PencilBold.svg';
+import PencilLight from './icons/PencilLight.svg';
+import PencilRegular from './icons/PencilRegular.svg';
 import PlusBold from './icons/PlusBold.svg';
 import PlusLight from './icons/PlusLight.svg';
 import PlusRegular from './icons/PlusRegular.svg';
@@ -209,6 +212,9 @@ export {
   PasswordBold,
   PasswordLight,
   PasswordRegular,
+  PencilBold,
+  PencilLight,
+  PencilRegular,
   PlusBold,
   PlusLight,
   PlusRegular,
