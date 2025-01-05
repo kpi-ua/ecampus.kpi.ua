@@ -32,7 +32,7 @@ export function SettingsForm({ className }: SettingsFormProps) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [user] = useLocalStorage<User>('user');
+  const [user, setUser] = useLocalStorage<User>('user');
   const [file, setFile] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState(user?.photo);
 
@@ -81,7 +81,10 @@ export function SettingsForm({ className }: SettingsFormProps) {
   const handleFormSubmit = async (data: FormData) => {
     try {
       if (user?.email.trim() !== data.email.trim()) {
-        await changeEmail(data.email.trim());
+        const newUser = await changeEmail(data.email.trim());
+        if (newUser) {
+          setUser(newUser);
+        }
       }
 
       if (file) {
