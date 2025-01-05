@@ -2,6 +2,7 @@
 
 import { campusFetch } from '@/lib/client';
 import { getUserDetails } from '@/actions/auth.actions';
+import { fileUpload } from '@/lib/file-upload';
 
 export async function changeEmail(email: string) {
   try {
@@ -16,18 +17,8 @@ export async function changeEmail(email: string) {
   }
 }
 
-export async function changePhoto(file: FormData) {
-  try {
-    await campusFetch('profile/photo', {
-      method: 'POST',
-      body: file,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-  } catch (error) {
-    throw new Error('Error changing photo.');
-  }
+export async function changePhoto(formData: FormData) {
+  await fileUpload('profile/photo', formData);
 }
 
 export async function changePassword(password: string, currentPassword: string, passwordRepeat: string) {

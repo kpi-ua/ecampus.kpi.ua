@@ -1,3 +1,5 @@
+'use server';
+
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -14,7 +16,7 @@ const Client = (basePath: string) => {
       cache: 'no-cache',
       headers: {
         Accept: 'application/json',
-        Authorization: jwt ? `Bearer ${cookies().get('token')?.value}` : '',
+        Authorization: jwt ? `Bearer ${jwt}` : '',
         'Content-Type': contentType,
         ...headers,
       },
