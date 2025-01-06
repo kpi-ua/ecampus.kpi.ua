@@ -66,7 +66,7 @@ export async function setIntellectAgreement(agree: boolean) {
       method: 'POST',
       body: JSON.stringify({ agree }),
     });
-    return await getUserDetails();
+    return getUserDetails();
   } catch (error) {
     throw new Error('Error while setting intellect agreement');
   }
@@ -78,7 +78,7 @@ export async function updateEnglishFullName(fullNameEnglish: string) {
       method: 'PUT',
       body: JSON.stringify({ fullNameEnglish }),
     });
-    return await getUserDetails();
+    return getUserDetails();
   } catch (error) {
     throw new Error('Error while updating English full name');
   }
@@ -90,7 +90,7 @@ export async function updateIntellectInfo(credo: string, scientificInterests: st
       method: 'PUT',
       body: JSON.stringify({ credo, scientificInterests }),
     });
-    return await getUserDetails();
+    return getUserDetails();
   } catch (error) {
     throw new Error('Error while updating intellect info');
   }
@@ -100,9 +100,8 @@ export async function acceptCodeOfHonor() {
   try {
     await campusFetch('profile/code-of-honor', {
       method: 'PUT',
-      body: JSON.stringify({ agree: true }),
     });
-    return await getUserDetails();
+    return getUserDetails();
   } catch (error) {
     throw new Error('Error while accepting code of honor');
   }

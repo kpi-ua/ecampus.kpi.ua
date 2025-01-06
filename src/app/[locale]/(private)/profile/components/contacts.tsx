@@ -23,7 +23,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
   const t = useTranslations('private.profile');
 
   const FormSchema = z.object({
-    contactValue: z.string().min(1),
+    contactValue: z.string().trim().min(1),
     typeId: z.string().min(1),
   });
 
@@ -53,11 +53,11 @@ export function Contacts({ contacts, contactTypes }: Props) {
 
   return (
     <div className="flex flex-col">
-      <div className="flex flex-col gap-3">
+      <div className="flex w-full flex-col gap-3">
         <Heading6>{t('contact.title')}</Heading6>
         <Separator />
 
-        <div className="flex flex-col gap-4">
+        <div className="flex w-full flex-col gap-4">
           {contacts.map((contact) => (
             <EditableItem
               key={contact.id}
@@ -76,13 +76,15 @@ export function Contacts({ contacts, contactTypes }: Props) {
 
         <Form {...form}>
           <form className="flex flex-col" onSubmit={form.handleSubmit(handleFormSubmit)}>
-            <div className="flex gap-5">
+            <div className="flex flex-col gap-5 md:flex-row">
               <FormField
                 control={form.control}
                 name="typeId"
                 render={({ field }) => (
                   <FormItem className="w-full gap-2">
-                    <FormLabel htmlFor="typeId">{t('contact.contact-type')}</FormLabel>
+                    <FormLabel className="text-base" htmlFor="typeId">
+                      {t('contact.contact-type')}
+                    </FormLabel>
                     <Select onValueChange={field.onChange} {...field}>
                       <FormControl>
                         <SelectTrigger>
@@ -108,7 +110,9 @@ export function Contacts({ contacts, contactTypes }: Props) {
                 name="contactValue"
                 render={({ field }) => (
                   <FormItem className="w-full gap-2">
-                    <FormLabel htmlFor="contactValue">{t('contact.title')}</FormLabel>
+                    <FormLabel className="text-base" htmlFor="contactValue">
+                      {t('contact.title')}
+                    </FormLabel>
                     <Input {...field} value={field.value || ''} />
                   </FormItem>
                 )}

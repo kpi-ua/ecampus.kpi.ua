@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { PencilBold } from '@/app/images';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { Paragraph } from '@/components/typography/paragraph';
 
 interface Props {
   className?: string;
@@ -45,15 +46,14 @@ export function InfoBlock({ className }: Props) {
   return (
     <Card className={cn(className)}>
       <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
-        <div className="flex gap-6">
+        <div className="flex flex-col gap-6 md:flex-row">
           <ProfilePicture />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4 md:gap-2">
             <Heading4>{user?.fullName}</Heading4>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2 md:flex-nowrap">
               {isEditing || !user?.fullNameEnglish ? (
                 <>
                   <Input
-                    className="w-[340px]"
                     value={fullNameEn}
                     onChange={(e) => setFullNameEn(e.target.value)}
                     placeholder={t('info.fullNameEN')}
@@ -83,25 +83,25 @@ export function InfoBlock({ className }: Props) {
           <Separator className="my-3" />
           {studentProfile && (
             <div className="flex flex-col gap-4">
-              <div className="flex gap-6">
-                <span className="w-[170px] font-semibold text-neutral-400">{t('info.subdivision')}:</span>
-                <span className="font-medium">{studentProfile?.faculty}</span>
+              <div className="flex flex-col gap-3 md:flex-row md:gap-6">
+                <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.subdivision')}:</Paragraph>
+                <Paragraph className="m-0 font-medium">{studentProfile?.faculty}</Paragraph>
               </div>
-              <div className="flex gap-6">
-                <span className="w-[170px] font-semibold text-neutral-400">{t('info.group')}:</span>
-                <span className="font-medium">{studentProfile?.studyGroup?.name}</span>
+              <div className="flex flex-col gap-3 md:flex-row md:gap-6">
+                <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.group')}:</Paragraph>
+                <Paragraph className="m-0 font-medium">{studentProfile?.studyGroup?.name}</Paragraph>
               </div>
-              <div className="flex gap-6">
-                <span className="w-[170px] font-semibold text-neutral-400">{t('info.study-form')}:</span>
-                <span className="font-medium">{studentProfile?.formOfEducation}</span>
+              <div className="flex flex-col gap-3 md:flex-row md:gap-6">
+                <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.study-form')}:</Paragraph>
+                <Paragraph className="m-0 font-medium">{studentProfile?.formOfEducation}</Paragraph>
               </div>
-              <div className="flex gap-6">
-                <span className="w-[170px] font-semibold text-neutral-400">{t('info.course')}:</span>
-                <span className="font-medium">{studentProfile?.studyYear}</span>
+              <div className="flex flex-col gap-3 md:flex-row md:gap-6">
+                <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.course')}:</Paragraph>
+                <Paragraph className="m-0 font-medium">{studentProfile?.studyYear}</Paragraph>
               </div>
-              <div className="flex gap-6">
-                <span className="w-[170px] font-semibold text-neutral-400">{t('info.specialty')}:</span>
-                <span className="font-medium">{studentProfile?.speciality}</span>
+              <div className="flex flex-col gap-3 md:flex-row md:gap-6">
+                <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.specialty')}:</Paragraph>
+                <Paragraph className="m-0 font-medium">{studentProfile?.speciality}</Paragraph>
               </div>
             </div>
           )}
