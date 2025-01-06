@@ -17,7 +17,7 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
 
   const fileUploadInputRef = useRef<HTMLInputElement>(null);
 
-  const [previewImage, setPreviewImage] = useState(photoSrc);
+  const [photoPreview, setPhotoPreview] = useState(photoSrc);
   const [isFileSizeError, setIsFileSizeError] = useState(false);
   const [isFileTypeError, setIsFileTypeError] = useState(false);
 
@@ -41,7 +41,7 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
       return;
     }
 
-    setPreviewImage(URL.createObjectURL(file));
+    setPhotoPreview(URL.createObjectURL(file));
     onFileUpload(file);
   };
 
@@ -51,10 +51,10 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
 
   return (
     <div className="flex flex-col">
-      {isFileSizeError && <Paragraph className="m-0 text-red-500">{t('error.file-size')}</Paragraph>}
-      {isFileTypeError && <Paragraph className="m-0 text-red-500">{t('error.file-type')}</Paragraph>}
+      {isFileSizeError && <Paragraph className="m-0 text-status-danger-300">{t('error.file-size')}</Paragraph>}
+      {isFileTypeError && <Paragraph className="m-0 text-status-danger-300">{t('error.file-type')}</Paragraph>}
       <div className="mt-4 flex items-center gap-4">
-        <ProfilePicture size="xl" src={previewImage} />
+        <ProfilePicture size="xl" src={photoPreview} />
         <Button className="h-fit" variant="secondary" onClick={handleFileUploadClick}>
           Edit
         </Button>

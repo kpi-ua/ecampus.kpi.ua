@@ -73,7 +73,7 @@ export function SettingsForm() {
       }
 
       if (data.newPassword && data.currentPassword && data.confirmPassword) {
-        await changePassword(data.newPassword, data.currentPassword, data.confirmPassword);
+        await changePassword(data.newPassword, data.currentPassword);
       }
     } catch (error) {
       errorToast();
@@ -134,7 +134,7 @@ export function SettingsForm() {
                 </FormItem>
               )}
             />
-            <FormMessage className="text-red-500">{form.formState.errors.root?.message}</FormMessage>
+            <FormMessage className="text-status-danger-300">{form.formState.errors.root?.message}</FormMessage>
             <Button
               size={isMobile ? 'medium' : 'big'}
               className="my-4 ml-auto"

@@ -21,10 +21,10 @@ export async function changePhoto(formData: FormData) {
   await fileUpload('profile/photo', formData);
 }
 
-export async function changePassword(password: string, currentPassword: string, passwordRepeat: string) {
+export async function changePassword(password: string, currentPassword: string) {
   const response = await campusFetch('settings/password', {
     method: 'PUT',
-    body: JSON.stringify({ password, currentPassword, passwordRepeat }),
+    body: JSON.stringify({ password, currentPassword }),
   });
 
   if (!response.ok) {
