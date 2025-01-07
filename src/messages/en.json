@@ -162,10 +162,12 @@
         "subdivision": "Subdivision",
         "group": "Group",
         "grade-book": "Grade book number",
-        "study-form": "Form of study",
-        "course": "Course of study:",
-        "specialty": "Specialty",
-        "fullNameEN": "Full name in English"
+        "education-form": "Form of study",
+        "study-year": "Study year:",
+        "speciality": "speciality",
+        "fullNameEN": "Full name in English",
+        "academic-degree": "Academic degree",
+        "academic-status": "Academic title"
       },
       "contact": {
         "title": "Contact",

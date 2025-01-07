@@ -1,18 +1,6 @@
-interface Group {
-  id: number;
-  name: string;
-}
-
-interface StudentProfile {
-  speciality: string;
-  studyGroup: Group;
-  gradeBookNumber: string;
-  studyYear: number;
-  codeOfHonorSigned: boolean;
-  faculty: string;
-  status: string;
-  formOfEducation: string;
-}
+import { StudentProfile } from '@/types/student-profile';
+import { EmployeeProfile } from '@/types/employee-profile';
+import { USER_CATEGORIES } from '@/types/constants';
 
 export interface User {
   id: number;
@@ -29,10 +17,7 @@ export interface User {
   intellectProfileEnabled: boolean;
   intellectProfile?: string;
   userCategories: (keyof typeof USER_CATEGORIES)[];
+  codeOfHonorSignDate: string;
   studentProfile?: StudentProfile;
+  employeeProfile?: EmployeeProfile;
 }
-
-export const USER_CATEGORIES = {
-  Student: 'Студент',
-  Lecturer: 'НПП',
-};

@@ -25,20 +25,16 @@ export function CodeOfHonor() {
 
   const t = useTranslations('private.profile');
 
-  const handleClick = async () => {
+  const handleAcceptCodeOfHonor = async () => {
     setLoading(true);
     const res = await acceptCodeOfHonor();
     if (!res) {
       errorToast();
       return;
     }
-    setUser(res);
     setLoading(false);
+    setUser(res);
   };
-
-  if (user?.studentProfile?.codeOfHonorSigned) {
-    return null;
-  }
 
   return (
     <div className="flex flex-col gap-3">
@@ -48,17 +44,23 @@ export function CodeOfHonor() {
         documentsLink: (chunks) => <Link href="/kpi-documents">{chunks}</Link>,
         paragraph: (chunks) => <Paragraph className="m-0 text-lg">{chunks}</Paragraph>,
       })}
-
-      <Button
-        className="ml-auto w-fit"
-        loading={loading}
-        onClick={handleClick}
-        size={isMobile ? 'medium' : 'big'}
-        icon={<Check />}
-        iconPosition="end"
-      >
-        {t('button.agree')}
-      </Button>
+      {user?.codeOfHonorSignDate ? (
+        <div className="flex flex-col gap-1">
+          <Paragraph>Ви надали згоду, щодо принципів та норм, які наведені в представлених документах.</Paragraph>
+          <Paragraph className="m-0">{user?.codeOfHonorSignDate}</Paragraph>
+        </div>
+      ) : (
+        <Button
+          className="ml-auto w-fit"
+          loading={loading}
+          onClick={handleAcceptCodeOfHonor}
+          size={isMobile ? 'medium' : 'big'}
+          icon={<Check />}
+          iconPosition="end"
+        >
+          {t('button.agree')}
+        </Button>
+      )}
     </div>
   );
 }
