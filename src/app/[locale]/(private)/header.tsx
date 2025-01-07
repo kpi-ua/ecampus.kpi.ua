@@ -2,13 +2,16 @@
 
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { ProfilePicture } from './profile-picture';
+import { ProfilePicture } from '@/components/ui/profile-picture';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Show } from '@/components/utils/show';
 import { cn } from '@/lib/utils';
+import { useLocalStorage } from '@/hooks/use-storage';
+import { User } from '@/types/user';
 
 export const Header = () => {
   const isMobile = useIsMobile();
+  const [user] = useLocalStorage<User>('user');
 
   return (
     <header
@@ -21,7 +24,7 @@ export const Header = () => {
       </Show>
       <div className="flex items-center gap-8">
         <LocaleSwitch />
-        <ProfilePicture />
+        <ProfilePicture src={user?.photo || ''} />
       </div>
     </header>
   );
