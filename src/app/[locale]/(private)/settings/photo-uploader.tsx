@@ -18,12 +18,11 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
   const fileUploadInputRef = useRef<HTMLInputElement>(null);
 
   const [photoPreview, setPhotoPreview] = useState(photoSrc);
-  const [isFileSizeError, setIsFileSizeError] = useState(false);
-  const [isFileTypeError, setIsFileTypeError] = useState(false);
+
+  const [error, setError] = useState('');
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIsFileSizeError(false);
-    setIsFileTypeError(false);
+    setError('');
 
     const files = e.target.files;
     const file = files?.[0];
@@ -31,13 +30,13 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
       return;
     }
 
-    if (file.size > FILE_MAX_SIZE) {
-      setIsFileSizeError(true);
+    if (!FILE_TYPES.includes(file.type)) {
+      setError(t('error.file-type'));
       return;
     }
 
-    if (!FILE_TYPES.includes(file.type)) {
-      setIsFileTypeError(true);
+    if (file.size > FILE_MAX_SIZE) {
+      setError(t('error.file-size'));
       return;
     }
 
@@ -51,15 +50,14 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
 
   return (
     <div className="flex flex-col">
-      {isFileSizeError && <Paragraph className="m-0 text-status-danger-300">{t('error.file-size')}</Paragraph>}
-      {isFileTypeError && <Paragraph className="m-0 text-status-danger-300">{t('error.file-type')}</Paragraph>}
+      {error && <Paragraph className="m-0 text-status-danger-300">{error}</Paragraph>}
       <div className="mt-4 flex items-center gap-4">
         <ProfilePicture size="xl" src={photoPreview} />
         <Button className="h-fit" variant="secondary" onClick={handleFileUploadClick}>
           Edit
         </Button>
       </div>
-      <input ref={fileUploadInputRef} type="file" hidden onChange={handleFileChange} />
+      <input ref={fileUploadInputRef} accept={FILE_TYPES.join(', ')} type="file" hidden onChange={handleFileChange} />
     </div>
   );
 }

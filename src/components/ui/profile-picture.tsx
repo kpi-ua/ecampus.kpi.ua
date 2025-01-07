@@ -8,11 +8,11 @@ import { cva, type VariantProps } from 'class-variance-authority';
 const avatarVariants = cva('rounded-full', {
   variants: {
     size: {
-      xs: 'h-[28px] w-[28px]',
-      sm: 'h-[36px] w-[36px]',
-      base: 'h-[48px] w-[48px]',
-      lg: 'h-[56px] w-[56px]',
-      xl: 'h-[120px] w-[120px]',
+      xs: 'size-[28px]',
+      sm: 'size-[36px]',
+      base: 'size-[48px]',
+      lg: 'size-[56px]',
+      xl: 'size-[120px]',
     },
   },
   defaultVariants: {
@@ -20,26 +20,16 @@ const avatarVariants = cva('rounded-full', {
   },
 });
 
-const iconSizeMap: Record<string, number> = {
-  xs: 28,
-  sm: 36,
-  base: 48,
-  lg: 56,
-  xl: 120,
-};
-
 interface ProfilePictureProps extends VariantProps<typeof avatarVariants> {
   src: string;
 }
 
 export const ProfilePicture = ({ size = 'base', src }: ProfilePictureProps) => {
-  const iconSize = iconSizeMap[size as keyof typeof iconSizeMap];
-
   return (
     <Avatar className={avatarVariants({ size })}>
       <AvatarImage src={src} />
       <AvatarFallback>
-        <CircleUserRound width={iconSize} height={iconSize} className="text-basic-blue" strokeWidth={1} />
+        <CircleUserRound className={`${avatarVariants({ size })} text-basic-blue`} strokeWidth={1} />
       </AvatarFallback>
     </Avatar>
   );
