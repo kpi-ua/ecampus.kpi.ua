@@ -32,10 +32,10 @@ export function LecturerInfo({ employeeProfile }: Props) {
         </div>
       ))}
 
-      <Heading6>Перелік посад</Heading6>
+      <Heading6>{t('info.positions')}</Heading6>
       {employeeProfile.positions.map((position, index) => (
         <React.Fragment key={index}>
-          <Separator className="" />
+          <Separator />
           <div className="flex flex-col gap-3 md:flex-row md:gap-6">
             <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.position')}:</Paragraph>
             <Paragraph className="m-0 font-medium">
@@ -44,7 +44,7 @@ export function LecturerInfo({ employeeProfile }: Props) {
           </div>
 
           <div className="flex flex-col gap-3 md:flex-row md:gap-6">
-            <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">Підрозділ:</Paragraph>
+            <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.subdivision')}:</Paragraph>
             <Paragraph className="m-0 font-medium">{position.subdivision.name}</Paragraph>
           </div>
         </React.Fragment>

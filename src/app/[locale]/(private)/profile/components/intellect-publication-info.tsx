@@ -49,13 +49,15 @@ export function IntellectPublicationInfo() {
         <label className="text-base font-semibold text-neutral-600">{t('intellect.credo')}</label>
         <Show
           when={isEditing}
-          fallback={<Paragraph className="m-0 text-lg font-medium">{credo || 'Не вказано'}</Paragraph>}
+          fallback={
+            <Paragraph className="m-0 text-lg font-medium">{credo || t('placeholder.not-specified')}</Paragraph>
+          }
         >
           <Input
             className="w-full"
             value={credo}
             onChange={(e) => setCredo(e.target.value)}
-            placeholder="Введіть улюблену цитату"
+            placeholder={t('placeholder.credo')}
           />
         </Show>
       </div>
@@ -64,13 +66,17 @@ export function IntellectPublicationInfo() {
         <label className="text-base font-semibold text-neutral-600">{t('intellect.scientificInterests')}</label>
         <Show
           when={isEditing}
-          fallback={<Paragraph className="m-0 text-lg font-medium">{scientificInterests || 'Не вказано'}</Paragraph>}
+          fallback={
+            <Paragraph className="m-0 text-lg font-medium">
+              {scientificInterests || t('placeholder.not-specified')}
+            </Paragraph>
+          }
         >
           <Input
             className="w-full"
             value={scientificInterests}
             onChange={(e) => setScientificInterests(e.target.value)}
-            placeholder="Введіть напрями досліджень"
+            placeholder={t('placeholder.scientificInterests')}
           />
         </Show>
       </div>

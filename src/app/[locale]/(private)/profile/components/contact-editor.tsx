@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { PencilBold, XBold } from '@/app/images';
 import { useTranslations } from 'next-intl';
 import { Paragraph } from '@/components/typography/paragraph';
+import { Show } from '@/components/utils/show';
 
 interface Props {
   onSave: (newValue: string) => void;
@@ -25,7 +26,9 @@ export function ContactEditor({ label, value, onSave, onDelete }: Props) {
 
   return (
     <div className="flex flex-col items-start gap-4 xl:flex-row xl:items-center">
-      {label && <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{label}:</Paragraph>}
+      <Show when={!!label}>
+        <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{label}:</Paragraph>
+      </Show>
 
       {isEditing ? (
         <div className="flex flex-wrap items-center gap-2 md:flex-nowrap">
@@ -37,10 +40,12 @@ export function ContactEditor({ label, value, onSave, onDelete }: Props) {
           <Button onClick={handleSave}>{t('button.save')}</Button>
         </div>
       ) : (
-        <div className="flex justify-between gap-4">
+        <div className="flex flex-wrap justify-between gap-4 md:flex-nowrap">
           <Paragraph className="m-0 font-medium">{value}</Paragraph>
-          <PencilBold className="size-6 cursor-pointer text-basic-blue" onClick={() => setIsEditing(true)} />
-          <XBold className="size-6 cursor-pointer text-status-danger-300" onClick={onDelete} />
+          <div className="flex w-14 gap-2">
+            <PencilBold className="size-6 cursor-pointer text-basic-blue" onClick={() => setIsEditing(true)} />
+            <XBold className="size-6 cursor-pointer text-status-danger-300" onClick={onDelete} />
+          </div>
         </div>
       )}
     </div>

@@ -46,7 +46,7 @@ export function CodeOfHonor() {
       })}
       {user?.codeOfHonorSignDate ? (
         <div className="flex flex-col gap-1">
-          <Paragraph>Ви надали згоду, щодо принципів та норм, які наведені в представлених документах.</Paragraph>
+          <Paragraph>{t('codeOfHonor.agreement')}</Paragraph>
           <Paragraph className="m-0">{user?.codeOfHonorSignDate}</Paragraph>
         </div>
       ) : (
