@@ -166,11 +166,12 @@
         "group": "Група",
         "grade-book": "№ залікової книги",
         "education-form": "Форма навчання",
-        "study-year": "Курс навчання:",
+        "study-year": "Курс навчання",
         "speciality": "Спеціальність",
         "fullNameEN": "ПІБ(англійською)",
         "academic-degree": "Науковий ступінь",
-        "academic-status": "Вчене звання"
+        "academic-status": "Вчене звання",
+        "position": "Посада"
       },
       "contact": {
         "title": "Контакт",

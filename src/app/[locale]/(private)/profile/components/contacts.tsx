@@ -11,7 +11,7 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { EditableItem } from '@/app/[locale]/(private)/profile/components/editable-item';
+import { ContactEditor } from '@/app/[locale]/(private)/profile/components/contact-editor';
 import { useTranslations } from 'next-intl';
 
 interface Props {
@@ -58,7 +58,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
         <Separator />
         <div className="flex w-full flex-col gap-4">
           {contacts.map((contact) => (
-            <EditableItem
+            <ContactEditor
               key={contact.id}
               label={contact.type.name}
               value={contact.value}

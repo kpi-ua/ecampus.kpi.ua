@@ -12,6 +12,7 @@ import { User } from '@/types/user';
 import { updateIntellectInfo } from '@/actions/profile.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useTranslations } from 'next-intl';
+import { Show } from '@/components/utils/show';
 
 export function IntellectPublicationInfo() {
   const isMobile = useIsMobile();
@@ -46,30 +47,32 @@ export function IntellectPublicationInfo() {
 
       <div className="flex flex-col gap-1">
         <label className="text-base font-semibold text-neutral-600">{t('intellect.credo')}</label>
-        {isEditing ? (
+        <Show
+          when={isEditing}
+          fallback={<Paragraph className="m-0 text-lg font-medium">{credo || 'Не вказано'}</Paragraph>}
+        >
           <Input
             className="w-full"
             value={credo}
             onChange={(e) => setCredo(e.target.value)}
             placeholder="Введіть улюблену цитату"
           />
-        ) : (
-          <Paragraph className="m-0 text-lg font-medium">{credo || 'Не вказано'}</Paragraph>
-        )}
+        </Show>
       </div>
 
       <div className="flex flex-col gap-1">
         <label className="text-base font-semibold text-neutral-600">{t('intellect.scientificInterests')}</label>
-        {isEditing ? (
+        <Show
+          when={isEditing}
+          fallback={<Paragraph className="m-0 text-lg font-medium">{scientificInterests || 'Не вказано'}</Paragraph>}
+        >
           <Input
             className="w-full"
             value={scientificInterests}
             onChange={(e) => setScientificInterests(e.target.value)}
             placeholder="Введіть напрями досліджень"
           />
-        ) : (
-          <Paragraph className="m-0 text-lg font-medium">{scientificInterests || 'Не вказано'}</Paragraph>
-        )}
+        </Show>
       </div>
 
       <div className="flex justify-end">

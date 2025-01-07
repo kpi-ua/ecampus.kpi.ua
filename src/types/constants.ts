@@ -1,6 +1,6 @@
 export const USER_CATEGORIES = {
   Student: 'Студент',
-  Lecturer: 'НПП',
+  Lecturer: 'Науково-педагогічний працівник',
 };
 
 export const EMPLOYMENT_TYPE = {

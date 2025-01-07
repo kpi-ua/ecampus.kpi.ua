@@ -12,7 +12,7 @@ interface Props {
   label?: string;
 }
 
-export function EditableItem({ label, value, onSave, onDelete }: Props) {
+export function ContactEditor({ label, value, onSave, onDelete }: Props) {
   const [isEditing, setIsEditing] = useState(!value);
   const [currentValue, setCurrentValue] = useState(value);
 

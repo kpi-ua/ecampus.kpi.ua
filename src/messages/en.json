@@ -166,10 +166,11 @@
         "grade-book": "Grade book number",
         "education-form": "Form of study",
         "study-year": "Study year:",
-        "speciality": "speciality",
+        "speciality": "Speciality",
         "fullNameEN": "Full name in English",
         "academic-degree": "Academic degree",
-        "academic-status": "Academic title"
+        "academic-status": "Academic title",
+        "position": "Position"
       },
       "contact": {
         "title": "Contact",

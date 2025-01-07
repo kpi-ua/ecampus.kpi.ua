@@ -14,6 +14,7 @@ import { CodeOfHonor } from '@/app/[locale]/(private)/profile/components/code-of
 import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/user';
 import { useIsClient } from '@/hooks/use-is-client';
+import { Show } from '@/components/utils/show';
 
 interface Props {
   contacts: Contact[];
@@ -43,8 +44,10 @@ export function Profile({ contacts, contactTypes }: Props) {
           <Card className="h-fit w-full">
             <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
               <Contacts contacts={contacts} contactTypes={contactTypes} />
-              {isEmployee && <IntellectAgreement />}
-              {isEmployee && <IntellectPublicationInfo />}
+              <Show when={isEmployee}>
+                <IntellectAgreement />
+                <IntellectPublicationInfo />
+              </Show>
               <CodeOfHonor />
             </CardContent>
           </Card>
