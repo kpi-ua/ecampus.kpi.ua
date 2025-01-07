@@ -2,7 +2,6 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { ProfilePicture } from '@/app/[locale]/(private)/profile-picture';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { Heading4, Heading6 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
@@ -16,6 +15,7 @@ import React from 'react';
 import { FullNameEnglish } from '@/app/[locale]/(private)/profile/components/fullname-english';
 import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
 import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
+import { ProfilePicture } from '@/components/ui/profile-picture';
 
 interface Props {
   className?: string;
@@ -44,7 +44,7 @@ export function InfoBlock({ className }: Props) {
     <Card className={cn(className)}>
       <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
         <div className="flex flex-col gap-6 md:flex-row">
-          <ProfilePicture />
+          <ProfilePicture size="xl" src={user?.photo || ''} />
           <div className="flex flex-col gap-4 md:gap-2">
             <Heading4>{user?.fullName}</Heading4>
             <FullNameEnglish fullNameEnglish={user?.fullNameEnglish || ''} onSave={handleSaveFullNameEn} />

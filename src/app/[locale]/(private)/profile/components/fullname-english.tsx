@@ -6,12 +6,12 @@ import { Heading6 } from '@/components/typography/headers';
 import { PencilBold } from '@/app/images';
 import { Show } from '@/components/utils/show';
 
-interface FullNameEnglishProps {
+interface Props {
   fullNameEnglish: string;
   onSave: (newName: string) => void;
 }
 
-export function FullNameEnglish({ fullNameEnglish, onSave }: FullNameEnglishProps) {
+export function FullNameEnglish({ fullNameEnglish, onSave }: Props) {
   const t = useTranslations('private.profile');
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(fullNameEnglish);
