@@ -27,7 +27,7 @@ export function Profile({ contacts, contactTypes }: Props) {
 
   const isClient = useIsClient();
 
-  const isStudent = !!user?.studentProfile;
+  const isEmployee = !!user?.employeeProfile;
 
   if (!isClient) {
     return null;
@@ -43,9 +43,9 @@ export function Profile({ contacts, contactTypes }: Props) {
           <Card className="h-fit w-full">
             <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
               <Contacts contacts={contacts} contactTypes={contactTypes} />
-              {!isStudent && <IntellectAgreement />}
-              {!isStudent && <IntellectPublicationInfo />}
-              {isStudent && <CodeOfHonor />}
+              {isEmployee && <IntellectAgreement />}
+              {isEmployee && <IntellectPublicationInfo />}
+              <CodeOfHonor />
             </CardContent>
           </Card>
         </div>

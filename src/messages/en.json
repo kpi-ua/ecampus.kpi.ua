@@ -159,14 +159,17 @@
       "title": "Profile",
       "subtitle": "Here you can view your profile, edit contacts, add links to accounts, and set appointment details.",
       "info": {
-        "title": "Information about place of study (work)",
+        "education-title": "Information about place of study",
+        "work-title": "Information about place of work",
         "subdivision": "Subdivision",
         "group": "Group",
         "grade-book": "Grade book number",
-        "study-form": "Form of study",
-        "course": "Course of study:",
-        "specialty": "Specialty",
-        "fullNameEN": "Full name in English"
+        "education-form": "Form of study",
+        "study-year": "Study year:",
+        "speciality": "speciality",
+        "fullNameEN": "Full name in English",
+        "academic-degree": "Academic degree",
+        "academic-status": "Academic title"
       },
       "contact": {
         "title": "Contact",
