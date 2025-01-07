@@ -7,9 +7,9 @@ import { Paragraph } from '@/components/typography/paragraph';
 
 interface Props {
   onSave: (newValue: string) => void;
+  onDelete: () => void;
   value?: string;
   label?: string;
-  onDelete?: () => void;
 }
 
 export function EditableItem({ label, value, onSave, onDelete }: Props) {
@@ -39,8 +39,8 @@ export function EditableItem({ label, value, onSave, onDelete }: Props) {
       ) : (
         <div className="flex justify-between gap-4">
           <Paragraph className="m-0 font-medium">{value}</Paragraph>
-          <PencilBold className="h-6 w-6 cursor-pointer text-basic-blue" onClick={() => setIsEditing(true)} />
-          <XBold className="h-6 w-6 cursor-pointer text-status-danger-300" onClick={onDelete} />
+          <PencilBold className="size-6 cursor-pointer text-basic-blue" onClick={() => setIsEditing(true)} />
+          <XBold className="size-6 cursor-pointer text-status-danger-300" onClick={onDelete} />
         </div>
       )}
     </div>

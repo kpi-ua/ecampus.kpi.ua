@@ -56,7 +56,6 @@ export function Contacts({ contacts, contactTypes }: Props) {
       <div className="flex w-full flex-col gap-3">
         <Heading6>{t('contact.title')}</Heading6>
         <Separator />
-
         <div className="flex w-full flex-col gap-4">
           {contacts.map((contact) => (
             <EditableItem
@@ -73,7 +72,6 @@ export function Contacts({ contacts, contactTypes }: Props) {
       <div className="mt-6 flex flex-col gap-3">
         <Heading6>{t('contact.add-contact')}</Heading6>
         <Separator />
-
         <Form {...form}>
           <form className="flex flex-col" onSubmit={form.handleSubmit(handleFormSubmit)}>
             <div className="flex flex-col gap-5 md:flex-row">
@@ -104,7 +102,6 @@ export function Contacts({ contacts, contactTypes }: Props) {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="contactValue"
