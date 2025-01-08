@@ -11,6 +11,8 @@ import { setIntellectAgreement } from '@/actions/profile.actions';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import Link from 'next/link';
+import { Show } from '@/components/utils/show';
 
 export function IntellectAgreement() {
   const isMobile = useIsMobile();
@@ -43,8 +45,13 @@ export function IntellectAgreement() {
           ? t('intellect.intellectProfileEnabled')
           : t('intellect.intellectProfileDisabled')}
       </Paragraph>
+      <Show when={!!user?.intellectProfileEnabled}>
+        <Link className="text-lg font-semibold" href={user?.intellectProfile || '/'}>
+          {t('intellect.profile-link')}
+        </Link>
+      </Show>
 
-      <Button className="ml-auto w-fit" loading={loading} onClick={handleClick} size={isMobile ? 'medium' : 'big'}>
+      <Button className="ml-auto mt-2 w-fit" loading={loading} onClick={handleClick} size={isMobile ? 'medium' : 'big'}>
         {user?.intellectProfileEnabled ? t('button.revoke-permission') : t('button.grant-permission')}
       </Button>
     </div>

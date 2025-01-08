@@ -185,7 +185,8 @@
         "intellectProfileEnabled": "You have allowed the placement of your personal information on the intellect.kpi.ua website on the Internet.",
         "intellectProfileDisabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
         "credo": "Credo",
-        "scientificInterests": "Research areas"
+        "scientificInterests": "Research areas",
+        "profile-link":"Link to profile"
       },
       "codeOfHonor": {
         "title": "Code of honor",

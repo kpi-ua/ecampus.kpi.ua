@@ -186,7 +186,8 @@
         "intellectProfileEnabled": "Ви дозволили розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
         "intellectProfileDisabled": "Надайте дозвіл на розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
         "credo": "Улюблена цитата",
-        "scientificInterests": "Напрями досліджень"
+        "scientificInterests": "Напрями досліджень",
+        "profile-link":"Посилання на профіль"
       },
       "codeOfHonor": {
         "title": "Кодекс честі",
