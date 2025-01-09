@@ -4,7 +4,14 @@ import { useTranslations } from 'next-intl';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-const SECTIONS = ['how-to-register', 'how-to-restore-password'];
+const SECTIONS = [
+  'how-to-register',
+  'how-to-restore-password',
+  'group-has-no-students',
+  'student-missing-in-control',
+  'wrong-student-group',
+  'extra-disciplines-in-control',
+];
 
 const INTL_NAMESPACE = 'private.faq';
 
