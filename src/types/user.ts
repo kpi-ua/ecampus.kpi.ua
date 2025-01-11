@@ -1,6 +1,6 @@
 import { StudentProfile } from '@/types/student-profile';
 import { EmployeeProfile } from '@/types/employee-profile';
-import { USER_CATEGORIES } from '@/types/constants';
+import { UserCategories } from '@/types/constants';
 
 export interface User {
   id: number;
@@ -16,7 +16,7 @@ export interface User {
   modules: string[];
   intellectProfileEnabled: boolean;
   intellectProfile?: string;
-  userCategories: (keyof typeof USER_CATEGORIES)[];
+  userCategories: UserCategories[];
   codeOfHonorSignDate: string;
   studentProfile?: StudentProfile;
   employeeProfile?: EmployeeProfile;

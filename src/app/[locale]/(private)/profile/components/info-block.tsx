@@ -12,10 +12,10 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { User } from '@/types/user';
 import { USER_CATEGORIES } from '@/types/constants';
 import React from 'react';
-import { FullNameEnglish } from '@/app/[locale]/(private)/profile/components/fullname-english';
 import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
 import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
 import { ProfilePicture } from '@/components/ui/profile-picture';
+import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
 
 interface Props {
   className?: string;
@@ -43,11 +43,18 @@ export function InfoBlock({ className }: Props) {
   return (
     <Card className={cn(className)}>
       <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
-        <div className="flex flex-col gap-6 md:flex-row">
+        <div className="flex w-full flex-col gap-6 md:flex-row">
           <ProfilePicture size="xl" src={user?.photo || ''} />
           <div className="flex flex-col gap-4 md:gap-2">
             <Heading4>{user?.fullName}</Heading4>
-            <FullNameEnglish fullNameEnglish={user?.fullNameEnglish || ''} onSave={handleSaveFullNameEn} />
+            <EditableField
+              size="small"
+              value={user?.fullNameEnglish || ''}
+              onSave={handleSaveFullNameEn}
+              renderValue={(value: string) => <Heading6>{value}</Heading6>}
+              disableClearValue
+              placeholder={t('info.full-name-EN')}
+            />
             <div className="flex gap-2">
               {user?.userCategories.map((category) => (
                 <Heading6 key={category} className="text-basic-blue">

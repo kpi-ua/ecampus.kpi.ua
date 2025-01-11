@@ -63,7 +63,7 @@ export function IntellectPublicationInfo() {
       </div>
 
       <div className="flex flex-col gap-1">
-        <label className="text-base font-semibold text-neutral-600">{t('intellect.scientificInterests')}</label>
+        <label className="text-base font-semibold text-neutral-600">{t('intellect.scientific-interests')}</label>
         <Show
           when={isEditing}
           fallback={
@@ -76,7 +76,7 @@ export function IntellectPublicationInfo() {
             className="w-full"
             value={scientificInterests}
             onChange={(e) => setScientificInterests(e.target.value)}
-            placeholder={t('placeholder.scientificInterests')}
+            placeholder={t('placeholder.scientific-interests')}
           />
         </Show>
       </div>

@@ -28,11 +28,12 @@ export function CodeOfHonor() {
   const handleAcceptCodeOfHonor = async () => {
     setLoading(true);
     const res = await acceptCodeOfHonor();
+    setLoading(false);
+
     if (!res) {
       errorToast();
       return;
     }
-    setLoading(false);
     setUser(res);
   };
 

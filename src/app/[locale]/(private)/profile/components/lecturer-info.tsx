@@ -1,10 +1,11 @@
-import { EmployeeProfile } from '@/types/employee-profile';
-import { Paragraph } from '@/components/typography/paragraph';
-import { Heading6 } from '@/components/typography/headers';
+import { EmployeePosition, EmployeeProfile } from '@/types/employee-profile';
 import React from 'react';
-import { Separator } from '@/components/ui/separator';
 import { EMPLOYMENT_TYPE } from '@/types/constants';
 import { useTranslations } from 'next-intl';
+import { InfoItem, InfoList } from './info-list';
+import { Heading6 } from '@/components/typography/headers';
+import { Show } from '@/components/utils/show';
+import { Separator } from '@/components/ui/separator';
 
 interface Props {
   employeeProfile: EmployeeProfile;
@@ -12,41 +13,28 @@ interface Props {
 export function LecturerInfo({ employeeProfile }: Props) {
   const t = useTranslations('private.profile');
 
-  const employeeInfo: { label: string; value?: number | string }[] = [
-    {
-      label: t('info.academic-degree'),
-      value: employeeProfile?.academicDegree,
-    },
-    {
-      label: t('info.academic-status'),
-      value: employeeProfile?.academicStatus,
-    },
+  const employeeInfo: InfoItem[] = [
+    { label: t('info.academic-degree'), value: employeeProfile?.academicDegree },
+    { label: t('info.academic-status'), value: employeeProfile?.academicStatus },
   ];
+
+  const formatPositions = (position: EmployeePosition) => {
+    return [
+      { label: t('info.position'), value: `${position.name} (${EMPLOYMENT_TYPE[position.employment]})` },
+      { label: t('info.subdivision'), value: position.subdivision.name },
+    ];
+  };
 
   return (
     <div className="flex flex-col gap-4">
-      {employeeInfo.map((item, index) => (
-        <div key={index} className="flex flex-col gap-3 md:flex-row md:gap-6">
-          <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{item.label}:</Paragraph>
-          <Paragraph className="m-0 font-medium">{item.value}</Paragraph>
-        </div>
-      ))}
-
-      <Heading6>{t('info.positions')}</Heading6>
+      <InfoList items={employeeInfo} />
+      <Show when={employeeProfile.positions.length !== 0}>
+        <Heading6>{t('info.positions')}</Heading6>
+      </Show>
       {employeeProfile.positions.map((position, index) => (
         <React.Fragment key={index}>
           <Separator />
-          <div className="flex flex-col gap-3 md:flex-row md:gap-6">
-            <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.position')}:</Paragraph>
-            <Paragraph className="m-0 font-medium">
-              {position.name} ({EMPLOYMENT_TYPE[position.employment]})
-            </Paragraph>
-          </div>
-
-          <div className="flex flex-col gap-3 md:flex-row md:gap-6">
-            <Paragraph className="m-0 w-[170px] font-semibold text-neutral-400">{t('info.subdivision')}:</Paragraph>
-            <Paragraph className="m-0 font-medium">{position.subdivision.name}</Paragraph>
-          </div>
+          <InfoList items={formatPositions(position)} />
         </React.Fragment>
       ))}
     </div>

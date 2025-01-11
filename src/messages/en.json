@@ -167,7 +167,7 @@
         "education-form": "Form of study",
         "study-year": "Study year:",
         "speciality": "Speciality",
-        "fullNameEN": "Full name in English",
+        "full-name-EN": "Full name in English",
         "academic-degree": "Academic degree",
         "academic-status": "Academic title",
         "position": "Position",
@@ -176,16 +176,22 @@
       "contact": {
         "title": "Contact",
         "add-contact": "Add contact",
+        "edit-contact": "Edit contact",
+        "delete-contact": "Delete contact",
         "contact-type": "Contact Type",
-        "choose-contact-type": "Choose contact type"
+        "choose-contact-type": "Choose contact type",
+        "delete-dialog-title": "Deletion",
+        "delete-dialog-description": "Are you sure you want to delete this contact?",
+        "delete-dialog-cancel": "Cancel",
+        "delete-dialog-confirm": "Delete"
       },
       "intellect": {
         "info-title": "Information for publication on the intellect.kpi.ua website on the Internet",
         "agreement-title": "Consent for publication of data on the intellect.kpi.ua website on the Internet",
-        "intellectProfileEnabled": "You have allowed the placement of your personal information on the intellect.kpi.ua website on the Internet.",
-        "intellectProfileDisabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
+        "intellect-profile-enabled": "You have allowed the placement of your personal information on the intellect.kpi.ua website on the Internet.",
+        "intellect-profile-disabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
         "credo": "Credo",
-        "scientificInterests": "Research areas",
+        "scientific-interests": "Scientific interests",
         "profile-link":"Link to profile"
       },
       "codeOfHonor": {
@@ -203,7 +209,7 @@
       },
       "placeholder": {
         "credo": "Enter your credo",
-        "scientificInterests": "Enter your scientific interests",
+        "scientific-interests": "Enter your scientific interests",
         "not-specified": "Not specified"
       }
     },

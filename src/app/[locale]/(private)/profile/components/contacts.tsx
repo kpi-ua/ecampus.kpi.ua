@@ -11,8 +11,9 @@ import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ContactEditor } from '@/app/[locale]/(private)/profile/components/contact-editor';
 import { useTranslations } from 'next-intl';
+import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
+import { Fragment } from 'react';
 
 interface Props {
   contacts: Contact[];
@@ -58,13 +59,14 @@ export function Contacts({ contacts, contactTypes }: Props) {
         <Separator />
         <div className="flex w-full flex-col gap-4">
           {contacts.map((contact) => (
-            <ContactEditor
-              key={contact.id}
-              label={contact.type.name}
-              value={contact.value}
-              onSave={(newValue) => handleUpdateContact(contact.id, contact.type.id, newValue)}
-              onDelete={() => handleDeleteContact(contact.id)}
-            />
+            <Fragment key={contact.id}>
+              <EditableField
+                label={contact.type.name}
+                value={contact.value}
+                onSave={(newValue) => handleUpdateContact(contact.id, contact.type.id, newValue)}
+                onDelete={() => handleDeleteContact(contact.id)}
+              />
+            </Fragment>
           ))}
         </div>
       </div>

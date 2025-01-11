@@ -1,14 +1,14 @@
-import { EMPLOYMENT_TYPE } from '@/types/constants';
+import { EmploymentType } from '@/types/constants';
 
 interface Subdivision {
   id: number;
   name: string;
 }
 
-interface EmployeePosition {
+export interface EmployeePosition {
   name: string;
   subdivision: Subdivision;
-  employment: keyof typeof EMPLOYMENT_TYPE;
+  employment: EmploymentType;
 }
 
 export interface EmployeeProfile {

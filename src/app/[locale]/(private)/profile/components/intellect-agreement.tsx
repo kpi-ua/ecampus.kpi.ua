@@ -25,14 +25,14 @@ export function IntellectAgreement() {
 
   const [loading, setLoading] = useState(false);
 
-  const handleClick = async () => {
+  const handleIntellectAgreementClick = async () => {
     setLoading(true);
     const res = await setIntellectAgreement(!user?.intellectProfileEnabled);
+    setLoading(false);
     if (!res) {
       errorToast();
       return;
     }
-    setLoading(false);
     setUser(res);
   };
 
@@ -42,8 +42,8 @@ export function IntellectAgreement() {
       <Separator />
       <Paragraph className="m-0">
         {user?.intellectProfileEnabled
-          ? t('intellect.intellectProfileEnabled')
-          : t('intellect.intellectProfileDisabled')}
+          ? t('intellect.intellect-profile-enabled')
+          : t('intellect.intellect-profile-disabled')}
       </Paragraph>
       <Show when={!!user?.intellectProfileEnabled}>
         <Link className="text-lg font-semibold" href={user?.intellectProfile || '/'}>
@@ -51,7 +51,12 @@ export function IntellectAgreement() {
         </Link>
       </Show>
 
-      <Button className="ml-auto mt-2 w-fit" loading={loading} onClick={handleClick} size={isMobile ? 'medium' : 'big'}>
+      <Button
+        className="ml-auto mt-2 w-fit"
+        loading={loading}
+        onClick={handleIntellectAgreementClick}
+        size={isMobile ? 'medium' : 'big'}
+      >
         {user?.intellectProfileEnabled ? t('button.revoke-permission') : t('button.grant-permission')}
       </Button>
     </div>

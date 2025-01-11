@@ -168,7 +168,7 @@
         "education-form": "Форма навчання",
         "study-year": "Курс навчання",
         "speciality": "Спеціальність",
-        "fullNameEN": "ПІБ(англійською)",
+        "full-name-EN": "ПІБ(англійською)",
         "academic-degree": "Науковий ступінь",
         "academic-status": "Вчене звання",
         "position": "Посада",
@@ -177,16 +177,22 @@
       "contact": {
         "title": "Контакт",
         "add-contact": "Додати контакт",
+        "edit-contact": "Редагувати контакт",
+        "delete-contact": "Видалити контакт",
         "contact-type": "Вид контакту",
-        "choose-contact-type": "Оберіть вид контакту"
+        "choose-contact-type": "Оберіть вид контакту",
+        "delete-dialog-title": "Видалення",
+        "delete-dialog-description": "Ви дійсно бажаєте видалити даний контакт?",
+        "delete-dialog-cancel": "Відміна",
+        "delete-dialog-confirm": "Видалити"
       },
       "intellect": {
         "info-title": "Інформація для публікації на сайті intellect.kpi.ua в мережі Інтернет",
         "agreement-title": "Згода на публікацію даних на сайті intellect.kpi.ua в мережі Інтернет",
-        "intellectProfileEnabled": "Ви дозволили розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
-        "intellectProfileDisabled": "Надайте дозвіл на розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
+        "intellect-profile-enabled": "Ви дозволили розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
+        "intellect-profile-disabled": "Надайте дозвіл на розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
         "credo": "Улюблена цитата",
-        "scientificInterests": "Напрями досліджень",
+        "scientific-interests": "Напрями досліджень",
         "profile-link":"Посилання на профіль"
       },
       "codeOfHonor": {
@@ -204,7 +210,7 @@
       },
       "placeholder": {
         "credo": "Введіть улюблену цитату",
-        "scientificInterests": "Введіть напрями досліджень",
+        "scientific-interests": "Введіть напрями досліджень",
         "not-specified": "Не вказано"
       }
     },
