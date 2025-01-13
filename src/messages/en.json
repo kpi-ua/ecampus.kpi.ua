@@ -15,6 +15,10 @@
       "download": "Download",
       "view": "View"
     },
+    "tooltip": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
     "menu": {
       "main": "Home",
       "profile": "Profile",
@@ -176,8 +180,6 @@
       "contact": {
         "title": "Contact",
         "add-contact": "Add contact",
-        "edit-contact": "Edit contact",
-        "delete-contact": "Delete contact",
         "contact-type": "Contact Type",
         "choose-contact-type": "Choose contact type",
         "delete-dialog-title": "Deletion",

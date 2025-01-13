@@ -15,6 +15,10 @@
       "download": "Завантажити",
       "view": "Ознайомитись"
     },
+    "tooltip": {
+      "edit": "Редагувати",
+      "delete": "Видалити"
+    },
     "menu": {
       "main": "Головна",
       "profile": "Профіль",
@@ -177,8 +181,6 @@
       "contact": {
         "title": "Контакт",
         "add-contact": "Додати контакт",
-        "edit-contact": "Редагувати контакт",
-        "delete-contact": "Видалити контакт",
         "contact-type": "Вид контакту",
         "choose-contact-type": "Оберіть вид контакту",
         "delete-dialog-title": "Видалення",

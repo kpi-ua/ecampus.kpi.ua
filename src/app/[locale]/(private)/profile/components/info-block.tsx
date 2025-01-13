@@ -48,11 +48,12 @@ export function InfoBlock({ className }: Props) {
           <div className="flex flex-col gap-4 md:gap-2">
             <Heading4>{user?.fullName}</Heading4>
             <EditableField
+              disableClearValue
+              showStarter
               size="small"
               value={user?.fullNameEnglish || ''}
               onSave={handleSaveFullNameEn}
               renderValue={(value: string) => <Heading6>{value}</Heading6>}
-              disableClearValue
               placeholder={t('info.full-name-EN')}
             />
             <div className="flex gap-2">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Paragraph } from '@/components/typography/paragraph';
@@ -41,8 +41,15 @@ export function EditableField({
   placeholder,
 }: EditableFieldProps) {
   const t = useTranslations('private.profile');
+  const tTooltip = useTranslations('global.tooltip');
   const [isEditing, setIsEditing] = useState(!value);
   const [currentValue, setCurrentValue] = useState(value || '');
+
+  useEffect(() => {
+    if (!value) {
+      setIsEditing(true);
+    }
+  }, [value]);
 
   const handleSave = () => {
     onSave(currentValue);
@@ -91,7 +98,7 @@ export function EditableField({
                   />
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{t('contact.edit-contact')}</p>
+                  <p>{tTooltip('edit')}</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -110,7 +117,7 @@ export function EditableField({
                       </AlertDialogTrigger>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{t('contact.delete-contact')}</p>
+                      <p>{tTooltip('delete')}</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
