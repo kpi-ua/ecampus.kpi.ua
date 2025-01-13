@@ -131,8 +131,10 @@ export function EditableField({
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter className="flex h-[44px] gap-4">
-                    <AlertDialogCancel className="w-full">{t('contact.delete-dialog-cancel')}</AlertDialogCancel>
-                    <AlertDialogAction className="w-full" onClick={handleDelete}>
+                    <AlertDialogCancel className="h-[44px] w-full">
+                      {t('contact.delete-dialog-cancel')}
+                    </AlertDialogCancel>
+                    <AlertDialogAction className="h-[44px] w-full" onClick={handleDelete}>
                       {t('contact.delete-dialog-confirm')}
                     </AlertDialogAction>
                   </AlertDialogFooter>
