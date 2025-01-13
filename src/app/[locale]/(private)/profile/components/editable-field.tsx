@@ -121,7 +121,7 @@ export function EditableField({
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
-                <AlertDialogContent className="w-[400px]">
+                <AlertDialogContent className="max-w-[400px] rounded-[12px]">
                   <AlertDialogHeader>
                     <AlertDialogTitle>
                       <Heading6>{t('contact.delete-dialog-title')}</Heading6>
@@ -130,7 +130,7 @@ export function EditableField({
                       {t('contact.delete-dialog-description')}
                     </AlertDialogDescription>
                   </AlertDialogHeader>
-                  <AlertDialogFooter className="flex h-[44px] flex-col sm:flex-row sm:justify-between sm:space-x-2">
+                  <AlertDialogFooter className="flex h-[44px] gap-4">
                     <AlertDialogCancel className="w-full">{t('contact.delete-dialog-cancel')}</AlertDialogCancel>
                     <AlertDialogAction className="w-full" onClick={handleDelete}>
                       {t('contact.delete-dialog-confirm')}

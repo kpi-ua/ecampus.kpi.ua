@@ -2,14 +2,12 @@
 
 import * as React from 'react';
 import * as AlertDialogPrimitive from '@radix-ui/react-alert-dialog';
-
 import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { X } from '@/app/images';
 
 const AlertDialog = AlertDialogPrimitive.Root;
-
 const AlertDialogTrigger = AlertDialogPrimitive.Trigger;
-
 const AlertDialogPortal = AlertDialogPrimitive.Portal;
 
 const AlertDialogOverlay = React.forwardRef<
@@ -40,7 +38,12 @@ const AlertDialogContent = React.forwardRef<
         className,
       )}
       {...props}
-    />
+    >
+      <AlertDialogPrimitive.Cancel asChild className="absolute right-3 top-3">
+        <Button className="text-gray-600 focus:outline-none" variant="tertiary" icon={<X />} />
+      </AlertDialogPrimitive.Cancel>
+      {props.children}
+    </AlertDialogPrimitive.Content>
   </AlertDialogPortal>
 ));
 AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;
@@ -51,7 +54,7 @@ const AlertDialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDiv
 AlertDialogHeader.displayName = 'AlertDialogHeader';
 
 const AlertDialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn('flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2', className)} {...props} />
+  <div className={cn('flex sm:flex-row sm:justify-end sm:space-x-2', className)} {...props} />
 );
 AlertDialogFooter.displayName = 'AlertDialogFooter';
 
