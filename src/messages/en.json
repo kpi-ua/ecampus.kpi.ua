@@ -130,7 +130,7 @@
       "sections": {
         "how-to-register": {
           "header": "How to register on campus or get a login and password?",
-          "content": "<p><b>For teachers</b> - contact the person in charge at the department or the head of the department to submit an official letter <documentlink>according to the template.</documentlink></p><p><b>For students</b> - contact your <curatorlnik>academic curator.</curatorlnik></p><p><b>For graduate students</b> - contact the graduate and doctoral studies department.</p>"
+          "content": "<p><b>For teachers</b> - contact the person in charge at the department or the head of the department to submit an official letter <documentlink>according to the template.</documentlink></p><p><b>For students</b> - contact your <curatorlink>academic curator.</curatorlink></p><p><b>For graduate students</b> - contact the graduate and doctoral studies department.</p>"
         },
         "how-to-restore-password": {
           "header": "How to recover a password?",

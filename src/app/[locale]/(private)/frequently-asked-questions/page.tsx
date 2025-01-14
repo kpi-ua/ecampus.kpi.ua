@@ -1,10 +1,9 @@
-import { Heading1, Heading4 } from '@/components/typography/headers';
+import { Heading1 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
-import dayjs from 'dayjs';
 
 const SECTIONS = [
   'how-to-register',
@@ -38,12 +37,13 @@ export default function FAQPage({ params: { locale } }: { params: { locale: stri
           {SECTIONS.map((section) => {
             const header = t(`sections.${section}.header`);
             const content = t.rich(`sections.${section}.content`, {
+              b: (chunks) => <span className="font-semibold">{chunks}</span>,
               documentlink: (chunks) => (
-                <Link href="https://document.kpi.ua/2024_RP-294" target="_blank">
+                <Link href={process.env.NEXT_PUBLIC_CAMPUS_DOCUMENT_TEMPLATE!} target="_blank">
                   {chunks}
                 </Link>
               ),
-              curatorlnik: (chunks) => (
+              curatorlink: (chunks) => (
                 <Link href={process.env.NEXT_PUBLIC_CAMPUS_FIND_CURATOR!} target="_blank">
                   {chunks}
                 </Link>
@@ -56,36 +56,13 @@ export default function FAQPage({ params: { locale } }: { params: { locale: stri
             });
             return (
               <AccordionItem value={section} key={section} className="mb-4">
-                <AccordionTrigger className="font-bold text-lg">{header}</AccordionTrigger>
+                <AccordionTrigger className="text-lg font-bold">{header}</AccordionTrigger>
                 <AccordionContent className="ml-12 text-base">{content}</AccordionContent>
               </AccordionItem>
             );
           })}
         </Accordion>
       </div>
-
-      {/* Footer */}
-      <footer className="mt-8">
-        {t.rich('footer', {
-          kbislink: (chunks) => (
-            <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">
-              {chunks}
-            </Link>
-          ),
-          year: dayjs().year(),
-        })}
-      </footer>
-
-      {/* Retry Message */}
-      <p className="text-neutral-600 mt-4">
-        {t.rich('retryMessage', {
-          link: (chunks) => (
-            <Link href={{ pathname: '/password-reset', query: { username: 'example' } }}>
-              {chunks}
-            </Link>
-          ),
-        })}
-      </p>
     </SubLayout>
   );
 }
