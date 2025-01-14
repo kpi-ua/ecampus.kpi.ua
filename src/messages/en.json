@@ -126,15 +126,31 @@
       "title": "User manual"
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "title": "Frequently Asked Questions",
       "sections": {
         "how-to-register": {
-          "header": "How do I register on campus?",
-          "content": "<p>If you are an officially employed teacher and more than two weeks have passed since submitting your documents to the HR department - contact the person in charge at the department or the head of the department to submit an official letter.</p><p>If you are a student or graduate student - contact your academic curator.</p>"
+          "header": "How to register on campus or get a login and password?",
+          "content": "<p><b>For teachers</b> - contact the person in charge at the department or the head of the department to submit an official letter <documentlink>according to the template.</documentlink></p><p><b>For students</b> - contact your <curatorlink>academic curator.</curatorlink></p><p><b>For graduate students</b> - contact the graduate and doctoral studies department.</p>"
         },
         "how-to-restore-password": {
-          "header": "How to recover password?",
-          "content": "<p>To recover your password, use the button on the authorization panel. If you have not used the campus before, contact your supervisor.</p>"
+          "header": "How to recover a password?",
+          "content": "<p>If you changed your password and added an email, use the <restorepasswordlink>button</restorepasswordlink> on the authorization panel.</p><p>If you didn’t change your password or are unsure, refer to item 1 above.</p>"
+        },
+        "group-has-no-students": {
+          "header": "What to do if the group exists but has no students?",
+          "content": "<p>You need to contact the dean's office of your department to have the responsible person allocate students to the groups.</p>"
+        },
+        "student-missing-in-control": {
+          "header": "What to do if a student is in the group but missing in the current control?",
+          "content": "<p>Add the student manually through the appropriate field below the group list in the current control.</p>"
+        },
+        "wrong-student-group": {
+          "header": "What to do if my student cabinet shows the wrong group?",
+          "content": "<p>Contact the dean's office of your department to have the responsible person allocate students to the groups.</p>"
+        },
+        "extra-disciplines-in-control": {
+          "header": "What to do if there are extra disciplines in the current control?",
+          "content": "<p>Contact the instructor through your class leader or classmates and ask them to remove you from the list.</p>"
         }
       }
     },
