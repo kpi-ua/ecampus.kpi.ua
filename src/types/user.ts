@@ -1,18 +1,23 @@
+import { StudentProfile } from '@/types/student-profile';
+import { EmployeeProfile } from '@/types/employee-profile';
+import { UserCategories } from '@/types/constants';
+
 export interface User {
-  modules: string[];
-  position: string[];
-  subdivision: string[];
-  studyGroup?: string;
-  sid: string;
-  email: string;
-  scientificInterest: string;
-  username: string;
-  tgAuthLinked: boolean;
-  profiles: string[];
   id: number;
+  username: string;
+  email: string;
+  scientificInterests?: string;
   userIdentifier: string;
   fullName: string;
+  fullNameEnglish: string;
   photo: string;
-  credo?: string;
-  profile?: string;
+  credo: string;
+  sid: string;
+  modules: string[];
+  intellectProfileEnabled: boolean;
+  intellectProfile?: string;
+  userCategories: UserCategories[];
+  codeOfHonorSignDate: string;
+  studentProfile?: StudentProfile;
+  employeeProfile?: EmployeeProfile;
 }

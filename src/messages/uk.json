@@ -15,6 +15,10 @@
       "download": "Завантажити",
       "view": "Ознайомитись"
     },
+    "tooltip": {
+      "edit": "Редагувати",
+      "delete": "Видалити"
+    },
     "menu": {
       "main": "Головна",
       "profile": "Профіль",
@@ -171,6 +175,63 @@
       "title": "Контакти",
       "header": "Контакти",
       "content": "<h3>Контактнi данi</h3><p>Адреса конструкторського бюро: <addresslink>Україна, м. Київ, вул. Політехнічна 14-в</addresslink>, корпус 13, 4 поверх, 25 кабінет</p><h3>Соцiальнi мережi</h3><p><githublink>КПI у GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Служба підтримки</h3><p>Якщо у вас є питання, ви можете звернутися до служби підтримки:</p><complaintslink>Форма скарг i пропозицiй</complaintslink><br></br><emaillink>Email</emaillink>"
+    },
+
+    "profile": {
+      "title": "Профіль",
+      "subtitle": "Тут ви можете переглядати свій профіль, редагувати контакти, додавати посилання на облікові записи та назначати деталі прийому.",
+      "info": {
+        "education-title": "Дані за місцем навчання",
+        "work-title": "Дані за місцем роботи",
+        "subdivision": "Підрозділ",
+        "group": "Група",
+        "grade-book": "№ залікової книги",
+        "education-form": "Форма навчання",
+        "study-year": "Курс навчання",
+        "speciality": "Спеціальність",
+        "full-name-EN": "ПІБ(англійською)",
+        "academic-degree": "Науковий ступінь",
+        "academic-status": "Вчене звання",
+        "position": "Посада",
+        "positions": "Перелік посад"
+      },
+      "contact": {
+        "title": "Контакт",
+        "add-contact": "Додати контакт",
+        "contact-type": "Вид контакту",
+        "choose-contact-type": "Оберіть вид контакту",
+        "delete-dialog-title": "Видалення",
+        "delete-dialog-description": "Ви дійсно бажаєте видалити даний контакт?",
+        "delete-dialog-cancel": "Відміна",
+        "delete-dialog-confirm": "Видалити"
+      },
+      "intellect": {
+        "info-title": "Інформація для публікації на сайті intellect.kpi.ua в мережі Інтернет",
+        "agreement-title": "Згода на публікацію даних на сайті intellect.kpi.ua в мережі Інтернет",
+        "intellect-profile-enabled": "Ви дозволили розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
+        "intellect-profile-disabled": "Надайте дозвіл на розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
+        "credo": "Улюблена цитата",
+        "scientific-interests": "Напрями досліджень",
+        "profile-link":"Посилання на профіль"
+      },
+      "codeOfHonor": {
+        "title": "Кодекс честі",
+        "content":"<paragraph>Представлені <documentsLink>документи</documentsLink> Національного технічного університету України «Київський політехнічний інститут ім. Ігоря Сікорського» розроблені з урахуванням досвіду і зразків кращих університетів світу.\n\nТекст формувався на основі пропозицій громади університету, органів студентського самоврядування та профспілкових організацій.\n\nПрийняття принципів і норм, що наведені в цих документах, засвідчується згодою члена університетської громади.\n\n</paragraph>",
+        "agreement": "Ви надали згоду, щодо принципів та норм, які наведені в представлених документах."
+      },
+      "button": {
+        "save": "Зберегти",
+        "grant-permission": "Надати дозвіл",
+        "revoke-permission": "Скасувати дозвіл",
+        "add-new": "Додати новий",
+        "edit": "Редагувати",
+        "agree": "Погоджуюсь"
+      },
+      "placeholder": {
+        "credo": "Введіть улюблену цитату",
+        "scientific-interests": "Введіть напрями досліджень",
+        "not-specified": "Не вказано"
+      }
     },
 
     "settings": {

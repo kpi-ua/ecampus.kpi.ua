@@ -15,6 +15,10 @@
       "download": "Download",
       "view": "View"
     },
+    "tooltip": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
     "menu": {
       "main": "Home",
       "profile": "Profile",
@@ -169,6 +173,63 @@
     "contacts": {
       "title": "Contacts",
       "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><complaintslink>Complaints and suggestions form</complaintslink><br></br><emaillink>Email</emaillink>"
+    },
+
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Here you can view your profile, edit contacts, add links to accounts, and set appointment details.",
+      "info": {
+        "education-title": "Information about place of study",
+        "work-title": "Information about place of work",
+        "subdivision": "Subdivision",
+        "group": "Group",
+        "grade-book": "Grade book number",
+        "education-form": "Form of study",
+        "study-year": "Study year:",
+        "speciality": "Speciality",
+        "full-name-EN": "Full name in English",
+        "academic-degree": "Academic degree",
+        "academic-status": "Academic title",
+        "position": "Position",
+        "positions": "Positions"
+      },
+      "contact": {
+        "title": "Contact",
+        "add-contact": "Add contact",
+        "contact-type": "Contact Type",
+        "choose-contact-type": "Choose contact type",
+        "delete-dialog-title": "Deletion",
+        "delete-dialog-description": "Are you sure you want to delete this contact?",
+        "delete-dialog-cancel": "Cancel",
+        "delete-dialog-confirm": "Delete"
+      },
+      "intellect": {
+        "info-title": "Information for publication on the intellect.kpi.ua website on the Internet",
+        "agreement-title": "Consent for publication of data on the intellect.kpi.ua website on the Internet",
+        "intellect-profile-enabled": "You have allowed the placement of your personal information on the intellect.kpi.ua website on the Internet.",
+        "intellect-profile-disabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
+        "credo": "Credo",
+        "scientific-interests": "Scientific interests",
+        "profile-link":"Link to profile"
+      },
+      "codeOfHonor": {
+        "title": "Code of honor",
+        "content":"<paragraph>The presented <documentsLink>documents</documentsLink> of the National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\" were developed taking into account the experience and examples of the best universities in the world.\n\nThe text was formed on the basis of proposals from the university community, student self-government bodies and trade union organizations.\n\nThe adoption of the principles and norms given in these documents is certified by the consent of a member of the university community.\n\n</paragraph>",
+        "agreement": "You have agreed to the principles and standards set forth in the documents provided."
+      },
+      "button": {
+        "save": "Save",
+        "grant-permission": "Grant permission",
+        "revoke-permission": "Revoke permission",
+        "add-new": "Add new",
+        "edit": "Edit",
+        "agree": "Agree"
+      },
+      "placeholder": {
+        "credo": "Enter your credo",
+        "scientific-interests": "Enter your scientific interests",
+        "not-specified": "Not specified"
+      }
     },
 
     "settings": {
