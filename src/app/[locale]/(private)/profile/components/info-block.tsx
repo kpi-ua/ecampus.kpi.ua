@@ -49,7 +49,6 @@ export function InfoBlock({ className }: Props) {
             <Heading4>{user?.fullName}</Heading4>
             <EditableField
               disableClearValue
-              showStarter
               size="small"
               value={user?.fullNameEnglish || ''}
               onSave={handleSaveFullNameEn}
