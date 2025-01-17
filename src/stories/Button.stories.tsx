@@ -133,161 +133,371 @@ type Story = StoryObj<typeof meta>;
 
 export const WithIcons: Story = {
   args: {
-    className: "self-center justify-self-center",
-    variant: 'secondary'
+    className: 'self-center justify-self-center',
+    variant: 'secondary',
   },
   render: (args) => {
     return (
       <div className="grid grid-cols-3 gap-2">
-        <Button {...args}>ArrowsDownUpBold <ArrowsDownUpBold /></Button>
-        <Button {...args}>ArrowsDownUpLight <ArrowsDownUpLight /></Button>
-        <Button {...args}>ArrowsDownUpRegular <ArrowsDownUpRegular /></Button>
-        <Button {...args}>ArrowSquareOutBold <ArrowSquareOutBold /></Button>
-        <Button {...args}>ArrowSquareOutLight <ArrowSquareOutLight /></Button>
-        <Button {...args}>ArrowSquareOutRegular <ArrowSquareOutRegular /></Button>
-        <Button {...args}>Books <Books /></Button>
-        <Button {...args}>CalendarBlank <CalendarBlank /></Button>
-        <Button {...args}>Camera <Camera /></Button>
-        <Button {...args}>CaretDownBold <CaretDownBold /></Button>
-        <Button {...args}>CaretDownLight <CaretDownLight /></Button>
-        <Button {...args}>CaretDownRegular <CaretDownRegular /></Button>
-        <Button {...args}>CaretLeftBold <CaretLeftBold /></Button>
-        <Button {...args}>CaretLeftLight <CaretLeftLight /></Button>
-        <Button {...args}>CaretLeftRegular <CaretLeftRegular /></Button>
-        <Button {...args}>CaretRightBold <CaretRightBold /></Button>
-        <Button {...args}>CaretRightLight <CaretRightLight /></Button>
-        <Button {...args}>CaretRightRegular <CaretRightRegular /></Button>
-        <Button {...args}>CaretUpBold <CaretUpBold /></Button>
-        <Button {...args}>CaretUpLight <CaretUpLight /></Button>
-        <Button {...args}>CaretUpRegular <CaretUpRegular /></Button>
-        <Button {...args}>ChartBarHorizontal <ChartBarHorizontal /></Button>
-        <Button {...args}>ChatCenteredText <ChatCenteredText /></Button>
-        <Button {...args}>Check <Check /></Button>
-        <Button {...args}>CheckBold <CheckBold /></Button>
-        <Button {...args}>CheckLight <CheckLight /></Button>
-        <Button {...args}>CheckRegular <CheckRegular /></Button>
-        <Button {...args}>ChecksBold <ChecksBold /></Button>
-        <Button {...args}>ChecksLight <ChecksLight /></Button>
-        <Button {...args}>ChecksRegular <ChecksRegular /></Button>
-        <Button {...args}>CircleWavyCheck <CircleWavyCheck /></Button>
-        <Button {...args}>CopyBold <CopyBold /></Button>
-        <Button {...args}>CopyLight <CopyLight /></Button>
-        <Button {...args}>CopyRegular <CopyRegular /></Button>
-        <Button {...args}>CopySimple <CopySimple /></Button>
-        <Button {...args}>DotsThreeBold <DotsThreeBold /></Button>
-        <Button {...args}>DotsThreeDownBold <DotsThreeDownBold /></Button>
-        <Button {...args}>DotsThreeDownLight <DotsThreeDownLight /></Button>
-        <Button {...args}>DotsThreeDownRegular <DotsThreeDownRegular /></Button>
-        <Button {...args}>DotsThreeLight <DotsThreeLight /></Button>
-        <Button {...args}>DotsThreeRegular <DotsThreeRegular /></Button>
-        <Button {...args}>Exam <Exam /></Button>
-        <Button {...args}>EyeBold <EyeBold /></Button>
-        <Button {...args}>EyeClosedBold <EyeClosedBold /></Button>
-        <Button {...args}>EyeClosedLight <EyeClosedLight /></Button>
-        <Button {...args}>EyeClosedRegular <EyeClosedRegular /></Button>
-        <Button {...args}>EyeLight <EyeLight /></Button>
-        <Button {...args}>EyeRegular <EyeRegular /></Button>
-        <Button {...args}>EyeSlashBold <EyeSlashBold /></Button>
-        <Button {...args}>EyeSlashLight <EyeSlashLight /></Button>
-        <Button {...args}>EyeSlashRegular <EyeSlashRegular /></Button>
-        <Button {...args}>FinnTheHumanBold <FinnTheHumanBold /></Button>
-        <Button {...args}>FinnTheHumanLight <FinnTheHumanLight /></Button>
-        <Button {...args}>FinnTheHumanRegular <FinnTheHumanRegular /></Button>
-        <Button {...args}>Gear <Gear /></Button>
-        <Button {...args}>GearBold <GearBold /></Button>
-        <Button {...args}>GearLight <GearLight /></Button>
-        <Button {...args}>GearRegular <GearRegular /></Button>
-        <Button {...args}>GraduationCap <GraduationCap /></Button>
-        <Button {...args}>House <House /></Button>
-        <Button {...args}>IdentificationBadge <IdentificationBadge /></Button>
-        <Button {...args}>Info <Info /></Button>
-        <Button {...args}>Lifebuoy <Lifebuoy /></Button>
-        <Button {...args}>ListNumbers <ListNumbers /></Button>
-        <Button {...args}>MagnifyingGlassBold <MagnifyingGlassBold /></Button>
-        <Button {...args}>MagnifyingGlassLight <MagnifyingGlassLight /></Button>
-        <Button {...args}>MagnifyingGlassRegular <MagnifyingGlassRegular /></Button>
-        <Button {...args}>MinusSquareBold <MinusSquareBold /></Button>
-        <Button {...args}>MinusSquareLight <MinusSquareLight /></Button>
-        <Button {...args}>MinusSquareRegular <MinusSquareRegular /></Button>
-        <Button {...args}>Moon <Moon /></Button>
-        <Button {...args}>MoonBold <MoonBold /></Button>
-        <Button {...args}>MoonLight <MoonLight /></Button>
-        <Button {...args}>MoonRegular <MoonRegular /></Button>
-        <Button {...args}>Notebook <Notebook /></Button>
-        <Button {...args}>PasswordBold <PasswordBold /></Button>
-        <Button {...args}>PasswordLight <PasswordLight /></Button>
-        <Button {...args}>PasswordRegular <PasswordRegular /></Button>
-        <Button {...args}>PlusBold <PlusBold /></Button>
-        <Button {...args}>PlusLight <PlusLight /></Button>
-        <Button {...args}>PlusRegular <PlusRegular /></Button>
-        <Button {...args}>PlusSquareBold <PlusSquareBold /></Button>
-        <Button {...args}>PlusSquareLight <PlusSquareLight /></Button>
-        <Button {...args}>PlusSquareRegular <PlusSquareRegular /></Button>
-        <Button {...args}>Question <Question /></Button>
-        <Button {...args}>Scroll <Scroll /></Button>
-        <Button {...args}>SignOut <SignOut /></Button>
-        <Button {...args}>Smiley <Smiley /></Button>
-        <Button {...args}>SpinnerGap <SpinnerGap /></Button>
-        <Button {...args}>SpinnerGapBold <SpinnerGapBold /></Button>
-        <Button {...args}>SpinnerGapLight <SpinnerGapLight /></Button>
-        <Button {...args}>SpinnerGapRegular <SpinnerGapRegular /></Button>
-        <Button {...args}>Sun <Sun /></Button>
-        <Button {...args}>SunBold <SunBold /></Button>
-        <Button {...args}>SunLight <SunLight /></Button>
-        <Button {...args}>SunRegular <SunRegular /></Button>
-        <Button {...args}>Telegram <Telegram /></Button>
-        <Button {...args}>UserCircle <UserCircle /></Button>
-        <Button {...args}>VideoCamera <VideoCamera /></Button>
-        <Button {...args}>Warning <Warning /></Button>
-        <Button {...args}>WarningCircle <WarningCircle /></Button>
-        <Button {...args}>X <X /></Button>
-        <Button {...args}>XBold <XBold /></Button>
-        <Button {...args}>XLight <XLight /></Button>
-        <Button {...args}>XRegular <XRegular /></Button>
+        <Button {...args}>
+          ArrowsDownUpBold <ArrowsDownUpBold />
+        </Button>
+        <Button {...args}>
+          ArrowsDownUpLight <ArrowsDownUpLight />
+        </Button>
+        <Button {...args}>
+          ArrowsDownUpRegular <ArrowsDownUpRegular />
+        </Button>
+        <Button {...args}>
+          ArrowSquareOutBold <ArrowSquareOutBold />
+        </Button>
+        <Button {...args}>
+          ArrowSquareOutLight <ArrowSquareOutLight />
+        </Button>
+        <Button {...args}>
+          ArrowSquareOutRegular <ArrowSquareOutRegular />
+        </Button>
+        <Button {...args}>
+          Books <Books />
+        </Button>
+        <Button {...args}>
+          CalendarBlank <CalendarBlank />
+        </Button>
+        <Button {...args}>
+          Camera <Camera />
+        </Button>
+        <Button {...args}>
+          CaretDownBold <CaretDownBold />
+        </Button>
+        <Button {...args}>
+          CaretDownLight <CaretDownLight />
+        </Button>
+        <Button {...args}>
+          CaretDownRegular <CaretDownRegular />
+        </Button>
+        <Button {...args}>
+          CaretLeftBold <CaretLeftBold />
+        </Button>
+        <Button {...args}>
+          CaretLeftLight <CaretLeftLight />
+        </Button>
+        <Button {...args}>
+          CaretLeftRegular <CaretLeftRegular />
+        </Button>
+        <Button {...args}>
+          CaretRightBold <CaretRightBold />
+        </Button>
+        <Button {...args}>
+          CaretRightLight <CaretRightLight />
+        </Button>
+        <Button {...args}>
+          CaretRightRegular <CaretRightRegular />
+        </Button>
+        <Button {...args}>
+          CaretUpBold <CaretUpBold />
+        </Button>
+        <Button {...args}>
+          CaretUpLight <CaretUpLight />
+        </Button>
+        <Button {...args}>
+          CaretUpRegular <CaretUpRegular />
+        </Button>
+        <Button {...args}>
+          ChartBarHorizontal <ChartBarHorizontal />
+        </Button>
+        <Button {...args}>
+          ChatCenteredText <ChatCenteredText />
+        </Button>
+        <Button {...args}>
+          Check <Check />
+        </Button>
+        <Button {...args}>
+          CheckBold <CheckBold />
+        </Button>
+        <Button {...args}>
+          CheckLight <CheckLight />
+        </Button>
+        <Button {...args}>
+          CheckRegular <CheckRegular />
+        </Button>
+        <Button {...args}>
+          ChecksBold <ChecksBold />
+        </Button>
+        <Button {...args}>
+          ChecksLight <ChecksLight />
+        </Button>
+        <Button {...args}>
+          ChecksRegular <ChecksRegular />
+        </Button>
+        <Button {...args}>
+          CircleWavyCheck <CircleWavyCheck />
+        </Button>
+        <Button {...args}>
+          CopyBold <CopyBold />
+        </Button>
+        <Button {...args}>
+          CopyLight <CopyLight />
+        </Button>
+        <Button {...args}>
+          CopyRegular <CopyRegular />
+        </Button>
+        <Button {...args}>
+          CopySimple <CopySimple />
+        </Button>
+        <Button {...args}>
+          DotsThreeBold <DotsThreeBold />
+        </Button>
+        <Button {...args}>
+          DotsThreeDownBold <DotsThreeDownBold />
+        </Button>
+        <Button {...args}>
+          DotsThreeDownLight <DotsThreeDownLight />
+        </Button>
+        <Button {...args}>
+          DotsThreeDownRegular <DotsThreeDownRegular />
+        </Button>
+        <Button {...args}>
+          DotsThreeLight <DotsThreeLight />
+        </Button>
+        <Button {...args}>
+          DotsThreeRegular <DotsThreeRegular />
+        </Button>
+        <Button {...args}>
+          Exam <Exam />
+        </Button>
+        <Button {...args}>
+          EyeBold <EyeBold />
+        </Button>
+        <Button {...args}>
+          EyeClosedBold <EyeClosedBold />
+        </Button>
+        <Button {...args}>
+          EyeClosedLight <EyeClosedLight />
+        </Button>
+        <Button {...args}>
+          EyeClosedRegular <EyeClosedRegular />
+        </Button>
+        <Button {...args}>
+          EyeLight <EyeLight />
+        </Button>
+        <Button {...args}>
+          EyeRegular <EyeRegular />
+        </Button>
+        <Button {...args}>
+          EyeSlashBold <EyeSlashBold />
+        </Button>
+        <Button {...args}>
+          EyeSlashLight <EyeSlashLight />
+        </Button>
+        <Button {...args}>
+          EyeSlashRegular <EyeSlashRegular />
+        </Button>
+        <Button {...args}>
+          FinnTheHumanBold <FinnTheHumanBold />
+        </Button>
+        <Button {...args}>
+          FinnTheHumanLight <FinnTheHumanLight />
+        </Button>
+        <Button {...args}>
+          FinnTheHumanRegular <FinnTheHumanRegular />
+        </Button>
+        <Button {...args}>
+          Gear <Gear />
+        </Button>
+        <Button {...args}>
+          GearBold <GearBold />
+        </Button>
+        <Button {...args}>
+          GearLight <GearLight />
+        </Button>
+        <Button {...args}>
+          GearRegular <GearRegular />
+        </Button>
+        <Button {...args}>
+          GraduationCap <GraduationCap />
+        </Button>
+        <Button {...args}>
+          House <House />
+        </Button>
+        <Button {...args}>
+          IdentificationBadge <IdentificationBadge />
+        </Button>
+        <Button {...args}>
+          Info <Info />
+        </Button>
+        <Button {...args}>
+          Lifebuoy <Lifebuoy />
+        </Button>
+        <Button {...args}>
+          ListNumbers <ListNumbers />
+        </Button>
+        <Button {...args}>
+          MagnifyingGlassBold <MagnifyingGlassBold />
+        </Button>
+        <Button {...args}>
+          MagnifyingGlassLight <MagnifyingGlassLight />
+        </Button>
+        <Button {...args}>
+          MagnifyingGlassRegular <MagnifyingGlassRegular />
+        </Button>
+        <Button {...args}>
+          MinusSquareBold <MinusSquareBold />
+        </Button>
+        <Button {...args}>
+          MinusSquareLight <MinusSquareLight />
+        </Button>
+        <Button {...args}>
+          MinusSquareRegular <MinusSquareRegular />
+        </Button>
+        <Button {...args}>
+          Moon <Moon />
+        </Button>
+        <Button {...args}>
+          MoonBold <MoonBold />
+        </Button>
+        <Button {...args}>
+          MoonLight <MoonLight />
+        </Button>
+        <Button {...args}>
+          MoonRegular <MoonRegular />
+        </Button>
+        <Button {...args}>
+          Notebook <Notebook />
+        </Button>
+        <Button {...args}>
+          PasswordBold <PasswordBold />
+        </Button>
+        <Button {...args}>
+          PasswordLight <PasswordLight />
+        </Button>
+        <Button {...args}>
+          PasswordRegular <PasswordRegular />
+        </Button>
+        <Button {...args}>
+          PlusBold <PlusBold />
+        </Button>
+        <Button {...args}>
+          PlusLight <PlusLight />
+        </Button>
+        <Button {...args}>
+          PlusRegular <PlusRegular />
+        </Button>
+        <Button {...args}>
+          PlusSquareBold <PlusSquareBold />
+        </Button>
+        <Button {...args}>
+          PlusSquareLight <PlusSquareLight />
+        </Button>
+        <Button {...args}>
+          PlusSquareRegular <PlusSquareRegular />
+        </Button>
+        <Button {...args}>
+          Question <Question />
+        </Button>
+        <Button {...args}>
+          Scroll <Scroll />
+        </Button>
+        <Button {...args}>
+          SignOut <SignOut />
+        </Button>
+        <Button {...args}>
+          Smiley <Smiley />
+        </Button>
+        <Button {...args}>
+          SpinnerGap <SpinnerGap />
+        </Button>
+        <Button {...args}>
+          SpinnerGapBold <SpinnerGapBold />
+        </Button>
+        <Button {...args}>
+          SpinnerGapLight <SpinnerGapLight />
+        </Button>
+        <Button {...args}>
+          SpinnerGapRegular <SpinnerGapRegular />
+        </Button>
+        <Button {...args}>
+          Sun <Sun />
+        </Button>
+        <Button {...args}>
+          SunBold <SunBold />
+        </Button>
+        <Button {...args}>
+          SunLight <SunLight />
+        </Button>
+        <Button {...args}>
+          SunRegular <SunRegular />
+        </Button>
+        <Button {...args}>
+          Telegram <Telegram />
+        </Button>
+        <Button {...args}>
+          UserCircle <UserCircle />
+        </Button>
+        <Button {...args}>
+          VideoCamera <VideoCamera />
+        </Button>
+        <Button {...args}>
+          Warning <Warning />
+        </Button>
+        <Button {...args}>
+          WarningCircle <WarningCircle />
+        </Button>
+        <Button {...args}>
+          X <X />
+        </Button>
+        <Button {...args}>
+          XBold <XBold />
+        </Button>
+        <Button {...args}>
+          XLight <XLight />
+        </Button>
+        <Button {...args}>
+          XRegular <XRegular />
+        </Button>
       </div>
     );
-  }
+  },
 };
 
 export const Primary: Story = {
   args: {
     variant: 'primary',
-    children: 'Primary button'
+    children: 'Primary button',
   },
 };
 
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
-    children: 'Secondary button'
+    children: 'Secondary button',
   },
 };
 
 export const tertiary: Story = {
   args: {
     variant: 'tertiary',
-    children: 'Tertiary button'
+    children: 'Tertiary button',
   },
 };
 
 export const Big: Story = {
   args: {
     size: 'big',
-    children: 'Big button'
+    children: 'Big button',
   },
 };
 
 export const Medium: Story = {
   args: {
     size: 'medium',
-    children: 'Medium button'
+    children: 'Medium button',
   },
 };
 
 export const Small: Story = {
   args: {
     size: 'small',
-    children: 'Small button'
+    children: 'Small button',
   },
 };
 
@@ -295,7 +505,7 @@ export const Default_Disabled: Story = {
   args: {
     children: 'Disabled primary',
     disabled: true,
-  }
+  },
 };
 
 export const Secondary_Disabled: Story = {
@@ -303,7 +513,7 @@ export const Secondary_Disabled: Story = {
     variant: 'secondary',
     children: 'Disabled secondary',
     disabled: true,
-  }
+  },
 };
 
 export const Tertiary_Disabled: Story = {
@@ -311,37 +521,59 @@ export const Tertiary_Disabled: Story = {
     variant: 'tertiary',
     children: 'Disabled tertiary',
     disabled: true,
-  }
+  },
 };
 
 export const Primary_Icon: Story = {
   args: {
-    children: <><Gear /></>
-  }
+    children: (
+      <>
+        <Gear />
+      </>
+    ),
+  },
 };
 
 export const Secondary_Icon: Story = {
   args: {
     variant: 'secondary',
-    children: <><Gear /></>
-  }
+    children: (
+      <>
+        <Gear />
+      </>
+    ),
+  },
 };
 
 export const Tertiary_Icon: Story = {
   args: {
     variant: 'tertiary',
-    children: <><Gear />Text</>
-  }
+    children: (
+      <>
+        <Gear />
+        Text
+      </>
+    ),
+  },
 };
 
 export const Icon_Left_Text: Story = {
   args: {
-    children: <><PlusRegular /> Left icon</>
-  }
+    children: (
+      <>
+        <PlusRegular /> Left icon
+      </>
+    ),
+  },
 };
 
 export const Icon_Right_Text: Story = {
   args: {
-    children: <>Left right<CaretRightRegular /></>
-  }
+    children: (
+      <>
+        Left right
+        <CaretRightRegular />
+      </>
+    ),
+  },
 };

@@ -18,9 +18,11 @@ export const LocaleSwitch = ({ className }: Props) => {
       default:
         return 'Перейти на українську 🇺🇦';
     }
-  }
+  };
 
   return (
-    <Link href={pathname} locale={locale === LOCALE.EN ? LOCALE.UK : LOCALE.EN} className={className}>{getTitle()}</Link>
+    <Link href={pathname} locale={locale === LOCALE.EN ? LOCALE.UK : LOCALE.EN} className={className}>
+      {getTitle()}
+    </Link>
   );
 };

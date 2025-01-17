@@ -7,5 +7,5 @@ interface ShowProps {
 export const Show = ({ children, when, fallback }: ShowProps) => {
   const condition = typeof when === 'function' ? when() : when;
 
-  return condition ? children : (fallback || null);
+  return condition ? children : fallback || null;
 };
