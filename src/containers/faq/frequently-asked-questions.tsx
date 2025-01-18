@@ -21,7 +21,7 @@ export const FrequentlyAskedQuestions = ({ i18nNamespace, sections }: Frequently
             </Link>
           ),
           curatorlink: (chunks) => <Link href="/curator-search">{chunks}</Link>,
-          restorepasswordlink: (chunks) => <Link href="/settings">{chunks}</Link>,
+          restorepasswordlink: (chunks) => <Link href="/password-reset">{chunks}</Link>,
         });
 
         return (

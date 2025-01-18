@@ -141,14 +141,6 @@
     "faq": {
       "title": "Frequently Asked Questions",
       "sections": {
-        "how-to-register": {
-          "header": "How to register on campus or get a login and password?",
-          "content": "<p><b>For teachers</b> - contact the person in charge at the department or the head of the department to submit an official letter <documentlink>according to the template.</documentlink></p><p><b>For students</b> - contact your <curatorlink>academic curator.</curatorlink></p><p><b>For graduate students</b> - contact the graduate and doctoral studies department.</p>"
-        },
-        "how-to-restore-password": {
-          "header": "How to recover a password?",
-          "content": "<p>If you changed your password and added an email, use the <restorepasswordlink>button</restorepasswordlink> on the authorization panel.</p><p>If you didn’t change your password or are unsure, refer to item 1 above.</p>"
-        },
         "group-has-no-students": {
           "header": "What to do if the group exists but has no students?",
           "content": "<p>You need to contact the dean's office of your department to have the responsible person allocate students to the groups.</p>"

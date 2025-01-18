@@ -5,8 +5,6 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FrequentlyAskedQuestions } from '@/containers/faq/frequently-asked-questions';
 
 const SECTIONS = [
-  'how-to-register',
-  'how-to-restore-password',
   'group-has-no-students',
   'student-missing-in-control',
   'wrong-student-group',
