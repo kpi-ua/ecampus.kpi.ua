@@ -127,6 +127,9 @@ import BookBookmark from './BookBookmark.svg';
 import BookOpen from './BookOpen.svg';
 import Roll from './Roll.svg';
 
+import FlagGB from './FlagGB.svg';
+import FlagUA from './FlagUA.svg';
+
 export {
   ArrowsDownUpBold,
   ArrowsDownUpLight,
@@ -181,6 +184,8 @@ export {
   EyeSlashLight,
   EyeSlashRegular,
   Facebook,
+  FlagGB,
+  FlagUA,
   FinnTheHumanBold,
   FinnTheHumanLight,
   FinnTheHumanRegular,

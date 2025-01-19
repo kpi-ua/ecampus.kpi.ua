@@ -23,7 +23,7 @@ export const Header = () => {
         <SidebarTrigger />
       </Show>
       <div className="flex items-center gap-8">
-        <LocaleSwitch />
+        <LocaleSwitch className="flex items-center gap-[6px]" />
         <ProfilePicture src={user?.photo || ''} />
       </div>
     </header>
