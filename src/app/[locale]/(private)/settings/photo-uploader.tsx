@@ -54,7 +54,7 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
       <div className="mt-4 flex items-center gap-4">
         <ProfilePicture size="xl" src={photoPreview} />
         <Button className="h-fit" variant="secondary" onClick={handleFileUploadClick}>
-          Edit
+          {t('button.edit')}
         </Button>
       </div>
       <input ref={fileUploadInputRef} accept={FILE_TYPES.join(', ')} type="file" hidden onChange={handleFileChange} />

@@ -19,6 +19,12 @@
       "edit": "Edit",
       "delete": "Delete"
     },
+    "not-found": {
+      "title": "Page not found",
+      "description": "We're sorry, but we can't find the page you requested. It may have been moved or deleted.",
+      "return": "Back to the main page",
+      "footer": "<paragraph>All rights reserved.© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph> <paragraph>Developer: <kbislink>KBIS</kbislink></paragraph>"
+    },
     "menu": {
       "main": "Home",
       "profile": "Profile",
