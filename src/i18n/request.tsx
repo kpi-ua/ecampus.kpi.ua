@@ -3,6 +3,7 @@ import { routing } from './routing';
 import { Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from '@/components/typography/headers';
 import { UList } from '@/components/typography/lists';
 import { Paragraph } from '@/components/typography/paragraph';
+import { Strong } from '@/components/typography/strong';
 
 export default getRequestConfig(async ({ requestLocale }) => {
   // This typically corresponds to the `[locale]` segment
@@ -19,6 +20,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
     defaultTranslationValues: {
       p: (chunks) => <Paragraph>{chunks}</Paragraph>,
       br: () => <br />,
+      b: (chunks) => <Strong>{chunks}</Strong>,
       h1: (chunks) => <Heading1>{chunks}</Heading1>,
       h2: (chunks) => <Heading2>{chunks}</Heading2>,
       h3: (chunks) => <Heading3>{chunks}</Heading3>,

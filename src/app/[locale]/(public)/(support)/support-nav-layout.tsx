@@ -7,10 +7,8 @@ interface SupportNavLayoutProps extends AuthNavLayoutProps {
 
 export const SupportNavLayout = ({ children, className, ...props }: SupportNavLayoutProps) => {
   return (
-    <AuthNavLayout {...props}>
-      <section className={cn("mt-8 text-lg leading-normal", className)}>
-        {children}
-      </section>
+    <AuthNavLayout {...props} className="flex w-full grow flex-col items-start">
+      <section className={cn('my-8 text-lg leading-lg', className)}>{children}</section>
     </AuthNavLayout>
   );
-}
+};

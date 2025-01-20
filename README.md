@@ -41,7 +41,7 @@ npm run build
 npm run start
 ```
 
-### Dun storybook
+### Run storybook
 
 ```shell
 npm run storybook
@@ -78,3 +78,19 @@ docker run --rm -it \
   -e NEXT_PUBLIC_RECAPTCHA_KEY=6LeMy30qAAAAAIC6KUhNfReP-Us5wkrkp3FLfOgl \
   -p 80:80/tcp kpiua/ecampus-kpi-ua:latest
 ```
+
+## Adding translations
+
+Translations are located in `en.json` and `uk.json` files inside `/src/messages/` folder for English and ukrainian languages accordingly. When adding a new translations, follow the same naming convention as in these files: property naming is in `kebab-case`.
+
+You can use following tags in translations, they are defined globally and will be transformed automatically:
+
+- `<p>` — will transform to `<Paragraph>` component.
+- `<br></br>` — will transform into `<br/>`.
+- `<h1> ... <h6>` — will transform into `<Heading1> ... <Heading6>`.
+- `<ul>` — will transform into `<UlList>`.
+- `<li>` — will transform into `<li>`.
+- `<tel>` — will transform into a link with provided telephone number.
+- `<email>` — will transform into a link with provided email address.
+
+For more information see `src/i18n/request.tsx` file.
