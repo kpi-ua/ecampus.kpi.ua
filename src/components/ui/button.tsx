@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Slot } from '@radix-ui/react-slot';
+import { Slot, Slottable } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
 import { cn } from '@/lib/utils';
@@ -104,11 +104,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={loading ? true : disabled}
         {...props}
       >
-        <>
-          {iconAtPosition('start')}
-          {children}
-          {iconAtPosition('end')}
-        </>
+        {iconAtPosition('start')}
+        <Slottable>{children}</Slottable>
+        {iconAtPosition('end')}
       </Comp>
     );
   },
