@@ -123,9 +123,9 @@ export function AppSidebar() {
     <Sidebar collapsible="offcanvas">
       <SidebarContent>
         <SidebarHeader className="px-[calc(16px_+_0.5rem)] py-[16px]">
-          <div className="flex max-h-[48px]">
+          <Link href="/" className="flex max-h-[48px]">
             <Logo />
-          </div>
+          </Link>
         </SidebarHeader>
         <SidebarContent className="gap-0">
           {mainMenuGroups.map((group, index) => (
