@@ -1,13 +1,12 @@
 'use server';
 
-import { campusFetch } from '@/lib/client';
-import { User } from '@/types/user';
+import qs from 'query-string';
+import JWT from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import qs from 'query-string';
+import { campusFetch } from '@/lib/client';
+import { User } from '@/types/user';
 
-// 30 Days
-const COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
@@ -47,12 +46,17 @@ export async function loginWithCredentials(username: string, password: string, r
       return null;
     }
 
+    const { sessionId, access_token } = jsonResponse;
+
+    const token = JWT.decode(access_token) as { exp: number };
+    const tokenExpiresAt = new Date(token.exp * 1000);
+
     const user: User = await userResponse.json();
 
-    const maxAge = rememberMe ? COOKIE_MAX_AGE : undefined;
+    const expires = rememberMe ? tokenExpiresAt : undefined;
 
-    cookies().set('SID', jsonResponse.sessionId, { domain: COOKIE_DOMAIN, httpOnly: true, maxAge });
-    cookies().set('token', jsonResponse.access_token, { domain: COOKIE_DOMAIN, httpOnly: true, maxAge });
+    cookies().set('SID', sessionId, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
+    cookies().set('token', access_token, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
 
     return user;
   } catch (error) {
