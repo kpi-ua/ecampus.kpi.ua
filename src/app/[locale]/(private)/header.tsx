@@ -5,7 +5,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Show } from '@/components/utils/show';
-import { cn, getShortName } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/user';
 import {
@@ -30,8 +30,6 @@ export const Header = () => {
     await logout();
   };
 
-  const shortName = getShortName(user?.fullName || '');
-
   return (
     <header
       className={cn('sticky top-0 flex h-[80px] items-center justify-between bg-basic-white px-6', {
@@ -50,7 +48,7 @@ export const Header = () => {
           <DropdownMenuContent className="mr-6 w-[240px] p-4">
             <DropdownMenuLabel className="flex items-center gap-2">
               <ProfilePicture size="sm" src={user?.photo || ''} />
-              <Paragraph className="text-base font-medium leading-5">{shortName}</Paragraph>
+              <Paragraph className="text-base font-medium leading-5">{user?.username}</Paragraph>
             </DropdownMenuLabel>
             <DropdownMenuItem className="focus:bg-accent-foreground-none">
               <Button

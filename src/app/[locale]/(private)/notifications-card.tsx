@@ -6,7 +6,6 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { redirectToOldCampus } from '@/actions/redirectToOldCampus.action';
 
 interface NotificationsCardProps {
   className?: string;
@@ -48,11 +47,11 @@ export const NotificationsCard = ({ className }: NotificationsCardProps) => {
         <Paragraph className="my-1">
           <Link href="#">Правила використання інформації сайту</Link>
         </Paragraph>
-        <form>
-          <Button type="submit" formAction={redirectToOldCampus} className="my-5">
+        <Button variant="primary" className="my-5" asChild>
+          <Link href={process.env.NEXT_PUBLIC_OLD_CAMPUS_URL!} target="_blank">
             {t('goto-old')}
-          </Button>
-        </form>
+          </Link>
+        </Button>
         <Heading3 className="mb-6 mt-12">Аккаунт</Heading3>
         <Paragraph className="my-1">
           <Link href="#">Налаштування</Link>

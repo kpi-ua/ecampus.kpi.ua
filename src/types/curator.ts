@@ -4,5 +4,5 @@ export interface Curator {
   fullName: string;
   photo: string;
   credo: string;
-  profile: string;
+  profile?: string;
 }

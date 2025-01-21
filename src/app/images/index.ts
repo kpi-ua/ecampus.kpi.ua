@@ -64,6 +64,7 @@ import IdentificationBadge from './icons/IdentificationBadge.svg';
 import Info from './icons/Info.svg';
 import Lifebuoy from './icons/Lifebuoy.svg';
 import LifebuoyOutline from './icons/LifebuoyOutline.svg';
+import LinkSimple from './icons/LinkSimple.svg';
 import ListNumbers from './icons/ListNumbers.svg';
 import MagnifyingGlassBold from './icons/MagnifyingGlassBold.svg';
 import MagnifyingGlassLight from './icons/MagnifyingGlassLight.svg';
@@ -127,6 +128,9 @@ import BookBookmark from './BookBookmark.svg';
 import BookOpen from './BookOpen.svg';
 import Roll from './Roll.svg';
 
+import FlagGB from './FlagGB.svg';
+import FlagUA from './FlagUA.svg';
+
 export {
   ArrowsDownUpBold,
   ArrowsDownUpLight,
@@ -181,6 +185,8 @@ export {
   EyeSlashLight,
   EyeSlashRegular,
   Facebook,
+  FlagGB,
+  FlagUA,
   FinnTheHumanBold,
   FinnTheHumanLight,
   FinnTheHumanRegular,
@@ -194,6 +200,7 @@ export {
   Info,
   Lifebuoy,
   LifebuoyOutline,
+  LinkSimple,
   ListNumbers,
   MagnifyingGlassBold,
   MagnifyingGlassLight,
