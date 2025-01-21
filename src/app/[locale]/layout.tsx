@@ -1,12 +1,8 @@
-import '../globals.css';
-
-import { NextIntlClientProvider } from 'next-intl';
-import { exo2Font } from './font';
-import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
-import { Toaster } from '@/components/ui/toaster';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Viewport } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
+import BaseLayout from '@/components/base-layout';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -54,16 +50,5 @@ export default async function RootLayout({
   // Enable static rendering
   setRequestLocale(locale);
 
-  const messages = await getMessages();
-
-  return (
-    <html>
-      <body className={`${exo2Font.className}`}>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-          <Toaster />
-        </NextIntlClientProvider>
-      </body>
-    </html>
-  );
+  return <BaseLayout locale={locale}>{children}</BaseLayout>;
 }
