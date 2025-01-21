@@ -1,8 +1,9 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Viewport } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
-import BaseLayout from '@/components/base-layout';
+import { NextIntlClientProvider } from 'next-intl';
+import { Toaster } from '@/components/ui/toaster';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -35,7 +36,7 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: Readonly<{
@@ -50,5 +51,11 @@ export default function RootLayout({
   // Enable static rendering
   setRequestLocale(locale);
 
-  return <BaseLayout locale={locale}>{children}</BaseLayout>;
+  const messages = await getMessages();
+
+  return (
+    <NextIntlClientProvider messages={messages}>
+      {children} <Toaster />
+    </NextIntlClientProvider>
+  );
 }

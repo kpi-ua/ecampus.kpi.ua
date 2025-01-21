@@ -1,6 +1,12 @@
 import { ReactNode } from 'react';
 import './globals.css';
-import { exo2Font } from '@/components/utils/font';
+import { Exo_2 } from 'next/font/google';
+
+const exo2Font = Exo_2({
+  subsets: ['cyrillic', 'latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-exo-2',
+});
 
 type Props = {
   children: ReactNode;
@@ -10,8 +16,8 @@ type Props = {
 // is required, even if it's just passing children through.
 export default function RootLayout({ children }: Props) {
   return (
-    <html className={exo2Font.className}>
-      <body>{children}</body>
+    <html>
+      <body className={`${exo2Font.className}`}>{children}</body>
     </html>
   );
 }

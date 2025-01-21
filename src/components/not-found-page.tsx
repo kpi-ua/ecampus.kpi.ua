@@ -10,7 +10,9 @@ export default function NotFoundPage() {
 
   return (
     <div className="flex min-h-screen flex-col justify-between p-6 md:p-12">
-      <Logo />
+      <Link href="/">
+        <Logo />
+      </Link>
 
       <div className="mx-auto flex max-w-[560px] flex-col items-center justify-center gap-10 text-center">
         <NotFound />
