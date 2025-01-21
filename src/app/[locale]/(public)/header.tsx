@@ -12,7 +12,7 @@ export const Header = ({ className }: HeaderProps) => {
       <div className="flex max-w-[120px] md:max-w-[140px]">
         <Logo />
       </div>
-      <LocaleSwitch className="flex items-center gap-[6px]" />
+      <LocaleSwitch />
     </header>
   );
 };

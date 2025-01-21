@@ -4,11 +4,7 @@ import { Link, LOCALE, usePathname } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { FlagGB, FlagUA } from '@/app/images';
 
-interface Props {
-  className?: string;
-}
-
-export const LocaleSwitch = ({ className }: Props) => {
+export const LocaleSwitch = () => {
   const locale = useLocale();
   const pathname = usePathname();
 
@@ -30,7 +26,11 @@ export const LocaleSwitch = ({ className }: Props) => {
   };
 
   return (
-    <Link href={pathname} locale={locale === LOCALE.EN ? LOCALE.UK : LOCALE.EN} className={className}>
+    <Link
+      href={pathname}
+      locale={locale === LOCALE.EN ? LOCALE.UK : LOCALE.EN}
+      className="flex items-center gap-[6px] text-end"
+    >
       {getTitle()}
     </Link>
   );
