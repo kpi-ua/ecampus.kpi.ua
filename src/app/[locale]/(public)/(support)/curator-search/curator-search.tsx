@@ -6,7 +6,7 @@ import { EmptyPlaceholder } from './empty-placeholder';
 import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.svg';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { searchByGroupName } from '@/actions/group.actions';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Group } from '@/types/group';
 import { debounce } from 'radash';
 import { Show } from '@/components/utils/show';
@@ -19,7 +19,7 @@ export const CuratorSearch = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const { errorToast } = useServerErrorToast();
 
-  const searchGroups = async (name: string) => {
+  const searchGroups = useCallback(async (name: string) => {
     try {
       setIsLoading(true);
 
@@ -31,11 +31,11 @@ export const CuratorSearch = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     searchGroups(search);
-  }, [search]);
+  }, [search, searchGroups]);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

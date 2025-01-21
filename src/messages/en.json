@@ -124,7 +124,16 @@
     },
     "faq": {
       "header": "Frequently-asked questions",
-      "content": "<h4>How to register on the campus?</h4><p>If you are an officially employed teacher and more than two weeks have passed since submitting your documents to the HR department - contact the person in charge at the department or the head of the department to submit an official letter. If you are a student or graduate student - contact your academic curator.</p><h4>How to recover your password?</h4><p>To recover your password, use the button on the authorization panel. If you have not used the campus before - contact your curator.</p>"
+      "sections": {
+        "how-to-register": {
+          "header": "How to register on the campus?",
+          "content": "<p>If you are an officially employed teacher and more than two weeks have passed since submitting your documents to the HR department - contact the person in charge at the department or the head of the department to submit an official letter. If you are a student or graduate student - contact your academic curator.</p>"
+        },
+        "how-to-restore-password": {
+          "header": "How to recover your password?",
+          "content": "<p>To recover your password, use <restorepasswordlink>the button</restorepasswordlink> on the authorization panel. If you have not used the campus before - contact your curator.</p>"
+        }
+      }
     }
   },
   "private": {
@@ -138,14 +147,6 @@
     "faq": {
       "title": "Frequently Asked Questions",
       "sections": {
-        "how-to-register": {
-          "header": "How to register on campus or get a login and password?",
-          "content": "<p><b>For teachers</b> - contact the person in charge at the department or the head of the department to submit an official letter <documentlink>according to the template.</documentlink></p><p><b>For students</b> - contact your <curatorlink>academic curator.</curatorlink></p><p><b>For graduate students</b> - contact the graduate and doctoral studies department.</p>"
-        },
-        "how-to-restore-password": {
-          "header": "How to recover a password?",
-          "content": "<p>If you changed your password and added an email, use the <restorepasswordlink>button</restorepasswordlink> on the authorization panel.</p><p>If you didn’t change your password or are unsure, refer to item 1 above.</p>"
-        },
         "group-has-no-students": {
           "header": "What to do if the group exists but has no students?",
           "content": "<p>You need to contact the dean's office of your department to have the responsible person allocate students to the groups.</p>"
@@ -216,11 +217,11 @@
         "intellect-profile-disabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
         "credo": "Credo",
         "scientific-interests": "Scientific interests",
-        "profile-link":"Link to profile"
+        "profile-link": "Link to profile"
       },
       "codeOfHonor": {
         "title": "Code of honor",
-        "content":"<paragraph>The presented <documentsLink>documents</documentsLink> of the National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\" were developed taking into account the experience and examples of the best universities in the world.\n\nThe text was formed on the basis of proposals from the university community, student self-government bodies and trade union organizations.\n\nThe adoption of the principles and norms given in these documents is certified by the consent of a member of the university community.\n\n</paragraph>",
+        "content": "<paragraph>The presented <documentsLink>documents</documentsLink> of the National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\" were developed taking into account the experience and examples of the best universities in the world.\n\nThe text was formed on the basis of proposals from the university community, student self-government bodies and trade union organizations.\n\nThe adoption of the principles and norms given in these documents is certified by the consent of a member of the university community.\n\n</paragraph>",
         "agreement": "You have agreed to the principles and standards set forth in the documents provided."
       },
       "button": {
