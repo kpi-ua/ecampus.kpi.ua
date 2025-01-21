@@ -8,6 +8,7 @@ import { campusFetch } from '@/lib/client';
 import { User } from '@/types/user';
 
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
+const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
   try {
@@ -103,4 +104,10 @@ export async function getUserDetails(): Promise<User | null> {
   }
 
   return userResponse.json();
+}
+
+export async function redirectToOldCampus() {
+  if (OLD_CAMPUS_URL) {
+    redirect(OLD_CAMPUS_URL);
+  }
 }
