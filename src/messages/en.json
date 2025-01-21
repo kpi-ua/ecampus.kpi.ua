@@ -224,7 +224,8 @@
         "revoke-permission": "Revoke permission",
         "add-new": "Add new",
         "edit": "Edit",
-        "agree": "Agree"
+        "agree": "Agree",
+        "logout": "Logout"
       },
       "placeholder": {
         "credo": "Enter your credo",

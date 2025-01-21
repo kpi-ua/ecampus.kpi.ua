@@ -5,11 +5,12 @@ export const useServerErrorToast = () => {
   const errorTranslation = useTranslations('global.server-error');
   const { toast } = useToast();
 
-  const errorToast = () => toast({
-    variant: "destructive",
-    title: errorTranslation('title'),
-    description: errorTranslation('description'),
-  });
+  const errorToast = () =>
+    toast({
+      variant: 'destructive',
+      title: errorTranslation('title'),
+      description: errorTranslation('description'),
+    });
 
   return { errorToast };
 };

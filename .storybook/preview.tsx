@@ -14,7 +14,7 @@ const preview: Preview = {
     },
   },
   decorators: [
-    Story => (
+    (Story) => (
       <main className={`${exo2Font.className}`}>
         <Story />
       </main>
