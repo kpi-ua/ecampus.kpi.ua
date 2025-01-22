@@ -141,7 +141,7 @@ export const getCurrentUser = async (ignoreCache) => {
     return cachedUserInfo;
   }
 
-  const response = await callApi('Account/Info', 'GET');
+  const response = await callApi('profile', 'GET');
 
   if (response.status < 200 || response.status >= 300) {
     return null;
