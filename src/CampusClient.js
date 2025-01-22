@@ -184,7 +184,7 @@ const getToken = () => {
 export const updateUserProfileImage = async (file) => {
   const user = await getCurrentUser();
   const token = getToken();
-  const endpoint = `${ApplicationConfiguration.ApiEndpoint}profile/${user.id}/photo`;
+  const endpoint = `${ApplicationConfiguration.ApiEndpoint}profile/photo`;
 
   const formData = new FormData();
   formData.append('file', file, file.name);
