@@ -15,7 +15,7 @@ class UserProfileImage extends React.Component {
     return (
       <img
         className="img-fluid"
-        src={`${ApplicationConfiguration.ApiEndpoint}Account/${this.props.user.id}/ProfileImage?tmp=${this.state.rnd}`}
+        src={`${ApplicationConfiguration.ApiEndpoint}profile/${this.props.user.id}/photo?rnd=${this.state.rnd}`}
         alt={this.props.user.fullName}
       />
     );

@@ -8,10 +8,6 @@ export const config = {
     'kpi.ua',
     'campus.kpi.ua',
     'ecampus.kpi.ua',
-    'login.kpi.ua',
-    'localtest.me',
-    'api.localtest.me',
-    'ecampus.localtest.me',
   ],
 };
 
@@ -54,7 +50,7 @@ export const auth = async (login, password) => {
 };
 
 /**
- * Logout from system
+ * Logout from Campus API
  * @returns {Promise<void>}
  */
 export const logout = async () => {
@@ -70,7 +66,7 @@ export const logout = async () => {
  * @returns {Promise<void>}
  */
 export const redirectToOldUI = async () => {
-  const response = await callApi('Auth/refresh', 'GET');
+  const response = await callApi('auth/refresh', 'GET');
 
   if (response.status === 200) {
     const credentials = await response.json();
@@ -162,7 +158,7 @@ export const getCurrentUser = async (ignoreCache) => {
 };
 
 /**
- *
+ * Get auth token from local storage or cookies
  * @returns {string}
  */
 const getToken = () => {
@@ -183,12 +179,12 @@ const getToken = () => {
 /**
  * Update current user profile image
  * @param file
- * @returns {Promise<string>}
+ * @returns {Promise<string | null>}
  */
 export const updateUserProfileImage = async (file) => {
   const user = await getCurrentUser();
   const token = getToken();
-  const endpoint = `${ApplicationConfiguration.ApiEndpoint}Account/${user.id}/ProfileImage`;
+  const endpoint = `${ApplicationConfiguration.ApiEndpoint}profile/${user.id}/photo`;
 
   const formData = new FormData();
   formData.append('file', file);
@@ -201,12 +197,13 @@ export const updateUserProfileImage = async (file) => {
     body: formData,
   });
 
-  if (response.status < 200 || response.status >= 300) {
-    console.warn(`Error during uploading image`);
+  if (!response.ok) {
+    const errorText = await response.text();
+    console.warn(`Error during uploading image: ${errorText}`);
     return null;
   }
 
-  return `${ApplicationConfiguration.ApiEndpoint}Account/${user.id}/ProfileImage?tmp=${getRandomNumber()}`;
+  return `${ApplicationConfiguration.ApiEndpoint}profile/${user.id}/photo?rnd=${getRandomNumber()}`;
 };
 
 /**
@@ -282,7 +279,6 @@ const getCookie = (cname) => {
 };
 
 /**
- *
  * Store token and session ids
  * @param sessionId
  * @param token
