@@ -187,7 +187,7 @@ export const updateUserProfileImage = async (file) => {
   const endpoint = `${ApplicationConfiguration.ApiEndpoint}profile/${user.id}/photo`;
 
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', file, file.name);
 
   const response = await fetch(endpoint, {
     method: 'POST',
