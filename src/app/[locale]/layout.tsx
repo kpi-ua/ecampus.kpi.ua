@@ -1,12 +1,9 @@
-import '../globals.css';
-
-import { NextIntlClientProvider } from 'next-intl';
-import { exo2Font } from './font';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
-import { Toaster } from '@/components/ui/toaster';
 import { Viewport } from 'next';
 import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { Toaster } from '@/components/ui/toaster';
 
 export const viewport: Viewport = {
   initialScale: 1,
@@ -57,13 +54,8 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html>
-      <body className={`${exo2Font.className}`}>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-          <Toaster />
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      {children} <Toaster />
+    </NextIntlClientProvider>
   );
 }

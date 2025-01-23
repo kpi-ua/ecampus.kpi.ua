@@ -2,7 +2,7 @@ import '../src/app/[locale]/globals.css';
 
 import type { Preview } from '@storybook/react';
 import React from 'react';
-import { exo2Font } from '../src/app/[locale]/font';
+import { exo2Font } from '../src/app/font';
 
 const preview: Preview = {
   parameters: {

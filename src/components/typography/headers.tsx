@@ -12,6 +12,9 @@ const createHeading = (
     return <Component className={cn('font-semibold', baseClassName, className)} ref={ref} {...props} />;
   });
 
+export const Heading0 = createHeading('h1', 'text-7xl leading-6xl');
+Heading0.displayName = 'Heading0';
+
 export const Heading1 = createHeading('h1', 'text-6xl leading-5xl');
 
 Heading1.displayName = 'Heading1';

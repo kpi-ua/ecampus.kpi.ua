@@ -80,6 +80,7 @@ import MoonBold from './icons/MoonBold.svg';
 import MoonLight from './icons/MoonLight.svg';
 import MoonRegular from './icons/MoonRegular.svg';
 import Notebook from './icons/Notebook.svg';
+import NotFound from './NotFound.svg';
 import PasswordBold from './icons/PasswordBold.svg';
 import PasswordLight from './icons/PasswordLight.svg';
 import PasswordRegular from './icons/PasswordRegular.svg';
@@ -216,6 +217,7 @@ export {
   MoonLight,
   MoonRegular,
   Notebook,
+  NotFound,
   PasswordBold,
   PasswordLight,
   PasswordRegular,
