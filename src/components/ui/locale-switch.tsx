@@ -13,13 +13,13 @@ export const LocaleSwitch = () => {
       case LOCALE.UK:
         return (
           <>
-            Switch to English <FlagGB />
+            <span className="hidden text-neutral-600 md:block">Switch to English</span> <FlagGB />
           </>
         );
       default:
         return (
           <>
-            Перейти на українську <FlagUA />
+            <span className="hidden text-neutral-600 md:block">Перейти на українську</span> <FlagUA />
           </>
         );
     }

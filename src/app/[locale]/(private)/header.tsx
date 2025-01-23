@@ -8,23 +8,22 @@ import { Show } from '@/components/utils/show';
 import { cn } from '@/lib/utils';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/user';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/actions/auth.actions';
 import { useTranslations } from 'next-intl';
 import { SignOut } from '@/app/images';
 import { Paragraph } from '@/components/typography/paragraph';
+import { USER_CATEGORIES } from '@/types/constants';
+import React from 'react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export const Header = () => {
   const isMobile = useIsMobile();
+
   const [user] = useLocalStorage<User>('user');
+
   const t = useTranslations('private.profile');
+  const tUserCategory = useTranslations('global.user-category');
 
   const handleLogout = async () => {
     await logout();
@@ -41,29 +40,27 @@ export const Header = () => {
       </Show>
       <div className="flex items-center gap-8">
         <LocaleSwitch />
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger className="focus:outline-none focus:ring-0">
-            <ProfilePicture src={user?.photo || ''} />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="mr-6 w-[240px] p-4">
-            <DropdownMenuLabel className="flex items-center gap-2">
-              <ProfilePicture size="sm" src={user?.photo || ''} />
-              <Paragraph className="text-base font-medium leading-5">{user?.username}</Paragraph>
-            </DropdownMenuLabel>
-            <DropdownMenuItem className="focus:bg-accent-foreground-none">
-              <Button
-                variant="secondary"
-                size="small"
-                className="w-full"
-                onClick={handleLogout}
-                iconPosition="end"
-                icon={<SignOut />}
-              >
-                {t('button.logout')}
-              </Button>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex items-center gap-3">
+          <ProfilePicture size="sm" src={user?.photo || ''} />
+          <div className="hidden flex-col md:flex">
+            <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
+            {user?.userCategories.map((category) => (
+              <Paragraph className="m-0 text-base font-semibold" key={category}>
+                {tUserCategory(USER_CATEGORIES[category])}
+              </Paragraph>
+            ))}
+          </div>
+        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button variant="secondary" icon={<SignOut />} onClick={handleLogout} />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>{t('button.logout')}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </header>
   );

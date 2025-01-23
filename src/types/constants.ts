@@ -12,8 +12,8 @@ export enum EmploymentType {
 }
 
 export const USER_CATEGORIES = {
-  [UserCategories.Student]: 'Студент',
-  [UserCategories.Lecturer]: 'Науково-педагогічний працівник',
+  [UserCategories.Student]: 'student',
+  [UserCategories.Lecturer]: 'spw', // SPW stands for scientific and pedagogical worker
 };
 
 export const EMPLOYMENT_TYPE = {
