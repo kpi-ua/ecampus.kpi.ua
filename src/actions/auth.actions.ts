@@ -6,6 +6,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { campusFetch } from '@/lib/client';
 import { User } from '@/types/user';
+import { AuthResponse } from '@/types/auth-response';
 
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
@@ -18,7 +19,7 @@ export async function loginWithCredentials(username: string, password: string, r
       grant_type: 'password',
     };
 
-    const response = await campusFetch('oauth/token', {
+    const response = await campusFetch<AuthResponse>('oauth/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -36,7 +37,7 @@ export async function loginWithCredentials(username: string, password: string, r
       return null;
     }
 
-    const userResponse = await campusFetch('profile', {
+    const userResponse = await campusFetch<User>('profile', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${jsonResponse.access_token}`,
@@ -52,7 +53,7 @@ export async function loginWithCredentials(username: string, password: string, r
     const token = JWT.decode(access_token) as { exp: number };
     const tokenExpiresAt = new Date(token.exp * 1000);
 
-    const user: User = await userResponse.json();
+    const user = await userResponse.json();
 
     const expires = rememberMe ? tokenExpiresAt : undefined;
 
@@ -94,8 +95,8 @@ export async function resetPassword(username: string, recaptchaToken: string) {
   }
 }
 
-export async function getUserDetails(): Promise<User | null> {
-  const userResponse = await campusFetch('profile', {
+export async function getUserDetails() {
+  const userResponse = await campusFetch<User>('profile', {
     method: 'GET',
   });
 

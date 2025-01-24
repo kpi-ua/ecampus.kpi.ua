@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const Client = (basePath: string) => {
-  return async (url: string | URL, options: RequestInit = {}) => {
+  return async <T>(url: string | URL, options: RequestInit = {}) => {
     const { headers = {}, ...otherOptions } = options;
     const jwt = cookies().get('token')?.value;
 
@@ -12,7 +12,7 @@ const Client = (basePath: string) => {
 
     const contentType = new Headers(headers).get('Content-type') ?? 'application/json';
 
-    const response = await fetch(input, {
+    const response = await fetch<T>(input, {
       cache: 'no-cache',
       headers: {
         Accept: 'application/json',

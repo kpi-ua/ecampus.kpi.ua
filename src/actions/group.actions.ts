@@ -4,11 +4,11 @@ import { campusFetch } from '@/lib/client';
 import { Group } from '@/types/group';
 import queryString from 'query-string';
 
-export async function searchByGroupName(search: string): Promise<Group[]> {
+export async function searchByGroupName(search: string) {
   try {
     const query = queryString.stringify({ name: search });
 
-    const response = await campusFetch(`group/find?${query}`, {
+    const response = await campusFetch<Group[]>(`group/find?${query}`, {
       method: 'GET',
     });
 
