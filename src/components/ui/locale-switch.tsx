@@ -3,6 +3,14 @@
 import { Link, LOCALE, usePathname } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { FlagGB, FlagUA } from '@/app/images';
+import { ReactNode } from 'react';
+
+const LocaleOption = ({ text, icon }: { text: string; icon: ReactNode }) => (
+  <>
+    <span className="hidden text-neutral-600 md:block">{text}</span>
+    {icon}
+  </>
+);
 
 export const LocaleSwitch = () => {
   const locale = useLocale();
@@ -11,17 +19,9 @@ export const LocaleSwitch = () => {
   const getTitle = () => {
     switch (locale) {
       case LOCALE.UK:
-        return (
-          <>
-            Switch to English <FlagGB />
-          </>
-        );
+        return <LocaleOption text="Switch to English" icon={<FlagGB />} />;
       default:
-        return (
-          <>
-            Перейти на українську <FlagUA />
-          </>
-        );
+        return <LocaleOption text="Перейти на українську" icon={<FlagUA />} />;
     }
   };
 

@@ -45,6 +45,10 @@
       "terms-of-service": "Правила використання",
       "contacts": "Контакти"
     },
+    "user-category": {
+      "student": "Студент",
+      "spw": "НПП"
+    },
     "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>",
     "goto-old": "Перейти на стару версію Кампусу"
   },
@@ -232,7 +236,7 @@
         "add-new": "Додати новий",
         "edit": "Редагувати",
         "agree": "Погоджуюсь",
-        "logout": "Вийти з акаунту"
+        "logout": "Вийти"
       },
       "placeholder": {
         "credo": "Введіть улюблену цитату",
