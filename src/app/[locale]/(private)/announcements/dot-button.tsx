@@ -10,11 +10,16 @@ export const DotButton = ({ selected = false, onClick }: DotButtonProps) => {
     <button
       type="button"
       onClick={onClick}
-      className={cn('flex size-[12px] items-center justify-center rounded-full bg-basic-blue focus:outline-none', {
-        'bg-transparent': !selected,
-      })}
+      className={cn('flex size-[12px] items-center justify-center focus:outline-none')}
     >
-      <span className={cn('block size-[8px] rounded-full border-[2px] border-basic-blue', { 'bg-white': !selected })} />
+      <span
+        className={cn(
+          'duration-[250ms] size-[8px] rounded-full border-[2px] border-basic-blue bg-basic-white transition-all',
+          {
+            'size-[12px] bg-basic-blue': selected,
+          },
+        )}
+      ></span>
     </button>
   );
 };
