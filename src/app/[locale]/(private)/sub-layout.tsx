@@ -1,4 +1,3 @@
-'use client';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,10 +7,9 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
 import React from 'react';
-import { useLocalStorage } from '@/hooks/use-storage';
-import { User } from '@/types/user';
+import { getTranslations } from 'next-intl/server';
+import { getUserDetails } from '@/actions/auth.actions';
 import CodeOfHonorAlert from '@/components/code-of-honor-alert';
 
 interface SubLayoutProps {
@@ -21,9 +19,9 @@ interface SubLayoutProps {
   className?: string;
 }
 
-export const SubLayout = ({ children, breadcrumbs = [], pageTitle, className }: SubLayoutProps) => {
-  const t = useTranslations('global.menu');
-  const [user] = useLocalStorage<User>('user');
+export const SubLayout = async ({ children, breadcrumbs = [], pageTitle, className }: SubLayoutProps) => {
+  const t = await getTranslations('global.menu');
+  const user = await getUserDetails();
 
   if (!user?.codeOfHonorSignDate) {
     return <CodeOfHonorAlert />;
