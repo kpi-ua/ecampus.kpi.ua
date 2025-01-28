@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import React, { useState } from 'react';
+import React from 'react';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/user';
 import { acceptCodeOfHonor } from '@/actions/profile.actions';
@@ -24,14 +24,10 @@ export default function CodeOfHonorAlert() {
 
   const { errorToast } = useServerErrorToast();
 
-  const [loading, setLoading] = useState(false);
-
   const [, setUser] = useLocalStorage<User>('user');
 
   const handleAcceptCodeOfHonor = async () => {
-    setLoading(true);
     const res = await acceptCodeOfHonor();
-    setLoading(false);
 
     if (!res) {
       errorToast();
@@ -56,9 +52,7 @@ export default function CodeOfHonorAlert() {
           <Link href="/">
             <AlertDialogCancel>На головну</AlertDialogCancel>
           </Link>
-          <AlertDialogAction onClick={handleAcceptCodeOfHonor} disabled={loading}>
-            {t('button.agree')}
-          </AlertDialogAction>
+          <AlertDialogAction onClick={handleAcceptCodeOfHonor}>{t('button.agree')}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
