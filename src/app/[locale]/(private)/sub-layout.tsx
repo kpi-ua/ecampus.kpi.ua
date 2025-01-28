@@ -1,3 +1,4 @@
+'use client';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,6 +9,10 @@ import {
 } from '@/components/ui/breadcrumb';
 import { cn } from '@/lib/utils';
 import { useTranslations } from 'next-intl';
+import React from 'react';
+import { useLocalStorage } from '@/hooks/use-storage';
+import { User } from '@/types/user';
+import CodeOfHonorAlert from '@/components/code-of-honor-alert';
 
 interface SubLayoutProps {
   children: React.ReactNode;
@@ -18,6 +23,11 @@ interface SubLayoutProps {
 
 export const SubLayout = ({ children, breadcrumbs = [], pageTitle, className }: SubLayoutProps) => {
   const t = useTranslations('global.menu');
+  const [user] = useLocalStorage<User>('user');
+
+  if (!user?.codeOfHonorSignDate) {
+    return <CodeOfHonorAlert />;
+  }
 
   return (
     <section>
