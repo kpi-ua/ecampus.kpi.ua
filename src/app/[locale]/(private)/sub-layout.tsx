@@ -23,7 +23,7 @@ export const SubLayout = async ({ children, breadcrumbs = [], pageTitle, classNa
   const t = await getTranslations('global.menu');
   const user = await getUserDetails();
 
-  if (!user?.codeOfHonorSignDate) {
+  if (!user?.codeOfHonorSignDate && !!user?.studentProfile) {
     return <CodeOfHonorAlert />;
   }
 
