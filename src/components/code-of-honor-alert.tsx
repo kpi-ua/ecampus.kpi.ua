@@ -18,8 +18,10 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Link } from '@/i18n/routing';
 import { Paragraph } from '@/components/typography/paragraph';
+import { useRouter } from 'next/navigation';
 
 export default function CodeOfHonorAlert() {
+  const router = useRouter();
   const t = useTranslations('private.profile');
 
   const { errorToast } = useServerErrorToast();
@@ -34,6 +36,7 @@ export default function CodeOfHonorAlert() {
       return;
     }
     setUser(res);
+    router.refresh();
   };
 
   return (
@@ -50,7 +53,7 @@ export default function CodeOfHonorAlert() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <Link href="/">
-            <AlertDialogCancel>На головну</AlertDialogCancel>
+            <AlertDialogCancel>{t('button.go-to-home')}</AlertDialogCancel>
           </Link>
           <AlertDialogAction onClick={handleAcceptCodeOfHonor}>{t('button.agree')}</AlertDialogAction>
         </AlertDialogFooter>
