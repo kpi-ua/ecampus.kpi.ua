@@ -5,7 +5,6 @@
  * @returns {boolean}
  */
 export const hasAccessToModule = (user, module) => {
-
   if (!user || !user.modules) {
     return false;
   }
