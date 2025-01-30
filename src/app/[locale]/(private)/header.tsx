@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ProfilePicture } from '@/components/ui/profile-picture';
@@ -14,10 +15,11 @@ import { useTranslations } from 'next-intl';
 import { SignOut } from '@/app/images';
 import { Paragraph } from '@/components/typography/paragraph';
 import { USER_CATEGORIES } from '@/types/constants';
-import React from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useIsClient } from '@/hooks/use-is-client';
 
 export const Header = () => {
+  const isClient = useIsClient();
   const isMobile = useIsMobile();
 
   const [user] = useLocalStorage<User>('user');
@@ -43,17 +45,19 @@ export const Header = () => {
         <div className="flex items-center gap-3">
           <ProfilePicture size="sm" src={user?.photo || ''} />
           <div className="hidden flex-col md:flex">
-            <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
-            {user?.userCategories.map((category) => (
-              <Paragraph className="m-0 text-base font-semibold" key={category}>
-                {tUserCategory(USER_CATEGORIES[category])}
-              </Paragraph>
-            ))}
+            <Show when={isClient}>
+              <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
+              {user?.userCategories.map((category) => (
+                <Paragraph className="m-0 text-base font-semibold" key={category}>
+                  {tUserCategory(USER_CATEGORIES[category])}
+                </Paragraph>
+              ))}
+            </Show>
           </div>
         </div>
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button variant="secondary" icon={<SignOut />} onClick={handleLogout} />
             </TooltipTrigger>
             <TooltipContent>
