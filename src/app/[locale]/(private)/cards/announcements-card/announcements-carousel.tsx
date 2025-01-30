@@ -31,7 +31,7 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
     >
       <CarouselContent className="-ml-4 mb-4">
         <Slide>
-          <DefaultAnnouncementSlide key={-1} />
+          <DefaultAnnouncementSlide />
         </Slide>
         {announcements.map((announcement) => (
           <Slide key={announcement.id}>
