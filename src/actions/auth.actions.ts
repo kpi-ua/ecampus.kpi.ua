@@ -38,7 +38,6 @@ export async function loginWithCredentials(username: string, password: string, r
     }
 
     const userResponse = await campusFetch<User>('profile', {
-      method: 'GET',
       headers: {
         Authorization: `Bearer ${jsonResponse.access_token}`,
       },
@@ -96,9 +95,7 @@ export async function resetPassword(username: string, recaptchaToken: string) {
 }
 
 export async function getUserDetails() {
-  const userResponse = await campusFetch<User>('profile', {
-    method: 'GET',
-  });
+  const userResponse = await campusFetch<User>('profile');
 
   if (!userResponse.ok) {
     return null;

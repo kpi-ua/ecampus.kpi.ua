@@ -5,9 +5,7 @@ import { Announcement } from '@/types/announcement';
 
 export const getAnnouncements = async () => {
   try {
-    const response = await campusFetch<Announcement[]>('announcements', {
-      method: 'GET',
-    });
+    const response = await campusFetch<Announcement[]>('announcements');
 
     if (!response.ok) {
       return [];

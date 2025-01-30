@@ -8,9 +8,7 @@ export async function searchByGroupName(search: string) {
   try {
     const query = queryString.stringify({ name: search });
 
-    const response = await campusFetch<Group[]>(`group/find?${query}`, {
-      method: 'GET',
-    });
+    const response = await campusFetch<Group[]>(`group/find?${query}`);
 
     if (response.status < 200 || response.status >= 300) {
       return [];
