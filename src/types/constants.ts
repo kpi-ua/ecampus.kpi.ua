@@ -1,4 +1,4 @@
-export enum UserCategories {
+export enum UserCategory {
   Student = 'Student',
   Lecturer = 'Lecturer',
 }
@@ -12,8 +12,8 @@ export enum EmploymentType {
 }
 
 export const USER_CATEGORIES = {
-  [UserCategories.Student]: 'Студент',
-  [UserCategories.Lecturer]: 'Науково-педагогічний працівник',
+  [UserCategory.Student]: 'student',
+  [UserCategory.Lecturer]: 'spw', // SPW stands for scientific and pedagogical worker
 };
 
 export const EMPLOYMENT_TYPE = {

@@ -25,6 +25,7 @@ export function InfoBlock({ className }: Props) {
   const [user, setUser] = useLocalStorage<User>('user');
 
   const t = useTranslations('private.profile');
+  const tUserCategory = useTranslations('global.user-category');
 
   const { errorToast } = useServerErrorToast();
 
@@ -58,7 +59,7 @@ export function InfoBlock({ className }: Props) {
             <div className="flex gap-2">
               {user?.userCategories.map((category) => (
                 <Heading6 key={category} className="text-basic-blue">
-                  {USER_CATEGORIES[category]}
+                  {tUserCategory(USER_CATEGORIES[category])}
                 </Heading6>
               ))}
               {studentProfile?.status && <Badge className="text-other-blue">{studentProfile.status}</Badge>}

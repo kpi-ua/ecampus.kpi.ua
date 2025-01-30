@@ -1,12 +1,6 @@
 import { ReactNode } from 'react';
 import './globals.css';
-import { Exo_2 } from 'next/font/google';
-
-const exo2Font = Exo_2({
-  subsets: ['cyrillic', 'latin'],
-  weight: ['400', '500', '600'],
-  variable: '--font-exo-2',
-});
+import { exo2Font } from '@/app/font';
 
 type Props = {
   children: ReactNode;
