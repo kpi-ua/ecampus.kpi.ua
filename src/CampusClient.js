@@ -1,4 +1,5 @@
 import ApplicationConfiguration from './ApplicationConfiguration';
+import * as Security from './Security';
 
 /**
  * Application configuration
@@ -150,12 +151,14 @@ export const getCurrentUser = async (ignoreCache) => {
   const user = await response.json();
 
   if (!!user) {
-    user.modules = ['profile', 'help'];
+    user.modules = [
+      Security.Modules.Information,
+      Security.Modules.PersonalArea,
+    ];
 
-    console.log(user);
 
     if (!!user.studentProfile) {
-      user.modules = ['profile', 'help', 'EmploymentSystem'];
+      user.modules.push(Security.Modules.EmploymentSystem);
     }
 
     localStorage.setItem(cachedUserInfoKey, JSON.stringify(user));

@@ -27,8 +27,8 @@ export const hasProfile = (user, profile) => {
 };
 
 export const Modules = {
-  PersonalArea: 'profile',
-  Information: 'help',
+  PersonalArea: 'PersonalArea',
+  Information: 'Information',
   EmploymentSystem: 'EmploymentSystem'
 };
 
