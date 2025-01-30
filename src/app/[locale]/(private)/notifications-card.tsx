@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { redirectToOldCampus } from '@/actions/auth.actions';
+import { redirectToEmploymentSystem, redirectToOldCampus } from '@/actions/auth.actions';
 
 interface NotificationsCardProps {
   className?: string;
@@ -50,7 +50,12 @@ export const NotificationsCard = ({ className }: NotificationsCardProps) => {
         </Paragraph>
         <form action={redirectToOldCampus}>
           <Button variant="primary" className="my-5" type="submit">
-            {t('goto-old')}
+            {t('goto-old-campus')}
+          </Button>
+        </form>
+        <form action={redirectToEmploymentSystem}>
+          <Button variant="primary" className="my-5" type="submit">
+            {t('goto-employment-system')}
           </Button>
         </form>
         <Heading3 className="mb-6 mt-12">Аккаунт</Heading3>

@@ -50,7 +50,8 @@
       "spw": "НПП"
     },
     "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>",
-    "goto-old": "Перейти на стару версію Кампусу"
+    "goto-old-campus": "Перейти на стару версію Кампусу",
+    "goto-employment-system": "Перейти до анкети"
   },
   "auth": {
     "login": {

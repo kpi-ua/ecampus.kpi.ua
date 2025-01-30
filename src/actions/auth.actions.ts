@@ -111,3 +111,9 @@ export async function redirectToOldCampus() {
     redirect(OLD_CAMPUS_URL);
   }
 }
+
+export async function redirectToEmploymentSystem() {
+  const response = await campusFetch('employment-system/auth');
+  const url = await response.json();
+  redirect(url);
+}

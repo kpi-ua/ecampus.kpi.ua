@@ -50,7 +50,8 @@
       "spw": "SPW"
     },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>",
-    "goto-old": "Go to the old version of Campus"
+    "goto-old-campus": "Go to the old version of Campus",
+    "goto-employment-system": "Перейти до анкети"
   },
   "auth": {
     "login": {
