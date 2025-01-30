@@ -156,7 +156,6 @@ export const getCurrentUser = async (ignoreCache) => {
       Security.Modules.PersonalArea,
     ];
 
-
     if (!!user.studentProfile) {
       user.modules.push(Security.Modules.EmploymentSystem);
     }
