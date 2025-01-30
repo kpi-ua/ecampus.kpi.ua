@@ -5,6 +5,7 @@
  * @returns {boolean}
  */
 export const hasAccessToModule = (user, module) => {
+  console.log(user);
   if (!user || !user.modules) {
     return false;
   }
@@ -27,8 +28,8 @@ export const hasProfile = (user, profile) => {
 };
 
 export const Modules = {
-  PersonalArea: 'PersonalArea',
-  Information: 'Information',
+  PersonalArea: 'profile',
+  Information: 'help',
   EmploymentSystem: 'EmploymentSystem'
 };
 

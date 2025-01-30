@@ -150,9 +150,10 @@ export const getCurrentUser = async (ignoreCache) => {
   const user = await response.json();
 
   if (!!user) {
+    const modulesResponse = await callApi('profile/modules', 'GET');
+    const modules = await modulesResponse.json();
 
-    // use default modules as temporary solution
-    user.modules = ['PersonalArea', 'Information', 'EmploymentSystem'];
+    user.modules = modules;
 
     localStorage.setItem(cachedUserInfoKey, JSON.stringify(user));
   }
