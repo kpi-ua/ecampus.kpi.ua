@@ -3,11 +3,11 @@ import { AnnouncementsCarousel } from './announcements-carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
-interface AnnouncementsProps {
+interface AnnouncementsCardProps {
   className?: string;
 }
 
-export const Announcements = async ({ className }: AnnouncementsProps) => {
+export const AnnouncementsCard = async ({ className }: AnnouncementsCardProps) => {
   const announcements = await getAnnouncements();
 
   return (

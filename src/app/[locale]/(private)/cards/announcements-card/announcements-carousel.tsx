@@ -3,12 +3,12 @@
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
 import Autoplay from 'embla-carousel-autoplay';
-import { AnnouncementCard } from './announcement-card';
+import { AnnouncementSlide } from './announcement-slide';
 import { Announcement } from '@/types/announcement';
 import { DotButton } from './dot-button';
 import { useState } from 'react';
 import { useDotButton } from './use-dot-button';
-import { DefaultAnnouncement } from './default-announcement';
+import { DefaultAnnouncementSlide } from './default-announcement-slide';
 
 const AUTOPLAY_DELAY = 10_000; // 10 seconds
 
@@ -29,13 +29,13 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
       className="w-full"
       setApi={setApi}
     >
-      <CarouselContent className="-ml-4">
+      <CarouselContent className="-ml-4 mb-4">
         <Slide>
-          <DefaultAnnouncement key={-1} />
+          <DefaultAnnouncementSlide key={-1} />
         </Slide>
         {announcements.map((announcement) => (
           <Slide key={announcement.id}>
-            <AnnouncementCard
+            <AnnouncementSlide
               title={announcement.title}
               description={announcement.description}
               link={announcement.link}

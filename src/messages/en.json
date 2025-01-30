@@ -45,8 +45,7 @@
       "terms-of-service": "Terms of service",
       "contacts": "Contacts"
     },
-    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>",
-    "goto-old": "Go to the old version of Campus"
+    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
   },
   "auth": {
     "login": {
@@ -137,6 +136,30 @@
     }
   },
   "private": {
+    "main": {
+      "cards": {
+        "information": {
+          "title": "Information",
+          "schedule": "Schedule",
+          "notice-board": "Notice board",
+          "faq": "Frequently asked questions",
+          "user-manual": "User manual",
+          "old-campus": {
+            "description": "Some modules have not yet been ported to the new system. To access these modules, you can upgrade to system version 1.0.",
+            "link-title": "Go to the old version of Campus"
+          }
+        },
+        "carousel": {
+          "default-link-title": "Go to schedule",
+          "default-slide": {
+            "title-base": "You have entered the <systemname></systemname> system",
+            "title-system-name": "Electronic Campus",
+            "description": "Here you can find methodological support for academic disciplines, results of current control, news of the educational process and other important information.",
+            "link-title": "Learn more"
+          }
+        }
+      }
+    },
     "about": {
       "title": "About",
       "content": "<p>Information and telecommunications system \"Electronic Campus\" - application software, which is an element of the information and telecommunications environment of the university and is used for information support of the daily activities of students, teachers, university employees, as well as for information support of all types of innovative activities at the university (hereinafter referred to as ITS EC).</p><p>ITS EC unites internal information resources (educational, methodological and others), provides centralized access to them on the basis of unified system and technological solutions and ensures their use for effective management and planning of the scientific and educational process.</p><h3>Main functions of ITS EC</h3><p>ITS EC ensures the implementation of the following main functions:</p><ul><li>multilateral communication between students, teachers, scientific community;</li><li>formation of a single information resource that reflects the state of the scientific and educational process of the university;</li><li>ensuring timely and operational placement of: complete, objective, reliable and consistent information about the educational process of the university;</li><li>dissemination of information about upcoming events and activities and other reference information;</li><li>ensuring centralized and convenient access to information about the activities of the administration and university departments;</li><li>ensuring navigation through the entire information content of the ITS EC;</li><li>organizing interaction and information exchange between the ITS EC and other information resources and systems of the university.</li></ul><p>The ITS EC system has developed virtual offices according to user profiles: student, lecturer-scientist, methodologist of the department.</p>"
