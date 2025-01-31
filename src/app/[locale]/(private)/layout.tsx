@@ -12,7 +12,7 @@ export default function MainPageLayout({
       <AppSidebar />
       <SidebarInset>
         <Header />
-        <div className="grow bg-uncategorized-main p-12">{children}</div>
+        <div className="grow bg-uncategorized-main p-[20px] lg:p-[28px]">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
