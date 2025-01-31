@@ -85,12 +85,12 @@ const CoHMiddleware = async (request: NextRequest) => {
     const user = await getUserDetails();
     const hasAcceptedCoH = !!user?.codeOfHonorSignDate;
 
-    if (!hasAcceptedCoH && !isAcceptHonorPath(request)) {
-      return redirectWithIntl(request, '/accept-honor');
-    }
-
     if ((!user?.studentProfile || hasAcceptedCoH) && isAcceptHonorPath(request)) {
       return redirectWithIntl(request, '/');
+    }
+
+    if (!hasAcceptedCoH && !isAcceptHonorPath(request)) {
+      return redirectWithIntl(request, '/accept-honor');
     }
   } catch (error) {
     return null;
