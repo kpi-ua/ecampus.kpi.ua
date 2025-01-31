@@ -40,7 +40,7 @@ export default function CodeOfHonorAlert() {
 
   return (
     <AlertDialog defaultOpen={true}>
-      <AlertDialogContent closable={false}>
+      <AlertDialogContent className="w-[340px] rounded-[12px] sm:w-full" closable={false}>
         <AlertDialogHeader>
           <AlertDialogTitle>{t('codeOfHonor.title')}</AlertDialogTitle>
           <AlertDialogDescription>
@@ -51,7 +51,9 @@ export default function CodeOfHonorAlert() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogAction onClick={handleAcceptCodeOfHonor}>{t('button.agree')}</AlertDialogAction>
+          <AlertDialogAction className="w-full md:w-fit" onClick={handleAcceptCodeOfHonor}>
+            {t('button.agree')}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

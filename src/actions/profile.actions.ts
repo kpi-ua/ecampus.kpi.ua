@@ -5,9 +5,9 @@ import { campusFetch } from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { getUserDetails } from '@/actions/auth.actions';
 
-export async function getContacts(): Promise<Contact[]> {
+export async function getContacts() {
   try {
-    const response = await campusFetch('profile/contacts');
+    const response = await campusFetch<Contact[]>('profile/contacts');
 
     return response.json();
   } catch (error) {
@@ -15,9 +15,9 @@ export async function getContacts(): Promise<Contact[]> {
   }
 }
 
-export async function getContactTypes(): Promise<ContactType[]> {
+export async function getContactTypes() {
   try {
-    const response = await campusFetch('profile/contacts/types');
+    const response = await campusFetch<ContactType[]>('profile/contacts/types');
 
     return response.json();
   } catch (error) {
