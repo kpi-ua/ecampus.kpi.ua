@@ -5,6 +5,7 @@ import JWT from 'jsonwebtoken';
 import createMiddleware from 'next-intl/middleware';
 import dayjs from 'dayjs';
 import { trim } from 'radash';
+import { getUserDetails } from '@/actions/auth.actions';
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -15,6 +16,8 @@ export const config = {
 const composePathsRegExp = (paths: string[]) => RegExp(`^(/(${LOCALES.join('|')}))?(${paths.join('|')})/?$`, 'i');
 
 const rootRegExp = new RegExp('^\/?$', 'i');
+
+const honorPageRegExp = composePathsRegExp(['/accept-honor']);
 
 const authPathRegExp = composePathsRegExp(['/login', '/password-reset/success', '/password-reset']);
 
@@ -32,6 +35,7 @@ const publicPathRegExp = composePathsRegExp([
 const isRoot = (request: NextRequest) => rootRegExp.test(request.nextUrl.pathname);
 const isPublicPath = (request: NextRequest) => publicPathRegExp.test(request.nextUrl.pathname);
 const isAuthPath = (request: NextRequest) => authPathRegExp.test(request.nextUrl.pathname);
+const isAcceptHonorPath = (request: NextRequest) => honorPageRegExp.test(request.nextUrl.pathname);
 
 const isAuthenticated = (request: NextRequest) => {
   const cookie = request.cookies.get('token');
@@ -76,8 +80,21 @@ const authMiddleware = (request: NextRequest) => {
   return intlMiddleware(request);
 };
 
+const honorMiddleware = async (request: NextRequest) => {
+  try {
+    const user = await getUserDetails();
+
+    if (!user?.codeOfHonorSignDate && !!user?.studentProfile) {
+      return redirectWithIntl(request, '/accept-honor');
+    }
+  } catch (error) {
+    return intlMiddleware(request);
+  }
+  return intlMiddleware(request);
+};
+
 export async function middleware(request: NextRequest) {
-  // If it's a root path — proces it with i18n middleware first
+  // If it's a root path — process it with i18n middleware first
   if (isRoot(request)) {
     return intlMiddleware(request);
   }
@@ -88,6 +105,12 @@ export async function middleware(request: NextRequest) {
     }
 
     return intlMiddleware(request);
+  }
+
+  await honorMiddleware(request);
+
+  if (isAcceptHonorPath(request)) {
+    return redirectWithIntl(request, '/');
   }
 
   return (authMiddleware as any)(request);

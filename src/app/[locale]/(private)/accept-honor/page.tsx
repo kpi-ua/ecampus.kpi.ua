@@ -9,7 +9,6 @@ import { acceptCodeOfHonor } from '@/actions/profile.actions';
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
@@ -52,9 +51,6 @@ export default function CodeOfHonorAlert() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Link href="/">
-            <AlertDialogCancel>{t('button.go-to-home')}</AlertDialogCancel>
-          </Link>
           <AlertDialogAction onClick={handleAcceptCodeOfHonor}>{t('button.agree')}</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

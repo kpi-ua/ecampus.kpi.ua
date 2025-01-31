@@ -9,8 +9,6 @@ import {
 import { cn } from '@/lib/utils';
 import React from 'react';
 import { getTranslations } from 'next-intl/server';
-import { getUserDetails } from '@/actions/auth.actions';
-import CodeOfHonorAlert from '@/components/code-of-honor-alert';
 
 interface SubLayoutProps {
   children: React.ReactNode;
@@ -21,11 +19,6 @@ interface SubLayoutProps {
 
 export const SubLayout = async ({ children, breadcrumbs = [], pageTitle, className }: SubLayoutProps) => {
   const t = await getTranslations('global.menu');
-  const user = await getUserDetails();
-
-  if (!user?.codeOfHonorSignDate && !!user?.studentProfile) {
-    return <CodeOfHonorAlert />;
-  }
 
   return (
     <section>
