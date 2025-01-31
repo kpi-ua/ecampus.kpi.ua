@@ -16,7 +16,7 @@ export const Heading0 = createHeading('h1', 'text-7xl leading-6xl');
 
 Heading0.displayName = 'Heading0';
 
-export const Heading1 = createHeading('h1', 'lg:text-6xl text-4xl leading-3xl lg:leading-5xl');
+export const Heading1 = createHeading('h1', 'lg:text-6xl lg:leading-5xl text-4xl leading-3xl');
 
 Heading1.displayName = 'Heading1';
 

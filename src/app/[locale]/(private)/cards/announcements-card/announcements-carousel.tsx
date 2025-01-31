@@ -24,7 +24,7 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
 
   return (
     <Carousel
-      opts={{ loop: true, align: 'center', watchDrag: false }}
+      opts={{ loop: true, align: 'center' }}
       plugins={[Autoplay({ delay: AUTOPLAY_DELAY })]}
       className="w-full"
       setApi={setApi}
