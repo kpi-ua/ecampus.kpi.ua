@@ -81,18 +81,21 @@ const authMiddleware = (request: NextRequest) => {
 };
 
 const CoHMiddleware = async (request: NextRequest) => {
-  const user = await getUserDetails();
-  const hasAcceptedCoH = Boolean(user?.codeOfHonorSignDate && user?.studentProfile);
+  try {
+    const user = await getUserDetails();
+    const hasAcceptedCoH = !!user?.codeOfHonorSignDate;
 
-  if (!hasAcceptedCoH && !isAcceptHonorPath(request)) {
-    return redirectWithIntl(request, '/accept-honor');
+    if (!hasAcceptedCoH && !isAcceptHonorPath(request)) {
+      return redirectWithIntl(request, '/accept-honor');
+    }
+
+    if ((!user?.studentProfile || hasAcceptedCoH) && isAcceptHonorPath(request)) {
+      return redirectWithIntl(request, '/');
+    }
+  } catch (error) {
+    return null;
   }
-
-  if (hasAcceptedCoH && isAcceptHonorPath(request)) {
-    return redirectWithIntl(request, '/');
-  }
-
-  return null;
+  return intlMiddleware(request);
 };
 
 export async function middleware(request: NextRequest) {

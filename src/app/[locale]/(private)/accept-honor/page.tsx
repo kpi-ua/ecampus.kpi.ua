@@ -35,7 +35,7 @@ export default function CodeOfHonorAlert() {
       return;
     }
     setUser(res);
-    router.refresh();
+    router.push('/');
   };
 
   return (
