@@ -8,6 +8,9 @@ module.exports = {
         tall: {
           raw: '(min-height: 933px)',
         },
+        '3xl': {
+          raw: '(min-width: 1920px)',
+        },
       },
       borderRadius: {
         xl: 'calc(var(--radius) * 4.5)',
