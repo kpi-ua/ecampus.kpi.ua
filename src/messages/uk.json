@@ -50,8 +50,7 @@
       "student": "Студент",
       "spw": "НПП"
     },
-    "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>",
-    "goto-employment-system": "Перейти до анкети"
+    "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
   },
   "auth": {
     "login": {
