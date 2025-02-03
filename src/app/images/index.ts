@@ -5,6 +5,7 @@ import ArrowSquareOutBold from './icons/ArrowSquareOutBold.svg';
 import ArrowSquareOutLight from './icons/ArrowSquareOutLight.svg';
 import ArrowSquareOutRegular from './icons/ArrowSquareOutRegular.svg';
 import Books from './icons/Books.svg';
+import BagSimple from './icons/BagSimple.svg';
 import CalendarBlank from './icons/CalendarBlank.svg';
 import Camera from './icons/Camera.svg';
 import CaretDownBold from './icons/CaretDownBold.svg';
@@ -139,6 +140,7 @@ export {
   ArrowSquareOutBold,
   ArrowSquareOutLight,
   ArrowSquareOutRegular,
+  BagSimple,
   Books,
   CalendarBlank,
   Camera,
