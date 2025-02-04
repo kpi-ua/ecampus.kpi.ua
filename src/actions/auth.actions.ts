@@ -111,7 +111,7 @@ export async function redirectToOldCampus() {
 }
 
 export async function redirectToEmploymentSystem() {
-  const response = await campusFetch('employment-system/auth');
+  const response = await campusFetch<string>('employment-system/auth');
   const url = await response.json();
   redirect(url);
 }
