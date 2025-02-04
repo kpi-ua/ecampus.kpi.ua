@@ -46,6 +46,7 @@ export const CuratorSearch = () => {
     <div className="flex w-full grow flex-col gap-4 rounded-lg border-[1px] border-solid border-neutral-200 p-4">
       <Input
         placeholder={t('search-placeholder')}
+        iconPosition="start"
         icon={<MagnifyingGlassRegular />}
         onChange={debounce({ delay: 200 }, handleChange)}
       />

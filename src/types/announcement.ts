@@ -4,4 +4,7 @@ export interface Announcement {
   description: string;
   image?: string;
   link?: string;
+  linkTitle?: string;
+  start?: string;
+  end?: string;
 }

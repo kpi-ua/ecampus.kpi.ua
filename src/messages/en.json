@@ -209,6 +209,15 @@
       "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><complaintslink>Complaints and suggestions form</complaintslink><br></br><emaillink>Email</emaillink>"
     },
 
+    "notice-board": {
+      "title": "Notice board",
+      "subtitle": "Here you can view current university announcements and stay up to date with all important news.",
+      "input": {
+        "placeholder": "Search",
+        "not-found": "Results not found"
+      }
+    },
+
     "profile": {
       "title": "Profile",
       "subtitle": "Here you can view your profile, edit contacts, add links to accounts, and set appointment details.",

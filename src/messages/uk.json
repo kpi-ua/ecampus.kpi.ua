@@ -209,6 +209,14 @@
       "header": "Контакти",
       "content": "<h3>Контактнi данi</h3><p>Адреса конструкторського бюро: <addresslink>Україна, м. Київ, вул. Політехнічна 14-в</addresslink>, корпус 13, 4 поверх, 25 кабінет</p><h3>Соцiальнi мережi</h3><p><githublink>КПI у GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Служба підтримки</h3><p>Якщо у вас є питання, ви можете звернутися до служби підтримки:</p><complaintslink>Форма скарг i пропозицiй</complaintslink><br></br><emaillink>Email</emaillink>"
     },
+    "notice-board": {
+      "title": "Оголошення",
+      "subtitle": "Тут ви можете переглядати актуальні оголошення університету та бути в курсі всіх важливих новин.",
+      "input": {
+        "placeholder": "Пошук",
+        "not-found": "Нічого не знайдено"
+      }
+    },
     "profile": {
       "title": "Профіль",
       "subtitle": "Тут ви можете переглядати свій профіль, редагувати контакти, додавати посилання на облікові записи та назначати деталі прийому.",
