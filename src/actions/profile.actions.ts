@@ -4,6 +4,7 @@ import { Contact, ContactType } from '@/types/contact';
 import { campusFetch } from '@/lib/client';
 import { revalidatePath } from 'next/cache';
 import { getUserDetails } from '@/actions/auth.actions';
+import { redirect } from 'next/navigation';
 
 export async function getContacts() {
   try {
@@ -101,8 +102,8 @@ export async function acceptCodeOfHonor() {
     await campusFetch('profile/code-of-honor', {
       method: 'PUT',
     });
-    return getUserDetails();
   } catch (error) {
     throw new Error('Error while accepting code of honor');
   }
+  redirect('/');
 }

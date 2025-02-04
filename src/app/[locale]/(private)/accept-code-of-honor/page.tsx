@@ -1,10 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import React from 'react';
-import { useLocalStorage } from '@/hooks/use-storage';
-import { User } from '@/types/user';
 import { acceptCodeOfHonor } from '@/actions/profile.actions';
 import {
   AlertDialog,
@@ -17,25 +14,12 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Link } from '@/i18n/routing';
 import { Paragraph } from '@/components/typography/paragraph';
-import { useRouter } from 'next/navigation';
 
 export default function CodeOfHonorAlert() {
-  const router = useRouter();
   const t = useTranslations('private.profile');
 
-  const { errorToast } = useServerErrorToast();
-
-  const [, setUser] = useLocalStorage<User>('user');
-
   const handleAcceptCodeOfHonor = async () => {
-    const res = await acceptCodeOfHonor();
-
-    if (!res) {
-      errorToast();
-      return;
-    }
-    setUser(res);
-    router.push('/');
+    await acceptCodeOfHonor();
   };
 
   return (
