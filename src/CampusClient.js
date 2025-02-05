@@ -256,13 +256,7 @@ const toUrlEncode = (obj) => {
  * @returns {Promise<void>}
  */
 export const getBulletinBoardForCurrentUser = async (page, size) => {
-  const response = await callApi(`Board/All?page=${page}&size=${size}`, 'GET');
-
-  if (response.status < 200 || response.status >= 300) {
-    return null;
-  }
-
-  return await response.json();
+  return null;
 };
 
 /**
