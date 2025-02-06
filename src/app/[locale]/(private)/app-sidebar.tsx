@@ -98,7 +98,7 @@ const createMenuGroups = (t: ReturnType<typeof useTranslations>) => [
     },
     {
       title: t('employment-system'),
-      url: '/survey',
+      url: '/employment-system',
       icon: BagSimple,
     },
     {

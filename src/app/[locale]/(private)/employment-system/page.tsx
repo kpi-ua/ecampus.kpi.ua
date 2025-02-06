@@ -6,7 +6,7 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Button } from '@/components/ui/button';
 import { redirectToEmploymentSystem } from '@/actions/auth.actions';
 
-const INTL_NAMESPACE = 'private.survey';
+const INTL_NAMESPACE = 'private.employment-system';
 
 export async function generateMetadata({ params: { locale } }: any) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -16,7 +16,7 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function SettingsPage() {
+export default function EmploymentSystemPage() {
   const t = useTranslations(INTL_NAMESPACE);
 
   return (
