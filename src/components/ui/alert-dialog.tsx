@@ -25,10 +25,14 @@ const AlertDialogOverlay = React.forwardRef<
 ));
 AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;
 
+interface AlertDialogContentProps extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content> {
+  closable?: boolean;
+}
+
 const AlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
->(({ className, ...props }, ref) => (
+  AlertDialogContentProps
+>(({ className, closable = true, ...props }, ref) => (
   <AlertDialogPortal>
     <AlertDialogOverlay />
     <AlertDialogPrimitive.Content
@@ -39,9 +43,11 @@ const AlertDialogContent = React.forwardRef<
       )}
       {...props}
     >
-      <AlertDialogPrimitive.Cancel asChild className="absolute right-3 top-3">
-        <Button className="text-gray-600 focus:outline-none" variant="tertiary" icon={<X />} />
-      </AlertDialogPrimitive.Cancel>
+      {closable && (
+        <AlertDialogPrimitive.Cancel asChild className="absolute right-3 top-3">
+          <Button className="text-gray-600 focus:outline-none" variant="tertiary" icon={<X />} />
+        </AlertDialogPrimitive.Cancel>
+      )}
       {props.children}
     </AlertDialogPrimitive.Content>
   </AlertDialogPortal>

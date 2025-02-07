@@ -5,6 +5,7 @@ import JWT from 'jsonwebtoken';
 import createMiddleware from 'next-intl/middleware';
 import dayjs from 'dayjs';
 import { trim } from 'radash';
+import { getUserDetails } from '@/actions/auth.actions';
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -15,6 +16,8 @@ export const config = {
 const composePathsRegExp = (paths: string[]) => RegExp(`^(/(${LOCALES.join('|')}))?(${paths.join('|')})/?$`, 'i');
 
 const rootRegExp = new RegExp('^\/?$', 'i');
+
+const codeOfHonorPathRegExp = composePathsRegExp(['/accept-code-of-honor']);
 
 const authPathRegExp = composePathsRegExp(['/login', '/password-reset/success', '/password-reset']);
 
@@ -32,6 +35,7 @@ const publicPathRegExp = composePathsRegExp([
 const isRoot = (request: NextRequest) => rootRegExp.test(request.nextUrl.pathname);
 const isPublicPath = (request: NextRequest) => publicPathRegExp.test(request.nextUrl.pathname);
 const isAuthPath = (request: NextRequest) => authPathRegExp.test(request.nextUrl.pathname);
+const isAcceptCodeOfHonorPath = (request: NextRequest) => codeOfHonorPathRegExp.test(request.nextUrl.pathname);
 
 const isAuthenticated = (request: NextRequest) => {
   const cookie = request.cookies.get('token');
@@ -73,11 +77,32 @@ const authMiddleware = (request: NextRequest) => {
     return redirectWithIntl(request, '/');
   }
 
-  return intlMiddleware(request);
+  return null;
+};
+
+const codeOfHonorMiddleware = async (request: NextRequest) => {
+  try {
+    const user = await getUserDetails();
+    const hasAcceptedCodeOfHonor = !!user?.codeOfHonorSignDate;
+
+    if (isAcceptCodeOfHonorPath(request)) {
+      if (!user?.studentProfile || hasAcceptedCodeOfHonor) {
+        return redirectWithIntl(request, '/');
+      }
+    } else {
+      if (!!user?.studentProfile && !hasAcceptedCodeOfHonor) {
+        return redirectWithIntl(request, '/accept-code-of-honor');
+      }
+    }
+
+    return intlMiddleware(request);
+  } catch (error) {
+    return intlMiddleware(request);
+  }
 };
 
 export async function middleware(request: NextRequest) {
-  // If it's a root path — proces it with i18n middleware first
+  // If it's a root path — process it with i18n middleware first
   if (isRoot(request)) {
     return intlMiddleware(request);
   }
@@ -90,5 +115,5 @@ export async function middleware(request: NextRequest) {
     return intlMiddleware(request);
   }
 
-  return (authMiddleware as any)(request);
+  return authMiddleware(request) || codeOfHonorMiddleware(request);
 }
