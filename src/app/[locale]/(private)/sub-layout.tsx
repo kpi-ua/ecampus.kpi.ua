@@ -7,6 +7,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { cn } from '@/lib/utils';
+import React from 'react';
 import { useTranslations } from 'next-intl';
 
 interface SubLayoutProps {
