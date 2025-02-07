@@ -43,7 +43,8 @@
       "about": "About",
       "documents": "KPI documents",
       "terms-of-service": "Terms of service",
-      "contacts": "Contacts"
+      "contacts": "Contacts",
+      "employment-system": "Employment system"
     },
     "user-category": {
       "student": "Student",
@@ -266,7 +267,13 @@
         "not-specified": "Not specified"
       }
     },
-
+    "employment-system": {
+      "title": "Employment system",
+      "subtitle": "You can proceed to filling out the skills and knowledge questionnaire or watch the video tutorial",
+      "button": {
+        "title": "Go to questionnaire"
+      }
+    },
     "settings": {
       "title": "Settings",
       "subtitle": "Here you can change your photo, e-mail and password for your profile.",

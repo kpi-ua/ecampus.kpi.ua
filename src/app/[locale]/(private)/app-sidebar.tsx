@@ -25,6 +25,7 @@ import {
   Notebook,
   IdentificationBadge,
   ChatCenteredText,
+  BagSimple,
 } from '@/app/images';
 import { Link, usePathname } from '@/i18n/routing';
 import { Paragraph } from '@/components/typography/paragraph';
@@ -96,6 +97,11 @@ const createMenuGroups = (t: ReturnType<typeof useTranslations>) => [
       icon: ChatCenteredText,
     },
     {
+      title: t('employment-system'),
+      url: '/employment-system',
+      icon: BagSimple,
+    },
+    {
       title: t('settings'),
       url: '/settings',
       icon: Gear,
@@ -137,7 +143,7 @@ export function AppSidebar() {
                       <SidebarMenuButton isActive={pathname === item.url} asChild>
                         <Link href={item.url}>
                           <item.icon />
-                          <span>{item.title}</span>
+                          {item.title}
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
