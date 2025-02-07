@@ -51,6 +51,46 @@ export const auth = async (login, password) => {
 };
 
 /**
+ * Exchange KPI ID ticket for sessionId and token
+ * @param {string} ticketId
+ * @returns {Promise<Object|null>}
+ */
+export const exchangeKpiIdTicket = async (ticketId) => {
+  if (!ticketId) {
+    console.warn('Ticket ID is required');
+    return null;
+  }
+
+  const response = await fetch(`${ApplicationConfiguration.ApiEndpoint}auth/kpi-id?ticketId=${encodeURIComponent(ticketId)}`, {
+    method: 'GET',
+    cache: 'no-cache',
+    headers: {
+      'Accept': 'application/json',
+    },
+  });
+
+  if (response.status !== 200) {
+
+    console.warn(`Failed to exchange ticketId: ${ticketId}`);
+
+    return null;
+  }
+
+  const credentialsCollection = await response.json();
+
+  if (!credentialsCollection || credentialsCollection.length === 0) {
+    return null;
+  }
+
+  // Assuming the first user in the response should be used
+  const credentials = credentialsCollection[0];
+
+  await storeCredentials(credentials.sessionId, credentials.access_token);
+
+  return await getCurrentUser();
+};
+
+/**
  * Logout from Campus API
  * @returns {Promise<void>}
  */
@@ -256,13 +296,7 @@ const toUrlEncode = (obj) => {
  * @returns {Promise<void>}
  */
 export const getBulletinBoardForCurrentUser = async (page, size) => {
-  const response = await callApi(`Board/All?page=${page}&size=${size}`, 'GET');
-
-  if (response.status < 200 || response.status >= 300) {
-    return null;
-  }
-
-  return await response.json();
+  return null;
 };
 
 /**

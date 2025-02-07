@@ -22,6 +22,7 @@ class BbList extends React.Component {
       1,
       this.state.pageSize,
     );
+
     if (!!response) {
       this.setState({
         items: response.data,
