@@ -21,6 +21,7 @@ import Faq from './components/Faq';
 import FindCurator from './components/FindCurator';
 import AuthContainerDefault from './components/AuthContainerDefault';
 import EmploymentSystem from './components/EmploymentSystem';
+import KpiId from './components/KPIID';
 
 const InternalLogin = () => {
   return (
@@ -68,6 +69,7 @@ class App extends Component {
               <Route exact path="/bb" component={BbIndex} />
               <Route exact path="/feedback" component={Feedback} />
               <Route exact path="/faq" component={Faq} />
+              <Route exact path="/kpi-id" component={KpiId} />
               <Route exact path="/settings" component={Settings} />
               <Route exact path="/settings-editor" component={SettingsEditor} />
               <Route
