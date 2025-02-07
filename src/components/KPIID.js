@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import * as campus from '../CampusClient';
 
 class KpiId extends Component {
@@ -6,6 +7,7 @@ class KpiId extends Component {
     super(props);
     this.state = {
       error: null,
+      redirect: null,
     };
   }
 
@@ -22,7 +24,7 @@ class KpiId extends Component {
       const user = await campus.exchangeKpiIdTicket(ticketId);
 
       if (user) {
-        this.props.history.push('/home'); // Redirect to home on success
+        this.setState({ redirect: '/home' }); // Redirect on success
       } else {
         this.setState({ error: 'Failed to authenticate using KPI ID' });
       }
@@ -33,6 +35,10 @@ class KpiId extends Component {
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+
     return (
       <div className="row">
         <div className="col-md-12">
