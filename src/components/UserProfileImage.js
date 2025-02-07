@@ -7,7 +7,7 @@ class UserProfileImage extends React.Component {
     rnd: 0,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.setState({ rnd: getRandomNumber() });
   }
 

@@ -10,21 +10,26 @@ class Home extends React.Component {
     user: null,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.initializeUser();
+  }
+
+  initializeUser = async () => {
     const user = await campus.getCurrentUser();
 
     if (!user) {
       this.props.history.push('/login');
       return;
-    } else {
-      if (!user.modules) {
-        await campus.logout();
-        window.location.href = 'https://ecampus.kpi.ua/';
-      }
+    }
+
+    if (!user.modules) {
+      await campus.logout();
+      window.location.href = 'https://ecampus.kpi.ua/';
+      return;
     }
 
     this.setState({ user });
-  }
+  };
 
   redirectToOldUI = async (e) => {
     e.preventDefault();

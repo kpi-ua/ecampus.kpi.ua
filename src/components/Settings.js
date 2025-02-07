@@ -9,7 +9,11 @@ class Settings extends React.Component {
     user: {},
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadUser();
+  }
+
+  loadUser = async () => {
     const user = await campus.getCurrentUser(true);
 
     if (!user) {
@@ -18,7 +22,7 @@ class Settings extends React.Component {
     }
 
     this.setState({ user });
-  }
+  };
 
   render() {
     const { user } = this.state;
