@@ -76,16 +76,16 @@ export const exchangeKpiIdTicket = async (ticketId) => {
     return null;
   }
 
-  const credentials = await response.json();
+  const credentialsCollection = await response.json();
 
-  if (!credentials || credentials.length === 0) {
+  if (!credentialsCollection || credentialsCollection.length === 0) {
     return null;
   }
 
   // Assuming the first user in the response should be used
-  const userCredentials = credentials[0];
+  const credentials = credentialsCollection[0];
 
-  await storeCredentials(userCredentials.sessionId, userCredentials.access_token);
+  await storeCredentials(credentials.sessionId, credentials.access_token);
 
   return await getCurrentUser();
 };
