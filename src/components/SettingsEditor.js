@@ -21,7 +21,11 @@ class SettingsEditor extends React.Component {
     redirect: null
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadUser();
+  }
+
+  loadUser = async () => {
     const user = await campus.getCurrentUser();
 
     if (!user) {
@@ -29,15 +33,17 @@ class SettingsEditor extends React.Component {
       return;
     }
 
-    this.setState({ user });
-    this.setState({ email: user.email });
-    this.setState({ credo: user.credo });
-    this.setState({ scientificInterests: user.scientificInterests });
-    this.setState({ fullName: user.fullName });
-    this.setState({ currentPassword: '' });
-    this.setState({ password: '' });
-    this.setState({ passwordConfirmation: '' });
-  }
+    this.setState({
+      user,
+      email: user.email,
+      credo: user.credo,
+      scientificInterests: user.scientificInterests,
+      fullName: user.fullName,
+      currentPassword: '',
+      password: '',
+      passwordConfirmation: '',
+    });
+  };
 
   /**
    * Validate password

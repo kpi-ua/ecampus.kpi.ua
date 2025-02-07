@@ -17,19 +17,7 @@ class BbList extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const response = await campus.getBulletinBoardForCurrentUser(
-      1,
-      this.state.pageSize,
-    );
-
-    if (!!response) {
-      this.setState({
-        items: response.data,
-        activePage: 1,
-        paging: response.paging,
-      });
-    }
+  componentDidMount() {
   }
 
   dateToString = (date) =>

@@ -12,7 +12,11 @@ class KpiId extends React.Component {
     super(props);
   }
 
-  componentDidMount = async () => {
+  componentDidMount() {
+    this.handleAuthentication();
+  }
+
+  handleAuthentication = async () => {
     try {
       const params = new URLSearchParams(this.props.location.search);
       const ticketId = params.get('ticketId');
@@ -24,7 +28,7 @@ class KpiId extends React.Component {
 
       const currentUser = await campus.exchangeKpiIdTicket(ticketId);
 
-      if (!!currentUser) {
+      if (currentUser) {
         this.setState({ redirect: '/home' });
       } else {
         this.setState({ error: 'Failed to authenticate using KPI ID' });

@@ -41,8 +41,10 @@ class App extends Component {
     };
   }
 
-  async componentDidMount() {
-    this.setState({ user: await campus.getCurrentUser(true) });
+  componentDidMount() {
+    campus.getCurrentUser(true).then(user => {
+      this.setState({ user });
+    });
   }
 
   render() {

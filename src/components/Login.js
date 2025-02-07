@@ -9,11 +9,15 @@ class Login extends React.Component {
     redirect: null
   };
 
-  componentDidMount = async () => {
+  componentDidMount() {
+    this.authenticateUser();
+  }
+
+  authenticateUser = async () => {
     try {
       const currentUser = await campus.getCurrentUser(true);
 
-      if (!!currentUser) {
+      if (currentUser) {
         this.setState({ redirect: '/home' });
       } else {
         this.setState({ error: 'Failed to authenticate using KPI ID' });
