@@ -27,7 +27,8 @@ export function NoticeList({ announcements }: NoticeListProps) {
   const searchQuery = searchParams.get('search') || '';
 
   const filteredAnnouncements = useMemo(() => {
-    return announcements.filter((a) => a.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    const lowerSearch = searchQuery.toLowerCase();
+    return announcements.filter((announcement) => announcement.title.toLowerCase().includes(lowerSearch));
   }, [announcements, searchQuery]);
 
   const { paginatedItems, page, handleInputChange } = usePagination(PAGE_SIZE, filteredAnnouncements);
