@@ -25,12 +25,13 @@ const inputVariants = cva(
     },
     defaultVariants: {
       size: 'medium',
+      iconPosition: 'start',
     },
   },
 );
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, icon, size, iconPosition = 'start', ...props }, ref) => {
+  ({ className, type, icon, size, iconPosition, ...props }, ref) => {
     const computedClass = cn(
       inputVariants({ size, iconPosition }),
       icon && iconPosition === 'start' ? 'pl-[40px]' : '',
