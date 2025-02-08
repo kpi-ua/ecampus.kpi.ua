@@ -29,7 +29,7 @@ class KpiId extends React.Component {
       const currentUser = await campus.exchangeKpiIdTicket(ticketId);
 
       if (currentUser) {
-        this.setState({ redirect: '/home' });
+        this.setState({ redirect: '/' });
       } else {
         this.setState({ error: 'Failed to authenticate using KPI ID' });
       }
