@@ -6,10 +6,9 @@ import Autoplay from 'embla-carousel-autoplay';
 import { AnnouncementSlide } from './announcement-slide';
 import { Announcement } from '@/types/announcement';
 import { DotButton } from './dot-button';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useDotButton } from './use-dot-button';
 import { DefaultAnnouncementSlide } from './default-announcement-slide';
-import { isAnnouncementOutdated } from '@/lib/utils';
 
 const AUTOPLAY_DELAY = 10_000; // 10 seconds
 
@@ -23,10 +22,6 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
   const [api, setApi] = useState<CarouselApi>();
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(api);
 
-  const filteredAnnouncements = useMemo(() => {
-    return announcements.filter((announcement) => !isAnnouncementOutdated(announcement.end));
-  }, [announcements]);
-
   return (
     <Carousel
       opts={{ loop: true, align: 'center' }}
@@ -38,7 +33,7 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
         <Slide>
           <DefaultAnnouncementSlide />
         </Slide>
-        {filteredAnnouncements.map((announcement) => (
+        {announcements.map((announcement) => (
           <Slide key={announcement.id}>
             <AnnouncementSlide
               title={announcement.title}

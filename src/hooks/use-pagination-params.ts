@@ -1,11 +1,22 @@
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export const usePaginationParams = (pageSize: number) => {
+export const usePaginationParams = <T>(pageSize: number, items: T[]) => {
   const searchParams = useSearchParams();
-  const page = parseInt(searchParams.get('page') || '1');
+  const router = useRouter();
+
+  let page = parseInt(searchParams.get('page') || '1');
+
+  if (page > 1 && items.length <= pageSize) {
+    page = 1;
+    const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
+    router.replace(`?${params.toString()}`);
+  }
 
   const start = (page - 1) * pageSize;
   const end = start + pageSize;
 
-  return { start, end, page };
+  const paginatedItems = items.slice(start, end);
+
+  return { paginatedItems, page };
 };

@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Show } from '@/components/utils/show';
-import { isAnnouncementOutdated } from '@/lib/utils';
+import { isOutdated } from '@/lib/date.utils';
 
 interface NoticeProps {
   announcement: Announcement;
@@ -13,7 +13,7 @@ interface NoticeProps {
 export function Notice({ announcement }: NoticeProps) {
   const formattedDateStart = dayjs(announcement.start).format('DD.MM.YYYY');
   const formattedDateEnd = dayjs(announcement.end).format('DD.MM.YYYY');
-  const isArchived = isAnnouncementOutdated(announcement.end);
+  const isArchived = isOutdated(announcement.end);
 
   return (
     <div className={`flex flex-col gap-6 ${isArchived ? 'opacity-50' : 'opacity-100'}`}>

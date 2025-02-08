@@ -73,9 +73,9 @@ export function PaginationWithLinks({
 
   const renderPageNumbers = () => {
     const items: ReactNode[] = [];
-    const maxVisiblePages = 5;
+    const maxVisiblePages = 6;
 
-    if (totalPageCount <= maxVisiblePages) {
+    if (totalPageCount <= maxVisiblePages + 1) {
       for (let i = 1; i <= totalPageCount; i++) {
         items.push(
           <PaginationItem key={i}>
@@ -86,50 +86,104 @@ export function PaginationWithLinks({
         );
       }
     } else {
-      items.push(
-        <PaginationItem key={1}>
-          <PaginationLink className="size-[32px]" href={buildLink(1)} isActive={page === 1}>
-            1
-          </PaginationLink>
-        </PaginationItem>,
-      );
-
-      if (page > 3) {
+      if (page === 1) {
+        for (let i = 1; i <= maxVisiblePages; i++) {
+          items.push(
+            <PaginationItem key={i}>
+              <PaginationLink className="size-[32px]" href={buildLink(i)} isActive={page === i}>
+                {i}
+              </PaginationLink>
+            </PaginationItem>,
+          );
+        }
+        if (totalPageCount > maxVisiblePages + 1) {
+          items.push(
+            <PaginationItem key="ellipsis">
+              <PaginationEllipsis />
+            </PaginationItem>,
+          );
+          items.push(
+            <PaginationItem key={totalPageCount}>
+              <PaginationLink
+                className="size-[32px]"
+                href={buildLink(totalPageCount)}
+                isActive={page === totalPageCount}
+              >
+                {totalPageCount}
+              </PaginationLink>
+            </PaginationItem>,
+          );
+        }
+      } else if (page === totalPageCount) {
+        if (totalPageCount > maxVisiblePages + 1) {
+          items.push(
+            <PaginationItem key={1}>
+              <PaginationLink className="size-[32px]" href={buildLink(1)} isActive={page === 1}>
+                1
+              </PaginationLink>
+            </PaginationItem>,
+          );
+          items.push(
+            <PaginationItem key="ellipsis">
+              <PaginationEllipsis />
+            </PaginationItem>,
+          );
+        }
+        for (let i = totalPageCount - 4; i <= totalPageCount; i++) {
+          items.push(
+            <PaginationItem key={i}>
+              <PaginationLink className="size-[32px]" href={buildLink(i)} isActive={page === i}>
+                {i}
+              </PaginationLink>
+            </PaginationItem>,
+          );
+        }
+      } else {
         items.push(
-          <PaginationItem key="ellipsis-start">
-            <PaginationEllipsis />
+          <PaginationItem key={1}>
+            <PaginationLink className="size-[32px]" href={buildLink(1)} isActive={page === 1}>
+              1
+            </PaginationLink>
           </PaginationItem>,
         );
-      }
 
-      const start = Math.max(2, page - 1);
-      const end = Math.min(totalPageCount - 1, page + 1);
+        if (page > 4) {
+          items.push(
+            <PaginationItem key="ellipsis-start">
+              <PaginationEllipsis />
+            </PaginationItem>,
+          );
+        }
 
-      for (let i = start; i <= end; i++) {
+        const start = Math.max(2, page - 2);
+        const end = Math.min(totalPageCount - 1, page + 2);
+
+        for (let i = start; i <= end; i++) {
+          items.push(
+            <PaginationItem key={i}>
+              <PaginationLink className="size-[32px]" href={buildLink(i)} isActive={page === i}>
+                {i}
+              </PaginationLink>
+            </PaginationItem>,
+          );
+        }
+
+        if (page < totalPageCount - 3) {
+          items.push(
+            <PaginationItem key="ellipsis-end">
+              <PaginationEllipsis />
+            </PaginationItem>,
+          );
+        }
+
         items.push(
-          <PaginationItem key={i}>
-            <PaginationLink className="size-[32px]" href={buildLink(i)} isActive={page === i}>
-              {i}
+          <PaginationItem key={totalPageCount}>
+            <PaginationLink className="size-[32px]" href={buildLink(totalPageCount)} isActive={page === totalPageCount}>
+              {totalPageCount}
             </PaginationLink>
           </PaginationItem>,
         );
       }
-
-      if (page < totalPageCount - 2) {
-        items.push(
-          <PaginationItem key="ellipsis-end">
-            <PaginationEllipsis />
-          </PaginationItem>,
-        );
-      }
-
-      items.push(
-        <PaginationItem className="text-lg" key={totalPageCount}>
-          <PaginationLink href={buildLink(totalPageCount)} isActive={page === totalPageCount}>
-            {totalPageCount}
-          </PaginationLink>
-        </PaginationItem>,
-      );
     }
 
     return items;

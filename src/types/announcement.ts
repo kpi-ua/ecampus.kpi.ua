@@ -5,6 +5,6 @@ export interface Announcement {
   image?: string;
   link?: string;
   linkTitle?: string;
-  start?: string;
-  end?: string;
+  start?: Date;
+  end?: Date;
 }
