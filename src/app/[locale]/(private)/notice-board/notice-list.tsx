@@ -2,17 +2,17 @@
 
 import { Announcement } from '@/types/announcement';
 import { Notice } from '@/app/[locale]/(private)/notice-board/notice';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { Card } from '@/components/ui/card';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
 import MagnifyingGlassRegular from '../../../images/icons/MagnifyingGlassRegular.svg';
-import { debounce } from 'radash';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Show } from '@/components/utils/show';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
-import { usePaginationParams } from '@/hooks/use-pagination-params';
+import { usePagination } from '@/hooks/use-pagination';
+import { useSearchParams } from 'next/navigation';
 
 interface NoticeListProps {
   announcements: Announcement[];
@@ -22,25 +22,23 @@ const PAGE_SIZE = 5;
 
 export function NoticeList({ announcements }: NoticeListProps) {
   const t = useTranslations('private.notice-board');
-  const [search, setSearch] = useState('');
+  const searchParams = useSearchParams();
+
+  const searchQuery = searchParams.get('search') || '';
 
   const filteredAnnouncements = useMemo(() => {
-    const lowerSearch = search.toLowerCase();
-    return announcements.filter((a) => a.title.toLowerCase().includes(lowerSearch));
-  }, [search, announcements]);
+    return announcements.filter((a) => a.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  }, [announcements, searchQuery]);
 
-  const { paginatedItems, page } = usePaginationParams(PAGE_SIZE, filteredAnnouncements);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
+  const { paginatedItems, page, handleInputChange } = usePagination(PAGE_SIZE, filteredAnnouncements);
 
   return (
     <Card className="col-span-full w-full p-9 xl:col-span-5">
       <Input
         placeholder={t('input.placeholder')}
         icon={<MagnifyingGlassRegular />}
-        onChange={debounce({ delay: 200 }, handleChange)}
+        defaultValue={searchQuery}
+        onChange={handleInputChange}
       />
       <div className="mt-6">
         {paginatedItems.length > 0 ? (
