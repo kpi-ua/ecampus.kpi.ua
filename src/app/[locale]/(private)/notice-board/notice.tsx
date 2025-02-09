@@ -21,7 +21,7 @@ export function Notice({ announcement }: NoticeProps) {
         <Heading4>{announcement.title}</Heading4>
         <Paragraph className="m-0 line-clamp-3 font-medium">{announcement.description}</Paragraph>
       </div>
-      <Show when={!isAnnouncementOutdated}>
+      <Show when={!!announcement.link && !isAnnouncementOutdated}>
         <Button className="w-fit" variant="secondary" asChild>
           <Link href={announcement.link || ''} target="_blank">
             {announcement.linkTitle}
