@@ -8,15 +8,13 @@ export const getAnnouncements = async ({ filterEnabled = false }: { filterEnable
   try {
     const response = await campusFetch<Announcement[]>('announcements');
 
-    console.log('response', response);
-
     if (!response.ok) {
       return [];
     }
 
     const announcements = await response.json();
 
-    const sortedAnnouncements = announcements.toSorted((a, b) => {
+    const sortedAnnouncements = announcements.sort((a, b) => {
       return new Date(b.end || 0).getTime() - new Date(a.end || 0).getTime();
     });
 
@@ -26,7 +24,6 @@ export const getAnnouncements = async ({ filterEnabled = false }: { filterEnable
 
     return sortedAnnouncements;
   } catch (error) {
-    console.log('error', error);
     return [];
   }
 };
