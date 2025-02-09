@@ -26,6 +26,7 @@ import {
   IdentificationBadge,
   ChatCenteredText,
   BagSimple,
+  Scroll,
 } from '@/app/images';
 import { Link, usePathname } from '@/i18n/routing';
 import { Paragraph } from '@/components/typography/paragraph';
@@ -95,6 +96,11 @@ const createMenuGroups = (t: ReturnType<typeof useTranslations>) => [
       title: t('feedback'),
       url: '/feedback',
       icon: ChatCenteredText,
+    },
+    {
+      title: t('notice-board'),
+      url: '/notice-board',
+      icon: Scroll,
     },
     {
       title: t('employment-system'),
