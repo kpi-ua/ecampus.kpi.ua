@@ -32,6 +32,7 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { TextButton } from '@/components/ui/text-button';
 import dayjs from 'dayjs';
 import React from 'react';
+import Scroll from '../../images/icons/Scroll.svg';
 
 const createMenuGroups = (t: ReturnType<typeof useTranslations>) => [
   [
@@ -95,6 +96,11 @@ const createMenuGroups = (t: ReturnType<typeof useTranslations>) => [
       title: t('feedback'),
       url: '/feedback',
       icon: ChatCenteredText,
+    },
+    {
+      title: t('notice-board'),
+      url: '/notice-board',
+      icon: Scroll,
     },
     {
       title: t('employment-system'),
