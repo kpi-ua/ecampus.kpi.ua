@@ -25,6 +25,7 @@ const inputVariants = cva(
     },
     defaultVariants: {
       size: 'medium',
+      iconPosition: 'start',
     },
   },
 );
