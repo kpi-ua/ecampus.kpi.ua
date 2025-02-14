@@ -41,8 +41,8 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
             <AnnouncementSlide
               title={announcement.title}
               description={announcement.description}
-              link={announcement.link}
-              linkTitle={announcement.linkTitle}
+              link={announcement.link?.uri}
+              linkTitle={announcement.link?.title}
               image={announcement.image}
             />
           </Slide>

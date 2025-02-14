@@ -8,7 +8,7 @@ interface AnnouncementsCardProps {
 }
 
 export const AnnouncementsCard = async ({ className }: AnnouncementsCardProps) => {
-  const announcements = await getAnnouncements({ filterEnabled: true });
+  const announcements = await getAnnouncements({ excludeOutdated: true });
 
   return (
     <Card className={cn(className)}>

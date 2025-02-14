@@ -4,7 +4,7 @@ import { campusFetch } from '@/lib/client';
 import { Announcement } from '@/types/announcement';
 import { isOutdated } from '@/lib/date.utils';
 
-export const getAnnouncements = async ({ filterEnabled = false }: { filterEnabled?: boolean } = {}) => {
+export const getAnnouncements = async ({ excludeOutdated = false }: { excludeOutdated?: boolean } = {}) => {
   try {
     const response = await campusFetch<Announcement[]>('announcements');
 
@@ -18,7 +18,7 @@ export const getAnnouncements = async ({ filterEnabled = false }: { filterEnable
       return new Date(b.end || 0).getTime() - new Date(a.end || 0).getTime();
     });
 
-    if (filterEnabled) {
+    if (excludeOutdated) {
       return sortedAnnouncements.filter((announcement) => !isOutdated(announcement.end));
     }
 

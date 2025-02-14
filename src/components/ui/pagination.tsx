@@ -76,9 +76,12 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
 PaginationNext.displayName = 'PaginationNext';
 
 const PaginationEllipsis = ({ className, ...props }: React.ComponentProps<'span'>) => {
-  const isMobile = useIsMobile();
   return (
-    <span aria-hidden className={cn(`flex size-${isMobile ? 5 : 9} items-end justify-center`, className)} {...props}>
+    <span
+      aria-hidden
+      className={cn(`flex size-[32px] items-end justify-center text-neutral-600`, className)}
+      {...props}
+    >
       <MoreHorizontal className="h-4 w-4" />
       <span className="sr-only">More pages</span>
     </span>

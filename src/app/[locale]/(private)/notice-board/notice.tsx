@@ -23,8 +23,8 @@ export function Notice({ announcement }: NoticeProps) {
       </div>
       <Show when={!!announcement.link && !isAnnouncementOutdated}>
         <Button className="w-fit" variant="secondary" asChild>
-          <Link href={announcement.link || ''} target="_blank">
-            {announcement.linkTitle}
+          <Link href={announcement.link?.uri || ''} target="_blank">
+            {announcement.link?.title}
           </Link>
         </Button>
       </Show>

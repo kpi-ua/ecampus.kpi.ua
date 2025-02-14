@@ -1,18 +1,19 @@
 'use client';
 
-import { Announcement } from '@/types/announcement';
-import { Notice } from '@/app/[locale]/(private)/notice-board/notice';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useMemo } from 'react';
 import { Separator } from '@/components/ui/separator';
-import { Card } from '@/components/ui/card';
-import { useTranslations } from 'next-intl';
+import { debounce } from 'radash';
 import { Input } from '@/components/ui/input';
-import MagnifyingGlassRegular from '../../../images/icons/MagnifyingGlassRegular.svg';
-import { Paragraph } from '@/components/typography/paragraph';
-import { Show } from '@/components/utils/show';
-import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { usePagination } from '@/hooks/use-pagination';
-import { useSearchParams } from 'next/navigation';
+import { Announcement } from '@/types/announcement';
+import { Card } from '@/components/ui/card';
+import { Notice } from '@/app/[locale]/(private)/notice-board/notice';
+import { Paragraph } from '@/components/typography/paragraph';
+import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { useTranslations } from 'next-intl';
+import { Show } from '@/components/utils/show';
+import MagnifyingGlassRegular from '../../../images/icons/MagnifyingGlassRegular.svg';
 
 interface NoticeListProps {
   announcements: Announcement[];
@@ -23,6 +24,7 @@ const PAGE_SIZE = 5;
 export function NoticeList({ announcements }: NoticeListProps) {
   const t = useTranslations('private.notice-board');
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const searchQuery = searchParams.get('search') || '';
 
@@ -31,7 +33,20 @@ export function NoticeList({ announcements }: NoticeListProps) {
     return announcements.filter((announcement) => announcement.title.toLowerCase().includes(lowerSearch));
   }, [announcements, searchQuery]);
 
-  const { paginatedItems, page, handleInputChange } = usePagination(PAGE_SIZE, filteredAnnouncements);
+  const { paginatedItems, page } = usePagination(PAGE_SIZE, filteredAnnouncements);
+
+  const handleSearchChange = debounce({ delay: 200 }, (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearch = e.target.value;
+    const params = new URLSearchParams(searchParams);
+
+    if (newSearch) {
+      params.set('search', newSearch);
+    } else {
+      params.delete('search');
+    }
+
+    router.replace(`?${params.toString()}`);
+  });
 
   return (
     <Card className="col-span-full w-full p-9 xl:col-span-5">
@@ -39,8 +54,9 @@ export function NoticeList({ announcements }: NoticeListProps) {
         placeholder={t('input.placeholder')}
         icon={<MagnifyingGlassRegular />}
         defaultValue={searchQuery}
-        onChange={handleInputChange}
+        onChange={handleSearchChange}
       />
+
       <div className="mt-6">
         {paginatedItems.length > 0 ? (
           paginatedItems.map((announcement) => (
