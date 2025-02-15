@@ -4,22 +4,21 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { TextButton } from '@/components/ui/text-button';
 import { cn } from '@/lib/utils';
+import { useTranslations } from 'next-intl';
 
 interface SocialNetworksCardProps {
   className?: string;
 }
 
 export const SocialNetworksCard = ({ className }: SocialNetworksCardProps) => {
+  const t = useTranslations('private.main.cards.social-networks');
   return (
     <Card className={cn(className)}>
       <CardHeader className="pb-0">
-        <Heading3>Соціальні мережі</Heading3>
+        <Heading3>{t('title')}</Heading3>
       </CardHeader>
       <CardContent>
-        <Paragraph>
-          Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи &quot;Електронний кампус КПІ&quot;, а
-          також інших сервісів на нашій сторінці в Facebook, та також у нашому Телеграм-каналі:
-        </Paragraph>
+        <Paragraph>{t('description')}</Paragraph>
         <Paragraph className="mb-0 mt-8 flex flex-wrap gap-8">
           <TextButton
             size="huge"

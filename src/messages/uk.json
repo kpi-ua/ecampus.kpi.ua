@@ -154,6 +154,24 @@
             "link-title": "Перейти на стару версію Кампусу"
           }
         },
+        "social-networks": {
+          "title": "Соціальні мережі",
+          "description": "Ви завжди можете знайти найактуальнішу інформацію щодо роботи системи 'Електронний кампус КПІ', а також інших сервісів на нашій сторінці в Facebook та у нашому Telegram-каналі:",
+          "button": {
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "instagram": "Instagram",
+            "github": "Github"
+          }
+        },
+        "support": {
+          "title": "Служба підтримки",
+          "description": "Ви завжди можете звернутися в службу підтримки:",
+          "button": {
+            "feedback-form": "Форма скарг і пропозицій",
+            "email": "Пошта"
+          }
+        },
         "carousel": {
           "default-link-title": "Перейти до розкладу",
           "default-slide": {

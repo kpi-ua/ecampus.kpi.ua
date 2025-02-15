@@ -154,6 +154,24 @@
             "link-title": "Go to the old version of Campus"
           }
         },
+        "social-networks": {
+          "title": "Social Networks",
+          "description": "You can always find the latest information about the operation of the 'Electronic Campus KPI' system and other services on our Facebook page and our Telegram channel:",
+          "button": {
+            "facebook": "Facebook",
+            "twitter": "Twitter",
+            "instagram": "Instagram",
+            "github": "Github"
+          }
+        },
+        "support": {
+          "title": "Support",
+          "description": "You can always contact the support service:",
+          "button": {
+            "feedback-form": "Feedback form",
+            "email": "Email"
+          }
+        },
         "carousel": {
           "default-link-title": "Go to schedule",
           "default-slide": {
