@@ -1,6 +1,7 @@
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
+import { ComplaintsForm } from '@/components/complaints-form';
 
 const INTL_NAMESPACE = 'private.feedback';
 
@@ -17,7 +18,7 @@ export default function FeedbackPage({ params: { locale } }: { params: { locale:
   const t = useTranslations(INTL_NAMESPACE);
   return (
     <SubLayout pageTitle={t('title')} className="flex max-w-[640px] justify-start">
-      <iframe src={process.env.NEXT_PUBLIC_COMPLAINTS_FORM!} width="100%" height="950" />
+      <ComplaintsForm />
     </SubLayout>
   );
 }
