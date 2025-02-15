@@ -156,13 +156,7 @@
         },
         "social-networks": {
           "title": "Social Networks",
-          "description": "You can always find the latest information about the operation of the 'Electronic Campus KPI' system and other services on our Facebook page and our Telegram channel:",
-          "button": {
-            "facebook": "Facebook",
-            "twitter": "Twitter",
-            "instagram": "Instagram",
-            "github": "Github"
-          }
+          "description": "You can always find the latest information about the operation of the 'Electronic Campus KPI' system and other services on our Facebook page and our Telegram channel:"
         },
         "support": {
           "title": "Support",
