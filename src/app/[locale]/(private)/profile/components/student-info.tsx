@@ -1,5 +1,5 @@
 import React from 'react';
-import { StudentProfile } from '@/types/student-profile';
+import { StudentProfile } from '@/types/models/student-profile';
 import { useTranslations } from 'next-intl';
 import { InfoItem, InfoList } from './info-list';
 

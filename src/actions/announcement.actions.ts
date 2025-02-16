@@ -1,7 +1,7 @@
 'use server';
 
 import { campusFetch } from '@/lib/client';
-import { Announcement } from '@/types/announcement';
+import { Announcement } from '@/types/models/announcement';
 
 export const getAnnouncements = async () => {
   try {

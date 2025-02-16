@@ -1,6 +1,6 @@
-import { StudentProfile } from '@/types/student-profile';
-import { EmployeeProfile } from '@/types/employee-profile';
-import { UserCategory } from '@/types/constants';
+import { StudentProfile } from '@/types/models/student-profile';
+import { EmployeeProfile } from '@/types/models/employee-profile';
+import { UserCategory } from './user-category';
 
 export interface User {
   id: number;
