@@ -286,6 +286,9 @@
         "title": "Go to questionnaire"
       }
     },
+    "feedback": {
+      "title": "Send feedback"
+    },
     "settings": {
       "title": "Settings",
       "subtitle": "Here you can change your photo, e-mail and password for your profile.",
