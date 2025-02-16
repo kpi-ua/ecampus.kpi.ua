@@ -9,6 +9,7 @@ import { DotButton } from './dot-button';
 import { useState } from 'react';
 import { useDotButton } from './use-dot-button';
 import { DefaultAnnouncementSlide } from './default-announcement-slide';
+import { Show } from '@/components/utils/show';
 
 const AUTOPLAY_DELAY = 10_000; // 10 seconds
 
@@ -30,15 +31,18 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
       setApi={setApi}
     >
       <CarouselContent className="-ml-4 mb-4">
-        <Slide>
-          <DefaultAnnouncementSlide />
-        </Slide>
+        <Show when={!announcements.length}>
+          <Slide>
+            <DefaultAnnouncementSlide />
+          </Slide>
+        </Show>
         {announcements.map((announcement) => (
           <Slide key={announcement.id}>
             <AnnouncementSlide
               title={announcement.title}
               description={announcement.description}
-              link={announcement.link}
+              link={announcement.link?.uri}
+              linkTitle={announcement.link?.title}
               image={announcement.image}
             />
           </Slide>

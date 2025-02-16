@@ -4,9 +4,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { redirectToOldCampus } from '@/actions/auth.actions';
 import { Separator } from '@/components/ui/separator';
+import { Link } from '@/i18n/routing';
 
 interface InformationCardProps {
   className?: string;
@@ -23,7 +23,7 @@ export const InformationCard = ({ className }: InformationCardProps) => {
           <Link href="#">{t('schedule')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
-          <Link href="#">{t('notice-board')}</Link>
+          <Link href="/notice-board">{t('notice-board')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
           <Link href="#">{t('faq')}</Link>
