@@ -1,8 +1,8 @@
 'use server';
 
 import { campusFetch } from '@/lib/client';
-import { Announcement } from '@/types/announcement';
 import { isOutdated } from '@/lib/date.utils';
+import { Announcement } from '@/types/models/announcement';
 
 export const getAnnouncements = async ({ excludeOutdated = false }: { excludeOutdated?: boolean } = {}) => {
   try {

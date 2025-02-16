@@ -8,13 +8,13 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { Show } from '@/components/utils/show';
 import { cn } from '@/lib/utils';
 import { useLocalStorage } from '@/hooks/use-storage';
-import { User } from '@/types/user';
+import { User } from '@/types/models/user';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/actions/auth.actions';
 import { useTranslations } from 'next-intl';
 import { SignOut } from '@/app/images';
 import { Paragraph } from '@/components/typography/paragraph';
-import { USER_CATEGORIES } from '@/types/constants';
+import { USER_CATEGORIES } from '@/lib/constants/user-category';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useIsClient } from '@/hooks/use-is-client';
 

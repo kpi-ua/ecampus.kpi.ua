@@ -7,7 +7,7 @@ import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.sv
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { searchByGroupName } from '@/actions/group.actions';
 import { useCallback, useEffect, useState } from 'react';
-import { Group } from '@/types/group';
+import { Group } from '@/types/models/group';
 import { debounce } from 'radash';
 import { Show } from '@/components/utils/show';
 import { useTranslations } from 'next-intl';

@@ -46,8 +46,10 @@
     "react-dom": "^18",
     "react-google-recaptcha-v3": "^1.10.1",
     "react-hook-form": "^7.53.1",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "url-pattern": "^1.0.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {

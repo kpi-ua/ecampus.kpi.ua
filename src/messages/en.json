@@ -25,6 +25,57 @@
       "return": "Back to the main page",
       "footer": "<paragraph>All rights reserved.© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph> <paragraph>Developer: <kbislink>KBIS</kbislink></paragraph>"
     },
+    "modules": {
+      "contacts": "Contacts",
+      "msg": "Messages",
+      "kurator": "Curator",
+      "rnp": "RNP",
+      "mob": "Methodological support",
+      "vote": "Survey Teacher through students eyes",
+      "studysheet": "Current control",
+      "rectorialcontrol": "Rectorial control",
+      "vedomoststud": "Session",
+      "pk2024": "Admission 2024 (Master’s)",
+      "studdoc": "Student documents",
+      "plans_individual": "Individual plans",
+      "journals": "Journals",
+      "np": "NP",
+      "lists": "Lists",
+      "sessiyaNPP": "Faculty session",
+      "plans": "Faculty workload",
+      "attestation": "Calendar control",
+      "vedomost": "Session",
+      "vidpovidalniy": "Responsible",
+      "reytinghelp": "Data for faculty rating",
+      "ratingnpp2021": "Faculty rating 2020-2021",
+      "ratingnpp2022": "Faculty rating 2021-2022",
+      "ratingnpp2023": "Faculty rating 2022-2023",
+      "ratingnpp2024": "Faculty rating 2023-2024",
+      "webometrics": "Translation of EIR metadata",
+      "attestationresults": "Calendar control results",
+      "ekanat": "Dean’s office",
+      "editRNP": "RNP Editing Ruslan",
+      "hignyak": "Reporting for DNVR",
+      "rnpedit": "RNP Editing Alexey",
+      "rnpupd": "RNP Editing KM",
+      "rnpupd2": "RNP Editing KM 2",
+      "voteresult": "Survey results",
+      "vedomostadmin": "Session Administrator",
+      "zvit": "Session Administrator",
+      "zamdekan": "Deputy Dean",
+      "zavkaf": "Head of Department",
+      "zdekan": "Deans office",
+      "ekk": "EKK",
+      "bravook": "Bravo VC",
+      "ratingnpp": "Faculty rating 2019-2020",
+      "pk2024admin": "Admission 2024 (Admin)",
+      "studdocadmin": "Student documents (Admin)",
+      "yiystat": "Statistical data",
+      "adminpanel": "Admin panel",
+      "sdchoice2021admin": "Discipline selection (Admin)",
+      "sdchoice2021moderator": "Discipline selection (Moderator)",
+      "sdchoice2021nmv": "Discipline selection (NMV)"
+    },
     "menu": {
       "main": "Home",
       "profile": "Profile",
@@ -155,6 +206,18 @@
             "link-title": "Go to the old version of Campus"
           }
         },
+        "social-networks": {
+          "title": "Social Networks",
+          "description": "You can always find the latest information about the operation of the 'Electronic Campus KPI' system and other services on our Facebook page and our Telegram channel:"
+        },
+        "support": {
+          "title": "Support",
+          "description": "You can always contact the support service:",
+          "button": {
+            "feedback-form": "Feedback form",
+            "email": "Email"
+          }
+        },
         "carousel": {
           "default-link-title": "Go to schedule",
           "default-slide": {
@@ -283,6 +346,9 @@
       "button": {
         "title": "Go to questionnaire"
       }
+    },
+    "feedback": {
+      "title": "Send feedback"
     },
     "settings": {
       "title": "Settings",

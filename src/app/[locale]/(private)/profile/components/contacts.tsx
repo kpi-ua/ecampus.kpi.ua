@@ -3,7 +3,7 @@
 import { Heading6 } from '@/components/typography/headers';
 import { Separator } from '@/components/ui/separator';
 import { Input } from '@/components/ui/input';
-import { Contact, ContactType } from '@/types/contact';
+import { Contact, ContactType } from '@/types/models/contact';
 import { createContact, deleteContact, updateContact } from '@/actions/profile.actions';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';

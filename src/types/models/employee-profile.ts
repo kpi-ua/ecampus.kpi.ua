@@ -1,4 +1,4 @@
-import { EmploymentType } from '@/types/constants';
+import { EmploymentType } from './employment-type';
 
 interface Subdivision {
   id: number;
