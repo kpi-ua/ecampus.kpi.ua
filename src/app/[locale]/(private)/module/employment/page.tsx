@@ -1,5 +1,5 @@
 import { Heading1 } from '@/components/typography/headers';
-import { SubLayout } from '../sub-layout';
+import { SubLayout } from '../../sub-layout';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Paragraph } from '@/components/typography/paragraph';
@@ -16,7 +16,7 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function EmploymentSystemPage() {
+export default function EmploymentPage() {
   const t = useTranslations(INTL_NAMESPACE);
 
   return (

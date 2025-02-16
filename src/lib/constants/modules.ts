@@ -49,4 +49,5 @@ export const MODULES: Module[] = [
   { name: 'sdchoice2021admin', isExternal: true },
   { name: 'sdchoice2021moderator', isExternal: true },
   { name: 'sdchoice2021nmv', isExternal: true },
+  { name: 'employment', isExternal: false },
 ];
