@@ -18,7 +18,6 @@ const isAuthenticated = (request: NextRequest) => {
 export const authenticationMiddleware = (request: NextRequest) => {
   const userAuthenticated = isAuthenticated(request);
 
-  console.log('userAuthenticated', userAuthenticated);
   if (userAuthenticated) {
     return codeOfHonorMiddleware(request);
   }

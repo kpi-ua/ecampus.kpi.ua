@@ -10,7 +10,6 @@ export const config = {
 export async function middleware(request: NextRequest) {
   // If it's a root path — process it with i18n middleware first
   if (isRoot(request)) {
-    console.log('is root');
     return intlMiddleware(request);
   }
 

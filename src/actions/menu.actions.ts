@@ -83,7 +83,7 @@ const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
     return availableModules.map((module) => {
       return {
         name: module.name,
-        title: t(module),
+        title: t(module.name),
         url: composeUrlToOldCampus(areaType, module.name),
         isExternal: module.isExternal,
       } satisfies MenuItemMeta;
