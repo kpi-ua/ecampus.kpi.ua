@@ -14,7 +14,7 @@ const createFooterLinks = (t: ReturnType<typeof useTranslations>) => [
   { title: t('contacts'), url: '/contacts' },
 ];
 
-export const Footer = async () => {
+export const Footer = () => {
   const t = useTranslations('global.menu');
   const footerT = useTranslations('global');
   const footerLinks = createFooterLinks(t);

@@ -3,7 +3,7 @@ import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar'
 import { Link } from '@/i18n/routing';
 import React from 'react';
 import { Footer } from './footer';
-import { MenuGroups } from './manu-groups';
+import { MenuGroups } from './menu-groups';
 
 export async function AppSidebar() {
   return (
