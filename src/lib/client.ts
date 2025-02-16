@@ -1,7 +1,6 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 const Client = (basePath: string) => {
   return async <T>(url: string | URL, options: RequestInit = {}) => {
