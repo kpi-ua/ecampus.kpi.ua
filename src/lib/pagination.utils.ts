@@ -1,4 +1,8 @@
-import { clamp, flatten, range } from 'lodash';
+import { range } from 'radash';
+
+const clamp = (value: number, min: number, max: number): number => {
+  return Math.min(Math.max(value, min), max);
+};
 
 export const createPagesRange = ({
   currentPage,
@@ -10,7 +14,7 @@ export const createPagesRange = ({
   visibleRange: number;
 }) => {
   if (pagesCount <= visibleRange + 4) {
-    return range(1, pagesCount + 1);
+    return [...range(1, pagesCount)];
   }
 
   const halfOfVisibleRange = Math.floor(visibleRange / 2);
@@ -25,9 +29,9 @@ export const createPagesRange = ({
       ? clamp(currentPage + halfOfVisibleRange, visibleRange + 2, Infinity)
       : pagesCount;
 
-  return flatten([
+  return [
     rangeStart > 1 ? [1, '...'] : [],
-    ...range(rangeStart, rangeEnd + 1),
+    ...range(rangeStart, rangeEnd),
     rangeEnd < pagesCount ? ['...', pagesCount] : [],
-  ]);
+  ].flat();
 };

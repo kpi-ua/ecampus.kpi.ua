@@ -1,4 +1,3 @@
-import { Announcement } from '@/types/announcement';
 import { Heading4 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import dayjs from 'dayjs';
@@ -6,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Show } from '@/components/utils/show';
 import { isOutdated } from '@/lib/date.utils';
+import { Announcement } from '@/types/models/announcement';
 
 interface NoticeProps {
   announcement: Announcement;

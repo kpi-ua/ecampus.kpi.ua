@@ -1,4 +1,4 @@
-import { Gear, House, UserCircle, CircleWavyCheck, Exam, ChatCenteredText, BagSimple } from '@/app/images';
+import { Gear, House, UserCircle, CircleWavyCheck, Scroll, Exam, ChatCenteredText, BagSimple } from '@/app/images';
 
 // TODO: Add icons for modules
 export const menuIcon: Map<string, React.ReactNode> = new Map([
@@ -9,4 +9,5 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['feedback', ChatCenteredText],
   ['employment-system', BagSimple],
   ['settings', Gear],
+  ['notice-board', Scroll],
 ]);
