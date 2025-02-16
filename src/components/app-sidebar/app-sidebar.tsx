@@ -5,7 +5,7 @@ import React from 'react';
 import { Footer } from './footer';
 import { MenuGroups } from './menu-groups';
 
-export async function AppSidebar() {
+export function AppSidebar() {
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarContent>
