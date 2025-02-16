@@ -6,13 +6,13 @@ import { SubLayout } from '../sub-layout';
 import { Paragraph } from '@/components/typography/paragraph';
 import { InfoBlock } from '@/app/[locale]/(private)/profile/components/info-block';
 import { Contacts } from '@/app/[locale]/(private)/profile/components/contacts';
-import { Contact, ContactType } from '@/types/contact';
+import { Contact, ContactType } from '@/types/models/contact';
 import { IntellectAgreement } from '@/app/[locale]/(private)/profile/components/intellect-agreement';
 import { Card, CardContent } from '@/components/ui/card';
 import { IntellectPublicationInfo } from '@/app/[locale]/(private)/profile/components/intellect-publication-info';
 import { CodeOfHonor } from '@/app/[locale]/(private)/profile/components/code-of-honor';
 import { useLocalStorage } from '@/hooks/use-storage';
-import { User } from '@/types/user';
+import { User } from '@/types/models/user';
 import { useIsClient } from '@/hooks/use-is-client';
 import { Show } from '@/components/utils/show';
 

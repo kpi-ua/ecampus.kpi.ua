@@ -1,6 +1,6 @@
-import { EmployeePosition, EmployeeProfile } from '@/types/employee-profile';
+import { EmployeePosition, EmployeeProfile } from '@/types/models/employee-profile';
 import React from 'react';
-import { EMPLOYMENT_TYPE } from '@/types/constants';
+import { EMPLOYMENT_TYPE } from '@/lib/constants/employment-type';
 import { useTranslations } from 'next-intl';
 import { InfoItem, InfoList } from './info-list';
 import { Heading6 } from '@/components/typography/headers';

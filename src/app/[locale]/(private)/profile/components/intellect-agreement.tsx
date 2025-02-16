@@ -6,7 +6,7 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocalStorage } from '@/hooks/use-storage';
-import { User } from '@/types/user';
+import { User } from '@/types/models/user';
 import { setIntellectAgreement } from '@/actions/profile.actions';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';

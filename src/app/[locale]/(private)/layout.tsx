@@ -1,5 +1,5 @@
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { AppSidebar } from './app-sidebar';
+import { AppSidebar } from '../../../components/app-sidebar/app-sidebar';
 import { Header } from './header';
 
 export default function MainPageLayout({

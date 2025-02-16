@@ -23,11 +23,6 @@ const Client = (basePath: string) => {
       ...otherOptions,
     });
 
-    if (response.status === 401) {
-      cookies().delete('token');
-      redirect('/');
-    }
-
     return response;
   };
 };

@@ -12,7 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Card, CardContent } from '@/components/ui/card';
-import { User } from '@/types/user';
+import { User } from '@/types/models/user';
 import { useState } from 'react';
 import { changeEmail, changePassword, changePhoto } from '@/actions/settings.actions';
 import { useIsMobile } from '@/hooks/use-mobile';

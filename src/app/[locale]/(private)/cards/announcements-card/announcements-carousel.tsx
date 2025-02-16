@@ -4,7 +4,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/componen
 
 import Autoplay from 'embla-carousel-autoplay';
 import { AnnouncementSlide } from './announcement-slide';
-import { Announcement } from '@/types/announcement';
+import { Announcement } from '@/types/models/announcement';
 import { DotButton } from './dot-button';
 import { useState } from 'react';
 import { useDotButton } from './use-dot-button';

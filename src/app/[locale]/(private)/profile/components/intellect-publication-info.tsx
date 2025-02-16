@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useLocalStorage } from '@/hooks/use-storage';
-import { User } from '@/types/user';
+import { User } from '@/types/models/user';
 import { updateIntellectInfo } from '@/actions/profile.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useTranslations } from 'next-intl';
