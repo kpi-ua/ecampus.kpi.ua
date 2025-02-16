@@ -7,11 +7,22 @@ import { cookies } from 'next/headers';
 import { getUserDetails } from './auth.actions';
 import { MenuItemMeta } from '@/types/menu-item-meta';
 import { MODULES } from '@/lib/constants/modules';
+import { ProfileArea } from '@/types/enums/profile-area';
+import { Module } from '@/types/module';
 
 const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
 
-const composeUrlToOldCampus = (profileArea: string, mode: string) => {
-  return `${OLD_CAMPUS_URL}/${profileArea}/index.php?mode=${mode}`;
+const OLD_CAMPUS_PROFILE_AREA = {
+  [ProfileArea.Employee]: 'tutor',
+  [ProfileArea.Student]: 'student',
+};
+
+const composeUrl = (module: Module, profileArea: ProfileArea) => {
+  if (module.isExternal) {
+    return `${OLD_CAMPUS_URL}/${OLD_CAMPUS_PROFILE_AREA[profileArea]}/index.php?mode=${module.name}`;
+  }
+
+  return `/module/${module.name}`;
 };
 
 const getStaticMenuItems = async (): Promise<MenuItemMeta[][]> => {
@@ -46,12 +57,6 @@ const getStaticMenuItems = async (): Promise<MenuItemMeta[][]> => {
         isExternal: false,
       },
       {
-        name: 'employment-system',
-        title: t('employment-system'),
-        url: '/employment-system',
-        isExternal: false,
-      },
-      {
         name: 'settings',
         title: t('settings'),
         url: '/settings',
@@ -83,14 +88,14 @@ const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
 
     const t = await getTranslations('global.modules');
 
-    const areaType = userDetails.studentProfile ? 'student' : 'tutor';
+    const profileArea = userDetails.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
     const availableModules = MODULES.filter((module) => jwtPayload.modules.includes(module.name));
 
     return availableModules.map((module) => {
       return {
         name: module.name,
         title: t(module.name),
-        url: composeUrlToOldCampus(areaType, module.name),
+        url: composeUrl(module, profileArea),
         isExternal: module.isExternal,
       } satisfies MenuItemMeta;
     });

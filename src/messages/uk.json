@@ -74,19 +74,12 @@
       "adminpanel": "Адміністративна панель",
       "sdchoice2021admin": "Вибір дисциплін (адм.)",
       "sdchoice2021moderator": "Вибір дисциплін (мод.)",
-      "sdchoice2021nmv": "Вибір дисциплін (НМВ)"
+      "sdchoice2021nmv": "Вибір дисциплін (НМВ)",
+      "employment": "Система працевлаштування"
     },
     "menu": {
       "main": "Головна",
       "profile": "Профіль",
-      "current-superintendence": "Поточний контроль",
-      "certification-results": "Результати атестації",
-      "disciplines": "Вибір дисциплін",
-      "term": "Сесія",
-      "methodological-support": "Метод. забезпечення",
-      "poll": "Опитування",
-      "curriculum": "Навчальний план",
-      "lecturer-contacts": "Контакти",
       "feedback": "Відправити відгук",
       "settings": "Налаштування",
       "user-manual": "Інструкція користувача",
@@ -95,7 +88,6 @@
       "documents": "Документи КПІ",
       "terms-of-service": "Правила використання",
       "contacts": "Контакти",
-      "employment-system": "Система працевлаштування",
       "notice-board": "Оголошення"
     },
     "user-category": {

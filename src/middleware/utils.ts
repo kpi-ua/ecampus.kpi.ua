@@ -2,7 +2,7 @@ import { LOCALES } from '@/i18n/routing';
 import { NextRequest, NextResponse } from 'next/server';
 import { trim } from 'radash';
 import UrlPattern from 'url-pattern';
-import { LOGIN_PATH, ROOT_PATH } from './contants';
+import { LOGIN_PATH, NOT_FOUND_PATH, ROOT_PATH } from './contants';
 import { getJWTPayload } from '@/lib/jwt';
 import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 
@@ -17,6 +17,7 @@ export const redirectWithIntl = (request: NextRequest, path: string) => {
 
 export const gotoRoot = (request: NextRequest) => redirectWithIntl(request, ROOT_PATH);
 export const gotoLogin = (request: NextRequest) => redirectWithIntl(request, LOGIN_PATH);
+export const gotoNotFound = (request: NextRequest) => NextResponse.rewrite(new URL(NOT_FOUND_PATH, request.url));
 
 export const isRoot = (request: NextRequest) => {
   const pattern = new UrlPattern('(/)');
@@ -24,8 +25,8 @@ export const isRoot = (request: NextRequest) => {
   return !!pattern.match(request.nextUrl.pathname);
 };
 
-export const matchesUrl = (request: NextRequest, url: string, strict = false) => {
-  const pattern = new UrlPattern(`/:locale${url}${strict ? '(/*)' : ''}`);
+export const matchesUrl = (request: NextRequest, url: string, strict = true) => {
+  const pattern = new UrlPattern(`/:locale${url}${strict ? '' : '(/*)'}`);
 
   const match = pattern.match(request.nextUrl.pathname);
 
@@ -36,7 +37,7 @@ export const matchesUrl = (request: NextRequest, url: string, strict = false) =>
   return LOCALES.includes(match.locale);
 };
 
-export const matchesAnyUrl = (request: NextRequest, urls: string[], strict = false) =>
+export const matchesAnyUrl = (request: NextRequest, urls: string[], strict = true) =>
   urls.some((url) => matchesUrl(request, url, strict));
 
 export const getAuthInfo = (request: NextRequest) => {

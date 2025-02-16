@@ -74,19 +74,12 @@
       "adminpanel": "Admin panel",
       "sdchoice2021admin": "Discipline selection (Admin)",
       "sdchoice2021moderator": "Discipline selection (Moderator)",
-      "sdchoice2021nmv": "Discipline selection (NMV)"
+      "sdchoice2021nmv": "Discipline selection (NMV)",
+      "employment": "Employment system"
     },
     "menu": {
       "main": "Home",
       "profile": "Profile",
-      "current-superintendence": "Current superintendence",
-      "certification-results": "Certification results",
-      "disciplines": "Disciplines",
-      "term": "Term",
-      "methodological-support": "Methodological support",
-      "poll": "Poll",
-      "curriculum": "Curriculum",
-      "lecturer-contacts": "Contacts",
       "feedback": "Send feedback",
       "settings": "Settings",
       "user-manual": "User manual",
@@ -95,7 +88,6 @@
       "documents": "KPI documents",
       "terms-of-service": "Terms of service",
       "contacts": "Contacts",
-      "employment-system": "Employment system",
       "notice-board": "Notice board"
     },
     "user-category": {
