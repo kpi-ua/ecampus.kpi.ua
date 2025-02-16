@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { MODULES_BASE_PATH } from './contants';
-import { getAuthInfo, gotoNotFound, gotoRoot, matchesUrl } from './utils';
+import { getAuthInfo, gotoNotFound, matchesUrl } from './utils';
 import UrlPattern from 'url-pattern';
 import { intlMiddleware } from './intl.middleware';
 
