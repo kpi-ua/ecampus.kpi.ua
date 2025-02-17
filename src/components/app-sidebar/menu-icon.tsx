@@ -20,7 +20,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['profile', UserCircle],
   ['current-superintendence', CircleWavyCheck],
   ['certification-results', Exam],
-  ['feedback', ChatCenteredText],
+  ['msg', ChatCenteredText],
   ['employment', BagSimple],
   ['settings', Gear],
   ['sdchoice2021admin', ListNumbers],

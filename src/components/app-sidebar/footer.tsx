@@ -6,8 +6,6 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 const createFooterLinks = (t: ReturnType<typeof useTranslations>) => [
-  { title: t('user-manual'), url: '/user-manual' },
-  { title: t('faq'), url: '/frequently-asked-questions' },
   { title: t('about'), url: '/about' },
   { title: t('documents'), url: '/kpi-documents' },
   { title: t('terms-of-service'), url: '/terms-of-service' },

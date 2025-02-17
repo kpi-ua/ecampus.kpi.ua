@@ -51,12 +51,6 @@ const getStaticMenuItems = async (): Promise<MenuItemMeta[][]> => {
         isExternal: false,
       },
       {
-        name: 'feedback',
-        title: t('feedback'),
-        url: '/feedback',
-        isExternal: false,
-      },
-      {
         name: 'settings',
         title: t('settings'),
         url: '/settings',

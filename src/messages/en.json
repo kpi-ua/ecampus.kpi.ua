@@ -80,11 +80,8 @@
     "menu": {
       "main": "Home",
       "profile": "Profile",
-      "feedback": "Send feedback",
       "settings": "Settings",
       "user-manual": "User manual",
-      "faq": "Frequently asked questions",
-      "about": "About",
       "documents": "KPI documents",
       "terms-of-service": "Terms of service",
       "contacts": "Contacts",
@@ -190,9 +187,12 @@
         "information": {
           "title": "Information",
           "schedule": "Schedule",
-          "notice-board": "Notice board",
           "faq": "Frequently asked questions",
-          "user-manual": "User manual"
+          "user-manual": "User manual",
+          "university-notice-board": "University notice board",
+          "library-discovery": "Library catalog",
+          "university-news": "University news",
+          "student-council": "Student council"
         },
         "social-networks": {
           "title": "Social Networks",
