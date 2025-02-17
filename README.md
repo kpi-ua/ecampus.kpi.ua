@@ -67,7 +67,7 @@ docker run --rm -it \
   -e CAMPUS_API_BASE_PATH=https://dev-api.campus.cloud.kpi.ua \
   -e COOKIE_DOMAIN=localhost \
   -e NEXT_PUBLIC_RECAPTCHA_KEY=6LeMy30qAAAAAIC6KUhNfReP-Us5wkrkp3FLfOgl \
-  -p 3000:3000/tcp kpiua/ecampus-kpi-ua:latest
+  -p 3000:3000/tcp kpiua/ecampus.kpi.ua:latest
 ```
 
 ## Adding translations
