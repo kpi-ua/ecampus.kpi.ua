@@ -190,9 +190,10 @@
         "information": {
           "title": "Information",
           "schedule": "Schedule",
-          "notice-board": "Notice board",
           "faq": "Frequently asked questions",
-          "user-manual": "User manual"
+          "user-manual": "User manual",
+          "university-notice-board": "University notice board",
+          "library-discovery": "Library catalog"
         },
         "social-networks": {
           "title": "Social Networks",

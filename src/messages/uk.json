@@ -190,9 +190,10 @@
         "information": {
           "title": "Інформація",
           "schedule": "Розклад занять та сесії",
-          "notice-board": "Дошка оголошень",
           "faq": "Поширенi запитання",
-          "user-manual": "Інструкція користувача"
+          "user-manual": "Інструкція користувача",
+          "university-notice-board": "Загальноуніверситетські оголошення",
+          "library-discovery": "Каталог бібліотеки"
         },
         "social-networks": {
           "title": "Соціальні мережі",

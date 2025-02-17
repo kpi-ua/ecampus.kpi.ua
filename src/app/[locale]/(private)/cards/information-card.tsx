@@ -11,16 +11,18 @@ interface InformationCardProps {
 
 export const InformationCard = ({ className }: InformationCardProps) => {
   const t = useTranslations('private.main.cards.information');
-
   return (
     <Card className={cn(className)}>
       <CardContent className="p-10">
         <Heading3 className="mb-6">{t('title')}</Heading3>
         <Paragraph className="my-1">
-          <Link href="#">{t('schedule')}</Link>
+          <Link href="https://schedule.kpi.ua/">{t('schedule')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
-          <Link href="/notice-board">{t('notice-board')}</Link>
+          <Link href="https://kpi.ua/boardlist/">{t('university-notice-board')}</Link>
+        </Paragraph>
+        <Paragraph className="my-1">
+          <Link href="https://discovery.kpi.ua/">{t('library-discovery')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
           <Link href="#">{t('faq')}</Link>
