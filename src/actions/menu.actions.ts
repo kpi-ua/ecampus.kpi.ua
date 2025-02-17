@@ -60,27 +60,6 @@ const getStaticMenuItems = async (): Promise<MenuItemMeta[][]> => {
   ];
 };
 
-const getHelpMenuItems = async (): Promise<MenuItemMeta[][]> => {
-  const t = await getTranslations('global.menu');
-
-  return [
-    [
-      {
-        name: 'faq',
-        title: t('faq'),
-        url: '/frequently-asked-questions',
-        isExternal: false,
-      },
-      {
-        name: 'user-manual',
-        title: t('user-manual'),
-        url: '/user-manual',
-        isExternal: false,
-      }
-    ],
-  ];
-};
-
 const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
   try {
     const jwt = cookies().get('token')?.value;
@@ -122,17 +101,10 @@ const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
 export const getUserMenuGroups = async () => {
   const staticMenuItems = await getStaticMenuItems();
   const modulesMenuItems = await getModuleMenuItems();
-  const modulesHelpItems = await getHelpMenuItems();
 
   if (!modulesMenuItems.length) {
     return staticMenuItems;
   }
 
-
-
-  return [
-    ...staticMenuItems,
-    modulesMenuItems,
-    ...modulesHelpItems,
-  ];
+  return [...staticMenuItems, modulesMenuItems];
 };
