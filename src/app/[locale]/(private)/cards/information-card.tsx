@@ -16,19 +16,19 @@ export const InformationCard = ({ className }: InformationCardProps) => {
       <CardContent className="p-10">
         <Heading3 className="mb-6">{t('title')}</Heading3>
         <Paragraph className="my-1">
-          <Link href="https://schedule.kpi.ua/">{t('schedule')}</Link>
+          <Link href={process.env.NEXT_PUBLIC_SCHEDULE_URL!} target="_blank" rel="noopener noreferrer">{t('schedule')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
-          <Link href="https://kpi.ua/boardlist/">{t('university-notice-board')}</Link>
+          <Link href={process.env.NEXT_PUBLIC_UNIVERSITY_NOTICE_BOARD_URL!} target="_blank" rel="noopener noreferrer">{t('university-notice-board')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
-          <Link href="https://discovery.kpi.ua/">{t('library-discovery')}</Link>
+          <Link href={process.env.NEXT_PUBLIC_LIBRARY_DISCOVERY_URL!} target="_blank" rel="noopener noreferrer">{t('library-discovery')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
-          <Link href="#">{t('faq')}</Link>
+          <Link href="/frequently-asked-questions">{t('faq')}</Link>
         </Paragraph>
         <Paragraph className="my-1">
-          <Link href="#">{t('user-manual')}</Link>
+          <Link href="/user-manual">{t('user-manual')}</Link>
         </Paragraph>
       </CardContent>
     </Card>
