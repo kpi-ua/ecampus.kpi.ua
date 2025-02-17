@@ -4,6 +4,7 @@ import { usePathname, useRouter } from '@/i18n/routing';
 import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
 import { menuIcon } from './menu-icon';
 import { ArrowSquareOutRegular, Question } from '@/app/images';
+import { Show } from '../utils/show';
 
 interface MenuItemProps {
   name: string;
@@ -34,11 +35,11 @@ export const MenuItem = ({ name, title, url, isExternal }: MenuItemProps) => {
           <Icon />
           {title}
         </span>
-        {isExternal && (
+        <Show when={isExternal}>
           <span className="[&>svg]:size-[18px]">
             <ArrowSquareOutRegular />
           </span>
-        )}
+        </Show>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );
