@@ -192,7 +192,9 @@
           "faq": "Frequently asked questions",
           "user-manual": "User manual",
           "university-notice-board": "University notice board",
-          "library-discovery": "Library catalog"
+          "library-discovery": "Library catalog",
+          "university-news": "University news",
+          "student-council": "Student council"
         },
         "social-networks": {
           "title": "Social Networks",
