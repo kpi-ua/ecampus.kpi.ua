@@ -24,12 +24,12 @@ export const InformationCard = ({ className }: InformationCardProps) => {
         <Paragraph className="my-1">
           <Link href={process.env.NEXT_PUBLIC_LIBRARY_DISCOVERY_URL!} target="_blank" rel="noopener noreferrer">{t('library-discovery')}</Link>
         </Paragraph>
-        <Paragraph className="my-1">
-          <Link href="/frequently-asked-questions">{t('faq')}</Link>
-        </Paragraph>
-        <Paragraph className="my-1">
-          <Link href="/user-manual">{t('user-manual')}</Link>
-        </Paragraph>
+        {/*<Paragraph className="my-1">*/}
+        {/*  <Link href="/frequently-asked-questions">{t('faq')}</Link>*/}
+        {/*</Paragraph>*/}
+        {/*<Paragraph className="my-1">*/}
+        {/*  <Link href="/user-manual">{t('user-manual')}</Link>*/}
+        {/*</Paragraph>*/}
       </CardContent>
     </Card>
   );
