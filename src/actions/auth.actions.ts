@@ -9,7 +9,6 @@ import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
 
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
-const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
   try {
@@ -102,12 +101,6 @@ export async function getUserDetails() {
   }
 
   return userResponse.json();
-}
-
-export async function redirectToOldCampus() {
-  if (OLD_CAMPUS_URL) {
-    redirect(OLD_CAMPUS_URL);
-  }
 }
 
 export async function redirectToEmploymentSystem() {

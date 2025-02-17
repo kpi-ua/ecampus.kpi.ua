@@ -192,11 +192,7 @@
           "schedule": "Schedule",
           "notice-board": "Notice board",
           "faq": "Frequently asked questions",
-          "user-manual": "User manual",
-          "old-campus": {
-            "description": "Some modules have not yet been ported to the new system. To access these modules, you can upgrade to system version 1.0.",
-            "link-title": "Go to the old version of Campus"
-          }
+          "user-manual": "User manual"
         },
         "social-networks": {
           "title": "Social Networks",
