@@ -29,7 +29,9 @@ export default function CodeOfHonorAlert() {
           <AlertDialogTitle>{t('codeOfHonor.title')}</AlertDialogTitle>
           <AlertDialogDescription>
             {t.rich('codeOfHonor.content', {
-              documentsLink: (chunks) => <Link href="/kpi-documents">{chunks}</Link>,
+              documentsLink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_UNIVERSITY_CODE_OF_HONOR_URL!}>{chunks}</Link>
+              ),
               paragraph: (chunks) => <Paragraph className="m-0">{chunks}</Paragraph>,
             })}
           </AlertDialogDescription>
