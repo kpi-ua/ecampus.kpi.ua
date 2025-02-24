@@ -21,6 +21,7 @@ export const MODULES: Module[] = [
   { name: 'vedomost', isExternal: true },
   { name: 'vidpovidalniy', isExternal: true },
   { name: 'reytinghelp', isExternal: true },
+  { name: 'ratingnpp', isExternal: true },
   { name: 'ratingnpp2021', isExternal: true },
   { name: 'ratingnpp2022', isExternal: true },
   { name: 'ratingnpp2023', isExternal: true },
@@ -41,7 +42,6 @@ export const MODULES: Module[] = [
   { name: 'zdekan', isExternal: true },
   { name: 'ekk', isExternal: true },
   { name: 'bravook', isExternal: true },
-  { name: 'ratingnpp', isExternal: true },
   { name: 'pk2024admin', isExternal: true },
   { name: 'studdocadmin', isExternal: true },
   { name: 'yiystat', isExternal: true },
@@ -49,5 +49,6 @@ export const MODULES: Module[] = [
   { name: 'sdchoice2021admin', isExternal: true },
   { name: 'sdchoice2021moderator', isExternal: true },
   { name: 'sdchoice2021nmv', isExternal: true },
+  { name: 'mob', isExternal: true },
   { name: 'employment', isExternal: false },
 ];
