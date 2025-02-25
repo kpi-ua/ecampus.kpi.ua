@@ -10,7 +10,7 @@ interface HeaderProps {
 export const Header = ({ className }: HeaderProps) => {
   return (
     <header className={cn('flex items-center justify-between', className)}>
-      <Link href="/" className="flex max-w-[120px] md:max-w-[140px]">
+      <Link href="/" className="flex md:max-w-[190px]">
         <Logo />
       </Link>
       <LocaleSwitch />
