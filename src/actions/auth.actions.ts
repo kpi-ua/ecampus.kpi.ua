@@ -51,17 +51,14 @@ export async function loginWithCredentials(username: string, password: string, r
     const token = JWT.decode(access_token) as { exp: number };
     const tokenExpiresAt = new Date(token.exp * 1000);
 
-    const user = await userResponse.json();
-
     const expires = rememberMe ? tokenExpiresAt : undefined;
 
     cookies().set('SID', sessionId, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
     cookies().set('token', access_token, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
-
-    return user;
   } catch (error) {
     return null;
   }
+  redirect('/');
 }
 
 export async function logout() {

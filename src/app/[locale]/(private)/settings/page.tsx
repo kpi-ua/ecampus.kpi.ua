@@ -1,9 +1,9 @@
 import { Heading1 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { SettingsForm } from '@/app/[locale]/(private)/settings/settings-form';
 import { Paragraph } from '@/components/typography/paragraph';
+import { getUserDetails } from '@/actions/auth.actions';
 
 const INTL_NAMESPACE = 'private.settings';
 
@@ -15,15 +15,16 @@ export async function generateMetadata({ params: { locale } }: any) {
   };
 }
 
-export default function SettingsPage() {
-  const t = useTranslations(INTL_NAMESPACE);
+export default async function SettingsPage() {
+  const t = await getTranslations(INTL_NAMESPACE);
+  const user = await getUserDetails();
 
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
         <Heading1>{t('title')}</Heading1>
         <Paragraph className="text-neutral-700">{t('subtitle')}</Paragraph>
-        <SettingsForm />
+        <SettingsForm user={user} />
       </div>
     </SubLayout>
   );

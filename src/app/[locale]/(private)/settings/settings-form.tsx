@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLocalStorage } from '@/hooks/use-storage';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Card, CardContent } from '@/components/ui/card';
 import { User } from '@/types/models/user';
@@ -18,14 +17,16 @@ import { changeEmail, changePassword, changePhoto } from '@/actions/settings.act
 import { useIsMobile } from '@/hooks/use-mobile';
 import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
 
-export function SettingsForm() {
+interface Props {
+  user: User | null;
+}
+
+export function SettingsForm({ user }: Props) {
   const { errorToast } = useServerErrorToast();
 
   const isMobile = useIsMobile();
 
   const t = useTranslations('private.settings');
-
-  const [user, setUser] = useLocalStorage<User>('user');
 
   const [file, setFile] = useState<File | null>(null);
 
@@ -60,10 +61,7 @@ export function SettingsForm() {
   const handleFormSubmit = async (data: FormData) => {
     try {
       if (user?.email !== data.email) {
-        const newUser = await changeEmail(data.email);
-        if (newUser) {
-          setUser(newUser);
-        }
+        await changeEmail(data.email);
       }
 
       if (file) {

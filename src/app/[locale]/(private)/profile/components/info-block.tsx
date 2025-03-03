@@ -2,13 +2,11 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { useLocalStorage } from '@/hooks/use-storage';
 import { Heading4, Heading6 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { Separator } from '@/components/ui/separator';
 import { updateEnglishFullName } from '@/actions/profile.actions';
 import { Badge } from '@/components/ui/badge';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { User } from '@/types/models/user';
 import { USER_CATEGORIES } from '@/lib/constants/user-category';
 import React from 'react';
@@ -18,27 +16,19 @@ import { ProfilePicture } from '@/components/ui/profile-picture';
 import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
 
 interface Props {
+  user: User | null;
   className?: string;
 }
 
-export function InfoBlock({ className }: Props) {
-  const [user, setUser] = useLocalStorage<User>('user');
-
+export function InfoBlock({ user, className }: Props) {
   const t = useTranslations('private.profile');
   const tUserCategory = useTranslations('global.user-category');
-
-  const { errorToast } = useServerErrorToast();
 
   const studentProfile = user?.studentProfile;
   const employeeProfile = user?.employeeProfile;
 
   const handleSaveFullNameEn = async (newName: string) => {
-    const res = await updateEnglishFullName(newName);
-    if (!res) {
-      errorToast();
-      return;
-    }
-    setUser(res);
+    await updateEnglishFullName(newName);
   };
 
   return (

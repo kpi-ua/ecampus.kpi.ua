@@ -1,13 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { FC } from 'react';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Show } from '@/components/utils/show';
 import { cn } from '@/lib/utils';
-import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/models/user';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/actions/auth.actions';
@@ -18,11 +17,13 @@ import { USER_CATEGORIES } from '@/lib/constants/user-category';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useIsClient } from '@/hooks/use-is-client';
 
-export const Header = () => {
+interface Props {
+  user: User | null;
+}
+
+export const Header: FC<Props> = ({ user }) => {
   const isClient = useIsClient();
   const isMobile = useIsMobile();
-
-  const [user] = useLocalStorage<User>('user');
 
   const t = useTranslations('private.profile');
   const tUserCategory = useTranslations('global.user-category');
