@@ -3,7 +3,6 @@
 import { Contact, ContactType } from '@/types/models/contact';
 import { campusFetch } from '@/lib/client';
 import { revalidatePath } from 'next/cache';
-import { getUserDetails } from '@/actions/auth.actions';
 import { redirect } from 'next/navigation';
 
 export async function getContacts() {
@@ -70,8 +69,7 @@ export async function setIntellectAgreement(agree: boolean) {
       method: 'POST',
       body: JSON.stringify({ agree }),
     });
-
-    return getUserDetails();
+    revalidatePath('/profile');
   } catch (error) {
     throw new Error('Error while setting intellect agreement');
   }
@@ -84,7 +82,7 @@ export async function updateEnglishFullName(fullNameEnglish: string) {
       body: JSON.stringify({ fullNameEnglish }),
     });
 
-    return getUserDetails();
+    revalidatePath('/profile');
   } catch (error) {
     throw new Error('Error while updating English full name');
   }
@@ -96,8 +94,7 @@ export async function updateIntellectInfo(credo: string, scientificInterests: st
       method: 'PUT',
       body: JSON.stringify({ credo, scientificInterests }),
     });
-
-    return getUserDetails();
+    revalidatePath('/profile');
   } catch (error) {
     throw new Error('Error while updating intellect info');
   }

@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Heading6 } from '@/components/typography/headers';
 
-interface EditableFieldProps {
+interface Props {
   onSave: (newValue: string) => void;
   size?: 'small' | 'medium';
   value?: string;
@@ -39,7 +39,7 @@ export function EditableField({
   renderValue,
   disableClearValue = false,
   placeholder,
-}: EditableFieldProps) {
+}: Props) {
   const t = useTranslations('private.profile');
   const tTooltip = useTranslations('global.tooltip');
   const [isEditing, setIsEditing] = useState(!value);

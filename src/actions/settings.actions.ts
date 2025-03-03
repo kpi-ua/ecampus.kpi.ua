@@ -1,8 +1,8 @@
 'use server';
 
 import { campusFetch } from '@/lib/client';
-import { getUserDetails } from '@/actions/auth.actions';
 import { fileUpload } from '@/lib/file-upload';
+import { revalidatePath } from 'next/cache';
 
 export async function changeEmail(email: string) {
   const response = await campusFetch('settings/email', {
@@ -14,7 +14,7 @@ export async function changeEmail(email: string) {
     throw new Error(`${response.status} Error`);
   }
 
-  return getUserDetails();
+  revalidatePath('/settings');
 }
 
 export async function changePhoto(formData: FormData) {

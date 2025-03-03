@@ -3,15 +3,17 @@
 import { Heading6 } from '@/components/typography/headers';
 import { Separator } from '@/components/ui/separator';
 import { Paragraph } from '@/components/typography/paragraph';
-import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/models/user';
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 
-export function CodeOfHonor() {
+interface Props {
+  user: User | null;
+}
+
+export function CodeOfHonor({ user }: Props) {
   const t = useTranslations('private.profile');
-  const [user] = useLocalStorage<User>('user');
   return (
     <div className="flex flex-col gap-3">
       <Heading6>{t('codeOfHonor.title')}</Heading6>

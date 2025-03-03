@@ -12,14 +12,10 @@ import { loginWithCredentials } from '@/actions/auth.actions';
 import { useTranslations } from 'next-intl';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import PasswordInput from '@/components/ui/password-input';
-import { useRouter } from 'next/navigation';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { useLocalStorage } from '@/hooks/use-storage';
 
 export const CredentialsLogin = () => {
   const t = useTranslations('auth.login');
-  const [, setUser] = useLocalStorage('user');
-  const router = useRouter();
   const { errorToast } = useServerErrorToast();
 
   const FormSchema = z.object({
@@ -47,9 +43,6 @@ export const CredentialsLogin = () => {
 
       if (!response) {
         form.setError('root', { message: t('field.error') });
-      } else {
-        setUser(response);
-        router.replace('/');
       }
     } catch (error) {
       errorToast();
@@ -76,7 +69,6 @@ export const CredentialsLogin = () => {
             <FormItem className="my-6 grid w-full items-center gap-2">
               <Label htmlFor="password">{t('field.password')}</Label>
               <PasswordInput {...field} />
-              {/* <Input {...field} type="password" /> */}
             </FormItem>
           )}
         />

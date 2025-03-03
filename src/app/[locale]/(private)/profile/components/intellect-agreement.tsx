@@ -5,35 +5,28 @@ import { Separator } from '@/components/ui/separator';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Button } from '@/components/ui/button';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/models/user';
 import { setIntellectAgreement } from '@/actions/profile.actions';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import Link from 'next/link';
 import { Show } from '@/components/utils/show';
 
-export function IntellectAgreement() {
+interface Props {
+  user: User | null;
+}
+
+export function IntellectAgreement({ user }: Props) {
   const isMobile = useIsMobile();
 
   const t = useTranslations('private.profile');
-
-  const { errorToast } = useServerErrorToast();
-
-  const [user, setUser] = useLocalStorage<User>('user');
 
   const [loading, setLoading] = useState(false);
 
   const handleIntellectAgreementClick = async () => {
     setLoading(true);
-    const res = await setIntellectAgreement(!user?.intellectProfileEnabled);
+    await setIntellectAgreement(!user?.intellectProfileEnabled);
     setLoading(false);
-    if (!res) {
-      errorToast();
-      return;
-    }
-    setUser(res);
   };
 
   return (
