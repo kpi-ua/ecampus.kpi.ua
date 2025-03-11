@@ -32,21 +32,25 @@ export default async function Page() {
 
   const isEmployee = !!user?.employeeProfile;
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12">
         <Heading1>{t('title')}</Heading1>
         <Paragraph className="text-neutral-700">{t('subtitle')}</Paragraph>
         <div className="flex flex-col gap-5 xl:flex-row">
-          <InfoBlock className="h-fit w-full" />
+          <InfoBlock user={user} className="h-fit w-full" />
           <Card className="h-fit w-full">
             <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
               <Contacts contacts={contacts} contactTypes={contactTypes} />
               <Show when={isEmployee}>
-                <IntellectAgreement />
-                <IntellectPublicationInfo />
+                <IntellectAgreement user={user} />
+                <IntellectPublicationInfo user={user} />
               </Show>
-              <CodeOfHonor />
+              <CodeOfHonor user={user} />
             </CardContent>
           </Card>
         </div>

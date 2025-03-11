@@ -1,13 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { FC } from 'react';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Show } from '@/components/utils/show';
 import { cn } from '@/lib/utils';
-import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/models/user';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/actions/auth.actions';
@@ -16,13 +15,13 @@ import { SignOut } from '@/app/images';
 import { Paragraph } from '@/components/typography/paragraph';
 import { USER_CATEGORIES } from '@/lib/constants/user-category';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useIsClient } from '@/hooks/use-is-client';
 
-export const Header = () => {
-  const isClient = useIsClient();
+interface Props {
+  user: User | null;
+}
+
+export const Header: FC<Props> = ({ user }) => {
   const isMobile = useIsMobile();
-
-  const [user] = useLocalStorage<User>('user');
 
   const t = useTranslations('private.profile');
   const tUserCategory = useTranslations('global.user-category');
@@ -45,14 +44,12 @@ export const Header = () => {
         <div className="flex items-center gap-3">
           <ProfilePicture size="sm" src={user?.photo || ''} />
           <div className="hidden flex-col md:flex">
-            <Show when={isClient}>
-              <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
-              {user?.userCategories.map((category) => (
-                <Paragraph className="m-0 text-base font-semibold" key={category}>
-                  {tUserCategory(USER_CATEGORIES[category])}
-                </Paragraph>
-              ))}
-            </Show>
+            <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
+            {user?.userCategories.map((category) => (
+              <Paragraph className="m-0 text-base font-semibold" key={category}>
+                {tUserCategory(USER_CATEGORIES[category])}
+              </Paragraph>
+            ))}
           </div>
         </div>
         <TooltipProvider>

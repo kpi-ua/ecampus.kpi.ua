@@ -7,37 +7,30 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useLocalStorage } from '@/hooks/use-storage';
 import { User } from '@/types/models/user';
 import { updateIntellectInfo } from '@/actions/profile.actions';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useTranslations } from 'next-intl';
 import { Show } from '@/components/utils/show';
 
-export function IntellectPublicationInfo() {
+interface Props {
+  user: User;
+}
+
+export function IntellectPublicationInfo({ user }: Props) {
   const isMobile = useIsMobile();
-
-  const [user, setUser] = useLocalStorage<User>('user');
-
-  const { errorToast } = useServerErrorToast();
 
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [credo, setCredo] = useState(user?.credo || '');
-  const [scientificInterests, setScientificInterests] = useState(user?.scientificInterests || '');
+  const [credo, setCredo] = useState(user.credo || '');
+  const [scientificInterests, setScientificInterests] = useState(user.scientificInterests || '');
 
   const t = useTranslations('private.profile');
 
   const handleSave = async () => {
     setLoading(true);
-    const res = await updateIntellectInfo(credo, scientificInterests);
+    await updateIntellectInfo(credo, scientificInterests);
     setLoading(false);
     setIsEditing(false);
-    if (!res) {
-      errorToast();
-      return;
-    }
-    setUser(res);
   };
 
   return (
