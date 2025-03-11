@@ -7,8 +7,19 @@ import { redirect } from 'next/navigation';
 import { campusFetch } from '@/lib/client';
 import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
+import { KPIIDAccount } from '@/types/models/kpi-id-account';
 
 const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
+
+export async function setLoginCookies(token: string, sessionId: string, rememberMe: boolean) {
+  const tokenData = JWT.decode(token) as { exp: number };
+  const tokenExpiresAt = new Date(tokenData.exp * 1000);
+
+  const expires = rememberMe ? tokenExpiresAt : undefined;
+
+  cookies().set('SID', sessionId, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
+  cookies().set('token', token, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
+}
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
   try {
@@ -38,13 +49,7 @@ export async function loginWithCredentials(username: string, password: string, r
 
     const { sessionId, access_token } = jsonResponse;
 
-    const token = JWT.decode(access_token) as { exp: number };
-    const tokenExpiresAt = new Date(token.exp * 1000);
-
-    const expires = rememberMe ? tokenExpiresAt : undefined;
-
-    cookies().set('SID', sessionId, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
-    cookies().set('token', access_token, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
+    await setLoginCookies(access_token, sessionId, rememberMe);
   } catch (error) {
     return null;
   }
@@ -94,4 +99,14 @@ export async function redirectToEmploymentSystem() {
   const response = await campusFetch<string>('employment-system/auth');
   const url = await response.json();
   redirect(url);
+}
+
+export async function getKPIIDAccounts(ticketId: string) {
+  const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${ticketId}`);
+
+  if (!response.ok) {
+    return null;
+  }
+
+  return response.json();
 }
