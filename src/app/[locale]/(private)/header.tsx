@@ -15,14 +15,12 @@ import { SignOut } from '@/app/images';
 import { Paragraph } from '@/components/typography/paragraph';
 import { USER_CATEGORIES } from '@/lib/constants/user-category';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { useIsClient } from '@/hooks/use-is-client';
 
 interface Props {
   user: User | null;
 }
 
 export const Header: FC<Props> = ({ user }) => {
-  const isClient = useIsClient();
   const isMobile = useIsMobile();
 
   const t = useTranslations('private.profile');
@@ -46,14 +44,12 @@ export const Header: FC<Props> = ({ user }) => {
         <div className="flex items-center gap-3">
           <ProfilePicture size="sm" src={user?.photo || ''} />
           <div className="hidden flex-col md:flex">
-            <Show when={isClient}>
-              <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
-              {user?.userCategories.map((category) => (
-                <Paragraph className="m-0 text-base font-semibold" key={category}>
-                  {tUserCategory(USER_CATEGORIES[category])}
-                </Paragraph>
-              ))}
-            </Show>
+            <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
+            {user?.userCategories.map((category) => (
+              <Paragraph className="m-0 text-base font-semibold" key={category}>
+                {tUserCategory(USER_CATEGORIES[category])}
+              </Paragraph>
+            ))}
           </div>
         </div>
         <TooltipProvider>
