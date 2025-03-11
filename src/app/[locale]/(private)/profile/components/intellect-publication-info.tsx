@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 import { Show } from '@/components/utils/show';
 
 interface Props {
-  user: User | null;
+  user: User;
 }
 
 export function IntellectPublicationInfo({ user }: Props) {
@@ -21,8 +21,8 @@ export function IntellectPublicationInfo({ user }: Props) {
 
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [credo, setCredo] = useState(user?.credo || '');
-  const [scientificInterests, setScientificInterests] = useState(user?.scientificInterests || '');
+  const [credo, setCredo] = useState(user.credo || '');
+  const [scientificInterests, setScientificInterests] = useState(user.scientificInterests || '');
 
   const t = useTranslations('private.profile');
 

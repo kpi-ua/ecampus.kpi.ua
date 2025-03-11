@@ -32,6 +32,10 @@ export default async function Page() {
 
   const isEmployee = !!user?.employeeProfile;
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12">

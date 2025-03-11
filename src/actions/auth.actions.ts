@@ -36,16 +36,6 @@ export async function loginWithCredentials(username: string, password: string, r
       return null;
     }
 
-    const userResponse = await campusFetch<User>('profile', {
-      headers: {
-        Authorization: `Bearer ${jsonResponse.access_token}`,
-      },
-    });
-
-    if (!userResponse.ok) {
-      return null;
-    }
-
     const { sessionId, access_token } = jsonResponse;
 
     const token = JWT.decode(access_token) as { exp: number };

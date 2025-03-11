@@ -13,7 +13,7 @@ import Link from 'next/link';
 import { Show } from '@/components/utils/show';
 
 interface Props {
-  user: User | null;
+  user: User;
 }
 
 export function IntellectAgreement({ user }: Props) {
@@ -25,7 +25,7 @@ export function IntellectAgreement({ user }: Props) {
 
   const handleIntellectAgreementClick = async () => {
     setLoading(true);
-    await setIntellectAgreement(!user?.intellectProfileEnabled);
+    await setIntellectAgreement(!user.intellectProfileEnabled);
     setLoading(false);
   };
 
@@ -34,12 +34,12 @@ export function IntellectAgreement({ user }: Props) {
       <Heading6>{t('intellect.agreement-title')}</Heading6>
       <Separator />
       <Paragraph className="m-0">
-        {user?.intellectProfileEnabled
+        {user.intellectProfileEnabled
           ? t('intellect.intellect-profile-enabled')
           : t('intellect.intellect-profile-disabled')}
       </Paragraph>
-      <Show when={!!user?.intellectProfileEnabled}>
-        <Link className="text-lg font-semibold" href={user?.intellectProfile || '/'}>
+      <Show when={user.intellectProfileEnabled}>
+        <Link className="text-lg font-semibold" href={user.intellectProfile || '/'}>
           {t('intellect.profile-link')}
         </Link>
       </Show>
@@ -50,7 +50,7 @@ export function IntellectAgreement({ user }: Props) {
         onClick={handleIntellectAgreementClick}
         size={isMobile ? 'medium' : 'big'}
       >
-        {user?.intellectProfileEnabled ? t('button.revoke-permission') : t('button.grant-permission')}
+        {user.intellectProfileEnabled ? t('button.revoke-permission') : t('button.grant-permission')}
       </Button>
     </div>
   );

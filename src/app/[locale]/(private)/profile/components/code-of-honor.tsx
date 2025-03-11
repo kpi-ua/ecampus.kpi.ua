@@ -7,9 +7,10 @@ import { User } from '@/types/models/user';
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import { Show } from '@/components/utils/show';
 
 interface Props {
-  user: User | null;
+  user: User;
 }
 
 export function CodeOfHonor({ user }: Props) {
@@ -22,12 +23,12 @@ export function CodeOfHonor({ user }: Props) {
         documentsLink: (chunks) => <Link href="/kpi-documents">{chunks}</Link>,
         paragraph: (chunks) => <Paragraph className="m-0 text-lg">{chunks}</Paragraph>,
       })}
-      {user?.codeOfHonorSignDate && (
+      <Show when={!!user.codeOfHonorSignDate}>
         <div className="flex flex-col gap-1">
           <Paragraph>{t('codeOfHonor.agreement')}</Paragraph>
-          <Paragraph className="m-0">{user?.codeOfHonorSignDate}</Paragraph>
+          <Paragraph className="m-0">{user.codeOfHonorSignDate}</Paragraph>
         </div>
-      )}
+      </Show>
     </div>
   );
 }
