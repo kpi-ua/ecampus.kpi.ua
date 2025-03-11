@@ -3,8 +3,6 @@ import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { CoatOfArms } from '@/app/images';
 
-const NEXT_PUBLIC_KPI_AUTH = process.env.NEXT_PUBLIC_KPI_AUTH!;
-
 export const KPIIDLogin = () => {
   const t = useTranslations('auth.login');
 
@@ -17,7 +15,7 @@ export const KPIIDLogin = () => {
       icon={<CoatOfArms />}
       asChild
     >
-      <Link href={NEXT_PUBLIC_KPI_AUTH}>{t('button.kpi-id')}</Link>
+      <Link href={process.env.KPI_AUTH_URL!}>{t('button.kpi-id')}</Link>
     </Button>
   );
 };
