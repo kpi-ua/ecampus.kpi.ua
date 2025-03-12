@@ -15,7 +15,7 @@ export const KPIIDLogin = () => {
       icon={<CoatOfArms />}
       asChild
     >
-      <Link href={process.env.KPI_AUTH_URL!}>{t('button.kpi-id')}</Link>
+      <Link href={process.env.NEXT_PUBLIC_KPI_AUTH_URL!}>{t('button.kpi-id')}</Link>
     </Button>
   );
 };
