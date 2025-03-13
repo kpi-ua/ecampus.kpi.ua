@@ -97,7 +97,7 @@
     "login": {
       "header": "Sign-in",
       "description": "Welcome back! Please enter your credentials or sign in with Telegram.",
-      "divider": "or",
+      "or": "or",
       "rememberMe": "Remember me",
       "passwordReset": "Forgot my password",
       "publicLink": {

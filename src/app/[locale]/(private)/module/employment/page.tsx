@@ -8,7 +8,7 @@ import { redirectToEmploymentSystem } from '@/actions/auth.actions';
 
 const INTL_NAMESPACE = 'private.employment-system';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {

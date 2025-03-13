@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import PasswordResetForm from './password-reset-form';
 import { AuthNavLayout } from '../../auth-nav-layout';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'auth.passwordReset' });
 
   return {

@@ -8,7 +8,7 @@ const USER_MANUAL_URL = process.env.NEXT_PUBLIC_USER_MANUAL_URL!;
 
 const INTL_NAMESPACE = 'private.user-manual';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {

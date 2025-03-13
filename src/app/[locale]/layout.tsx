@@ -10,7 +10,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
 
   return {

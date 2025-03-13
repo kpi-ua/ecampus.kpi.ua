@@ -7,7 +7,7 @@ import { KPIIDAccountSlim } from '@/types/models/kpi-id-account';
 
 const INTL_NAMESPACE = 'auth.kpi-id';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -30,14 +30,15 @@ export default async function KPIID({
 
   const accounts = await getKPIIDAccounts(ticketId);
 
+  // This page shouldn't be shown only with one account
   if (!accounts?.length || accounts.length < 2) {
     notFound();
   }
 
-  const sanitizedAccounts: KPIIDAccountSlim[] = accounts.map((x) => ({
-    username: x.username,
-    photo: x.photo,
-    full_name: x.full_name,
+  const sanitizedAccounts: KPIIDAccountSlim[] = accounts.map(({ username, photo, full_name }) => ({
+    username,
+    photo,
+    full_name,
   }));
 
   return (

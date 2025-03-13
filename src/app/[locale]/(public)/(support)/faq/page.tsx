@@ -7,7 +7,7 @@ const SECTIONS = ['how-to-register', 'how-to-restore-password'];
 
 const INTL_NAMESPACE = 'public.faq';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {

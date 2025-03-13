@@ -7,7 +7,7 @@ import { KPIIDLogin } from './kpi-id-login';
 
 const INTL_NAMESPACE = 'auth.login';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -25,7 +25,7 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
       <Heading2>{t('header')}</Heading2>
       <p className="py-4 text-neutral-600">{t('description')}</p>
       <CredentialsLogin />
-      <TextDivider>{t('divider')}</TextDivider>
+      <TextDivider>{t('or')}</TextDivider>
       <KPIIDLogin />
     </>
   );

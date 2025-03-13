@@ -13,6 +13,7 @@ const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
 
 export async function setLoginCookies(token: string, sessionId: string, rememberMe: boolean) {
   const tokenData = JWT.decode(token) as { exp: number };
+  // exp is in seconds, Date expects milliseconds
   const tokenExpiresAt = new Date(tokenData.exp * 1000);
 
   const expires = rememberMe ? tokenExpiresAt : undefined;

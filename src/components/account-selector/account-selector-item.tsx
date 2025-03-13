@@ -14,13 +14,14 @@ interface AccountSelectorItemProps {
 
 export const AccountSelectorItem = ({ avatarUrl, username, ticketId }: AccountSelectorItemProps) => {
   const t = useTranslations('auth.kpi-id');
+  const fallbackUsername = capitalize(username.charAt(0));
 
   return (
     <li className="flex items-center justify-between border-b-[1px] border-b-neutral-divider py-4 first:pt-0 last:border-none last:pb-0">
       <div className="flex items-center gap-3">
         <Avatar className="size-[48px]">
           <AvatarImage src={avatarUrl} />
-          <AvatarFallback>{capitalize(username.charAt(0))}</AvatarFallback>
+          <AvatarFallback>{fallbackUsername}</AvatarFallback>
         </Avatar>
         <span className="text-neutral-600">{username}</span>
       </div>
