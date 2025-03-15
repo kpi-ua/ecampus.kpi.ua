@@ -7,7 +7,7 @@ import { getUserDetails } from '@/actions/auth.actions';
 
 const INTL_NAMESPACE = 'private.settings';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {

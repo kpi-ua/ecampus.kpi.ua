@@ -137,13 +137,14 @@ import XBold from './icons/XBold.svg';
 import XLight from './icons/XLight.svg';
 import XRegular from './icons/XRegular.svg';
 
+import GitHub from './icons/github.svg';
 import Instagram from './icons/instagram.svg';
 import TwitterX from './icons/twitter-x.svg';
-import GitHub from './icons/github.svg';
 
-import Logo from './logo.svg';
 import BookBookmark from './BookBookmark.svg';
 import BookOpen from './BookOpen.svg';
+import CoatOfArms from './CoatOfArms.svg';
+import Logo from './logo.svg';
 import Roll from './Roll.svg';
 
 import FlagGB from './FlagGB.svg';
@@ -187,6 +188,7 @@ export {
   ChecksLight,
   ChecksRegular,
   CircleWavyCheck,
+  CoatOfArms,
   CopyBold,
   CopyLight,
   CopyRegular,

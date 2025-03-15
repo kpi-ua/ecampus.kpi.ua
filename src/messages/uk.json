@@ -97,7 +97,7 @@
     "login": {
       "header": "Увійти",
       "description": "З поверненням! Будь ласка, введіть свої дані або авторизуйтесь за допомогою Telegram.",
-      "divider": "або",
+      "or": "або",
       "rememberMe": "Запам’ятати мене",
       "passwordReset": "Відновити пароль",
       "publicLink": {
@@ -114,8 +114,13 @@
       },
       "button": {
         "login": "Увійти",
-        "telegramLogin": "Увійти через Telegram"
+        "kpi-id": "Вхід через KPI ID"
       }
+    },
+    "kpi-id": {
+      "header": "Увійти",
+      "description": "Ви успішно авторизувалися через KPI ID. Виберіть акаунт, через який бажаєте увійти.",
+      "sign-in": "Увійти"
     },
     "passwordChange": {
       "header": "Відновлення паролю",

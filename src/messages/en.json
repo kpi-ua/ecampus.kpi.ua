@@ -97,7 +97,7 @@
     "login": {
       "header": "Sign-in",
       "description": "Welcome back! Please enter your credentials or sign in with Telegram.",
-      "divider": "or",
+      "or": "or",
       "rememberMe": "Remember me",
       "passwordReset": "Forgot my password",
       "publicLink": {
@@ -114,8 +114,13 @@
       },
       "button": {
         "login": "Sign-in",
-        "telegramLogin": "Sign-in with Telegram"
+        "kpi-id": "Sign-in with KPI ID"
       }
+    },
+    "kpi-id": {
+      "header": "Sign-in",
+      "description": "You have successfully logged in with your KPI ID. Select the account you wish to log in with.",
+      "sign-in": "Sign-in"
     },
     "passwordChange": {
       "header": "Change password",

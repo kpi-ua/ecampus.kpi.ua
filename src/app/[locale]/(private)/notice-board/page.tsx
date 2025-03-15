@@ -8,7 +8,7 @@ import { Suspense } from 'react';
 
 const INTL_NAMESPACE = 'private.notice-board';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {

@@ -3,7 +3,7 @@ import { SupportNavLayout } from '../support-nav-layout';
 import { CuratorSearch } from './curator-search';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'public.curator-search' });
 
   return {

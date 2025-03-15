@@ -7,7 +7,7 @@ import { DocumentCard } from './document-card';
 
 const INTL_NAMESPACE = 'private.documents';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {

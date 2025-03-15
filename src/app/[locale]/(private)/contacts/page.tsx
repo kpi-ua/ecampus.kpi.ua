@@ -8,7 +8,7 @@ import { ChatsTeardrop, EnvelopeSimple } from '@/app/images';
 
 const INTL_NAMESPACE = 'private.contacts';
 
-export async function generateMetadata({ params: { locale } }: any) {
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
