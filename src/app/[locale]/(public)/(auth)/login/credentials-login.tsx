@@ -41,8 +41,8 @@ export const CredentialsLogin = () => {
 
       const response = await loginWithCredentials(data.username, data.password, data.rememberMe);
 
-      if (!response) {
-        form.setError('root', { message: t('field.error') });
+      if (response?.translationKey) {
+        form.setError('root', { message: t(response.translationKey) });
       }
     } catch (error) {
       errorToast();
