@@ -39,13 +39,13 @@ export async function loginWithCredentials(username: string, password: string, r
     });
 
     if (response.status < 200 || response.status >= 300) {
-      return { translationKey: 'field.error' };
+      return { errorTranslationKey: 'field.error' };
     }
 
     const jsonResponse = await response.json();
 
     if (!jsonResponse) {
-      return { translationKey: 'field.error' };
+      return { errorTranslationKey: 'field.error' };
     }
 
     const { sessionId, access_token } = jsonResponse;
