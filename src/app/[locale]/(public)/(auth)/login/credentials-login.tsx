@@ -36,16 +36,16 @@ export const CredentialsLogin = () => {
   });
 
   const handleFormSubmit = async (data: FormData) => {
-    form.clearErrors();
+    try {
+      form.clearErrors();
 
-    const response = await loginWithCredentials(data.username, data.password, data.rememberMe);
+      const response = await loginWithCredentials(data.username, data.password, data.rememberMe);
 
-    if (!response) {
+      if (response?.translationKey) {
+        form.setError('root', { message: t(response.translationKey) });
+      }
+    } catch (error) {
       errorToast();
-    }
-
-    if (response?.translationKey) {
-      form.setError('root', { message: t(response.translationKey) });
     }
   };
 

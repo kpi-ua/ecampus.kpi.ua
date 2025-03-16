@@ -52,7 +52,7 @@ export async function loginWithCredentials(username: string, password: string, r
 
     await setLoginCookies(access_token, sessionId, rememberMe);
   } catch (error) {
-    return null;
+    throw new Error('Error in login with credentials', { cause: error });
   }
   redirect('/');
 }
