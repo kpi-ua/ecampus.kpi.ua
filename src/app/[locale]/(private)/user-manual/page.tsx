@@ -3,8 +3,6 @@ import { useTranslations } from 'next-intl';
 import { SubLayout } from '../sub-layout';
 import { DownloadButton } from './download-button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Show } from '@/components/utils/show';
-import { getUserAgentInfo, isIOSSafari } from '@/lib/user-agent';
 
 const USER_MANUAL_URL = process.env.NEXT_PUBLIC_USER_MANUAL_URL!;
 
@@ -21,9 +19,6 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 export default function UserManualPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
 
-  const userAgent = getUserAgentInfo();
-  const isSafariMobile = userAgent ? isIOSSafari(userAgent) : false;
-
   const t = useTranslations(INTL_NAMESPACE);
 
   return (
@@ -31,9 +26,7 @@ export default function UserManualPage({ params: { locale } }: { params: { local
       <div className="col-span-6 xl:col-span-10">
         <Heading1>{t('title')}</Heading1>
         <DownloadButton className="my-10" url={USER_MANUAL_URL} />
-        <Show when={!isSafariMobile}>
-          <embed src={USER_MANUAL_URL} width="100%" height="1000" type="application/pdf" />
-        </Show>
+        <embed src={USER_MANUAL_URL} width="100%" height="1000" type="application/pdf" />
       </div>
     </SubLayout>
   );
