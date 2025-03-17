@@ -12,4 +12,7 @@ export const getUserAgentInfo = () => {
   return UAParser(userAgent);
 };
 
-export const isIOSSafari = (uaInfo: UAParser.IResult) => uaInfo.device.is('mobile') && uaInfo.os.is('iOS');
+export const isIOS = () => {
+  const userAgent = getUserAgentInfo();
+  return userAgent?.os.is('iOS') ?? false;
+};

@@ -4,7 +4,7 @@ import { SubLayout } from '../sub-layout';
 import { DownloadButton } from './download-button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Show } from '@/components/utils/show';
-import { getUserAgentInfo, isIOSSafari } from '@/lib/user-agent';
+import { isIOS } from '@/lib/user-agent';
 
 const USER_MANUAL_URL = process.env.NEXT_PUBLIC_USER_MANUAL_URL!;
 
@@ -21,9 +21,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 export default function UserManualPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
 
-  const userAgent = getUserAgentInfo();
-  const isSafariMobile = userAgent ? isIOSSafari(userAgent) : false;
-
+  const isSafariMobile = isIOS();
   const t = useTranslations(INTL_NAMESPACE);
 
   return (
