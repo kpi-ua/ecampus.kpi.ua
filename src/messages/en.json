@@ -75,7 +75,8 @@
       "sdchoice2021admin": "Discipline selection (Admin)",
       "sdchoice2021moderator": "Discipline selection (Moderator)",
       "sdchoice2021nmv": "Discipline selection (NMV)",
-      "employment": "Employment system"
+      "employment": "Employment system",
+      "useract": "Bravo Requests"
     },
     "menu": {
       "main": "Home",
