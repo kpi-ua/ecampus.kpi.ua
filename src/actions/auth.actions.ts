@@ -23,38 +23,34 @@ export async function setLoginCookies(token: string, sessionId: string, remember
 }
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
-  try {
-    const payload = {
-      username,
-      password,
-      grant_type: 'password',
-    };
+  const payload = {
+    username,
+    password,
+    grant_type: 'password',
+  };
 
-    const response = await campusFetch<AuthResponse>('oauth/token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: qs.stringify(payload),
-    });
+  const response = await campusFetch<AuthResponse>('oauth/token', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: qs.stringify(payload),
+  });
 
-    if (response.status < 200 || response.status >= 300) {
-      return { errorTranslationKey: 'field.error' };
-    }
-
-    const jsonResponse = await response.json();
-
-    if (!jsonResponse) {
-      return { errorTranslationKey: 'field.error' };
-    }
-
-    const { sessionId, access_token } = jsonResponse;
-
-    await setLoginCookies(access_token, sessionId, rememberMe);
-  } catch (error) {
-    throw new Error('Error in login with credentials', { cause: error });
+  if (response.status < 200 || response.status >= 300) {
+    return null;
   }
-  redirect('/');
+
+  const jsonResponse = await response.json();
+
+  if (!jsonResponse) {
+    return null;
+  }
+
+  const { sessionId, access_token } = jsonResponse;
+
+  await setLoginCookies(access_token, sessionId, rememberMe);
+  return true;
 }
 
 export async function logout() {

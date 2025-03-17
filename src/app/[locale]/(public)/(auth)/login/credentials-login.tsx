@@ -13,9 +13,11 @@ import { useTranslations } from 'next-intl';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import PasswordInput from '@/components/ui/password-input';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useRouter } from 'next/navigation';
 
 export const CredentialsLogin = () => {
   const t = useTranslations('auth.login');
+  const router = useRouter();
   const { errorToast } = useServerErrorToast();
 
   const FormSchema = z.object({
@@ -36,14 +38,16 @@ export const CredentialsLogin = () => {
   });
 
   const handleFormSubmit = async (data: FormData) => {
-    try {
-      form.clearErrors();
+    form.clearErrors();
 
+    try {
       const response = await loginWithCredentials(data.username, data.password, data.rememberMe);
 
-      if (response?.errorTranslationKey) {
-        form.setError('root', { message: t(response.errorTranslationKey) });
+      if (!response) {
+        form.setError('root', { message: t('field.error') });
+        return;
       }
+      router.replace('/');
     } catch (error) {
       errorToast();
     }
