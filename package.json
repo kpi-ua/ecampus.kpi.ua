@@ -48,6 +48,7 @@
     "server-only": "^0.0.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "ua-parser-js": "^2.0.3",
     "url-pattern": "^1.0.3",
     "zod": "^3.23.8"
   },

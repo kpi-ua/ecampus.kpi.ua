@@ -93,4 +93,5 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['studdocadmin', Files],
   ['yiystat', Table],
   ['adminpanel', SquaresFour],
+  ['useract', Scroll],
 ]);
