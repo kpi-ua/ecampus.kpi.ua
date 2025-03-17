@@ -1,11 +1,12 @@
 import { getKPIIDAccounts, setLoginCookies } from '@/actions/auth.actions';
-import { DEFAULT_LOCALE, redirect } from '@/i18n/routing';
+import { redirect } from '@/i18n/routing';
 import { type NextRequest } from 'next/server';
 import { badRequestResponse, notFoundResponse } from '../responses';
+import { getLocale } from 'next-intl/server';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
-  const locale = request.cookies.get('NEXT_LOCALE')?.value || DEFAULT_LOCALE;
+  const locale = await getLocale();
   const ticketId = searchParams.get('ticketId');
   const username = searchParams.get('username');
 
