@@ -1,7 +1,7 @@
 'use client';
 
 import { usePathname, useRouter } from '@/i18n/routing';
-import { SidebarMenuButton, SidebarMenuItem } from '../ui/sidebar';
+import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '../ui/sidebar';
 import { menuIcon } from './menu-icon';
 import { ArrowSquareOutRegular, Question } from '@/app/images';
 import { Show } from '../utils/show';
@@ -16,6 +16,7 @@ interface MenuItemProps {
 export const MenuItem = ({ name, title, url, isExternal }: MenuItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
+  const sidebar = useSidebar();
 
   const Icon = menuIcon.get(name) || Question;
 
@@ -25,6 +26,7 @@ export const MenuItem = ({ name, title, url, isExternal }: MenuItemProps) => {
       return;
     }
 
+    sidebar.toggleSidebar();
     router.push(url);
   };
 

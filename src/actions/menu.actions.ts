@@ -85,14 +85,16 @@ const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
     const profileArea = userDetails.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
     const availableModules = MODULES.filter((module) => jwtPayload.modules.includes(module.name));
 
-    return availableModules.map((module) => {
-      return {
-        name: module.name,
-        title: t(module.name),
-        url: composeUrl(module, profileArea),
-        isExternal: module.isExternal,
-      } satisfies MenuItemMeta;
-    });
+    return availableModules
+      .map((module) => {
+        return {
+          name: module.name,
+          title: t(module.name),
+          url: composeUrl(module, profileArea),
+          isExternal: module.isExternal,
+        } satisfies MenuItemMeta;
+      })
+      .sort((moduleA, moduleB) => moduleA.title.localeCompare(moduleB.title));
   } catch (error) {
     return [];
   }
