@@ -189,6 +189,7 @@
   },
   "private": {
     "main": {
+      "welcome": "Welcome, {name}!",
       "cards": {
         "information": {
           "title": "Information",
