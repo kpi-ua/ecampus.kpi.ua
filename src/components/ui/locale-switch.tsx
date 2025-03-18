@@ -4,6 +4,7 @@ import { Link, LOCALE, usePathname } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
 import { FlagGB, FlagUA } from '@/app/images';
 import { ReactNode } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const LocaleOption = ({ text, icon }: { text: string; icon: ReactNode }) => (
   <>
@@ -15,6 +16,7 @@ const LocaleOption = ({ text, icon }: { text: string; icon: ReactNode }) => (
 export const LocaleSwitch = () => {
   const locale = useLocale();
   const pathname = usePathname();
+  const searchparams = useSearchParams();
 
   const getTitle = () => {
     switch (locale) {
@@ -27,7 +29,7 @@ export const LocaleSwitch = () => {
 
   return (
     <Link
-      href={pathname}
+      href={{ pathname, search: searchparams.toString() }}
       locale={locale === LOCALE.EN ? LOCALE.UK : LOCALE.EN}
       className="flex items-center gap-[6px] text-end"
     >

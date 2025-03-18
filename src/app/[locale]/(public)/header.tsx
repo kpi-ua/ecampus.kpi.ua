@@ -2,6 +2,7 @@ import Logo from '@/app/images/logo.svg';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { cn } from '@/lib/utils';
 import { Link } from '@/i18n/routing';
+import { Suspense } from 'react';
 
 interface HeaderProps {
   className?: string;
@@ -13,7 +14,9 @@ export const Header = ({ className }: HeaderProps) => {
       <Link href="/" className="flex md:max-w-[190px]">
         <Logo />
       </Link>
-      <LocaleSwitch />
+      <Suspense>
+        <LocaleSwitch />
+      </Suspense>
     </header>
   );
 };
