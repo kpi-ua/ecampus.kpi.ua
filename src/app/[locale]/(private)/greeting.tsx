@@ -15,9 +15,5 @@ export default async function Greeting({ className }: GreetingProps) {
 
   const fullName = locale === LOCALE.EN ? user?.fullNameEnglish : user?.fullName;
 
-  return (
-    <Heading1 className={cn(className)}>
-      {t('welcome')}, {fullName}!
-    </Heading1>
-  );
+  return <Heading1 className={cn(className)}>{t('welcome', { name: fullName })}</Heading1>;
 }
