@@ -26,7 +26,7 @@ export const MenuItem = ({ name, title, url, isExternal }: MenuItemProps) => {
       return;
     }
 
-    sidebar.toggleSidebar();
+    sidebar.setOpenMobile(false);
     router.push(url);
   };
 
