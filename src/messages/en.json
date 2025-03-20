@@ -341,6 +341,13 @@
         "title": "Go to questionnaire"
       }
     },
+    "study-sheet": {
+      "title": "Employment system",
+      "subtitle": "You can proceed to filling out the skills and knowledge questionnaire or watch the video tutorial",
+      "button": {
+        "title": "Go to questionnaire"
+      }
+    },
     "feedback": {
       "title": "Send feedback"
     },

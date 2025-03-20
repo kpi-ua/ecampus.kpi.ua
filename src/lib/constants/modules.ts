@@ -6,7 +6,7 @@ export const MODULES: Module[] = [
   { name: 'kurator', isExternal: true },
   { name: 'rnp', isExternal: true },
   { name: 'vote', isExternal: true },
-  { name: 'studysheet', isExternal: true },
+  { name: 'studysheet', isExternal: false },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'vedomoststud', isExternal: true },
   { name: 'pk2024', isExternal: true },
