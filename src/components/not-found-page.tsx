@@ -1,18 +1,17 @@
 import { useTranslations } from 'next-intl';
 import { Heading0, Heading5 } from '@/components/typography/headers';
-import { Logo, NotFound } from '@/app/images';
+import { NotFound } from '@/app/images';
 import { Link } from '@/i18n/routing';
 import { Paragraph } from '@/components/typography/paragraph';
 import dayjs from 'dayjs';
+import { Logo } from './logo';
 
 export default function NotFoundPage() {
   const t = useTranslations('global.not-found');
 
   return (
     <div className="flex min-h-screen flex-col justify-between p-6 md:p-12">
-      <Link href="/">
-        <Logo />
-      </Link>
+      <Logo />
 
       <div className="mx-auto flex max-w-[560px] flex-col items-center justify-center gap-10 text-center">
         <NotFound />

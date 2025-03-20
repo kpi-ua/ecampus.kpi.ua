@@ -144,7 +144,8 @@ import TwitterX from './icons/twitter-x.svg';
 import BookBookmark from './BookBookmark.svg';
 import BookOpen from './BookOpen.svg';
 import CoatOfArms from './CoatOfArms.svg';
-import Logo from './logo.svg';
+import LogoEN from './LogoEN.svg';
+import LogoUK from './LogoUK.svg';
 import Roll from './Roll.svg';
 
 import FlagGB from './FlagGB.svg';
@@ -235,7 +236,8 @@ export {
   List,
   ListBullets,
   ListNumbers,
-  Logo,
+  LogoEN,
+  LogoUK,
   MagnifyingGlassBold,
   MagnifyingGlassLight,
   MagnifyingGlassRegular,

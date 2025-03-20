@@ -1,8 +1,7 @@
-import Logo from '@/app/images/logo.svg';
+import { Suspense } from 'react';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { cn } from '@/lib/utils';
-import { Link } from '@/i18n/routing';
-import { Suspense } from 'react';
+import { Logo } from '@/components/logo';
 
 interface HeaderProps {
   className?: string;
@@ -11,9 +10,7 @@ interface HeaderProps {
 export const Header = ({ className }: HeaderProps) => {
   return (
     <header className={cn('flex items-center justify-between', className)}>
-      <Link href="/" className="flex md:max-w-[190px]">
-        <Logo />
-      </Link>
+      <Logo />
       <Suspense>
         <LocaleSwitch />
       </Suspense>
