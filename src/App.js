@@ -15,7 +15,6 @@ import * as campus from './CampusClient';
 import Settings from './components/Settings';
 import SettingsEditor from './components/SettingsEditor';
 import Help from './components/Help';
-import BbIndex from './components/Bb/BbIndex';
 import Feedback from './components/Feedback';
 import Faq from './components/Faq';
 import FindCurator from './components/FindCurator';
@@ -68,7 +67,6 @@ class App extends Component {
               <Route exact path="/lecturer-help" component={LecturerHelp} />
               <Route exact path="/employment-system" component={EmploymentSystem} />
               <Route exact path="/contacts" component={Contacts} />
-              <Route exact path="/bb" component={BbIndex} />
               <Route exact path="/feedback" component={Feedback} />
               <Route exact path="/faq" component={Faq} />
               <Route exact path="/kpi-id" component={KpiId} />

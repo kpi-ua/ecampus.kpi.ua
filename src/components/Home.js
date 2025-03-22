@@ -2,7 +2,6 @@ import React from 'react';
 import '../css/Home.css';
 import * as campus from '../CampusClient';
 import { Link } from 'react-router-dom';
-import BbList from './Bb/BbList';
 import * as Security from '../Security';
 
 class Home extends React.Component {
@@ -127,9 +126,6 @@ class Home extends React.Component {
                         сесії <i className='fa fa-external-link' /></a>
                     </li>
                     <li>
-                      <Link to='/bb'>Дошка оголошень</Link>
-                    </li>
-                    <li>
                       <Link to='/help'>Інструкція користувача</Link>
                     </li>
                     <li>
@@ -235,9 +231,6 @@ class Home extends React.Component {
           </div>
 
           <div className='col-md-4'>
-            <h3>Оголошення</h3>
-            <BbList enablePaging={false} pageSize={3} />
-            <Link to='/bb'>Читати усi оголошення</Link>
           </div>
         </div>
       </div>

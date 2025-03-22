@@ -94,7 +94,6 @@ class Header extends React.Component {
                   </DropdownToggle>
                   <DropdownMenu>
                     <DropdownItem href="https://schedule.kpi.ua/">Розклад занять та сесії <i className="fa fa-external-link" /></DropdownItem>
-                    <DropdownItem href="/bb">Дошка оголошень</DropdownItem>
                     <DropdownItem divider />
                     <DropdownItem href="/help">
                       Інструкція користувача

@@ -301,8 +301,6 @@ const toUrlEncode = (obj) => {
     .join('&');
 };
 
-
-
 /**
  * Function that returns the value of a specified cookie
  * https://www.w3schools.com/js/js_cookies.asp
