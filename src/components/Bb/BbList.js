@@ -83,10 +83,7 @@ class BbList extends React.Component {
             totalItemsCount={this.state.paging.totalItemCount}
             pageRangeDisplayed={5}
             onChange={async (pageNumber) => {
-              const response = await campus.getBulletinBoardForCurrentUser(
-                pageNumber,
-                this.state.pageSize,
-              );
+              const response = await campus.getBulletinBoardForCurrentUser();
               this.setState({
                 items: response.data,
                 activePage: pageNumber,

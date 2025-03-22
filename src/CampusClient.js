@@ -104,8 +104,18 @@ export const logout = async () => {
 };
 
 /**
- * Redirect to old API after refresh session
- * @returns {Promise<void>}
+ * Redirects the user to the old UI interface.
+ *
+ * This function performs the following steps:
+ * 1. Refreshes authentication by requesting a new session from the API
+ * 2. If successful, stores the new credentials in local storage and cookies
+ * 3. Redirects to the old UI with the session ID appended as a query parameter
+ * 4. If authentication fails, logs the user out and redirects to the login page
+ *
+ * @async
+ * @function redirectToOldUI
+ * @returns {Promise<void>} A promise that resolves when the redirection is complete
+ * @throws {Error} May throw network-related errors during API calls
  */
 export const redirectToOldUI = async () => {
   const response = await callApi('auth/refresh', 'GET');
@@ -115,7 +125,8 @@ export const redirectToOldUI = async () => {
 
     if (credentials) {
       await storeCredentials(credentials.sessionId, credentials.access_token);
-      window.location.replace(ApplicationConfiguration.OldUIAddress);
+      const url = `${ApplicationConfiguration.OldUIAddress}?SID=${credentials.sessionId}`;
+      window.location.replace(url);
       return;
     }
   }
@@ -290,15 +301,7 @@ const toUrlEncode = (obj) => {
     .join('&');
 };
 
-/**
- * Load bulletins for current user
- * @param page
- * @param size
- * @returns {Promise<void>}
- */
-export const getBulletinBoardForCurrentUser = async (page, size) => {
-  return null;
-};
+
 
 /**
  * Function that returns the value of a specified cookie
