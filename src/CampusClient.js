@@ -5,11 +5,8 @@ import * as Security from './Security';
  * Application configuration
  */
 export const config = {
-  appDomains: [
-    'kpi.ua',
-    'campus.kpi.ua',
-    'ecampus.kpi.ua',
-  ],
+  ecampusDomain: 'ecampus.kpi.ua',
+  rootDomain: 'kpi.ua',
 };
 
 /**
@@ -25,14 +22,17 @@ export const auth = async (login, password) => {
     grant_type: 'password',
   };
 
-  const response = await fetch(`${ApplicationConfiguration.ApiEndpoint}oauth/token`, {
-    method: 'POST',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+  const response = await fetch(
+    `${ApplicationConfiguration.ApiEndpoint}oauth/token`,
+    {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: toUrlEncode(payload),
     },
-    body: toUrlEncode(payload),
-  });
+  );
 
   if (response.status < 200 || response.status >= 300) {
     console.warn(`Incorrect password`);
@@ -61,16 +61,18 @@ export const exchangeKpiIdTicket = async (ticketId) => {
     return null;
   }
 
-  const response = await fetch(`${ApplicationConfiguration.ApiEndpoint}auth/kpi-id?ticketId=${encodeURIComponent(ticketId)}`, {
-    method: 'GET',
-    cache: 'no-cache',
-    headers: {
-      'Accept': 'application/json',
+  const response = await fetch(
+    `${ApplicationConfiguration.ApiEndpoint}auth/kpi-id?ticketId=${encodeURIComponent(ticketId)}`,
+    {
+      method: 'GET',
+      cache: 'no-cache',
+      headers: {
+        Accept: 'application/json',
+      },
     },
-  });
+  );
 
   if (response.status !== 200) {
-
     console.warn(`Failed to exchange ticketId: ${ticketId}`);
 
     return null;
@@ -278,7 +280,8 @@ const storeCredentials = async (sessionId, token) => {
     localStorage.setItem('token', token);
   }
 
-  await setAuthCookies(sessionId, token);
+  await setAuthCookie('SID', sessionId, config.rootDomain);
+  await setAuthCookie('token', token, config.ecampusDomain);
 };
 
 const toUrlEncode = (obj) => {
@@ -323,28 +326,18 @@ const getCookie = (cname) => {
 };
 
 /**
- * Store token and session ids
- * @param sessionId
- * @param token
- * @returns {Promise<void>}
+ * Sets an authentication cookie with specified parameters
+ *
+ * @param {string} name - The name of the cookie
+ * @param {string} value - The value to store in the cookie (falsy values will be stored as empty string)
+ * @param {string} domain - The domain for which the cookie is valid
+ * @param {number} [days=30] - Number of days until cookie expiration (default: 30)
+ * @returns {void}
  */
-const setAuthCookies = async (sessionId, token) => {
-  const days = 365;
-
-  config.appDomains.forEach(function(domain) {
-    setCookie('SID', sessionId, domain, days);
-    setCookie('token', token, domain, days);
-  });
-};
-
-const setCookie = (name, value, domain, days) => {
-  let date = new Date();
+const setAuthCookie = (name, value, domain, days = 30) => {
+  const date = new Date();
   date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
   const expires = date.toUTCString();
 
-  document.cookie =
-    name + '=' + (value || '') +
-    ';expires=' + expires +
-    ';domain=.' + domain +
-    ';path=/';
+  document.cookie = `${name}=${value || ''};expires=${expires};domain=.${domain};path=/;SameSite=Strict;Secure`;
 };
