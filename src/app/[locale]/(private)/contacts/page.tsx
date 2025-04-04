@@ -52,7 +52,7 @@ export default function ContactsPage({ params: { locale } }: { params: { locale:
               {chunks}
             </Link>
           ),
-          suggestionlink: (chunks) => (
+          suggestionslink: (chunks) => (
             <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
               {chunks}
             </TextButton>
