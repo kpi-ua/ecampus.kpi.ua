@@ -146,6 +146,8 @@ import BookOpen from './BookOpen.svg';
 import CoatOfArms from './CoatOfArms.svg';
 import LogoEN from './LogoEN.svg';
 import LogoUK from './LogoUK.svg';
+import LogoBetaEN from './LogoBetaEN.svg';
+import LogoBetaUK from './LogoBetaUK.svg';
 import Roll from './Roll.svg';
 
 import FlagGB from './FlagGB.svg';
@@ -238,6 +240,8 @@ export {
   ListNumbers,
   LogoEN,
   LogoUK,
+  LogoBetaEN,
+  LogoBetaUK,
   MagnifyingGlassBold,
   MagnifyingGlassLight,
   MagnifyingGlassRegular,
