@@ -20,8 +20,8 @@ export const SupportCard = ({ className }: SupportCardProps) => {
       <CardContent>
         <Paragraph>{t('description')}</Paragraph>
         <Paragraph className="mb-0 mt-8 flex flex-col items-start gap-4">
-          <TextButton size="huge" href="/contacts/complaints" icon={<ChatsTeardrop />}>
-            {t('button.feedback-form')}
+          <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
+            {t('button.suggestions-form')}
           </TextButton>
           <TextButton size="huge" href="mailto:ecampus@kpi.ua" icon={<EnvelopeSimple />}>
             {t('button.email')}

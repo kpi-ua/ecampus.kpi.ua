@@ -4,7 +4,7 @@ import { SubLayout } from '../../sub-layout';
 import { Heading1 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 
-const INTL_NAMESPACE = 'public.complaints';
+const INTL_NAMESPACE = 'public.suggestions';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -14,7 +14,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function ComplaintsPage({ params: { locale } }: { params: { locale: string } }) {
+export default function SuggestionsPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
 
   const t = useTranslations(INTL_NAMESPACE);
@@ -26,7 +26,7 @@ export default function ComplaintsPage({ params: { locale } }: { params: { local
         <Heading1>{t('header')}</Heading1>
         <Paragraph>
           <iframe
-            src={process.env.NEXT_PUBLIC_COMPLAINTS_FORM!}
+            src={process.env.NEXT_PUBLIC_SUGGESTIONS_FORM!}
             width="100%"
             height="950"
             className="-mx-[5%] w-[110%]"
