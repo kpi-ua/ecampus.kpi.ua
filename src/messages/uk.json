@@ -104,7 +104,7 @@
       "publicLink": {
         "support": "Підтримка користувачiв",
         "curator-search": "Знайти куратора групи",
-        "complaints": "Форма скарг i пропозицiй",
+        "suggestions": "Форма пропозицiй",
         "telegram-chat": "Telegram чат",
         "faq": "Поширенi запитання"
       },
@@ -162,8 +162,8 @@
       "header": "Служба підтримки",
       "content": "<p>Чaт підтримки у <tglink>Telegram</tglink>.</p><p>Якщо у вас є питання, ви можете надіслати його на email служби підтримки: <email>ecampus@kpi.ua</email>.</p><p>Також ви можете завітати до конструкторського бюро, за адресою:<br></br><addresslink>Україна, м. Київ, вул. Політехнічна 14-в, корпус 13, 4 поверх, 25 кабінет.</addresslink></p>"
     },
-    "complaints": {
-      "header": "Форма скарг i пропозицiй"
+    "suggestions": {
+      "header": "Форма пропозицiй"
     },
     "curator-search": {
       "header": "Знайти куратора групи",
@@ -209,7 +209,7 @@
           "title": "Служба підтримки",
           "description": "Ви завжди можете звернутися в службу підтримки:",
           "button": {
-            "feedback-form": "Форма скарг і пропозицій",
+            "suggestions-form": "Форма пропозицій",
             "email": "Пошта"
           }
         },
@@ -267,7 +267,7 @@
     "contacts": {
       "title": "Контакти",
       "header": "Контакти",
-      "content": "<h3>Контактнi данi</h3><p>Адреса конструкторського бюро: <addresslink>Україна, м. Київ, вул. Політехнічна 14-в</addresslink>, корпус 13, 4 поверх, 25 кабінет</p><h3>Соцiальнi мережi</h3><p><githublink>КПI у GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Служба підтримки</h3><p>Якщо у вас є питання, ви можете звернутися до служби підтримки:</p><complaintslink>Форма скарг i пропозицiй</complaintslink><br></br><emaillink>Email</emaillink>"
+      "content": "<h3>Контактнi данi</h3><p>Адреса конструкторського бюро: <addresslink>Україна, м. Київ, вул. Політехнічна 14-в</addresslink>, корпус 13, 4 поверх, 25 кабінет</p><h3>Соцiальнi мережi</h3><p><githublink>КПI у GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Служба підтримки</h3><p>Якщо у вас є питання, ви можете звернутися до служби підтримки:</p><suggestionslink>Форма пропозицiй</suggestionslink><br></br><emaillink>Email</emaillink>"
     },
     "notice-board": {
       "title": "Оголошення",
@@ -341,7 +341,7 @@
         "title": "Перейти до анкети"
       }
     },
-    "feedback": {
+    "suggestions": {
       "title": "Відправити відгук"
     },
     "settings": {
