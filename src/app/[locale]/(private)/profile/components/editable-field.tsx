@@ -65,7 +65,7 @@ export function EditableField({
   return (
     <div className="group flex flex-col items-start gap-4 xl:flex-row xl:items-center">
       <Show when={!!label}>
-        <Paragraph className="m-0 w-full min-w-[170px] max-w-[250px] font-semibold text-neutral-400">
+        <Paragraph className="m-0 w-full min-w-[170px] max-w-[250px] font-semibold text-neutral-400 xl:max-w-[220px]">
           {label}:
         </Paragraph>
       </Show>
@@ -85,7 +85,11 @@ export function EditableField({
         </div>
       ) : (
         <div className="flex flex-wrap justify-between gap-4 md:flex-nowrap">
-          {renderValue ? renderValue(currentValue) : <Paragraph className="m-0 font-medium">{currentValue}</Paragraph>}
+          {renderValue ? (
+            renderValue(currentValue)
+          ) : (
+            <Paragraph className="m-0 min-w-[170px] break-all font-medium">{currentValue}</Paragraph>
+          )}
           <div className="flex gap-2 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100">
             <TooltipProvider>
               <Tooltip>
