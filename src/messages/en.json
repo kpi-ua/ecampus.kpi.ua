@@ -1,0 +1,373 @@
+{
+  "global": {
+    "metadata": {
+      "title": "Campus KPI",
+      "description": "Campus KPI"
+    },
+    "server-error": {
+      "title": "Something went wrong",
+      "description": "There was a problem with your request"
+    },
+    "navigation": {
+      "back": "Back"
+    },
+    "misc": {
+      "download": "Download",
+      "view": "View"
+    },
+    "tooltip": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "not-found": {
+      "title": "Page not found",
+      "description": "We're sorry, but we can't find the page you requested. It may have been moved or deleted.",
+      "return": "Back to the main page",
+      "footer": "<paragraph>All rights reserved.© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph> <paragraph>Developer: <kbislink>KBIS</kbislink></paragraph>"
+    },
+    "modules": {
+      "contacts": "Contacts",
+      "msg": "Messages",
+      "kurator": "Curator",
+      "rnp": "RNP",
+      "mob": "Methodological support",
+      "vote": "Survey Teacher through students eyes",
+      "studysheet": "Current control",
+      "rectorialcontrol": "Rectorial control",
+      "vedomoststud": "Session",
+      "pk2024": "Admission 2024 (Master’s)",
+      "studdoc": "Student documents",
+      "plans_individual": "Individual plans",
+      "journals": "Journals",
+      "np": "NP",
+      "lists": "Lists",
+      "sessiyaNPP": "Faculty session",
+      "plans": "Faculty workload",
+      "attestation": "Calendar control",
+      "vedomost": "Session",
+      "vidpovidalniy": "Responsible",
+      "reytinghelp": "Data for faculty rating",
+      "ratingnpp2021": "Faculty rating 2020-2021",
+      "ratingnpp2022": "Faculty rating 2021-2022",
+      "ratingnpp2023": "Faculty rating 2022-2023",
+      "ratingnpp2024": "Faculty rating 2023-2024",
+      "webometrics": "Translation of EIR metadata",
+      "attestationresults": "Calendar control results",
+      "ekanat": "Dean’s office",
+      "editRNP": "RNP Editing Ruslan",
+      "hignyak": "Reporting for DNVR",
+      "rnpedit": "RNP Editing Alexey",
+      "rnpupd": "RNP Editing KM",
+      "rnpupd2": "RNP Editing KM 2",
+      "voteresult": "Survey results",
+      "vedomostadmin": "Session Administrator",
+      "zvit": "Session Administrator",
+      "zamdekan": "Deputy Dean",
+      "zavkaf": "Head of Department",
+      "zdekan": "Deans office",
+      "ekk": "EKK",
+      "bravook": "Bravo VC",
+      "ratingnpp": "Faculty rating 2019-2020",
+      "pk2024admin": "Admission 2024 (Admin)",
+      "studdocadmin": "Student documents (Admin)",
+      "yiystat": "Statistical data",
+      "adminpanel": "Admin panel",
+      "sdchoice2021admin": "Discipline selection (Admin)",
+      "sdchoice2021moderator": "Discipline selection (Moderator)",
+      "sdchoice2021nmv": "Discipline selection (NMV)",
+      "employment": "Employment system",
+      "useract": "Bravo Requests"
+    },
+    "menu": {
+      "main": "Home",
+      "profile": "Profile",
+      "settings": "Settings",
+      "about": "About",
+      "documents": "KPI documents",
+      "terms-of-service": "Terms of service",
+      "contacts": "Contacts",
+      "notice-board": "Notice board"
+    },
+    "user-category": {
+      "student": "Student",
+      "spw": "SPW"
+    },
+    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
+  },
+  "auth": {
+    "login": {
+      "header": "Sign-in",
+      "description": "Welcome back! Please enter your credentials to continue accessing your account and enjoy all available features.",
+      "or": "or",
+      "rememberMe": "Remember me",
+      "passwordReset": "Forgot my password",
+      "publicLink": {
+        "support": "User support",
+        "curator-search": "Find curator",
+        "suggestions": "Suggestions form",
+        "telegram-chat": "Telegram chat",
+        "faq": "Frequently asked questions"
+      },
+      "field": {
+        "username": "Email address or username",
+        "password": "Password",
+        "error": "Invalid credentials"
+      },
+      "button": {
+        "login": "Sign-in",
+        "kpi-id": "Sign-in with KPI ID"
+      }
+    },
+    "kpi-id": {
+      "header": "Sign-in",
+      "description": "You have successfully logged in with your KPI ID. Select the account you wish to log in with.",
+      "sign-in": "Sign-in"
+    },
+    "passwordChange": {
+      "header": "Change password",
+      "description": "Now create a new password. Secure password includes digits, letters and delimiter symbols.",
+      "button": {
+        "set": "Set new password"
+      },
+      "field": {
+        "password": "New password",
+        "passwordRepeat": "Repeat password"
+      },
+      "success": {
+        "header": "Password changed",
+        "description": "Ваш пароль успішно змінено. Натисніть нижче, щоби увійти в обліковий запис.",
+        "button": "Continue"
+      }
+    },
+    "passwordReset": {
+      "header": "Reset your password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "button": {
+        "reset": "Reset password"
+      },
+      "field": {
+        "username": "Username or email address"
+      },
+      "success": {
+        "header": "Check your inbox",
+        "description": "We've sent you a link to reset your password on email {username}. Click below to sign in to your account.",
+        "retryMessage": "Didn't get an email? <link>Click to resend.</link>",
+        "button": "Continue"
+      }
+    },
+    "footer": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute<br></br>Developer: <kbislink>Design bureau of information systems</kbislink>"
+  },
+  "public": {
+    "support": {
+      "header": "Support",
+      "content": "<p><tglink>Telegram</tglink> support chat.</p><p>If you have any questions, you can send them to the support email: <email>ecampus@kpi.ua</email>.</p><p>You can also visit the design office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, building 13, 4th floor, room 25.</addresslink></p>"
+    },
+    "suggestions": {
+      "header": "Suggestions form"
+    },
+    "curator-search": {
+      "header": "Curator search",
+      "description": "Enter the name of your group to find a curator",
+      "search-placeholder": "Group name",
+      "searching": "Searching...",
+      "not-found": "Nothing's found",
+      "search-default": "Enter the name of your group in the field above to find a curator."
+    },
+    "faq": {
+      "header": "Frequently-asked questions",
+      "sections": {
+        "how-to-register": {
+          "header": "How to register on the campus?",
+          "content": "<p>If you are an officially employed teacher and more than two weeks have passed since submitting your documents to the HR department - contact the person in charge at the department or the head of the department to submit an official letter. If you are a student or graduate student - contact your academic curator.</p>"
+        },
+        "how-to-restore-password": {
+          "header": "How to recover your password?",
+          "content": "<p>To recover your password, use <restorepasswordlink>the button</restorepasswordlink> on the authorization panel. If you have not used the campus before - contact your curator.</p>"
+        }
+      }
+    }
+  },
+  "private": {
+    "main": {
+      "welcome": "Welcome, {name}!",
+      "cards": {
+        "information": {
+          "title": "Information",
+          "schedule": "Schedule",
+          "faq": "Frequently asked questions",
+          "user-manual": "User manual",
+          "university-notice-board": "University notice board",
+          "library-discovery": "Library catalog",
+          "university-news": "University news",
+          "student-council": "Student council"
+        },
+        "social-networks": {
+          "title": "Social Networks",
+          "description": "You can always find the latest information about the operation of the 'Electronic Campus KPI' system and other services on our Facebook page and our Telegram channel:"
+        },
+        "support": {
+          "title": "Support",
+          "description": "You can always contact the support service:",
+          "button": {
+            "suggestions-form": "Suggestion form",
+            "email": "Email"
+          }
+        },
+        "carousel": {
+          "default-link-title": "Go to schedule",
+          "default-slide": {
+            "title-base": "You have entered the <systemname></systemname> system",
+            "title-system-name": "Electronic Campus",
+            "description": "Here you can find methodological support for academic disciplines, results of current control, news of the educational process and other important information.",
+            "link-title": "Learn more"
+          }
+        }
+      }
+    },
+    "about": {
+      "title": "About",
+      "content": "<p>Information and telecommunications system \"Electronic Campus\" - application software, which is an element of the information and telecommunications environment of the university and is used for information support of the daily activities of students, teachers, university employees, as well as for information support of all types of innovative activities at the university (hereinafter referred to as ITS EC).</p><p>ITS EC unites internal information resources (educational, methodological and others), provides centralized access to them on the basis of unified system and technological solutions and ensures their use for effective management and planning of the scientific and educational process.</p><h3>Main functions of ITS EC</h3><p>ITS EC ensures the implementation of the following main functions:</p><ul><li>multilateral communication between students, teachers, scientific community;</li><li>formation of a single information resource that reflects the state of the scientific and educational process of the university;</li><li>ensuring timely and operational placement of: complete, objective, reliable and consistent information about the educational process of the university;</li><li>dissemination of information about upcoming events and activities and other reference information;</li><li>ensuring centralized and convenient access to information about the activities of the administration and university departments;</li><li>ensuring navigation through the entire information content of the ITS EC;</li><li>organizing interaction and information exchange between the ITS EC and other information resources and systems of the university.</li></ul><p>The ITS EC system has developed virtual offices according to user profiles: student, lecturer-scientist, methodologist of the department.</p>"
+    },
+    "user-manual": {
+      "title": "User manual"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "sections": {
+        "group-has-no-students": {
+          "header": "What to do if the group exists but has no students?",
+          "content": "<p>You need to contact the dean's office of your department to have the responsible person allocate students to the groups.</p>"
+        },
+        "student-missing-in-control": {
+          "header": "What to do if a student is in the group but missing in the current control?",
+          "content": "<p>Add the student manually through the appropriate field below the group list in the current control.</p>"
+        },
+        "wrong-student-group": {
+          "header": "What to do if my student cabinet shows the wrong group?",
+          "content": "<p>Contact the dean's office of your department to have the responsible person allocate students to the groups.</p>"
+        },
+        "extra-disciplines-in-control": {
+          "header": "What to do if there are extra disciplines in the current control?",
+          "content": "<p>Contact the instructor through your class leader or classmates and ask them to remove you from the list.</p>"
+        }
+      }
+    },
+    "documents": {
+      "title": "KPI Documents",
+      "header": "Igor Sikorsky Kyiv Polytechnic Institute Documents",
+      "code-of-honor": "Code of honor",
+      "internal-regulations": "Internal regulations",
+      "educational-organization-regulation": "Temporary Regulation on the Organization of the Educational Process at the University"
+    },
+    "terms-of-service": {
+      "title": "Terms of service",
+      "header": "Terms of service",
+      "content": "<p>The editorial board of the project \"Electronic Campus «KPI»\" is not responsible for the consequences of using the project information. The visitor uses the project information at his own risk. The opinion of the editorial board may not coincide with the opinion of the authors of the publications.</p><p>All rights reserved. All copyright materials created specifically for the project \"Electronic Campus «KPI»\", or translations from other sources, as well as the layout are the property of the project.</p><p>Reproduction of any copyright information provided on the site is possible only under the condition of mandatory placement of a link to the site \"Electronic Campus «KPI»\" (ecampus.kpi.ua), in web-based media a hyperlink is mandatory.</p><p>It is forbidden to hide hyperlinks, use JavaScript in a hyperlink or limit the indexing of hyperlinks by search engines! The hyperlink must be placed above or below the material, unless otherwise provided for by the design of the site using the material.</p><p>All methodological materials presented in the Campus are the intellectual property of the authors, their use is allowed only for the educational process of KPI. Teaching methodological materials of the Campus on social networks without the written permission of the authors is prosecuted in accordance with the Law of Ukraine “On Copyright”.</p>"
+    },
+    "contacts": {
+      "title": "Contacts",
+      "header": "Contacts",
+      "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><suggestionslink>Suggestions form</suggestionslink><br></br><emaillink>Email</emaillink>"
+    },
+    "notice-board": {
+      "title": "Notice board",
+      "subtitle": "Here you can view current university announcements and stay up to date with all important news.",
+      "input": {
+        "placeholder": "Search",
+        "not-found": "Results not found"
+      }
+    },
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Here you can view your profile, edit contacts, add links to accounts, and set appointment details.",
+      "info": {
+        "education-title": "Information about place of study",
+        "work-title": "Information about place of work",
+        "subdivision": "Subdivision",
+        "group": "Group",
+        "grade-book": "Grade book number",
+        "education-form": "Form of study",
+        "study-year": "Study year:",
+        "speciality": "Speciality",
+        "full-name-EN": "Full name in English",
+        "academic-degree": "Academic degree",
+        "academic-status": "Academic title",
+        "position": "Position",
+        "positions": "Positions"
+      },
+      "contact": {
+        "title": "Contact",
+        "add-contact": "Add contact",
+        "contact-type": "Contact Type",
+        "choose-contact-type": "Choose contact type",
+        "delete-dialog-title": "Deletion",
+        "delete-dialog-description": "Are you sure you want to delete this contact?",
+        "delete-dialog-cancel": "Cancel",
+        "delete-dialog-confirm": "Delete"
+      },
+      "intellect": {
+        "info-title": "Information for publication on the intellect.kpi.ua website on the Internet",
+        "agreement-title": "Consent for publication of data on the intellect.kpi.ua website on the Internet",
+        "intellect-profile-enabled": "You have allowed the placement of your personal information on the intellect.kpi.ua website on the Internet.",
+        "intellect-profile-disabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
+        "credo": "Credo",
+        "scientific-interests": "Scientific interests",
+        "profile-link": "Link to profile"
+      },
+      "codeOfHonor": {
+        "title": "Code of honor",
+        "content": "<paragraph>The presented <documentsLink>document</documentsLink> of the National Technical University of Ukraine \"Igor Sikorsky Kyiv Polytechnic Institute\" was developed taking into account the experience and examples of the best universities in the world.\n\nThe text was formed on the basis of proposals from the university community, student self-government bodies and trade union organizations.\n\nThe adoption of the principles and norms given in this document is certified by the consent of a member of the university community.\n\n</paragraph>",
+        "agreement": "You have agreed to the principles and standards set forth in the documents provided."
+      },
+      "button": {
+        "save": "Save",
+        "grant-permission": "Grant permission",
+        "revoke-permission": "Revoke permission",
+        "add-new": "Add new",
+        "edit": "Edit",
+        "agree": "Agree",
+        "logout": "Logout"
+      },
+      "placeholder": {
+        "credo": "Enter your credo",
+        "scientific-interests": "Enter your scientific interests",
+        "not-specified": "Not specified"
+      }
+    },
+    "employment-system": {
+      "title": "Employment system",
+      "subtitle": "You can proceed to filling out the skills and knowledge questionnaire or watch the video tutorial",
+      "button": {
+        "title": "Go to questionnaire"
+      }
+    },
+    "suggestions": {
+      "title": "Send suggestion"
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Here you can change your photo, e-mail and password for your profile.",
+      "section": {
+        "photo": "Photo",
+        "contacts": "Contacts",
+        "password": "Password"
+      },
+      "button": {
+        "edit": "Edit",
+        "save-changes": "Save changes"
+      },
+      "field": {
+        "current-password": "Current password",
+        "new-password": "New password",
+        "confirm-password": "Confirm password",
+        "error": "Error"
+      },
+      "error": {
+        "invalid-email": "Invalid email",
+        "password-mismatch": "Password mismatch",
+        "file-size": "Please upload a picture smaller than 1 MB.",
+        "file-type": "We only support PNG, JPEG, or JPG pictures."
+      }
+    }
+  }
+}
