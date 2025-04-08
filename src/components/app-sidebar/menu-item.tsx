@@ -10,10 +10,10 @@ interface MenuItemProps {
   name: string;
   title: string;
   url: string;
-  isExternal: boolean;
+  isExternal?: boolean;
 }
 
-export const MenuItem = ({ name, title, url, isExternal }: MenuItemProps) => {
+export const MenuItem = ({ name, title, url, isExternal = false }: MenuItemProps) => {
   const pathname = usePathname();
   const router = useRouter();
   const sidebar = useSidebar();
