@@ -22,7 +22,7 @@ export async function ModulesMenuItems() {
   return (
     <>
       {moduleMenuSection.map((menuGroup) => {
-        if (menuGroup.submenu) {
+        if (menuGroup.submenu && !!menuGroup.submenu.length) {
           return (
             <CollapsibleMenuItem key={menuGroup.name} title={menuGroup.title} name={menuGroup.name}>
               {menuGroup.submenu.map(renderMenuItem)}
