@@ -46,7 +46,7 @@ export function InfoBlock({ user, className }: Props) {
               renderValue={(value: string) => <Heading6>{value}</Heading6>}
               placeholder={t('info.full-name-EN')}
             />
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               {user.userCategories.map((category) => (
                 <Heading6 key={category} className="text-basic-blue">
                   {tUserCategory(USER_CATEGORIES[category])}

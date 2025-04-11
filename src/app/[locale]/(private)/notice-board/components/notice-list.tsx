@@ -7,12 +7,12 @@ import { debounce } from 'radash';
 import { Input } from '@/components/ui/input';
 import { usePagination } from '@/hooks/use-pagination';
 import { Card } from '@/components/ui/card';
-import { Notice } from '@/app/[locale]/(private)/notice-board/notice';
+import { Notice } from '@/app/[locale]/(private)/notice-board/components/notice';
 import { Paragraph } from '@/components/typography/paragraph';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { useTranslations } from 'next-intl';
 import { Show } from '@/components/utils/show';
-import MagnifyingGlassRegular from '../../../images/icons/MagnifyingGlassRegular.svg';
+import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
 import { Announcement } from '@/types/models/announcement';
 
 interface NoticeListProps {

@@ -13,7 +13,7 @@ const tabsListVariants = cva(
   {
     variants: {
       size: {
-        small: 'h-9 text-sm font-semibold',
+        small: 'h-fit text-sm font-semibold',
         medium: 'h-11 text-base font-semibold',
         big: 'h-14 text-lg font-semibold',
       },

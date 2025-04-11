@@ -61,7 +61,7 @@ const TableCell = React.forwardRef<HTMLTableCellElement, React.TdHTMLAttributes<
   ({ className, ...props }, ref) => (
     <td
       ref={ref}
-      className={cn('px-[16px] py-[23px] align-middle [&:has([role=checkbox])]:pr-0', className)}
+      className={cn('px-[16px] py-[19px] align-middle [&:has([role=checkbox])]:pr-0', className)}
       {...props}
     />
   ),

@@ -2,8 +2,9 @@ import { Teacher } from '@/types/models/current-control/teacher';
 
 export interface Journal {
   date: string;
-  score: number;
+  score: number | null;
+  presence: boolean;
   controlType: string;
-  teacher: Teacher;
+  lecturer: Teacher;
   note: string;
 }

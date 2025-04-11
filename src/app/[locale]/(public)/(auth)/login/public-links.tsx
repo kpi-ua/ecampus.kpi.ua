@@ -10,12 +10,22 @@ export const PublicLinks = () => {
   const t = useTranslations('auth.login.publicLink');
 
   return (
-    <div className="grid grid-cols-2 gap-8 mt-8 sm:grid-cols-3">
-      <PublicLink href="/support" icon={<LifebuoyOutline />}>{t('support')}</PublicLink>
-      <PublicLink href="/curator-search" icon={<Student />}>{t('curator-search')}</PublicLink>
-      <PublicLink href="/complaints" icon={<ChatTeardropDots />}>{t('complaints')}</PublicLink>
-      <PublicLink href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw" target="_blank" icon={<TelegramOutline />}>{t('telegram-chat')}</PublicLink>
-      <PublicLink href="/faq" icon={<QuestionOutline />}>{t('faq')}</PublicLink>
+    <div className="mt-8 grid grid-cols-2 gap-8 sm:grid-cols-3">
+      <PublicLink href="/support" icon={<LifebuoyOutline />}>
+        {t('support')}
+      </PublicLink>
+      <PublicLink href="/curator-search" icon={<Student />}>
+        {t('curator-search')}
+      </PublicLink>
+      <PublicLink href="/complaints" icon={<ChatTeardropDots />}>
+        {t('complaints')}
+      </PublicLink>
+      <PublicLink href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw" target="_blank" icon={<TelegramOutline />}>
+        {t('telegram-chat')}
+      </PublicLink>
+      <PublicLink href="/faq" icon={<QuestionOutline />}>
+        {t('faq')}
+      </PublicLink>
     </div>
   );
 };

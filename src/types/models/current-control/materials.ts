@@ -1,8 +1,15 @@
 import { Teacher } from '@/types/models/current-control/teacher';
 
+export interface ExternalMaterials {
+  date: string;
+  name: string;
+  lecturer: Teacher;
+  url: string;
+}
+
 export interface InternalMaterials {
   date: string;
-  material: { name: string; link: string };
-  teacher: Teacher;
+  name: string;
+  lecturer: Teacher;
+  resourceId: string;
 }
-export interface ExternalMaterials extends InternalMaterials {}

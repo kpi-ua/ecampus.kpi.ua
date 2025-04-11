@@ -342,10 +342,34 @@
       }
     },
     "study-sheet": {
-      "title": "Employment system",
-      "subtitle": "You can proceed to filling out the skills and knowledge questionnaire or watch the video tutorial",
-      "button": {
-        "title": "Go to questionnaire"
+      "title": "Current control",
+      "subtitle": "Current control is carried out during the semester in order to ensure the testing of the level of training of applicants at each stage of the discipline.",
+      "your-information": "Your information:",
+      "study-year": "The academic year",
+      "credit-module": "Credit module",
+      "module-info": "Інформація про кредитний модуль",
+      "lecturers": "Lecturers",
+      "total-score": "Total score:",
+      "semester": {
+        "title": "semester",
+        "first": "First",
+        "second": "Second",
+        "all": "All"
+      },
+      "sheet": {
+        "journal": "Gradebook",
+        "event-plan": "Events plan",
+        "internal-materials": "Internal materials",
+        "external-materials": "External materials"
+      },
+      "table": {
+        "date": "Date",
+        "subject": "Subject",
+        "score": "Score",
+        "lecturer": "Lecturer",
+        "control-type": "Type of control",
+        "link": "Link",
+        "note": "Note"
       }
     },
     "feedback": {

@@ -8,9 +8,9 @@ export interface CreditModule {
   semester: number;
   studyYear: string;
   name: string;
-  teachers: Teacher[];
-  journal: Journal;
-  eventsPlan: EventsPlan;
-  internalMaterials: InternalMaterials;
-  externalMaterials: ExternalMaterials;
+  lecturers: Teacher[];
+  journal: Journal[];
+  eventsPlan: EventsPlan[];
+  internalMaterials: InternalMaterials[];
+  externalMaterials: ExternalMaterials[];
 }

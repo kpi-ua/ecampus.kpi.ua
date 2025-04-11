@@ -1,10 +1,12 @@
 import { Paragraph } from '@/components/typography/paragraph';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 interface Props {
   sheetList: string[];
+  t: ReturnType<typeof useTranslations>;
 }
 
-export function TableSheets({ sheetList }: Props) {
+export function TableSheets({ sheetList, t }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedSheet = searchParams.get('sheet') || sheetList[0];
@@ -21,14 +23,14 @@ export function TableSheets({ sheetList }: Props) {
         <button
           key={index}
           onClick={() => handleSheetChange(item)}
-          className={`h-[42px] w-fit rounded-t-[8px] px-[32px] ${
+          className={`h-[77px] w-fit rounded-t-[8px] px-3 md:h-[42px] md:px-8 ${
             selectedSheet === item ? 'bg-basic-white' : 'bg-transparent'
           }`}
         >
           <Paragraph
             className={`text-base font-semibold ${selectedSheet === item ? 'text-basic-blue' : 'text-neutral-700'}`}
           >
-            {item}
+            {t(item)}
           </Paragraph>
         </button>
       ))}
