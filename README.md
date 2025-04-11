@@ -10,7 +10,8 @@ The information system "Electronic Campus of Igor Sikorsky Kyiv Polytechnic Inst
 ## Environment variables
 
 - CAMPUS_API_BASE_PATH - Campus API URL. Dev value: `https://dev-api.campus.cloud.kpi.ua`
-- COOKIE_DOMAIN - Cookie domain name. Dev value: `localhost`
+- MAIN_COOKIE_DOMAIN - Main site cookie domain name (for ecampus-token). Dev value: `localhost`
+- ROOT_COOKIE_DOMAIN - Root site cookie domain name (for SID). Dev value: `localhost`
 - NEXT_PUBLIC_RECAPTCHA_KEY - Google ReCaptcha v3 public key. Dev value: `6LeMy30qAAAAAIC6KUhNfReP-Us5wkrkp3FLfOgl`
 
 ## Run project locally
@@ -65,7 +66,8 @@ or
 ```shell
 docker run --rm -it \
   -e CAMPUS_API_BASE_PATH=https://dev-api.campus.cloud.kpi.ua \
-  -e COOKIE_DOMAIN=localhost \
+  -e MAIN_COOKIE_DOMAIN=localhost \
+  -e ROOT_COOKIE_DOMAIN=localhost \
   -e NEXT_PUBLIC_RECAPTCHA_KEY=6LeMy30qAAAAAIC6KUhNfReP-Us5wkrkp3FLfOgl \
   -p 3000:3000/tcp kpiua/ecampus.kpi.ua:latest
 ```

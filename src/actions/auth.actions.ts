@@ -8,8 +8,10 @@ import { campusFetch } from '@/lib/client';
 import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount } from '@/types/models/kpi-id-account';
+import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
 
-const COOKIE_DOMAIN = process.env.COOKIE_DOMAIN;
+const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
+const ROOT_COOKIE_DOMAIN = process.env.ROOT_COOKIE_DOMAIN;
 
 export async function setLoginCookies(token: string, sessionId: string, rememberMe: boolean) {
   const tokenData = JWT.decode(token) as { exp: number };
@@ -18,8 +20,8 @@ export async function setLoginCookies(token: string, sessionId: string, remember
 
   const expires = rememberMe ? tokenExpiresAt : undefined;
 
-  cookies().set('SID', sessionId, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
-  cookies().set('token', token, { domain: COOKIE_DOMAIN, httpOnly: true, expires });
+  cookies().set(SID_COOKIE_NAME, sessionId, { domain: ROOT_COOKIE_DOMAIN, httpOnly: true, expires });
+  cookies().set(TOKEN_COOKIE_NAME, token, { domain: MAIN_COOKIE_DOMAIN, httpOnly: true, expires });
 }
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
@@ -54,8 +56,8 @@ export async function loginWithCredentials(username: string, password: string, r
 }
 
 export async function logout() {
-  cookies().delete({ domain: COOKIE_DOMAIN, name: 'SID' });
-  cookies().delete({ domain: COOKIE_DOMAIN, name: 'token' });
+  cookies().delete({ domain: ROOT_COOKIE_DOMAIN, name: SID_COOKIE_NAME });
+  cookies().delete({ domain: MAIN_COOKIE_DOMAIN, name: TOKEN_COOKIE_NAME });
 
   redirect('/');
 }

@@ -9,6 +9,7 @@ import { MenuItemMeta } from '@/types/menu-item-meta';
 import { MODULES } from '@/lib/constants/modules';
 import { ProfileArea } from '@/types/enums/profile-area';
 import { Module } from '@/types/module';
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
 
 const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
 
@@ -62,7 +63,7 @@ const getStaticMenuItems = async (): Promise<MenuItemMeta[][]> => {
 
 const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
   try {
-    const jwt = cookies().get('token')?.value;
+    const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
 
     if (!jwt) {
       return [];

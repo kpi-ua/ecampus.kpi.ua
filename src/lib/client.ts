@@ -2,11 +2,12 @@
 
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
+import { TOKEN_COOKIE_NAME } from './constants/cookies';
 
 const Client = (basePath: string) => {
   return async <T>(url: string | URL, options: RequestInit = {}) => {
     const { headers = {}, ...otherOptions } = options;
-    const jwt = cookies().get('token')?.value;
+    const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
     const locale = await getLocale();
 
     const input = new URL(url, basePath).href;
