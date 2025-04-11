@@ -7,6 +7,5 @@ interface Props {
 export default async function InfoPage({ params }: Props) {
   const { id } = await params;
   const creditModule = await getMonitoringById(id);
-  console.log(creditModule);
   return <ModuleInfoPage creditModule={creditModule} />;
 }

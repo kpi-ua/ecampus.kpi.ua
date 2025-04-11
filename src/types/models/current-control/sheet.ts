@@ -1,12 +1,12 @@
 import { Cathedra } from '@/types/models/cathedra';
-import { Teacher } from '@/types/models/current-control/teacher';
+import { Lecturer } from '@/types/models/current-control/lecturer';
 
 interface Discipline {
   id: string;
   name: string;
   studyYear: string; // "2021-2022"
   score: number;
-  teachers: Teacher[];
+  teachers: Lecturer[];
   semester: number;
   cathedra: Cathedra;
 }

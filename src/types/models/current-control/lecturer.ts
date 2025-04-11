@@ -1,4 +1,4 @@
-export interface Teacher {
+export interface Lecturer {
   photo: string;
   fullName: string;
 }

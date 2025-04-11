@@ -6,16 +6,9 @@ import { CreditModule } from '@/types/models/current-control/credit-module';
 
 export async function getMonitoring() {
   const response = await campusFetch<Sheet>('monitoring');
-  const sheet = await response.json();
 
-  const newSheet: Sheet = {
-    disciplines: sheet.disciplines,
-    studyYears: ["Всі", ...sheet.studyYears],
-  };
-
-  return newSheet;
+  return response.json();
 }
-
 
 export async function getMonitoringById(id: string) {
   const response = await campusFetch<CreditModule>(`monitoring/${id}`);

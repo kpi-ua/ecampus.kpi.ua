@@ -1,8 +1,8 @@
-import { Teacher } from '@/types/models/current-control/teacher';
+import { Lecturer } from '@/types/models/current-control/lecturer';
 
 export interface EventsPlan {
   date: string;
   controlType: string;
-  lecturer: Teacher;
+  lecturer: Lecturer;
   note: string;
 }

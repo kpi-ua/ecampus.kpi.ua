@@ -12,8 +12,9 @@ import { InternalMaterialsTable } from '@/app/[locale]/(private)/module/studyshe
 import { EventPlanTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/EventPlanTable';
 import { ExternalMaterialsTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/ExternalMaterialsTable';
 import { JournalTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/JournalTable';
+import { getTotalScore } from '@/app/[locale]/(private)/module/studysheet/[id]/utils';
+import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
 
-const INTL_NAMESPACE = 'private.study-sheet';
 interface Props {
   creditModule: CreditModule;
 }
@@ -24,18 +25,20 @@ export function ModuleInfoPage({ creditModule }: Props) {
   const tSheet = useTranslations(`${INTL_NAMESPACE}.sheet`);
 
   const searchParams = useSearchParams();
+  const querySemester = searchParams.get('semester');
+  const queryYear = searchParams.get('studyYear');
 
   const selectedSheet = searchParams.get('sheet') || SHEET_TRANSLATION_KEYS.JOURNAL;
 
   const studyPeriod = `${creditModule.studyYear}(${creditModule.semester} ${t('semester.title')})`;
 
-  const totalScore = creditModule.journal.reduce((acc, entry) => {
-    const score = typeof entry.score === 'number' ? entry.score : 0;
-    return acc + score;
-  }, 0);
+  const totalScore = getTotalScore(creditModule.journal);
 
   return (
-    <SubLayout pageTitle={t('module-info')} breadcrumbs={[['/module/studysheet', t('title')]]}>
+    <SubLayout
+      pageTitle={t('module-info')}
+      breadcrumbs={[[`/module/studysheet?semester=${querySemester}&studyYear=${queryYear}`, t('title')]]}
+    >
       <div className="col-span-8">
         <Heading1>{t('title')}</Heading1>
         <div className="mt-3 flex flex-col gap-5 md:flex-row md:gap-10">

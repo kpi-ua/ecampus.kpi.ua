@@ -1,4 +1,6 @@
 'use client';
+import React, { useMemo, useEffect } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Heading1, Heading6 } from '@/components/typography/headers';
 import { SubLayout } from '../../../sub-layout';
 import { useTranslations } from 'next-intl';
@@ -8,46 +10,58 @@ import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@
 import { Link } from '@/i18n/routing';
 import { Badge } from '@/components/ui/badge';
 import { ProfilePicture } from '@/components/ui/profile-picture';
-import React, { useMemo } from 'react';
 import { Card } from '@/components/ui/card';
 import { Sheet } from '@/types/models/current-control/sheet';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
+import { SEMESTER } from './constants';
 
-const INTL_NAMESPACE = 'private.study-sheet';
 const MAX_SCORE = 100;
 
 interface Props {
   sheet: Sheet;
 }
 
-type Semester = 'all' | '1' | '2';
-
 export function Studysheet({ sheet }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { disciplines, studyYears } = sheet;
+  const querySemester = searchParams.get('semester');
+  const queryYear = searchParams.get('studyYear');
 
+  const { disciplines, studyYears } = sheet;
   const currentYear = studyYears[studyYears.length - 1];
 
   const t = useTranslations(INTL_NAMESPACE);
   const tSemester = useTranslations(`${INTL_NAMESPACE}.semester`);
   const tTable = useTranslations(`${INTL_NAMESPACE}.table`);
 
+  useEffect(() => {
+    const params = new URLSearchParams(Array.from(searchParams.entries()));
+    let updated = false;
+
+    if (!params.get('studyYear')) {
+      params.set('studyYear', currentYear);
+      updated = true;
+    }
+    if (!params.get('semester')) {
+      params.set('semester', SEMESTER.ALL);
+      updated = true;
+    }
+    if (updated) {
+      router.replace(`${pathname}?${params.toString()}`);
+    }
+  }, [searchParams, currentYear, pathname, router]);
+
   const selectedStudyYear = searchParams.get('studyYear') || currentYear;
-  const selectedSemester = (searchParams.get('semester') as Semester) || 'all';
+  const selectedSemester = (searchParams.get('semester') as SEMESTER) || SEMESTER.ALL;
 
   const filteredDisciplines = useMemo(() => {
     let filtered = disciplines;
 
-    if (selectedSemester !== 'all') {
+    if (selectedSemester !== SEMESTER.ALL) {
       filtered = filtered.filter((discipline) => discipline.semester.toString() === selectedSemester);
-    }
-
-    if (selectedStudyYear === 'Всі') {
-      return disciplines;
     }
 
     if (selectedStudyYear) {
@@ -56,13 +70,12 @@ export function Studysheet({ sheet }: Props) {
     return filtered;
   }, [selectedSemester, selectedStudyYear, disciplines]);
 
-  const handleSemesterChange = (value: Semester) => {
+  const handleSemesterChange = (value: SEMESTER) => {
     const newSearchParams = new URLSearchParams(Array.from(searchParams.entries()));
     newSearchParams.set('semester', value);
     router.push(`${pathname}?${newSearchParams.toString()}`);
   };
 
-  // Update the query parameter for studyYear.
   const handleStudyYearChange = (value: string) => {
     const newSearchParams = new URLSearchParams(Array.from(searchParams.entries()));
     newSearchParams.set('studyYear', value);
@@ -99,17 +112,17 @@ export function Studysheet({ sheet }: Props) {
               <Tabs
                 defaultValue="all"
                 value={selectedSemester}
-                onValueChange={(value) => handleSemesterChange(value as Semester)}
+                onValueChange={(value) => handleSemesterChange(value as SEMESTER)}
                 className="w-[210px]"
               >
                 <TabsList className="p-[2px]" size="small">
-                  <TabsTrigger className="w-[55px] md:w-[66px]" value="all">
+                  <TabsTrigger className="w-[55px] md:w-[66px]" value={SEMESTER.ALL}>
                     {tSemester('all')}
                   </TabsTrigger>
-                  <TabsTrigger className="w-[60px] md:w-[66px]" value="1">
+                  <TabsTrigger className="w-[60px] md:w-[66px]" value={SEMESTER.FIRST}>
                     {tSemester('first')}
                   </TabsTrigger>
-                  <TabsTrigger className="w-[60px] md:w-[66px]" value="2">
+                  <TabsTrigger className="w-[60px] md:w-[66px]" value={SEMESTER.SECOND}>
                     {tSemester('second')}
                   </TabsTrigger>
                 </TabsList>
@@ -130,7 +143,7 @@ export function Studysheet({ sheet }: Props) {
                   <TableCell className="max-w-[336px]">
                     <Link
                       className="text-sm font-medium text-basic-black underline"
-                      href={`/module/studysheet/${discipline.id}`}
+                      href={`/module/studysheet/${discipline.id}?semester=${querySemester}&studyYear=${queryYear}`}
                     >
                       {discipline.name}
                     </Link>
