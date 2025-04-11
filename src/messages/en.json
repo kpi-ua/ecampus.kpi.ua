@@ -135,7 +135,7 @@
       },
       "success": {
         "header": "Password changed",
-        "description": "Ваш пароль успішно змінено. Натисніть нижче, щоби увійти в обліковий запис.",
+        "description": "Your password has been successfully changed. Click below to log in.",
         "button": "Continue"
       }
     },
