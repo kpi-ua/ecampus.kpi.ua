@@ -1,5 +1,5 @@
 export enum SEMESTER {
   ALL = 'all',
-  FIRST = 'first',
-  SECOND = 'second',
+  FIRST = '1',
+  SECOND = '2',
 }

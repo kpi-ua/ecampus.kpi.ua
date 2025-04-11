@@ -143,7 +143,7 @@ export function Studysheet({ sheet }: Props) {
                   <TableCell className="max-w-[336px]">
                     <Link
                       className="text-sm font-medium text-basic-black underline"
-                      href={`/module/studysheet/${discipline.id}?semester=${querySemester}&studyYear=${queryYear}`}
+                      href={`/module/studysheet/${discipline.id}?studyYear=${queryYear}&semester=${querySemester}`}
                     >
                       {discipline.name}
                     </Link>

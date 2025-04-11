@@ -1,7 +1,6 @@
 'use client';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
-import { Heading1 } from '@/components/typography/headers';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Card } from '@/components/ui/card';
 import { TableSheets } from '@/app/[locale]/(private)/module/studysheet/[id]/components/TableSheets';
@@ -14,6 +13,7 @@ import { ExternalMaterialsTable } from '@/app/[locale]/(private)/module/studyshe
 import { JournalTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/JournalTable';
 import { getTotalScore } from '@/app/[locale]/(private)/module/studysheet/[id]/utils';
 import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
+import { ModuleHeader } from '@/app/[locale]/(private)/module/studysheet/[id]/components/ModuleHeader';
 
 interface Props {
   creditModule: CreditModule;
@@ -34,31 +34,15 @@ export function ModuleInfoPage({ creditModule }: Props) {
 
   const totalScore = getTotalScore(creditModule.journal);
 
+  const hasParams = !!querySemester && !!queryYear;
+  const breadcrumbsRootPath = hasParams
+    ? `/module/studysheet?semester=${querySemester}&studyYear=${queryYear}`
+    : '/module/studysheet';
+
   return (
-    <SubLayout
-      pageTitle={t('module-info')}
-      breadcrumbs={[[`/module/studysheet?semester=${querySemester}&studyYear=${queryYear}`, t('title')]]}
-    >
+    <SubLayout pageTitle={t('module-info')} breadcrumbs={[[breadcrumbsRootPath, t('title')]]}>
       <div className="col-span-8">
-        <Heading1>{t('title')}</Heading1>
-        <div className="mt-3 flex flex-col gap-5 md:flex-row md:gap-10">
-          <div className="flex flex-col-reverse text-left md:flex-col md:text-center">
-            <span className="font-semibold text-basic-black">{studyPeriod}</span>
-            <span className="text-neutral-500">{t('study-year')}</span>
-          </div>
-          <div className="flex flex-col-reverse text-left md:flex-col md:text-center">
-            <span className="max-w-[600px] break-words font-semibold text-basic-black">{creditModule.name}</span>
-            <span className="text-neutral-500">{t('credit-module')}</span>
-          </div>
-          <div className="flex flex-col-reverse text-left md:flex-col md:text-center">
-            {creditModule?.lecturers?.map((item, i) => (
-              <span key={i} className="font-semibold text-basic-black">
-                {item.fullName}
-              </span>
-            ))}
-            <span className="text-neutral-500">{t('lecturers')}</span>
-          </div>
-        </div>
+        <ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} t={t} />
         <div className="mt-8 flex flex-col">
           <TableSheets sheetList={Object.values(SHEET_TRANSLATION_KEYS)} t={tSheet} />
           <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
