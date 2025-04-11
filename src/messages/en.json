@@ -97,14 +97,14 @@
   "auth": {
     "login": {
       "header": "Sign-in",
-      "description": "Welcome back! Please enter your credentials or sign in with Telegram.",
+      "description": "Welcome back! Please enter your credentials to continue accessing your account and enjoy all available features.",
       "or": "or",
       "rememberMe": "Remember me",
       "passwordReset": "Forgot my password",
       "publicLink": {
         "support": "User support",
         "curator-search": "Find curator",
-        "complaints": "Complaints and suggestions",
+        "suggestions": "Suggestions form",
         "telegram-chat": "Telegram chat",
         "faq": "Frequently asked questions"
       },
@@ -162,8 +162,8 @@
       "header": "Support",
       "content": "<p><tglink>Telegram</tglink> support chat.</p><p>If you have any questions, you can send them to the support email: <email>ecampus@kpi.ua</email>.</p><p>You can also visit the design office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, building 13, 4th floor, room 25.</addresslink></p>"
     },
-    "complaints": {
-      "header": "Complaints and suggestions"
+    "suggestions": {
+      "header": "Suggestions form"
     },
     "curator-search": {
       "header": "Curator search",
@@ -209,7 +209,7 @@
           "title": "Support",
           "description": "You can always contact the support service:",
           "button": {
-            "feedback-form": "Feedback form",
+            "suggestions-form": "Suggestion form",
             "email": "Email"
           }
         },
@@ -267,7 +267,7 @@
     "contacts": {
       "title": "Contacts",
       "header": "Contacts",
-      "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><complaintslink>Complaints and suggestions form</complaintslink><br></br><emaillink>Email</emaillink>"
+      "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><suggestionslink>Suggestions form</suggestionslink><br></br><emaillink>Email</emaillink>"
     },
     "notice-board": {
       "title": "Notice board",
@@ -341,6 +341,9 @@
         "title": "Go to questionnaire"
       }
     },
+    "suggestions": {
+      "title": "Send suggestion"
+    },
     "study-sheet": {
       "title": "Current control",
       "subtitle": "Current control is carried out during the semester in order to ensure the testing of the level of training of applicants at each stage of the discipline.",
@@ -371,9 +374,6 @@
         "link": "Link",
         "note": "Note"
       }
-    },
-    "feedback": {
-      "title": "Send feedback"
     },
     "settings": {
       "title": "Settings",

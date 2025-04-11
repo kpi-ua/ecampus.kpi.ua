@@ -17,8 +17,8 @@ export const PublicLinks = () => {
       <PublicLink href="/curator-search" icon={<Student />}>
         {t('curator-search')}
       </PublicLink>
-      <PublicLink href="/complaints" icon={<ChatTeardropDots />}>
-        {t('complaints')}
+      <PublicLink href="/suggestions" icon={<ChatTeardropDots />}>
+        {t('suggestions')}
       </PublicLink>
       <PublicLink href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw" target="_blank" icon={<TelegramOutline />}>
         {t('telegram-chat')}
