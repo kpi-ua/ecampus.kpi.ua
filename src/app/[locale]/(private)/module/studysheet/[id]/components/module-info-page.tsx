@@ -3,17 +3,17 @@ import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Card } from '@/components/ui/card';
-import { TableSheets } from '@/app/[locale]/(private)/module/studysheet/[id]/components/TableSheets';
+import { TableSheets } from '@/app/[locale]/(private)/module/studysheet/[id]/components/table-sheets';
 import { CreditModule } from '@/types/models/current-control/credit-module';
 import React from 'react';
 import { SHEET_TRANSLATION_KEYS } from '@/app/[locale]/(private)/module/studysheet/[id]/constants';
-import { InternalMaterialsTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/InternalMaterialsTable';
-import { EventPlanTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/EventPlanTable';
-import { ExternalMaterialsTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/ExternalMaterialsTable';
-import { JournalTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/JournalTable';
+import { InternalMaterialsTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/internal-materials-table';
+import { EventPlanTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/event-plan-table';
+import { ExternalMaterialsTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/external-materials-table';
+import { JournalTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/journal-table';
 import { getTotalScore } from '@/app/[locale]/(private)/module/studysheet/[id]/utils';
 import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
-import { ModuleHeader } from '@/app/[locale]/(private)/module/studysheet/[id]/components/ModuleHeader';
+import { ModuleHeader } from '@/app/[locale]/(private)/module/studysheet/[id]/components/module-header';
 
 interface Props {
   creditModule: CreditModule;

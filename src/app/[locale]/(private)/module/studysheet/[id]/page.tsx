@@ -1,4 +1,4 @@
-import { ModuleInfoPage } from '@/app/[locale]/(private)/module/studysheet/[id]/page.content';
+import { ModuleInfoPage } from '@/app/[locale]/(private)/module/studysheet/[id]/components/module-info-page';
 import { getMonitoringById } from '@/actions/monitoring.actions';
 
 interface Props {

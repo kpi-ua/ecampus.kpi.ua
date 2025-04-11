@@ -28,8 +28,8 @@ export const JournalTable: React.FC<JournalTableProps> = ({ journal, totalScore,
           </TableRow>
         </TableHeader>
         <TableBody>
-          {journal.map((row) => (
-            <TableRow key={row.date}>
+          {journal.map((row, index) => (
+            <TableRow key={index}>
               <TableCell className="w-[116px] text-sm font-medium">{row.date}</TableCell>
               <TableCell className="w-[109px] text-center">
                 {(row.presence || row.score) && (

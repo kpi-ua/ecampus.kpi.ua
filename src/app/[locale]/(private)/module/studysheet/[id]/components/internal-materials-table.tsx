@@ -3,15 +3,15 @@ import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { Link } from '@/i18n/routing';
-import { ExternalMaterials } from '@/types/models/current-control/materials';
 import { useTranslations } from 'next-intl';
+import { InternalMaterials } from '@/types/models/current-control/materials';
 
-interface ExternalMaterialsTableProps {
-  externalMaterials: ExternalMaterials[];
+interface InternalMaterialsTableProps {
+  internalMaterials: InternalMaterials[];
   t: ReturnType<typeof useTranslations>;
 }
 
-export const ExternalMaterialsTable: React.FC<ExternalMaterialsTableProps> = ({ externalMaterials, t }) => {
+export const InternalMaterialsTable: React.FC<InternalMaterialsTableProps> = ({ internalMaterials, t }) => {
   return (
     <Table>
       <TableHeader>
@@ -22,11 +22,13 @@ export const ExternalMaterialsTable: React.FC<ExternalMaterialsTableProps> = ({ 
         </TableRow>
       </TableHeader>
       <TableBody>
-        {externalMaterials.map((row) => (
-          <TableRow key={row.date}>
+        {internalMaterials.map((row, index) => (
+          <TableRow key={index}>
             <TableCell>{row.date}</TableCell>
             <TableCell>
-              <Link href={row.url}>{row.name}</Link>
+              <Link href={`https://campus.kpi.ua/student/index.php?mode=mob&show&irid=${row.resourceId}`}>
+                {row.name}
+              </Link>
             </TableCell>
             <TableCell className="max-w-[360px]">
               <div className="flex items-center gap-3">

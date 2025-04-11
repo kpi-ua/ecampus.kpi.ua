@@ -22,8 +22,8 @@ export const EventPlanTable: React.FC<EventPlanTableProps> = ({ eventsPlan, t })
         </TableRow>
       </TableHeader>
       <TableBody>
-        {eventsPlan.map((row) => (
-          <TableRow key={row.date}>
+        {eventsPlan.map((row, index) => (
+          <TableRow key={index}>
             <TableCell>{row.date}</TableCell>
             <TableCell>{row.controlType}</TableCell>
             <TableCell className="max-w-[360px]">
