@@ -58,28 +58,23 @@ export function Studysheet({ sheet }: Props) {
   const selectedSemester = (searchParams.get('semester') as SEMESTER) || SEMESTER.ALL;
 
   const filteredDisciplines = useMemo(() => {
-    let filtered = disciplines;
-
-    if (selectedSemester !== SEMESTER.ALL) {
-      filtered = filtered.filter((discipline) => discipline.semester.toString() === selectedSemester);
-    }
-
-    if (selectedStudyYear) {
-      filtered = filtered.filter((discipline) => discipline.studyYear === selectedStudyYear);
-    }
-    return filtered;
+    return disciplines.filter((discipline) => {
+      const matchesSemester = selectedSemester === SEMESTER.ALL || discipline.semester.toString() === selectedSemester;
+      const matchesStudyYear = !selectedStudyYear || discipline.studyYear === selectedStudyYear;
+      return matchesSemester && matchesStudyYear;
+    });
   }, [selectedSemester, selectedStudyYear, disciplines]);
 
   const handleSemesterChange = (value: SEMESTER) => {
     const newSearchParams = new URLSearchParams(Array.from(searchParams.entries()));
     newSearchParams.set('semester', value);
-    router.push(`${pathname}?${newSearchParams.toString()}`);
+    router.replace(`${pathname}?${newSearchParams.toString()}`);
   };
 
   const handleStudyYearChange = (value: string) => {
     const newSearchParams = new URLSearchParams(Array.from(searchParams.entries()));
     newSearchParams.set('studyYear', value);
-    router.push(`${pathname}?${newSearchParams.toString()}`);
+    router.replace(`${pathname}?${newSearchParams.toString()}`);
   };
 
   return (
