@@ -19,12 +19,12 @@ export function TableSheets({ sheetList, t }: Props) {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 overflow-x-auto">
       {sheetList.map((item, index) => (
         <button
           key={index}
           onClick={() => handleSheetChange(item)}
-          className={`h-[77px] w-fit rounded-t-[8px] px-3 md:h-[42px] md:px-8 ${
+          className={`h-[77px] w-fit rounded-t-[8px] px-3 md:px-8 lg:h-[42px] ${
             selectedSheet === item ? 'bg-basic-white' : 'bg-transparent'
           }`}
         >
