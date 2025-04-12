@@ -9,12 +9,12 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableHead, TableHeader, TableRow, TableCell, TableBody } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
 import { Badge } from '@/components/ui/badge';
-import { ProfilePicture } from '@/components/ui/profile-picture';
 import { Card } from '@/components/ui/card';
 import { Sheet } from '@/types/models/current-control/sheet';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
 import { SEMESTER } from './constants';
+import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/LecturerItemCell';
 
 const MAX_SCORE = 100;
 
@@ -145,14 +145,13 @@ export function Studysheet({ sheet }: Props) {
                   </TableCell>
                   <TableCell className="max-w-[158px]">
                     <Badge className="font-semibold text-basic-blue">
-                      {discipline.score}/{MAX_SCORE}
+                      {Number(discipline.score)}/{MAX_SCORE}
                     </Badge>
                   </TableCell>
-                  <TableCell className="max-w-[360px]">
-                    <div className="flex items-center gap-3">
-                      <ProfilePicture size="xs" src={discipline.teachers[0].photo} />
-                      <span className="text-sm font-semibold text-basic-black">{discipline.teachers[0].fullName}</span>
-                    </div>
+                  <TableCell className="flex max-w-[360px] flex-col gap-1">
+                    {discipline?.lecturers?.map((lecturer, index) => (
+                      <LecturerItemCell key={index} photo={lecturer.photo} fullName={lecturer.fullName} />
+                    ))}
                   </TableCell>
                 </TableRow>
               ))}

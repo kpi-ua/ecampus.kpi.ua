@@ -27,7 +27,7 @@ export function ModuleHeader({ creditModule, studyPeriod, t }: Props) {
         <div className="hidden h-[38px] w-[2px] bg-neutral-divider md:block" />
 
         <div className="flex flex-col-reverse text-left md:flex-col md:text-center">
-          {creditModule?.lecturers?.map((lecturer: any, index: number) => (
+          {creditModule?.lecturers?.map((lecturer, index) => (
             <span key={index} className="font-semibold text-basic-black">
               {lecturer.fullName}
             </span>

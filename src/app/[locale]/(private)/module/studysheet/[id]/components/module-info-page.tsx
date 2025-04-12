@@ -30,7 +30,7 @@ export function ModuleInfoPage({ creditModule }: Props) {
 
   const selectedSheet = searchParams.get('sheet') || SHEET_TRANSLATION_KEYS.JOURNAL;
 
-  const studyPeriod = `${creditModule.studyYear}(${creditModule.semester} ${t('semester.title')})`;
+  const studyPeriod = `${creditModule.studyYear} (${creditModule.semester} ${t('semester.title')})`;
 
   const totalScore = getTotalScore(creditModule.journal);
 

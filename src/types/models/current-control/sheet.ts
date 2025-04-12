@@ -5,10 +5,10 @@ interface Discipline {
   id: string;
   name: string;
   studyYear: string; // "2021-2022"
-  score: number;
-  teachers: Lecturer[];
+  lecturers: Lecturer[];
   semester: number;
   cathedra: Cathedra;
+  score?: number;
 }
 
 export interface Sheet {
