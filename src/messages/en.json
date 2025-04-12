@@ -99,7 +99,7 @@
   },
   "auth": {
     "login": {
-      "header": "Sign-in",
+      "header": "Sign in",
       "description": "Welcome back! Please enter your credentials to continue accessing your account and enjoy all available features.",
       "or": "or",
       "rememberMe": "Remember me",
@@ -109,7 +109,7 @@
         "curator-search": "Find curator",
         "suggestions": "Suggestions form",
         "telegram-chat": "Telegram chat",
-        "faq": "Frequently asked questions"
+        "faq": "Frequently Asked Questions"
       },
       "field": {
         "username": "Email address or username",
@@ -117,14 +117,14 @@
         "error": "Invalid credentials"
       },
       "button": {
-        "login": "Sign-in",
-        "kpi-id": "Sign-in with KPI ID"
+        "login": "Sign in",
+        "kpi-id": "Sign in with KPI ID"
       }
     },
     "kpi-id": {
-      "header": "Sign-in",
+      "header": "Sign in",
       "description": "You have successfully logged in with your KPI ID. Select the account you wish to log in with.",
-      "sign-in": "Sign-in"
+      "sign-in": "Sign in"
     },
     "passwordChange": {
       "header": "Change password",
@@ -138,7 +138,7 @@
       },
       "success": {
         "header": "Password changed",
-        "description": "Ваш пароль успішно змінено. Натисніть нижче, щоби увійти в обліковий запис.",
+        "description": "Your password has been successfully changed. Click below to log in.",
         "button": "Continue"
       }
     },
@@ -173,11 +173,11 @@
       "description": "Enter the name of your group to find a curator",
       "search-placeholder": "Group name",
       "searching": "Searching...",
-      "not-found": "Nothing's found",
-      "search-default": "Enter the name of your group in the field above to find a curator."
+      "not-found": "No results found",
+      "search-default": "Enter your group name above to find a curator."
     },
     "faq": {
-      "header": "Frequently-asked questions",
+      "header": "Frequently Asked Questions",
       "sections": {
         "how-to-register": {
           "header": "How to register on the campus?",
@@ -198,7 +198,7 @@
           "title": "Information",
           "schedule": "Schedule",
           "dnvr": "Education-related questions",
-          "faq": "Frequently asked questions",
+          "faq": "Frequently Asked Questions",
           "user-manual": "User manual",
           "university-notice-board": "University notice board",
           "library-discovery": "Library catalog",
@@ -278,7 +278,7 @@
       "subtitle": "Here you can view current university announcements and stay up to date with all important news.",
       "input": {
         "placeholder": "Search",
-        "not-found": "Results not found"
+        "not-found": "No results found"
       }
     },
     "profile": {
@@ -291,7 +291,7 @@
         "group": "Group",
         "grade-book": "Grade book number",
         "education-form": "Form of study",
-        "study-year": "Study year:",
+        "study-year": "Study year",
         "speciality": "Speciality",
         "full-name-EN": "Full name in English",
         "academic-degree": "Academic degree",
@@ -370,7 +370,7 @@
         "invalid-email": "Invalid email",
         "password-mismatch": "Password mismatch",
         "file-size": "Please upload a picture smaller than 1 MB.",
-        "file-type": "We only support PNG, JPEG, or JPG pictures."
+        "file-type": "Only PNG, JPEG, and JPG files are supported."
       }
     }
   }
