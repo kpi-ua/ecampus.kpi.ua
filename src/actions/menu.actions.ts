@@ -9,6 +9,7 @@ import { MenuGroup } from '@/types/menu-item-meta';
 import { MODULES } from '@/lib/constants/modules';
 import { ProfileArea } from '@/types/enums/profile-area';
 import { Module } from '@/types/module';
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
 import { group } from 'radash';
 
 const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
@@ -45,7 +46,7 @@ const getMenuGroupComposer = (translation: Translation) => (modules: Module[], p
 
 export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
   try {
-    const jwt = cookies().get('token')?.value;
+    const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
 
     if (!jwt) {
       return [];
