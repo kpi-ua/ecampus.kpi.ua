@@ -5,6 +5,7 @@ import UrlPattern from 'url-pattern';
 import { LOGIN_PATH, NOT_FOUND_PATH, ROOT_PATH } from './contants';
 import { getJWTPayload } from '@/lib/jwt';
 import { CampusJwtPayload } from '@/types/campus-jwt-payload';
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
 
 export const redirectWithIntl = (request: NextRequest, path: string) => {
   const url = request.nextUrl.clone();
@@ -41,9 +42,7 @@ export const matchesAnyUrl = (request: NextRequest, urls: string[], strict = tru
   urls.some((url) => matchesUrl(request, url, strict));
 
 export const getAuthInfo = (request: NextRequest) => {
-  const cookie = request.cookies.get('token');
-
-  const token = cookie?.value;
+  const token = request.cookies.get(TOKEN_COOKIE_NAME)?.value;
 
   if (!token) {
     return undefined;

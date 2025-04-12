@@ -22,6 +22,11 @@ export const InformationCard = ({ className }: InformationCardProps) => {
           </Link>
         </Paragraph>
         <Paragraph className="my-1">
+          <Link href={process.env.NEXT_PUBLIC_DNVR!} target="_blank" rel="noopener noreferrer">
+            {t('dnvr')}
+          </Link>
+        </Paragraph>
+        <Paragraph className="my-1">
           <Link href={process.env.NEXT_PUBLIC_UNIVERSITY_NOTICE_BOARD_URL!} target="_blank" rel="noopener noreferrer">
             {t('university-notice-board')}
           </Link>
