@@ -88,7 +88,7 @@ export function Studysheet({ sheet }: Props) {
         <Heading1>{t('title')}</Heading1>
         <Paragraph className="text-neutral-700">{t('subtitle')}</Paragraph>
         <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
-          <div className="flex flex-col sm:flex-row sm:items-center">
+          <div className="flex flex-col lg:flex-row lg:items-center">
             <Heading6 className="mr-auto text-neutral-900">{t('your-information')}</Heading6>
             <div className="flex items-center">
               <Paragraph className="mr-5 text-lg font-semibold text-neutral-700">{t('study-year')}</Paragraph>
@@ -108,7 +108,7 @@ export function Studysheet({ sheet }: Props) {
               </Select>
             </div>
             <div className="flex items-center gap-4">
-              <Paragraph className="text-lg font-semibold text-neutral-700 sm:ml-4">{tSemester('title')}</Paragraph>
+              <Paragraph className="text-lg font-semibold text-neutral-700 lg:ml-4">{tSemester('title')}</Paragraph>
               <Tabs
                 defaultValue="all"
                 value={selectedSemester}
