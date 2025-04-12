@@ -12,9 +12,9 @@ export const DefaultAnnouncementSlide = () => {
     <AnnouncementSlide
       title={title}
       description={t('description')}
-      link="#"
-      linkTitle={t('link-title')}
-      image="/images/Saly-10.png"
+      link=""
+      linkTitle=""
+      image="https://do4rt9wur3t6m.cloudfront.net/welcome-to-campus.png"
     />
   );
 };
