@@ -5,18 +5,21 @@ import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { getUserDetails } from './auth.actions';
-import { MenuItemMeta } from '@/types/menu-item-meta';
+import { MenuGroup } from '@/types/menu-item-meta';
 import { MODULES } from '@/lib/constants/modules';
 import { ProfileArea } from '@/types/enums/profile-area';
 import { Module } from '@/types/module';
 import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
+import { group } from 'radash';
 
 const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
-
 const OLD_CAMPUS_PROFILE_AREA = {
   [ProfileArea.Employee]: 'tutor',
   [ProfileArea.Student]: 'student',
 };
+type Translation = Awaited<ReturnType<typeof getTranslations>>;
+
+const byTitle = (a: MenuGroup, b: MenuGroup) => a.title.localeCompare(b.title);
 
 const composeUrl = (module: Module, profileArea: ProfileArea) => {
   if (module.isExternal) {
@@ -26,42 +29,22 @@ const composeUrl = (module: Module, profileArea: ProfileArea) => {
   return `/module/${module.name}`;
 };
 
-const getStaticMenuItems = async (): Promise<MenuItemMeta[][]> => {
-  const t = await getTranslations('global.menu');
+const getModuleMenuItemComposer =
+  (translation: Translation) =>
+  (module: Module, profileArea: ProfileArea): MenuGroup => ({
+    name: module.name,
+    title: translation(module.name),
+    url: composeUrl(module, profileArea),
+    external: module.isExternal,
+  });
 
-  return [
-    [
-      {
-        name: 'main',
-        title: t('main'),
-        url: '/',
-        isExternal: false,
-      },
-    ],
-    [
-      {
-        name: 'profile',
-        title: t('profile'),
-        url: '/profile',
-        isExternal: false,
-      },
-      {
-        name: 'notice-board',
-        title: t('notice-board'),
-        url: '/notice-board',
-        isExternal: false,
-      },
-      {
-        name: 'settings',
-        title: t('settings'),
-        url: '/settings',
-        isExternal: false,
-      },
-    ],
-  ];
+const getMenuGroupComposer = (translation: Translation) => (modules: Module[], profileArea: ProfileArea) => {
+  const composeModuleMenuItem = getModuleMenuItemComposer(translation);
+
+  return modules.map((module) => composeModuleMenuItem(module, profileArea)).sort(byTitle);
 };
 
-const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
+export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
   try {
     const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
 
@@ -82,32 +65,37 @@ const getModuleMenuItems = async (): Promise<MenuItemMeta[]> => {
     }
 
     const t = await getTranslations('global.modules');
-
     const profileArea = userDetails.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
     const availableModules = MODULES.filter((module) => jwtPayload.modules.includes(module.name));
+    const groups = group(availableModules, (module) => module.group || module.name);
 
-    return availableModules
-      .map((module) => {
-        return {
-          name: module.name,
-          title: t(module.name),
-          url: composeUrl(module, profileArea),
-          isExternal: module.isExternal,
-        } satisfies MenuItemMeta;
-      })
-      .sort((moduleA, moduleB) => moduleA.title.localeCompare(moduleB.title));
+    const composeMenuGroup = getMenuGroupComposer(t);
+    const composeModuleMenuItem = getModuleMenuItemComposer(t);
+
+    return Object.entries(groups)
+      .reduce((acc: MenuGroup[], [group, modules]) => {
+        if (!modules) {
+          return acc;
+        }
+
+        if (modules.length === 1) {
+          return [...acc, composeModuleMenuItem(modules[0], profileArea)];
+        }
+
+        const menuGroupItems = composeMenuGroup(modules, profileArea);
+
+        return [
+          ...acc,
+          {
+            name: `_group.${group}`,
+            title: t(`_groups.${group}`),
+            url: `#${group}`,
+            submenu: menuGroupItems,
+          } satisfies MenuGroup,
+        ];
+      }, [])
+      .sort(byTitle);
   } catch (error) {
     return [];
   }
-};
-
-export const getUserMenuGroups = async () => {
-  const staticMenuItems = await getStaticMenuItems();
-  const modulesMenuItems = await getModuleMenuItems();
-
-  if (!modulesMenuItems.length) {
-    return staticMenuItems;
-  }
-
-  return [...staticMenuItems, modulesMenuItems];
 };
