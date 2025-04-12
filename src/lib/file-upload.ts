@@ -2,10 +2,11 @@
 
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { TOKEN_COOKIE_NAME } from './constants/cookies';
 
 const FileUpload = (basePath: string) => {
   return async (url: string | URL, formData: FormData) => {
-    const jwt = cookies().get('token')?.value;
+    const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
 
     if (!jwt) {
       redirect('/');
@@ -23,7 +24,7 @@ const FileUpload = (basePath: string) => {
     });
 
     if (response.status === 401) {
-      cookies().delete('token');
+      cookies().delete(TOKEN_COOKIE_NAME);
       redirect('/');
     }
 

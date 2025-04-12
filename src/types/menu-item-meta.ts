@@ -1,6 +1,7 @@
-import { Module } from './module';
-
-export interface MenuItemMeta extends Module {
+export interface MenuGroup {
+  name: string;
   title: string;
   url: string;
+  external?: boolean;
+  submenu?: MenuGroup[];
 }

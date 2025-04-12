@@ -76,7 +76,10 @@
       "sdchoice2021moderator": "Discipline selection (Moderator)",
       "sdchoice2021nmv": "Discipline selection (NMV)",
       "employment": "Employment system",
-      "useract": "Bravo Requests"
+      "useract": "Bravo Requests",
+      "_groups": {
+        "rating": "Rating"
+      }
     },
     "menu": {
       "main": "Home",
@@ -194,6 +197,7 @@
         "information": {
           "title": "Information",
           "schedule": "Schedule",
+          "dnvr": "Education-related questions",
           "faq": "Frequently Asked Questions",
           "user-manual": "User manual",
           "university-notice-board": "University notice board",
