@@ -20,9 +20,11 @@ const OLD_CAMPUS_PROFILE_AREA = {
 type Translation = Awaited<ReturnType<typeof getTranslations>>;
 
 const byTitle = (a: MenuGroup, b: MenuGroup) => a.title.localeCompare(b.title);
+const getIsExternal = (module: Module, profileArea: ProfileArea) =>
+  typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal;
 
 const composeUrl = (module: Module, profileArea: ProfileArea) => {
-  if (module.isExternal) {
+  if (getIsExternal(module, profileArea)) {
     return `${OLD_CAMPUS_URL}/${OLD_CAMPUS_PROFILE_AREA[profileArea]}/index.php?mode=${module.name}`;
   }
 
@@ -35,7 +37,7 @@ const getModuleMenuItemComposer =
     name: module.name,
     title: translation(module.name),
     url: composeUrl(module, profileArea),
-    external: typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal,
+    external: getIsExternal(module, profileArea),
   });
 
 const getMenuGroupComposer = (translation: Translation) => (modules: Module[], profileArea: ProfileArea) => {
