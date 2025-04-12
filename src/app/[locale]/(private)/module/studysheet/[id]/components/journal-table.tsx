@@ -1,20 +1,21 @@
 'use client';
+
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Paragraph } from '@/components/typography/paragraph';
-import { ProfilePicture } from '@/components/ui/profile-picture';
 import { Journal } from '@/types/models/current-control/journal';
 import { useTranslations } from 'next-intl';
+import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/LecturerItemCell';
 
-interface JournalTableProps {
+interface Props {
   journal: Journal[];
   totalScore: number;
   tTable: ReturnType<typeof useTranslations>;
   t: ReturnType<typeof useTranslations>;
 }
 
-export const JournalTable: React.FC<JournalTableProps> = ({ journal, totalScore, tTable, t }) => {
+export function JournalTable({ journal, totalScore, tTable, t }: Props) {
   return (
     <>
       <Table>
@@ -38,10 +39,7 @@ export const JournalTable: React.FC<JournalTableProps> = ({ journal, totalScore,
               </TableCell>
               <TableCell className="w-[240px] text-sm font-medium">{row.controlType}</TableCell>
               <TableCell className="max-w-[360px]">
-                <div className="flex items-center gap-3">
-                  <ProfilePicture size="xs" src={row.lecturer.photo} />
-                  <span className="text-sm font-semibold text-basic-black">{row.lecturer.fullName}</span>
-                </div>
+                <LecturerItemCell photo={row.lecturer.photo} fullName={row.lecturer.fullName} />
               </TableCell>
               <TableCell className="text-sm font-medium">{row.note}</TableCell>
             </TableRow>
@@ -54,4 +52,4 @@ export const JournalTable: React.FC<JournalTableProps> = ({ journal, totalScore,
       </div>
     </>
   );
-};
+}
