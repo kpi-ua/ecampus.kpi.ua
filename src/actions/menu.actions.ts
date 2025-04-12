@@ -35,7 +35,7 @@ const getModuleMenuItemComposer =
     name: module.name,
     title: translation(module.name),
     url: composeUrl(module, profileArea),
-    external: module.isExternal,
+    external: typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal,
   });
 
 const getMenuGroupComposer = (translation: Translation) => (modules: Module[], profileArea: ProfileArea) => {
