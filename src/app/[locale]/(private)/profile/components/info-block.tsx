@@ -12,7 +12,6 @@ import React from 'react';
 import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
 import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
 import { ProfilePicture } from '@/components/ui/profile-picture';
-import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
 
 interface Props {
   user: User;
