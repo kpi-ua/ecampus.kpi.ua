@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { Heading4, Heading6 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { Separator } from '@/components/ui/separator';
-import { updateEnglishFullName } from '@/actions/profile.actions';
 import { Badge } from '@/components/ui/badge';
 import { User } from '@/types/models/user';
 import { USER_CATEGORIES } from '@/lib/constants/user-category';
@@ -13,7 +12,6 @@ import React from 'react';
 import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
 import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
 import { ProfilePicture } from '@/components/ui/profile-picture';
-import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
 
 interface Props {
   user: User;
@@ -27,10 +25,6 @@ export function InfoBlock({ user, className }: Props) {
   const studentProfile = user?.studentProfile;
   const employeeProfile = user?.employeeProfile;
 
-  const handleSaveFullNameEn = async (newName: string) => {
-    await updateEnglishFullName(newName);
-  };
-
   return (
     <Card className={cn(className)}>
       <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
@@ -38,14 +32,6 @@ export function InfoBlock({ user, className }: Props) {
           <ProfilePicture size="xl" src={user.photo || ''} />
           <div className="flex flex-col gap-4 md:gap-2">
             <Heading4>{user.fullName}</Heading4>
-            <EditableField
-              disableClearValue
-              size="small"
-              value={user.fullNameEnglish || ''}
-              onSave={handleSaveFullNameEn}
-              renderValue={(value: string) => <Heading6>{value}</Heading6>}
-              placeholder={t('info.full-name-EN')}
-            />
             <div className="flex gap-2">
               {user.userCategories.map((category) => (
                 <Heading6 key={category} className="text-basic-blue">

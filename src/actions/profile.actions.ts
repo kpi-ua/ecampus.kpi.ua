@@ -75,19 +75,6 @@ export async function setIntellectAgreement(agree: boolean) {
   }
 }
 
-export async function updateEnglishFullName(fullNameEnglish: string) {
-  try {
-    await campusFetch('profile', {
-      method: 'PUT',
-      body: JSON.stringify({ fullNameEnglish }),
-    });
-
-    revalidatePath('/profile');
-  } catch (error) {
-    throw new Error('Error while updating English full name');
-  }
-}
-
 export async function updateIntellectInfo(credo: string, scientificInterests: string) {
   try {
     await campusFetch('profile/intellect', {
