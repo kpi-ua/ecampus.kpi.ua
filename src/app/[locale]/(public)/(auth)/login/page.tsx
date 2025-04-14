@@ -2,6 +2,7 @@ import { Heading2 } from '@/components/typography/headers';
 import { CredentialsLogin } from './credentials-login';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Show } from '@/components/utils/show';
 import { TextDivider } from '@/components/ui/text-divider';
 import { KPIIDLogin } from './kpi-id-login';
 
@@ -19,14 +20,17 @@ export default function LoginPage({ params: { locale } }: { params: { locale: st
   setRequestLocale(locale);
 
   const t = useTranslations(INTL_NAMESPACE);
+  const showKpiIdButton = process.env.NEXT_PUBLIC_KPI_ID_BUTTON === 'true';
 
   return (
     <>
       <Heading2>{t('header')}</Heading2>
       <p className="py-4 text-neutral-600">{t('description')}</p>
       <CredentialsLogin />
-      <TextDivider>{t('or')}</TextDivider>
-      <KPIIDLogin />
+      <Show when={showKpiIdButton}>
+        <TextDivider>{t('or')}</TextDivider>
+        <KPIIDLogin />
+      </Show>
     </>
   );
 }
