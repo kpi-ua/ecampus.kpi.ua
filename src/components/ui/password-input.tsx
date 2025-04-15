@@ -24,6 +24,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(({ classNam
         className="absolute inset-y-[2px] right-[2px] flex items-center rounded-[6px] px-3 hover:bg-transparent hover:text-neutral-800"
         onClick={togglePasswordVisibility}
         aria-label={showPassword ? 'Hide password' : 'Show password'}
+        tabIndex={-1}
       >
         {showPassword ? <EyeClosedRegular className="h-4 w-4" /> : <EyeRegular className="h-4 w-4" />}
       </Button>

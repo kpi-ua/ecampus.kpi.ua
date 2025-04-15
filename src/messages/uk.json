@@ -365,6 +365,10 @@
         "confirm-password": "Підтвердіть пароль",
         "error": "Помилка"
       },
+      "success": {
+        "title": "Успішно",
+        "description": "Ваші зміни успішно збережено."
+      },
       "error": {
         "invalid-email": "Некоректа пошта",
         "password-mismatch": "Паролі не співпадають",
