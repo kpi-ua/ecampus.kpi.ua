@@ -16,6 +16,7 @@ import { useState } from 'react';
 import { changeEmail, changePassword, changePhoto } from '@/actions/settings.actions';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
+import { toast } from '@/hooks/use-toast';
 
 interface Props {
   user: User | null;
@@ -73,8 +74,15 @@ export function SettingsForm({ user }: Props) {
       if (data.newPassword && data.currentPassword && data.confirmPassword) {
         await changePassword(data.newPassword, data.currentPassword);
       }
+
+      toast({
+        title: t('success.title'),
+        description: t('success.description'),
+      });
     } catch (error) {
       errorToast();
+    } finally {
+      form.reset();
     }
   };
 
