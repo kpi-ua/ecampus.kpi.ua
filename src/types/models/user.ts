@@ -9,7 +9,6 @@ export interface User {
   scientificInterests?: string;
   userIdentifier: string;
   fullName: string;
-  fullNameEnglish: string;
   photo: string;
   credo: string;
   sid: string;
