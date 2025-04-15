@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Heading1, Heading6 } from '@/components/typography/headers';
 import { SubLayout } from '../../../sub-layout';
@@ -18,6 +18,7 @@ import { SEMESTER } from './constants';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/LecturerItemCell';
 import { getMonitoring } from '@/actions/monitoring.actions';
 import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 const MAX_SCORE = 100;
 
@@ -27,18 +28,25 @@ export function Studysheet() {
   const searchParams = useSearchParams();
 
   const [sheet, setSheet] = useState<Sheet | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { errorToast } = useServerErrorToast();
+
+  const fetchData = useCallback(async () => {
+    try {
+      setIsLoading(true);
+
+      const data = await getMonitoring();
+
+      setSheet(data);
+    } catch (error) {
+      errorToast();
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getMonitoring();
-        setSheet(data);
-        setIsLoading(false);
-      } catch (error) {
-        setIsLoading(false);
-      }
-    }
     fetchData();
   }, []);
 

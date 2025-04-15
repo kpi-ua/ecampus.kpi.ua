@@ -17,6 +17,7 @@ import { getMonitoringById } from '@/actions/monitoring.actions';
 import { CreditModule } from '@/types/models/current-control/credit-module';
 import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
 import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 
 export default function InfoPageClient() {
   const { id } = useParams();
@@ -24,6 +25,9 @@ export default function InfoPageClient() {
   const t = useTranslations(INTL_NAMESPACE);
   const tTable = useTranslations(`${INTL_NAMESPACE}.table`);
   const tSheet = useTranslations(`${INTL_NAMESPACE}.sheet`);
+
+  const querySemester = searchParams.get('semester');
+  const queryYear = searchParams.get('studyYear');
 
   const [creditModule, setCreditModule] = useState<CreditModule>();
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +44,7 @@ export default function InfoPageClient() {
     }
 
     fetchData();
-  }, [id]);
+  }, []);
 
   if (isLoading) {
     return (
@@ -57,27 +61,33 @@ export default function InfoPageClient() {
   const studyPeriod = `${creditModule.studyYear} (${creditModule.semester} ${t('semester.title')})`;
   const totalScore = getTotalScore(creditModule.journal);
   const selectedSheet = searchParams.get('sheet') || SHEET_TRANSLATION_KEYS.JOURNAL;
+  const hasParams = !!querySemester && !!queryYear;
+  const breadcrumbsRootPath = hasParams
+    ? `/module/studysheet?semester=${querySemester}&studyYear=${queryYear}`
+    : '/module/studysheet';
 
   return (
-    <div>
-      <ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} t={t} />
-      <div className="mt-8 flex flex-col">
-        <TableSheets sheetList={Object.values(SHEET_TRANSLATION_KEYS)} t={tSheet} />
-        <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
-          {selectedSheet === SHEET_TRANSLATION_KEYS.JOURNAL && (
-            <JournalTable journal={creditModule.journal} totalScore={totalScore} tTable={tTable} t={t} />
-          )}
-          {selectedSheet === SHEET_TRANSLATION_KEYS.EVENT_PLAN && (
-            <EventPlanTable eventsPlan={creditModule.eventsPlan} t={tTable} />
-          )}
-          {selectedSheet === SHEET_TRANSLATION_KEYS.EXTERNAL_MATERIALS && (
-            <ExternalMaterialsTable externalMaterials={creditModule.externalMaterials} t={tTable} />
-          )}
-          {selectedSheet === SHEET_TRANSLATION_KEYS.INTERNAL_MATERIALS && (
-            <InternalMaterialsTable internalMaterials={creditModule.internalMaterials} t={tTable} />
-          )}
-        </Card>
+    <SubLayout pageTitle={t('module-info')} breadcrumbs={[[breadcrumbsRootPath, t('title')]]}>
+      <div className="col-span-8">
+        <ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} t={t} />
+        <div className="mt-8 flex flex-col">
+          <TableSheets sheetList={Object.values(SHEET_TRANSLATION_KEYS)} t={tSheet} />
+          <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
+            {selectedSheet === SHEET_TRANSLATION_KEYS.JOURNAL && (
+              <JournalTable journal={creditModule.journal} totalScore={totalScore} tTable={tTable} t={t} />
+            )}
+            {selectedSheet === SHEET_TRANSLATION_KEYS.EVENT_PLAN && (
+              <EventPlanTable eventsPlan={creditModule.eventsPlan} t={tTable} />
+            )}
+            {selectedSheet === SHEET_TRANSLATION_KEYS.EXTERNAL_MATERIALS && (
+              <ExternalMaterialsTable externalMaterials={creditModule.externalMaterials} t={tTable} />
+            )}
+            {selectedSheet === SHEET_TRANSLATION_KEYS.INTERNAL_MATERIALS && (
+              <InternalMaterialsTable internalMaterials={creditModule.internalMaterials} t={tTable} />
+            )}
+          </Card>
+        </div>
       </div>
-    </div>
+    </SubLayout>
   );
 }
