@@ -1,4 +1,3 @@
-import { getMonitoring } from '@/actions/monitoring.actions';
 import { getTranslations } from 'next-intl/server';
 import { Studysheet } from '@/app/[locale]/(private)/module/studysheet/components/Studysheet';
 import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
@@ -12,7 +11,5 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 }
 
 export default async function StudysheetPage() {
-  const data = await getMonitoring();
-
-  return <Studysheet sheet={data} />;
+  return <Studysheet />;
 }

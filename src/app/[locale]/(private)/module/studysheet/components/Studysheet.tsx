@@ -1,5 +1,6 @@
 'use client';
-import React, { useMemo, useEffect } from 'react';
+
+import React, { useState, useEffect, useMemo } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Heading1, Heading6 } from '@/components/typography/headers';
 import { SubLayout } from '../../../sub-layout';
@@ -15,27 +16,39 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
 import { SEMESTER } from './constants';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/LecturerItemCell';
+import { getMonitoring } from '@/actions/monitoring.actions';
+import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
 
 const MAX_SCORE = 100;
 
-interface Props {
-  sheet: Sheet;
-}
-
-export function Studysheet({ sheet }: Props) {
+export function Studysheet() {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const querySemester = searchParams.get('semester');
-  const queryYear = searchParams.get('studyYear');
+  const [sheet, setSheet] = useState<Sheet | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const { disciplines, studyYears } = sheet;
-  const currentYear = studyYears[studyYears.length - 1];
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getMonitoring();
+        setSheet(data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
 
   const t = useTranslations(INTL_NAMESPACE);
   const tSemester = useTranslations(`${INTL_NAMESPACE}.semester`);
   const tTable = useTranslations(`${INTL_NAMESPACE}.table`);
+
+  const disciplines = useMemo(() => sheet?.disciplines ?? [], [sheet]);
+  const studyYears = sheet?.studyYears ?? [];
+  const currentYear = studyYears.length > 0 ? studyYears[studyYears.length - 1] : '';
 
   useEffect(() => {
     const params = new URLSearchParams(Array.from(searchParams.entries()));
@@ -76,6 +89,14 @@ export function Studysheet({ sheet }: Props) {
     newSearchParams.set('studyYear', value);
     router.replace(`${pathname}?${newSearchParams.toString()}`);
   };
+
+  if (isLoading) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <SpinnerGap />
+      </div>
+    );
+  }
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -138,7 +159,7 @@ export function Studysheet({ sheet }: Props) {
                   <TableCell className="max-w-[336px]">
                     <Link
                       className="text-sm font-medium text-basic-black underline"
-                      href={`/module/studysheet/${discipline.id}?studyYear=${queryYear}&semester=${querySemester}`}
+                      href={`/module/studysheet/${discipline.id}?studyYear=${selectedStudyYear}&semester=${selectedSemester}`}
                     >
                       {discipline.name}
                     </Link>
