@@ -95,6 +95,36 @@
       "student": "Student",
       "spw": "SPW"
     },
+    "enums": {
+      "academic-degree": {
+        "none": "Not specified",
+        "candidate-of-sciences": "Candidate of Sciences",
+        "doctor-of-sciences": "Doctor of Sciences",
+        "ph-d": "Doctor of Philosophy (Ph.D.)"
+      },
+      "academic-status": {
+        "none": "Not specified",
+        "professor": "Professor",
+        "senior-research-associate": "Senior Research Associate",
+        "associate-professor": "Associate Professor",
+        "senior-researcher": "Senior Researcher"
+      },
+      "student-status": {
+        "dismissed": "Dismissed",
+        "studying": "Studying"
+      },
+      "study-form": {
+        "none": "Not specified",
+        "evening": "Evening",
+        "full-time": "Full-Time",
+        "remote": "Remote",
+        "extern": "Extern",
+        "correspondence": "Correspondence",
+        "shortened": "Shortened",
+        "out-of-postgraduate": "Out Of Postgraduate",
+        "other": "Other"
+      }
+    },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
   },
   "auth": {

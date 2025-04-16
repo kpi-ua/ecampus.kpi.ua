@@ -6,16 +6,19 @@ import { InfoItem, InfoList } from './info-list';
 import { Heading6 } from '@/components/typography/headers';
 import { Show } from '@/components/utils/show';
 import { Separator } from '@/components/ui/separator';
+import { dash } from 'radash';
 
 interface Props {
   employeeProfile: EmployeeProfile;
 }
+
 export function LecturerInfo({ employeeProfile }: Props) {
+  const tEnums = useTranslations('global.enums');
   const t = useTranslations('private.profile');
 
   const employeeInfo: InfoItem[] = [
-    { label: t('info.academic-degree'), value: employeeProfile?.academicDegree },
-    { label: t('info.academic-status'), value: employeeProfile?.academicStatus },
+    { label: t('info.academic-degree'), value: tEnums(`academic-degree.${dash(employeeProfile?.academicDegree)}`) },
+    { label: t('info.academic-status'), value: tEnums(`academic-status.${dash(employeeProfile?.academicStatus)}`) },
   ];
 
   const formatPositions = (position: EmployeePosition) => {

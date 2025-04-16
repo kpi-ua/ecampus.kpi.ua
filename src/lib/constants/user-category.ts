@@ -1,4 +1,4 @@
-import { UserCategory } from '@/types/models/user-category';
+import { UserCategory } from '@/types/enums/user-category';
 
 export const USER_CATEGORIES = {
   [UserCategory.Student]: 'student',

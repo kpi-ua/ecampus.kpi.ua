@@ -95,6 +95,36 @@
       "student": "Студент",
       "spw": "НПП"
     },
+    "enums": {
+      "academic-degree": {
+        "none": "Не вказано",
+        "candidate-of-sciences": "Кандидат наук",
+        "doctor-of-sciences": "Доктор наук",
+        "ph-d": "Доктор філософії"
+      },
+      "academic-status": {
+        "none": "Не вказано",
+        "professor": "Професор",
+        "senior-research-associate": "Старший науковий співробітник",
+        "associate-professor": "Доцент",
+        "senior-researcher": "Старший дослідник"
+      },
+      "student-status": {
+        "dismissed": "Відрахований",
+        "studying": "Навчається"
+      },
+      "study-form": {
+        "none": "Не вказано",
+        "evening": "Вечірня",
+        "full-time": "Денна",
+        "remote": "Дистанційна",
+        "extern": "Екстернат",
+        "correspondence": "Заочна",
+        "shortened": "Скорочена",
+        "out-of-postgraduate": "Поза аспірантурою",
+        "other": "Інше"
+      }
+    },
     "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
   },
   "auth": {
