@@ -193,6 +193,7 @@
   "private": {
     "main": {
       "welcome": "Вітаємо, {name}!",
+      "welcome-short": "Вітаємо!",
       "cards": {
         "information": {
           "title": "Інформація",
@@ -364,6 +365,10 @@
         "new-password": "Новий пароль",
         "confirm-password": "Підтвердіть пароль",
         "error": "Помилка"
+      },
+      "success": {
+        "title": "Успішно",
+        "description": "Ваші зміни успішно збережено."
       },
       "error": {
         "invalid-email": "Некоректа пошта",

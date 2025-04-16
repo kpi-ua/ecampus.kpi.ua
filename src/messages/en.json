@@ -193,6 +193,7 @@
   "private": {
     "main": {
       "welcome": "Welcome, {name}!",
+      "welcome-short": "Welcome!",
       "cards": {
         "information": {
           "title": "Information",
@@ -364,6 +365,10 @@
         "new-password": "New password",
         "confirm-password": "Confirm password",
         "error": "Error"
+      },
+      "success": {
+        "title": "Success",
+        "description": "Your changes have been saved successfully."
       },
       "error": {
         "invalid-email": "Invalid email",
