@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import './globals.css';
-import { exo2Font } from '@/app/font';
+import { interFont } from '@/app/font';
 
 type Props = {
   children: ReactNode;
@@ -11,7 +11,7 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html>
-      <body className={`${exo2Font.className}`}>{children}</body>
+      <body className={`${interFont.className}`}>{children}</body>
     </html>
   );
 }
