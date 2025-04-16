@@ -193,6 +193,7 @@
   "private": {
     "main": {
       "welcome": "Вітаємо, {name}!",
+      "welcome-short": "Вітаємо!",
       "cards": {
         "information": {
           "title": "Інформація",

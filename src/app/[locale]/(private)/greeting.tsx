@@ -11,7 +11,7 @@ export default async function Greeting({ className }: GreetingProps) {
   const user = await getUserDetails();
   const t = await getTranslations('private.main');
 
-  const fullName = user?.fullName;
+  const welcomeText = user?.fullName ? t('welcome', { name: user.fullName }) : t('welcome-short');
 
-  return <Heading1 className={cn(className)}>{t('welcome', { name: fullName })}</Heading1>;
+  return <Heading1 className={cn(className)}>{welcomeText}</Heading1>;
 }

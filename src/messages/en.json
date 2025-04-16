@@ -193,6 +193,7 @@
   "private": {
     "main": {
       "welcome": "Welcome, {name}!",
+      "welcome-short": "Welcome!",
       "cards": {
         "information": {
           "title": "Information",
