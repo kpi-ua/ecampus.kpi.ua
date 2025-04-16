@@ -17,8 +17,8 @@ export function LecturerInfo({ employeeProfile }: Props) {
   const t = useTranslations('private.profile');
 
   const employeeInfo: InfoItem[] = [
-    { label: t('info.academic-degree'), value: tEnums(`academic-degree.${dash(employeeProfile?.academicDegree)}`) },
-    { label: t('info.academic-status'), value: tEnums(`academic-status.${dash(employeeProfile?.academicStatus)}`) },
+    { label: t('info.academic-degree'), value: tEnums(`academic-degree.${dash(employeeProfile.academicDegree)}`) },
+    { label: t('info.academic-status'), value: tEnums(`academic-status.${dash(employeeProfile.academicStatus)}`) },
   ];
 
   const formatPositions = (position: EmployeePosition) => {

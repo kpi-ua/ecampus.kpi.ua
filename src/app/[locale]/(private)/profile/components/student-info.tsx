@@ -14,14 +14,14 @@ export function StudentInfo({ studentProfile }: Props) {
   const tEnums = useTranslations('global.enums');
 
   const studentInfo: InfoItem[] = [
-    { label: t('info.subdivision'), value: studentProfile?.faculty },
-    { label: t('info.group'), value: studentProfile?.studyGroup.name },
+    { label: t('info.subdivision'), value: studentProfile.faculty },
+    { label: t('info.group'), value: studentProfile.studyGroup.name },
     {
       label: t('info.education-form'),
-      value: tEnums(`study-form.${dash(studentProfile?.studyForm || StudyForm.None)}`),
+      value: tEnums(`study-form.${dash(studentProfile.studyForm || StudyForm.None)}`),
     },
-    { label: t('info.study-year'), value: studentProfile?.studyYear },
-    { label: t('info.speciality'), value: studentProfile?.speciality },
+    { label: t('info.study-year'), value: studentProfile.studyYear },
+    { label: t('info.speciality'), value: studentProfile.speciality },
   ];
 
   return <InfoList items={studentInfo} />;
