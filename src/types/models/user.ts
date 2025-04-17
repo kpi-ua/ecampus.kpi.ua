@@ -1,6 +1,6 @@
 import { StudentProfile } from '@/types/models/student-profile';
 import { EmployeeProfile } from '@/types/models/employee-profile';
-import { UserCategory } from './user-category';
+import { UserCategory } from '../enums/user-category';
 
 export interface User {
   id: number;

@@ -1,4 +1,4 @@
-import { EmploymentType } from '@/types/models/employment-type';
+import { EmploymentType } from '@/types/enums/employment-type';
 
 export const EMPLOYMENT_TYPE = {
   [EmploymentType.Unknown]: 'невідомо',
