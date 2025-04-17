@@ -14,8 +14,7 @@ export const codeOfHonorMiddleware = async (request: NextRequest) => {
       return gotoLogin(request);
     }
 
-    const isStudent = !!user.studentProfile;
-    const codeOfHonorSigned = (isStudent && !!user.codeOfHonorSignDate) || !isStudent;
+    const codeOfHonorSigned = !!user.codeOfHonorSignDate;
     const isCodeOfHonorPage = matchesUrl(request, CODE_OF_HONOR_PATH);
 
     if (!codeOfHonorSigned) {
