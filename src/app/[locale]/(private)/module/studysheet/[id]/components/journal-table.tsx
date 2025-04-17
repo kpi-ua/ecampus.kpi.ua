@@ -6,16 +6,17 @@ import { Badge } from '@/components/ui/badge';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Journal } from '@/types/models/current-control/journal';
 import { useTranslations } from 'next-intl';
-import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/LecturerItemCell';
+import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 
 interface Props {
   journal: Journal[];
   totalScore: number;
-  tTable: ReturnType<typeof useTranslations>;
-  t: ReturnType<typeof useTranslations>;
 }
 
-export function JournalTable({ journal, totalScore, tTable, t }: Props) {
+export function JournalTable({ journal, totalScore }: Props) {
+  const t = useTranslations('private.study-sheet');
+  const tTable = useTranslations('private.study-sheet.table');
+
   return (
     <>
       <Table>

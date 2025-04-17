@@ -4,14 +4,15 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Link } from '@/i18n/routing';
 import { ExternalMaterials } from '@/types/models/current-control/materials';
 import { useTranslations } from 'next-intl';
-import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/LecturerItemCell';
+import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 
 interface Props {
   externalMaterials: ExternalMaterials[];
-  t: ReturnType<typeof useTranslations>;
 }
 
-export function ExternalMaterialsTable({ externalMaterials, t }: Props) {
+export function ExternalMaterialsTable({ externalMaterials }: Props) {
+  const t = useTranslations('private.study-sheet.table');
+
   return (
     <Table>
       <TableHeader>

@@ -4,16 +4,17 @@ import { useTranslations } from 'next-intl';
 
 interface Props {
   sheetList: string[];
-  t: ReturnType<typeof useTranslations>;
 }
 
-export function TableSheets({ sheetList, t }: Props) {
+export function TableSheets({ sheetList }: Props) {
+  const t = useTranslations('private.study-sheet.sheet');
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const selectedSheet = searchParams.get('sheet') || sheetList[0];
 
   const handleSheetChange = (sheet: string) => {
-    const currentParams = new URLSearchParams(searchParams.toString());
+    const currentParams = new URLSearchParams(searchParams);
     currentParams.set('sheet', sheet);
     router.push(`?${currentParams.toString()}`);
   };

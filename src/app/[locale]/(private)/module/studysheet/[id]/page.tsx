@@ -11,20 +11,17 @@ import { EventPlanTable } from '@/app/[locale]/(private)/module/studysheet/[id]/
 import { ExternalMaterialsTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/external-materials-table';
 import { InternalMaterialsTable } from '@/app/[locale]/(private)/module/studysheet/[id]/components/internal-materials-table';
 import { Card } from '@/components/ui/card';
-import { SHEET_TRANSLATION_KEYS } from '@/app/[locale]/(private)/module/studysheet/[id]/constants';
+import { SheetTranslationKeys } from '@/app/[locale]/(private)/module/studysheet/[id]/constants';
 import { getTotalScore } from '@/app/[locale]/(private)/module/studysheet/[id]/utils';
 import { getMonitoringById } from '@/actions/monitoring.actions';
 import { CreditModule } from '@/types/models/current-control/credit-module';
-import { INTL_NAMESPACE } from '@/app/[locale]/(private)/module/studysheet/constants';
 import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 
 export default function InfoPageClient() {
   const { id } = useParams();
   const searchParams = useSearchParams();
-  const t = useTranslations(INTL_NAMESPACE);
-  const tTable = useTranslations(`${INTL_NAMESPACE}.table`);
-  const tSheet = useTranslations(`${INTL_NAMESPACE}.sheet`);
+  const t = useTranslations('private.study-sheet');
 
   const querySemester = searchParams.get('semester');
   const queryYear = searchParams.get('studyYear');
@@ -60,7 +57,7 @@ export default function InfoPageClient() {
 
   const studyPeriod = `${creditModule.studyYear} (${creditModule.semester} ${t('semester.title')})`;
   const totalScore = getTotalScore(creditModule.journal);
-  const selectedSheet = searchParams.get('sheet') || SHEET_TRANSLATION_KEYS.JOURNAL;
+  const selectedSheet = searchParams.get('sheet') || SheetTranslationKeys.JOURNAL;
   const hasParams = !!querySemester && !!queryYear;
   const breadcrumbsRootPath = hasParams
     ? `/module/studysheet?semester=${querySemester}&studyYear=${queryYear}`
@@ -68,22 +65,22 @@ export default function InfoPageClient() {
 
   return (
     <SubLayout pageTitle={t('module-info')} breadcrumbs={[[breadcrumbsRootPath, t('title')]]}>
-      <div className="col-span-8">
-        <ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} t={t} />
+      <div className="col-span-7">
+        <ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} />
         <div className="mt-8 flex flex-col">
-          <TableSheets sheetList={Object.values(SHEET_TRANSLATION_KEYS)} t={tSheet} />
+          <TableSheets sheetList={Object.values(SheetTranslationKeys)} />
           <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
-            {selectedSheet === SHEET_TRANSLATION_KEYS.JOURNAL && (
-              <JournalTable journal={creditModule.journal} totalScore={totalScore} tTable={tTable} t={t} />
+            {selectedSheet === SheetTranslationKeys.JOURNAL && (
+              <JournalTable journal={creditModule.journal} totalScore={totalScore} />
             )}
-            {selectedSheet === SHEET_TRANSLATION_KEYS.EVENT_PLAN && (
-              <EventPlanTable eventsPlan={creditModule.eventsPlan} t={tTable} />
+            {selectedSheet === SheetTranslationKeys.EVENT_PLAN && (
+              <EventPlanTable eventsPlan={creditModule.eventsPlan} />
             )}
-            {selectedSheet === SHEET_TRANSLATION_KEYS.EXTERNAL_MATERIALS && (
-              <ExternalMaterialsTable externalMaterials={creditModule.externalMaterials} t={tTable} />
+            {selectedSheet === SheetTranslationKeys.EXTERNAL_MATERIALS && (
+              <ExternalMaterialsTable externalMaterials={creditModule.externalMaterials} />
             )}
-            {selectedSheet === SHEET_TRANSLATION_KEYS.INTERNAL_MATERIALS && (
-              <InternalMaterialsTable internalMaterials={creditModule.internalMaterials} t={tTable} />
+            {selectedSheet === SheetTranslationKeys.INTERNAL_MATERIALS && (
+              <InternalMaterialsTable internalMaterials={creditModule.internalMaterials} />
             )}
           </Card>
         </div>

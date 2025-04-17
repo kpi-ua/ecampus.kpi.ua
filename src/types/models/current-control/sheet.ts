@@ -1,7 +1,7 @@
 import { Cathedra } from '@/types/models/cathedra';
 import { Lecturer } from '@/types/models/current-control/lecturer';
 
-interface Discipline {
+export interface Discipline {
   id: string;
   name: string;
   studyYear: string; // "2021-2022"

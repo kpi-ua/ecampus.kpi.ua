@@ -7,10 +7,11 @@ import { useTranslations } from 'next-intl';
 interface Props {
   creditModule: CreditModule;
   studyPeriod: string;
-  t: ReturnType<typeof useTranslations>;
 }
 
-export function ModuleHeader({ creditModule, studyPeriod, t }: Props) {
+export function ModuleHeader({ creditModule, studyPeriod }: Props) {
+  const t = useTranslations('private.study-sheet');
+
   return (
     <>
       <Heading1>{t('title')}</Heading1>
