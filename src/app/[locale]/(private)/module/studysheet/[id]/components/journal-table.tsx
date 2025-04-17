@@ -47,7 +47,7 @@ export function JournalTable({ journal, totalScore }: Props) {
           ))}
         </TableBody>
       </Table>
-      <div className="mt-2 flex h-9 items-center gap-2">
+      <div className="mt-2 flex h-9 items-center gap-2 pl-4">
         <Paragraph className="text-base font-normal">{t('total-score')}</Paragraph>
         <Badge className="bg-basic-blue font-semibold text-basic-white">{totalScore}</Badge>
       </div>

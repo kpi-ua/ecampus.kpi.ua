@@ -3,12 +3,21 @@
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
 import { TOKEN_COOKIE_NAME } from './constants/cookies';
+import { DEFAULT_LOCALE } from '@/i18n/routing';
+
+const getLocaleSafe = async () => {
+  try {
+    return getLocale();
+  } catch (error) {
+    return DEFAULT_LOCALE;
+  }
+};
 
 const Client = (basePath: string) => {
   return async <T>(url: string | URL, options: RequestInit = {}) => {
     const { headers = {}, ...otherOptions } = options;
     const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
-    const locale = await getLocale();
+    const locale = await getLocaleSafe();
 
     const input = new URL(url, basePath).href;
 

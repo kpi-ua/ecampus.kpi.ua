@@ -95,7 +95,7 @@ html body[data-scroll-locked] {
 }
 
 body {
-  font-family: 'Exo 2', sans-serif;
+  font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
