@@ -12,6 +12,7 @@ import React from 'react';
 import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
 import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
 import { ProfilePicture } from '@/components/ui/profile-picture';
+import { dash } from 'radash';
 
 interface Props {
   user: User;
@@ -21,6 +22,7 @@ interface Props {
 export function InfoBlock({ user, className }: Props) {
   const t = useTranslations('private.profile');
   const tUserCategory = useTranslations('global.user-category');
+  const tEnums = useTranslations('global.enums');
 
   const studentProfile = user?.studentProfile;
   const employeeProfile = user?.employeeProfile;
@@ -38,7 +40,9 @@ export function InfoBlock({ user, className }: Props) {
                   {tUserCategory(USER_CATEGORIES[category])}
                 </Heading6>
               ))}
-              {studentProfile?.status && <Badge className="text-other-blue">{studentProfile.status}</Badge>}
+              {studentProfile?.status && (
+                <Badge className="text-other-blue">{tEnums(`student-status.${dash(studentProfile.status)}`)}</Badge>
+              )}
             </div>
           </div>
         </div>
