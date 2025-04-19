@@ -378,6 +378,16 @@
     "suggestions": {
       "title": "Send suggestion"
     },
+    "vedomoststud": {
+      "title": "Session",
+      "subtitle": "The results of students' academic work during the semester. The duration and timing of its implementation are determined by the curriculum (working curriculum).",
+      "date": "Date",
+      "subject": "Subject",
+      "score": "Score",
+      "controlType": "Control type",
+      "sessionType": "Session type",
+      "lecturer": "Lecturer"
+    },
     "study-sheet": {
       "title": "Current control",
       "subtitle": "Current control is carried out during the semester in order to ensure the testing of the level of training of applicants at each stage of the discipline.",
