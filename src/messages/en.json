@@ -409,6 +409,12 @@
         "note": "Note"
       }
     },
+    "attestation-results": {
+      "title": "Attestation results",
+      "subtitle": "This presents the results of certifications by semester, indicating disciplines, teachers, and grades according to the educational process schedule.",
+      "subject": "Subject",
+      "lecturer": "Lecturer"
+    },
     "settings": {
       "title": "Settings",
       "subtitle": "Here you can change your photo, e-mail and password for your profile.",
