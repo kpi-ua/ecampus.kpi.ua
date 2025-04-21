@@ -25,7 +25,7 @@ export async function getMonitoringById(id: string) {
   return response.json();
 }
 
-export async function getAttestationResult() {
+export async function getAttestationResults() {
   const response = await campusFetch<AttestationResult[]>('attestation-result');
   if (!response.ok) {
     throw new Error(`${response.status} Error`);

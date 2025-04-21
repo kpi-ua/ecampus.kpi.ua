@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
 import { TOKEN_COOKIE_NAME } from './constants/cookies';
 import { DEFAULT_LOCALE } from '@/i18n/routing';
+import { headers as nextHeaders } from 'next/headers';
 
 const getLocaleSafe = async () => {
   try {
@@ -30,6 +31,8 @@ const Client = (basePath: string) => {
         Authorization: jwt ? `Bearer ${jwt}` : '',
         'Content-Type': contentType,
         'Accept-Language': locale,
+        'X-Forwarded-For': nextHeaders().get('x-forwarded-for') || '',
+        'X-Real-IP': nextHeaders().get('x-real-ip') || '',
         ...headers,
       },
       ...otherOptions,
