@@ -31,7 +31,7 @@ export function StudySheet() {
   const currentYear = studyYears.length > 0 ? studyYears[studyYears.length - 1] : '';
 
   const selectedStudyYear = searchParams.get('studyYear') || currentYear;
-  const selectedSemester = searchParams.get('semester') || Semester.ALL;
+  const selectedSemester = searchParams.get('semester') || Semester.All;
 
   const fetchData = useCallback(async () => {
     try {
@@ -57,7 +57,7 @@ export function StudySheet() {
       updated = true;
     }
     if (!params.get('semester')) {
-      params.set('semester', Semester.ALL);
+      params.set('semester', Semester.All);
       updated = true;
     }
     if (updated) {
@@ -69,7 +69,7 @@ export function StudySheet() {
     const disciplines = sheet?.disciplines ?? [];
 
     return disciplines.filter((discipline) => {
-      const matchesSemester = selectedSemester === Semester.ALL || discipline.semester.toString() === selectedSemester;
+      const matchesSemester = selectedSemester === Semester.All || discipline.semester.toString() === selectedSemester;
       const matchesStudyYear = !selectedStudyYear || discipline.studyYear === selectedStudyYear;
       return matchesSemester && matchesStudyYear;
     });

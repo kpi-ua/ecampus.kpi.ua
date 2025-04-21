@@ -53,13 +53,13 @@ export function StudySheetFilters({ selectedSemester, selectedStudyYear, current
         <Paragraph className="text-lg font-semibold text-neutral-700 lg:ml-4">{tSemester('title')}</Paragraph>
         <Tabs defaultValue="all" value={selectedSemester} onValueChange={handleSemesterChange} className="w-[210px]">
           <TabsList className="p-[2px]" size="small">
-            <TabsTrigger className="w-[55px] md:w-[66px]" value={Semester.ALL}>
+            <TabsTrigger className="w-[55px] md:w-[66px]" value={Semester.All}>
               {tSemester('all')}
             </TabsTrigger>
-            <TabsTrigger className="w-[60px] md:w-[66px]" value={Semester.FIRST}>
+            <TabsTrigger className="w-[60px] md:w-[66px]" value={Semester.First}>
               {tSemester('first')}
             </TabsTrigger>
-            <TabsTrigger className="w-[60px] md:w-[66px]" value={Semester.SECOND}>
+            <TabsTrigger className="w-[60px] md:w-[66px]" value={Semester.Second}>
               {tSemester('second')}
             </TabsTrigger>
           </TabsList>
