@@ -43,6 +43,7 @@ export const MODULES: Module[] = [
   { name: 'ekk', isExternal: true },
   { name: 'bravook', isExternal: true },
   { name: 'pk2024admin', isExternal: true },
+  { name: 'pk2025admin', isExternal: true },
   { name: 'studdocadmin', isExternal: true },
   { name: 'yiystat', isExternal: true },
   { name: 'adminpanel', isExternal: true },
