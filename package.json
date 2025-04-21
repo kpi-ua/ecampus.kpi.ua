@@ -65,7 +65,7 @@
     "@storybook/test": "^8.3.6",
     "@svgr/webpack": "^8.1.0",
     "@types/file-saver": "^2.0.7",
-    "@types/jsonwebtoken": "^9.0.7",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
