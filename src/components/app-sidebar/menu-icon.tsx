@@ -90,6 +90,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['bravook', Scroll],
   ['ratingnpp', Ranking],
   ['pk2024admin', Notebook],
+  ['pk2025admin', Notebook],
   ['studdocadmin', Files],
   ['yiystat', Table],
   ['adminpanel', SquaresFour],
