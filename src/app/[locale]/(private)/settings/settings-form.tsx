@@ -17,19 +17,18 @@ import { changeEmail, changePassword, changePhoto } from '@/actions/settings.act
 import { useIsMobile } from '@/hooks/use-mobile';
 import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
 import { toast } from '@/hooks/use-toast';
+import { uid } from 'radash';
 
 interface Props {
-  user: User | null;
+  user: User;
 }
 
 export function SettingsForm({ user }: Props) {
   const { errorToast } = useServerErrorToast();
-
   const isMobile = useIsMobile();
-
   const t = useTranslations('private.settings');
-
   const [file, setFile] = useState<File | null>(null);
+  const profilePhoto = `${user.photo}?v=${uid(8)}`;
 
   const FormSchema = z
     .object({
@@ -52,7 +51,7 @@ export function SettingsForm({ user }: Props) {
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: user?.email || '',
+      email: user.email || '',
       currentPassword: '',
       newPassword: '',
       confirmPassword: '',
@@ -61,7 +60,7 @@ export function SettingsForm({ user }: Props) {
 
   const handleFormSubmit = async (data: FormData) => {
     try {
-      if (user?.email !== data.email) {
+      if (user.email !== data.email) {
         await changeEmail(data.email);
       }
 
@@ -90,7 +89,7 @@ export function SettingsForm({ user }: Props) {
     <Card>
       <CardContent className="flex flex-col gap-8 space-y-1.5 p-10">
         <Heading5>{t('section.photo')}</Heading5>
-        <PhotoUploader photoSrc={user?.photo || ''} onFileUpload={setFile} />
+        <PhotoUploader photoSrc={profilePhoto} onFileUpload={setFile} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col items-start space-y-4">
             <Heading5>{t('section.contacts')}</Heading5>
