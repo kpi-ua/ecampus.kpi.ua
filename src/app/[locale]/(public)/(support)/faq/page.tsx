@@ -3,16 +3,13 @@ import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FrequentlyAskedQuestions } from '@/containers/faq/frequently-asked-questions';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const SECTIONS = ['how-to-register', 'how-to-restore-password'];
 
 const INTL_NAMESPACE = 'public.faq';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -22,7 +19,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function FAQ({ params }: Props) {
+export default function FAQ({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);

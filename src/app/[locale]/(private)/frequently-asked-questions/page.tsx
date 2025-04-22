@@ -4,10 +4,7 @@ import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FrequentlyAskedQuestions } from '@/containers/faq/frequently-asked-questions';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const SECTIONS = [
   'group-has-no-students',
@@ -18,7 +15,7 @@ const SECTIONS = [
 
 const INTL_NAMESPACE = 'private.faq';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -28,7 +25,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function FAQPage({ params }: Props) {
+export default function FAQPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);

@@ -4,14 +4,11 @@ import { getTranslations } from 'next-intl/server';
 import { SettingsForm } from '@/app/[locale]/(private)/settings/settings-form';
 import { getUserDetails } from '@/actions/auth.actions';
 import { notFound } from 'next/navigation';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const INTL_NAMESPACE = 'private.settings';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });

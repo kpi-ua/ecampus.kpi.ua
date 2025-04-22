@@ -6,14 +6,12 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { TextButton } from '@/components/ui/text-button';
 import { ChatsTeardrop, EnvelopeSimple } from '@/app/images';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
+import RichText from '@/components/typography/rich-text';
 
 const INTL_NAMESPACE = 'private.contacts';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -23,7 +21,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function ContactsPage({ params }: Props) {
+export default function ContactsPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);
@@ -34,44 +32,49 @@ export default function ContactsPage({ params }: Props) {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
         <Heading1>{t('title')}</Heading1>
-        {t.rich('content', {
-          h3: (chunks) => <Heading3 className="mt-14">{chunks}</Heading3>,
-          addresslink: (chunks) => (
-            <Link href={process.env.NEXT_PUBLIC_ADDRESS_URL!} target="_blank" rel="noopener noreferrer">
-              {chunks}
-            </Link>
-          ),
-          githublink: (chunks) => (
-            <Link href={process.env.NEXT_PUBLIC_GITHUB_URL!} target="_blank" rel="noopener noreferrer">
-              {chunks}
-            </Link>
-          ),
-          facebooklink: (chunks) => (
-            <Link href={process.env.NEXT_PUBLIC_FACEBOOK_URL!} target="_blank" rel="noopener noreferrer">
-              {chunks}
-            </Link>
-          ),
-          twitterlink: (chunks) => (
-            <Link href={process.env.NEXT_PUBLIC_TWITTER_URL!} target="_blank" rel="noopener noreferrer">
-              {chunks}
-            </Link>
-          ),
-          instagramlink: (chunks) => (
-            <Link href={process.env.NEXT_PUBLIC_INSTAGRAM_URL!} target="_blank" rel="noopener noreferrer">
-              {chunks}
-            </Link>
-          ),
-          suggestionslink: (chunks) => (
-            <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
-              {chunks}
-            </TextButton>
-          ),
-          emaillink: (chunks) => (
-            <TextButton size="huge" href="mailto:ecampus@kpi.ua" icon={<EnvelopeSimple />}>
-              {chunks}
-            </TextButton>
-          ),
-        })}
+        <RichText>
+          {(tags) =>
+            t.rich('content', {
+              ...tags,
+              h3: (chunks) => <Heading3 className="mt-14">{chunks}</Heading3>,
+              addresslink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_ADDRESS_URL!} target="_blank" rel="noopener noreferrer">
+                  {chunks}
+                </Link>
+              ),
+              githublink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_GITHUB_URL!} target="_blank" rel="noopener noreferrer">
+                  {chunks}
+                </Link>
+              ),
+              facebooklink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_FACEBOOK_URL!} target="_blank" rel="noopener noreferrer">
+                  {chunks}
+                </Link>
+              ),
+              twitterlink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_TWITTER_URL!} target="_blank" rel="noopener noreferrer">
+                  {chunks}
+                </Link>
+              ),
+              instagramlink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_INSTAGRAM_URL!} target="_blank" rel="noopener noreferrer">
+                  {chunks}
+                </Link>
+              ),
+              suggestionslink: (chunks) => (
+                <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
+                  {chunks}
+                </TextButton>
+              ),
+              emaillink: (chunks) => (
+                <TextButton size="huge" href="mailto:ecampus@kpi.ua" icon={<EnvelopeSimple />}>
+                  {chunks}
+                </TextButton>
+              ),
+            })
+          }
+        </RichText>
       </div>
     </SubLayout>
   );

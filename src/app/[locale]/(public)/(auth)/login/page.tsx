@@ -6,14 +6,11 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Show } from '@/components/utils/show';
 import { TextDivider } from '@/components/ui/text-divider';
 import { KPIIDLogin } from './kpi-id-login';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const INTL_NAMESPACE = 'auth.login';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -23,7 +20,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function LoginPage({ params }: Props) {
+export default function LoginPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);

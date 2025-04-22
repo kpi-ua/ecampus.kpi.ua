@@ -5,14 +5,11 @@ import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BookBookmark, BookOpen, Roll } from '@/app/images';
 import { DocumentCard } from './document-card';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const INTL_NAMESPACE = 'private.documents';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -22,7 +19,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function KPIDocumentsPage({ params }: Props) {
+export default function KPIDocumentsPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);

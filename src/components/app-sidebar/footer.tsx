@@ -4,6 +4,7 @@ import { TextButton } from '../ui/text-button';
 import { Link } from '@/i18n/routing';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
+import RichText from '../typography/rich-text';
 
 const createFooterLinks = (t: ReturnType<typeof useTranslations>) => [
   { title: t('about'), url: '/about' },
@@ -28,15 +29,20 @@ export const Footer = () => {
           </React.Fragment>
         ))}
       </Paragraph>
-      {footerT.rich('footer', {
-        kbislink: (chunks) => (
-          <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">
-            {chunks}
-          </Link>
-        ),
-        year: dayjs().year(),
-        paragraph: (chunks) => <Paragraph className="mb-0 text-sm">{chunks}</Paragraph>,
-      })}
+      <RichText>
+        {(tags) =>
+          footerT.rich('footer', {
+            ...tags,
+            kbislink: (chunks) => (
+              <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">
+                {chunks}
+              </Link>
+            ),
+            year: dayjs().year(),
+            paragraph: (chunks) => <Paragraph className="mb-0 text-sm">{chunks}</Paragraph>,
+          })
+        }
+      </RichText>
     </section>
   );
 };

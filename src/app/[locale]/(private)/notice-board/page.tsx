@@ -4,14 +4,11 @@ import { getAnnouncements } from '@/actions/announcement.actions';
 import { NoticeList } from '@/app/[locale]/(private)/notice-board/components/notice-list';
 import { Heading1, Description } from '@/components/typography';
 import { Suspense } from 'react';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const INTL_NAMESPACE = 'private.notice-board';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -21,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function NoticeBoardPage({ params }: Props) {
+export default async function NoticeBoardPage({ params }: LocaleProps) {
   const { locale } = await params;
 
   setRequestLocale(locale);

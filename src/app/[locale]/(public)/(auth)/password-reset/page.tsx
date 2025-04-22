@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import PasswordResetForm from './password-reset-form';
 import { AuthNavLayout } from '../../auth-nav-layout';
+import { LocaleProps } from '@/types/props';
 
-interface Props {
-  params: Promise<{ locale: string }>;
+interface Props extends LocaleProps {
   searchParams: Promise<{ username: string }>;
 }
 

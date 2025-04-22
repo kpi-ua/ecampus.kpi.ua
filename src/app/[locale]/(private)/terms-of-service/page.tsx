@@ -3,14 +3,12 @@ import { Heading1 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
+import RichText from '@/components/typography/rich-text';
 
 const INTL_NAMESPACE = 'private.terms-of-service';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -20,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function TermsOfServicePage({ params }: Props) {
+export default function TermsOfServicePage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);
@@ -31,7 +29,7 @@ export default function TermsOfServicePage({ params }: Props) {
     <SubLayout pageTitle={t('title')}>
       <article className="col-span-6">
         <Heading1>{t('header')}</Heading1>
-        {t.rich('content')}
+        <RichText>{(tags) => t.rich('content', tags)}</RichText>
       </article>
     </SubLayout>
   );

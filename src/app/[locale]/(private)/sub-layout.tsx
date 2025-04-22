@@ -29,12 +29,12 @@ export const SubLayout = ({ children, breadcrumbs = [], pageTitle, className }: 
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           {breadcrumbs.map(([url, title]) => (
-            <>
+            <React.Fragment key={url}>
               <BreadcrumbItem>
                 <BreadcrumbLink href={url}>{title}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-            </>
+            </React.Fragment>
           ))}
           <BreadcrumbItem>
             <BreadcrumbPage>{pageTitle}</BreadcrumbPage>

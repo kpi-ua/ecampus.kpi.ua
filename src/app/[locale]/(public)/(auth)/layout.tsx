@@ -2,12 +2,11 @@ import { setRequestLocale } from 'next-intl/server';
 import { Footer } from '../footer';
 import { Header } from '../header';
 import { LoginCarousel } from './login-carousel';
+import { LocaleProps } from '@/types/props';
 
-interface Props
-  extends Readonly<{
-    children: React.ReactNode;
-    params: Promise<{ locale: string }>;
-  }> {}
+interface Props extends LocaleProps {
+  children: React.ReactNode;
+}
 
 export default async function AuthLayout({ children, params }: Props) {
   const { locale } = await params;

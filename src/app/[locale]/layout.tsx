@@ -4,22 +4,19 @@ import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { Toaster } from '@/components/ui/toaster';
+import { LocaleProps } from '@/types/props';
 
-interface Props
-  extends Readonly<{
-    children: React.ReactNode;
-    params: Promise<{ locale: string }>;
-  }> {}
+interface Props extends LocaleProps {
+  children: React.ReactNode;
+}
 
 export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
 };
 
-export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
-  const params = await props.params;
-
-  const { locale } = params;
+export async function generateMetadata({ params }: LocaleProps) {
+  const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
 

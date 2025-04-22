@@ -3,14 +3,12 @@ import { Heading1, Heading4 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
+import RichText from '@/components/typography/rich-text';
 
 const INTL_NAMESPACE = 'private.about';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -20,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function AboutPage({ params }: Props) {
+export default function AboutPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);
@@ -31,9 +29,14 @@ export default function AboutPage({ params }: Props) {
     <SubLayout pageTitle={t('title')}>
       <article className="col-span-6">
         <Heading1>{t('title')}</Heading1>
-        {t.rich('content', {
-          h4: (chunks) => <Heading4 className="mt-10">{chunks}</Heading4>,
-        })}
+        <RichText>
+          {(tags) =>
+            t.rich('content', {
+              ...tags,
+              h4: (chunks) => <Heading4 className="mt-10">{chunks}</Heading4>,
+            })
+          }
+        </RichText>
       </article>
     </SubLayout>
   );

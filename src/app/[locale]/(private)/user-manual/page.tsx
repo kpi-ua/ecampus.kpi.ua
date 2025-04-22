@@ -6,16 +6,13 @@ import { DownloadButton } from './download-button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Show } from '@/components/utils/show';
 import { isIOS } from '@/lib/user-agent';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const USER_MANUAL_URL = process.env.NEXT_PUBLIC_USER_MANUAL_URL!;
 
 const INTL_NAMESPACE = 'private.user-manual';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -25,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function UserManualPage({ params }: Props) {
+export default function UserManualPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);

@@ -5,6 +5,7 @@ import { Link } from '@/i18n/routing';
 import { Paragraph } from '@/components/typography/paragraph';
 import dayjs from 'dayjs';
 import { Logo } from './logo';
+import RichText from './typography/rich-text';
 
 export default function NotFoundPage() {
   const t = useTranslations('global.not-found');
@@ -23,15 +24,20 @@ export default function NotFoundPage() {
       </div>
 
       <div className="flex flex-col">
-        {t.rich('footer', {
-          paragraph: (chunks) => <Paragraph className="m-0 text-sm font-medium">{chunks}</Paragraph>,
-          kbislink: (chunks) => (
-            <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} className="text-sm font-medium" target="_blank">
-              {chunks}
-            </Link>
-          ),
-          year: dayjs().year(),
-        })}
+        <RichText>
+          {(tags) =>
+            t.rich('footer', {
+              ...tags,
+              paragraph: (chunks) => <Paragraph className="m-0 text-sm font-medium">{chunks}</Paragraph>,
+              kbislink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} className="text-sm font-medium" target="_blank">
+                  {chunks}
+                </Link>
+              ),
+              year: dayjs().year(),
+            })
+          }
+        </RichText>
       </div>
     </div>
   );

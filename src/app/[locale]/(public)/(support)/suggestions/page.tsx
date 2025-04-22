@@ -3,12 +3,9 @@ import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SuggestionsForm } from '@/components/suggestions-form';
+import { LocaleProps } from '@/types/props';
 
-interface Props {
-  params: Promise<{ locale: string }>;
-}
-
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: 'public.suggestions' });
@@ -18,7 +15,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function SuggestionPage({ params }: Props) {
+export default function SuggestionPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);

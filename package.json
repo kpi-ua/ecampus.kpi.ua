@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --turbopack",
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
@@ -41,7 +41,7 @@
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.447.0",
     "next": "15.3.1",
-    "next-intl": "^3.26.1",
+    "next-intl": "^4.0.3",
     "query-string": "^9.1.1",
     "radash": "^12.1.0",
     "react": "19.1.0",

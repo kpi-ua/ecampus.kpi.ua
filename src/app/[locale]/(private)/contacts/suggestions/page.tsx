@@ -4,14 +4,11 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SubLayout } from '../../sub-layout';
 import { Heading1 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
-
-interface Props {
-  params: Promise<{ locale: string }>;
-}
+import { LocaleProps } from '@/types/props';
 
 const INTL_NAMESPACE = 'public.suggestions';
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
@@ -21,7 +18,7 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default function SuggestionsPage({ params }: Props) {
+export default function SuggestionsPage({ params }: LocaleProps) {
   const { locale } = use(params);
 
   setRequestLocale(locale);

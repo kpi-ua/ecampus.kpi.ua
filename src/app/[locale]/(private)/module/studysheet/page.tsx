@@ -1,11 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { StudySheet } from '@/app/[locale]/(private)/module/studysheet/components/study-sheet';
+import { LocaleProps } from '@/types/props';
 
-interface Props {
-  params: Promise<{ locale: string }>;
-}
-
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
   const t = await getTranslations({ locale, namespace: 'private.study-sheet' });
