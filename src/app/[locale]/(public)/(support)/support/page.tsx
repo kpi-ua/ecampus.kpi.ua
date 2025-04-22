@@ -1,9 +1,16 @@
+import { use } from 'react';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: 'public.support' });
 
   return {
@@ -11,7 +18,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function Support({ params: { locale } }: { params: { locale: string } }) {
+export default function Support({ params }: Props) {
+  const { locale } = use(params);
+
   setRequestLocale(locale);
 
   const t = useTranslations('public.support');

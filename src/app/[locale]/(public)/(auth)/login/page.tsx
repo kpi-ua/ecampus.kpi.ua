@@ -1,3 +1,4 @@
+import { use } from 'react';
 import { Heading2 } from '@/components/typography/headers';
 import { CredentialsLogin } from './credentials-login';
 import { useTranslations } from 'next-intl';
@@ -6,9 +7,15 @@ import { Show } from '@/components/utils/show';
 import { TextDivider } from '@/components/ui/text-divider';
 import { KPIIDLogin } from './kpi-id-login';
 
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
 const INTL_NAMESPACE = 'auth.login';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -16,7 +23,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function LoginPage({ params: { locale } }: { params: { locale: string } }) {
+export default function LoginPage({ params }: Props) {
+  const { locale } = use(params);
+
   setRequestLocale(locale);
 
   const t = useTranslations(INTL_NAMESPACE);

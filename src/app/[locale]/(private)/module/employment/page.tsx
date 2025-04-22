@@ -6,9 +6,15 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Button } from '@/components/ui/button';
 import { redirectToEmploymentSystem } from '@/actions/auth.actions';
 
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
 const INTL_NAMESPACE = 'private.employment-system';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {

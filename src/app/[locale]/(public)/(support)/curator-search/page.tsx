@@ -1,9 +1,16 @@
+import { use } from 'react';
 import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
 import { CuratorSearch } from './curator-search';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: 'public.curator-search' });
 
   return {
@@ -11,7 +18,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function CuratorSearchPage({ params: { locale } }: { params: { locale: string } }) {
+export default function CuratorSearchPage({ params }: Props) {
+  const { locale } = use(params);
+
   setRequestLocale(locale);
 
   const t = useTranslations('public.curator-search');

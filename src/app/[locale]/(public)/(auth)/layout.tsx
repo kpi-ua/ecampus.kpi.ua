@@ -3,13 +3,15 @@ import { Footer } from '../footer';
 import { Header } from '../header';
 import { LoginCarousel } from './login-carousel';
 
-export default function AuthLayout({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string };
-}>) {
+interface Props
+  extends Readonly<{
+    children: React.ReactNode;
+    params: Promise<{ locale: string }>;
+  }> {}
+
+export default async function AuthLayout({ children, params }: Props) {
+  const { locale } = await params;
+
   setRequestLocale(locale);
 
   return (

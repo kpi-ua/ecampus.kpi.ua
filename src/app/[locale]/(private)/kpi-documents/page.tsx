@@ -1,3 +1,4 @@
+import { use } from 'react';
 import { Heading1 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { SubLayout } from '../sub-layout';
@@ -5,9 +6,15 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BookBookmark, BookOpen, Roll } from '@/app/images';
 import { DocumentCard } from './document-card';
 
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
 const INTL_NAMESPACE = 'private.documents';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -15,7 +22,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function KPIDocumentsPage({ params: { locale } }: { params: { locale: string } }) {
+export default function KPIDocumentsPage({ params }: Props) {
+  const { locale } = use(params);
+
   setRequestLocale(locale);
 
   const t = useTranslations(INTL_NAMESPACE);

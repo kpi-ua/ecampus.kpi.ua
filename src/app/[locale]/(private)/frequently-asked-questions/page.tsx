@@ -1,8 +1,13 @@
+import { use } from 'react';
 import { Heading1 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FrequentlyAskedQuestions } from '@/containers/faq/frequently-asked-questions';
+
+interface Props {
+  params: Promise<{ locale: string }>;
+}
 
 const SECTIONS = [
   'group-has-no-students',
@@ -13,7 +18,9 @@ const SECTIONS = [
 
 const INTL_NAMESPACE = 'private.faq';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -21,7 +28,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function FAQPage({ params: { locale } }: { params: { locale: string } }) {
+export default function FAQPage({ params }: Props) {
+  const { locale } = use(params);
+
   setRequestLocale(locale);
 
   const t = useTranslations(INTL_NAMESPACE);

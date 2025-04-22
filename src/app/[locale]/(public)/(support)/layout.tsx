@@ -2,13 +2,15 @@ import { setRequestLocale } from 'next-intl/server';
 import { Footer } from '../footer';
 import { Header } from '../header';
 
-export default function PublicPagesLayout({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string };
-}>) {
+interface Props
+  extends Readonly<{
+    children: React.ReactNode;
+    params: Promise<{ locale: string }>;
+  }> {}
+
+export default async function PublicPagesLayout({ children, params }: Props) {
+  const { locale } = await params;
+
   setRequestLocale(locale);
 
   return (

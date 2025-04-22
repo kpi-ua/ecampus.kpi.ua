@@ -48,7 +48,8 @@ const getMenuGroupComposer = (translation: Translation) => (modules: Module[], p
 
 export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
   try {
-    const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
+    const resolvedCookies = await cookies();
+    const jwt = resolvedCookies.get(TOKEN_COOKIE_NAME)?.value;
 
     if (!jwt) {
       return [];

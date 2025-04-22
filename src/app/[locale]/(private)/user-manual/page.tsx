@@ -1,3 +1,4 @@
+import { use } from 'react';
 import { Heading1 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { SubLayout } from '../sub-layout';
@@ -6,11 +7,17 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Show } from '@/components/utils/show';
 import { isIOS } from '@/lib/user-agent';
 
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
 const USER_MANUAL_URL = process.env.NEXT_PUBLIC_USER_MANUAL_URL!;
 
 const INTL_NAMESPACE = 'private.user-manual';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -18,10 +25,12 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function UserManualPage({ params: { locale } }: { params: { locale: string } }) {
+export default function UserManualPage({ params }: Props) {
+  const { locale } = use(params);
+
   setRequestLocale(locale);
 
-  const isSafariMobile = isIOS();
+  const isSafariMobile = use(isIOS());
   const t = useTranslations(INTL_NAMESPACE);
 
   return (

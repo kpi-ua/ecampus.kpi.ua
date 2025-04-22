@@ -1,11 +1,18 @@
+import { use } from 'react';
 import { Heading1, Heading4 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
 const INTL_NAMESPACE = 'private.about';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -13,7 +20,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function AboutPage({ params: { locale } }: { params: { locale: string } }) {
+export default function AboutPage({ params }: Props) {
+  const { locale } = use(params);
+
   setRequestLocale(locale);
 
   const t = useTranslations(INTL_NAMESPACE);

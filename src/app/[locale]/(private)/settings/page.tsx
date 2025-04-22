@@ -6,9 +6,15 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { getUserDetails } from '@/actions/auth.actions';
 import { notFound } from 'next/navigation';
 
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
 const INTL_NAMESPACE = 'private.settings';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
