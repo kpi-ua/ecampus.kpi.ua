@@ -2,8 +2,7 @@ import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAnnouncements } from '@/actions/announcement.actions';
 import { NoticeList } from '@/app/[locale]/(private)/notice-board/components/notice-list';
-import { Heading1 } from '@/components/typography/headers';
-import { Paragraph } from '@/components/typography/paragraph';
+import { Heading1, Description } from '@/components/typography';
 import { Suspense } from 'react';
 
 interface Props {
@@ -33,7 +32,7 @@ export default async function NoticeBoardPage({ params }: Props) {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
         <Heading1>{t('title')}</Heading1>
-        <Paragraph className="text-neutral-700">{t('subtitle')}</Paragraph>
+        <Description>{t('subtitle')}</Description>
         <Suspense>
           <NoticeList announcements={announcements} />
         </Suspense>

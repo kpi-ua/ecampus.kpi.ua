@@ -1,8 +1,7 @@
-import { Heading1 } from '@/components/typography/headers';
+import { Heading1, Description } from '@/components/typography';
 import { SubLayout } from '../sub-layout';
 import { getTranslations } from 'next-intl/server';
 import { SettingsForm } from '@/app/[locale]/(private)/settings/settings-form';
-import { Paragraph } from '@/components/typography/paragraph';
 import { getUserDetails } from '@/actions/auth.actions';
 import { notFound } from 'next/navigation';
 
@@ -34,7 +33,7 @@ export default async function SettingsPage() {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
         <Heading1>{t('title')}</Heading1>
-        <Paragraph className="text-neutral-700">{t('subtitle')}</Paragraph>
+        <Description>{t('subtitle')}</Description>
         <SettingsForm user={user} />
       </div>
     </SubLayout>

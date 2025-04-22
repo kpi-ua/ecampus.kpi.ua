@@ -1,5 +1,5 @@
 import { use } from 'react';
-import { Heading2 } from '@/components/typography/headers';
+import { Heading2, Description } from '@/components/typography';
 import { CredentialsLogin } from './credentials-login';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -34,7 +34,7 @@ export default function LoginPage({ params }: Props) {
   return (
     <>
       <Heading2>{t('header')}</Heading2>
-      <p className="py-4 text-neutral-600">{t('description')}</p>
+      <Description>{t('description')}</Description>
       <CredentialsLogin />
       <Show when={showKpiIdButton}>
         <TextDivider>{t('or')}</TextDivider>
