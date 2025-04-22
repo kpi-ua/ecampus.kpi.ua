@@ -89,6 +89,11 @@ body {
   line-height: 20px;
 }
 
+html body[data-scroll-locked] {
+  --removed-body-scroll-bar-size: 0 !important;
+  margin-right: 0 !important;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -19,6 +19,7 @@ export async function changeEmail(email: string) {
 
 export async function changePhoto(formData: FormData) {
   await fileUpload('profile/photo', formData);
+  revalidatePath('/');
 }
 
 export async function changePassword(password: string, currentPassword: string) {

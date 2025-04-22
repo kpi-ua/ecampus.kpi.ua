@@ -1,0 +1,6 @@
+language: "en-US"
+reviews:
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches: [master, main, dev]
