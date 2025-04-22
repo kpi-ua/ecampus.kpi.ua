@@ -1,11 +1,12 @@
 import { Lecturer } from '@/types/models/lecturer';
 
 interface Attestation {
-  attestationResult: boolean;
+  result: boolean;
   semester: number;
-  attestationNumber: number;
+  number: number;
 }
 export interface AttestationResult {
+  id: number;
   name: string;
   attestations: Attestation[];
   lecturer: Lecturer;

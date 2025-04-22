@@ -1,14 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
-import { Badge } from '@/components/ui/badge';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import React from 'react';
 import { Heading1 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Card } from '@/components/ui/card';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { getAttestationResults } from '@/actions/monitoring.actions';
+import { getAttestationResults } from '@/actions/attestation.actions';
+import { COLUMNS } from '@/app/[locale]/(private)/module/attestationresults/constants';
+import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationBadge';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   const t = await getTranslations({ locale, namespace: 'private.study-sheet' });
@@ -20,6 +21,7 @@ export async function generateMetadata({ params: { locale } }: { params: { local
 
 export default async function AttestationResultsPage() {
   const results = await getAttestationResults();
+
   const t = await getTranslations('private.attestation-results');
 
   return (
@@ -33,21 +35,24 @@ export default async function AttestationResultsPage() {
               <TableRow>
                 <TableHead>{t('subject')}</TableHead>
                 <TableHead>{t('lecturer')}</TableHead>
-                {results.map((result) => {
-                  return result.attestations.map((attestation, index) => (
-                    <TableHead key={index} className="text-center">
-                      {attestation.semester} семестр{' '}
-                      <span className="text-neutral-700">Атестація №{attestation.attestationNumber}</span>
-                    </TableHead>
-                  ));
-                })}
+                {COLUMNS.map((col, index) => (
+                  <TableHead key={index} className="text-center">
+                    {t('column.semester', { semesterNumber: col.semesterNumber })}{' '}
+                    <span className="text-neutral-700">
+                      {t('column.attestation', { attestationNumber: col.attestationNumber })}
+                    </span>
+                  </TableHead>
+                ))}
               </TableRow>
             </TableHeader>
             <TableBody>
               {results.map((result, index) => (
                 <TableRow key={index}>
                   <TableCell className="max-w-[336px]">
-                    <Link className="text-sm font-medium text-basic-black underline" href={`/module/studysheet/${123}`}>
+                    <Link
+                      className="text-sm font-medium text-basic-black underline"
+                      href={`/module/studysheet/${result.id}`}
+                    >
                       {result.name}
                     </Link>
                   </TableCell>
@@ -58,15 +63,7 @@ export default async function AttestationResultsPage() {
 
                   {result.attestations.map((attestation, index) => (
                     <TableCell key={index}>
-                      {attestation.attestationResult ? (
-                        <Badge className="flex justify-center border border-status-success-300 bg-status-success-100 font-semibold text-status-success-300">
-                          А
-                        </Badge>
-                      ) : (
-                        <Badge className="flex justify-center border border-status-danger-300 bg-status-danger-100 font-semibold text-status-danger-300">
-                          Н/А
-                        </Badge>
-                      )}
+                      <AttestationBadge result={attestation.result} />
                     </TableCell>
                   ))}
                 </TableRow>

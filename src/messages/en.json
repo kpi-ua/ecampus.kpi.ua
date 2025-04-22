@@ -415,7 +415,11 @@
       "title": "Attestation results",
       "subtitle": "This presents the results of certifications by semester, indicating disciplines, teachers, and grades according to the educational process schedule.",
       "subject": "Subject",
-      "lecturer": "Lecturer"
+      "lecturer": "Lecturer",
+      "column": {
+        "semester": "{semesterNumber} semester",
+        "attestation": "Attestation №{attestationNumber}"
+      }
     },
     "settings": {
       "title": "Settings",
