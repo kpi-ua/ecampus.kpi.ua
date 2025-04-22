@@ -17,7 +17,7 @@ import { changeEmail, changePassword, changePhoto } from '@/actions/settings.act
 import { useIsMobile } from '@/hooks/use-mobile';
 import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
 import { toast } from '@/hooks/use-toast';
-import { uid } from 'radash';
+import { getUniqueUserPhotoUrl } from '@/lib/utils';
 
 interface Props {
   user: User;
@@ -28,7 +28,7 @@ export function SettingsForm({ user }: Props) {
   const isMobile = useIsMobile();
   const t = useTranslations('private.settings');
   const [file, setFile] = useState<File | null>(null);
-  const profilePhoto = `${user.photo}?v=${uid(8)}`;
+  const profilePhoto = getUniqueUserPhotoUrl(user.photo);
 
   const FormSchema = z
     .object({

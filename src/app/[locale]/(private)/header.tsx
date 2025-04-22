@@ -1,13 +1,13 @@
 'use client';
 
 import React, { FC, useEffect, useRef, useState } from 'react';
-import { sleep, uid } from 'radash';
+import { sleep } from 'radash';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Show } from '@/components/utils/show';
-import { cn } from '@/lib/utils';
+import { cn, getUniqueUserPhotoUrl } from '@/lib/utils';
 import { User } from '@/types/models/user';
 import { Button } from '@/components/ui/button';
 import { logout } from '@/actions/auth.actions';
@@ -35,7 +35,7 @@ export const Header: FC<Props> = ({ user }) => {
   // Then we re-render component with an updated link with a random parameter, which is
   // propagated to CDN url via campus backend.
   useEffect(() => {
-    const setProfilePhotoUrl = () => setProfilePhoto(`${user.photo}?v=${uid(8)}`);
+    const setProfilePhotoUrl = () => setProfilePhoto(getUniqueUserPhotoUrl(user.photo));
 
     const deferProfileImageUpdate = async () => {
       await sleep(5000);
