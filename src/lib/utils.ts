@@ -7,3 +7,5 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const getUniqueUserPhotoUrl = (profileUrl: string) => `${profileUrl}?v=${uid(8)}`;
+
+export const toBetterFixed = (number: number, decimalPlaces: number) => Math.round(number * 10 ** decimalPlaces) / 10 ** decimalPlaces

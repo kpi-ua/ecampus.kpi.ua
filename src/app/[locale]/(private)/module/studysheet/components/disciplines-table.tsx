@@ -7,6 +7,7 @@ import { Link } from '@/i18n/routing';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import { useTranslations } from 'next-intl';
 import { Discipline } from '@/types/models/current-control/sheet';
+import { toBetterFixed } from '@/lib/utils';
 
 const MAX_SCORE = 100;
 
@@ -41,7 +42,7 @@ export function DisciplinesTable({ disciplines, selectedStudyYear, selectedSemes
             </TableCell>
             <TableCell className="max-w-[158px]">
               <Badge className="font-semibold text-basic-blue">
-                {Number(discipline.score)}/{MAX_SCORE}
+                {toBetterFixed(Number(discipline.score), 2)}/{MAX_SCORE}
               </Badge>
             </TableCell>
             <TableCell className="flex max-w-[360px] flex-col gap-1">
