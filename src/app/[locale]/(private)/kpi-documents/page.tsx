@@ -41,6 +41,12 @@ export default function KPIDocumentsPage({ params: { locale } }: { params: { loc
         BackgroundImage={Roll}
         className="col-span-full lg:col-span-3 xl:col-span-3"
       />
+      <DocumentCard
+        header={t('anti-corruption-program')}
+        url={process.env.NEXT_PUBLIC_PROGRAM_ANTICORRUPTION!}
+        BackgroundImage={Roll}
+        className="col-span-full lg:col-span-3 xl:col-span-3"
+      />
     </SubLayout>
   );
 }
