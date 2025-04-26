@@ -36,6 +36,7 @@
       "rectorialcontrol": "Rectorial control",
       "vedomoststud": "Session",
       "pk2024": "Admission 2024 (Master’s)",
+      "pk2025": "Admission 2025 (Master’s)",
       "studdoc": "Student documents",
       "plans_individual": "Individual plans",
       "journals": "Journals",
@@ -69,6 +70,7 @@
       "bravook": "Bravo VC",
       "ratingnpp": "Faculty rating 2019-2020",
       "pk2024admin": "Admission 2024 (Admin)",
+      "pk2025admin": "Admission 2025 (Admin)",
       "studdocadmin": "Student documents (Admin)",
       "yiystat": "Statistical data",
       "adminpanel": "Admin panel",
@@ -292,7 +294,8 @@
       "header": "Igor Sikorsky Kyiv Polytechnic Institute Documents",
       "code-of-honor": "Code of honor",
       "internal-regulations": "Internal regulations",
-      "educational-organization-regulation": "Temporary Regulation on the Organization of the Educational Process at the University"
+      "educational-organization-regulation": "Temporary Regulation on the Organization of the Educational Process at the University",
+      "anti-corruption-program": "Anti-Corruption Program"
     },
     "terms-of-service": {
       "title": "Terms of service",
@@ -377,6 +380,37 @@
     },
     "suggestions": {
       "title": "Send suggestion"
+    },
+    "study-sheet": {
+      "title": "Current control",
+      "subtitle": "Current control is carried out during the semester in order to ensure the testing of the level of training of applicants at each stage of the discipline.",
+      "your-information": "Your information:",
+      "study-year": "The academic year",
+      "credit-module": "Credit module",
+      "module-info": "Credit module info",
+      "lecturers": "Lecturers",
+      "total-score": "Total score:",
+      "semester": {
+        "title": "semester",
+        "first": "First",
+        "second": "Second",
+        "all": "All"
+      },
+      "sheet": {
+        "journal": "Gradebook",
+        "event-plan": "Events plan",
+        "internal-materials": "Internal materials",
+        "external-materials": "External materials"
+      },
+      "table": {
+        "date": "Date",
+        "subject": "Subject",
+        "score": "Score",
+        "lecturer": "Lecturer",
+        "control-type": "Type of control",
+        "link": "Link",
+        "note": "Note"
+      }
     },
     "settings": {
       "title": "Settings",

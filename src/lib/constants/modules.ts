@@ -1,4 +1,5 @@
 import { Module } from '@/types/module';
+import { ProfileArea } from '@/types/enums/profile-area';
 
 export const MODULES: Module[] = [
   { name: 'contacts', isExternal: true },
@@ -6,10 +7,11 @@ export const MODULES: Module[] = [
   { name: 'kurator', isExternal: true },
   { name: 'rnp', isExternal: true },
   { name: 'vote', isExternal: true },
-  { name: 'studysheet', isExternal: true },
+  { name: 'studysheet', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'vedomoststud', isExternal: true },
   { name: 'pk2024', isExternal: true },
+  { name: 'pk2025', isExternal: true },
   { name: 'studdoc', isExternal: true },
   { name: 'plans_individual', isExternal: true },
   { name: 'journals', isExternal: true },
@@ -43,6 +45,7 @@ export const MODULES: Module[] = [
   { name: 'ekk', isExternal: true },
   { name: 'bravook', isExternal: true },
   { name: 'pk2024admin', isExternal: true },
+  { name: 'pk2025admin', isExternal: true },
   { name: 'studdocadmin', isExternal: true },
   { name: 'yiystat', isExternal: true },
   { name: 'adminpanel', isExternal: true },
