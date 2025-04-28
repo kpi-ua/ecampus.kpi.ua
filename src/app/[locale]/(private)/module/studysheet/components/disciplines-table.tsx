@@ -32,7 +32,7 @@ export function DisciplinesTable({ disciplines, selectedStudyYear, selectedSemes
       <TableBody>
         {disciplines.map((discipline) => (
           <TableRow key={discipline.id}>
-            <TableCell className="max-w-[336px]">
+            <TableCell className="min-w-[200px] max-w-[336px]">
               <Link
                 className="text-sm font-medium text-basic-black underline"
                 href={`/module/studysheet/${discipline.id}?studyYear=${selectedStudyYear}&semester=${selectedSemester}`}
