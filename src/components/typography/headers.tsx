@@ -3,14 +3,6 @@ import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import React from 'react';
 
-// export interface HeadingProps<T extends keyof JSX.IntrinsicElements> extends React.ComponentProps<T> {}
-
-// const createHeading =
-//   <T extends keyof JSX.IntrinsicElements>(Component: React.ComponentType<T>, baseClassName: string) =>
-//   ({ className }: React.ComponentProps<T>) => (
-//     <Component className={cn('font-semibold', baseClassName, className)} {...props} />
-//   );
-
 const headingVariants = cva('font-semibold');
 
 export const Heading0 = ({
@@ -68,31 +60,3 @@ export const Heading6 = ({
   <h6 className={cn(headingVariants(), 'text-base leading-base lg:text-xl lg:leading-lg', className)} {...props} />
 );
 Heading6.displayName = 'Heading6';
-
-// export const Heading0 = createHeading<'h1'>('h1', 'text-7xl leading-6xl');
-
-// Heading0.displayName = 'Heading0';
-
-// export const Heading1 = createHeading('h1', 'lg:text-6xl lg:leading-5xl text-4xl leading-3xl');
-
-// Heading1.displayName = 'Heading1';
-
-// export const Heading2 = createHeading('h2', 'lg:text-5xl lg:leading-4xl text-3xl leading-2xl');
-
-// Heading2.displayName = 'Heading2';
-
-// export const Heading3 = createHeading('h3', 'lg:text-4xl lg:leading-3xl text-2xl leading-xl');
-
-// Heading3.displayName = 'Heading3';
-
-// export const Heading4 = createHeading('h4', 'lg:text-3xl lg:leading-2xl text-xl leading-lg');
-
-// Heading4.displayName = 'Heading4';
-
-// export const Heading5 = createHeading('h5', 'lg:text-2xl lg:leading-xl text-lg leading-md');
-
-// Heading5.displayName = 'Heading5';
-
-// export const Heading6 = createHeading('h6', 'lg:text-xl lg:leading-lg text-base leading-base');
-
-// Heading6.displayName = 'Heading6';
