@@ -1,17 +1,17 @@
 import React from 'react';
 import { StudentProfile } from '@/types/models/student-profile';
-import { useTranslations } from 'next-intl';
 import { InfoItem, InfoList } from './info-list';
 import { dash } from 'radash';
 import { StudyForm } from '@/types/enums/study-form';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   studentProfile: StudentProfile;
 }
 
-export function StudentInfo({ studentProfile }: Props) {
-  const t = useTranslations('private.profile');
-  const tEnums = useTranslations('global.enums');
+export async function StudentInfo({ studentProfile }: Props) {
+  const t = await getTranslations('private.profile');
+  const tEnums = await getTranslations('global.enums');
 
   const studentInfo: InfoItem[] = [
     { label: t('info.subdivision'), value: studentProfile.faculty },

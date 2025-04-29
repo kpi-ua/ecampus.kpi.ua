@@ -10,7 +10,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { resetPassword } from '@/actions/auth.actions';
 import { Form, FormField, FormItem } from '@/components/ui/form';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+// FIXME:
+// This version of recaptcha library should be replace with official one,
+// when it starts to support React 19
+import { useGoogleReCaptcha } from 'react19-google-recaptcha-v3';
 import { useRouter } from '@/i18n/routing';
 
 interface PasswordResetFormProps {

@@ -2,16 +2,17 @@ import { Heading3 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Separator } from '@/components/ui/separator';
+import { getTranslations } from 'next-intl/server';
 
 interface InformationCardProps {
   className?: string;
 }
 
-export const InformationCard = ({ className }: InformationCardProps) => {
-  const t = useTranslations('private.main.cards.information');
+export const InformationCard = async ({ className }: InformationCardProps) => {
+  const t = await getTranslations('private.main.cards.information');
+
   return (
     <Card className={cn(className)}>
       <CardContent className="p-10">

@@ -13,7 +13,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Link } from '@/i18n/routing';
-import { Paragraph } from '@/components/typography/paragraph';
+import RichText from '@/components/typography/rich-text';
 
 export default function CodeOfHonorAlert() {
   const t = useTranslations('private.profile');
@@ -27,14 +27,19 @@ export default function CodeOfHonorAlert() {
       <AlertDialogContent className="w-[340px] rounded-[12px] sm:w-full" closable={false}>
         <AlertDialogHeader>
           <AlertDialogTitle>{t('codeOfHonor.title')}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {t.rich('codeOfHonor.content', {
-              documentsLink: (chunks) => (
-                <Link href={process.env.NEXT_PUBLIC_UNIVERSITY_CODE_OF_HONOR_URL!}>{chunks}</Link>
-              ),
-              paragraph: (chunks) => <Paragraph className="m-0">{chunks}</Paragraph>,
-            })}
-          </AlertDialogDescription>
+          <RichText>
+            {(tags) =>
+              t.rich('codeOfHonor.content', {
+                ...tags,
+                documentsLink: (chunks) => (
+                  <Link href={process.env.NEXT_PUBLIC_UNIVERSITY_CODE_OF_HONOR_URL!}>{chunks}</Link>
+                ),
+                paragraph: (chunks) => (
+                  <AlertDialogDescription className="m-0 my-4 text-lg leading-lg">{chunks}</AlertDialogDescription>
+                ),
+              })
+            }
+          </RichText>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogAction className="w-full md:w-fit" onClick={handleAcceptCodeOfHonor}>

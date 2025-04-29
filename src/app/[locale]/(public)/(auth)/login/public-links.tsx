@@ -4,10 +4,10 @@ import LifebuoyOutline from '@/app/images/icons/LifebuoyOutline.svg';
 import QuestionOutline from '@/app/images/icons/QuestionOutline.svg';
 import Student from '@/app/images/icons/Student.svg';
 import TelegramOutline from '@/app/images/icons/TelegramOutline.svg';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
-export const PublicLinks = () => {
-  const t = useTranslations('auth.login.publicLink');
+export const PublicLinks = async () => {
+  const t = await getTranslations('auth.login.publicLink');
 
   return (
     <div className="mt-8 grid grid-cols-2 gap-8 sm:grid-cols-3">

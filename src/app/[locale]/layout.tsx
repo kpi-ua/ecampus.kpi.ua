@@ -4,13 +4,20 @@ import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { Toaster } from '@/components/ui/toaster';
+import { LocaleProps } from '@/types/locale-props';
+
+interface Props extends LocaleProps {
+  children: React.ReactNode;
+}
 
 export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
 };
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocaleProps) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: 'global.metadata' });
 
   return {
@@ -36,13 +43,9 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: Readonly<{
-  children: React.ReactNode;
-  params: { locale: string };
-}>) {
+export default async function RootLayout({ children, params }: Props) {
+  const { locale } = await params;
+
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale)) {
     notFound();
