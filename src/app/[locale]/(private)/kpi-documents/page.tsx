@@ -1,11 +1,9 @@
-import { use } from 'react';
 import { Heading1 } from '@/components/typography/headers';
-import { useTranslations } from 'next-intl';
 import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BookBookmark, BookOpen, Roll } from '@/app/images';
 import { DocumentCard } from './document-card';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.documents';
 
@@ -19,12 +17,12 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default function KPIDocumentsPage({ params }: LocaleProps) {
-  const { locale } = use(params);
+export default async function KPIDocumentsPage({ params }: LocaleProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 
-  const t = useTranslations(INTL_NAMESPACE);
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SubLayout pageTitle={t('header')} className="gap-8">

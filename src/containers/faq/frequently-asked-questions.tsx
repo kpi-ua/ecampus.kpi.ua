@@ -1,15 +1,15 @@
 import { Heading4 } from '@/components/typography/headers';
 import RichText from '@/components/typography/rich-text';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 interface FrequentlyAskedQuestionsProps {
   i18nNamespace: string;
   sections: string[];
 }
 
-export const FrequentlyAskedQuestions = ({ i18nNamespace, sections }: FrequentlyAskedQuestionsProps) => {
-  const t = useTranslations(i18nNamespace);
+export const FrequentlyAskedQuestions = async ({ i18nNamespace, sections }: FrequentlyAskedQuestionsProps) => {
+  const t = await getTranslations(i18nNamespace);
 
   return (
     <>

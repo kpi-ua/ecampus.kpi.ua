@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { SettingsForm } from '@/app/[locale]/(private)/settings/settings-form';
 import { getUserDetails } from '@/actions/auth.actions';
 import { notFound } from 'next/navigation';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.settings';
 

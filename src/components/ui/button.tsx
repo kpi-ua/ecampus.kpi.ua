@@ -62,55 +62,49 @@ const buttonVariants = cva(
   },
 );
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+export interface ButtonProps extends React.ComponentProps<'button'>, VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
   icon?: React.ReactNode;
   iconPosition?: IconPosition;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      asChild = false,
-      loading = false,
-      icon,
-      iconPosition = 'start',
-      disabled,
-      children,
-      ...props
-    },
-    ref,
-  ) => {
-    const Comp = asChild ? Slot : 'button';
+const Button = ({
+  className,
+  variant,
+  size,
+  asChild = false,
+  loading = false,
+  icon,
+  iconPosition = 'start',
+  disabled,
+  children,
+  ref,
+  ...props
+}: ButtonProps) => {
+  const Comp = asChild ? Slot : 'button';
 
-    const iconAtPosition = (position: IconPosition) => {
-      if (loading) {
-        return position === 'start' ? <SpinnerGap /> : null;
-      }
+  const iconAtPosition = (position: IconPosition) => {
+    if (loading) {
+      return position === 'start' ? <SpinnerGap /> : null;
+    }
 
-      return icon && position === iconPosition ? icon : null;
-    };
+    return icon && position === iconPosition ? icon : null;
+  };
 
-    return (
-      <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
-        ref={ref}
-        disabled={loading ? true : disabled}
-        {...props}
-      >
-        {iconAtPosition('start')}
-        <Slottable>{children}</Slottable>
-        {iconAtPosition('end')}
-      </Comp>
-    );
-  },
-);
+  return (
+    <Comp
+      className={cn(buttonVariants({ variant, size, className }))}
+      ref={ref}
+      disabled={loading ? true : disabled}
+      {...props}
+    >
+      {iconAtPosition('start')}
+      <Slottable>{children}</Slottable>
+      {iconAtPosition('end')}
+    </Comp>
+  );
+};
 Button.displayName = 'Button';
 
 export { Button, buttonVariants };

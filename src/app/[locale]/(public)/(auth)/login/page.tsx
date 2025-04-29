@@ -1,12 +1,10 @@
-import { use } from 'react';
 import { Heading2, Description } from '@/components/typography';
 import { CredentialsLogin } from './credentials-login';
-import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Show } from '@/components/utils/show';
 import { TextDivider } from '@/components/ui/text-divider';
 import { KPIIDLogin } from './kpi-id-login';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'auth.login';
 
@@ -20,12 +18,12 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default function LoginPage({ params }: LocaleProps) {
-  const { locale } = use(params);
+export default async function LoginPage({ params }: LocaleProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 
-  const t = useTranslations(INTL_NAMESPACE);
+  const t = await getTranslations(INTL_NAMESPACE);
   const showKpiIdButton = process.env.NEXT_PUBLIC_KPI_ID_BUTTON === 'true';
 
   return (

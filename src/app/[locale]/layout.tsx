@@ -4,7 +4,7 @@ import { routing } from '@/i18n/routing';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { Toaster } from '@/components/ui/toaster';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 interface Props extends LocaleProps {
   children: React.ReactNode;

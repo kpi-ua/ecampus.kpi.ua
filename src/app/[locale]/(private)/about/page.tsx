@@ -1,9 +1,7 @@
-import { use } from 'react';
 import { Heading1, Heading4 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
-import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 import RichText from '@/components/typography/rich-text';
 
 const INTL_NAMESPACE = 'private.about';
@@ -18,12 +16,12 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default function AboutPage({ params }: LocaleProps) {
-  const { locale } = use(params);
+export default async function AboutPage({ params }: LocaleProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 
-  const t = useTranslations(INTL_NAMESPACE);
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SubLayout pageTitle={t('title')}>

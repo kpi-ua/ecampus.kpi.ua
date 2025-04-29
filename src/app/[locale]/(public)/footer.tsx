@@ -1,15 +1,15 @@
 import Link from 'next/link';
 import dayjs from 'dayjs';
-import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
 import RichText from '@/components/typography/rich-text';
+import { getTranslations } from 'next-intl/server';
 
 interface FooterProps {
   className?: string;
 }
 
-export const Footer = ({ className }: FooterProps) => {
-  const t = useTranslations('auth');
+export const Footer = async ({ className }: FooterProps) => {
+  const t = await getTranslations('auth');
 
   return (
     <div className={cn('text-sm', className)}>

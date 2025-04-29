@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 import { Show } from '../utils/show';
 
-type HTMLInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>;
+type HTMLInputProps = Omit<React.ComponentProps<'input'>, 'size'>;
 
 export interface InputProps extends HTMLInputProps, VariantProps<typeof inputVariants> {
   icon?: React.ReactNode;
@@ -30,30 +30,28 @@ const inputVariants = cva(
   },
 );
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, icon, size, iconPosition = 'start', ...props }, ref) => {
-    const computedClass = cn(
-      inputVariants({ size, iconPosition }),
-      icon && iconPosition === 'start' ? 'pl-[40px]' : '',
-      icon && iconPosition === 'end' ? 'pr-[40px]' : '',
-      className,
-    );
+const Input = ({ className, type, icon, size, iconPosition = 'start', ref, ...props }: InputProps) => {
+  const computedClass = cn(
+    inputVariants({ size, iconPosition }),
+    icon && iconPosition === 'start' ? 'pl-[40px]' : '',
+    icon && iconPosition === 'end' ? 'pr-[40px]' : '',
+    className,
+  );
 
-    return (
-      <div
-        className={cn(
-          'relative w-full [&_svg]:absolute [&_svg]:size-[20px] [&_svg]:text-neutral-400',
-          icon && iconPosition === 'start' ? '[&_svg]:inset-[12px]' : '',
-          icon && iconPosition === 'end' ? '[&_svg]:right-[12px] [&_svg]:top-[12px]' : '',
-        )}
-      >
-        <Show when={!!icon && iconPosition === 'start'}>{icon}</Show>
-        <input type={type} className={computedClass} ref={ref} {...props} />
-        <Show when={!!icon && iconPosition === 'end'}>{icon}</Show>
-      </div>
-    );
-  },
-);
+  return (
+    <div
+      className={cn(
+        'relative w-full [&_svg]:absolute [&_svg]:size-[20px] [&_svg]:text-neutral-400',
+        icon && iconPosition === 'start' ? '[&_svg]:inset-[12px]' : '',
+        icon && iconPosition === 'end' ? '[&_svg]:right-[12px] [&_svg]:top-[12px]' : '',
+      )}
+    >
+      <Show when={!!icon && iconPosition === 'start'}>{icon}</Show>
+      <input type={type} className={computedClass} ref={ref} {...props} />
+      <Show when={!!icon && iconPosition === 'end'}>{icon}</Show>
+    </div>
+  );
+};
 Input.displayName = 'Input';
 
 export { Input };

@@ -1,9 +1,7 @@
-import { use } from 'react';
-import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FrequentlyAskedQuestions } from '@/containers/faq/frequently-asked-questions';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 const SECTIONS = ['how-to-register', 'how-to-restore-password'];
 
@@ -19,12 +17,12 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default function FAQ({ params }: LocaleProps) {
-  const { locale } = use(params);
+export default async function FAQ({ params }: LocaleProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 
-  const t = useTranslations(INTL_NAMESPACE);
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SupportNavLayout header={t('header')}>

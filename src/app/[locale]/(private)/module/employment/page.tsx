@@ -1,10 +1,9 @@
 import { Heading1, Description } from '@/components/typography';
 import { SubLayout } from '../../sub-layout';
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/ui/button';
 import { redirectToEmploymentSystem } from '@/actions/auth.actions';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.employment-system';
 
@@ -18,8 +17,8 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default function EmploymentPage() {
-  const t = useTranslations(INTL_NAMESPACE);
+export default async function EmploymentPage() {
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SubLayout pageTitle={t('title')}>

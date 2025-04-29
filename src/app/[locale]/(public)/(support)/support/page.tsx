@@ -1,9 +1,7 @@
-import { use } from 'react';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
 import { SupportNavLayout } from '../support-nav-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 import RichText from '@/components/typography/rich-text';
 
 export async function generateMetadata({ params }: LocaleProps) {
@@ -16,12 +14,12 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default function Support({ params }: LocaleProps) {
-  const { locale } = use(params);
+export default async function Support({ params }: LocaleProps) {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 
-  const t = useTranslations('public.support');
+  const t = await getTranslations('public.support');
 
   return (
     <SupportNavLayout header={t('header')}>

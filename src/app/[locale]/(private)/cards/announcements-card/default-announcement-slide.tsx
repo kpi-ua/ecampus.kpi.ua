@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { AnnouncementSlide } from './announcement-slide';
 import RichText from '@/components/typography/rich-text';

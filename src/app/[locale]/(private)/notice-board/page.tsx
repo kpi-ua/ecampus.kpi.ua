@@ -4,7 +4,7 @@ import { getAnnouncements } from '@/actions/announcement.actions';
 import { NoticeList } from '@/app/[locale]/(private)/notice-board/components/notice-list';
 import { Heading1, Description } from '@/components/typography';
 import { Suspense } from 'react';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.notice-board';
 

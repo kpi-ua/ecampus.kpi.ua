@@ -1,9 +1,6 @@
-'use client';
-
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import { Heading4, Heading6 } from '@/components/typography/headers';
-import { useTranslations } from 'next-intl';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { User } from '@/types/models/user';
@@ -13,16 +10,17 @@ import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lectur
 import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { dash } from 'radash';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   user: User;
   className?: string;
 }
 
-export function InfoBlock({ user, className }: Props) {
-  const t = useTranslations('private.profile');
-  const tUserCategory = useTranslations('global.user-category');
-  const tEnums = useTranslations('global.enums');
+export async function InfoBlock({ user, className }: Props) {
+  const t = await getTranslations('private.profile');
+  const tUserCategory = await getTranslations('global.user-category');
+  const tEnums = await getTranslations('global.enums');
 
   const studentProfile = user?.studentProfile;
   const employeeProfile = user?.employeeProfile;

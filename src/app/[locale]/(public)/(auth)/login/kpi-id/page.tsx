@@ -4,7 +4,7 @@ import { AccountSelector } from '@/components/account-selector/account-selector'
 import { notFound } from 'next/navigation';
 import { getKPIIDAccounts } from '@/actions/auth.actions';
 import { KPIIDAccountSlim } from '@/types/models/kpi-id-account';
-import { LocaleProps } from '@/types/props';
+import { LocaleProps } from '@/types/locale-props';
 
 interface Props extends LocaleProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

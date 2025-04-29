@@ -1,4 +1,3 @@
-import { useTranslations } from 'next-intl';
 import { Heading0, Heading5 } from '@/components/typography/headers';
 import { NotFound } from '@/app/images';
 import { Link } from '@/i18n/routing';
@@ -6,9 +5,10 @@ import { Paragraph } from '@/components/typography/paragraph';
 import dayjs from 'dayjs';
 import { Logo } from './logo';
 import RichText from './typography/rich-text';
+import { getTranslations } from 'next-intl/server';
 
-export default function NotFoundPage() {
-  const t = useTranslations('global.not-found');
+export default async function NotFoundPage() {
+  const t = await getTranslations('global.not-found');
 
   return (
     <div className="flex min-h-screen flex-col justify-between p-6 md:p-12">

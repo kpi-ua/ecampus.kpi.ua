@@ -4,14 +4,15 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { TextButton } from '@/components/ui/text-button';
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 interface SocialNetworksCardProps {
   className?: string;
 }
 
-export const SocialNetworksCard = ({ className }: SocialNetworksCardProps) => {
-  const t = useTranslations('private.main.cards.social-networks');
+export const SocialNetworksCard = async ({ className }: SocialNetworksCardProps) => {
+  const t = await getTranslations('private.main.cards.social-networks');
+
   return (
     <Card className={cn(className)}>
       <CardHeader className="pb-0">
