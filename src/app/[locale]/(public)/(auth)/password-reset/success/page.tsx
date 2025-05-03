@@ -1,6 +1,7 @@
 'use client';
 
 import { Heading2 } from '@/components/typography/headers';
+import RichText from '@/components/typography/rich-text';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
@@ -10,7 +11,7 @@ import { Suspense } from 'react';
 
 const PageContents = () => {
   const t = useTranslations('auth.passwordReset.success');
-  const username = useSearchParams().get('username');
+  const username = useSearchParams().get('username') || '';
   const router = useRouter();
 
   const redirectToLogin = () => router.replace('/');
@@ -22,9 +23,14 @@ const PageContents = () => {
         {t('button')}
       </Button>
       <p className="text-neutral-600">
-        {t.rich('retryMessage', {
-          link: (chunks) => <Link href={{ pathname: '/password-reset', query: { username } }}>{chunks}</Link>,
-        })}
+        <RichText>
+          {(tags) =>
+            t.rich('retryMessage', {
+              ...tags,
+              link: (chunks) => <Link href={{ pathname: '/password-reset', query: { username } }}>{chunks}</Link>,
+            })
+          }
+        </RichText>
       </p>
     </>
   );

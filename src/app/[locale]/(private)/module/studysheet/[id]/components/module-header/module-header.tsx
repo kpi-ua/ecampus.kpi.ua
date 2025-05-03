@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { Heading1 } from '@/components/typography/headers';
 import { CreditModule } from '@/types/models/current-control/credit-module';

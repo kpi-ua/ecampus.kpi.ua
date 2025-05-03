@@ -6,7 +6,8 @@ import { TOKEN_COOKIE_NAME } from './constants/cookies';
 
 const FileUpload = (basePath: string) => {
   return async (url: string | URL, formData: FormData) => {
-    const jwt = cookies().get(TOKEN_COOKIE_NAME)?.value;
+    const resolvedCookies = await cookies();
+    const jwt = resolvedCookies.get(TOKEN_COOKIE_NAME)?.value;
 
     if (!jwt) {
       redirect('/');
@@ -24,7 +25,7 @@ const FileUpload = (basePath: string) => {
     });
 
     if (response.status === 401) {
-      cookies().delete(TOKEN_COOKIE_NAME);
+      resolvedCookies.delete(TOKEN_COOKIE_NAME);
       redirect('/');
     }
 

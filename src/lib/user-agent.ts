@@ -1,8 +1,8 @@
 import { headers } from 'next/headers';
 import { UAParser } from 'ua-parser-js';
 
-export const getUserAgentInfo = () => {
-  const headersList = headers();
+export const getUserAgentInfo = async () => {
+  const headersList = await headers();
   const userAgent = headersList.get('user-agent');
 
   if (!userAgent) {
@@ -12,7 +12,7 @@ export const getUserAgentInfo = () => {
   return UAParser(userAgent);
 };
 
-export const isIOS = () => {
-  const userAgent = getUserAgentInfo();
+export const isIOS = async () => {
+  const userAgent = await getUserAgentInfo();
   return userAgent?.os.is('iOS') ?? false;
 };

@@ -1,3 +1,5 @@
+'use client';
+
 import { Paragraph } from '@/components/typography/paragraph';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import React from 'react';

@@ -2,6 +2,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar/app-sidebar';
 import { Header } from './header';
 import { getUserDetails } from '@/actions/auth.actions';
+import { notFound } from 'next/navigation';
 
 export default async function MainPageLayout({
   children,
@@ -9,6 +10,10 @@ export default async function MainPageLayout({
   children: React.ReactNode;
 }>) {
   const user = await getUserDetails();
+
+  if (!user) {
+    notFound();
+  }
 
   return (
     <SidebarProvider>

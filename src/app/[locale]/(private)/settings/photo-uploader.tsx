@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { ProfilePicture } from '@/components/ui/profile-picture';

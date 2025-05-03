@@ -19,9 +19,10 @@ export async function setLoginCookies(token: string, sessionId: string, remember
   const tokenExpiresAt = new Date(tokenData.exp * 1000);
 
   const expires = rememberMe ? tokenExpiresAt : undefined;
+  const resolvedCookies = await cookies();
 
-  cookies().set(SID_COOKIE_NAME, sessionId, { domain: ROOT_COOKIE_DOMAIN, httpOnly: true, expires });
-  cookies().set(TOKEN_COOKIE_NAME, token, { domain: MAIN_COOKIE_DOMAIN, httpOnly: true, expires });
+  resolvedCookies.set(SID_COOKIE_NAME, sessionId, { domain: ROOT_COOKIE_DOMAIN, httpOnly: true, expires });
+  resolvedCookies.set(TOKEN_COOKIE_NAME, token, { domain: MAIN_COOKIE_DOMAIN, httpOnly: true, expires });
 }
 
 export async function loginWithCredentials(username: string, password: string, rememberMe: boolean) {
@@ -56,8 +57,10 @@ export async function loginWithCredentials(username: string, password: string, r
 }
 
 export async function logout() {
-  cookies().delete({ domain: ROOT_COOKIE_DOMAIN, name: SID_COOKIE_NAME });
-  cookies().delete({ domain: MAIN_COOKIE_DOMAIN, name: TOKEN_COOKIE_NAME });
+  const resolvedCookies = await cookies();
+
+  resolvedCookies.delete({ domain: ROOT_COOKIE_DOMAIN, name: SID_COOKIE_NAME });
+  resolvedCookies.delete({ domain: MAIN_COOKIE_DOMAIN, name: TOKEN_COOKIE_NAME });
 
   redirect('/');
 }

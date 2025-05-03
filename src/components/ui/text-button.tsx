@@ -39,32 +39,38 @@ export interface TextButtonProps extends LinkProps, VariantProps<typeof textButt
   iconPosition?: IconPosition;
 }
 
-const TextButton = React.forwardRef<HTMLAnchorElement, TextButtonProps>(
-  (
-    { className, variant, size, asChild = false, loading = false, icon, iconPosition = 'start', children, ...props },
-    ref,
-  ) => {
-    const Comp = asChild ? Slot : Link;
+const TextButton = ({
+  className,
+  variant,
+  size,
+  asChild = false,
+  loading = false,
+  icon,
+  iconPosition = 'start',
+  children,
+  ref,
+  ...props
+}: TextButtonProps) => {
+  const Comp = asChild ? Slot : Link;
 
-    const iconAtPosition = (position: IconPosition) => {
-      if (loading) {
-        return position === 'start' ? <SpinnerGap /> : null;
-      }
+  const iconAtPosition = (position: IconPosition) => {
+    if (loading) {
+      return position === 'start' ? <SpinnerGap /> : null;
+    }
 
-      return icon && position === iconPosition ? icon : null;
-    };
+    return icon && position === iconPosition ? icon : null;
+  };
 
-    return (
-      <Comp className={cn(textButtonVariants({ variant, size, className }))} ref={ref} {...props}>
-        <>
-          {iconAtPosition('start')}
-          {children}
-          {iconAtPosition('end')}
-        </>
-      </Comp>
-    );
-  },
-);
+  return (
+    <Comp className={cn(textButtonVariants({ variant, size, className }))} ref={ref} {...props}>
+      <>
+        {iconAtPosition('start')}
+        {children}
+        {iconAtPosition('end')}
+      </>
+    </Comp>
+  );
+};
 TextButton.displayName = 'TextButton';
 
 export { TextButton, textButtonVariants };

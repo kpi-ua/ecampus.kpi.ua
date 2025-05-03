@@ -1,10 +1,8 @@
 import { cn } from '@/lib/utils';
 import React from 'react';
 
-export interface ListProps extends React.HTMLAttributes<HTMLUListElement> {}
-
-export const UList = React.forwardRef<HTMLUListElement, ListProps>(({ className, ...props }, ref) => {
+export const UList = ({ className, ref, ...props }: React.ComponentProps<'ul'>) => {
   return <ul className={cn('ml-6 list-outside list-disc text-lg leading-lg', className)} ref={ref} {...props} />;
-});
+};
 
 UList.displayName = 'UlList';

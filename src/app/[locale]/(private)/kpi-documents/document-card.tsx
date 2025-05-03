@@ -2,7 +2,7 @@ import { Heading5 } from '@/components/typography/headers';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { TextButton } from '@/components/ui/text-button';
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 interface DocumentCardProps {
   BackgroundImage: React.ElementType;
@@ -11,8 +11,8 @@ interface DocumentCardProps {
   className?: string;
 }
 
-export const DocumentCard = ({ BackgroundImage, header, url, className }: DocumentCardProps) => {
-  const t = useTranslations('global.misc');
+export const DocumentCard = async ({ BackgroundImage, header, url, className }: DocumentCardProps) => {
+  const t = await getTranslations('global.misc');
 
   return (
     <Card className={cn('relative z-10 flex flex-col', className)}>
