@@ -6,7 +6,7 @@ interface Attestation {
   number: number;
 }
 export interface AttestationResult {
-  id: number;
+  id?: number;
   name: string;
   attestations: Attestation[];
   lecturer: Lecturer;

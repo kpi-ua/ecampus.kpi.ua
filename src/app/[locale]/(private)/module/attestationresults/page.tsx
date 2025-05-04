@@ -10,8 +10,10 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getAttestationResults } from '@/actions/attestation.actions';
 import { COLUMNS } from '@/app/[locale]/(private)/module/attestationresults/constants';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationBadge';
+import { LocaleProps } from '@/types/locale-props';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocaleProps) {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'private.study-sheet' });
 
   return {
@@ -49,12 +51,16 @@ export default async function AttestationResultsPage() {
               {results.map((result, index) => (
                 <TableRow key={index}>
                   <TableCell className="max-w-[336px]">
-                    <Link
-                      className="text-sm font-medium text-basic-black underline"
-                      href={`/module/studysheet/${result.id}`}
-                    >
-                      {result.name}
-                    </Link>
+                    {result.id ? (
+                      <Link
+                        className="text-sm font-medium text-basic-black underline"
+                        href={`/module/studysheet/${result.id}`}
+                      >
+                        {result.name}
+                      </Link>
+                    ) : (
+                      <span className="text-sm font-medium text-basic-black">{result.name}</span>
+                    )}
                   </TableCell>
 
                   <TableCell className="max-w-[360px]">
