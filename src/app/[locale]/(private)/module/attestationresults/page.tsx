@@ -14,7 +14,7 @@ import { LocaleProps } from '@/types/locale-props';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'private.study-sheet' });
+  const t = await getTranslations({ locale, namespace: 'private.attestation-results' });
 
   return {
     title: t('title'),
