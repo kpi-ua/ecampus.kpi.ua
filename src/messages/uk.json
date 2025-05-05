@@ -296,7 +296,6 @@
       "internal-regulations": "Правила внутрішнього розпорядку",
       "educational-organization-regulation": "Положення про організацію освітнього процесу в Університеті",
       "anti-corruption-program": "Антикорупційна програма"
-
     },
     "terms-of-service": {
       "title": "Правила використання",
@@ -408,7 +407,7 @@
         "subject": "Предмет",
         "score": "Оцінка",
         "lecturer": "Викладач",
-        "control-type":"Тип контролю",
+        "control-type": "Тип контролю",
         "link": "Посилання",
         "note": "Примітка"
       }
