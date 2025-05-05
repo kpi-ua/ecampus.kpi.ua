@@ -37,16 +37,21 @@ export default async function AttestationResultsPage() {
               <TableRow>
                 <TableHead>{t('subject')}</TableHead>
                 <TableHead>{t('lecturer')}</TableHead>
-                {COLUMNS.map((col, index) => (
-                  <TableHead key={index} className="text-center">
-                    {t('column.semester', { semesterNumber: col.semesterNumber })}{' '}
-                    <span className="text-neutral-700">
-                      {t('column.attestation', { attestationNumber: col.attestationNumber })}
-                    </span>
+                {COLUMNS.map((col, idx) => (
+                  <TableHead key={idx} className="w-[130px] text-center">
+                    <div className="flex h-full flex-col items-center justify-center">
+                      <span className="block whitespace-nowrap leading-tight">
+                        {t('column.semester', { semesterNumber: col.semesterNumber })}
+                      </span>
+                      <span className="block whitespace-nowrap leading-tight text-neutral-700">
+                        {t('column.attestation', { attestationNumber: col.attestationNumber })}
+                      </span>
+                    </div>
                   </TableHead>
                 ))}
               </TableRow>
             </TableHeader>
+
             <TableBody>
               {results.map((result, index) => (
                 <TableRow key={index}>
