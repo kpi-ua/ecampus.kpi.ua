@@ -1,10 +1,14 @@
 import { Badge } from '@/components/ui/badge';
+import { getTranslations } from 'next-intl/server';
 
 interface AttestationResultBadgeProps {
   result: boolean;
 }
 
-export function AttestationBadge({ result }: AttestationResultBadgeProps) {
+export async function AttestationBadge({ result }: AttestationResultBadgeProps) {
+  const t = await getTranslations('private.attestation-results');
+
+  const status = result ? t('success-attestation') : t('fail-attestation');
   return (
     <Badge
       className={`flex justify-center border font-semibold ${
@@ -13,7 +17,7 @@ export function AttestationBadge({ result }: AttestationResultBadgeProps) {
           : 'border-status-danger-300 bg-status-danger-100 text-status-danger-300'
       }`}
     >
-      {result ? 'А' : 'Н/А'}
+      {status}
     </Badge>
   );
 }

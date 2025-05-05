@@ -417,6 +417,8 @@
       "subtitle": "This presents the results of certifications by semester, indicating disciplines, teachers, and grades according to the educational process schedule.",
       "subject": "Subject",
       "lecturer": "Lecturer",
+      "success-attestation": "А",
+      "fail-attestation": "N/A",
       "column": {
         "semester": "{semesterNumber} semester",
         "attestation": "Attestation №{attestationNumber}"

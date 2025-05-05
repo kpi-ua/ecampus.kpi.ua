@@ -50,7 +50,7 @@ export default async function AttestationResultsPage() {
             <TableBody>
               {results.map((result, index) => (
                 <TableRow key={index}>
-                  <TableCell className="max-w-[336px]">
+                  <TableCell className="min-w-[200px] max-w-[336px]">
                     {result.id ? (
                       <Link
                         className="text-sm font-medium text-basic-black underline"
