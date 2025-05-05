@@ -24,8 +24,8 @@ export function StudySheet() {
   const studyYears = sheet?.studyYears ?? [];
   const currentYear = studyYears.at(-1) || '';
 
-  const [selectedStudyYear, setSelectedStudyYear] = useLocalStorage<string>('studyYear', currentYear);
-  const [selectedSemester, setSelectedSemester] = useLocalStorage<Semester>('semester', Semester.All);
+  const [selectedStudyYear = currentYear, setSelectedStudyYear] = useLocalStorage<string>('studyYear');
+  const [selectedSemester = Semester.All, setSelectedSemester] = useLocalStorage<Semester>('semester');
 
   const fetchData = useCallback(async () => {
     try {
