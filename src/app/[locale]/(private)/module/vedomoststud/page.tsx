@@ -8,8 +8,11 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card } from '@/components/ui/card';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Badge } from '@/components/ui/badge';
+import { LocaleProps } from '@/types/locale-props';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocaleProps) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: 'private.vedomoststud' });
 
   return {
