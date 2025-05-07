@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
 import { CoatOfArms } from '@/app/images';
+import { getTranslations } from 'next-intl/server';
 
-export const KPIIDLogin = () => {
-  const t = useTranslations('auth.login');
+export const KPIIDLogin = async () => {
+  const t = await getTranslations('auth.login');
 
   return (
     <Button

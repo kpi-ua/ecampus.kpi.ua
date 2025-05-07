@@ -3,18 +3,19 @@ import { Paragraph } from '../typography/paragraph';
 import { TextButton } from '../ui/text-button';
 import { Link } from '@/i18n/routing';
 import dayjs from 'dayjs';
-import { useTranslations } from 'next-intl';
+import RichText from '../typography/rich-text';
+import { getTranslations } from 'next-intl/server';
 
-const createFooterLinks = (t: ReturnType<typeof useTranslations>) => [
+const createFooterLinks = (t: Awaited<ReturnType<typeof getTranslations>>) => [
   { title: t('about'), url: '/about' },
   { title: t('documents'), url: '/kpi-documents' },
   { title: t('terms-of-service'), url: '/terms-of-service' },
   { title: t('contacts'), url: '/contacts' },
 ];
 
-export const Footer = () => {
-  const t = useTranslations('global.menu');
-  const footerT = useTranslations('global');
+export const Footer = async () => {
+  const t = await getTranslations('global.menu');
+  const footerT = await getTranslations('global');
   const footerLinks = createFooterLinks(t);
 
   return (
@@ -28,15 +29,20 @@ export const Footer = () => {
           </React.Fragment>
         ))}
       </Paragraph>
-      {footerT.rich('footer', {
-        kbislink: (chunks) => (
-          <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">
-            {chunks}
-          </Link>
-        ),
-        year: dayjs().year(),
-        paragraph: (chunks) => <Paragraph className="mb-0 text-sm">{chunks}</Paragraph>,
-      })}
+      <RichText>
+        {(tags) =>
+          footerT.rich('footer', {
+            ...tags,
+            kbislink: (chunks) => (
+              <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">
+                {chunks}
+              </Link>
+            ),
+            year: dayjs().year(),
+            paragraph: (chunks) => <Paragraph className="mb-0 text-sm">{chunks}</Paragraph>,
+          })
+        }
+      </RichText>
     </section>
   );
 };

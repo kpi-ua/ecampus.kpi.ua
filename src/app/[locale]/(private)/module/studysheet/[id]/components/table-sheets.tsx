@@ -1,6 +1,9 @@
+'use client';
+
 import { Paragraph } from '@/components/typography/paragraph';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import clsx from 'clsx';
 
 interface Props {
   sheetList: string[];
@@ -25,12 +28,13 @@ export function TableSheets({ sheetList }: Props) {
         <button
           key={index}
           onClick={() => handleSheetChange(item)}
-          className={`h-[77px] w-fit rounded-t-[8px] px-3 md:px-8 lg:h-[42px] ${
-            selectedSheet === item ? 'bg-basic-white' : 'bg-transparent'
-          }`}
+          className={clsx(
+            'h-[77px] w-fit rounded-t-[8px] px-3 md:px-8 lg:h-[42px]',
+            selectedSheet === item ? 'bg-basic-white' : 'bg-transparent',
+          )}
         >
           <Paragraph
-            className={`text-base font-semibold ${selectedSheet === item ? 'text-basic-blue' : 'text-neutral-700'}`}
+            className={clsx('text-base font-semibold', selectedSheet === item ? 'text-basic-blue' : 'text-neutral-700')}
           >
             {t(item)}
           </Paragraph>

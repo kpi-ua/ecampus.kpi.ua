@@ -7,7 +7,7 @@ import EyeRegular from '@/app/images/icons/EyeRegular.svg';
 import EyeClosedRegular from '@/app/images/icons/EyeClosedRegular.svg';
 import { cn } from '@/lib/utils';
 
-const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(({ className, type, ...props }, ref) => {
+const PasswordInput = ({ className, type, ref, ...props }: InputProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -30,7 +30,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, InputProps>(({ classNam
       </Button>
     </div>
   );
-});
+};
 
 PasswordInput.displayName = 'PasswordInput';
 

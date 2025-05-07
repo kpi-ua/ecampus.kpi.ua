@@ -2,13 +2,15 @@ import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAnnouncements } from '@/actions/announcement.actions';
 import { NoticeList } from '@/app/[locale]/(private)/notice-board/components/notice-list';
-import { Heading1 } from '@/components/typography/headers';
-import { Paragraph } from '@/components/typography/paragraph';
+import { Heading1, Description } from '@/components/typography';
 import { Suspense } from 'react';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.notice-board';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocaleProps) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -16,7 +18,9 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default async function NoticeBoardPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function NoticeBoardPage({ params }: LocaleProps) {
+  const { locale } = await params;
+
   setRequestLocale(locale);
   const t = await getTranslations(INTL_NAMESPACE);
 
@@ -25,7 +29,7 @@ export default async function NoticeBoardPage({ params: { locale } }: { params: 
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
         <Heading1>{t('title')}</Heading1>
-        <Paragraph className="text-neutral-700">{t('subtitle')}</Paragraph>
+        <Description>{t('subtitle')}</Description>
         <Suspense>
           <NoticeList announcements={announcements} />
         </Suspense>

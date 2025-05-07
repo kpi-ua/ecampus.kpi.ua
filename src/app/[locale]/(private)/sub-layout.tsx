@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import { cn } from '@/lib/utils';
 import React from 'react';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 interface SubLayoutProps {
   children: React.ReactNode;
@@ -17,8 +17,8 @@ interface SubLayoutProps {
   className?: string;
 }
 
-export const SubLayout = ({ children, breadcrumbs = [], pageTitle, className }: SubLayoutProps) => {
-  const t = useTranslations('global.menu');
+export const SubLayout = async ({ children, breadcrumbs = [], pageTitle, className }: SubLayoutProps) => {
+  const t = await getTranslations('global.menu');
 
   return (
     <section>
@@ -29,12 +29,12 @@ export const SubLayout = ({ children, breadcrumbs = [], pageTitle, className }: 
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           {breadcrumbs.map(([url, title]) => (
-            <>
+            <React.Fragment key={url}>
               <BreadcrumbItem>
                 <BreadcrumbLink href={url}>{title}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-            </>
+            </React.Fragment>
           ))}
           <BreadcrumbItem>
             <BreadcrumbPage>{pageTitle}</BreadcrumbPage>

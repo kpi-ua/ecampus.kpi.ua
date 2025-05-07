@@ -1,13 +1,15 @@
 import { Heading1 } from '@/components/typography/headers';
-import { useTranslations } from 'next-intl';
 import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { BookBookmark, BookOpen, Roll } from '@/app/images';
 import { DocumentCard } from './document-card';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.documents';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocaleProps) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -15,10 +17,12 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function KPIDocumentsPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function KPIDocumentsPage({ params }: LocaleProps) {
+  const { locale } = await params;
+
   setRequestLocale(locale);
 
-  const t = useTranslations(INTL_NAMESPACE);
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SubLayout pageTitle={t('header')} className="gap-8">
@@ -38,6 +42,12 @@ export default function KPIDocumentsPage({ params: { locale } }: { params: { loc
       <DocumentCard
         header={t('educational-organization-regulation')}
         url={process.env.NEXT_PUBLIC_EDUCATIONAL_ORGANIZATION_REGULATION!}
+        BackgroundImage={Roll}
+        className="col-span-full lg:col-span-3 xl:col-span-3"
+      />
+      <DocumentCard
+        header={t('anti-corruption-program')}
+        url={process.env.NEXT_PUBLIC_PROGRAM_ANTICORRUPTION!}
         BackgroundImage={Roll}
         className="col-span-full lg:col-span-3 xl:col-span-3"
       />
