@@ -8,9 +8,9 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card } from '@/components/ui/card';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getAttestationResults } from '@/actions/attestation.actions';
-import { COLUMNS } from '@/app/[locale]/(private)/module/attestationresults/constants';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationBadge';
 import { LocaleProps } from '@/types/locale-props';
+import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationHeader';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -37,18 +37,10 @@ export default async function AttestationResultsPage() {
               <TableRow>
                 <TableHead>{t('subject')}</TableHead>
                 <TableHead>{t('lecturer')}</TableHead>
-                {COLUMNS.map((col, idx) => (
-                  <TableHead key={idx} className="w-[130px] text-center">
-                    <div className="flex h-full flex-col items-center justify-center">
-                      <span className="block whitespace-nowrap leading-tight">
-                        {t('column.semester', { semesterNumber: col.semesterNumber })}
-                      </span>
-                      <span className="block whitespace-nowrap leading-tight text-neutral-700">
-                        {t('column.attestation', { attestationNumber: col.attestationNumber })}
-                      </span>
-                    </div>
-                  </TableHead>
-                ))}
+                <AttestationHeader attestationNumber={1} semesterNumber={1} />
+                <AttestationHeader attestationNumber={2} semesterNumber={1} />
+                <AttestationHeader attestationNumber={1} semesterNumber={2} />
+                <AttestationHeader attestationNumber={2} semesterNumber={2} />
               </TableRow>
             </TableHeader>
 
