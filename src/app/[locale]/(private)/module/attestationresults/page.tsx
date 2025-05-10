@@ -8,9 +8,10 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card } from '@/components/ui/card';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getAttestationResults } from '@/actions/attestation.actions';
-import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationBadge';
+import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
 import { LocaleProps } from '@/types/locale-props';
-import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationHeader';
+import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
+import { Attestation } from '@/types/models/attestation-results/attestation-result';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -21,10 +22,18 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
+const SEMESTERS = [1, 2];
+const ATTESTATION_NUMBERS = [1, 2];
+
 export default async function AttestationResultsPage() {
   const results = await getAttestationResults();
 
   const t = await getTranslations('private.attestation-results');
+
+  const getAttestationResult = (attestations: Attestation[], semester: number, number: number) => {
+    const attestation = attestations.find((att) => att.semester === semester && att.number === number);
+    return attestation ? attestation.result : null;
+  };
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -37,10 +46,15 @@ export default async function AttestationResultsPage() {
               <TableRow>
                 <TableHead>{t('subject')}</TableHead>
                 <TableHead>{t('lecturer')}</TableHead>
-                <AttestationHeader attestationNumber={1} semesterNumber={1} />
-                <AttestationHeader attestationNumber={2} semesterNumber={1} />
-                <AttestationHeader attestationNumber={1} semesterNumber={2} />
-                <AttestationHeader attestationNumber={2} semesterNumber={2} />
+                {SEMESTERS.map((semester) =>
+                  ATTESTATION_NUMBERS.map((number) => (
+                    <AttestationHeader
+                      key={`${semester}-${number}`}
+                      attestationNumber={number}
+                      semesterNumber={semester}
+                    />
+                  )),
+                )}
               </TableRow>
             </TableHeader>
 
@@ -63,12 +77,16 @@ export default async function AttestationResultsPage() {
                   <TableCell className="max-w-[360px]">
                     <LecturerItemCell photo={result.lecturer.photo} fullName={result.lecturer.fullName} />
                   </TableCell>
-
-                  {result.attestations.map((attestation, index) => (
-                    <TableCell key={index}>
-                      <AttestationBadge result={attestation.result} />
-                    </TableCell>
-                  ))}
+                  {SEMESTERS.map((semester) =>
+                    ATTESTATION_NUMBERS.map((number) => {
+                      const currentResult = getAttestationResult(result?.attestations, semester, number);
+                      return (
+                        <TableCell key={`${semester}-${number}`}>
+                          {currentResult !== null && <AttestationBadge result={currentResult} />}
+                        </TableCell>
+                      );
+                    }),
+                  )}
                 </TableRow>
               ))}
             </TableBody>

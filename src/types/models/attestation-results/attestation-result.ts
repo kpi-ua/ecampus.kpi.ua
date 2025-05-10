@@ -1,6 +1,6 @@
 import { Lecturer } from '@/types/models/lecturer';
 
-interface Attestation {
+export interface Attestation {
   result: boolean;
   semester: number;
   number: number;
