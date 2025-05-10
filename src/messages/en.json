@@ -79,6 +79,7 @@
       "sdchoice2021nmv": "Discipline selection (NMV)",
       "employment": "Employment system",
       "useract": "Bravo Requests",
+      "viewcontrol": "Review current control",
       "_groups": {
         "rating": "Rating"
       }
