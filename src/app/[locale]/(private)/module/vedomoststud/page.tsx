@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link } from '@/i18n/routing';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import React from 'react';
 import { Heading1 } from '@/components/typography/headers';
@@ -45,11 +44,7 @@ export default async function SessionPage() {
             <TableBody>
               <TableRow>
                 <TableCell className="w-[200px]">2024-12-23 00:00:00</TableCell>
-                <TableCell className="w-[300px]">
-                  <Link className="text-sm font-medium text-basic-black underline" href={`/module/studysheet/${123}`}>
-                    ghjhgjghjghjg
-                  </Link>
-                </TableCell>
+                <TableCell className="w-[300px]">ghjhgjghjghjg</TableCell>
 
                 <TableCell className="w-[109px] text-center">
                   <Badge className="font-semibold text-basic-blue">
