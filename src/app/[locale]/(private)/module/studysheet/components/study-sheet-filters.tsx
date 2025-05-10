@@ -12,11 +12,18 @@ interface Props {
   selectedStudyYear?: string;
   currentYear: string;
   studyYears: string[];
-  setSelectedStudyYear: (value?: string) => void;
-  setSelectedSemester: (value?: Semester) => void;
+  onStudyYearSelect: (value?: string) => void;
+  onSemesterSelect: (value?: Semester) => void;
 }
 
-export function StudySheetFilters({ currentYear, studyYears, selectedSemester, selectedStudyYear, setSelectedStudyYear, setSelectedSemester }: Props) {
+export function StudySheetFilters({
+  currentYear,
+  studyYears,
+  selectedSemester,
+  selectedStudyYear,
+  onStudyYearSelect,
+  onSemesterSelect,
+}: Props) {
   const t = useTranslations('private.study-sheet');
   const tSemester = useTranslations('private.study-sheet.semester');
 
@@ -24,7 +31,7 @@ export function StudySheetFilters({ currentYear, studyYears, selectedSemester, s
     <>
       <div className="flex items-center">
         <Paragraph className="mr-5 text-lg font-semibold text-neutral-700">{t('study-year')}</Paragraph>
-        <Select value={selectedStudyYear} onValueChange={setSelectedStudyYear}>
+        <Select value={selectedStudyYear} onValueChange={onStudyYearSelect}>
           <SelectTrigger className="h-[36px] w-[132px]">
             <SelectValue placeholder={currentYear} />
           </SelectTrigger>
@@ -44,7 +51,7 @@ export function StudySheetFilters({ currentYear, studyYears, selectedSemester, s
         <Tabs
           defaultValue="all"
           value={selectedSemester}
-          onValueChange={(value) => setSelectedSemester(value as Semester)}
+          onValueChange={(value) => onSemesterSelect(value as Semester)}
           className="w-[210px]"
         >
           <TabsList className="p-[2px]" size="small">

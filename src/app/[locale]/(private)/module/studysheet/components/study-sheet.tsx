@@ -72,8 +72,8 @@ export function StudySheet() {
               currentYear={currentYear}
               selectedSemester={selectedSemester}
               selectedStudyYear={selectedStudyYear}
-              setSelectedStudyYear={setSelectedStudyYear}
-              setSelectedSemester={setSelectedSemester}
+              onStudyYearSelect={setSelectedStudyYear}
+              onSemesterSelect={setSelectedSemester}
             />
           </div>
           <DisciplinesTable disciplines={filteredDisciplines} />
