@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Badge } from '@/components/ui/badge';
 import { LocaleProps } from '@/types/locale-props';
+import { getVedomostStud } from '@/actions/vedomoststud.actions';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -23,6 +24,8 @@ const MAX_SCORE = 100;
 
 export default async function SessionPage() {
   const t = await getTranslations('private.vedomoststud');
+
+  const sessionResults = await getVedomostStud();
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -42,21 +45,25 @@ export default async function SessionPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              <TableRow>
-                <TableCell className="w-[200px]">2024-12-23 00:00:00</TableCell>
-                <TableCell className="w-[300px]">ghjhgjghjghjg</TableCell>
+              {sessionResults.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell className="w-[200px]">{row.date ?? ''}</TableCell>
+                  <TableCell className="w-[300px]">{row.name}</TableCell>
 
-                <TableCell className="w-[109px] text-center">
-                  <Badge className="font-semibold text-basic-blue">
-                    {Number(88)}/{MAX_SCORE}
-                  </Badge>
-                </TableCell>
-                <TableCell className="w-[140px]">Залік</TableCell>
-                <TableCell className="w-[140px]">Основна</TableCell>
-                <TableCell className="max-w-[158px]">
-                  <LecturerItemCell photo="" fullName="" />
-                </TableCell>
-              </TableRow>
+                  <TableCell className="w-[109px] text-center">
+                    {row.mark && (
+                      <Badge className="font-semibold text-basic-blue">
+                        {Number(row.mark)}/{MAX_SCORE}
+                      </Badge>
+                    )}
+                  </TableCell>
+                  <TableCell className="w-[140px]">{row.assessmentType}</TableCell>
+                  <TableCell className="w-[140px]">{row.recordType}</TableCell>
+                  <TableCell className="max-w-[158px]">
+                    <LecturerItemCell photo={row.lecturer.photo} fullName={row.lecturer.fullName} />
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Card>

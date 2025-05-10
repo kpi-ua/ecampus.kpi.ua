@@ -1,9 +1,11 @@
-interface Session {
-  date: string;
+import { Lecturer } from '@/types/models/current-control/lecturer';
+
+export interface Session {
   name: string;
-  controlType: string;
-  informationType: string;
-  lecturer: string;
-  score: number;
+  mark?: number;
+  assessmentType: string;
+  recordType: string;
+  date?: string;
   status: string;
+  lecturer: Lecturer;
 }
