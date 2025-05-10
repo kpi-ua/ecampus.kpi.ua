@@ -30,8 +30,10 @@ export default async function AttestationResultsPage() {
 
   const t = await getTranslations('private.attestation-results');
 
-  const getAttestationResult = (attestations: Attestation[], semester: number, number: number) =>
-    attestations.find((att) => att.semester === semester && att.number === number)?.result;
+  const getAttestationResult = (attestations: Attestation[], semester: number, number: number) => {
+    const attestation = attestations.find((att) => att.semester === semester && att.number === number);
+    return attestation ? attestation.result : null;
+  };
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -80,7 +82,7 @@ export default async function AttestationResultsPage() {
                       const currentResult = getAttestationResult(result?.attestations, semester, number);
                       return (
                         <TableCell key={`${semester}-${number}`}>
-                          {currentResult && <AttestationBadge result={currentResult} />}
+                          {currentResult !== null && <AttestationBadge result={currentResult} />}
                         </TableCell>
                       );
                     }),
