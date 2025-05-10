@@ -13,11 +13,9 @@ const MAX_SCORE = 100;
 
 interface Props {
   disciplines: Discipline[];
-  selectedStudyYear: string;
-  selectedSemester: string;
 }
 
-export function DisciplinesTable({ disciplines, selectedStudyYear, selectedSemester }: Props) {
+export function DisciplinesTable({ disciplines }: Props) {
   const tTable = useTranslations('private.study-sheet.table');
 
   return (
@@ -35,7 +33,7 @@ export function DisciplinesTable({ disciplines, selectedStudyYear, selectedSemes
             <TableCell className="min-w-[200px] max-w-[336px]">
               <Link
                 className="text-sm font-medium text-basic-black underline"
-                href={`/module/studysheet/${discipline.id}?studyYear=${selectedStudyYear}&semester=${selectedSemester}`}
+                href={`/module/studysheet/${discipline.id}`}
               >
                 {discipline.name}
               </Link>

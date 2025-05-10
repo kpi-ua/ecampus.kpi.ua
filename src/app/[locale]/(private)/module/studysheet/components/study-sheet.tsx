@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Heading1, Heading6, Description } from '@/components/typography';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Description, Heading1, Heading6 } from '@/components/typography';
 import { SubLayout } from '../../../sub-layout';
 import { useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
@@ -13,24 +12,20 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { DisciplinesTable } from '@/app/[locale]/(private)/module/studysheet/components/disciplines-table';
 import { StudySheetFilters } from '@/app/[locale]/(private)/module/studysheet/components/study-sheet-filters';
 import { Semester } from '@/types/enums/current-control/semester';
+import { useLocalStorage } from '@/hooks/use-storage';
 
 export function StudySheet() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
   const t = useTranslations('private.study-sheet');
-
   const [sheet, setSheet] = useState<Sheet | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   const { errorToast } = useServerErrorToast();
 
   const studyYears = sheet?.studyYears ?? [];
-  const currentYear = studyYears.length > 0 ? studyYears[studyYears.length - 1] : '';
+  const currentYear = studyYears.at(-1) || '';
 
-  const selectedStudyYear = searchParams.get('studyYear') || currentYear;
-  const selectedSemester = searchParams.get('semester') || Semester.All;
+  const [selectedStudyYear = currentYear, setSelectedStudyYear] = useLocalStorage<string>('studyYear');
+  const [selectedSemester = Semester.All, setSelectedSemester] = useLocalStorage<Semester>('semester');
 
   const fetchData = useCallback(async () => {
     try {
@@ -47,26 +42,8 @@ export function StudySheet() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams);
-    let updated = false;
-
-    if (!params.get('studyYear')) {
-      params.set('studyYear', currentYear);
-      updated = true;
-    }
-    if (!params.get('semester')) {
-      params.set('semester', Semester.All);
-      updated = true;
-    }
-    if (updated) {
-      router.replace(`${pathname}?${params.toString()}`);
-    }
-  }, [searchParams, currentYear, pathname, router]);
-
   const filteredDisciplines = useMemo(() => {
     const disciplines = sheet?.disciplines ?? [];
-
     return disciplines.filter((discipline) => {
       const matchesSemester = selectedSemester === Semester.All || discipline.semester.toString() === selectedSemester;
       const matchesStudyYear = !selectedStudyYear || discipline.studyYear === selectedStudyYear;
@@ -91,17 +68,15 @@ export function StudySheet() {
           <div className="flex flex-col lg:flex-row lg:items-center">
             <Heading6 className="mr-auto text-neutral-900">{t('your-information')}</Heading6>
             <StudySheetFilters
-              selectedSemester={selectedSemester}
-              selectedStudyYear={selectedStudyYear}
               studyYears={studyYears}
               currentYear={currentYear}
+              selectedSemester={selectedSemester}
+              selectedStudyYear={selectedStudyYear}
+              onStudyYearSelect={setSelectedStudyYear}
+              onSemesterSelect={setSelectedSemester}
             />
           </div>
-          <DisciplinesTable
-            disciplines={filteredDisciplines}
-            selectedStudyYear={selectedStudyYear}
-            selectedSemester={selectedSemester}
-          />
+          <DisciplinesTable disciplines={filteredDisciplines} />
         </Card>
       </div>
     </SubLayout>
