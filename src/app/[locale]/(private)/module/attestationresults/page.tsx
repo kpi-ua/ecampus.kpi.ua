@@ -8,9 +8,9 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card } from '@/components/ui/card';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getAttestationResults } from '@/actions/attestation.actions';
-import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationBadge';
+import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
 import { LocaleProps } from '@/types/locale-props';
-import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/AttestationHeader';
+import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
 import { Attestation } from '@/types/models/attestation-results/attestation-result';
 
 export async function generateMetadata({ params }: LocaleProps) {
