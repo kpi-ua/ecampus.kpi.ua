@@ -55,4 +55,5 @@ export const MODULES: Module[] = [
   { name: 'mob', isExternal: true },
   { name: 'employment', isExternal: false },
   { name: 'useract', isExternal: true },
+  { name: 'viewcontrol', isExternal: true },
 ];
