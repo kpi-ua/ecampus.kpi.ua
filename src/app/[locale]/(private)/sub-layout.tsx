@@ -7,8 +7,8 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { cn } from '@/lib/utils';
-import React from 'react';
 import { useTranslations } from 'next-intl';
+import React from 'react';
 
 interface SubLayoutProps {
   children: React.ReactNode;
