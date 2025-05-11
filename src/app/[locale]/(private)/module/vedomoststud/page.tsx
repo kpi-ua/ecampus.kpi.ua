@@ -1,14 +1,15 @@
 import { getTranslations } from 'next-intl/server';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import React from 'react';
+
+import { getVedomostStud } from '@/actions/vedomoststud.actions';
+import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading1 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
-import { Card } from '@/components/ui/card';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { LocaleProps } from '@/types/locale-props';
-import { getVedomostStud } from '@/actions/vedomoststud.actions';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
