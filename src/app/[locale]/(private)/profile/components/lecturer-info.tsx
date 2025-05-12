@@ -1,20 +1,20 @@
 import { EmployeePosition, EmployeeProfile } from '@/types/models/employee-profile';
 import React from 'react';
 import { EMPLOYMENT_TYPE } from '@/lib/constants/employment-type';
-import { useTranslations } from 'next-intl';
 import { InfoItem, InfoList } from './info-list';
 import { Heading6 } from '@/components/typography/headers';
 import { Show } from '@/components/utils/show';
 import { Separator } from '@/components/ui/separator';
 import { dash } from 'radash';
+import { getTranslations } from 'next-intl/server';
 
 interface Props {
   employeeProfile: EmployeeProfile;
 }
 
-export function LecturerInfo({ employeeProfile }: Props) {
-  const tEnums = useTranslations('global.enums');
-  const t = useTranslations('private.profile');
+export async function LecturerInfo({ employeeProfile }: Props) {
+  const tEnums = await getTranslations('global.enums');
+  const t = await getTranslations('private.profile');
 
   const employeeInfo: InfoItem[] = [
     { label: t('info.academic-degree'), value: tEnums(`academic-degree.${dash(employeeProfile.academicDegree)}`) },

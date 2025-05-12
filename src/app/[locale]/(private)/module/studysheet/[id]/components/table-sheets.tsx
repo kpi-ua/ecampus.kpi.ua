@@ -1,3 +1,5 @@
+'use client';
+
 import { Paragraph } from '@/components/typography/paragraph';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';

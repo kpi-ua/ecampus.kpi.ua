@@ -4,14 +4,15 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { TextButton } from '@/components/ui/text-button';
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 interface SupportCardProps {
   className?: string;
 }
 
-export const SupportCard = ({ className }: SupportCardProps) => {
-  const t = useTranslations('private.main.cards.support');
+export const SupportCard = async ({ className }: SupportCardProps) => {
+  const t = await getTranslations('private.main.cards.support');
+
   return (
     <Card className={cn(className)}>
       <CardHeader className="pb-0">

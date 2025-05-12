@@ -7,8 +7,8 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 import { cn } from '@/lib/utils';
-import React from 'react';
 import { useTranslations } from 'next-intl';
+import React from 'react';
 
 interface SubLayoutProps {
   children: React.ReactNode;
@@ -29,12 +29,12 @@ export const SubLayout = ({ children, breadcrumbs = [], pageTitle, className }: 
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           {breadcrumbs.map(([url, title]) => (
-            <>
+            <React.Fragment key={url}>
               <BreadcrumbItem>
                 <BreadcrumbLink href={url}>{title}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
-            </>
+            </React.Fragment>
           ))}
           <BreadcrumbItem>
             <BreadcrumbPage>{pageTitle}</BreadcrumbPage>

@@ -1,19 +1,27 @@
-import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import PasswordResetForm from './password-reset-form';
 import { AuthNavLayout } from '../../auth-nav-layout';
+import { LocaleProps } from '@/types/locale-props';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: 'auth.passwordReset' });
+const INTL_NAMESPACE = 'auth.passwordReset';
+
+interface Props extends LocaleProps {
+  searchParams: Promise<{ username: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+
+  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
     title: t('header'),
   };
 }
 
-export default function PasswordResetPage({ searchParams }: { searchParams: { username: string } }) {
-  const t = useTranslations('auth.passwordReset');
-  const username = searchParams.username;
+export default async function PasswordResetPage({ searchParams }: Props) {
+  const { username } = await searchParams;
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <AuthNavLayout header={t('header')} description={t('description')}>

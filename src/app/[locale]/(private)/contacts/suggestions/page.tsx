@@ -1,12 +1,14 @@
-import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SubLayout } from '../../sub-layout';
 import { Heading1 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'public.suggestions';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+export async function generateMetadata({ params }: LocaleProps) {
+  const { locale } = await params;
+
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
@@ -14,11 +16,13 @@ export async function generateMetadata({ params: { locale } }: { params: { local
   };
 }
 
-export default function SuggestionsPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function SuggestionsPage({ params }: LocaleProps) {
+  const { locale } = await params;
+
   setRequestLocale(locale);
 
-  const t = useTranslations(INTL_NAMESPACE);
-  const contactsT = useTranslations('private.contacts');
+  const t = await getTranslations(INTL_NAMESPACE);
+  const contactsT = await getTranslations('private.contacts');
 
   return (
     <SubLayout pageTitle={t('header')} breadcrumbs={[['/contacts', contactsT('title')]]}>

@@ -1,7 +1,7 @@
 import { TextButton } from '@/components/ui/text-button';
 import CaretLeftRegular from '@/app/images/icons/CaretLeftRegular.svg';
-import { useTranslations } from 'next-intl';
 import { Heading2 } from '@/components/typography/headers';
+import { getTranslations } from 'next-intl/server';
 
 export interface AuthNavLayoutProps {
   children: React.ReactNode;
@@ -10,8 +10,8 @@ export interface AuthNavLayoutProps {
   className?: string;
 }
 
-export const AuthNavLayout = ({ children, header, description, className }: AuthNavLayoutProps) => {
-  const t = useTranslations('global.navigation');
+export const AuthNavLayout = async ({ children, header, description, className }: AuthNavLayoutProps) => {
+  const t = await getTranslations('global.navigation');
 
   return (
     <>

@@ -53,7 +53,7 @@
       "ratingnpp2023": "Рейтинг НПП 2022-2023",
       "ratingnpp2024": "Рейтинг НПП 2023-2024",
       "webometrics": "Переклад метаданих ЕІР",
-      "attestationresults": "Результати календарного контролю",
+      "attestationresults": "Результати атестації",
       "ekanat": "Деканат",
       "editRNP": "Редагування РНП Руслан",
       "hignyak": "Звітність для ДНВР",
@@ -297,7 +297,6 @@
       "internal-regulations": "Правила внутрішнього розпорядку",
       "educational-organization-regulation": "Положення про організацію освітнього процесу в Університеті",
       "anti-corruption-program": "Антикорупційна програма"
-
     },
     "terms-of-service": {
       "title": "Правила використання",
@@ -409,9 +408,21 @@
         "subject": "Предмет",
         "score": "Оцінка",
         "lecturer": "Викладач",
-        "control-type":"Тип контролю",
+        "control-type": "Тип контролю",
         "link": "Посилання",
         "note": "Примітка"
+      }
+    },
+    "attestation-results": {
+      "title": "Результати атестації",
+      "subtitle": "У модулі представлено підсумки атестацій за семестрами із зазначенням дисциплін, викладачів та оцінок згідно з графіком навчального процесу.",
+      "subject": "Предмет",
+      "lecturer": "Викладач",
+      "success-attestation": "А",
+      "fail-attestation": "Н/A",
+      "column": {
+        "semester": "{semesterNumber} семестр",
+        "attestation": "Атестація №{attestationNumber}"
       }
     },
     "settings": {

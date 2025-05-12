@@ -1,13 +1,14 @@
 import { setRequestLocale } from 'next-intl/server';
 import { PublicLinks } from './public-links';
+import { LocaleProps } from '@/types/locale-props';
 
-export default function LoginLayout({
-  children,
-  params: { locale },
-}: Readonly<{
+interface Props extends LocaleProps {
   children: React.ReactNode;
-  params: { locale: string };
-}>) {
+}
+
+export default async function LoginLayout({ children, params }: Props) {
+  const { locale } = await params;
+
   setRequestLocale(locale);
 
   return (
