@@ -37,11 +37,11 @@ export const MenuItem = ({ name, title, url, isExternal = false }: MenuItemProps
           <Icon />
           {title}
         </span>
+        <Show when={isExternal}>
           <span className="[&>svg]:size-[18px]">
-            <Show when={isExternal}>
-              <ArrowSquareOutRegular />
-            </Show>
+            <ArrowSquareOutRegular />
           </span>
+        </Show>
       </SidebarMenuButton>
     </SidebarMenuItem>
   );
