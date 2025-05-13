@@ -414,8 +414,8 @@
       }
     },
     "attestation-results": {
-      "title": "Attestation results",
-      "subtitle": "This presents the results of certifications by semester, indicating disciplines, teachers, and grades according to the educational process schedule.",
+      "title": "Calendar control results",
+      "subtitle": "This presents the results of calendar controls by semester, indicating disciplines, teachers, and grades according to the educational process schedule.",
       "subject": "Subject",
       "lecturer": "Lecturer",
       "success-attestation": "А",
