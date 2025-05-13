@@ -125,6 +125,45 @@
         "shortened": "Shortened",
         "out-of-postgraduate": "Out Of Postgraduate",
         "other": "Other"
+      },
+      "assessment-type": {
+        "exam": "Exam",
+        "individual": "Individual",
+        "attestation1": "Attestation #1",
+        "attestation2": "Attestation #2",
+        "total": "Total",
+        "graphic-work-izd": "Graphic Work [IZD]",
+        "dkr": "DKR",
+        "differentiated-credit": "Differentiated Credit",
+        "control-work-pmk": "Control Work [PMK]",
+        "course-work": "Course Work",
+        "course-project": "Course Project",
+        "laboratory": "Laboratory",
+        "laboratory-individual": "Individual Laboratory",
+        "lectures": "Lectures",
+        "lectures-individual": "Individual Lectures",
+        "module-control-pmk": "Module (thematic), Control Works [PMK]",
+        "undefined-izt": "Undefined [IZT]",
+        "final-attestation": "Final Attestation",
+        "practice": "Practice",
+        "practical": "Practical",
+        "practical-individual": "Individual Practical",
+        "rr-gr-dz-izd": "RR, GR, DZ [IZD]",
+        "referat-izd": "Referat [IZD]",
+        "calculation-work-izd": "Calculation Work [IZD]",
+        "calc-graphic-work-izd": "Calculation-Graphic Work [IZD]",
+        "self-study": "Self Study",
+        "credit": "Credit"
+      },
+      "record-type": {
+        "main": "Main"
+      },
+      "status": {
+        "passed": "Passed",
+        "unknown": "Unknown",
+        "expelled": "Expelled",
+        "rejected": "Failed",
+        "absent": "Absent"
       }
     },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
@@ -389,7 +428,8 @@
       "score": "Score",
       "controlType": "Control type",
       "sessionType": "Session type",
-      "lecturer": "Lecturer"
+      "lecturer": "Lecturer",
+      "status": "Status"
     },
     "study-sheet": {
       "title": "Current control",
