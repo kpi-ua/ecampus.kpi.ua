@@ -141,7 +141,7 @@
         "support": "User support",
         "curator-search": "Find curator",
         "suggestions": "Suggestions form",
-        "telegram-chat": "Telegram chat",
+        "telegram-chat": "Support chat",
         "faq": "Frequently Asked Questions"
       },
       "field": {
@@ -196,7 +196,7 @@
   "public": {
     "support": {
       "header": "Support",
-      "content": "<p><tglink>Telegram</tglink> support chat.</p><p>If you have any questions, you can send them to the support email: <email>ecampus@kpi.ua</email>.</p><p>You can also visit the design office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, building 13, 4th floor, room 25.</addresslink></p>"
+      "content": "<p><tglink>Support chat</tglink> – </p><p>if you have any questions, you can send them to the support email: <email>ecampus@kpi.ua</email>.</p><p>You can also visit the design office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, building 13, 4th floor, room 25.</addresslink></p>"
     },
     "suggestions": {
       "header": "Suggestions form"
@@ -241,7 +241,7 @@
         },
         "social-networks": {
           "title": "Social Networks",
-          "description": "You can always find the latest information about the operation of the 'Electronic Campus KPI' system and other services on our Facebook page and our Telegram channel:"
+          "description": "You can always find the latest information about the operation of the 'Electronic Campus KPI' system and other services on our Facebook page and our other social networks accounts:"
         },
         "support": {
           "title": "Support",
