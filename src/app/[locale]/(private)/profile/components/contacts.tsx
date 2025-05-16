@@ -12,11 +12,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
-import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
 import React from 'react';
-import { Paragraph } from '@/components/typography';
-
-const PROHIBITED_CONTACT_TYPES = ['orcid id', 'research id', 'scopus id', 'google scholar', 'research gate'] as const;
+import ContactsList from '@/app/[locale]/(private)/profile/components/contacts-list';
 
 interface Props {
   contacts: Contact[];
@@ -60,29 +57,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
       <div className="flex w-full flex-col gap-3">
         <Heading6>{t('contact.title')}</Heading6>
         <Separator />
-        <div className="flex w-full flex-col gap-4">
-          {contacts.map((contact) => {
-            const isReadonly = PROHIBITED_CONTACT_TYPES.find(
-              (readOnlyContact) => readOnlyContact.toLowerCase() === contact.type.name.toLowerCase(),
-            );
-            return (
-              <div className="group flex flex-col items-start gap-4 xl:flex-row xl:items-center" key={contact.id}>
-                <Paragraph className="m-0 w-full min-w-[170px] max-w-[250px] font-semibold text-neutral-400 xl:max-w-[220px]">
-                  {contact.type.name}:
-                </Paragraph>
-                {isReadonly ? (
-                  <Paragraph className="m-0 min-w-[170px] break-all font-medium">{contact.value}</Paragraph>
-                ) : (
-                  <EditableField
-                    value={contact.value}
-                    onSave={(newValue) => handleUpdateContact(contact.id, contact.type.id, newValue)}
-                    onDelete={() => handleDeleteContact(contact.id)}
-                  />
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <ContactsList contacts={contacts} onDeleteContact={handleDeleteContact} onUpdateContact={handleUpdateContact} />
       </div>
 
       <div className="mt-6 flex flex-col gap-3">
