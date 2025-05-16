@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Paragraph } from '@/components/typography/paragraph';
 import { PencilBold, XBold } from '@/app/images';
-import { Show } from '@/components/utils/show';
 import { useTranslations } from 'next-intl';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import {
@@ -26,7 +25,6 @@ interface Props {
   size?: 'small' | 'medium';
   value?: string;
   onDelete?: () => void;
-  label?: string;
   renderValue?: (value: string) => React.ReactNode;
   disableClearValue?: boolean;
   placeholder?: string;
@@ -37,7 +35,6 @@ export function EditableField({
   value,
   size = 'medium',
   onDelete,
-  label,
   renderValue,
   disableClearValue = false,
   placeholder,
@@ -65,13 +62,7 @@ export function EditableField({
   };
 
   return (
-    <div className="group flex flex-col items-start gap-4 xl:flex-row xl:items-center">
-      <Show when={!!label}>
-        <Paragraph className="m-0 w-full min-w-[170px] max-w-[250px] font-semibold text-neutral-400 xl:max-w-[220px]">
-          {label}:
-        </Paragraph>
-      </Show>
-
+    <>
       {isEditing ? (
         <div className="flex w-full flex-wrap items-center gap-2 md:flex-nowrap">
           <Input
@@ -150,6 +141,6 @@ export function EditableField({
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
