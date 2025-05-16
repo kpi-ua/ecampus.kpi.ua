@@ -51,33 +51,31 @@ export function StudySheet() {
     });
   }, [selectedSemester, selectedStudyYear, sheet?.disciplines]);
 
-  if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <SpinnerGap />
-      </div>
-    );
-  }
-
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-8">
         <Heading1>{t('title')}</Heading1>
         <Description>{t('subtitle')}</Description>
-        <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
-          <div className="flex flex-col lg:flex-row lg:items-center">
-            <Heading6 className="mr-auto text-neutral-900">{t('your-information')}</Heading6>
-            <StudySheetFilters
-              studyYears={studyYears}
-              currentYear={currentYear}
-              selectedSemester={selectedSemester}
-              selectedStudyYear={selectedStudyYear}
-              onStudyYearSelect={setSelectedStudyYear}
-              onSemesterSelect={setSelectedSemester}
-            />
+        {isLoading ? (
+          <div className="flex h-full items-center justify-center">
+            <SpinnerGap />
           </div>
-          <DisciplinesTable disciplines={filteredDisciplines} />
-        </Card>
+        ) : (
+          <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
+            <div className="flex flex-col lg:flex-row lg:items-center">
+              <Heading6 className="mr-auto text-neutral-900">{t('your-information')}</Heading6>
+              <StudySheetFilters
+                studyYears={studyYears}
+                currentYear={currentYear}
+                selectedSemester={selectedSemester}
+                selectedStudyYear={selectedStudyYear}
+                onStudyYearSelect={setSelectedStudyYear}
+                onSemesterSelect={setSelectedSemester}
+              />
+            </div>
+            <DisciplinesTable disciplines={filteredDisciplines} />
+          </Card>
+        )}
       </div>
     </SubLayout>
   );
