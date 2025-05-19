@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import './globals.css';
 import { interFont } from '@/app/font';
+import { NextIntlClientProvider } from 'next-intl';
 
 type Props = {
   children: ReactNode;
@@ -11,7 +12,9 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html>
-      <body className={`${interFont.className}`}>{children}</body>
+      <body className={`${interFont.className}`}>
+        <NextIntlClientProvider messages={null}>{children}</NextIntlClientProvider>
+      </body>
     </html>
   );
 }
