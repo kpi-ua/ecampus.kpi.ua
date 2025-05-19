@@ -97,5 +97,6 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['adminpanel', SquaresFour],
   ['useract', Scroll],
   ['viewcontrol', NotePencil],
+  ['vedomoststud', GraduationCap],
   ['_group.rating', Ranking],
 ]);
