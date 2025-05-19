@@ -29,7 +29,7 @@ export const MODULES: Module[] = [
   { name: 'ratingnpp2023', isExternal: true, group: 'rating' },
   { name: 'ratingnpp2024', isExternal: true, group: 'rating' },
   { name: 'webometrics', isExternal: true },
-  { name: 'attestationresults', isExternal: true },
+  { name: 'attestationresults', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'ekanat', isExternal: true },
   { name: 'editRNP', isExternal: true },
   { name: 'hignyak', isExternal: true },
@@ -55,4 +55,5 @@ export const MODULES: Module[] = [
   { name: 'mob', isExternal: true },
   { name: 'employment', isExternal: false },
   { name: 'useract', isExternal: true },
+  { name: 'viewcontrol', isExternal: true },
 ];

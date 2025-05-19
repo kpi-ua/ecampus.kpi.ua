@@ -1,4 +1,4 @@
-import { Lecturer } from '@/types/models/current-control/lecturer';
+import { Lecturer } from '@/types/models/lecturer';
 
 export interface EventsPlan {
   date: string;
