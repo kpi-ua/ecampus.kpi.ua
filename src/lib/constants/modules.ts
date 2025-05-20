@@ -4,7 +4,7 @@ import { ProfileArea } from '@/types/enums/profile-area';
 export const MODULES: Module[] = [
   { name: 'contacts', isExternal: true },
   { name: 'msg', isExternal: true },
-  { name: 'kurator', isExternal: true },
+  { name: 'kurator', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'rnp', isExternal: true },
   { name: 'vote', isExternal: true },
   { name: 'studysheet', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
