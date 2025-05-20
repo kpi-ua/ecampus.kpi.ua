@@ -1,10 +1,12 @@
 import React from 'react';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { Heading2, Heading6 } from '@/components/typography/headers';
+import { Heading2, Heading3, Heading4, Heading6 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Card } from '@/components/ui/card';
 
 export default function CuratorPage() {
+  const photoUrl = null;
+
   return (
     <SubLayout pageTitle="Куратор">
       <div className="col-span-8">
@@ -13,8 +15,17 @@ export default function CuratorPage() {
           У цьому представлено офіційну інформацію про вашого куратора, зокрема займані посади, кафедри, контактні дані
           та посилання на персональну сторінку.
         </Paragraph>
-        <Card className="rounded-b-6 col-span-full w-full bg-white p-[36px] xl:col-span-5">
-          <div></div>
+        <Card className="rounded-b-6 col-span-full flex w-full flex-col gap-[24px] bg-white p-[36px] xl:col-span-5">
+          <div className="flex items-center gap-[24px]">
+            <div className="flex h-[120px] w-[120px] items-center justify-center overflow-hidden rounded-full bg-brand-100">
+              {photoUrl ? (
+                <img src={photoUrl} alt="" className="h-full w-full object-cover" />
+              ) : (
+                <Heading3 className="text-basic-green">Ж</Heading3>
+              )}
+            </div>
+            <Heading4 className="text-basic-black">Жураковський Богдан Юрійович</Heading4>
+          </div>
           <div className="flex flex-col gap-[12px]">
             <Heading6>Інформація про куратора</Heading6>
             <hr />
