@@ -425,6 +425,14 @@
         "attestation": "Attestation №{attestationNumber}"
       }
     },
+    "kurator": {
+      "title": "Curator",
+      "info": "This section provides official information about your curator, including positions held, departments, contact details, and a link to the personal profile.",
+      "curator-info": "Curator information",
+      "subdivisions": "Departments:",
+      "contacts": "Contacts:",
+      "profile": "Personal page:"
+    },
     "settings": {
       "title": "Settings",
       "subtitle": "Here you can change your photo, e-mail and password for your profile.",
