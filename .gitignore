@@ -65,3 +65,4 @@ typings/
 build/
 .DS_Store
 *storybook.log
+.early.coverage

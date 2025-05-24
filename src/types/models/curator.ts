@@ -1,8 +1,11 @@
 export interface Curator {
-  id: number;
-  userIdentifier: string;
-  fullName: string;
-  photo: string;
-  credo: string;
-  profile?: string;
+  userInfo: {
+    id: number;
+    fullName: string;
+    photo: string;
+    credo: string;
+    profile?: string;
+  };
+  subdivisions: { id: number; name: string }[];
+  contacts: { name: string; value: string }[];
 }
