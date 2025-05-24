@@ -12,8 +12,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
-import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
-import { Fragment } from 'react';
+import React from 'react';
+import ContactsList from '@/app/[locale]/(private)/profile/components/contacts-list';
 
 interface Props {
   contacts: Contact[];
@@ -57,18 +57,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
       <div className="flex w-full flex-col gap-3">
         <Heading6>{t('contact.title')}</Heading6>
         <Separator />
-        <div className="flex w-full flex-col gap-4">
-          {contacts.map((contact) => (
-            <Fragment key={contact.id}>
-              <EditableField
-                label={contact.type.name}
-                value={contact.value}
-                onSave={(newValue) => handleUpdateContact(contact.id, contact.type.id, newValue)}
-                onDelete={() => handleDeleteContact(contact.id)}
-              />
-            </Fragment>
-          ))}
-        </div>
+        <ContactsList contacts={contacts} onDeleteContact={handleDeleteContact} onUpdateContact={handleUpdateContact} />
       </div>
 
       <div className="mt-6 flex flex-col gap-3">
