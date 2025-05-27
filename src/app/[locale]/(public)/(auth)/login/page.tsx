@@ -30,7 +30,7 @@ export default async function LoginPage({ params }: LocaleProps) {
       <Description>{t('description')}</Description>
       <CredentialsLogin />
       <TextDivider>{t('or')}</TextDivider>
-      {/*<KPIIDLogin />*/}
+      <KPIIDLogin />
     </>
   );
 }
