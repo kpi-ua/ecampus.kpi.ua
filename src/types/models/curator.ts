@@ -1,19 +1,19 @@
-export interface Subdivision {
+interface Subdivision {
   id: number;
-  name?: string | null;
+  name?: string;
 }
 
-export interface Contact {
-  name?: string | null;
-  value?: string | null;
+interface Contact {
+  name?: string;
+  value?: string;
 }
 
-export interface UserInfo {
+interface UserInfo {
   id: number;
   fullName: string;
-  photo?: string | null;
-  credo?: string | null;
-  profile?: string | null;
+  photo?: string;
+  credo?: string;
+  profile?: string;
 }
 
 export interface Curator {

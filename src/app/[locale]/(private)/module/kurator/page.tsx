@@ -64,16 +64,18 @@ export default async function CuratorPage() {
                   </div>
                 ))}
               </div>
-              <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
-                <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px]">
-                  {t('profile')}
-                </Paragraph>
-                <Paragraph className="m-0 flex-1 break-all text-lg font-normal text-basic-black">
-                  <Link href={userInfo.profile || '#'} target="_blank" rel="noopener noreferrer">
-                    {userInfo.profile || '—'}
-                  </Link>
-                </Paragraph>
-              </div>
+              {userInfo.profile && (
+                <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">
+                  <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px]">
+                    {t('profile')}
+                  </Paragraph>
+                  <Paragraph className="m-0 flex-1 break-all text-lg font-normal text-basic-black">
+                    <Link href={userInfo.profile} target="_blank" rel="noopener noreferrer">
+                      {userInfo.profile}
+                    </Link>
+                  </Paragraph>
+                </div>
+              )}
             </div>
           </div>
         </Card>
