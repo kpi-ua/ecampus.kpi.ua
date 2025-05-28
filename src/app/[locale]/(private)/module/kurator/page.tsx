@@ -3,7 +3,7 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading4, Heading6 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Card } from '@/components/ui/card';
-import { getCurator } from '@/actions/kurator.actions';
+import { getCurator } from '@/actions/curator.actions';
 import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';
 import { ProfilePicture } from '@/components/ui/profile-picture';
