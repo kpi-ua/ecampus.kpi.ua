@@ -8,8 +8,6 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { LocaleProps } from '@/types/locale-props';
-import { Paragraph } from '@/components/typography';
-import { round } from '@/lib/utils';
 
 const INTL_NAMESPACE = 'private.vedomoststud';
 
@@ -33,10 +31,6 @@ export default async function SessionPage() {
 
   return (
     <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
-      <div className="mt-2 flex h-9 items-center gap-2 pl-4">
-        <Paragraph className="text-base font-normal">Середній бал</Paragraph>
-        <Badge className="bg-basic-blue font-semibold text-basic-white">{round(91, 2)}</Badge>
-      </div>
       <Table>
         <TableHeader>
           <TableRow>
