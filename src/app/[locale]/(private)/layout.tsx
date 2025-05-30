@@ -3,6 +3,8 @@ import { AppSidebar } from '@/components/app-sidebar/app-sidebar';
 import { Header } from './header';
 import { getUserDetails } from '@/actions/auth.actions';
 import { notFound } from 'next/navigation';
+import { Footer } from '@/components/app-sidebar/footer';
+import React from 'react';
 
 export default async function MainPageLayout({
   children,
@@ -21,6 +23,7 @@ export default async function MainPageLayout({
       <SidebarInset>
         <Header user={user} />
         <div className="grow bg-uncategorized-main p-[20px] lg:p-[28px]">{children}</div>
+        <Footer />
       </SidebarInset>
     </SidebarProvider>
   );

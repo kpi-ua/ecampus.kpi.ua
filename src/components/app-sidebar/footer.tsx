@@ -19,30 +19,32 @@ export const Footer = async () => {
   const footerLinks = createFooterLinks(t);
 
   return (
-    <section className="p-[calc(16px_+_0.5rem)] text-xs text-neutral-600">
-      <Paragraph className="my-0 leading-base">
+    <footer className="flex flex-wrap items-start justify-between gap-4 bg-uncategorized-main px-[20px] text-xs text-neutral-600 md:items-center lg:p-[28px]">
+      <Paragraph className="my-0 flex flex-col items-start gap-4 leading-base md:flex-row md:gap-8">
         {footerLinks.map((link) => (
           <React.Fragment key={link.url}>
-            <TextButton href={link.url} variant="link" size="small">
+            <TextButton href={link.url} className="no-underline" variant="link" size="small">
               {link.title}
             </TextButton>{' '}
           </React.Fragment>
         ))}
       </Paragraph>
-      <RichText>
-        {(tags) =>
-          footerT.rich('footer', {
-            ...tags,
-            kbislink: (chunks) => (
-              <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">
-                {chunks}
-              </Link>
-            ),
-            year: dayjs().year(),
-            paragraph: (chunks) => <Paragraph className="mb-0 text-sm">{chunks}</Paragraph>,
-          })
-        }
-      </RichText>
-    </section>
+      <div className="inline-flex flex-col gap-5 md:flex-row">
+        <RichText>
+          {(tags) =>
+            footerT.rich('footer', {
+              ...tags,
+              kbislink: (chunks) => (
+                <Link href={process.env.NEXT_PUBLIC_KBIS_URL!} target="_blank">
+                  {chunks}
+                </Link>
+              ),
+              year: dayjs().year(),
+              paragraph: (chunks) => <Paragraph className="m-0 text-sm">{chunks}</Paragraph>,
+            })
+          }
+        </RichText>
+      </div>
+    </footer>
   );
 };
