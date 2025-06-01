@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { LocaleProps } from '@/types/locale-props';
+import { TermStatusBadge } from '@/app/[locale]/(private)/module/vedomoststud/components/term-status-badge';
 
 const INTL_NAMESPACE = 'private.vedomoststud';
 
@@ -63,7 +64,9 @@ export default async function SessionPage() {
                   <LecturerItemCell photo={row.lecturer.photo} fullName={row.lecturer.fullName} />
                 )}
               </TableCell>
-              <TableCell className="w-[140px]">{tEnums(`status.${dash(row.status)}`)}</TableCell>
+              <TableCell className="w-[140px]">
+                <TermStatusBadge className="flex justify-center border font-semibold" status={row.status} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
