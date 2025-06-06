@@ -1,8 +1,8 @@
 import { campusFetch } from '@/lib/client';
-import { Session } from '@/types/models/session';
+import { Term } from '@/types/models/term';
 
 export async function getTerm() {
-  const response = await campusFetch<Session[]>('/term');
+  const response = await campusFetch<Term>('/term');
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }

@@ -157,14 +157,20 @@
         "credit": "Залік"
       },
       "record-type": {
-        "main": "Основна"
+        "main": "Основна",
+        "retake1": "Перша перездача",
+        "retake2": "Друга перездача"
       },
       "status": {
-        "passed": "Успішно",
+        "passed": "Зараховано",
         "unknown": "Невідомо",
-        "expelled": "Відраховано",
-        "rejected": "Не складено",
-        "absent": "Відсутній"
+        "expelled": "Усунено",
+        "rejected": "Не задовільно",
+        "absent": "Не з'явився",
+        "sufficient": "Задовільно",
+        "good": "Добре",
+        "very-good": "Дуже добре",
+        "excellent": "Відмінно"
       }
     },
     "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
@@ -430,7 +436,8 @@
       "controlType": "Вид контролю",
       "sessionType": "Тип відомості",
       "lecturer": "Викладач",
-      "status": "Статус"
+      "status": "Статус",
+      "average-score": "Середній бал:"
     },
     "study-sheet": {
       "title": "Поточний контроль",

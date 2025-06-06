@@ -3,7 +3,7 @@ import { RecordType } from '@/types/enums/session/record-type';
 import { Status } from '@/types/enums/session/status';
 import { Lecturer } from './lecturer';
 
-export interface Session {
+export interface TermDiscipline {
   name: string;
   mark?: number;
   assessmentType: AssessmentType;
@@ -11,4 +11,9 @@ export interface Session {
   date?: string;
   status: Status;
   lecturer: Lecturer;
+}
+
+export interface Term {
+  disciplines: TermDiscipline[];
+  averageScore: number;
 }
