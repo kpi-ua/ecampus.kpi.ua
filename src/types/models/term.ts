@@ -10,7 +10,7 @@ export interface TermDiscipline {
   recordType: RecordType;
   date?: string;
   status: Status;
-  lecturer: Lecturer;
+  lecturer?: Lecturer;
 }
 
 export interface Term {
