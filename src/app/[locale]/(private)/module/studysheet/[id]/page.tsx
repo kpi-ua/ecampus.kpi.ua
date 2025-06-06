@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl';
 
 import { Card } from '@/components/ui/card';
 import { SheetTranslationKeys } from '@/app/[locale]/(private)/module/studysheet/[id]/constants';
-import { getTotalScore } from '@/app/[locale]/(private)/module/studysheet/[id]/utils';
 import { getMonitoringById } from '@/actions/monitoring.actions';
 import { CreditModule } from '@/types/models/current-control/credit-module';
 import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
@@ -58,7 +57,6 @@ export default function InfoPageClient() {
   }
 
   const studyPeriod = `${creditModule.studyYear} (${creditModule.semester} ${t('semester.title')})`;
-  const totalScore = getTotalScore(creditModule.journal);
   const selectedSheet = searchParams.get('sheet') || SheetTranslationKeys.Journal;
   const hasParams = !!querySemester && !!queryYear;
   const breadcrumbsRootPath = hasParams
@@ -72,9 +70,7 @@ export default function InfoPageClient() {
         <div className="mt-8 flex flex-col">
           <TableSheets sheetList={Object.values(SheetTranslationKeys)} />
           <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
-            {selectedSheet === SheetTranslationKeys.Journal && (
-              <JournalTable journal={creditModule.journal} totalScore={totalScore} />
-            )}
+            {selectedSheet === SheetTranslationKeys.Journal && <JournalTable journal={creditModule.journal} />}
             {selectedSheet === SheetTranslationKeys.EventPlan && (
               <EventPlanTable eventsPlan={creditModule.eventsPlan} />
             )}

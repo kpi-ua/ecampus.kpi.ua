@@ -1,6 +1,5 @@
 import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar';
 import React from 'react';
-import { Footer } from './footer';
 import { ModulesMenuItems } from './modules-menu-items';
 import { Logo } from '../logo';
 import { MenuSection } from './menu-section';
@@ -30,7 +29,6 @@ export async function AppSidebar() {
           </MenuSection>
         </SidebarContent>
       </SidebarContent>
-      <Footer />
     </Sidebar>
   );
 }

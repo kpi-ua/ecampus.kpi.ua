@@ -7,14 +7,12 @@ import { Paragraph } from '@/components/typography/paragraph';
 import { Journal } from '@/types/models/current-control/journal';
 import { useTranslations } from 'next-intl';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
-import { round } from '@/lib/utils';
 
 interface Props {
-  journal: Journal[];
-  totalScore: number;
+  journal: Journal;
 }
 
-export function JournalTable({ journal, totalScore }: Props) {
+export function JournalTable({ journal }: Props) {
   const t = useTranslations('private.study-sheet');
   const tTable = useTranslations('private.study-sheet.table');
 
@@ -31,7 +29,7 @@ export function JournalTable({ journal, totalScore }: Props) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {journal.map((row, index) => (
+          {journal.disciplines.map((row, index) => (
             <TableRow key={index}>
               <TableCell className="w-[116px] text-sm font-medium">{row.date}</TableCell>
               <TableCell className="w-[109px] text-center">
@@ -50,7 +48,7 @@ export function JournalTable({ journal, totalScore }: Props) {
       </Table>
       <div className="mt-2 flex h-9 items-center gap-2 pl-4">
         <Paragraph className="text-base font-normal">{t('total-score')}</Paragraph>
-        <Badge className="bg-basic-blue font-semibold text-basic-white">{round(totalScore, 2)}</Badge>
+        <Badge className="bg-basic-blue font-semibold text-basic-white">{journal.totalScore}</Badge>
       </div>
     </>
   );
