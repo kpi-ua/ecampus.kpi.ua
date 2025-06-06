@@ -30,7 +30,6 @@ export function StudySheet() {
   const fetchData = useCallback(async () => {
     try {
       const data = await getMonitoring();
-      console.log(data);
       setSheet(data);
     } catch (error) {
       errorToast();
