@@ -48,9 +48,8 @@ export default async function SessionPage() {
         <TableBody>
           {termResults.disciplines.map((row, index) => (
             <TableRow key={index}>
-              <TableCell className="w-[200px]">{row.date ?? ''}</TableCell>
+              <TableCell className="w-[120px]">{row.date}</TableCell>
               <TableCell className="w-[300px]">{row.name}</TableCell>
-
               <TableCell className="w-[109px] text-center">
                 {row.mark && (
                   <Badge className="font-semibold text-basic-blue">
@@ -70,12 +69,12 @@ export default async function SessionPage() {
               </TableCell>
             </TableRow>
           ))}
-          <div className="my-2 flex items-center gap-2 whitespace-nowrap pl-4">
-            <Paragraph className="text-base font-normal">{t('average-score')}</Paragraph>
-            <Badge className="bg-basic-blue font-semibold text-basic-white">{termResults.averageScore}</Badge>
-          </div>
         </TableBody>
       </Table>
+      <div className="my-2 flex items-center gap-2 whitespace-nowrap pl-4">
+        <Paragraph className="text-base font-normal">{t('average-score')}</Paragraph>
+        <Badge className="bg-basic-blue font-semibold text-basic-white">{termResults.averageScore}</Badge>
+      </div>
     </Card>
   );
 }
