@@ -9,7 +9,7 @@ export interface CreditModule {
   studyYear: string;
   name: string;
   lecturers: Lecturer[];
-  journal: Journal[];
+  journal: Journal;
   eventsPlan: EventsPlan[];
   internalMaterials: InternalMaterials[];
   externalMaterials: ExternalMaterials[];
