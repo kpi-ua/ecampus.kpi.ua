@@ -6,11 +6,18 @@ const STATUS_STYLES = {
   default: 'border-gray-300 bg-gray-100 text-gray-600',
 } as const;
 
-const STATUS_STYLE_MAP: Partial<Record<Status, keyof typeof STATUS_STYLES>> = {
+type StatusStyleKey = keyof typeof STATUS_STYLES;
+
+const STATUS_STYLE_MAP: Record<Status, StatusStyleKey> = {
   [Status.Passed]: 'success',
+  [Status.Good]: 'success',
+  [Status.VeryGood]: 'success',
+  [Status.Sufficient]: 'success',
+  [Status.Excellent]: 'success',
   [Status.Expelled]: 'error',
   [Status.Rejected]: 'error',
   [Status.Absent]: 'error',
+  [Status.Unknown]: 'default',
 } as const;
 
 export function getStatusStyle(status: Status): string {

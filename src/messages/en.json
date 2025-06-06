@@ -157,14 +157,20 @@
         "credit": "Credit"
       },
       "record-type": {
-        "main": "Main"
+        "main": "Main",
+        "retake1": "First retake",
+        "retake2": "Second retake"
       },
       "status": {
         "passed": "Passed",
         "unknown": "Unknown",
         "expelled": "Expelled",
-        "rejected": "Failed",
-        "absent": "Absent"
+        "rejected": "Rejected",
+        "absent": "Absent",
+        "sufficient" : "Sufficient",
+        "good": "Good",
+        "very-good": "Very Good",
+        "excellent":"Excellent"
       }
     },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
@@ -430,7 +436,8 @@
       "controlType": "Control type",
       "sessionType": "Session type",
       "lecturer": "Lecturer",
-      "status": "Status"
+      "status": "Status",
+      "average-score": "Average score:"
     },
     "study-sheet": {
       "title": "Current control",
