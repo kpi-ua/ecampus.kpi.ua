@@ -60,9 +60,7 @@ export default async function SessionPage() {
               <TableCell className="w-[140px]">{tEnums(`assessment-type.${dash(row.assessmentType)}`)}</TableCell>
               <TableCell className="w-[140px]">{tEnums(`record-type.${dash(row.recordType)}`)}</TableCell>
               <TableCell className="max-w-[158px]">
-                {row.lecturer.fullName && (
-                  <LecturerItemCell photo={row.lecturer.photo} fullName={row.lecturer.fullName} />
-                )}
+                {row.lecturer && <LecturerItemCell photo={row.lecturer.photo} fullName={row.lecturer.fullName} />}
               </TableCell>
               <TableCell className="w-[140px]">
                 <TermStatusBadge className="flex justify-center border text-center font-semibold" status={row.status} />
