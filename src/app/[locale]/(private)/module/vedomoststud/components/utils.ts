@@ -6,20 +6,19 @@ const STATUS_STYLES = {
   default: 'border-gray-300 bg-gray-100 text-gray-600',
 } as const;
 
-type StatusStyleKey = keyof typeof STATUS_STYLES;
-
-const STATUS_STYLE_MAP: Record<Status, StatusStyleKey> = {
-  [Status.Passed]: 'success',
-  [Status.Good]: 'success',
-  [Status.VeryGood]: 'success',
-  [Status.Sufficient]: 'success',
-  [Status.Excellent]: 'success',
-  [Status.Expelled]: 'error',
-  [Status.Rejected]: 'error',
-  [Status.Absent]: 'error',
-  [Status.Unknown]: 'default',
-} as const;
-
-export function getStatusStyle(status: Status): string {
-  return STATUS_STYLES[STATUS_STYLE_MAP[status] ?? 'default'];
+export function getStatusStyle(status: Status) {
+  switch (status) {
+    case Status.Passed:
+    case Status.Good:
+    case Status.VeryGood:
+    case Status.Sufficient:
+    case Status.Excellent:
+      return STATUS_STYLES.success;
+    case Status.Expelled:
+    case Status.Rejected:
+    case Status.Absent:
+      return STATUS_STYLES.error;
+    default:
+      return STATUS_STYLES.default;
+  }
 }
