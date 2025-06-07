@@ -39,7 +39,7 @@ npm run start
 npm run storybook
 ```
 
-## [Docker](https://hub.docker.com/r/kpiua/ecampus-kpi-ua)
+## [Docker](https://hub.docker.com/r/kpiua/ecampus.kpi.ua)
 
 ### Build container
 
