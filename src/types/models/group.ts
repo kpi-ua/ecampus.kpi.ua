@@ -1,5 +1,13 @@
 import { Cathedra } from './cathedra';
-import { Curator } from './curator';
+
+interface Curator {
+  id: number;
+  userIdentifier: string;
+  fullName: string;
+  photo: string;
+  credo: string;
+  profile?: string;
+}
 
 export interface Group {
   id: number;
