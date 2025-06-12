@@ -2,7 +2,7 @@ import { Cathedra } from '@/types/models/cathedra';
 import { Lecturer } from '@/types/models/lecturer';
 
 export interface Discipline {
-  id: string;
+  id: number;
   name: string;
   studyYear: string; // "2021-2022"
   lecturers: Lecturer[];

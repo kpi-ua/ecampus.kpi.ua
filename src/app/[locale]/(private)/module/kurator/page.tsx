@@ -7,10 +7,13 @@ import { getCurator } from '@/actions/curator.actions';
 import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';
 import { ProfilePicture } from '@/components/ui/profile-picture';
+import { Show } from '@/components/utils/show';
+
+const INTL_NAMESPACE = 'private.curator';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'private.curator' });
+  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
     title: t('title'),
@@ -21,7 +24,7 @@ export default async function CuratorPage() {
   const result = await getCurator();
   const { userInfo, subdivisions, contacts } = result;
 
-  const t = await getTranslations('private.curator');
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -52,17 +55,19 @@ export default async function CuratorPage() {
                 </div>
               </div>
               <div className="flex flex-col gap-1 sm:gap-2">
-                <Paragraph className="m-0 text-lg font-semibold text-neutral-400">{t('contacts')}</Paragraph>
-                {contacts?.map((contact, index) => (
-                  <div className="flex flex-col gap-1 sm:flex-row sm:gap-6" key={index}>
-                    <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px] sm:pl-4">
-                      {contact.name}
-                    </Paragraph>
-                    <Paragraph className="m-0 break-all text-lg font-normal text-basic-black">
-                      {contact.value}
-                    </Paragraph>
-                  </div>
-                ))}
+                <Show when={contacts.length > 0}>
+                  <Paragraph className="m-0 text-lg font-semibold text-neutral-400">{t('contacts')}</Paragraph>
+                  {contacts?.map((contact, index) => (
+                    <div className="flex flex-col gap-1 sm:flex-row sm:gap-6" key={index}>
+                      <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px] sm:pl-4">
+                        {contact.name}
+                      </Paragraph>
+                      <Paragraph className="m-0 break-all text-lg font-normal text-basic-black">
+                        {contact.value}
+                      </Paragraph>
+                    </div>
+                  ))}
+                </Show>
               </div>
               {userInfo.profile && (
                 <div className="flex flex-col gap-1 sm:flex-row sm:gap-6">

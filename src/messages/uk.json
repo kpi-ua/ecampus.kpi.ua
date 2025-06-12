@@ -126,6 +126,51 @@
         "shortened": "Скорочена",
         "out-of-postgraduate": "Поза аспірантурою",
         "other": "Інше"
+      },
+      "assessment-type": {
+        "exam": "Екзамен",
+        "individual": "Індивідуальні",
+        "attestation1": "Атестація №1",
+        "attestation2": "Атестація №2",
+        "total": "Всього",
+        "graphic-work-izd": "Графічна робота [ІЗД]",
+        "dkr": "ДКР",
+        "differentiated-credit": "Диференційований залік",
+        "control-work-pmk": "Контрольна робота [ПМК]",
+        "course-work": "Курсова робота",
+        "course-project": "Курсовий проект",
+        "laboratory": "Лабораторні",
+        "laboratory-individual": "Лабораторні індивідуальні",
+        "lectures": "Лекції",
+        "lectures-individual": "Лекції індивідуальні",
+        "module-control-pmk": "Модуль (темат.), контр. робіт [ПМК]",
+        "undefined-izt": "Невизначений [ІЗТ]",
+        "final-attestation": "Підсумкова атестація",
+        "practice": "Практика",
+        "practical": "Практичні",
+        "practical-individual": "Практичні індивідуальні",
+        "rr-gr-dz-izd": "РР, ГР, ДЗ [ІЗД]",
+        "referat-izd": "Реферат [ІЗД]",
+        "calculation-work-izd": "Розрахункова робота [ІЗД]",
+        "calc-graphic-work-izd": "Розрахунково-графічна робота [ІЗД]",
+        "self-study": "Самостійна робота",
+        "credit": "Залік"
+      },
+      "record-type": {
+        "main": "Основна",
+        "retake1": "Перша перездача",
+        "retake2": "Друга перездача"
+      },
+      "status": {
+        "passed": "Зараховано",
+        "unknown": "Невідомо",
+        "expelled": "Усунено",
+        "rejected": "Не задовільно",
+        "absent": "Не з'явився",
+        "sufficient": "Задовільно",
+        "good": "Добре",
+        "very-good": "Дуже добре",
+        "excellent": "Відмінно"
       }
     },
     "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
@@ -381,6 +426,18 @@
     },
     "suggestions": {
       "title": "Відправити відгук"
+    },
+    "vedomoststud": {
+      "title": "Сесія",
+      "subtitle": "Результати навчальної роботи студентів протягом семестру. Тривалість та терміни її проведення визначаються навчальним планом (робочим навчальним планом).",
+      "date": "Дата заходу",
+      "subject": "Предмет",
+      "score": "Оцінка",
+      "controlType": "Вид контролю",
+      "sessionType": "Тип відомості",
+      "lecturer": "Викладач",
+      "status": "Статус",
+      "average-score": "Середній бал:"
     },
     "study-sheet": {
       "title": "Поточний контроль",

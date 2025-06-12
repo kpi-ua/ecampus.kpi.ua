@@ -10,9 +10,11 @@ import { LocaleProps } from '@/types/locale-props';
 import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
 import { Attestation } from '@/types/models/attestation-results/attestation-result';
 
+const INTL_NAMESPACE = 'private.attestation-results';
+
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'private.attestation-results' });
+  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
     title: t('title'),
@@ -25,7 +27,7 @@ const ATTESTATION_NUMBERS = [1, 2];
 export default async function AttestationResultsPage() {
   const results = await getAttestationResults();
 
-  const t = await getTranslations('private.attestation-results');
+  const t = await getTranslations(INTL_NAMESPACE);
 
   const getAttestationResult = (attestations: Attestation[], semester: number, number: number) => {
     const attestation = attestations.find((att) => att.semester === semester && att.number === number);
