@@ -2,14 +2,15 @@ import { Module } from '@/types/module';
 import { ProfileArea } from '@/types/enums/profile-area';
 
 export const MODULES: Module[] = [
+  { name: 'studysheet', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  { name: 'attestationresults', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  { name: 'vedomoststud', isExternal: false },
+  { name: 'kurator', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'contacts', isExternal: true },
   { name: 'msg', isExternal: true },
-  { name: 'kurator', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'rnp', isExternal: true },
   { name: 'vote', isExternal: true },
-  { name: 'studysheet', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'rectorialcontrol', isExternal: true },
-  { name: 'vedomoststud', isExternal: true },
   { name: 'pk2024', isExternal: true },
   { name: 'pk2025', isExternal: true },
   { name: 'studdoc', isExternal: true },
@@ -29,7 +30,6 @@ export const MODULES: Module[] = [
   { name: 'ratingnpp2023', isExternal: true, group: 'rating' },
   { name: 'ratingnpp2024', isExternal: true, group: 'rating' },
   { name: 'webometrics', isExternal: true },
-  { name: 'attestationresults', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'ekanat', isExternal: true },
   { name: 'editRNP', isExternal: true },
   { name: 'hignyak', isExternal: true },

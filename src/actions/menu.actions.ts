@@ -75,29 +75,27 @@ export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
     const composeMenuGroup = getMenuGroupComposer(t);
     const composeModuleMenuItem = getModuleMenuItemComposer(t);
 
-    return Object.entries(groups)
-      .reduce((acc: MenuGroup[], [group, modules]) => {
-        if (!modules) {
-          return acc;
-        }
+    return Object.entries(groups).reduce((acc: MenuGroup[], [group, modules]) => {
+      if (!modules) {
+        return acc;
+      }
 
-        if (modules.length === 1) {
-          return [...acc, composeModuleMenuItem(modules[0], profileArea)];
-        }
+      if (modules.length === 1) {
+        return [...acc, composeModuleMenuItem(modules[0], profileArea)];
+      }
 
-        const menuGroupItems = composeMenuGroup(modules, profileArea);
+      const menuGroupItems = composeMenuGroup(modules, profileArea);
 
-        return [
-          ...acc,
-          {
-            name: `_group.${group}`,
-            title: t(`_groups.${group}`),
-            url: `#${group}`,
-            submenu: menuGroupItems,
-          } satisfies MenuGroup,
-        ];
-      }, [])
-      .sort(byTitle);
+      return [
+        ...acc,
+        {
+          name: `_group.${group}`,
+          title: t(`_groups.${group}`),
+          url: `#${group}`,
+          submenu: menuGroupItems,
+        } satisfies MenuGroup,
+      ];
+    }, []);
   } catch (error) {
     return [];
   }
