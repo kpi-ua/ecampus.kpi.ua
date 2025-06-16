@@ -32,7 +32,7 @@ export default function CodeOfHonorAlert() {
               t.rich('codeOfHonor.content', {
                 ...tags,
                 documentsLink: (chunks) => (
-                  <Link target="_blank" href={process.env.NEXT_PUBLIC_UNIVERSITY_CODE_OF_HONOR_URL!}>
+                  <Link target="_blank" href={process.env.NEXT_PUBLIC_CODE_OF_HONOR!}>
                     {chunks}
                   </Link>
                 ),
