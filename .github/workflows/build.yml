@@ -1,5 +1,8 @@
 name: Build PR ecampus.kpi.ua
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     types:
