@@ -40,7 +40,7 @@
     "file-saver": "^2.0.5",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.447.0",
-    "next": "15.3.1",
+    "next": "15.3.3",
     "next-intl": "^4.1.0",
     "query-string": "^9.1.1",
     "radash": "^12.1.0",
