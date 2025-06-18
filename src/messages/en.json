@@ -159,7 +159,8 @@
       "record-type": {
         "main": "Main",
         "retake1": "First retake",
-        "retake2": "Second retake"
+        "retake2": "Second retake",
+        "individual": "Individual"
       },
       "status": {
         "passed": "Passed",
