@@ -5,12 +5,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        tall: {
-          raw: '(min-height: 933px)',
-        },
-        '3xl': {
-          raw: '(min-width: 1920px)',
-        },
+        '3xl': '1920px',
       },
       borderRadius: {
         xl: 'calc(var(--radius) * 4.5)',
@@ -147,5 +142,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  // plugins: [require('tailwindcss-animate')],
 };

@@ -10,11 +10,11 @@ export const DotButton = ({ selected = false, onClick }: DotButtonProps) => {
     <button
       type="button"
       onClick={onClick}
-      className={cn('flex size-[12px] items-center justify-center focus:outline-none')}
+      className={cn('flex cursor-pointer size-[12px] items-center justify-center focus:outline-hidden')}
     >
       <span
         className={cn(
-          'duration-[250ms] size-[8px] rounded-full border-[2px] border-basic-blue bg-basic-white transition-all',
+          'duration-250 size-[8px] rounded-full border-2 border-basic-blue bg-basic-white transition-all',
           {
             'size-[12px] bg-basic-blue': selected,
           },
