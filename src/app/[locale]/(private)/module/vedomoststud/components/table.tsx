@@ -12,47 +12,26 @@ import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { TermStatusBadge } from '@/app/[locale]/(private)/module/vedomoststud/components/term-status-badge';
 import { Paragraph } from '@/components/typography';
+import { SortIcon } from '@/components/ui/sort-icon';
 
-import CaretUp from '@/app/images/icons/CaretUp.svg';
-import CaretDown from '@/app/images/icons/CaretDown.svg';
 import { Status } from '@/types/enums/session/status';
+import { TermDiscipline } from '@/types/models/term';
 
-const INTL_NAMESPACE = 'private.vedomoststud';
 const MAX_SCORE = 100;
 
-type Discipline = {
-  date: string;
-  name: string;
-  mark?: number | string;
-  assessmentType: string;
-  recordType: string;
-  lecturer?: {
-    photo?: string;
-    fullName: string;
-  };
-  status: string;
-  [key: string]: any;
-};
-
 type TermResults = {
-  disciplines: Discipline[];
+  disciplines: TermDiscipline[];
   averageScore: number | string;
 };
 
 export default function SessionTable({ termResults }: { termResults: TermResults }) {
-  const t = useTranslations(INTL_NAMESPACE);
+  const t = useTranslations('private.vedomoststud');
   const tEnums = useTranslations('global.enums');
 
-  const { sortedRows, handleHeaderClick, getSortDirection } = useTableSort<Discipline>(
-    termResults.disciplines,
-    (row, header) => row[header],
+  const { sortedRows, handleHeaderClick, getSortDirection } = useTableSort(
+    termResults.disciplines as unknown as Record<string, unknown>[],
+    (row, header) => row[header as keyof typeof row],
   );
-
-  function renderSortIcon(header: string) {
-    const dir = getSortDirection(header);
-    if (!dir) return null;
-    return dir === 'asc' ? <CaretUp className="inline-block" /> : <CaretDown className="inline-block" />;
-  }
 
   return (
     <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
@@ -62,26 +41,26 @@ export default function SessionTable({ termResults }: { termResults: TermResults
             <TableHead onClick={() => handleHeaderClick('date')} className="cursor-pointer">
               <span className="flex items-center gap-3">
                 {t('date')}
-                {renderSortIcon('date')}
+                {SortIcon(getSortDirection('date'))}
               </span>
             </TableHead>
             <TableHead className="w-[300px]">{t('subject')}</TableHead>
             <TableHead onClick={() => handleHeaderClick('mark')} className="cursor-pointer text-center">
               <span className="flex items-center gap-3">
                 {t('score')}
-                {renderSortIcon('mark')}
+                {SortIcon(getSortDirection('mark'))}
               </span>
             </TableHead>
             <TableHead onClick={() => handleHeaderClick('assessmentType')} className="cursor-pointer">
               <span className="flex items-center gap-3">
                 {t('controlType')}
-                {renderSortIcon('assessmentType')}
+                {SortIcon(getSortDirection('assessmentType'))}
               </span>
             </TableHead>
             <TableHead onClick={() => handleHeaderClick('recordType')} className="cursor-pointer">
               <span className="flex items-center gap-3">
                 {t('sessionType')}
-                {renderSortIcon('recordType')}
+                {SortIcon(getSortDirection('recordType'))}
               </span>
             </TableHead>
             <TableHead>{t('lecturer')}</TableHead>
@@ -89,30 +68,39 @@ export default function SessionTable({ termResults }: { termResults: TermResults
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sortedRows.map((row, index) => (
-            <TableRow key={index}>
-              <TableCell className="w-[120px]">{row.date}</TableCell>
-              <TableCell className="w-[300px]">{row.name}</TableCell>
-              <TableCell className="w-[109px] text-center">
-                {row.mark && (
-                  <Badge className="font-semibold text-basic-blue">
-                    {Number(row.mark)}/{MAX_SCORE}
-                  </Badge>
-                )}
-              </TableCell>
-              <TableCell className="w-[140px]">{tEnums(`assessment-type.${dash(row.assessmentType)}`)}</TableCell>
-              <TableCell className="w-[140px]">{tEnums(`record-type.${dash(row.recordType)}`)}</TableCell>
-              <TableCell className="max-w-[158px]">
-                {row.lecturer && <LecturerItemCell photo={row.lecturer.photo ?? ''} fullName={row.lecturer.fullName} />}
-              </TableCell>
-              <TableCell className="w-[140px]">
-                <TermStatusBadge
-                  className="flex justify-center border text-center font-semibold"
-                  status={row.status as Status}
-                />
-              </TableCell>
-            </TableRow>
-          ))}
+          {sortedRows.map((row, index) => {
+            const discipline = row as unknown as TermDiscipline;
+            return (
+              <TableRow key={index}>
+                <TableCell className="w-[120px]">{String(discipline.date)}</TableCell>
+                <TableCell className="w-[300px]">{String(discipline.name)}</TableCell>
+                <TableCell className="w-[109px] text-center">
+                  {discipline.mark !== undefined && discipline.mark !== null && (
+                    <Badge className="font-semibold text-basic-blue">
+                      {Number(discipline.mark as number)}/{MAX_SCORE}
+                    </Badge>
+                  )}
+                </TableCell>
+                <TableCell className="w-[140px]">
+                  {tEnums(`assessment-type.${dash(discipline.assessmentType as string)}`)}
+                </TableCell>
+                <TableCell className="w-[140px]">
+                  {tEnums(`record-type.${dash(discipline.recordType as string)}`)}
+                </TableCell>
+                <TableCell className="max-w-[158px]">
+                  {discipline.lecturer && (
+                    <LecturerItemCell photo={discipline.lecturer.photo ?? ''} fullName={discipline.lecturer.fullName} />
+                  )}
+                </TableCell>
+                <TableCell className="w-[140px]">
+                  <TermStatusBadge
+                    className="flex justify-center border text-center font-semibold"
+                    status={discipline.status as Status}
+                  />
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
       <div className="my-2 flex items-center gap-2 whitespace-nowrap pl-4">

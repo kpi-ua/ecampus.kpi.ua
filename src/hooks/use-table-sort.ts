@@ -5,7 +5,10 @@ import { useState } from 'react';
 type SortDirection = 'asc' | 'desc';
 type SortState = { header: string; direction: SortDirection } | null;
 
-export function useTableSort<T extends Record<string, any>>(data: T[], getSortValue?: (row: T, header: string) => any) {
+export function useTableSort(
+  data: Record<string, unknown>[],
+  getSortValue?: (row: Record<string, unknown>, header: string) => unknown,
+) {
   const [sort, setSort] = useState<SortState>(null);
 
   function handleHeaderClick(header: string) {
@@ -20,11 +23,18 @@ export function useTableSort<T extends Record<string, any>>(data: T[], getSortVa
 
   const sortedRows = sort
     ? [...data].sort((a, b) => {
-        let aVal = getSortValue ? getSortValue(a, sort.header) : a[sort.header];
-        let bVal = getSortValue ? getSortValue(b, sort.header) : b[sort.header];
-        if (aVal === bVal) return 0;
-        if (sort.direction === 'asc') return aVal > bVal ? 1 : -1;
-        return aVal < bVal ? 1 : -1;
+        const aVal = getSortValue ? getSortValue(a, sort.header) : a[sort.header];
+        const bVal = getSortValue ? getSortValue(b, sort.header) : b[sort.header];
+
+        if (typeof aVal === 'number' && typeof bVal === 'number') {
+          return sort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+        if (typeof aVal === 'string' && typeof bVal === 'string') {
+          return sort.direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        }
+        return sort.direction === 'asc'
+          ? String(aVal).localeCompare(String(bVal))
+          : String(bVal).localeCompare(String(aVal));
       })
     : data;
 
@@ -33,5 +43,5 @@ export function useTableSort<T extends Record<string, any>>(data: T[], getSortVa
     return sort.direction;
   }
 
-  return { sort, handleHeaderClick, sortedRows, getSortDirection };
+  return { handleHeaderClick, sortedRows, getSortDirection };
 }

@@ -13,7 +13,9 @@ export async function generateMetadata({ params }: LocaleProps) {
 
   const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
-  return { title: t('title') };
+  return {
+    title: t('title'),
+  };
 }
 
 export default async function SessionPage() {
@@ -21,9 +23,9 @@ export default async function SessionPage() {
 
   const fixedTermResults = {
     ...termResults,
-    disciplines: termResults.disciplines.map((d: any) => ({
-      ...d,
-      date: d.date ?? '',
+    disciplines: termResults.disciplines.map((discipline) => ({
+      ...discipline,
+      date: discipline.date ?? '',
     })),
   };
 
