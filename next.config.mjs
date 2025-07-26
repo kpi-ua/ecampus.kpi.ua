@@ -44,7 +44,8 @@ const nextConfig = {
     ],
   },
   env: {
-    NEXT_PUBLIC_KPI_AUTH_URL: process.env.NEXT_PUBLIC_KPI_AUTH_URL,
+    NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV,
+    NEXT_PUBLIC_KPI_ID_APP_ID: process.env.NEXT_PUBLIC_KPI_ID_APP_ID,
   },
   webpack(config) {
     // Grab the existing rule that handles SVG imports

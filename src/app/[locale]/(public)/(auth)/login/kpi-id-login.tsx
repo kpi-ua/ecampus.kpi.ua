@@ -1,21 +1,30 @@
-import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/routing';
-import { CoatOfArms } from '@/app/images';
-import { getTranslations } from 'next-intl/server';
+'use client';
 
-export const KPIIDLogin = async () => {
-  const t = await getTranslations('auth.login');
+import { useScript } from '@/hooks/use-script';
+import { useLocale } from 'next-intl';
+import { useEffect } from 'react';
+
+export const KPIIDLogin = () => {
+  const locale = useLocale();
+  const isInitialized = useScript(process.env.NEXT_PUBLIC_KPI_ID_BUTTON!, true);
+
+  useEffect(() => {
+    if (window.KPIID && isInitialized) {
+      window.KPIID.init();
+    }
+  }, [isInitialized]);
 
   return (
-    <Button
-      size="big"
-      variant="secondary"
-      className="my-4 w-full p-[11px] [&_svg]:size-[32px]"
-      type="submit"
-      icon={<CoatOfArms />}
-      asChild
-    >
-      <Link href={process.env.NEXT_PUBLIC_KPI_AUTH_URL!}>{t('button.kpi-id')}</Link>
-    </Button>
+    <div
+      id="kpi_id_signin"
+      data-app-id={process.env.NEXT_PUBLIC_KPI_ID_APP_ID!}
+      data-size="large"
+      data-logo-alignment="left"
+      data-locale={locale}
+      data-color="outline"
+      data-class-name="my-4"
+      data-full-width="true"
+      data-dev-mode={String(process.env.NEXT_PUBLIC_ENV !== 'production')}
+    ></div>
   );
 };
