@@ -168,10 +168,10 @@
         "expelled": "Expelled",
         "rejected": "Rejected",
         "absent": "Absent",
-        "sufficient" : "Sufficient",
+        "sufficient": "Sufficient",
         "good": "Good",
         "very-good": "Very Good",
-        "excellent":"Excellent"
+        "excellent": "Excellent"
       }
     },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
@@ -196,8 +196,7 @@
         "error": "Invalid credentials"
       },
       "button": {
-        "login": "Sign in",
-        "kpi-id": "Sign in with KPI ID"
+        "login": "Sign in"
       }
     },
     "kpi-id": {
