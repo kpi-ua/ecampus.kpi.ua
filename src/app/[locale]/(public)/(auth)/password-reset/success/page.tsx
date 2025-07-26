@@ -19,7 +19,7 @@ const PageContents = () => {
   return (
     <>
       <p className="py-4 text-neutral-600">{t('description', { username })}</p>
-      <Button size="big" className="my-4 w-[100%]" onClick={redirectToLogin}>
+      <Button size="big" className="my-4 w-full" onClick={redirectToLogin}>
         {t('button')}
       </Button>
       <p className="text-neutral-600">

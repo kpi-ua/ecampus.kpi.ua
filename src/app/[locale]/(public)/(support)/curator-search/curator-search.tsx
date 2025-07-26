@@ -43,7 +43,7 @@ export const CuratorSearch = () => {
   };
 
   return (
-    <div className="flex w-full grow flex-col gap-4 rounded-lg border-[1px] border-solid border-neutral-200 p-4">
+    <div className="flex w-full grow flex-col gap-4 rounded-lg border border-solid border-neutral-200 p-4">
       <Input
         placeholder={t('search-placeholder')}
         icon={<MagnifyingGlassRegular />}

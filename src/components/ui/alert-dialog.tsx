@@ -43,7 +43,7 @@ const AlertDialogContent = ({ className, closable = true, ref, ...props }: Alert
     >
       {closable && (
         <AlertDialogPrimitive.Cancel asChild className="absolute right-3 top-3">
-          <Button className="text-gray-600 focus:outline-none" variant="tertiary" icon={<X />} />
+          <Button className="text-gray-600 focus:outline-hidden" variant="tertiary" icon={<X />} />
         </AlertDialogPrimitive.Cancel>
       )}
       {props.children}

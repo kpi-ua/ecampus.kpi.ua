@@ -12,7 +12,7 @@ export async function AppSidebar() {
   return (
     <Sidebar collapsible="offcanvas">
       <SidebarContent>
-        <SidebarHeader className="px-[calc(16px_+_0.5rem)] py-[16px]">
+        <SidebarHeader className="px-[calc(16px+0.5rem)] py-[16px]">
           <Logo />
         </SidebarHeader>
         <SidebarContent className="gap-0">

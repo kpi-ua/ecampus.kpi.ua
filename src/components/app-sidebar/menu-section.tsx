@@ -3,7 +3,7 @@ import { SidebarGroup, SidebarGroupContent, SidebarMenu } from '../ui/sidebar';
 
 export function MenuSection({ children }: { children: React.ReactNode }) {
   return (
-    <SidebarGroup className="pb-6 [&:not(:first-child)]:pt-6">
+    <SidebarGroup className="pb-6 not-first:pt-6">
       <SidebarGroupContent>
         <SidebarMenu>{children}</SidebarMenu>
       </SidebarGroupContent>

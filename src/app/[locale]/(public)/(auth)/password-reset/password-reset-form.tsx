@@ -72,7 +72,7 @@ export default function PasswordResetForm({ username }: PasswordResetFormProps) 
         />
         <Button
           size="big"
-          className="my-4 w-[100%]"
+          className="my-4 w-full"
           type="submit"
           disabled={!form.formState.isValid || !executeRecaptcha}
           loading={form.formState.isSubmitting}
