@@ -12,7 +12,6 @@ import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { TermStatusBadge } from '@/app/[locale]/(private)/module/vedomoststud/components/term-status-badge';
 import { Paragraph } from '@/components/typography';
-import { SortIcon } from '@/components/ui/sort-icon';
 
 import { Status } from '@/types/enums/session/status';
 import { TermDiscipline } from '@/types/models/term';
@@ -28,9 +27,10 @@ export default function SessionTable({ termResults }: { termResults: TermResults
   const t = useTranslations('private.vedomoststud');
   const tEnums = useTranslations('global.enums');
 
-  const { sortedRows, handleHeaderClick, getSortDirection } = useTableSort(
-    termResults.disciplines as unknown as Record<string, unknown>[],
+  const { sortedRows, sortHandlers } = useTableSort(
+    termResults.disciplines,
     (row, header) => row[header as keyof typeof row],
+    ['date', 'mark', 'assessmentType', 'recordType'],
   );
 
   return (
@@ -38,69 +38,52 @@ export default function SessionTable({ termResults }: { termResults: TermResults
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead onClick={() => handleHeaderClick('date')} className="cursor-pointer">
-              <span className="flex items-center gap-3">
-                {t('date')}
-                {SortIcon(getSortDirection('date'))}
-              </span>
+            <TableHead sortHandlers={sortHandlers} sortHeader="date">
+              {t('date')}
             </TableHead>
             <TableHead className="w-[300px]">{t('subject')}</TableHead>
-            <TableHead onClick={() => handleHeaderClick('mark')} className="cursor-pointer text-center">
-              <span className="flex items-center gap-3">
-                {t('score')}
-                {SortIcon(getSortDirection('mark'))}
-              </span>
+            <TableHead sortHandlers={sortHandlers} sortHeader="mark" className="text-center">
+              {t('score')}
             </TableHead>
-            <TableHead onClick={() => handleHeaderClick('assessmentType')} className="cursor-pointer">
-              <span className="flex items-center gap-3">
-                {t('controlType')}
-                {SortIcon(getSortDirection('assessmentType'))}
-              </span>
+            <TableHead sortHandlers={sortHandlers} sortHeader="assessmentType">
+              {t('controlType')}
             </TableHead>
-            <TableHead onClick={() => handleHeaderClick('recordType')} className="cursor-pointer">
-              <span className="flex items-center gap-3">
-                {t('sessionType')}
-                {SortIcon(getSortDirection('recordType'))}
-              </span>
+            <TableHead sortHandlers={sortHandlers} sortHeader="recordType">
+              {t('sessionType')}
             </TableHead>
             <TableHead>{t('lecturer')}</TableHead>
             <TableHead>{t('status')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sortedRows.map((row, index) => {
-            const discipline = row as unknown as TermDiscipline;
-            return (
-              <TableRow key={index}>
-                <TableCell className="w-[120px]">{String(discipline.date)}</TableCell>
-                <TableCell className="w-[300px]">{String(discipline.name)}</TableCell>
-                <TableCell className="w-[109px] text-center">
-                  {discipline.mark !== undefined && discipline.mark !== null && (
-                    <Badge className="font-semibold text-basic-blue">
-                      {Number(discipline.mark as number)}/{MAX_SCORE}
-                    </Badge>
-                  )}
-                </TableCell>
-                <TableCell className="w-[140px]">
-                  {tEnums(`assessment-type.${dash(discipline.assessmentType as string)}`)}
-                </TableCell>
-                <TableCell className="w-[140px]">
-                  {tEnums(`record-type.${dash(discipline.recordType as string)}`)}
-                </TableCell>
-                <TableCell className="max-w-[158px]">
-                  {discipline.lecturer && (
-                    <LecturerItemCell photo={discipline.lecturer.photo ?? ''} fullName={discipline.lecturer.fullName} />
-                  )}
-                </TableCell>
-                <TableCell className="w-[140px]">
-                  <TermStatusBadge
-                    className="flex justify-center border text-center font-semibold"
-                    status={discipline.status as Status}
-                  />
-                </TableCell>
-              </TableRow>
-            );
-          })}
+          {sortedRows.map((discipline, index) => (
+            <TableRow key={index}>
+              <TableCell className="w-[120px]">{discipline.date}</TableCell>
+              <TableCell className="w-[300px]">{discipline.name}</TableCell>
+              <TableCell className="w-[109px] text-center">
+                {discipline.mark !== undefined && discipline.mark !== null && (
+                  <Badge className="font-semibold text-basic-blue">
+                    {Number(discipline.mark)}/{MAX_SCORE}
+                  </Badge>
+                )}
+              </TableCell>
+              <TableCell className="w-[140px]">
+                {tEnums(`assessment-type.${dash(discipline.assessmentType)}`)}
+              </TableCell>
+              <TableCell className="w-[140px]">{tEnums(`record-type.${dash(discipline.recordType)}`)}</TableCell>
+              <TableCell className="max-w-[158px]">
+                {discipline.lecturer && (
+                  <LecturerItemCell photo={discipline.lecturer.photo ?? ''} fullName={discipline.lecturer.fullName} />
+                )}
+              </TableCell>
+              <TableCell className="w-[140px]">
+                <TermStatusBadge
+                  className="flex justify-center border text-center font-semibold"
+                  status={discipline.status as Status}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
       <div className="my-2 flex items-center gap-2 whitespace-nowrap pl-4">

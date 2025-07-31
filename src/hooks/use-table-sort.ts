@@ -2,16 +2,17 @@
 
 import { useState } from 'react';
 
-type SortDirection = 'asc' | 'desc';
-type SortState = { header: string; direction: SortDirection } | null;
+type SortDirection = 'asc' | 'desc' | null;
+type SortState<K extends string> = { header: K; direction: SortDirection } | null;
 
-export function useTableSort(
-  data: Record<string, unknown>[],
-  getSortValue?: (row: Record<string, unknown>, header: string) => unknown,
+export function useTableSort<T, K extends keyof T & string = keyof T & string>(
+  data: T[],
+  getSortValue?: (row: T, header: K) => unknown,
+  sortableHeaders?: K[],
 ) {
-  const [sort, setSort] = useState<SortState>(null);
+  const [sort, setSort] = useState<SortState<K>>(null);
 
-  function handleHeaderClick(header: string) {
+  function handleHeaderClick(header: K) {
     if (!sort || sort.header !== header) {
       setSort({ header, direction: 'desc' });
     } else if (sort.direction === 'desc') {
@@ -38,10 +39,21 @@ export function useTableSort(
       })
     : data;
 
-  function getSortDirection(header: string): SortDirection | null {
+  function getSortDirection(header: K): SortDirection {
     if (!sort || sort.header !== header) return null;
     return sort.direction;
   }
 
-  return { handleHeaderClick, sortedRows, getSortDirection };
+  const sortHandlers = (sortableHeaders ?? []).reduce(
+    (acc, header) => {
+      acc[header] = {
+        onClick: () => handleHeaderClick(header),
+        dir: getSortDirection(header),
+      };
+      return acc;
+    },
+    {} as Record<string, { onClick: () => void; dir: SortDirection }>,
+  );
+
+  return { handleHeaderClick, sortedRows, getSortDirection, sortHandlers };
 }

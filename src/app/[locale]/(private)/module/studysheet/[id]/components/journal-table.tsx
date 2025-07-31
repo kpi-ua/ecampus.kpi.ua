@@ -1,16 +1,13 @@
 'use client';
 
 import React from 'react';
-
 import { useTableSort } from '@/hooks/use-table-sort';
-
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Journal } from '@/types/models/current-control/journal';
 import { useTranslations } from 'next-intl';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
-import { SortIcon } from '@/components/ui/sort-icon';
 
 interface Props {
   journal: Journal;
@@ -20,12 +17,10 @@ export function JournalTable({ journal }: Props) {
   const t = useTranslations('private.study-sheet');
   const tTable = useTranslations('private.study-sheet.table');
 
-  const { sortedRows, handleHeaderClick, getSortDirection } = useTableSort(
-    journal.disciplines as unknown as Record<string, unknown>[],
-    (row, header) => {
-      if (header === 'score') return Number(row.score);
-      return row[header as keyof typeof row];
-    },
+  const { sortedRows, sortHandlers } = useTableSort(
+    journal.disciplines,
+    (row, header) => row[header as keyof typeof row],
+    ['date', 'score', 'controlType'],
   );
 
   return (
@@ -33,23 +28,14 @@ export function JournalTable({ journal }: Props) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead onClick={() => handleHeaderClick('date')} className="cursor-pointer">
-              <span className="flex items-center gap-3">
-                {tTable('date')}
-                {SortIcon(getSortDirection('date'))}
-              </span>
+            <TableHead sortHandlers={sortHandlers} sortHeader="date">
+              {tTable('date')}
             </TableHead>
-            <TableHead onClick={() => handleHeaderClick('score')} className="cursor-pointer text-center">
-              <span className="flex items-center gap-3">
-                {tTable('score')}
-                {SortIcon(getSortDirection('score'))}
-              </span>
+            <TableHead sortHandlers={sortHandlers} sortHeader="score">
+              {tTable('score')}
             </TableHead>
-            <TableHead onClick={() => handleHeaderClick('controlType')} className="cursor-pointer">
-              <span className="flex items-center gap-3">
-                {tTable('control-type')}
-                {SortIcon(getSortDirection('controlType'))}
-              </span>
+            <TableHead sortHandlers={sortHandlers} sortHeader="controlType">
+              {tTable('control-type')}
             </TableHead>
             <TableHead>{tTable('lecturer')}</TableHead>
             <TableHead>{tTable('note')}</TableHead>
@@ -58,28 +44,19 @@ export function JournalTable({ journal }: Props) {
         <TableBody>
           {sortedRows.map((row, index) => (
             <TableRow key={index}>
-              <TableCell className="w-[116px] text-sm font-medium">{String(row.date ?? '')}</TableCell>
+              <TableCell className="w-[116px] text-sm font-medium">{row.date ?? ''}</TableCell>
               <TableCell className="w-[109px] text-center">
-                {(row.presence !== undefined || row.score !== undefined) && (
-                  <Badge className="font-semibold text-basic-blue">
-                    {row.presence !== undefined && row.presence !== null
-                      ? String(row.presence)
-                      : row.score !== undefined && row.score !== null
-                        ? String(row.score)
-                        : ''}
-                  </Badge>
+                {(row.presence || row.score) && (
+                  <Badge className="font-semibold text-basic-blue">{row.presence ? row.presence : row.score}</Badge>
                 )}
               </TableCell>
-              <TableCell className="w-[240px] text-sm font-medium">{String(row.controlType ?? '')}</TableCell>
+              <TableCell className="w-[240px] text-sm font-medium">{row.controlType ?? ''}</TableCell>
               <TableCell className="max-w-[360px]">
-                {'lecturer' in row && typeof row.lecturer === 'object' && row.lecturer !== null ? (
-                  <LecturerItemCell
-                    photo={(row.lecturer as { photo?: string }).photo ?? ''}
-                    fullName={(row.lecturer as { fullName?: string }).fullName ?? ''}
-                  />
+                {row.lecturer ? (
+                  <LecturerItemCell photo={row.lecturer.photo ?? ''} fullName={row.lecturer.fullName ?? ''} />
                 ) : null}
               </TableCell>
-              <TableCell className="text-sm font-medium">{String(row.note ?? '')}</TableCell>
+              <TableCell className="text-sm font-medium">{row.note ?? ''}</TableCell>
             </TableRow>
           ))}
         </TableBody>
