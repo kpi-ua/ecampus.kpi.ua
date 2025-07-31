@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
 import { dash } from 'radash';
 import { Status } from '@/types/enums/session/status';
 import { cn } from '@/lib/utils';
@@ -10,8 +10,8 @@ interface TermStatusBadgeProps {
   className?: string;
 }
 
-export async function TermStatusBadge({ status, className }: TermStatusBadgeProps) {
-  const tEnums = await getTranslations('global.enums');
+export function TermStatusBadge({ status, className }: TermStatusBadgeProps) {
+  const tEnums = useTranslations('global.enums');
   const label = tEnums(`status.${dash(status)}`);
   const statusStyle = getStatusStyle(status);
 

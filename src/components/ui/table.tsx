@@ -1,6 +1,22 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
+import { SortIcon } from '@/components/ui/sort-icon';
+
+type SortDirection = 'asc' | 'desc' | null;
+type SortHandlers = Record<
+  string,
+  {
+    onClick: () => void;
+    dir: SortDirection;
+  }
+>;
+
+interface TableHeadProps extends React.ComponentProps<'th'> {
+  sortHandlers?: SortHandlers;
+  sortHeader?: string;
+  children: React.ReactNode;
+}
 
 const Table = ({ className, ref, ...props }: React.ComponentProps<'table'>) => (
   <div className="relative w-full overflow-auto rounded-[12px]">
@@ -36,15 +52,27 @@ const TableRow = ({ className, ref, ...props }: React.ComponentProps<'tr'>) => (
 );
 TableRow.displayName = 'TableRow';
 
-const TableHead = ({ className, ref, ...props }: React.ComponentProps<'th'>) => (
-  <th
-    ref={ref}
-    className={cn(
-      'h-12 bg-[#E1E1EC] px-4 text-left align-middle text-sm font-semibold uppercase text-[#40414D] [&:has([role=checkbox])]:pr-0',
-      className,
-    )}
-    {...props}
-  />
+const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
+  ({ className, sortHandlers, sortHeader, children, ...props }, ref) => {
+    const isSortable = sortHandlers && sortHeader && sortHandlers[sortHeader];
+    return (
+      <th
+        ref={ref}
+        className={cn(
+          'h-12 bg-[#E1E1EC] px-4 text-left align-middle text-sm font-semibold uppercase text-[#40414D] [&:has([role=checkbox])]:pr-0',
+          className,
+          isSortable && 'cursor-pointer',
+        )}
+        onClick={isSortable ? sortHandlers![sortHeader!].onClick : undefined}
+        {...props}
+      >
+        <span className="flex items-center gap-3">
+          {children}
+          {isSortable && <SortIcon dir={sortHandlers![sortHeader!].dir} />}
+        </span>
+      </th>
+    );
+  },
 );
 TableHead.displayName = 'TableHead';
 
