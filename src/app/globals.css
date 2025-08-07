@@ -229,6 +229,8 @@
   }
 }
 
+@custom-variant tall (@media (min-height: 933px));
+
 @layer utilities {
   html,
   body {

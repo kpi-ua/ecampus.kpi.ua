@@ -18,7 +18,7 @@ export default async function AuthLayout({ children, params }: Props) {
       <div className="flex min-h-fit grow basis-0 flex-col md:px-[28px] md:py-[16px]">
         <Header />
         <div className="relative flex grow flex-col py-8">
-          <div className="relative mx-auto mt-2 max-w-[455px] [@media(min-height:933px)]:mt-[50px]">{children}</div>
+          <div className="relative mx-auto mt-2 max-w-[455px] tall:mt-[50px]">{children}</div>
         </div>
         <Footer />
       </div>
