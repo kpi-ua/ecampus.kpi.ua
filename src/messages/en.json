@@ -171,7 +171,14 @@
         "sufficient" : "Sufficient",
         "good": "Good",
         "very-good": "Very Good",
-        "excellent":"Excellent"
+        "excellent":"Excellent",
+        "approved": "Approved",
+        "created": "Created",
+        "in-queue": "In Queue"
+      },
+      "certificate-type": {
+        "employment-certificate": "Employment Certificate",
+        "studying-certificate": "Studying Certificate"
       }
     },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
@@ -243,6 +250,37 @@
     "support": {
       "header": "Support",
       "content": "<p>If you have any questions, you can ask for help in the <tglink>support chat</tglink> or send your question to the support email: <email>ecampus@kpi.ua</email>.</p><p>You can also visit our office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, Building 13, 4th floor, Room 25.</addresslink></p>"
+    },
+    "verification": {
+      "header": "Certificate verification",
+      "search": {
+        "title": "Certificate verification:",
+        "label": "Certificate ID",
+        "placeholder": "Enter certificate ID",
+        "check": "Verify certificate"
+      },
+      "result": {
+        "title": "Verification result:",
+        "empty": "Nothing here yet",
+        "enter": "Enter the certificate ID to start verification",
+        "label": "Certificate ID",
+        "checking": "Verifying certificate...",
+        "wait": "Please wait while we verify the certificate",
+        "owner": "Certificate owner:",
+        "date": "Issue date:",
+        "type": "Certificate type:",
+        "purpose": "Purpose:",
+        "success": "Success verification",
+        "notfound": "Certificate not found",
+        "table": {
+          "title": "History",
+          "type": "Type",
+          "date": "Date",
+          "status": "Status",
+          "actions": "Actions",
+          "download": "Download PDF"
+        }
+      }
     },
     "suggestions": {
       "header": "Suggestions form"
@@ -490,6 +528,16 @@
       "subdivisions": "Academic position(s):",
       "contacts": "Contacts:",
       "profile": "Personal page:"
+    },
+    "certificate": {
+      "title": "Certificate",
+      "info": "This section provides official information about your curator, including positions held, departments, contact details, and a link to the personal profile.",
+      "orderTitle": "Create an order:",
+      "docType": "Type of certificate",
+      "docTypePlaceholder": "select the type of certificate",
+      "purpose": "Comment / purpose of the certificate",
+      "purposePlaceholder": "For example: for the French embassy",
+      "submit": "Order"
     },
     "settings": {
       "title": "Settings",
