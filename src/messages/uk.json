@@ -171,7 +171,14 @@
         "sufficient": "Задовільно",
         "good": "Добре",
         "very-good": "Дуже добре",
-        "excellent": "Відмінно"
+        "excellent": "Відмінно",
+        "approved": "Прийнято",
+        "created": "Створено",
+        "in-queue": "У черзі"
+      },
+      "certificate-type": {
+        "employment-certificate": "Довідка про роботу",
+        "studying-certificate": "Довідка про навчання"
       }
     },
     "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
@@ -490,6 +497,10 @@
       "subdivisions": "Посада(и):",
       "contacts": "Контакти:",
       "profile": "Особиста сторінка:"
+    },
+    "certificate": {
+      "title": "Замовлення довідки",
+      "info": "У цьому розділі ви можете замовити офіційну довідку про навчання, роботу, візу чи інші цілі."
     },
     "settings": {
       "title": "Налаштування",

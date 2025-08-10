@@ -171,7 +171,14 @@
         "sufficient" : "Sufficient",
         "good": "Good",
         "very-good": "Very Good",
-        "excellent":"Excellent"
+        "excellent":"Excellent",
+        "approved": "Approved",
+        "created": "Created",
+        "in-queue": "In Queue"
+      },
+      "certificate-type": {
+        "employment-certificate": "Employment Certificate",
+        "studying-certificate": "Studying Certificate"
       }
     },
     "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
@@ -490,6 +497,10 @@
       "subdivisions": "Academic position(s):",
       "contacts": "Contacts:",
       "profile": "Personal page:"
+    },
+    "certificate": {
+      "title": "Certificate",
+      "info": "This section provides official information about your curator, including positions held, departments, contact details, and a link to the personal profile."
     },
     "settings": {
       "title": "Settings",
