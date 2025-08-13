@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTableSort } from '@/hooks/use-table-sort';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Paragraph } from '@/components/typography/paragraph';
@@ -16,32 +17,46 @@ export function JournalTable({ journal }: Props) {
   const t = useTranslations('private.study-sheet');
   const tTable = useTranslations('private.study-sheet.table');
 
+  const { sortedRows, sortHandlers } = useTableSort(
+    journal.disciplines,
+    (row, header) => row[header as keyof typeof row],
+    ['date', 'score', 'controlType'],
+  );
+
   return (
     <>
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>{tTable('date')}</TableHead>
-            <TableHead className="text-center">{tTable('score')}</TableHead>
-            <TableHead>{tTable('control-type')}</TableHead>
+            <TableHead sortHandlers={sortHandlers} sortHeader="date">
+              {tTable('date')}
+            </TableHead>
+            <TableHead sortHandlers={sortHandlers} sortHeader="score">
+              {tTable('score')}
+            </TableHead>
+            <TableHead sortHandlers={sortHandlers} sortHeader="controlType">
+              {tTable('control-type')}
+            </TableHead>
             <TableHead>{tTable('lecturer')}</TableHead>
             <TableHead>{tTable('note')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {journal.disciplines.map((row, index) => (
+          {sortedRows.map((row, index) => (
             <TableRow key={index}>
-              <TableCell className="w-[116px] text-sm font-medium">{row.date}</TableCell>
+              <TableCell className="w-[116px] text-sm font-medium">{row.date ?? ''}</TableCell>
               <TableCell className="w-[109px] text-center">
                 {(row.presence || row.score) && (
                   <Badge className="font-semibold text-basic-blue">{row.presence ? row.presence : row.score}</Badge>
                 )}
               </TableCell>
-              <TableCell className="w-[240px] text-sm font-medium">{row.controlType}</TableCell>
+              <TableCell className="w-[240px] text-sm font-medium">{row.controlType ?? ''}</TableCell>
               <TableCell className="max-w-[360px]">
-                <LecturerItemCell photo={row.lecturer.photo} fullName={row.lecturer.fullName} />
+                {row.lecturer ? (
+                  <LecturerItemCell photo={row.lecturer.photo ?? ''} fullName={row.lecturer.fullName ?? ''} />
+                ) : null}
               </TableCell>
-              <TableCell className="text-sm font-medium">{row.note}</TableCell>
+              <TableCell className="text-sm font-medium">{row.note ?? ''}</TableCell>
             </TableRow>
           ))}
         </TableBody>
