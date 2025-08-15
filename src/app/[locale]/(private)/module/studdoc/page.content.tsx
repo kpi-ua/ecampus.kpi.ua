@@ -54,17 +54,18 @@ export default function CertificatePageContent({ certificates, certificateTypes 
   };
 
   const handleDownload = async (id: number) => {
-    const blob = await getCertificatePDF(id);
+    const { filename, blob } = await getCertificatePDF(id);
+
     const url = URL.createObjectURL(blob);
 
-    downloadFile(url, 'certif.pdf');
+    downloadFile(url, filename);
   };
 
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12 w-full px-2 sm:px-4 md:px-0">
         <Heading2>{t('title')}</Heading2>
-        <Paragraph className="mb-7 mt-3 max-w-full text-sm font-normal leading-sm text-neutral-700 sm:max-w-2xl">
+        <Paragraph className="leading-sm mt-3 mb-7 max-w-full text-sm font-normal text-neutral-700 sm:max-w-2xl">
           {t('info')}
         </Paragraph>
         <div className="flex flex-col gap-5 lg:flex-row">
@@ -115,7 +116,7 @@ export default function CertificatePageContent({ certificates, certificateTypes 
                 />
                 <Button
                   type="submit"
-                  className="ml-auto mt-3 w-fit"
+                  className="mt-3 ml-auto w-fit"
                   size="big"
                   disabled={!form.formState.isValid}
                   loading={form.formState.isSubmitting}

@@ -18,3 +18,16 @@ export const downloadFile = (url: string, name: string) => {
   link.click();
   link.remove();
 };
+
+export const parseContentDispositionFilename = (header: string): string | null => {
+  const starMatch = header.match(/filename\*\s*=\s*([^']*)''([^;]+)/i);
+  if (starMatch) {
+    try {
+      return decodeURIComponent(starMatch[2]);
+    } catch {
+      return starMatch[2];
+    }
+  }
+  const match = header.match(/filename\s*=\s*("?)([^";]+)\1/i);
+  return match ? match[2] : null;
+};

@@ -4,6 +4,7 @@ import { campusFetch } from '@/lib/client';
 import { Certificate } from '@/types/models/certificate/certificate';
 import { revalidatePath } from 'next/cache';
 import { CertificateVerificationResult } from '@/types/models/certificate/certificate-verification-result';
+import { parseContentDispositionFilename } from '@/lib/utils';
 
 export async function getCertificateTypes() {
   const response = await campusFetch<string[]>('/certificates/types');
@@ -44,7 +45,14 @@ export async function getCertificatePDF(id: number) {
       throw new Error(`Failed to download PDF: ${response.status} ${response.statusText}`);
     }
 
-    return await response.blob();
+    const cd = response.headers.get('Content-Disposition') || '';
+    const filename = parseContentDispositionFilename(cd) ?? `certificate.pdf`;
+    const blob = await response.blob();
+
+    return {
+      filename,
+      blob,
+    };
   } catch (error) {
     console.error('Error downloading PDF:', error);
     throw error;
