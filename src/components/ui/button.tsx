@@ -6,14 +6,14 @@ import { cn } from '@/lib/utils';
 import { IconPosition } from '../types';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none [&_svg]:shrink-0',
+  'inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
         primary:
-          'bg-basic-blue text-primary-foreground hover:bg-brand-700 active:bg-basic-blue active:border-brand-900 active:border-[1px] active:border-solid disabled:opacity-40',
+          'bg-basic-blue text-primary-foreground hover:bg-brand-700 active:bg-basic-blue active:border-brand-900 active:border active:border-solid disabled:opacity-40',
         secondary:
-          'bg-transparent text-neutral-900 border-[1px] border-solid border-neutral-300 hover:border-neutral-900 active:bg-brand-00 active:border-basic-blue active:text-basic-blue disabled:bg-neutral-50 disabled:border-neutral-300 disabled:text-neutral-300',
+          'bg-transparent text-neutral-900 border border-solid border-neutral-300 hover:border-neutral-900 active:bg-brand-00 active:border-basic-blue active:text-basic-blue disabled:bg-neutral-50 disabled:border-neutral-300 disabled:text-neutral-300',
         tertiary:
           'text-neutral-600 hover:bg-neutral-50 hover:text-neutral-700 active:text-neutral-900 active:bg-transparent disabled:text-neutral-400',
       },

@@ -17,7 +17,7 @@ export const AccountSelectorItem = ({ avatarUrl, username, ticketId }: AccountSe
   const fallbackUsername = capitalize(username.charAt(0));
 
   return (
-    <li className="flex items-center justify-between border-b-[1px] border-b-neutral-divider py-4 first:pt-0 last:border-none last:pb-0">
+    <li className="flex items-center justify-between border-b border-b-neutral-divider py-4 first:pt-0 last:border-none last:pb-0">
       <div className="flex items-center gap-3">
         <Avatar className="size-[48px]">
           <AvatarImage src={avatarUrl} />
