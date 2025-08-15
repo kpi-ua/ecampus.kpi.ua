@@ -174,7 +174,8 @@
         "excellent": "Відмінно",
         "approved": "Прийнято",
         "created": "Створено",
-        "in-queue": "У черзі"
+        "in-queue": "У черзі",
+        "error": "Помилка"
       },
       "certificate-type": {
         "employment-certificate": "Довідка про роботу",
