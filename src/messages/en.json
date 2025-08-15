@@ -168,10 +168,10 @@
         "expelled": "Expelled",
         "rejected": "Rejected",
         "absent": "Absent",
-        "sufficient" : "Sufficient",
+        "sufficient": "Sufficient",
         "good": "Good",
         "very-good": "Very Good",
-        "excellent":"Excellent",
+        "excellent": "Excellent",
         "approved": "Approved",
         "created": "Created",
         "in-queue": "In Queue"
@@ -203,8 +203,7 @@
         "error": "Invalid credentials"
       },
       "button": {
-        "login": "Sign in",
-        "kpi-id": "Sign in with KPI ID"
+        "login": "Sign in"
       }
     },
     "kpi-id": {
