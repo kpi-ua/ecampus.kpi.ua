@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTableSort } from '@/hooks/use-table-sort';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTranslations } from 'next-intl';
 import { EventsPlan } from '@/types/models/current-control/events-plan';
@@ -13,18 +14,22 @@ interface Props {
 export function EventPlanTable({ eventsPlan }: Props) {
   const t = useTranslations('private.study-sheet.table');
 
+  const { sortedRows, sortHandlers } = useTableSort<EventsPlan>(eventsPlan, (row, header) => row[header], ['date']);
+
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{t('date')}</TableHead>
+          <TableHead sortHandlers={sortHandlers} sortHeader="date">
+            {t('date')}
+          </TableHead>
           <TableHead>{t('control-type')}</TableHead>
           <TableHead>{t('lecturer')}</TableHead>
           <TableHead>{t('note')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {eventsPlan.map((row, index) => (
+        {sortedRows.map((row, index) => (
           <TableRow key={index}>
             <TableCell>{row.date}</TableCell>
             <TableCell>{row.controlType}</TableCell>
