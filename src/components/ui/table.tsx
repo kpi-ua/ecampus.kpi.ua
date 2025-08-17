@@ -36,7 +36,7 @@ const TableBody = ({ className, ref, ...props }: React.ComponentProps<'tbody'>) 
 TableBody.displayName = 'TableBody';
 
 const TableFooter = ({ className, ref, ...props }: React.ComponentProps<'tfoot'>) => (
-  <tfoot ref={ref} className={cn('border-t bg-muted/50 font-medium last:[&>tr]:border-b-0', className)} {...props} />
+  <tfoot ref={ref} className={cn('bg-muted/50 border-t font-medium last:[&>tr]:border-b-0', className)} {...props} />
 );
 TableFooter.displayName = 'TableFooter';
 
@@ -44,7 +44,7 @@ const TableRow = ({ className, ref, ...props }: React.ComponentProps<'tr'>) => (
   <tr
     ref={ref}
     className={cn(
-      'border-b bg-white transition-colors hover:bg-[#F8F8FF] active:bg-[#F5FBFF] data-[state=selected]:bg-muted',
+      'data-[state=selected]:bg-muted border-b bg-white transition-colors hover:bg-[#F8F8FF] active:bg-[#F5FBFF]',
       className,
     )}
     {...props}
@@ -59,7 +59,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
       <th
         ref={ref}
         className={cn(
-          'h-12 bg-[#E1E1EC] px-4 text-left align-middle text-sm font-semibold uppercase text-[#40414D] [&:has([role=checkbox])]:pr-0',
+          'h-12 bg-neutral-200 px-4 text-left align-middle text-sm font-semibold text-[#40414D] uppercase [&:has([role=checkbox])]:pr-0',
           className,
           isSortable && 'cursor-pointer',
         )}
@@ -86,7 +86,7 @@ const TableCell = ({ className, ref, ...props }: React.ComponentProps<'td'>) => 
 TableCell.displayName = 'TableCell';
 
 const TableCaption = ({ className, ref, ...props }: React.ComponentProps<'caption'>) => (
-  <caption ref={ref} className={cn('mt-4 text-sm text-muted-foreground', className)} {...props} />
+  <caption ref={ref} className={cn('text-muted-foreground mt-4 text-sm', className)} {...props} />
 );
 TableCaption.displayName = 'TableCaption';
 
