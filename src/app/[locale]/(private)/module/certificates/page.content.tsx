@@ -19,8 +19,12 @@ import { createCertificateRequest, getCertificatePDF } from '@/actions/certifica
 import { CertificateStatusBadge } from '@/app/[locale]/(private)/module/certificates/components/certificate-status-badge';
 import { downloadFile } from '@/lib/utils';
 import { dash } from 'radash';
+import { usePagination } from '@/hooks/use-pagination';
+import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { Show } from '@/components/utils/show';
 
 const INTL_NAMESPACE = 'private.certificate';
+const PAGE_SIZE = 5;
 
 interface Props {
   certificateTypes: string[];
@@ -47,6 +51,8 @@ export default function CertificatePageContent({ certificates, certificateTypes 
       purpose: '',
     },
   });
+
+  const { paginatedItems: paginatedCertificates, page } = usePagination(PAGE_SIZE, certificates);
 
   const handleFormSubmit = async (data: FormData) => {
     await createCertificateRequest(data.docType, data.purpose);
@@ -139,7 +145,7 @@ export default function CertificatePageContent({ certificates, certificateTypes 
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {certificates.map((certificate) => (
+                {paginatedCertificates.map((certificate) => (
                   <TableRow key={certificate.id}>
                     <TableCell className="w-[140px]">
                       <Paragraph className="m-0 text-sm font-normal">{tEnums(dash(certificate.type))}</Paragraph>
@@ -163,6 +169,9 @@ export default function CertificatePageContent({ certificates, certificateTypes 
                 ))}
               </TableBody>
             </Table>
+            <Show when={certificates.length > PAGE_SIZE}>
+              <PaginationWithLinks page={page} pageSize={PAGE_SIZE} totalCount={certificates.length} />
+            </Show>
           </Card>
         </div>
       </div>
