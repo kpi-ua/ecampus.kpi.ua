@@ -1,5 +1,5 @@
 import React from 'react';
-import CertificatePageContent from '@/app/[locale]/(private)/module/studdoc/page.content';
+import CertificatePageContent from '@/app/[locale]/(private)/module/certificates/page.content';
 import { getCertificateList, getCertificateTypes } from '@/actions/certificates.actions';
 import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';

@@ -16,7 +16,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Certificate } from '@/types/models/certificate/certificate';
 import dayjs from 'dayjs';
 import { createCertificateRequest, getCertificatePDF } from '@/actions/certificates.actions';
-import { CertificateStatusBadge } from '@/app/[locale]/(private)/module/studdoc/components/certificate-status-badge';
+import { CertificateStatusBadge } from '@/app/[locale]/(private)/module/certificates/components/certificate-status-badge';
 import { downloadFile } from '@/lib/utils';
 import { dash } from 'radash';
 

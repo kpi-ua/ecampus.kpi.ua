@@ -21,7 +21,7 @@ export async function createCertificateRequest(type: string, purpose?: string) {
     body: JSON.stringify({ type, purpose }),
   });
 
-  revalidatePath('/module/studdoc');
+  revalidatePath('/module/certificates');
 }
 
 export async function getCertificateList() {
