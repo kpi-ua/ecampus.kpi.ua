@@ -69,7 +69,7 @@ export default function CertificatePageContent({ certificates, certificateTypes 
           {t('info')}
         </Paragraph>
         <div className="flex flex-col gap-5 lg:flex-row">
-          <Card className="rounded-b-6 col-span-full flex h-fit flex-1 basis-1/3 flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
+          <Card className="rounded-b-6 col-span-full flex h-fit flex-1 basis-3/7 flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
             <Heading6>{tCert('orderTitle')}</Heading6>
             <Form {...form}>
               <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(handleFormSubmit)}>
@@ -127,7 +127,7 @@ export default function CertificatePageContent({ certificates, certificateTypes 
             </Form>
           </Card>
 
-          <Card className="rounded-b-6 col-span-full flex w-full flex-[2] basis-2/3 flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
+          <Card className="rounded-b-6 col-span-full flex w-full flex-[2] basis-4/7 flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
             <Heading6>{tTable('title')}</Heading6>
             <Table>
               <TableHeader>

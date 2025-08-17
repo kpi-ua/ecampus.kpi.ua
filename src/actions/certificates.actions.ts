@@ -62,7 +62,7 @@ export async function getCertificatePDF(id: number) {
 export async function verifyCertificate(id: string) {
   const response = await campusFetch<CertificateVerificationResult>(`/certificates/validate/${id}`);
   if (!response.ok) {
-    throw new Error(`${response.status} Error`);
+    return 'error';
   }
 
   return response.json();

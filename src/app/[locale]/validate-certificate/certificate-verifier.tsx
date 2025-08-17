@@ -16,11 +16,15 @@ import { CertificateVerificationResult } from '@/types/models/certificate/certif
 import { LoadingState } from '@/app/[locale]/validate-certificate/components/loading-state';
 import { EmptyState } from '@/app/[locale]/validate-certificate/components/empty-state';
 import { CertificateDetails } from '@/app/[locale]/validate-certificate/components/certificate-details';
+import { Warning } from '@/app/images';
+import { Paragraph } from '@/components/typography';
+import Link from 'next/link';
+import { TELEGRAM_SUPPORT_LINK } from '@/lib/constants/telegram-suuport-link';
 
 export function CertificateVerifier() {
   const autoSubmittedRef = useRef(false);
 
-  const [result, setResult] = useState<CertificateVerificationResult | null>(null);
+  const [result, setResult] = useState<CertificateVerificationResult | string | null>(null);
 
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
@@ -40,7 +44,7 @@ export function CertificateVerifier() {
 
   const handleFormSubmit = useCallback(
     async (data: FormData) => {
-      setResult(null);
+      setResult('');
       const res = await verifyCertificate(data.certificateId);
       form.reset();
       setResult(res);
@@ -49,8 +53,11 @@ export function CertificateVerifier() {
   );
 
   useEffect(() => {
-    if (!token || autoSubmittedRef.current) return;
+    if (!token || autoSubmittedRef.current) {
+      return;
+    }
 
+    setResult('');
     form.setValue('certificateId', token, { shouldValidate: true, shouldDirty: false });
     autoSubmittedRef.current = true;
     form.handleSubmit(handleFormSubmit)();
@@ -59,10 +66,10 @@ export function CertificateVerifier() {
   const tResultCard = useTranslations('public.verification.result');
   const tSearchCard = useTranslations('public.verification.search');
 
-  const searchValue = form.watch('certificateId');
-  const isLoading = result === null && form.formState.isSubmitting;
-  const isEmpty = result === null && searchValue === '';
-  const isApproved = result?.status === 'Approved';
+  const isApproved = typeof result === 'object' && result?.status === 'Approved';
+  const isEmpty = result === null;
+  const isError = result === 'error';
+
   return (
     <>
       <Card className="flex h-full w-full max-w-[600px] flex-col justify-center self-center">
@@ -104,15 +111,26 @@ export function CertificateVerifier() {
           <CardTitle className="text-lg sm:text-xl">{tResultCard('title')}</CardTitle>
         </CardHeader>
         <CardContent className="flex min-h-[220px] w-full items-center justify-center p-6">
-          {isLoading && <LoadingState t={tResultCard} />}
+          {form.formState.isSubmitting && <LoadingState t={tResultCard} />}
 
           {isEmpty && <EmptyState t={tResultCard} />}
 
           {isApproved && <CertificateDetails result={result} t={tResultCard} />}
 
-          {searchValue && form.formState.isSubmitted && !isLoading && !isApproved && (
-            <div className="text-center text-muted-foreground">
-              <div className="font-medium text-red-600">{tResultCard('notfound')}</div>
+          {isError && (
+            <div className="text-muted-foreground flex flex-col items-center justify-center gap-2 text-center">
+              <div className="text-neutral-500">
+                <Warning />
+              </div>
+              <Paragraph className="m-0 text-lg font-semibold text-neutral-900">{tResultCard('notfound')}</Paragraph>
+              <Paragraph className="m-0 font-medium text-neutral-500">{tResultCard('again')}</Paragraph>
+              {tResultCard.rich('contact-support', {
+                link: (chunks) => (
+                  <Link href={TELEGRAM_SUPPORT_LINK} target="_blank">
+                    {chunks}
+                  </Link>
+                ),
+              })}
             </div>
           )}
         </CardContent>

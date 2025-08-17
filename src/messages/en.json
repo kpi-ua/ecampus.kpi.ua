@@ -273,6 +273,8 @@
         "purpose": "Purpose:",
         "success": "Success verification",
         "notfound": "Certificate not found",
+        "again": "Check certificate ID and try again or",
+        "contact-support": "<link>Contact support</link>",
         "table": {
           "title": "History",
           "type": "Type",
