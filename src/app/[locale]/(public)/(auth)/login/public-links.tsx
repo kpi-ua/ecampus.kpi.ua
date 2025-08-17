@@ -5,6 +5,7 @@ import QuestionOutline from '@/app/images/icons/QuestionOutline.svg';
 import Student from '@/app/images/icons/Student.svg';
 import TelegramOutline from '@/app/images/icons/TelegramOutline.svg';
 import { getTranslations } from 'next-intl/server';
+import { TELEGRAM_SUPPORT_LINK } from '@/lib/constants/telegram-suuport-link';
 
 export const PublicLinks = async () => {
   const t = await getTranslations('auth.login.publicLink');
@@ -20,7 +21,7 @@ export const PublicLinks = async () => {
       <PublicLink href="/suggestions" icon={<ChatTeardropDots />}>
         {t('suggestions')}
       </PublicLink>
-      <PublicLink href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw" target="_blank" icon={<TelegramOutline />}>
+      <PublicLink href={TELEGRAM_SUPPORT_LINK} target="_blank" icon={<TelegramOutline />}>
         {t('telegram-chat')}
       </PublicLink>
       <PublicLink href="/faq" icon={<QuestionOutline />}>

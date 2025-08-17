@@ -1,11 +1,11 @@
 import { Badge } from '@/components/ui/badge';
 import { getTranslations } from 'next-intl/server';
 
-interface AttestationResultBadgeProps {
+interface Props {
   result: boolean;
 }
 
-export async function AttestationBadge({ result }: AttestationResultBadgeProps) {
+export async function AttestationBadge({ result }: Props) {
   const t = await getTranslations('private.attestation-results');
 
   const status = result ? t('success-attestation') : t('fail-attestation');
