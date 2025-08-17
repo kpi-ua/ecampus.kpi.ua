@@ -1,6 +1,6 @@
 import { setRequestLocale } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
-import { Header } from '../(public)/header';
+import { Header } from '../header';
 import { Footer } from '@/app/[locale]/(public)/footer';
 
 interface Props extends LocaleProps {

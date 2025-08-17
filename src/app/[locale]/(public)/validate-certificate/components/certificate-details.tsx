@@ -2,7 +2,7 @@ import { CheckCircle2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import dayjs from 'dayjs';
 import { dash } from 'radash';
-import { DetailRow } from '@/app/[locale]/validate-certificate/components/detail-row';
+import { DetailRow } from '@/app/[locale]/(public)/validate-certificate/components/detail-row';
 import { useTranslations } from 'next-intl';
 import { CertificateVerificationResult } from '@/types/models/certificate/certificate-verification-result';
 import { FC } from 'react';
