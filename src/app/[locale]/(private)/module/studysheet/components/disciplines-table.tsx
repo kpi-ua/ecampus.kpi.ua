@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTableSort } from '@/hooks/use-table-sort';
 import { Table, TableHeader, TableHead, TableRow, TableCell, TableBody } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Link } from '@/i18n/routing';
@@ -18,33 +19,34 @@ interface Props {
 export function DisciplinesTable({ disciplines }: Props) {
   const tTable = useTranslations('private.study-sheet.table');
 
+  const { sortedRows, sortHandlers } = useTableSort<Discipline>(disciplines, (row, header) => row[header], ['score']);
+
   return (
     <Table>
       <TableHeader>
         <TableRow>
           <TableHead>{tTable('subject')}</TableHead>
-          <TableHead>{tTable('score')}</TableHead>
+          <TableHead sortHandlers={sortHandlers} sortHeader="score" className="cursor-pointer text-center">
+            {tTable('score')}
+          </TableHead>
           <TableHead>{tTable('lecturer')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {disciplines.map((discipline) => (
-          <TableRow key={discipline.id}>
+        {sortedRows.map((d) => (
+          <TableRow key={d.id}>
             <TableCell className="min-w-[200px] max-w-[336px]">
-              <Link
-                className="text-sm font-medium text-basic-black underline"
-                href={`/module/studysheet/${discipline.id}`}
-              >
-                {discipline.name}
+              <Link className="text-sm font-medium text-basic-black underline" href={`/module/studysheet/${d.id}`}>
+                {d.name}
               </Link>
             </TableCell>
             <TableCell className="max-w-[158px]">
               <Badge className="font-semibold text-basic-blue">
-                {round(Number(discipline.score), 2)}/{MAX_SCORE}
+                {round(Number(d.score), 2)}/{MAX_SCORE}
               </Badge>
             </TableCell>
             <TableCell className="flex max-w-[360px] flex-col gap-1">
-              {discipline?.lecturers?.map((lecturer, index) => (
+              {d?.lecturers?.map((lecturer, index) => (
                 <LecturerItemCell key={index} photo={lecturer.photo} fullName={lecturer.fullName} />
               ))}
             </TableCell>

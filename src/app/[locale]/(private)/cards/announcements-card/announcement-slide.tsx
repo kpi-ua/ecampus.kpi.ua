@@ -25,8 +25,8 @@ export const AnnouncementSlide = ({ title, description, link, linkTitle, image }
         <Heading3>{title}</Heading3>
         <Paragraph
           className={cn('mb-0 grow', {
-            'line-clamp-[6] lg:line-clamp-[6] xl:line-clamp-[8]': !!link,
-            'line-clamp-[8] lg:line-clamp-[7] xl:line-clamp-[9]': !link,
+            'line-clamp-6 lg:line-clamp-6 xl:line-clamp-8': !!link,
+            'line-clamp-8 lg:line-clamp-7 xl:line-clamp-9': !link,
           })}
         >
           {description}
