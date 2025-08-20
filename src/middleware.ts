@@ -4,7 +4,7 @@ import { authenticationMiddleware } from './middleware/authentication.middleware
 import { intlMiddleware } from './middleware/intl.middleware';
 
 export const config = {
-  matcher: ['/', `/(uk|en)/:path*`, '/((?!.*\\.).*)'],
+  matcher: ['/', `/(uk|en)/:path*`, '/((?!_next|api|favicon.ico|.*\\.[^/]+$).*)'],
 };
 
 export async function middleware(request: NextRequest) {
