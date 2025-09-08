@@ -510,7 +510,8 @@
       },
       "success": {
         "title": "Success",
-        "description": "Your changes have been saved successfully."
+        "description": "Your changes have been saved successfully.",
+        "email": "A confirmation email has been sent to your new address. Please check your mailbox to verify access."
       },
       "error": {
         "invalid-email": "Invalid email",
