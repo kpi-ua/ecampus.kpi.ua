@@ -10,12 +10,16 @@ on:
       - reopened
       - synchronize
     branches:
-      - master
+      - main
+      - dev
+  push:
+    branches:
+      - main
       - dev
 
 jobs:
   build:
-    if: ${{ !github.event.pull_request.draft }}
+    if: ${{ !github.event.pull_request.draft || github.event_name == 'push' }}
     runs-on: ubuntu-latest
 
     steps:
