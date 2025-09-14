@@ -92,13 +92,7 @@ export const CredentialsLogin = () => {
           </Link>
         </div>
         <FormMessage>{form.formState.errors.root?.message}</FormMessage>
-        <Button
-          size="big"
-          className="my-4 w-full"
-          type="submit"
-          disabled={!form.formState.isValid}
-          loading={form.formState.isSubmitting}
-        >
+        <Button size="big" className="my-4 w-full" type="submit" loading={form.formState.isSubmitting}>
           {t('button.login')}
         </Button>
       </form>

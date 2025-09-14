@@ -54,6 +54,9 @@ export const InformationCard = async ({ className }: InformationCardProps) => {
         <Paragraph className="my-1">
           <Link href="/user-manual">{t('user-manual')}</Link>
         </Paragraph>
+        <Paragraph className="my-1">
+          <Link href="/student-manual">{t('student-manual')}</Link>
+        </Paragraph>
       </CardContent>
     </Card>
   );
