@@ -60,7 +60,7 @@ export const CredentialsLogin = () => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="my-6 grid w-full items-center gap-2">
+            <FormItem className="mb-6 grid w-full items-center gap-2">
               <Label htmlFor="username">{t('field.username')}</Label>
               <Input {...field} />
             </FormItem>
