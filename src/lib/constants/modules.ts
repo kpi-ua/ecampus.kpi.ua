@@ -8,6 +8,7 @@ export const MODULES: Module[] = [
   { name: 'kurator', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'facultycertificate', isExternal: false },
   { name: 'contacts', isExternal: true },
+  { name: 'certificates', isExternal: false },
   { name: 'msg', isExternal: true },
   { name: 'rnp', isExternal: true },
   { name: 'vote', isExternal: true },
