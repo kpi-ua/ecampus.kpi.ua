@@ -19,6 +19,8 @@ export const CuratorSearch = () => {
   const [groups, setGroups] = useState<Group[]>([]);
   const { errorToast } = useServerErrorToast();
 
+  const unknownValue = t('unknown-value');
+
   const searchGroups = useCallback(async (name: string) => {
     try {
       setIsLoading(true);
@@ -64,8 +66,8 @@ export const CuratorSearch = () => {
               <CuratorSearchItem
                 key={group.id}
                 group={group.name}
-                department={group.cathedra?.name}
-                curatorName={group.curator?.fullName}
+                department={group.cathedra?.name || unknownValue}
+                curatorName={group.curator?.fullName || unknownValue}
                 link={group.curator?.profile}
               />
             ))}

@@ -2,21 +2,16 @@
 
 import { LinkSimple } from '@/app/images';
 import { cn } from '@/lib/utils';
-import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 interface CuratorSearchItemProps {
   group: string;
-  department?: string;
-  curatorName?: string;
+  department: string;
+  curatorName: string;
   link?: string;
 }
 
 export const CuratorSearchItem = ({ group, department, curatorName, link }: CuratorSearchItemProps) => {
-  const t = useTranslations('public.curator-search');
-
-  const unknownValue = t('unknown-value');
-
   return (
     <div className="border-neutral-divider border-solid not-last:mb-4 not-last:border-b not-last:pb-4">
       <strong className="my-1 block text-lg">{group}</strong>
@@ -25,10 +20,10 @@ export const CuratorSearchItem = ({ group, department, curatorName, link }: Cura
         href={link ?? '#'}
         target="_blank"
       >
-        {curatorName || unknownValue}
+        {curatorName}
         {!!link && <LinkSimple />}
       </Link>
-      <span className="my-1 text-base text-neutral-600">{department || unknownValue}</span>
+      <span className="my-1 text-base text-neutral-600">{department}</span>
     </div>
   );
 };
