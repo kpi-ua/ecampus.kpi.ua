@@ -1,4 +1,4 @@
-'use-client';
+'use client';
 
 import { LinkSimple } from '@/app/images';
 import { cn } from '@/lib/utils';
