@@ -7,18 +7,19 @@ import clsx from 'clsx';
 
 interface Props {
   sheetList: string[];
+  module: string;
 }
 
-export function TableSheets({ sheetList }: Props) {
-  const t = useTranslations('private.study-sheet.sheet');
+export function TableTabs({ sheetList, module }: Props) {
+  const t = useTranslations(`private.${module}.tab`);
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const selectedSheet = searchParams.get('sheet') || sheetList[0];
+  const selectedTab = searchParams.get('tab') || sheetList[0];
 
   const handleSheetChange = (sheet: string) => {
     const currentParams = new URLSearchParams(searchParams);
-    currentParams.set('sheet', sheet);
+    currentParams.set('tab', sheet);
     router.push(`?${currentParams.toString()}`);
   };
 
@@ -29,12 +30,12 @@ export function TableSheets({ sheetList }: Props) {
           key={index}
           onClick={() => handleSheetChange(item)}
           className={clsx(
-            'h-[77px] w-fit rounded-t-[8px] px-3 md:px-8 lg:h-[42px]',
-            selectedSheet === item ? 'bg-basic-white' : 'bg-transparent',
+            'h-[77px] w-fit rounded-t-[8px] px-3 hover:cursor-pointer md:px-8 lg:h-[42px]',
+            selectedTab === item ? 'bg-basic-white' : 'bg-transparent',
           )}
         >
           <Paragraph
-            className={clsx('text-base font-semibold', selectedSheet === item ? 'text-basic-blue' : 'text-neutral-700')}
+            className={clsx('text-base font-semibold', selectedTab === item ? 'text-basic-blue' : 'text-neutral-700')}
           >
             {t(item)}
           </Paragraph>

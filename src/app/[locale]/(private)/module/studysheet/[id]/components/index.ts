@@ -1,5 +1,5 @@
 export { ModuleHeader } from './module-header/module-header';
-export { TableSheets } from './table-sheets';
+export { TableTabs } from '../../../../../../../components/table-tabs/table-tabs';
 export { JournalTable } from './journal-table';
 export { EventPlanTable } from './event-plan-table';
 export { ExternalMaterialsTable } from './external-materials-table';

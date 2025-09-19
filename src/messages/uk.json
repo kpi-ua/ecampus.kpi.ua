@@ -439,6 +439,16 @@
       "status": "Статус",
       "average-score": "Середній бал за весь період навчання:"
     },
+    "msg": {
+      "title": "Message",
+      "subtitle": "You can send a message to the curator of your group.",
+      "tab": {
+        "inbox": "Inbox",
+        "sent": "Sent",
+        "important": "Important",
+        "compose": "Compose"
+      }
+    },
     "study-sheet": {
       "title": "Поточний контроль",
       "subtitle": "Поточний контроль проводиться впродовж семестру з метою забезпечення перевірки рівня підготовки здобувачів на кожному етапі вивчення дисципліни.",
@@ -454,7 +464,7 @@
         "second": "Друге",
         "all": "Всі"
       },
-      "sheet": {
+      "tab": {
         "journal": "Журнал",
         "event-plan": "План заходів",
         "internal-materials": "Внутрішні матеріали",

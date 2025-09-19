@@ -439,6 +439,16 @@
       "status": "Status",
       "average-score": "Average score for the entire period of study:"
     },
+    "msg": {
+      "title": "Message",
+      "subtitle": "You can send a message to the curator of your group.",
+      "tab": {
+        "inbox": "Inbox",
+        "sent": "Sent",
+        "important": "Important",
+        "compose": "Compose"
+      }
+    },
     "study-sheet": {
       "title": "Current control",
       "subtitle": "Current control is carried out during the semester in order to ensure the testing of the level of training of applicants at each stage of the discipline.",
@@ -454,7 +464,7 @@
         "second": "Second",
         "all": "All"
       },
-      "sheet": {
+      "tab": {
         "journal": "Gradebook",
         "event-plan": "Events plan",
         "internal-materials": "Internal materials",
