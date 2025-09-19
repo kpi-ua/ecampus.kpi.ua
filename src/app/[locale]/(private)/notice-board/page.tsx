@@ -2,7 +2,7 @@ import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { getAnnouncements } from '@/actions/announcement.actions';
 import { NoticeList } from '@/app/[locale]/(private)/notice-board/components/notice-list';
-import { Heading1, Description } from '@/components/typography';
+import { Description, Heading2 } from '@/components/typography';
 import { Suspense } from 'react';
 import { LocaleProps } from '@/types/locale-props';
 
@@ -28,7 +28,7 @@ export default async function NoticeBoardPage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
         <Suspense>
           <NoticeList announcements={announcements} />

@@ -2,7 +2,7 @@ import { getContacts, getContactTypes } from '@/actions/profile.actions';
 import { getTranslations } from 'next-intl/server';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getUserDetails } from '@/actions/auth.actions';
-import { Heading1, Description } from '@/components/typography';
+import { Description, Heading2 } from '@/components/typography';
 import { InfoBlock } from '@/app/[locale]/(private)/profile/components/info-block';
 import { Card, CardContent } from '@/components/ui/card';
 import { Contacts } from '@/app/[locale]/(private)/profile/components/contacts';
@@ -38,7 +38,7 @@ export default async function Page() {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
         <div className="flex flex-col gap-5 xl:flex-row">
           <InfoBlock user={user} className="h-fit w-full" />

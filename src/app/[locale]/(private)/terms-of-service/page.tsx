@@ -1,4 +1,4 @@
-import { Heading1 } from '@/components/typography/headers';
+import { Heading2 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
@@ -26,7 +26,7 @@ export default async function TermsOfServicePage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <article className="col-span-6">
-        <Heading1>{t('header')}</Heading1>
+        <Heading2>{t('header')}</Heading2>
         <RichText>{(tags) => t.rich('content', tags)}</RichText>
       </article>
     </SubLayout>

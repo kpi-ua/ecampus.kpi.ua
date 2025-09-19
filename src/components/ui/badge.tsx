@@ -11,7 +11,7 @@ const badgeVariants = cva(
         red: 'bg-other-red/10 text-other-red',
         purple: 'bg-other-purple/10 text-other-purple',
         orange: 'bg-other-orange/10 text-other-orange',
-        neutral: 'bg-neutral-50 text-neutral-700',
+        neutral: 'bg-other-blue/10 text-neutral-700',
       },
     },
     defaultVariants: {

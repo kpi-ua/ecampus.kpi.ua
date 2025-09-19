@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Description, Heading1, Heading6 } from '@/components/typography';
+import { Description, Heading2, Heading6 } from '@/components/typography';
 import { SubLayout } from '../../../sub-layout';
 import { useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
@@ -54,7 +54,7 @@ export function StudySheet() {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-8">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
         {isLoading ? (
           <div className="flex h-full items-center justify-center">

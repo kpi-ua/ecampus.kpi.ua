@@ -8,6 +8,7 @@ import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { Show } from '@/components/utils/show';
+import { Description } from '@/components/typography';
 
 const INTL_NAMESPACE = 'private.curator';
 
@@ -30,9 +31,7 @@ export default async function CuratorPage() {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-8 w-full px-2 sm:px-4 md:px-0">
         <Heading2>{t('title')}</Heading2>
-        <Paragraph className="mb-7 mt-3 max-w-full text-sm font-normal leading-sm text-neutral-700 sm:max-w-2xl">
-          {t('info')}
-        </Paragraph>
+        <Description>{t('info')}</Description>
         <Card className="rounded-b-6 col-span-full flex w-full flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
             <ProfilePicture size="xl" src={userInfo.photo || ''} />
@@ -48,7 +47,7 @@ export default async function CuratorPage() {
                 </Paragraph>
                 <div className="flex flex-1 flex-col gap-1 sm:gap-2">
                   {subdivisions?.map((subdivision) => (
-                    <Paragraph key={subdivision.id} className="m-0 break-words text-lg font-normal text-basic-black">
+                    <Paragraph key={subdivision.id} className="text-basic-black m-0 text-lg font-normal break-words">
                       {subdivision.name}
                     </Paragraph>
                   ))}
@@ -62,7 +61,7 @@ export default async function CuratorPage() {
                       <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px] sm:pl-4">
                         {contact.name}
                       </Paragraph>
-                      <Paragraph className="m-0 break-all text-lg font-normal text-basic-black">
+                      <Paragraph className="text-basic-black m-0 text-lg font-normal break-all">
                         {contact.value}
                       </Paragraph>
                     </div>
@@ -74,7 +73,7 @@ export default async function CuratorPage() {
                   <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px]">
                     {t('profile')}
                   </Paragraph>
-                  <Paragraph className="m-0 flex-1 break-all text-lg font-normal text-basic-black">
+                  <Paragraph className="text-basic-black m-0 flex-1 text-lg font-normal break-all">
                     <Link href={userInfo.profile} target="_blank" rel="noopener noreferrer">
                       {userInfo.profile}
                     </Link>

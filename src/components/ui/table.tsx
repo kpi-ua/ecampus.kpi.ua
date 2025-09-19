@@ -44,7 +44,7 @@ const TableRow = ({ className, ref, ...props }: React.ComponentProps<'tr'>) => (
   <tr
     ref={ref}
     className={cn(
-      'data-[state=selected]:bg-muted border-b bg-white transition-colors hover:bg-[#F8F8FF] active:bg-[#F5FBFF]',
+      'data-[state=selected]:bg-muted active:bg-brand-00 border-b bg-white transition-colors hover:bg-neutral-50',
       className,
     )}
     {...props}
@@ -59,7 +59,7 @@ const TableHead = React.forwardRef<HTMLTableCellElement, TableHeadProps>(
       <th
         ref={ref}
         className={cn(
-          'h-12 bg-neutral-200 px-4 text-left align-middle text-sm font-semibold text-[#40414D] uppercase [&:has([role=checkbox])]:pr-0',
+          'h-12 bg-neutral-200 px-4 text-left align-middle text-sm font-semibold text-neutral-900 uppercase [&:has([role=checkbox])]:pr-0',
           className,
           isSortable && 'cursor-pointer',
         )}
