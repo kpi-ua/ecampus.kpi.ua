@@ -252,7 +252,8 @@
       "search-placeholder": "Group name",
       "searching": "Searching...",
       "not-found": "No results found",
-      "search-default": "Enter your group name above to find a curator."
+      "search-default": "Enter your group name above to find a curator.",
+      "unknown-value": "Unknown"
     },
     "faq": {
       "header": "Frequently Asked Questions",
