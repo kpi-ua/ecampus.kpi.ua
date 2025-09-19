@@ -1,4 +1,4 @@
-import { Heading1, Description } from '@/components/typography';
+import { Description, Heading2 } from '@/components/typography';
 import { SubLayout } from '../../sub-layout';
 import { getTranslations } from 'next-intl/server';
 import { Button } from '@/components/ui/button';
@@ -23,7 +23,7 @@ export default async function EmploymentPage() {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
         <form action={redirectToEmploymentSystem}>
           <Button variant="primary" type="submit">
