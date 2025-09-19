@@ -64,9 +64,9 @@ export const CuratorSearch = () => {
               <CuratorSearchItem
                 key={group.id}
                 group={group.name}
-                department={group.cathedra.name}
-                curatorName={group.curator.fullName}
-                link={group.curator.profile}
+                department={group.cathedra?.name}
+                curatorName={group.curator?.fullName}
+                link={group.curator?.profile}
               />
             ))}
           </div>
