@@ -69,7 +69,6 @@ export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
 
     const t = await getTranslations('global.modules');
     const profileArea = userDetails.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
-    console.log(jwtPayload.modules);
     const availableModules = MODULES.filter((module) => jwtPayload.modules.includes(module.name));
     const groups = group(availableModules, (module) => module.group || module.name);
 

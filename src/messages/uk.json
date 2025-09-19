@@ -35,6 +35,7 @@
       "vote": "Опитування «Викладач очима студентів»",
       "studysheet": "Поточний контроль",
       "rectorialcontrol": "Ректорський контроль",
+      "certificates": "Замовлення довідки",
       "vedomoststud": "Семестровий контроль",
       "pk2024": "Вступ 2024 (магістратура)",
       "pk2025": "Вступ 2025 (магістратура)",
@@ -169,10 +170,19 @@
         "expelled": "Усунено",
         "rejected": "Не задовільно",
         "absent": "Не з'явився",
+        "pending": "Очікування",
         "sufficient": "Задовільно",
         "good": "Добре",
         "very-good": "Дуже добре",
-        "excellent": "Відмінно"
+        "excellent": "Відмінно",
+        "approved": "Прийнято",
+        "created": "Створено",
+        "in-queue": "У черзі",
+        "error": "Помилка"
+      },
+      "certificate-type": {
+        "employment-certificate": "Довідка про роботу",
+        "studying-certificate": "Довідка про навчання"
       }
     },
     "footer": "<paragraph>Розробник: <kbislink>КБІС</kbislink></paragraph><paragraph>© {year} КПІ ім. Ігоря Сікорського</paragraph>"
@@ -197,7 +207,8 @@
         "error": "Недійсні облікові дані"
       },
       "button": {
-        "login": "Увійти"
+        "login": "Увійти",
+        "kpi-id": "Вхід через KPI ID"
       }
     },
     "kpi-id": {
@@ -243,6 +254,39 @@
     "support": {
       "header": "Служба підтримки",
       "content": "<p>Якщо у вас є питання, ви можете звернутися до <tglink>чату підтримки</tglink>, або надіслати його на електронну пошту служби підтримки: <email>ecampus@kpi.ua</email>.</p><p>Також ви можете завітати до конструкторського бюро, за адресою:<br></br><addresslink>Україна, м. Київ, вул. Політехнічна 14-в, корпус 13, 4 поверх, 25 кабінет.</addresslink></p>"
+    },
+    "verification": {
+      "header": "Верифікація сертифікатів",
+      "search": {
+        "title": "Перевірка сертифіката:",
+        "label": "ID сертифіката",
+        "placeholder": "Введіть ID сертифіката",
+        "check": "Перевірити сертифікат"
+      },
+      "result": {
+        "title": "Результат перевірки:",
+        "empty": "Тут поки порожньо",
+        "enter": "Введіть ID сертифіката для початку перевірки",
+        "label": "ID сертифіката",
+        "checking": "Перевірка сертифіката...",
+        "wait": "Будь ласка, зачекайте, поки ми перевіряємо сертифікат",
+        "owner": "Власник сертифіката:",
+        "date": "Дата видачі:",
+        "type": "Тип сертифіката:",
+        "purpose": "Призначення:",
+        "success": "Сертифікат підтверджено",
+        "notfound": "Сертифікат не знайдено",
+        "again": "Будь ласка, перевірте ID сертифіката та спробуйте знову або",
+        "contact-support": "<link>Зверніться до служби підтримки</link>",
+        "table": {
+          "title": "Історія замовлень",
+          "type": "Тип довідки",
+          "date": "Дата запиту",
+          "status": "Статус",
+          "actions": "Дії",
+          "download": "Завантажити PDF"
+        }
+      }
     },
     "suggestions": {
       "header": "Форма пропозицiй"
@@ -428,6 +472,32 @@
     "suggestions": {
       "title": "Відправити відгук"
     },
+    "facultycertificate": {
+      "title": "Semester control",
+      "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
+      "date": "Date",
+      "subject": "Educational component",
+      "score": "Score",
+      "controlType": "Control type",
+      "sessionType": "Session order type",
+      "lecturer": "Lecturer",
+      "status": "Status",
+      "sheet": {
+        "all": "All",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "approved": "Approved"
+      },
+      "table": {
+        "created": "Created",
+        "fullname": "fullname",
+        "originalRequired": "originalRequired",
+        "received": "received",
+        "status": "status",
+        "purpose": "purpose",
+        "actions": "actions"
+      }
+    },
     "vedomoststud": {
       "title": "Семестровий контроль",
       "subtitle": "Семестровий контроль результатів навчання студентів. Терміни проведення семестрового контролю визнаються навчальним планом. Терміни ліквідації академічної заборгованості (тиждень для першого та другого перескладань) визначаються наказом / розпорядженням по університету.",
@@ -490,6 +560,16 @@
       "subdivisions": "Посада(и):",
       "contacts": "Контакти:",
       "profile": "Особиста сторінка:"
+    },
+    "certificate": {
+      "title": "Замовлення довідки",
+      "info": "У цьому розділі ви можете замовити офіційну довідку про навчання, роботу, візу чи інші цілі.",
+      "orderTitle": "Створення замовлення:",
+      "docType": "Тип довідки",
+      "docTypePlaceholder": "оберіть тип довідки",
+      "purpose": "Коментар / мета довідки",
+      "purposePlaceholder": "Наприклад: для посольства Франції",
+      "submit": "Замовити"
     },
     "settings": {
       "title": "Налаштування",

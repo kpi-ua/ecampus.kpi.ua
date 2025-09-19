@@ -1,6 +1,6 @@
-export enum SheetTranslationKeys {
-  Journal = 'journal',
-  EventPlan = 'event-plan',
-  InternalMaterials = 'internal-materials',
-  ExternalMaterials = 'external-materials',
+export enum DeanCeritificateKeys {
+  All = 'all',
+  Pending = 'pending',
+  Approved = 'approved',
+  Rejected = 'rejected',
 }

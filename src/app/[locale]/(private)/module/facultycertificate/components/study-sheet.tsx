@@ -1,82 +1,40 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Description, Heading1, Heading6 } from '@/components/typography';
-import { SubLayout } from '../../../sub-layout';
-import { useTranslations } from 'next-intl';
+import React, { FC } from 'react';
 import { Card } from '@/components/ui/card';
-import { Sheet } from '@/types/models/current-control/sheet';
-import { getMonitoring } from '@/actions/monitoring.actions';
-import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { DisciplinesTable } from '@/app/[locale]/(private)/module/studysheet/components/disciplines-table';
-import { StudySheetFilters } from '@/app/[locale]/(private)/module/studysheet/components/study-sheet-filters';
-import { Semester } from '@/types/enums/current-control/semester';
-import { useLocalStorage } from '@/hooks/use-storage';
 
-export function StudySheet() {
-  const t = useTranslations('private.study-sheet');
-  const [sheet, setSheet] = useState<Sheet | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+import { TableSheets } from '@/app/[locale]/(private)/module/studysheet/[id]/components';
+import { useSearchParams } from 'next/navigation';
+import { DeanCertificate } from '@/actions/dean.actions';
+import { AllDocsTable } from '@/app/[locale]/(private)/module/facultycertificate/[id]/components';
+import { DeanCeritificateKeys } from '@/app/[locale]/(private)/module/facultycertificate/[id]/constants';
+import { PendingDocsTable } from '@/app/[locale]/(private)/module/facultycertificate/[id]/components/pending-docs-table';
 
-  const { errorToast } = useServerErrorToast();
+interface Props {
+  allCertificates: DeanCertificate[];
+  pendingCertificates: DeanCertificate[];
+  rejectedCertificates: DeanCertificate[];
+  approvedCertificates: DeanCertificate[];
+}
 
-  const studyYears = sheet?.studyYears ?? [];
-  const currentYear = studyYears.at(-1) || '';
-
-  const [selectedStudyYear = currentYear, setSelectedStudyYear] = useLocalStorage<string>('studyYear');
-  const [selectedSemester = Semester.All, setSelectedSemester] = useLocalStorage<Semester>('semester');
-
-  const fetchData = useCallback(async () => {
-    try {
-      const data = await getMonitoring();
-      setSheet(data);
-    } catch (error) {
-      errorToast();
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const filteredDisciplines = useMemo(() => {
-    const disciplines = sheet?.disciplines ?? [];
-    return disciplines.filter((discipline) => {
-      const matchesSemester = selectedSemester === Semester.All || discipline.semester.toString() === selectedSemester;
-      const matchesStudyYear = !selectedStudyYear || discipline.studyYear === selectedStudyYear;
-      return matchesSemester && matchesStudyYear;
-    });
-  }, [selectedSemester, selectedStudyYear, sheet?.disciplines]);
+export const StudySheet: FC<Props> = ({
+  allCertificates,
+  rejectedCertificates,
+  pendingCertificates,
+  approvedCertificates,
+}) => {
+  const searchParams = useSearchParams();
+  const selectedTab = searchParams.get('sheet') || DeanCeritificateKeys.All;
 
   return (
-    <SubLayout pageTitle={t('title')}>
-      <div className="col-span-8">
-        <Heading1>{t('title')}</Heading1>
-        <Description>{t('subtitle')}</Description>
-        {isLoading ? (
-          <div className="flex h-full items-center justify-center">
-            <SpinnerGap />
-          </div>
-        ) : (
-          <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
-            <div className="flex flex-col lg:flex-row lg:items-center">
-              <Heading6 className="mr-auto text-neutral-900">{t('your-information')}</Heading6>
-              <StudySheetFilters
-                studyYears={studyYears}
-                currentYear={currentYear}
-                selectedSemester={selectedSemester}
-                selectedStudyYear={selectedStudyYear}
-                onStudyYearSelect={setSelectedStudyYear}
-                onSemesterSelect={setSelectedSemester}
-              />
-            </div>
-            <DisciplinesTable disciplines={filteredDisciplines} />
-          </Card>
-        )}
-      </div>
-    </SubLayout>
+    <div className="mt-8 flex flex-col">
+      <TableSheets module="facultycertificate" sheetList={Object.values(DeanCeritificateKeys)} />
+      <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
+        {selectedTab === DeanCeritificateKeys.All && <AllDocsTable certificates={approvedCertificates} />}
+        {selectedTab === DeanCeritificateKeys.Pending && <PendingDocsTable certificates={pendingCertificates} />}
+        {selectedTab === DeanCeritificateKeys.Approved && <PendingDocsTable certificates={approvedCertificates} />}
+        {selectedTab === DeanCeritificateKeys.Rejected && <PendingDocsTable certificates={rejectedCertificates} />}
+      </Card>
+    </div>
   );
-}
+};
