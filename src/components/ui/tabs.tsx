@@ -35,7 +35,7 @@ const TabsTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof T
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-sm bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 ring-offset-background transition-all focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-basic-blue data-[state=active]:text-basic-white data-[state=active]:shadow-xs',
+      'ring-offset-background focus-visible:ring-ring data-[state=active]:bg-basic-blue data-[state=active]:text-basic-white inline-flex cursor-pointer items-center justify-center rounded-sm bg-white px-3 py-1.5 text-sm font-medium whitespace-nowrap text-neutral-700 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-xs',
       className,
     )}
     {...props}
@@ -47,7 +47,7 @@ const TabsContent = ({ className, ref, ...props }: React.ComponentProps<typeof T
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'mt-2 ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+      'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
       className,
     )}
     {...props}

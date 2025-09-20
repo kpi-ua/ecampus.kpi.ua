@@ -17,7 +17,7 @@ export default async function Verify({ params }: LocaleProps) {
 
   return (
     <AuthNavLayout header={t('header')} className="flex w-full grow flex-col items-start">
-      <section className="mt-8 w-full text-lg leading-lg">
+      <section className="leading-lg mt-8 w-full text-lg">
         <div className="flex w-full flex-col gap-6">
           <CertificateVerifier />
         </div>

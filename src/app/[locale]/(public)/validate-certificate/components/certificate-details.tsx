@@ -18,8 +18,8 @@ export const CertificateDetails: FC<Props> = ({ result, t }) => {
   return (
     <div className="w-full space-y-4">
       <div className="mb-4 flex items-center gap-3 rounded bg-green-50 px-4 py-3">
-        <CheckCircle2 className="h-6 w-6 flex-shrink-0 text-status-success-300" />
-        <div className="font-medium text-status-success-300">{t('success')}</div>
+        <CheckCircle2 className="text-status-success-300 h-6 w-6 flex-shrink-0" />
+        <div className="text-status-success-300 font-medium">{t('success')}</div>
       </div>
 
       <div className="space-y-6">

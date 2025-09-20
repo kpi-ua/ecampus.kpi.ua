@@ -20,7 +20,7 @@ export const DocumentCard = async ({ BackgroundImage, header, url, className }: 
         <Heading5>{header}</Heading5>
       </CardHeader>
       <CardContent className="h-24 grow">
-        <BackgroundImage className="absolute bottom-0 right-0 z-20 rounded-br-lg opacity-50" />
+        <BackgroundImage className="absolute right-0 bottom-0 z-20 rounded-br-lg opacity-50" />
       </CardContent>
       <CardFooter>
         <TextButton variant="primary" size="big" href={url} target="_blank" rel="noopener noreferrer">

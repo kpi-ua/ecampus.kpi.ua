@@ -17,7 +17,6 @@ on:
       - main
       - dev
 
-
 jobs:
   build:
     if: ${{ !github.event.pull_request.draft }}

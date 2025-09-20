@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function StudySheetPage() {
   const facultyCertificates = await getFacultyCertificates();
-  const t = await getTranslations('private.study-sheet');
+  const t = await getTranslations('private.facultycertificate');
 
   return (
     <SubLayout pageTitle={t('title')}>

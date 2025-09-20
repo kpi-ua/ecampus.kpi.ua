@@ -473,8 +473,8 @@
       "title": "Відправити відгук"
     },
     "facultycertificate": {
-      "title": "Semester control",
-      "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
+      "title": "Запити на сертифікати",
+      "subtitle": "Перегляд та обробка запитів студентів на сертифікати",
       "date": "Date",
       "subject": "Educational component",
       "score": "Score",
@@ -489,13 +489,13 @@
         "approved": "Approved"
       },
       "table": {
-        "created": "Created",
-        "fullname": "fullname",
-        "originalRequired": "originalRequired",
-        "received": "received",
-        "status": "status",
-        "purpose": "purpose",
-        "actions": "actions"
+        "created": "Створено",
+        "fullname": "ПІБ студента",
+        "originalRequired": "З печаткою",
+        "received": "Оновлено",
+        "status": "Статус",
+        "purpose": "Призначення",
+        "actions": "Дії"
       }
     },
     "vedomoststud": {

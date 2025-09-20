@@ -108,7 +108,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
             </div>
             <Button
               type="submit"
-              className="ml-auto mt-3 w-fit"
+              className="mt-3 ml-auto w-fit"
               variant="secondary"
               disabled={!form.formState.isValid}
               loading={form.formState.isSubmitting}

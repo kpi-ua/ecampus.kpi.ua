@@ -35,13 +35,13 @@ export function DisciplinesTable({ disciplines }: Props) {
       <TableBody>
         {sortedRows.map((d) => (
           <TableRow key={d.id}>
-            <TableCell className="min-w-[200px] max-w-[336px]">
-              <Link className="text-sm font-medium text-basic-black underline" href={`/module/studysheet/${d.id}`}>
+            <TableCell className="max-w-[336px] min-w-[200px]">
+              <Link className="text-basic-black text-sm font-medium underline" href={`/module/studysheet/${d.id}`}>
                 {d.name}
               </Link>
             </TableCell>
             <TableCell className="max-w-[158px]">
-              <Badge className="font-semibold text-basic-blue">
+              <Badge className="text-basic-blue font-semibold">
                 {round(Number(d.score), 2)}/{MAX_SCORE}
               </Badge>
             </TableCell>
