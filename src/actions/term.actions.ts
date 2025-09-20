@@ -1,3 +1,5 @@
+'use server';
+
 import { campusFetch } from '@/lib/client';
 import { Term } from '@/types/models/term';
 

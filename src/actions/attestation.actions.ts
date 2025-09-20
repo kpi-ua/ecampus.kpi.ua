@@ -1,3 +1,5 @@
+'use server';
+
 import { campusFetch } from '@/lib/client';
 import { AttestationResult } from '@/types/models/attestation-results/attestation-result';
 

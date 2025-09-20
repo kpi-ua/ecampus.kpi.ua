@@ -1,3 +1,5 @@
+'use server';
+
 import { campusFetch } from '@/lib/client';
 import { Curator } from '@/types/models/curator';
 

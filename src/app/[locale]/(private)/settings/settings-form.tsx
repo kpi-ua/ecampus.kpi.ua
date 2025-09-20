@@ -3,7 +3,7 @@
 import { Heading5 } from '@/components/typography/headers';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import PasswordInput from '@/components/ui/password-input';
 import { Button } from '@/components/ui/button';
 import * as z from 'zod';
@@ -18,6 +18,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
 import { toast } from '@/hooks/use-toast';
 import { getUniqueUserPhotoUrl } from '@/lib/utils';
+import EnvelopeSimple from '@/app/images/icons/EnvelopeSimple.svg';
 
 interface Props {
   user: User;
@@ -28,6 +29,7 @@ export function SettingsForm({ user }: Props) {
   const isMobile = useIsMobile();
   const t = useTranslations('private.settings');
   const [file, setFile] = useState<File | null>(null);
+  const [shouldShowEmailAlert, setShouldShowEmailAlert] = useState(false);
   const profilePhoto = getUniqueUserPhotoUrl(user.photo);
 
   const FormSchema = z
@@ -62,6 +64,7 @@ export function SettingsForm({ user }: Props) {
     try {
       if (user.email !== data.email) {
         await changeEmail(data.email);
+        setShouldShowEmailAlert(true);
       }
 
       if (file) {
@@ -102,6 +105,13 @@ export function SettingsForm({ user }: Props) {
                   <FormControl>
                     <Input {...field} placeholder="nickname@kpi.ua" />
                   </FormControl>
+                  {shouldShowEmailAlert && (
+                    <FormDescription className="flex flex-col gap-3 md:flex-row md:items-center">
+                      <EnvelopeSimple width={24} height={24} />
+                      {t('success.email')}
+                    </FormDescription>
+                  )}
+
                   <FormMessage />
                 </FormItem>
               )}

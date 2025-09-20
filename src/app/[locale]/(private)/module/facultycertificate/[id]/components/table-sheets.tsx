@@ -7,11 +7,10 @@ import clsx from 'clsx';
 
 interface Props {
   sheetList: string[];
-  module: string;
 }
 
-export function TableSheets({ sheetList, module }: Props) {
-  const t = useTranslations(`private.${module}.sheet`);
+export function TableSheets({ sheetList }: Props) {
+  const t = useTranslations('private.study-sheet.sheet');
 
   const router = useRouter();
   const searchParams = useSearchParams();

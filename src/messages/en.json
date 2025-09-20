@@ -29,6 +29,7 @@
       "contacts": "Contacts",
       "msg": "Messages",
       "kurator": "Curator",
+      "facultycertificate": "facultycertificate",
       "rnp": "RNP",
       "mob": "Methodological support",
       "vote": "Survey Teacher through students eyes",
@@ -168,6 +169,7 @@
         "unknown": "Unknown",
         "expelled": "Expelled",
         "rejected": "Rejected",
+        "pending": "Pending",
         "absent": "Absent",
         "sufficient": "Sufficient",
         "good": "Good",
@@ -470,6 +472,32 @@
     "suggestions": {
       "title": "Send suggestion"
     },
+    "facultycertificate": {
+      "title": "Semester control",
+      "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
+      "date": "Date",
+      "subject": "Educational component",
+      "score": "Score",
+      "controlType": "Control type",
+      "sessionType": "Session order type",
+      "lecturer": "Lecturer",
+      "status": "Status",
+      "sheet": {
+        "all": "All",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "approved": "Approved"
+      },
+      "table": {
+        "created": "Created",
+        "fullname": "fullname",
+        "originalRequired": "originalRequired",
+        "received": "received",
+        "status": "status",
+        "purpose": "purpose",
+        "actions": "actions"
+      }
+    },
     "vedomoststud": {
       "title": "Semester control",
       "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
@@ -563,7 +591,8 @@
       },
       "success": {
         "title": "Success",
-        "description": "Your changes have been saved successfully."
+        "description": "Your changes have been saved successfully.",
+        "email": "A confirmation email has been sent to your new address. Please check your mailbox to verify access."
       },
       "error": {
         "invalid-email": "Invalid email",

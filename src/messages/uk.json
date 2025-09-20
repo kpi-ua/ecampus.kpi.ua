@@ -29,6 +29,7 @@
       "contacts": "Контакти",
       "msg": "Повідомлення",
       "kurator": "Куратор",
+      "facultycertificate": "facultycertificate",
       "rnp": "РНП",
       "mob": "Метод.забезпечення",
       "vote": "Опитування «Викладач очима студентів»",
@@ -169,6 +170,7 @@
         "expelled": "Усунено",
         "rejected": "Не задовільно",
         "absent": "Не з'явився",
+        "pending": "Очікування",
         "sufficient": "Задовільно",
         "good": "Добре",
         "very-good": "Дуже добре",
@@ -470,6 +472,32 @@
     "suggestions": {
       "title": "Відправити відгук"
     },
+    "facultycertificate": {
+      "title": "Semester control",
+      "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
+      "date": "Date",
+      "subject": "Educational component",
+      "score": "Score",
+      "controlType": "Control type",
+      "sessionType": "Session order type",
+      "lecturer": "Lecturer",
+      "status": "Status",
+      "sheet": {
+        "all": "All",
+        "rejected": "Rejected",
+        "pending": "Pending",
+        "approved": "Approved"
+      },
+      "table": {
+        "created": "Created",
+        "fullname": "fullname",
+        "originalRequired": "originalRequired",
+        "received": "received",
+        "status": "status",
+        "purpose": "purpose",
+        "actions": "actions"
+      }
+    },
     "vedomoststud": {
       "title": "Семестровий контроль",
       "subtitle": "Семестровий контроль результатів навчання студентів. Терміни проведення семестрового контролю визнаються навчальним планом. Терміни ліквідації академічної заборгованості (тиждень для першого та другого перескладань) визначаються наказом / розпорядженням по університету.",
@@ -563,7 +591,8 @@
       },
       "success": {
         "title": "Успішно",
-        "description": "Ваші зміни успішно збережено."
+        "description": "Ваші зміни успішно збережено.",
+        "email": "На вашу нову адресу надіслано електронний лист із підтвердженням. Будь ласка, перевірте свою поштову скриньку, щоб підтвердити доступ"
       },
       "error": {
         "invalid-email": "Некоректа пошта",
