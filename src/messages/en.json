@@ -29,7 +29,7 @@
       "contacts": "Contacts",
       "msg": "Messages",
       "kurator": "Curator",
-      "facultycertificate": "facultycertificate",
+      "facultycertificate": "Faculty certificate",
       "rnp": "RNP",
       "mob": "Methodological support",
       "vote": "Survey Teacher through students eyes",
@@ -473,7 +473,7 @@
       "title": "Send suggestion"
     },
     "facultycertificate": {
-      "title": "Semester control",
+      "title": "Faculty certificate",
       "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
       "date": "Date",
       "subject": "Educational component",
@@ -568,6 +568,9 @@
       "docType": "Type of certificate",
       "docTypePlaceholder": "select the type of certificate",
       "purpose": "Comment / purpose of the certificate",
+      "originalRequired": "Do you need the original certificate?",
+      "notes": "Notes",
+      "notesPlaceholder": "Наприклад: з печаткою, для посольства Франції тощо",
       "purposePlaceholder": "For example: for the French embassy",
       "submit": "Order"
     },

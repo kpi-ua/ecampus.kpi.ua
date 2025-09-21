@@ -4,17 +4,18 @@ import { campusFetch } from '@/lib/client';
 import { DeanCertificate } from '@/types/models/dean/dean-certificate';
 import { DeanCertificateStatus } from '@/types/enums/dean/certificate-status';
 import { parseContentDispositionFilename } from '@/lib/utils';
+import { revalidatePath } from 'next/cache';
 
 export async function getFacultyCertificates() {
   const res = await campusFetch<DeanCertificate[]>('/dean/certificates/requests');
   const allCertificates = await res.json();
 
-  const pendingCertificates = allCertificates.filter((item) => item.status === 'Pending');
+  const pendingCertificates = allCertificates.filter((item) => item.status === DeanCertificateStatus.Created);
   const approvedCertificates = allCertificates.filter((item) => item.status === 'Approved');
   const rejectedCertificates = allCertificates.filter((item) => item.status === 'Rejected');
 
   const proc = allCertificates.filter((item) => item.status === DeanCertificateStatus.Processed);
-  console.log(proc);
+  // console.log(proc);
 
   return { allCertificates, rejectedCertificates, pendingCertificates, approvedCertificates };
 }
@@ -45,11 +46,19 @@ export async function getDeanCertificatePDF(id: number, withoutStamp = false) {
   }
 }
 
-export async function updateCertificate(id: number, status: string, reason?: string) {
+export type UpdateCertificateBody = {
+  approve: boolean;
+  reason?: string;
+};
+
+export async function updateCertificate(id: number, body: UpdateCertificateBody) {
   const res = await campusFetch(`/dean/certificates/${id}/status`, {
     method: 'PATCH',
-    body: JSON.stringify({ status }),
+    body: JSON.stringify({ ...body }),
   });
+
+  console.log(res);
+  revalidatePath('/module/facultycertificate');
 
   if (!res.ok) {
     throw new Error(res.statusText);

@@ -6,10 +6,12 @@ import { Description, Heading2 } from '@/components/typography';
 import React from 'react';
 import { StudySheet } from './components/study-sheet';
 
+const INTL_NAMESPACE = 'private.facultycertificate';
+
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
-  const t = await getTranslations({ locale, namespace: 'private.study-sheet' });
+  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
 
   return {
     title: t('title'),
@@ -18,7 +20,7 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function StudySheetPage() {
   const facultyCertificates = await getFacultyCertificates();
-  const t = await getTranslations('private.facultycertificate');
+  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SubLayout pageTitle={t('title')}>

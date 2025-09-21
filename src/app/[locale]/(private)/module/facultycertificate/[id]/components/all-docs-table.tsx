@@ -3,7 +3,7 @@
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTranslations } from 'next-intl';
-import { getDeanCertificatePDF, updateCertificate } from '@/actions/dean.actions';
+import { getDeanCertificatePDF, updateCertificate, UpdateCertificateBody } from '@/actions/dean.actions';
 import dayjs from 'dayjs';
 import { Button } from '@/components/ui/button';
 import { Check, EyeBold, Printer, X } from '@/app/images';
@@ -43,7 +43,7 @@ export function printPdfBlob(blob: Blob, filename?: string): Promise<void> {
           setTimeout(() => {
             cleanup();
             resolve();
-          }, 1000);
+          }, 10000);
         }, 0);
       } catch (err) {
         cleanup();
@@ -76,11 +76,18 @@ export async function printCertificate(id: number) {
 export function AllDocsTable({ certificates }: Props) {
   const tTable = useTranslations('private.facultycertificate.table');
 
-  const handleUpdateCertificate = async (id: number, status: DeanCertificateStatus, reason?: string) => {
+  const handleUpdateCertificate = async (id: number, body: UpdateCertificateBody) => {
     try {
-      await updateCertificate(id, status, reason);
+      await updateCertificate(id, body);
     } catch (error) {
       console.error('Error updating certificate:', error);
+    }
+  };
+
+  const handleReject = (id: number) => {
+    const reason = prompt('Please provide a reason for rejection:');
+    if (reason) {
+      handleUpdateCertificate(id, { approve: false, reason });
     }
   };
 
@@ -100,8 +107,6 @@ export function AllDocsTable({ certificates }: Props) {
         </TableHeader>
         <TableBody>
           {certificates.map((row, index) => {
-            const isProcessed = row.status === DeanCertificateStatus.Processed;
-
             return (
               <TableRow key={index}>
                 <TableCell>{row.requestedBy.fullName}</TableCell>
@@ -113,18 +118,15 @@ export function AllDocsTable({ certificates }: Props) {
                 <TableCell className="flex gap-2">
                   <Button
                     variant="secondary"
-                    onClick={() => handleUpdateCertificate(row.id, DeanCertificateStatus.Approved, '')}
+                    onClick={() => handleUpdateCertificate(row.id, { approve: true, reason: '' })}
+                    disabled={row.approved !== null || row.status !== DeanCertificateStatus.Created}
                   >
                     <Check />
                   </Button>
-
-                  <Button
-                    variant="secondary"
-                    onClick={() => handleUpdateCertificate(row.id, DeanCertificateStatus.Rejected)}
-                  >
+                  <Button variant="secondary" disabled={row.approved !==null || row.status !== DeanCertificateStatus.Created} onClick={() => handleReject(row.id)}>
                     <X />
                   </Button>
-                  <Button variant="secondary" disabled={!isProcessed} onClick={()=> printCertificate(row.id)}>
+                  <Button variant="secondary" disabled={row.status !== DeanCertificateStatus.Processed} onClick={() => printCertificate(row.id)}>
                     <Printer />
                   </Button>
                   <Button variant="secondary">

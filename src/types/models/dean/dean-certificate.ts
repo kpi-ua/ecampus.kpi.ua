@@ -6,6 +6,7 @@ export type DeanCertificate = {
   requestedBy: { userAccountId: number; fullName: string };
   purpose: string;
   reason: string;
+  approved: boolean | null;
   created: Date;
   processed?: Date;
   received?: Date;

@@ -568,6 +568,9 @@
       "docType": "Тип довідки",
       "docTypePlaceholder": "оберіть тип довідки",
       "purpose": "Коментар / мета довідки",
+      "originalRequired": "Do you need the original certificate?",
+      "notes": "Notes",
+      "notesPlaceholder": "Наприклад: з печаткою, для посольства Франції тощо",
       "purposePlaceholder": "Наприклад: для посольства Франції",
       "submit": "Замовити"
     },

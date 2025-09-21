@@ -5,7 +5,12 @@ import { Card } from '@/components/ui/card';
 
 import { TableSheets } from '@/app/[locale]/(private)/module/studysheet/[id]/components';
 import { useSearchParams } from 'next/navigation';
-import { AllDocsTable } from '@/app/[locale]/(private)/module/facultycertificate/[id]/components';
+import {
+  AllDocsTable,
+  ApprovedDocsTable,
+  PendingDocsTable,
+  RejectedDocsTable,
+} from '@/app/[locale]/(private)/module/facultycertificate/[id]/components';
 import { DeanCeritificateKeys } from '@/app/[locale]/(private)/module/facultycertificate/[id]/constants';
 import { DeanCertificate } from '@/types/models/dean/dean-certificate';
 
@@ -30,9 +35,9 @@ export const StudySheet: FC<Props> = ({
       <TableSheets module="facultycertificate" sheetList={Object.values(DeanCeritificateKeys)} />
       <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
         {selectedTab === DeanCeritificateKeys.All && <AllDocsTable certificates={allCertificates} />}
-        {/*{selectedTab === DeanCeritificateKeys.Pending && <PendingDocsTable certificates={pendingCertificates} />}*/}
-        {/*{selectedTab === DeanCeritificateKeys.Approved && <PendingDocsTable certificates={approvedCertificates} />}*/}
-        {/*{selectedTab === DeanCeritificateKeys.Rejected && <PendingDocsTable certificates={rejectedCertificates} />}*/}
+        {selectedTab === DeanCeritificateKeys.Pending && <PendingDocsTable certificates={pendingCertificates} />}
+        {selectedTab === DeanCeritificateKeys.Approved && <ApprovedDocsTable certificates={approvedCertificates} />}
+        {selectedTab === DeanCeritificateKeys.Rejected && <RejectedDocsTable certificates={rejectedCertificates} />}
       </Card>
     </div>
   );

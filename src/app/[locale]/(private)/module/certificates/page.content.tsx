@@ -22,6 +22,8 @@ import { dash } from 'radash';
 import { usePagination } from '@/hooks/use-pagination';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Show } from '@/components/utils/show';
+import { Check } from 'lucide-react';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const INTL_NAMESPACE = 'private.certificate';
 const PAGE_SIZE = 5;
@@ -40,6 +42,8 @@ export default function CertificatePageContent({ certificates, certificateTypes 
   const FormSchema = z.object({
     docType: z.string().trim().min(1),
     purpose: z.string().trim().optional(),
+    originalRequired: z.boolean().optional(),
+    notes: z.string().trim().optional(),
   });
 
   type FormData = z.infer<typeof FormSchema>;
@@ -49,13 +53,20 @@ export default function CertificatePageContent({ certificates, certificateTypes 
     defaultValues: {
       docType: '',
       purpose: '',
+      originalRequired: false,
+      notes: '',
     },
   });
 
   const { paginatedItems: paginatedCertificates, page } = usePagination(PAGE_SIZE, certificates);
 
   const handleFormSubmit = async (data: FormData) => {
-    await createCertificateRequest(data.docType, data.purpose);
+    await createCertificateRequest({
+      type: data.docType,
+      purpose: data.purpose,
+      originalRequired: data.originalRequired,
+      notes: data.notes,
+    });
     form.reset();
   };
 
@@ -66,6 +77,8 @@ export default function CertificatePageContent({ certificates, certificateTypes 
 
     downloadFile(url, filename);
   };
+
+  const isOriginalChecked = form.watch('originalRequired');
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -120,6 +133,36 @@ export default function CertificatePageContent({ certificates, certificateTypes 
                     </FormItem>
                   )}
                 />
+                <FormField
+                  control={form.control}
+                  name="originalRequired"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row items-center space-y-0 space-x-3">
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value}
+                          onCheckedChange={(checked) => (checked ? field.onChange(true) : field.onChange(false))}
+                        />
+                      </FormControl>
+                      <FormLabel className="text-base">{tCert('originalRequired')}</FormLabel>
+                    </FormItem>
+                  )}
+                />
+                {isOriginalChecked && (
+                  <FormField
+                    control={form.control}
+                    name="notes"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tCert('notes')}</FormLabel>
+                        <FormControl>
+                          <Textarea placeholder={tCert('notesPlaceholder')} className="resize-none" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                )}
                 <Button
                   type="submit"
                   className="mt-3 ml-auto w-fit"
@@ -159,7 +202,7 @@ export default function CertificatePageContent({ certificates, certificateTypes 
                       />
                     </TableCell>
                     <TableCell className="w-[100px]">
-                      {certificate.status === 'Approved' && (
+                      {certificate.status === 'Processed' && (
                         <Button variant="secondary" onClick={() => handleDownload(certificate.id)}>
                           {tTable('download')}
                         </Button>
