@@ -5,7 +5,7 @@ import QuestionOutline from '@/app/images/icons/QuestionOutline.svg';
 import Student from '@/app/images/icons/Student.svg';
 import TelegramOutline from '@/app/images/icons/TelegramOutline.svg';
 import { getTranslations } from 'next-intl/server';
-import { TELEGRAM_SUPPORT_LINK } from '@/lib/constants/telegram-suuport-link';
+import { TELEGRAM_SUPPORT_LINK } from '@/lib/constants/telegram-support-link';
 
 export const PublicLinks = async () => {
   const t = await getTranslations('auth.login.publicLink');

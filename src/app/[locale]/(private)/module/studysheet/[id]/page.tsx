@@ -16,8 +16,8 @@ import {
   InternalMaterialsTable,
   JournalTable,
   ModuleHeader,
-  TableSheets,
 } from '@/app/[locale]/(private)/module/studysheet/[id]/components';
+import { TableTabs } from '@/components/table-tabs/table-tabs';
 
 export default function InfoPageClient() {
   const { id } = useParams();
@@ -68,7 +68,7 @@ export default function InfoPageClient() {
       <div className="col-span-7">
         <ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} />
         <div className="mt-8 flex flex-col">
-          <TableSheets module="stydy-sheet" sheetList={Object.values(SheetTranslationKeys)} />
+          <TableTabs module="study-sheet" sheetList={Object.values(SheetTranslationKeys)} />
           <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
             {selectedSheet === SheetTranslationKeys.Journal && <JournalTable journal={creditModule.journal} />}
             {selectedSheet === SheetTranslationKeys.EventPlan && (

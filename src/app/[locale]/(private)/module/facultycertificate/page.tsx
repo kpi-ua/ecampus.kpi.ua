@@ -4,7 +4,7 @@ import { getFacultyCertificates } from '@/actions/dean.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import React from 'react';
-import { StudySheet } from './components/study-sheet';
+import { CertificateSheet } from './components/certificate-sheet';
 
 const INTL_NAMESPACE = 'private.facultycertificate';
 
@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default async function StudySheetPage() {
+export default async function FacultyCertificatePage() {
   const facultyCertificates = await getFacultyCertificates();
   const t = await getTranslations(INTL_NAMESPACE);
 
@@ -27,7 +27,7 @@ export default async function StudySheetPage() {
       <div className="col-span-12">
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
-        <StudySheet {...facultyCertificates} />
+        <CertificateSheet {...facultyCertificates} />
       </div>
     </SubLayout>
   );

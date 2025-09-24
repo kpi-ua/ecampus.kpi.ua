@@ -1,4 +1,4 @@
-export enum DeanCeritificateKeys {
+export enum DeanCeritificateKey {
   All = 'all',
   Pending = 'pending',
   Approved = 'approved',

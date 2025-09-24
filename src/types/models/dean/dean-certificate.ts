@@ -1,4 +1,4 @@
-import { DeanCertificateStatus } from '@/types/enums/dean/certificate-status';
+import { CertificateStatus } from '@/types/models/certificate/status';
 
 export type DeanCertificate = {
   id: number;
@@ -8,10 +8,12 @@ export type DeanCertificate = {
   reason: string;
   approved: boolean | null;
   created: Date;
+  updatedAt: Date;
   processed?: Date;
   received?: Date;
-  status: DeanCertificateStatus;
+  status: CertificateStatus;
   type: string;
   originalRequired: boolean;
   notes?: string;
+  documentNumber: string;
 };

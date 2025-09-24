@@ -175,6 +175,7 @@
         "good": "Good",
         "very-good": "Very Good",
         "excellent": "Excellent",
+        "processed": "Processed",
         "approved": "Approved",
         "created": "Created",
         "error": "Error",
@@ -474,15 +475,29 @@
     },
     "facultycertificate": {
       "title": "Faculty certificate",
-      "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
-      "date": "Date",
-      "subject": "Educational component",
-      "score": "Score",
-      "controlType": "Control type",
-      "sessionType": "Session order type",
-      "lecturer": "Lecturer",
-      "status": "Status",
-      "sheet": {
+      "subtitle": "Review and process student requests for certificates",
+      "alert": {
+        "reason": "Reason for rejection:",
+        "title": "Reject request",
+        "subtitle": "Certificate request for {name} rejected. Please provide a reason for rejection."
+      },
+      "status": {
+        "pending": "Pending",
+        "error": "Error",
+        "created": "Created",
+        "rejected": "Rejected",
+        "processed" : "Processed"
+      },
+      "details": {
+        "subtitle": "Request for a certificate for {name}"
+      },
+      "button": {
+        "print": "Print",
+        "approve": "Approve",
+        "reject": "Reject",
+        "cancel": "Cancel"
+      },
+      "tab": {
         "all": "All",
         "rejected": "Rejected",
         "pending": "Pending",
@@ -490,8 +505,11 @@
       },
       "table": {
         "created": "Created",
-        "fullname": "fullname",
-        "originalRequired": "originalRequired",
+        "documentNumber": "Document number",
+        "fullname": "full name",
+        "originalRequired": "original required",
+        "withstamp": "With stamp",
+        "updatedAt": "Updated at",
         "received": "received",
         "status": "status",
         "purpose": "purpose",
@@ -525,7 +543,7 @@
         "second": "Second",
         "all": "All"
       },
-      "sheet": {
+      "tab": {
         "journal": "Gradebook",
         "event-plan": "Events plan",
         "internal-materials": "Internal materials",
@@ -563,14 +581,14 @@
     },
     "certificate": {
       "title": "Certificates",
-      "info": "This section provides official information about your curator, including positions held, departments, contact details, and a link to the personal profile.",
+      "info": "This section provides copy information about your curator, including positions held, departments, contact details, and a link to the personal profile.",
       "orderTitle": "Create an order:",
       "docType": "Type of certificate",
       "docTypePlaceholder": "select the type of certificate",
       "purpose": "Comment / purpose of the certificate",
-      "originalRequired": "Do you need the original certificate?",
+      "originalRequired": "I need the original certificate",
       "notes": "Notes",
-      "notesPlaceholder": "Наприклад: з печаткою, для посольства Франції тощо",
+      "notesPlaceholder": "For example: with a wet seal",
       "purposePlaceholder": "For example: for the French embassy",
       "submit": "Order"
     },

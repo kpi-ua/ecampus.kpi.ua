@@ -1,19 +1,18 @@
 import { Badge } from '@/components/ui/badge';
 import { dash } from 'radash';
-import { cn } from '@/lib/utils';
-import { CertificateStatus } from '@/types/models/certificate/status';
 import { getCertificateStatusStyle } from '@/app/[locale]/(private)/module/certificates/utils';
 import { useTranslations } from 'next-intl';
+import { DeanCertificate } from '@/types/models/dean/dean-certificate';
 
 interface Props {
-  className?: string;
-  status: CertificateStatus;
+  certificate: DeanCertificate;
 }
 
-export function CertificateStatusBadge({ className, status }: Props) {
+export function CertificateStatusBadge({ certificate }: Props) {
   const tEnums = useTranslations('global.enums');
-  const label = tEnums(`status.${dash(status)}`);
-  const statusStyle = getCertificateStatusStyle(status);
+  const badgeStatus = certificate.approved === false ? 'rejected' : certificate.status;
+  const label = tEnums(`status.${dash(badgeStatus)}`);
+  const statusVariant = getCertificateStatusStyle(certificate);
 
-  return <Badge className={cn(className, statusStyle)}>{label}</Badge>;
+  return <Badge className={statusVariant}>{label}</Badge>;
 }

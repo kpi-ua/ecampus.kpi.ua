@@ -2,22 +2,27 @@
 
 import { campusFetch } from '@/lib/client';
 import { DeanCertificate } from '@/types/models/dean/dean-certificate';
-import { DeanCertificateStatus } from '@/types/enums/dean/certificate-status';
 import { parseContentDispositionFilename } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
+import { CertificateStatus } from '@/types/models/certificate/status';
 
 export async function getFacultyCertificates() {
   const res = await campusFetch<DeanCertificate[]>('/dean/certificates/requests');
   const allCertificates = await res.json();
 
-  const pendingCertificates = allCertificates.filter((item) => item.status === DeanCertificateStatus.Created);
-  const approvedCertificates = allCertificates.filter((item) => item.status === 'Approved');
-  const rejectedCertificates = allCertificates.filter((item) => item.status === 'Rejected');
+  const createdCertificates = allCertificates.filter((item) => item.status === CertificateStatus.Created);
+  const approvedCertificates = allCertificates.filter(
+    (item) => item.approved === true && item.status === CertificateStatus.Processed,
+  );
+  const rejectedCertificates = allCertificates.filter((item) => item.approved === false);
+  console.log(approvedCertificates);
 
-  const proc = allCertificates.filter((item) => item.status === DeanCertificateStatus.Processed);
-  // console.log(proc);
+  return { allCertificates, rejectedCertificates, createdCertificates, approvedCertificates };
+}
 
-  return { allCertificates, rejectedCertificates, pendingCertificates, approvedCertificates };
+export async function getCertificate(id: number) {
+  const res = await campusFetch<DeanCertificate>(`/dean/certificates/${id}`);
+  return res.json();
 }
 
 export async function getDeanCertificatePDF(id: number, withoutStamp = false) {
@@ -57,8 +62,7 @@ export async function updateCertificate(id: number, body: UpdateCertificateBody)
     body: JSON.stringify({ ...body }),
   });
 
-  console.log(res);
-  revalidatePath('/module/facultycertificate');
+  revalidatePath('/module/facultycertificate', 'layout');
 
   if (!res.ok) {
     throw new Error(res.statusText);

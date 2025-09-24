@@ -22,10 +22,10 @@ export const CertificateDetails: FC<Props> = ({ result, t }) => {
         <div className="text-status-success-300 font-medium">{t('success')}</div>
       </div>
 
-      <div className="space-y-6">
-        <DetailRow label={t('owner')}>{result.requestedBy?.fullName}</DetailRow>
+      <div className="flex flex-col gap-4 space-y-6">
+        <DetailRow label={t('owner')}>{result.requestor}</DetailRow>
 
-        <DetailRow label={t('date')}>{result.processed && dayjs(result.processed).format('DD.MM.YYYY')}</DetailRow>
+        <DetailRow label={t('date')}>{dayjs(result.date).format('DD.MM.YYYY')}</DetailRow>
 
         <DetailRow label={t('type')}>
           <Badge variant="blue" className="text-xs font-medium">

@@ -7,7 +7,7 @@ interface Props extends LocaleProps {
   children: React.ReactNode;
 }
 
-export default async function PublicPagesLayout({ children, params }: Props) {
+export default async function ValidateCertificateLayout({ children, params }: Props) {
   const { locale } = await params;
 
   setRequestLocale(locale);
