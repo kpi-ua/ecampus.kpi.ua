@@ -10,7 +10,7 @@ export async function getFacultyCertificates() {
   const res = await campusFetch<Certificate[]>('/dean/certificates/requests');
   const allCertificates = await res.json();
 
-  const createdCertificates = allCertificates.filter((item) => item.status === CertificateStatus.Created);
+  const createdCertificates = allCertificates.filter((item) => item.approved === null && item.status === CertificateStatus.Created);
   const approvedCertificates = allCertificates.filter(
     (item) => item.approved === true && item.status === CertificateStatus.Processed,
   );

@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { TextDivider } from '@/components/ui/text-divider';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { RejectDialog } from '@/app/[locale]/(private)/module/facultycertificate/components/reject-dialog';
+import { CertificateStatusBadge } from '../../certificates/components/certificate-status-badge';
 
 interface Props {
   certificate: Certificate;
@@ -32,7 +33,7 @@ export default function DocInfoPageContent({ certificate }: Props) {
 
   const compound = {
     documentNumber: certificate.documentNumber,
-    status: certificate.status,
+    status: <CertificateStatusBadge certificate={certificate} />,
     fullname: certificate.requestedBy.fullName,
     purpose: certificate.purpose,
     originalRequired: certificate.originalRequired && <Badge variant="purple">{tTable('withstamp')}</Badge>,
@@ -70,7 +71,7 @@ export default function DocInfoPageContent({ certificate }: Props) {
           <Paragraph className="m-0 w-[170px] shrink-0 font-semibold text-neutral-400">
             {tTable('updatedAt')}:
           </Paragraph>
-          <Paragraph className="m-0 font-medium">{dayjs(certificate.updatedAt).format('DD.MM.YYYY')}</Paragraph>
+          <Paragraph className="m-0 font-medium">{certificate.updatedAt && dayjs(certificate.updatedAt).format('DD.MM.YYYY')}</Paragraph>
         </div>
 
         <div className="flex gap-3">
