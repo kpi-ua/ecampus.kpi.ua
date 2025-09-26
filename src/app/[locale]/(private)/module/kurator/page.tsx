@@ -22,12 +22,26 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function CuratorPage() {
   const result = await getCurator();
+  const t = await getTranslations(INTL_NAMESPACE);
+
   if (!result) {
-    return null;
+    return (
+      <SubLayout pageTitle={t('title')}>
+        <div className="col-span-8 w-full px-2 sm:px-4 md:px-0">
+          <Heading2>{t('title')}</Heading2>
+          <Paragraph className="leading-sm mt-3 mb-7 max-w-full text-sm font-normal text-neutral-700 sm:max-w-2xl">
+            {t('info')}
+          </Paragraph>
+          <Card className="rounded-b-6 col-span-full flex w-full flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
+            <div className="flex flex-col gap-2 sm:gap-3">
+              <Heading6>{t('not-found')}</Heading6>
+            </div>
+          </Card>
+        </div>
+      </SubLayout>
+    );
   }
   const { userInfo, subdivisions, contacts } = result;
-
-  const t = await getTranslations(INTL_NAMESPACE);
 
   return (
     <SubLayout pageTitle={t('title')}>

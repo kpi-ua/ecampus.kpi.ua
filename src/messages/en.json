@@ -486,6 +486,7 @@
       "title": "Curator",
       "info": "This section provides official information about your curator, including positions held, departments, contact details, and a link to the personal profile.",
       "curator-info": "Curator information",
+      "not-found": "Curator not found",
       "subdivisions": "Academic position(s):",
       "contacts": "Contacts:",
       "profile": "Personal page:"
