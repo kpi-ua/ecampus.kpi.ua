@@ -7,7 +7,6 @@ import { updateCertificate, UpdateCertificateBody } from '@/actions/dean.actions
 import dayjs from 'dayjs';
 import { Button } from '@/components/ui/button';
 import { Check, EyeBold, Printer, X } from '@/app/images';
-import { DeanCertificate } from '@/types/models/dean/dean-certificate';
 import { Badge } from '@/components/ui/badge';
 import { printCertificate } from '@/app/[locale]/(private)/module/facultycertificate/utils/print-certificate';
 import Link from 'next/link';
@@ -16,9 +15,10 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { RejectDialog } from '@/app/[locale]/(private)/module/facultycertificate/components/reject-dialog';
 import { CertificateStatusBadge } from '@/app/[locale]/(private)/module/certificates/components/certificate-status-badge';
+import { Certificate } from '@/types/models/certificate/certificate';
 
 interface Props {
-  certificates: DeanCertificate[];
+  certificates: Certificate[];
 }
 
 export const AllDocsTable = memo(function DocsTable({ certificates }: Props) {

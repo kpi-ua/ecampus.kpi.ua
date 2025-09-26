@@ -16,11 +16,11 @@ import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { UpdateCertificateBody } from '@/actions/dean.actions';
-import { DeanCertificate } from '@/types/models/dean/dean-certificate';
 import { useTranslations } from 'next-intl';
+import { Certificate } from '@/types/models/certificate/certificate';
 
 interface Props {
-  certificate: DeanCertificate;
+  certificate: Certificate;
   triggerButton: React.ReactNode;
   handleUpdateCertificate: (id: number, body: UpdateCertificateBody) => Promise<void>;
 }

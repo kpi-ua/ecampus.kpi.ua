@@ -1,7 +1,7 @@
-import { DeanCertificate } from '@/types/models/dean/dean-certificate';
+import { Certificate } from '@/types/models/certificate/certificate';
 import { CertificateStatus } from '@/types/models/certificate/status';
 
-export const buttonDisableController = (certificate: DeanCertificate) => {
+export const buttonDisableController = (certificate: Certificate) => {
   const shouldDisableApproveButton = certificate.approved !== null || certificate.status !== CertificateStatus.Created;
   const shouldDisableRejectButton = certificate.approved !== null || certificate.status !== CertificateStatus.Created;
   const shouldDisablePrintButton = certificate.status !== CertificateStatus.Processed;

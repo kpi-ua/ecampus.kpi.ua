@@ -5,15 +5,15 @@ import { Card } from '@/components/ui/card';
 
 import { useSearchParams } from 'next/navigation';
 import { DeanCeritificateKey } from '@/app/[locale]/(private)/module/facultycertificate/constants';
-import { DeanCertificate } from '@/types/models/dean/dean-certificate';
 import { AllDocsTable } from '@/app/[locale]/(private)/module/facultycertificate/components/all-docs-table';
 import { TableTabs } from '@/components/table-tabs/table-tabs';
+import { Certificate } from '@/types/models/certificate/certificate';
 
 interface Props {
-  allCertificates: DeanCertificate[];
-  createdCertificates: DeanCertificate[];
-  rejectedCertificates: DeanCertificate[];
-  approvedCertificates: DeanCertificate[];
+  allCertificates: Certificate[];
+  createdCertificates: Certificate[];
+  rejectedCertificates: Certificate[];
+  approvedCertificates: Certificate[];
 }
 
 export const CertificateSheet: FC<Props> = ({

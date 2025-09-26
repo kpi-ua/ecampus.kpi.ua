@@ -1,8 +1,8 @@
 import { CertificateStatus } from '@/types/models/certificate/status';
 import { badgeVariants } from '@/components/ui/badge';
-import { DeanCertificate } from '@/types/models/dean/dean-certificate';
+import { Certificate } from '@/types/models/certificate/certificate';
 
-export function getCertificateStatusStyle(certificate: DeanCertificate) {
+export function getCertificateStatusStyle(certificate: Certificate) {
   if (certificate.approved && certificate.status === CertificateStatus.Processed) {
     return badgeVariants({ variant: 'success' });
   }

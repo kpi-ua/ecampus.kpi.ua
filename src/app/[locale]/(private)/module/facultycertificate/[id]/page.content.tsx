@@ -6,7 +6,7 @@ import { printCertificate } from '@/app/[locale]/(private)/module/facultycertifi
 import { Card } from '@/components/ui/card';
 import React from 'react';
 import { updateCertificate, UpdateCertificateBody } from '@/actions/dean.actions';
-import { DeanCertificate } from '@/types/models/dean/dean-certificate';
+import { Certificate } from '@/types/models/certificate/certificate';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { buttonDisableController } from '@/app/[locale]/(private)/module/facultycertificate/utils/button-state-controller';
@@ -16,7 +16,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { RejectDialog } from '@/app/[locale]/(private)/module/facultycertificate/components/reject-dialog';
 
 interface Props {
-  certificate: DeanCertificate;
+  certificate: Certificate;
 }
 
 export default function DocInfoPageContent({ certificate }: Props) {

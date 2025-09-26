@@ -1,13 +1,13 @@
 'use server';
 
 import { campusFetch } from '@/lib/client';
-import { DeanCertificate } from '@/types/models/dean/dean-certificate';
 import { parseContentDispositionFilename } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { CertificateStatus } from '@/types/models/certificate/status';
+import { Certificate } from '@/types/models/certificate/certificate';
 
 export async function getFacultyCertificates() {
-  const res = await campusFetch<DeanCertificate[]>('/dean/certificates/requests');
+  const res = await campusFetch<Certificate[]>('/dean/certificates/requests');
   const allCertificates = await res.json();
 
   const createdCertificates = allCertificates.filter((item) => item.status === CertificateStatus.Created);
@@ -21,7 +21,7 @@ export async function getFacultyCertificates() {
 }
 
 export async function getCertificate(id: number) {
-  const res = await campusFetch<DeanCertificate>(`/dean/certificates/${id}`);
+  const res = await campusFetch<Certificate>(`/dean/certificates/${id}`);
   return res.json();
 }
 

@@ -18,6 +18,9 @@ export function TableTabs({ sheetList, module }: Props) {
   const selectedSheet = searchParams.get('tab') || sheetList[0];
 
   const handleSheetChange = (sheet: string) => {
+    if (sheet === selectedSheet) {
+      return;
+    }
     const currentParams = new URLSearchParams(searchParams);
     currentParams.set('tab', sheet);
     router.push(`?${currentParams.toString()}`);
