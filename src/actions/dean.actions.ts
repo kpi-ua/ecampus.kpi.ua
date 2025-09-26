@@ -15,7 +15,6 @@ export async function getFacultyCertificates() {
     (item) => item.approved === true && item.status === CertificateStatus.Processed,
   );
   const rejectedCertificates = allCertificates.filter((item) => item.approved === false);
-  console.log(approvedCertificates);
 
   return { allCertificates, rejectedCertificates, createdCertificates, approvedCertificates };
 }

@@ -50,9 +50,6 @@ export const AllDocsTable = memo(function DocsTable({ certificates }: Props) {
   });
   const { paginatedItems: paginatedCertificates, page } = usePagination(PAGE_SIZE, filteredCertificates);
 
-  console.log(filteredCertificates.length);
-  
-
   return (
     <>
       <div className="mb-4 flex">
