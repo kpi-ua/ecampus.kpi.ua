@@ -10,8 +10,13 @@ on:
       - reopened
       - synchronize
     branches:
-      - master
+      - main
       - dev
+  push:
+    branches:
+      - main
+      - dev
+
 
 jobs:
   build:
@@ -20,15 +25,15 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2.4.0
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Application
         run: npm run build

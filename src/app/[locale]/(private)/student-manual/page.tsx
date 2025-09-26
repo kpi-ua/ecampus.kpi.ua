@@ -1,4 +1,4 @@
-import { Heading2 } from '@/components/typography/headers';
+import { Heading1 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { DownloadButton } from './download-button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -6,9 +6,11 @@ import { Show } from '@/components/utils/show';
 import { isIOS } from '@/lib/user-agent';
 import { LocaleProps } from '@/types/locale-props';
 
-const USER_MANUAL_URL = process.env.NEXT_PUBLIC_USER_MANUAL_URL!;
+// TODO: remove this page when the manual is ready for lecturers
 
-const INTL_NAMESPACE = 'private.user-manual';
+const STUDENT_MANUAL_URL = process.env.NEXT_PUBLIC_STUDENT_MANUAL_URL!;
+
+const INTL_NAMESPACE = 'private.student-manual';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -31,10 +33,10 @@ export default async function UserManualPage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6 xl:col-span-10">
-        <Heading2>{t('title')}</Heading2>
-        <DownloadButton className="my-10" url={USER_MANUAL_URL} />
+        <Heading1>{t('title')}</Heading1>
+        <DownloadButton className="my-10" url={STUDENT_MANUAL_URL} />
         <Show when={!isSafariMobile}>
-          <embed src={USER_MANUAL_URL} width="100%" height="1000" type="application/pdf" />
+          <embed src={STUDENT_MANUAL_URL} width="100%" height="1000" type="application/pdf" />
         </Show>
       </div>
     </SubLayout>

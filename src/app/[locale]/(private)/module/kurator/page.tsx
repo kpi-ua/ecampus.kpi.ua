@@ -8,6 +8,7 @@ import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { Show } from '@/components/utils/show';
+import { Description } from '@/components/typography';
 
 const INTL_NAMESPACE = 'private.curator';
 
@@ -47,9 +48,7 @@ export default async function CuratorPage() {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-8 w-full px-2 sm:px-4 md:px-0">
         <Heading2>{t('title')}</Heading2>
-        <Paragraph className="leading-sm mt-3 mb-7 max-w-full text-sm font-normal text-neutral-700 sm:max-w-2xl">
-          {t('info')}
-        </Paragraph>
+        <Description>{t('info')}</Description>
         <Card className="rounded-b-6 col-span-full flex w-full flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
             <ProfilePicture size="xl" src={userInfo.photo || ''} />
