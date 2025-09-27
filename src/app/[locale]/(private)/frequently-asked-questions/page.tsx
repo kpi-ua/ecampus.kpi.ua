@@ -1,4 +1,4 @@
-import { Heading1 } from '@/components/typography/headers';
+import { Heading2 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { FrequentlyAskedQuestions } from '@/containers/faq/frequently-asked-questions';
@@ -33,7 +33,7 @@ export default async function FAQPage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <FrequentlyAskedQuestions i18nNamespace={INTL_NAMESPACE} sections={SECTIONS} />
       </div>
     </SubLayout>
