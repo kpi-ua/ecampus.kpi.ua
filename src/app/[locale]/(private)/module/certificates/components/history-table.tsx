@@ -13,9 +13,9 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { getCertificatePDF } from '@/actions/certificates.actions';
-import { downloadFile } from '@/lib/utils';
 import { usePagination } from '@/hooks/use-pagination';
 import { Certificate } from '@/types/models/certificate/certificate';
+import saveAs from 'file-saver';
 
 const PAGE_SIZE = 5;
 
@@ -32,9 +32,7 @@ export function HistoryTable({ certificates }: Props) {
   const handleDownload = async (id: number) => {
     const { filename, blob } = await getCertificatePDF(id);
 
-    const url = URL.createObjectURL(blob);
-
-    downloadFile(url, filename);
+    saveAs(blob, filename);
   };
 
   return (

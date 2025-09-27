@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
-import { getFacultyCertificates, getOtherFacultyCertificate } from '@/actions/dean.actions';
+import { getAllFacultyCertificates, getOtherFacultyCertificate } from '@/actions/dean.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import React from 'react';
@@ -28,7 +28,7 @@ export default async function FacultyCertificatePage({ searchParams }: Props) {
   const selectedTab = resolvedSearchParams.tab || DeanCeritificateKey.All;
   const searchFilter = resolvedSearchParams.search || '';
 
-  const facultyCertificates = await getFacultyCertificates({
+  const facultyCertificates = await getAllFacultyCertificates({
     filter: searchFilter,
     page: resolvedSearchParams.page,
     size: PAGE_SIZE.toString(),

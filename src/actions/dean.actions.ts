@@ -13,7 +13,7 @@ export interface FacultyCertificatesQuery {
   status?: string;
 }
 
-export async function getFacultyCertificates(query: FacultyCertificatesQuery = {}) {
+export async function getAllFacultyCertificates(query: FacultyCertificatesQuery = {}) {
   const params = new URLSearchParams();
   if (query.page) params.append('page', query.page);
   if (query.size) params.append('size', query.size);
@@ -30,7 +30,6 @@ export async function getFacultyCertificates(query: FacultyCertificatesQuery = {
 export async function getOtherFacultyCertificate() {
   const res = await campusFetch<Certificate[]>('/dean/certificates/requests');
   const data = await res.json();
-  console.log('data', data);
 
   const rejectedCertificates = data.filter((item) => item.approved === false);
   const approvedCertificates = data.filter(
