@@ -29,6 +29,7 @@
       "contacts": "Contacts",
       "msg": "Messages",
       "kurator": "Curator",
+      "announcements": "Announcements",
       "rnp": "RNP",
       "mob": "Methodological support",
       "vote": "Survey Teacher through students eyes",
@@ -364,6 +365,55 @@
       "input": {
         "placeholder": "Search",
         "not-found": "No results found"
+      }
+    },
+    "announcements": {
+      "title": "Announcement Management",
+      "subtitle": "Create and manage university announcements",
+      "create": {
+        "title": "Create New Announcement",
+        "description": "Click the button below to create a new announcement for the university community.",
+        "button": "Create Announcement"
+      },
+      "success": {
+        "title": "Announcement Created Successfully!",
+        "message": "Your announcement has been created with ID: {id}"
+      },
+      "form": {
+        "title": "Create Announcement",
+        "fields": {
+          "title": "Title",
+          "description": "Description",
+          "imageUrl": "Image URL",
+          "linkUrl": "Link URL",
+          "linkCaption": "Link Caption",
+          "startDate": "Start Date",
+          "endDate": "End Date",
+          "language": "Language",
+          "subdivisions": "Subdivisions"
+        },
+        "placeholders": {
+          "title": "Enter announcement title",
+          "description": "Enter announcement description",
+          "imageUrl": "https://example.com/image.jpg",
+          "linkUrl": "https://example.com",
+          "linkCaption": "Click here to learn more",
+          "language": "Select language"
+        },
+        "buttons": {
+          "create": "Create Announcement",
+          "creating": "Creating...",
+          "cancel": "Cancel"
+        },
+        "targeting": {
+          "title": "Targeting Filters",
+          "selected": "Selected Filters",
+          "roles": "Roles",
+          "studyForms": "Study Forms",
+          "groups": "Groups",
+          "courses": "Courses",
+          "loading": "Loading filter options..."
+        }
       }
     },
     "profile": {

@@ -12,6 +12,7 @@ interface Curator {
 export interface Group {
   id: number;
   name: string;
+  faculty: string;
   cathedra?: Cathedra;
   curator?: Curator;
 }
