@@ -1,3 +1,5 @@
+'use client';
+
 import { LinkSimple } from '@/app/images';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';

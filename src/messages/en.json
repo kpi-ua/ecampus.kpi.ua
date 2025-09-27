@@ -298,7 +298,8 @@
       "search-placeholder": "Group name",
       "searching": "Searching...",
       "not-found": "No results found",
-      "search-default": "Enter your group name above to find a curator."
+      "search-default": "Enter your group name above to find a curator.",
+      "unknown-value": "Unknown"
     },
     "faq": {
       "header": "Frequently Asked Questions",
@@ -325,6 +326,7 @@
           "dnvr": "Education-related questions",
           "faq": "Frequently Asked Questions",
           "user-manual": "User manual",
+          "student-manual": "Student manual",
           "university-notice-board": "University notice board",
           "library-discovery": "Library catalog",
           "university-news": "University news",
@@ -359,6 +361,9 @@
     },
     "user-manual": {
       "title": "User manual"
+    },
+    "student-manual": {
+      "title": "Student manual"
     },
     "faq": {
       "title": "Frequently Asked Questions",

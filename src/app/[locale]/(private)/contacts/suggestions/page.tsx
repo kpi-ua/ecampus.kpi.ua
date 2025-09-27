@@ -1,6 +1,6 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { SubLayout } from '../../sub-layout';
-import { Heading1 } from '@/components/typography/headers';
+import { Heading2 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { LocaleProps } from '@/types/locale-props';
 
@@ -27,7 +27,7 @@ export default async function SuggestionsPage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('header')} breadcrumbs={[['/contacts', contactsT('title')]]}>
       <div className="col-span-4">
-        <Heading1>{t('header')}</Heading1>
+        <Heading2>{t('header')}</Heading2>
         <Paragraph>
           <iframe
             src={process.env.NEXT_PUBLIC_SUGGESTIONS_FORM!}

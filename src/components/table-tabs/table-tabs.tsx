@@ -27,13 +27,13 @@ export function TableTabs({ sheetList, module }: Props) {
   };
 
   return (
-    <div className="flex gap-2 overflow-x-auto">
+    <div className="flex gap-2">
       {sheetList.map((item, index) => (
         <button
           key={index}
           onClick={() => handleSheetChange(item)}
           className={clsx(
-            'h-[77px] w-fit rounded-t-[8px] px-3 hover:cursor-pointer md:px-8 lg:h-[42px]',
+            'w-fit cursor-pointer rounded-t-[8px] px-3 md:px-8',
             selectedSheet === item ? 'bg-basic-white' : 'bg-transparent',
           )}
         >

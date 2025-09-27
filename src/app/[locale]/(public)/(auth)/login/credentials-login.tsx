@@ -60,7 +60,7 @@ export const CredentialsLogin = () => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="my-6 grid w-full items-center gap-2">
+            <FormItem className="mb-6 grid w-full items-center gap-2">
               <Label htmlFor="username">{t('field.username')}</Label>
               <Input {...field} />
             </FormItem>
@@ -92,13 +92,7 @@ export const CredentialsLogin = () => {
           </Link>
         </div>
         <FormMessage>{form.formState.errors.root?.message}</FormMessage>
-        <Button
-          size="big"
-          className="my-4 w-full"
-          type="submit"
-          disabled={!form.formState.isValid}
-          loading={form.formState.isSubmitting}
-        >
+        <Button size="big" className="my-4 w-full" type="submit" loading={form.formState.isSubmitting}>
           {t('button.login')}
         </Button>
       </form>

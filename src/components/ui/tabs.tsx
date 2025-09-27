@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 const Tabs = TabsPrimitive.Root;
 
 const tabsListVariants = cva(
-  'inline-flex items-center justify-center rounded-md border border-[#AFB0BE] bg-muted p-[3px] text-muted-foreground',
+  'inline-flex items-center justify-center rounded-md border border-neutral-400 bg-muted p-[3px] text-muted-foreground',
   {
     variants: {
       size: {
