@@ -489,7 +489,7 @@
         "error": "Помилка",
         "created": "Очікує",
         "rejected": "Відхилено",
-        "processed" : "Схвалено"
+        "processed": "Схвалено"
       },
       "button": {
         "print": "Роздрукувати",

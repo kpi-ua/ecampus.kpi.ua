@@ -486,7 +486,7 @@
         "error": "Error",
         "created": "Created",
         "rejected": "Rejected",
-        "processed" : "Processed"
+        "processed": "Processed"
       },
       "details": {
         "subtitle": "Request for a certificate for {name}"
@@ -504,7 +504,7 @@
         "approved": "Approved"
       },
       "table": {
-        "created": "Created",
+        "created": "Date",
         "documentNumber": "Document number",
         "fullname": "full name",
         "originalRequired": "original required",

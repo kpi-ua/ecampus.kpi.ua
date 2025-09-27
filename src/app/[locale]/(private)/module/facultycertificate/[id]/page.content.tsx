@@ -23,6 +23,7 @@ interface Props {
 export default function DocInfoPageContent({ certificate }: Props) {
   const t = useTranslations('private.facultycertificate');
   const tTable = useTranslations('private.facultycertificate.table');
+
   const handleUpdateCertificate = async (id: number, body: UpdateCertificateBody) => {
     try {
       await updateCertificate(id, body);
@@ -31,7 +32,7 @@ export default function DocInfoPageContent({ certificate }: Props) {
     }
   };
 
-  const compound = {
+  const compoundObject = {
     documentNumber: certificate.documentNumber,
     status: <CertificateStatusBadge certificate={certificate} />,
     fullname: certificate.requestedBy.fullName,
@@ -54,7 +55,7 @@ export default function DocInfoPageContent({ certificate }: Props) {
         )}
 
         <div className="mt-6 flex flex-col gap-6">
-          {Object.entries(compound).map(([key, value]) => (
+          {Object.entries(compoundObject).map(([key, value]) => (
             <div key={key} className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
               <Paragraph className="m-0 w-[170px] shrink-0 font-semibold text-neutral-400">{tTable(key)}:</Paragraph>
               <Paragraph className="m-0 font-medium">{value}</Paragraph>
@@ -71,7 +72,9 @@ export default function DocInfoPageContent({ certificate }: Props) {
           <Paragraph className="m-0 w-[170px] shrink-0 font-semibold text-neutral-400">
             {tTable('updatedAt')}:
           </Paragraph>
-          <Paragraph className="m-0 font-medium">{certificate.updatedAt && dayjs(certificate.updatedAt).format('DD.MM.YYYY')}</Paragraph>
+          <Paragraph className="m-0 font-medium">
+            {certificate.updatedAt && dayjs(certificate.updatedAt).format('DD.MM.YYYY')}
+          </Paragraph>
         </div>
 
         <div className="flex gap-3">

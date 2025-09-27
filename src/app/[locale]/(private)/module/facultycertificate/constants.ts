@@ -4,3 +4,5 @@ export enum DeanCeritificateKey {
   Approved = 'approved',
   Rejected = 'rejected',
 }
+
+export const PAGE_SIZE = 20;

@@ -6,17 +6,41 @@ import { revalidatePath } from 'next/cache';
 import { CertificateStatus } from '@/types/models/certificate/status';
 import { Certificate } from '@/types/models/certificate/certificate';
 
-export async function getFacultyCertificates() {
-  const res = await campusFetch<Certificate[]>('/dean/certificates/requests');
+export interface FacultyCertificatesQuery {
+  page?: string;
+  size?: string;
+  filter?: string;
+  status?: string;
+}
+
+export async function getFacultyCertificates(query: FacultyCertificatesQuery = {}) {
+  const params = new URLSearchParams();
+  if (query.page) params.append('page', query.page);
+  if (query.size) params.append('size', query.size);
+  if (query.filter) params.append('filter', query.filter);
+
+  const url = `/dean/certificates/requests${params.toString() ? `?${params.toString()}` : ''}`;
+  const res = await campusFetch<Certificate[]>(url);
   const allCertificates = await res.json();
 
-  const createdCertificates = allCertificates.filter((item) => item.approved === null && item.status === CertificateStatus.Created);
-  const approvedCertificates = allCertificates.filter(
+  const totalCount = parseInt(res.headers.get('x-total-count') || '0');
+  return { allCertificates, totalCount };
+}
+
+export async function getOtherFacultyCertificate() {
+  const res = await campusFetch<Certificate[]>('/dean/certificates/requests');
+  const data = await res.json();
+  console.log('data', data);
+
+  const rejectedCertificates = data.filter((item) => item.approved === false);
+  const approvedCertificates = data.filter(
     (item) => item.approved === true && item.status === CertificateStatus.Processed,
   );
-  const rejectedCertificates = allCertificates.filter((item) => item.approved === false);
+  const createdCertificates = data.filter(
+    (item) => item.approved === null && item.status === CertificateStatus.Created,
+  );
 
-  return { allCertificates, rejectedCertificates, createdCertificates, approvedCertificates };
+  return { rejectedCertificates, approvedCertificates, createdCertificates };
 }
 
 export async function getCertificate(id: number) {

@@ -1,10 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
-import { getFacultyCertificates } from '@/actions/dean.actions';
+import { getFacultyCertificates, getOtherFacultyCertificate } from '@/actions/dean.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import React from 'react';
-import { CertificateSheet } from './components/certificate-sheet';
+import { DeanCeritificateKey, PAGE_SIZE } from './constants';
+import FacultyCertificatePageContent from './page.content';
 
 const INTL_NAMESPACE = 'private.facultycertificate';
 
@@ -18,8 +19,23 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default async function FacultyCertificatePage() {
-  const facultyCertificates = await getFacultyCertificates();
+interface Props {
+  searchParams: Promise<{ [key: string]: string | undefined }>;
+}
+
+export default async function FacultyCertificatePage({ searchParams }: Props) {
+  const resolvedSearchParams = await searchParams;
+  const selectedTab = resolvedSearchParams.tab || DeanCeritificateKey.All;
+  const searchFilter = resolvedSearchParams.search || '';
+
+  const facultyCertificates = await getFacultyCertificates({
+    filter: searchFilter,
+    page: resolvedSearchParams.page,
+    size: PAGE_SIZE.toString(),
+  });
+
+  const otherFacultyCertificates = await getOtherFacultyCertificate();
+
   const t = await getTranslations(INTL_NAMESPACE);
 
   return (
@@ -27,7 +43,16 @@ export default async function FacultyCertificatePage() {
       <div className="col-span-12">
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
-        <CertificateSheet {...facultyCertificates} />
+
+        <FacultyCertificatePageContent
+          createdCertificates={otherFacultyCertificates.createdCertificates}
+          allCertificates={facultyCertificates.allCertificates}
+          approvedCertificates={otherFacultyCertificates.approvedCertificates}
+          rejectedCertificates={otherFacultyCertificates.rejectedCertificates}
+          selectedTab={selectedTab}
+          totalCount={facultyCertificates.totalCount}
+          searchFilter={searchFilter}
+        />
       </div>
     </SubLayout>
   );
