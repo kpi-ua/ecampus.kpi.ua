@@ -186,9 +186,7 @@
       "publicLink": {
         "support": "User support",
         "curator-search": "Find curator",
-        "suggestions": "Suggestions form",
-        "telegram-chat": "Support chat",
-        "faq": "Frequently Asked Questions"
+        "telegram-chat": "Support chat"
       },
       "field": {
         "username": "Email address or username",
@@ -239,13 +237,6 @@
     "footer": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute<br></br>Developer: <kbislink>Design bureau of information systems</kbislink>"
   },
   "public": {
-    "support": {
-      "header": "Support",
-      "content": "<p>If you have any questions, you can ask for help in the <tglink>support chat</tglink> or send your question to the support email: <email>ecampus@kpi.ua</email>.</p><p>You can also visit our office at:<br></br><addresslink>Ukraine, Kyiv, Polytechnic St. 14-v, Building 13, 4th floor, Room 25.</addresslink></p>"
-    },
-    "suggestions": {
-      "header": "Suggestions form"
-    },
     "curator-search": {
       "header": "Curator search",
       "description": "Enter the name of your group to find a curator",
@@ -254,19 +245,6 @@
       "not-found": "No results found",
       "search-default": "Enter your group name above to find a curator.",
       "unknown-value": "Unknown"
-    },
-    "faq": {
-      "header": "Frequently Asked Questions",
-      "sections": {
-        "how-to-register": {
-          "header": "How to register on the campus?",
-          "content": "<p>If you are an officially employed teacher and more than two weeks have passed since submitting your documents to the HR department - contact the person in charge at the department or the head of the department to submit an official letter. If you are a student or graduate student - contact your academic curator.</p>"
-        },
-        "how-to-restore-password": {
-          "header": "How to recover your password?",
-          "content": "<p>To recover your password, use <restorepasswordlink>the button</restorepasswordlink> on the authorization panel. If you have not used the campus before - contact your curator.</p>"
-        }
-      }
     }
   },
   "private": {
@@ -280,6 +258,7 @@
           "dnvr": "Education-related questions",
           "faq": "Frequently Asked Questions",
           "user-manual": "User manual",
+          "student-manual": "Student manual",
           "student-manual": "Student manual",
           "university-notice-board": "University notice board",
           "library-discovery": "Library catalog",
@@ -315,6 +294,9 @@
     },
     "user-manual": {
       "title": "User manual"
+    },
+    "student-manual": {
+      "title": "Student manual"
     },
     "student-manual": {
       "title": "Student manual"
@@ -429,9 +411,6 @@
         "title": "Go to questionnaire"
       }
     },
-    "suggestions": {
-      "title": "Send suggestion"
-    },
     "vedomoststud": {
       "title": "Semester control",
       "subtitle": "Semester control of students' learning outcomes. The terms of semester control are determined by the curriculum. The terms of liquidation of academic debt (a week for the first and second retakes) are determined by the university order.",
@@ -491,6 +470,7 @@
       "title": "Curator",
       "info": "This section provides official information about your curator, including positions held, departments, contact details, and a link to the personal profile.",
       "curator-info": "Curator information",
+      "not-found": "Curator not found",
       "subdivisions": "Academic position(s):",
       "contacts": "Contacts:",
       "profile": "Personal page:"
