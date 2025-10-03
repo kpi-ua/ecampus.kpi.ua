@@ -20,8 +20,8 @@ export const SupportCard = async ({ className }: SupportCardProps) => {
       </CardHeader>
       <CardContent>
         <Paragraph>{t('description')}</Paragraph>
-        <Paragraph className="mb-0 mt-8 flex flex-col items-start gap-4">
-          <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
+        <Paragraph className="mt-8 mb-0 flex flex-col items-start gap-4">
+          <TextButton size="huge" href={process.env.NEXT_PUBLIC_SUGGESTIONS_FORM!} icon={<ChatsTeardrop />}>
             {t('button.suggestions-form')}
           </TextButton>
           <TextButton size="huge" href="mailto:ecampus@kpi.ua" icon={<EnvelopeSimple />}>
