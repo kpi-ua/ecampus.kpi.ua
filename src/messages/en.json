@@ -259,6 +259,7 @@
           "faq": "Frequently Asked Questions",
           "user-manual": "User manual",
           "student-manual": "Student manual",
+          "student-manual": "Student manual",
           "university-notice-board": "University notice board",
           "library-discovery": "Library catalog",
           "university-news": "University news",
@@ -293,6 +294,9 @@
     },
     "user-manual": {
       "title": "User manual"
+    },
+    "student-manual": {
+      "title": "Student manual"
     },
     "student-manual": {
       "title": "Student manual"
