@@ -30,7 +30,6 @@ export default async function CuratorPage() {
       <div className="col-span-8 w-full px-2 sm:px-4 md:px-0">
         <Heading2>{t('title')}</Heading2>
         <Description>{t('info')}</Description>
-        <Description>{t('info')}</Description>
         <Card className="rounded-b-6 col-span-full flex w-full flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
             <ProfilePicture size="xl" src={result?.userInfo.photo || ''} />
