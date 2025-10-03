@@ -5,6 +5,7 @@ import { parseContentDispositionFilename } from '@/lib/utils';
 import { revalidatePath } from 'next/cache';
 import { CertificateStatus } from '@/types/models/certificate/status';
 import { Certificate } from '@/types/models/certificate/certificate';
+import qs from 'query-string';
 
 export interface FacultyCertificatesQuery {
   page?: string;
@@ -14,16 +15,11 @@ export interface FacultyCertificatesQuery {
 }
 
 export async function getAllFacultyCertificates(query: FacultyCertificatesQuery = {}) {
-  const params = new URLSearchParams();
-  if (query.page) params.append('page', query.page);
-  if (query.size) params.append('size', query.size);
-  if (query.filter) params.append('filter', query.filter);
-
-  const url = `/dean/certificates/requests${params.toString() ? `?${params.toString()}` : ''}`;
-  const res = await campusFetch<Certificate[]>(url);
+  const queryParams = qs.stringify(query);
+  const res = await campusFetch<Certificate[]>(`/dean/certificates/requests?${queryParams}`);
   const allCertificates = await res.json();
 
-  const totalCount = parseInt(res.headers.get('x-total-count') || '0');
+  const totalCount = parseInt(res.headers.get('x-total-count') || '0', 10);
   return { allCertificates, totalCount };
 }
 
@@ -86,7 +82,7 @@ export async function updateCertificate(id: number, body: UpdateCertificateBody)
 
   revalidatePath('/module/facultycertificate', 'layout');
 
-  if (!res.ok) {
+  if (res.ok) {
     throw new Error(res.statusText);
   }
 }

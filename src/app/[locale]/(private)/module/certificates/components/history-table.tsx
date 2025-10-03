@@ -16,8 +16,7 @@ import { getCertificatePDF } from '@/actions/certificates.actions';
 import { usePagination } from '@/hooks/use-pagination';
 import { Certificate } from '@/types/models/certificate/certificate';
 import saveAs from 'file-saver';
-
-const PAGE_SIZE = 5;
+import { PAGE_SIZE_SMALL } from '@/lib/constants/page-size';
 
 interface Props {
   certificates: Certificate[];
@@ -27,7 +26,7 @@ export function HistoryTable({ certificates }: Props) {
   const tTable = useTranslations('public.verification.result.table');
   const tEnums = useTranslations('global.enums.certificate-type');
 
-  const { paginatedItems: paginatedCertificates, page } = usePagination(PAGE_SIZE, certificates);
+  const { paginatedItems: paginatedCertificates, page } = usePagination(PAGE_SIZE_SMALL, certificates);
 
   const handleDownload = async (id: number) => {
     const { filename, blob } = await getCertificatePDF(id);
@@ -69,8 +68,8 @@ export function HistoryTable({ certificates }: Props) {
           ))}
         </TableBody>
       </Table>
-      <Show when={certificates.length > PAGE_SIZE}>
-        <PaginationWithLinks page={page} pageSize={PAGE_SIZE} totalCount={certificates.length} />
+      <Show when={certificates.length > PAGE_SIZE_SMALL}>
+        <PaginationWithLinks page={page} pageSize={PAGE_SIZE_SMALL} totalCount={certificates.length} />
       </Show>
     </Card>
   );

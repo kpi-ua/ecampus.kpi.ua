@@ -19,7 +19,7 @@ import { Certificate } from '@/types/models/certificate/certificate';
 import { usePagination } from '@/hooks/use-pagination';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Show } from '@/components/utils/show';
-import { PAGE_SIZE } from '../constants';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 
 interface Props {
   certificates: Certificate[];
@@ -38,7 +38,7 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
     }
   };
 
-  const { page } = usePagination(PAGE_SIZE, certificates);
+  const { page } = usePagination(PAGE_SIZE_DEFAULT, certificates);
 
   return (
     <>
@@ -106,7 +106,7 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
         </TableBody>
       </Table>
       <Show when={!!totalCount}>
-        <PaginationWithLinks page={page} pageSize={PAGE_SIZE} totalCount={totalCount || 1} />
+        <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={totalCount || 1} />
       </Show>
     </>
   );

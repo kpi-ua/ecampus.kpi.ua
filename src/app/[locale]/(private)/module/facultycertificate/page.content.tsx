@@ -1,21 +1,22 @@
 'use client';
 
-import React, { useState, useTransition } from 'react';
+import React, { startTransition, useState } from 'react';
 import { DeanCeritificateKey } from './constants';
-import { TableTabs } from '@/components/table-tabs/table-tabs';
 import { Card } from '@/components/ui/card';
 import { AllDocsTable } from './components/all-docs-table';
 import { Certificate } from '@/types/models/certificate/certificate';
 import { Input } from '@/components/ui/input';
 import { MagnifyingGlassRegular } from '@/app/images';
 import { useRouter, useSearchParams } from 'next/navigation';
+import qs from 'query-string';
+import { Tabs, TabSheetTrigger, TabsList } from '@/components/ui/tabs';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   createdCertificates: Certificate[];
   allCertificates: Certificate[];
   approvedCertificates: Certificate[];
   rejectedCertificates: Certificate[];
-  selectedTab: string;
   totalCount: number;
   searchFilter: string;
 }
@@ -25,36 +26,54 @@ export default function FacultyCertificatePageContent({
   allCertificates,
   approvedCertificates,
   rejectedCertificates,
-  selectedTab,
   totalCount,
   searchFilter,
 }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [_, startTransition] = useTransition();
+  const [selectedSheet, setSelectedSheet] = useState(DeanCeritificateKey.All);
+
   const [search, setSearch] = useState(searchFilter);
+
+  const t = useTranslations(`private.facultycertificate.tab`);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
 
-    const params = new URLSearchParams(searchParams.toString());
+    const params = qs.parse(searchParams.toString());
     if (value) {
-      params.set('search', value);
+      params.search = value;
     } else {
-      params.delete('search');
+      delete params.search;
     }
-    params.delete('page');
+    delete params.page;
 
     startTransition(() => {
-      router.push(`/module/facultycertificate?${params.toString()}`);
+      router.push(`/module/facultycertificate?${qs.stringify(params)}`);
     });
   };
 
+  const sheetList = [
+    { key: DeanCeritificateKey.All, amount: totalCount },
+    { key: DeanCeritificateKey.Pending, amount: createdCertificates.length },
+    { key: DeanCeritificateKey.Approved, amount: approvedCertificates.length },
+    { key: DeanCeritificateKey.Rejected, amount: rejectedCertificates.length },
+  ];
   return (
-    <div className="mt-8 flex flex-col">
-      <TableTabs module="facultycertificate" sheetList={Object.values(DeanCeritificateKey)} />
+    <div className="flex flex-col">
+      <Tabs value={selectedSheet} onValueChange={(value) => setSelectedSheet(value as DeanCeritificateKey)}>
+        <TabsList className="rounded-none border-0 bg-transparent p-0">
+          {sheetList.map((item) => (
+            <TabSheetTrigger key={item.key} value={item.key}>
+              {t(item.key)}
+              <span className="bg-brand-100 ml-2 flex min-w-6 justify-center rounded-[4px] p-1">{item.amount}</span>
+            </TabSheetTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
+
       <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
-        {selectedTab === DeanCeritificateKey.All && (
+        {selectedSheet === DeanCeritificateKey.All && (
           <>
             <div className="mb-4 flex">
               <Input
@@ -68,9 +87,9 @@ export default function FacultyCertificatePageContent({
             <AllDocsTable certificates={allCertificates} totalCount={totalCount} />
           </>
         )}
-        {selectedTab === DeanCeritificateKey.Pending && <AllDocsTable certificates={createdCertificates} />}
-        {selectedTab === DeanCeritificateKey.Approved && <AllDocsTable certificates={approvedCertificates} />}
-        {selectedTab === DeanCeritificateKey.Rejected && <AllDocsTable certificates={rejectedCertificates} />}
+        {selectedSheet === DeanCeritificateKey.Pending && <AllDocsTable certificates={createdCertificates} />}
+        {selectedSheet === DeanCeritificateKey.Approved && <AllDocsTable certificates={approvedCertificates} />}
+        {selectedSheet === DeanCeritificateKey.Rejected && <AllDocsTable certificates={rejectedCertificates} />}
       </Card>
     </div>
   );

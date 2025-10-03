@@ -4,8 +4,8 @@ import { getAllFacultyCertificates, getOtherFacultyCertificate } from '@/actions
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import React from 'react';
-import { DeanCeritificateKey, PAGE_SIZE } from './constants';
 import FacultyCertificatePageContent from './page.content';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 
 const INTL_NAMESPACE = 'private.facultycertificate';
 
@@ -25,13 +25,12 @@ interface Props {
 
 export default async function FacultyCertificatePage({ searchParams }: Props) {
   const resolvedSearchParams = await searchParams;
-  const selectedTab = resolvedSearchParams.tab || DeanCeritificateKey.All;
   const searchFilter = resolvedSearchParams.search || '';
 
   const facultyCertificates = await getAllFacultyCertificates({
     filter: searchFilter,
     page: resolvedSearchParams.page,
-    size: PAGE_SIZE.toString(),
+    size: PAGE_SIZE_DEFAULT.toString(),
   });
 
   const otherFacultyCertificates = await getOtherFacultyCertificate();
@@ -49,7 +48,6 @@ export default async function FacultyCertificatePage({ searchParams }: Props) {
           allCertificates={facultyCertificates.allCertificates}
           approvedCertificates={otherFacultyCertificates.approvedCertificates}
           rejectedCertificates={otherFacultyCertificates.rejectedCertificates}
-          selectedTab={selectedTab}
           totalCount={facultyCertificates.totalCount}
           searchFilter={searchFilter}
         />
