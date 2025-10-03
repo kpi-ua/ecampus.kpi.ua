@@ -9,7 +9,6 @@ import { getTranslations } from 'next-intl/server';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { Show } from '@/components/utils/show';
 import { Description } from '@/components/typography';
-import { Description } from '@/components/typography';
 
 const INTL_NAMESPACE = 'private.curator';
 
