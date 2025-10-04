@@ -26,6 +26,14 @@ export default function ActionButtons({ certificate }: Props) {
     }
   };
 
+  const handlePrintClick = async () => {
+    try {
+      await printCertificate(certificate.id);
+    } catch (error) {
+      errorToast();
+    }
+  };
+
   const { shouldDisableRejectButton, shouldDisablePrintButton, shouldDisableApproveButton } =
     buttonDisableController(certificate);
 
@@ -36,7 +44,7 @@ export default function ActionButtons({ certificate }: Props) {
         className="mt-6 w-full md:w-[145px]"
         icon={<Printer />}
         disabled={shouldDisablePrintButton}
-        onClick={() => printCertificate(certificate.id)}
+        onClick={handlePrintClick}
       >
         {t('button.print')}
       </Button>

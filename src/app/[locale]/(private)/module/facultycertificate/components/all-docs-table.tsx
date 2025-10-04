@@ -38,6 +38,14 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
     }
   };
 
+  const handlePrintClick = async (id: number) => {
+    try {
+      await printCertificate(id);
+    } catch (error) {
+      errorToast();
+    }
+  };
+
   const { page } = usePagination(PAGE_SIZE_DEFAULT, certificates);
 
   return (
@@ -90,7 +98,7 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
                   <Button
                     variant="secondary"
                     disabled={shouldDisablePrintButton}
-                    onClick={() => printCertificate(row.id)}
+                    onClick={() => handlePrintClick(row.id)}
                   >
                     <Printer />
                   </Button>
