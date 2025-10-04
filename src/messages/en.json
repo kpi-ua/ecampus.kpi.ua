@@ -274,7 +274,7 @@
         "again": "Check certificate ID and try again or",
         "contact-support": "<link>Contact support</link>",
         "table": {
-          "title": "History",
+          "title": "History:",
           "type": "Type",
           "date": "Date",
           "status": "Status",
