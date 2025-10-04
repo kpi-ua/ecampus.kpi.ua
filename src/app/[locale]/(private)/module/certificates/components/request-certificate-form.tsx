@@ -63,7 +63,7 @@ export function RequestCertificateForm({ certificateTypes }: Props) {
             control={form.control}
             name="docType"
             render={({ field }) => (
-              <FormItem className="w-full gap-2">
+              <FormItem className="w-full">
                 <FormLabel className="text-base" htmlFor="docType">
                   {tCert('docType')}
                 </FormLabel>
