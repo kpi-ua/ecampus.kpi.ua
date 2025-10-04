@@ -79,31 +79,41 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
                   <CertificateStatusBadge certificate={row} />
                 </TableCell>
                 <TableCell className="flex gap-2">
-                  <Button
-                    variant="secondary"
-                    onClick={() => handleUpdateCertificate(row.id, { approve: true, reason: '' })}
-                    disabled={shouldDisableApproveButton}
-                  >
-                    <Check />
-                  </Button>
+                  <div>
+                    <Button
+                      variant="secondary"
+                      size="small"
+                      onClick={() => handleUpdateCertificate(row.id, { approve: true, reason: '' })}
+                      disabled={shouldDisableApproveButton}
+                    >
+                      <Check />
+                    </Button>
+                  </div>
+
                   <RejectDialog
                     certificate={row}
                     handleUpdateCertificate={handleUpdateCertificate}
+                    shouldDisable={shouldDisableRejectButton}
                     triggerButton={
-                      <Button variant="secondary" disabled={shouldDisableRejectButton}>
-                        <X />
-                      </Button>
+                      <div>
+                        <Button variant="secondary" size="small" disabled={shouldDisableRejectButton}>
+                          <X />
+                        </Button>
+                      </div>
                     }
                   />
-                  <Button
-                    variant="secondary"
-                    disabled={shouldDisablePrintButton}
-                    onClick={() => handlePrintClick(row.id)}
-                  >
-                    <Printer />
-                  </Button>
+                  <div>
+                    <Button
+                      variant="secondary"
+                      size="small"
+                      disabled={shouldDisablePrintButton}
+                      onClick={() => handlePrintClick(row.id)}
+                    >
+                      <Printer />
+                    </Button>
+                  </div>
                   <Link href={`/module/facultycertificate/${row.id}`}>
-                    <Button variant="secondary">
+                    <Button size="small" variant="secondary">
                       <EyeBold />
                     </Button>
                   </Link>

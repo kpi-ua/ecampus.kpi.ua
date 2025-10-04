@@ -80,9 +80,8 @@ export async function updateCertificate(id: number, body: UpdateCertificateBody)
     body: JSON.stringify({ ...body }),
   });
 
-  revalidatePath('/module/facultycertificate', 'layout');
-
-  if (res.ok) {
+  if (!res.ok) {
     throw new Error(res.statusText);
   }
+  revalidatePath('/module/facultycertificate', 'layout');
 }
