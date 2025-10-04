@@ -61,7 +61,7 @@ export default async function ContactsPage({ params }: LocaleProps) {
                 </Link>
               ),
               suggestionslink: (chunks) => (
-                <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
+                <TextButton size="huge" href={process.env.NEXT_PUBLIC_SUGGESTIONS_FORM!} icon={<ChatsTeardrop />}>
                   {chunks}
                 </TextButton>
               ),
