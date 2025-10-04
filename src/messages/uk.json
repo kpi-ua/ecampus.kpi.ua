@@ -574,7 +574,13 @@
       "notes": "Примітка",
       "notesPlaceholder": "Наприклад: з мокрою печаткою",
       "purposePlaceholder": "Наприклад: для посольства Франції",
-      "submit": "Замовити"
+      "submit": "Замовити",
+      "status": {
+        "rejected": "Відхилено",
+        "processed": "Готово",
+        "pending": "У процесі",
+        "created": "Очікує"
+      }
     },
     "settings": {
       "title": "Налаштування",

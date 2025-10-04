@@ -1,16 +1,15 @@
 import { CertificateStatus } from '@/types/models/certificate/status';
-import { badgeVariants } from '@/components/ui/badge';
 import { Certificate } from '@/types/models/certificate/certificate';
 
 export function getCertificateStatusStyle(certificate: Certificate) {
   if (certificate.approved && certificate.status === CertificateStatus.Processed) {
-    return badgeVariants({ variant: 'success' });
+    return 'success';
   }
   if (certificate.status === CertificateStatus.Error || certificate.approved === false) {
-    return badgeVariants({ variant: 'error' });
+    return 'error';
   }
   if (certificate.status === CertificateStatus.Created) {
-    return badgeVariants({ variant: 'yellow' });
+    return 'warning';
   }
-  return badgeVariants({ variant: 'default' });
+  return 'default';
 }

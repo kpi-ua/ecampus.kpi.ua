@@ -574,7 +574,13 @@
       "notes": "Notes",
       "notesPlaceholder": "For example: with a wet seal",
       "purposePlaceholder": "For example: for the French embassy",
-      "submit": "Order"
+      "submit": "Order",
+      "status": {
+        "rejected": "Rejected",
+        "processed": "Processed",
+        "pending": "Pending",
+        "created": "Waiting"
+      }
     },
     "settings": {
       "title": "Settings",
