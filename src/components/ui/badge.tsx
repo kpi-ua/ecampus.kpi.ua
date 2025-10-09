@@ -15,7 +15,7 @@ const badgeVariants = cva(
         neutral: 'bg-neutral-50 text-neutral-700',
         success: 'border-green-300 bg-green-100 text-green-600',
         error: 'border-red-300 bg-red-100 text-red-600',
-        yellow: 'border-[#9D613640]/25 bg-[#FDF6CA] text-[#9D6136]',
+        yellow: 'border-other-orange/25 bg-status-warning-100 text-other-orange',
         default: 'border-gray-300 bg-gray-100 text-gray-600',
       },
     },

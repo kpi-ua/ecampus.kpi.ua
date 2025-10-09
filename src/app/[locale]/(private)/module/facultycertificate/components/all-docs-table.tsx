@@ -20,6 +20,7 @@ import { usePagination } from '@/hooks/use-pagination';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Show } from '@/components/utils/show';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { useTableSort } from '@/hooks/use-table-sort';
 
 interface Props {
   certificates: Certificate[];
@@ -46,6 +47,11 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
     }
   };
 
+  const { sortedRows, sortHandlers } = useTableSort(certificates, (row, header) => row[header as keyof typeof row], [
+    'created',
+    'originalRequired',
+  ]);
+
   const { page } = usePagination(PAGE_SIZE_DEFAULT, certificates);
 
   return (
@@ -54,17 +60,21 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
         <TableHeader>
           <TableRow>
             <TableHead>{tTable('documentNumber')}</TableHead>
-            <TableHead>{tTable('created')}</TableHead>
+            <TableHead sortHandlers={sortHandlers} sortHeader="created">
+              {tTable('created')}
+            </TableHead>
             <TableHead>{tTable('fullname')}</TableHead>
             <TableHead>{tTable('purpose')}</TableHead>
-            <TableHead>{tTable('originalRequired')}</TableHead>
+            <TableHead sortHandlers={sortHandlers} sortHeader="originalRequired">
+              {tTable('originalRequired')}
+            </TableHead>
             <TableHead>{tTable('updatedAt')}</TableHead>
             <TableHead>{tTable('status')}</TableHead>
             <TableHead>{tTable('actions')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {certificates.map((row, index) => {
+          {sortedRows.map((row, index) => {
             const { shouldDisableRejectButton, shouldDisablePrintButton, shouldDisableApproveButton } =
               buttonDisableController(row);
             return (
