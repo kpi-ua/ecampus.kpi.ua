@@ -70,7 +70,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
                 control={form.control}
                 name="typeId"
                 render={({ field }) => (
-                  <FormItem className="w-full gap-2">
+                  <FormItem className="flex w-full flex-col gap-2">
                     <FormLabel className="text-base" htmlFor="typeId">
                       {t('contact.contact-type')}
                     </FormLabel>
@@ -97,7 +97,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
                 control={form.control}
                 name="contactValue"
                 render={({ field }) => (
-                  <FormItem className="w-full gap-2">
+                  <FormItem className="flex w-full flex-col gap-2">
                     <FormLabel className="text-base" htmlFor="contactValue">
                       {t('contact.title')}
                     </FormLabel>
@@ -108,7 +108,7 @@ export function Contacts({ contacts, contactTypes }: Props) {
             </div>
             <Button
               type="submit"
-              className="ml-auto mt-3 w-fit"
+              className="mt-3 ml-auto w-fit"
               variant="secondary"
               disabled={!form.formState.isValid}
               loading={form.formState.isSubmitting}

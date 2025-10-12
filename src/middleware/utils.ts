@@ -34,7 +34,7 @@ export const needsLocaleHandling = (request: NextRequest) => {
   if (pathSegments.length > 0 && LOCALES.includes(pathSegments[0])) {
     return false;
   }
-  
+
   return true;
 };
 

@@ -52,7 +52,7 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
 
   return (
     <div className="flex flex-col">
-      {error && <Paragraph className="m-0 text-status-danger-300">{error}</Paragraph>}
+      {error && <Paragraph className="text-status-danger-300 m-0">{error}</Paragraph>}
       <div className="mt-4 flex items-center gap-4">
         <ProfilePicture size="xl" src={photoPreview} />
         <Button className="h-fit" variant="secondary" onClick={handleFileUploadClick}>

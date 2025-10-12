@@ -19,7 +19,7 @@ import { CertificateDetails } from '@/app/[locale]/(public)/validate-certificate
 import { Warning } from '@/app/images';
 import { Paragraph } from '@/components/typography';
 import Link from 'next/link';
-import { TELEGRAM_SUPPORT_LINK } from '@/lib/constants/telegram-suuport-link';
+import { TELEGRAM_SUPPORT_LINK } from '@/lib/constants/telegram-support-link';
 
 export function CertificateVerifier() {
   const autoSubmittedRef = useRef(false);
@@ -66,7 +66,6 @@ export function CertificateVerifier() {
   const tResultCard = useTranslations('public.verification.result');
   const tSearchCard = useTranslations('public.verification.search');
 
-  const isApproved = typeof result === 'object' && result?.status === 'Approved';
   const isEmpty = result === null;
   const isError = result === 'error';
 
@@ -115,7 +114,7 @@ export function CertificateVerifier() {
 
           {isEmpty && <EmptyState t={tResultCard} />}
 
-          {isApproved && <CertificateDetails result={result} t={tResultCard} />}
+          {result && typeof result === 'object' && <CertificateDetails result={result} t={tResultCard} />}
 
           {isError && (
             <div className="text-muted-foreground flex flex-col items-center justify-center gap-2 text-center">

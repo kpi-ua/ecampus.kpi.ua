@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const EmptyState: FC<Props> = ({ t }) => (
-  <div className="text-center text-muted-foreground">
+  <div className="text-muted-foreground text-center">
     <GraduationCap className="mx-auto mb-3 h-12 w-12 text-neutral-400" />
     <div className="font-medium text-neutral-900">{t('empty')}</div>
     <div className="text-sm">{t('enter')}</div>

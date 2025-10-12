@@ -33,7 +33,7 @@ export const FrequentlyAskedQuestions = async ({ i18nNamespace, sections }: Freq
         );
 
         return (
-          <section key={section} className="my-8 text-lg leading-lg">
+          <section key={section} className="leading-lg my-8 text-lg">
             <Heading4>{header}</Heading4>
             {content}
           </section>

@@ -43,7 +43,7 @@ const Input = ({ className, type, icon, size, iconPosition = 'start', ref, ...pr
       className={cn(
         'relative w-full [&_svg]:absolute [&_svg]:size-[20px] [&_svg]:text-neutral-400',
         icon && iconPosition === 'start' ? '[&_svg]:inset-[12px]' : '',
-        icon && iconPosition === 'end' ? '[&_svg]:right-[12px] [&_svg]:top-[12px]' : '',
+        icon && iconPosition === 'end' ? '[&_svg]:top-[12px] [&_svg]:right-[12px]' : '',
       )}
     >
       <Show when={!!icon && iconPosition === 'start'}>{icon}</Show>

@@ -20,11 +20,11 @@ export default function ContactsList({ contacts, onUpdateContact, onDeleteContac
         );
         return (
           <div className="group flex flex-col items-start gap-4 xl:flex-row xl:items-center" key={contact.id}>
-            <Paragraph className="m-0 w-full min-w-[170px] max-w-[250px] font-semibold text-neutral-400 xl:max-w-[220px]">
+            <Paragraph className="m-0 w-full max-w-[250px] min-w-[170px] font-semibold text-neutral-400 xl:max-w-[220px]">
               {contact.type.name}:
             </Paragraph>
             {isReadonly ? (
-              <Paragraph className="m-0 min-w-[170px] break-all font-medium">{contact.value}</Paragraph>
+              <Paragraph className="m-0 min-w-[170px] font-medium break-all">{contact.value}</Paragraph>
             ) : (
               <EditableField
                 value={contact.value}

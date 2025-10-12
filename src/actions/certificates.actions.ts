@@ -15,10 +15,17 @@ export async function getCertificateTypes() {
   return response.json();
 }
 
-export async function createCertificateRequest(type: string, purpose?: string) {
+type CertificateRequestBody = {
+  type: string;
+  originalRequired?: boolean;
+  notes?: string;
+  purpose?: string;
+};
+
+export async function createCertificateRequest(body: CertificateRequestBody) {
   await campusFetch('certificates/requests', {
     method: 'POST',
-    body: JSON.stringify({ type, purpose }),
+    body: JSON.stringify({ ...body }),
   });
 
   revalidatePath('/module/certificates');

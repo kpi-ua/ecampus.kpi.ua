@@ -20,7 +20,7 @@ export const SupportCard = async ({ className }: SupportCardProps) => {
       </CardHeader>
       <CardContent>
         <Paragraph>{t('description')}</Paragraph>
-        <Paragraph className="mb-0 mt-8 flex flex-col items-start gap-4">
+        <Paragraph className="mt-8 mb-0 flex flex-col items-start gap-4">
           <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
             {t('button.suggestions-form')}
           </TextButton>

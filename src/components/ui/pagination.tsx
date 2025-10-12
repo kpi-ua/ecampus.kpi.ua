@@ -61,7 +61,7 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
     <PaginationLink
       aria-label="Go to next page"
       size="small"
-      className={cn('gap-[4px] pr-2.5 hover:text-basic-blue', className)}
+      className={cn('hover:text-basic-blue gap-[4px] pr-2.5', className)}
       {...props}
     >
       <Show when={!isMobile}>
