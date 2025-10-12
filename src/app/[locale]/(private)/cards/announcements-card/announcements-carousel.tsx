@@ -30,7 +30,7 @@ export const AnnouncementsCarousel = ({ announcements }: AnnouncementsCarouselPr
       className="w-full"
       setApi={setApi}
     >
-      <CarouselContent className="-ml-4 mb-4">
+      <CarouselContent className="mb-4 -ml-4">
         <Show when={!announcements.length}>
           <Slide>
             <DefaultAnnouncementSlide />

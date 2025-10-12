@@ -16,13 +16,15 @@ import {
   InternalMaterialsTable,
   JournalTable,
   ModuleHeader,
-  TableSheets,
 } from '@/app/[locale]/(private)/module/studysheet/[id]/components';
+import { Tabs, TabSheetTrigger, TabsList } from '@/components/ui/tabs';
 
 export default function InfoPageClient() {
   const { id } = useParams();
   const searchParams = useSearchParams();
   const t = useTranslations('private.study-sheet');
+  const tTab = useTranslations(`private.study-sheet.tab`);
+  const [selectedSheet, setSelectedSheet] = useState(SheetTranslationKeys.Journal);
 
   const querySemester = searchParams.get('semester');
   const queryYear = searchParams.get('studyYear');
@@ -57,18 +59,27 @@ export default function InfoPageClient() {
   }
 
   const studyPeriod = `${creditModule.studyYear} (${creditModule.semester} ${t('semester.title')})`;
-  const selectedSheet = searchParams.get('sheet') || SheetTranslationKeys.Journal;
   const hasParams = !!querySemester && !!queryYear;
   const breadcrumbsRootPath = hasParams
     ? `/module/studysheet?semester=${querySemester}&studyYear=${queryYear}`
     : '/module/studysheet';
+
+  const sheetList = Object.values(SheetTranslationKeys);
 
   return (
     <SubLayout pageTitle={t('module-info')} breadcrumbs={[[breadcrumbsRootPath, t('title')]]}>
       <div className="col-span-7">
         <ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} />
         <div className="mt-8 flex flex-col">
-          <TableSheets sheetList={Object.values(SheetTranslationKeys)} />
+          <Tabs value={selectedSheet} onValueChange={(value) => setSelectedSheet(value as SheetTranslationKeys)}>
+            <TabsList className="rounded-none border-0 bg-transparent p-0">
+              {sheetList.map((item) => (
+                <TabSheetTrigger key={item} value={item}>
+                  {tTab(item)}
+                </TabSheetTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
           <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
             {selectedSheet === SheetTranslationKeys.Journal && <JournalTable journal={creditModule.journal} />}
             {selectedSheet === SheetTranslationKeys.EventPlan && (

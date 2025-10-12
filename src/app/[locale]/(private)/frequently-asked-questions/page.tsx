@@ -1,8 +1,8 @@
 import { Heading2 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { FrequentlyAskedQuestions } from '@/containers/faq/frequently-asked-questions';
 import { LocaleProps } from '@/types/locale-props';
+import { FrequentlyAskedQuestions } from '@/widgets/faq/frequently-asked-questions';
 
 const SECTIONS = [
   'group-has-no-students',

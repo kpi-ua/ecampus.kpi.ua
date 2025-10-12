@@ -3,6 +3,7 @@ import LifebuoyOutline from '@/app/images/icons/LifebuoyOutline.svg';
 import Student from '@/app/images/icons/Student.svg';
 import TelegramOutline from '@/app/images/icons/TelegramOutline.svg';
 import { getTranslations } from 'next-intl/server';
+import { TELEGRAM_SUPPORT_LINK } from '@/lib/constants/telegram-support-link';
 
 export const PublicLinks = async () => {
   const t = await getTranslations('auth.login.publicLink');
@@ -15,7 +16,7 @@ export const PublicLinks = async () => {
       <PublicLink href="/curator-search" icon={<Student />}>
         {t('curator-search')}
       </PublicLink>
-      <PublicLink href="https://t.me/joinchat/HtJ6IROiP8Rv5BR-eZ64fw" target="_blank" icon={<TelegramOutline />}>
+      <PublicLink href={TELEGRAM_SUPPORT_LINK} target="_blank" icon={<TelegramOutline />}>
         {t('telegram-chat')}
       </PublicLink>
     </div>

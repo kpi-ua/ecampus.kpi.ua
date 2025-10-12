@@ -26,6 +26,18 @@ export const isRoot = (request: NextRequest) => {
   return !!pattern.match(request.nextUrl.pathname);
 };
 
+export const needsLocaleHandling = (request: NextRequest) => {
+  const pathname = request.nextUrl.pathname;
+
+  const pathSegments = pathname.split('/').filter(Boolean);
+
+  if (pathSegments.length > 0 && LOCALES.includes(pathSegments[0])) {
+    return false;
+  }
+
+  return true;
+};
+
 export const matchesUrl = (request: NextRequest, url: string, strict = true) => {
   const pattern = new UrlPattern(`/:locale${url}${strict ? '' : '(/*)'}`);
 

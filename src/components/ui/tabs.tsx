@@ -43,6 +43,16 @@ const TabsTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof T
 );
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
+const TabSheetTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
+  return (
+    <TabsTrigger
+      {...props}
+      className="data-[state=active]:bg-basic-white data-[state=active]:text-basic-blue h-12 rounded-t-[8px] rounded-b-none px-3 py-0 text-base font-semibold data-[state=inactive]:bg-transparent data-[state=inactive]:text-neutral-700 md:px-8"
+    />
+  );
+};
+TabSheetTrigger.displayName = TabsPrimitive.Trigger.displayName;
+
 const TabsContent = ({ className, ref, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) => (
   <TabsPrimitive.Content
     ref={ref}
@@ -55,4 +65,4 @@ const TabsContent = ({ className, ref, ...props }: React.ComponentProps<typeof T
 );
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export { Tabs, TabsList, TabsTrigger, TabsContent, TabSheetTrigger };
