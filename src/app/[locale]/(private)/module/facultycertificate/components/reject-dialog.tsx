@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UpdateCertificateBody } from '@/actions/dean.actions';
+import { UpdateCertificateBody } from '@/actions/certificates.actions';
 import { useTranslations } from 'next-intl';
 import { Certificate } from '@/types/models/certificate/certificate';
 

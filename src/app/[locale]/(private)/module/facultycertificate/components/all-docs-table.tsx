@@ -3,7 +3,6 @@
 import React, { memo } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTranslations } from 'next-intl';
-import { updateCertificate, UpdateCertificateBody } from '@/actions/dean.actions';
 import dayjs from 'dayjs';
 import { Button } from '@/components/ui/button';
 import { Check, EyeBold, Printer, X } from '@/app/images';
@@ -21,6 +20,7 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Show } from '@/components/utils/show';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 import { useTableSort } from '@/hooks/use-table-sort';
+import { updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
 
 interface Props {
   certificates: Certificate[];

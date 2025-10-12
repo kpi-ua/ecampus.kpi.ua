@@ -480,7 +480,7 @@
         "reject": "Reject",
         "cancel": "Cancel"
       },
-      "tab": {
+      "sheet": {
         "all": "All",
         "rejected": "Rejected",
         "pending": "Pending",
@@ -526,7 +526,7 @@
         "second": "Second",
         "all": "All"
       },
-      "tab": {
+      "sheet": {
         "journal": "Gradebook",
         "event-plan": "Events plan",
         "internal-materials": "Internal materials",
