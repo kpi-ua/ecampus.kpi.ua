@@ -35,7 +35,7 @@ export default function FacultyCertificatePageContent({
 
   const [search, setSearch] = useState(searchFilter);
 
-  const t = useTranslations(`private.facultycertificate.tab`);
+  const t = useTranslations(`private.facultycertificate.sheet`);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
