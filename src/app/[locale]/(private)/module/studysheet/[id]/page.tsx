@@ -23,7 +23,7 @@ export default function InfoPageClient() {
   const { id } = useParams();
   const searchParams = useSearchParams();
   const t = useTranslations('private.study-sheet');
-  const tTab = useTranslations(`private.study-sheet.tab`);
+  const tTab = useTranslations(`private.study-sheet.sheet`);
   const [selectedSheet, setSelectedSheet] = useState(SheetTranslationKeys.Journal);
 
   const querySemester = searchParams.get('semester');
