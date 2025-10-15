@@ -22,7 +22,7 @@ export type UpdateCertificateBody = {
 };
 
 export async function updateCertificate(id: number, body: UpdateCertificateBody) {
-  const res = await campusFetch(`/dean/certificates/${id}/status`, {
+  const res = await campusFetch(`/certificates/${id}/status`, {
     method: 'PATCH',
     body: JSON.stringify({ ...body }),
   });
@@ -40,7 +40,7 @@ type CertificateRequestBody = {
 };
 
 export async function createCertificateRequest(body: CertificateRequestBody) {
-  await campusFetch('certificates/requests', {
+  await campusFetch('/certificates', {
     method: 'POST',
     body: JSON.stringify({ ...body }),
   });
