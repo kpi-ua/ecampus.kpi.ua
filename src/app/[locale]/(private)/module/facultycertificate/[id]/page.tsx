@@ -2,7 +2,7 @@ import React from 'react';
 
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getTranslations } from 'next-intl/server';
-import { getCertificate } from '@/actions/dean.actions';
+import { getCertificate } from '@/actions/certificates.actions';
 import { Description, Heading2, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';

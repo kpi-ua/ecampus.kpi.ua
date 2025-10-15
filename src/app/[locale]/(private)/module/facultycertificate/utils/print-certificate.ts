@@ -1,4 +1,4 @@
-import { getDeanCertificatePDF } from '@/actions/dean.actions';
+import { getCertificatePDF } from '@/actions/certificates.actions';
 
 function printPdfBlob(blob: Blob, filename?: string): Promise<void> {
   const url = URL.createObjectURL(blob);
@@ -47,6 +47,6 @@ function printPdfBlob(blob: Blob, filename?: string): Promise<void> {
 }
 
 export async function printCertificate(id: number) {
-  const { blob, filename } = await getDeanCertificatePDF(id);
+  const { blob, filename } = await getCertificatePDF(id);
   await printPdfBlob(blob, filename);
 }

@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UpdateCertificateBody } from '@/actions/dean.actions';
+import { UpdateCertificateBody } from '@/actions/certificates.actions';
 import { useTranslations } from 'next-intl';
 import { Certificate } from '@/types/models/certificate/certificate';
 
@@ -23,9 +23,10 @@ interface Props {
   certificate: Certificate;
   triggerButton: React.ReactNode;
   handleUpdateCertificate: (id: number, body: UpdateCertificateBody) => Promise<void>;
+  shouldDisable?: boolean;
 }
 
-export const RejectDialog = ({ certificate, triggerButton, handleUpdateCertificate }: Props) => {
+export const RejectDialog = ({ certificate, triggerButton, handleUpdateCertificate, shouldDisable }: Props) => {
   const [open, setOpen] = useState(false);
   const t = useTranslations('private.facultycertificate');
 
@@ -47,7 +48,7 @@ export const RejectDialog = ({ certificate, triggerButton, handleUpdateCertifica
   };
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
+    <AlertDialog open={shouldDisable ? false : open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>{triggerButton}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -62,7 +63,7 @@ export const RejectDialog = ({ certificate, triggerButton, handleUpdateCertifica
               control={form.control}
               name="reason"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex w-full flex-col gap-2">
                   <FormLabel>{t('alert.reason')}*</FormLabel>
                   <FormControl>
                     <Textarea className="resize-none" {...field} />

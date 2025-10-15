@@ -3,4 +3,5 @@ export enum CertificateStatus {
   Created = 'Created',
   Pending = 'Pending',
   Processed = 'Processed',
+  Signed = 'Signed',
 }

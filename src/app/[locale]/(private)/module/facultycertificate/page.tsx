@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
-import { getAllFacultyCertificates, getOtherFacultyCertificate } from '@/actions/dean.actions';
+import { getAllFacultyCertificates, getOtherFacultyCertificate } from '@/actions/certificates.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import React from 'react';

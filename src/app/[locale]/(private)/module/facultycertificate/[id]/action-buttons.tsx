@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Check, Printer, X } from '@/app/images';
 import { printCertificate } from '@/app/[locale]/(private)/module/facultycertificate/utils/print-certificate';
 import React from 'react';
-import { updateCertificate, UpdateCertificateBody } from '@/actions/dean.actions';
+import { updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
 import { Certificate } from '@/types/models/certificate/certificate';
 import { useTranslations } from 'next-intl';
 import { buttonDisableController } from '@/app/[locale]/(private)/module/facultycertificate/utils/button-state-controller';
@@ -26,6 +26,14 @@ export default function ActionButtons({ certificate }: Props) {
     }
   };
 
+  const handlePrintClick = async () => {
+    try {
+      await printCertificate(certificate.id);
+    } catch (error) {
+      errorToast();
+    }
+  };
+
   const { shouldDisableRejectButton, shouldDisablePrintButton, shouldDisableApproveButton } =
     buttonDisableController(certificate);
 
@@ -36,7 +44,7 @@ export default function ActionButtons({ certificate }: Props) {
         className="mt-6 w-full md:w-[145px]"
         icon={<Printer />}
         disabled={shouldDisablePrintButton}
-        onClick={() => printCertificate(certificate.id)}
+        onClick={handlePrintClick}
       >
         {t('button.print')}
       </Button>

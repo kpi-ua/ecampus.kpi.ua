@@ -9,14 +9,10 @@ interface Props {
 }
 
 export function CertificateStatusBadge({ certificate }: Props) {
-  const tEnums = useTranslations('private.certificate');
+  const tEnums = useTranslations('global.enums');
   const badgeStatus = certificate.approved === false ? 'rejected' : certificate.status;
   const label = tEnums(`status.${dash(badgeStatus)}`);
   const statusVariant = getCertificateStatusStyle(certificate);
 
-  return (
-    <Badge variant={statusVariant} withBorder={true}>
-      {label}
-    </Badge>
-  );
+  return <Badge className={statusVariant}>{label}</Badge>;
 }

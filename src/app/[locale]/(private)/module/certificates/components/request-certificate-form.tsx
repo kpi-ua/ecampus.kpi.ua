@@ -63,7 +63,7 @@ export function RequestCertificateForm({ certificateTypes }: Props) {
             control={form.control}
             name="docType"
             render={({ field }) => (
-              <FormItem className="w-full gap-2">
+              <FormItem className="flex w-full flex-col gap-2">
                 <FormLabel className="text-base" htmlFor="docType">
                   {tCert('docType')}
                 </FormLabel>
@@ -91,7 +91,7 @@ export function RequestCertificateForm({ certificateTypes }: Props) {
             control={form.control}
             name="purpose"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex w-full flex-col gap-2">
                 <FormLabel>{tCert('purpose')}</FormLabel>
                 <FormControl>
                   <Textarea placeholder={tCert('purposePlaceholder')} className="resize-none" {...field} />
@@ -120,7 +120,7 @@ export function RequestCertificateForm({ certificateTypes }: Props) {
               control={form.control}
               name="notes"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex w-full flex-col gap-2">
                   <FormLabel>{tCert('notes')}</FormLabel>
                   <FormControl>
                     <Textarea placeholder={tCert('notesPlaceholder')} className="resize-none" {...field} />
