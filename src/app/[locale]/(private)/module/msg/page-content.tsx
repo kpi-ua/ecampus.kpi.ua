@@ -3,8 +3,6 @@
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { MessageTranslationKeys } from '@/app/[locale]/(private)/module/msg/constants';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { TableTabs } from '@/app/[locale]/(private)/module/studysheet/[id]/components';
 import { Card } from '@/components/ui/card';
 import Sent from '@/app/[locale]/(private)/module/msg/components/sent';
 import Inbox from '@/app/[locale]/(private)/module/msg/components/inbox';
