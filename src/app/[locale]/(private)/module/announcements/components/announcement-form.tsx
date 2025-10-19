@@ -135,29 +135,31 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="announcement.start"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>{t('fields.startDate')}</FormLabel>
-              <Input type="date" {...field} />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex gap-3">
+          <FormField
+            control={form.control}
+            name="announcement.start"
+            render={({ field }) => (
+              <FormItem className="flex flex-col flex-1">
+                <FormLabel>{t('fields.startDate')}</FormLabel>
+                <Input type="date" {...field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="announcement.end"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>{t('fields.endDate')}</FormLabel>
-              <Input type="date" {...field} />
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="announcement.end"
+            render={({ field }) => (
+              <FormItem className="flex flex-col flex-1">
+                <FormLabel>{t('fields.endDate')}</FormLabel>
+                <Input type="date" {...field} />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <FormField
           control={form.control}
