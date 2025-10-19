@@ -26,19 +26,19 @@ export default async function AnnouncementsPage({ params }: LocaleProps) {
   const subdivisionsData = await getSubdivisions();
   const coursesData = await getCourses();
 
-  console.log(groupsData);
-  console.log(studyFormsData);
-  console.log(rolesData);
-  console.log(subdivisionsData);
-  console.log(coursesData);
-
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12">
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
 
-        <AnnouncementManagement rolesData={rolesData} studyFormsData={studyFormsData} groupsData={groupsData} subdivisionsData={subdivisionsData} coursesData={coursesData} />
+        <AnnouncementManagement
+          rolesData={rolesData}
+          studyFormsData={studyFormsData}
+          groupsData={groupsData}
+          subdivisionsData={subdivisionsData}
+          coursesData={coursesData}
+        />
       </div>
     </SubLayout>
   );

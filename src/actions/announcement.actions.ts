@@ -35,13 +35,10 @@ export const createAnnouncement = async (data: AnnouncementCreate): Promise<numb
   try {
     const body = JSON.stringify(data);
 
-    console.log(body);
     const response = await campusFetch('announcements', {
       method: 'POST',
       body,
     });
-
-    console.log(response);
 
     if (!response.ok) {
       throw new Error(`Failed to create announcement: ${response.status} ${response.statusText}`);
