@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default async function AnnouncementsPage({ params }: LocaleProps) {
+export default async function AnnouncementsPage() {
   const t = await getTranslations(INTL_NAMESPACE);
   const rolesData = await getRoles();
   const studyFormsData = await getStudyForms();
