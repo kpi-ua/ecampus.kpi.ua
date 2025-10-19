@@ -15,7 +15,8 @@ export const formSchema = z
           (data) => {
             const hasTitle = !!data.title?.trim();
             const hasUri = !!data.uri?.trim();
-            return hasTitle === hasUri;
+            // Allow either both empty or both filled. This is clearer and explicit.
+            return (!hasTitle && !hasUri) || (hasTitle && hasUri);
           },
           { message: 'Both link title and URL must be provided together' },
         )
