@@ -107,33 +107,35 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="announcement.link.title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('fields.linkTitle')}</FormLabel>
-              <FormControl>
-                <Input placeholder={t('placeholders.linkTitle')} type="text" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex gap-3">
+          <FormField
+            control={form.control}
+            name="announcement.link.title"
+            render={({ field }) => (
+              <FormItem className="flex flex-col flex-1">
+                <FormLabel>{t('fields.linkTitle')}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t('placeholders.linkTitle')} type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <FormField
-          control={form.control}
-          name="announcement.link.uri"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('fields.linkUrl')}</FormLabel>
-              <FormControl>
-                <Input placeholder={t('placeholders.linkUrl')} type="text" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+          <FormField
+            control={form.control}
+            name="announcement.link.uri"
+            render={({ field }) => (
+              <FormItem className="flex flex-col flex-1">
+                <FormLabel>{t('fields.linkUrl')}</FormLabel>
+                <FormControl>
+                  <Input placeholder={t('placeholders.linkUrl')} type="text" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
         <div className="flex gap-3">
           <FormField
