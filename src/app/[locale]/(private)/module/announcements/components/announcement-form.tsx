@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -32,6 +33,7 @@ interface Props {
 }
 
 export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdivisionsData, coursesData }: Props) {
+  const t = useTranslations('private.announcements.form');
   const { errorToast } = useServerErrorToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,9 +55,9 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Title</FormLabel>
+              <FormLabel>{t('fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder="Title" type="text" {...field} />
+                <Input placeholder={t('placeholders.title')} type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -67,9 +69,9 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>{t('fields.description')}</FormLabel>
               <FormControl>
-                <Textarea placeholder="Description" rows={4} {...field} />
+                <Textarea placeholder={t('placeholders.description')} rows={4} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -81,9 +83,9 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Image</FormLabel>
+              <FormLabel>{t('fields.imageUrl')}</FormLabel>
               <FormControl>
-                <Input placeholder="Image URL" type="text" {...field} />
+                <Input placeholder={t('placeholders.imageUrl')} type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -95,9 +97,9 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.link.title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Link Title</FormLabel>
+              <FormLabel>{t('fields.linkTitle')}</FormLabel>
               <FormControl>
-                <Input placeholder="Link Title" type="text" {...field} />
+                <Input placeholder={t('placeholders.linkTitle')} type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -109,9 +111,9 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.link.uri"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Link URL</FormLabel>
+              <FormLabel>{t('fields.linkUrl')}</FormLabel>
               <FormControl>
-                <Input placeholder="Link URL" type="text" {...field} />
+                <Input placeholder={t('placeholders.linkUrl')} type="text" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,7 +125,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.start"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Start Date</FormLabel>
+              <FormLabel>{t('fields.startDate')}</FormLabel>
               <Input type="date" {...field} />
               <FormMessage />
             </FormItem>
@@ -135,7 +137,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.end"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>End Date</FormLabel>
+              <FormLabel>{t('fields.endDate')}</FormLabel>
               <Input type="date" {...field} />
               <FormMessage />
             </FormItem>
@@ -147,16 +149,16 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="announcement.language"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Language</FormLabel>
+              <FormLabel>{t('fields.language')}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a language" />
+                    <SelectValue placeholder={t('placeholders.language')} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="uk">Ukrainian</SelectItem>
-                  <SelectItem value="en">English</SelectItem>
+                  <SelectItem value="uk">{t('languages.uk')}</SelectItem>
+                  <SelectItem value="en">{t('languages.en')}</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -168,7 +170,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="filter.roles"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Study Forms</FormLabel>
+              <FormLabel>{t('fields.studyForms')}</FormLabel>
               <FormControl>
                 <MultiSelector
                   values={field.value?.map((studyForm) => studyForm.toString()) || []}
@@ -177,7 +179,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   options={studyFormsData.map((studyForm) => ({ value: studyForm, label: studyForm }))}
                 >
                   <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder="Select study forms" />
+                    <MultiSelectorInput placeholder={t('placeholders.studyForms')} />
                   </MultiSelectorTrigger>
                   <MultiSelectorContent>
                     <MultiSelectorList>
@@ -199,7 +201,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="filter.groups"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Groups</FormLabel>
+              <FormLabel>{t('fields.groups')}</FormLabel>
               <FormControl>
                 <MultiSelector
                   values={field.value?.map((group) => group.toString()) || []}
@@ -211,7 +213,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   }))}
                 >
                   <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder="Select groups" />
+                    <MultiSelectorInput placeholder={t('placeholders.groups')} />
                   </MultiSelectorTrigger>
                   <MultiSelectorContent>
                     <MultiSelectorList>
@@ -234,7 +236,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="filter.studyForms"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Roles</FormLabel>
+              <FormLabel>{t('fields.roles')}</FormLabel>
               <FormControl>
                 <MultiSelector
                   values={field.value?.map((role) => role.toString()) || []}
@@ -243,7 +245,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   options={rolesData.map((role) => ({ value: role, label: role }))}
                 >
                   <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder="Select roles" />
+                    <MultiSelectorInput placeholder={t('placeholders.roles')} />
                   </MultiSelectorTrigger>
                   <MultiSelectorContent>
                     <MultiSelectorList>
@@ -266,7 +268,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="filter.subdivisions"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Subdivisions</FormLabel>
+              <FormLabel>{t('fields.subdivisions')}</FormLabel>
               <FormControl>
                 <MultiSelector
                   values={field.value?.map((subdivision) => subdivision.toString()) || []}
@@ -278,7 +280,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   }))}
                 >
                   <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder="Select subdivisions" />
+                    <MultiSelectorInput placeholder={t('placeholders.subdivisions')} />
                   </MultiSelectorTrigger>
                   <MultiSelectorContent>
                     <MultiSelectorList>
@@ -301,7 +303,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           name="filter.courses"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Courses</FormLabel>
+              <FormLabel>{t('fields.courses')}</FormLabel>
               <FormControl>
                 <MultiSelector
                   values={field.value?.map((course) => course.toString()) || []}
@@ -313,7 +315,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   }))}
                 >
                   <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder="Select courses" />
+                    <MultiSelectorInput placeholder={t('placeholders.courses')} />
                   </MultiSelectorTrigger>
                   <MultiSelectorContent>
                     <MultiSelectorList>
@@ -331,7 +333,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
           )}
         />
         <Button type="submit" className="mt-4">
-          Submit
+          {t('buttons.submit')}
         </Button>
       </form>
     </Form>

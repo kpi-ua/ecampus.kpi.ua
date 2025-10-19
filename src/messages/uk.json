@@ -385,34 +385,37 @@
           "title": "Заголовок",
           "description": "Опис",
           "imageUrl": "URL зображення",
+          "linkTitle": "Назва посилання",
           "linkUrl": "URL посилання",
-          "linkCaption": "Підпис посилання",
           "startDate": "Дата початку",
           "endDate": "Дата завершення",
           "language": "Мова",
-          "subdivisions": "Підрозділи"
+          "studyForms": "Форми навчання",
+          "groups": "Групи",
+          "roles": "Ролі",
+          "subdivisions": "Підрозділи",
+          "courses": "Курси"
         },
         "placeholders": {
           "title": "Введіть заголовок оголошення",
           "description": "Введіть опис оголошення",
           "imageUrl": "https://example.com/image.jpg",
+          "linkTitle": "Введіть назву посилання",
           "linkUrl": "https://example.com",
-          "linkCaption": "Натисніть тут, щоб дізнатися більше",
-          "language": "Оберіть мову"
+          "language": "Оберіть мову",
+          "studyForms": "Оберіть форми навчання",
+          "groups": "Оберіть групи",
+          "roles": "Оберіть ролі",
+          "subdivisions": "Оберіть підрозділи",
+          "courses": "Оберіть курси"
         },
         "buttons": {
-          "create": "Створити оголошення",
-          "creating": "Створюється...",
+          "submit": "Відправити",
           "cancel": "Скасувати"
         },
-        "targeting": {
-          "title": "Фільтри цілеспрямованості",
-          "selected": "Обрані фільтри",
-          "roles": "Ролі",
-          "studyForms": "Форми навчання",
-          "groups": "Групи",
-          "courses": "Курси",
-          "loading": "Завантаження опцій фільтрів..."
+        "languages": {
+          "uk": "Українська",
+          "en": "Англійська"
         }
       }
     },

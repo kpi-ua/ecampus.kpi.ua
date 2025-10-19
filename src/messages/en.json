@@ -385,34 +385,37 @@
           "title": "Title",
           "description": "Description",
           "imageUrl": "Image URL",
+          "linkTitle": "Link Title",
           "linkUrl": "Link URL",
-          "linkCaption": "Link Caption",
           "startDate": "Start Date",
           "endDate": "End Date",
           "language": "Language",
-          "subdivisions": "Subdivisions"
+          "studyForms": "Study Forms",
+          "groups": "Groups",
+          "roles": "Roles",
+          "subdivisions": "Subdivisions",
+          "courses": "Courses"
         },
         "placeholders": {
           "title": "Enter announcement title",
           "description": "Enter announcement description",
           "imageUrl": "https://example.com/image.jpg",
+          "linkTitle": "Enter link title",
           "linkUrl": "https://example.com",
-          "linkCaption": "Click here to learn more",
-          "language": "Select language"
+          "language": "Select a language",
+          "studyForms": "Select study forms",
+          "groups": "Select groups",
+          "roles": "Select roles",
+          "subdivisions": "Select subdivisions",
+          "courses": "Select courses"
         },
         "buttons": {
-          "create": "Create Announcement",
-          "creating": "Creating...",
+          "submit": "Submit",
           "cancel": "Cancel"
         },
-        "targeting": {
-          "title": "Targeting Filters",
-          "selected": "Selected Filters",
-          "roles": "Roles",
-          "studyForms": "Study Forms",
-          "groups": "Groups",
-          "courses": "Courses",
-          "loading": "Loading filter options..."
+        "languages": {
+          "uk": "Ukrainian",
+          "en": "English"
         }
       }
     },
