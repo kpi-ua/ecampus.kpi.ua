@@ -394,7 +394,8 @@
           "groups": "Групи",
           "roles": "Ролі",
           "subdivisions": "Підрозділи",
-          "courses": "Курси"
+          "courses": "Курси",
+          "not-found": "Нічого не знайдено"
         },
         "placeholders": {
           "title": "Введіть заголовок оголошення",

@@ -394,7 +394,8 @@
           "groups": "Groups",
           "roles": "Roles",
           "subdivisions": "Subdivisions",
-          "courses": "Courses"
+          "courses": "Courses",
+          "not-found": "No results found"
         },
         "placeholders": {
           "title": "Enter announcement title",

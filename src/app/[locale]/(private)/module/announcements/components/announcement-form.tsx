@@ -7,14 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import {
-  MultiSelector,
-  MultiSelectorContent,
-  MultiSelectorInput,
-  MultiSelectorItem,
-  MultiSelectorList,
-  MultiSelectorTrigger,
-} from '@/components/ui/multi-select';
+import MultipleSelector from '@/components/ui/multi-select';
 import { Group } from '@/types/models/group';
 import { Subdivision } from '@/types/models/subdivision';
 import { formSchema } from '@/app/[locale]/(private)/module/announcements/components/schema';
@@ -172,25 +165,14 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             <FormItem>
               <FormLabel>{t('fields.studyForms')}</FormLabel>
               <FormControl>
-                <MultiSelector
-                  values={field.value?.map((studyForm) => studyForm.toString()) || []}
-                  onValuesChange={field.onChange}
-                  loop
-                  options={studyFormsData.map((studyForm) => ({ value: studyForm, label: studyForm }))}
-                >
-                  <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder={t('placeholders.studyForms')} />
-                  </MultiSelectorTrigger>
-                  <MultiSelectorContent>
-                    <MultiSelectorList>
-                      {studyFormsData.map((studyForm) => (
-                        <MultiSelectorItem key={studyForm} value={studyForm}>
-                          {studyForm}
-                        </MultiSelectorItem>
-                      ))}
-                    </MultiSelectorList>
-                  </MultiSelectorContent>
-                </MultiSelector>
+                <MultipleSelector
+                  defaultOptions={studyFormsData.map((studyForm) => ({ value: studyForm, label: studyForm }))}
+                  placeholder={t('placeholders.studyForms')}
+                  onChange={field.onChange}
+                  emptyIndicator={
+                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -203,28 +185,15 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             <FormItem>
               <FormLabel>{t('fields.groups')}</FormLabel>
               <FormControl>
-                <MultiSelector
-                  values={field.value?.map((group) => group.toString()) || []}
-                  onValuesChange={field.onChange}
-                  loop
-                  options={groupsData.map((group) => ({
-                    value: group.id.toString(),
-                    label: `${group.name} (${group.faculty})`,
-                  }))}
-                >
-                  <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder={t('placeholders.groups')} />
-                  </MultiSelectorTrigger>
-                  <MultiSelectorContent>
-                    <MultiSelectorList>
-                      {groupsData.map((group) => (
-                        <MultiSelectorItem key={group.id} value={group.id.toString()}>
-                          {`${group.name} (${group.faculty})`}
-                        </MultiSelectorItem>
-                      ))}
-                    </MultiSelectorList>
-                  </MultiSelectorContent>
-                </MultiSelector>
+              <MultipleSelector
+                  defaultOptions={groupsData.map((group) => ({ value: group.id.toString(), label: `${group.name} (${group.faculty})` }))}
+                  placeholder={t('placeholders.groups')}
+                  onChange={field.onChange}
+                  emptyIndicator={
+                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
+                  }
+                />
+              
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -238,25 +207,14 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             <FormItem>
               <FormLabel>{t('fields.roles')}</FormLabel>
               <FormControl>
-                <MultiSelector
-                  values={field.value?.map((role) => role.toString()) || []}
-                  onValuesChange={field.onChange}
-                  loop
-                  options={rolesData.map((role) => ({ value: role, label: role }))}
-                >
-                  <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder={t('placeholders.roles')} />
-                  </MultiSelectorTrigger>
-                  <MultiSelectorContent>
-                    <MultiSelectorList>
-                      {rolesData.map((role) => (
-                        <MultiSelectorItem key={role} value={role}>
-                          {role}
-                        </MultiSelectorItem>
-                      ))}
-                    </MultiSelectorList>
-                  </MultiSelectorContent>
-                </MultiSelector>
+                <MultipleSelector
+                  defaultOptions={rolesData.map((role) => ({ value: role, label: role }))}
+                  placeholder={t('placeholders.roles')}
+                  onChange={field.onChange}
+                  emptyIndicator={
+                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -270,28 +228,14 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             <FormItem>
               <FormLabel>{t('fields.subdivisions')}</FormLabel>
               <FormControl>
-                <MultiSelector
-                  values={field.value?.map((subdivision) => subdivision.toString()) || []}
-                  onValuesChange={(values) => field.onChange(values.map((v) => parseInt(v, 10)))}
-                  loop
-                  options={subdivisionsData.map((subdivision) => ({
-                    value: subdivision.id.toString(),
-                    label: subdivision.name,
-                  }))}
-                >
-                  <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder={t('placeholders.subdivisions')} />
-                  </MultiSelectorTrigger>
-                  <MultiSelectorContent>
-                    <MultiSelectorList>
-                      {subdivisionsData.map((subdivision) => (
-                        <MultiSelectorItem key={subdivision.id} value={subdivision.id.toString()}>
-                          {subdivision.name}
-                        </MultiSelectorItem>
-                      ))}
-                    </MultiSelectorList>
-                  </MultiSelectorContent>
-                </MultiSelector>
+                <MultipleSelector
+                  defaultOptions={subdivisionsData.map((subdivision) => ({ value: subdivision.id.toString(), label: subdivision.name }))}
+                  placeholder={t('placeholders.subdivisions')}
+                  onChange={field.onChange}
+                  emptyIndicator={
+                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -305,28 +249,14 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             <FormItem>
               <FormLabel>{t('fields.courses')}</FormLabel>
               <FormControl>
-                <MultiSelector
-                  values={field.value?.map((course) => course.toString()) || []}
-                  onValuesChange={(values) => field.onChange(values.map((v) => parseInt(v, 10)))}
-                  loop
-                  options={coursesData.map((course) => ({
-                    value: course.toString(),
-                    label: course.toString(),
-                  }))}
-                >
-                  <MultiSelectorTrigger>
-                    <MultiSelectorInput placeholder={t('placeholders.courses')} />
-                  </MultiSelectorTrigger>
-                  <MultiSelectorContent>
-                    <MultiSelectorList>
-                      {coursesData.map((course) => (
-                        <MultiSelectorItem key={course} value={course.toString()}>
-                          {course}
-                        </MultiSelectorItem>
-                      ))}
-                    </MultiSelectorList>
-                  </MultiSelectorContent>
-                </MultiSelector>
+                <MultipleSelector
+                  defaultOptions={coursesData.map((course) => ({ value: course.toString(), label: course.toString() }))}
+                  placeholder={t('placeholders.courses')}
+                  onChange={field.onChange}
+                  emptyIndicator={
+                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
+                  }
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
