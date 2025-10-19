@@ -30,6 +30,28 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
   const { errorToast } = useServerErrorToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      announcement: {
+        title: '',
+        description: '',
+        image: '',
+        link: {
+          title: '',
+          uri: '',
+        },
+        start: '',
+        end: '',
+        language: 'uk',
+      },
+      filter: {
+        roles: [],
+        groups: [],
+        studyForms: [],
+        subdivisions: [],
+        courses: [],
+      },
+    },
+    mode: 'onChange',
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
