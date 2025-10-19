@@ -183,7 +183,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
         />
         <FormField
           control={form.control}
-          name="filter.roles"
+          name="filter.studyForms"
           render={({ field }) => (
             <FormItem>
               <FormLabel>{t('fields.studyForms')}</FormLabel>
@@ -225,7 +225,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
 
         <FormField
           control={form.control}
-          name="filter.studyForms"
+          name="filter.roles"
           render={({ field }) => (
             <FormItem>
               <FormLabel>{t('fields.roles')}</FormLabel>
