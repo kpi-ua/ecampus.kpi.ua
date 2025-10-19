@@ -478,9 +478,10 @@
         "print": "Print",
         "approve": "Approve",
         "reject": "Reject",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "signed": "Signed"
       },
-      "sheet": {
+      "tab": {
         "all": "All",
         "rejected": "Rejected",
         "pending": "Pending",

@@ -1,14 +1,15 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import { Check, Printer, X } from '@/app/images';
+import { Check, PencilRegular, Printer, X } from '@/app/images';
 import { printCertificate } from '@/app/[locale]/(private)/module/facultycertificate/utils/print-certificate';
 import React from 'react';
-import { updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
+import { signCertificate, updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
 import { Certificate } from '@/types/models/certificate/certificate';
 import { useTranslations } from 'next-intl';
 import { buttonDisableController } from '@/app/[locale]/(private)/module/facultycertificate/utils/button-state-controller';
 import { RejectDialog } from '@/app/[locale]/(private)/module/facultycertificate/components/reject-dialog';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { CertificateStatus } from '@/types/models/certificate/status';
 
 interface Props {
   certificate: Certificate;
@@ -26,6 +27,14 @@ export default function ActionButtons({ certificate }: Props) {
     }
   };
 
+  const handleSignClick = async (id: number) => {
+    try {
+      await signCertificate(id);
+    } catch (error) {
+      errorToast();
+    }
+  };
+  
   const handlePrintClick = async () => {
     try {
       await printCertificate(certificate.id);
@@ -47,6 +56,13 @@ export default function ActionButtons({ certificate }: Props) {
         onClick={handlePrintClick}
       >
         {t('button.print')}
+      </Button>
+      <Button variant="secondary"
+        className="mt-6 w-full md:w-[145px]"
+      
+      size="small" disabled={!certificate.originalRequired || certificate.status === CertificateStatus.Signed} onClick={() => handleSignClick(certificate.id)}>
+        <PencilRegular />
+        {t('button.signed')}
       </Button>
       <RejectDialog
         certificate={certificate}
