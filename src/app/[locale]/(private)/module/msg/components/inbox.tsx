@@ -22,57 +22,15 @@ interface Message {
   createdAt: string;
 }
 
-export default function Inbox() {
+interface Props {
+  mails: Message[];
+}
+
+export default function Inbox({ mails }: Props) {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      sender: { id: 101, name: 'Мельник Ю. І.' },
-      recipient: { id: 1, name: 'Єрмак Д. Р.' },
-      subject: 'Запрошення на семінар з нових технологій в освіті',
-      content:
-        'Запрошуємо вас на семінар, присвячений новітнім технологіям в освіті! Долучайтеся до нас, щоб дізнатися про інноваційні підходи та інструменти, які змінюють навчальний процес. Семінар відбудеться 15 березня о 10:00 в конференц-залі "Технології майбутнього". Не пропустіть можливість обмінятися досвідом з провідними експертами!',
-      createdAt: '2025-05-20T09:17:00Z',
-    },
-    {
-      id: 2,
-      sender: { id: 102, name: 'Бондаренко В. В.' },
-      recipient: { id: 1, name: 'Єрмак Д. Р.' },
-      subject: 'Лекція з історії мистецтв',
-      content:
-        'Запрошуємо на лекцію з історії мистецтв, де ми розглянемо розвиток живопису у епоху Відродження. Лекція відбудеться 22 травня о 16:00 в аудиторії 301.',
-      createdAt: '2025-05-19T15:30:00Z',
-    },
-    {
-      id: 3,
-      sender: { id: 103, name: 'Гриценко П. Ф.' },
-      recipient: { id: 1, name: 'Єрмак Д. Р.' },
-      subject: 'Семінар по фінансовій грамотності',
-      content:
-        'Приєднуйтесь до семінару з фінансової грамотності! Ми обговоримо основи інвестування, планування бюджету та управління особистими фінансами. Семінар відбудеться 28 травня о 10:00.',
-      createdAt: '2025-05-18T11:45:00Z',
-    },
-    {
-      id: 4,
-      sender: { id: 104, name: 'Тимошенко О. А.' },
-      recipient: { id: 1, name: 'Єрмак Д. Р.' },
-      subject: 'Курс з цифрового маркетингу',
-      content:
-        'Запрошуємо на курс з цифрового маркетингу! Вивчіть основи SEO, контекстної реклами та SMM. Курс стартує 1 червня та триватиме 6 тижнів. Реєстрація відкрита до 25 травня.',
-      createdAt: '2025-05-17T13:20:00Z',
-    },
-    {
-      id: 5,
-      sender: { id: 105, name: 'Федорчук Л. Г.' },
-      recipient: { id: 1, name: 'Єрмак Д. Р.' },
-      subject: 'Конференція з екології',
-      content:
-        'Запрошуємо на конференцію з екології та сталого розвитку! Обговоримо актуальні екологічні проблеми та шляхи їх вирішення. Конференція відбудеться 30 травня о 09:00 в головному корпусі.',
-      createdAt: '2025-05-16T10:05:00Z',
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(mails);
 
   const handleSelectRow = (id: number) => {
     setSelectedRows((prev) => (prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]));
@@ -159,7 +117,7 @@ export default function Inbox() {
                   </div>
                   <div className="text-right text-muted-foreground">
                     <p>
-                      {formatDate(selectedMessage.createdAt)} о {formatTime(selectedMessage.createdAt)}
+                      {formatDate(selectedMessage.createdAt)} {formatTime(selectedMessage.createdAt)}
                     </p>
                   </div>
                 </div>
@@ -168,7 +126,7 @@ export default function Inbox() {
                     <span className="font-medium">До:</span> {selectedMessage.recipient.name}
                   </p>
                 </div>
-                <div className="text-base leading-relaxed pt-2">{selectedMessage.content}</div>
+                <div className="text-base leading-relaxed pt-2" dangerouslySetInnerHTML={{ __html: selectedMessage.content }} />
               </div>
             </>
           )}

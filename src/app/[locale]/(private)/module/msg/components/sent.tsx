@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Trash2 } from 'lucide-react';
+import { deleteMail } from '@/actions/msg.acitons';
+import { useToast } from '@/hooks/use-toast';
 
 interface Message {
   id: number;
@@ -22,57 +24,16 @@ interface Message {
   createdAt: string;
 }
 
-export default function Sent() {
+interface Props {
+  mails: Message[];
+}
+
+export default function Sent({ mails }: Props) {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      sender: { id: 1, name: 'Єрмак Д. Р.' },
-      recipient: { id: 101, name: 'Мельник Ю. І.' },
-      subject: 'Підтвердження участі в тренінгу',
-      content:
-        'Дякую за запрошення! Підтверджую свою участь у тренінгу з особистої ефективності 25 травня о 14:00. З нетерпінням чекаю на цікаві матеріали та практичні поради.',
-      createdAt: '2025-05-20T10:30:00Z',
-    },
-    {
-      id: 2,
-      sender: { id: 1, name: 'Єрмак Д. Р.' },
-      recipient: { id: 102, name: 'Бондаренко В. В.' },
-      subject: 'Питання щодо лекції',
-      content:
-        'Доброго дня! Чи будуть доступні матеріали лекції після її проведення? Також хотів би дізнатися, чи є можливість задати питання під час лекції.',
-      createdAt: '2025-05-19T16:15:00Z',
-    },
-    {
-      id: 3,
-      sender: { id: 1, name: 'Єрмак Д. Р.' },
-      recipient: { id: 103, name: 'Гриценко П. Ф.' },
-      subject: 'Реєстрація на семінар',
-      content:
-        'Вітаю! Хочу зареєструватися на семінар з фінансової грамотності. Прошу підтвердити мою участь та надіслати додаткову інформацію про програму семінару.',
-      createdAt: '2025-05-18T12:00:00Z',
-    },
-    {
-      id: 4,
-      sender: { id: 1, name: 'Єрмак Д. Р.' },
-      recipient: { id: 104, name: 'Тимошенко О. А.' },
-      subject: 'Запит на детальну програму курсу',
-      content:
-        'Добрий день! Дуже зацікавлений у курсі з цифрового маркетингу. Чи можете надіслати детальну програму навчання та вартість участі? Дякую!',
-      createdAt: '2025-05-17T14:45:00Z',
-    },
-    {
-      id: 5,
-      sender: { id: 1, name: 'Єрмак Д. Р.' },
-      recipient: { id: 105, name: 'Федорчук Л. Г.' },
-      subject: 'Пропозиція доповіді',
-      content:
-        'Шановна Людмило Григорівно! Хотів би запропонувати свою доповідь на конференції з екології на тему "Відновлювальні джерела енергії в міському середовищі". Чи можливо це?',
-      createdAt: '2025-05-16T11:30:00Z',
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(mails);
+  const { toast } = useToast();
 
   const handleSelectRow = (id: number) => {
     setSelectedRows((prev) => (prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]));
@@ -89,8 +50,16 @@ export default function Sent() {
   };
 
   const handleDeleteSelected = () => {
-    setMessages((prev) => prev.filter((message) => !selectedRows.includes(message.id)));
-    setSelectedRows([]);
+    Promise.all(selectedRows.map(async (id) => await deleteMail(id, false))).then(() => {
+      setMessages((prev) => prev.filter((message) => !selectedRows.includes(message.id)));
+      setSelectedRows([]);
+    }).catch((error) => {
+      toast({
+        title: 'Error while deleting mails',
+        description: error.message,
+        variant: 'destructive',
+      });
+    });
   };
 
   const handleRowClick = (message: Message) => {
@@ -150,25 +119,25 @@ export default function Sent() {
           {selectedMessage && (
             <>
               <DialogHeader className="border-b pb-4">
-                <DialogTitle className="text-2xl font-semibold">{selectedMessage.title}</DialogTitle>
+                <DialogTitle className="text-2xl font-semibold">{selectedMessage.subject}</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 pt-2">
                 <div className="flex items-center justify-between text-sm">
                   <div>
-                    <p className="font-semibold text-lg">{selectedMessage.author}</p>
+                    <p className="font-semibold text-lg">{selectedMessage.sender.name}</p>
                   </div>
                   <div className="text-right text-muted-foreground">
                     <p>
-                      {selectedMessage.date} о {selectedMessage.time}
+                      {formatDate(selectedMessage.createdAt)} {formatTime(selectedMessage.createdAt)}
                     </p>
                   </div>
                 </div>
                 <div className="text-sm text-muted-foreground">
                   <p>
-                    <span className="font-medium">До:</span> {selectedMessage.recipient}
+                    <span className="font-medium">До:</span> {selectedMessage.recipient.name}
                   </p>
                 </div>
-                <div className="text-base leading-relaxed pt-2">{selectedMessage.fullContent}</div>
+                <div className="text-base leading-relaxed pt-2" dangerouslySetInnerHTML={{ __html: selectedMessage.content }} />
               </div>
             </>
           )}

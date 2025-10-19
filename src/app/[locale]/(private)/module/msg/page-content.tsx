@@ -8,22 +8,39 @@ import Sent from '@/app/[locale]/(private)/module/msg/components/sent';
 import Inbox from '@/app/[locale]/(private)/module/msg/components/inbox';
 import Important from '@/app/[locale]/(private)/module/msg/components/important';
 import Compose from '@/app/[locale]/(private)/module/msg/components/compose';
-import React from 'react';
+import React, { useState } from 'react';
+import { Tabs, TabsList } from '@/components/ui/tabs';
+import { TabSheetTrigger } from '@/components/ui/tabs';
+import { Message } from './types';
 
-export default function MessagePageContent() {
+interface Props {
+  incomingMails: Message[];
+  sentMails: Message[];
+}
+
+export default function MessagePageContent({ incomingMails, sentMails }: Props) {
   const t = useTranslations('private.msg');
-  const searchParams = useSearchParams();
+  const [selectedTab, setSelectedTab] = useState(MessageTranslationKeys.Inbox);
+  const tTab = useTranslations(`private.msg.tab`);
 
-  const tab = searchParams.get('tab') || MessageTranslationKeys.Inbox;
+  const tabList = Object.values(MessageTranslationKeys);
 
   return (
     <div className="mt-8 flex flex-col">
-      <TableTabs module="msg" sheetList={Object.values(MessageTranslationKeys)} />
+          <Tabs value={selectedTab} onValueChange={(value: string) => setSelectedTab(value as MessageTranslationKeys)}>
+            <TabsList className="rounded-none border-0 bg-transparent p-0">
+              {tabList.map((item) => (
+                <TabSheetTrigger key={item} value={item}>
+                  {tTab(item)}
+                </TabSheetTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
       <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
-        {tab === MessageTranslationKeys.Sent && <Sent />}
-        {tab === MessageTranslationKeys.Inbox && <Inbox />}
-        {tab === MessageTranslationKeys.Important && <Important />}
-        {tab === MessageTranslationKeys.Compose && <Compose />}
+        {selectedTab === MessageTranslationKeys.Sent && <Sent mails={sentMails} />}
+        {selectedTab === MessageTranslationKeys.Inbox && <Inbox mails={incomingMails} />}
+        {selectedTab === MessageTranslationKeys.Important && <Important mails={mails} />}
+        {selectedTab === MessageTranslationKeys.Compose && <Compose />}
       </Card>
     </div>
   );

@@ -4,6 +4,7 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import React from 'react';
 import MessagePageContent from '@/app/[locale]/(private)/module/msg/page-content';
 import { Heading2, Paragraph } from '@/components/typography';
+import { getMails, MailFilter } from '@/actions/msg.acitons';
 
 const INTL_NAMESPACE = 'private.msg';
 
@@ -19,6 +20,9 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function MessagePage() {
   const t = await getTranslations(INTL_NAMESPACE);
+  const incomingMails = await getMails(MailFilter.INCOMING);
+  const sentMails = await getMails(MailFilter.OUTGOING);
+
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -28,7 +32,7 @@ export default async function MessagePage() {
           {t('subtitle')}
         </Paragraph>
         {/*<ModuleHeader creditModule={creditModule} studyPeriod={studyPeriod} />*/}
-        <MessagePageContent />
+        <MessagePageContent incomingMails={incomingMails} sentMails={sentMails} />
       </div>
     </SubLayout>
   );
