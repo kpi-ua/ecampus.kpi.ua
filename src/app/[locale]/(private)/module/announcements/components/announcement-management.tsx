@@ -41,10 +41,6 @@ export function AnnouncementManagement({
     setShowForm(false);
   };
 
-  const handleFormCancel = () => {
-    setShowForm(false);
-  };
-
   if (showForm) {
     return (
       <AnnouncementForm
@@ -54,7 +50,6 @@ export function AnnouncementManagement({
         subdivisionsData={subdivisionsData}
         coursesData={coursesData}
         onSuccess={handleFormSuccess}
-        onCancel={handleFormCancel}
       />
     );
   }

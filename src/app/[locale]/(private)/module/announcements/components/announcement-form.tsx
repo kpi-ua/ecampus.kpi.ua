@@ -22,10 +22,9 @@ interface Props {
   subdivisionsData: Subdivision[];
   coursesData: number[];
   onSuccess: (id: number) => void;
-  onCancel: () => void;
 }
 
-export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdivisionsData, coursesData, onSuccess, onCancel }: Props) {
+export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdivisionsData, coursesData, onSuccess }: Props) {
   const t = useTranslations('private.announcements.form');
   const { errorToast } = useServerErrorToast();
   const form = useForm<z.infer<typeof formSchema>>({
