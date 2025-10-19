@@ -5,11 +5,11 @@ export const formSchema = z
     announcement: z.object({
       title: z.string().min(1, 'Title is required'),
       description: z.string().min(1, 'Description is required'),
-      image: z.string().url('Must be a valid URL').optional(),
+      image: z.string().url('Must be a valid URL').or(z.literal('')).optional(),
       link: z
         .object({
           title: z.string().optional(),
-          uri: z.string().url('Must be a valid URL').optional(),
+          uri: z.string().url('Must be a valid URL').or(z.literal('')).optional(),
         })
         .refine(
           (data) => {
