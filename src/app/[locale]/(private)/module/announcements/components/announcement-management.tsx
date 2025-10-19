@@ -8,6 +8,7 @@ import { Plus } from 'lucide-react';
 import { AnnouncementForm } from './announcement-form';
 import { Group } from '@/types/models/group';
 import { Subdivision } from '@/types/models/subdivision';
+import { useToast } from '@/hooks/use-toast';
 
 interface Props {
   rolesData: string[];
@@ -26,21 +27,22 @@ export function AnnouncementManagement({
 }: Props) {
   const t = useTranslations('private.announcements');
   const [showForm, setShowForm] = useState(false);
-  const [createdAnnouncementId, setCreatedAnnouncementId] = useState<number | null>(null);
+  const { toast } = useToast();
 
   const handleCreateClick = () => {
     setShowForm(true);
-    setCreatedAnnouncementId(null);
   };
 
   const handleFormSuccess = (announcementId: number) => {
-    setCreatedAnnouncementId(announcementId);
-    // setShowForm(false);
+    toast({
+      title: t('success.title'),
+      description: t('success.message', { id: announcementId }),
+    });
+    setShowForm(false);
   };
 
   const handleFormCancel = () => {
     setShowForm(false);
-    setCreatedAnnouncementId(null);
   };
 
   if (showForm) {
@@ -74,17 +76,6 @@ export function AnnouncementManagement({
           </div>
         </CardContent>
       </Card>
-
-      {createdAnnouncementId && (
-        <Card className="mt-4">
-          <CardContent className="p-6">
-            <div className="text-center">
-              <div className="mb-2 font-semibold text-green-600">{t('success.title')}</div>
-              <div className="text-sm text-gray-600">{t('success.message', { id: createdAnnouncementId })}</div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
     </div>
   );
 }

@@ -34,7 +34,6 @@ export const getAnnouncements = async ({ excludeOutdated = false }: { excludeOut
 export const createAnnouncement = async (data: AnnouncementCreate): Promise<number> => {
   try {
     const body = JSON.stringify(data);
-
     const response = await campusFetch('announcements', {
       method: 'POST',
       body,
@@ -43,9 +42,8 @@ export const createAnnouncement = async (data: AnnouncementCreate): Promise<numb
     if (!response.ok) {
       throw new Error(`Failed to create announcement: ${response.status} ${response.statusText}`);
     }
-
-    const result = (await response.json()) as { id: number };
-    return result.id;
+    const responseJson = await response.json() as number;
+    return responseJson;
   } catch (error) {
     console.error('Error creating announcement:', error);
     throw error;

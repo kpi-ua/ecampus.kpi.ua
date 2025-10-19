@@ -381,6 +381,7 @@
       },
       "form": {
         "title": "Create Announcement",
+        "not-found": "No results found",
         "fields": {
           "title": "Title",
           "description": "Description",
@@ -394,8 +395,7 @@
           "groups": "Groups",
           "roles": "Roles",
           "subdivisions": "Subdivisions",
-          "courses": "Courses",
-          "not-found": "No results found"
+          "courses": "Courses"
         },
         "placeholders": {
           "title": "Enter announcement title",

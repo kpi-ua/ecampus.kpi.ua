@@ -25,16 +25,39 @@ interface Props {
   onCancel: () => void;
 }
 
-export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdivisionsData, coursesData }: Props) {
+export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdivisionsData, coursesData, onSuccess, onCancel }: Props) {
   const t = useTranslations('private.announcements.form');
   const { errorToast } = useServerErrorToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      announcement: {
+        title: '',
+        description: '',
+        image: '',
+        link: {
+          title: '',
+          uri: '',
+        },
+        start: '',
+        end: '',
+        language: 'uk',
+      },
+      filter: {
+        roles: [],
+        groups: [],
+        studyForms: [],
+        subdivisions: [],
+        courses: [],
+      },
+    },
+    mode: 'onChange',
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await createAnnouncement(values);
+      const id = await createAnnouncement(values);
+      onSuccess(id);
     } catch (error) {
       errorToast();
     }
@@ -42,7 +65,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto gap-3 flex flex-col">
         <FormField
           control={form.control}
           name="announcement.title"
@@ -168,7 +191,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                 <MultipleSelector
                   defaultOptions={studyFormsData.map((studyForm) => ({ value: studyForm, label: studyForm }))}
                   placeholder={t('placeholders.studyForms')}
-                  onChange={field.onChange}
+                  onChange={(options) => field.onChange(options.map((option) => option.value as string))}
                   emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
                   }
@@ -188,7 +211,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
               <MultipleSelector
                   defaultOptions={groupsData.map((group) => ({ value: group.id.toString(), label: `${group.name} (${group.faculty})` }))}
                   placeholder={t('placeholders.groups')}
-                  onChange={field.onChange}
+                  onChange={(options) => field.onChange(options.map((option) => option.value as string))}
                   emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
                   }
@@ -210,7 +233,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                 <MultipleSelector
                   defaultOptions={rolesData.map((role) => ({ value: role, label: role }))}
                   placeholder={t('placeholders.roles')}
-                  onChange={field.onChange}
+                  onChange={(options) => field.onChange(options.map((option) => option.value as string))}
                   emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
                   }
@@ -231,7 +254,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                 <MultipleSelector
                   defaultOptions={subdivisionsData.map((subdivision) => ({ value: subdivision.id.toString(), label: subdivision.name }))}
                   placeholder={t('placeholders.subdivisions')}
-                  onChange={field.onChange}
+                  onChange={(options) => field.onChange(options.map((option) => parseInt(option.value as string)))}
                   emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
                   }
@@ -252,7 +275,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                 <MultipleSelector
                   defaultOptions={coursesData.map((course) => ({ value: course.toString(), label: course.toString() }))}
                   placeholder={t('placeholders.courses')}
-                  onChange={field.onChange}
+                  onChange={(options) => field.onChange(options.map((option) => parseInt(option.value as string)))}
                   emptyIndicator={
                     <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
                   }

@@ -15,11 +15,11 @@ export const formSchema = z
       language: z.string().min(1, 'Language is required'),
     }),
     filter: z.object({
-      roles: z.array(z.string()).optional().default([]),
-      groups: z.array(z.string()).optional().default([]),
-      studyForms: z.array(z.string()).optional().default([]),
-      subdivisions: z.array(z.number()).optional().default([]),
-      courses: z.array(z.number()).optional().default([]),
+      roles: z.array(z.string()).optional(),
+      groups: z.array(z.string()).optional(),
+      studyForms: z.array(z.string()).optional(),
+      subdivisions: z.array(z.number()).optional(),
+      courses: z.array(z.number()).optional(),
     }),
   })
   .refine(
