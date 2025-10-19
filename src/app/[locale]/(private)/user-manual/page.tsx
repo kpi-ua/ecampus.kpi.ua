@@ -1,4 +1,4 @@
-import { Heading1 } from '@/components/typography/headers';
+import { Heading2 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { DownloadButton } from './download-button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -31,7 +31,7 @@ export default async function UserManualPage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6 xl:col-span-10">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <DownloadButton className="my-10" url={USER_MANUAL_URL} />
         <Show when={!isSafariMobile}>
           <embed src={USER_MANUAL_URL} width="100%" height="1000" type="application/pdf" />

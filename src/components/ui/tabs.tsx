@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 const Tabs = TabsPrimitive.Root;
 
 const tabsListVariants = cva(
-  'inline-flex items-center justify-center rounded-md border border-[#AFB0BE] bg-muted p-[3px] text-muted-foreground',
+  'inline-flex items-center justify-center rounded-md border border-neutral-400 bg-muted p-[3px] text-muted-foreground',
   {
     variants: {
       size: {
@@ -35,7 +35,7 @@ const TabsTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof T
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      'inline-flex cursor-pointer items-center justify-center whitespace-nowrap rounded-sm bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 ring-offset-background transition-all focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-basic-blue data-[state=active]:text-basic-white data-[state=active]:shadow-xs',
+      'ring-offset-background focus-visible:ring-ring data-[state=active]:bg-basic-blue data-[state=active]:text-basic-white inline-flex cursor-pointer items-center justify-center rounded-sm bg-white px-3 py-1.5 text-sm font-medium whitespace-nowrap text-neutral-700 transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50 data-[state=active]:shadow-xs',
       className,
     )}
     {...props}
@@ -43,11 +43,21 @@ const TabsTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof T
 );
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
+const TabSheetTrigger = ({ className, ref, ...props }: React.ComponentProps<typeof TabsPrimitive.Trigger>) => {
+  return (
+    <TabsTrigger
+      {...props}
+      className="data-[state=active]:bg-basic-white data-[state=active]:text-basic-blue h-12 rounded-t-[8px] rounded-b-none px-3 py-0 text-base font-semibold data-[state=inactive]:bg-transparent data-[state=inactive]:text-neutral-700 md:px-8"
+    />
+  );
+};
+TabSheetTrigger.displayName = TabsPrimitive.Trigger.displayName;
+
 const TabsContent = ({ className, ref, ...props }: React.ComponentProps<typeof TabsPrimitive.Content>) => (
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      'mt-2 ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+      'ring-offset-background focus-visible:ring-ring mt-2 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden',
       className,
     )}
     {...props}
@@ -55,4 +65,4 @@ const TabsContent = ({ className, ref, ...props }: React.ComponentProps<typeof T
 );
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent };
+export { Tabs, TabsList, TabsTrigger, TabsContent, TabSheetTrigger };

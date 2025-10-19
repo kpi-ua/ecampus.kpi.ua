@@ -1,4 +1,4 @@
-import { Heading1, Heading4 } from '@/components/typography/headers';
+import { Heading2, Heading4 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
@@ -26,7 +26,7 @@ export default async function AboutPage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <article className="col-span-6">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <RichText>
           {(tags) =>
             t.rich('content', {

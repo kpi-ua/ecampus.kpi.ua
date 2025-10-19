@@ -1,4 +1,4 @@
-import { Heading1, Heading3 } from '@/components/typography/headers';
+import { Heading2, Heading3 } from '@/components/typography/headers';
 import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
@@ -29,7 +29,7 @@ export default async function ContactsPage({ params }: LocaleProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-6">
-        <Heading1>{t('title')}</Heading1>
+        <Heading2>{t('title')}</Heading2>
         <RichText>
           {(tags) =>
             t.rich('content', {
@@ -61,7 +61,7 @@ export default async function ContactsPage({ params }: LocaleProps) {
                 </Link>
               ),
               suggestionslink: (chunks) => (
-                <TextButton size="huge" href="/contacts/suggestions" icon={<ChatsTeardrop />}>
+                <TextButton size="huge" href={process.env.NEXT_PUBLIC_SUGGESTIONS_FORM!} icon={<ChatsTeardrop />}>
                   {chunks}
                 </TextButton>
               ),

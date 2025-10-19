@@ -81,7 +81,7 @@ export function EditableField({
           {renderValue ? (
             renderValue(currentValue)
           ) : (
-            <Paragraph className="m-0 min-w-[170px] break-all font-medium">{currentValue}</Paragraph>
+            <Paragraph className="m-0 min-w-[170px] font-medium break-all">{currentValue}</Paragraph>
           )}
           <div className="flex gap-2 opacity-100 transition-opacity md:opacity-0 md:group-hover:opacity-100">
             <TooltipProvider>

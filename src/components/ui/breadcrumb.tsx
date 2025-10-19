@@ -18,7 +18,7 @@ const BreadcrumbList = ({ className, ref, ...props }: React.ComponentProps<'ol'>
   <ol
     ref={ref}
     className={cn(
-      'flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5',
+      'text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5',
       className,
     )}
     {...props}
@@ -42,7 +42,7 @@ const BreadcrumbLink = ({
   const Comp = asChild ? Slot : Link;
 
   return (
-    <Comp ref={ref} className={cn('text-neutral-600 transition-colors hover:text-foreground', className)} {...props} />
+    <Comp ref={ref} className={cn('hover:text-foreground text-neutral-600 transition-colors', className)} {...props} />
   );
 };
 BreadcrumbLink.displayName = 'BreadcrumbLink';

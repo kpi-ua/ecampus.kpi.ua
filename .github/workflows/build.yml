@@ -9,14 +9,10 @@ on:
       - opened
       - reopened
       - synchronize
-    branches:
-      - main
-      - dev
   push:
     branches:
       - main
       - dev
-
 
 jobs:
   build:
@@ -33,7 +29,7 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: Build Application
         run: npm run build

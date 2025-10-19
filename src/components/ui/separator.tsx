@@ -17,7 +17,7 @@ const Separator = ({
     decorative={decorative}
     orientation={orientation}
     className={cn(
-      'shrink-0 bg-neutral-divider',
+      'bg-neutral-divider shrink-0',
       orientation === 'horizontal' ? 'h-px w-full' : 'h-full w-px',
       className,
     )}
