@@ -50,16 +50,18 @@ export default function Sent({ mails }: Props) {
   };
 
   const handleDeleteSelected = () => {
-    Promise.all(selectedRows.map(async (id) => await deleteMail(id, false))).then(() => {
-      setMessages((prev) => prev.filter((message) => !selectedRows.includes(message.id)));
-      setSelectedRows([]);
-    }).catch((error) => {
-      toast({
-        title: 'Error while deleting mails',
-        description: error.message,
-        variant: 'destructive',
+    Promise.all(selectedRows.map(async (id) => await deleteMail(id, false)))
+      .then(() => {
+        setMessages((prev) => prev.filter((message) => !selectedRows.includes(message.id)));
+        setSelectedRows([]);
+      })
+      .catch((error) => {
+        toast({
+          title: 'Error while deleting mails',
+          description: error.message,
+          variant: 'destructive',
+        });
       });
-    });
   };
 
   const handleRowClick = (message: Message) => {
@@ -72,7 +74,7 @@ export default function Sent({ mails }: Props) {
       <div className="mb-4 flex items-center gap-3">
         {selectedRows.length > 0 && (
           <>
-            <span className="text-sm text-muted-foreground">{selectedRows.length} обрано:</span>
+            <span className="text-muted-foreground text-sm">{selectedRows.length} обрано:</span>
             <Button
               onClick={handleDeleteSelected}
               disabled={selectedRows.length === 0}
@@ -124,20 +126,23 @@ export default function Sent({ mails }: Props) {
               <div className="space-y-4 pt-2">
                 <div className="flex items-center justify-between text-sm">
                   <div>
-                    <p className="font-semibold text-lg">{selectedMessage.sender.name}</p>
+                    <p className="text-lg font-semibold">{selectedMessage.sender.name}</p>
                   </div>
-                  <div className="text-right text-muted-foreground">
+                  <div className="text-muted-foreground text-right">
                     <p>
                       {formatDate(selectedMessage.createdAt)} {formatTime(selectedMessage.createdAt)}
                     </p>
                   </div>
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-muted-foreground text-sm">
                   <p>
                     <span className="font-medium">До:</span> {selectedMessage.recipient.name}
                   </p>
                 </div>
-                <div className="text-base leading-relaxed pt-2" dangerouslySetInnerHTML={{ __html: selectedMessage.content }} />
+                <div
+                  className="pt-2 text-base leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: selectedMessage.content }}
+                />
               </div>
             </>
           )}

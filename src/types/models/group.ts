@@ -13,5 +13,6 @@ export interface Group {
   id: number;
   name: string;
   cathedra?: Cathedra;
+  faculty: string;
   curator?: Curator;
 }
