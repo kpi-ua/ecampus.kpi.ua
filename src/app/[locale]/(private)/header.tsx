@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { sleep } from 'radash';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { SidebarTrigger } from '@/components/ui/sidebar';

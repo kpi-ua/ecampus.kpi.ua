@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button';
 import { Check, Printer, X } from '@/app/images';
 import { printCertificate } from '@/app/[locale]/(private)/module/facultycertificate/utils/print-certificate';
-import React from 'react';
 import { updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
 import { Certificate } from '@/types/models/certificate/certificate';
 import { useTranslations } from 'next-intl';

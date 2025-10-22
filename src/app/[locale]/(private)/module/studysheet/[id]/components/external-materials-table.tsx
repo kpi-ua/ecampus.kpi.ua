@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
