@@ -14,12 +14,11 @@ import { useTranslations } from 'next-intl';
 import { Show } from '@/components/utils/show';
 import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
 import { Announcement } from '@/types/models/announcement';
+import { PAGE_SIZE_SMALL } from '@/lib/constants/page-size';
 
 interface NoticeListProps {
   announcements: Announcement[];
 }
-
-const PAGE_SIZE = 5;
 
 export function NoticeList({ announcements }: NoticeListProps) {
   const t = useTranslations('private.notice-board');
@@ -33,7 +32,7 @@ export function NoticeList({ announcements }: NoticeListProps) {
     return announcements.filter((announcement) => announcement.title.toLowerCase().includes(lowerSearch));
   }, [announcements, searchQuery]);
 
-  const { paginatedItems, page } = usePagination(PAGE_SIZE, filteredAnnouncements);
+  const { paginatedItems, page } = usePagination(PAGE_SIZE_SMALL, filteredAnnouncements);
 
   const handleSearchChange = debounce({ delay: 200 }, (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch = e.target.value;
@@ -73,7 +72,7 @@ export function NoticeList({ announcements }: NoticeListProps) {
       </div>
       <Show when={!!filteredAnnouncements.length}>
         <div className="mt-8">
-          <PaginationWithLinks page={page} pageSize={PAGE_SIZE} totalCount={filteredAnnouncements.length} />
+          <PaginationWithLinks page={page} pageSize={PAGE_SIZE_SMALL} totalCount={filteredAnnouncements.length} />
         </div>
       </Show>
     </Card>

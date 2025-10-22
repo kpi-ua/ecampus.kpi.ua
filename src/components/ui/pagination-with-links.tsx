@@ -116,7 +116,7 @@ function SelectRowsPerPage({
 }) {
   return (
     <div className="flex items-center gap-4">
-      <span className="whitespace-nowrap text-sm">Rows per page</span>
+      <span className="text-sm whitespace-nowrap">Rows per page</span>
       <Select value={String(pageSize)} onValueChange={(value) => setPageSize(Number(value))}>
         <SelectTrigger>
           <SelectValue placeholder="Select page size">{String(pageSize)}</SelectValue>

@@ -45,7 +45,7 @@ export function IntellectAgreement({ user }: Props) {
       </Show>
 
       <Button
-        className="ml-auto mt-2 w-fit"
+        className="mt-2 ml-auto w-fit"
         loading={loading}
         onClick={handleIntellectAgreementClick}
         size={isMobile ? 'medium' : 'big'}

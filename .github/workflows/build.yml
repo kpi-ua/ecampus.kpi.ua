@@ -9,14 +9,10 @@ on:
       - opened
       - reopened
       - synchronize
-    branches:
-      - main
-      - dev
   push:
     branches:
       - main
       - dev
-
 
 jobs:
   build:
