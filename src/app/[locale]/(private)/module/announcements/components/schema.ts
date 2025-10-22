@@ -5,11 +5,22 @@ export const formSchema = z
     announcement: z.object({
       title: z.string().min(1, 'Title is required'),
       description: z.string().min(1, 'Description is required'),
-      image: z.string().url('Must be a valid URL').min(1, 'Image is required'),
-      link: z.object({
-        title: z.string().min(1, 'Link title is required'),
-        uri: z.string().url('Must be a valid URL').min(1, 'Link is required'),
-      }),
+      image: z.string().url('Must be a valid URL').or(z.literal('')).optional(),
+      link: z
+        .object({
+          title: z.string().optional(),
+          uri: z.string().url('Must be a valid URL').or(z.literal('')).optional(),
+        })
+        .refine(
+          (data) => {
+            const hasTitle = !!data.title?.trim();
+            const hasUri = !!data.uri?.trim();
+            // Allow either both empty or both filled. This is clearer and explicit.
+            return (!hasTitle && !hasUri) || (hasTitle && hasUri);
+          },
+          { message: 'Both link title and URL must be provided together' },
+        )
+        .optional(),
       start: z.string().min(1, 'Start date is required'),
       end: z.string().min(1, 'End date is required'),
       language: z.string().min(1, 'Language is required'),

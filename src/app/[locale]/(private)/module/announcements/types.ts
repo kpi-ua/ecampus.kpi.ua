@@ -15,10 +15,10 @@ export interface AnnouncementCreateFilter {
 export interface AnnouncementCreateData {
   title: string;
   description: string;
-  image: string;
-  link: {
-    uri: string;
-    title: string;
+  image?: string;
+  link?: {
+    uri?: string;
+    title?: string;
   };
   start: string;
   end: string;
