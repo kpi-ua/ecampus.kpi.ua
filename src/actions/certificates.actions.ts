@@ -22,8 +22,8 @@ export type UpdateCertificateBody = {
 };
 
 export async function updateCertificate(id: number, body: UpdateCertificateBody) {
-  const res = await campusFetch(`/dean/certificates/${id}/status`, {
-    method: 'PATCH',
+  const res = await campusFetch(`/certificates/${id}/status`, {
+    method: 'PUT',
     body: JSON.stringify({ ...body }),
   });
 
@@ -40,7 +40,7 @@ type CertificateRequestBody = {
 };
 
 export async function createCertificateRequest(body: CertificateRequestBody) {
-  await campusFetch('certificates/requests', {
+  await campusFetch('/certificates', {
     method: 'POST',
     body: JSON.stringify({ ...body }),
   });
@@ -137,8 +137,10 @@ export async function signCertificate(id: number) {
   const response = await campusFetch(`/certificates/${id}/signed`, {
     method: 'PUT',
   });
+  
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
-  return response.json();
+
+  revalidatePath('/module/facultycertificate', 'layout');
 }

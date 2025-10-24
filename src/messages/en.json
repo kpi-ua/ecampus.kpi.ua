@@ -179,7 +179,8 @@
         "approved": "Approved",
         "created": "Created",
         "error": "Error",
-        "in-queue": "In Queue"
+        "in-queue": "In Queue",
+        "signed": "Signed"
       },
       "certificate-type": {
         "employment-certificate": "Employment Certificate",
@@ -497,7 +498,9 @@
         "received": "received",
         "status": "status",
         "purpose": "purpose",
-        "actions": "actions"
+        "actions": "actions",
+        "signedSuccess":"Certificate signed successfully",
+        "signedDescription":"The certificate has been signed successfully"
       }
     },
     "vedomoststud": {

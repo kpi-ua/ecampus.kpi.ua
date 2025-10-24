@@ -21,8 +21,8 @@ import { Show } from '@/components/utils/show';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { signCertificate, updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
-import { Pen } from 'lucide-react';
 import { CertificateStatus } from '@/types/models/certificate/status';
+import { useToast } from '@/hooks/use-toast';
 
 interface Props {
   certificates: Certificate[];
@@ -32,6 +32,7 @@ interface Props {
 export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }: Props) {
   const tTable = useTranslations('private.facultycertificate.table');
   const { errorToast } = useServerErrorToast();
+  const { toast } = useToast();
 
   const handleUpdateCertificate = async (id: number, body: UpdateCertificateBody) => {
     try {
@@ -52,6 +53,10 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
   const handleSignClick = async (id: number) => {
     try {
       await signCertificate(id);
+      toast({
+        title: 'Certificate signed successfully',
+        description: 'The certificate has been signed successfully',
+      });
     } catch (error) {
       errorToast();
     }
@@ -100,7 +105,7 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
                 </TableCell>
                 <TableCell className="flex gap-2">
                   <div>
-                    <Button variant="secondary" size="small" disabled={!row.originalRequired || row.status === CertificateStatus.Signed} onClick={() => handleSignClick(row.id)}>
+                    <Button variant="secondary" size="small" disabled={!row.originalRequired || row.status !== CertificateStatus.Processed} onClick={() => handleSignClick(row.id)}>
                       <PencilRegular />
                     </Button>
                   </div>
