@@ -90,7 +90,7 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
         </TableHeader>
         <TableBody>
           {sortedRows.map((row, index) => {
-            const { shouldDisableRejectButton, shouldDisablePrintButton, shouldDisableApproveButton } =
+            const { shouldDisableRejectButton, shouldDisableSignButton, shouldDisablePrintButton, shouldDisableApproveButton } =
               buttonDisableController(row);
             return (
               <TableRow key={index}>
@@ -105,7 +105,7 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
                 </TableCell>
                 <TableCell className="flex gap-2">
                   <div>
-                    <Button variant="secondary" size="small" disabled={!row.originalRequired || row.status !== CertificateStatus.Processed} onClick={() => handleSignClick(row.id)}>
+                    <Button variant="secondary" size="small" disabled={shouldDisableSignButton} onClick={() => handleSignClick(row.id)}>
                       <PencilRegular />
                     </Button>
                   </div>
