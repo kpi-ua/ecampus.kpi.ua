@@ -35,9 +35,10 @@ export async function loginWithCredentials(username: string, password: string, r
   const response = await campusFetch<AuthResponse>('oauth/token', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
     },
-    body: qs.stringify(payload),
+    body: JSON.stringify(payload),
   });
 
   if (response.status < 200 || response.status >= 300) {
