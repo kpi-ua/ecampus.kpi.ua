@@ -1,6 +1,5 @@
 'use server';
 
-import qs from 'query-string';
 import JWT from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
