@@ -180,7 +180,8 @@
         "created": "Створено",
         "processed": "Згенеровано",
         "in-queue": "У черзі",
-        "error": "Помилка"
+        "error": "Помилка",
+        "signed": "Підписано"
       },
       "certificate-type": {
         "employment-certificate": "Довідка про роботу",
@@ -532,9 +533,10 @@
         "print": "Роздрукувати",
         "approve": "Схвалити",
         "reject": "Відхилити",
-        "cancel": "Відміна"
+        "cancel": "Відміна",
+        "signed": "Підписано"
       },
-      "sheet": {
+      "tab": {
         "all": "Всі",
         "rejected": "Відхилені",
         "pending": "Очікують",
@@ -550,7 +552,9 @@
         "received": "Отримано",
         "status": "Статус",
         "purpose": "Призначення",
-        "actions": "Дії"
+        "actions": "Дії",
+        "signedSuccess":"Сертифікат підписано успішно",
+        "signedDescription":"Сертифікат підписано успішно"
       }
     },
     "vedomoststud": {

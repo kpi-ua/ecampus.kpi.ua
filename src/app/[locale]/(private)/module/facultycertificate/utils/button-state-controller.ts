@@ -5,5 +5,6 @@ export const buttonDisableController = (certificate: Certificate) => {
   const shouldDisableApproveButton = certificate.approved !== null || certificate.status !== CertificateStatus.Created;
   const shouldDisableRejectButton = certificate.approved !== null || certificate.status !== CertificateStatus.Created;
   const shouldDisablePrintButton = certificate.status !== CertificateStatus.Processed;
-  return { shouldDisableApproveButton, shouldDisableRejectButton, shouldDisablePrintButton };
+  const shouldDisableSignButton = !certificate.originalRequired || certificate.status !== CertificateStatus.Processed;
+  return { shouldDisableApproveButton, shouldDisableRejectButton, shouldDisablePrintButton, shouldDisableSignButton };
 };
