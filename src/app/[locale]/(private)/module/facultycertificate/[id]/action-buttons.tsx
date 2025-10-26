@@ -9,7 +9,6 @@ import { useTranslations } from 'next-intl';
 import { buttonDisableController } from '@/app/[locale]/(private)/module/facultycertificate/utils/button-state-controller';
 import { RejectDialog } from '@/app/[locale]/(private)/module/facultycertificate/components/reject-dialog';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { CertificateStatus } from '@/types/models/certificate/status';
 
 interface Props {
   certificate: Certificate;

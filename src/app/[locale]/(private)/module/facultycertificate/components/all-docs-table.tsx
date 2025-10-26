@@ -21,7 +21,6 @@ import { Show } from '@/components/utils/show';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { signCertificate, updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
-import { CertificateStatus } from '@/types/models/certificate/status';
 import { useToast } from '@/hooks/use-toast';
 
 interface Props {
