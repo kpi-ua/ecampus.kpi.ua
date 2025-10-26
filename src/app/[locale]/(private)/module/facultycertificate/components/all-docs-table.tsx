@@ -53,8 +53,8 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
     try {
       await signCertificate(id);
       toast({
-        title: 'Certificate signed successfully',
-        description: 'The certificate has been signed successfully',
+        title: tTable('signedSuccess'),
+        description: tTable('signedDescription'),
       });
     } catch (error) {
       errorToast();
