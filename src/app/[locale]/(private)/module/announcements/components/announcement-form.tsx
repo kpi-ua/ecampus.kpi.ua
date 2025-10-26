@@ -15,6 +15,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { createAnnouncement } from '@/actions/announcement.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
+const EmptyIndicator = () => {
+  const t = useTranslations('private.announcements.form');
+  return <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>;
+};
+
 interface Props {
   rolesData: string[];
   studyFormsData: string[];
@@ -24,7 +29,14 @@ interface Props {
   onSuccess: (id: number) => void;
 }
 
-export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdivisionsData, coursesData, onSuccess }: Props) {
+export function AnnouncementForm({
+  rolesData,
+  studyFormsData,
+  groupsData,
+  subdivisionsData,
+  coursesData,
+  onSuccess,
+}: Props) {
   const t = useTranslations('private.announcements.form');
   const { errorToast } = useServerErrorToast();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -64,7 +76,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto gap-3 flex flex-col">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto flex flex-col gap-3">
         <FormField
           control={form.control}
           name="announcement.title"
@@ -112,7 +124,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             control={form.control}
             name="announcement.link.title"
             render={({ field }) => (
-              <FormItem className="flex flex-col flex-1">
+              <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.linkTitle')}</FormLabel>
                 <FormControl>
                   <Input placeholder={t('placeholders.linkTitle')} type="text" {...field} />
@@ -126,7 +138,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             control={form.control}
             name="announcement.link.uri"
             render={({ field }) => (
-              <FormItem className="flex flex-col flex-1">
+              <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.linkUrl')}</FormLabel>
                 <FormControl>
                   <Input placeholder={t('placeholders.linkUrl')} type="text" {...field} />
@@ -142,7 +154,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             control={form.control}
             name="announcement.start"
             render={({ field }) => (
-              <FormItem className="flex flex-col flex-1">
+              <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.startDate')}</FormLabel>
                 <Input type="date" {...field} />
                 <FormMessage />
@@ -154,7 +166,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             control={form.control}
             name="announcement.end"
             render={({ field }) => (
-              <FormItem className="flex flex-col flex-1">
+              <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.endDate')}</FormLabel>
                 <Input type="date" {...field} />
                 <FormMessage />
@@ -195,9 +207,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   defaultOptions={studyFormsData.map((studyForm) => ({ value: studyForm, label: studyForm }))}
                   placeholder={t('placeholders.studyForms')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
-                  emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
-                  }
+                  emptyIndicator={<EmptyIndicator />}
                 />
               </FormControl>
               <FormMessage />
@@ -211,15 +221,15 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
             <FormItem>
               <FormLabel>{t('fields.groups')}</FormLabel>
               <FormControl>
-              <MultipleSelector
-                  defaultOptions={groupsData.map((group) => ({ value: group.id.toString(), label: `${group.name} (${group.faculty})` }))}
+                <MultipleSelector
+                  defaultOptions={groupsData.map((group) => ({
+                    value: group.id.toString(),
+                    label: `${group.name} (${group.faculty})`,
+                  }))}
                   placeholder={t('placeholders.groups')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
-                  emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
-                  }
+                  emptyIndicator={<EmptyIndicator />}
                 />
-              
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -237,9 +247,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   defaultOptions={rolesData.map((role) => ({ value: role, label: role }))}
                   placeholder={t('placeholders.roles')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
-                  emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
-                  }
+                  emptyIndicator={<EmptyIndicator />}
                 />
               </FormControl>
               <FormMessage />
@@ -255,12 +263,13 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
               <FormLabel>{t('fields.subdivisions')}</FormLabel>
               <FormControl>
                 <MultipleSelector
-                  defaultOptions={subdivisionsData.map((subdivision) => ({ value: subdivision.id.toString(), label: subdivision.name }))}
+                  defaultOptions={subdivisionsData.map((subdivision) => ({
+                    value: subdivision.id.toString(),
+                    label: subdivision.name,
+                  }))}
                   placeholder={t('placeholders.subdivisions')}
                   onChange={(options) => field.onChange(options.map((option) => parseInt(option.value as string)))}
-                  emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
-                  }
+                  emptyIndicator={<EmptyIndicator />}
                 />
               </FormControl>
               <FormMessage />
@@ -279,9 +288,7 @@ export function AnnouncementForm({ rolesData, studyFormsData, groupsData, subdiv
                   defaultOptions={coursesData.map((course) => ({ value: course.toString(), label: course.toString() }))}
                   placeholder={t('placeholders.courses')}
                   onChange={(options) => field.onChange(options.map((option) => parseInt(option.value as string)))}
-                  emptyIndicator={
-                    <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>
-                  }
+                  emptyIndicator={<EmptyIndicator />}
                 />
               </FormControl>
               <FormMessage />

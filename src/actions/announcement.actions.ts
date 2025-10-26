@@ -42,7 +42,7 @@ export const createAnnouncement = async (data: AnnouncementCreate): Promise<numb
     if (!response.ok) {
       throw new Error(`Failed to create announcement: ${response.status} ${response.statusText}`);
     }
-    const responseJson = await response.json() as number;
+    const responseJson = (await response.json()) as number;
     return responseJson;
   } catch (error) {
     console.error('Error creating announcement:', error);

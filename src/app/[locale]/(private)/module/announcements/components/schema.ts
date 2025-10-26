@@ -42,6 +42,6 @@ export const formSchema = z
     },
     {
       message: 'Start date must be before or equal to end date',
-      path: ['endDate'],
+      path: ['announcement.end'],
     },
   );

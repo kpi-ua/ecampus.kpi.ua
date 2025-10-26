@@ -443,7 +443,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
             inputRef?.current?.focus();
           }}
         >
-          <div className="relative flex flex-wrap gap-1 items-center">
+          <div className="relative flex flex-wrap items-center gap-1">
             {selected.map((option) => {
               return (
                 <Badge

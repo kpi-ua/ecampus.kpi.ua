@@ -20,11 +20,13 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function AnnouncementsPage() {
   const t = await getTranslations(INTL_NAMESPACE);
-  const rolesData = await getRoles();
-  const studyFormsData = await getStudyForms();
-  const groupsData = await getAllGroups();
-  const subdivisionsData = await getSubdivisions();
-  const coursesData = await getCourses();
+  const [rolesData, studyFormsData, groupsData, subdivisionsData, coursesData] = await Promise.all([
+    getRoles(),
+    getStudyForms(),
+    getAllGroups(),
+    getSubdivisions(),
+    getCourses(),
+  ]);
 
   return (
     <SubLayout pageTitle={t('title')}>
