@@ -2,7 +2,6 @@ import { getTranslations } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
-import React from 'react';
 import { AnnouncementManagement } from './components/announcement-management';
 import { getStudyForms, getAllGroups, getSubdivisions, getCourses, getRoles } from '@/actions/announcement.actions';
 
