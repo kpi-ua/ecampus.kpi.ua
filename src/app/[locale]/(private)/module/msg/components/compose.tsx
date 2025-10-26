@@ -2,7 +2,9 @@ import React, { Suspense } from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Heading4 } from '@/components/typography';
 import { Broadcast } from './broadcast/broadcast';
-import { getAllGroups } from '@/actions/msg.acitons';
+import { getAllGroups, getFacultyOptions } from '@/actions/msg.acitons';
+import { Individual } from './broadcast/individual';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export interface Subdivision {
   id: number;
@@ -11,6 +13,7 @@ export interface Subdivision {
 
 export default async function Compose() {
   const groupOptions = await getAllGroups();
+  const facultyOptions = await getFacultyOptions();
 
   return (
     <div className="w-full">
@@ -23,13 +26,13 @@ export default async function Compose() {
         </TabsList>
 
         <TabsContent value="individual" className="mt-6 space-y-6">
-          {/* <Individual facultyOptions={facultyOptions} /> */}
+          <Suspense fallback={<Skeleton className="w-full h-full" />}>
+          <Individual facultyOptions={facultyOptions} />
+          </Suspense>
         </TabsContent>
 
         <TabsContent value="broadcast" className="mt-6">
-          <Suspense fallback={<div>Loading...</div>}>
-            <Broadcast groupOptions={groupOptions} />
-          </Suspense>
+          <Broadcast groupOptions={groupOptions} />
         </TabsContent>
       </Tabs>
     </div>

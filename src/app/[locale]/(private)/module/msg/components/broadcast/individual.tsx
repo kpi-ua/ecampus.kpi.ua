@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@radix-ui/react-select';
 import { Send } from 'lucide-react';
 import { Subdivision } from '../compose';
 import { Form, useForm } from 'react-hook-form';
@@ -11,10 +10,23 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
+import { useState, useEffect } from 'react';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import MultipleSelector from '@/components/ui/multi-select';
+import { getEmployeeOptions, getGroupOptions, getStudentOptions, sendMail } from '@/actions/msg.acitons';
+import { useToast } from '@/hooks/use-toast';
+
+
 export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }) {
+  const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
+  const [groupOptions, setGroupOptions] = useState<{ id: number; name: string }[]>([]);
+
+  const { toast } = useToast();
+  const [userOptions, setUserOptions] = useState<{ id: number; name: string }[]>([]);
   const formSchema = z.object({
     facultyIds: z.array(z.number()),
     groupIds: z.array(z.number()),
+    userIds: z.array(z.number()),
     subject: z.string().min(1),
     content: z.string().min(1),
   });
@@ -23,37 +35,73 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
     defaultValues: {
       facultyIds: [],
       groupIds: [],
+      userIds: [],
       subject: '',
       content: '',
     },
   });
+
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    await sendMail({
+      recipients: data.userIds,
+      subject: data.subject,
+      content: data.content,
+    });
+    toast({
+      title: 'Повідомлення відправлено',
+      description: 'Повідомлення відправлено успішно',
+    });
+  };
+
+  const selectedFacultyIds = form.watch('facultyIds');
+
+  useEffect(() => {
+    if (!selectedFacultyIds.length) {
+      setUserOptions([]);
+      setGroupOptions([]);
+      return;
+    }
+
+    if (recipientType === 'employee') {
+      getEmployeeOptions(selectedFacultyIds).then((employees) => {
+        setUserOptions(employees);
+      });
+    }
+    getGroupOptions(selectedFacultyIds).then((groups) => {
+      setGroupOptions(groups);
+    });
+  }, [recipientType, selectedFacultyIds]);
+
+  const selectedGroupIds = form.watch('groupIds');
+
+  useEffect(() => {
+    if (!selectedGroupIds.length) {
+      setUserOptions([]);
+      return;
+    }
+    getStudentOptions(selectedGroupIds).then((students) => {
+      setUserOptions(students);
+    });
+  }, [selectedGroupIds]);
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        {/* Recipient Type Selection */}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 space-y-8">
         <div className="flex gap-6">
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="radio"
-              name="recipientType"
-              value="individual"
-              checked={recipientType === 'individual'}
-              onChange={() => setRecipientType('individual')}
-              className="h-4 w-4"
-            />
-            <span>Співробітник</span>
-          </label>
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="radio"
-              name="recipientType"
-              value="broadcast"
-              checked={recipientType === 'broadcast'}
-              onChange={() => setRecipientType('broadcast')}
-              className="h-4 w-4"
-            />
-            <span>Масове</span>
-          </label>
+          <RadioGroup
+            className="flex"
+            defaultValue="employee"
+            onValueChange={(value) => setRecipientType(value as 'employee' | 'student')}
+          >
+            <div className="flex items-center gap-3">
+              <RadioGroupItem value="employee" id="r1" />
+              <Label htmlFor="r1">Співробітник</Label>
+            </div>
+            <div className="flex items-center gap-3">
+              <RadioGroupItem value="student" id="r2" />
+              <Label htmlFor="r2">Студент</Label>
+            </div>
+          </RadioGroup>
         </div>
         <FormField
           control={form.control}
@@ -61,70 +109,51 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
           render={({ field }) => (
             <FormItem>
               <Label>Підрозділ</Label>
-              <Select onValueChange={field.onChange} defaultValue={field.value.join(',')}>
-                <SelectTrigger>
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  {facultyOptions.map((faculty) => (
-                    <SelectItem key={faculty.id} value={faculty.id.toString()}>
-                      {faculty.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <MultipleSelector
+                options={facultyOptions.map((faculty) => ({
+                  value: faculty.id.toString(),
+                  label: faculty.name,
+                }))}
+                onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+              />
             </FormItem>
           )}
         />
-        {/* Dropdowns */}
-        <FormField
-          control={form.control}
-          name="groupIds"
-          render={({ field }) => (
-            <FormItem>
-              <Label>Навчальна група</Label>
-              <Select onValueChange={field.onChange} defaultValue={field.value.join(',')}>
-                <SelectTrigger>
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="group1">Група 1</SelectItem>
-                  <SelectItem value="group2">Група 2</SelectItem>
-                </SelectContent>
-              </Select>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="recipients"
-          render={({ field }) => (
-            <FormItem>
-              <Label>ПІБ</Label>
-              <Select onValueChange={field.onChange} defaultValue={field.value.join(',')}>
-                <SelectTrigger>
-                  <SelectValue placeholder="" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="person1">Особа 1</SelectItem>
-                  <SelectItem value="person2">Особа 2</SelectItem>
-                </SelectContent>
-              </Select>
-            </FormItem>
-          )}
-        />
-        {/* <FormField
-        control={form.control}
-        name="recipients"
-        render={({ field }) => (
-          <FormItem>
-            <Label>Одержувач(і)</Label>
-            <Textarea {...field} placeholder="Одержувач(і)" maxLength={1000} />
-          </FormItem>
+        {recipientType === 'student' && (
+          <FormField
+            control={form.control}
+            name="groupIds"
+            render={({ field }) => (
+              <FormItem>
+                <Label>Навчальна група</Label>
+                <MultipleSelector
+                  options={groupOptions.map((group) => ({
+                    value: group.id.toString(),
+                    label: group.name,
+                  }))}
+                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                />
+              </FormItem>
+            )}
+          />
         )}
-      /> */}
 
-        {/* Subject and Priority */}
+        <FormField
+          control={form.control}
+          name="userIds"
+          render={({ field }) => (
+            <FormItem>
+              <Label>ПІБ одержувача</Label>
+              <MultipleSelector
+                options={userOptions.map((user) => ({
+                  value: user.id.toString(),
+                  label: user.name,
+                }))}
+                onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+              />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="subject"

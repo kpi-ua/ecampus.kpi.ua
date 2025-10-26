@@ -35,9 +35,9 @@ export function Broadcast({ groupOptions }: { groupOptions: Group[] }) {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-    const students = await getStudentOptions(data.groupIds);
-    await sendMail({
-      recipients: students.map((student) => student.id),
+      const students = await getStudentOptions(data.groupIds);
+      await sendMail({
+        recipients: students.map((student) => student.id),
         subject: data.subject,
         content: data.content,
       });
@@ -61,7 +61,7 @@ export function Broadcast({ groupOptions }: { groupOptions: Group[] }) {
               <FormItem>
                 <FormLabel>Навчальна група</FormLabel>
                 <MultipleSelector
-                  defaultOptions={groupOptions.map((group) => ({
+                  options={groupOptions.map((group) => ({
                     value: group.id.toString(),
                     label: `${group.name} (${group.faculty})`,
                   }))}

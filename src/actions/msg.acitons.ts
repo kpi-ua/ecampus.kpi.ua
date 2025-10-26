@@ -56,21 +56,31 @@ export async function getGroupOptions(facultyIds: number[]) {
   return response.json();
 }
 
-export async function getStudentOptions(groupIds: number[]) {
-  const query = queryString.stringify({ groupIds }, { arrayFormat: 'none' });
-  const response = await campusFetch<{id: number, name: string}[]>(`/mail/student-options?${query}`);
+export async function getStudentOptions(groups: number[]) {
+  const query = queryString.stringify({ groups }, { arrayFormat: 'none' });
+  console.log(query);
+  const response = await campusFetch<{ id: number; name: string }[]>(`/mail/student-options?${query}`);
+  console.log(response);
   if (!response.ok) {
     return [];
   }
   return response.json();
 }
 
+export async function getEmployeeOptions(faculties: number[]) {
+  const query = queryString.stringify({ faculties }, { arrayFormat: 'none' });
+  const response = await campusFetch<{ id: number; name: string }[]>(`/mail/employee-options?${query}`);
+  if (!response.ok) {
+    return [];
+  }
+  return response.json();
+}
 
 type SendMailParams = {
   recipients: number[];
   subject: string;
   content: string;
-}
+};
 export async function sendMail(params: SendMailParams) {
   const response = await campusFetch<Message>('/mail', {
     method: 'POST',
