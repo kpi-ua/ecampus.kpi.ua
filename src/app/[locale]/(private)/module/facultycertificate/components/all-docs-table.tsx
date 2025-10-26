@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
 import { Button } from '@/components/ui/button';
-import { Check, EyeBold, Printer, X } from '@/app/images';
+import { Check, EyeBold, PencilRegular, Printer, X } from '@/app/images';
 import { Badge } from '@/components/ui/badge';
 import { printCertificate } from '@/app/[locale]/(private)/module/facultycertificate/utils/print-certificate';
 import Link from 'next/link';
@@ -20,7 +20,8 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Show } from '@/components/utils/show';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 import { useTableSort } from '@/hooks/use-table-sort';
-import { updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
+import { signCertificate, updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
+import { useToast } from '@/hooks/use-toast';
 
 interface Props {
   certificates: Certificate[];
@@ -30,6 +31,7 @@ interface Props {
 export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }: Props) {
   const tTable = useTranslations('private.facultycertificate.table');
   const { errorToast } = useServerErrorToast();
+  const { toast } = useToast();
 
   const handleUpdateCertificate = async (id: number, body: UpdateCertificateBody) => {
     try {
@@ -42,6 +44,18 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
   const handlePrintClick = async (id: number) => {
     try {
       await printCertificate(id);
+    } catch (error) {
+      errorToast();
+    }
+  };
+
+  const handleSignClick = async (id: number) => {
+    try {
+      await signCertificate(id);
+      toast({
+        title: tTable('signedSuccess'),
+        description: tTable('signedDescription'),
+      });
     } catch (error) {
       errorToast();
     }
@@ -75,7 +89,7 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
         </TableHeader>
         <TableBody>
           {sortedRows.map((row, index) => {
-            const { shouldDisableRejectButton, shouldDisablePrintButton, shouldDisableApproveButton } =
+            const { shouldDisableRejectButton, shouldDisableSignButton, shouldDisablePrintButton, shouldDisableApproveButton } =
               buttonDisableController(row);
             return (
               <TableRow key={index}>
@@ -89,6 +103,11 @@ export const AllDocsTable = memo(function DocsTable({ certificates, totalCount }
                   <CertificateStatusBadge certificate={row} />
                 </TableCell>
                 <TableCell className="flex gap-2">
+                  <div>
+                    <Button variant="secondary" size="small" disabled={shouldDisableSignButton} onClick={() => handleSignClick(row.id)}>
+                      <PencilRegular />
+                    </Button>
+                  </div>
                   <div>
                     <Button
                       variant="secondary"
