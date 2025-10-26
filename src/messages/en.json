@@ -29,6 +29,7 @@
       "contacts": "Contacts",
       "msg": "Messages",
       "kurator": "Curator",
+      "announcements": "Announcements",
       "facultycertificate": "Faculty certificate",
       "rnp": "RNP",
       "mob": "Methodological support",
@@ -391,6 +392,59 @@
       "input": {
         "placeholder": "Search",
         "not-found": "No results found"
+      }
+    },
+    "announcements": {
+      "title": "Announcement Management",
+      "subtitle": "Create and manage university announcements",
+      "create": {
+        "title": "Create New Announcement",
+        "description": "Click the button below to create a new announcement for the university community.",
+        "button": "Create Announcement"
+      },
+      "success": {
+        "title": "Announcement Created Successfully!",
+        "message": "Your announcement has been created with ID: {id}"
+      },
+      "form": {
+        "title": "Create Announcement",
+        "not-found": "No results found",
+        "fields": {
+          "title": "Title",
+          "description": "Description",
+          "imageUrl": "Image URL",
+          "linkTitle": "Link Title",
+          "linkUrl": "Link URL",
+          "startDate": "Start Date",
+          "endDate": "End Date",
+          "language": "Language",
+          "studyForms": "Study Forms",
+          "groups": "Groups",
+          "roles": "Roles",
+          "subdivisions": "Subdivisions",
+          "courses": "Courses"
+        },
+        "placeholders": {
+          "title": "Enter announcement title",
+          "description": "Enter announcement description",
+          "imageUrl": "https://example.com/image.jpg",
+          "linkTitle": "Enter link title",
+          "linkUrl": "https://example.com",
+          "language": "Select a language",
+          "studyForms": "Select study forms",
+          "groups": "Select groups",
+          "roles": "Select roles",
+          "subdivisions": "Select subdivisions",
+          "courses": "Select courses"
+        },
+        "buttons": {
+          "submit": "Submit",
+          "cancel": "Cancel"
+        },
+        "languages": {
+          "uk": "Ukrainian",
+          "en": "English"
+        }
       }
     },
     "profile": {
