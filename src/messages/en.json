@@ -632,7 +632,15 @@
       "notes": "Notes",
       "notesPlaceholder": "For example: with a wet seal",
       "purposePlaceholder": "For example: for the French embassy",
-      "submit": "Order"
+      "submit": "Order",
+      "status": {
+        "rejected": "Rejected",
+        "approved": "Схвалено",
+        "processed": "Processed",
+        "in-queue": "In Queue",
+        "error": "Error",
+        "signed": "Signed"
+      }
     },
     "settings": {
       "title": "Settings",
