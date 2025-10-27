@@ -634,8 +634,10 @@
       "purposePlaceholder": "For example: for the French embassy",
       "submit": "Order",
       "status": {
+        "created": "Created",
+        "pending": "Pending",
         "rejected": "Rejected",
-        "approved": "Схвалено",
+        "approved": "Approved",
         "processed": "Processed",
         "in-queue": "In Queue",
         "error": "Error",

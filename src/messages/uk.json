@@ -634,6 +634,8 @@
       "purposePlaceholder": "Наприклад: для посольства Франції",
       "submit": "Замовити",
       "status": {
+        "created": "Створено",
+        "pending": "Очікування",
         "rejected": "Відхилено",
         "approved": "Схвалено",
         "processed": "Згенеровано",
