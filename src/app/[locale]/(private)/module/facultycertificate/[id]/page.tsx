@@ -61,7 +61,7 @@ export default async function DocInfoPage({ params }: Props) {
                 {tTable('created')}:
               </Paragraph>
               <Paragraph className="m-0 font-medium">
-                {dayjs(certificate.created).format('DD.MM.YYYY, HH:MM')}
+                {dayjs(certificate.created).format('DD.MM.YYYY, HH:mm')}
               </Paragraph>
             </div>
             <div className="mt-6 flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
@@ -69,7 +69,7 @@ export default async function DocInfoPage({ params }: Props) {
                 {tTable('updatedAt')}:
               </Paragraph>
               <Paragraph className="m-0 font-medium">
-                {certificate.updatedAt && dayjs(certificate.updatedAt).format('DD.MM.YYYY, HH:MM')}
+                {certificate.updatedAt && dayjs(certificate.updatedAt).format('DD.MM.YYYY, HH:mm')}
               </Paragraph>
             </div>
             <TextDivider />
