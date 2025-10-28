@@ -6,5 +6,5 @@ interface Props {
 }
 
 export function HeaderLabel({ label, secondary = false }: Props) {
-  return <span className={cn('block whitespace-nowrap leading-tight', secondary && 'text-neutral-700')}>{label}</span>;
+  return <span className={cn('block leading-tight whitespace-nowrap', secondary && 'text-neutral-700')}>{label}</span>;
 }

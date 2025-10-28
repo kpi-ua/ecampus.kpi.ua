@@ -56,7 +56,7 @@ export const Header: FC<Props> = ({ user }) => {
 
   return (
     <header
-      className={cn('sticky top-0 flex h-[80px] items-center justify-between bg-basic-white px-6', {
+      className={cn('bg-basic-white sticky top-0 flex h-[80px] items-center justify-between px-6', {
         'justify-end': !isMobile,
       })}
     >

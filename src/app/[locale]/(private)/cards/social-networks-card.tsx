@@ -20,7 +20,7 @@ export const SocialNetworksCard = async ({ className }: SocialNetworksCardProps)
       </CardHeader>
       <CardContent>
         <Paragraph>{t('description')}</Paragraph>
-        <Paragraph className="mb-0 mt-8 flex flex-wrap gap-8">
+        <Paragraph className="mt-8 mb-0 flex flex-wrap gap-8">
           <TextButton
             size="huge"
             href={process.env.NEXT_PUBLIC_FACEBOOK_URL!}

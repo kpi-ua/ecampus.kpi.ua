@@ -105,7 +105,7 @@ export const LoginCarousel = () => {
                 quality={100}
                 className="h-[calc(100dvh-40px)] w-full shrink-0 object-cover"
               />
-              <div className="absolute bottom-0 left-0 w-full rounded-b-xl bg-linear-to-t from-basic-black/80 from-10% to-basic-black/0 px-14 pb-14 pt-32 text-basic-white">
+              <div className="from-basic-black/80 to-basic-black/0 text-basic-white absolute bottom-0 left-0 w-full rounded-b-xl bg-linear-to-t from-10% px-14 pt-32 pb-14">
                 <h6>{image.description}</h6>
                 <span>
                   by{' '}
@@ -122,7 +122,7 @@ export const LoginCarousel = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className="absolute bottom-0 right-0 flex justify-between p-14">
+      <div className="absolute right-0 bottom-0 flex justify-between p-14">
         <CarouselPrevious className="static mr-4 translate-y-0" />
         <CarouselNext className="static translate-y-0" />
       </div>

@@ -12,7 +12,7 @@ interface AccountSelectorProps {
 
 export const AccountSelector = ({ accounts, ticketId, className }: AccountSelectorProps) => {
   return (
-    <ul className={cn('list-none rounded-lg border border-l-neutral-divider p-4', className)}>
+    <ul className={cn('border-l-neutral-divider list-none rounded-lg border p-4', className)}>
       {accounts.map((account) => (
         <AccountSelectorItem
           key={account.username}

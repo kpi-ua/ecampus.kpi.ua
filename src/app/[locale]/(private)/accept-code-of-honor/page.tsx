@@ -37,7 +37,7 @@ export default function CodeOfHonorAlert() {
                   </Link>
                 ),
                 paragraph: (chunks) => (
-                  <AlertDialogDescription className="m-0 my-4 text-lg leading-lg">{chunks}</AlertDialogDescription>
+                  <AlertDialogDescription className="leading-lg m-0 my-4 text-lg">{chunks}</AlertDialogDescription>
                 ),
               })
             }

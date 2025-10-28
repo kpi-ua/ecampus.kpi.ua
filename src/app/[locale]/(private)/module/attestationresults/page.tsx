@@ -52,16 +52,16 @@ export default async function AttestationResultsPage() {
         <TableBody>
           {results.map((result, index) => (
             <TableRow key={index}>
-              <TableCell className="min-w-[200px] max-w-[336px]">
+              <TableCell className="max-w-[336px] min-w-[200px]">
                 {result.id ? (
                   <Link
-                    className="text-sm font-medium text-basic-black underline"
+                    className="text-basic-black text-sm font-medium underline"
                     href={`/module/studysheet/${result.id}`}
                   >
                     {result.name}
                   </Link>
                 ) : (
-                  <span className="text-sm font-medium text-basic-black">{result.name}</span>
+                  <span className="text-basic-black text-sm font-medium">{result.name}</span>
                 )}
               </TableCell>
 
