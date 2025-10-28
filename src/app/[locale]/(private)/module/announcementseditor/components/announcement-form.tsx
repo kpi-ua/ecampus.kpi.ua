@@ -10,13 +10,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import MultipleSelector from '@/components/ui/multi-select';
 import { Group } from '@/types/models/group';
 import { Subdivision } from '@/types/models/subdivision';
-import { formSchema } from '@/app/[locale]/(private)/module/announcements/components/schema';
+import { formSchema } from '@/app/[locale]/(private)/module/announcementseditor/components/schema';
 import { Textarea } from '@/components/ui/textarea';
 import { createAnnouncement } from '@/actions/announcement.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 const EmptyIndicator = () => {
-  const t = useTranslations('private.announcements.form');
+  const t = useTranslations('private.announcementseditor.form');
   return <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>;
 };
 
@@ -37,7 +37,7 @@ export function AnnouncementForm({
   coursesData,
   onSuccess,
 }: Props) {
-  const t = useTranslations('private.announcements.form');
+  const t = useTranslations('private.announcementseditor.form');
   const { errorToast } = useServerErrorToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

@@ -29,7 +29,7 @@
       "contacts": "Contacts",
       "msg": "Messages",
       "kurator": "Curator",
-      "announcements": "Announcements",
+      "announcementseditor": "Announcements management",
       "facultycertificate": "Faculty certificate",
       "rnp": "RNP",
       "mob": "Methodological support",
@@ -395,7 +395,7 @@
         "not-found": "No results found"
       }
     },
-    "announcements": {
+    "announcementseditor": {
       "title": "Announcement Management",
       "subtitle": "Create and manage university announcements",
       "create": {
@@ -553,8 +553,8 @@
         "status": "status",
         "purpose": "purpose",
         "actions": "actions",
-        "signedSuccess":"Certificate signed successfully",
-        "signedDescription":"The certificate has been signed successfully"
+        "signedSuccess": "Certificate signed successfully",
+        "signedDescription": "The certificate has been signed successfully"
       }
     },
     "vedomoststud": {
