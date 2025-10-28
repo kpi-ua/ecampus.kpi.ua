@@ -546,8 +546,8 @@
         "created": "Створено",
         "documentNumber": "Номер документа",
         "fullname": "ПІБ студента",
-        "originalRequired": "З печаткою",
-        "withstamp": "Потрібна печатка",
+        "originalRequired": "Оригінал",
+        "withstamp": "Паперовий оригінал",
         "updatedAt": "Оновлено",
         "received": "Отримано",
         "status": "Статус",
@@ -632,7 +632,17 @@
       "notes": "Примітка",
       "notesPlaceholder": "Наприклад: з мокрою печаткою",
       "purposePlaceholder": "Наприклад: для посольства Франції",
-      "submit": "Замовити"
+      "submit": "Замовити",
+      "status": {
+        "created": "Створено",
+        "pending": "Очікування",
+        "rejected": "Відхилено",
+        "approved": "Схвалено",
+        "processed": "Згенеровано",
+        "in-queue": "У черзі",
+        "error": "Помилка",
+        "signed": "Підписано"
+      }
     },
     "settings": {
       "title": "Налаштування",
