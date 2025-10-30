@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Group } from '@/types/models/group';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Send } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import z from 'zod';
 import MultipleSelector from '@/components/ui/multi-select';

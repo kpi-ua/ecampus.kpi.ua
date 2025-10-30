@@ -29,7 +29,7 @@
       "contacts": "Contacts",
       "msg": "Messages",
       "kurator": "Curator",
-      "announcements": "Announcements",
+      "announcementseditor": "Announcements management",
       "facultycertificate": "Faculty certificate",
       "rnp": "RNP",
       "mob": "Methodological support",
@@ -395,7 +395,7 @@
         "not-found": "No results found"
       }
     },
-    "announcements": {
+    "announcementseditor": {
       "title": "Announcement Management",
       "subtitle": "Create and manage university announcements",
       "create": {
@@ -546,8 +546,8 @@
         "created": "Date",
         "documentNumber": "Document number",
         "fullname": "full name",
-        "originalRequired": "original required",
-        "withstamp": "With stamp",
+        "originalRequired": "Paper original",
+        "withstamp": "Paper original",
         "updatedAt": "Updated at",
         "received": "received",
         "status": "status",
@@ -691,7 +691,17 @@
       "notes": "Notes",
       "notesPlaceholder": "For example: with a wet seal",
       "purposePlaceholder": "For example: for the French embassy",
-      "submit": "Order"
+      "submit": "Order",
+      "status": {
+        "created": "Created",
+        "pending": "Pending",
+        "rejected": "Rejected",
+        "approved": "Approved",
+        "processed": "Processed",
+        "in-queue": "In Queue",
+        "error": "Error",
+        "signed": "Signed"
+      }
     },
     "settings": {
       "title": "Settings",

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTranslations } from 'next-intl';
@@ -25,7 +25,7 @@ export function AnnouncementManagement({
   subdivisionsData,
   coursesData,
 }: Props) {
-  const t = useTranslations('private.announcements');
+  const t = useTranslations('private.announcementseditor');
   const [showForm, setShowForm] = useState(false);
   const { toast } = useToast();
 

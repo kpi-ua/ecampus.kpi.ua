@@ -88,7 +88,9 @@ export async function resetPassword(username: string, recaptchaToken: string) {
 }
 
 export async function getUserDetails() {
-  const userResponse = await campusFetch<User>('profile');
+  const userResponse = await campusFetch<User>('profile', {
+    cache: 'force-cache',
+  });
 
   if (!userResponse.ok) {
     return null;
