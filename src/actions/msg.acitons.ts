@@ -8,8 +8,6 @@ import { Subdivision } from '@/types/models/subdivision';
 import { revalidatePath } from 'next/cache';
 import queryString from 'query-string';
 
-
-
 export async function getMails(filter: MailFilter = MailFilter.INCOMING) {
   const response = await campusFetch<Message[]>(`/mail?filter=${filter}`);
   if (!response.ok) {
