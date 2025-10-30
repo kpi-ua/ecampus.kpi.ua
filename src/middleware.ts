@@ -7,7 +7,7 @@ export const config = {
   matcher: ['/', `/(uk|en)/:path*`, '/((?!_next|api|favicon.ico|.*\\.[^/]+$).*)'],
 };
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   // If the path needs locale handling, process it with i18n middleware first
   if (needsLocaleHandling(request)) {
     return intlMiddleware(request);
