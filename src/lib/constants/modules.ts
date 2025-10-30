@@ -9,7 +9,7 @@ export const MODULES: Module[] = [
   { name: 'announcements', isExternal: false },
   { name: 'facultycertificate', isExternal: false },
   { name: 'contacts', isExternal: true },
-  { name: 'msg', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  { name: 'msg', isExternal: false },
   { name: 'certificates', isExternal: false },
   { name: 'rnp', isExternal: true },
   { name: 'vote', isExternal: true },

@@ -1,11 +1,7 @@
 import { AcademicDegree } from '../enums/academic-degree';
 import { AcademicStatus } from '../enums/academic-status';
 import { EmploymentType } from '../enums/employment-type';
-
-interface Subdivision {
-  id: number;
-  name: string;
-}
+import { Subdivision } from './subdivision';
 
 export interface EmployeePosition {
   name: string;

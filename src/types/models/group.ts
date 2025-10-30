@@ -14,6 +14,5 @@ export interface Group {
   name: string;
   faculty: string;
   cathedra?: Cathedra;
-  faculty: string;
   curator?: Curator;
 }

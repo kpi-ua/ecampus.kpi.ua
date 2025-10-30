@@ -1,16 +1,10 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Heading4 } from '@/components/typography';
 import { Broadcast } from './broadcast/broadcast';
 import { getAllGroups, getFacultyOptions } from '@/actions/msg.acitons';
 import { Individual } from './broadcast/individual';
-import { Skeleton } from '@/components/ui/skeleton';
 import { getTranslations } from 'next-intl/server';
-
-export interface Subdivision {
-  id: number;
-  name: string;
-}
 
 export default async function Compose() {
   const t = await getTranslations('private.msg.compose');

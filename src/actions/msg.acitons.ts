@@ -1,9 +1,9 @@
 'use server';
 
-import { Subdivision } from '@/app/[locale]/(private)/module/msg/components/compose';
 import { Message } from '@/app/[locale]/(private)/module/msg/types';
 import { campusFetch } from '@/lib/client';
 import { Group } from '@/types/models/group';
+import { Subdivision } from '@/types/models/subdivision';
 import { revalidatePath } from 'next/cache';
 import queryString from 'query-string';
 
