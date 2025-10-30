@@ -3,13 +3,14 @@ import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import React from 'react';
 import { Heading2, Paragraph } from '@/components/typography';
-import { getMails, MailFilter } from '@/actions/msg.acitons';
+import { getMails } from '@/actions/msg.acitons';
 import { MessageTranslationKeys } from './constants';
 import { Card } from '@/components/ui/card';
 import { TabSheetTrigger } from '@/components/ui/tabs';
 import { Tabs, TabsList, TabsContent } from '@radix-ui/react-tabs';
 import Compose from './components/compose';
 import Inbox from './components/inbox';
+import { MailFilter } from '@/types/enums/mail-filter';
 
 const INTL_NAMESPACE = 'private.msg';
 

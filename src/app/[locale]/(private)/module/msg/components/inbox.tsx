@@ -10,22 +10,7 @@ import { deleteMail, markAsImportant } from '@/actions/msg.acitons';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
-
-interface Message {
-  id: number;
-  sender: {
-    id: number;
-    name: string;
-  };
-  recipient: {
-    id: number;
-    name: string;
-  };
-  isImportant: boolean;
-  subject: string;
-  content: string;
-  createdAt: string;
-}
+import { Message } from '../types';
 
 interface Props {
   mails: Message[];
