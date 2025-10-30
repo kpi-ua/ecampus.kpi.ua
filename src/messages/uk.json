@@ -29,7 +29,7 @@
       "contacts": "Контакти",
       "msg": "Повідомлення",
       "kurator": "Куратор",
-      "announcements": "Оголошення",
+      "announcementseditor": "Управління оголошеннями",
       "facultycertificate": "Запити на сертифікати",
       "rnp": "РНП",
       "mob": "Метод.забезпечення",
@@ -395,7 +395,7 @@
         "not-found": "Нічого не знайдено"
       }
     },
-    "announcements": {
+    "announcementseditor": {
       "title": "Управління оголошеннями",
       "subtitle": "Створюйте та керуйте оголошеннями університету",
       "create": {
@@ -553,8 +553,8 @@
         "status": "Статус",
         "purpose": "Призначення",
         "actions": "Дії",
-        "signedSuccess":"Сертифікат підписано успішно",
-        "signedDescription":"Сертифікат підписано успішно"
+        "signedSuccess": "Сертифікат підписано успішно",
+        "signedDescription": "Сертифікат підписано успішно"
       }
     },
     "vedomoststud": {

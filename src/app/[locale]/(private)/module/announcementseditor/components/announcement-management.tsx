@@ -25,7 +25,7 @@ export function AnnouncementManagement({
   subdivisionsData,
   coursesData,
 }: Props) {
-  const t = useTranslations('private.announcements');
+  const t = useTranslations('private.announcementseditor');
   const [showForm, setShowForm] = useState(false);
   const { toast } = useToast();
 
