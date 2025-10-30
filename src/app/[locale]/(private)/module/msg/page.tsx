@@ -30,8 +30,6 @@ export default async function MessagePage() {
   const sentMails = await getMails(MailFilter.OUTGOING);
   const importantMails = await getMails(MailFilter.IMPORTANT);
 
-  const tTab = await getTranslations(`private.msg.tab`);
-
   const tabList = Object.values(MessageTranslationKeys);
   return (
     <SubLayout pageTitle={t('title')}>
@@ -45,7 +43,7 @@ export default async function MessagePage() {
             <TabsList className="rounded-none border-0 bg-transparent p-0">
               {tabList.map((item) => (
                 <TabSheetTrigger key={item} value={item}>
-                  {tTab(item)}
+                  {t(`tab.${item}`)}
                 </TabSheetTrigger>
               ))}
             </TabsList>
