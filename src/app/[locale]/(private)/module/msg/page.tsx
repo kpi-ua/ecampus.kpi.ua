@@ -9,7 +9,6 @@ import { Card } from '@/components/ui/card';
 import { TabSheetTrigger } from '@/components/ui/tabs';
 import { Tabs, TabsList, TabsContent } from '@radix-ui/react-tabs';
 import Compose from './components/compose';
-import Sent from './components/sent';
 import Inbox from './components/inbox';
 
 const INTL_NAMESPACE = 'private.msg';
@@ -51,7 +50,7 @@ export default async function MessagePage() {
             </TabsList>
             <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
               <TabsContent value={MessageTranslationKeys.Sent}>
-                <Sent mails={sentMails} />
+                <Inbox mails={sentMails} />
               </TabsContent>
               <TabsContent value={MessageTranslationKeys.Inbox}>
                 <Inbox mails={incomingMails} />

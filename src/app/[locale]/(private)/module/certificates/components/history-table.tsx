@@ -58,11 +58,12 @@ export function HistoryTable({ certificates }: Props) {
                 <CertificateStatusBadge certificate={certificate} />
               </TableCell>
               <TableCell className="w-[100px]">
-                {certificate.status === CertificateStatus.Processed || certificate.status === CertificateStatus.Signed && (
-                  <Button variant="secondary" onClick={() => handleDownload(certificate.id)}>
-                    {tTable('download')}
-                  </Button>
-                )}
+                {certificate.status === CertificateStatus.Processed ||
+                  (certificate.status === CertificateStatus.Signed && (
+                    <Button variant="secondary" onClick={() => handleDownload(certificate.id)}>
+                      {tTable('download')}
+                    </Button>
+                  ))}
               </TableCell>
             </TableRow>
           ))}

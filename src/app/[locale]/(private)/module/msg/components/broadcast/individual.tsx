@@ -3,21 +3,22 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
-import { Send } from 'lucide-react';
 import { Subdivision } from '../compose';
-import { Form, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormField, FormItem } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { useState, useEffect } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import MultipleSelector from '@/components/ui/multi-select';
 import { getEmployeeOptions, getGroupOptions, getStudentOptions, sendMail } from '@/actions/msg.acitons';
 import { useToast } from '@/hooks/use-toast';
-
+import { useTranslations } from 'next-intl';
+import { PaperPlaneRight } from '@/app/images';
 
 export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }) {
+  const t = useTranslations('private.msg.compose');
   const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
   const [groupOptions, setGroupOptions] = useState<{ id: number; name: string }[]>([]);
 
@@ -48,8 +49,8 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
       content: data.content,
     });
     toast({
-      title: 'Повідомлення відправлено',
-      description: 'Повідомлення відправлено успішно',
+      title: t('toast.success-title'),
+      description: t('toast.success-description'),
     });
   };
 
@@ -95,11 +96,11 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
           >
             <div className="flex items-center gap-3">
               <RadioGroupItem value="employee" id="r1" />
-              <Label htmlFor="r1">Співробітник</Label>
+              <Label htmlFor="r1">{t('recipient-type.employee')}</Label>
             </div>
             <div className="flex items-center gap-3">
               <RadioGroupItem value="student" id="r2" />
-              <Label htmlFor="r2">Студент</Label>
+              <Label htmlFor="r2">{t('recipient-type.student')}</Label>
             </div>
           </RadioGroup>
         </div>
@@ -108,14 +109,17 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
           name="facultyIds"
           render={({ field }) => (
             <FormItem>
-              <Label>Підрозділ</Label>
-              <MultipleSelector
-                options={facultyOptions.map((faculty) => ({
-                  value: faculty.id.toString(),
-                  label: faculty.name,
-                }))}
-                onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
-              />
+              <FormLabel>{t('form.subdivision')}</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  options={facultyOptions.map((faculty) => ({
+                    value: faculty.id.toString(),
+                    label: faculty.name,
+                  }))}
+                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -125,14 +129,17 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
             name="groupIds"
             render={({ field }) => (
               <FormItem>
-                <Label>Навчальна група</Label>
-                <MultipleSelector
-                  options={groupOptions.map((group) => ({
-                    value: group.id.toString(),
-                    label: group.name,
-                  }))}
-                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
-                />
+                <FormLabel>{t('form.study-group')}</FormLabel>
+                <FormControl>
+                  <MultipleSelector
+                    options={groupOptions.map((group) => ({
+                      value: group.id.toString(),
+                      label: group.name,
+                    }))}
+                    onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                  />
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -143,14 +150,18 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
           name="userIds"
           render={({ field }) => (
             <FormItem>
-              <Label>ПІБ одержувача</Label>
-              <MultipleSelector
-                options={userOptions.map((user) => ({
-                  value: user.id.toString(),
-                  label: user.name,
-                }))}
-                onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
-              />
+              <FormLabel>{t('form.recipient-name')}</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  options={userOptions.map((user) => ({
+                    value: user.id.toString(),
+                    label: user.name,
+                  }))}
+                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                />
+              </FormControl>
+
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -159,10 +170,11 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <Label>
-                Тема повідомлення <span className="text-destructive">*</span>
-              </Label>
-              <Input {...field} placeholder="Тема повідомлення" />
+              <FormLabel>{t('form.subject')}</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder={t('form.subject-placeholder')} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -172,17 +184,26 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
           name="content"
           render={({ field }) => (
             <FormItem>
-              <Label>
-                Текст повідомлення <span className="text-destructive">*</span>
-              </Label>
-              <Textarea {...field} placeholder="Текст повідомлення" maxLength={1000} />
+              <FormLabel>{t('form.content')}</FormLabel>
+              <FormControl>
+                <Textarea {...field} placeholder={t('form.content-placeholder')} maxLength={1000} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
 
         <div className="flex justify-end">
-          <Button type="submit" variant="primary" size="medium" icon={<Send className="h-4 w-4" />}>
-            Відправити
+          <Button
+            type="submit"
+            variant="primary"
+            disabled={!form.formState.isValid}
+            loading={form.formState.isSubmitting}
+            size="medium"
+            iconPosition="end"
+            icon={<PaperPlaneRight className="h-4 w-4 text-white" />}
+          >
+            {t('form.send')}
           </Button>
         </div>
       </form>

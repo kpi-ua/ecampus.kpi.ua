@@ -4,6 +4,7 @@ import { Subdivision } from '@/app/[locale]/(private)/module/msg/components/comp
 import { Message } from '@/app/[locale]/(private)/module/msg/types';
 import { campusFetch } from '@/lib/client';
 import { Group } from '@/types/models/group';
+import { revalidatePath } from 'next/cache';
 import queryString from 'query-string';
 
 export enum MailFilter {
@@ -41,10 +42,30 @@ export const getAllGroups = async () => {
   }
 };
 
-export async function deleteMail(id: number, deleteForRecipient: boolean) {
-  await campusFetch<Message>(`/mail/${id}?deleteForRecipient=${deleteForRecipient}`, {
+export async function deleteMail(mailIds: number[], deleteForRecipient: boolean) {
+  const query = queryString.stringify(
+    { mailIds: mailIds, deleteForRecipient: deleteForRecipient },
+    { arrayFormat: 'none' },
+  );
+
+  await campusFetch<Message>(`/mail?${query}`, {
     method: 'DELETE',
   });
+
+  revalidatePath('/module/msg');
+}
+
+export async function markAsImportant(mailIds: number[], isImportant: boolean) {
+  const response = await campusFetch<Message>(`/mail/important`, {
+    method: 'PATCH',
+    body: JSON.stringify({ mailIds: mailIds, isImportant: isImportant }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  revalidatePath('/module/msg');
 }
 
 export async function getGroupOptions(facultyIds: number[]) {
@@ -58,9 +79,7 @@ export async function getGroupOptions(facultyIds: number[]) {
 
 export async function getStudentOptions(groups: number[]) {
   const query = queryString.stringify({ groups }, { arrayFormat: 'none' });
-  console.log(query);
   const response = await campusFetch<{ id: number; name: string }[]>(`/mail/student-options?${query}`);
-  console.log(response);
   if (!response.ok) {
     return [];
   }

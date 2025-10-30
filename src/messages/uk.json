@@ -553,8 +553,8 @@
         "status": "Статус",
         "purpose": "Призначення",
         "actions": "Дії",
-        "signedSuccess":"Сертифікат підписано успішно",
-        "signedDescription":"Сертифікат підписано успішно"
+        "signedSuccess": "Сертифікат підписано успішно",
+        "signedDescription": "Сертифікат підписано успішно"
       }
     },
     "vedomoststud": {
@@ -570,13 +570,62 @@
       "average-score": "Середній бал за весь період навчання:"
     },
     "msg": {
-      "title": "Message",
-      "subtitle": "You can send a message to the curator of your group.",
+      "title": "Повідомлення",
+      "subtitle": "Ви можете надіслати повідомлення куратору вашої групи.",
       "tab": {
-        "inbox": "Inbox",
-        "sent": "Sent",
-        "important": "Important",
-        "compose": "Compose"
+        "inbox": "Вхідні",
+        "sent": "Вихідні",
+        "important": "Важливі",
+        "compose": "Створити нове"
+      },
+      "inbox": {
+        "selected": "обрано:",
+        "table": {
+          "sender": "Відправник",
+          "recipient": "Отримувач",
+          "message": "Лист",
+          "received": "Отримано",
+          "sent": "Відправлено"
+        },
+        "badge": {
+          "important": "Важливе"
+        },
+        "dialog": {
+          "to": "До:"
+        },
+        "toast": {
+          "success-title-delete": "Повідомлення видалено",
+          "success-description-delete": "Повідомлення успішно видалено",
+          "success-title-mark-as-important": "Повідомлення змінено",
+          "success-description-mark-as-important": "Важливість повідомлення успішно змінена",
+          "error-title-delete": "Помилка видалення повідомлення",
+          "error-description-delete": "Повідомлення не видалено",
+          "error-title-mark-as-important": "Помилка зміни важливості повідомлення",
+          "error-description-mark-as-important": "Важливість повідомлення не змінена"
+        }
+      },
+      "compose": {
+        "title": "Нове повідомлення",
+        "individual": "Індивідуальне",
+        "broadcast": "Масове",
+        "recipient-type": {
+          "employee": "Співробітник",
+          "student": "Студент"
+        },
+        "form": {
+          "subdivision": "Підрозділ",
+          "study-group": "Навчальна група",
+          "recipient-name": "ПІБ одержувача",
+          "subject": "Тема повідомлення",
+          "subject-placeholder": "Тема повідомлення",
+          "content": "Текст повідомлення",
+          "content-placeholder": "Текст повідомлення",
+          "send": "Відправити"
+        },
+        "toast": {
+          "success-title": "Повідомлення відправлено",
+          "success-description": "Повідомлення відправлено успішно"
+        }
       }
     },
     "study-sheet": {

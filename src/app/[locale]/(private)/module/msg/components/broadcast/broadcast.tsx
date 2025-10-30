@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormField, FormItem, FormLabel } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Group } from '@/types/models/group';
@@ -13,6 +13,8 @@ import MultipleSelector from '@/components/ui/multi-select';
 import { getStudentOptions, sendMail } from '@/actions/msg.acitons';
 import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useTranslations } from 'next-intl';
+import { PaperPlaneRight } from '@/app/images';
 
 const formSchema = z.object({
   groupIds: z.array(z.any()),
@@ -21,6 +23,7 @@ const formSchema = z.object({
 });
 
 export function Broadcast({ groupOptions }: { groupOptions: Group[] }) {
+  const t = useTranslations('private.msg.compose');
   const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
 
@@ -43,8 +46,8 @@ export function Broadcast({ groupOptions }: { groupOptions: Group[] }) {
       });
 
       toast({
-        title: 'Повідомлення відправлено',
-        description: 'Повідомлення відправлено успішно',
+        title: t('toast.success-title'),
+        description: t('toast.success-description'),
       });
     } catch (error) {
       errorToast();
@@ -59,14 +62,17 @@ export function Broadcast({ groupOptions }: { groupOptions: Group[] }) {
             name="groupIds"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Навчальна група</FormLabel>
-                <MultipleSelector
-                  options={groupOptions.map((group) => ({
-                    value: group.id.toString(),
-                    label: `${group.name} (${group.faculty})`,
-                  }))}
-                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
-                />
+                <FormLabel>{t('form.study-group')}</FormLabel>
+                <FormControl>
+                  <MultipleSelector
+                    options={groupOptions.map((group) => ({
+                      value: group.id.toString(),
+                      label: `${group.name} (${group.faculty})`,
+                    }))}
+                    onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                  />
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -75,8 +81,11 @@ export function Broadcast({ groupOptions }: { groupOptions: Group[] }) {
             name="subject"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Тема повідомлення</FormLabel>
-                <Input {...field} placeholder="Тема повідомлення" />
+                <FormLabel>{t('form.subject')}</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder={t('form.subject-placeholder')} />
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -85,15 +94,25 @@ export function Broadcast({ groupOptions }: { groupOptions: Group[] }) {
             name="content"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Текст повідомлення</FormLabel>
-                <Textarea {...field} placeholder="Текст повідомлення" />
+                <FormLabel>{t('form.content')}</FormLabel>
+                <FormControl>
+                  <Textarea {...field} placeholder={t('form.content-placeholder')} />
+                </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
-          {/* Submit Button */}
           <div className="flex justify-end">
-            <Button type="submit" variant="primary" size="medium" icon={<Send className="h-4 w-4" />}>
-              Відправити
+            <Button
+              type="submit"
+              variant="primary"
+              size="medium"
+              iconPosition="end"
+              disabled={!form.formState.isValid}
+              loading={form.formState.isSubmitting}
+              icon={<PaperPlaneRight className="h-4 w-4" />}
+            >
+              {t('form.send')}
             </Button>
           </div>
         </div>

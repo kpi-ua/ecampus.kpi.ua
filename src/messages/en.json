@@ -553,8 +553,8 @@
         "status": "status",
         "purpose": "purpose",
         "actions": "actions",
-        "signedSuccess":"Certificate signed successfully",
-        "signedDescription":"The certificate has been signed successfully"
+        "signedSuccess": "Certificate signed successfully",
+        "signedDescription": "The certificate has been signed successfully"
       }
     },
     "vedomoststud": {
@@ -577,6 +577,55 @@
         "sent": "Sent",
         "important": "Important",
         "compose": "Compose"
+      },
+      "inbox": {
+        "selected": "selected:",
+        "table": {
+          "sender": "Sender",
+          "recipient": "Recipient",
+          "message": "Message",
+          "received": "Received",
+          "sent": "Sent"
+        },
+        "badge": {
+          "important": "Important"
+        },
+        "dialog": {
+          "to": "To:"
+        },
+        "toast": {
+          "success-title-delete": "Message deleted",
+          "success-description-delete": "Message deleted successfully",
+          "success-title-mark-as-important": "Message marked as important",
+          "success-description-mark-as-important": "Message marked as important successfully",
+          "error-title-delete": "Error deleting message",
+          "error-description-delete": "Message not deleted",
+          "error-title-mark-as-important": "Error marking message as important",
+          "error-description-mark-as-important": "Message not marked as important"
+        }
+      },
+      "compose": {
+        "title": "New message",
+        "individual": "Individual",
+        "broadcast": "Broadcast",
+        "recipient-type": {
+          "employee": "Employee",
+          "student": "Student"
+        },
+        "form": {
+          "subdivision": "Subdivision",
+          "study-group": "Study group",
+          "recipient-name": "Recipient name",
+          "subject": "Message subject",
+          "subject-placeholder": "Message subject",
+          "content": "Message text",
+          "content-placeholder": "Message text",
+          "send": "Send"
+        },
+        "toast": {
+          "success-title": "Message sent",
+          "success-description": "Message sent successfully"
+        }
       }
     },
     "study-sheet": {
