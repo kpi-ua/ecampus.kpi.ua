@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import React from 'react';
 import { Heading2, Paragraph } from '@/components/typography';
 import { getMails } from '@/actions/msg.acitons';
 import { MessageTranslationKeys } from './constants';
