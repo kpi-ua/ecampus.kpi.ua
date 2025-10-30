@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@radix-ui/react-label';
-import { Subdivision } from '../compose';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,10 +15,16 @@ import { getEmployeeOptions, getGroupOptions, getStudentOptions, sendMail } from
 import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
 import { PaperPlaneRight } from '@/app/images';
+import { Subdivision } from '@/types/models/subdivision';
+
+enum RecipientType {
+  Employee = 'employee',
+  Student = 'student',
+}
 
 export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }) {
   const t = useTranslations('private.msg.compose');
-  const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
+  const [recipientType, setRecipientType] = useState<RecipientType>(RecipientType.Employee);
   const [groupOptions, setGroupOptions] = useState<{ id: number; name: string }[]>([]);
 
   const { toast } = useToast();
@@ -63,7 +68,7 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
       return;
     }
 
-    if (recipientType === 'employee') {
+    if (recipientType === RecipientType.Employee) {
       getEmployeeOptions(selectedFacultyIds).then((employees) => {
         setUserOptions(employees);
       });
@@ -91,15 +96,15 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
         <div className="flex gap-6">
           <RadioGroup
             className="flex"
-            defaultValue="employee"
-            onValueChange={(value) => setRecipientType(value as 'employee' | 'student')}
+            defaultValue={RecipientType.Employee}
+            onValueChange={(value) => setRecipientType(value as RecipientType)}
           >
             <div className="flex items-center gap-3">
-              <RadioGroupItem value="employee" id="r1" />
+              <RadioGroupItem value={RecipientType.Employee} id="r1" />
               <Label htmlFor="r1">{t('recipient-type.employee')}</Label>
             </div>
             <div className="flex items-center gap-3">
-              <RadioGroupItem value="student" id="r2" />
+              <RadioGroupItem value={RecipientType.Student} id="r2" />
               <Label htmlFor="r2">{t('recipient-type.student')}</Label>
             </div>
           </RadioGroup>
@@ -123,7 +128,7 @@ export function Individual({ facultyOptions }: { facultyOptions: Subdivision[] }
             </FormItem>
           )}
         />
-        {recipientType === 'student' && (
+        {recipientType === RecipientType.Student && (
           <FormField
             control={form.control}
             name="groupIds"
