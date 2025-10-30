@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { Table, TableHeader, TableHead, TableRow, TableCell, TableBody } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Input, InputProps } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import EyeRegular from '@/app/images/icons/EyeRegular.svg';

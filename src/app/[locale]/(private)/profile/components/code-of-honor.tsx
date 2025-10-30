@@ -2,7 +2,6 @@ import { Heading6 } from '@/components/typography/headers';
 import { Separator } from '@/components/ui/separator';
 import { Paragraph } from '@/components/typography/paragraph';
 import { User } from '@/types/models/user';
-import React from 'react';
 import { Link } from '@/i18n/routing';
 import { Show } from '@/components/utils/show';
 import RichText from '@/components/typography/rich-text';

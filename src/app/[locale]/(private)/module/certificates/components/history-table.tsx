@@ -10,7 +10,6 @@ import { CertificateStatus } from '@/types/models/certificate/status';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
-import React from 'react';
 import { useTranslations } from 'next-intl';
 import { getCertificatePDF } from '@/actions/certificates.actions';
 import { usePagination } from '@/hooks/use-pagination';

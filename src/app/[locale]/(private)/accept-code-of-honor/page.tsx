@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import React from 'react';
 import { acceptCodeOfHonor } from '@/actions/profile.actions';
 import {
   AlertDialog,

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Description, Heading2, Heading6 } from '@/components/typography';
 import { SubLayout } from '../../../sub-layout';
 import { useTranslations } from 'next-intl';

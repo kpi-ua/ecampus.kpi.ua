@@ -1,4 +1,3 @@
-import React from 'react';
 import { getCertificateList, getCertificateTypes } from '@/actions/certificates.actions';
 import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';

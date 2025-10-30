@@ -2,7 +2,6 @@ import { getTranslations } from 'next-intl/server';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
-import React from 'react';
 import { Card } from '@/components/ui/card';
 import { getAttestationResults } from '@/actions/attestation.actions';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';

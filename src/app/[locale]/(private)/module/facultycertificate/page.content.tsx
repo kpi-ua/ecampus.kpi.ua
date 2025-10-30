@@ -1,6 +1,6 @@
 'use client';
 
-import React, { startTransition, useState } from 'react';
+import { startTransition, useState } from 'react';
 import { DeanCeritificateKey } from './constants';
 import { Card } from '@/components/ui/card';
 import { AllDocsTable } from './components/all-docs-table';

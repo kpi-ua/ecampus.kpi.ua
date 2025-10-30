@@ -3,7 +3,6 @@ import { LocaleProps } from '@/types/locale-props';
 import { getAllFacultyCertificates, getOtherFacultyCertificate } from '@/actions/certificates.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
-import React from 'react';
 import FacultyCertificatePageContent from './page.content';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 

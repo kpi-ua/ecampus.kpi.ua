@@ -1,5 +1,4 @@
 import { TableHead } from '@/components/ui/table';
-import React from 'react';
 import { getTranslations } from 'next-intl/server';
 import { HeaderLabel } from '@/app/[locale]/(private)/module/attestationresults/components/header-label';
 

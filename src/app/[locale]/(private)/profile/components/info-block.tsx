@@ -5,7 +5,6 @@ import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { User } from '@/types/models/user';
 import { USER_CATEGORIES } from '@/lib/constants/user-category';
-import React from 'react';
 import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
 import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
 import { ProfilePicture } from '@/components/ui/profile-picture';

@@ -1,5 +1,4 @@
 import { ProfilePicture } from '@/components/ui/profile-picture';
-import React from 'react';
 
 interface Props {
   photo: string;

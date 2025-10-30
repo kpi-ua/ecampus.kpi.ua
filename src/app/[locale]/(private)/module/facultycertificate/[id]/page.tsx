@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getTranslations } from 'next-intl/server';
 import { getCertificate } from '@/actions/certificates.actions';

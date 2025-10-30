@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import React from 'react';
 
 import { getTerm } from '@/actions/term.actions';
 import { LocaleProps } from '@/types/locale-props';

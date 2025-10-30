@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTranslations } from 'next-intl';

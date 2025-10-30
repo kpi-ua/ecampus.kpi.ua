@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { debounce } from 'radash';
 import { Input } from '@/components/ui/input';
@@ -15,6 +15,7 @@ import { Show } from '@/components/utils/show';
 import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
 import { Announcement } from '@/types/models/announcement';
 import { PAGE_SIZE_SMALL } from '@/lib/constants/page-size';
+import React from 'react';
 
 interface NoticeListProps {
   announcements: Announcement[];
