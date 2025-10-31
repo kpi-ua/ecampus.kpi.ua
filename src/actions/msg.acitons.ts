@@ -11,7 +11,7 @@ import queryString from 'query-string';
 export async function getMails(filter: MailFilter = MailFilter.INCOMING) {
   const response = await campusFetch<Message[]>(`/mail?filter=${filter}`);
   if (!response.ok) {
-    throw new Error(`${response.status} Error`);
+    return [];
   }
   return response.json();
 }
