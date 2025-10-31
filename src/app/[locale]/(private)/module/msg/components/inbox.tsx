@@ -12,6 +12,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { Message } from '../types';
+import { formatDate, formatTime } from './utils';
+import { Paragraph } from '@/components/typography';
 
 interface Props {
   mails: Message[];
@@ -29,16 +31,6 @@ export default function Inbox({ mails }: Props) {
 
   const handleSelectRow = (id: number) => {
     setSelectedRows((prev) => (prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]));
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
-  };
-
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
   };
 
   const handleDeleteSelected = async () => {
@@ -168,18 +160,18 @@ export default function Inbox({ mails }: Props) {
               <div className="space-y-4 pt-2">
                 <div className="flex items-center justify-between text-sm">
                   <div>
-                    <p className="text-lg font-semibold">{selectedMail.sender.name}</p>
+                    <Paragraph className="text-lg font-semibold">{selectedMail.sender.name}</Paragraph>
                   </div>
                   <div className="text-muted-foreground text-right">
-                    <p>
+                    <Paragraph>
                       {formatDate(selectedMail.createdAt)} {formatTime(selectedMail.createdAt)}
-                    </p>
+                    </Paragraph>
                   </div>
                 </div>
                 <div className="text-muted-foreground text-sm">
-                  <p>
+                  <Paragraph>
                     <span className="font-medium">{t('dialog.to')}</span> {selectedMail.recipient.name}
-                  </p>
+                  </Paragraph>
                 </div>
                 <div
                   className="pt-2 text-base leading-relaxed"
