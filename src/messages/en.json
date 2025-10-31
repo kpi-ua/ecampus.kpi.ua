@@ -580,6 +580,7 @@
       },
       "inbox": {
         "selected": "selected:",
+        "refresh": "Refresh",
         "table": {
           "sender": "Sender",
           "recipient": "Recipient",
@@ -598,10 +599,14 @@
           "success-description-delete": "Message deleted successfully",
           "success-title-mark-as-important": "Message marked as important",
           "success-description-mark-as-important": "Message marked as important successfully",
+          "success-title-refresh": "Data refreshed",
+          "success-description-refresh": "Data refreshed successfully",
           "error-title-delete": "Error deleting message",
           "error-description-delete": "Message not deleted",
           "error-title-mark-as-important": "Error marking message as important",
-          "error-description-mark-as-important": "Message not marked as important"
+          "error-description-mark-as-important": "Message not marked as important",
+          "error-title-refresh": "Error refreshing data",
+          "error-description-refresh": "Failed to refresh data"
         }
       },
       "compose": {

@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Trash2 } from 'lucide-react';
+import { Trash2, RefreshCw } from 'lucide-react';
 import { Star } from '@/app/images';
 import { deleteMail, markAsImportant } from '@/actions/msg.acitons';
 import { useToast } from '@/hooks/use-toast';
@@ -20,7 +21,9 @@ export default function Inbox({ mails }: Props) {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [selectedMail, setSelectedMail] = useState<Message | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
+  const router = useRouter();
   const { toast } = useToast();
   const t = useTranslations('private.msg.inbox');
 
@@ -74,22 +77,49 @@ export default function Inbox({ mails }: Props) {
     setIsDialogOpen(true);
   };
 
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      router.refresh();
+      toast({
+        title: t('toast.success-title-refresh'),
+        description: t('toast.success-description-refresh'),
+      });
+    } catch (error) {
+      toast({
+        title: t('toast.error-title-refresh'),
+        description: t('toast.error-description-refresh'),
+      });
+    } finally {
+      setTimeout(() => setIsRefreshing(false), 500);
+    }
+  };
+
   return (
     <div className="w-full">
-      <div className="mb-4 flex items-center gap-3">
-        {selectedRows.length > 0 && (
-          <>
-            <span className="text-muted-foreground text-sm">
-              {selectedRows.length} {t('selected')}
-            </span>
-            <div onClick={handleDeleteSelected} className="flex cursor-pointer items-center justify-center">
-              <Trash2 className="h-6 w-6 text-neutral-500" />
-            </div>
-            <div onClick={handleMarkAsImportant} className="flex cursor-pointer items-center justify-center">
-              <Star className="h-6 w-6 text-neutral-500" />
-            </div>
-          </>
-        )}
+      <div className="mb-4 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          {selectedRows.length > 0 && (
+            <>
+              <span className="text-muted-foreground text-sm">
+                {selectedRows.length} {t('selected')}
+              </span>
+              <div onClick={handleDeleteSelected} className="flex cursor-pointer items-center justify-center">
+                <Trash2 className="h-6 w-6 text-neutral-500" />
+              </div>
+              <div onClick={handleMarkAsImportant} className="flex cursor-pointer items-center justify-center">
+                <Star className="h-6 w-6 text-neutral-500" />
+              </div>
+            </>
+          )}
+        </div>
+        <div
+          onClick={handleRefresh}
+          className="flex cursor-pointer items-center justify-center"
+          title={t('refresh')}
+        >
+          <RefreshCw className={`h-5 w-5 text-neutral-500 ${isRefreshing ? 'animate-spin' : ''}`} />
+        </div>
       </div>
       <Table>
         <TableRow>
