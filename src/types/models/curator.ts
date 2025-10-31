@@ -1,7 +1,4 @@
-interface Subdivision {
-  id: number;
-  name?: string;
-}
+import { Subdivision } from './subdivision';
 
 interface Contact {
   name?: string;

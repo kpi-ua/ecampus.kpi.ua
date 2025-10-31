@@ -154,6 +154,9 @@ import Roll from './Roll.svg';
 import FlagGB from './FlagGB.svg';
 import FlagUA from './FlagUA.svg';
 
+import PaperPlaneRight from './icons/PaperPlaneRight.svg';
+import Star from './icons/Star.svg';
+
 export {
   ArrowsDownUpBold,
   ArrowsDownUpLight,
@@ -221,6 +224,8 @@ export {
   FinnTheHumanRegular,
   FlagGB,
   FlagUA,
+  PaperPlaneRight,
+  Star,
   Gear,
   GearBold,
   GearLight,
