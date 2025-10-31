@@ -7,7 +7,6 @@ import { MessageTranslationKeys } from './constants';
 import { Card } from '@/components/ui/card';
 import { TabSheetTrigger } from '@/components/ui/tabs';
 import { Tabs, TabsList, TabsContent } from '@radix-ui/react-tabs';
-import Compose from './components/compose';
 import Inbox from './components/inbox';
 import { MailFilter } from '@/types/enums/mail-filter';
 
@@ -55,9 +54,6 @@ export default async function MessagePage() {
               </TabsContent>
               <TabsContent value={MessageTranslationKeys.Important}>
                 <Inbox mails={importantMails} />
-              </TabsContent>
-              <TabsContent value={MessageTranslationKeys.Compose}>
-                <Compose />
               </TabsContent>
             </Card>
           </Tabs>
