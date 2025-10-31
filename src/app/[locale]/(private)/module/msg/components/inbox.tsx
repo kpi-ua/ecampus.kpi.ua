@@ -4,8 +4,16 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Trash2, RefreshCw } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Trash2 } from 'lucide-react';
 import { ArrowClockwise, Star } from '@/app/images';
 import { deleteMail, markAsImportant } from '@/actions/msg.acitons';
 import { useToast } from '@/hooks/use-toast';
@@ -23,6 +31,7 @@ export default function Inbox({ mails }: Props) {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [selectedMail, setSelectedMail] = useState<Message | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const router = useRouter();
@@ -33,9 +42,15 @@ export default function Inbox({ mails }: Props) {
     setSelectedRows((prev) => (prev.includes(id) ? prev.filter((rowId) => rowId !== id) : [...prev, id]));
   };
 
-  const handleDeleteSelected = async () => {
+  const handleDeleteClick = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
     try {
       await deleteMail(selectedRows, true);
+      setIsDeleteDialogOpen(false);
+      setSelectedRows([]);
       toast({
         title: t('toast.success-title-delete'),
         description: t('toast.success-description-delete'),
@@ -96,7 +111,7 @@ export default function Inbox({ mails }: Props) {
               <span className="text-muted-foreground text-sm">
                 {selectedRows.length} {t('selected')}
               </span>
-              <div onClick={handleDeleteSelected} className="flex cursor-pointer items-center justify-center">
+              <div onClick={handleDeleteClick} className="flex cursor-pointer items-center justify-center">
                 <Trash2 className="h-6 w-6 text-neutral-500" />
               </div>
               <div onClick={handleMarkAsImportant} className="flex cursor-pointer items-center justify-center">
@@ -180,6 +195,25 @@ export default function Inbox({ mails }: Props) {
               </div>
             </>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t('delete-dialog.title')}</DialogTitle>
+            <DialogDescription>
+              {t('delete-dialog.description', { count: selectedRows.length })}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex gap-2">
+            <Button variant="secondary" className="w-full" onClick={() => setIsDeleteDialogOpen(false)}>
+              {t('delete-dialog.cancel')}
+            </Button>
+            <Button variant="primary" className="w-full" onClick={handleConfirmDelete}>
+              {t('delete-dialog.confirm')}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

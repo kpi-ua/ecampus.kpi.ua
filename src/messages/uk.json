@@ -594,6 +594,12 @@
         "dialog": {
           "to": "До:"
         },
+        "delete-dialog": {
+          "title": "Видалення",
+          "description": "Ви дійсно бажаєте видалити {count, plural, one {# лист} few {# листа} many {# листів} other {# листа}}?",
+          "cancel": "Відміна",
+          "confirm": "Видалити"
+        },
         "toast": {
           "success-title-delete": "Повідомлення видалено",
           "success-description-delete": "Повідомлення успішно видалено",
