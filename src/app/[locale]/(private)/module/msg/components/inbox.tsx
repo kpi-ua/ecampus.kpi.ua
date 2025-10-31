@@ -6,7 +6,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Trash2, RefreshCw } from 'lucide-react';
-import { Star } from '@/app/images';
+import { ArrowClockwise, Star } from '@/app/images';
 import { deleteMail, markAsImportant } from '@/actions/msg.acitons';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
@@ -110,7 +110,7 @@ export default function Inbox({ mails }: Props) {
           className="flex cursor-pointer items-center justify-center"
           title={t('refresh')}
         >
-          <RefreshCw className={`h-5 w-5 text-neutral-500 ${isRefreshing ? 'animate-spin' : ''}`} />
+          <ArrowClockwise className={`h-5 w-5 text-neutral-500 ${isRefreshing ? 'animate-spin' : ''}`} />
         </div>
       </div>
       <Table>
@@ -123,9 +123,9 @@ export default function Inbox({ mails }: Props) {
               }}
             />
           </TableCell>
-          <TableCell>{t('table.sender')}</TableCell>
-          <TableCell>{t('table.message')}</TableCell>
-          <TableCell>{t('table.received')}</TableCell>
+          <TableCell className="font-semibold">{t('table.sender')}</TableCell>
+          <TableCell className="font-semibold">{t('table.message')}</TableCell>
+          <TableCell className="font-semibold">{t('table.received')}</TableCell>
         </TableRow>
         <TableBody>
           {mails.map((mail) => (

@@ -37,6 +37,7 @@ import CopyBold from './icons/CopyBold.svg';
 import CopyLight from './icons/CopyLight.svg';
 import CopyRegular from './icons/CopyRegular.svg';
 import CopySimple from './icons/CopySimple.svg';
+import ArrowClockwise from './icons/ArrowClockwise.svg';
 import DotsThreeBold from './icons/DotsThreeBold.svg';
 import DotsThreeDownBold from './icons/DotsThreeDownBold.svg';
 import DotsThreeDownLight from './icons/DotsThreeDownLight.svg';
@@ -200,6 +201,7 @@ export {
   CopyLight,
   CopyRegular,
   CopySimple,
+  ArrowClockwise,
   DotsThreeBold,
   DotsThreeDownBold,
   DotsThreeDownLight,

@@ -24,9 +24,11 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function MessagePage() {
   const t = await getTranslations(INTL_NAMESPACE);
-  const incomingMails = await getMails(MailFilter.INCOMING);
-  const sentMails = await getMails(MailFilter.OUTGOING);
-  const importantMails = await getMails(MailFilter.IMPORTANT);
+  const [incomingMails, sentMails, importantMails] = await Promise.all([
+    getMails(MailFilter.INCOMING),
+    getMails(MailFilter.OUTGOING),
+    getMails(MailFilter.IMPORTANT),
+  ]);
 
   const tabList = Object.values(MessageTranslationKeys);
   return (
