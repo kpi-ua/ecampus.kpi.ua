@@ -33,7 +33,7 @@ export default function ActionButtons({ certificate }: Props) {
       errorToast();
     }
   };
-  
+
   const handlePrintClick = async () => {
     try {
       await printCertificate(certificate.id);
@@ -42,7 +42,7 @@ export default function ActionButtons({ certificate }: Props) {
     }
   };
 
-  const { shouldDisableRejectButton, shouldDisableSignButton,shouldDisablePrintButton, shouldDisableApproveButton } =
+  const { shouldDisableRejectButton, shouldDisableSignButton, shouldDisablePrintButton, shouldDisableApproveButton } =
     buttonDisableController(certificate);
 
   return (
@@ -56,10 +56,13 @@ export default function ActionButtons({ certificate }: Props) {
       >
         {t('button.print')}
       </Button>
-      <Button variant="secondary"
+      <Button
+        variant="secondary"
         className="mt-6 w-full md:w-[145px]"
-      
-      size="small" disabled={shouldDisableSignButton} onClick={() => handleSignClick(certificate.id)}>
+        size="small"
+        disabled={shouldDisableSignButton}
+        onClick={() => handleSignClick(certificate.id)}
+      >
         <PencilRegular />
         {t('button.signed')}
       </Button>

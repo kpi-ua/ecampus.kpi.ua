@@ -132,12 +132,11 @@ export async function getOtherFacultyCertificate() {
   return { rejectedCertificates, approvedCertificates, createdCertificates };
 }
 
-
 export async function signCertificate(id: number) {
   const response = await campusFetch(`/certificates/${id}/signed`, {
     method: 'PUT',
   });
-  
+
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
