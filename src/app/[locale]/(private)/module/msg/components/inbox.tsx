@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { ArrowClockwise, Star } from '@/app/images';
-import { deleteMail, markAsImportant } from '@/actions/msg.acitons';
+import { deleteMail, getMail, markAsImportant } from '@/actions/msg.acitons';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
@@ -79,8 +79,9 @@ export default function Inbox({ mails }: Props) {
     }
   };
 
-  const handleRowClick = (mail: Message) => {
-    setSelectedMail(mail);
+  const handleRowClick = async (mail: Message) => {
+    const mailData = await getMail(mail.id);
+    setSelectedMail(mailData);
     setIsDialogOpen(true);
   };
 

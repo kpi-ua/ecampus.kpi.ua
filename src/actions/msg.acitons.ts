@@ -16,6 +16,14 @@ export async function getMails(filter: MailFilter = MailFilter.INCOMING) {
   return response.json();
 }
 
+export async function getMail(mailId: number) {
+  const response = await campusFetch<Message>(`/mail/${mailId}`);
+  if (!response.ok) {
+    return null;
+  }
+  return response.json();
+}
+
 export async function getFacultyOptions() {
   const response = await campusFetch<Subdivision[]>('/mail/faculty-options');
   if (!response.ok) {
