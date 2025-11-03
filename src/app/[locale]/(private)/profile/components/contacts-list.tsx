@@ -1,6 +1,5 @@
 import { Paragraph } from '@/components/typography';
 import { EditableField } from '@/app/[locale]/(private)/profile/components/editable-field';
-import React from 'react';
 import { Contact } from '@/types/models/contact';
 
 const PROHIBITED_CONTACT_TYPES = ['orcid id', 'research id', 'scopus id', 'google scholar', 'research gate'] as const;

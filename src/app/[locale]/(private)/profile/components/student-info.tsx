@@ -1,4 +1,3 @@
-import React from 'react';
 import { StudentProfile } from '@/types/models/student-profile';
 import { InfoItem, InfoList } from './info-list';
 import { dash } from 'radash';

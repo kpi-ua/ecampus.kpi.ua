@@ -2,7 +2,6 @@
 import { Button } from '@/components/ui/button';
 import { Check, PencilRegular, Printer, X } from '@/app/images';
 import { printCertificate } from '@/app/[locale]/(private)/module/facultycertificate/utils/print-certificate';
-import React from 'react';
 import { signCertificate, updateCertificate, UpdateCertificateBody } from '@/actions/certificates.actions';
 import { Certificate } from '@/types/models/certificate/certificate';
 import { useTranslations } from 'next-intl';
@@ -33,7 +32,7 @@ export default function ActionButtons({ certificate }: Props) {
       errorToast();
     }
   };
-  
+
   const handlePrintClick = async () => {
     try {
       await printCertificate(certificate.id);
@@ -58,7 +57,7 @@ export default function ActionButtons({ certificate }: Props) {
       </Button>
       <Button variant="secondary"
         className="mt-6 w-full md:w-[145px]"
-      
+
       size="small" disabled={shouldDisableSignButton} onClick={() => handleSignClick(certificate.id)}>
         <PencilRegular />
         {t('button.signed')}
