@@ -53,7 +53,7 @@
     "react-hook-form": "^7.53.1",
     "react19-google-recaptcha-v3": "^1.0.0",
     "server-only": "^0.0.1",
-    "tailwind-merge": "^2.5.2",
+    "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "^2.0.3",
     "url-pattern": "^1.0.3",
