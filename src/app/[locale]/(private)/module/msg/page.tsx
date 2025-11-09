@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: LocaleProps) {
 export default async function MessagePage() {
   const t = await getTranslations(INTL_NAMESPACE);
   const [incomingMails, sentMails, importantMails] = await Promise.all([
-    getMails(MailFilter.INCOMING),
-    getMails(MailFilter.OUTGOING),
-    getMails(MailFilter.IMPORTANT),
+    getMails(MailFilter.Incoming),
+    getMails(MailFilter.Outgoing),
+    getMails(MailFilter.Important),
   ]);
 
   const tabList = Object.values(MessageTranslationKeys);
@@ -49,13 +49,13 @@ export default async function MessagePage() {
             </TabsList>
             <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
               <TabsContent value={MessageTranslationKeys.Sent}>
-                <Inbox mails={sentMails} />
+                <Inbox mails={sentMails} filter={MailFilter.Outgoing} />
               </TabsContent>
               <TabsContent value={MessageTranslationKeys.Inbox}>
-                <Inbox mails={incomingMails} />
+                <Inbox mails={incomingMails} filter={MailFilter.Incoming} />
               </TabsContent>
               <TabsContent value={MessageTranslationKeys.Important}>
-                <Inbox mails={importantMails} />
+                <Inbox mails={importantMails} filter={MailFilter.Important} />
               </TabsContent>
             </Card>
           </Tabs>

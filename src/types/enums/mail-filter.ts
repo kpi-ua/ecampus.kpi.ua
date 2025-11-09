@@ -1,5 +1,5 @@
 export enum MailFilter {
-  INCOMING = 'Incoming',
-  OUTGOING = 'Outgoing',
-  IMPORTANT = 'Important',
+  Incoming = 'Incoming',
+  Outgoing = 'Outgoing',
+  Important = 'Important',
 }

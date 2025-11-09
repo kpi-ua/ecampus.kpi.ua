@@ -1,6 +1,6 @@
 'use server';
 
-import { Message } from '@/app/[locale]/(private)/module/msg/types';
+import { Message } from '@/types/models/message';
 import { campusFetch } from '@/lib/client';
 import { MailFilter } from '@/types/enums/mail-filter';
 import { Group } from '@/types/models/group';
@@ -8,7 +8,7 @@ import { Subdivision } from '@/types/models/subdivision';
 import { revalidatePath } from 'next/cache';
 import queryString from 'query-string';
 
-export async function getMails(filter: MailFilter = MailFilter.INCOMING) {
+export async function getMails(filter: MailFilter = MailFilter.Incoming) {
   const response = await campusFetch<Message[]>(`/mail?filter=${filter}`);
   if (!response.ok) {
     return [];

@@ -1,13 +1,9 @@
+import { EntityIdName } from '@/types/models/entity-id-name';
+
 export interface Message {
   id: number;
-  sender: {
-    id: number;
-    name: string;
-  };
-  recipient: {
-    id: number;
-    name: string;
-  };
+  sender: EntityIdName;
+  recipient: EntityIdName;
   subject: string;
   content: string;
   isImportant: boolean;
