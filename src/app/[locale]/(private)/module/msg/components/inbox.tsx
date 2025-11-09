@@ -68,7 +68,9 @@ export default function Inbox({ mails, filter }: Props) {
 
   const handleMarkAsImportant = async () => {
     try {
-      const isImportant = state.selectedRows.some((id) => !state.mails.find((message) => message.id === id)?.isImportant);
+      const isImportant = state.selectedRows.some(
+        (id) => !state.mails.find((message) => message.id === id)?.isImportant,
+      );
       await markAsImportant(state.selectedRows, isImportant);
       toast({
         title: t('toast.success-title-mark-as-important'),
@@ -110,7 +112,7 @@ export default function Inbox({ mails, filter }: Props) {
   return (
     <div className="w-full">
       <div className="mb-4 flex items-center justify-between gap-3">
-        <div className="flex items-center h-6 gap-3">
+        <div className="flex h-6 items-center gap-3">
           {state.selectedRows.length > 0 && (
             <>
               <span className="text-muted-foreground text-sm">
