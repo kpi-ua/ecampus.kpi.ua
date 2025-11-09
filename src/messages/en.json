@@ -605,8 +605,6 @@
           "success-description-delete": "Message deleted successfully",
           "success-title-mark-as-important": "Message marked as important",
           "success-description-mark-as-important": "Message marked as important successfully",
-          "success-title-refresh": "Data refreshed",
-          "success-description-refresh": "Data refreshed successfully",
           "error-title-delete": "Error deleting message",
           "error-description-delete": "Message not deleted",
           "error-title-mark-as-important": "Error marking message as important",

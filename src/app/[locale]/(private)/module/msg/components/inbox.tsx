@@ -92,10 +92,6 @@ export default function Inbox({ mails, filter }: Props) {
     try {
       const newMails = await getMails(filter);
       dispatch({ type: 'setMails', mails: newMails });
-      toast({
-        title: t('toast.success-title-refresh'),
-        description: t('toast.success-description-refresh'),
-      });
     } catch (error) {
       toast({
         title: t('toast.error-title-refresh'),

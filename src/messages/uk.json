@@ -605,8 +605,6 @@
           "success-description-delete": "Повідомлення успішно видалено",
           "success-title-mark-as-important": "Повідомлення змінено",
           "success-description-mark-as-important": "Важливість повідомлення успішно змінена",
-          "success-title-refresh": "Дані оновлено",
-          "success-description-refresh": "Дані успішно оновлено",
           "error-title-delete": "Помилка видалення повідомлення",
           "error-description-delete": "Повідомлення не видалено",
           "error-title-mark-as-important": "Помилка зміни важливості повідомлення",
