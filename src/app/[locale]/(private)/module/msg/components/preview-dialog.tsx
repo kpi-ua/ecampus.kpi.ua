@@ -7,16 +7,16 @@ import { Message } from '@/types/models/message';
 import { useTranslations } from 'next-intl';
 
 interface Props {
-  isDialogOpen: boolean;
+  isOpen: boolean;
   dispatch: Dispatch<Action>;
   selectedMail: Message | null;
 }
 
-export function MailDialog({ isDialogOpen, dispatch, selectedMail }: Props) {
+export function PreviewDialog({ isOpen, dispatch, selectedMail }: Props) {
   const t = useTranslations('private.msg.inbox');
 
   return (
-    <Dialog open={isDialogOpen} onOpenChange={(open) => dispatch({ type: 'setIsDialogOpen', isDialogOpen: open })}>
+    <Dialog open={isOpen} onOpenChange={(open) => dispatch({ type: 'setOpenedDialog', openedDialog: open ? 'preview' : null })}>
       <DialogContent className="max-w-3xl">
         {selectedMail && (
           <>

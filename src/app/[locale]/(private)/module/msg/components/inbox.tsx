@@ -13,7 +13,7 @@ import { Message } from '@/types/models/message';
 import { formatDate } from '@/lib/utils';
 import { Action, State } from './types';
 import { DeleteDialog } from './delete-dialog';
-import { MailDialog } from './mail-dialog';
+import { PreviewDialog } from './preview-dialog';
 import { MailFilter } from '@/types/enums/mail-filter';
 
 interface Props {
@@ -23,10 +23,8 @@ interface Props {
 
 function reducer(state: State, action: Action) {
   switch (action.type) {
-    case 'setIsDialogOpen':
-      return { ...state, isDialogOpen: action.isDialogOpen };
-    case 'setIsDeleteDialogOpen':
-      return { ...state, isDeleteDialogOpen: action.isDeleteDialogOpen };
+    case 'setOpenedDialog':
+      return { ...state, openedDialog: action.openedDialog };
     case 'setSelectedRows':
       return { ...state, selectedRows: action.selectedRows };
     case 'setSelectedMail':
@@ -45,8 +43,7 @@ export default function Inbox({ mails, filter }: Props) {
     mails,
     selectedRows: [],
     selectedMail: null,
-    isDialogOpen: false,
-    isDeleteDialogOpen: false,
+    openedDialog: null,
     isRefreshing: false,
   });
 
@@ -63,7 +60,7 @@ export default function Inbox({ mails, filter }: Props) {
   };
 
   const handleDeleteClick = () => {
-    dispatch({ type: 'setIsDeleteDialogOpen', isDeleteDialogOpen: true });
+    dispatch({ type: 'setOpenedDialog', openedDialog: 'delete' });
   };
 
   const handleMarkAsImportant = async () => {
@@ -87,7 +84,7 @@ export default function Inbox({ mails, filter }: Props) {
   const handleRowClick = async (mail: Message) => {
     const mailData = await getMail(mail.id);
     dispatch({ type: 'setSelectedMail', selectedMail: mailData });
-    dispatch({ type: 'setIsDialogOpen', isDialogOpen: true });
+    dispatch({ type: 'setOpenedDialog', openedDialog: 'preview' });
   };
 
   const handleRefresh = async () => {
@@ -174,11 +171,15 @@ export default function Inbox({ mails, filter }: Props) {
         </TableBody>
       </Table>
 
-      <MailDialog isDialogOpen={state.isDialogOpen} dispatch={dispatch} selectedMail={state.selectedMail} />
+      <PreviewDialog
+        isOpen={state.openedDialog === 'preview'}
+        dispatch={dispatch}
+        selectedMail={state.selectedMail}
+      />
 
       <DeleteDialog
         selectedRows={state.selectedRows}
-        isDeleteDialogOpen={state.isDeleteDialogOpen}
+        isOpen={state.openedDialog === 'delete'}
         dispatch={dispatch}
       />
     </div>

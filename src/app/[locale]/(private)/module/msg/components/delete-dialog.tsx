@@ -16,18 +16,18 @@ import { Dispatch } from 'react';
 
 interface Props {
   selectedRows: number[];
-  isDeleteDialogOpen: boolean;
+  isOpen: boolean;
   dispatch: Dispatch<Action>;
 }
 
-export function DeleteDialog({ selectedRows, isDeleteDialogOpen, dispatch }: Props) {
+export function DeleteDialog({ selectedRows, isOpen, dispatch }: Props) {
   const { toast } = useToast();
   const t = useTranslations('private.msg.inbox');
 
   const handleConfirmDelete = async () => {
     try {
       await deleteMail(selectedRows, true);
-      dispatch({ type: 'setIsDeleteDialogOpen', isDeleteDialogOpen: false });
+      dispatch({ type: 'setOpenedDialog', openedDialog: null });
       dispatch({ type: 'setSelectedRows', selectedRows: [] });
       toast({
         title: t('toast.success-title-delete'),
@@ -43,8 +43,8 @@ export function DeleteDialog({ selectedRows, isDeleteDialogOpen, dispatch }: Pro
 
   return (
     <Dialog
-      open={isDeleteDialogOpen}
-      onOpenChange={(open) => dispatch({ type: 'setIsDeleteDialogOpen', isDeleteDialogOpen: open })}
+      open={isOpen}
+      onOpenChange={(open) => dispatch({ type: 'setOpenedDialog', openedDialog: open ? 'delete' : null })}
     >
       <DialogContent>
         <DialogHeader>
@@ -55,7 +55,7 @@ export function DeleteDialog({ selectedRows, isDeleteDialogOpen, dispatch }: Pro
           <Button
             variant="secondary"
             className="w-full"
-            onClick={() => dispatch({ type: 'setIsDeleteDialogOpen', isDeleteDialogOpen: false })}
+            onClick={() => dispatch({ type: 'setOpenedDialog', openedDialog: null })}
           >
             {t('delete-dialog.cancel')}
           </Button>
