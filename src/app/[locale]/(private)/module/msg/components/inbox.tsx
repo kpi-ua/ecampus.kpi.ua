@@ -40,7 +40,7 @@ function reducer(state: State, action: Action) {
   }
 }
 
-export default function Inbox({ mails, filter }': Props) {
+export default function Inbox({ mails, filter }: Props) {
   const [state, dispatch] = useReducer(reducer, {
     mails,
     selectedRows: [],
