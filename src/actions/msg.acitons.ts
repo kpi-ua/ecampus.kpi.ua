@@ -11,7 +11,7 @@ import queryString from 'query-string';
 export async function getMails(filter: MailFilter = MailFilter.Incoming) {
   const response = await campusFetch<Message[]>(`/mail?filter=${filter}`);
   if (!response.ok) {
-    return [];
+    throw new Error(`${response.status} Error`);
   }
   return response.json();
 }
@@ -19,7 +19,7 @@ export async function getMails(filter: MailFilter = MailFilter.Incoming) {
 export async function getMail(mailId: number) {
   const response = await campusFetch<Message>(`/mail/${mailId}`);
   if (!response.ok) {
-    return null;
+    throw new Error(`${response.status} Error`);
   }
   return response.json();
 }
@@ -36,7 +36,7 @@ export const getAllGroups = async () => {
   try {
     const response = await campusFetch<Group[]>('group/all');
     if (!response.ok) {
-      return [];
+      throw new Error(`${response.status} Error`);
     }
     return response.json();
   } catch (error) {
@@ -51,9 +51,13 @@ export async function deleteMail(mailIds: number[], deleteForRecipient: boolean)
     { arrayFormat: 'none' },
   );
 
-  await campusFetch<Message>(`/mail?${query}`, {
+  const response = await campusFetch<Message>(`/mail?${query}`, {
     method: 'DELETE',
   });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
 
   revalidatePath('/module/msg');
 }
@@ -74,18 +78,19 @@ export async function markAsImportant(mailIds: number[], isImportant: boolean) {
 export async function getGroupOptions(facultyIds: number[]) {
   const query = queryString.stringify({ faculties: facultyIds }, { arrayFormat: 'none' });
   const response = await campusFetch<Group[]>(`/mail/group-options?${query}`);
-  if (response.status < 200 || response.status >= 300) {
-    return [];
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
   }
+
   return response.json();
 }
 
 export async function getStudentOptions(groups: number[]) {
   const query = queryString.stringify({ groups }, { arrayFormat: 'none' });
   const response = await campusFetch<{ id: number; name: string }[]>(`/mail/student-options?${query}`);
-  if (!response.ok) {
-    return [];
-  }
+    if (!response.ok) {
+      throw new Error(`${response.status} Error`);
+    }
   return response.json();
 }
 
@@ -93,7 +98,7 @@ export async function getEmployeeOptions(faculties: number[]) {
   const query = queryString.stringify({ faculties }, { arrayFormat: 'none' });
   const response = await campusFetch<{ id: number; name: string }[]>(`/mail/employee-options?${query}`);
   if (!response.ok) {
-    return [];
+    throw new Error(`${response.status} Error`);
   }
   return response.json();
 }
