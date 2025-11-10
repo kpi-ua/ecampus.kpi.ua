@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { Heading2, Paragraph } from '@/components/typography';
-import { getMails } from '@/actions/msg.acitons';
+import { Description, Heading2 } from '@/components/typography';
+import { getMails } from '@/actions/msg.actions';
 import { MessageTranslationKeys } from './constants';
 import { Card } from '@/components/ui/card';
 import { TabSheetTrigger } from '@/components/ui/tabs';
@@ -35,9 +35,9 @@ export default async function MessagePage() {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-7">
         <Heading2>{t('title')}</Heading2>
-        <Paragraph className="leading-sm mt-3 mb-7 max-w-full text-sm font-normal text-neutral-700 sm:max-w-2xl">
+        <Description>
           {t('subtitle')}
-        </Paragraph>
+        </Description>
         <div className="mt-8 flex flex-col">
           <Tabs defaultValue={MessageTranslationKeys.Inbox}>
             <TabsList className="rounded-none border-0 bg-transparent p-0">

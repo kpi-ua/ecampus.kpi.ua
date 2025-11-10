@@ -5,7 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Trash2 } from 'lucide-react';
 import { ArrowClockwise, Star } from '@/app/images';
-import { getMail, getMails, markAsImportant } from '@/actions/msg.acitons';
+import { getMail, getMails, markAsImportant } from '@/actions/msg.actions';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
@@ -143,7 +143,7 @@ export default function Inbox({ mails, filter }: Props) {
         </TableHeader>
         <TableBody>
           {state.mails.map((mail) => (
-            <TableRow key={mail.id} className="cursor-pointer">
+            <TableRow key={mail.id} className="cursor-pointer h-[65px]">
               <TableCell onClick={(e) => e.stopPropagation()}>
                 <Checkbox
                   checked={state.selectedRows.includes(mail.id)}

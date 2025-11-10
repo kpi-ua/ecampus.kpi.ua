@@ -1,4 +1,4 @@
-import { deleteMail } from '@/actions/msg.acitons';
+import { deleteMail } from '@/actions/msg.actions';
 import { Button } from '@/components/ui/button';
 
 import {
