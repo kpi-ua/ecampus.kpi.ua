@@ -29,6 +29,7 @@
       "contacts": "Контакти",
       "msg": "Повідомлення",
       "kurator": "Куратор",
+      "announcementseditor": "Управління оголошеннями",
       "facultycertificate": "Запити на сертифікати",
       "rnp": "РНП",
       "mob": "Метод.забезпечення",
@@ -55,7 +56,7 @@
       "ratingnpp2023": "Рейтинг НПП 2022-2023",
       "ratingnpp2024": "Рейтинг НПП 2023-2024",
       "webometrics": "Переклад метаданих ЕІР",
-      "attestationresults": "Календарний контроль",
+      "attestationresults": "Результати календарного контролю",
       "ekanat": "Деканат",
       "editRNP": "Редагування РНП Руслан",
       "hignyak": "Звітність для ДНВР",
@@ -179,7 +180,8 @@
         "created": "Створено",
         "processed": "Згенеровано",
         "in-queue": "У черзі",
-        "error": "Помилка"
+        "error": "Помилка",
+        "signed": "Підписано"
       },
       "certificate-type": {
         "employment-certificate": "Довідка про роботу",
@@ -393,6 +395,59 @@
         "not-found": "Нічого не знайдено"
       }
     },
+    "announcementseditor": {
+      "title": "Управління оголошеннями",
+      "subtitle": "Створюйте та керуйте оголошеннями університету",
+      "create": {
+        "title": "Створити нове оголошення",
+        "description": "Натисніть кнопку нижче, щоб створити нове оголошення для спільноти університету.",
+        "button": "Створити оголошення"
+      },
+      "success": {
+        "title": "Оголошення успішно створено!",
+        "message": "Ваше оголошення було створено з ID: {id}"
+      },
+      "form": {
+        "title": "Створити оголошення",
+        "not-found": "Нічого не знайдено",
+        "fields": {
+          "title": "Заголовок",
+          "description": "Опис",
+          "imageUrl": "URL зображення",
+          "linkTitle": "Назва посилання",
+          "linkUrl": "URL посилання",
+          "startDate": "Дата початку",
+          "endDate": "Дата завершення",
+          "language": "Мова",
+          "studyForms": "Форми навчання",
+          "groups": "Групи",
+          "roles": "Ролі",
+          "subdivisions": "Підрозділи",
+          "courses": "Курси"
+        },
+        "placeholders": {
+          "title": "Введіть заголовок оголошення",
+          "description": "Введіть опис оголошення",
+          "imageUrl": "https://example.com/image.jpg",
+          "linkTitle": "Введіть назву посилання",
+          "linkUrl": "https://example.com",
+          "language": "Оберіть мову",
+          "studyForms": "Оберіть форми навчання",
+          "groups": "Оберіть групи",
+          "roles": "Оберіть ролі",
+          "subdivisions": "Оберіть підрозділи",
+          "courses": "Оберіть курси"
+        },
+        "buttons": {
+          "submit": "Відправити",
+          "cancel": "Скасувати"
+        },
+        "languages": {
+          "uk": "Українська",
+          "en": "Англійська"
+        }
+      }
+    },
     "profile": {
       "title": "Профіль",
       "subtitle": "Тут ви можете переглядати свій профіль, редагувати контакти, додавати посилання на облікові записи та назначати деталі прийому.",
@@ -478,9 +533,10 @@
         "print": "Роздрукувати",
         "approve": "Схвалити",
         "reject": "Відхилити",
-        "cancel": "Відміна"
+        "cancel": "Відміна",
+        "signed": "Підписано"
       },
-      "sheet": {
+      "tab": {
         "all": "Всі",
         "rejected": "Відхилені",
         "pending": "Очікують",
@@ -490,13 +546,15 @@
         "created": "Створено",
         "documentNumber": "Номер документа",
         "fullname": "ПІБ студента",
-        "originalRequired": "З печаткою",
-        "withstamp": "Потрібна печатка",
+        "originalRequired": "Оригінал",
+        "withstamp": "Паперовий оригінал",
         "updatedAt": "Оновлено",
         "received": "Отримано",
         "status": "Статус",
         "purpose": "Призначення",
-        "actions": "Дії"
+        "actions": "Дії",
+        "signedSuccess": "Сертифікат підписано успішно",
+        "signedDescription": "Сертифікат підписано успішно"
       }
     },
     "vedomoststud": {
@@ -510,6 +568,74 @@
       "lecturer": "Викладач",
       "status": "Статус",
       "average-score": "Середній бал за весь період навчання:"
+    },
+    "msg": {
+      "title": "Повідомлення",
+      "subtitle": "Ви можете надіслати повідомлення куратору вашої групи.",
+      "tab": {
+        "inbox": "Вхідні",
+        "sent": "Вихідні",
+        "important": "Важливі",
+        "compose": "Створити нове"
+      },
+      "inbox": {
+        "selected": "обрано:",
+        "refresh": "Оновити",
+        "table": {
+          "sender": "Відправник",
+          "recipient": "Отримувач",
+          "message": "Лист",
+          "received": "Отримано",
+          "sent": "Відправлено"
+        },
+        "badge": {
+          "important": "Важливе"
+        },
+        "dialog": {
+          "to": "До:"
+        },
+        "delete-dialog": {
+          "title": "Видалення",
+          "description": "Ви дійсно бажаєте видалити {count, plural, one {# лист} few {# листа} many {# листів} other {# листа}}?",
+          "cancel": "Відміна",
+          "confirm": "Видалити"
+        },
+        "toast": {
+          "success-title-delete": "Повідомлення видалено",
+          "success-description-delete": "Повідомлення успішно видалено",
+          "success-title-mark-as-important": "Повідомлення змінено",
+          "success-description-mark-as-important": "Важливість повідомлення успішно змінена",
+          "error-title-delete": "Помилка видалення повідомлення",
+          "error-description-delete": "Повідомлення не видалено",
+          "error-title-mark-as-important": "Помилка зміни важливості повідомлення",
+          "error-description-mark-as-important": "Важливість повідомлення не змінена",
+          "error-title-refresh": "Помилка оновлення",
+          "error-description-refresh": "Не вдалося оновити дані"
+        }
+      },
+      "compose": {
+        "title": "Нове повідомлення",
+        "individual": "Індивідуальне",
+        "broadcast": "Масове",
+        "recipient-type": {
+          "employee": "Співробітник",
+          "student": "Студент"
+        },
+        "form": {
+          "subdivision": "Підрозділ",
+          "study-group": "Навчальна група",
+          "recipient-name": "ПІБ одержувача",
+          "subject": "Тема повідомлення",
+          "subject-placeholder": "Тема повідомлення",
+          "content": "Текст повідомлення",
+          "content-placeholder": "Текст повідомлення",
+          "send": "Відправити"
+        },
+        "toast": {
+          "success-title": "Повідомлення відправлено",
+          "success-description": "Повідомлення відправлено успішно"
+        }
+      }
     },
     "study-sheet": {
       "title": "Поточний контроль",
@@ -526,7 +652,7 @@
         "second": "Друге",
         "all": "Всі"
       },
-      "sheet": {
+      "tab": {
         "journal": "Журнал",
         "event-plan": "План заходів",
         "internal-materials": "Внутрішні матеріали",
@@ -574,7 +700,17 @@
       "notes": "Примітка",
       "notesPlaceholder": "Наприклад: з мокрою печаткою",
       "purposePlaceholder": "Наприклад: для посольства Франції",
-      "submit": "Замовити"
+      "submit": "Замовити",
+      "status": {
+        "created": "Створено",
+        "pending": "Очікування",
+        "rejected": "Відхилено",
+        "approved": "Схвалено",
+        "processed": "Згенеровано",
+        "in-queue": "У черзі",
+        "error": "Помилка",
+        "signed": "Підписано"
+      }
     },
     "settings": {
       "title": "Налаштування",
@@ -608,4 +744,3 @@
     }
   }
 }
-

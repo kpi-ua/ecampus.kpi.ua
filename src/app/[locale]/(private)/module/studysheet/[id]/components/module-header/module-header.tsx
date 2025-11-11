@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Heading2 } from '@/components/typography/headers';
 import { CreditModule } from '@/types/models/current-control/credit-module';
 import { useTranslations } from 'next-intl';

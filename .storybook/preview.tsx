@@ -1,7 +1,6 @@
 import '../src/app/[locale]/globals.css';
 
 import type { Preview } from '@storybook/react';
-import React from 'react';
 import { interFont } from '../src/app/font';
 
 const preview: Preview = {

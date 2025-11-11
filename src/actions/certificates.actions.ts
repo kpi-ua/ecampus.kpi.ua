@@ -23,7 +23,7 @@ export type UpdateCertificateBody = {
 
 export async function updateCertificate(id: number, body: UpdateCertificateBody) {
   const res = await campusFetch(`/certificates/${id}/status`, {
-    method: 'PATCH',
+    method: 'PUT',
     body: JSON.stringify({ ...body }),
   });
 
@@ -130,4 +130,16 @@ export async function getOtherFacultyCertificate() {
   );
 
   return { rejectedCertificates, approvedCertificates, createdCertificates };
+}
+
+export async function signCertificate(id: number) {
+  const response = await campusFetch(`/certificates/${id}/signed`, {
+    method: 'PUT',
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  revalidatePath('/module/facultycertificate', 'layout');
 }

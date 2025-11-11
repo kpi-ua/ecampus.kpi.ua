@@ -1,5 +1,4 @@
 import { EmployeePosition, EmployeeProfile } from '@/types/models/employee-profile';
-import React from 'react';
 import { EMPLOYMENT_TYPE } from '@/lib/constants/employment-type';
 import { InfoItem, InfoList } from './info-list';
 import { Heading6 } from '@/components/typography/headers';
@@ -7,6 +6,7 @@ import { Show } from '@/components/utils/show';
 import { Separator } from '@/components/ui/separator';
 import { dash } from 'radash';
 import { getTranslations } from 'next-intl/server';
+import React from 'react';
 
 interface Props {
   employeeProfile: EmployeeProfile;

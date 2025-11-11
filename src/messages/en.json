@@ -29,6 +29,7 @@
       "contacts": "Contacts",
       "msg": "Messages",
       "kurator": "Curator",
+      "announcementseditor": "Announcements management",
       "facultycertificate": "Faculty certificate",
       "rnp": "RNP",
       "mob": "Methodological support",
@@ -55,7 +56,7 @@
       "ratingnpp2023": "SPW's rating 2022-2023",
       "ratingnpp2024": "SPW's rating 2023-2024",
       "webometrics": "Translation of EIR metadata",
-      "attestationresults": "Calendar control",
+      "attestationresults": "Results of calendar control",
       "ekanat": "Dean’s office",
       "editRNP": "RNP Editing Ruslan",
       "hignyak": "Reporting for DNVR",
@@ -179,7 +180,8 @@
         "approved": "Approved",
         "created": "Created",
         "error": "Error",
-        "in-queue": "In Queue"
+        "in-queue": "In Queue",
+        "signed": "Signed"
       },
       "certificate-type": {
         "employment-certificate": "Employment Certificate",
@@ -393,6 +395,59 @@
         "not-found": "No results found"
       }
     },
+    "announcementseditor": {
+      "title": "Announcement Management",
+      "subtitle": "Create and manage university announcements",
+      "create": {
+        "title": "Create New Announcement",
+        "description": "Click the button below to create a new announcement for the university community.",
+        "button": "Create Announcement"
+      },
+      "success": {
+        "title": "Announcement Created Successfully!",
+        "message": "Your announcement has been created with ID: {id}"
+      },
+      "form": {
+        "title": "Create Announcement",
+        "not-found": "No results found",
+        "fields": {
+          "title": "Title",
+          "description": "Description",
+          "imageUrl": "Image URL",
+          "linkTitle": "Link Title",
+          "linkUrl": "Link URL",
+          "startDate": "Start Date",
+          "endDate": "End Date",
+          "language": "Language",
+          "studyForms": "Study Forms",
+          "groups": "Groups",
+          "roles": "Roles",
+          "subdivisions": "Subdivisions",
+          "courses": "Courses"
+        },
+        "placeholders": {
+          "title": "Enter announcement title",
+          "description": "Enter announcement description",
+          "imageUrl": "https://example.com/image.jpg",
+          "linkTitle": "Enter link title",
+          "linkUrl": "https://example.com",
+          "language": "Select a language",
+          "studyForms": "Select study forms",
+          "groups": "Select groups",
+          "roles": "Select roles",
+          "subdivisions": "Select subdivisions",
+          "courses": "Select courses"
+        },
+        "buttons": {
+          "submit": "Submit",
+          "cancel": "Cancel"
+        },
+        "languages": {
+          "uk": "Ukrainian",
+          "en": "English"
+        }
+      }
+    },
     "profile": {
       "title": "Profile",
       "subtitle": "Here you can view your profile, edit contacts, add links to accounts, and set appointment details.",
@@ -478,9 +533,10 @@
         "print": "Print",
         "approve": "Approve",
         "reject": "Reject",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "signed": "Signed"
       },
-      "sheet": {
+      "tab": {
         "all": "All",
         "rejected": "Rejected",
         "pending": "Pending",
@@ -490,13 +546,15 @@
         "created": "Date",
         "documentNumber": "Document number",
         "fullname": "full name",
-        "originalRequired": "original required",
-        "withstamp": "With stamp",
+        "originalRequired": "Paper original",
+        "withstamp": "Paper original",
         "updatedAt": "Updated at",
         "received": "received",
         "status": "status",
         "purpose": "purpose",
-        "actions": "actions"
+        "actions": "actions",
+        "signedSuccess": "Certificate signed successfully",
+        "signedDescription": "The certificate has been signed successfully"
       }
     },
     "vedomoststud": {
@@ -510,6 +568,74 @@
       "lecturer": "Lecturer",
       "status": "Status",
       "average-score": "Average score for the entire period of study:"
+    },
+    "msg": {
+      "title": "Message",
+      "subtitle": "You can send a message to the curator of your group.",
+      "tab": {
+        "inbox": "Inbox",
+        "sent": "Sent",
+        "important": "Important",
+        "compose": "Compose"
+      },
+      "inbox": {
+        "selected": "selected:",
+        "refresh": "Refresh",
+        "table": {
+          "sender": "Sender",
+          "recipient": "Recipient",
+          "message": "Message",
+          "received": "Received",
+          "sent": "Sent"
+        },
+        "badge": {
+          "important": "Important"
+        },
+        "dialog": {
+          "to": "To:"
+        },
+        "delete-dialog": {
+          "title": "Delete",
+          "description": "Do you really want to delete {count, plural, one {# message} other {# messages}}?",
+          "cancel": "Cancel",
+          "confirm": "Delete"
+        },
+        "toast": {
+          "success-title-delete": "Message deleted",
+          "success-description-delete": "Message deleted successfully",
+          "success-title-mark-as-important": "Message marked as important",
+          "success-description-mark-as-important": "Message marked as important successfully",
+          "error-title-delete": "Error deleting message",
+          "error-description-delete": "Message not deleted",
+          "error-title-mark-as-important": "Error marking message as important",
+          "error-description-mark-as-important": "Message not marked as important",
+          "error-title-refresh": "Error refreshing data",
+          "error-description-refresh": "Failed to refresh data"
+        }
+      },
+      "compose": {
+        "title": "New message",
+        "individual": "Individual",
+        "broadcast": "Broadcast",
+        "recipient-type": {
+          "employee": "Employee",
+          "student": "Student"
+        },
+        "form": {
+          "subdivision": "Subdivision",
+          "study-group": "Study group",
+          "recipient-name": "Recipient name",
+          "subject": "Message subject",
+          "subject-placeholder": "Message subject",
+          "content": "Message text",
+          "content-placeholder": "Message text",
+          "send": "Send"
+        },
+        "toast": {
+          "success-title": "Message sent",
+          "success-description": "Message sent successfully"
+        }
+      }
     },
     "study-sheet": {
       "title": "Current control",
@@ -526,7 +652,7 @@
         "second": "Second",
         "all": "All"
       },
-      "sheet": {
+      "tab": {
         "journal": "Gradebook",
         "event-plan": "Events plan",
         "internal-materials": "Internal materials",
@@ -574,7 +700,17 @@
       "notes": "Notes",
       "notesPlaceholder": "For example: with a wet seal",
       "purposePlaceholder": "For example: for the French embassy",
-      "submit": "Order"
+      "submit": "Order",
+      "status": {
+        "created": "Created",
+        "pending": "Pending",
+        "rejected": "Rejected",
+        "approved": "Approved",
+        "processed": "Processed",
+        "in-queue": "In Queue",
+        "error": "Error",
+        "signed": "Signed"
+      }
     },
     "settings": {
       "title": "Settings",
