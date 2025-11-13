@@ -2,7 +2,7 @@ import { Paragraph } from '@/components/typography';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { formatDate, formatTime } from '@/lib/utils';
 import { Dispatch } from 'react';
-import { Action } from './types';
+import { Action } from '../types';
 import { Message } from '@/types/models/message';
 import { useTranslations } from 'next-intl';
 
@@ -16,7 +16,10 @@ export function PreviewDialog({ isOpen, dispatch, selectedMail }: Props) {
   const t = useTranslations('private.msg.inbox');
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => dispatch({ type: 'setOpenedDialog', openedDialog: open ? 'preview' : null })}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => dispatch({ type: 'setOpenedDialog', openedDialog: open ? 'preview' : null })}
+    >
       <DialogContent className="max-w-3xl">
         {selectedMail && (
           <>

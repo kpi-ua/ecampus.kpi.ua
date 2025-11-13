@@ -629,7 +629,16 @@
           "subject-placeholder": "Тема повідомлення",
           "content": "Текст повідомлення",
           "content-placeholder": "Текст повідомлення",
-          "send": "Відправити"
+          "send": "Відправити",
+          "search-placeholder": "Введіть мінімум 2 символи для пошуку...",
+          "search-empty": "Не знайдено результатів",
+          "select-recipient-placeholder": "Оберіть одержувача...",
+          "select-group-first": "Спочатку оберіть навчальну групу"
+        },
+        "validation": {
+          "group-required": "Оберіть групу",
+          "subject-required": "Напишіть тему",
+          "content-required": "Напишіть текст"
         },
         "toast": {
           "success-title": "Повідомлення відправлено",

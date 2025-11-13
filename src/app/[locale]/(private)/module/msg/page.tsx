@@ -9,6 +9,7 @@ import { TabSheetTrigger } from '@/components/ui/tabs';
 import { Tabs, TabsList, TabsContent } from '@radix-ui/react-tabs';
 import Inbox from './components/inbox';
 import { MailFilter } from '@/types/enums/mail-filter';
+import Compose from '@/app/[locale]/(private)/module/msg/components/compose';
 
 const INTL_NAMESPACE = 'private.msg';
 
@@ -35,9 +36,7 @@ export default async function MessagePage() {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-7">
         <Heading2>{t('title')}</Heading2>
-        <Description>
-          {t('subtitle')}
-        </Description>
+        <Description>{t('subtitle')}</Description>
         <div className="mt-8 flex flex-col">
           <Tabs defaultValue={MessageTranslationKeys.Inbox}>
             <TabsList className="rounded-none border-0 bg-transparent p-0">
@@ -56,6 +55,9 @@ export default async function MessagePage() {
               </TabsContent>
               <TabsContent value={MessageTranslationKeys.Important}>
                 <Inbox mails={importantMails} filter={MailFilter.Important} />
+              </TabsContent>
+              <TabsContent value={MessageTranslationKeys.Compose}>
+                <Compose />
               </TabsContent>
             </Card>
           </Tabs>

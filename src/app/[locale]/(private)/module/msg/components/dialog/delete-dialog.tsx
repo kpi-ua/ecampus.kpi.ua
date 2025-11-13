@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslations } from 'next-intl';
-import { Action } from './types';
+import { Action } from '../types';
 import { Dispatch } from 'react';
 
 interface Props {
