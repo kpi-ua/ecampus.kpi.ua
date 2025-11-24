@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -81,7 +81,9 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t('form.subject')}</FormLabel>
-                <Input {...field} placeholder={t('form.subject-placeholder')} />
+                <FormControl>
+                  <Input {...field} placeholder={t('form.subject-placeholder')} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
@@ -92,7 +94,9 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>{t('form.content')}</FormLabel>
-                <Textarea {...field} placeholder={t('form.content-placeholder')} />
+                <FormControl>
+                  <Textarea {...field} placeholder={t('form.content-placeholder')} />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}

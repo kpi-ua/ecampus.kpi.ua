@@ -66,7 +66,7 @@ const FormItem = ({ className, ref, ...props }: React.ComponentProps<'div'>) => 
 
   return (
     <FormItemContext.Provider value={{ id }}>
-      <div ref={ref} className={cn('space-y-1.5', className)} {...props} />
+      <div ref={ref} className={cn('grid gap-2', className)} {...props} />
     </FormItemContext.Provider>
   );
 };
@@ -88,6 +88,7 @@ const FormControl = ({ ref, ...props }: React.ComponentProps<typeof Slot>) => {
       id={formItemId}
       aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
       aria-invalid={!!error}
+      className={cn(error && 'border-status-danger-200', props.className)}
       {...props}
     />
   );
@@ -110,7 +111,7 @@ const FormMessage = ({ className, children, ref, ...props }: React.ComponentProp
   }
 
   return (
-    <p ref={ref} id={formMessageId} className={cn('text-destructive text-sm font-medium', className)} {...props}>
+    <p ref={ref} id={formMessageId} className={cn('text-status-danger-300 text-sm font-medium', className)} {...props}>
       {body}
     </p>
   );

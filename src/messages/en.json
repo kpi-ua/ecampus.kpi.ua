@@ -637,6 +637,7 @@
         },
         "validation": {
           "group-required": "Select a group",
+          "user-required": "Select a user",
           "subject-required": "Enter subject",
           "content-required": "Enter message text"
         },

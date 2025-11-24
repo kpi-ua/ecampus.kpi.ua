@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Send } from 'lucide-react';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormField, FormItem } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { useState, useEffect, useCallback } from 'react';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -16,6 +16,7 @@ import { EntityIdName } from '@/types/models/entity-id-name';
 import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 interface Props {
   groupOptions: EntityIdName[];
@@ -26,17 +27,19 @@ export function Individual({ groupOptions }: Props) {
   const [userOptions, setUserOptions] = useState<EntityIdName[]>([]);
 
   const { toast } = useToast();
+  const { errorToast } = useServerErrorToast();
   const t = useTranslations('private.msg.compose');
 
   const formSchema = z.object({
-    groupIds: z.array(z.number()),
-    userIds: z.array(z.number()),
-    subject: z.string().min(1),
-    content: z.string().min(1),
+    groupIds: z.array(z.number()).min(1, { message: t('validation.group-required') }),
+    userIds: z.array(z.number()).min(1, { message: t('validation.user-required') }),
+    subject: z.string().min(1, { message: t('validation.subject-required') }),
+    content: z.string().min(1, { message: t('validation.content-required') }),
   });
 
   const form = useForm({
     resolver: zodResolver(formSchema),
+    mode: 'onChange',
     defaultValues: {
       groupIds: [],
       userIds: [],
@@ -46,16 +49,19 @@ export function Individual({ groupOptions }: Props) {
   });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
     await sendMail({
       recipients: data.userIds,
-      subject: data.subject,
-      content: data.content,
-    });
-    toast({
-      title: t('toast.success-title'),
-      description: t('toast.success-description'),
-    });
-    form.reset();
+        subject: data.subject,
+        content: data.content,
+      });
+      toast({
+        title: t('toast.success-title'),
+        description: t('toast.success-description'),
+      });
+    } catch (error) {
+      errorToast();
+    }
   };
 
   const selectedGroupIds = form.watch('groupIds');
@@ -110,7 +116,7 @@ export function Individual({ groupOptions }: Props) {
             name="groupIds"
             render={({ field }) => (
               <FormItem>
-                <Label>{t('form.study-group')}</Label>
+                <FormLabel>{t('form.study-group')}</FormLabel>
                 <MultipleSelector
                   options={groupOptions.map((group) => ({
                     value: group.id.toString(),
@@ -118,6 +124,7 @@ export function Individual({ groupOptions }: Props) {
                   }))}
                   onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
                 />
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -128,7 +135,7 @@ export function Individual({ groupOptions }: Props) {
           name="userIds"
           render={({ field }) => (
             <FormItem>
-              <Label>{t('form.recipient-name')}</Label>
+              <FormLabel>{t('form.recipient-name')}</FormLabel>
               {recipientType === 'employee' ? (
                 <MultipleSelector
                   key="employee-selector"
@@ -158,8 +165,11 @@ export function Individual({ groupOptions }: Props) {
           name="subject"
           render={({ field }) => (
             <FormItem>
-              <Label>{t('form.subject')}</Label>
-              <Input {...field} placeholder={t('form.subject-placeholder')} />
+              <FormLabel>{t('form.subject')}</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder={t('form.subject-placeholder')} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -169,8 +179,11 @@ export function Individual({ groupOptions }: Props) {
           name="content"
           render={({ field }) => (
             <FormItem>
-              <Label>{t('form.content')}</Label>
-              <Textarea {...field} placeholder={t('form.content-placeholder')} maxLength={1000} />
+              <FormLabel>{t('form.content')}</FormLabel>
+              <FormControl>
+                <Textarea {...field} placeholder={t('form.content-placeholder')} maxLength={1000} />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

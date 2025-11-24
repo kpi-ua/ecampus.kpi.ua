@@ -637,6 +637,7 @@
         },
         "validation": {
           "group-required": "Оберіть групу",
+          "user-required": "Оберіть одержувача",
           "subject-required": "Напишіть тему",
           "content-required": "Напишіть текст"
         },
