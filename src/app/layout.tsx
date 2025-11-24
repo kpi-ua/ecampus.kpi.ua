@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import './globals.css';
 import { interFont } from '@/app/font';
 import { NextIntlClientProvider } from 'next-intl';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 type Props = {
   children: ReactNode;
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: Props) {
       <body className={`${interFont.className}`}>
         <NextIntlClientProvider messages={null}>{children}</NextIntlClientProvider>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>
   );
 }
