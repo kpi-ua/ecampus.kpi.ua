@@ -7,7 +7,7 @@ import Fade from 'embla-carousel-fade';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const CAROUSEL_CDN_BASE_URL = 'https://do4rt9wur3t6m.cloudfront.net/ecampus.kpi.ua/carousel';
+const CAROUSEL_CDN_BASE_URL = process.env.NEXT_PUBLIC_CAROUSEL_CDN_BASE_URL;
 
 type CarouselImage = {
   src: string;
