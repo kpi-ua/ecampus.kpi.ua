@@ -206,21 +206,21 @@
     --status-danger-300: 248 59 81;
     --status-danger-200: 255 148 160;
     --status-danger-100: 255 235 238;
-    --status-warning-300: 244 176 1;
+    --status-warning-300: 190 81 0;
     --status-warning-200: 251 219 100;
     --status-warning-100: 253 246 202;
-    --status-success-300: 42 193 103;
+    --status-success-300: 0 134 54;
     --status-success-200: 162 255 199;
     --status-success-100: 238 255 245;
 
-    --other-purple: 148 157 255;
-    --other-purple-10: 148 157 255 0.01;
-    --other-red: 255 127 150;
-    --other-red-10: 255 127 150 0.1;
-    --other-orange: 246 179 130;
-    --other-orange-10: 246 179 130 0.1;
-    --other-blue: 127 178 255;
-    --other-blue-10: 127 178 255 0.1;
+    --other-purple: 95 104 198;
+    --other-purple-10: 95 104 198 0.01;
+    --other-red: 226 0 41;
+    --other-red-10: 226 0 41 0.1;
+    --other-orange: 190 81 0;
+    --other-orange-10: 190 81 0 0.1;
+    --other-blue: 0 101 253;
+    --other-blue-10: 0 101 253 0.1;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 5.3% 26.1%;

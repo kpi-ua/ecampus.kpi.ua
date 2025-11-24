@@ -1,9 +1,9 @@
 'use server';
 
+import { AnnouncementCreate } from '@/app/[locale]/(private)/module/announcementseditor/types';
 import { campusFetch } from '@/lib/client';
 import { isOutdated } from '@/lib/date.utils';
 import { Announcement } from '@/types/models/announcement';
-import { AnnouncementCreate } from '@/app/[locale]/(private)/module/announcementseditor/types';
 import { Group } from '@/types/models/group';
 import { Subdivision } from '@/types/models/subdivision';
 
