@@ -41,6 +41,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'dev-ecampus.cloud.kpi.ua',
       },
+      {
+        protocol: 'https',
+        hostname: 'do4rt9wur3t6m.cloudfront.net',
+      },
     ],
   },
   env: {
