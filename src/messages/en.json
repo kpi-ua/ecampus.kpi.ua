@@ -536,7 +536,7 @@
         "cancel": "Cancel",
         "signed": "Signed"
       },
-      "tab": {
+      "sheet": {
         "all": "All",
         "rejected": "Rejected",
         "pending": "Pending",
