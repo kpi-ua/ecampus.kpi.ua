@@ -41,7 +41,13 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'dev-ecampus.cloud.kpi.ua',
       },
+      {
+        protocol: 'https',
+        hostname: 'do4rt9wur3t6m.cloudfront.net',
+      },
     ],
+    // Disable Next.js image optimization and caching; let CDN/browser handle it
+    unoptimized: true,
   },
   env: {
     NEXT_PUBLIC_ENV: process.env.NEXT_PUBLIC_ENV,
