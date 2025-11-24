@@ -7,6 +7,7 @@ import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useF
 
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
+import { Warning } from '@/app/images';
 
 const Form = FormProvider;
 
@@ -111,9 +112,12 @@ const FormMessage = ({ className, children, ref, ...props }: React.ComponentProp
   }
 
   return (
-    <p ref={ref} id={formMessageId} className={cn('text-status-danger-300 text-sm font-medium', className)} {...props}>
+    <div ref={ref} id={formMessageId} className={cn('flex items-center gap-2 text-status-danger-300 text-sm font-medium', className)} {...props}>
+      <Warning className="size-4" />
+      <p>
       {body}
-    </p>
+      </p>
+    </div>
   );
 };
 FormMessage.displayName = 'FormMessage';
