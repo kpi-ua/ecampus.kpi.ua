@@ -31,7 +31,7 @@ export function Individual({ groupOptions }: Props) {
   const t = useTranslations('private.msg.compose');
 
   const formSchema = z.object({
-    groupIds: z.array(z.number()).min(1, { message: t('validation.group-required') }),
+    groupIds: z.array(z.number()),
     userIds: z.array(z.number()).min(1, { message: t('validation.user-required') }),
     subject: z.string().min(1, { message: t('validation.subject-required') }),
     content: z.string().min(1, { message: t('validation.content-required') }),
