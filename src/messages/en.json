@@ -629,7 +629,17 @@
           "subject-placeholder": "Message subject",
           "content": "Message text",
           "content-placeholder": "Message text",
-          "send": "Send"
+          "send": "Send",
+          "search-placeholder": "Enter at least 2 characters to search...",
+          "search-empty": "No results found",
+          "select-recipient-placeholder": "Select recipient...",
+          "select-group-first": "Select study group first"
+        },
+        "validation": {
+          "group-required": "Select a group",
+          "user-required": "Select a user",
+          "subject-required": "Enter subject",
+          "content-required": "Enter message text"
         },
         "toast": {
           "success-title": "Message sent",

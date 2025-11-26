@@ -12,8 +12,8 @@ import { Badge } from '@/components/ui/badge';
 import { Message } from '@/types/models/message';
 import { formatDate } from '@/lib/utils';
 import { Action, State } from './types';
-import { DeleteDialog } from './delete-dialog';
-import { PreviewDialog } from './preview-dialog';
+import { DeleteDialog } from './dialog/delete-dialog';
+import { PreviewDialog } from './dialog/preview-dialog';
 import { MailFilter } from '@/types/enums/mail-filter';
 
 interface Props {
@@ -143,7 +143,7 @@ export default function Inbox({ mails, filter }: Props) {
         </TableHeader>
         <TableBody>
           {state.mails.map((mail) => (
-            <TableRow key={mail.id} className="cursor-pointer h-[65px]">
+            <TableRow key={mail.id} className="h-[65px] cursor-pointer">
               <TableCell onClick={(e) => e.stopPropagation()}>
                 <Checkbox
                   checked={state.selectedRows.includes(mail.id)}
@@ -167,17 +167,9 @@ export default function Inbox({ mails, filter }: Props) {
         </TableBody>
       </Table>
 
-      <PreviewDialog
-        isOpen={state.openedDialog === 'preview'}
-        dispatch={dispatch}
-        selectedMail={state.selectedMail}
-      />
+      <PreviewDialog isOpen={state.openedDialog === 'preview'} dispatch={dispatch} selectedMail={state.selectedMail} />
 
-      <DeleteDialog
-        selectedRows={state.selectedRows}
-        isOpen={state.openedDialog === 'delete'}
-        dispatch={dispatch}
-      />
+      <DeleteDialog selectedRows={state.selectedRows} isOpen={state.openedDialog === 'delete'} dispatch={dispatch} />
     </div>
   );
 }
