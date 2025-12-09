@@ -92,6 +92,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['ekk', Notebook],
   ['bravook', Scroll],
   ['ratingnpp', Ranking],
+  ['rating', Ranking],
   ['pk2024admin', Notebook],
   ['pk2025admin', Notebook],
   ['studdocadmin', Files],
@@ -100,5 +101,5 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['useract', Scroll],
   ['viewcontrol', NotePencil],
   ['vedomoststud', GraduationCap],
-  ['_group.rating', Ranking],
+  ['_group.ratingnpp', Ranking],
 ]);

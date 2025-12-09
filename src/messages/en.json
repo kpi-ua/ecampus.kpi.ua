@@ -51,6 +51,7 @@
       "vedomost": "Session",
       "vidpovidalniy": "Responsible",
       "reytinghelp": "Data for faculty rating",
+      "ratingnpp": "SPW's rating 2019-2020",
       "ratingnpp2021": "SPW's rating 2020-2021",
       "ratingnpp2022": "SPW's rating 2021-2022",
       "ratingnpp2023": "SPW's rating 2022-2023",
@@ -71,7 +72,6 @@
       "zdekan": "Deans office",
       "ekk": "EKK",
       "bravook": "Bravo VC",
-      "ratingnpp": "Faculty rating 2019-2020",
       "pk2024admin": "Admission 2024 (Admin)",
       "pk2025admin": "Admission 2025 (Admin)",
       "studdocadmin": "Student documents (Admin)",
@@ -81,10 +81,11 @@
       "sdchoice2021moderator": "Discipline selection (Moderator)",
       "sdchoice2021nmv": "Discipline selection (NMV)",
       "employment": "Employment system",
+      "rating": "Archival SPW Rating",
       "useract": "Bravo Requests",
       "viewcontrol": "Review current control",
       "_groups": {
-        "rating": "Rating"
+        "ratingnpp": "SPW Rating"
       }
     },
     "menu": {
@@ -642,6 +643,31 @@
         "in-queue": "In Queue",
         "error": "Error",
         "signed": "Signed"
+      }
+    },
+    "rating": {
+      "title": "Archival SPW Rating",
+      "subtitle": "View scientific-pedagogical workers rating data by years and workplaces.",
+      "noData": "No data to display",
+      "noEntries": "No entries",
+      "summary": {
+        "title": "Summary"
+      },
+      "total": "Total",
+      "points": "points",
+      "entries": {
+        "one": "{count} entry",
+        "few": "{count} entries",
+        "many": "{count} entries"
+      },
+      "showDetails": "Show details",
+      "hideDetails": "Hide",
+      "table": {
+        "workType": "Work type",
+        "mark": "Standard",
+        "quantity": "Quantity",
+        "percent": "Share, %",
+        "result": "Result"
       }
     },
     "settings": {
