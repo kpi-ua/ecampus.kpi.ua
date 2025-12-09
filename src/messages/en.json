@@ -51,11 +51,6 @@
       "vedomost": "Session",
       "vidpovidalniy": "Responsible",
       "reytinghelp": "Data for faculty rating",
-      "ratingnpp": "SPW's rating 2019-2020",
-      "ratingnpp2021": "SPW's rating 2020-2021",
-      "ratingnpp2022": "SPW's rating 2021-2022",
-      "ratingnpp2023": "SPW's rating 2022-2023",
-      "ratingnpp2024": "SPW's rating 2023-2024",
       "webometrics": "Translation of EIR metadata",
       "attestationresults": "Results of calendar control",
       "ekanat": "Dean’s office",
@@ -83,10 +78,7 @@
       "employment": "Employment system",
       "rating": "Archival SPW Rating",
       "useract": "Bravo Requests",
-      "viewcontrol": "Review current control",
-      "_groups": {
-        "ratingnpp": "SPW Rating"
-      }
+      "viewcontrol": "Review current control"
     },
     "menu": {
       "main": "Home",
