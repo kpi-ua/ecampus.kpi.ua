@@ -75,7 +75,7 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
             <div className="flex flex-col gap-1.5">
               {colleague.positions.map((position, index) => (
                 <div key={index}>
-                  {index > 0 && <div className="border-t border-neutral-200 my-1" />}
+                  {index > 0 && <div className="border-t border-neutral-200 my-1.5" />}
                   <Paragraph className="m-0 text-xs text-neutral-500">{position.name}</Paragraph>
                   <Paragraph className="m-0 text-xs text-neutral-400">{position.subdivision.name}</Paragraph>
                 </div>
