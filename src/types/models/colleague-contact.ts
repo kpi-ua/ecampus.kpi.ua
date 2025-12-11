@@ -24,4 +24,4 @@ export interface ColleagueContact {
   }[];
 }
 
-export { ContactType };
+export type { ContactType };
