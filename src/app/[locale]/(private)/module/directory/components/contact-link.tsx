@@ -83,6 +83,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
     const telegramUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://t.me/${decodedValue.replace('@', '')}`;
+    if (!isSafeUrl(telegramUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
     return (
       <Link href={telegramUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
@@ -93,6 +96,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   // Orcid ID
   if (typeId === CONTACT_TYPE_IDS.ORCID_ID) {
     const orcidUrl = decodedValue.startsWith('http') ? decodedValue : `https://orcid.org/${decodedValue}`;
+    if (!isSafeUrl(orcidUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
     return (
       <Link href={orcidUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
@@ -105,6 +111,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
     const scopusUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://www.scopus.com/authid/detail.uri?authorId=${decodedValue}`;
+    if (!isSafeUrl(scopusUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
     return (
       <Link href={scopusUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
@@ -117,6 +126,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
     const researchIdUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://www.webofscience.com/wos/author/record/${decodedValue}`;
+    if (!isSafeUrl(researchIdUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
     return (
       <Link href={researchIdUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
@@ -129,6 +141,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
     const scholarUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://scholar.google.com/citations?user=${decodedValue}`;
+    if (!isSafeUrl(scholarUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
     return (
       <Link href={scholarUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
@@ -141,6 +156,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
     const researchGateUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://www.researchgate.net/profile/${decodedValue}`;
+    if (!isSafeUrl(researchGateUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
     return (
       <Link href={researchGateUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
