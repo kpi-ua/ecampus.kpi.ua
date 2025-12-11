@@ -7,11 +7,24 @@ interface ContactLinkProps {
 }
 
 export function ContactLink({ typeId, value }: ContactLinkProps) {
-  // Decode HTML entities using the browser's built-in parser
+  // Decode HTML entities using a manual approach that works on both server and client
   const decodeHtmlEntities = (text: string) => {
-    const textarea = document.createElement('textarea');
-    textarea.innerHTML = text;
-    return textarea.value;
+    const htmlEntities: Record<string, string> = {
+      '&quot;': '"',
+      '&#34;': '"',
+      '&apos;': "'",
+      '&#39;': "'",
+      '&amp;': '&',
+      '&#38;': '&',
+      '&lt;': '<',
+      '&#60;': '<',
+      '&gt;': '>',
+      '&#62;': '>',
+      '&nbsp;': ' ',
+      '&#160;': ' ',
+    };
+
+    return text.replace(/&[#\w]+;/g, (entity) => htmlEntities[entity] || entity);
   };
 
   const decodedValue = decodeHtmlEntities(value);
@@ -23,11 +36,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   const isSafeUrl = (url: string): boolean => {
     try {
       const parsedUrl = new URL(url);
-      const safeProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
-      return safeProtocols.includes(parsedUrl.protocol);
+      return ['http:', 'https:', 'mailto:', 'tel:'].includes(parsedUrl.protocol);
     } catch {
-      // If URL parsing fails, check if it starts with safe protocols
-      return /^(https?|mailto|tel):/.test(url);
+      return false;
     }
   };
 
