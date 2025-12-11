@@ -7,24 +7,11 @@ interface ContactLinkProps {
 }
 
 export function ContactLink({ typeId, value }: ContactLinkProps) {
-  // Decode HTML entities using a map of common entities
+  // Decode HTML entities using the browser's built-in parser
   const decodeHtmlEntities = (text: string) => {
-    const htmlEntities: Record<string, string> = {
-      '&quot;': '"',
-      '&#34;': '"',
-      '&apos;': "'",
-      '&#39;': "'",
-      '&amp;': '&',
-      '&#38;': '&',
-      '&lt;': '<',
-      '&#60;': '<',
-      '&gt;': '>',
-      '&#62;': '>',
-      '&nbsp;': ' ',
-      '&#160;': ' ',
-    };
-
-    return text.replace(/&[#\w]+;/g, (entity) => htmlEntities[entity] || entity);
+    const textarea = document.createElement('textarea');
+    textarea.innerHTML = text;
+    return textarea.value;
   };
 
   const decodedValue = decodeHtmlEntities(value);
