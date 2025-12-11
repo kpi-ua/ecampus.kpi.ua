@@ -27,6 +27,7 @@
     },
     "modules": {
       "contacts": "Контакти",
+      "directory": "Список контактів",
       "msg": "Повідомлення",
       "kurator": "Куратор",
       "announcementseditor": "Управління оголошеннями",
@@ -386,6 +387,15 @@
       "title": "Контакти",
       "header": "Контакти",
       "content": "<h3>Контактнi данi</h3><p>Адреса конструкторського бюро: <addresslink>Україна, м. Київ, вул. Політехнічна 14-в</addresslink>, корпус 13, 4 поверх, 25 кабінет</p><h3>Соцiальнi мережi</h3><p><githublink>КПI у GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Служба підтримки</h3><p>Якщо у вас є питання, ви можете звернутися до служби підтримки:</p><suggestionslink>Форма пропозицiй</suggestionslink><br></br><emaillink>Email</emaillink>"
+    },
+    "directory": {
+      "title": "Контакти",
+      "subtitle": "Пошук та перегляд контактної інформації колег з вашої кафедри",
+      "search-placeholder": "Пошук за ім'ям, підрозділом або посадою...",
+      "all-subdivisions": "Всі підрозділи",
+      "all-contact-types": "Всі типи контактів",
+      "no-contacts-found": "Контакти не знайдено",
+      "showing-count": "Показано контактів: {count}"
     },
     "notice-board": {
       "title": "Оголошення",

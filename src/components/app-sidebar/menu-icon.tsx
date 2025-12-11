@@ -50,6 +50,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['mob', Books],
   ['vote', ChartBarHorizontal],
   ['contacts', IdentificationBadge],
+  ['directory', UsersThree],
   ['notice-board', Scroll],
   ['msg', ChatTeardropDots],
   ['kurator', Student],
