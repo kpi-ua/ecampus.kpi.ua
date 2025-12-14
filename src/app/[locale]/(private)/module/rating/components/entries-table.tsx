@@ -5,30 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { RatingEntry } from '@/types/models/rating';
-import { formatNumber } from '@/lib/utils';
-
-function linkifyText(text: string): React.ReactNode[] {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  const parts = text.split(urlRegex);
-
-  return parts.map((part, index) => {
-    if (urlRegex.test(part)) {
-      urlRegex.lastIndex = 0;
-      return (
-        <a
-          key={index}
-          href={part}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-basic-blue hover:underline"
-        >
-          {part}
-        </a>
-      );
-    }
-    return part;
-  });
-}
+import { formatNumber, linkifyText } from '@/lib/utils';
 
 interface EntriesTableProps {
   entries: RatingEntry[];
