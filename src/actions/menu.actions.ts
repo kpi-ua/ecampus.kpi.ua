@@ -43,7 +43,7 @@ const getModuleMenuItemComposer =
 const getMenuGroupComposer = (translation: Translation) => (modules: Module[], profileArea: ProfileArea) => {
   const composeModuleMenuItem = getModuleMenuItemComposer(translation);
 
-  return modules.map((module) => composeModuleMenuItem(module, profileArea)).sort(byTitle);
+  return modules.map((module) => composeModuleMenuItem(module, profileArea));
 };
 
 export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
