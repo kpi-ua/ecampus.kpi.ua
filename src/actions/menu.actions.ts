@@ -19,7 +19,6 @@ const OLD_CAMPUS_PROFILE_AREA = {
 };
 type Translation = Awaited<ReturnType<typeof getTranslations>>;
 
-const byTitle = (a: MenuGroup, b: MenuGroup) => a.title.localeCompare(b.title);
 const getIsExternal = (module: Module, profileArea: ProfileArea) =>
   typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal;
 
