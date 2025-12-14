@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from 'clsx';
 import { uid } from 'radash';
+import React from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -26,3 +27,26 @@ export const parseContentDispositionFilename = (header: string): string | null =
   const match = header.match(/filename\s*=\s*("?)([^";]+)\1/i);
   return match ? match[2] : null;
 };
+
+export function linkifyText(text: string): React.ReactNode[] {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+
+  return parts.map((part, index) => {
+    if (urlRegex.test(part)) {
+      urlRegex.lastIndex = 0;
+      return React.createElement(
+        'a',
+        {
+          key: index,
+          href: part,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          className: 'text-basic-blue hover:underline',
+        },
+        part
+      );
+    }
+    return part;
+  });
+}
