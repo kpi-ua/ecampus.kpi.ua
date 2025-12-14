@@ -26,7 +26,7 @@
       "footer": "<paragraph>All rights reserved.© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph> <paragraph>Developer: <kbislink>KBIS</kbislink></paragraph>"
     },
     "modules": {
-      "directory": "Сontact list",
+      "directory": "Contact list",
       "msg": "Messages",
       "kurator": "Curator",
       "announcementseditor": "Announcements management",
