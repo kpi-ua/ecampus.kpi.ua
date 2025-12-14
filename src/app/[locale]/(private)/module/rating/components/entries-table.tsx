@@ -4,25 +4,8 @@ import React, { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { RatingEntry } from '@/types/models/rating';
 import { formatNumber, linkifyText } from '@/lib/utils';
-
-interface EntriesTableProps {
-  entries: RatingEntry[];
-}
-
-interface TreeGroup {
-  treeName: string;
-  treeId: number;
-  entries: RatingEntry[];
-}
-
-interface GroupedByWorkKind {
-  workKindName: string;
-  workKindId: number;
-  treeGroups: TreeGroup[];
-  totalResult: number;
-}
+import { EntriesTableProps, GroupedByWorkKind, TreeGroup } from '../types';
 
 export function EntriesTable({ entries }: EntriesTableProps) {
   const t = useTranslations('private.rating');
