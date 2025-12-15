@@ -13,12 +13,7 @@ export async function getColleagueContacts() {
       return [];
     }
 
-    const text = await response.text();
-    if (!text) {
-      return [];
-    }
-
-    return JSON.parse(text);
+    return response.json();
   } catch (error) {
     console.error('Error fetching colleague contacts:', error);
     return [];
@@ -34,12 +29,7 @@ export async function getColleagueContactTypes() {
       return [];
     }
 
-    const text = await response.text();
-    if (!text) {
-      return [];
-    }
-
-    return JSON.parse(text);
+    return response.json();
   } catch (error) {
     console.error('Error fetching contact types:', error);
     return [];
