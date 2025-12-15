@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { sum } from 'radash';
+import { sum, toggle } from 'radash';
 import { formatNumber, linkifyText } from '@/lib/utils';
 import { EntriesTableProps, GroupedByWorkKind } from '../types';
 import { useGroupedEntries } from './hooks';
@@ -15,18 +15,10 @@ function NumericTableHead({ children }: { children: React.ReactNode }) {
 
 export function EntriesTable({ entries }: EntriesTableProps) {
   const t = useTranslations('private.rating');
-  const [expandedTreeGroups, setExpandedTreeGroups] = useState<Set<string>>(new Set());
+  const [expandedTreeGroups, setExpandedTreeGroups] = useState<string[]>([]);
 
   const toggleTreeGroup = (key: string) => {
-    setExpandedTreeGroups((prev) => {
-      const next = new Set(prev);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      return next;
-    });
+    setExpandedTreeGroups((prev) => toggle(prev, key));
   };
 
   const groupedEntries = useGroupedEntries(entries);
@@ -68,7 +60,7 @@ export function EntriesTable({ entries }: EntriesTableProps) {
               <TableBody>
                 {workKindGroup.treeGroups.map((treeGroup, treeGroupIndex) => {
                   const treeGroupKey = `${workKindGroup.workKindId}-${treeGroup.treeName}`;
-                  const isExpanded = expandedTreeGroups.has(treeGroupKey);
+                  const isExpanded = expandedTreeGroups.includes(treeGroupKey);
 
                   return (
                     <React.Fragment key={treeGroupKey}>
