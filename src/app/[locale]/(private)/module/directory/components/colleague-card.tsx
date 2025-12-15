@@ -4,6 +4,7 @@ import { Paragraph } from '@/components/typography';
 import { ContactLink } from './contact-link';
 import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/contact-types';
 import Link from 'next/link';
+import { sift } from 'radash';
 
 interface ColleagueCardProps {
   colleague: ColleagueContact;
@@ -12,8 +13,8 @@ interface ColleagueCardProps {
 
 export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
   // Process all contacts without grouping
-  const processedContacts = colleague.contacts
-    .map((contact) => {
+  const processedContacts = sift(
+    colleague.contacts.map((contact) => {
       const contactType = contactTypes.find((type) => type.id === contact.contactTypeId);
       if (!contactType) return null;
 
@@ -25,13 +26,13 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
         typeName: contactType.name,
         value: contact.value,
       };
-    })
-    .filter((contact): contact is NonNullable<typeof contact> => contact !== null);
+    }),
+  );
 
   // Add academic identifiers with '-' if they don't exist
   const existingAcademicIds = new Set(processedContacts.map((c) => c.typeId));
-  const missingAcademicContacts = ACADEMIC_IDENTIFIER_IDS.filter((id) => !existingAcademicIds.has(id))
-    .map((id) => {
+  const missingAcademicContacts = sift(
+    ACADEMIC_IDENTIFIER_IDS.filter((id) => !existingAcademicIds.has(id)).map((id) => {
       const contactType = contactTypes.find((type) => type.id === id);
       if (!contactType) return null;
       return {
@@ -39,8 +40,8 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
         typeName: contactType.name,
         value: '-',
       };
-    })
-    .filter((contact): contact is NonNullable<typeof contact> => contact !== null);
+    }),
+  );
 
   const allContacts = [...processedContacts, ...missingAcademicContacts];
 
