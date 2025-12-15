@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { formatNumber, linkifyText } from '@/lib/utils';
+import { RatingEntry } from '@/types/models/rating';
 import { EntriesTableProps, GroupedByWorkKind, TreeGroup } from '../types';
 
 export function EntriesTable({ entries }: EntriesTableProps) {
