@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { sum } from 'radash';
+import { sort, sum } from 'radash';
 import { RatingEntry } from '@/types/models/rating';
 import { GroupedByWorkKind, TreeGroup } from '../types';
 
@@ -38,7 +38,7 @@ export function useGroupedEntries(entries: RatingEntry[]): GroupedByWorkKind[] {
         }
       });
 
-      const treeGroupsArray = Array.from(treeGroups.values()).sort((a, b) => a.treeId - b.treeId);
+      const treeGroupsArray = sort(Array.from(treeGroups.values()), (t) => t.treeId);
       const totalResult = sum(group.entries, (e) => e.result);
 
       result.push({
@@ -49,6 +49,6 @@ export function useGroupedEntries(entries: RatingEntry[]): GroupedByWorkKind[] {
       });
     });
 
-    return result.sort((a, b) => a.workKindId - b.workKindId);
+    return sort(result, (r) => r.workKindId);
   }, [entries]);
 }
