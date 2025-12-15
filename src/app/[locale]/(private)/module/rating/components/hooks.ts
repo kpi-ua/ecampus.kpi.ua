@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { sum } from 'radash';
 import { RatingEntry } from '@/types/models/rating';
 import { GroupedByWorkKind, TreeGroup } from '../types';
 
@@ -38,7 +39,7 @@ export function useGroupedEntries(entries: RatingEntry[]): GroupedByWorkKind[] {
       });
 
       const treeGroupsArray = Array.from(treeGroups.values()).sort((a, b) => a.treeId - b.treeId);
-      const totalResult = group.entries.reduce((sum, e) => sum + e.result, 0);
+      const totalResult = sum(group.entries, (e) => e.result);
 
       result.push({
         workKindId,
