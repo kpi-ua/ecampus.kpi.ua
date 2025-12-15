@@ -51,7 +51,7 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
                     {contact.typeName}:
                   </Paragraph>
                   <Paragraph className="m-0 text-xs">
-                    {contact.value === '-' ? '-' : <ContactLink typeId={contact.typeId} value={contact.value} />}
+                    {contact.value ? <ContactLink typeId={contact.typeId} value={contact.value} /> : '-'}
                   </Paragraph>
                 </div>
               ))}
@@ -64,7 +64,7 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
                     {contact.typeName}:
                   </Paragraph>
                   <Paragraph className="m-0 text-xs">
-                    {contact.value === '-' ? '-' : <ContactLink typeId={contact.typeId} value={contact.value} />}
+                    {contact.value ? <ContactLink typeId={contact.typeId} value={contact.value} /> : '-'}
                   </Paragraph>
                 </div>
               ))}

@@ -8,7 +8,7 @@ import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/contact-types';
 interface ProcessedContact {
   typeId: number;
   typeName: string;
-  value: string;
+  value?: string;
 }
 
 export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[]) => {
@@ -30,7 +30,7 @@ export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[
       }),
     );
 
-    // Add academic identifiers with '-' if they don't exist
+    // Add academic identifiers with undefined value if they don't exist
     const existingAcademicIds = new Set(processedContacts.map((c) => c.typeId));
     const missingAcademicContacts = sift(
       ACADEMIC_IDENTIFIER_IDS.filter((id) => !existingAcademicIds.has(id)).map((id) => {
@@ -39,7 +39,6 @@ export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[
         return {
           typeId: id,
           typeName: contactType.name,
-          value: '-',
         };
       }),
     );
