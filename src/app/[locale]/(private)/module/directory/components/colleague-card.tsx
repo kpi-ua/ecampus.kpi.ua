@@ -3,7 +3,7 @@ import { ColleagueContact, ContactType } from '@/types/models/colleague-contact'
 import { Paragraph } from '@/components/typography';
 import { ContactLink } from './contact-link';
 import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/contact-types';
-import { Link } from '@/i18n/routing';
+import Link from 'next/link';
 
 interface ColleagueCardProps {
   colleague: ColleagueContact;
