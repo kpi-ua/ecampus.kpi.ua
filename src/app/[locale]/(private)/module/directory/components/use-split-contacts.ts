@@ -5,12 +5,6 @@ import { sift } from 'radash';
 import { Contact, ContactType } from '@/types/models/colleague-contact';
 import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/contact-types';
 
-interface ProcessedContact {
-  typeId: number;
-  typeName: string;
-  value?: string;
-}
-
 export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[]) => {
   return useMemo(() => {
     // Process all contacts without grouping
