@@ -3,7 +3,7 @@
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { ColleagueContact, ContactType } from '@/types/models/colleague-contact';
 import { Paragraph } from '@/components/typography';
-import { ContactLink } from './contact-link';
+import { ContactList } from './contact-list';
 import Link from 'next/link';
 import { useSplitContacts } from './use-split-contacts';
 
@@ -43,32 +43,8 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
             </div>
           </div>
           <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
-            {/* Left column: Academic identifiers */}
-            <div className="flex flex-col gap-2">
-              {academicContacts.map((contact, index) => (
-                <div key={`${contact.typeId}-${index}`} className="flex items-baseline gap-2">
-                  <Paragraph className="m-0 text-xs font-semibold text-neutral-600 whitespace-nowrap">
-                    {contact.typeName}:
-                  </Paragraph>
-                  <Paragraph className="m-0 text-xs">
-                    {contact.value ? <ContactLink typeId={contact.typeId} value={contact.value} /> : '-'}
-                  </Paragraph>
-                </div>
-              ))}
-            </div>
-            {/* Right column: Other contacts */}
-            <div className="flex flex-col gap-2">
-              {otherContacts.map((contact, index) => (
-                <div key={`${contact.typeId}-${index}`} className="flex items-baseline gap-2">
-                  <Paragraph className="m-0 text-xs font-semibold text-neutral-600 whitespace-nowrap">
-                    {contact.typeName}:
-                  </Paragraph>
-                  <Paragraph className="m-0 text-xs">
-                    {contact.value ? <ContactLink typeId={contact.typeId} value={contact.value} /> : '-'}
-                  </Paragraph>
-                </div>
-              ))}
-            </div>
+            <ContactList contacts={academicContacts} />
+            <ContactList contacts={otherContacts} />
           </div>
         </div>
       </CardContent>
