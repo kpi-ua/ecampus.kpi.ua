@@ -8,6 +8,7 @@ import { useState, useMemo } from 'react';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslations } from 'next-intl';
 import { Paragraph } from '@/components/typography';
+import { alphabetical, unique, flat } from 'radash';
 
 interface ColleagueContactsListProps {
   colleagues: ColleagueContact[];
@@ -20,15 +21,13 @@ export function ColleagueContactsList({ colleagues, contactTypes }: ColleagueCon
   const [selectedSubdivision, setSelectedSubdivision] = useState<string>('all');
 
   const allSubdivisions = useMemo(() => {
-    const subdivisions = new Map<number, string>();
-    colleagues.forEach((colleague) => {
-      colleague.positions.forEach((position) => {
-        subdivisions.set(position.subdivision.id, position.subdivision.name);
-      });
-    });
-    return Array.from(subdivisions.entries())
-      .map(([id, name]) => ({ id, name }))
-      .sort((a, b) => a.name.localeCompare(b.name));
+    return alphabetical(
+      unique(
+        flat(colleagues.map((x) => x.positions.map((x) => x.subdivision))),
+        (subdivision) => subdivision.id,
+      ),
+      (subdivision) => subdivision.name,
+    );
   }, [colleagues]);
 
   const filteredColleagues = useMemo(() => {
