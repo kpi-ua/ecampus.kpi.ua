@@ -12,7 +12,7 @@ export const getUniqueUserPhotoUrl = (profileUrl: string) => `${profileUrl}?v=${
 export const round = (number: number, decimalPlaces: number = 2) =>
   Math.round(number * 10 ** decimalPlaces) / 10 ** decimalPlaces;
 
-export const formatNumber = (num: number, locale: string = 'uk-UA', decimals: number = 2) =>
+export const formatNumber = (num: number, decimals: number = 2, locale: string = 'uk-UA') =>
   num.toLocaleString(locale, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 
 export const parseContentDispositionFilename = (header: string): string | null => {
