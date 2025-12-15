@@ -8,6 +8,10 @@ import { formatNumber, linkifyText } from '@/lib/utils';
 import { EntriesTableProps, GroupedByWorkKind } from '../types';
 import { useGroupedEntries } from './hooks';
 
+function NumericTableHead({ children }: { children: React.ReactNode }) {
+  return <TableHead className="w-24 whitespace-nowrap text-right">{children}</TableHead>;
+}
+
 export function EntriesTable({ entries }: EntriesTableProps) {
   const t = useTranslations('private.rating');
   const [expandedTreeGroups, setExpandedTreeGroups] = useState<Set<string>>(new Set());
@@ -59,10 +63,10 @@ export function EntriesTable({ entries }: EntriesTableProps) {
                 <TableRow>
                   <TableHead className="w-12">№</TableHead>
                   <TableHead>{t('table.workType')}</TableHead>
-                  <TableHead className="w-24 whitespace-nowrap text-right">{t('table.mark')}</TableHead>
-                  <TableHead className="w-24 whitespace-nowrap text-right">{t('table.quantity')}</TableHead>
-                  <TableHead className="w-24 whitespace-nowrap text-right">{t('table.percent')}</TableHead>
-                  <TableHead className="w-24 whitespace-nowrap text-right">{t('table.result')}</TableHead>
+                  <NumericTableHead>{t('table.mark')}</NumericTableHead>
+                  <NumericTableHead>{t('table.quantity')}</NumericTableHead>
+                  <NumericTableHead>{t('table.percent')}</NumericTableHead>
+                  <NumericTableHead>{t('table.result')}</NumericTableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
