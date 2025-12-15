@@ -11,6 +11,11 @@ export interface Position {
   employment: 'FullTime' | 'PartTimeInternal' | 'PartTimeExternal';
 }
 
+export interface Contact {
+  contactTypeId: number;
+  value: string;
+}
+
 export interface ColleagueContact {
   userAccountId: number;
   fullName: string;
@@ -18,10 +23,7 @@ export interface ColleagueContact {
   contactSource: string;
   intellectProfileEnabled: boolean;
   intellectProfile: string | null;
-  contacts: {
-    contactTypeId: number;
-    value: string;
-  }[];
+  contacts: Contact[];
 }
 
 export type { ContactType };
