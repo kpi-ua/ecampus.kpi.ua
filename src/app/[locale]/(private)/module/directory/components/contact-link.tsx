@@ -1,4 +1,5 @@
-import { CONTACT_TYPE_IDS, PHONE_TYPE_IDS, WEB_TYPE_IDS } from '@/lib/constants/contact-types';
+import { ContactTypeId } from '@/types/enums/contact-type';
+import { PHONE_TYPE_IDS, WEB_TYPE_IDS } from '@/lib/constants/contact-types';
 
 interface ContactLinkProps {
   typeId: number;
@@ -42,7 +43,7 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   };
 
   // E-mail
-  if (typeId === CONTACT_TYPE_IDS.EMAIL) {
+  if (typeId === ContactTypeId.Email) {
     return (
       <a href={`mailto:${decodedValue}`} className="break-all">
         {decodedValue}
@@ -76,7 +77,7 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   }
 
   // Telegram
-  if (typeId === CONTACT_TYPE_IDS.TELEGRAM) {
+  if (typeId === ContactTypeId.Telegram) {
     const telegramUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://t.me/${decodedValue.replace('@', '')}`;
@@ -91,7 +92,7 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   }
 
   // Orcid ID
-  if (typeId === CONTACT_TYPE_IDS.ORCID_ID) {
+  if (typeId === ContactTypeId.OrcidId) {
     const orcidUrl = decodedValue.startsWith('http') ? decodedValue : `https://orcid.org/${decodedValue}`;
     if (!isSafeUrl(orcidUrl)) {
       return <span className="break-all">{decodedValue}</span>;
@@ -104,7 +105,7 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   }
 
   // Scopus ID
-  if (typeId === CONTACT_TYPE_IDS.SCOPUS_ID) {
+  if (typeId === ContactTypeId.ScopusId) {
     const scopusUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://www.scopus.com/authid/detail.uri?authorId=${decodedValue}`;
@@ -119,7 +120,7 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   }
 
   // Research ID
-  if (typeId === CONTACT_TYPE_IDS.RESEARCH_ID) {
+  if (typeId === ContactTypeId.ResearchId) {
     const researchIdUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://www.webofscience.com/wos/author/record/${decodedValue}`;
@@ -134,7 +135,7 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   }
 
   // Google Scholar
-  if (typeId === CONTACT_TYPE_IDS.GOOGLE_SCHOLAR) {
+  if (typeId === ContactTypeId.GoogleScholar) {
     const scholarUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://scholar.google.com/citations?user=${decodedValue}`;
@@ -149,7 +150,7 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   }
 
   // Research Gate
-  if (typeId === CONTACT_TYPE_IDS.RESEARCH_GATE) {
+  if (typeId === ContactTypeId.ResearchGate) {
     const researchGateUrl = decodedValue.startsWith('http')
       ? decodedValue
       : `https://www.researchgate.net/profile/${decodedValue}`;

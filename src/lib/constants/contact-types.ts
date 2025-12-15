@@ -1,50 +1,27 @@
-/**
- * Contact type IDs from the backend database
- */
-export const CONTACT_TYPE_IDS = {
-  PHONE_HOME: 1,
-  PHONE_MOBILE: 3,
-  PHONE_WORK: 4,
-  FAX: 6,
-  WEB_DEPRECATED: 7,
-  PHONE_FAX: 8,
-  SKYPE_DEPRECATED: 9,
-  ICQ_DEPRECATED: 11,
-  WEB: 12,
-  EMAIL: 17,
-  SOCIAL_NETWORK: 20,
-  ADDRESS: 21,
-  TELEGRAM: 22,
-  VIBER: 23,
-  ORCID_ID: 24,
-  SCOPUS_ID: 25,
-  RESEARCH_ID: 26,
-  GOOGLE_SCHOLAR: 27,
-  RESEARCH_GATE: 28,
-} as const;
+import { ContactTypeId } from '@/types/enums/contact-type';
 
 /**
  * All phone-related contact type IDs
  */
 export const PHONE_TYPE_IDS = [
-  CONTACT_TYPE_IDS.PHONE_HOME,
-  CONTACT_TYPE_IDS.PHONE_MOBILE,
-  CONTACT_TYPE_IDS.PHONE_WORK,
-  CONTACT_TYPE_IDS.PHONE_FAX,
+  ContactTypeId.PhoneHome,
+  ContactTypeId.PhoneMobile,
+  ContactTypeId.PhoneWork,
+  ContactTypeId.PhoneFax,
 ] as const;
 
 /**
  * All web-related contact type IDs
  */
-export const WEB_TYPE_IDS = [CONTACT_TYPE_IDS.WEB_DEPRECATED, CONTACT_TYPE_IDS.WEB] as const;
+export const WEB_TYPE_IDS = [ContactTypeId.WebDeprecated, ContactTypeId.Web] as const;
 
 /**
  * Academic identifier contact type IDs
  */
 export const ACADEMIC_IDENTIFIER_IDS = [
-  CONTACT_TYPE_IDS.ORCID_ID,
-  CONTACT_TYPE_IDS.SCOPUS_ID,
-  CONTACT_TYPE_IDS.RESEARCH_ID,
-  CONTACT_TYPE_IDS.GOOGLE_SCHOLAR,
-  CONTACT_TYPE_IDS.RESEARCH_GATE,
+  ContactTypeId.OrcidId,
+  ContactTypeId.ScopusId,
+  ContactTypeId.ResearchId,
+  ContactTypeId.GoogleScholar,
+  ContactTypeId.ResearchGate,
 ] as const;
