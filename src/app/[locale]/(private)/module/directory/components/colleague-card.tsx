@@ -53,16 +53,14 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
     (contact) => !ACADEMIC_IDENTIFIER_IDS.includes(contact.typeId as (typeof ACADEMIC_IDENTIFIER_IDS)[number]),
   );
 
-  const hasIntellectProfile = colleague.intellectProfileEnabled && colleague.intellectProfile;
-
   return (
     <Card className="w-full">
       <CardContent className="p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-start">
           <div className="flex flex-col gap-1 md:w-[300px]">
-            {hasIntellectProfile ? (
+            {colleague.intellectProfileEnabled && colleague.intellectProfile ? (
               <Link
-                href={colleague.intellectProfile!}
+                href={colleague.intellectProfile}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-base leading-tight"
