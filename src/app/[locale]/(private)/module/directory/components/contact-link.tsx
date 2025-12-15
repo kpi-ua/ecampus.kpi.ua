@@ -1,4 +1,3 @@
-import { Link } from '@/i18n/routing';
 import { CONTACT_TYPE_IDS, PHONE_TYPE_IDS, WEB_TYPE_IDS } from '@/lib/constants/contact-types';
 
 interface ContactLinkProps {
@@ -45,18 +44,18 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
   // E-mail
   if (typeId === CONTACT_TYPE_IDS.EMAIL) {
     return (
-      <Link href={`mailto:${decodedValue}`} className="break-all">
+      <a href={`mailto:${decodedValue}`} className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
   // Phone types
   if (PHONE_TYPE_IDS.includes(typeId as (typeof PHONE_TYPE_IDS)[number])) {
     return (
-      <Link href={`tel:${decodedValue}`} className="break-all">
+      <a href={`tel:${decodedValue}`} className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
@@ -70,9 +69,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
       return <span className="break-all">{removeProtocol(decodedValue)}</span>;
     }
     return (
-      <Link href={decodedValue} target="_blank" rel="noopener noreferrer" className="break-all">
+      <a href={decodedValue} target="_blank" rel="noopener noreferrer" className="break-all">
         {removeProtocol(decodedValue)}
-      </Link>
+      </a>
     );
   }
 
@@ -85,9 +84,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
       return <span className="break-all">{decodedValue}</span>;
     }
     return (
-      <Link href={telegramUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+      <a href={telegramUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
@@ -98,9 +97,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
       return <span className="break-all">{decodedValue}</span>;
     }
     return (
-      <Link href={orcidUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+      <a href={orcidUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
@@ -113,9 +112,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
       return <span className="break-all">{decodedValue}</span>;
     }
     return (
-      <Link href={scopusUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+      <a href={scopusUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
@@ -128,9 +127,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
       return <span className="break-all">{decodedValue}</span>;
     }
     return (
-      <Link href={researchIdUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+      <a href={researchIdUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
@@ -143,9 +142,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
       return <span className="break-all">{decodedValue}</span>;
     }
     return (
-      <Link href={scholarUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+      <a href={scholarUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
@@ -158,9 +157,9 @@ export function ContactLink({ typeId, value }: ContactLinkProps) {
       return <span className="break-all">{decodedValue}</span>;
     }
     return (
-      <Link href={researchGateUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+      <a href={researchGateUrl} target="_blank" rel="noopener noreferrer" className="break-all">
         {decodedValue}
-      </Link>
+      </a>
     );
   }
 
