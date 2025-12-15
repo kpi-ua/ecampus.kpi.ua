@@ -19,6 +19,8 @@ const OLD_CAMPUS_PROFILE_AREA = {
 };
 type Translation = Awaited<ReturnType<typeof getTranslations>>;
 
+const byTitle = (a: MenuGroup, b: MenuGroup) => a.title.localeCompare(b.title);
+
 const getIsExternal = (module: Module, profileArea: ProfileArea) =>
   typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal;
 
@@ -68,13 +70,14 @@ export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
 
     const t = await getTranslations('global.modules');
     const profileArea = userDetails.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
+    const isEmployee = !!userDetails.employeeProfile;
     const availableModules = MODULES.filter((module) => jwtPayload.modules.includes(module.name));
     const groups = group(availableModules, (module) => module.group || module.name);
 
     const composeMenuGroup = getMenuGroupComposer(t);
     const composeModuleMenuItem = getModuleMenuItemComposer(t);
 
-    return Object.entries(groups).reduce((acc: MenuGroup[], [group, modules]) => {
+    const menuItems = Object.entries(groups).reduce((acc: MenuGroup[], [group, modules]) => {
       if (!modules) {
         return acc;
       }
@@ -95,6 +98,8 @@ export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
         } satisfies MenuGroup,
       ];
     }, []);
+
+    return isEmployee ? menuItems.sort(byTitle) : menuItems;
   } catch (error) {
     return [];
   }
