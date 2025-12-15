@@ -647,11 +647,7 @@
       },
       "total": "Total",
       "points": "points",
-      "entries": {
-        "one": "{count} entry",
-        "few": "{count} entries",
-        "many": "{count} entries"
-      },
+      "entries": "{count, plural, one {# entry} other {# entries}}",
       "showDetails": "Show details",
       "hideDetails": "Hide",
       "table": {

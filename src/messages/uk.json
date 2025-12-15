@@ -647,11 +647,7 @@
       },
       "total": "Всього",
       "points": "балів",
-      "entries": {
-        "one": "{count} запис",
-        "few": "{count} записи",
-        "many": "{count} записів"
-      },
+      "entries": "{count, plural, one {# запис} few {# записи} many {# записів} other {# записів}}",
       "showDetails": "Показати детально",
       "hideDetails": "Сховати",
       "table": {

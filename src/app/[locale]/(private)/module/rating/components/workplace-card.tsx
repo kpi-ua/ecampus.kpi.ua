@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Card } from '@/components/ui/card';
 import { Heading5 } from '@/components/typography';
@@ -15,22 +14,6 @@ interface WorkplaceCardProps {
 
 export function WorkplaceCard({ workplace }: WorkplaceCardProps) {
   const t = useTranslations('private.rating');
-
-  const formatEntryCount = (count: number) => {
-    const lastDigit = count % 10;
-    const lastTwoDigits = count % 100;
-
-    if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-      return t('entries.many', { count });
-    }
-    if (lastDigit === 1) {
-      return t('entries.one', { count });
-    }
-    if (lastDigit >= 2 && lastDigit <= 4) {
-      return t('entries.few', { count });
-    }
-    return t('entries.many', { count });
-  };
 
   return (
     <Card className="overflow-hidden bg-white">
@@ -57,7 +40,7 @@ export function WorkplaceCard({ workplace }: WorkplaceCardProps) {
         <div className="border-t border-neutral-200 pt-4">
           <span className="font-semibold text-neutral-900">{t('total')}:</span>{' '}
           <span className="text-basic-blue text-lg font-bold">
-            {formatNumber(workplace.totalResult)} {t('points')} ({formatEntryCount(workplace.totalEntryCount)})
+            {formatNumber(workplace.totalResult)} {t('points')} ({t('entries', { count: workplace.totalEntryCount })})
           </span>
         </div>
       </div>
