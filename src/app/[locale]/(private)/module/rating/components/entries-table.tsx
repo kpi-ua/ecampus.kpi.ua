@@ -1,12 +1,12 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
 import { formatNumber, linkifyText } from '@/lib/utils';
-import { RatingEntry } from '@/types/models/rating';
-import { EntriesTableProps, GroupedByWorkKind, TreeGroup } from '../types';
+import { EntriesTableProps, GroupedByWorkKind } from '../types';
+import { useGroupedEntries } from './hooks';
 
 export function EntriesTable({ entries }: EntriesTableProps) {
   const t = useTranslations('private.rating');
@@ -24,55 +24,7 @@ export function EntriesTable({ entries }: EntriesTableProps) {
     });
   };
 
-  const groupedEntries = useMemo(() => {
-    // First, group by workKindId
-    const workKindGroups: Map<number, { workKindName: string; entries: RatingEntry[] }> = new Map();
-
-    entries.forEach((entry) => {
-      const existing = workKindGroups.get(entry.workKindId);
-      if (existing) {
-        existing.entries.push(entry);
-      } else {
-        workKindGroups.set(entry.workKindId, {
-          workKindName: entry.workKindName,
-          entries: [entry],
-        });
-      }
-    });
-
-    // Then, within each workKind, group by treeName
-    const result: GroupedByWorkKind[] = [];
-
-    workKindGroups.forEach((group, workKindId) => {
-      const treeGroups: Map<string, TreeGroup> = new Map();
-
-      group.entries.forEach((entry) => {
-        const key = entry.treeName;
-        const existing = treeGroups.get(key);
-        if (existing) {
-          existing.entries.push(entry);
-        } else {
-          treeGroups.set(key, {
-            treeName: entry.treeName,
-            treeId: entry.treeId,
-            entries: [entry],
-          });
-        }
-      });
-
-      const treeGroupsArray = Array.from(treeGroups.values()).sort((a, b) => a.treeId - b.treeId);
-      const totalResult = group.entries.reduce((sum, e) => sum + e.result, 0);
-
-      result.push({
-        workKindId,
-        workKindName: group.workKindName,
-        treeGroups: treeGroupsArray,
-        totalResult,
-      });
-    });
-
-    return result.sort((a, b) => a.workKindId - b.workKindId);
-  }, [entries]);
+  const groupedEntries = useGroupedEntries(entries);
 
   if (entries.length === 0) {
     return (
