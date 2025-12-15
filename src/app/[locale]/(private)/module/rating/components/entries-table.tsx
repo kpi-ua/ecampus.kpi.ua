@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
+import { sum } from 'radash';
 import { formatNumber, linkifyText } from '@/lib/utils';
 import { EntriesTableProps, GroupedByWorkKind } from '../types';
 import { useGroupedEntries } from './hooks';
@@ -38,13 +39,8 @@ export function EntriesTable({ entries }: EntriesTableProps) {
     );
   }
 
-  // Calculate global entry index for numbering
   const getGlobalIndex = (workKindGroup: GroupedByWorkKind, treeGroupIndex: number, entryIndex: number) => {
-    let count = 0;
-    for (let i = 0; i < treeGroupIndex; i++) {
-      count += workKindGroup.treeGroups[i].entries.length;
-    }
-    return count + entryIndex + 1;
+    return sum(workKindGroup.treeGroups.slice(0, treeGroupIndex), (g) => g.entries.length) + entryIndex + 1;
   };
 
   return (
