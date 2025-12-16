@@ -26,7 +26,7 @@
       "footer": "<paragraph>All rights reserved.© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph> <paragraph>Developer: <kbislink>KBIS</kbislink></paragraph>"
     },
     "modules": {
-      "contacts": "Contacts",
+      "directory": "Contact list",
       "msg": "Messages",
       "kurator": "Curator",
       "announcementseditor": "Announcements management",
@@ -38,8 +38,6 @@
       "rectorialcontrol": "Rectorial control",
       "certificates": "Certificates",
       "vedomoststud": "Semester control",
-      "pk2024": "Admission 2024 (Master’s)",
-      "pk2025": "Admission 2025 (Master’s)",
       "studdoc": "Student documents",
       "plans_individual": "Individual plans",
       "journals": "Journals",
@@ -50,11 +48,6 @@
       "attestation": "Calendar control",
       "vedomost": "Session",
       "vidpovidalniy": "Responsible",
-      "reytinghelp": "Data for faculty rating",
-      "ratingnpp2021": "SPW's rating 2020-2021",
-      "ratingnpp2022": "SPW's rating 2021-2022",
-      "ratingnpp2023": "SPW's rating 2022-2023",
-      "ratingnpp2024": "SPW's rating 2023-2024",
       "webometrics": "Translation of EIR metadata",
       "attestationresults": "Results of calendar control",
       "ekanat": "Dean’s office",
@@ -65,27 +58,18 @@
       "rnpupd2": "RNP Editing KM 2",
       "voteresult": "Survey results",
       "vedomostadmin": "Session Administrator",
-      "zvit": "Session Administrator",
       "zamdekan": "Deputy Dean",
       "zavkaf": "Head of Department",
       "zdekan": "Deans office",
       "ekk": "EKK",
       "bravook": "Bravo VC",
-      "ratingnpp": "Faculty rating 2019-2020",
-      "pk2024admin": "Admission 2024 (Admin)",
-      "pk2025admin": "Admission 2025 (Admin)",
       "studdocadmin": "Student documents (Admin)",
       "yiystat": "Statistical data",
       "adminpanel": "Admin panel",
-      "sdchoice2021admin": "Discipline selection (Admin)",
-      "sdchoice2021moderator": "Discipline selection (Moderator)",
-      "sdchoice2021nmv": "Discipline selection (NMV)",
       "employment": "Employment system",
+      "rating": "Archival SPW Rating",
       "useract": "Bravo Requests",
-      "viewcontrol": "Review current control",
-      "_groups": {
-        "rating": "Rating"
-      }
+      "viewcontrol": "Review current control"
     },
     "menu": {
       "main": "Home",
@@ -386,6 +370,15 @@
       "title": "Contacts",
       "header": "Contacts",
       "content": "<h3>Contact details</h3><p>Bureau office address: <addresslink>Ukraine, Kyiv, 14-v Polytechnic St.</addresslink>, Building 13, 4th floor, room 25</p><h3>Social networks</h3><p><githublink>KPI on GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Support service</h3><p>If you have any questions, you can contact the support service:</p><suggestionslink>Suggestions form</suggestionslink><br></br><emaillink>Email</emaillink>"
+    },
+    "directory": {
+      "title": "Contacts",
+      "subtitle": "Search and view contact information of colleagues from your department",
+      "search-placeholder": "Search by name, subdivision or position...",
+      "all-subdivisions": "All subdivisions",
+      "all-contact-types": "All contact types",
+      "no-contacts-found": "No contacts found",
+      "showing-count": "Showing {count} contacts"
     },
     "notice-board": {
       "title": "Notice board",
@@ -720,6 +713,27 @@
         "in-queue": "In Queue",
         "error": "Error",
         "signed": "Signed"
+      }
+    },
+    "rating": {
+      "title": "Archival SPW Rating",
+      "subtitle": "View scientific-pedagogical workers rating data by years and workplaces.",
+      "noData": "No data to display",
+      "noEntries": "No entries",
+      "summary": {
+        "title": "Summary"
+      },
+      "total": "Total",
+      "points": "points",
+      "entries": "{count, plural, one {# entry} other {# entries}}",
+      "showDetails": "Show details",
+      "hideDetails": "Hide",
+      "table": {
+        "workType": "Work type",
+        "mark": "Standard",
+        "quantity": "Quantity",
+        "percent": "Share, %",
+        "result": "Result"
       }
     },
     "settings": {

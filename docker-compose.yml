@@ -1,0 +1,14 @@
+services:
+  ecampus:
+    container_name: ecampus-kpi-ua-local
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - '80:3000'
+    environment:
+      CAMPUS_API_BASE_PATH: 'https://api.campus.cloud.kpi.ua'
+      OLD_CAMPUS_URL: 'https://campus.localtest.me'
+      MAIN_COOKIE_DOMAIN: '.ecampus.localtest.me'
+      ROOT_COOKIE_DOMAIN: '.localtest.me'

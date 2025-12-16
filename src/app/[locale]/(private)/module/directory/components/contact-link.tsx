@@ -1,0 +1,169 @@
+import { ContactTypeId } from '@/types/enums/contact-type';
+import { PHONE_TYPE_IDS, WEB_TYPE_IDS } from '@/lib/constants/contact-types';
+
+interface ContactLinkProps {
+  typeId: number;
+  value: string;
+}
+
+export function ContactLink({ typeId, value }: ContactLinkProps) {
+  // Decode HTML entities using a manual approach that works on both server and client
+  const decodeHtmlEntities = (text: string) => {
+    const htmlEntities: Record<string, string> = {
+      '&quot;': '"',
+      '&#34;': '"',
+      '&apos;': "'",
+      '&#39;': "'",
+      '&amp;': '&',
+      '&#38;': '&',
+      '&lt;': '<',
+      '&#60;': '<',
+      '&gt;': '>',
+      '&#62;': '>',
+      '&nbsp;': ' ',
+      '&#160;': ' ',
+    };
+
+    return text.replace(/&[#\w]+;/g, (entity) => htmlEntities[entity] || entity);
+  };
+
+  const decodedValue = decodeHtmlEntities(value);
+
+  const removeProtocol = (url: string) => {
+    return url.replace(/^https?:\/\//, '');
+  };
+
+  const isSafeUrl = (url: string): boolean => {
+    try {
+      const parsedUrl = new URL(url);
+      return ['http:', 'https:', 'mailto:', 'tel:'].includes(parsedUrl.protocol);
+    } catch {
+      return false;
+    }
+  };
+
+  // E-mail
+  if (typeId === ContactTypeId.Email) {
+    return (
+      <a href={`mailto:${decodedValue}`} className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Phone types
+  if (PHONE_TYPE_IDS.includes(typeId as (typeof PHONE_TYPE_IDS)[number])) {
+    return (
+      <a href={`tel:${decodedValue}`} className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Web
+  if (
+    WEB_TYPE_IDS.includes(typeId as (typeof WEB_TYPE_IDS)[number]) ||
+    decodedValue.startsWith('http://') ||
+    decodedValue.startsWith('https://')
+  ) {
+    if (!isSafeUrl(decodedValue)) {
+      return <span className="break-all">{removeProtocol(decodedValue)}</span>;
+    }
+    return (
+      <a href={decodedValue} target="_blank" rel="noopener noreferrer" className="break-all">
+        {removeProtocol(decodedValue)}
+      </a>
+    );
+  }
+
+  // Telegram
+  if (typeId === ContactTypeId.Telegram) {
+    const telegramUrl = decodedValue.startsWith('http')
+      ? decodedValue
+      : `https://t.me/${decodedValue.replace('@', '')}`;
+    if (!isSafeUrl(telegramUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
+    return (
+      <a href={telegramUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Orcid ID
+  if (typeId === ContactTypeId.OrcidId) {
+    const orcidUrl = decodedValue.startsWith('http') ? decodedValue : `https://orcid.org/${decodedValue}`;
+    if (!isSafeUrl(orcidUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
+    return (
+      <a href={orcidUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Scopus ID
+  if (typeId === ContactTypeId.ScopusId) {
+    const scopusUrl = decodedValue.startsWith('http')
+      ? decodedValue
+      : `https://www.scopus.com/authid/detail.uri?authorId=${decodedValue}`;
+    if (!isSafeUrl(scopusUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
+    return (
+      <a href={scopusUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Research ID
+  if (typeId === ContactTypeId.ResearchId) {
+    const researchIdUrl = decodedValue.startsWith('http')
+      ? decodedValue
+      : `https://www.webofscience.com/wos/author/record/${decodedValue}`;
+    if (!isSafeUrl(researchIdUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
+    return (
+      <a href={researchIdUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Google Scholar
+  if (typeId === ContactTypeId.GoogleScholar) {
+    const scholarUrl = decodedValue.startsWith('http')
+      ? decodedValue
+      : `https://scholar.google.com/citations?user=${decodedValue}`;
+    if (!isSafeUrl(scholarUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
+    return (
+      <a href={scholarUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Research Gate
+  if (typeId === ContactTypeId.ResearchGate) {
+    const researchGateUrl = decodedValue.startsWith('http')
+      ? decodedValue
+      : `https://www.researchgate.net/profile/${decodedValue}`;
+    if (!isSafeUrl(researchGateUrl)) {
+      return <span className="break-all">{decodedValue}</span>;
+    }
+    return (
+      <a href={researchGateUrl} target="_blank" rel="noopener noreferrer" className="break-all">
+        {decodedValue}
+      </a>
+    );
+  }
+
+  // Social Network, Viber, Address, Fax, and others - display as plain text
+  return <span className="break-all">{decodedValue}</span>;
+}
