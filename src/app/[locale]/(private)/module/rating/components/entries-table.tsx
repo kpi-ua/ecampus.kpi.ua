@@ -7,7 +7,7 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 import { sum, toggle } from 'radash';
 import { formatNumber, linkifyText } from '@/lib/utils';
 import { EntriesTableProps, GroupedByWorkKind } from '../types';
-import { useGroupedEntries } from './hooks';
+import { useGroupedEntries } from '../hooks';
 
 function NumericTableHead({ children }: { children: React.ReactNode }) {
   return <TableHead className="w-24 whitespace-nowrap text-right">{children}</TableHead>;

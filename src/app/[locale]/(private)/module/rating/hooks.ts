@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { sort, sum } from 'radash';
 import { RatingEntry } from '@/types/models/rating';
-import { GroupedByWorkKind, TreeGroup } from '../types';
+import { GroupedByWorkKind, TreeGroup } from './types';
 
 export function useGroupedEntries(entries: RatingEntry[]): GroupedByWorkKind[] {
   return useMemo(() => {
