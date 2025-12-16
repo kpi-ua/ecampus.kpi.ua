@@ -24,6 +24,7 @@ export const MODULES: Module[] = [
   { name: 'attestation', isExternal: true },
   { name: 'vedomost', isExternal: true },
   { name: 'vidpovidalniy', isExternal: true },
+  { name: 'rating', isExternal: false },
   { name: 'webometrics', isExternal: true },
   { name: 'ekanat', isExternal: true },
   { name: 'editRNP', isExternal: true },

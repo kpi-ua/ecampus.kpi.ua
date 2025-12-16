@@ -67,11 +67,9 @@
       "yiystat": "Statistical data",
       "adminpanel": "Admin panel",
       "employment": "Employment system",
+      "rating": "Archival SPW Rating",
       "useract": "Bravo Requests",
-      "viewcontrol": "Review current control",
-      "_groups": {
-        "rating": "Rating"
-      }
+      "viewcontrol": "Review current control"
     },
     "menu": {
       "main": "Home",
@@ -637,6 +635,27 @@
         "in-queue": "In Queue",
         "error": "Error",
         "signed": "Signed"
+      }
+    },
+    "rating": {
+      "title": "Archival SPW Rating",
+      "subtitle": "View scientific-pedagogical workers rating data by years and workplaces.",
+      "noData": "No data to display",
+      "noEntries": "No entries",
+      "summary": {
+        "title": "Summary"
+      },
+      "total": "Total",
+      "points": "points",
+      "entries": "{count, plural, one {# entry} other {# entries}}",
+      "showDetails": "Show details",
+      "hideDetails": "Hide",
+      "table": {
+        "workType": "Work type",
+        "mark": "Standard",
+        "quantity": "Quantity",
+        "percent": "Share, %",
+        "result": "Result"
       }
     },
     "settings": {

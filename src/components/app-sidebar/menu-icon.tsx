@@ -80,12 +80,11 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['zdekan', Lectern],
   ['ekk', Notebook],
   ['bravook', Scroll],
-  ['ratingnpp', Ranking],
+  ['rating', Ranking],
   ['studdocadmin', Files],
   ['yiystat', Table],
   ['adminpanel', SquaresFour],
   ['useract', Scroll],
   ['viewcontrol', NotePencil],
   ['vedomoststud', GraduationCap],
-  ['_group.rating', Ranking],
 ]);
