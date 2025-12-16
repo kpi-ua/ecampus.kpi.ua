@@ -17,15 +17,11 @@ import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { Option, optionSchema } from '../types';
 
 interface Props {
   groupOptions: EntityIdName[];
 }
-
-const optionSchema = z.object({
-  value: z.string(),
-  label: z.string(),
-});
 
 export function Individual({ groupOptions }: Props) {
   const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
@@ -46,8 +42,8 @@ export function Individual({ groupOptions }: Props) {
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
-      groupIds: [] as { value: string; label: string }[],
-      userIds: [] as { value: string; label: string }[],
+      groupIds: [] as Option[],
+      userIds: [] as Option[],
       subject: '',
       content: '',
     },

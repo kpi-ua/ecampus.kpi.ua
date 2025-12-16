@@ -14,11 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { useTranslations } from 'next-intl';
-
-const optionSchema = z.object({
-  value: z.string(),
-  label: z.string(),
-});
+import { Option, optionSchema } from '../types';
 
 export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
   const { toast } = useToast();
@@ -35,7 +31,7 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
-      groupIds: [] as { value: string; label: string }[],
+      groupIds: [] as Option[],
       subject: '',
       content: '',
     },
