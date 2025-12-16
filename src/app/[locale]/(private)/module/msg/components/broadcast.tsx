@@ -14,16 +14,19 @@ import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+
+const optionSchema = z.object({
+  value: z.string(),
+  label: z.string(),
+});
 
 export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
-  const [formKey, setFormKey] = useState(0);
   const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
   const t = useTranslations('private.msg.compose');
 
   const formSchema = z.object({
-    groupIds: z.array(z.number()).min(1, { message: t('validation.group-required') }),
+    groupIds: z.array(optionSchema).min(1, { message: t('validation.group-required') }),
     subject: z.string().min(1, { message: t('validation.subject-required') }),
     content: z.string().min(1, { message: t('validation.content-required') }),
   });
@@ -32,7 +35,7 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
-      groupIds: [],
+      groupIds: [] as { value: string; label: string }[],
       subject: '',
       content: '',
     },
@@ -40,7 +43,8 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      const students = await getStudentOptions(data.groupIds);
+      const groupIds = data.groupIds.map((option) => Number(option.value));
+      const students = await getStudentOptions(groupIds);
       await sendMail({
         recipients: students.map((student) => student.id),
         subject: data.subject,
@@ -52,7 +56,6 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
         description: t('toast.success-description'),
       });
       form.reset();
-      setFormKey((prev) => prev + 1);
     } catch (error) {
       errorToast();
     }
@@ -69,12 +72,12 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
               <FormItem>
                 <FormLabel>{t('form.study-group')}</FormLabel>
                 <MultipleSelector
-                  key={`broadcast-group-selector-${formKey}`}
+                  value={field.value}
                   options={groupOptions.map((group) => ({
                     value: group.id.toString(),
                     label: group.name,
                   }))}
-                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                  onChange={field.onChange}
                 />
                 <FormMessage />
               </FormItem>

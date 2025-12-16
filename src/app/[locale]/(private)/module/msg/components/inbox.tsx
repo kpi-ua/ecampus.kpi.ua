@@ -33,6 +33,11 @@ function reducer(state: State, action: Action) {
       return { ...state, isRefreshing: action.isRefreshing };
     case 'setMails':
       return { ...state, mails: action.mails };
+    case 'markMailAsRead':
+      return {
+        ...state,
+        mails: state.mails.map((m) => (m.id === action.mailId ? { ...m, isRead: true } : m)),
+      };
     default:
       return state;
   }
@@ -87,10 +92,7 @@ export default function Inbox({ mails, filter }: Props) {
     dispatch({ type: 'setOpenedDialog', openedDialog: 'preview' });
 
     if (!mail.isRead) {
-      dispatch({
-        type: 'setMails',
-        mails: state.mails.map((m) => (m.id === mail.id ? { ...m, isRead: true } : m)),
-      });
+      dispatch({ type: 'markMailAsRead', mailId: mail.id });
     }
   };
 
