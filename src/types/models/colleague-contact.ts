@@ -1,5 +1,3 @@
-import { ContactType } from './contact';
-
 export interface Subdivision {
   id: number;
   name: string;
@@ -25,5 +23,3 @@ export interface ColleagueContact {
   intellectProfile: string | null;
   contacts: Contact[];
 }
-
-export type { ContactType };
