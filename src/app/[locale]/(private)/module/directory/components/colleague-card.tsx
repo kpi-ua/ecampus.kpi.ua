@@ -1,7 +1,8 @@
 'use client';
 
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
-import { ColleagueContact, ContactType } from '@/types/models/colleague-contact';
+import { ColleagueContact } from '@/types/models/colleague-contact';
+import { ContactType } from '@/types/models/contact';
 import { Paragraph } from '@/components/typography';
 import { ContactList } from './contact-list';
 import Link from 'next/link';

@@ -1,7 +1,7 @@
 'use client';
 
 import { ColleagueContact } from '@/types/models/colleague-contact';
-import { ContactType } from '@/types/models/colleague-contact';
+import { ContactType } from '@/types/models/contact';
 import { ColleagueCard } from './colleague-card';
 import { Input } from '@/components/ui/input';
 import { useState, useMemo } from 'react';
