@@ -14,8 +14,10 @@ import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
+  const [formKey, setFormKey] = useState(0);
   const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
   const t = useTranslations('private.msg.compose');
@@ -49,6 +51,8 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
         title: t('toast.success-title'),
         description: t('toast.success-description'),
       });
+      form.reset();
+      setFormKey((prev) => prev + 1);
     } catch (error) {
       errorToast();
     }
@@ -65,6 +69,7 @@ export function Broadcast({ groupOptions }: { groupOptions: EntityIdName[] }) {
               <FormItem>
                 <FormLabel>{t('form.study-group')}</FormLabel>
                 <MultipleSelector
+                  key={`broadcast-group-selector-${formKey}`}
                   options={groupOptions.map((group) => ({
                     value: group.id.toString(),
                     label: group.name,

@@ -25,6 +25,7 @@ interface Props {
 export function Individual({ groupOptions }: Props) {
   const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
   const [userOptions, setUserOptions] = useState<EntityIdName[]>([]);
+  const [formKey, setFormKey] = useState(0);
 
   const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
@@ -59,6 +60,9 @@ export function Individual({ groupOptions }: Props) {
         title: t('toast.success-title'),
         description: t('toast.success-description'),
       });
+      form.reset();
+      setUserOptions([]);
+      setFormKey((prev) => prev + 1);
     } catch (error) {
       errorToast();
     }
@@ -118,6 +122,7 @@ export function Individual({ groupOptions }: Props) {
               <FormItem>
                 <FormLabel>{t('form.study-group')}</FormLabel>
                 <MultipleSelector
+                  key={`group-selector-${formKey}`}
                   options={groupOptions.map((group) => ({
                     value: group.id.toString(),
                     label: group.name,
@@ -138,7 +143,7 @@ export function Individual({ groupOptions }: Props) {
               <FormLabel>{t('form.recipient-name')}</FormLabel>
               {recipientType === 'employee' ? (
                 <MultipleSelector
-                  key="employee-selector"
+                  key={`employee-selector-${formKey}`}
                   onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
                   onSearch={handleEmployeeSearch}
                   placeholder={t('form.search-placeholder')}
@@ -147,7 +152,7 @@ export function Individual({ groupOptions }: Props) {
                 />
               ) : (
                 <MultipleSelector
-                  key="student-selector"
+                  key={`student-selector-${formKey}`}
                   options={userOptions.map((user) => ({
                     value: user.id.toString(),
                     label: user.name,
