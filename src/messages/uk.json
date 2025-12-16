@@ -26,7 +26,7 @@
       "footer": "<paragraph>Усі права захищено. © {year} КПІ ім. Ігоря Сікорського</paragraph><paragraph>Розробник: <kbislink>Конструкторське бюро інформаційних систем</kbislink></paragraph>"
     },
     "modules": {
-      "contacts": "Контакти",
+      "directory": "Список контактів",
       "msg": "Повідомлення",
       "kurator": "Куратор",
       "announcementseditor": "Управління оголошеннями",
@@ -38,8 +38,6 @@
       "rectorialcontrol": "Ректорський контроль",
       "certificates": "Замовлення довідки",
       "vedomoststud": "Семестровий контроль",
-      "pk2024": "Вступ 2024 (магістратура)",
-      "pk2025": "Вступ 2025 (магістратура)",
       "studdoc": "Документи студ.",
       "plans_individual": "Індивідуальні плани",
       "journals": "Журнали",
@@ -50,7 +48,6 @@
       "attestation": "Календарний контроль",
       "vedomost": "Сесія",
       "vidpovidalniy": "Відповідальний",
-      "reytinghelp": "Дані для рейтингу НПП",
       "webometrics": "Переклад метаданих ЕІР",
       "attestationresults": "Результати календарного контролю",
       "ekanat": "Деканат",
@@ -61,20 +58,14 @@
       "rnpupd2": "Редагування РНП КМ 2",
       "voteresult": "Результати опитування",
       "vedomostadmin": "Адміністратор Сесії",
-      "zvit": "Адміністратор Сесії",
       "zamdekan": "Зам.декан",
       "zavkaf": "Зав.Каф.",
       "zdekan": "Кабінет декана",
       "ekk": "ЕКК",
       "bravook": "Браво ВК",
-      "pk2024admin": "Вступ 2024 (админ.)",
-      "pk2025admin": "Вступ 2025 (админ.)",
       "studdocadmin": "Документи студ. (адм.)",
       "yiystat": "Статистичні дані",
       "adminpanel": "Адміністративна панель",
-      "sdchoice2021admin": "Вибір дисциплін (адм.)",
-      "sdchoice2021moderator": "Вибір дисциплін (мод.)",
-      "sdchoice2021nmv": "Вибір дисциплін (НМВ)",
       "employment": "Система працевлаштування",
       "rating": "Архівний рейтинг НПП",
       "useract": "Заявки Браво ВК",
@@ -380,6 +371,15 @@
       "header": "Контакти",
       "content": "<h3>Контактнi данi</h3><p>Адреса конструкторського бюро: <addresslink>Україна, м. Київ, вул. Політехнічна 14-в</addresslink>, корпус 13, 4 поверх, 25 кабінет</p><h3>Соцiальнi мережi</h3><p><githublink>КПI у GitHub</githublink><br></br><facebooklink>Facebook</facebooklink><br></br><twitterlink>Twitter</twitterlink><br></br><instagramlink>Instagram</instagramlink><br></br></p><h3>Служба підтримки</h3><p>Якщо у вас є питання, ви можете звернутися до служби підтримки:</p><suggestionslink>Форма пропозицiй</suggestionslink><br></br><emaillink>Email</emaillink>"
     },
+    "directory": {
+      "title": "Контакти",
+      "subtitle": "Пошук та перегляд контактної інформації колег з вашої кафедри",
+      "search-placeholder": "Пошук за ім'ям, підрозділом або посадою...",
+      "all-subdivisions": "Всі підрозділи",
+      "all-contact-types": "Всі типи контактів",
+      "no-contacts-found": "Контакти не знайдено",
+      "showing-count": "Показано контактів: {count}"
+    },
     "notice-board": {
       "title": "Оголошення",
       "subtitle": "Тут ви можете переглядати актуальні оголошення університету та бути в курсі всіх важливих новин.",
@@ -512,15 +512,15 @@
         "title": "Відхилити запит",
         "subtitle": "Відхилення запиту на сертифікат для {name}. Будь ласка, вкажіть причину відхилення."
       },
-      "details": {
-        "subtitle": "Запит на отримання сертифікату для {name}"
-      },
       "status": {
         "pending": "Формується",
         "error": "Помилка",
         "created": "Очікує",
         "rejected": "Відхилено",
         "processed": "Схвалено"
+      },
+      "details": {
+        "subtitle": "Запит на отримання сертифікату для {name}"
       },
       "button": {
         "print": "Роздрукувати",
