@@ -85,7 +85,7 @@ export function Individual({ groupOptions }: Props) {
   }, [selectedGroupIds, recipientType]);
 
   const handleEmployeeSearch = useCallback(async (value: string) => {
-    if (value.length < 2) {
+    if (value.length < 5) {
       return [];
     }
     const employees = await getEmployeeOptions(value);
