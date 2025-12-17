@@ -10,7 +10,7 @@ export function getCertificateStatusStyle(certificate: Certificate) {
   if (certificate.status === CertificateStatus.Signed) {
     return badgeVariants({ variant: 'success' });
   }
-  
+
   if (certificate.status === CertificateStatus.Error || certificate.approved === false) {
     return badgeVariants({ variant: 'error' });
   }

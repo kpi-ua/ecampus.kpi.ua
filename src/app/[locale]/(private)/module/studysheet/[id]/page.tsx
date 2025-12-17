@@ -1,15 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
-import { Card } from '@/components/ui/card';
-import { SheetTranslationKeys } from '@/app/[locale]/(private)/module/studysheet/[id]/constants';
 import { getMonitoringById } from '@/actions/monitoring.actions';
-import { CreditModule } from '@/types/models/current-control/credit-module';
-import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import {
   EventPlanTable,
   ExternalMaterialsTable,
@@ -17,7 +12,12 @@ import {
   JournalTable,
   ModuleHeader,
 } from '@/app/[locale]/(private)/module/studysheet/[id]/components';
+import { SheetTranslationKeys } from '@/app/[locale]/(private)/module/studysheet/[id]/constants';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
+import { LoadingScreen } from '@/components/loading-screen';
+import { Card } from '@/components/ui/card';
 import { Tabs, TabSheetTrigger, TabsList } from '@/components/ui/tabs';
+import { CreditModule } from '@/types/models/current-control/credit-module';
 
 export default function InfoPageClient() {
   const { id } = useParams();
@@ -47,11 +47,7 @@ export default function InfoPageClient() {
   }, []);
 
   if (isLoading) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <SpinnerGap />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!creditModule) {

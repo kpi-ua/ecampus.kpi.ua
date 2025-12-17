@@ -10,7 +10,6 @@ import { CertificateStatus } from '@/types/models/certificate/status';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
-import React from 'react';
 import { useTranslations } from 'next-intl';
 import { getCertificatePDF } from '@/actions/certificates.actions';
 import { usePagination } from '@/hooks/use-pagination';
@@ -47,25 +46,30 @@ export function HistoryTable({ certificates }: Props) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedCertificates.map((certificate) => (
-            <TableRow key={certificate.id}>
-              <TableCell className="w-[140px]">
-                <Paragraph className="m-0 text-sm font-normal">{tEnums(dash(certificate.type))}</Paragraph>
-                <Paragraph className="m-0 text-sm font-normal text-neutral-600">{certificate.purpose}</Paragraph>
-              </TableCell>
-              <TableCell className="w-[100px]">{dayjs(certificate.created).format('DD.MM.YYYY')}</TableCell>
-              <TableCell className="w-[100px]">
-                <CertificateStatusBadge certificate={certificate} />
-              </TableCell>
-              <TableCell className="w-[100px]">
-                {(certificate.status === CertificateStatus.Processed || certificate.status === CertificateStatus.Signed) && (
-                  <Button variant="secondary" onClick={() => handleDownload(certificate.id)}>
-                    {tTable('download')}
-                  </Button>
-                )}
-              </TableCell>
-            </TableRow>
-          ))}
+          {paginatedCertificates.map((certificate) => {
+            const shouldShowDownloadButton =
+              certificate.status === CertificateStatus.Processed || certificate.status === CertificateStatus.Signed;
+
+            return (
+              <TableRow key={certificate.id}>
+                <TableCell className="w-[140px]">
+                  <Paragraph className="m-0 text-sm font-normal">{tEnums(dash(certificate.type))}</Paragraph>
+                  <Paragraph className="m-0 text-sm font-normal text-neutral-600">{certificate.purpose}</Paragraph>
+                </TableCell>
+                <TableCell className="w-[100px]">{dayjs(certificate.created).format('DD.MM.YYYY')}</TableCell>
+                <TableCell className="w-[100px]">
+                  <CertificateStatusBadge certificate={certificate} />
+                </TableCell>
+                <TableCell className="w-[100px]">
+                  {shouldShowDownloadButton && (
+                    <Button variant="secondary" onClick={() => handleDownload(certificate.id)}>
+                      {tTable('download')}
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
       <Show when={certificates.length > PAGE_SIZE_SMALL}>

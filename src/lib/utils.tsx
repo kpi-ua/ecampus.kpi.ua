@@ -28,6 +28,16 @@ export const parseContentDispositionFilename = (header: string): string | null =
   return match ? match[2] : null;
 };
 
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
+};
+
+export const formatTime = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
+};
+
 export function linkifyText(text: string): ReactNode[] {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
   const parts = text.split(urlRegex);

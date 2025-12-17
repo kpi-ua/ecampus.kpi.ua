@@ -39,7 +39,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'dev-ecampus.cloud.kpi.ua',
+        hostname: 'ecampus.cloud.kpi.ua',
       },
       {
         protocol: 'https',

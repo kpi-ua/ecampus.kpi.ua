@@ -529,7 +529,7 @@
         "cancel": "Відміна",
         "signed": "Підписано"
       },
-      "tab": {
+      "sheet": {
         "all": "Всі",
         "rejected": "Відхилені",
         "pending": "Очікують",
@@ -562,6 +562,84 @@
       "status": "Статус",
       "average-score": "Середній бал за весь період навчання:"
     },
+    "msg": {
+      "title": "Повідомлення",
+      "subtitle": "Ви можете надіслати повідомлення куратору вашої групи.",
+      "tab": {
+        "inbox": "Вхідні",
+        "sent": "Вихідні",
+        "important": "Важливі",
+        "compose": "Створити нове"
+      },
+      "inbox": {
+        "selected": "обрано:",
+        "refresh": "Оновити",
+        "table": {
+          "sender": "Відправник",
+          "recipient": "Отримувач",
+          "message": "Лист",
+          "received": "Отримано",
+          "sent": "Відправлено"
+        },
+        "badge": {
+          "important": "Важливе"
+        },
+        "dialog": {
+          "to": "До:"
+        },
+        "delete-dialog": {
+          "title": "Видалення",
+          "description": "Ви дійсно бажаєте видалити {count, plural, one {# лист} few {# листа} many {# листів} other {# листа}}?",
+          "cancel": "Відміна",
+          "confirm": "Видалити"
+        },
+        "toast": {
+          "success-title-delete": "Повідомлення видалено",
+          "success-description-delete": "Повідомлення успішно видалено",
+          "success-title-mark-as-important": "Повідомлення змінено",
+          "success-description-mark-as-important": "Важливість повідомлення успішно змінена",
+          "error-title-delete": "Помилка видалення повідомлення",
+          "error-description-delete": "Повідомлення не видалено",
+          "error-title-mark-as-important": "Помилка зміни важливості повідомлення",
+          "error-description-mark-as-important": "Важливість повідомлення не змінена",
+          "error-title-refresh": "Помилка оновлення",
+          "error-description-refresh": "Не вдалося оновити дані"
+        }
+      },
+      "compose": {
+        "title": "Нове повідомлення",
+        "individual": "Індивідуальне",
+        "broadcast": "Масове",
+        "recipient-type": {
+          "employee": "Співробітник",
+          "student": "Студент"
+        },
+        "form": {
+          "subdivision": "Підрозділ",
+          "study-group": "Навчальна група",
+          "recipient-name": "ПІБ одержувача",
+          "subject": "Тема повідомлення",
+          "subject-placeholder": "Тема повідомлення",
+          "content": "Текст повідомлення",
+          "content-placeholder": "Текст повідомлення",
+          "send": "Відправити",
+          "search-placeholder": "Введіть мінімум 5 символів для пошуку...",
+          "search-empty": "Не знайдено результатів",
+          "select-recipient-placeholder": "Оберіть одержувача...",
+          "select-group-first": "Спочатку оберіть навчальну групу"
+        },
+        "validation": {
+          "group-required": "Оберіть групу",
+          "user-required": "Оберіть одержувача",
+          "subject-required": "Напишіть тему",
+          "content-required": "Напишіть текст"
+        },
+        "toast": {
+          "success-title": "Повідомлення відправлено",
+          "success-description": "Повідомлення відправлено успішно"
+        }
+      }
+    },
     "study-sheet": {
       "title": "Поточний контроль",
       "subtitle": "Поточний контроль проводиться впродовж семестру з метою забезпечення перевірки рівня підготовки здобувачів на кожному етапі вивчення дисципліни.",
@@ -577,7 +655,7 @@
         "second": "Друге",
         "all": "Всі"
       },
-      "sheet": {
+      "tab": {
         "journal": "Журнал",
         "event-plan": "План заходів",
         "internal-materials": "Внутрішні матеріали",

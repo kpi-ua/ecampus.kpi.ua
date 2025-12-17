@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { Description, Heading2, Heading6 } from '@/components/typography';
-import { SubLayout } from '../../../sub-layout';
-import { useTranslations } from 'next-intl';
-import { Card } from '@/components/ui/card';
-import { Sheet } from '@/types/models/current-control/sheet';
 import { getMonitoring } from '@/actions/monitoring.actions';
-import SpinnerGap from '@/app/images/icons/SpinnerGap.svg';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { DisciplinesTable } from '@/app/[locale]/(private)/module/studysheet/components/disciplines-table';
 import { StudySheetFilters } from '@/app/[locale]/(private)/module/studysheet/components/study-sheet-filters';
-import { Semester } from '@/types/enums/current-control/semester';
+import { LoadingScreen } from '@/components/loading-screen';
+import { Description, Heading2, Heading6 } from '@/components/typography';
+import { Card } from '@/components/ui/card';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useLocalStorage } from '@/hooks/use-storage';
+import { Semester } from '@/types/enums/current-control/semester';
+import { Sheet } from '@/types/models/current-control/sheet';
+import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { SubLayout } from '../../../sub-layout';
 
 export function StudySheet() {
   const t = useTranslations('private.study-sheet');
@@ -57,9 +57,7 @@ export function StudySheet() {
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
         {isLoading ? (
-          <div className="flex h-full items-center justify-center">
-            <SpinnerGap />
-          </div>
+          <LoadingScreen />
         ) : (
           <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
             <div className="flex flex-col lg:flex-row lg:items-center">

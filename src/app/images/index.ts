@@ -37,6 +37,7 @@ import CopyBold from './icons/CopyBold.svg';
 import CopyLight from './icons/CopyLight.svg';
 import CopyRegular from './icons/CopyRegular.svg';
 import CopySimple from './icons/CopySimple.svg';
+import ArrowClockwise from './icons/ArrowClockwise.svg';
 import DotsThreeBold from './icons/DotsThreeBold.svg';
 import DotsThreeDownBold from './icons/DotsThreeDownBold.svg';
 import DotsThreeDownLight from './icons/DotsThreeDownLight.svg';
@@ -154,6 +155,9 @@ import Roll from './Roll.svg';
 import FlagGB from './FlagGB.svg';
 import FlagUA from './FlagUA.svg';
 
+import PaperPlaneRight from './icons/PaperPlaneRight.svg';
+import Star from './icons/Star.svg';
+
 export {
   ArrowsDownUpBold,
   ArrowsDownUpLight,
@@ -197,6 +201,7 @@ export {
   CopyLight,
   CopyRegular,
   CopySimple,
+  ArrowClockwise,
   DotsThreeBold,
   DotsThreeDownBold,
   DotsThreeDownLight,
@@ -221,6 +226,8 @@ export {
   FinnTheHumanRegular,
   FlagGB,
   FlagUA,
+  PaperPlaneRight,
+  Star,
   Gear,
   GearBold,
   GearLight,

@@ -1,4 +1,3 @@
-import React from 'react';
 import { MenuItem } from './menu-item';
 import { getModuleMenuSection } from '@/actions/menu.actions';
 import { CollapsibleMenuItem } from './collapsible-menu-item';
