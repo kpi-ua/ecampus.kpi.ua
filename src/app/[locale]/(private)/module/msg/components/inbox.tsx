@@ -88,7 +88,8 @@ export default function Inbox({ mails, filter }: Props) {
 
   const handleRowClick = async (mail: Message) => {
     const mailData = await getMail(mail.id);
-    dispatch({ type: 'setSelectedMail', selectedMail: mailData });
+    // Use recipient from the list since API may return wrong recipient for multi-recipient messages
+    dispatch({ type: 'setSelectedMail', selectedMail: { ...mailData, recipient: mail.recipient } });
     dispatch({ type: 'setOpenedDialog', openedDialog: 'preview' });
 
     if (!mail.isRead) {
@@ -145,14 +146,16 @@ export default function Inbox({ mails, filter }: Props) {
                 }}
               />
             </TableHead>
-            <TableHead className="font-semibold">{t('table.sender')}</TableHead>
+            <TableHead className="font-semibold">
+              {filter === MailFilter.Outgoing ? t('table.recipient') : t('table.sender')}
+            </TableHead>
             <TableHead className="font-semibold">{t('table.message')}</TableHead>
-            <TableHead className="font-semibold">{t('table.received')}</TableHead>
+            <TableHead className="font-semibold">{t('table.date')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {state.mails.map((mail) => (
-            <TableRow key={mail.id} className="h-[65px] cursor-pointer">
+            <TableRow key={`${mail.id}-${mail.recipient.id}`} className="h-[65px] cursor-pointer">
               <TableCell onClick={(e) => e.stopPropagation()}>
                 <Checkbox
                   checked={state.selectedRows.includes(mail.id)}
@@ -160,7 +163,7 @@ export default function Inbox({ mails, filter }: Props) {
                 />
               </TableCell>
               <TableCell onClick={() => handleRowClick(mail)} className={!mail.isRead ? 'font-semibold' : ''}>
-                {mail.sender.name}
+                {filter === MailFilter.Outgoing ? mail.recipient.name : mail.sender.name}
               </TableCell>
               <TableCell onClick={() => handleRowClick(mail)}>
                 <div className="flex max-w-[600px] items-center gap-2">
