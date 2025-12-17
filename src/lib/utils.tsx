@@ -1,4 +1,5 @@
 import { clsx, type ClassValue } from 'clsx';
+import dayjs from 'dayjs';
 import { uid } from 'radash';
 import type { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -28,15 +29,9 @@ export const parseContentDispositionFilename = (header: string): string | null =
   return match ? match[2] : null;
 };
 
-export const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' });
-};
+export const formatDate = (dateString: string) => dayjs(dateString).format('YYYY-MM-DD');
 
-export const formatTime = (dateString: string) => {
-  const date = new Date(dateString);
-  return date.toLocaleTimeString('uk-UA', { hour: '2-digit', minute: '2-digit' });
-};
+export const formatTime = (dateString: string) => dayjs(dateString).format('HH:mm');
 
 export function linkifyText(text: string): ReactNode[] {
   const urlRegex = /(https?:\/\/[^\s]+)/g;
