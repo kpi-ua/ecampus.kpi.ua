@@ -33,6 +33,11 @@ function reducer(state: State, action: Action) {
       return { ...state, isRefreshing: action.isRefreshing };
     case 'setMails':
       return { ...state, mails: action.mails };
+    case 'markMailAsRead':
+      return {
+        ...state,
+        mails: state.mails.map((m) => (m.id === action.mailId ? { ...m, isRead: true } : m)),
+      };
     default:
       return state;
   }
@@ -85,6 +90,10 @@ export default function Inbox({ mails, filter }: Props) {
     const mailData = await getMail(mail.id);
     dispatch({ type: 'setSelectedMail', selectedMail: mailData });
     dispatch({ type: 'setOpenedDialog', openedDialog: 'preview' });
+
+    if (!mail.isRead) {
+      dispatch({ type: 'markMailAsRead', mailId: mail.id });
+    }
   };
 
   const handleRefresh = async () => {
@@ -150,10 +159,14 @@ export default function Inbox({ mails, filter }: Props) {
                   onCheckedChange={() => handleSelectRow(mail.id)}
                 />
               </TableCell>
-              <TableCell onClick={() => handleRowClick(mail)}>{mail.sender.name}</TableCell>
+              <TableCell onClick={() => handleRowClick(mail)} className={!mail.isRead ? 'font-semibold' : ''}>
+                {mail.sender.name}
+              </TableCell>
               <TableCell onClick={() => handleRowClick(mail)}>
                 <div className="flex max-w-[600px] items-center gap-2">
-                  <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap">{mail.subject}</span>
+                  <span className={`flex-1 overflow-hidden text-ellipsis whitespace-nowrap ${!mail.isRead ? 'font-semibold' : ''}`}>
+                    {mail.subject}
+                  </span>
                   {mail.isImportant && (
                     <Badge variant="neutral" className="text-brand-500 flex-shrink-0 bg-neutral-50">
                       <Star className="text-brand-500 fill-brand-500 h-4 w-4" /> {t('badge.important')}
@@ -161,7 +174,9 @@ export default function Inbox({ mails, filter }: Props) {
                   )}
                 </div>
               </TableCell>
-              <TableCell onClick={() => handleRowClick(mail)}>{formatDate(mail.createdAt)}</TableCell>
+              <TableCell onClick={() => handleRowClick(mail)} className={!mail.isRead ? 'font-semibold' : ''}>
+                {formatDate(mail.createdAt)}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

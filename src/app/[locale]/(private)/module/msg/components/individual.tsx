@@ -17,6 +17,7 @@ import { Label } from '@/components/ui/label';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { Option, optionSchema } from '../types';
 
 interface Props {
   groupOptions: EntityIdName[];
@@ -31,8 +32,8 @@ export function Individual({ groupOptions }: Props) {
   const t = useTranslations('private.msg.compose');
 
   const formSchema = z.object({
-    groupIds: z.array(z.number()),
-    userIds: z.array(z.number()).min(1, { message: t('validation.user-required') }),
+    groupIds: z.array(optionSchema),
+    userIds: z.array(optionSchema).min(1, { message: t('validation.user-required') }),
     subject: z.string().min(1, { message: t('validation.subject-required') }),
     content: z.string().min(1, { message: t('validation.content-required') }),
   });
@@ -41,8 +42,8 @@ export function Individual({ groupOptions }: Props) {
     resolver: zodResolver(formSchema),
     mode: 'onChange',
     defaultValues: {
-      groupIds: [],
-      userIds: [],
+      groupIds: [] as Option[],
+      userIds: [] as Option[],
       subject: '',
       content: '',
     },
@@ -50,8 +51,8 @@ export function Individual({ groupOptions }: Props) {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-    await sendMail({
-      recipients: data.userIds,
+      await sendMail({
+        recipients: data.userIds.map((option) => Number(option.value)),
         subject: data.subject,
         content: data.content,
       });
@@ -59,29 +60,32 @@ export function Individual({ groupOptions }: Props) {
         title: t('toast.success-title'),
         description: t('toast.success-description'),
       });
+      form.reset();
+      setUserOptions([]);
     } catch (error) {
       errorToast();
     }
   };
 
-  const selectedGroupIds = form.watch('groupIds');
+  const selectedGroups = form.watch('groupIds');
 
   useEffect(() => {
     form.setValue('userIds', []);
   }, [recipientType, form]);
 
   useEffect(() => {
-    if (recipientType === 'student' && selectedGroupIds.length > 0) {
-      getStudentOptions(selectedGroupIds).then((students) => {
+    if (recipientType === 'student' && selectedGroups.length > 0) {
+      const groupIds = selectedGroups.map((g) => Number(g.value));
+      getStudentOptions(groupIds).then((students) => {
         setUserOptions(students);
       });
     } else if (recipientType === 'student') {
       setUserOptions([]);
     }
-  }, [selectedGroupIds, recipientType]);
+  }, [selectedGroups, recipientType]);
 
   const handleEmployeeSearch = useCallback(async (value: string) => {
-    if (value.length < 2) {
+    if (value.length < 5) {
       return [];
     }
     const employees = await getEmployeeOptions(value);
@@ -118,11 +122,12 @@ export function Individual({ groupOptions }: Props) {
               <FormItem>
                 <FormLabel>{t('form.study-group')}</FormLabel>
                 <MultipleSelector
+                  value={field.value}
                   options={groupOptions.map((group) => ({
                     value: group.id.toString(),
                     label: group.name,
                   }))}
-                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                  onChange={field.onChange}
                 />
                 <FormMessage />
               </FormItem>
@@ -138,8 +143,8 @@ export function Individual({ groupOptions }: Props) {
               <FormLabel>{t('form.recipient-name')}</FormLabel>
               {recipientType === 'employee' ? (
                 <MultipleSelector
-                  key="employee-selector"
-                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                  value={field.value}
+                  onChange={field.onChange}
                   onSearch={handleEmployeeSearch}
                   placeholder={t('form.search-placeholder')}
                   emptyIndicator={t('form.search-empty')}
@@ -147,12 +152,12 @@ export function Individual({ groupOptions }: Props) {
                 />
               ) : (
                 <MultipleSelector
-                  key="student-selector"
+                  value={field.value}
                   options={userOptions.map((user) => ({
                     value: user.id.toString(),
                     label: user.name,
                   }))}
-                  onChange={(options) => field.onChange(options.map((option) => Number(option.value)))}
+                  onChange={field.onChange}
                   placeholder={t('form.select-recipient-placeholder')}
                   emptyIndicator={t('form.select-group-first')}
                 />

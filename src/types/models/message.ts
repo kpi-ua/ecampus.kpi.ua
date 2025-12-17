@@ -7,5 +7,6 @@ export interface Message {
   subject: string;
   content: string;
   isImportant: boolean;
+  isRead: boolean;
   createdAt: string;
 }

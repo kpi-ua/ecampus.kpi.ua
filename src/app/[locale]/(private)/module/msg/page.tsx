@@ -3,12 +3,14 @@ import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { getMails } from '@/actions/msg.actions';
+import { getUserDetails } from '@/actions/auth.actions';
 import { MessageTranslationKeys } from './constants';
 import { Card } from '@/components/ui/card';
 import { TabSheetTrigger } from '@/components/ui/tabs';
 import { Tabs, TabsList, TabsContent } from '@radix-ui/react-tabs';
 import Inbox from './components/inbox';
 import { MailFilter } from '@/types/enums/mail-filter';
+import { ProfileArea } from '@/types/enums/profile-area';
 import Compose from '@/app/[locale]/(private)/module/msg/components/compose';
 
 const INTL_NAMESPACE = 'private.msg';
@@ -25,11 +27,13 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function MessagePage() {
   const t = await getTranslations(INTL_NAMESPACE);
-  const [incomingMails, sentMails, importantMails] = await Promise.all([
+  const [incomingMails, sentMails, importantMails, user] = await Promise.all([
     getMails(MailFilter.Incoming),
     getMails(MailFilter.Outgoing),
     getMails(MailFilter.Important),
+    getUserDetails(),
   ]);
+  const profileArea = user?.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
 
   const tabList = Object.values(MessageTranslationKeys);
   return (
@@ -57,7 +61,7 @@ export default async function MessagePage() {
                 <Inbox mails={importantMails} filter={MailFilter.Important} />
               </TabsContent>
               <TabsContent value={MessageTranslationKeys.Compose}>
-                <Compose />
+                <Compose profileArea={profileArea} />
               </TabsContent>
             </Card>
           </Tabs>

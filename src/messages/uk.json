@@ -623,7 +623,7 @@
           "content": "Текст повідомлення",
           "content-placeholder": "Текст повідомлення",
           "send": "Відправити",
-          "search-placeholder": "Введіть мінімум 2 символи для пошуку...",
+          "search-placeholder": "Введіть мінімум 5 символів для пошуку...",
           "search-empty": "Не знайдено результатів",
           "select-recipient-placeholder": "Оберіть одержувача...",
           "select-group-first": "Спочатку оберіть навчальну групу"

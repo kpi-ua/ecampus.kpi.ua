@@ -15,4 +15,5 @@ export type Action =
   | { type: 'setSelectedRows'; selectedRows: number[] }
   | { type: 'setSelectedMail'; selectedMail: Message | null }
   | { type: 'setIsRefreshing'; isRefreshing: boolean }
-  | { type: 'setMails'; mails: Message[] };
+  | { type: 'setMails'; mails: Message[] }
+  | { type: 'markMailAsRead'; mailId: number };

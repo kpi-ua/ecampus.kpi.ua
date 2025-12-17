@@ -623,7 +623,7 @@
           "content": "Message text",
           "content-placeholder": "Message text",
           "send": "Send",
-          "search-placeholder": "Enter at least 2 characters to search...",
+          "search-placeholder": "Enter at least 5 characters to search...",
           "search-empty": "No results found",
           "select-recipient-placeholder": "Select recipient...",
           "select-group-first": "Select study group first"
