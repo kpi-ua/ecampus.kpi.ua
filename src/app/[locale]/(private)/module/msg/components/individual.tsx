@@ -18,12 +18,16 @@ import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Option, optionSchema } from '../types';
+import { ProfileArea } from '@/types/enums/profile-area';
 
 interface Props {
   groupOptions: EntityIdName[];
+  profileArea: ProfileArea;
 }
 
-export function Individual({ groupOptions }: Props) {
+export function Individual({ groupOptions, profileArea }: Props) {
+  const isEmployee = profileArea === ProfileArea.Employee;
+  // Students can only message employees, so default to 'employee' and only allow switching for employees
   const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
   const [userOptions, setUserOptions] = useState<EntityIdName[]>([]);
 
@@ -74,7 +78,8 @@ export function Individual({ groupOptions }: Props) {
   }, [recipientType, form]);
 
   useEffect(() => {
-    if (recipientType === 'student' && selectedGroups.length > 0) {
+    // Only employees can select students as recipients
+    if (isEmployee && recipientType === 'student' && selectedGroups.length > 0) {
       const groupIds = selectedGroups.map((g) => Number(g.value));
       getStudentOptions(groupIds).then((students) => {
         setUserOptions(students);
@@ -82,7 +87,7 @@ export function Individual({ groupOptions }: Props) {
     } else if (recipientType === 'student') {
       setUserOptions([]);
     }
-  }, [selectedGroups, recipientType]);
+  }, [selectedGroups, recipientType, isEmployee]);
 
   const handleEmployeeSearch = useCallback(async (value: string) => {
     if (value.length < 5) {
@@ -95,25 +100,28 @@ export function Individual({ groupOptions }: Props) {
     }));
   }, []);
 
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 space-y-8">
-        <div className="flex gap-6">
-          <RadioGroup
-            className="flex"
-            defaultValue="employee"
-            onValueChange={(value) => setRecipientType(value as 'employee' | 'student')}
-          >
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="employee" id="r1" />
-              <Label htmlFor="r1">{t('recipient-type.employee')}</Label>
-            </div>
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="student" id="r2" />
-              <Label htmlFor="r2">{t('recipient-type.student')}</Label>
-            </div>
-          </RadioGroup>
-        </div>
+        {isEmployee && (
+          <div className="flex gap-6">
+            <RadioGroup
+              className="flex"
+              defaultValue="employee"
+              onValueChange={(value) => setRecipientType(value as 'employee' | 'student')}
+            >
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="employee" id="r1" />
+                <Label htmlFor="r1">{t('recipient-type.employee')}</Label>
+              </div>
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="student" id="r2" />
+                <Label htmlFor="r2">{t('recipient-type.student')}</Label>
+              </div>
+            </RadioGroup>
+          </div>
+        )}
         {recipientType === 'student' && (
           <FormField
             control={form.control}
@@ -153,10 +161,7 @@ export function Individual({ groupOptions }: Props) {
               ) : (
                 <MultipleSelector
                   value={field.value}
-                  options={userOptions.map((user) => ({
-                    value: user.id.toString(),
-                    label: user.name,
-                  }))}
+                  options={userOptions.map((user) => ({ value: user.id.toString(), label: user.name }))}
                   onChange={field.onChange}
                   placeholder={t('form.select-recipient-placeholder')}
                   emptyIndicator={t('form.select-group-first')}
