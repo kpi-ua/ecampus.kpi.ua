@@ -18,16 +18,13 @@ import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Option, optionSchema } from '../types';
-import { ProfileArea } from '@/types/enums/profile-area';
 
 interface Props {
   groupOptions: EntityIdName[];
-  profileArea: ProfileArea;
 }
 
-export function Individual({ groupOptions, profileArea }: Props) {
-  const isEmployee = profileArea === ProfileArea.Employee;
-  // Students can only message employees, so default to 'employee' and only allow switching for employees
+export function Individual({ groupOptions }: Props) {
+  const hasGroupOptions = groupOptions.length > 0;
   const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
   const [userOptions, setUserOptions] = useState<EntityIdName[]>([]);
 
@@ -78,8 +75,7 @@ export function Individual({ groupOptions, profileArea }: Props) {
   }, [recipientType, form]);
 
   useEffect(() => {
-    // Only employees can select students as recipients
-    if (isEmployee && recipientType === 'student' && selectedGroups.length > 0) {
+    if (recipientType === 'student' && selectedGroups.length > 0) {
       const groupIds = selectedGroups.map((g) => Number(g.value));
       getStudentOptions(groupIds).then((students) => {
         setUserOptions(students);
@@ -87,7 +83,7 @@ export function Individual({ groupOptions, profileArea }: Props) {
     } else if (recipientType === 'student') {
       setUserOptions([]);
     }
-  }, [selectedGroups, recipientType, isEmployee]);
+  }, [selectedGroups, recipientType]);
 
   const handleEmployeeSearch = useCallback(async (value: string) => {
     if (value.length < 5) {
@@ -104,7 +100,7 @@ export function Individual({ groupOptions, profileArea }: Props) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 space-y-8">
-        {isEmployee && (
+        {hasGroupOptions && (
           <div className="flex gap-6">
             <RadioGroup
               className="flex"

@@ -29,7 +29,7 @@ export default async function Compose({ profileArea }: Props) {
           </TabsList>
 
           <TabsContent value="individual" className="mt-6 space-y-6">
-            <Individual groupOptions={groupOptions} profileArea={profileArea} />
+            <Individual groupOptions={groupOptions} />
           </TabsContent>
 
           <TabsContent value="broadcast" className="mt-6">
@@ -38,7 +38,7 @@ export default async function Compose({ profileArea }: Props) {
         </Tabs>
       ) : (
         <div className="mt-6 space-y-6">
-          <Individual groupOptions={[]} profileArea={profileArea} />
+          <Individual groupOptions={[]} />
         </div>
       )}
     </div>
