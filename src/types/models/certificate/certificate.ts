@@ -16,4 +16,7 @@ export interface Certificate {
   originalRequired: boolean;
   notes?: string;
   documentNumber: string;
+  operatorNotes?: string;
+  signatoryId?: number;
+  includeOrderInfo: boolean;
 }
