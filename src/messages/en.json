@@ -555,7 +555,7 @@
         "purpose": "purpose",
         "orderComment": "Order comment",
         "actions": "actions",
-        "goTo": "Go to",
+        "goTo": "Open",
         "signedSuccess": "Certificate signed successfully",
         "signedDescription": "The certificate has been signed successfully",
         "notes": "Student comment",
