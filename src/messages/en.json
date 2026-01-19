@@ -507,7 +507,7 @@
       }
     },
     "facultycertificate": {
-      "title": "Faculty certificate",
+      "title": "Studying certificate requests",
       "subtitle": "Review and process student requests for certificates",
       "alert": {
         "reason": "Reason for rejection:",
