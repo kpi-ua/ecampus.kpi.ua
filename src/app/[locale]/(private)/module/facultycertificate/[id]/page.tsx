@@ -86,13 +86,26 @@ export default async function DocInfoPage({ params }: Props) {
               ))}
             </div>
 
-            {/* Student Notes Section - renamed to "Коментар при замовленні" per KB-810 */}
+            {/* Student Purpose/Comment Section */}
+            {certificate.purpose && (
+              <>
+                <TextDivider />
+                <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-6">
+                  <Paragraph className="m-0 w-[170px] shrink-0 font-semibold text-neutral-400">
+                    {tTable('purpose')}:
+                  </Paragraph>
+                  <Paragraph className="m-0 font-medium whitespace-pre-wrap">{certificate.purpose}</Paragraph>
+                </div>
+              </>
+            )}
+
+            {/* Student Notes Section */}
             {certificate.notes && (
               <>
                 <TextDivider />
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:gap-6">
                   <Paragraph className="m-0 w-[170px] shrink-0 font-semibold text-neutral-400">
-                    {tTable('orderComment')}:
+                    {tTable('notes')}:
                   </Paragraph>
                   <Paragraph className="m-0 font-medium whitespace-pre-wrap">{certificate.notes}</Paragraph>
                 </div>
