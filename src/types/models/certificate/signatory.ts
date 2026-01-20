@@ -9,3 +9,12 @@ export interface CertificateSignatory extends Signatory {
   isActive: boolean;
   isDefault: boolean;
 }
+
+/**
+ * Signatory from Dean DB returned by /certificates/signatories/student/{id}
+ */
+export interface DeanSignatory {
+  name?: string;
+  position?: string;
+  employeeId?: number;
+}

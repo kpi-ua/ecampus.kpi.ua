@@ -15,7 +15,7 @@ import {
   UpdateCertificateBody,
 } from '@/actions/certificates.actions';
 import { Certificate } from '@/types/models/certificate/certificate';
-import { CertificateSignatory } from '@/types/models/certificate/signatory';
+import { DeanSignatory } from '@/types/models/certificate/signatory';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { buttonDisableController } from '@/app/[locale]/(private)/module/facultycertificate/utils/button-state-controller';
@@ -29,7 +29,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 interface Props {
   certificate: Certificate;
-  signatories: CertificateSignatory[];
+  signatories: DeanSignatory[];
   canEditOperatorFields: boolean;
   variant?: 'full' | 'approval-only' | 'secondary-only';
 }
@@ -41,8 +41,9 @@ export default function ActionButtons({ certificate, signatories, canEditOperato
   const router = useRouter();
 
   const [operatorNotes, setOperatorNotes] = useState(certificate.operatorNotes || '');
+  // Use first signatory as default if certificate doesn't have one selected
   const [selectedSignatoryId, setSelectedSignatoryId] = useState<string>(
-    certificate.signatoryId?.toString() || signatories.find((s) => s.isDefault)?.id.toString() || '',
+    certificate.signatoryId?.toString() || signatories[0]?.employeeId?.toString() || '',
   );
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isRegenerating, setIsRegenerating] = useState(false);
@@ -144,34 +145,46 @@ export default function ActionButtons({ certificate, signatories, canEditOperato
     shouldDisablePreviewButton,
   } = buttonDisableController(certificate);
 
-  const showOperatorFields = canEditOperatorFields && (variant === 'full' || variant === 'approval-only');
+  // Always show operator fields section for approval-only variant, but disable inputs when not editable
+  const showOperatorFields = variant === 'full' || variant === 'approval-only';
   const showSecondaryButtons = variant === 'full' || variant === 'secondary-only';
   const showApprovalButtons = variant === 'full' || variant === 'approval-only';
 
+  // Signatory is required for approval - disable approve button if no signatory selected
+  const isSignatoryRequired = signatories.length > 0 && !selectedSignatoryId;
+
   return (
     <div className="flex flex-col gap-6">
-      {/* Operator fields - only shown when certificate is in Created status */}
+      {/* Operator fields - always shown for approval-only variant */}
       {showOperatorFields && (
         <div className="flex flex-col gap-4">
-          {/* Signatory selection */}
-          {signatories.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="signatory">{tOperator('signatory')}</Label>
-              <Select value={selectedSignatoryId} onValueChange={setSelectedSignatoryId}>
+          {/* Signatory display/selection */}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="signatory">{tOperator('signatory')}</Label>
+            {/* Show stored signatory info when certificate is already approved */}
+            {!canEditOperatorFields && certificate.signatoryName ? (
+              <div className="rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm">
+                {certificate.signatoryName} — {certificate.signatoryPosition}
+              </div>
+            ) : (
+              <Select
+                value={selectedSignatoryId}
+                onValueChange={setSelectedSignatoryId}
+                disabled={!canEditOperatorFields || signatories.length === 0}
+              >
                 <SelectTrigger id="signatory">
-                  <SelectValue placeholder={tOperator('selectSignatory')} />
+                  <SelectValue placeholder={signatories.length === 0 ? tOperator('noSignatories') : tOperator('selectSignatory')} />
                 </SelectTrigger>
                 <SelectContent>
-                  {signatories.map((signatory) => (
-                    <SelectItem key={signatory.id} value={signatory.id.toString()}>
-                      {signatory.fullName} — {signatory.position}
-                      {signatory.isDefault && ` (${tOperator('defaultSignatory')})`}
+                  {signatories.map((signatory, index) => (
+                    <SelectItem key={signatory.employeeId ?? index} value={signatory.employeeId?.toString() ?? ''}>
+                      {signatory.name} — {signatory.position}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Operator notes */}
           <div className="flex flex-col gap-2">
@@ -183,6 +196,7 @@ export default function ActionButtons({ certificate, signatories, canEditOperato
               value={operatorNotes}
               onChange={(e) => setOperatorNotes(e.target.value.slice(0, 500))}
               maxLength={500}
+              disabled={!canEditOperatorFields}
             />
             <span className="text-xs text-neutral-400">{operatorNotes.length}/500</span>
           </div>
@@ -281,7 +295,7 @@ export default function ActionButtons({ certificate, signatories, canEditOperato
           />
           <Button
             onClick={handleApprove}
-            disabled={shouldDisableApproveButton}
+            disabled={shouldDisableApproveButton || isSignatoryRequired}
             loading={isApproving}
             variant="primary"
             className="w-full md:w-[145px]"

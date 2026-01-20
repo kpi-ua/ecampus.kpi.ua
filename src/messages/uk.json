@@ -569,6 +569,7 @@
         "notesPlaceholder": "Додаткова інформація для довідки (макс. 500 символів)",
         "signatory": "Підписант",
         "selectSignatory": "Оберіть підписанта",
+        "noSignatories": "Підписанти недоступні",
         "defaultSignatory": "За замовчуванням (декан)",
         "unsignedPdf": "Завантажити без підпису",
         "printWithoutSign": "Без підпису",

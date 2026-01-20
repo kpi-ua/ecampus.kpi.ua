@@ -33,17 +33,11 @@ export async function StudentDataSection({ data }: Props) {
 
   // Order-related fields (separated by a line per KB-810)
   const orderFields = [
-    { key: 'orderType', value: data.orderName }, // Renamed from "наказ про зарахування" to "тип наказу"
+    { key: 'orderType', value: data.orderName },
     {
       key: 'orderDate',
       value: formatDate(data.orderDay, data.orderMonth, data.orderYear)
     },
-  ];
-
-  // Signatory fields (renamed from "Декан" per KB-810)
-  const signatoryFields = [
-    { key: 'signatory', value: data.facultyHead?.name }, // Renamed from "Декан" to "Підписант"
-    { key: 'signatoryPosition', value: data.facultyHead?.position }, // Renamed from "Посада декана" to "Посада підписанта"
   ];
 
   // Render a field row - always show even if empty (per KB-810 requirement)
@@ -68,9 +62,6 @@ export async function StudentDataSection({ data }: Props) {
 
       {/* Order-related fields */}
       {orderFields.map(({ key, value }) => renderField(key, value))}
-
-      {/* Signatory fields */}
-      {signatoryFields.map(({ key, value }) => renderField(key, value))}
     </div>
   );
 }

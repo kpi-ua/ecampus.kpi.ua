@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import { CertificateVerificationResult } from '@/types/models/certificate/certificate-verification-result';
 import { parseContentDispositionFilename } from '@/lib/utils';
 import { CertificateStatus } from '@/types/models/certificate/status';
-import { CertificateSignatory } from '@/types/models/certificate/signatory';
+import { CertificateSignatory, DeanSignatory } from '@/types/models/certificate/signatory';
 import { StudentCertificateData } from '@/types/models/certificate/student-certificate-data';
 import { CertificateOperatorCreateRequest, StudentSearchResult } from '@/types/models/certificate/operator-request';
 import qs from 'query-string';
@@ -165,6 +165,18 @@ export async function signCertificate(id: number) {
 
 export async function getSignatories() {
   const response = await campusFetch<CertificateSignatory[]>('/certificates/signatories');
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+}
+
+/**
+ * Get available signatories from Dean DB for a specific student.
+ * Used by operators to select who will sign the certificate.
+ */
+export async function getStudentSignatories(studentUserAccountId: number) {
+  const response = await campusFetch<DeanSignatory[]>(`/certificates/signatories/student/${studentUserAccountId}`);
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }

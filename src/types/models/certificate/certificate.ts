@@ -18,5 +18,7 @@ export interface Certificate {
   documentNumber: string;
   operatorNotes?: string;
   signatoryId?: number;
+  signatoryName?: string;
+  signatoryPosition?: string;
   includeOrderInfo: boolean;
 }

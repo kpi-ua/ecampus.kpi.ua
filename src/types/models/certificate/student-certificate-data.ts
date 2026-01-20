@@ -6,12 +6,6 @@ export interface FacultyData {
   titleName?: string;
 }
 
-export interface FacultyHead {
-  name?: string;
-  position?: string;
-  employeeId?: number;
-}
-
 export interface StudentCertificateData {
   faculty?: FacultyData;
   decanatPhone?: string;
@@ -31,5 +25,4 @@ export interface StudentCertificateData {
   orderDay?: string;
   orderMonth?: string;
   orderYear?: string;
-  facultyHead?: FacultyHead;
 }

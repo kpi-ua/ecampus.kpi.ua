@@ -569,6 +569,7 @@
         "notesPlaceholder": "Additional information for the certificate (max 500 characters)",
         "signatory": "Signatory",
         "selectSignatory": "Select signatory",
+        "noSignatories": "No signatories available",
         "defaultSignatory": "Default (dean)",
         "unsignedPdf": "Download unsigned",
         "printWithoutSign": "Without signature",

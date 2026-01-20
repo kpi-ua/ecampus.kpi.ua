@@ -1,6 +1,6 @@
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { getTranslations } from 'next-intl/server';
-import { getCertificate, getCertificateData, getSignatories } from '@/actions/certificates.actions';
+import { getCertificate, getCertificateData, getStudentSignatories } from '@/actions/certificates.actions';
 import { Description, Heading2, Heading3, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import dayjs from 'dayjs';
 import ActionButtons from '@/app/[locale]/(private)/module/facultycertificate/[id]/action-buttons';
 import { CertificateStatus } from '@/types/models/certificate/status';
-import { CertificateSignatory } from '@/types/models/certificate/signatory';
+import { DeanSignatory } from '@/types/models/certificate/signatory';
 import { StudentDataSection } from './student-data-section';
 
 interface Props {
@@ -32,10 +32,10 @@ export default async function DocInfoPage({ params }: Props) {
     // Certificate data may not be available yet
   }
 
-  // Fetch signatories for selection
-  let signatories: CertificateSignatory[] = [];
+  // Fetch signatories from Dean DB for this specific student
+  let signatories: DeanSignatory[] = [];
   try {
-    signatories = await getSignatories();
+    signatories = await getStudentSignatories(certificate.requestedBy.userAccountId);
   } catch (e) {
     // Signatories may not be available
   }
@@ -58,7 +58,10 @@ export default async function DocInfoPage({ params }: Props) {
     ),
   };
 
-  const canEditOperatorFields = certificate.status === CertificateStatus.Created && certificate.approved === null;
+  // Show operator fields when certificate is in Created status and hasn't been approved/rejected yet
+  const canEditOperatorFields =
+    certificate.status === CertificateStatus.Created &&
+    (certificate.approved === null || certificate.approved === undefined);
 
   return (
     <SubLayout pageTitle={certificate.documentNumber} breadcrumbs={[['/module/facultycertificate', t('title')]]}>
@@ -152,7 +155,7 @@ export default async function DocInfoPage({ params }: Props) {
           )}
 
           {/* Show approval buttons in main card if no student data available */}
-          {!studentData && canEditOperatorFields && (
+          {!studentData && (
             <Card className="rounded-4 col-span-full w-full border border-neutral-200 bg-white p-6 shadow-none xl:col-span-5">
               <ActionButtons
                 certificate={certificate}
