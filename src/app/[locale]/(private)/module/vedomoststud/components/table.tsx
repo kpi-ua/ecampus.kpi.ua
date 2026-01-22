@@ -85,7 +85,7 @@ export default function SessionTable({ termResults }: { termResults: TermResults
           ))}
         </TableBody>
       </Table>
-      <div className="my-2 flex items-center gap-2 pl-4 whitespace-nowrap">
+      <div className="my-2 flex items-center gap-2 pl-4">
         <Paragraph className="text-base font-normal">{t('average-score')}</Paragraph>
         <Badge className="bg-basic-blue text-basic-white font-semibold">{termResults.averageScore}</Badge>
       </div>
