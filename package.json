@@ -51,7 +51,7 @@
     "radash": "12.1.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-hook-form": "7.65.0",
+    "react-hook-form": "7.71.1",
     "react-day-picker": "9.11.0",
     "react19-google-recaptcha-v3": "1.0.0",
     "server-only": "0.0.1",
