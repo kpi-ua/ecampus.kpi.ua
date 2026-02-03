@@ -32,6 +32,15 @@ export default function SessionTable({ termResults }: { termResults: TermResults
     ['date', 'mark', 'assessmentType', 'recordType'],
   );
 
+  const gradedDisciplines = termResults.disciplines.filter(
+    (discipline) => discipline.status !== Status.Unknown && discipline.mark !== undefined && discipline.mark !== null,
+  );
+
+  const averageScore =
+    gradedDisciplines.length > 0
+      ? (gradedDisciplines.reduce((sum, discipline) => sum + Number(discipline.mark ?? 0), 0) / gradedDisciplines.length).toFixed(2)
+      : '—';
+
   return (
     <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
       <Table>
@@ -60,7 +69,7 @@ export default function SessionTable({ termResults }: { termResults: TermResults
               <TableCell className="w-[120px]">{discipline.date}</TableCell>
               <TableCell className="w-[300px]">{discipline.name}</TableCell>
               <TableCell className="w-[109px] text-center">
-                {discipline.mark !== undefined && discipline.mark !== null && (
+                {discipline.status !== Status.Unknown && discipline.mark !== undefined && discipline.mark !== null && (
                   <Badge className="text-basic-blue font-semibold">
                     {Number(discipline.mark)}/{MAX_SCORE}
                   </Badge>
@@ -87,7 +96,7 @@ export default function SessionTable({ termResults }: { termResults: TermResults
       </Table>
       <div className="my-2 flex items-center gap-2 pl-4">
         <Paragraph className="text-base font-normal">{t('average-score')}</Paragraph>
-        <Badge className="bg-basic-blue text-basic-white font-semibold">{termResults.averageScore}</Badge>
+        <Badge className="bg-basic-blue text-basic-white font-semibold">{averageScore}</Badge>
       </div>
     </Card>
   );
