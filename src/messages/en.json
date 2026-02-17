@@ -30,7 +30,7 @@
       "msg": "Messages",
       "kurator": "Curator",
       "announcementseditor": "Announcements management",
-      "facultycertificate": "Faculty certificate",
+      "facultycertificate": "Studying certificate requests",
       "rnp": "RNP",
       "mob": "Methodological support",
       "vote": "Survey Teacher through students eyes",
@@ -262,10 +262,12 @@
         "table": {
           "title": "History:",
           "type": "Type",
+          "documentNumber": "Document number",
           "date": "Date",
           "status": "Status",
           "actions": "Actions",
-          "download": "Download PDF"
+          "download": "Download PDF",
+          "readyAtDeanOffice": "Ready for pickup at dean's office"
         }
       }
     },
@@ -505,7 +507,7 @@
       }
     },
     "facultycertificate": {
-      "title": "Faculty certificate",
+      "title": "Studying certificate requests",
       "subtitle": "Review and process student requests for certificates",
       "alert": {
         "reason": "Reason for rejection:",
@@ -520,14 +522,17 @@
         "processed": "Processed"
       },
       "details": {
-        "subtitle": "Request for a certificate for {name}"
+        "subtitle": "Request for a certificate for {name}",
+        "newRequest": "New request"
       },
       "button": {
         "print": "Print",
         "approve": "Approve",
         "reject": "Reject",
         "cancel": "Cancel",
-        "signed": "Signed"
+        "signed": "Signed",
+        "regenerate": "Regenerate",
+        "refresh": "Refresh"
       },
       "sheet": {
         "all": "All",
@@ -539,15 +544,61 @@
         "created": "Date",
         "documentNumber": "Document number",
         "fullname": "full name",
+        "deliveryOption": "Delivery option",
+        "deliveryPaper": "paper",
+        "deliveryElectronic": "electronic",
         "originalRequired": "Paper original",
         "withstamp": "Paper original",
         "updatedAt": "Updated at",
         "received": "received",
         "status": "status",
         "purpose": "purpose",
+        "orderComment": "Order comment",
         "actions": "actions",
+        "goTo": "Open",
         "signedSuccess": "Certificate signed successfully",
-        "signedDescription": "The certificate has been signed successfully"
+        "signedDescription": "The certificate has been signed successfully",
+        "notes": "Student comment",
+        "operatorNotes": "Operator notes",
+        "includeOrderInfo": "Order information",
+        "orderInfoExcluded": "Order info excluded",
+        "notRequired": "Not required"
+      },
+      "operator": {
+        "notes": "Operator notes",
+        "notesPlaceholder": "Additional information for the certificate (max 500 characters)",
+        "signatory": "Signatory",
+        "selectSignatory": "Select signatory",
+        "noSignatories": "No signatories available",
+        "defaultSignatory": "Default (dean)",
+        "unsignedPdf": "Download unsigned",
+        "printWithoutSign": "Without signature",
+        "printAction": "Print",
+        "downloadAction": "Download",
+        "studentData": "Student data",
+        "preview": "Preview",
+        "loadingPreview": "Loading...",
+        "previewError": "Failed to load preview"
+      },
+      "studentData": {
+        "title": "Student data from AS \"Dekanat\"",
+        "subtitle": "Data is provided in cases and capitalization for certificate generation. Changes are only possible in AS \"Dekanat\" and will be reflected only for new requests. In case of errors - reject the request!",
+        "fullName": "Student full name",
+        "group": "Group",
+        "course": "Course",
+        "educationLevel": "Education level",
+        "educationForm": "Education form",
+        "financingSource": "Financing source",
+        "facultyTitleName": "Faculty",
+        "orderType": "Order type",
+        "orderName": "Enrollment order",
+        "orderDate": "Order date",
+        "graduateDate": "Graduation date",
+        "signatory": "Signatory",
+        "signatoryPosition": "Signatory position",
+        "facultyHead": "Dean",
+        "facultyHeadPosition": "Dean position",
+        "noData": "Student data unavailable"
       }
     },
     "vedomoststud": {
@@ -697,8 +748,12 @@
       "orderTitle": "Create an order:",
       "docType": "Type of certificate",
       "docTypePlaceholder": "select the type of certificate",
+      "deliveryOption": "Delivery option",
+      "deliveryElectronic": "electronic copy (in AS \"eCampus\")",
+      "deliveryPaper": "paper original (at the dean's office)",
       "purpose": "Comment / purpose of the certificate",
       "originalRequired": "I need the original certificate",
+      "includeOrderInfo": "Include order information",
       "notes": "Notes",
       "notesPlaceholder": "For example: with a wet seal",
       "purposePlaceholder": "For example: for the French embassy",
