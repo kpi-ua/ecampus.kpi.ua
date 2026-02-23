@@ -64,7 +64,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "3.2.6",
     "@storybook/addon-essentials": "8.6.12",
-    "@storybook/addon-links": "8.6.12",
+    "@storybook/addon-links": "10.2.11",
     "@storybook/addon-onboarding": "^8.6.12",
     "@storybook/blocks": "8.6.12",
     "@storybook/nextjs": "8.6.12",
