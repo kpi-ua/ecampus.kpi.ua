@@ -67,7 +67,7 @@
     "@storybook/addon-links": "8.6.12",
     "@storybook/addon-onboarding": "^8.6.12",
     "@storybook/blocks": "8.6.12",
-    "@storybook/nextjs": "8.6.12",
+    "@storybook/nextjs": "10.2.11",
     "@storybook/react": "8.6.12",
     "@storybook/test": "8.6.12",
     "@svgr/webpack": "8.1.0",
