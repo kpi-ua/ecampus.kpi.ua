@@ -55,7 +55,7 @@
     "react-day-picker": "9.11.0",
     "react19-google-recaptcha-v3": "1.0.0",
     "server-only": "0.0.1",
-    "tailwind-merge": "^3.3.1",
+    "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",
     "ua-parser-js": "2.0.6",
     "url-pattern": "1.0.3",
