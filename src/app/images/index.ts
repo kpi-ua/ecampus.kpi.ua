@@ -23,6 +23,7 @@ import CaretUpLight from './icons/CaretUpLight.svg';
 import CaretUpRegular from './icons/CaretUpRegular.svg';
 import ChartBarHorizontal from './icons/ChartBarHorizontal.svg';
 import ChatCenteredText from './icons/ChatCenteredText.svg';
+import Chats from './icons/Chats.svg';
 import ChatsTeardrop from './icons/ChatsTeardrop.svg';
 import ChatTeardropDots from './icons/ChatTeardropDots.svg';
 import Check from './icons/Check.svg';
@@ -186,6 +187,7 @@ export {
   CaretUpRegular,
   ChartBarHorizontal,
   ChatCenteredText,
+  Chats,
   ChatsTeardrop,
   ChatTeardropDots,
   Check,
