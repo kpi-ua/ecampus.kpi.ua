@@ -18,7 +18,6 @@ import { CertificateDetails } from '@/app/[locale]/(public)/validate-certificate
 import { Warning } from '@/app/images';
 import { Paragraph } from '@/components/typography';
 import Link from 'next/link';
-import { WHATSAPP_SUPPORT_LINK } from '@/lib/constants/whatsapp-support-link';
 
 export function CertificateVerifier() {
   const autoSubmittedRef = useRef(false);
@@ -124,7 +123,7 @@ export function CertificateVerifier() {
               <Paragraph className="m-0 font-medium text-neutral-500">{tResultCard('again')}</Paragraph>
               {tResultCard.rich('contact-support', {
                 link: (chunks) => (
-                  <Link href={WHATSAPP_SUPPORT_LINK} target="_blank">
+                  <Link href={process.env.NEXT_PUBLIC_WHATSAPP_SUPPORT_LINK!} target="_blank">
                     {chunks}
                   </Link>
                 ),
