@@ -24,6 +24,7 @@ interface Props {
 }
 
 export function Individual({ groupOptions }: Props) {
+  const hasGroupOptions = groupOptions.length > 0;
   const [recipientType, setRecipientType] = useState<'employee' | 'student'>('employee');
   const [userOptions, setUserOptions] = useState<EntityIdName[]>([]);
 
@@ -95,25 +96,28 @@ export function Individual({ groupOptions }: Props) {
     }));
   }, []);
 
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-5 space-y-8">
-        <div className="flex gap-6">
-          <RadioGroup
-            className="flex"
-            defaultValue="employee"
-            onValueChange={(value) => setRecipientType(value as 'employee' | 'student')}
-          >
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="employee" id="r1" />
-              <Label htmlFor="r1">{t('recipient-type.employee')}</Label>
-            </div>
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="student" id="r2" />
-              <Label htmlFor="r2">{t('recipient-type.student')}</Label>
-            </div>
-          </RadioGroup>
-        </div>
+        {hasGroupOptions && (
+          <div className="flex gap-6">
+            <RadioGroup
+              className="flex"
+              defaultValue="employee"
+              onValueChange={(value) => setRecipientType(value as 'employee' | 'student')}
+            >
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="employee" id="r1" />
+                <Label htmlFor="r1">{t('recipient-type.employee')}</Label>
+              </div>
+              <div className="flex items-center gap-3">
+                <RadioGroupItem value="student" id="r2" />
+                <Label htmlFor="r2">{t('recipient-type.student')}</Label>
+              </div>
+            </RadioGroup>
+          </div>
+        )}
         {recipientType === 'student' && (
           <FormField
             control={form.control}
@@ -153,10 +157,7 @@ export function Individual({ groupOptions }: Props) {
               ) : (
                 <MultipleSelector
                   value={field.value}
-                  options={userOptions.map((user) => ({
-                    value: user.id.toString(),
-                    label: user.name,
-                  }))}
+                  options={userOptions.map((user) => ({ value: user.id.toString(), label: user.name }))}
                   onChange={field.onChange}
                   placeholder={t('form.select-recipient-placeholder')}
                   emptyIndicator={t('form.select-group-first')}

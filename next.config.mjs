@@ -43,7 +43,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'do4rt9wur3t6m.cloudfront.net',
+        hostname: 'cdn.cloud.kpi.ua',
       },
     ],
     // Disable Next.js image optimization and caching; let CDN/browser handle it

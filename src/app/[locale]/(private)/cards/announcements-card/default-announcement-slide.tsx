@@ -22,7 +22,7 @@ export const DefaultAnnouncementSlide = () => {
     <AnnouncementSlide
       title={title}
       description={t('description')}
-      image="https://do4rt9wur3t6m.cloudfront.net/welcome-to-campus.png"
+      image="https://cdn.cloud.kpi.ua/public/welcome-to-campus.png"
     />
   );
 };
