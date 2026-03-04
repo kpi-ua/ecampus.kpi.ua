@@ -184,7 +184,7 @@
       "publicLink": {
         "support": "User support",
         "curator-search": "Find curator",
-        "telegram-chat": "Support chat"
+        "chat": "Support chat"
       },
       "field": {
         "username": "Email address or username",
