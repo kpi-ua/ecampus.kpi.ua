@@ -308,7 +308,8 @@
           "description": "You can always contact the support service:",
           "button": {
             "suggestions-form": "Suggestion form",
-            "email": "Email"
+            "email": "Email",
+            "chat": "Support chat"
           }
         },
         "carousel": {
