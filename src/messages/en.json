@@ -184,7 +184,7 @@
       "publicLink": {
         "support": "User support",
         "curator-search": "Find curator",
-        "telegram-chat": "Support chat"
+        "chat": "Support chat"
       },
       "field": {
         "username": "Email address or username",
@@ -310,7 +310,8 @@
           "description": "You can always contact the support service:",
           "button": {
             "suggestions-form": "Suggestion form",
-            "email": "Email"
+            "email": "Email",
+            "chat": "Support chat"
           }
         },
         "carousel": {
