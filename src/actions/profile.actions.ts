@@ -2,8 +2,9 @@
 
 import { Contact, ContactType } from '@/types/models/contact';
 import { campusFetch } from '@/lib/client';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { USER_PROFILE_CACHE_TAG } from '@/actions/auth.actions';
 
 export async function getContacts() {
   try {
@@ -32,7 +33,7 @@ export async function createContact(typeId: number, value: string) {
       body: JSON.stringify({ typeId, value }),
     });
 
-    revalidatePath('/profile');
+    revalidateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while creating contact');
   }
@@ -45,7 +46,7 @@ export async function updateContact(id: number, typeId: number, value: string) {
       body: JSON.stringify({ typeId, value }),
     });
 
-    revalidatePath('/profile');
+    revalidateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while updating contact');
   }
@@ -57,7 +58,7 @@ export async function deleteContact(id: number) {
       method: 'DELETE',
     });
 
-    revalidatePath('/profile');
+    revalidateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while deleting contact');
   }
@@ -70,7 +71,7 @@ export async function updateIntellectInfo(credo: string, scientificInterests: st
       method: 'PUT',
       body: JSON.stringify({ credo, scientificInterests }),
     });
-    revalidatePath('/profile');
+    revalidateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while updating intellect info');
   }
