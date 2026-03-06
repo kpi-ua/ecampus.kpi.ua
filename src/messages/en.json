@@ -457,7 +457,8 @@
         "academic-degree": "Academic degree",
         "academic-status": "Academic title",
         "position": "Position",
-        "positions": "Positions"
+        "positions": "Positions",
+        "intellect-profile": "Profile on intellect.kpi.ua"
       },
       "contact": {
         "title": "Contact",
@@ -471,12 +472,8 @@
       },
       "intellect": {
         "info-title": "Information for publication on the intellect.kpi.ua website on the Internet",
-        "agreement-title": "Consent for publication of data on the intellect.kpi.ua website on the Internet",
-        "intellect-profile-enabled": "You have allowed the placement of your personal information on the intellect.kpi.ua website on the Internet.",
-        "intellect-profile-disabled": "Provide permission to place your personal information on the intellect.kpi.ua website on the Internet.",
         "credo": "Credo",
-        "scientific-interests": "Scientific interests",
-        "profile-link": "Link to profile"
+        "scientific-interests": "Scientific interests"
       },
       "codeOfHonor": {
         "title": "Code of honor",
@@ -485,8 +482,7 @@
       },
       "button": {
         "save": "Save",
-        "grant-permission": "Grant permission",
-        "revoke-permission": "Revoke permission",
+        "cancel": "Cancel",
         "add-new": "Add new",
         "edit": "Edit",
         "agree": "Agree",

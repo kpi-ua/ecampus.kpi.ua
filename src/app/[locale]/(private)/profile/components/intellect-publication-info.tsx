@@ -33,6 +33,12 @@ export function IntellectPublicationInfo({ user }: Props) {
     setIsEditing(false);
   };
 
+  const handleCancel = () => {
+    setCredo(user.credo || '');
+    setScientificInterests(user.scientificInterests || '');
+    setIsEditing(false);
+  };
+
   return (
     <div className="flex flex-col gap-3">
       <Heading6>{t('intellect.info-title')}</Heading6>
@@ -74,7 +80,12 @@ export function IntellectPublicationInfo({ user }: Props) {
         </Show>
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2">
+        <Show when={isEditing}>
+          <Button className="w-fit" variant="secondary" size={isMobile ? 'medium' : 'big'} onClick={handleCancel}>
+            {t('button.cancel')}
+          </Button>
+        </Show>
         <Button
           className="w-fit"
           loading={loading}
