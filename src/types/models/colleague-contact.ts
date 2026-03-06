@@ -19,7 +19,6 @@ export interface ColleagueContact {
   fullName: string;
   positions: Position[];
   contactSource: string;
-  intellectProfileEnabled: boolean;
   intellectProfile: string | null;
   contacts: Contact[];
 }

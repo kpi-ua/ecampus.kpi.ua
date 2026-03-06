@@ -6,8 +6,6 @@ import { Description, Heading2 } from '@/components/typography';
 import { InfoBlock } from '@/app/[locale]/(private)/profile/components/info-block';
 import { Card, CardContent } from '@/components/ui/card';
 import { Contacts } from '@/app/[locale]/(private)/profile/components/contacts';
-import { Show } from '@/components/utils/show';
-import { IntellectAgreement } from '@/app/[locale]/(private)/profile/components/intellect-agreement';
 import { IntellectPublicationInfo } from '@/app/[locale]/(private)/profile/components/intellect-publication-info';
 import { CodeOfHonor } from '@/app/[locale]/(private)/profile/components/code-of-honor';
 
@@ -29,8 +27,6 @@ export default async function Page() {
   const contacts = await getContacts();
   const contactTypes = await getContactTypes();
 
-  const isEmployee = !!user?.employeeProfile;
-
   if (!user) {
     return null;
   }
@@ -45,10 +41,7 @@ export default async function Page() {
           <Card className="h-fit w-full">
             <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
               <Contacts contacts={contacts} contactTypes={contactTypes} />
-              <Show when={isEmployee}>
-                <IntellectAgreement user={user} />
-                <IntellectPublicationInfo user={user} />
-              </Show>
+              {user.intellectProfile && <IntellectPublicationInfo user={user} />}
               <CodeOfHonor user={user} />
             </CardContent>
           </Card>

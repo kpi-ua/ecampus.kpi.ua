@@ -13,7 +13,6 @@ export interface User {
   credo: string;
   sid: string;
   modules: string[];
-  intellectProfileEnabled: boolean;
   intellectProfile?: string;
   userCategories: UserCategory[];
   codeOfHonorSignDate: string;
