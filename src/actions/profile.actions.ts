@@ -63,17 +63,6 @@ export async function deleteContact(id: number) {
   }
 }
 
-export async function setIntellectAgreement(agree: boolean) {
-  try {
-    await campusFetch('profile/intellect/agreement', {
-      method: 'POST',
-      body: JSON.stringify({ agree }),
-    });
-    revalidatePath('/profile');
-  } catch (error) {
-    throw new Error('Error while setting intellect agreement');
-  }
-}
 
 export async function updateIntellectInfo(credo: string, scientificInterests: string) {
   try {
