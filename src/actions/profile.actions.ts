@@ -4,6 +4,7 @@ import { Contact, ContactType } from '@/types/models/contact';
 import { campusFetch } from '@/lib/client';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { USER_PROFILE_CACHE_TAG } from '@/actions/auth.actions';
 
 import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
 
