@@ -10,6 +10,7 @@ import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { dash } from 'radash';
 import { getTranslations } from 'next-intl/server';
+import Link from 'next/link';
 
 interface Props {
   user: User;
@@ -50,6 +51,17 @@ export async function InfoBlock({ user, className }: Props) {
           {studentProfile && <StudentInfo studentProfile={studentProfile} />}
           {employeeProfile && <LecturerInfo employeeProfile={employeeProfile} />}
         </div>
+
+        {user.intellectProfile && (
+          <Link
+            className="text-lg font-semibold text-basic-blue hover:underline"
+            href={user.intellectProfile}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('info.intellect-profile')}
+          </Link>
+        )}
       </CardContent>
     </Card>
   );
