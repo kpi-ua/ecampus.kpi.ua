@@ -29,7 +29,6 @@ export const formSchema = z
       roles: z.array(z.string()).optional(),
       groups: z.array(z.string()).optional(),
       studyForms: z.array(z.string()).optional(),
-      subdivisions: z.array(z.number()).optional(),
       courses: z.array(z.number()).optional(),
     }),
   })

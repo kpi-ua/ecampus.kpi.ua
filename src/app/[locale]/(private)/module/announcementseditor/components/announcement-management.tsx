@@ -7,14 +7,12 @@ import { useTranslations } from 'next-intl';
 import { Plus } from 'lucide-react';
 import { AnnouncementForm } from './announcement-form';
 import { Group } from '@/types/models/group';
-import { Subdivision } from '@/types/models/subdivision';
 import { useToast } from '@/hooks/use-toast';
 
 interface Props {
   rolesData: string[];
   studyFormsData: string[];
   groupsData: Group[];
-  subdivisionsData: Subdivision[];
   coursesData: number[];
 }
 
@@ -22,7 +20,6 @@ export function AnnouncementManagement({
   rolesData,
   studyFormsData,
   groupsData,
-  subdivisionsData,
   coursesData,
 }: Props) {
   const t = useTranslations('private.announcementseditor');
@@ -47,7 +44,6 @@ export function AnnouncementManagement({
         rolesData={rolesData}
         studyFormsData={studyFormsData}
         groupsData={groupsData}
-        subdivisionsData={subdivisionsData}
         coursesData={coursesData}
         onSuccess={handleFormSuccess}
       />
