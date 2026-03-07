@@ -3,7 +3,7 @@ import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { AnnouncementManagement } from './components/announcement-management';
-import { getStudyForms, getAllGroups, getSubdivisions, getCourses, getRoles } from '@/actions/announcement.actions';
+import { getStudyForms, getAllGroups, getCourses, getRoles } from '@/actions/announcement.actions';
 
 const INTL_NAMESPACE = 'private.announcementseditor';
 
@@ -19,11 +19,10 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function AnnouncementsPage() {
   const t = await getTranslations(INTL_NAMESPACE);
-  const [rolesData, studyFormsData, groupsData, subdivisionsData, coursesData] = await Promise.all([
+  const [rolesData, studyFormsData, groupsData, coursesData] = await Promise.all([
     getRoles(),
     getStudyForms(),
     getAllGroups(),
-    getSubdivisions(),
     getCourses(),
   ]);
 
@@ -37,7 +36,6 @@ export default async function AnnouncementsPage() {
           rolesData={rolesData}
           studyFormsData={studyFormsData}
           groupsData={groupsData}
-          subdivisionsData={subdivisionsData}
           coursesData={coursesData}
         />
       </div>
