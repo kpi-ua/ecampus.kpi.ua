@@ -5,7 +5,6 @@ export interface FilterOption {
 }
 
 export interface AnnouncementCreateFilter {
-  subdivisions?: number[];
   courses?: number[];
   groups?: string[];
   roles?: string[];

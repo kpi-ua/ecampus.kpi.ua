@@ -5,7 +5,6 @@ import { campusFetch } from '@/lib/client';
 import { isOutdated } from '@/lib/date.utils';
 import { Announcement } from '@/types/models/announcement';
 import { Group } from '@/types/models/group';
-import { Subdivision } from '@/types/models/subdivision';
 
 export const getAnnouncements = async ({ excludeOutdated = false }: { excludeOutdated?: boolean } = {}) => {
   try {
@@ -87,14 +86,6 @@ export const getAllGroups = async () => {
     console.error('Error fetching groups:', error);
     return [];
   }
-};
-
-export const getSubdivisions = async () => {
-  const response = await campusFetch<Subdivision[]>('/subdivision/faculty');
-  if (!response.ok) {
-    return [];
-  }
-  return response.json();
 };
 
 export const getCourses = async () => {
