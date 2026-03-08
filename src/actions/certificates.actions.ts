@@ -6,6 +6,9 @@ import { revalidatePath } from 'next/cache';
 import { CertificateVerificationResult } from '@/types/models/certificate/certificate-verification-result';
 import { parseContentDispositionFilename } from '@/lib/utils';
 import { CertificateStatus } from '@/types/models/certificate/status';
+import { CertificateSignatory, DeanSignatory } from '@/types/models/certificate/signatory';
+import { StudentCertificateData } from '@/types/models/certificate/student-certificate-data';
+import { CertificateOperatorCreateRequest, StudentSearchResult } from '@/types/models/certificate/operator-request';
 import qs from 'query-string';
 
 export async function getCertificateTypes() {
@@ -19,6 +22,8 @@ export async function getCertificateTypes() {
 export type UpdateCertificateBody = {
   approve: boolean;
   reason?: string;
+  notes?: string;
+  signatoryId?: number;
 };
 
 export async function updateCertificate(id: number, body: UpdateCertificateBody) {
@@ -32,11 +37,24 @@ export async function updateCertificate(id: number, body: UpdateCertificateBody)
   }
   revalidatePath('/module/facultycertificate', 'layout');
 }
+
+export async function regenerateCertificate(id: number) {
+  const res = await campusFetch(`/certificates/${id}/regenerate`, {
+    method: 'POST',
+  });
+
+  if (!res.ok) {
+    throw new Error(res.statusText);
+  }
+  revalidatePath('/module/facultycertificate', 'layout');
+}
+
 type CertificateRequestBody = {
   type: string;
   originalRequired?: boolean;
   notes?: string;
   purpose?: string;
+  includeOrderInfo?: boolean;
 };
 
 export async function createCertificateRequest(body: CertificateRequestBody) {
@@ -80,11 +98,12 @@ export async function getCertificatePDF(id: number) {
 
     const cd = response.headers.get('Content-Disposition') || '';
     const filename = parseContentDispositionFilename(cd) ?? `certificate.pdf`;
-    const blob = await response.blob();
+    const arrayBuffer = await response.arrayBuffer();
+    const base64 = Buffer.from(arrayBuffer).toString('base64');
 
     return {
       filename,
-      blob,
+      base64,
     };
   } catch (error) {
     console.error('Error downloading PDF:', error);
@@ -142,4 +161,83 @@ export async function signCertificate(id: number) {
   }
 
   revalidatePath('/module/facultycertificate', 'layout');
+}
+
+export async function getSignatories() {
+  const response = await campusFetch<CertificateSignatory[]>('/certificates/signatories');
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+}
+
+/**
+ * Get available signatories from Dean DB for a specific student.
+ * Used by operators to select who will sign the certificate.
+ */
+export async function getStudentSignatories(studentUserAccountId: number) {
+  const response = await campusFetch<DeanSignatory[]>(`/certificates/signatories/student/${studentUserAccountId}`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+}
+
+export async function getCertificateData(id: number) {
+  const response = await campusFetch<StudentCertificateData>(`/certificates/${id}/data`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+}
+
+export async function getUnsignedCertificatePDF(id: number) {
+  const response = await campusFetch(`/certificates/${id}/pdf/unsigned`, {
+    headers: { Accept: 'application/pdf' },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to download unsigned PDF: ${response.status} ${response.statusText}`);
+  }
+
+  const cd = response.headers.get('Content-Disposition') || '';
+  const filename = parseContentDispositionFilename(cd) ?? `certificate-unsigned.pdf`;
+  const arrayBuffer = await response.arrayBuffer();
+  const base64 = Buffer.from(arrayBuffer).toString('base64');
+
+  return { filename, base64 };
+}
+
+export async function createCertificateAsOperator(body: CertificateOperatorCreateRequest) {
+  const res = await campusFetch('/certificates/operator', {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    throw new Error(res.statusText);
+  }
+
+  revalidatePath('/module/facultycertificate', 'layout');
+  return res.json();
+}
+
+export interface OperatorStudentsQuery {
+  page?: number;
+  size?: number;
+  filter?: string;
+}
+
+export async function searchStudentsForOperator(query: OperatorStudentsQuery = {}) {
+  const queryParams = qs.stringify(query);
+  const response = await campusFetch<StudentSearchResult[]>(`/certificates/operator/students?${queryParams}`);
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  const items = await response.json();
+  const totalCount = parseInt(response.headers.get('x-total-count') || '0', 10);
+
+  return { items, totalCount };
 }
