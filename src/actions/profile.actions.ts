@@ -7,8 +7,6 @@ import { redirect } from 'next/navigation';
 
 import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
 
-import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
-
 export async function getContacts() {
   try {
     const response = await campusFetch<Contact[]>('profile/contacts');
