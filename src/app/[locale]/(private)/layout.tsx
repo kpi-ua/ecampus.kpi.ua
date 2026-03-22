@@ -6,6 +6,8 @@ import { notFound } from 'next/navigation';
 import { Footer } from '@/components/app-sidebar/footer';
 import React from 'react';
 
+import { PrivacyConsentDialog } from '@/components/privacy-consent-dialog';
+
 export default async function MainPageLayout({
   children,
 }: Readonly<{
@@ -17,6 +19,8 @@ export default async function MainPageLayout({
     notFound();
   }
 
+  const showPrivacyConsent = !!user.employeeProfile && !user.privacyConsentAcceptDate;
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -25,6 +29,8 @@ export default async function MainPageLayout({
         <div className="bg-uncategorized-main grow p-[20px] lg:p-[28px]">{children}</div>
         <Footer />
       </SidebarInset>
+
+      {showPrivacyConsent && <PrivacyConsentDialog />}
     </SidebarProvider>
   );
 }
