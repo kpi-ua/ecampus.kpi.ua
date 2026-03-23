@@ -19,7 +19,7 @@ export default async function MainPageLayout({
     notFound();
   }
 
-  const showPrivacyConsent = !!user.employeeProfile && !user.privacyConsentAcceptDate;
+  const showPrivacyConsent = !!user.employeeProfile && !user.privacyConsentDate;
 
   return (
     <SidebarProvider>
