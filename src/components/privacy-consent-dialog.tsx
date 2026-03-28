@@ -11,10 +11,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 export function PrivacyConsentDialog() {
   const [isPending, setIsPending] = useState(false);
   const [open, setOpen] = useState(true);
+
+  const { errorToast } = useServerErrorToast();
 
   const handleAccept = async () => {
     setIsPending(true);
@@ -22,7 +25,7 @@ export function PrivacyConsentDialog() {
       await acceptPrivacyConsent();
       setOpen(false);
     } catch (error) {
-      console.error(error);
+      errorToast();
     } finally {
       setIsPending(false);
     }
