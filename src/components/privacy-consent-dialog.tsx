@@ -17,12 +17,13 @@ export function PrivacyConsentDialog() {
   const [open, setOpen] = useState(true);
 
   const handleAccept = async () => {
+    setIsPending(true);
     try {
-      setIsPending(true);
       await acceptPrivacyConsent();
       setOpen(false);
     } catch (error) {
       console.error(error);
+    } finally {
       setIsPending(false);
     }
   };
