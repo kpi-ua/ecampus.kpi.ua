@@ -88,3 +88,14 @@ export async function acceptCodeOfHonor() {
   }
   redirect('/');
 }
+
+export async function acceptPrivacyConsent() {
+  try {
+    await campusFetch('profile/privacy-consent', {
+      method: 'POST',
+    });
+    revalidateTag(USER_PROFILE_CACHE_TAG);
+  } catch (error) {
+    throw new Error('Error while accepting privacy consent');
+  }
+}
