@@ -21,7 +21,7 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
       <CardContent className="p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-start">
           <div className="flex flex-col gap-1 md:w-[300px]">
-            {colleague.intellectProfileEnabled && colleague.intellectProfile ? (
+            {colleague.intellectProfile ? (
               <Link
                 href={colleague.intellectProfile}
                 target="_blank"

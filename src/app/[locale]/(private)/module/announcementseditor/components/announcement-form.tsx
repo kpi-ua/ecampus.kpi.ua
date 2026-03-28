@@ -9,7 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import MultipleSelector from '@/components/ui/multi-select';
 import { Group } from '@/types/models/group';
-import { Subdivision } from '@/types/models/subdivision';
 import { formSchema } from '@/app/[locale]/(private)/module/announcementseditor/components/schema';
 import { Textarea } from '@/components/ui/textarea';
 import { createAnnouncement } from '@/actions/announcement.actions';
@@ -24,7 +23,6 @@ interface Props {
   rolesData: string[];
   studyFormsData: string[];
   groupsData: Group[];
-  subdivisionsData: Subdivision[];
   coursesData: number[];
   onSuccess: (id: number) => void;
 }
@@ -33,7 +31,6 @@ export function AnnouncementForm({
   rolesData,
   studyFormsData,
   groupsData,
-  subdivisionsData,
   coursesData,
   onSuccess,
 }: Props) {
@@ -58,7 +55,6 @@ export function AnnouncementForm({
         roles: [],
         groups: [],
         studyForms: [],
-        subdivisions: [],
         courses: [],
       },
     },
@@ -247,28 +243,6 @@ export function AnnouncementForm({
                   defaultOptions={rolesData.map((role) => ({ value: role, label: role }))}
                   placeholder={t('placeholders.roles')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
-                  emptyIndicator={<EmptyIndicator />}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="filter.subdivisions"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('fields.subdivisions')}</FormLabel>
-              <FormControl>
-                <MultipleSelector
-                  defaultOptions={subdivisionsData.map((subdivision) => ({
-                    value: subdivision.id.toString(),
-                    label: subdivision.name,
-                  }))}
-                  placeholder={t('placeholders.subdivisions')}
-                  onChange={(options) => field.onChange(options.map((option) => parseInt(option.value as string)))}
                   emptyIndicator={<EmptyIndicator />}
                 />
               </FormControl>

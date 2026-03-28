@@ -308,7 +308,8 @@
           "description": "Ви завжди можете звернутися в службу підтримки:",
           "button": {
             "suggestions-form": "Форма пропозицій",
-            "email": "Пошта"
+            "email": "Пошта",
+            "chat": "Чат підтримки"
           }
         },
         "carousel": {
@@ -456,7 +457,8 @@
         "academic-degree": "Науковий ступінь",
         "academic-status": "Вчене звання",
         "position": "Посада",
-        "positions": "Перелік посад"
+        "positions": "Перелік посад",
+        "intellect-profile": "Профіль на intellect.kpi.ua"
       },
       "contact": {
         "title": "Контакт",
@@ -470,12 +472,8 @@
       },
       "intellect": {
         "info-title": "Інформація для публікації на сайті intellect.kpi.ua в мережі Інтернет",
-        "agreement-title": "Згода на публікацію даних на сайті intellect.kpi.ua в мережі Інтернет",
-        "intellect-profile-enabled": "Ви дозволили розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
-        "intellect-profile-disabled": "Надайте дозвіл на розміщення Вашої персональної інформації на сайт intellect.kpi.ua в мережі Інтернет.",
         "credo": "Улюблена цитата",
-        "scientific-interests": "Напрями досліджень",
-        "profile-link": "Посилання на профіль"
+        "scientific-interests": "Напрями досліджень"
       },
       "codeOfHonor": {
         "title": "Кодекс честі",
@@ -484,8 +482,7 @@
       },
       "button": {
         "save": "Зберегти",
-        "grant-permission": "Надати дозвіл",
-        "revoke-permission": "Скасувати дозвіл",
+        "cancel": "Скасувати",
         "add-new": "Додати новий",
         "edit": "Редагувати",
         "agree": "Погоджуюсь",

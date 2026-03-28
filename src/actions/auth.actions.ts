@@ -87,9 +87,11 @@ export async function resetPassword(username: string, recaptchaToken: string) {
   }
 }
 
+import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
+
 export async function getUserDetails() {
   const userResponse = await campusFetch<User>('profile', {
-    cache: 'force-cache',
+    next: { tags: [USER_PROFILE_CACHE_TAG] },
   });
 
   if (!userResponse.ok) {
