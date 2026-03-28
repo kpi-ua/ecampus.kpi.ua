@@ -94,7 +94,7 @@ export async function acceptPrivacyConsent() {
     await campusFetch('profile/privacy-consent', {
       method: 'POST',
     });
-    revalidatePath('/profile');
+    revalidateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while accepting privacy consent');
   }
