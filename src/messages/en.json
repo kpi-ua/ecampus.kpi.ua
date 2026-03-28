@@ -761,6 +761,21 @@
         "file-size": "Please upload a picture smaller than 1 MB.",
         "file-type": "Only PNG, JPEG, and JPG files are supported."
       }
+    },
+    "privacy-consent": {
+      "title": "Consent to Publish KPI Personal Data on the Internet",
+      "description": "Agreement on the use of personal data on the Intellect portal.",
+      "agreement-intro": "I hereby consent to the publication of the following personal data on the Intellect portal:",
+      "data-items": {
+        "name": "Last name, first name",
+        "education": "Education (institution)",
+        "media": "Photo and video recordings made during classes, place of work",
+        "works": "Publication of creative works",
+        "other": "Other information: SPW assessment data"
+      },
+      "responsibility": "I understand the responsibility and potential negative consequences of this decision, including the possibility of unauthorized use of this data by third parties.",
+      "revocation": "This consent is granted indefinitely and may be revoked at any time by submitting a written application.",
+      "accept-button": "I give my consent"
     }
   }
 }
