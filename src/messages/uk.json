@@ -101,7 +101,8 @@
       },
       "student-status": {
         "dismissed": "Відрахований",
-        "studying": "Навчається"
+        "studying": "Навчається",
+        "on-academic-leave": "В академічній відпустці"
       },
       "study-form": {
         "none": "Не вказано",
