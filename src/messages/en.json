@@ -101,7 +101,8 @@
       },
       "student-status": {
         "dismissed": "Dismissed",
-        "studying": "Studying"
+        "studying": "Studying",
+        "on-academic-leave": "On Academic Leave"
       },
       "study-form": {
         "none": "Not specified",
