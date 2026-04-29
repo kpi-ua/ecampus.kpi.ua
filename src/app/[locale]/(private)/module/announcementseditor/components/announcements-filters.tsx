@@ -19,9 +19,11 @@ export const AnnouncementsFilters = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get('search') ?? '';
-  const rawLanguage = searchParams.get('language');
   // Mirror the page-level whitelist so an unknown ?language=… value can't
-  // leave the Select with an empty / invalid selection.
+  // leave the Select with an empty / invalid selection. Lowercase to match
+  // the server-side parser (otherwise ?language=EN would fetch English on
+  // the server but show "All languages" in the trigger).
+  const rawLanguage = searchParams.get('language')?.toLowerCase();
   const language: AdminAnnouncementsLanguage =
     LANGUAGE_VALUES.find((v) => v === rawLanguage) ?? 'all';
 
