@@ -6,14 +6,12 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { AnnouncementForm, AnnouncementFormValues } from './announcement-form';
 import { createAnnouncement } from '@/actions/announcement.actions';
 import { useToast } from '@/hooks/use-toast';
-import { Group } from '@/types/models/group';
 
 interface Props {
   open: boolean;
   onClose: () => void;
   rolesData: string[];
   studyFormsData: string[];
-  groupsData: Group[];
   coursesData: number[];
 }
 
@@ -22,7 +20,6 @@ export const CreateAnnouncementDialog = ({
   onClose,
   rolesData,
   studyFormsData,
-  groupsData,
   coursesData,
 }: Props) => {
   const t = useTranslations('private.announcementseditor');
@@ -51,7 +48,6 @@ export const CreateAnnouncementDialog = ({
         <AnnouncementForm
           rolesData={rolesData}
           studyFormsData={studyFormsData}
-          groupsData={groupsData}
           coursesData={coursesData}
           onSubmit={handleSubmit}
         />

@@ -6,7 +6,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { AnnouncementForm, AnnouncementFormValues } from './announcement-form';
 import { updateAnnouncement } from '@/actions/announcement.actions';
 import { useToast } from '@/hooks/use-toast';
-import { Group } from '@/types/models/group';
 import { AdminAnnouncementItem } from '@/types/models/announcement';
 
 interface Props {
@@ -14,7 +13,6 @@ interface Props {
   item: AdminAnnouncementItem | null;
   rolesData: string[];
   studyFormsData: string[];
-  groupsData: Group[];
   coursesData: number[];
   onClose: () => void;
 }
@@ -41,9 +39,6 @@ const buildDefaults = (item: AdminAnnouncementItem): AnnouncementFormValues => (
   },
   filter: {
     roles: item.filter.roles ?? [],
-    // BE doesn't expose `groups` on AdminAnnouncementItem; the form still
-    // shows the field today (KB-1256 will remove it). Default to empty.
-    groups: [],
     studyForms: item.filter.studyForms ?? [],
     courses: item.filter.courses ?? [],
   },
@@ -53,7 +48,6 @@ export const EditAnnouncementDialog = ({
   item,
   rolesData,
   studyFormsData,
-  groupsData,
   coursesData,
   onClose,
 }: Props) => {
@@ -84,7 +78,6 @@ export const EditAnnouncementDialog = ({
           <AnnouncementForm
             rolesData={rolesData}
             studyFormsData={studyFormsData}
-            groupsData={groupsData}
             coursesData={coursesData}
             defaultValues={buildDefaults(item)}
             onSubmit={handleSubmit}

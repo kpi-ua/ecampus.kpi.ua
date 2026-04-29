@@ -8,7 +8,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import MultipleSelector from '@/components/ui/multi-select';
-import { Group } from '@/types/models/group';
 import { formSchema } from '@/app/[locale]/(private)/module/announcementseditor/components/schema';
 import { Textarea } from '@/components/ui/textarea';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
@@ -35,7 +34,6 @@ const EMPTY_DEFAULTS: AnnouncementFormValues = {
   },
   filter: {
     roles: [],
-    groups: [],
     studyForms: [],
     courses: [],
   },
@@ -44,7 +42,6 @@ const EMPTY_DEFAULTS: AnnouncementFormValues = {
 interface Props {
   rolesData: string[];
   studyFormsData: string[];
-  groupsData: Group[];
   coursesData: number[];
   /** Submission handler. Should resolve on success and throw on failure. */
   onSubmit: (values: AnnouncementFormValues) => Promise<void>;
@@ -57,7 +54,6 @@ interface Props {
 export const AnnouncementForm = ({
   rolesData,
   studyFormsData,
-  groupsData,
   coursesData,
   onSubmit,
   defaultValues,
@@ -186,7 +182,7 @@ export const AnnouncementForm = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>{t('fields.language')}</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder={t('placeholders.language')} />
@@ -209,29 +205,9 @@ export const AnnouncementForm = ({
               <FormLabel>{t('fields.studyForms')}</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  value={(field.value ?? []).map((v) => ({ value: v, label: v }))}
                   defaultOptions={studyFormsData.map((studyForm) => ({ value: studyForm, label: studyForm }))}
                   placeholder={t('placeholders.studyForms')}
-                  onChange={(options) => field.onChange(options.map((option) => option.value as string))}
-                  emptyIndicator={<EmptyIndicator />}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="filter.groups"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('fields.groups')}</FormLabel>
-              <FormControl>
-                <MultipleSelector
-                  defaultOptions={groupsData.map((group) => ({
-                    value: group.id.toString(),
-                    label: `${group.name} (${group.faculty})`,
-                  }))}
-                  placeholder={t('placeholders.groups')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
                   emptyIndicator={<EmptyIndicator />}
                 />
@@ -249,6 +225,7 @@ export const AnnouncementForm = ({
               <FormLabel>{t('fields.roles')}</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  value={(field.value ?? []).map((v) => ({ value: v, label: v }))}
                   defaultOptions={rolesData.map((role) => ({ value: role, label: role }))}
                   placeholder={t('placeholders.roles')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
@@ -268,6 +245,7 @@ export const AnnouncementForm = ({
               <FormLabel>{t('fields.courses')}</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  value={(field.value ?? []).map((v) => ({ value: v.toString(), label: v.toString() }))}
                   defaultOptions={coursesData.map((course) => ({ value: course.toString(), label: course.toString() }))}
                   placeholder={t('placeholders.courses')}
                   onChange={(options) => field.onChange(options.map((option) => parseInt(option.value as string)))}

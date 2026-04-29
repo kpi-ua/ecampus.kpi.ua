@@ -5,7 +5,6 @@ import { AnnouncementCreate } from '@/app/[locale]/(private)/module/announcement
 import { campusFetch } from '@/lib/client';
 import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem, Announcement } from '@/types/models/announcement';
-import { Group } from '@/types/models/group';
 
 // URL pathname (no [locale] prefix, no route group). Matches the convention
 // used by other actions in the repo, e.g. certificates.actions revalidating
@@ -158,19 +157,6 @@ export const getStudyForms = async () => {
     return response.json();
   } catch (error) {
     console.error('Error fetching study forms:', error);
-    return [];
-  }
-};
-
-export const getAllGroups = async () => {
-  try {
-    const response = await campusFetch<Group[]>('group/all');
-    if (!response.ok) {
-      return [];
-    }
-    return response.json();
-  } catch (error) {
-    console.error('Error fetching groups:', error);
     return [];
   }
 };
