@@ -417,7 +417,6 @@
           "endDate": "End Date",
           "language": "Language",
           "studyForms": "Study Forms",
-          "groups": "Groups",
           "roles": "Roles",
           "subdivisions": "Subdivisions",
           "courses": "Courses"
@@ -430,7 +429,6 @@
           "linkUrl": "https://example.com",
           "language": "Select a language",
           "studyForms": "Select study forms",
-          "groups": "Select groups",
           "roles": "Select roles",
           "subdivisions": "Select subdivisions",
           "courses": "Select courses"
