@@ -39,7 +39,7 @@ const summariseFilter = (filter: AnnouncementFilter, fallback: string): string =
   return parts.length === 0 ? fallback : parts.join(' • ');
 };
 
-export function AnnouncementsTable({ items, onEdit, onDelete }: Props) {
+export const AnnouncementsTable = ({ items, onEdit, onDelete }: Props) => {
   const t = useTranslations('private.announcementseditor');
 
   if (items.length === 0) {
@@ -173,4 +173,4 @@ export function AnnouncementsTable({ items, onEdit, onDelete }: Props) {
       </div>
     </TooltipProvider>
   );
-}
+};

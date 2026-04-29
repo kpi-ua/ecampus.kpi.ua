@@ -25,7 +25,7 @@ interface Props {
   onClose: () => void;
 }
 
-export function DeleteConfirmDialog({ id, title, onClose }: Props) {
+export const DeleteConfirmDialog = ({ id, title, onClose }: Props) => {
   const t = useTranslations('private.announcementseditor.delete');
   const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
@@ -79,4 +79,4 @@ export function DeleteConfirmDialog({ id, title, onClose }: Props) {
       </AlertDialogContent>
     </AlertDialog>
   );
-}
+};

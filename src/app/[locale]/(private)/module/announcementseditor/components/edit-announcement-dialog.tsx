@@ -49,14 +49,14 @@ const buildDefaults = (item: AdminAnnouncementItem): AnnouncementFormValues => (
   },
 });
 
-export function EditAnnouncementDialog({
+export const EditAnnouncementDialog = ({
   item,
   rolesData,
   studyFormsData,
   groupsData,
   coursesData,
   onClose,
-}: Props) {
+}: Props) => {
   const t = useTranslations('private.announcementseditor.edit');
   const { toast } = useToast();
 
@@ -94,4 +94,4 @@ export function EditAnnouncementDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};
