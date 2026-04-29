@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { debounce } from 'radash';
@@ -27,6 +27,16 @@ export const AnnouncementsFilters = () => {
   const language: AdminAnnouncementsLanguage =
     LANGUAGE_VALUES.find((v) => v === rawLanguage) ?? 'all';
 
+  // Keep the search input controlled and synced from the URL so back /
+  // forward navigation (or any external param change) updates the field.
+  // The debounced URL writer below reflects the user's typing in the
+  // opposite direction; since they only fire 200ms after the last
+  // keystroke the two never clobber each other mid-input.
+  const [searchValue, setSearchValue] = useState(search);
+  useEffect(() => {
+    setSearchValue(search);
+  }, [search]);
+
   const updateParam = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
     if (value && value.trim() !== '' && !(key === 'language' && value === 'all')) {
@@ -39,9 +49,15 @@ export const AnnouncementsFilters = () => {
     router.replace(`${pathname}?${params.toString()}`);
   };
 
-  const handleSearchChange = debounce({ delay: 200 }, (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateParam('search', e.target.value);
-  });
+  // Stash the latest updateParam in a ref so the memoised debounce always
+  // dispatches against the freshest searchParams snapshot. Re-creating the
+  // debounce per render would defeat its 200ms timer.
+  const updateParamRef = useRef(updateParam);
+  updateParamRef.current = updateParam;
+  const debouncedSearch = useMemo(
+    () => debounce({ delay: 200 }, (value: string) => updateParamRef.current('search', value)),
+    [],
+  );
 
   return (
     <div className="flex flex-col gap-3 md:flex-row md:items-center">
@@ -49,8 +65,11 @@ export const AnnouncementsFilters = () => {
         <Input
           placeholder={t('searchPlaceholder')}
           icon={<MagnifyingGlassRegular />}
-          defaultValue={search}
-          onChange={handleSearchChange}
+          value={searchValue}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            debouncedSearch(e.target.value);
+          }}
         />
       </div>
       <div className="md:w-56">

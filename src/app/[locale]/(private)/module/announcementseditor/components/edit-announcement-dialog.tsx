@@ -81,7 +81,10 @@ export const EditAnnouncementDialog = ({
           <DialogTitle>{t('title')}</DialogTitle>
         </DialogHeader>
         {item && (
+          // Force a remount when the edited item changes so RHF picks up
+          // the new defaultValues — useForm only applies them on mount.
           <AnnouncementForm
+            key={item.announcement.id}
             rolesData={rolesData}
             studyFormsData={studyFormsData}
             coursesData={coursesData}
