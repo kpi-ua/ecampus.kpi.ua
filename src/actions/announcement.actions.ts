@@ -137,7 +137,7 @@ export const deleteAnnouncement = async (id: number): Promise<void> => {
 
 export const getRoles = async () => {
   try {
-    const response = await campusFetch<string[]>('/roles');
+    const response = await campusFetch<string[]>('roles');
     if (!response.ok) {
       return [];
     }
@@ -150,7 +150,7 @@ export const getRoles = async () => {
 
 export const getStudyForms = async () => {
   try {
-    const response = await campusFetch<string[]>('/study-forms');
+    const response = await campusFetch<string[]>('study-forms');
     if (!response.ok) {
       return [];
     }
@@ -163,7 +163,7 @@ export const getStudyForms = async () => {
 
 export const getCourses = async () => {
   try {
-    const response = await campusFetch<number[]>('/courses');
+    const response = await campusFetch<number[]>('courses');
     if (!response.ok) {
       return [];
     }

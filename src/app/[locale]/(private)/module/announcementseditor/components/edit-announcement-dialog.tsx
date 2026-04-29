@@ -17,11 +17,17 @@ interface Props {
   onClose: () => void;
 }
 
+// Format as local YYYY-MM-DD (the shape <input type="date"> expects).
+// Avoids toISOString(), which converts to UTC and can shift the calendar
+// day for any value that isn't already at UTC midnight.
 const toIsoDate = (value: Date | string | undefined) => {
   if (!value) return '';
   const date = typeof value === 'string' ? new Date(value) : value;
   if (Number.isNaN(date.getTime())) return '';
-  return date.toISOString().slice(0, 10);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 };
 
 const buildDefaults = (item: AdminAnnouncementItem): AnnouncementFormValues => ({
