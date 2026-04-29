@@ -469,7 +469,8 @@
       },
       "actions": {
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "back": "Back to list"
       },
       "edit": {
         "title": "Edit announcement",
