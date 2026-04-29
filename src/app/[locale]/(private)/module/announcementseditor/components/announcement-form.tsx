@@ -11,12 +11,34 @@ import MultipleSelector from '@/components/ui/multi-select';
 import { Group } from '@/types/models/group';
 import { formSchema } from '@/app/[locale]/(private)/module/announcementseditor/components/schema';
 import { Textarea } from '@/components/ui/textarea';
-import { createAnnouncement } from '@/actions/announcement.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+
+export type AnnouncementFormValues = z.infer<typeof formSchema>;
 
 const EmptyIndicator = () => {
   const t = useTranslations('private.announcementseditor.form');
   return <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">{t('not-found')}</p>;
+};
+
+const EMPTY_DEFAULTS: AnnouncementFormValues = {
+  announcement: {
+    title: '',
+    description: '',
+    image: '',
+    link: {
+      title: '',
+      uri: '',
+    },
+    start: '',
+    end: '',
+    language: 'uk',
+  },
+  filter: {
+    roles: [],
+    groups: [],
+    studyForms: [],
+    courses: [],
+  },
 };
 
 interface Props {
@@ -24,7 +46,12 @@ interface Props {
   studyFormsData: string[];
   groupsData: Group[];
   coursesData: number[];
-  onSuccess: (id: number) => void;
+  /** Submission handler. Should resolve on success and throw on failure. */
+  onSubmit: (values: AnnouncementFormValues) => Promise<void>;
+  /** Pre-fill values when editing an existing announcement. */
+  defaultValues?: AnnouncementFormValues;
+  /** Optional override for the submit button label (defaults to translation `buttons.submit`). */
+  submitLabel?: string;
 }
 
 export function AnnouncementForm({
@@ -32,39 +59,21 @@ export function AnnouncementForm({
   studyFormsData,
   groupsData,
   coursesData,
-  onSuccess,
+  onSubmit,
+  defaultValues,
+  submitLabel,
 }: Props) {
   const t = useTranslations('private.announcementseditor.form');
   const { errorToast } = useServerErrorToast();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<AnnouncementFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      announcement: {
-        title: '',
-        description: '',
-        image: '',
-        link: {
-          title: '',
-          uri: '',
-        },
-        start: '',
-        end: '',
-        language: 'uk',
-      },
-      filter: {
-        roles: [],
-        groups: [],
-        studyForms: [],
-        courses: [],
-      },
-    },
+    defaultValues: defaultValues ?? EMPTY_DEFAULTS,
     mode: 'onChange',
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function handleSubmit(values: AnnouncementFormValues) {
     try {
-      const id = await createAnnouncement(values);
-      onSuccess(id);
+      await onSubmit(values);
     } catch (error) {
       errorToast();
     }
@@ -72,7 +81,7 @@ export function AnnouncementForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto flex flex-col gap-3">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="mx-auto flex flex-col gap-3">
         <FormField
           control={form.control}
           name="announcement.title"
@@ -269,8 +278,8 @@ export function AnnouncementForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-4">
-          {t('buttons.submit')}
+        <Button type="submit" className="mt-4" disabled={form.formState.isSubmitting}>
+          {submitLabel ?? t('buttons.submit')}
         </Button>
       </form>
     </Form>
