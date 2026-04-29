@@ -2,8 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import dayjs from 'dayjs';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 
+import { PencilRegular } from '@/app/images';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -104,15 +105,17 @@ export function AnnouncementsTable({ items, onEdit, onDelete }: Props) {
                         size="small"
                         onClick={() => onEdit(item)}
                         aria-label={t('actions.edit')}
-                        icon={<Pencil />}
-                      />
+                      >
+                        <PencilRegular />
+                      </Button>
                       <Button
                         variant="tertiary"
                         size="small"
                         onClick={() => onDelete(item)}
                         aria-label={t('actions.delete')}
-                        icon={<Trash2 className="text-other-red" />}
-                      />
+                      >
+                        <Trash2 className="text-other-red" />
+                      </Button>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -139,15 +142,17 @@ export function AnnouncementsTable({ items, onEdit, onDelete }: Props) {
                     size="small"
                     onClick={() => onEdit(item)}
                     aria-label={t('actions.edit')}
-                    icon={<Pencil />}
-                  />
+                  >
+                    <PencilRegular />
+                  </Button>
                   <Button
                     variant="tertiary"
                     size="small"
                     onClick={() => onDelete(item)}
                     aria-label={t('actions.delete')}
-                    icon={<Trash2 className="text-other-red" />}
-                  />
+                  >
+                    <Trash2 className="text-other-red" />
+                  </Button>
                 </div>
               </div>
               <div className="mt-2 flex flex-wrap gap-2">
