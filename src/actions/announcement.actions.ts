@@ -7,7 +7,10 @@ import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem, Announcement } from '@/types/models/announcement';
 import { Group } from '@/types/models/group';
 
-const ANNOUNCEMENTS_EDITOR_PATH = '/[locale]/(private)/module/announcementseditor';
+// URL pathname (no [locale] prefix, no route group). Matches the convention
+// used by other actions in the repo, e.g. certificates.actions revalidating
+// `/module/certificates`.
+const ANNOUNCEMENTS_EDITOR_PATH = '/module/announcementseditor';
 
 export type AdminAnnouncementsLanguage = 'all' | 'uk' | 'en';
 
@@ -92,7 +95,7 @@ export const createAnnouncement = async (data: AnnouncementCreate): Promise<numb
       throw new Error(`Failed to create announcement: ${response.status} ${response.statusText}`);
     }
     const responseJson = (await response.json()) as number;
-    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH, 'page');
+    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH);
     return responseJson;
   } catch (error) {
     console.error('Error creating announcement:', error);
@@ -110,7 +113,7 @@ export const updateAnnouncement = async (id: number, data: AnnouncementCreate): 
     if (!response.ok) {
       throw new Error(`Failed to update announcement: ${response.status} ${response.statusText}`);
     }
-    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH, 'page');
+    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH);
   } catch (error) {
     console.error('Error updating announcement:', error);
     throw error;
@@ -126,7 +129,7 @@ export const deleteAnnouncement = async (id: number): Promise<void> => {
     if (!response.ok) {
       throw new Error(`Failed to delete announcement: ${response.status} ${response.statusText}`);
     }
-    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH, 'page');
+    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH);
   } catch (error) {
     console.error('Error deleting announcement:', error);
     throw error;
