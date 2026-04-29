@@ -418,7 +418,6 @@
           "endDate": "Дата завершення",
           "language": "Мова",
           "studyForms": "Форми навчання",
-          "groups": "Групи",
           "roles": "Ролі",
           "subdivisions": "Підрозділи",
           "courses": "Курси"
@@ -431,7 +430,6 @@
           "linkUrl": "https://example.com",
           "language": "Оберіть мову",
           "studyForms": "Оберіть форми навчання",
-          "groups": "Оберіть групи",
           "roles": "Оберіть ролі",
           "subdivisions": "Оберіть підрозділи",
           "courses": "Оберіть курси"

@@ -8,7 +8,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { AdminAnnouncementItem } from '@/types/models/announcement';
-import { Group } from '@/types/models/group';
 import { AnnouncementsFilters } from './announcements-filters';
 import { AnnouncementsTable } from './announcements-table';
 import { CreateAnnouncementDialog } from './create-announcement-dialog';
@@ -22,7 +21,6 @@ interface Props {
   pageSize: number;
   rolesData: string[];
   studyFormsData: string[];
-  groupsData: Group[];
   coursesData: number[];
 }
 
@@ -33,7 +31,6 @@ export const AnnouncementManagement = ({
   pageSize,
   rolesData,
   studyFormsData,
-  groupsData,
   coursesData,
 }: Props) => {
   const t = useTranslations('private.announcementseditor');
@@ -70,7 +67,6 @@ export const AnnouncementManagement = ({
         onClose={() => setCreateOpen(false)}
         rolesData={rolesData}
         studyFormsData={studyFormsData}
-        groupsData={groupsData}
         coursesData={coursesData}
       />
 
@@ -78,7 +74,6 @@ export const AnnouncementManagement = ({
         item={editingItem}
         rolesData={rolesData}
         studyFormsData={studyFormsData}
-        groupsData={groupsData}
         coursesData={coursesData}
         onClose={() => setEditingItem(null)}
       />

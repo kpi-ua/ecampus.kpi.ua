@@ -27,7 +27,6 @@ export const formSchema = z
     }),
     filter: z.object({
       roles: z.array(z.string()).optional(),
-      groups: z.array(z.string()).optional(),
       studyForms: z.array(z.string()).optional(),
       courses: z.array(z.number()).optional(),
     }),
