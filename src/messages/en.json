@@ -444,6 +444,46 @@
           "uk": "Ukrainian",
           "en": "English"
         }
+      },
+      "filters": {
+        "searchPlaceholder": "Search by title or description",
+        "languageLabel": "Language",
+        "language": {
+          "all": "All languages",
+          "uk": "Ukrainian",
+          "en": "English"
+        }
+      },
+      "table": {
+        "title": "Title",
+        "language": "Lang",
+        "period": "Period",
+        "status": "Status",
+        "targeting": "Audience",
+        "actions": "Actions",
+        "empty": "No announcements found",
+        "targetingEveryone": "Everyone"
+      },
+      "status": {
+        "active": "Active",
+        "outdated": "Outdated"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      },
+      "edit": {
+        "title": "Edit announcement",
+        "save": "Save",
+        "success": "Announcement updated"
+      },
+      "delete": {
+        "title": "Delete announcement?",
+        "description": "This action cannot be undone. The announcement will be permanently removed.",
+        "descriptionWithTitle": "\"{title}\" will be permanently removed. This action cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel",
+        "success": "Announcement deleted"
       }
     },
     "profile": {
