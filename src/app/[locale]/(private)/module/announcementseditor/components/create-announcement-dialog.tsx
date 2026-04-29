@@ -17,14 +17,14 @@ interface Props {
   coursesData: number[];
 }
 
-export function CreateAnnouncementDialog({
+export const CreateAnnouncementDialog = ({
   open,
   onClose,
   rolesData,
   studyFormsData,
   groupsData,
   coursesData,
-}: Props) {
+}: Props) => {
   const t = useTranslations('private.announcementseditor');
   const { toast } = useToast();
 
@@ -58,4 +58,4 @@ export function CreateAnnouncementDialog({
       </DialogContent>
     </Dialog>
   );
-}
+};

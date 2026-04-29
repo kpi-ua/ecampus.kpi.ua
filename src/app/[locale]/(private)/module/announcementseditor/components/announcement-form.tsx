@@ -54,7 +54,7 @@ interface Props {
   submitLabel?: string;
 }
 
-export function AnnouncementForm({
+export const AnnouncementForm = ({
   rolesData,
   studyFormsData,
   groupsData,
@@ -62,7 +62,7 @@ export function AnnouncementForm({
   onSubmit,
   defaultValues,
   submitLabel,
-}: Props) {
+}: Props) => {
   const t = useTranslations('private.announcementseditor.form');
   const { errorToast } = useServerErrorToast();
   const form = useForm<AnnouncementFormValues>({
@@ -278,10 +278,10 @@ export function AnnouncementForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-4" disabled={form.formState.isSubmitting}>
+        <Button type="submit" className="mt-4" loading={form.formState.isSubmitting}>
           {submitLabel ?? t('buttons.submit')}
         </Button>
       </form>
     </Form>
   );
-}
+};
