@@ -3,13 +3,26 @@ import { z } from 'zod';
 export const formSchema = z
   .object({
     announcement: z.object({
-      title: z.string().min(1, 'Title is required'),
-      description: z.string().min(1, 'Description is required'),
-      image: z.string().url('Must be a valid URL').or(z.literal('')).optional(),
+      title: z.string().min(1, 'Title is required').max(100, 'Title must be at most 100 characters'),
+      description: z
+        .string()
+        .min(1, 'Description is required')
+        .max(700, 'Description must be at most 700 characters'),
+      image: z
+        .string()
+        .url('Must be a valid URL')
+        .max(500, 'Image URL must be at most 500 characters')
+        .or(z.literal(''))
+        .optional(),
       link: z
         .object({
-          title: z.string().optional(),
-          uri: z.string().url('Must be a valid URL').or(z.literal('')).optional(),
+          title: z.string().max(30, 'Link title must be at most 30 characters').optional(),
+          uri: z
+            .string()
+            .url('Must be a valid URL')
+            .max(500, 'Link URL must be at most 500 characters')
+            .or(z.literal(''))
+            .optional(),
         })
         .refine(
           (data) => {
