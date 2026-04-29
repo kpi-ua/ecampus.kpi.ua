@@ -63,7 +63,16 @@ export function DeleteConfirmDialog({ id, title, onClose }: Props) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel disabled={pending}>{t('cancel')}</AlertDialogCancel>
-          <AlertDialogAction onClick={handleConfirm} disabled={pending}>
+          <AlertDialogAction
+            // AlertDialogAction auto-closes the dialog on click; suppress that
+            // so the dialog stays open (showing the disabled state) while the
+            // async delete is in flight, and let our handler close it on success.
+            onClick={(event) => {
+              event.preventDefault();
+              void handleConfirm();
+            }}
+            disabled={pending}
+          >
             {t('confirm')}
           </AlertDialogAction>
         </AlertDialogFooter>
