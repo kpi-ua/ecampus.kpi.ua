@@ -26,7 +26,7 @@ interface Props {
   coursesData: number[];
 }
 
-export function AnnouncementManagement({
+export const AnnouncementManagement = ({
   items,
   total,
   page,
@@ -35,7 +35,7 @@ export function AnnouncementManagement({
   studyFormsData,
   groupsData,
   coursesData,
-}: Props) {
+}: Props) => {
   const t = useTranslations('private.announcementseditor');
 
   const [createOpen, setCreateOpen] = useState(false);
@@ -90,4 +90,4 @@ export function AnnouncementManagement({
       />
     </div>
   );
-}
+};
