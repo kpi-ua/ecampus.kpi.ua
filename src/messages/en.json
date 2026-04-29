@@ -71,7 +71,8 @@
       "useract": "Bravo Requests",
       "viewcontrol": "Review current control",
       "pk2026": "Admission 2026 (Master's)",
-      "pk2026admin": "Admission 2026 (Administrator)"
+      "pk2026admin": "Admission 2026 (Administrator)",
+      "studbonuspoints": "Bonus points"
     },
     "menu": {
       "main": "Home",
