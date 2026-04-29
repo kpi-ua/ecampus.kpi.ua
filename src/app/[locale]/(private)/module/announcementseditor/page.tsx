@@ -7,7 +7,6 @@ import {
   AdminAnnouncementsLanguage,
   AdminAnnouncementsSort,
   getAdminAnnouncements,
-  getAllGroups,
   getCourses,
   getRoles,
   getStudyForms,
@@ -57,11 +56,10 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
   const language = parseLanguage(pickString(params.language));
   const sort = parseSort(pickString(params.sort));
 
-  const [adminData, rolesData, studyFormsData, groupsData, coursesData] = await Promise.all([
+  const [adminData, rolesData, studyFormsData, coursesData] = await Promise.all([
     getAdminAnnouncements({ page, pageSize: PAGE_SIZE, search, language, sort }),
     getRoles(),
     getStudyForms(),
-    getAllGroups(),
     getCourses(),
   ]);
 
@@ -78,7 +76,6 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
           pageSize={PAGE_SIZE}
           rolesData={rolesData}
           studyFormsData={studyFormsData}
-          groupsData={groupsData}
           coursesData={coursesData}
         />
       </div>
