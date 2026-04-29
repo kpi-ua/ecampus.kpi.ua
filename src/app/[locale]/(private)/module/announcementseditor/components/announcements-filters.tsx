@@ -19,7 +19,11 @@ export function AnnouncementsFilters() {
   const searchParams = useSearchParams();
 
   const search = searchParams.get('search') ?? '';
-  const language = (searchParams.get('language') as AdminAnnouncementsLanguage) ?? 'all';
+  const rawLanguage = searchParams.get('language');
+  // Mirror the page-level whitelist so an unknown ?language=… value can't
+  // leave the Select with an empty / invalid selection.
+  const language: AdminAnnouncementsLanguage =
+    LANGUAGE_VALUES.find((v) => v === rawLanguage) ?? 'all';
 
   const updateParam = (key: string, value: string | null) => {
     const params = new URLSearchParams(searchParams.toString());
