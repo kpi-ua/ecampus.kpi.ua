@@ -12,7 +12,7 @@ import { AdminAnnouncementsLanguage } from '@/actions/announcement.actions';
 
 const LANGUAGE_VALUES: AdminAnnouncementsLanguage[] = ['all', 'uk', 'en'];
 
-export function AnnouncementsFilters() {
+export const AnnouncementsFilters = () => {
   const t = useTranslations('private.announcementseditor.filters');
   const router = useRouter();
   const pathname = usePathname();
@@ -67,4 +67,4 @@ export function AnnouncementsFilters() {
       </div>
     </div>
   );
-}
+};
