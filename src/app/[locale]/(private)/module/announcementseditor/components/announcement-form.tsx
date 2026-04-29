@@ -92,7 +92,7 @@ export function AnnouncementForm({
             <FormItem>
               <FormLabel>{t('fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder={t('placeholders.title')} type="text" {...field} />
+                <Input placeholder={t('placeholders.title')} type="text" maxLength={100} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -106,7 +106,7 @@ export function AnnouncementForm({
             <FormItem>
               <FormLabel>{t('fields.description')}</FormLabel>
               <FormControl>
-                <Textarea placeholder={t('placeholders.description')} rows={4} {...field} />
+                <Textarea placeholder={t('placeholders.description')} rows={4} maxLength={700} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -120,7 +120,7 @@ export function AnnouncementForm({
             <FormItem>
               <FormLabel>{t('fields.imageUrl')}</FormLabel>
               <FormControl>
-                <Input placeholder={t('placeholders.imageUrl')} type="text" {...field} />
+                <Input placeholder={t('placeholders.imageUrl')} type="text" maxLength={500} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -135,7 +135,7 @@ export function AnnouncementForm({
               <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.linkTitle')}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t('placeholders.linkTitle')} type="text" {...field} />
+                  <Input placeholder={t('placeholders.linkTitle')} type="text" maxLength={30} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -149,7 +149,7 @@ export function AnnouncementForm({
               <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.linkUrl')}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t('placeholders.linkUrl')} type="text" {...field} />
+                  <Input placeholder={t('placeholders.linkUrl')} type="text" maxLength={500} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
