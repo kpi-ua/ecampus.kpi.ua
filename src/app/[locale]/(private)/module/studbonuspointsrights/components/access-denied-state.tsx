@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 
 /**
- * Rendered when GET /sbp-rights/me returns isSuperAdmin = false. Wrapped in
- * the same SubLayout as the main page so the breadcrumb stays consistent
- * regardless of access; the body is just heading + description.
+ * Rendered when the JWT modules claim does not include the SBP rights module.
+ * Wrapped in the same SubLayout as the main page so the breadcrumb stays
+ * consistent regardless of access; the body is just heading + description.
  */
 export function AccessDeniedState() {
   const t = useTranslations('private.studbonuspointsrights.accessDenied');

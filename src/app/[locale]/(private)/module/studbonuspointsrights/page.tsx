@@ -1,14 +1,12 @@
 import { getTranslations } from 'next-intl/server';
+import { cookies } from 'next/headers';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
-import {
-  getSbpLoads,
-  getSbpRights,
-  getSbpRightsMe,
-  getSbpStudyYears,
-  getSbpSubdivisions,
-} from '@/actions/sbp-rights.actions';
+import { getSbpLoads, getSbpRights, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
+import { getJWTPayload } from '@/lib/jwt';
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
+import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 import { LocaleProps } from '@/types/locale-props';
 import { AccessDeniedState } from './components/access-denied-state';
 import { GrantButton } from './components/grant-button';
@@ -46,11 +44,14 @@ export async function generateMetadata({ params }: LocaleProps) {
 export default async function SbpRightsPage({ searchParams }: PageProps) {
   const t = await getTranslations(INTL_NAMESPACE);
 
-  // Gate the whole page on /sbp-rights/me. The endpoint is public to
-  // authenticated users so we can render a friendly access-denied state
-  // instead of waiting for the admin endpoints to 403 one by one.
-  const me = await getSbpRightsMe();
-  if (!me.isSuperAdmin) {
+  // Gate the whole page by reading the modules claim straight from the JWT
+  // already stored in the cookie — no extra API round-trip needed.
+  const cookieStore = await cookies();
+  const jwt = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
+  const jwtPayload = jwt ? getJWTPayload<CampusJwtPayload>(jwt) : null;
+  const isSuperAdmin = jwtPayload?.modules?.includes('studbonuspointsrights') ?? false;
+
+  if (!isSuperAdmin) {
     return <AccessDeniedState />;
   }
 
