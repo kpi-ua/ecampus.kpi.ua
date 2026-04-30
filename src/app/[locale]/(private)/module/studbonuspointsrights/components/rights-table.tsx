@@ -1,9 +1,9 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { formatDate } from '@/lib/utils';
 import { SbpResponsibilityListItem } from '@/types/models/sbp-rights';
 
 interface Props {
@@ -51,9 +51,7 @@ export function RightsTable({ items }: Props) {
                 </span>
               </div>
             </TableCell>
-            <TableCell className="whitespace-nowrap">
-              {dayjs(item.changeDate).format('YYYY-MM-DD')}
-            </TableCell>
+            <TableCell className="whitespace-nowrap">{formatDate(item.changeDate)}</TableCell>
           </TableRow>
         ))}
       </TableBody>

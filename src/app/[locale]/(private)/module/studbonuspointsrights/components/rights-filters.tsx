@@ -41,7 +41,10 @@ export function RightsFilters({ loads, subdivisions, years, initial }: Props) {
 
   const [search, setSearch] = useState(initial.search ?? '');
   const debouncedSearch = useDebounce(search, 300);
-  const initialSearch = useRef(initial.search ?? '');
+  // Track first render so we don't re-push the search the server already
+  // applied. After mount every change to debouncedSearch — including
+  // clearing back to '' — pushes to the URL.
+  const isFirstRender = useRef(true);
 
   const pushParam = (key: string, value: string | undefined) => {
     const params = new URLSearchParams(searchParams?.toString() ?? '');
@@ -55,9 +58,11 @@ export function RightsFilters({ loads, subdivisions, years, initial }: Props) {
   };
 
   useEffect(() => {
-    if (debouncedSearch !== initialSearch.current) {
-      pushParam('search', debouncedSearch || undefined);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
     }
+    pushParam('search', debouncedSearch || undefined);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch]);
 
