@@ -100,9 +100,9 @@ export const getSbpRights = async (query: SbpRightsListQuery = {}): Promise<SbpR
     const params = new URLSearchParams();
     if (query.search) params.set('search', query.search);
     if (query.userAccountId) params.set('userAccountId', String(query.userAccountId));
-    if (query.sbpDcLoadId) params.set('sbpDcLoadId', String(query.sbpDcLoadId));
-    if (query.dcSubdivisionId) params.set('dcSubdivisionId', String(query.dcSubdivisionId));
-    if (query.dcStudingYearId) params.set('dcStudingYearId', String(query.dcStudingYearId));
+    if (query.loadId) params.set('loadId', String(query.loadId));
+    if (query.subdivisionId) params.set('subdivisionId', String(query.subdivisionId));
+    if (query.studyingYearId) params.set('studyingYearId', String(query.studyingYearId));
     if (query.page) params.set('page', String(query.page));
     if (query.pageSize) params.set('pageSize', String(query.pageSize));
 
@@ -124,12 +124,16 @@ export const getSbpRights = async (query: SbpRightsListQuery = {}): Promise<SbpR
 };
 
 export const grantSbpRights = async (payload: GrantSbpRightsPayload): Promise<GrantSbpRightsResult> => {
+  if (payload.scope === 'Faculty' && !payload.subdivisionId) {
+    throw new Error("subdivisionId is required when scope is 'Faculty'");
+  }
+
   const body = JSON.stringify({
     userAccountId: payload.userAccountId,
     scope: payload.scope,
-    dcSubdivisionId: payload.scope === 'University' ? undefined : payload.dcSubdivisionId,
-    dcStudingYearId: payload.dcStudingYearId,
-    sbpDcLoadIds: payload.sbpDcLoadIds,
+    subdivisionId: payload.scope === 'University' ? undefined : payload.subdivisionId,
+    studyingYearId: payload.studyingYearId,
+    loadIds: payload.loadIds,
   });
 
   const response = await campusFetch('sbp-rights', { method: 'POST', body });

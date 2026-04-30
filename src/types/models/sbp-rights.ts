@@ -57,9 +57,9 @@ export interface SbpResponsibilityListItem {
 export interface SbpRightsListQuery {
   search?: string;
   userAccountId?: number;
-  sbpDcLoadId?: number;
-  dcSubdivisionId?: number;
-  dcStudingYearId?: number;
+  loadId?: number;
+  subdivisionId?: number;
+  studyingYearId?: number;
   page?: number;
   pageSize?: number;
 }
@@ -68,10 +68,10 @@ export interface GrantSbpRightsPayload {
   userAccountId: number;
   scope: AccessScope;
   /** Required when `scope === 'Faculty'`; ignored otherwise. */
-  dcSubdivisionId?: number;
+  subdivisionId?: number;
   /** When omitted, the backend resolves the current study year. */
-  dcStudingYearId?: number;
-  sbpDcLoadIds: number[];
+  studyingYearId?: number;
+  loadIds: number[];
 }
 
 export interface GrantSbpRightsResult {
