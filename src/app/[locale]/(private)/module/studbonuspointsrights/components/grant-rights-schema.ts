@@ -8,14 +8,14 @@ import { z } from 'zod';
  */
 export const grantRightsSchema = z
   .object({
-    userAccountId: z.number().int().positive('grant.errors.userRequired'),
+    userAccountId: z.number().int().positive('errors.userRequired'),
     scope: z.enum(['Faculty', 'University']),
     subdivisionId: z.number().int().positive().optional(),
-    studyingYearId: z.number().int().positive('grant.errors.yearRequired'),
-    loadIds: z.array(z.number().int().positive()).min(1, 'grant.errors.loadsRequired'),
+    studyingYearId: z.number().int().positive('errors.yearRequired'),
+    loadIds: z.array(z.number().int().positive()).min(1, 'errors.loadsRequired'),
   })
   .refine((d) => d.scope === 'University' || (d.subdivisionId != null && d.subdivisionId > 0), {
-    message: 'grant.errors.subdivisionRequired',
+    message: 'errors.subdivisionRequired',
     path: ['subdivisionId'],
   });
 

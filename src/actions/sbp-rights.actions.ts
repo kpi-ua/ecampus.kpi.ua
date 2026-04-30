@@ -15,24 +15,6 @@ import {
 
 const MODULE_PATH = '/module/studbonuspointsrights';
 
-/**
- * Whether the current user is a SuperAdmin allowed to access the SBP rights
- * admin module. Public endpoint (no `RequireSbpRightsAdmin` guard) so the FE
- * can use the result to decide whether to render the menu entry.
- */
-export const getSbpRightsMe = async (): Promise<{ isSuperAdmin: boolean }> => {
-  try {
-    const response = await campusFetch<{ isSuperAdmin: boolean }>('sbp-rights/me');
-    if (!response.ok) {
-      return { isSuperAdmin: false };
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching SBP rights identity:', error);
-    return { isSuperAdmin: false };
-  }
-};
-
 export const getSbpLoads = async (): Promise<SbpLoadCatalogItem[]> => {
   try {
     const response = await campusFetch<SbpLoadCatalogItem[]>('sbp-rights/loads');
