@@ -513,6 +513,10 @@
         "load": "Point",
         "allLoads": "All points"
       },
+      "accessDenied": {
+        "title": "Access denied",
+        "subtitle": "This area is reserved for super-admins of the Bonus points module."
+      },
       "empty": {
         "initial": {
           "title": "No rights granted yet",

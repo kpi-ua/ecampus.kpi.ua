@@ -5,10 +5,12 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import {
   getSbpLoads,
   getSbpRights,
+  getSbpRightsMe,
   getSbpStudyYears,
   getSbpSubdivisions,
 } from '@/actions/sbp-rights.actions';
 import { LocaleProps } from '@/types/locale-props';
+import { AccessDeniedState } from './components/access-denied-state';
 import { GrantButton } from './components/grant-button';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';
@@ -43,6 +45,14 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function SbpRightsPage({ searchParams }: PageProps) {
   const t = await getTranslations(INTL_NAMESPACE);
+
+  // Gate the whole page on /sbp-rights/me. The endpoint is public to
+  // authenticated users so we can render a friendly access-denied state
+  // instead of waiting for the admin endpoints to 403 one by one.
+  const me = await getSbpRightsMe();
+  if (!me.isSuperAdmin) {
+    return <AccessDeniedState />;
+  }
 
   const params = await searchParams;
   const page = parsePage(pickString(params.page));
