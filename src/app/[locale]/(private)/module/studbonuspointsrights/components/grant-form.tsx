@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -13,13 +13,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import MultipleSelector, { Option } from '@/components/ui/multi-select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useRouter } from '@/i18n/routing';
-import { grantSbpRights, searchSbpUsers } from '@/actions/sbp-rights.actions';
+import { grantSbpRights } from '@/actions/sbp-rights.actions';
 import {
   AccessScope,
   SbpLoadCatalogItem,
@@ -28,9 +27,9 @@ import {
 } from '@/types/models/sbp-rights';
 import { GrantRightsFormValues, grantRightsSchema } from './grant-rights-schema';
 import { LoadMultiSelect } from './load-multi-select';
+import { PickedUser, UserPicker } from './user-picker';
 
 const LIST_PATH = '/module/studbonuspointsrights';
-const USER_SEARCH_MIN_CHARS = 2;
 
 interface Props {
   loads: SbpLoadCatalogItem[];
@@ -63,14 +62,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
   });
 
   const scope = form.watch('scope');
-
-  const handleUserSearch = useCallback(async (query: string): Promise<Option[]> => {
-    if (query.trim().length < USER_SEARCH_MIN_CHARS) {
-      return [];
-    }
-    const users = await searchSbpUsers(query);
-    return users.map((u) => ({ value: String(u.id), label: u.name }));
-  }, []);
+  const [selectedUser, setSelectedUser] = useState<PickedUser | null>(null);
 
   const onSubmit = async (values: GrantRightsFormValues) => {
     try {
@@ -102,29 +94,19 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
             <FormField
               control={form.control}
               name="userAccountId"
-              render={({ field, fieldState }) => {
-                const selected: Option[] = field.value
-                  ? [{ value: String(field.value), label: '' }]
-                  : [];
-                return (
-                  <FormItem>
-                    <FormLabel>{t('user')}</FormLabel>
-                    <MultipleSelector
-                      value={selected}
-                      onChange={(opts) => field.onChange(opts[0] ? Number(opts[0].value) : 0)}
-                      onSearch={handleUserSearch}
-                      maxSelected={1}
-                      placeholder={t('userSearchPlaceholder')}
-                      emptyIndicator={t('userNotFound')}
-                      hidePlaceholderWhenSelected
-                      triggerSearchOnFocus={false}
-                      className="bg-background h-[44px] w-full items-center rounded-[8px] py-0"
-                      inputProps={{ className: 'min-w-[12rem]' }}
-                    />
-                    {fieldState.error && <FormMessage>{t(fieldState.error.message ?? '')}</FormMessage>}
-                  </FormItem>
-                );
-              }}
+              render={({ field, fieldState }) => (
+                <FormItem>
+                  <FormLabel>{t('user')}</FormLabel>
+                  <UserPicker
+                    value={selectedUser}
+                    onChange={(user) => {
+                      setSelectedUser(user);
+                      field.onChange(user?.id ?? 0);
+                    }}
+                  />
+                  {fieldState.error && <FormMessage>{t(fieldState.error.message ?? '')}</FormMessage>}
+                </FormItem>
+              )}
             />
 
             <FormField
