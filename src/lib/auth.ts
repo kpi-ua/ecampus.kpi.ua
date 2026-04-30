@@ -6,7 +6,7 @@ import { getJWTPayload } from './jwt';
 import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 
 /**
- * Decodes the current user's JWT from the auth cookie. Returns <c>null</c>
+ * Decodes the current user's JWT from the auth cookie. Returns `null`
  * when the cookie is missing (anonymous request).
  */
 export async function getCurrentJwtPayload(): Promise<CampusJwtPayload | null> {
@@ -17,9 +17,9 @@ export async function getCurrentJwtPayload(): Promise<CampusJwtPayload | null> {
 }
 
 /**
- * Modules granted to the current user (per the JWT <c>modules</c> claim).
+ * Modules granted to the current user (per the JWT `modules` claim).
  * Returns an empty array for anonymous requests so call sites can use
- * <c>.includes(...)</c> without null-guards.
+ * `.includes(...)` without null-guards.
  */
 export async function getCurrentJwtModules(): Promise<string[]> {
   const payload = await getCurrentJwtPayload();

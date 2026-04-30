@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Trash2 } from 'lucide-react';
 import {
@@ -32,20 +32,24 @@ interface Props {
 export function RevokeButton({ item }: Props) {
   const t = useTranslations('private.studbonuspointsrights.revoke');
   const [open, setOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
 
-  const handleConfirm = () => {
-    startTransition(async () => {
-      try {
-        await revokeSbpRight(item.id);
-        toast({ title: t('success.title'), description: t('success.description') });
-        setOpen(false);
-      } catch {
-        errorToast();
-      }
-    });
+  const handleConfirm = async () => {
+    // Plain useState — useTransition's `isPending` does not span across an
+    // `await`, which would let the user double-submit while the request is
+    // in-flight.
+    setIsSubmitting(true);
+    try {
+      await revokeSbpRight(item.id);
+      toast({ title: t('success.title'), description: t('success.description') });
+      setOpen(false);
+    } catch {
+      errorToast();
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -77,7 +81,7 @@ export function RevokeButton({ item }: Props) {
           <Button
             type="button"
             onClick={handleConfirm}
-            disabled={isPending}
+            disabled={isSubmitting}
             className="bg-status-danger-300 hover:bg-red-600 active:border-red-700 active:bg-red-700"
           >
             {t('confirm')}

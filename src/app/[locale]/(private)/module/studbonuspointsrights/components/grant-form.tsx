@@ -172,7 +172,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
                 <FormItem>
                   <FormLabel>{t('year')}</FormLabel>
                   <Select
-                    value={field.value ? String(field.value) : ''}
+                    value={field.value ? String(field.value) : undefined}
                     onValueChange={(v) => field.onChange(Number(v))}
                   >
                     <FormControl>
