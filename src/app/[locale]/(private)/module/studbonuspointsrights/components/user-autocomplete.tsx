@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Command,
@@ -33,16 +33,22 @@ export function UserAutocomplete({ value, onChange }: Props) {
   const [query, setQuery] = useState('');
   const [selectedLabel, setSelectedLabel] = useState<string>('');
   const [results, setResults] = useState<EntityIdName[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const debouncedQuery = useDebounce(query, 300);
 
   useEffect(() => {
     let cancelled = false;
     if (debouncedQuery.trim().length < 2) {
       setResults([]);
+      setIsSearching(false);
       return;
     }
+    setIsSearching(true);
     void searchSbpUsers(debouncedQuery).then((rows) => {
-      if (!cancelled) setResults(rows);
+      if (!cancelled) {
+        setResults(rows);
+        setIsSearching(false);
+      }
     });
     return () => {
       cancelled = true;
@@ -69,7 +75,14 @@ export function UserAutocomplete({ value, onChange }: Props) {
         <Command shouldFilter={false}>
           <CommandInput placeholder={t('userSearchPlaceholder')} value={query} onValueChange={setQuery} />
           <CommandList>
-            <CommandEmpty>{t(query.trim().length < 2 ? 'userMinChars' : 'userNotFound')}</CommandEmpty>
+            {isSearching ? (
+              <div className="text-muted-foreground flex items-center justify-center gap-2 py-4 text-sm">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                {t('userSearching')}
+              </div>
+            ) : (
+              <CommandEmpty>{t(query.trim().length < 2 ? 'userMinChars' : 'userNotFound')}</CommandEmpty>
+            )}
             {results.map((user) => (
               <CommandItem
                 key={user.id}

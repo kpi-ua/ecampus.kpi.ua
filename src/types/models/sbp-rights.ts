@@ -50,7 +50,7 @@ export interface SbpResponsibilityListItem {
   loadSubTreeNumber: number | null;
   treeName: string;
   workKindName: string;
-  changeDate: string;
+  changeDate: string | null;
   comment: string | null;
 }
 

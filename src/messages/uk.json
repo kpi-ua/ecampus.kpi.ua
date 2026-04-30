@@ -496,6 +496,7 @@
         "userSearchPlaceholder": "Почніть вводити ПІБ",
         "userMinChars": "Введіть щонайменше 2 символи.",
         "userNotFound": "Користувача не знайдено.",
+        "userSearching": "Пошук...",
         "scope": "Рівень",
         "scopeFaculty": "Факультет",
         "scopeUniversity": "Університет",
