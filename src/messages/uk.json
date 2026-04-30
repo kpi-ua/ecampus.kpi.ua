@@ -460,7 +460,8 @@
         "subdivision": "Підрозділ",
         "year": "Рік",
         "load": "Пункт",
-        "created": "Видано"
+        "created": "Видано",
+        "actions": "Дії"
       },
       "filters": {
         "searchPlaceholder": "Пошук за ПІБ",
@@ -514,6 +515,17 @@
         "success": {
           "title": "Готово",
           "description": "Видано: {granted}, пропущено дублікатів: {skipped}."
+        }
+      },
+      "revoke": {
+        "trigger": "Відкликати право",
+        "title": "Відкликати право?",
+        "description": "{user} втратить право адмініструвати пункт «{load}» для {subdivision} ({year}).",
+        "confirm": "Відкликати",
+        "cancel": "Скасувати",
+        "success": {
+          "title": "Готово",
+          "description": "Право відкликано."
         }
       }
     },
