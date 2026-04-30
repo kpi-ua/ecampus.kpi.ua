@@ -1,11 +1,8 @@
 import { getTranslations } from 'next-intl/server';
-import { cookies } from 'next/headers';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { getSbpLoads, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
-import { getJWTPayload } from '@/lib/jwt';
-import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
-import { CampusJwtPayload } from '@/types/campus-jwt-payload';
+import { hasModule } from '@/lib/auth';
 import { LocaleProps } from '@/types/locale-props';
 import { AccessDeniedState } from '../components/access-denied-state';
 import { GrantForm } from '../components/grant-form';
@@ -22,12 +19,7 @@ export default async function GrantSbpRightsPage() {
   const t = await getTranslations(INTL_NAMESPACE);
   const tParent = await getTranslations('private.studbonuspointsrights');
 
-  const cookieStore = await cookies();
-  const jwt = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
-  const jwtPayload = jwt ? getJWTPayload<CampusJwtPayload>(jwt) : null;
-  const isSuperAdmin = jwtPayload?.modules?.includes('studbonuspointsrights') ?? false;
-
-  if (!isSuperAdmin) {
+  if (!(await hasModule('studbonuspointsrights'))) {
     return <AccessDeniedState />;
   }
 
