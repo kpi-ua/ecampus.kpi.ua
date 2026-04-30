@@ -474,7 +474,7 @@
       "empty": {
         "initial": {
           "title": "No rights granted yet",
-          "subtitle": "Click \"Grant rights\" to assign the first admin to a point."
+          "subtitle": "No user has admin rights for any point yet."
         },
         "filtered": {
           "title": "Nothing matches",
