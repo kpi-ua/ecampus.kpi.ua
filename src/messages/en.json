@@ -500,7 +500,8 @@
         "subdivision": "Subdivision",
         "year": "Year",
         "load": "Point",
-        "created": "Granted"
+        "created": "Granted",
+        "actions": "Actions"
       },
       "filters": {
         "searchPlaceholder": "Search by full name",
@@ -554,6 +555,17 @@
         "success": {
           "title": "Done",
           "description": "Granted {granted}, skipped {skipped} duplicates."
+        }
+      },
+      "revoke": {
+        "trigger": "Revoke right",
+        "title": "Revoke this right?",
+        "description": "{user} will lose admin access to \"{load}\" for {subdivision} ({year}).",
+        "confirm": "Revoke",
+        "cancel": "Cancel",
+        "success": {
+          "title": "Done",
+          "description": "Right revoked."
         }
       }
     },

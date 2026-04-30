@@ -5,15 +5,12 @@ import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDate } from '@/lib/utils';
 import { SbpResponsibilityListItem } from '@/types/models/sbp-rights';
+import { RevokeButton } from './revoke-button';
 
 interface Props {
   items: SbpResponsibilityListItem[];
 }
 
-/**
- * Read-only listing of granted SBP rights. Per-row Revoke action lands in
- * KB-1281 (FE-5).
- */
 export function RightsTable({ items }: Props) {
   const t = useTranslations('private.studbonuspointsrights');
 
@@ -27,6 +24,9 @@ export function RightsTable({ items }: Props) {
           <TableHead>{t('table.year')}</TableHead>
           <TableHead>{t('table.load')}</TableHead>
           <TableHead>{t('table.created')}</TableHead>
+          <TableHead className="w-12 text-right">
+            <span className="sr-only">{t('table.actions')}</span>
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -52,6 +52,9 @@ export function RightsTable({ items }: Props) {
               </div>
             </TableCell>
             <TableCell className="whitespace-nowrap">{formatDate(item.changeDate)}</TableCell>
+            <TableCell className="text-right">
+              <RevokeButton item={item} />
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
