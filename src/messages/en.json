@@ -521,6 +521,40 @@
           "title": "Nothing matches",
           "subtitle": "Try adjusting the filters or clearing the search."
         }
+      },
+      "grant": {
+        "button": "Grant rights",
+        "title": "Grant rights",
+        "description": "Pick a user, scope, and the points this user will administer.",
+        "user": "User",
+        "userPlaceholder": "Pick a user",
+        "userSearchPlaceholder": "Start typing a name",
+        "userMinChars": "Type at least 2 characters.",
+        "userNotFound": "No user found.",
+        "scope": "Scope",
+        "scopeFaculty": "Faculty",
+        "scopeUniversity": "University",
+        "subdivision": "Subdivision",
+        "subdivisionPlaceholder": "Pick a faculty",
+        "year": "Study year",
+        "yearPlaceholder": "Pick a year",
+        "loads": "Points",
+        "loadsPlaceholder": "Pick points",
+        "loadsSelected": "{count} selected",
+        "loadsSearchPlaceholder": "Search a point",
+        "loadsNotFound": "No point found.",
+        "submit": "Grant",
+        "cancel": "Cancel",
+        "errors": {
+          "userRequired": "Pick a user.",
+          "yearRequired": "Pick a study year.",
+          "loadsRequired": "Pick at least one point.",
+          "subdivisionRequired": "Pick a faculty."
+        },
+        "success": {
+          "title": "Done",
+          "description": "Granted {granted}, skipped {skipped} duplicates."
+        }
       }
     },
     "profile": {
