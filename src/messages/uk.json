@@ -480,6 +480,40 @@
           "title": "Нічого не знайдено",
           "subtitle": "Спробуйте змінити фільтри або очистити пошук."
         }
+      },
+      "grant": {
+        "button": "Видати право",
+        "title": "Видача прав",
+        "description": "Виберіть користувача, рівень і пункти, на які цей користувач буде мати права адміністрування.",
+        "user": "Користувач",
+        "userPlaceholder": "Виберіть користувача",
+        "userSearchPlaceholder": "Почніть вводити ПІБ",
+        "userMinChars": "Введіть щонайменше 2 символи.",
+        "userNotFound": "Користувача не знайдено.",
+        "scope": "Рівень",
+        "scopeFaculty": "Факультет",
+        "scopeUniversity": "Університет",
+        "subdivision": "Підрозділ",
+        "subdivisionPlaceholder": "Виберіть факультет",
+        "year": "Навчальний рік",
+        "yearPlaceholder": "Виберіть рік",
+        "loads": "Пункти",
+        "loadsPlaceholder": "Виберіть пункти",
+        "loadsSelected": "Обрано пунктів: {count}",
+        "loadsSearchPlaceholder": "Пошук пункту",
+        "loadsNotFound": "Пункти не знайдено.",
+        "submit": "Видати",
+        "cancel": "Скасувати",
+        "errors": {
+          "userRequired": "Виберіть користувача.",
+          "yearRequired": "Виберіть навчальний рік.",
+          "loadsRequired": "Виберіть щонайменше один пункт.",
+          "subdivisionRequired": "Виберіть факультет."
+        },
+        "success": {
+          "title": "Готово",
+          "description": "Видано: {granted}, пропущено дублікатів: {skipped}."
+        }
       }
     },
     "profile": {
