@@ -449,7 +449,39 @@
     },
     "studbonuspointsrights": {
       "title": "Rights: Bonus points",
-      "subtitle": "Grant and revoke admin access for individual points of the Bonus points module."
+      "subtitle": "Grant and revoke admin access for individual points of the Bonus points module.",
+      "scope": {
+        "faculty": "Faculty",
+        "university": "University"
+      },
+      "table": {
+        "user": "User",
+        "scope": "Scope",
+        "subdivision": "Subdivision",
+        "year": "Year",
+        "load": "Point",
+        "created": "Granted"
+      },
+      "filters": {
+        "searchPlaceholder": "Search by full name",
+        "year": "Study year",
+        "allYears": "All years",
+        "currentSuffix": "current",
+        "subdivision": "Subdivision",
+        "allSubdivisions": "All subdivisions",
+        "load": "Point",
+        "allLoads": "All points"
+      },
+      "empty": {
+        "initial": {
+          "title": "No rights granted yet",
+          "subtitle": "Click \"Grant rights\" to assign the first admin to a point."
+        },
+        "filtered": {
+          "title": "Nothing matches",
+          "subtitle": "Try adjusting the filters or clearing the search."
+        }
+      }
     },
     "profile": {
       "title": "Profile",
