@@ -20,6 +20,7 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function GrantSbpRightsPage() {
   const t = await getTranslations(INTL_NAMESPACE);
+  const tParent = await getTranslations('private.studbonuspointsrights');
 
   const cookieStore = await cookies();
   const jwt = cookieStore.get(TOKEN_COOKIE_NAME)?.value;
@@ -36,8 +37,10 @@ export default async function GrantSbpRightsPage() {
     getSbpStudyYears(),
   ]);
 
+  const breadcrumbs: string[][] = [['/module/studbonuspointsrights', tParent('title')]];
+
   return (
-    <SubLayout pageTitle={t('title')}>
+    <SubLayout pageTitle={t('title')} breadcrumbs={breadcrumbs}>
       <div className="col-span-12 space-y-6">
         <div>
           <Heading2>{t('title')}</Heading2>
