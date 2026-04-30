@@ -31,7 +31,7 @@ export function RightsTable({ items }: Props) {
       </TableHeader>
       <TableBody>
         {items.map((item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.id} className="align-top">
             <TableCell className="font-medium">{item.fullName}</TableCell>
             <TableCell>
               <Badge variant={item.scope === 'University' ? 'purple' : 'blue'}>
@@ -39,7 +39,7 @@ export function RightsTable({ items }: Props) {
               </Badge>
             </TableCell>
             <TableCell>{item.subdivisionAbbreviation ?? item.subdivisionName}</TableCell>
-            <TableCell>{item.studyingYearName}</TableCell>
+            <TableCell className="whitespace-nowrap">{item.studyingYearName}</TableCell>
             <TableCell>
               <div className="flex flex-col">
                 <span>
@@ -51,7 +51,9 @@ export function RightsTable({ items }: Props) {
                 </span>
               </div>
             </TableCell>
-            <TableCell className="whitespace-nowrap">{formatDate(item.changeDate)}</TableCell>
+            <TableCell className="text-muted-foreground whitespace-nowrap">
+              {item.changeDate ? formatDate(item.changeDate) : '—'}
+            </TableCell>
             <TableCell className="text-right">
               <RevokeButton item={item} />
             </TableCell>

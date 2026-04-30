@@ -1,19 +1,8 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useId, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
+import { Checkbox } from '@/components/ui/checkbox';
 import { SbpLoadCatalogItem } from '@/types/models/sbp-rights';
 
 interface Props {
@@ -31,13 +20,12 @@ interface Group {
 }
 
 /**
- * Multi-select for SBP loads, grouped by work-kind → tree. Selection is held
- * in the parent form (array of loadIds). Toggling a row updates the array;
- * the popover stays open so the SuperAdmin can pick several loads in a row.
+ * Flat checkbox list of SBP loads, grouped by work-kind → tree. Selection
+ * is held in the parent form (array of loadIds).
  */
 export function LoadMultiSelect({ loads, value, onChange }: Props) {
   const t = useTranslations('private.studbonuspointsrights.grant');
-  const [open, setOpen] = useState(false);
+  const idPrefix = useId();
 
   const groups = useMemo<Group[]>(() => {
     const map = new Map<string, Group>();
@@ -62,60 +50,46 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
   const selected = new Set(value);
 
   const toggle = (loadId: number) => {
-    const next = selected.has(loadId)
-      ? value.filter((id) => id !== loadId)
-      : [...value, loadId];
-    onChange(next);
+    onChange(selected.has(loadId) ? value.filter((id) => id !== loadId) : [...value, loadId]);
   };
 
+  if (groups.length === 0) {
+    return <p className="text-muted-foreground text-sm">{t('loadsNotFound')}</p>;
+  }
+
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          type="button"
-          variant="secondary"
-          role="combobox"
-          aria-expanded={open}
-          className="w-full justify-between font-normal"
-        >
-          <span className={cn(value.length === 0 && 'text-muted-foreground')}>
-            {value.length === 0 ? t('loadsPlaceholder') : t('loadsSelected', { count: value.length })}
-          </span>
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-        <Command>
-          <CommandInput placeholder={t('loadsSearchPlaceholder')} />
-          <CommandList className="max-h-72">
-            <CommandEmpty>{t('loadsNotFound')}</CommandEmpty>
-            {groups.map((group) => (
-              <CommandGroup
-                key={`${group.workKindId}:${group.treeId}`}
-                heading={`${group.workKindName} · ${group.treeName}`}
-              >
-                {group.loads.map((load) => {
-                  const isSelected = selected.has(load.loadId);
-                  return (
-                    <CommandItem
-                      key={load.loadId}
-                      value={`${load.subTreeNumber ?? ''} ${load.loadName}`}
-                      onSelect={() => toggle(load.loadId)}
-                    >
-                      <Check className={cn('mr-2 h-4 w-4', isSelected ? 'opacity-100' : 'opacity-0')} />
-                      <span className="flex-1">
-                        {load.subTreeNumber != null ? `${load.subTreeNumber}. ` : ''}
-                        {load.loadName}
-                      </span>
-                      <span className="text-muted-foreground ml-2 text-xs">{load.mark}</span>
-                    </CommandItem>
-                  );
-                })}
-              </CommandGroup>
-            ))}
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <div className="max-h-96 space-y-4 overflow-y-auto rounded-md border p-3">
+      {groups.map((group) => (
+        <div key={`${group.workKindId}:${group.treeId}`}>
+          <div className="text-muted-foreground mb-2 text-xs font-semibold uppercase tracking-wide">
+            {group.workKindName} · {group.treeName}
+          </div>
+          <div className="flex flex-col gap-2">
+            {group.loads.map((load) => {
+              const id = `${idPrefix}-${load.loadId}`;
+              return (
+                <label
+                  key={load.loadId}
+                  htmlFor={id}
+                  className="flex cursor-pointer items-start gap-2 text-sm"
+                >
+                  <Checkbox
+                    id={id}
+                    checked={selected.has(load.loadId)}
+                    onCheckedChange={() => toggle(load.loadId)}
+                    className="mt-0.5"
+                  />
+                  <span className="flex-1">
+                    {load.subTreeNumber != null ? `${load.subTreeNumber}. ` : ''}
+                    {load.loadName}
+                  </span>
+                  <span className="text-muted-foreground text-xs">{load.mark}</span>
+                </label>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 }

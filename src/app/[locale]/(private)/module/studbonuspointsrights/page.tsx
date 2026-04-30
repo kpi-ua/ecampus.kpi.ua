@@ -73,13 +73,13 @@ export default async function SbpRightsPage({ searchParams }: PageProps) {
 
   return (
     <SubLayout pageTitle={t('title')}>
-      <div className="col-span-12 space-y-6">
-        <div className="flex items-start justify-between gap-4">
-          <div>
+      <div className="col-span-12">
+        <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+          <div className="max-w-2xl">
             <Heading2>{t('title')}</Heading2>
             <Description>{t('subtitle')}</Description>
           </div>
-          <GrantButton loads={loads} subdivisions={subdivisions} years={years} />
+          <GrantButton />
         </div>
 
         <RightsFilters
@@ -89,14 +89,18 @@ export default async function SbpRightsPage({ searchParams }: PageProps) {
           initial={{ search, studyingYearId, subdivisionId, loadId }}
         />
 
-        {rights.total === 0 ? (
-          <RightsEmptyState hasFilters={hasFilters} />
-        ) : (
-          <>
-            <RightsTable items={rights.items} />
-            <PaginationWithLinks page={page} pageSize={PAGE_SIZE} totalCount={rights.total} />
-          </>
-        )}
+        <div className="mt-8">
+          {rights.total === 0 ? (
+            <RightsEmptyState hasFilters={hasFilters} />
+          ) : (
+            <>
+              <RightsTable items={rights.items} />
+              <div className="mt-4">
+                <PaginationWithLinks page={page} pageSize={PAGE_SIZE} totalCount={rights.total} />
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </SubLayout>
   );

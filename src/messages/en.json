@@ -536,6 +536,7 @@
         "userSearchPlaceholder": "Start typing a name",
         "userMinChars": "Type at least 2 characters.",
         "userNotFound": "No user found.",
+        "userSearching": "Searching...",
         "scope": "Scope",
         "scopeFaculty": "Faculty",
         "scopeUniversity": "University",
