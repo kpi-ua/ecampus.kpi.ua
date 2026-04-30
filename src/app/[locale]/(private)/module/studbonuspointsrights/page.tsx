@@ -74,7 +74,7 @@ export default async function SbpRightsPage({ searchParams }: PageProps) {
           initial={{ search, studyingYearId, subdivisionId, loadId }}
         />
 
-        {rights.items.length === 0 ? (
+        {rights.total === 0 ? (
           <RightsEmptyState hasFilters={hasFilters} />
         ) : (
           <>
