@@ -9,6 +9,7 @@ import {
   getSbpSubdivisions,
 } from '@/actions/sbp-rights.actions';
 import { LocaleProps } from '@/types/locale-props';
+import { GrantButton } from './components/grant-button';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';
 import { RightsTable } from './components/rights-table';
@@ -62,9 +63,12 @@ export default async function SbpRightsPage({ searchParams }: PageProps) {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12 space-y-6">
-        <div>
-          <Heading2>{t('title')}</Heading2>
-          <Description>{t('subtitle')}</Description>
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <Heading2>{t('title')}</Heading2>
+            <Description>{t('subtitle')}</Description>
+          </div>
+          <GrantButton loads={loads} subdivisions={subdivisions} years={years} />
         </div>
 
         <RightsFilters
