@@ -1,9 +1,3 @@
-export interface FilterOption {
-  id: number;
-  name: string;
-  value?: string;
-}
-
 export interface AnnouncementCreateFilter {
   courses?: number[];
   roles?: string[];

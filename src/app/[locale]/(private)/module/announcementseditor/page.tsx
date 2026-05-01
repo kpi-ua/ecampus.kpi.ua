@@ -11,10 +11,10 @@ import {
   getRoles,
   getStudyForms,
 } from '@/actions/announcement.actions';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 
 const INTL_NAMESPACE = 'private.announcementseditor';
 
-const PAGE_SIZE = 20;
 const VALID_LANGUAGES: AdminAnnouncementsLanguage[] = ['all', 'uk', 'en'];
 const VALID_SORTS: AdminAnnouncementsSort[] = ['EndDesc', 'EndAsc', 'StartDesc', 'StartAsc', 'TitleAsc'];
 
@@ -57,7 +57,7 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
   const sort = parseSort(pickString(params.sort));
 
   const [adminData, rolesData, studyFormsData, coursesData] = await Promise.all([
-    getAdminAnnouncements({ page, pageSize: PAGE_SIZE, search, language, sort }),
+    getAdminAnnouncements({ page, pageSize: PAGE_SIZE_DEFAULT, search, language, sort }),
     getRoles(),
     getStudyForms(),
     getCourses(),
@@ -73,7 +73,7 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
           items={adminData.items}
           total={adminData.total}
           page={page}
-          pageSize={PAGE_SIZE}
+          pageSize={PAGE_SIZE_DEFAULT}
           rolesData={rolesData}
           studyFormsData={studyFormsData}
           coursesData={coursesData}

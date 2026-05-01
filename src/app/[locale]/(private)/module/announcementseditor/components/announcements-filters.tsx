@@ -5,10 +5,10 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { debounce } from 'radash';
 
+import { AdminAnnouncementsLanguage } from '@/actions/announcement.actions';
+import { MagnifyingGlassRegular } from '@/app/images';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.svg';
-import { AdminAnnouncementsLanguage } from '@/actions/announcement.actions';
 
 const LANGUAGE_VALUES: AdminAnnouncementsLanguage[] = ['all', 'uk', 'en'];
 
@@ -24,8 +24,7 @@ export const AnnouncementsFilters = () => {
   // the server-side parser (otherwise ?language=EN would fetch English on
   // the server but show "All languages" in the trigger).
   const rawLanguage = searchParams.get('language')?.toLowerCase();
-  const language: AdminAnnouncementsLanguage =
-    LANGUAGE_VALUES.find((v) => v === rawLanguage) ?? 'all';
+  const language: AdminAnnouncementsLanguage = LANGUAGE_VALUES.find((v) => v === rawLanguage) ?? 'all';
 
   // Keep the search input controlled and synced from the URL so back /
   // forward navigation (or any external param change) updates the field.
