@@ -8,7 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import MultipleSelector from '@/components/ui/multi-select';
-import { formSchema } from '@/app/[locale]/(private)/module/announcementseditor/components/schema';
+import { formSchema } from './schema';
 import { Textarea } from '@/components/ui/textarea';
 import { createAnnouncement, updateAnnouncement } from '@/actions/announcement.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
@@ -263,7 +263,7 @@ export function AnnouncementForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-4">
+        <Button type="submit" className="mt-4" loading={form.formState.isSubmitting}>
           {submitLabel ?? t('buttons.submit')}
         </Button>
       </form>
