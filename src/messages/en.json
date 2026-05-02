@@ -457,10 +457,12 @@
         "language": "Lang",
         "period": "Period",
         "status": "Status",
-        "targeting": "Audience",
+        "roles": "Roles",
+        "studyForms": "Study forms",
+        "courses": "Courses",
         "actions": "Actions",
         "empty": "No announcements found",
-        "targetingEveryone": "Everyone"
+        "noRestriction": "All"
       },
       "status": {
         "active": "Active",
@@ -478,8 +480,7 @@
       },
       "delete": {
         "title": "Delete announcement?",
-        "description": "This action cannot be undone. The announcement will be permanently removed.",
-        "descriptionWithTitle": "\"{title}\" will be permanently removed. This action cannot be undone.",
+        "description": "\"{title}\" will be permanently removed. This action cannot be undone.",
         "confirm": "Delete",
         "cancel": "Cancel",
         "success": "Announcement deleted"

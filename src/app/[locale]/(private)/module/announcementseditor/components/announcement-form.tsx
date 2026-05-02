@@ -10,10 +10,29 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import MultipleSelector from '@/components/ui/multi-select';
 import { formSchema } from './schema';
 import { Textarea } from '@/components/ui/textarea';
-import { createAnnouncement, updateAnnouncement } from '@/actions/announcement.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 export type AnnouncementFormValues = z.infer<typeof formSchema>;
+
+const emptyValues: AnnouncementFormValues = {
+  announcement: {
+    title: '',
+    description: '',
+    image: '',
+    link: {
+      title: '',
+      uri: '',
+    },
+    start: '',
+    end: '',
+    language: 'uk',
+  },
+  filter: {
+    roles: [],
+    studyForms: [],
+    courses: [],
+  },
+};
 
 const EmptyIndicator = () => {
   const t = useTranslations('private.announcementseditor.form');
@@ -24,67 +43,35 @@ interface Props {
   rolesData: string[];
   studyFormsData: string[];
   coursesData: number[];
-  onSuccess: (id: number) => void;
-  /** When provided, the form submits as an update for that announcement id; otherwise it creates. */
-  id?: number;
-  /** Pre-fill values when editing an existing announcement. */
   initialValues?: AnnouncementFormValues;
-  /** Optional override for the submit button label. */
-  submitLabel?: string;
+  onSubmit: (values: AnnouncementFormValues) => Promise<void>;
 }
 
 export function AnnouncementForm({
   rolesData,
   studyFormsData,
   coursesData,
-  onSuccess,
-  id,
   initialValues,
-  submitLabel,
+  onSubmit,
 }: Props) {
   const t = useTranslations('private.announcementseditor.form');
   const { errorToast } = useServerErrorToast();
   const form = useForm<AnnouncementFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialValues ?? {
-      announcement: {
-        title: '',
-        description: '',
-        image: '',
-        link: {
-          title: '',
-          uri: '',
-        },
-        start: '',
-        end: '',
-        language: 'uk',
-      },
-      filter: {
-        roles: [],
-        studyForms: [],
-        courses: [],
-      },
-    },
-    mode: 'onChange',
+    defaultValues: initialValues ?? emptyValues,
   });
 
-  async function onSubmit(values: AnnouncementFormValues) {
+  async function submitForm(values: AnnouncementFormValues) {
     try {
-      if (id !== undefined) {
-        await updateAnnouncement(id, values);
-        onSuccess(id);
-      } else {
-        const newId = await createAnnouncement(values);
-        onSuccess(newId);
-      }
-    } catch (error) {
+      await onSubmit(values);
+    } catch {
       errorToast();
     }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto flex flex-col gap-3">
+      <form onSubmit={form.handleSubmit(submitForm)} className="mx-auto flex flex-col gap-3">
         <FormField
           control={form.control}
           name="announcement.title"
@@ -264,7 +251,7 @@ export function AnnouncementForm({
           )}
         />
         <Button type="submit" className="mt-4" loading={form.formState.isSubmitting}>
-          {submitLabel ?? t('buttons.submit')}
+          {t('buttons.submit')}
         </Button>
       </form>
     </Form>

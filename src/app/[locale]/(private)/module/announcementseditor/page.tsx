@@ -1,39 +1,17 @@
 import { getTranslations } from 'next-intl/server';
-import { LocaleProps } from '@/types/locale-props';
+
+import {
+  getAdminAnnouncements,
+} from '@/actions/announcement.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
-import { AnnouncementManagement } from './components/announcement-management';
-import {
-  AdminAnnouncementsLanguage,
-  AdminAnnouncementsSort,
-  getAdminAnnouncements,
-  getCourses,
-  getRoles,
-  getStudyForms,
-} from '@/actions/announcement.actions';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { LocaleProps } from '@/types/locale-props';
+
+import { AnnouncementsListPage } from './announcements-list-page';
+import { LOCALE } from '@/i18n/routing';
 
 const INTL_NAMESPACE = 'private.announcementseditor';
-
-const VALID_LANGUAGES: AdminAnnouncementsLanguage[] = ['all', 'uk', 'en'];
-const VALID_SORTS: AdminAnnouncementsSort[] = ['EndDesc', 'EndAsc', 'StartDesc', 'StartAsc', 'TitleAsc'];
-
-const pickString = (value: string | string[] | undefined): string | undefined =>
-  Array.isArray(value) ? value[0] : value;
-
-const parsePage = (raw: string | undefined): number => {
-  const n = parseInt(raw ?? '1', 10);
-  return Number.isFinite(n) && n > 0 ? n : 1;
-};
-
-const parseLanguage = (raw: string | undefined): AdminAnnouncementsLanguage => {
-  const lower = raw?.toLowerCase();
-  return VALID_LANGUAGES.find((v) => v === lower) ?? 'all';
-};
-
-const parseSort = (raw: string | undefined): AdminAnnouncementsSort => {
-  return VALID_SORTS.find((v) => v === raw) ?? 'EndDesc';
-};
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -44,24 +22,20 @@ export async function generateMetadata({ params }: LocaleProps) {
 }
 
 interface PageProps extends LocaleProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ page: number; search: string; language: LOCALE; }>;
 }
 
 export default async function AnnouncementsPage({ searchParams }: PageProps) {
   const t = await getTranslations(INTL_NAMESPACE);
 
   const params = await searchParams;
-  const page = parsePage(pickString(params.page));
-  const search = pickString(params.search);
-  const language = parseLanguage(pickString(params.language));
-  const sort = parseSort(pickString(params.sort));
 
-  const [adminData, rolesData, studyFormsData, coursesData] = await Promise.all([
-    getAdminAnnouncements({ page, pageSize: PAGE_SIZE_DEFAULT, search, language, sort }),
-    getRoles(),
-    getStudyForms(),
-    getCourses(),
-  ]);
+  const adminData = await getAdminAnnouncements({
+    page: params.page,
+    pageSize: PAGE_SIZE_DEFAULT,
+    search: params.search,
+    language: params.language,
+  });
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -69,14 +43,11 @@ export default async function AnnouncementsPage({ searchParams }: PageProps) {
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
 
-        <AnnouncementManagement
+        <AnnouncementsListPage
           items={adminData.items}
           total={adminData.total}
-          page={page}
+          page={params.page}
           pageSize={PAGE_SIZE_DEFAULT}
-          rolesData={rolesData}
-          studyFormsData={studyFormsData}
-          coursesData={coursesData}
         />
       </div>
     </SubLayout>

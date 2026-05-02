@@ -8,38 +8,33 @@ import { PencilRegular } from '@/app/images';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Link } from '@/i18n/routing';
 import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem, AnnouncementFilter } from '@/types/models/announcement';
 
 interface Props {
   items: AdminAnnouncementItem[];
-  onEdit: (item: AdminAnnouncementItem) => void;
   onDelete: (item: AdminAnnouncementItem) => void;
 }
 
-const toDate = (value: Date | string | undefined): Date | undefined => {
-  if (!value) return undefined;
-  const date = typeof value === 'string' ? new Date(value) : value;
-  return Number.isNaN(date.getTime()) ? undefined : date;
-};
+const formatFilterCell = (value: string, noRestriction: string) => (
+  <span className="block line-clamp-2 text-center text-sm" title={value || noRestriction}>
+    {value || noRestriction}
+  </span>
+);
 
-const formatPeriod = (start?: Date | string, end?: Date | string) => {
-  const s = toDate(start);
-  const e = toDate(end);
-  if (!s || !e) return '—';
-  return `${dayjs(s).format('DD.MM.YYYY')} – ${dayjs(e).format('DD.MM.YYYY')}`;
-};
+const rolesText = (filter: AnnouncementFilter) =>
+  filter.roles.length ? filter.roles.join(', ') : '';
 
-const summariseFilter = (filter: AnnouncementFilter, fallback: string): string => {
-  const parts: string[] = [];
-  if (filter.roles?.length) parts.push(filter.roles.join(', '));
-  if (filter.studyForms?.length) parts.push(filter.studyForms.join(', '));
-  if (filter.courses?.length) parts.push(filter.courses.join(', '));
-  return parts.length === 0 ? fallback : parts.join(' • ');
-};
+const studyFormsText = (filter: AnnouncementFilter) =>
+  filter.studyForms.length ? filter.studyForms.join(', ') : '';
 
-export const AnnouncementsTable = ({ items, onEdit, onDelete }: Props) => {
+const coursesText = (filter: AnnouncementFilter) =>
+  filter.courses.length ? filter.courses.map((c) => String(c)).join(', ') : '';
+
+export const AnnouncementsTable = ({ items, onDelete }: Props) => {
   const t = useTranslations('private.announcementseditor');
+  const noRestriction = t('table.noRestriction');
 
   if (items.length === 0) {
     return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
@@ -51,17 +46,18 @@ export const AnnouncementsTable = ({ items, onEdit, onDelete }: Props) => {
         <TableRow>
           <TableHead>{t('table.title')}</TableHead>
           <TableHead className="w-20">{t('table.language')}</TableHead>
-          <TableHead className="w-56">{t('table.period')}</TableHead>
+          <TableHead className="w-48 min-w-32">{t('table.period')}</TableHead>
           <TableHead className="w-28">{t('table.status')}</TableHead>
-          <TableHead>{t('table.targeting')}</TableHead>
+          <TableHead className="min-w-28 max-w-40 text-center">{t('table.roles')}</TableHead>
+          <TableHead className="min-w-28 max-w-40 text-center">{t('table.studyForms')}</TableHead>
+          <TableHead className="min-w-24 max-w-32 text-center">{t('table.courses')}</TableHead>
           <TableHead className="w-28 text-right">{t('table.actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {items.map((item) => {
           const { announcement, filter } = item;
-          const outdated = isOutdated(toDate(announcement.end));
-          const targeting = summariseFilter(filter, t('table.targetingEveryone'));
+          const outdated = isOutdated(announcement.end);
 
           return (
             <TableRow key={announcement.id}>
@@ -73,26 +69,31 @@ export const AnnouncementsTable = ({ items, onEdit, onDelete }: Props) => {
                   {announcement.language ?? '—'}
                 </Badge>
               </TableCell>
-              <TableCell className="whitespace-nowrap">{formatPeriod(announcement.start, announcement.end)}</TableCell>
+              <TableCell className="whitespace-nowrap text-sm">
+                {dayjs(announcement.start).format('DD.MM.YYYY')} – {dayjs(announcement.end).format('DD.MM.YYYY')}
+              </TableCell>
               <TableCell>
                 <Badge variant={outdated ? 'default' : 'success'}>
                   {outdated ? t('status.outdated') : t('status.active')}
                 </Badge>
               </TableCell>
-              <TableCell className="text-muted-foreground max-w-sm">
-                <span className="line-clamp-1">{targeting}</span>
+              <TableCell className="text-muted-foreground align-middle text-center">
+                {formatFilterCell(rolesText(filter), noRestriction)}
+              </TableCell>
+              <TableCell className="text-muted-foreground align-middle text-center">
+                {formatFilterCell(studyFormsText(filter), noRestriction)}
+              </TableCell>
+              <TableCell className="text-muted-foreground align-middle text-center">
+                {formatFilterCell(coursesText(filter), noRestriction)}
               </TableCell>
               <TableCell>
                 <div className="flex justify-end gap-1">
-                  <Button variant="tertiary" size="small" onClick={() => onEdit(item)} aria-label={t('actions.edit')}>
-                    <PencilRegular />
+                  <Button variant="tertiary" size="small" asChild>
+                    <Link href={`/module/announcementseditor/${announcement.id}/edit`}>
+                      <PencilRegular />
+                    </Link>
                   </Button>
-                  <Button
-                    variant="tertiary"
-                    size="small"
-                    onClick={() => onDelete(item)}
-                    aria-label={t('actions.delete')}
-                  >
+                  <Button variant="tertiary" size="small" onClick={() => onDelete(item)}>
                     <Trash2 className="text-other-red" />
                   </Button>
                 </div>
