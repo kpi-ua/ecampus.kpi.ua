@@ -7,11 +7,11 @@ export interface Announcement {
   id: number;
   title: string;
   description: string;
-  image?: string;
-  link?: AnnouncementLink;
+  image: string;
+  link: AnnouncementLink;
   start: Date;
   end: Date;
-  language?: string;
+  language: string;
 }
 
 /**

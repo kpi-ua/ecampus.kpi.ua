@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { ANNOUNCEMENT_FILTER_LANGUAGES } from '../constants';
-import type { AdminAnnouncementsLanguage } from '../types';
 
 export const AnnouncementsFilters = () => {
   const t = useTranslations('private.announcementseditor.filters');
@@ -20,29 +19,46 @@ export const AnnouncementsFilters = () => {
 
   const search = searchParams.get('search') ?? '';
   const rawLanguage = searchParams.get('language')?.toLowerCase();
-  const language: AdminAnnouncementsLanguage =
+  const language =
     ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
 
   const [searchValue, setSearchValue] = useState(search);
+  
   useEffect(() => {
     setSearchValue(search);
   }, [search]);
 
-  const updateParam = (key: string, value: string | null) => {
+  const commitSearchParams = (patch: (params: URLSearchParams) => void) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (value && value.trim() !== '' && !(key === 'language' && value === 'all')) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
+    patch(params);
     params.delete('page');
     router.replace(`${pathname}?${params.toString()}`);
   };
 
-  const updateParamRef = useRef(updateParam);
-  updateParamRef.current = updateParam;
+  const updateSearchParam = (value: string) => {
+    commitSearchParams((params) => {
+      if (value.trim() !== '') {
+        params.set('search', value);
+      } else {
+        params.delete('search');
+      }
+    });
+  };
+
+  const updateLanguageParam = (value: string) => {
+    commitSearchParams((params) => {
+      if (value === 'all') {
+        params.delete('language');
+      } else {
+        params.set('language', value);
+      }
+    });
+  };
+
+  const updateSearchParamRef = useRef(updateSearchParam);
+  updateSearchParamRef.current = updateSearchParam;
   const debouncedSearch = useMemo(
-    () => debounce({ delay: 200 }, (value: string) => updateParamRef.current('search', value)),
+    () => debounce({ delay: 200 }, (value: string) => updateSearchParamRef.current(value)),
     [],
   );
 
@@ -60,7 +76,7 @@ export const AnnouncementsFilters = () => {
         />
       </div>
       <div className="md:w-56">
-        <Select value={language} onValueChange={(value) => updateParam('language', value)}>
+        <Select value={language} onValueChange={updateLanguageParam}>
           <SelectTrigger>
             <SelectValue placeholder={t('languageLabel')} />
           </SelectTrigger>
