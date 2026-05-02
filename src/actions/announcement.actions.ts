@@ -5,22 +5,18 @@ import { AnnouncementCreate } from '@/app/[locale]/(private)/module/announcement
 import { campusFetch } from '@/lib/client';
 import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem, Announcement } from '@/types/models/announcement';
+import { LOCALE } from '@/i18n/routing';
 
 // URL pathname (no [locale] prefix, no route group). Matches the convention
 // used by other actions in the repo, e.g. certificates.actions revalidating
 // `/module/certificates`.
 const ANNOUNCEMENTS_EDITOR_PATH = '/module/announcementseditor';
 
-export type AdminAnnouncementsLanguage = 'all' | 'uk' | 'en';
-
-export type AdminAnnouncementsSort = 'EndDesc' | 'EndAsc' | 'StartDesc' | 'StartAsc' | 'TitleAsc';
-
 export interface AdminAnnouncementsQuery {
   search?: string;
-  language?: AdminAnnouncementsLanguage;
+  language?: LOCALE;
   page?: number;
   pageSize?: number;
-  sort?: AdminAnnouncementsSort;
 }
 
 export interface AdminAnnouncementsResult {
@@ -32,13 +28,12 @@ export const getAdminAnnouncements = async (query: AdminAnnouncementsQuery): Pro
   try {
     const params = new URLSearchParams();
     if (query.search) params.set('search', query.search);
-    if (query.language && query.language !== 'all') {
+    if (query.language) {
       // Backend enum is PascalCase (Uk/En); the model binder is case-insensitive.
       params.set('language', query.language);
     }
     if (query.page) params.set('page', String(query.page));
     if (query.pageSize) params.set('pageSize', String(query.pageSize));
-    if (query.sort) params.set('sort', query.sort);
 
     const qs = params.toString();
     const url = qs ? `announcements/admin?${qs}` : 'announcements/admin';
@@ -55,6 +50,31 @@ export const getAdminAnnouncements = async (query: AdminAnnouncementsQuery): Pro
   } catch (error) {
     console.error('Error fetching admin announcements:', error);
     return { items: [], total: 0 };
+  }
+};
+
+/**
+ * Loads a single announcement for the admin editor.
+ * Accepts either the admin row shape `{ announcement, filter }` or a bare `Announcement` (empty filter).
+ */
+export const getAdminAnnouncementById = async (id: number): Promise<AdminAnnouncementItem | null> => {
+  try {
+    const response = await campusFetch<AdminAnnouncementItem | Announcement>(`announcements/admin/${id}`);
+    if (!response.ok) {
+      return null;
+    }
+    const data = await response.json();
+    if (data && typeof data === 'object' && 'announcement' in data) {
+      return data as AdminAnnouncementItem;
+    }
+    const announcement = data as Announcement;
+    return {
+      announcement,
+      filter: { courses: [], roles: [], studyForms: [] },
+    };
+  } catch (error) {
+    console.error('Error fetching announcement by id:', error);
+    return null;
   }
 };
 
@@ -94,7 +114,7 @@ export const createAnnouncement = async (data: AnnouncementCreate): Promise<numb
       throw new Error(`Failed to create announcement: ${response.status} ${response.statusText}`);
     }
     const responseJson = (await response.json()) as number;
-    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH);
+    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH, 'layout');
     return responseJson;
   } catch (error) {
     console.error('Error creating announcement:', error);
@@ -112,7 +132,7 @@ export const updateAnnouncement = async (id: number, data: AnnouncementCreate): 
     if (!response.ok) {
       throw new Error(`Failed to update announcement: ${response.status} ${response.statusText}`);
     }
-    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH);
+    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH, 'layout');
   } catch (error) {
     console.error('Error updating announcement:', error);
     throw error;
@@ -128,7 +148,7 @@ export const deleteAnnouncement = async (id: number): Promise<void> => {
     if (!response.ok) {
       throw new Error(`Failed to delete announcement: ${response.status} ${response.statusText}`);
     }
-    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH);
+    revalidatePath(ANNOUNCEMENTS_EDITOR_PATH, 'layout');
   } catch (error) {
     console.error('Error deleting announcement:', error);
     throw error;

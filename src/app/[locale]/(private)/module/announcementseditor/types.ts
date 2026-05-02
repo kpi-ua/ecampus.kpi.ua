@@ -1,3 +1,6 @@
+/** Admin list URL/API language filter (`all` = no filter). */
+export type AdminAnnouncementsLanguage = 'all' | 'uk' | 'en';
+
 export interface AnnouncementCreateFilter {
   courses?: number[];
   roles?: string[];

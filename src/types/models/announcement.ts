@@ -9,8 +9,8 @@ export interface Announcement {
   description: string;
   image?: string;
   link?: AnnouncementLink;
-  start?: Date;
-  end?: Date;
+  start: Date;
+  end: Date;
   language?: string;
 }
 
