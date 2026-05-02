@@ -11,7 +11,7 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { AdminAnnouncementItem } from '@/types/models/announcement';
 
 import { AnnouncementsFilters } from './components/announcements-filters';
-import { AnnouncementsTable } from './components/announcements-table';
+import { AnnouncementsTable } from './components/announcements-table/announcements-table';
 import { DeleteConfirmDialog } from './components/delete-confirm-dialog';
 import { deleteAnnouncement } from '@/actions/announcement.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';

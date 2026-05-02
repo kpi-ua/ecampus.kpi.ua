@@ -2,7 +2,7 @@
 
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { AnnouncementFormValues } from "../../components/announcement-form";
+import { AnnouncementFormValues, toAnnouncementCreate } from '../../components/schema';
 import { useTranslations } from "next-intl";
 import { updateAnnouncement } from "@/actions/announcement.actions";
 import { AnnouncementEditorView } from "../../components/announcement-editor-view";
@@ -25,7 +25,7 @@ export function EditAnnouncementPage({ id, initialValues, rolesData, studyFormsD
 
   const handleSubmit = async (values: AnnouncementFormValues) => {
     try {
-        await updateAnnouncement(id, values);
+        await updateAnnouncement(id, toAnnouncementCreate(values));
         toast({ title: t('edit.success') });
         router.push(LIST_PATH);
     } catch {

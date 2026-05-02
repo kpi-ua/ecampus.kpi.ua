@@ -9,32 +9,30 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
+import { useTableSort } from '@/hooks/use-table-sort';
 import { isOutdated } from '@/lib/date.utils';
-import { AdminAnnouncementItem, AnnouncementFilter } from '@/types/models/announcement';
+import { AdminAnnouncementItem } from '@/types/models/announcement';
+import { formatFilterCell, rolesText, studyFormsText, coursesText } from './utils';
 
 interface Props {
   items: AdminAnnouncementItem[];
   onDelete: (item: AdminAnnouncementItem) => void;
 }
 
-const formatFilterCell = (value: string, noRestriction: string) => (
-  <span className="block line-clamp-2 text-center text-sm" title={value || noRestriction}>
-    {value || noRestriction}
-  </span>
-);
-
-const rolesText = (filter: AnnouncementFilter) =>
-  filter.roles.length ? filter.roles.join(', ') : '';
-
-const studyFormsText = (filter: AnnouncementFilter) =>
-  filter.studyForms.length ? filter.studyForms.join(', ') : '';
-
-const coursesText = (filter: AnnouncementFilter) =>
-  filter.courses.length ? filter.courses.map((c) => String(c)).join(', ') : '';
-
 export const AnnouncementsTable = ({ items, onDelete }: Props) => {
   const t = useTranslations('private.announcementseditor');
   const noRestriction = t('table.noRestriction');
+
+  const { sortedRows, sortHandlers } = useTableSort(
+    items,
+    (row, header) => {
+      const key = header as 'title' | 'start';
+      return key === 'title'
+        ? row.announcement.title
+        : dayjs(row.announcement.start).valueOf();
+    },
+    ['title', 'start'] as unknown as Array<keyof AdminAnnouncementItem & string>,
+  );
 
   if (items.length === 0) {
     return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
@@ -44,18 +42,22 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{t('table.title')}</TableHead>
+          <TableHead sortHandlers={sortHandlers} sortHeader="title">
+            {t('table.title')}
+          </TableHead>
           <TableHead className="w-20">{t('table.language')}</TableHead>
-          <TableHead className="w-48 min-w-32">{t('table.period')}</TableHead>
+          <TableHead sortHandlers={sortHandlers} sortHeader="start" className="w-48 min-w-32">
+            {t('table.period')}
+          </TableHead>
           <TableHead className="w-28">{t('table.status')}</TableHead>
-          <TableHead className="min-w-28 max-w-40 text-center">{t('table.roles')}</TableHead>
-          <TableHead className="min-w-28 max-w-40 text-center">{t('table.studyForms')}</TableHead>
-          <TableHead className="min-w-24 max-w-32 text-center">{t('table.courses')}</TableHead>
+          <TableHead className="min-w-28 max-w-40 text-start">{t('table.roles')}</TableHead>
+          <TableHead className="min-w-28 max-w-40 text-start">{t('table.studyForms')}</TableHead>
+          <TableHead className="min-w-24 max-w-32 text-start">{t('table.courses')}</TableHead>
           <TableHead className="w-28 text-right">{t('table.actions')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {items.map((item) => {
+        {sortedRows.map((item) => {
           const { announcement, filter } = item;
           const outdated = isOutdated(announcement.end);
 
@@ -77,13 +79,13 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
                   {outdated ? t('status.outdated') : t('status.active')}
                 </Badge>
               </TableCell>
-              <TableCell className="text-muted-foreground align-middle text-center">
+              <TableCell className="text-muted-foreground align-middle text-start">
                 {formatFilterCell(rolesText(filter), noRestriction)}
               </TableCell>
-              <TableCell className="text-muted-foreground align-middle text-center">
+              <TableCell className="text-muted-foreground align-middle text-start">
                 {formatFilterCell(studyFormsText(filter), noRestriction)}
               </TableCell>
-              <TableCell className="text-muted-foreground align-middle text-center">
+              <TableCell className="text-muted-foreground align-middle text-start">
                 {formatFilterCell(coursesText(filter), noRestriction)}
               </TableCell>
               <TableCell>
