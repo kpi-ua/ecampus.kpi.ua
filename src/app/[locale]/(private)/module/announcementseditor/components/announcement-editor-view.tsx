@@ -7,7 +7,8 @@ import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
-import { AnnouncementForm, AnnouncementFormValues } from './announcement-form';
+import { AnnouncementForm } from './announcement-form';
+import type { AnnouncementFormValues } from './schema';
 
 const LIST_PATH = '/module/announcementseditor';
 

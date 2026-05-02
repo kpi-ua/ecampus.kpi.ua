@@ -1,18 +1,15 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import MultipleSelector from '@/components/ui/multi-select';
-import { formSchema } from './schema';
+import { formSchema, type AnnouncementFormValues } from './schema';
 import { Textarea } from '@/components/ui/textarea';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-
-export type AnnouncementFormValues = z.infer<typeof formSchema>;
 
 const emptyValues: AnnouncementFormValues = {
   announcement: {
@@ -107,7 +104,16 @@ export function AnnouncementForm({
             <FormItem>
               <FormLabel>{t('fields.imageUrl')}</FormLabel>
               <FormControl>
-                <Input placeholder={t('placeholders.imageUrl')} type="text" maxLength={500} {...field} />
+                <Input
+                  placeholder={t('placeholders.imageUrl')}
+                  type="text"
+                  maxLength={500}
+                  name={field.name}
+                  ref={field.ref}
+                  onBlur={field.onBlur}
+                  value={field.value ?? ''}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

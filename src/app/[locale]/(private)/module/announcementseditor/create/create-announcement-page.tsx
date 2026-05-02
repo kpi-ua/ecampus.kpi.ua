@@ -5,7 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { AnnouncementEditorView } from "../components/announcement-editor-view";
-import { AnnouncementFormValues } from "../components/announcement-form";
+import { AnnouncementFormValues, toAnnouncementCreate } from '../components/schema';
 import { LIST_PATH } from "../constants";
 interface Props {
     rolesData: string[];
@@ -19,7 +19,7 @@ export function CreateAnnouncementPage({ rolesData, studyFormsData, coursesData 
   const router = useRouter();
 
   const handleSubmit = async (values: AnnouncementFormValues) => {
-    const id = await createAnnouncement(values);
+    const id = await createAnnouncement(toAnnouncementCreate(values));
     toast({
       title: t('success.title'),
       description: t('success.message', { id }),

@@ -53,28 +53,18 @@ export const getAdminAnnouncements = async (query: AdminAnnouncementsQuery): Pro
   }
 };
 
-/**
- * Loads a single announcement for the admin editor.
- * Accepts either the admin row shape `{ announcement, filter }` or a bare `Announcement` (empty filter).
- */
-export const getAdminAnnouncementById = async (id: number): Promise<AdminAnnouncementItem | null> => {
+export const getAdminAnnouncementById = async (id: number): Promise<AdminAnnouncementItem> => {
   try {
-    const response = await campusFetch<AdminAnnouncementItem | Announcement>(`announcements/admin/${id}`);
+    const response = await campusFetch<AdminAnnouncementItem>(`announcements/admin/${id}`);
+
     if (!response.ok) {
-      return null;
+      throw new Error("Failed to fetch announcement");
     }
-    const data = await response.json();
-    if (data && typeof data === 'object' && 'announcement' in data) {
-      return data as AdminAnnouncementItem;
-    }
-    const announcement = data as Announcement;
-    return {
-      announcement,
-      filter: { courses: [], roles: [], studyForms: [] },
-    };
+
+    return await response.json();
   } catch (error) {
     console.error('Error fetching announcement by id:', error);
-    return null;
+    throw new Error("Failed to fetch announcement");
   }
 };
 
