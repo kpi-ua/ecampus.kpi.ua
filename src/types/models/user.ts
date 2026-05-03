@@ -16,6 +16,7 @@ export interface User {
   intellectProfile?: string;
   userCategories: UserCategory[];
   codeOfHonorSignDate: string;
+  privacyConsentDate?: string | null;
   studentProfile?: StudentProfile;
   employeeProfile?: EmployeeProfile;
 }
