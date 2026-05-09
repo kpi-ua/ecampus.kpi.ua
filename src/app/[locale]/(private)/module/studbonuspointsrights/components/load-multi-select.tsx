@@ -90,7 +90,7 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
           variant="tertiary"
           size="small"
           onClick={toggleAll}
-          className="h-7 px-2 text-xs"
+          className="px-2 py-1 text-xs"
         >
           {allSelected ? t('clearAll') : t('selectAll')}
         </Button>
@@ -110,7 +110,7 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
                   variant="tertiary"
                   size="small"
                   onClick={() => toggleGroup(group)}
-                  className="h-6 px-2 text-xs"
+                  className="px-2 py-1 text-xs"
                 >
                   {allInGroup ? t('clearAll') : t('selectAll')}
                 </Button>
