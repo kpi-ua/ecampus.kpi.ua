@@ -501,7 +501,8 @@
         "year": "Year",
         "load": "Point",
         "created": "Granted",
-        "actions": "Actions"
+        "actions": "Actions",
+        "itemsCount": "{count, plural, one {# point} other {# points}}"
       },
       "filters": {
         "searchPlaceholder": "Search by full name",
@@ -549,6 +550,8 @@
         "loadsSelected": "{count} selected",
         "loadsSearchPlaceholder": "Search a point",
         "loadsNotFound": "No point found.",
+        "selectAll": "Select all",
+        "clearAll": "Clear",
         "submit": "Grant",
         "cancel": "Cancel",
         "errors": {
