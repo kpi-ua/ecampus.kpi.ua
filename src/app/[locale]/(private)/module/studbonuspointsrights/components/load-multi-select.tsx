@@ -2,6 +2,7 @@
 
 import { useId, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { SbpLoadCatalogItem } from '@/types/models/sbp-rights';
 
@@ -21,7 +22,8 @@ interface Group {
 
 /**
  * Flat checkbox list of SBP loads, grouped by work-kind → tree. Selection
- * is held in the parent form (array of loadIds).
+ * is held in the parent form (array of loadIds). A global and per-group
+ * Select-all / Clear toggle (KB-1307) avoids hand-checking long lists.
  */
 export function LoadMultiSelect({ loads, value, onChange }: Props) {
   const t = useTranslations('private.studbonuspointsrights.grant');
@@ -53,43 +55,94 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
     onChange(selected.has(loadId) ? value.filter((id) => id !== loadId) : [...value, loadId]);
   };
 
+  const allLoadIds = useMemo(() => loads.map((l) => l.loadId), [loads]);
+  const allSelected = allLoadIds.length > 0 && allLoadIds.every((id) => selected.has(id));
+
+  const toggleAll = () => {
+    onChange(allSelected ? [] : allLoadIds);
+  };
+
+  const toggleGroup = (group: Group) => {
+    const groupIds = group.loads.map((l) => l.loadId);
+    const allInGroup = groupIds.every((id) => selected.has(id));
+    if (allInGroup) {
+      const groupSet = new Set(groupIds);
+      onChange(value.filter((id) => !groupSet.has(id)));
+    } else {
+      const merged = new Set(value);
+      for (const id of groupIds) merged.add(id);
+      onChange([...merged]);
+    }
+  };
+
   if (groups.length === 0) {
     return <p className="text-muted-foreground text-sm">{t('loadsNotFound')}</p>;
   }
 
   return (
-    <div className="max-h-96 space-y-4 overflow-y-auto rounded-md border p-3">
-      {groups.map((group) => (
-        <div key={`${group.workKindId}:${group.treeId}`}>
-          <div className="text-muted-foreground mb-2 text-xs font-semibold uppercase tracking-wide">
-            {group.workKindName} · {group.treeName}
-          </div>
-          <div className="flex flex-col gap-2">
-            {group.loads.map((load) => {
-              const id = `${idPrefix}-${load.loadId}`;
-              return (
-                <label
-                  key={load.loadId}
-                  htmlFor={id}
-                  className="flex cursor-pointer items-start gap-2 text-sm"
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="text-muted-foreground text-xs">
+          {t('loadsSelected', { count: value.length })}
+        </span>
+        <Button
+          type="button"
+          variant="tertiary"
+          size="small"
+          onClick={toggleAll}
+          className="h-7 px-2 text-xs"
+        >
+          {allSelected ? t('clearAll') : t('selectAll')}
+        </Button>
+      </div>
+      <div className="max-h-96 space-y-4 overflow-y-auto rounded-md border p-3">
+        {groups.map((group) => {
+          const groupIds = group.loads.map((l) => l.loadId);
+          const allInGroup = groupIds.every((id) => selected.has(id));
+          return (
+            <div key={`${group.workKindId}:${group.treeId}`}>
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <div className="text-muted-foreground text-xs font-semibold uppercase tracking-wide">
+                  {group.workKindName} · {group.treeName}
+                </div>
+                <Button
+                  type="button"
+                  variant="tertiary"
+                  size="small"
+                  onClick={() => toggleGroup(group)}
+                  className="h-6 px-2 text-xs"
                 >
-                  <Checkbox
-                    id={id}
-                    checked={selected.has(load.loadId)}
-                    onCheckedChange={() => toggle(load.loadId)}
-                    className="mt-0.5"
-                  />
-                  <span className="flex-1">
-                    {load.subTreeNumber != null ? `${load.subTreeNumber}. ` : ''}
-                    {load.loadName}
-                  </span>
-                  <span className="text-muted-foreground text-xs">{load.mark}</span>
-                </label>
-              );
-            })}
-          </div>
-        </div>
-      ))}
+                  {allInGroup ? t('clearAll') : t('selectAll')}
+                </Button>
+              </div>
+              <div className="flex flex-col gap-2">
+                {group.loads.map((load) => {
+                  const id = `${idPrefix}-${load.loadId}`;
+                  return (
+                    <label
+                      key={load.loadId}
+                      htmlFor={id}
+                      className="flex cursor-pointer items-start gap-2 text-sm"
+                    >
+                      <Checkbox
+                        id={id}
+                        checked={selected.has(load.loadId)}
+                        onCheckedChange={() => toggle(load.loadId)}
+                        className="mt-0.5"
+                      />
+                      <span className="flex-1">
+                        {load.subTreeNumber != null ? `${load.subTreeNumber}. ` : ''}
+                        {load.loadName}
+                      </span>
+                      <span className="text-muted-foreground text-xs">{load.mark}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

@@ -501,7 +501,8 @@
         "year": "Рік",
         "load": "Пункт",
         "created": "Видано",
-        "actions": "Дії"
+        "actions": "Дії",
+        "itemsCount": "{count, plural, one {# пункт} few {# пункти} many {# пунктів} other {# пункту}}"
       },
       "filters": {
         "searchPlaceholder": "Пошук за ПІБ",
@@ -549,6 +550,8 @@
         "loadsSelected": "Обрано пунктів: {count}",
         "loadsSearchPlaceholder": "Пошук пункту",
         "loadsNotFound": "Пункти не знайдено.",
+        "selectAll": "Вибрати все",
+        "clearAll": "Очистити",
         "submit": "Видати",
         "cancel": "Скасувати",
         "errors": {
