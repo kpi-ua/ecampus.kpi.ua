@@ -21,7 +21,7 @@ interface Group {
   items: SbpResponsibilityListItem[];
 }
 
-const COLUMN_COUNT = 4;
+const COLUMN_COUNT = 3;
 
 /**
  * Lists active SBP grants. Rows are collapsed into (year, full name,
