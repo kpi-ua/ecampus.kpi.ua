@@ -82,9 +82,6 @@ export function RightsTable({ items }: Props) {
                     {t(`scope.${group.scope === 'University' ? 'university' : 'faculty'}`)}
                   </Badge>
                   <span className="text-muted-foreground text-sm">{group.subdivisionLabel}</span>
-                  <span className="text-muted-foreground ml-auto text-xs">
-                    {t('table.itemsCount', { count: group.items.length })}
-                  </span>
                 </div>
               </TableCell>
             </TableRow>

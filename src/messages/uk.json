@@ -501,8 +501,7 @@
         "year": "Рік",
         "load": "Пункт",
         "created": "Видано",
-        "actions": "Дії",
-        "itemsCount": "{count, plural, one {# пункт} few {# пункти} many {# пунктів} other {# пункту}}"
+        "actions": "Дії"
       },
       "filters": {
         "searchPlaceholder": "Пошук за ПІБ",
