@@ -138,3 +138,13 @@ export const revokeSbpRight = async (sbpResponsibleId: number): Promise<void> =>
 
   revalidatePath(MODULE_PATH);
 };
+
+export const revokeAllSbpRightsForUser = async (userAccountId: number): Promise<void> => {
+  const response = await campusFetch(`sbp-rights/users/${userAccountId}`, { method: 'DELETE' });
+
+  if (!response.ok) {
+    throw new Error(`Failed to revoke all SBP rights for user: ${response.status} ${response.statusText}`);
+  }
+
+  revalidatePath(MODULE_PATH);
+};
