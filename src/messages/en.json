@@ -501,8 +501,7 @@
         "year": "Year",
         "load": "Point",
         "created": "Granted",
-        "actions": "Actions",
-        "itemsCount": "{count, plural, one {# point} other {# points}}"
+        "actions": "Actions"
       },
       "filters": {
         "searchPlaceholder": "Search by full name",
