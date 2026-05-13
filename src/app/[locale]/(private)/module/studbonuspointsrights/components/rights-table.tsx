@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDate } from '@/lib/utils';
 import { SbpResponsibilityListItem } from '@/types/models/sbp-rights';
+import { RevokeAllButton } from './revoke-all-button';
 import { RevokeButton } from './revoke-button';
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
 interface Group {
   key: string;
   studyingYearName: string;
+  userAccountId: number;
   fullName: string;
   scope: SbpResponsibilityListItem['scope'];
   subdivisionLabel: string;
@@ -41,6 +43,7 @@ export function RightsTable({ items }: Props) {
         group = {
           key,
           studyingYearName: item.studyingYearName,
+          userAccountId: item.userAccountId,
           fullName: item.fullName,
           scope: item.scope,
           subdivisionLabel,
@@ -74,6 +77,7 @@ export function RightsTable({ items }: Props) {
                     {group.studyingYearName}
                   </span>
                   <span className="font-medium">{group.fullName}</span>
+                  <RevokeAllButton userAccountId={group.userAccountId} fullName={group.fullName} />
                   <Badge variant={group.scope === 'University' ? 'purple' : 'blue'}>
                     {t(`scope.${group.scope === 'University' ? 'university' : 'faculty'}`)}
                   </Badge>

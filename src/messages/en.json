@@ -575,6 +575,17 @@
           "title": "Done",
           "description": "Right revoked."
         }
+      },
+      "revokeAll": {
+        "trigger": "Revoke all rights for user",
+        "title": "Revoke all rights?",
+        "description": "{user} will lose admin access to every point of the module and the module will disappear from their menu.",
+        "confirm": "Revoke all",
+        "cancel": "Cancel",
+        "success": {
+          "title": "Done",
+          "description": "All user rights revoked."
+        }
       }
     },
     "profile": {
