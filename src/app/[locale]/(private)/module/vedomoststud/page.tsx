@@ -1,11 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getTerm } from '@/actions/term.actions';
+import { getTerm, getTermSemesters } from '@/actions/term.actions';
 import { LocaleProps } from '@/types/locale-props';
 
 import SessionTable from './components/table';
 
 const INTL_NAMESPACE = 'private.vedomoststud';
+
+interface PageProps extends LocaleProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -17,8 +21,12 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default async function SessionPage() {
-  const termResults = await getTerm();
+export default async function SessionPage({ searchParams }: PageProps) {
+  const params = await searchParams;
+  const semesterId = typeof params?.semesterId === 'string' ? params.semesterId : undefined;
+
+  const termResults = await getTerm(semesterId);
+  const semesters = await getTermSemesters();
 
   const fixedTermResults = {
     ...termResults,
@@ -28,5 +36,5 @@ export default async function SessionPage() {
     })),
   };
 
-  return <SessionTable termResults={fixedTermResults} />;
+  return <SessionTable termResults={fixedTermResults} semesters={semesters} />;
 }

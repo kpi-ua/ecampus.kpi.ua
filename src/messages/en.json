@@ -601,7 +601,13 @@
       "sessionType": "Session order type",
       "lecturer": "Lecturer",
       "status": "Status",
-      "average-score": "Average score for the entire period of study:"
+      "average-score": "Average score for the entire period of study:",
+      "your-session": "Your session:",
+      "filter": {
+        "semester": "Semester",
+        "select-semester": "Select semester",
+        "all": "All"
+      }
     },
     "msg": {
       "title": "Message",

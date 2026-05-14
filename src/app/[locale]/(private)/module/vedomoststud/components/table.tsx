@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useTranslations } from 'next-intl';
 import { dash } from 'radash';
 
@@ -10,7 +11,8 @@ import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { TermStatusBadge } from '@/app/[locale]/(private)/module/vedomoststud/components/term-status-badge';
-import { Paragraph } from '@/components/typography';
+import { SemesterFilter } from '@/app/[locale]/(private)/module/vedomoststud/components/semester-filter';
+import { Heading6, Paragraph } from '@/components/typography';
 
 import { Status } from '@/types/enums/session/status';
 import { TermDiscipline } from '@/types/models/term';
@@ -22,7 +24,7 @@ type TermResults = {
   averageScore: number | string;
 };
 
-export default function SessionTable({ termResults }: { termResults: TermResults }) {
+export default function SessionTable({ termResults, semesters }: { termResults: TermResults; semesters: number[] }) {
   const t = useTranslations('private.vedomoststud');
   const tEnums = useTranslations('global.enums');
 
@@ -34,6 +36,12 @@ export default function SessionTable({ termResults }: { termResults: TermResults
 
   return (
     <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
+      <div className="flex flex-col lg:flex-row lg:items-center">
+        <Heading6 className="mr-auto text-neutral-900">{t('your-session')}</Heading6>
+        <Suspense fallback={<div className="h-[36px] w-[200px]" />}>
+          <SemesterFilter semesters={semesters} />
+        </Suspense>
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
