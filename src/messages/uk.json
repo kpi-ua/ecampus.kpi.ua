@@ -732,6 +732,53 @@
         "result": "Результат"
       }
     },
+    "k-reports": {
+      "k-7": {
+        "title": "Звіт К-7",
+        "subtitle": "Формування індивідуального звіту про виконання педагогічного навантаження",
+        "tabs": {
+          "personal": "Мої звіти",
+          "department": "Звіти кафедри"
+        },
+        "filters": {
+          "academicYear": "Навчальний рік",
+          "workProfile": "Робочий профіль"
+        },
+        "profiles": {
+          "autsAssociateProfessor": "Кафедра АУТС - Доцент",
+          "autsSeniorLecturer": "Кафедра АУТС - Старший викладач"
+        },
+        "positions": {
+          "associateProfessor": "Доцент",
+          "seniorLecturer": "Старший викладач"
+        },
+        "status": {
+          "ready": "Готово",
+          "inProgress": "У роботі",
+          "error": "Помилка"
+        },
+        "actions": {
+          "generate": "Сформувати звіт",
+          "view": "Переглянути",
+          "downloadPdf": "Завантажити PDF",
+          "none": "Дія недоступна"
+        },
+        "footer": {
+          "rights": "Усі права захищено. © {year} КПІ ім. Ігоря Сікорського",
+          "privacy": "Політика конфіденційності",
+          "terms": "Умови використання",
+          "logout": "Вийти"
+        },
+        "table": {
+          "createdAt": "Дата та час",
+          "academicYear": "Навч. рік",
+          "department": "Кафедра",
+          "position": "Посада",
+          "status": "Статус",
+          "actions": "Дії"
+        }
+      }
+    },
     "settings": {
       "title": "Налаштування",
       "subtitle": "Тут ви можете змінити фото, пошту та пароль для свого профілю.",

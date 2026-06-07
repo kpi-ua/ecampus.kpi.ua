@@ -732,6 +732,53 @@
         "result": "Result"
       }
     },
+    "k-reports": {
+      "k-7": {
+        "title": "K-7 Report",
+        "subtitle": "Generate an individual report on completed teaching workload",
+        "tabs": {
+          "personal": "My reports",
+          "department": "Department reports"
+        },
+        "filters": {
+          "academicYear": "Academic year",
+          "workProfile": "Work profile"
+        },
+        "profiles": {
+          "autsAssociateProfessor": "AUTS Department - Associate Professor",
+          "autsSeniorLecturer": "AUTS Department - Senior Lecturer"
+        },
+        "positions": {
+          "associateProfessor": "Associate Professor",
+          "seniorLecturer": "Senior Lecturer"
+        },
+        "status": {
+          "ready": "Ready",
+          "inProgress": "In progress",
+          "error": "Error"
+        },
+        "actions": {
+          "generate": "Generate report",
+          "view": "View",
+          "downloadPdf": "Download PDF",
+          "none": "Action unavailable"
+        },
+        "footer": {
+          "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
+          "privacy": "Privacy policy",
+          "terms": "Terms of use",
+          "logout": "Logout"
+        },
+        "table": {
+          "createdAt": "Date and time",
+          "academicYear": "Academic year",
+          "department": "Department",
+          "position": "Position",
+          "status": "Status",
+          "actions": "Actions"
+        }
+      }
+    },
     "settings": {
       "title": "Settings",
       "subtitle": "Here you can change your photo, e-mail and password for your profile.",
