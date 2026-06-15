@@ -74,7 +74,7 @@
     "@tailwindcss/postcss": "4.1.15",
     "@types/file-saver": "2.0.7",
     "@types/jsonwebtoken": "9.0.10",
-    "@types/node": "24",
+    "@types/node": "25",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",
     "eslint": "9",
