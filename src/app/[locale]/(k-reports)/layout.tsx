@@ -28,12 +28,12 @@ export default async function MainPageLayout({
 
   return (
     <div className="bg-basic-white flex min-h-screen flex-col overflow-x-hidden">
-      <header className="mx-auto flex w-full max-w-[1000px] min-w-0 items-start justify-between gap-6 px-4 pt-8 pb-12 sm:px-0">
+      <header className="flex w-full min-w-0 items-start justify-between gap-6 px-4 pt-3 pb-10 md:px-[80px]">
         <Link href="/" className="text-brand-900 flex items-center gap-2">
-          <CoatOfArms className="size-11" />
+          <CoatOfArms className="size-[32px] [&_path]:!fill-current" />
           <div className="flex flex-col leading-none">
-            <span className="text-base font-medium">K-7</span>
-            <span className="text-2xl font-extrabold">КПІ</span>
+            <span className="text-[12px] leading-[14px] font-medium">K-7</span>
+            <span className="text-[24px] leading-[24px] font-extrabold">КПІ</span>
           </div>
         </Link>
 
@@ -46,21 +46,14 @@ export default async function MainPageLayout({
             </div>
           </div>
           <form action={logout}>
-            <Button
-              aria-label={t('logout')}
-              icon={<SignOut />}
-              size="small"
-              type="submit"
-              variant="secondary"
-              className="size-10 p-0"
-            />
+            <Button icon={<SignOut />} size="small" type="submit" variant="secondary" className="size-[32px] p-0" />
           </form>
         </div>
       </header>
 
-      <div className="min-w-0 grow px-4 sm:px-0">{children}</div>
+      <div className="min-w-0 grow px-4 md:px-[80px]">{children}</div>
 
-      <footer className="leading-xs mx-auto mt-auto flex w-full max-w-[1000px] min-w-0 flex-col items-center justify-center gap-3 px-4 py-8 text-center text-xs text-neutral-700 sm:flex-row sm:flex-wrap sm:px-0">
+      <footer className="leading-xs mt-auto flex w-full min-w-0 flex-col items-center justify-center gap-3 px-4 py-8 text-center text-xs text-neutral-700 sm:flex-row sm:flex-wrap md:px-[80px]">
         <span className="leading-sm max-w-[280px] sm:max-w-full">{t('rights', { year: dayjs().year() })}</span>
         <Link href="/terms-of-service" className="leading-xs text-xs font-semibold">
           {t('privacy')}

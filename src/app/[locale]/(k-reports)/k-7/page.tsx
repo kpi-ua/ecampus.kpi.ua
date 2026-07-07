@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { LocaleProps } from '@/types/locale-props';
 
@@ -252,8 +253,13 @@ export default async function K7DashboardPage() {
                       {report.canView || report.canDownload ? (
                         <div className="flex justify-end gap-2">
                           {report.canView && (
-                            <Button variant="secondary" size="small" className="h-10 rounded-[8px] px-5 py-0 text-xs">
-                              {t('actions.view')}
+                            <Button
+                              asChild
+                              variant="secondary"
+                              size="small"
+                              className="h-10 rounded-[8px] px-5 py-0 text-xs"
+                            >
+                              <Link href="/k-7/preview">{t('actions.view')}</Link>
                             </Button>
                           )}
                           {report.canDownload && (
@@ -263,12 +269,7 @@ export default async function K7DashboardPage() {
                           )}
                         </div>
                       ) : (
-                        <span
-                          className="inline-flex h-10 items-center justify-center px-3 text-neutral-700"
-                          aria-label={t('actions.none')}
-                        >
-                          --
-                        </span>
+                        <span className="inline-flex h-10 items-center justify-center px-3 text-neutral-700">--</span>
                       )}
                     </TableCell>
                   </TableRow>
