@@ -32,6 +32,7 @@ import {
   UserSquare,
   Lectern,
   SquaresFour,
+  Star,
 } from '@/app/images';
 
 export const menuIcon: Map<string, React.ReactNode> = new Map([
@@ -88,4 +89,5 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['useract', Scroll],
   ['viewcontrol', NotePencil],
   ['vedomoststud', GraduationCap],
+  ['studbonuspoints', Star],
 ]);

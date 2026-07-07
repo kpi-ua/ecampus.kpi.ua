@@ -46,4 +46,7 @@ export const MODULES: Module[] = [
   { name: 'employment', isExternal: false },
   { name: 'useract', isExternal: true },
   { name: 'viewcontrol', isExternal: true },
+  { name: 'pk2026', isExternal: true },
+  { name: 'pk2026admin', isExternal: true },
+  { name: 'studbonuspoints', isExternal: true },
 ];

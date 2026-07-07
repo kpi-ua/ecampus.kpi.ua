@@ -1,18 +1,35 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import MultipleSelector from '@/components/ui/multi-select';
-import { Group } from '@/types/models/group';
-import { formSchema } from '@/app/[locale]/(private)/module/announcementseditor/components/schema';
+import { formSchema, type AnnouncementFormValues } from './schema';
 import { Textarea } from '@/components/ui/textarea';
-import { createAnnouncement } from '@/actions/announcement.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+
+const emptyValues: AnnouncementFormValues = {
+  announcement: {
+    title: '',
+    description: '',
+    image: '',
+    link: {
+      title: '',
+      uri: '',
+    },
+    start: '',
+    end: '',
+    language: 'uk',
+  },
+  filter: {
+    roles: [],
+    studyForms: [],
+    courses: [],
+  },
+};
 
 const EmptyIndicator = () => {
   const t = useTranslations('private.announcementseditor.form');
@@ -22,57 +39,36 @@ const EmptyIndicator = () => {
 interface Props {
   rolesData: string[];
   studyFormsData: string[];
-  groupsData: Group[];
   coursesData: number[];
-  onSuccess: (id: number) => void;
+  initialValues?: AnnouncementFormValues;
+  onSubmit: (values: AnnouncementFormValues) => Promise<void>;
 }
 
 export function AnnouncementForm({
   rolesData,
   studyFormsData,
-  groupsData,
   coursesData,
-  onSuccess,
+  initialValues,
+  onSubmit,
 }: Props) {
   const t = useTranslations('private.announcementseditor.form');
   const { errorToast } = useServerErrorToast();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<AnnouncementFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      announcement: {
-        title: '',
-        description: '',
-        image: '',
-        link: {
-          title: '',
-          uri: '',
-        },
-        start: '',
-        end: '',
-        language: 'uk',
-      },
-      filter: {
-        roles: [],
-        groups: [],
-        studyForms: [],
-        courses: [],
-      },
-    },
-    mode: 'onChange',
+    defaultValues: initialValues ?? emptyValues,
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function submitForm(values: AnnouncementFormValues) {
     try {
-      const id = await createAnnouncement(values);
-      onSuccess(id);
-    } catch (error) {
+      await onSubmit(values);
+    } catch {
       errorToast();
     }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto flex flex-col gap-3">
+      <form onSubmit={form.handleSubmit(submitForm)} className="mx-auto flex flex-col gap-3">
         <FormField
           control={form.control}
           name="announcement.title"
@@ -80,7 +76,7 @@ export function AnnouncementForm({
             <FormItem>
               <FormLabel>{t('fields.title')}</FormLabel>
               <FormControl>
-                <Input placeholder={t('placeholders.title')} type="text" {...field} />
+                <Input placeholder={t('placeholders.title')} type="text" maxLength={100} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -94,7 +90,7 @@ export function AnnouncementForm({
             <FormItem>
               <FormLabel>{t('fields.description')}</FormLabel>
               <FormControl>
-                <Textarea placeholder={t('placeholders.description')} rows={4} {...field} />
+                <Textarea placeholder={t('placeholders.description')} rows={4} maxLength={700} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -108,7 +104,16 @@ export function AnnouncementForm({
             <FormItem>
               <FormLabel>{t('fields.imageUrl')}</FormLabel>
               <FormControl>
-                <Input placeholder={t('placeholders.imageUrl')} type="text" {...field} />
+                <Input
+                  placeholder={t('placeholders.imageUrl')}
+                  type="text"
+                  maxLength={500}
+                  name={field.name}
+                  ref={field.ref}
+                  onBlur={field.onBlur}
+                  value={field.value ?? ''}
+                  onChange={(e) => field.onChange(e.target.value)}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,7 +128,7 @@ export function AnnouncementForm({
               <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.linkTitle')}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t('placeholders.linkTitle')} type="text" {...field} />
+                  <Input placeholder={t('placeholders.linkTitle')} type="text" maxLength={30} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -137,7 +142,7 @@ export function AnnouncementForm({
               <FormItem className="flex flex-1 flex-col">
                 <FormLabel>{t('fields.linkUrl')}</FormLabel>
                 <FormControl>
-                  <Input placeholder={t('placeholders.linkUrl')} type="text" {...field} />
+                  <Input placeholder={t('placeholders.linkUrl')} type="text" maxLength={500} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -200,29 +205,9 @@ export function AnnouncementForm({
               <FormLabel>{t('fields.studyForms')}</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  value={(field.value ?? []).map((v) => ({ value: v, label: v }))}
                   defaultOptions={studyFormsData.map((studyForm) => ({ value: studyForm, label: studyForm }))}
                   placeholder={t('placeholders.studyForms')}
-                  onChange={(options) => field.onChange(options.map((option) => option.value as string))}
-                  emptyIndicator={<EmptyIndicator />}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="filter.groups"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t('fields.groups')}</FormLabel>
-              <FormControl>
-                <MultipleSelector
-                  defaultOptions={groupsData.map((group) => ({
-                    value: group.id.toString(),
-                    label: `${group.name} (${group.faculty})`,
-                  }))}
-                  placeholder={t('placeholders.groups')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
                   emptyIndicator={<EmptyIndicator />}
                 />
@@ -240,6 +225,7 @@ export function AnnouncementForm({
               <FormLabel>{t('fields.roles')}</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  value={(field.value ?? []).map((v) => ({ value: v, label: v }))}
                   defaultOptions={rolesData.map((role) => ({ value: role, label: role }))}
                   placeholder={t('placeholders.roles')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
@@ -259,6 +245,7 @@ export function AnnouncementForm({
               <FormLabel>{t('fields.courses')}</FormLabel>
               <FormControl>
                 <MultipleSelector
+                  value={(field.value ?? []).map((v) => ({ value: v.toString(), label: v.toString() }))}
                   defaultOptions={coursesData.map((course) => ({ value: course.toString(), label: course.toString() }))}
                   placeholder={t('placeholders.courses')}
                   onChange={(options) => field.onChange(options.map((option) => parseInt(option.value as string)))}
@@ -269,7 +256,7 @@ export function AnnouncementForm({
             </FormItem>
           )}
         />
-        <Button type="submit" className="mt-4">
+        <Button type="submit" className="mt-4" loading={form.formState.isSubmitting}>
           {t('buttons.submit')}
         </Button>
       </form>
