@@ -800,6 +800,7 @@
         "email": "A confirmation email has been sent to your new address. Please check your mailbox to verify access."
       },
       "error": {
+        "corporate-email-only": "Use a corporate address in the kpi.ua or kpi.edu.ua domain",
         "invalid-email": "Invalid email",
         "password-mismatch": "Password mismatch",
         "file-size": "Please upload a picture smaller than 1 MB.",
