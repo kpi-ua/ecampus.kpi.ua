@@ -25,8 +25,7 @@ export default async function SessionPage({ searchParams }: PageProps) {
   const params = await searchParams;
   const semesterId = typeof params?.semesterId === 'string' ? params.semesterId : undefined;
 
-  const termResults = await getTerm(semesterId);
-  const semesters = await getTermSemesters();
+  const [termResults, semesters] = await Promise.all([getTerm(semesterId), getTermSemesters()]);
 
   const fixedTermResults = {
     ...termResults,
