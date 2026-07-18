@@ -1,10 +1,12 @@
 'use server';
 
+import queryString from 'query-string';
+
 import { campusFetch } from '@/lib/client';
 import { Term } from '@/types/models/term';
 
 export async function getTerm(semesterId?: string) {
-  const url = semesterId ? `/term?semesterId=${semesterId}` : '/term';
+  const url = queryString.stringifyUrl({ url: '/term', query: { semesterId } });
   const response = await campusFetch<Term>(url);
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
