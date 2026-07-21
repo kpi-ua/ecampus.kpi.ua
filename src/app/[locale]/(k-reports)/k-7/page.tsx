@@ -1,16 +1,17 @@
 import { getTranslations } from 'next-intl/server';
 
+import { getK7FormFilters } from '@/actions/k7-form.actions';
 import { Heading2, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { LocaleProps } from '@/types/locale-props';
+
+import { K7ReportFilters } from './components/k7-report-filters';
 
 const INTL_NAMESPACE = 'private.k-reports.k-7';
 
@@ -27,19 +28,6 @@ interface ReportRow {
   canView: boolean;
   canDownload: boolean;
 }
-
-const ACADEMIC_YEARS = ['2024-2025', '2023-2024'];
-
-const PROFILE_OPTIONS = [
-  {
-    value: 'auts-associate-professor',
-    labelKey: 'autsAssociateProfessor',
-  },
-  {
-    value: 'auts-senior-lecturer',
-    labelKey: 'autsSeniorLecturer',
-  },
-];
 
 const REPORTS: Record<ReportTabValue, ReportRow[]> = {
   personal: [
@@ -124,11 +112,11 @@ export async function generateMetadata({ params }: LocaleProps) {
 }
 
 export default async function K7DashboardPage() {
-  const t = await getTranslations(INTL_NAMESPACE);
+  const [t, filters] = await Promise.all([getTranslations(INTL_NAMESPACE), getK7FormFilters()]);
 
   const tabs: { value: ReportTabValue; label: string }[] = [
     { value: 'personal', label: t('tabs.personal') },
-    { value: 'department', label: t('tabs.department') },
+    ...(filters.lecturers.length > 0 ? [{ value: 'department' as const, label: t('tabs.department') }] : []),
   ];
 
   return (
@@ -158,53 +146,7 @@ export default async function K7DashboardPage() {
 
           {tabs.map((tab) => (
             <TabsContent key={tab.value} value={tab.value} className="m-0 p-5">
-              <div className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-                <div className="flex min-w-0 flex-col gap-2">
-                  <Label htmlFor={`academic-year-${tab.value}`}>{t('filters.academicYear')}</Label>
-                  <Select defaultValue={ACADEMIC_YEARS[0]}>
-                    <SelectTrigger
-                      id={`academic-year-${tab.value}`}
-                      variant="small"
-                      className="border-neutral-300 text-sm text-neutral-900"
-                    >
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {ACADEMIC_YEARS.map((academicYear) => (
-                        <SelectItem key={academicYear} value={academicYear}>
-                          {academicYear}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="flex min-w-0 flex-col gap-2">
-                  <Label htmlFor={`work-profile-${tab.value}`}>{t('filters.workProfile')}</Label>
-                  <Select defaultValue={PROFILE_OPTIONS[0].value}>
-                    <SelectTrigger
-                      id={`work-profile-${tab.value}`}
-                      variant="small"
-                      className="border-neutral-300 text-sm text-neutral-900"
-                    >
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {PROFILE_OPTIONS.map((profile) => (
-                        <SelectItem key={profile.value} value={profile.value}>
-                          {t(`profiles.${profile.labelKey}`)}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="flex justify-end lg:col-span-2">
-                  <Button size="small" className="h-10 w-full rounded-[8px] px-4 py-0 text-xs sm:w-auto">
-                    {t('actions.generate')}
-                  </Button>
-                </div>
-              </div>
+              <K7ReportFilters filters={filters} type={tab.value} />
             </TabsContent>
           ))}
         </Card>

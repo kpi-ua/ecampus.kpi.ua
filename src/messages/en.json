@@ -787,11 +787,11 @@
         },
         "filters": {
           "academicYear": "Academic year",
-          "workProfile": "Work profile"
-        },
-        "profiles": {
-          "autsAssociateProfessor": "AUTS Department - Associate Professor",
-          "autsSeniorLecturer": "AUTS Department - Senior Lecturer"
+          "workProfile": "Work profile",
+          "lecturer": "Lecturer",
+          "selectAcademicYear": "Select an academic year",
+          "selectWorkProfile": "Select a work profile",
+          "selectLecturer": "Select a lecturer"
         },
         "positions": {
           "associateProfessor": "Associate Professor",

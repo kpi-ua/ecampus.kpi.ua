@@ -787,11 +787,11 @@
         },
         "filters": {
           "academicYear": "Навчальний рік",
-          "workProfile": "Робочий профіль"
-        },
-        "profiles": {
-          "autsAssociateProfessor": "Кафедра АУТС - Доцент",
-          "autsSeniorLecturer": "Кафедра АУТС - Старший викладач"
+          "workProfile": "Робочий профіль",
+          "lecturer": "Викладач",
+          "selectAcademicYear": "Оберіть навчальний рік",
+          "selectWorkProfile": "Оберіть робочий профіль",
+          "selectLecturer": "Оберіть викладача"
         },
         "positions": {
           "associateProfessor": "Доцент",
