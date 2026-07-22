@@ -797,7 +797,12 @@
           "associateProfessor": "Доцент",
           "seniorLecturer": "Старший викладач"
         },
+        "employee-category": {
+          "npp": "Науково-педагогічний працівник",
+          "pp": "Педагогічний працівник"
+        },
         "status": {
+          "pending": "У черзі",
           "ready": "Готово",
           "inProgress": "У роботі",
           "error": "Помилка"
@@ -820,7 +825,8 @@
           "department": "Кафедра",
           "position": "Посада",
           "status": "Статус",
-          "actions": "Дії"
+          "actions": "Дії",
+          "empty": "Запитів на формування звітів ще немає"
         }
       }
     },

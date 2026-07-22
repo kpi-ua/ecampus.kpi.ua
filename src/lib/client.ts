@@ -28,6 +28,7 @@ const Client = (basePath: string) => {
 
     const cacheOption = 'next' in otherOptions ? {} : { cache: 'no-cache' as const };
 
+    console.log(jwt);
     const response = await fetch<T>(input, {
       ...cacheOption,
       headers: {

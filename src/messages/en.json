@@ -797,7 +797,12 @@
           "associateProfessor": "Associate Professor",
           "seniorLecturer": "Senior Lecturer"
         },
+        "employee-category": {
+          "npp": "Scientific and pedagogical employee",
+          "pp": "Pedagogical employee"
+        },
         "status": {
+          "pending": "Pending",
           "ready": "Ready",
           "inProgress": "In progress",
           "error": "Error"
@@ -820,7 +825,8 @@
           "department": "Department",
           "position": "Position",
           "status": "Status",
-          "actions": "Actions"
+          "actions": "Actions",
+          "empty": "No report requests yet"
         }
       }
     },
