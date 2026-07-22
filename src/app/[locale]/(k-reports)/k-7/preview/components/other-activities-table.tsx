@@ -2,10 +2,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn, formatNumber } from '@/lib/utils';
 import { K7OtherEducationalActivity } from '@/types/models/k7-form';
 
+import { EDUCATION_CATEGORY_TITLES } from '../constants';
+import { groupOtherActivities } from '../utils/group-other-activities';
 import { EmptyTableRow } from './empty-table-row';
 import { summaryCellClassName, summaryRowClassName, tableCellClassName, tableHeadClassName } from './table-styles';
-import { getEducationLevelTitle } from '../utils/get-education-level-title';
-import { groupOtherActivities } from '../utils/group-other-activities';
 
 interface Props {
   rows: K7OtherEducationalActivity[];
@@ -67,10 +67,8 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
       </TableHeader>
       <TableBody>
         {rows.length === 0 && <EmptyTableRow colSpan={12} />}
-        {activityGroups.map((group, groupIndex) => {
-          const hasEducationLevelSubrows = group.rows.some((row) => row.groupCodesSem1 || row.groupCodesSem2);
-
-          return group.rows.map((row, rowIndex) => {
+        {activityGroups.map((group, groupIndex) =>
+          group.rows.map((row, rowIndex) => {
             const hasFirstSemesterData = hasSemesterData(row.groupCodesSem1, row.studentCountSem1, row.hoursSem1);
             const hasSecondSemesterData = hasSemesterData(row.groupCodesSem2, row.studentCountSem2, row.hoursSem2);
 
@@ -84,18 +82,12 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
                     <TableCell rowSpan={group.rows.length} className={tableCellClassName}>
                       {groupIndex + 1}
                     </TableCell>
-                    <TableCell
-                      rowSpan={group.rows.length}
-                      colSpan={hasEducationLevelSubrows ? 1 : 2}
-                      className={tableCellClassName}
-                    >
+                    <TableCell rowSpan={group.rows.length} className={tableCellClassName}>
                       {group.workType}
                     </TableCell>
                   </>
                 )}
-                {hasEducationLevelSubrows && (
-                  <TableCell className={tableCellClassName}>{getEducationLevelTitle(row)}</TableCell>
-                )}
+                <TableCell className={tableCellClassName}>{EDUCATION_CATEGORY_TITLES[row.educationCategory]}</TableCell>
                 <TableCell className={tableCellClassName}>{hasFirstSemesterData ? (row.course ?? '—') : '—'}</TableCell>
                 <TableCell className={tableCellClassName}>{row.groupCodesSem1 || '—'}</TableCell>
                 <TableCell className={tableCellClassName}>
@@ -113,8 +105,8 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
                 <TableCell className={tableCellClassName}>{formatNumber(row.grandTotal, 2)}</TableCell>
               </TableRow>
             );
-          });
-        })}
+          }),
+        )}
         {rows.length > 0 && (
           <TableRow className={summaryRowClassName}>
             <TableCell colSpan={3} className={summaryCellClassName}>

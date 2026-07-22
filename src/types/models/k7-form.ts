@@ -59,6 +59,8 @@ export interface K7TeachingDiscipline {
   semester: number;
 }
 
+export type K7EducationCategory = 'Bachelor' | 'MasterProfessional' | 'MasterScientific';
+
 export interface K7OtherEducationalActivity {
   employeeCategory: string;
   employeeId: number;
@@ -66,6 +68,7 @@ export interface K7OtherEducationalActivity {
   position: string;
   salary: number;
   workType: string;
+  educationCategory: K7EducationCategory;
   course: number | null;
   groupCodesSem1: string | null;
   studentCountSem1: number;

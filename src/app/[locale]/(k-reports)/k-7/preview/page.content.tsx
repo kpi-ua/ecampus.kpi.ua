@@ -56,7 +56,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
             {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName} · {academicYear}
           </Paragraph>
         </div>
-        <DownloadPdfButton k7ReportRequestId={preview.header.k7ReportRequestId} />
+        <DownloadPdfButton />
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
@@ -105,7 +105,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
               · Розрахункова ставка: {preview.header.totalEmploymentRate} ст.
             </span>
           </p>
-          <DownloadPdfButton k7ReportRequestId={preview.header.k7ReportRequestId} />
+          <DownloadPdfButton />
         </div>
       </div>
     </main>
