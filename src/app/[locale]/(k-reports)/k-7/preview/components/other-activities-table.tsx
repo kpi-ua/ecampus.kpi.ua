@@ -18,6 +18,7 @@ const formatSemesterHours = (hours: number) => (hours > 0 ? formatNumber(hours, 
 
 export const OtherActivitiesTable = ({ rows }: Props) => {
   const semesterHeadClassName = cn(tableHeadClassName, 'h-[32px] text-center');
+  const borderedSemesterHeadClassName = cn(semesterHeadClassName, 'border-neutral-divider border-x');
   const activityGroups = groupOtherActivities(rows);
 
   return (
@@ -44,10 +45,10 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
           <TableHead rowSpan={2} colSpan={2} className={tableHeadClassName}>
             Вид роботи
           </TableHead>
-          <TableHead colSpan={4} className={semesterHeadClassName}>
+          <TableHead colSpan={4} className={borderedSemesterHeadClassName}>
             1 семестр
           </TableHead>
-          <TableHead colSpan={4} className={semesterHeadClassName}>
+          <TableHead colSpan={4} className={borderedSemesterHeadClassName}>
             2 семестр
           </TableHead>
           <TableHead rowSpan={2} className={tableHeadClassName}>
@@ -55,14 +56,14 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
           </TableHead>
         </TableRow>
         <TableRow className="hover:bg-white">
-          <TableHead className={semesterHeadClassName}>Курс</TableHead>
-          <TableHead className={semesterHeadClassName}>Шифри груп</TableHead>
-          <TableHead className={semesterHeadClassName}>К-сть здобувачів</TableHead>
-          <TableHead className={semesterHeadClassName}>Годин</TableHead>
-          <TableHead className={semesterHeadClassName}>Курс</TableHead>
-          <TableHead className={semesterHeadClassName}>Шифри груп</TableHead>
-          <TableHead className={semesterHeadClassName}>К-сть здобувачів</TableHead>
-          <TableHead className={semesterHeadClassName}>Годин</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>Курс</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>Шифри груп</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>К-сть здобувачів</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>Годин</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>Курс</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>Шифри груп</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>К-сть здобувачів</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>Годин</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
