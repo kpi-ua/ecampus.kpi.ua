@@ -16,7 +16,14 @@ export interface K7FormFilters {
   lecturers: K7FormLecturer[];
 }
 
-export type K7ReportRequestStatus = 'Pending' | 'InProgress' | 'Ready' | 'Error';
+export const K7_REPORT_REQUEST_STATUS = {
+  Pending: 'Pending',
+  InProgress: 'InProgress',
+  Ready: 'Ready',
+  Error: 'Error',
+} as const;
+
+export type K7ReportRequestStatus = (typeof K7_REPORT_REQUEST_STATUS)[keyof typeof K7_REPORT_REQUEST_STATUS];
 
 export interface K7ReportRequest {
   k7ReportRequestId: string;
@@ -59,7 +66,13 @@ export interface K7TeachingDiscipline {
   semester: number;
 }
 
-export type K7EducationCategory = 'Bachelor' | 'MasterProfessional' | 'MasterScientific';
+export const K7_EDUCATION_CATEGORY = {
+  Bachelor: 'Bachelor',
+  MasterProfessional: 'MasterProfessional',
+  MasterScientific: 'MasterScientific',
+} as const;
+
+export type K7EducationCategory = (typeof K7_EDUCATION_CATEGORY)[keyof typeof K7_EDUCATION_CATEGORY];
 
 export interface K7OtherEducationalActivity {
   employeeCategory: string;

@@ -813,6 +813,12 @@
           "downloadPdf": "Download PDF",
           "none": "Action unavailable"
         },
+        "errorDialog": {
+          "title": "Failed to generate report",
+          "description": "An error occurred while collecting data. Please try again.",
+          "close": "Close",
+          "retry": "Try again"
+        },
         "footer": {
           "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
           "privacy": "Privacy policy",

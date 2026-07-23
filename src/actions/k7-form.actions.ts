@@ -15,8 +15,8 @@ const getAchievementSection = (achievement: K7DetailedAchievement): number => {
 
   const workType = achievement.workType.trim().toLocaleLowerCase('uk-UA');
 
-  if (workType.startsWith('науков')) return 2;
-  if (workType.startsWith('метод')) return 3;
+  if (workType.startsWith('Наукова')) return 2;
+  if (workType.startsWith('Методична')) return 3;
   if (workType.startsWith('орган')) return 4;
 
   return 5;
