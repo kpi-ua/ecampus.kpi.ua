@@ -80,7 +80,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                 </Badge>
               </TableCell>
               <TableCell className="text-right">
-                {isReady ? (
+                {isReady && (
                   <div className="flex justify-end gap-2">
                     <Button asChild variant="secondary" size="small" className="h-10 rounded-[8px] px-5 py-0 text-xs">
                       <Link href={`/k-7/preview?k7ReportRequestId=${encodeURIComponent(report.k7ReportRequestId)}`}>
@@ -95,8 +95,6 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                       </Button>
                     )}
                   </div>
-                ) : (
-                  <span className="inline-flex h-10 items-center justify-center px-3 text-neutral-700">--</span>
                 )}
               </TableCell>
             </TableRow>
