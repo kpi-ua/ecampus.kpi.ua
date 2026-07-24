@@ -93,15 +93,25 @@ export interface K7OtherEducationalActivity {
   year: number;
 }
 
+export const K7_ACHIEVEMENT_WORK_TYPE = {
+  Scientific: 0,
+  Methodical: 1,
+  Organizational: 2,
+  Other: 3,
+  Syllabus: 4,
+  Article: 5,
+} as const;
+
+export type K7AchievementWorkType = (typeof K7_ACHIEVEMENT_WORK_TYPE)[keyof typeof K7_ACHIEVEMENT_WORK_TYPE];
+
 export interface K7DetailedAchievement {
   employeeCategory: string;
   employeeId: number;
   departmentId: number;
   position: string;
   salary: number;
-  workType: string;
+  workType: K7AchievementWorkType;
   workTypeDescription: string;
-  sectionNumber?: number;
   workDescription: string;
   hoursUsed: number;
   proofOfPerformance: string | null;

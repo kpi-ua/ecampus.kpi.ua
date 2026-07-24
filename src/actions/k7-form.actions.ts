@@ -2,25 +2,13 @@
 
 import { campusFetch } from '@/lib/client';
 import {
-  K7DetailedAchievement,
+  K7_ACHIEVEMENT_WORK_TYPE,
   K7FormFilters,
   K7HtmlPreview,
   K7HtmlPreviewFlat,
   K7HtmlPreviewResponse,
   K7ReportRequest,
 } from '@/types/models/k7-form';
-
-const getAchievementSection = (achievement: K7DetailedAchievement): number => {
-  if (achievement.sectionNumber) return achievement.sectionNumber;
-
-  const workType = achievement.workType.trim().toLocaleLowerCase('uk-UA');
-
-  if (workType.startsWith('Наукова')) return 2;
-  if (workType.startsWith('Методична')) return 3;
-  if (workType.startsWith('орган')) return 4;
-
-  return 5;
-};
 
 const normalizeK7FormPreview = (response: K7HtmlPreviewResponse): K7HtmlPreview => {
   const flatResponse = response as K7HtmlPreviewFlat;
@@ -29,26 +17,33 @@ const normalizeK7FormPreview = (response: K7HtmlPreviewResponse): K7HtmlPreview 
   const otherEducationalActivities = flatResponse.otherEducationalActivities ?? [];
   const detailedAchievements = flatResponse.detailedAchievements ?? [];
 
-  const section2 = detailedAchievements.filter((achievement) => getAchievementSection(achievement) === 2);
-  const section3 = detailedAchievements.filter((achievement) => getAchievementSection(achievement) === 3);
-  const section4 = detailedAchievements.filter((achievement) => getAchievementSection(achievement) === 4);
-  const section5 = detailedAchievements.filter((achievement) => getAchievementSection(achievement) === 5);
+  const achievementsByWorkType = Object.groupBy(detailedAchievements, ({ workType }) => workType);
+  const scientificAchievements = [
+    ...(achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Scientific] ?? []),
+    ...(achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Article] ?? []),
+  ];
+  const methodicalAchievements = [
+    ...(achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Methodical] ?? []),
+    ...(achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Syllabus] ?? []),
+  ];
+  const organizationalAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Organizational] ?? [];
+  const otherAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Other] ?? [];
 
   const educationalHours =
     teachingDisciplines.reduce((total, item) => total + item.totalVolume, 0) +
     otherEducationalActivities.reduce((total, item) => total + item.grandTotal, 0);
-  const scientificHours = section2.reduce((total, item) => total + item.hoursUsed, 0);
-  const methodicalHours = section3.reduce((total, item) => total + item.hoursUsed, 0);
-  const organizationalHours = section4.reduce((total, item) => total + item.hoursUsed, 0);
-  const otherHours = section5.reduce((total, item) => total + item.hoursUsed, 0);
+  const scientificHours = scientificAchievements.reduce((total, item) => total + item.hoursUsed, 0);
+  const methodicalHours = methodicalAchievements.reduce((total, item) => total + item.hoursUsed, 0);
+  const organizationalHours = organizationalAchievements.reduce((total, item) => total + item.hoursUsed, 0);
+  const otherHours = otherAchievements.reduce((total, item) => total + item.hoursUsed, 0);
 
   return {
     header: flatResponse.header,
     section1: { teachingDisciplines, otherEducationalActivities },
-    section2,
-    section3,
-    section4,
-    section5,
+    section2: scientificAchievements,
+    section3: methodicalAchievements,
+    section4: organizationalAchievements,
+    section5: otherAchievements,
     section6: {
       educationalHours,
       scientificHours,
@@ -82,9 +77,7 @@ export const getK7FormRequests = async (all = false): Promise<K7ReportRequest[]>
 };
 
 export const getK7FormPreview = async (k7ReportRequestId: string): Promise<K7HtmlPreview> => {
-  const response = await campusFetch<K7HtmlPreviewResponse>(
-    `/k7-form/requests/${k7ReportRequestId}`,
-  );
+  const response = await campusFetch<K7HtmlPreviewResponse>(`/k7-form/requests/${k7ReportRequestId}`);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch K-7 preview: ${response.status} ${response.statusText}`);

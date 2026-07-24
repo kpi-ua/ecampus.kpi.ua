@@ -108,7 +108,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                   {isReady && (
                     <div className="flex justify-end gap-2">
                       <Button asChild variant="secondary" size="small" className="h-10 rounded-[8px] px-5 py-0 text-xs">
-                        <Link href={`/k-7/preview?k7ReportRequestId=${encodeURIComponent(report.k7ReportRequestId)}`}>
+                        <Link href={`/k-7/preview?requestId=${encodeURIComponent(report.k7ReportRequestId)}`}>
                           {t('actions.view')}
                         </Link>
                       </Button>

@@ -5,15 +5,15 @@ import { getK7FormPreview } from '@/actions/k7-form.actions';
 import { K7PreviewContent } from './page.content';
 
 interface Props {
-  searchParams: Promise<{ k7ReportRequestId?: string }>;
+  searchParams: Promise<{ requestId?: string }>;
 }
 
 export default async function K7PreviewPage({ searchParams }: Props) {
-  const { k7ReportRequestId } = await searchParams;
+  const { requestId } = await searchParams;
 
-  if (!k7ReportRequestId) notFound();
+  if (!requestId) notFound();
 
-  const preview = await getK7FormPreview(k7ReportRequestId);
+  const preview = await getK7FormPreview(requestId);
 
   return <K7PreviewContent preview={preview} />;
 }
