@@ -180,10 +180,9 @@
   },
   "auth": {
     "login": {
-      "header": "Sign in",
-      "description": "Welcome back! Please enter your credentials to continue accessing your account and enjoy all available features.",
+      "header": "Sign in to Electronic Campus",
+      "description": "The university system for managing the educational process, tracking academic progress, and interacting within the university.",
       "or": "or",
-      "rememberMe": "Remember me",
       "passwordReset": "Forgot my password",
       "publicLink": {
         "support": "User support",

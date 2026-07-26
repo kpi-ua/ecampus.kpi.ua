@@ -10,7 +10,7 @@ interface PublicLinkProps {
 
 export const PublicLink = ({ children, icon, href, target }: PublicLinkProps) => {
   return (
-    <Link href={href} target={target} className="flex flex-col items-center gap-2">
+    <Link href={href} target={target} className="flex flex-col items-center gap-2 text-sm">
       {icon}
       <span className="text-center">{children}</span>
     </Link>
