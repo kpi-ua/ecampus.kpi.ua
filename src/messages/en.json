@@ -236,7 +236,13 @@
         "button": "Continue"
       }
     },
-    "footer": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute<br></br>Developer: <kbislink>Design bureau of information systems</kbislink>"
+    "footer": {
+      "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
+      "developer": "Developer: <kbislink>Design bureau of information systems</kbislink>",
+      "privacy-policy": "Privacy policy",
+      "terms-of-use": "Terms of use",
+      "legal-links": "Legal documents"
+    }
   },
   "public": {
     "verification": {
