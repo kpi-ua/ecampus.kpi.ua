@@ -506,6 +506,7 @@
       },
       "contact": {
         "title": "Contact",
+        "corporate-email": "Corporate email",
         "add-contact": "Add contact",
         "contact-type": "Contact Type",
         "choose-contact-type": "Choose contact type",
