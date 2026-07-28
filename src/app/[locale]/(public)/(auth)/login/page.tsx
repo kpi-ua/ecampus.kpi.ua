@@ -25,12 +25,18 @@ export default async function LoginPage({ params }: LocaleProps) {
   const t = await getTranslations(INTL_NAMESPACE);
 
   return (
-    <div className="pt-2">
-      <Heading2 className="leading-2xl lg:leading-3xl text-center text-3xl lg:text-4xl">{t('header')}</Heading2>
-      <Description className="px-2 text-center">{t('description')}</Description>
-      <KPIIDLogin />
-      <TextDivider>{t('or')}</TextDivider>
-      <CredentialsLogin />
+    <div>
+      <div className="flex flex-col gap-[12px]">
+        <Heading2 className="leading-2xl lg:leading-4xl mx-auto max-w-[400px] text-center text-3xl lg:text-4xl">
+          {t('header')}
+        </Heading2>
+        <Description className="p-0 text-center">{t('description')}</Description>
+      </div>
+      <div className="mt-[28px]">
+        <KPIIDLogin />
+        <TextDivider>{t('or')}</TextDivider>
+        <CredentialsLogin />
+      </div>
     </div>
   );
 }
