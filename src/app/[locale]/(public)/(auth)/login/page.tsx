@@ -34,7 +34,9 @@ export default async function LoginPage({ params }: LocaleProps) {
       </div>
       <div className="mt-[28px]">
         <KPIIDLogin />
-        <TextDivider>{t('or')}</TextDivider>
+        <div className="my-[24px]">
+          <TextDivider>{t('or')}</TextDivider>
+        </div>
         <CredentialsLogin />
       </div>
     </div>

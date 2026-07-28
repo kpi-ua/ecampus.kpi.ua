@@ -511,6 +511,7 @@
       },
       "contact": {
         "title": "Контакт",
+        "corporate-email": "Корпоративна електронна пошта",
         "add-contact": "Додати контакт",
         "contact-type": "Вид контакту",
         "choose-contact-type": "Оберіть вид контакту",
