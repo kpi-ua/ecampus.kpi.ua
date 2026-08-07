@@ -49,4 +49,5 @@ export const MODULES: Module[] = [
   { name: 'pk2026', isExternal: true },
   { name: 'pk2026admin', isExternal: true },
   { name: 'studbonuspoints', isExternal: true },
+  { name: 'studbonuspointsrights', isExternal: false },
 ];
