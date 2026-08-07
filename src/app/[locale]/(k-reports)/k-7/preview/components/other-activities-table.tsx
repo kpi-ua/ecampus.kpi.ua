@@ -2,7 +2,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { cn, formatNumber } from '@/lib/utils';
 import { K7OtherEducationalActivity } from '@/types/models/k7-form';
 
-import { EDUCATION_CATEGORY_TITLES } from '../constants';
+import { EDUCATION_LEVEL_TITLES } from '../constants';
 import { groupOtherActivities } from '../utils/group-other-activities';
 import { EmptyTableRow } from './empty-table-row';
 import { summaryCellClassName, summaryRowClassName, tableCellClassName, tableHeadClassName } from './table-styles';
@@ -88,7 +88,7 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
                     </TableCell>
                   </>
                 )}
-                <TableCell className={tableCellClassName}>{EDUCATION_CATEGORY_TITLES[row.educationCategory]}</TableCell>
+                <TableCell className={tableCellClassName}>{EDUCATION_LEVEL_TITLES[row.educationLevel]}</TableCell>
                 <TableCell className={tableCellClassName}>{hasFirstSemesterData ? (row.course ?? '—') : '—'}</TableCell>
                 <TableCell className={tableCellClassName}>{row.groupCodesSem1 || '—'}</TableCell>
                 <TableCell className={tableCellClassName}>

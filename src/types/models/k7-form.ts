@@ -66,13 +66,13 @@ export interface K7TeachingDiscipline {
   semester: number;
 }
 
-export const K7_EDUCATION_CATEGORY = {
+export const K7_EDUCATION_LEVEL = {
   Bachelor: 'Bachelor',
   MasterProfessional: 'MasterProfessional',
   MasterScientific: 'MasterScientific',
 } as const;
 
-export type K7EducationCategory = (typeof K7_EDUCATION_CATEGORY)[keyof typeof K7_EDUCATION_CATEGORY];
+export type K7EducationLevel = (typeof K7_EDUCATION_LEVEL)[keyof typeof K7_EDUCATION_LEVEL];
 
 export interface K7OtherEducationalActivity {
   employeeCategory: string;
@@ -81,7 +81,7 @@ export interface K7OtherEducationalActivity {
   position: string;
   salary: number;
   workType: string;
-  educationCategory: K7EducationCategory;
+  educationLevel: K7EducationLevel;
   course: number | null;
   groupCodesSem1: string | null;
   studentCountSem1: number;
@@ -94,12 +94,12 @@ export interface K7OtherEducationalActivity {
 }
 
 export const K7_ACHIEVEMENT_WORK_TYPE = {
-  Scientific: 0,
-  Methodical: 1,
-  Organizational: 2,
-  Other: 3,
-  Syllabus: 4,
-  Article: 5,
+  Scientific: 'Scientific',
+  Methodical: 'Methodical',
+  Organizational: 'Organizational',
+  Other: 'Other',
+  Syllabus: 'Syllabus',
+  Article: 'Article',
 } as const;
 
 export type K7AchievementWorkType = (typeof K7_ACHIEVEMENT_WORK_TYPE)[keyof typeof K7_ACHIEVEMENT_WORK_TYPE];

@@ -1,4 +1,4 @@
-import { K7_EDUCATION_CATEGORY, K7EducationCategory } from '@/types/models/k7-form';
+import { K7_EDUCATION_LEVEL, K7EducationLevel } from '@/types/models/k7-form';
 
 type EmployeeCategoryTranslationKey = 'npp' | 'pp';
 
@@ -7,8 +7,8 @@ export const EMPLOYEE_CATEGORY_TRANSLATION_KEYS: Record<string, EmployeeCategory
   PP: 'pp',
 };
 
-export const EDUCATION_CATEGORY_TITLES: Record<K7EducationCategory, string> = {
-  [K7_EDUCATION_CATEGORY.Bachelor]: 'бакалаврів',
-  [K7_EDUCATION_CATEGORY.MasterProfessional]: 'магістрів ОПП',
-  [K7_EDUCATION_CATEGORY.MasterScientific]: 'магістрів ОНП',
+export const EDUCATION_LEVEL_TITLES: Record<K7EducationLevel, string> = {
+  [K7_EDUCATION_LEVEL.Bachelor]: 'бакалаврів',
+  [K7_EDUCATION_LEVEL.MasterProfessional]: 'магістрів ОПП',
+  [K7_EDUCATION_LEVEL.MasterScientific]: 'магістрів ОНП',
 };
