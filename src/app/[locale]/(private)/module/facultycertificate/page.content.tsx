@@ -1,13 +1,15 @@
 'use client';
 
-import { startTransition, useState } from 'react';
+import { useState } from 'react';
 import { DeanCeritificateKey } from './constants';
 import { Card } from '@/components/ui/card';
 import { AllDocsTable } from './components/all-docs-table';
 import { Certificate } from '@/types/models/certificate/certificate';
 import { Input } from '@/components/ui/input';
-import { MagnifyingGlassRegular } from '@/app/images';
+import { Button } from '@/components/ui/button';
+import { ArrowClockwise, MagnifyingGlassRegular } from '@/app/images';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { getAllFacultyCertificates } from '@/actions/certificates.actions';
 import qs from 'query-string';
 import { Tabs, TabSheetTrigger, TabsList } from '@/components/ui/tabs';
 import { useTranslations } from 'next-intl';
@@ -34,8 +36,10 @@ export default function FacultyCertificatePageContent({
   const [selectedSheet, setSelectedSheet] = useState(DeanCeritificateKey.All);
 
   const [search, setSearch] = useState(searchFilter);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const t = useTranslations(`private.facultycertificate.sheet`);
+  const tButton = useTranslations(`private.facultycertificate.button`);
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
@@ -48,9 +52,19 @@ export default function FacultyCertificatePageContent({
     }
     delete params.page;
 
-    startTransition(() => {
-      router.push(`/module/facultycertificate?${qs.stringify(params)}`);
-    });
+    router.push(`/module/facultycertificate?${qs.stringify(params)}`);
+  };
+
+  const handleRefreshClick = async () => {
+    setIsRefreshing(true);
+    const minDelay = new Promise((resolve) => setTimeout(resolve, 5000));
+    try {
+      // Fetch fresh data from server and wait minimum 5 seconds
+      await Promise.all([getAllFacultyCertificates({ filter: searchFilter }), minDelay]);
+      router.refresh();
+    } finally {
+      setIsRefreshing(false);
+    }
   };
 
   const sheetList = [
@@ -73,19 +87,22 @@ export default function FacultyCertificatePageContent({
       </Tabs>
 
       <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
+        <div className="mb-4 flex items-center gap-4">
+          {selectedSheet === DeanCeritificateKey.All && (
+            <Input
+              icon={<MagnifyingGlassRegular />}
+              placeholder="Пошук за імʼям студента, призначенням..."
+              value={search}
+              onChange={(e) => handleSearchChange(e.target.value)}
+              className="w-full max-w-md"
+            />
+          )}
+          <Button variant="secondary" icon={<ArrowClockwise />} loading={isRefreshing} onClick={handleRefreshClick}>
+            {tButton('refresh')}
+          </Button>
+        </div>
         {selectedSheet === DeanCeritificateKey.All && (
-          <>
-            <div className="mb-4 flex">
-              <Input
-                icon={<MagnifyingGlassRegular />}
-                placeholder="Пошук за імʼям студента, призначенням..."
-                value={search}
-                onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full max-w-md"
-              />
-            </div>
-            <AllDocsTable certificates={allCertificates} totalCount={totalCount} />
-          </>
+          <AllDocsTable certificates={allCertificates} totalCount={totalCount} />
         )}
         {selectedSheet === DeanCeritificateKey.Pending && <AllDocsTable certificates={createdCertificates} />}
         {selectedSheet === DeanCeritificateKey.Approved && <AllDocsTable certificates={approvedCertificates} />}

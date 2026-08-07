@@ -16,6 +16,7 @@ import { usePagination } from '@/hooks/use-pagination';
 import { Certificate } from '@/types/models/certificate/certificate';
 import saveAs from 'file-saver';
 import { PAGE_SIZE_SMALL } from '@/lib/constants/page-size';
+import { base64ToBlob } from '@/lib/utils';
 
 interface Props {
   certificates: Certificate[];
@@ -28,18 +29,19 @@ export function HistoryTable({ certificates }: Props) {
   const { paginatedItems: paginatedCertificates, page } = usePagination(PAGE_SIZE_SMALL, certificates);
 
   const handleDownload = async (id: number) => {
-    const { filename, blob } = await getCertificatePDF(id);
-
+    const { filename, base64 } = await getCertificatePDF(id);
+    const blob = base64ToBlob(base64, 'application/pdf');
     saveAs(blob, filename);
   };
 
   return (
-    <Card className="rounded-b-6 col-span-full flex w-full flex-[2] basis-4/7 flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
+    <Card className="rounded-b-6 col-span-full flex w-full min-w-0 flex-1 flex-col gap-4 bg-white p-4 sm:gap-6 sm:p-6 md:p-9 xl:col-span-5">
       <Heading6>{tTable('title')}</Heading6>
       <Table>
         <TableHeader>
           <TableRow>
             <TableHead>{tTable('type')}</TableHead>
+            <TableHead>{tTable('documentNumber')}</TableHead>
             <TableHead>{tTable('date')}</TableHead>
             <TableHead>{tTable('status')}</TableHead>
             <TableHead>{tTable('actions')}</TableHead>
@@ -47,24 +49,36 @@ export function HistoryTable({ certificates }: Props) {
         </TableHeader>
         <TableBody>
           {paginatedCertificates.map((certificate) => {
-            const shouldShowDownloadButton =
-              certificate.status === CertificateStatus.Processed || certificate.status === CertificateStatus.Signed;
+            const isElectronic = !certificate.originalRequired;
+            const canDownload =
+              isElectronic &&
+              (certificate.status === CertificateStatus.Processed || certificate.status === CertificateStatus.Signed);
+            const isReadyAtDeanOffice = certificate.originalRequired && certificate.status === CertificateStatus.Signed;
 
             return (
               <TableRow key={certificate.id}>
                 <TableCell className="w-[140px]">
                   <Paragraph className="m-0 text-sm font-normal">{tEnums(dash(certificate.type))}</Paragraph>
-                  <Paragraph className="m-0 text-sm font-normal text-neutral-600">{certificate.purpose}</Paragraph>
+                </TableCell>
+                <TableCell className="w-[140px]">
+                  {certificate.documentNumber ? (
+                    <Paragraph className="m-0 text-sm font-medium">{certificate.documentNumber}</Paragraph>
+                  ) : (
+                    <Paragraph className="m-0 text-sm text-neutral-400">—</Paragraph>
+                  )}
                 </TableCell>
                 <TableCell className="w-[100px]">{dayjs(certificate.created).format('DD.MM.YYYY')}</TableCell>
                 <TableCell className="w-[100px]">
                   <CertificateStatusBadge certificate={certificate} />
                 </TableCell>
                 <TableCell className="w-[100px]">
-                  {shouldShowDownloadButton && (
+                  {canDownload && (
                     <Button variant="secondary" onClick={() => handleDownload(certificate.id)}>
                       {tTable('download')}
                     </Button>
+                  )}
+                  {isReadyAtDeanOffice && (
+                    <Paragraph className="m-0 text-sm font-normal text-green-600">{tTable('readyAtDeanOffice')}</Paragraph>
                   )}
                 </TableCell>
               </TableRow>
