@@ -6,6 +6,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
+  corporateEmail?: string | null;
   scientificInterests?: string;
   userIdentifier: string;
   fullName: string;

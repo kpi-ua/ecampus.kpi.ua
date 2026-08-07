@@ -181,10 +181,9 @@
   },
   "auth": {
     "login": {
-      "header": "Sign in",
-      "description": "Welcome back! Please enter your credentials to continue accessing your account and enjoy all available features.",
+      "header": "Sign in to Electronic Campus",
+      "description": "The university system for managing the educational process, tracking academic progress, and interacting within the university.",
       "or": "or",
-      "rememberMe": "Remember me",
       "passwordReset": "Forgot my password",
       "publicLink": {
         "support": "User support",
@@ -238,7 +237,13 @@
         "button": "Continue"
       }
     },
-    "footer": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute<br></br>Developer: <kbislink>Design bureau of information systems</kbislink>"
+    "footer": {
+      "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
+      "developer": "Developer: <kbislink>Design bureau of information systems</kbislink>",
+      "privacy-policy": "Privacy policy",
+      "terms-of-use": "Terms of use",
+      "legal-links": "Legal documents"
+    }
   },
   "public": {
     "verification": {
@@ -507,6 +512,7 @@
       },
       "contact": {
         "title": "Contact",
+        "corporate-email": "Corporate email",
         "add-contact": "Add contact",
         "contact-type": "Contact Type",
         "choose-contact-type": "Choose contact type",
@@ -860,6 +866,7 @@
         "email": "A confirmation email has been sent to your new address. Please check your mailbox to verify access."
       },
       "error": {
+        "corporate-email-only": "Use a corporate address in the kpi.ua or kpi.edu.ua domain",
         "invalid-email": "Invalid email",
         "password-mismatch": "Password mismatch",
         "file-size": "Please upload a picture smaller than 1 MB.",
