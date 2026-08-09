@@ -36,6 +36,10 @@ export const K7PreviewContent = ({ preview }: Props) => {
     ? tEmployeeCategory(employeeCategoryTranslationKey)
     : preview.header.employeeCategory;
   const academicYear = `${preview.header.year}-${preview.header.year + 1}`;
+  const downloadButtonProps = {
+    requestId: preview.header.k7ReportRequestId,
+    year: preview.header.year,
+  };
 
   return (
     <main className="flex w-full min-w-0 flex-col">
@@ -56,7 +60,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
             {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName} · {academicYear}
           </Paragraph>
         </div>
-        <DownloadPdfButton />
+        <DownloadPdfButton {...downloadButtonProps} />
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
@@ -105,7 +109,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
               · Розрахункова ставка: {preview.header.totalEmploymentRate} ст.
             </span>
           </p>
-          <DownloadPdfButton />
+          <DownloadPdfButton {...downloadButtonProps} />
         </div>
       </div>
     </main>

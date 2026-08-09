@@ -1,7 +1,10 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import { campusFetch } from '@/lib/client';
 import {
+  CreateK7ReportRequestInput,
   K7_ACHIEVEMENT_WORK_TYPE,
   K7FormFilters,
   K7HtmlPreview,
@@ -73,6 +76,23 @@ export const getK7FormRequests = async (all = false): Promise<K7ReportRequest[]>
   return response.json();
 };
 
+export const createK7FormRequest = async (input: CreateK7ReportRequestInput): Promise<K7ReportRequest> => {
+  const response = await campusFetch<K7ReportRequest>('/k7-form/requests', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to create K-7 request: ${response.status} ${response.statusText}`);
+  }
+
+  const reportRequest = await response.json();
+  revalidatePath('/k-7');
+
+  return reportRequest;
+};
+
 export const getK7FormPreview = async (requestId: string): Promise<K7HtmlPreview> => {
   const response = await campusFetch<K7ReportRequestDetails>(`/k7-form/requests/${requestId}`);
 
@@ -81,4 +101,16 @@ export const getK7FormPreview = async (requestId: string): Promise<K7HtmlPreview
   }
 
   return normalizeK7FormPreview(await response.json());
+};
+
+export const getK7FormPdf = async (requestId: string): Promise<Blob> => {
+  const response = await campusFetch(`/k7-form/requests/${requestId}/pdf`, {
+    headers: { Accept: 'application/pdf' },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to download K-7 PDF: ${response.status} ${response.statusText}`);
+  }
+
+  return response.blob();
 };

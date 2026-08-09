@@ -40,6 +40,14 @@ export interface K7ReportRequest {
   completedAt: string | null;
 }
 
+export interface CreateK7ReportRequestInput {
+  targetUserAccountId?: number;
+  year: number;
+  employeeId: number;
+  departmentId: number;
+  position: string;
+}
+
 export interface K7TeachingDiscipline {
   employeeCategory: string;
   employeeId: number;

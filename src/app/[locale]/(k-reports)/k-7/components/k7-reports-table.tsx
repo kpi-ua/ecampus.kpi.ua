@@ -13,9 +13,9 @@ import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from
 
 import { K7ReportErrorDialog } from './k7-report-error-dialog';
 
-type ReportStatusKey = 'pending' | 'ready' | 'inProgress' | 'error';
+const CDN_BASE_URL = 'https://cdn.cloud.kpi.ua';
 
-const CDN_BASE_URL = 'https://cdn.cloud.kpi.ua/';
+type ReportStatusKey = 'pending' | 'ready' | 'inProgress' | 'error';
 
 interface Props {
   reports: K7ReportRequest[];
@@ -119,7 +119,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                           size="small"
                           className="h-10 rounded-[8px] px-5 py-0 text-xs"
                         >
-                          <a href={new URL(report.s3StorageKey, CDN_BASE_URL).href} download>
+                          <a href={`${CDN_BASE_URL}/${report.s3StorageKey}`} download>
                             {t('actions.downloadPdf')}
                           </a>
                         </Button>

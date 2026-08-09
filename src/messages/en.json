@@ -819,6 +819,11 @@
           "downloadPdf": "Download PDF",
           "none": "Action unavailable"
         },
+        "generation": {
+          "title": "Report generation",
+          "cardTitle": "The report is being generated in the background",
+          "inProgress": "We will email you when the report is ready. This may take a few minutes."
+        },
         "errorDialog": {
           "title": "Failed to generate report",
           "description": "An error occurred while collecting data. Please try again.",
