@@ -13,8 +13,6 @@ import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from
 
 import { K7ReportErrorDialog } from './k7-report-error-dialog';
 
-type ReportStatusKey = 'pending' | 'ready' | 'inProgress' | 'error';
-
 const CDN_BASE_URL = 'https://cdn.cloud.kpi.ua/';
 
 interface Props {
@@ -22,18 +20,11 @@ interface Props {
   departmentNames: Record<number, string>;
 }
 
-const statusTranslationKey: Record<K7ReportRequestStatus, ReportStatusKey> = {
-  [K7_REPORT_REQUEST_STATUS.Pending]: 'pending',
-  [K7_REPORT_REQUEST_STATUS.InProgress]: 'inProgress',
-  [K7_REPORT_REQUEST_STATUS.Ready]: 'ready',
-  [K7_REPORT_REQUEST_STATUS.Error]: 'error',
-};
-
-const statusBadgeClassName: Record<ReportStatusKey, string> = {
-  pending: 'border-other-blue bg-other-blue/10 text-other-blue',
-  ready: 'border-status-success-300 bg-status-success-100 text-status-success-300',
-  inProgress: 'border-other-blue bg-other-blue/10 text-other-blue',
-  error: 'border-status-danger-300 bg-status-danger-100 text-status-danger-300',
+const statusBadgeClassName: Record<K7ReportRequestStatus, string> = {
+  [K7_REPORT_REQUEST_STATUS.Pending]: 'border-other-blue bg-other-blue/10 text-other-blue',
+  [K7_REPORT_REQUEST_STATUS.InProgress]: 'border-other-blue bg-other-blue/10 text-other-blue',
+  [K7_REPORT_REQUEST_STATUS.Ready]: 'border-status-success-300 bg-status-success-100 text-status-success-300',
+  [K7_REPORT_REQUEST_STATUS.Error]: 'border-status-danger-300 bg-status-danger-100 text-status-danger-300',
 };
 
 export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
@@ -70,7 +61,6 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
         </TableHeader>
         <TableBody>
           {reports.map((report) => {
-            const statusKey = statusTranslationKey[report.status] ?? 'inProgress';
             const isReady = report.status === K7_REPORT_REQUEST_STATUS.Ready;
             const isError = report.status === K7_REPORT_REQUEST_STATUS.Error;
 
@@ -98,10 +88,10 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                   <Badge
                     className={cn(
                       'leading-xs justify-center rounded-[8px] border px-4 py-[5px] text-xs font-semibold',
-                      statusBadgeClassName[statusKey],
+                      statusBadgeClassName[report.status],
                     )}
                   >
-                    {t(`status.${statusKey}`)}
+                    {t(`status.${report.status}`)}
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">

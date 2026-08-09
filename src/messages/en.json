@@ -808,10 +808,10 @@
           "pp": "Pedagogical employee"
         },
         "status": {
-          "pending": "Pending",
-          "ready": "Ready",
-          "inProgress": "In progress",
-          "error": "Error"
+          "Pending": "Pending",
+          "Ready": "Ready",
+          "InProgress": "In progress",
+          "Error": "Error"
         },
         "actions": {
           "generate": "Generate report",
