@@ -82,7 +82,8 @@
       "documents": "KPI documents",
       "terms-of-service": "Terms of service",
       "contacts": "Contacts",
-      "notice-board": "Notice board"
+      "notice-board": "Notice board",
+      "k-7": "K-7 Report"
     },
     "user-category": {
       "student": "Student",
@@ -780,6 +781,65 @@
         "quantity": "Quantity",
         "percent": "Share, %",
         "result": "Result"
+      }
+    },
+    "k-reports": {
+      "k-7": {
+        "title": "K-7 Report",
+        "subtitle": "Generate an individual report on completed teaching workload",
+        "tabs": {
+          "personal": "My reports",
+          "department": "Department reports"
+        },
+        "filters": {
+          "academicYear": "Academic year",
+          "workProfile": "Work profile",
+          "lecturer": "Lecturer",
+          "selectAcademicYear": "Select an academic year",
+          "selectWorkProfile": "Select a work profile",
+          "selectLecturer": "Select a lecturer"
+        },
+        "positions": {
+          "associateProfessor": "Associate Professor",
+          "seniorLecturer": "Senior Lecturer"
+        },
+        "employee-category": {
+          "npp": "Scientific and pedagogical employee",
+          "pp": "Pedagogical employee"
+        },
+        "status": {
+          "Pending": "Pending",
+          "Ready": "Ready",
+          "InProgress": "In progress",
+          "Error": "Error"
+        },
+        "actions": {
+          "generate": "Generate report",
+          "view": "View",
+          "downloadPdf": "Download PDF",
+          "none": "Action unavailable"
+        },
+        "errorDialog": {
+          "title": "Failed to generate report",
+          "description": "An error occurred while collecting data. Please try again.",
+          "close": "Close",
+          "retry": "Try again"
+        },
+        "footer": {
+          "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
+          "privacy": "Privacy policy",
+          "terms": "Terms of use",
+          "logout": "Logout"
+        },
+        "table": {
+          "createdAt": "Date and time",
+          "academicYear": "Academic year",
+          "department": "Department",
+          "position": "Position",
+          "status": "Status",
+          "actions": "Actions",
+          "empty": "No report requests yet"
+        }
       }
     },
     "settings": {

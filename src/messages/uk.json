@@ -82,7 +82,8 @@
       "documents": "Документи КПІ",
       "terms-of-service": "Правила використання",
       "contacts": "Контакти",
-      "notice-board": "Оголошення"
+      "notice-board": "Оголошення",
+      "k-7": "Звіт К-7"
     },
     "user-category": {
       "student": "Студент",
@@ -780,6 +781,65 @@
         "quantity": "Кількість",
         "percent": "Частка, %",
         "result": "Результат"
+      }
+    },
+    "k-reports": {
+      "k-7": {
+        "title": "Звіт К-7",
+        "subtitle": "Формування індивідуального звіту про виконання педагогічного навантаження",
+        "tabs": {
+          "personal": "Мої звіти",
+          "department": "Звіти кафедри"
+        },
+        "filters": {
+          "academicYear": "Навчальний рік",
+          "workProfile": "Робочий профіль",
+          "lecturer": "Викладач",
+          "selectAcademicYear": "Оберіть навчальний рік",
+          "selectWorkProfile": "Оберіть робочий профіль",
+          "selectLecturer": "Оберіть викладача"
+        },
+        "positions": {
+          "associateProfessor": "Доцент",
+          "seniorLecturer": "Старший викладач"
+        },
+        "employee-category": {
+          "npp": "Науково-педагогічний працівник",
+          "pp": "Педагогічний працівник"
+        },
+        "status": {
+          "Pending": "У черзі",
+          "Ready": "Готово",
+          "InProgress": "У роботі",
+          "Error": "Помилка"
+        },
+        "actions": {
+          "generate": "Сформувати звіт",
+          "view": "Переглянути",
+          "downloadPdf": "Завантажити PDF",
+          "none": "Дія недоступна"
+        },
+        "errorDialog": {
+          "title": "Не вдалося сформувати звіт",
+          "description": "Під час збору даних сталася помилка. Будь ласка, спробуйте ще раз.",
+          "close": "Закрити",
+          "retry": "Спробувати ще раз"
+        },
+        "footer": {
+          "rights": "Усі права захищено. © {year} КПІ ім. Ігоря Сікорського",
+          "privacy": "Політика конфіденційності",
+          "terms": "Умови використання",
+          "logout": "Вийти"
+        },
+        "table": {
+          "createdAt": "Дата та час",
+          "academicYear": "Навч. рік",
+          "department": "Кафедра",
+          "position": "Посада",
+          "status": "Статус",
+          "actions": "Дії",
+          "empty": "Запитів на формування звітів ще немає"
+        }
       }
     },
     "settings": {
