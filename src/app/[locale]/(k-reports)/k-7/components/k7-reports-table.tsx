@@ -2,7 +2,7 @@
 
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
-import { type KeyboardEvent, useState } from 'react';
+import { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -35,15 +35,6 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
     return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
   }
 
-  const handleErrorRowKeyDown = (event: KeyboardEvent<HTMLTableRowElement>) => {
-    if (event.key !== 'Enter' && event.key !== ' ') {
-      return;
-    }
-
-    event.preventDefault();
-    setErrorDialogOpen(true);
-  };
-
   return (
     <>
       <Table>
@@ -72,9 +63,6 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                     'focus-visible:outline-basic-blue cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-2px]',
                 )}
                 onClick={isError ? () => setErrorDialogOpen(true) : undefined}
-                onKeyDown={isError ? handleErrorRowKeyDown : undefined}
-                role={isError ? 'button' : undefined}
-                tabIndex={isError ? 0 : undefined}
               >
                 <TableCell className="py-4 font-normal whitespace-nowrap">
                   {dayjs(report.requestedAt).format('DD.MM.YYYY, HH:mm')}
