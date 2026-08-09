@@ -1,5 +1,7 @@
 'use server';
 
+import qs from 'query-string';
+
 import { campusFetch } from '@/lib/client';
 import {
   K7_ACHIEVEMENT_WORK_TYPE,
@@ -53,8 +55,8 @@ const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview
 };
 
 export const getK7FormFilters = async (targetAccountId?: number): Promise<K7FormFilters> => {
-  const query = targetAccountId === undefined ? '' : `?targetAccountId=${targetAccountId}`;
-  const response = await campusFetch<K7FormFilters>(`/k7-form/filters${query}`);
+  const url = qs.stringifyUrl({ url: '/k7-form/filters', query: { targetAccountId } });
+  const response = await campusFetch<K7FormFilters>(url);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch K-7 filters: ${response.status} ${response.statusText}`);
