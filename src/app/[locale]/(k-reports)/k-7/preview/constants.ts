@@ -11,4 +11,6 @@ export const EDUCATION_LEVEL_TITLES: Record<K7EducationLevel, string> = {
   [K7_EDUCATION_LEVEL.Bachelor]: 'бакалаврів',
   [K7_EDUCATION_LEVEL.MasterProfessional]: 'магістрів ОПП',
   [K7_EDUCATION_LEVEL.MasterScientific]: 'магістрів ОНП',
+  [K7_EDUCATION_LEVEL.PhD]: 'аспірантів',
+  [K7_EDUCATION_LEVEL.Other]: 'інше',
 };

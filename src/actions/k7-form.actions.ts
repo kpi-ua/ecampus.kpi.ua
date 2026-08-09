@@ -5,17 +5,14 @@ import {
   K7_ACHIEVEMENT_WORK_TYPE,
   K7FormFilters,
   K7HtmlPreview,
-  K7HtmlPreviewFlat,
-  K7HtmlPreviewResponse,
   K7ReportRequest,
+  K7ReportRequestDetails,
 } from '@/types/models/k7-form';
 
-const normalizeK7FormPreview = (response: K7HtmlPreviewResponse): K7HtmlPreview => {
-  const flatResponse = response as K7HtmlPreviewFlat;
-
-  const teachingDisciplines = flatResponse.teachingDisciplines ?? [];
-  const otherEducationalActivities = flatResponse.otherEducationalActivities ?? [];
-  const detailedAchievements = flatResponse.detailedAchievements ?? [];
+const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview => {
+  const teachingDisciplines = response.teachingDisciplines ?? [];
+  const otherEducationalActivities = response.otherEducationalActivities ?? [];
+  const detailedAchievements = response.detailedAchievements ?? [];
 
   const achievementsByWorkType = Object.groupBy(detailedAchievements, ({ workType }) => workType);
   const scientificAchievements = [
@@ -38,7 +35,7 @@ const normalizeK7FormPreview = (response: K7HtmlPreviewResponse): K7HtmlPreview 
   const otherHours = otherAchievements.reduce((total, item) => total + item.hoursUsed, 0);
 
   return {
-    header: flatResponse.header,
+    header: response.header,
     section1: { teachingDisciplines, otherEducationalActivities },
     section2: scientificAchievements,
     section3: methodicalAchievements,
@@ -76,8 +73,8 @@ export const getK7FormRequests = async (all = false): Promise<K7ReportRequest[]>
   return response.json();
 };
 
-export const getK7FormPreview = async (k7ReportRequestId: string): Promise<K7HtmlPreview> => {
-  const response = await campusFetch<K7HtmlPreviewResponse>(`/k7-form/requests/${k7ReportRequestId}`);
+export const getK7FormPreview = async (requestId: string): Promise<K7HtmlPreview> => {
+  const response = await campusFetch<K7ReportRequestDetails>(`/k7-form/requests/${requestId}`);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch K-7 preview: ${response.status} ${response.statusText}`);

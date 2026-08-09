@@ -41,6 +41,7 @@ export interface K7ReportRequest {
 }
 
 export interface K7TeachingDiscipline {
+  employeeCategory: string;
   employeeId: number;
   departmentId: number;
   position: string;
@@ -70,6 +71,8 @@ export const K7_EDUCATION_LEVEL = {
   Bachelor: 'Bachelor',
   MasterProfessional: 'MasterProfessional',
   MasterScientific: 'MasterScientific',
+  PhD: 'PhD',
+  Other: 'Other',
 } as const;
 
 export type K7EducationLevel = (typeof K7_EDUCATION_LEVEL)[keyof typeof K7_EDUCATION_LEVEL];
@@ -148,11 +151,9 @@ export interface K7HtmlPreview {
   };
 }
 
-export interface K7HtmlPreviewFlat {
+export interface K7ReportRequestDetails {
   header: K7HtmlPreview['header'];
   teachingDisciplines: K7TeachingDiscipline[];
   otherEducationalActivities: K7OtherEducationalActivity[];
   detailedAchievements: K7DetailedAchievement[];
 }
-
-export type K7HtmlPreviewResponse = K7HtmlPreview | K7HtmlPreviewFlat;
