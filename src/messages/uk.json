@@ -794,10 +794,10 @@
         "filters": {
           "academicYear": "Навчальний рік",
           "workProfile": "Робочий профіль",
-          "lecturer": "Викладач",
+          "lecturerProfile": "Викладач (ПІБ)",
           "selectAcademicYear": "Оберіть навчальний рік",
           "selectWorkProfile": "Оберіть робочий профіль",
-          "selectLecturer": "Оберіть викладача"
+          "selectLecturerProfile": "Оберіть викладача та посаду"
         },
         "positions": {
           "associateProfessor": "Доцент",

@@ -16,7 +16,7 @@ export const getK7FormFilters = async (targetAccountId?: number): Promise<K7Form
   return response.json();
 };
 
-export const getK7FormRequests = async (all = false): Promise<K7ReportRequest[]> => {
+export const getK7FormRequests = async ({ all = false }): Promise<K7ReportRequest[]> => {
   const response = await campusFetch<K7ReportRequest[]>(`/k7-form/requests${all ? '/all' : ''}`);
 
   if (!response.ok) {

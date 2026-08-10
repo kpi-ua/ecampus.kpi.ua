@@ -794,10 +794,10 @@
         "filters": {
           "academicYear": "Academic year",
           "workProfile": "Work profile",
-          "lecturer": "Lecturer",
+          "lecturerProfile": "Lecturer (full name)",
           "selectAcademicYear": "Select an academic year",
           "selectWorkProfile": "Select a work profile",
-          "selectLecturer": "Select a lecturer"
+          "selectLecturerProfile": "Select a lecturer and position"
         },
         "positions": {
           "associateProfessor": "Associate Professor",

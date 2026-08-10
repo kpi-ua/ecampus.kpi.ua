@@ -10,6 +10,8 @@ export interface K7FormLecturer {
   fullName: string;
 }
 
+export type K7FormLecturerProfileOption = K7FormLecturer & K7FormLecturerProfile;
+
 export interface K7FormFilters {
   years: number[];
   profiles: K7FormLecturerProfile[];
