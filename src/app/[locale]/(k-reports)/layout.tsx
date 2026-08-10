@@ -22,8 +22,12 @@ export default async function MainPageLayout({
     notFound();
   }
 
-  const showPrivacyConsent = !!user.employeeProfile && !user.privacyConsentDate;
-  const primaryPosition = user.employeeProfile?.positions[0]?.name;
+  if (!user.employeeProfile) {
+    notFound();
+  }
+
+  const showPrivacyConsent = !user.privacyConsentDate;
+  const primaryPosition = user.employeeProfile.positions[0]?.name;
   const t = await getTranslations('private.k-reports.k-7.footer');
 
   return (
