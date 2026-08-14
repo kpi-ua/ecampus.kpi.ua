@@ -47,7 +47,7 @@ export default async function K7DashboardPage() {
       : [[], []];
   const reports = { personal: personalReports, department: departmentReports };
   const departmentNames = Object.fromEntries(
-    departmentProfiles.map((profile) => [profile.departmentId, profile.departmentName]),
+    [...filters.profiles, ...departmentProfiles].map((profile) => [profile.departmentId, profile.departmentName]),
   );
 
   const tabs: { value: ReportTabValue; label: string }[] = [
