@@ -22,8 +22,12 @@ export default async function MainPageLayout({
     notFound();
   }
 
-  const showPrivacyConsent = !!user.employeeProfile && !user.privacyConsentDate;
-  const primaryPosition = user.employeeProfile?.positions[0]?.name;
+  if (!user.employeeProfile) {
+    notFound();
+  }
+
+  const showPrivacyConsent = !user.privacyConsentDate;
+  const primaryPosition = user.employeeProfile.positions[0]?.name;
   const t = await getTranslations('private.k-reports.k-7.footer');
 
   return (
@@ -55,9 +59,6 @@ export default async function MainPageLayout({
 
       <footer className="leading-xs mt-auto flex w-full min-w-0 flex-col items-center justify-center gap-3 px-4 py-8 text-center text-xs text-neutral-700 sm:flex-row sm:flex-wrap md:px-[80px]">
         <span className="leading-sm max-w-[280px] sm:max-w-full">{t('rights', { year: dayjs().year() })}</span>
-        <Link href="/terms-of-service" className="leading-xs text-xs font-semibold">
-          {t('privacy')}
-        </Link>
         <Link href="/terms-of-service" className="leading-xs text-xs font-semibold">
           {t('terms')}
         </Link>

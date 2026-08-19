@@ -5,6 +5,7 @@ import { Heading2, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LocaleProps } from '@/types/locale-props';
+import { K7FormLecturer } from '@/types/models/k7-form';
 
 import { K7ReportFilters } from './components/k7-report-filters';
 import { K7ReportsTable } from './components/k7-reports-table';
@@ -12,6 +13,18 @@ import { K7ReportsTable } from './components/k7-reports-table';
 const INTL_NAMESPACE = 'private.k-reports.k-7';
 
 type ReportTabValue = 'personal' | 'department';
+
+const getDepartmentProfiles = async (lecturers: K7FormLecturer[]) => {
+  const profileGroups = await Promise.all(
+    lecturers.map(async (lecturer) => {
+      const { profiles } = await getK7FormFilters(lecturer.userAccountId);
+
+      return profiles.map((profile) => ({ ...lecturer, ...profile }));
+    }),
+  );
+
+  return profileGroups.flat();
+};
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -26,12 +39,15 @@ export default async function K7DashboardPage() {
   const [t, filters, personalReports] = await Promise.all([
     getTranslations(INTL_NAMESPACE),
     getK7FormFilters(),
-    getK7FormRequests(),
+    getK7FormRequests({}),
   ]);
-  const departmentReports = filters.lecturers.length > 0 ? await getK7FormRequests(true) : [];
+  const [departmentReports, departmentProfiles] =
+    filters.lecturers.length > 0
+      ? await Promise.all([getK7FormRequests({ all: true }), getDepartmentProfiles(filters.lecturers)])
+      : [[], []];
   const reports = { personal: personalReports, department: departmentReports };
   const departmentNames = Object.fromEntries(
-    filters.profiles.map((profile) => [profile.departmentId, profile.departmentName]),
+    [...filters.profiles, ...departmentProfiles].map((profile) => [profile.departmentId, profile.departmentName]),
   );
 
   const tabs: { value: ReportTabValue; label: string }[] = [
@@ -66,7 +82,7 @@ export default async function K7DashboardPage() {
 
           {tabs.map((tab) => (
             <TabsContent key={tab.value} value={tab.value} className="m-0 p-5">
-              <K7ReportFilters filters={filters} reports={reports[tab.value]} type={tab.value} />
+              <K7ReportFilters filters={filters} departmentProfiles={departmentProfiles} type={tab.value} />
             </TabsContent>
           ))}
         </Card>
