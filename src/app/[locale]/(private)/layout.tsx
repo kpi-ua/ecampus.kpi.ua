@@ -23,7 +23,7 @@ export default async function MainPageLayout({
 
   return (
     <SidebarProvider>
-      <AppSidebar user={user} />
+      <AppSidebar />
       <SidebarInset>
         <Header user={user} />
         <div className="bg-uncategorized-main grow p-[20px] lg:p-[28px]">{children}</div>
