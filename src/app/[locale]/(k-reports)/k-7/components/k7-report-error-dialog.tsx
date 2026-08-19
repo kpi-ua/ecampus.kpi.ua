@@ -2,7 +2,9 @@
 
 import { useTranslations } from 'next-intl';
 import { XIcon } from 'lucide-react';
+import { useState } from 'react';
 
+import { retryK7FormRequest } from '@/actions/k7-form.actions';
 import { Warning } from '@/app/images';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,17 +16,39 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useRouter } from '@/i18n/routing';
+import { K7ReportRequest } from '@/types/models/k7-form';
 
 interface Props {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  report?: K7ReportRequest;
+  onClose: () => void;
 }
 
-export const K7ReportErrorDialog = ({ open, onOpenChange }: Props) => {
+export const K7ReportErrorDialog = ({ report, onClose }: Props) => {
   const t = useTranslations('private.k-reports.k-7.errorDialog');
+  const { errorToast } = useServerErrorToast();
+  const router = useRouter();
+  const [isRetrying, setIsRetrying] = useState(false);
+
+  const handleRetry = async () => {
+    if (!report || isRetrying) return;
+
+    setIsRetrying(true);
+
+    try {
+      await retryK7FormRequest(report.k7ReportRequestId);
+      onClose();
+      router.refresh();
+    } catch {
+      errorToast();
+    } finally {
+      setIsRetrying(false);
+    }
+  };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={report !== undefined} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
         className="w-[410px] max-w-[calc(100%-2rem)] gap-0 rounded-[12px] border-0 p-6"
         overlayClassName="bg-black/10"
@@ -42,7 +66,8 @@ export const K7ReportErrorDialog = ({ open, onOpenChange }: Props) => {
             </DialogClose>
           </div>
           <DialogDescription className="leading-base text-left text-base text-neutral-600">
-            {t('description')}
+            {/* The API sends a ready-to-read Ukrainian explanation; the generic text is the fallback. */}
+            {report?.errorMessage || t('description')}
           </DialogDescription>
         </DialogHeader>
 
@@ -52,11 +77,9 @@ export const K7ReportErrorDialog = ({ open, onOpenChange }: Props) => {
               {t('close')}
             </Button>
           </DialogClose>
-          <DialogClose asChild>
-            <Button size="medium" className="h-11 w-full rounded-[8px] py-0">
-              {t('retry')}
-            </Button>
-          </DialogClose>
+          <Button size="medium" className="h-11 w-full rounded-[8px] py-0" loading={isRetrying} onClick={handleRetry}>
+            {t('retry')}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

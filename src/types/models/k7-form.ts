@@ -21,6 +21,8 @@ export interface K7FormFilters {
 export const K7_REPORT_REQUEST_STATUS = {
   Pending: 'Pending',
   InProgress: 'InProgress',
+  /** Source data is captured, so the report can be previewed while the file is still rendering. */
+  DataReady: 'DataReady',
   Ready: 'Ready',
   Error: 'Error',
 } as const;
@@ -41,6 +43,10 @@ export interface K7ReportRequest {
   requestedAt: string;
   completedAt: string | null;
 }
+
+export type CreateK7FormRequestResult =
+  | { outcome: 'created'; request: K7ReportRequest }
+  | { outcome: 'throttled'; message: string | null; retryAfterSeconds: number | null };
 
 export interface CreateK7ReportRequestInput {
   targetUserAccountId?: number;
@@ -142,6 +148,8 @@ export interface K7HtmlPreview {
     position: string;
     totalEmploymentRate: number;
     employeeCategory: string;
+    /** When the K-7 data was read. Absent on reports captured before snapshots existed. */
+    snapshotAt: string | null;
   };
   section1: {
     teachingDisciplines: K7TeachingDiscipline[];

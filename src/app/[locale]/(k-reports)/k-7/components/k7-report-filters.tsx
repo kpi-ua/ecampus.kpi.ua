@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useRouter } from '@/i18n/routing';
 import {
   K7_REPORT_REQUEST_STATUS,
@@ -32,6 +33,7 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
   const t = useTranslations('private.k-reports.k-7');
   const router = useRouter();
   const { errorToast } = useServerErrorToast();
+  const { toast } = useToast();
   const isDepartment = type === 'department';
   const [selectedYear, setSelectedYear] = useState(filters.years[0]?.toString());
   const [selectedProfile, setSelectedProfile] = useState(
@@ -71,7 +73,7 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
     setIsSubmitting(true);
 
     try {
-      const reportRequest = await createK7FormRequest({
+      const result = await createK7FormRequest({
         ...(targetUserAccountId === undefined ? {} : { targetUserAccountId }),
         year: selectedYearNumber,
         employeeId: selectedProfileData.employeeId,
@@ -79,8 +81,19 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
         position: selectedProfileData.position,
       });
 
+      // Generating the same lecturer's report again too soon is refused by the backend, which sends
+      // the explanation to show.
+      if (result.outcome === 'throttled') {
+        toast({
+          variant: 'destructive',
+          title: t('errors.throttledTitle'),
+          description: result.message ?? t('errors.throttledDescription'),
+        });
+        return;
+      }
+
       router.push(
-        `/k-7/preview?requestId=${encodeURIComponent(reportRequest.k7ReportRequestId)}&pending=true${isDepartment ? '&all=true' : ''}`,
+        `/k-7/preview?requestId=${encodeURIComponent(result.request.k7ReportRequestId)}&pending=true${isDepartment ? '&all=true' : ''}`,
       );
     } catch {
       errorToast();

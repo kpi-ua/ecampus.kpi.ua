@@ -15,7 +15,7 @@ import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from
 import { downloadK7Report } from '../utils/download-k7-report';
 import { K7ReportErrorDialog } from './k7-report-error-dialog';
 
-type ReportStatusKey = 'pending' | 'ready' | 'inProgress' | 'error';
+type ReportStatusKey = 'pending' | 'ready' | 'inProgress' | 'dataReady' | 'error';
 
 interface Props {
   reports: K7ReportRequest[];
@@ -25,6 +25,7 @@ interface Props {
 const statusTranslationKey: Record<K7ReportRequestStatus, ReportStatusKey> = {
   [K7_REPORT_REQUEST_STATUS.Pending]: 'pending',
   [K7_REPORT_REQUEST_STATUS.InProgress]: 'inProgress',
+  [K7_REPORT_REQUEST_STATUS.DataReady]: 'dataReady',
   [K7_REPORT_REQUEST_STATUS.Ready]: 'ready',
   [K7_REPORT_REQUEST_STATUS.Error]: 'error',
 };
@@ -33,26 +34,27 @@ const statusBadgeClassName: Record<ReportStatusKey, string> = {
   pending: 'border-other-blue bg-other-blue/10 text-other-blue',
   ready: 'border-status-success-300 bg-status-success-100 text-status-success-300',
   inProgress: 'border-other-blue bg-other-blue/10 text-other-blue',
+  dataReady: 'border-other-blue bg-other-blue/10 text-other-blue',
   error: 'border-status-danger-300 bg-status-danger-100 text-status-danger-300',
 };
 
 export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
   const t = useTranslations('private.k-reports.k-7');
   const { errorToast } = useServerErrorToast();
-  const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+  const [errorReport, setErrorReport] = useState<K7ReportRequest>();
   const [downloadingRequestId, setDownloadingRequestId] = useState<string>();
 
   if (reports.length === 0) {
     return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
   }
 
-  const handleErrorRowKeyDown = (event: KeyboardEvent<HTMLTableRowElement>) => {
+  const handleErrorRowKeyDown = (report: K7ReportRequest) => (event: KeyboardEvent<HTMLTableRowElement>) => {
     if (event.key !== 'Enter' && event.key !== ' ') {
       return;
     }
 
     event.preventDefault();
-    setErrorDialogOpen(true);
+    setErrorReport(report);
   };
 
   const handleDownload = async (report: K7ReportRequest) => {
@@ -88,6 +90,8 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
           {reports.map((report) => {
             const statusKey = statusTranslationKey[report.status] ?? 'inProgress';
             const isReady = report.status === K7_REPORT_REQUEST_STATUS.Ready;
+            // The report can be read as soon as its data is captured; the file follows later.
+            const isPreviewable = isReady || report.status === K7_REPORT_REQUEST_STATUS.DataReady;
             const isError = report.status === K7_REPORT_REQUEST_STATUS.Error;
 
             return (
@@ -97,8 +101,8 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                   isError &&
                     'focus-visible:outline-basic-blue cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-[-2px]',
                 )}
-                onClick={isError ? () => setErrorDialogOpen(true) : undefined}
-                onKeyDown={isError ? handleErrorRowKeyDown : undefined}
+                onClick={isError ? () => setErrorReport(report) : undefined}
+                onKeyDown={isError ? handleErrorRowKeyDown(report) : undefined}
                 role={isError ? 'button' : undefined}
                 tabIndex={isError ? 0 : undefined}
               >
@@ -121,14 +125,14 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                   </Badge>
                 </TableCell>
                 <TableCell className="text-right">
-                  {isReady && (
+                  {isPreviewable && (
                     <div className="flex justify-end gap-2">
                       <Button asChild variant="secondary" size="small" className="h-10 rounded-[8px] px-5 py-0 text-xs">
                         <Link href={`/k-7/preview?requestId=${encodeURIComponent(report.k7ReportRequestId)}`}>
                           {t('actions.view')}
                         </Link>
                       </Button>
-                      {report.s3StorageKey && (
+                      {isReady && report.s3StorageKey && (
                         <Button
                           variant="secondary"
                           size="small"
@@ -149,7 +153,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
         </TableBody>
       </Table>
 
-      <K7ReportErrorDialog open={errorDialogOpen} onOpenChange={setErrorDialogOpen} />
+      <K7ReportErrorDialog report={errorReport} onClose={() => setErrorReport(undefined)} />
     </>
   );
 };

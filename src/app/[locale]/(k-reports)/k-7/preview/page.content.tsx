@@ -1,5 +1,6 @@
 'use client';
 
+import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import { CaretLeftRegular } from '@/app/images';
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export const K7PreviewContent = ({ preview }: Props) => {
+  const t = useTranslations('private.k-reports.k-7');
   const tEmployeeCategory = useTranslations('private.k-reports.k-7.employee-category');
   const teachingHours = preview.section1.teachingDisciplines.reduce((total, row) => total + row.totalVolume, 0);
   const otherEducationalHours = preview.section1.otherEducationalActivities.reduce(
@@ -36,6 +38,8 @@ export const K7PreviewContent = ({ preview }: Props) => {
     ? tEmployeeCategory(employeeCategoryTranslationKey)
     : preview.header.employeeCategory;
   const academicYear = `${preview.header.year}-${preview.header.year + 1}`;
+  // The report is a record of the data as it was when the request was processed, not of today's.
+  const snapshotAt = preview.header.snapshotAt;
   const downloadButtonProps = {
     requestId: preview.header.k7ReportRequestId,
     year: preview.header.year,
@@ -58,6 +62,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
           </Heading2>
           <Paragraph className="mt-2 mb-0 text-[12px] !leading-[16px] font-medium text-neutral-500">
             {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName} · {academicYear}
+            {snapshotAt && ` · ${t('preview.snapshotAt', { date: dayjs(snapshotAt).format('DD.MM.YYYY, HH:mm') })}`}
           </Paragraph>
         </div>
         <DownloadPdfButton {...downloadButtonProps} />

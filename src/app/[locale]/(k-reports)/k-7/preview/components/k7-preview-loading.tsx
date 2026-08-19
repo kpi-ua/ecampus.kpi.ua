@@ -35,7 +35,12 @@ export const K7PreviewLoading = ({ requestId, all }: Props) => {
 
         if (!isActive || !request) return;
 
-        if (request.status === K7_REPORT_REQUEST_STATUS.Ready) {
+        // DataReady means the captured data can already be rendered; the file keeps rendering in
+        // the background, so there is no reason to hold the user on the spinner until it is done.
+        if (
+          request.status === K7_REPORT_REQUEST_STATUS.DataReady ||
+          request.status === K7_REPORT_REQUEST_STATUS.Ready
+        ) {
           isActive = false;
           router.replace(`/k-7/preview?requestId=${encodeURIComponent(requestId)}${all ? '&all=true' : ''}`);
           return;

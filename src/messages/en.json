@@ -811,6 +811,7 @@
           "pending": "Pending",
           "ready": "Ready",
           "inProgress": "In progress",
+          "dataReady": "Preparing PDF",
           "error": "Error"
         },
         "actions": {
@@ -844,6 +845,13 @@
           "status": "Status",
           "actions": "Actions",
           "empty": "No report requests yet"
+        },
+        "errors": {
+          "throttledTitle": "The report was generated recently",
+          "throttledDescription": "Please try again a little later."
+        },
+        "preview": {
+          "snapshotAt": "Data as of {date}"
         }
       }
     },

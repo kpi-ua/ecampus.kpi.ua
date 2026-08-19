@@ -811,6 +811,7 @@
           "pending": "У черзі",
           "ready": "Готово",
           "inProgress": "У роботі",
+          "dataReady": "Готується PDF",
           "error": "Помилка"
         },
         "actions": {
@@ -844,6 +845,13 @@
           "status": "Статус",
           "actions": "Дії",
           "empty": "Запитів на формування звітів ще немає"
+        },
+        "errors": {
+          "throttledTitle": "Звіт нещодавно вже формувався",
+          "throttledDescription": "Спробуйте ще раз трохи пізніше."
+        },
+        "preview": {
+          "snapshotAt": "Дані станом на {date}"
         }
       }
     },
