@@ -60,7 +60,8 @@ export const K7PreviewContent = ({ preview }: Props) => {
             Звіт К-7 · {preview.header.totalEmploymentRate} ст. · {employeeCategory}
           </Heading2>
           <Paragraph className="mt-2 mb-0 text-[12px] !leading-[16px] font-medium text-neutral-500">
-            {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName} · {academicYear}
+            {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName}
+            {preview.header.facultyName && ` (${preview.header.facultyName})`} · {academicYear}
             {snapshotAt && ` · ${t('preview.snapshotAt', { date: dayjs(snapshotAt).format('DD.MM.YYYY, HH:mm') })}`}
           </Paragraph>
         </div>

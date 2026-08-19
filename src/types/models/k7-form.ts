@@ -154,6 +154,8 @@ export interface K7HtmlPreview {
     year: number;
     fullName: string;
     departmentName: string;
+    /** Faculty or institute of the department. Empty when the department has no faculty and on older snapshots. */
+    facultyName: string;
     position: string;
     totalEmploymentRate: number;
     employeeCategory: K7EmployeeCategory;
