@@ -105,7 +105,7 @@ export const createK7FormRequest = async (input: CreateK7ReportRequestInput): Pr
   }
 
   const request = await response.json();
-  revalidatePath('/k-7');
+  revalidatePath('/module/k7-form');
 
   return { outcome: 'created', request };
 };
@@ -118,7 +118,7 @@ export const retryK7FormRequest = async (requestId: string): Promise<K7ReportReq
   }
 
   const request = await response.json();
-  revalidatePath('/k-7');
+  revalidatePath('/module/k7-form');
 
   return request;
 };

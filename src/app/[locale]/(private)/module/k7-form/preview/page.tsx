@@ -26,7 +26,7 @@ export default async function K7PreviewPage({ searchParams }: Props) {
     );
 
   return (
-    <SubLayout pageTitle={t('preview.title')} breadcrumbs={[['/k-7', t('title')]]}>
+    <SubLayout pageTitle={t('preview.title')} breadcrumbs={[['/module/k7-form', t('title')]]}>
       <div className="col-span-12 w-full min-w-0">{content}</div>
     </SubLayout>
   );

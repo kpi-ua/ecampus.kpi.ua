@@ -42,14 +42,14 @@ export const K7PreviewLoading = ({ requestId, all }: Props) => {
           request.status === K7_REPORT_REQUEST_STATUS.Ready
         ) {
           isActive = false;
-          router.replace(`/k-7/preview?requestId=${encodeURIComponent(requestId)}${all ? '&all=true' : ''}`);
+          router.replace(`/module/k7-form/preview?requestId=${encodeURIComponent(requestId)}${all ? '&all=true' : ''}`);
           return;
         }
 
         if (request.status === K7_REPORT_REQUEST_STATUS.Error) {
           isActive = false;
           errorToast();
-          router.replace('/k-7');
+          router.replace('/module/k7-form');
         }
       } catch {
         if (isActive && !hasShownPollingError) {

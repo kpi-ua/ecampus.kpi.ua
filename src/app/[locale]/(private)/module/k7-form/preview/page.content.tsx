@@ -47,7 +47,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
   return (
     <main className="flex w-full min-w-0 flex-col">
       <Link
-        href="/k-7"
+        href="/module/k7-form"
         className="mb-[14px] inline-flex w-fit items-center gap-2 text-[12px] leading-[16px] font-semibold text-neutral-500"
       >
         <CaretLeftRegular className="size-[16px]" />

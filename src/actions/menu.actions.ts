@@ -25,10 +25,6 @@ const getIsExternal = (module: Module, profileArea: ProfileArea) =>
   typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal;
 
 const composeUrl = (module: Module, profileArea: ProfileArea) => {
-  if (module.url) {
-    return module.url;
-  }
-
   if (getIsExternal(module, profileArea)) {
     return `${OLD_CAMPUS_URL}/${OLD_CAMPUS_PROFILE_AREA[profileArea]}/index.php?mode=${module.name}`;
   }
