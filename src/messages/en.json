@@ -831,12 +831,6 @@
           "close": "Close",
           "retry": "Try again"
         },
-        "footer": {
-          "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
-          "privacy": "Privacy policy",
-          "terms": "Terms of use",
-          "logout": "Logout"
-        },
         "table": {
           "createdAt": "Date and time",
           "academicYear": "Academic year",
