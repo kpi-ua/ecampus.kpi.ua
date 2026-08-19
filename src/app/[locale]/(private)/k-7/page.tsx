@@ -6,10 +6,11 @@ import { Heading2, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LocaleProps } from '@/types/locale-props';
-import { K7FormLecturer } from '@/types/models/k7-form';
+import { K7_REPORT_REQUEST_STATUS, K7FormLecturer, K7ReportRequest } from '@/types/models/k7-form';
 
 import { K7ReportFilters } from './components/k7-report-filters';
 import { K7ReportsTable } from './components/k7-reports-table';
+import { K7RequestsRefresh } from './components/k7-requests-refresh';
 
 const INTL_NAMESPACE = 'private.k-7';
 
@@ -56,8 +57,20 @@ export default async function K7DashboardPage() {
     ...(filters.lecturers.length > 0 ? [{ value: 'department' as const, label: t('tabs.department') }] : []),
   ];
 
+  // While something is still being processed the grid re-fetches itself; DataReady counts because
+  // the download button only appears once the file reaches Ready.
+  const activeStatuses: K7ReportRequest['status'][] = [
+    K7_REPORT_REQUEST_STATUS.Pending,
+    K7_REPORT_REQUEST_STATUS.InProgress,
+    K7_REPORT_REQUEST_STATUS.DataReady,
+  ];
+  const hasActiveRequests = [...personalReports, ...departmentReports].some((report) =>
+    activeStatuses.includes(report.status),
+  );
+
   return (
     <SubLayout pageTitle={t('title')}>
+      <K7RequestsRefresh active={hasActiveRequests} />
       <div className="col-span-12 flex w-full min-w-0 flex-col gap-4">
         <div>
           <Heading2>{t('title')}</Heading2>

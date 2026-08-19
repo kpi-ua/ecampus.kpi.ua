@@ -64,9 +64,8 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
     if (!selectedProfileData || selectedYearNumber === undefined || isSubmitting) return;
 
     if (activeRequest) {
-      router.push(
-        `/k-7/preview?requestId=${encodeURIComponent(activeRequest.k7ReportRequestId)}&pending=true${isDepartment ? '&all=true' : ''}`,
-      );
+      // The same report is already in the queue; the grid below is tracking it.
+      toast({ title: t('generation.queuedTitle'), description: t('generation.queuedDescription') });
       return;
     }
 
@@ -92,9 +91,10 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
         return;
       }
 
-      router.push(
-        `/k-7/preview?requestId=${encodeURIComponent(result.request.k7ReportRequestId)}&pending=true${isDepartment ? '&all=true' : ''}`,
-      );
+      // Stay on the grid: the new row appears with its status and updates as the worker
+      // progresses, so the user is free to queue other reports meanwhile.
+      toast({ title: t('generation.queuedTitle'), description: t('generation.queuedDescription') });
+      router.refresh();
     } catch {
       errorToast();
     } finally {
