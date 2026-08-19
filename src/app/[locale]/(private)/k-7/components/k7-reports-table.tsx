@@ -39,7 +39,7 @@ const statusBadgeClassName: Record<ReportStatusKey, string> = {
 };
 
 export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
-  const t = useTranslations('private.k-reports.k-7');
+  const t = useTranslations('private.k-7');
   const { errorToast } = useServerErrorToast();
   const [errorReport, setErrorReport] = useState<K7ReportRequest>();
   const [downloadingRequestId, setDownloadingRequestId] = useState<string>();

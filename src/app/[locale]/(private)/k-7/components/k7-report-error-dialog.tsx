@@ -26,7 +26,7 @@ interface Props {
 }
 
 export const K7ReportErrorDialog = ({ report, onClose }: Props) => {
-  const t = useTranslations('private.k-reports.k-7.errorDialog');
+  const t = useTranslations('private.k-7.errorDialog');
   const { errorToast } = useServerErrorToast();
   const router = useRouter();
   const [isRetrying, setIsRetrying] = useState(false);

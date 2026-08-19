@@ -30,7 +30,7 @@ const activeRequestStatuses = new Set<K7ReportRequest['status']>([
 ]);
 
 export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: Props) => {
-  const t = useTranslations('private.k-reports.k-7');
+  const t = useTranslations('private.k-7');
   const router = useRouter();
   const { errorToast } = useServerErrorToast();
   const { toast } = useToast();

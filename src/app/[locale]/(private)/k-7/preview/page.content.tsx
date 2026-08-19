@@ -25,8 +25,8 @@ interface Props {
 }
 
 export const K7PreviewContent = ({ preview }: Props) => {
-  const t = useTranslations('private.k-reports.k-7');
-  const tEmployeeCategory = useTranslations('private.k-reports.k-7.employee-category');
+  const t = useTranslations('private.k-7');
+  const tEmployeeCategory = useTranslations('private.k-7.employee-category');
   const teachingHours = preview.section1.teachingDisciplines.reduce((total, row) => total + row.totalVolume, 0);
   const otherEducationalHours = preview.section1.otherEducationalActivities.reduce(
     (total, row) => total + row.grandTotal,

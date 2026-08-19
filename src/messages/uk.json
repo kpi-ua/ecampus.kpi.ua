@@ -783,71 +783,69 @@
         "result": "Результат"
       }
     },
-    "k-reports": {
-      "k-7": {
-        "title": "Звіт К-7",
-        "subtitle": "Формування індивідуального звіту про виконання педагогічного навантаження",
-        "tabs": {
-          "personal": "Мої звіти",
-          "department": "Звіти кафедри"
-        },
-        "filters": {
-          "academicYear": "Навчальний рік",
-          "workProfile": "Робочий профіль",
-          "lecturer": "Викладач",
-          "selectAcademicYear": "Оберіть навчальний рік",
-          "selectWorkProfile": "Оберіть робочий профіль",
-          "selectLecturer": "Оберіть викладача"
-        },
-        "positions": {
-          "associateProfessor": "Доцент",
-          "seniorLecturer": "Старший викладач"
-        },
-        "employee-category": {
-          "npp": "Науково-педагогічний працівник",
-          "pp": "Педагогічний працівник"
-        },
-        "status": {
-          "pending": "У черзі",
-          "ready": "Готово",
-          "inProgress": "У роботі",
-          "dataReady": "Готується PDF",
-          "error": "Помилка"
-        },
-        "actions": {
-          "generate": "Сформувати звіт",
-          "view": "Переглянути",
-          "downloadPdf": "Завантажити PDF",
-          "none": "Дія недоступна"
-        },
-        "generation": {
-          "title": "Формування звіту",
-          "cardTitle": "Звіт формується у фоновому режимі",
-          "inProgress": "Ми надішлемо вам email-сповіщення, коли звіт буде готовий. Це може зайняти кілька хвилин."
-        },
-        "errorDialog": {
-          "title": "Не вдалося сформувати звіт",
-          "description": "Під час збору даних сталася помилка. Будь ласка, спробуйте ще раз.",
-          "close": "Закрити",
-          "retry": "Спробувати ще раз"
-        },
-        "table": {
-          "createdAt": "Дата та час",
-          "academicYear": "Навч. рік",
-          "department": "Кафедра",
-          "position": "Посада",
-          "status": "Статус",
-          "actions": "Дії",
-          "empty": "Запитів на формування звітів ще немає"
-        },
-        "errors": {
-          "throttledTitle": "Звіт нещодавно вже формувався",
-          "throttledDescription": "Спробуйте ще раз трохи пізніше."
-        },
-        "preview": {
-          "title": "Перегляд звіту",
-          "snapshotAt": "Дані станом на {date}"
-        }
+    "k-7": {
+      "title": "Звіт К-7",
+      "subtitle": "Формування індивідуального звіту про виконання педагогічного навантаження",
+      "tabs": {
+        "personal": "Мої звіти",
+        "department": "Звіти кафедри"
+      },
+      "filters": {
+        "academicYear": "Навчальний рік",
+        "workProfile": "Робочий профіль",
+        "lecturer": "Викладач",
+        "selectAcademicYear": "Оберіть навчальний рік",
+        "selectWorkProfile": "Оберіть робочий профіль",
+        "selectLecturer": "Оберіть викладача"
+      },
+      "positions": {
+        "associateProfessor": "Доцент",
+        "seniorLecturer": "Старший викладач"
+      },
+      "employee-category": {
+        "npp": "Науково-педагогічний працівник",
+        "pp": "Педагогічний працівник"
+      },
+      "status": {
+        "pending": "У черзі",
+        "ready": "Готово",
+        "inProgress": "У роботі",
+        "dataReady": "Готується PDF",
+        "error": "Помилка"
+      },
+      "actions": {
+        "generate": "Сформувати звіт",
+        "view": "Переглянути",
+        "downloadPdf": "Завантажити PDF",
+        "none": "Дія недоступна"
+      },
+      "generation": {
+        "title": "Формування звіту",
+        "cardTitle": "Звіт формується у фоновому режимі",
+        "inProgress": "Ми надішлемо вам email-сповіщення, коли звіт буде готовий. Це може зайняти кілька хвилин."
+      },
+      "errorDialog": {
+        "title": "Не вдалося сформувати звіт",
+        "description": "Під час збору даних сталася помилка. Будь ласка, спробуйте ще раз.",
+        "close": "Закрити",
+        "retry": "Спробувати ще раз"
+      },
+      "table": {
+        "createdAt": "Дата та час",
+        "academicYear": "Навч. рік",
+        "department": "Кафедра",
+        "position": "Посада",
+        "status": "Статус",
+        "actions": "Дії",
+        "empty": "Запитів на формування звітів ще немає"
+      },
+      "errors": {
+        "throttledTitle": "Звіт нещодавно вже формувався",
+        "throttledDescription": "Спробуйте ще раз трохи пізніше."
+      },
+      "preview": {
+        "title": "Перегляд звіту",
+        "snapshotAt": "Дані станом на {date}"
       }
     },
     "settings": {

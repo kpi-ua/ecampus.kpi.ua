@@ -11,7 +11,7 @@ import { K7FormLecturer } from '@/types/models/k7-form';
 import { K7ReportFilters } from './components/k7-report-filters';
 import { K7ReportsTable } from './components/k7-reports-table';
 
-const INTL_NAMESPACE = 'private.k-reports.k-7';
+const INTL_NAMESPACE = 'private.k-7';
 
 type ReportTabValue = 'personal' | 'department';
 

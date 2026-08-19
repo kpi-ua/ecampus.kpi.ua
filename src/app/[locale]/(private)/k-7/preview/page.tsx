@@ -7,7 +7,7 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { K7PreviewLoading } from './components/k7-preview-loading';
 import { K7PreviewContent } from './page.content';
 
-const INTL_NAMESPACE = 'private.k-reports.k-7';
+const INTL_NAMESPACE = 'private.k-7';
 
 interface Props {
   searchParams: Promise<{ requestId?: string; pending?: string; all?: string }>;

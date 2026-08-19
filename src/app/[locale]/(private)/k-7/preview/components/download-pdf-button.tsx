@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const DownloadPdfButton = ({ requestId, year }: Props) => {
-  const t = useTranslations('private.k-reports.k-7.actions');
+  const t = useTranslations('private.k-7.actions');
   const { errorToast } = useServerErrorToast();
   const [isDownloading, setIsDownloading] = useState(false);
 

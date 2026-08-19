@@ -18,7 +18,7 @@ interface Props {
 }
 
 export const K7PreviewLoading = ({ requestId, all }: Props) => {
-  const t = useTranslations('private.k-reports.k-7.generation');
+  const t = useTranslations('private.k-7.generation');
   const router = useRouter();
   const { errorToast } = useServerErrorToast();
 

@@ -783,71 +783,69 @@
         "result": "Result"
       }
     },
-    "k-reports": {
-      "k-7": {
-        "title": "K-7 Report",
-        "subtitle": "Generate an individual report on completed teaching workload",
-        "tabs": {
-          "personal": "My reports",
-          "department": "Department reports"
-        },
-        "filters": {
-          "academicYear": "Academic year",
-          "workProfile": "Work profile",
-          "lecturer": "Lecturer",
-          "selectAcademicYear": "Select an academic year",
-          "selectWorkProfile": "Select a work profile",
-          "selectLecturer": "Select a lecturer"
-        },
-        "positions": {
-          "associateProfessor": "Associate Professor",
-          "seniorLecturer": "Senior Lecturer"
-        },
-        "employee-category": {
-          "npp": "Scientific and pedagogical employee",
-          "pp": "Pedagogical employee"
-        },
-        "status": {
-          "pending": "Pending",
-          "ready": "Ready",
-          "inProgress": "In progress",
-          "dataReady": "Preparing PDF",
-          "error": "Error"
-        },
-        "actions": {
-          "generate": "Generate report",
-          "view": "View",
-          "downloadPdf": "Download PDF",
-          "none": "Action unavailable"
-        },
-        "generation": {
-          "title": "Report generation",
-          "cardTitle": "The report is being generated in the background",
-          "inProgress": "We will email you when the report is ready. This may take a few minutes."
-        },
-        "errorDialog": {
-          "title": "Failed to generate report",
-          "description": "An error occurred while collecting data. Please try again.",
-          "close": "Close",
-          "retry": "Try again"
-        },
-        "table": {
-          "createdAt": "Date and time",
-          "academicYear": "Academic year",
-          "department": "Department",
-          "position": "Position",
-          "status": "Status",
-          "actions": "Actions",
-          "empty": "No report requests yet"
-        },
-        "errors": {
-          "throttledTitle": "The report was generated recently",
-          "throttledDescription": "Please try again a little later."
-        },
-        "preview": {
-          "title": "Report preview",
-          "snapshotAt": "Data as of {date}"
-        }
+    "k-7": {
+      "title": "K-7 Report",
+      "subtitle": "Generate an individual report on completed teaching workload",
+      "tabs": {
+        "personal": "My reports",
+        "department": "Department reports"
+      },
+      "filters": {
+        "academicYear": "Academic year",
+        "workProfile": "Work profile",
+        "lecturer": "Lecturer",
+        "selectAcademicYear": "Select an academic year",
+        "selectWorkProfile": "Select a work profile",
+        "selectLecturer": "Select a lecturer"
+      },
+      "positions": {
+        "associateProfessor": "Associate Professor",
+        "seniorLecturer": "Senior Lecturer"
+      },
+      "employee-category": {
+        "npp": "Scientific and pedagogical employee",
+        "pp": "Pedagogical employee"
+      },
+      "status": {
+        "pending": "Pending",
+        "ready": "Ready",
+        "inProgress": "In progress",
+        "dataReady": "Preparing PDF",
+        "error": "Error"
+      },
+      "actions": {
+        "generate": "Generate report",
+        "view": "View",
+        "downloadPdf": "Download PDF",
+        "none": "Action unavailable"
+      },
+      "generation": {
+        "title": "Report generation",
+        "cardTitle": "The report is being generated in the background",
+        "inProgress": "We will email you when the report is ready. This may take a few minutes."
+      },
+      "errorDialog": {
+        "title": "Failed to generate report",
+        "description": "An error occurred while collecting data. Please try again.",
+        "close": "Close",
+        "retry": "Try again"
+      },
+      "table": {
+        "createdAt": "Date and time",
+        "academicYear": "Academic year",
+        "department": "Department",
+        "position": "Position",
+        "status": "Status",
+        "actions": "Actions",
+        "empty": "No report requests yet"
+      },
+      "errors": {
+        "throttledTitle": "The report was generated recently",
+        "throttledDescription": "Please try again a little later."
+      },
+      "preview": {
+        "title": "Report preview",
+        "snapshotAt": "Data as of {date}"
       }
     },
     "settings": {
