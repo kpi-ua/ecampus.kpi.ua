@@ -32,8 +32,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
     (total, row) => total + row.grandTotal,
     0,
   );
-  const normalizedEmployeeCategory = preview.header.employeeCategory.trim().toUpperCase();
-  const employeeCategoryTranslationKey = EMPLOYEE_CATEGORY_TRANSLATION_KEYS[normalizedEmployeeCategory];
+  const employeeCategoryTranslationKey = EMPLOYEE_CATEGORY_TRANSLATION_KEYS[preview.header.employeeCategory];
   const employeeCategory = employeeCategoryTranslationKey
     ? tEmployeeCategory(employeeCategoryTranslationKey)
     : preview.header.employeeCategory;

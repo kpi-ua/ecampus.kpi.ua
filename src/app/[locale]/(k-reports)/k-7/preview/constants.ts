@@ -1,12 +1,19 @@
-import { K7_EDUCATION_LEVEL, K7EducationLevel } from '@/types/models/k7-form';
+import {
+  K7_EDUCATION_LEVEL,
+  K7_EMPLOYEE_CATEGORY,
+  K7EducationLevel,
+  K7EmployeeCategory,
+} from '@/types/models/k7-form';
 
 type EmployeeCategoryTranslationKey = 'npp' | 'pp';
 
-// The API reports the category in Ukrainian, as it is spelled on the form: НПП for a
-// scientific-pedagogical employee, ПП for a pedagogical one.
-export const EMPLOYEE_CATEGORY_TRANSLATION_KEYS: Record<string, EmployeeCategoryTranslationKey> = {
-  НПП: 'npp',
-  ПП: 'pp',
+// The K-7 form is only issued to these two categories; the API refuses to report the others, so
+// they have no wording of their own here.
+export const EMPLOYEE_CATEGORY_TRANSLATION_KEYS: Partial<
+  Record<K7EmployeeCategory, EmployeeCategoryTranslationKey>
+> = {
+  [K7_EMPLOYEE_CATEGORY.ScientificPedagogical]: 'npp',
+  [K7_EMPLOYEE_CATEGORY.Pedagogical]: 'pp',
 };
 
 export const EDUCATION_LEVEL_TITLES: Record<K7EducationLevel, string> = {

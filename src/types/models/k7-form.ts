@@ -57,7 +57,7 @@ export interface CreateK7ReportRequestInput {
 }
 
 export interface K7TeachingDiscipline {
-  employeeCategory: string;
+  employeeCategory: K7EmployeeCategory;
   employeeId: number;
   departmentId: number;
   position: string;
@@ -83,6 +83,15 @@ export interface K7TeachingDiscipline {
   semester: number;
 }
 
+export const K7_EMPLOYEE_CATEGORY = {
+  ScientificPedagogical: 'ScientificPedagogical',
+  Pedagogical: 'Pedagogical',
+  Scientific: 'Scientific',
+  Unknown: 'Unknown',
+} as const;
+
+export type K7EmployeeCategory = (typeof K7_EMPLOYEE_CATEGORY)[keyof typeof K7_EMPLOYEE_CATEGORY];
+
 export const K7_EDUCATION_LEVEL = {
   Bachelor: 'Bachelor',
   MasterProfessional: 'MasterProfessional',
@@ -94,7 +103,7 @@ export const K7_EDUCATION_LEVEL = {
 export type K7EducationLevel = (typeof K7_EDUCATION_LEVEL)[keyof typeof K7_EDUCATION_LEVEL];
 
 export interface K7OtherEducationalActivity {
-  employeeCategory: string;
+  employeeCategory: K7EmployeeCategory;
   employeeId: number;
   departmentId: number;
   position: string;
@@ -124,7 +133,7 @@ export const K7_ACHIEVEMENT_WORK_TYPE = {
 export type K7AchievementWorkType = (typeof K7_ACHIEVEMENT_WORK_TYPE)[keyof typeof K7_ACHIEVEMENT_WORK_TYPE];
 
 export interface K7DetailedAchievement {
-  employeeCategory: string;
+  employeeCategory: K7EmployeeCategory;
   employeeId: number;
   departmentId: number;
   position: string;
@@ -147,7 +156,7 @@ export interface K7HtmlPreview {
     departmentName: string;
     position: string;
     totalEmploymentRate: number;
-    employeeCategory: string;
+    employeeCategory: K7EmployeeCategory;
     /** When the K-7 data was read. Absent on reports captured before snapshots existed. */
     snapshotAt: string | null;
   };
