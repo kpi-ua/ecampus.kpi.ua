@@ -851,6 +851,7 @@
           "throttledDescription": "Please try again a little later."
         },
         "preview": {
+          "title": "Report preview",
           "snapshotAt": "Data as of {date}"
         }
       }

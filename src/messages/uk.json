@@ -851,6 +851,7 @@
           "throttledDescription": "Спробуйте ще раз трохи пізніше."
         },
         "preview": {
+          "title": "Перегляд звіту",
           "snapshotAt": "Дані станом на {date}"
         }
       }

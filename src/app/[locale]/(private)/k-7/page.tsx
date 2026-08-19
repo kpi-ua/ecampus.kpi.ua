@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getK7FormFilters, getK7FormRequests } from '@/actions/k7-form.actions';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -56,48 +57,48 @@ export default async function K7DashboardPage() {
   ];
 
   return (
-    <main className="mx-auto flex w-full max-w-[1000px] min-w-0 flex-col gap-4">
-      <header className="flex flex-col">
+    <SubLayout pageTitle={t('title')}>
+      <div className="col-span-12 flex w-full min-w-0 flex-col gap-4">
         <div>
-          <Heading2 className="leading-3xl lg:leading-3xl text-3xl text-neutral-900 lg:text-3xl">{t('title')}</Heading2>
-          <Paragraph className="leading-sm mt-2 mb-6 max-w-3xl text-sm font-normal text-neutral-700">
+          <Heading2>{t('title')}</Heading2>
+          <Paragraph className="leading-sm mt-3 mb-7 max-w-full text-sm font-normal text-neutral-700 sm:max-w-2xl">
             {t('subtitle')}
           </Paragraph>
         </div>
-      </header>
 
-      <Tabs defaultValue="personal" className="w-full min-w-0">
-        <Card className="border-neutral-divider min-w-0 overflow-hidden rounded-[16px] border bg-white shadow-none">
-          <TabsList className="border-neutral-divider h-12 w-full justify-start overflow-hidden rounded-t-[16px] rounded-b-none border-0 border-b bg-white p-0">
+        <Tabs defaultValue="personal" className="w-full min-w-0">
+          <Card className="border-neutral-divider min-w-0 overflow-hidden rounded-[16px] border bg-white shadow-none">
+            <TabsList className="border-neutral-divider h-12 w-full justify-start overflow-hidden rounded-t-[16px] rounded-b-none border-0 border-b bg-white p-0">
+              {tabs.map((tab) => (
+                <TabsTrigger
+                  key={tab.value}
+                  value={tab.value}
+                  className="data-[state=active]:border-basic-blue data-[state=active]:text-basic-blue h-12 rounded-none border-b-2 border-transparent bg-white px-5 py-0 text-sm font-semibold text-neutral-400 data-[state=active]:bg-white"
+                >
+                  {tab.label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
             {tabs.map((tab) => (
-              <TabsTrigger
-                key={tab.value}
-                value={tab.value}
-                className="data-[state=active]:border-basic-blue data-[state=active]:text-basic-blue h-12 rounded-none border-b-2 border-transparent bg-white px-5 py-0 text-sm font-semibold text-neutral-400 data-[state=active]:bg-white"
-              >
-                {tab.label}
-              </TabsTrigger>
+              <TabsContent key={tab.value} value={tab.value} className="m-0 p-5">
+                <K7ReportFilters
+                  filters={filters}
+                  reports={reports[tab.value]}
+                  departmentProfiles={departmentProfiles}
+                  type={tab.value}
+                />
+              </TabsContent>
             ))}
-          </TabsList>
+          </Card>
 
           {tabs.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value} className="m-0 p-5">
-              <K7ReportFilters
-                filters={filters}
-                reports={reports[tab.value]}
-                departmentProfiles={departmentProfiles}
-                type={tab.value}
-              />
+            <TabsContent key={`${tab.value}-table`} value={tab.value} className="mt-3">
+              <K7ReportsTable reports={reports[tab.value]} departmentNames={departmentNames} />
             </TabsContent>
           ))}
-        </Card>
-
-        {tabs.map((tab) => (
-          <TabsContent key={`${tab.value}-table`} value={tab.value} className="mt-3">
-            <K7ReportsTable reports={reports[tab.value]} departmentNames={departmentNames} />
-          </TabsContent>
-        ))}
-      </Tabs>
-    </main>
+        </Tabs>
+      </div>
+    </SubLayout>
   );
 }
