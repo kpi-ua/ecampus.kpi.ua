@@ -822,7 +822,7 @@
       "generation": {
         "title": "Report generation",
         "cardTitle": "The report is being generated in the background",
-        "inProgress": "We will email you when the report is ready. This may take a few minutes."
+        "inProgress": "This page will refresh automatically once the report is ready. This may take a few minutes."
       },
       "errorDialog": {
         "title": "Failed to generate report",
