@@ -3,18 +3,17 @@
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { type KeyboardEvent, useState } from 'react';
-import { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from '@/types/models/k7-form';
 
+import { downloadK7Report } from '../utils/download-k7-report';
 import { K7ReportErrorDialog } from './k7-report-error-dialog';
-
-const CDN_BASE_URL = 'https://cdn.cloud.kpi.ua';
 
 type ReportStatusKey = 'pending' | 'ready' | 'inProgress' | 'error';
 
@@ -39,7 +38,9 @@ const statusBadgeClassName: Record<ReportStatusKey, string> = {
 
 export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
   const t = useTranslations('private.k-reports.k-7');
+  const { errorToast } = useServerErrorToast();
   const [errorDialogOpen, setErrorDialogOpen] = useState(false);
+  const [downloadingRequestId, setDownloadingRequestId] = useState<string>();
 
   if (reports.length === 0) {
     return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
@@ -52,6 +53,20 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
 
     event.preventDefault();
     setErrorDialogOpen(true);
+  };
+
+  const handleDownload = async (report: K7ReportRequest) => {
+    if (downloadingRequestId) return;
+
+    setDownloadingRequestId(report.k7ReportRequestId);
+
+    try {
+      await downloadK7Report({ requestId: report.k7ReportRequestId, year: report.year });
+    } catch {
+      errorToast();
+    } finally {
+      setDownloadingRequestId(undefined);
+    }
   };
 
   return (
@@ -115,14 +130,14 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                       </Button>
                       {report.s3StorageKey && (
                         <Button
-                          asChild
                           variant="secondary"
                           size="small"
                           className="h-10 rounded-[8px] px-5 py-0 text-xs"
+                          loading={downloadingRequestId === report.k7ReportRequestId}
+                          disabled={downloadingRequestId !== undefined}
+                          onClick={() => handleDownload(report)}
                         >
-                          <a href={`${CDN_BASE_URL}/${report.s3StorageKey}`} download>
-                            {t('actions.downloadPdf')}
-                          </a>
+                          {t('actions.downloadPdf')}
                         </Button>
                       )}
                     </div>

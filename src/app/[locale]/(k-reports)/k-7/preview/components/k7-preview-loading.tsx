@@ -30,7 +30,7 @@ export const K7PreviewLoading = ({ requestId, all }: Props) => {
       if (!isActive) return;
 
       try {
-        const requests = await getK7FormRequests(all);
+        const requests = await getK7FormRequests({ all });
         const request = requests.find(({ k7ReportRequestId }) => k7ReportRequestId === requestId);
 
         if (!isActive || !request) return;

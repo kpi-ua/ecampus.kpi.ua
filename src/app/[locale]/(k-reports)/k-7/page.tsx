@@ -82,7 +82,12 @@ export default async function K7DashboardPage() {
 
           {tabs.map((tab) => (
             <TabsContent key={tab.value} value={tab.value} className="m-0 p-5">
-              <K7ReportFilters filters={filters} departmentProfiles={departmentProfiles} type={tab.value} />
+              <K7ReportFilters
+                filters={filters}
+                reports={reports[tab.value]}
+                departmentProfiles={departmentProfiles}
+                type={tab.value}
+              />
             </TabsContent>
           ))}
         </Card>
