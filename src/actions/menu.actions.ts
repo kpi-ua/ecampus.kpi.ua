@@ -25,6 +25,10 @@ const getIsExternal = (module: Module, profileArea: ProfileArea) =>
   typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal;
 
 const composeUrl = (module: Module, profileArea: ProfileArea) => {
+  if (module.url) {
+    return module.url;
+  }
+
   if (getIsExternal(module, profileArea)) {
     return `${OLD_CAMPUS_URL}/${OLD_CAMPUS_PROFILE_AREA[profileArea]}/index.php?mode=${module.name}`;
   }
@@ -98,17 +102,6 @@ export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
         } satisfies MenuGroup,
       ];
     }, []);
-
-    // The K-7 report is not a module the JWT grants: it is available to every employee, so it
-    // joins the module list here and gets sorted along with the rest.
-    if (userDetails.employeeProfile) {
-      const menuTranslation = await getTranslations('global.menu');
-      menuItems.push({
-        name: 'k-7',
-        title: menuTranslation('k-7'),
-        url: '/k-7',
-      } satisfies MenuGroup);
-    }
 
     return isEmployee ? menuItems.sort(byTitle) : menuItems;
   } catch (error) {

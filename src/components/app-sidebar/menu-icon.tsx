@@ -52,7 +52,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['msg', ChatTeardropDots],
   ['kurator', Student],
   ['facultycertificate', Student],
-  ['k-7', Notepad],
+  ['k7-form', Notepad],
   ['rnp', List],
   ['studysheet', CircleWavyCheck],
   ['rectorialcontrol', CircleWavyCheck],
