@@ -62,7 +62,7 @@ export const DepartmentWorkTable = ({ rows }: Props) => {
             <TableCell className={`${summaryCellClassName} text-right`}>
               {formatNumber(
                 rows.reduce((total, row) => total + row.hoursUsed, 0),
-                0,
+                2,
               )}
             </TableCell>
             <TableCell colSpan={2} className={summaryCellClassName} />
