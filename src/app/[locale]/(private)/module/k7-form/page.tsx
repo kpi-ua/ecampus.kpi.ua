@@ -75,10 +75,17 @@ export default async function K7DashboardPage() {
   const hasActiveRequests = [...personalReports, ...departmentReports].some((report) =>
     activeStatuses.includes(report.status),
   );
+  const requestStatuses = Object.fromEntries(
+    [...personalReports, ...departmentReports].map((report) => [report.k7ReportRequestId, report.status]),
+  );
 
   return (
     <SubLayout pageTitle={t('title')}>
-      <K7RequestsRefresh active={hasActiveRequests} />
+      <K7RequestsRefresh
+        active={hasActiveRequests}
+        statuses={requestStatuses}
+        includeDepartment={filters.lecturers.length > 0}
+      />
       <div className="col-span-12 flex w-full min-w-0 flex-col gap-4">
         <div>
           <Heading2>{t('title')}</Heading2>
