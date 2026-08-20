@@ -17,7 +17,9 @@ const INTL_NAMESPACE = 'private.k-7';
 type ReportTabValue = 'personal' | 'department';
 
 const getDepartmentProfiles = async (lecturers: K7FormLecturer[]) => {
-  const profileGroups = await Promise.all(
+  // One failed per-lecturer fetch must not take the whole dashboard down: that lecturer simply
+  // stays out of the department select until the next render.
+  const results = await Promise.allSettled(
     lecturers.map(async (lecturer) => {
       const { profiles } = await getK7FormFilters(lecturer.userAccountId);
 
@@ -25,7 +27,13 @@ const getDepartmentProfiles = async (lecturers: K7FormLecturer[]) => {
     }),
   );
 
-  return profileGroups.flat();
+  results.forEach((result, index) => {
+    if (result.status === 'rejected') {
+      console.error(`Failed to fetch K-7 profiles for lecturer ${lecturers[index].userAccountId}:`, result.reason);
+    }
+  });
+
+  return results.filter((result) => result.status === 'fulfilled').flatMap((result) => result.value);
 };
 
 export async function generateMetadata({ params }: LocaleProps) {
