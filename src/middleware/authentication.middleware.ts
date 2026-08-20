@@ -16,14 +16,14 @@ const isAuthenticated = (request: NextRequest) => {
 };
 
 export const authenticationMiddleware = (request: NextRequest) => {
-  if (matchesAnyUrl(request, PUBLIC_PATHS, false)) {
-    return intlMiddleware(request);
-  }
-
   const userAuthenticated = isAuthenticated(request);
 
   if (userAuthenticated) {
     return codeOfHonorMiddleware(request);
+  }
+
+  if (matchesAnyUrl(request, PUBLIC_PATHS, false)) {
+    return intlMiddleware(request);
   }
 
   return gotoLogin(request);
