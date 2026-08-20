@@ -56,7 +56,7 @@ export const DepartmentWorkTable = ({ rows }: Props) => {
         ))}
         {rows.length > 0 && (
           <TableRow className={summaryRowClassName}>
-            <TableCell colSpan={5} className={summaryCellClassName}>
+            <TableCell colSpan={3} className={summaryCellClassName}>
               {t('total')}
             </TableCell>
             <TableCell className={`${summaryCellClassName} text-right`}>
@@ -65,6 +65,7 @@ export const DepartmentWorkTable = ({ rows }: Props) => {
                 0,
               )}
             </TableCell>
+            <TableCell colSpan={2} className={summaryCellClassName} />
           </TableRow>
         )}
       </TableBody>
