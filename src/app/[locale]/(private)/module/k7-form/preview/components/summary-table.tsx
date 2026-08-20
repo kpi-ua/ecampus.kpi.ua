@@ -21,7 +21,7 @@ export const SummaryTable = ({ preview }: Props) => {
   ];
 
   return (
-    <Table className="table-fixed border-collapse text-[12px] leading-[16px]">
+    <Table className="leading-xs table-fixed border-collapse text-xs">
       <TableHeader>
         <TableRow className="hover:bg-white">
           <TableHead className={tableHeadClassName}>{t('table.workType')}</TableHead>

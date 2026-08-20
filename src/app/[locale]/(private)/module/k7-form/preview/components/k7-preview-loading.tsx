@@ -70,9 +70,7 @@ export const K7PreviewLoading = ({ requestId, all }: Props) => {
 
   return (
     <main className="mx-auto flex w-full max-w-[1000px] min-w-0 flex-col">
-      <Heading2 className="text-[18px] leading-[22px] text-neutral-900 lg:text-[18px] lg:leading-[22px]">
-        {t('title')}
-      </Heading2>
+      <Heading2 className="leading-lg lg:leading-lg text-xl text-neutral-900 lg:text-xl">{t('title')}</Heading2>
 
       <div
         className="border-neutral-divider mt-5 flex min-h-[114px] items-center gap-4 rounded-[10px] border bg-white px-5 py-4"
@@ -81,8 +79,8 @@ export const K7PreviewLoading = ({ requestId, all }: Props) => {
       >
         <SpinnerGap className="text-basic-blue size-8 shrink-0 animate-spin" />
         <div className="min-w-0">
-          <p className="m-0 text-[14px] leading-[18px] font-semibold text-neutral-900">{t('cardTitle')}</p>
-          <Paragraph className="mt-2 mb-0 text-[12px] !leading-[16px] font-medium text-neutral-500">
+          <p className="leading-sm m-0 text-base font-semibold text-neutral-900">{t('cardTitle')}</p>
+          <Paragraph className="!leading-xs mt-2 mb-0 text-xs font-medium text-neutral-500">
             {t('inProgress')}
           </Paragraph>
         </div>

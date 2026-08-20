@@ -73,11 +73,11 @@ export const K7ReportErrorDialog = ({ report, onClose }: Props) => {
 
         <DialogFooter className="mt-6 grid grid-cols-2 gap-3 sm:grid sm:grid-cols-2">
           <DialogClose asChild>
-            <Button variant="secondary" size="medium" className="h-11 w-full rounded-[8px] py-0">
+            <Button variant="secondary" size="medium" className="h-11 w-full rounded-md py-0">
               {t('close')}
             </Button>
           </DialogClose>
-          <Button size="medium" className="h-11 w-full rounded-[8px] py-0" loading={isRetrying} onClick={handleRetry}>
+          <Button size="medium" className="h-11 w-full rounded-md py-0" loading={isRetrying} onClick={handleRetry}>
             {t('retry')}
           </Button>
         </DialogFooter>

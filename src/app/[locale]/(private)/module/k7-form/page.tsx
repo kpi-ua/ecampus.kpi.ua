@@ -80,8 +80,8 @@ export default async function K7DashboardPage() {
         </div>
 
         <Tabs defaultValue="personal" className="w-full min-w-0">
-          <Card className="border-neutral-divider min-w-0 overflow-hidden rounded-[16px] border bg-white shadow-none">
-            <TabsList className="border-neutral-divider h-12 w-full justify-start overflow-hidden rounded-t-[16px] rounded-b-none border-0 border-b bg-white p-0">
+          <Card className="border-neutral-divider min-w-0 overflow-hidden rounded-lg border bg-white shadow-none">
+            <TabsList className="border-neutral-divider h-12 w-full justify-start overflow-hidden rounded-t-lg rounded-b-none border-0 border-b bg-white p-0">
               {tabs.map((tab) => (
                 <TabsTrigger
                   key={tab.value}

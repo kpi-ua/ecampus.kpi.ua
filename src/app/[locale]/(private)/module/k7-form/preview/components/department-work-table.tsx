@@ -15,7 +15,7 @@ export const DepartmentWorkTable = ({ rows }: Props) => {
   const t = useTranslations('private.k-7.preview.table');
 
   return (
-    <Table className="table-fixed border-collapse text-[12px] leading-[16px]">
+    <Table className="leading-xs table-fixed border-collapse text-xs">
       <colgroup>
         <col className="w-[5%]" />
         <col className="w-[22%]" />

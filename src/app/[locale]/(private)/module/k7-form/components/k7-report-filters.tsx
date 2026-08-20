@@ -167,7 +167,7 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
       <div className="flex justify-end lg:col-span-full">
         <Button
           size="small"
-          className="h-10 w-full rounded-[8px] px-4 py-0 text-xs sm:w-auto"
+          className="h-10 w-full rounded-md px-4 py-0 text-xs sm:w-auto"
           disabled={isSubmitting || selectedYearNumber === undefined || selectedProfileData === undefined}
           onClick={handleGenerate}
         >

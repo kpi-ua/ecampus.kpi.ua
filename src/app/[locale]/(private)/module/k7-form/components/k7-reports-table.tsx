@@ -117,7 +117,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                 <TableCell>
                   <Badge
                     className={cn(
-                      'leading-xs justify-center rounded-[8px] border px-4 py-[5px] text-xs font-semibold',
+                      'leading-xs justify-center rounded-md border px-4 py-[5px] text-xs font-semibold',
                       statusBadgeClassName[statusKey],
                     )}
                   >
@@ -127,7 +127,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                 <TableCell className="text-right">
                   {isPreviewable && (
                     <div className="flex justify-end gap-2">
-                      <Button asChild variant="secondary" size="small" className="h-10 rounded-[8px] px-5 py-0 text-xs">
+                      <Button asChild variant="secondary" size="small" className="h-10 rounded-md px-5 py-0 text-xs">
                         <Link
                           href={`/module/k7-form/preview?requestId=${encodeURIComponent(report.k7ReportRequestId)}`}
                         >
@@ -138,7 +138,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                         <Button
                           variant="secondary"
                           size="small"
-                          className="h-10 rounded-[8px] px-5 py-0 text-xs"
+                          className="h-10 rounded-md px-5 py-0 text-xs"
                           loading={downloadingRequestId === report.k7ReportRequestId}
                           disabled={downloadingRequestId !== undefined}
                           onClick={() => handleDownload(report)}

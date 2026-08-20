@@ -48,7 +48,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
     <main className="flex w-full min-w-0 flex-col">
       <Link
         href="/module/k7-form"
-        className="mb-[14px] inline-flex w-fit items-center gap-2 text-[12px] leading-[16px] font-semibold text-neutral-500"
+        className="leading-xs mb-[14px] inline-flex w-fit items-center gap-2 text-xs font-semibold text-neutral-500"
       >
         <CaretLeftRegular className="size-[16px]" />
         {t('preview.back')}
@@ -56,10 +56,10 @@ export const K7PreviewContent = ({ preview }: Props) => {
 
       <div className="mb-[20px] flex min-w-0 flex-col items-start justify-between gap-3 sm:flex-row">
         <div className="min-w-0">
-          <Heading2 className="text-[18px] leading-[22px] text-neutral-900 lg:text-[18px] lg:leading-[22px]">
+          <Heading2 className="leading-lg lg:leading-lg text-xl text-neutral-900 lg:text-xl">
             {t('preview.pageHeading', { rate: preview.header.totalEmploymentRate, category: employeeCategory })}
           </Heading2>
-          <Paragraph className="mt-2 mb-0 text-[12px] !leading-[16px] font-medium text-neutral-500">
+          <Paragraph className="!leading-xs mt-2 mb-0 text-xs font-medium text-neutral-500">
             {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName}
             {preview.header.facultyName && ` (${preview.header.facultyName})`} · {academicYear}
             {snapshotAt && ` · ${t('preview.snapshotAt', { date: dayjs(snapshotAt).format('DD.MM.YYYY, HH:mm') })}`}
@@ -112,7 +112,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
         </div>
 
         <div className="border-neutral-divider mt-2 flex flex-col items-start justify-between gap-3 rounded-[10px] border bg-white px-4 py-4 sm:flex-row sm:items-center">
-          <p className="m-0 text-[14px] leading-[18px]">
+          <p className="leading-sm m-0 text-base">
             <span className="font-semibold text-neutral-900">
               {t('preview.totalWorkload', { hours: formatNumber(preview.section6.totalHours, 0) })}
             </span>
