@@ -6,7 +6,7 @@ import { Heading2, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LocaleProps } from '@/types/locale-props';
-import { K7_REPORT_REQUEST_STATUS, K7FormLecturer, K7ReportRequest } from '@/types/models/k7-form';
+import { K7_REPORT_REQUEST_STATUS, K7ReportRequest } from '@/types/models/k7-form';
 
 import { K7ReportFilters } from './components/k7-report-filters';
 import { K7ReportsTable } from './components/k7-reports-table';
@@ -15,26 +15,6 @@ import { K7RequestsRefresh } from './components/k7-requests-refresh';
 const INTL_NAMESPACE = 'private.k-7';
 
 type ReportTabValue = 'personal' | 'department';
-
-const getDepartmentProfiles = async (lecturers: K7FormLecturer[]) => {
-  // One failed per-lecturer fetch must not take the whole dashboard down: that lecturer simply
-  // stays out of the department select until the next render.
-  const results = await Promise.allSettled(
-    lecturers.map(async (lecturer) => {
-      const { profiles } = await getK7FormFilters(lecturer.userAccountId);
-
-      return profiles.map((profile) => ({ ...lecturer, ...profile }));
-    }),
-  );
-
-  results.forEach((result, index) => {
-    if (result.status === 'rejected') {
-      console.error(`Failed to fetch K-7 profiles for lecturer ${lecturers[index].userAccountId}:`, result.reason);
-    }
-  });
-
-  return results.filter((result) => result.status === 'fulfilled').flatMap((result) => result.value);
-};
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -51,10 +31,13 @@ export default async function K7DashboardPage() {
     getK7FormFilters(),
     getK7FormRequests({}),
   ]);
-  const [departmentReports, departmentProfiles] =
-    filters.lecturers.length > 0
-      ? await Promise.all([getK7FormRequests({ all: true }), getDepartmentProfiles(filters.lecturers)])
-      : [[], []];
+  const hasDepartment = filters.lecturers.length > 0;
+  const departmentReports = hasDepartment ? await getK7FormRequests({ all: true }) : [];
+  // The directory arrives with the profiles of every lecturer, so the select is filled without
+  // asking the API once per person. The fallback covers an API that predates the profiles field.
+  const departmentProfiles = filters.lecturers.flatMap(({ profiles, ...lecturer }) =>
+    (profiles ?? []).map((profile) => ({ ...lecturer, ...profile })),
+  );
   const reports = { personal: personalReports, department: departmentReports };
   const departmentNames = Object.fromEntries(
     [...filters.profiles, ...departmentProfiles].map((profile) => [profile.departmentId, profile.departmentName]),
@@ -62,7 +45,7 @@ export default async function K7DashboardPage() {
 
   const tabs: { value: ReportTabValue; label: string }[] = [
     { value: 'personal', label: t('tabs.personal') },
-    ...(filters.lecturers.length > 0 ? [{ value: 'department' as const, label: t('tabs.department') }] : []),
+    ...(hasDepartment ? [{ value: 'department' as const, label: t('tabs.department') }] : []),
   ];
 
   // While something is still being processed the grid re-fetches itself; DataReady counts because
@@ -84,7 +67,7 @@ export default async function K7DashboardPage() {
       <K7RequestsRefresh
         active={hasActiveRequests}
         statuses={requestStatuses}
-        includeDepartment={filters.lecturers.length > 0}
+        includeDepartment={hasDepartment}
       />
       <div className="col-span-12 flex w-full min-w-0 flex-col gap-4">
         <div>

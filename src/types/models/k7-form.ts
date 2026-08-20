@@ -8,9 +8,11 @@ export interface K7FormLecturerProfile {
 export interface K7FormLecturer {
   userAccountId: number;
   fullName: string;
+  /** Profiles the lecturer holds, sent with the directory so the dashboard needs no per-lecturer call. */
+  profiles: K7FormLecturerProfile[];
 }
 
-export type K7FormLecturerProfileOption = K7FormLecturer & K7FormLecturerProfile;
+export type K7FormLecturerProfileOption = Omit<K7FormLecturer, 'profiles'> & K7FormLecturerProfile;
 
 export interface K7FormFilters {
   years: number[];
