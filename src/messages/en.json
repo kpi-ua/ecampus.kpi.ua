@@ -827,6 +827,7 @@
       "table": {
         "createdAt": "Date and time",
         "academicYear": "Academic year",
+        "lecturer": "Lecturer",
         "department": "Department",
         "position": "Position",
         "status": "Status",

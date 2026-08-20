@@ -33,6 +33,7 @@ export interface K7ReportRequest {
   k7ReportRequestId: string;
   initiatorUserAccountId: number;
   targetUserAccountId: number;
+  targetFullName: string | null;
   employeeId: number;
   departmentId: number;
   position: string;

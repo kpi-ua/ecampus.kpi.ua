@@ -827,6 +827,7 @@
       "table": {
         "createdAt": "Дата та час",
         "academicYear": "Навч. рік",
+        "lecturer": "Викладач",
         "department": "Кафедра",
         "position": "Посада",
         "status": "Статус",

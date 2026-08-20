@@ -79,6 +79,9 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
           <TableRow>
             <TableHead className="min-w-[150px] bg-neutral-50 text-xs normal-case">{t('table.createdAt')}</TableHead>
             <TableHead className="min-w-[120px] bg-neutral-50 text-xs normal-case">{t('table.academicYear')}</TableHead>
+            {all && (
+              <TableHead className="min-w-[200px] bg-neutral-50 text-xs normal-case">{t('table.lecturer')}</TableHead>
+            )}
             <TableHead className="min-w-[120px] bg-neutral-50 text-xs normal-case">{t('table.department')}</TableHead>
             <TableHead className="min-w-[120px] bg-neutral-50 text-xs normal-case">{t('table.position')}</TableHead>
             <TableHead className="min-w-[120px] bg-neutral-50 text-xs normal-case">{t('table.status')}</TableHead>
@@ -113,6 +116,8 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
                 <TableCell>
                   {report.year}-{report.year + 1}
                 </TableCell>
+                {/* Only the department listing mixes lecturers; personal reports are all the reader's own. */}
+                {all && <TableCell>{report.targetFullName ?? '—'}</TableCell>}
                 <TableCell>{departmentNames[report.departmentId] ?? report.departmentId}</TableCell>
                 <TableCell>{report.position}</TableCell>
                 <TableCell>
