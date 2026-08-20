@@ -20,6 +20,7 @@ type ReportStatusKey = 'pending' | 'ready' | 'inProgress' | 'dataReady' | 'error
 interface Props {
   reports: K7ReportRequest[];
   departmentNames: Record<number, string>;
+  all: boolean;
 }
 
 const statusTranslationKey: Record<K7ReportRequestStatus, ReportStatusKey> = {
@@ -38,7 +39,7 @@ const statusBadgeClassName: Record<ReportStatusKey, string> = {
   error: 'border-status-danger-300 bg-status-danger-100 text-status-danger-300',
 };
 
-export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
+export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
   const t = useTranslations('private.k-7');
   const { errorToast } = useServerErrorToast();
   const [errorReport, setErrorReport] = useState<K7ReportRequest>();
@@ -129,7 +130,7 @@ export const K7ReportsTable = ({ reports, departmentNames }: Props) => {
                     <div className="flex justify-end gap-2">
                       <Button asChild variant="secondary" size="small" className="h-10 rounded-md px-5 py-0 text-xs">
                         <Link
-                          href={`/module/k7-form/preview?requestId=${encodeURIComponent(report.k7ReportRequestId)}`}
+                          href={`/module/k7-form/preview?requestId=${encodeURIComponent(report.k7ReportRequestId)}${all ? '&all=true' : ''}`}
                         >
                           {t('actions.view')}
                         </Link>

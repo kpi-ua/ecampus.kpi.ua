@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 
 import { CaretLeftRegular } from '@/app/images';
 import { Heading2, Paragraph } from '@/components/typography';
+import { Badge } from '@/components/ui/badge';
 import { Link } from '@/i18n/routing';
 import { formatNumber } from '@/lib/utils';
 import { K7HtmlPreview } from '@/types/models/k7-form';
@@ -22,9 +23,10 @@ import { EMPLOYEE_CATEGORY_TRANSLATION_KEYS } from './constants';
 
 interface Props {
   preview: K7HtmlPreview;
+  pdfReady: boolean;
 }
 
-export const K7PreviewContent = ({ preview }: Props) => {
+export const K7PreviewContent = ({ preview, pdfReady }: Props) => {
   const t = useTranslations('private.k-7');
   const tEmployeeCategory = useTranslations('private.k-7.employee-category');
   const teachingHours = preview.section1.teachingDisciplines.reduce((total, row) => total + row.totalVolume, 0);
@@ -43,6 +45,15 @@ export const K7PreviewContent = ({ preview }: Props) => {
     requestId: preview.header.k7ReportRequestId,
     year: preview.header.year,
   };
+  // A DataReady request can already be read while its file is still rendering, so instead of a
+  // button that would hit /download too early the user sees why the file is not there yet.
+  const downloadAction = pdfReady ? (
+    <DownloadPdfButton {...downloadButtonProps} />
+  ) : (
+    <Badge className="border-other-blue bg-other-blue/10 text-other-blue leading-xs justify-center rounded-md border px-4 py-[5px] text-xs font-semibold">
+      {t('status.dataReady')}
+    </Badge>
+  );
 
   return (
     <main className="flex w-full min-w-0 flex-col">
@@ -65,7 +76,7 @@ export const K7PreviewContent = ({ preview }: Props) => {
             {snapshotAt && ` · ${t('preview.snapshotAt', { date: dayjs(snapshotAt).format('DD.MM.YYYY, HH:mm') })}`}
           </Paragraph>
         </div>
-        <DownloadPdfButton {...downloadButtonProps} />
+        {downloadAction}
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
