@@ -105,7 +105,9 @@ export const createK7FormRequest = async (input: CreateK7ReportRequestInput): Pr
   }
 
   const request = await response.json();
-  revalidatePath('/module/k7-form');
+  // The literal URL lives under the /[locale]/ segment, so the route file path is what
+  // invalidates the dashboard for every locale.
+  revalidatePath('/[locale]/(private)/module/k7-form', 'page');
 
   return { outcome: 'created', request };
 };
@@ -118,7 +120,9 @@ export const retryK7FormRequest = async (requestId: string): Promise<K7ReportReq
   }
 
   const request = await response.json();
-  revalidatePath('/module/k7-form');
+  // The literal URL lives under the /[locale]/ segment, so the route file path is what
+  // invalidates the dashboard for every locale.
+  revalidatePath('/[locale]/(private)/module/k7-form', 'page');
 
   return request;
 };
