@@ -1,8 +1,10 @@
+import { useTranslations } from 'next-intl';
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn, formatNumber } from '@/lib/utils';
 import { K7OtherEducationalActivity } from '@/types/models/k7-form';
 
-import { EDUCATION_LEVEL_TITLES } from '../constants';
+import { EDUCATION_LEVEL_TRANSLATION_KEYS } from '../constants';
 import { groupOtherActivities } from '../utils/group-other-activities';
 import { EmptyTableRow } from './empty-table-row';
 import { summaryCellClassName, summaryRowClassName, tableCellClassName, tableHeadClassName } from './table-styles';
@@ -17,6 +19,7 @@ const hasSemesterData = (groupCodes: string | null, studentCount: number, hours:
 const formatSemesterHours = (hours: number) => (hours > 0 ? formatNumber(hours, 2) : '—');
 
 export const OtherActivitiesTable = ({ rows }: Props) => {
+  const t = useTranslations('private.k-7.preview');
   const semesterHeadClassName = cn(tableHeadClassName, 'h-[32px] text-center');
   const borderedSemesterHeadClassName = cn(semesterHeadClassName, 'border-neutral-divider border-x');
   const activityGroups = groupOtherActivities(rows);
@@ -40,30 +43,30 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
       <TableHeader>
         <TableRow className="hover:bg-white">
           <TableHead rowSpan={2} className={tableHeadClassName}>
-            №
+            {t('table.number')}
           </TableHead>
           <TableHead rowSpan={2} colSpan={2} className={tableHeadClassName}>
-            Вид роботи
+            {t('table.workType')}
           </TableHead>
           <TableHead colSpan={4} className={borderedSemesterHeadClassName}>
-            1 семестр
+            {t('table.semester', { semester: 1 })}
           </TableHead>
           <TableHead colSpan={4} className={borderedSemesterHeadClassName}>
-            2 семестр
+            {t('table.semester', { semester: 2 })}
           </TableHead>
           <TableHead rowSpan={2} className={tableHeadClassName}>
-            Разом за рік
+            {t('table.yearTotal')}
           </TableHead>
         </TableRow>
         <TableRow className="hover:bg-white">
-          <TableHead className={borderedSemesterHeadClassName}>Курс</TableHead>
-          <TableHead className={borderedSemesterHeadClassName}>Шифри груп</TableHead>
-          <TableHead className={borderedSemesterHeadClassName}>К-сть здобувачів</TableHead>
-          <TableHead className={borderedSemesterHeadClassName}>Годин</TableHead>
-          <TableHead className={borderedSemesterHeadClassName}>Курс</TableHead>
-          <TableHead className={borderedSemesterHeadClassName}>Шифри груп</TableHead>
-          <TableHead className={borderedSemesterHeadClassName}>К-сть здобувачів</TableHead>
-          <TableHead className={borderedSemesterHeadClassName}>Годин</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.course')}</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.groupCodes')}</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.studentsCount')}</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.hours')}</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.course')}</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.groupCodes')}</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.studentsCount')}</TableHead>
+          <TableHead className={borderedSemesterHeadClassName}>{t('table.hours')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -88,7 +91,9 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
                     </TableCell>
                   </>
                 )}
-                <TableCell className={tableCellClassName}>{EDUCATION_LEVEL_TITLES[row.educationLevel]}</TableCell>
+                <TableCell className={tableCellClassName}>
+                  {t(`educationLevel.${EDUCATION_LEVEL_TRANSLATION_KEYS[row.educationLevel]}`)}
+                </TableCell>
                 <TableCell className={tableCellClassName}>{hasFirstSemesterData ? (row.course ?? '—') : '—'}</TableCell>
                 <TableCell className={tableCellClassName}>{row.groupCodesSem1 || '—'}</TableCell>
                 <TableCell className={tableCellClassName}>
@@ -111,7 +116,7 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
         {rows.length > 0 && (
           <TableRow className={summaryRowClassName}>
             <TableCell colSpan={3} className={summaryCellClassName}>
-              Разом
+              {t('table.total')}
             </TableCell>
             <TableCell colSpan={3} className={summaryCellClassName} />
             <TableCell className={summaryCellClassName}>

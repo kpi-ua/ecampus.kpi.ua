@@ -51,13 +51,13 @@ export const K7PreviewContent = ({ preview }: Props) => {
         className="mb-[14px] inline-flex w-fit items-center gap-2 text-[12px] leading-[16px] font-semibold text-neutral-500"
       >
         <CaretLeftRegular className="size-[16px]" />
-        Назад
+        {t('preview.back')}
       </Link>
 
       <div className="mb-[20px] flex min-w-0 flex-col items-start justify-between gap-3 sm:flex-row">
         <div className="min-w-0">
           <Heading2 className="text-[18px] leading-[22px] text-neutral-900 lg:text-[18px] lg:leading-[22px]">
-            Звіт К-7 · {preview.header.totalEmploymentRate} ст. · {employeeCategory}
+            {t('preview.pageHeading', { rate: preview.header.totalEmploymentRate, category: employeeCategory })}
           </Heading2>
           <Paragraph className="mt-2 mb-0 text-[12px] !leading-[16px] font-medium text-neutral-500">
             {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName}
@@ -69,36 +69,43 @@ export const K7PreviewContent = ({ preview }: Props) => {
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
-        <ReportSection number="1.1" title="Викладання освітніх компонентів" hours={teachingHours}>
+        <ReportSection number="1.1" title={t('preview.sections.teaching')} hours={teachingHours}>
           <TeachingDisciplinesTable rows={preview.section1.teachingDisciplines} />
         </ReportSection>
 
-        <ReportSection number="1.2" title="Інші види навчальної роботи" hours={otherEducationalHours}>
+        <ReportSection number="1.2" title={t('preview.sections.otherEducational')} hours={otherEducationalHours}>
           <OtherActivitiesTable rows={preview.section1.otherEducationalActivities} />
         </ReportSection>
 
         <div className="mt-8 flex min-w-0 flex-col gap-2">
-          <ReportSection number="2" title="Наукова робота" hours={preview.section6.scientificHours}>
+          <ReportSection number="2" title={t('preview.sections.scientific')} hours={preview.section6.scientificHours}>
             <ScientificWorkTable rows={preview.section2} />
           </ReportSection>
 
-          <ReportSection number="3" title="Методична робота" hours={preview.section6.methodicalHours}>
+          <ReportSection number="3" title={t('preview.sections.methodical')} hours={preview.section6.methodicalHours}>
             <MethodicalWorkTable rows={preview.section3} />
           </ReportSection>
 
-          <ReportSection number="4" title="Організаційна робота" hours={preview.section6.organizationalHours}>
+          <ReportSection
+            number="4"
+            title={t('preview.sections.organizational')}
+            hours={preview.section6.organizationalHours}
+          >
             <OrganizationalWorkTable rows={preview.section4} />
           </ReportSection>
 
-          <ReportSection number="5" title="Інші трудові обов'язки" hours={preview.section6.otherHours}>
+          <ReportSection number="5" title={t('preview.sections.otherDuties')} hours={preview.section6.otherHours}>
             <OtherDutiesTable rows={preview.section5} />
           </ReportSection>
 
           <ReportSection
             number="6"
-            title="Зведена інформація"
+            title={t('preview.sections.summary')}
             hours={preview.section6.totalHours}
-            summaryText={`${formatNumber(preview.section6.totalHours, 0)} год. · ${preview.header.totalEmploymentRate} ст.`}
+            summaryText={t('preview.hoursAndRate', {
+              hours: formatNumber(preview.section6.totalHours, 0),
+              rate: preview.header.totalEmploymentRate,
+            })}
           >
             <SummaryTable preview={preview} />
           </ReportSection>
@@ -107,11 +114,11 @@ export const K7PreviewContent = ({ preview }: Props) => {
         <div className="border-neutral-divider mt-2 flex flex-col items-start justify-between gap-3 rounded-[10px] border bg-white px-4 py-4 sm:flex-row sm:items-center">
           <p className="m-0 text-[14px] leading-[18px]">
             <span className="font-semibold text-neutral-900">
-              Загальне навантаження: {formatNumber(preview.section6.totalHours, 0)} год.
+              {t('preview.totalWorkload', { hours: formatNumber(preview.section6.totalHours, 0) })}
             </span>
             <span className="font-medium text-neutral-500">
               {' '}
-              · Розрахункова ставка: {preview.header.totalEmploymentRate} ст.
+              · {t('preview.estimatedRate', { rate: preview.header.totalEmploymentRate })}
             </span>
           </p>
           <DownloadPdfButton {...downloadButtonProps} />

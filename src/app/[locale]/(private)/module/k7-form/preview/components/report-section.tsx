@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const ReportSection = ({ number, title, hours, summaryText, children }: Props) => {
+  const t = useTranslations('private.k-7.preview');
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -22,10 +24,10 @@ export const ReportSection = ({ number, title, hours, summaryText, children }: P
       <div className="border-neutral-divider flex min-h-[40px] items-center gap-3 border-b px-4 py-[11px]">
         <Books className="text-basic-blue size-[16px] shrink-0" />
         <span className="min-w-0 text-[12px] leading-[16px] font-semibold text-neutral-900">
-          Розділ {number}. — {title}
+          {t('section', { number, title })}
         </span>
         <span className="ml-auto shrink-0 pl-2 text-[12px] leading-[16px] font-semibold text-neutral-900">
-          {summaryText ?? `${formatNumber(hours, 0)} год.`}
+          {summaryText ?? t('hours', { hours: formatNumber(hours, 0) })}
         </span>
         <button
           className="flex size-[24px] shrink-0 cursor-pointer items-center justify-center rounded-[4px] text-neutral-600 transition-colors hover:bg-neutral-50 hover:text-neutral-900"

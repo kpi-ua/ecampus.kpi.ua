@@ -793,14 +793,10 @@
       "filters": {
         "academicYear": "Academic year",
         "workProfile": "Work profile",
-        "lecturer": "Lecturer",
+        "lecturerProfile": "Lecturer profile",
         "selectAcademicYear": "Select an academic year",
         "selectWorkProfile": "Select a work profile",
-        "selectLecturer": "Select a lecturer"
-      },
-      "positions": {
-        "associateProfessor": "Associate Professor",
-        "seniorLecturer": "Senior Lecturer"
+        "selectLecturerProfile": "Select a lecturer profile"
       },
       "employee-category": {
         "npp": "Scientific and pedagogical employee",
@@ -816,8 +812,7 @@
       "actions": {
         "generate": "Generate report",
         "view": "View",
-        "downloadPdf": "Download PDF",
-        "none": "Action unavailable"
+        "downloadPdf": "Download PDF"
       },
       "generation": {
         "title": "Report generation",
@@ -847,7 +842,59 @@
       },
       "preview": {
         "title": "Report preview",
-        "snapshotAt": "Data as of {date}"
+        "snapshotAt": "Data as of {date}",
+        "back": "Back",
+        "pageHeading": "K-7 Report · {rate} FTE · {category}",
+        "section": "Section {number}. — {title}",
+        "hours": "{hours} h",
+        "hoursAndRate": "{hours} h · {rate} FTE",
+        "totalWorkload": "Total workload: {hours} h",
+        "estimatedRate": "Estimated rate: {rate} FTE",
+        "sections": {
+          "teaching": "Teaching of educational components",
+          "otherEducational": "Other educational activities",
+          "scientific": "Scientific work",
+          "methodical": "Methodological work",
+          "organizational": "Organizational work",
+          "otherDuties": "Other work duties",
+          "summary": "Summary"
+        },
+        "educationLevel": {
+          "bachelor": "bachelor's students",
+          "masterProfessional": "master's students (professional)",
+          "masterScientific": "master's students (scientific)",
+          "phd": "PhD students",
+          "other": "other"
+        },
+        "summaryRows": {
+          "educational": "Educational work",
+          "total": "Total workload"
+        },
+        "table": {
+          "number": "No.",
+          "workType": "Type of work",
+          "description": "Description",
+          "workDescription": "Description of completed work",
+          "proof": "Proof of performance",
+          "department": "Subdivision",
+          "hours": "Hours",
+          "hoursShort": "Hrs",
+          "course": "Year of study",
+          "groupCodes": "Group codes",
+          "studentsCount": "Students",
+          "semester": "Semester {semester}",
+          "total": "Total",
+          "yearTotal": "Total for the year",
+          "semesterTotal": "Total for semester {semester}",
+          "academicYearTotal": "Total for the academic year",
+          "empty": "No data",
+          "facultyComponent": "Faculty (institute) served by the stream; abbreviation and name of the educational component",
+          "streamId": "Stream ID",
+          "streamGroups": "Academic group codes in the stream, number of students",
+          "semesterVolume": "Educational component volume per semester",
+          "practiceGroups": "Practice groups",
+          "labGroups": "Lab groups"
+        }
       }
     },
     "settings": {

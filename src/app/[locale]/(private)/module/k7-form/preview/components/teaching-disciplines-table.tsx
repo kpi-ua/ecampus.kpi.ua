@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export const TeachingDisciplinesTable = ({ rows }: Props) => {
+  const t = useTranslations('private.k-7.preview.table');
   const semesters = [...new Set(rows.map((row) => row.semester))].sort((a, b) => a - b);
   const teachingTableHeadClassName = cn(tableHeadClassName, 'h-[72px] align-middle');
 
@@ -34,15 +36,13 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
       </colgroup>
       <TableHeader>
         <TableRow className="hover:bg-white">
-          <TableHead className={teachingTableHeadClassName}>№</TableHead>
-          <TableHead className={teachingTableHeadClassName}>
-            Факультет (ННІ), який забезпечується потоку; абрев., назва освітнього компонента
-          </TableHead>
-          <TableHead className={teachingTableHeadClassName}>Ідентифікатор потоку</TableHead>
-          <TableHead className={teachingTableHeadClassName}>Шифри академічних груп у потоці, к-сть студентів</TableHead>
-          <TableHead className={teachingTableHeadClassName}>Обсяг освітнього компонента за семестр</TableHead>
-          <TableHead className={teachingTableHeadClassName}>К-сть навч. груп практ.</TableHead>
-          <TableHead className={teachingTableHeadClassName}>К-сть навч. груп лаб.</TableHead>
+          <TableHead className={teachingTableHeadClassName}>{t('number')}</TableHead>
+          <TableHead className={teachingTableHeadClassName}>{t('facultyComponent')}</TableHead>
+          <TableHead className={teachingTableHeadClassName}>{t('streamId')}</TableHead>
+          <TableHead className={teachingTableHeadClassName}>{t('streamGroups')}</TableHead>
+          <TableHead className={teachingTableHeadClassName}>{t('semesterVolume')}</TableHead>
+          <TableHead className={teachingTableHeadClassName}>{t('practiceGroups')}</TableHead>
+          <TableHead className={teachingTableHeadClassName}>{t('labGroups')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -54,7 +54,7 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
             <Fragment key={semester}>
               <TableRow className={semesterRowClassName}>
                 <TableCell colSpan={7} className={summaryCellClassName}>
-                  {semester} семестр
+                  {t('semester', { semester })}
                 </TableCell>
               </TableRow>
               {semesterRows.map((row, index) => (
@@ -70,7 +70,7 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
               ))}
               <TableRow className={summaryRowClassName}>
                 <TableCell colSpan={4} className={summaryCellClassName}>
-                  Разом за {semester} семестр
+                  {t('semesterTotal', { semester })}
                 </TableCell>
                 <TableCell className={summaryCellClassName}>
                   {formatNumber(
@@ -91,7 +91,7 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
         {rows.length > 0 && (
           <TableRow className={summaryRowClassName}>
             <TableCell colSpan={4} className={summaryCellClassName}>
-              Разом за навчальний рік
+              {t('academicYearTotal')}
             </TableCell>
             <TableCell className={summaryCellClassName}>
               {formatNumber(

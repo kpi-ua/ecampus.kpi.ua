@@ -793,14 +793,10 @@
       "filters": {
         "academicYear": "Навчальний рік",
         "workProfile": "Робочий профіль",
-        "lecturer": "Викладач",
+        "lecturerProfile": "Профіль викладача",
         "selectAcademicYear": "Оберіть навчальний рік",
         "selectWorkProfile": "Оберіть робочий профіль",
-        "selectLecturer": "Оберіть викладача"
-      },
-      "positions": {
-        "associateProfessor": "Доцент",
-        "seniorLecturer": "Старший викладач"
+        "selectLecturerProfile": "Оберіть профіль викладача"
       },
       "employee-category": {
         "npp": "Науково-педагогічний працівник",
@@ -816,8 +812,7 @@
       "actions": {
         "generate": "Сформувати звіт",
         "view": "Переглянути",
-        "downloadPdf": "Завантажити PDF",
-        "none": "Дія недоступна"
+        "downloadPdf": "Завантажити PDF"
       },
       "generation": {
         "title": "Формування звіту",
@@ -847,7 +842,59 @@
       },
       "preview": {
         "title": "Перегляд звіту",
-        "snapshotAt": "Дані станом на {date}"
+        "snapshotAt": "Дані станом на {date}",
+        "back": "Назад",
+        "pageHeading": "Звіт К-7 · {rate} ст. · {category}",
+        "section": "Розділ {number}. — {title}",
+        "hours": "{hours} год.",
+        "hoursAndRate": "{hours} год. · {rate} ст.",
+        "totalWorkload": "Загальне навантаження: {hours} год.",
+        "estimatedRate": "Розрахункова ставка: {rate} ст.",
+        "sections": {
+          "teaching": "Викладання освітніх компонентів",
+          "otherEducational": "Інші види навчальної роботи",
+          "scientific": "Наукова робота",
+          "methodical": "Методична робота",
+          "organizational": "Організаційна робота",
+          "otherDuties": "Інші трудові обов'язки",
+          "summary": "Зведена інформація"
+        },
+        "educationLevel": {
+          "bachelor": "бакалаврів",
+          "masterProfessional": "магістрів ОПП",
+          "masterScientific": "магістрів ОНП",
+          "phd": "аспірантів",
+          "other": "інше"
+        },
+        "summaryRows": {
+          "educational": "Навчальна робота",
+          "total": "Загальне навантаження"
+        },
+        "table": {
+          "number": "№",
+          "workType": "Вид роботи",
+          "description": "Опис",
+          "workDescription": "Опис виконаної роботи",
+          "proof": "Підтвердження",
+          "department": "Підрозділ",
+          "hours": "Годин",
+          "hoursShort": "Год.",
+          "course": "Курс",
+          "groupCodes": "Шифри груп",
+          "studentsCount": "К-сть здобувачів",
+          "semester": "{semester} семестр",
+          "total": "Разом",
+          "yearTotal": "Разом за рік",
+          "semesterTotal": "Разом за {semester} семестр",
+          "academicYearTotal": "Разом за навчальний рік",
+          "empty": "Немає даних",
+          "facultyComponent": "Факультет (ННІ), який забезпечується потоку; абрев., назва освітнього компонента",
+          "streamId": "Ідентифікатор потоку",
+          "streamGroups": "Шифри академічних груп у потоці, к-сть студентів",
+          "semesterVolume": "Обсяг освітнього компонента за семестр",
+          "practiceGroups": "К-сть навч. груп практ.",
+          "labGroups": "К-сть навч. груп лаб."
+        }
       }
     },
     "settings": {
