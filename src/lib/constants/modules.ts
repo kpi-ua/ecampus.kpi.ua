@@ -25,6 +25,7 @@ export const MODULES: Module[] = [
   { name: 'vedomost', isExternal: true },
   { name: 'vidpovidalniy', isExternal: true },
   { name: 'rating', isExternal: false },
+  { name: 'k7-form', isExternal: false },
   { name: 'webometrics', isExternal: true },
   { name: 'ekanat', isExternal: true },
   { name: 'editRNP', isExternal: true },
