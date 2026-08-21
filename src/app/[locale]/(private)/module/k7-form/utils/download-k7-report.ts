@@ -1,4 +1,5 @@
 import { getK7FormPdf } from '@/actions/k7-form.actions';
+import saveAs from 'file-saver';
 
 interface DownloadK7ReportParams {
   requestId: string;
@@ -6,13 +7,7 @@ interface DownloadK7ReportParams {
 }
 
 export const downloadK7Report = async ({ requestId, year }: DownloadK7ReportParams) => {
-  const objectUrl = URL.createObjectURL(await getK7FormPdf(requestId));
-  const downloadLink = document.createElement('a');
+  const blob = await getK7FormPdf(requestId);
 
-  downloadLink.href = objectUrl;
-  downloadLink.download = `k7-report-${year}-${requestId}.pdf`;
-  document.body.append(downloadLink);
-  downloadLink.click();
-  downloadLink.remove();
-  window.setTimeout(() => URL.revokeObjectURL(objectUrl), 0);
+  saveAs(blob, `k7-report-${year}-${requestId}.pdf`);
 };
