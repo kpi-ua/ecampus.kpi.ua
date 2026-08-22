@@ -90,4 +90,4 @@ For more information see `src/i18n/request.tsx` file.
 
 ## License
 
-Starting from commit `52929006e5aa` / version `0.1.0` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the MIT license (see [LICENSE-MIT](LICENSE-MIT)). The last commit under the previous license is tagged `mit-final`.
+Starting from commit `52929006e5aa` / version `0.1.0` (`2026-08-22`), this project is licensed under the Mozilla Public License 2.0 (see [LICENSE](LICENSE)). Code contributed before that point remains available under the [MIT License](https://opensource.org/license/mit); the last commit distributed under those terms is tagged `mit-final`.
