@@ -149,7 +149,7 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
                     key={`${profile.userAccountId}-${profile.employeeId}-${profile.departmentId}-${profile.position}`}
                     value={index.toString()}
                   >
-                    {profile.fullName} - {profile.position}
+                    {profile.fullName} - {profile.departmentName} - {profile.position}
                   </SelectItem>
                 ))
               : filters.profiles.map((profile, index) => (
