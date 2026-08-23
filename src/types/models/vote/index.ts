@@ -36,6 +36,7 @@ export interface VoteLecturer {
   employeeId: number;
   userAccountId: number;
   fullName: string;
+  photo: string;
   hasVoted: boolean;
   result: VoteLecturerResult | null;
 }
