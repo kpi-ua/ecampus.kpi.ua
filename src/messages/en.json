@@ -787,14 +787,20 @@
       "title": "K-7 Report",
       "subtitle": "Generate an individual report on completed teaching workload",
       "tabs": {
+        "navigation": "K-7 report sections",
         "personal": "My reports",
-        "department": "Department reports"
+        "department": "Department reports",
+        "university": "University"
       },
       "filters": {
         "academicYear": "Academic year",
+        "department": "Department",
+        "lecturer": "Teacher name",
         "workProfile": "Work profile",
         "lecturerProfile": "Lecturer profile",
         "selectAcademicYear": "Select an academic year",
+        "selectDepartment": "Select a department",
+        "selectLecturer": "Select a teacher",
         "selectWorkProfile": "Select a work profile",
         "selectLecturerProfile": "Select a lecturer profile"
       },

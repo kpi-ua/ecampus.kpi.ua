@@ -787,14 +787,20 @@
       "title": "Звіт К-7",
       "subtitle": "Формування індивідуального звіту про виконання педагогічного навантаження",
       "tabs": {
+        "navigation": "Розділи звітів К-7",
         "personal": "Мої звіти",
-        "department": "Звіти кафедри"
+        "department": "Звіти кафедри",
+        "university": "Університет"
       },
       "filters": {
         "academicYear": "Навчальний рік",
+        "department": "Кафедра",
+        "lecturer": "ПІБ викладача",
         "workProfile": "Робочий профіль",
         "lecturerProfile": "Профіль викладача",
         "selectAcademicYear": "Оберіть навчальний рік",
+        "selectDepartment": "Оберіть кафедру",
+        "selectLecturer": "Оберіть викладача",
         "selectWorkProfile": "Оберіть робочий профіль",
         "selectLecturerProfile": "Оберіть профіль викладача"
       },

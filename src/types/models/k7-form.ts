@@ -1,3 +1,5 @@
+import { EntityIdName } from './entity-id-name';
+
 export interface K7FormLecturerProfile {
   employeeId: number;
   departmentId: number;
@@ -18,6 +20,7 @@ export interface K7FormFilters {
   years: number[];
   profiles: K7FormLecturerProfile[];
   lecturers: K7FormLecturer[];
+  departments: EntityIdName[];
 }
 
 export const K7_REPORT_REQUEST_STATUS = {

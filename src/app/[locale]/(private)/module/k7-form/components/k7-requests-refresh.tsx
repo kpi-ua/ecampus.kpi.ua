@@ -1,28 +1,30 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import { getK7FormRequests } from '@/actions/k7-form.actions';
-import { useRouter } from '@/i18n/routing';
-import { K7ReportRequestStatus } from '@/types/models/k7-form';
+import { K7_REPORT_REQUEST_STATUS, K7ReportRequest } from '@/types/models/k7-form';
 
 const REFRESH_INTERVAL_MS = 5_000;
+const ACTIVE_STATUSES = new Set<K7ReportRequest['status']>([
+  K7_REPORT_REQUEST_STATUS.Pending,
+  K7_REPORT_REQUEST_STATUS.InProgress,
+  K7_REPORT_REQUEST_STATUS.DataReady,
+]);
 
 interface Props {
-  active: boolean;
-  /** Snapshot of the rendered grid, keyed by request id. */
-  statuses: Record<string, K7ReportRequestStatus>;
-  includeDepartment: boolean;
+  reports: K7ReportRequest[];
+  includeAdministered: boolean;
+  onReportsChange: (reports: K7ReportRequest[]) => void;
 }
 
-/**
- * Watches the report requests while some of them are still being processed, so the grid shows
- * status changes without a manual reload. Only the request lists are polled; the full page render
- * (with its per-lecturer profile fan-out) is re-run just when a status actually changed.
- * Renders nothing.
- */
-export const K7RequestsRefresh = ({ active, statuses, includeDepartment }: Props) => {
-  const router = useRouter();
+/** Polls only the request list used by the currently selected tab. */
+export const K7RequestsRefresh = ({ reports, includeAdministered, onReportsChange }: Props) => {
+  const statuses = useMemo(
+    () => Object.fromEntries(reports.map((report) => [report.k7ReportRequestId, report.status])),
+    [reports],
+  );
+  const active = reports.some((report) => ACTIVE_STATUSES.has(report.status));
 
   useEffect(() => {
     if (!active) return;
@@ -30,28 +32,22 @@ export const K7RequestsRefresh = ({ active, statuses, includeDepartment }: Props
     let cancelled = false;
 
     const checkForUpdates = async () => {
-      // A background tab keeps its stale grid; refreshing it would only load the server.
       if (document.hidden) return;
 
       try {
-        const lists = await Promise.all([
-          getK7FormRequests({}),
-          ...(includeDepartment ? [getK7FormRequests({ all: true })] : []),
-        ]);
-
+        const currentReports = await getK7FormRequests({ all: includeAdministered });
         if (cancelled) return;
 
-        // A department head's own reports appear in both lists, so compare deduplicated maps.
-        const current = Object.fromEntries(lists.flat().map((report) => [report.k7ReportRequestId, report.status]));
+        const currentStatuses = Object.fromEntries(
+          currentReports.map((report) => [report.k7ReportRequestId, report.status]),
+        );
         const changed =
-          Object.keys(current).length !== Object.keys(statuses).length ||
-          Object.entries(current).some(([requestId, status]) => statuses[requestId] !== status);
+          Object.keys(currentStatuses).length !== Object.keys(statuses).length ||
+          Object.entries(currentStatuses).some(([requestId, status]) => statuses[requestId] !== status);
 
-        if (changed) {
-          router.refresh();
-        }
+        if (changed) onReportsChange(currentReports);
       } catch {
-        // A transient polling failure is not worth a toast; the next tick retries.
+        // A transient polling failure is retried on the next tick.
       }
     };
 
@@ -61,7 +57,7 @@ export const K7RequestsRefresh = ({ active, statuses, includeDepartment }: Props
       cancelled = true;
       window.clearInterval(intervalId);
     };
-  }, [active, includeDepartment, router, statuses]);
+  }, [active, includeAdministered, onReportsChange, statuses]);
 
   return null;
 };
