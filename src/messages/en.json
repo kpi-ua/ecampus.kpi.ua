@@ -816,7 +816,9 @@
       },
       "generation": {
         "queuedTitle": "Report request created",
-        "queuedDescription": "The request status updates in the table below. The preview becomes available as soon as the data is ready."
+        "queuedDescription": "The request status updates in the table below. The preview becomes available as soon as the data is ready.",
+        "alreadyQueuedTitle": "The report is already being generated",
+        "alreadyQueuedDescription": "This report is already queued. Wait for it to finish - the status updates in the table below."
       },
       "errorDialog": {
         "title": "Failed to generate report",
