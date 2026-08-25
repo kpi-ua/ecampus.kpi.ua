@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { getK7FormRequests } from '@/actions/k7-form.actions';
+import { SpinnerGap } from '@/app/images';
 import { Card } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import {
   K7FormFilters,
@@ -162,11 +162,11 @@ export const K7ReportView = ({
 
       <div className="mt-3">
         {isLoadingReports ? (
-          <div className="border-neutral-divider space-y-3 rounded-lg border bg-white p-5" aria-busy="true">
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-12 w-full" />
-            <Skeleton className="h-12 w-full" />
-            <Skeleton className="h-12 w-full" />
+          <div
+            className="border-neutral-divider flex min-h-32 items-center justify-center rounded-lg border bg-white"
+            aria-busy="true"
+          >
+            <SpinnerGap className="text-basic-blue" />
           </div>
         ) : (
           <K7ReportsTable reports={visibleReports} departmentNames={departmentNames} all={all} />
