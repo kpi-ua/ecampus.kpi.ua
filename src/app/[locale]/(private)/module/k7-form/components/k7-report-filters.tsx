@@ -64,8 +64,9 @@ export const K7ReportFilters = ({ filters, reports, departmentProfiles, type }: 
     if (!selectedProfileData || selectedYearNumber === undefined || isSubmitting) return;
 
     if (activeRequest) {
-      // The same report is already in the queue; the grid below is tracking it.
-      toast({ title: t('generation.queuedTitle'), description: t('generation.queuedDescription') });
+      // The same report is already in the queue; nothing is submitted, so the message says that
+      // rather than repeating the one a new request gets - the grid below is tracking it.
+      toast({ title: t('generation.alreadyQueuedTitle'), description: t('generation.alreadyQueuedDescription') });
       return;
     }
 
