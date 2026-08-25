@@ -10,7 +10,7 @@ import { K7_DASHBOARD_VIEW, K7DashboardView } from '../constants';
 interface Props {
   activeView: K7DashboardView;
   hasDepartmentProfiles: boolean;
-  hasUniversityDepartments: boolean;
+  hasUniversityCathedras: boolean;
 }
 
 const navigationItems: { view: K7DashboardView; href: string }[] = [
@@ -19,12 +19,12 @@ const navigationItems: { view: K7DashboardView; href: string }[] = [
   { view: K7_DASHBOARD_VIEW.University, href: '/module/k7-form/university' },
 ];
 
-export const K7DashboardNavigation = ({ activeView, hasDepartmentProfiles, hasUniversityDepartments }: Props) => {
+export const K7DashboardNavigation = ({ activeView, hasDepartmentProfiles, hasUniversityCathedras }: Props) => {
   const t = useTranslations('private.k-7.tabs');
   const visibleItems = navigationItems.filter(
     ({ view }) =>
       (view !== K7_DASHBOARD_VIEW.Department || hasDepartmentProfiles) &&
-      (view !== K7_DASHBOARD_VIEW.University || hasUniversityDepartments),
+      (view !== K7_DASHBOARD_VIEW.University || hasUniversityCathedras),
   );
 
   return (

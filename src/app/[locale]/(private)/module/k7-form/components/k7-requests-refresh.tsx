@@ -3,7 +3,7 @@
 import { useEffect, useMemo } from 'react';
 
 import { getK7FormRequests } from '@/actions/k7-form.actions';
-import { K7_REPORT_REQUEST_STATUS, K7ReportRequest } from '@/types/models/k7-form';
+import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestFilter } from '@/types/models/k7-form';
 
 const REFRESH_INTERVAL_MS = 5_000;
 const ACTIVE_STATUSES = new Set<K7ReportRequest['status']>([
@@ -15,11 +15,12 @@ const ACTIVE_STATUSES = new Set<K7ReportRequest['status']>([
 interface Props {
   reports: K7ReportRequest[];
   includeAdministered: boolean;
+  filter?: K7ReportRequestFilter;
   onReportsChange: (reports: K7ReportRequest[]) => void;
 }
 
 /** Polls only the request list used by the currently selected tab. */
-export const K7RequestsRefresh = ({ reports, includeAdministered, onReportsChange }: Props) => {
+export const K7RequestsRefresh = ({ reports, includeAdministered, filter, onReportsChange }: Props) => {
   const statuses = useMemo(
     () => Object.fromEntries(reports.map((report) => [report.k7ReportRequestId, report.status])),
     [reports],
@@ -35,7 +36,7 @@ export const K7RequestsRefresh = ({ reports, includeAdministered, onReportsChang
       if (document.hidden) return;
 
       try {
-        const currentReports = await getK7FormRequests({ all: includeAdministered });
+        const currentReports = await getK7FormRequests({ all: includeAdministered, ...filter });
         if (cancelled) return;
 
         const currentStatuses = Object.fromEntries(
@@ -57,7 +58,7 @@ export const K7RequestsRefresh = ({ reports, includeAdministered, onReportsChang
       cancelled = true;
       window.clearInterval(intervalId);
     };
-  }, [active, includeAdministered, onReportsChange, statuses]);
+  }, [active, filter, includeAdministered, onReportsChange, statuses]);
 
   return null;
 };

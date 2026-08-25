@@ -59,7 +59,7 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
           <SelectContent>
             {profiles.map((profile, index) => (
               <SelectItem
-                key={`${profile.userAccountId}-${profile.employeeId}-${profile.departmentId}-${profile.position}`}
+                key={`${profile.employeeId}-${profile.departmentId}-${profile.position}`}
                 value={String(index)}
               >
                 {profile.fullName} - {profile.departmentName} - {profile.position}

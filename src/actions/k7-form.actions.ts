@@ -12,6 +12,7 @@ import {
   K7FormLecturer,
   K7HtmlPreview,
   K7ReportRequest,
+  K7ReportRequestFilter,
   K7ReportRequestDetails,
 } from '@/types/models/k7-form';
 
@@ -82,8 +83,12 @@ export const getK7FormFilters = async (targetAccountId?: number): Promise<K7Form
   return response.json();
 };
 
-export const getK7FormRequests = async ({ all = false }): Promise<K7ReportRequest[]> => {
-  const response = await campusFetch<K7ReportRequest[]>(`/k7-form/requests${all ? '/all' : ''}`);
+export const getK7FormRequests = async ({
+  all = false,
+  ...query
+}: K7ReportRequestFilter & { all?: boolean }): Promise<K7ReportRequest[]> => {
+  const url = qs.stringifyUrl({ url: `/k7-form/requests${all ? '/all' : ''}`, query });
+  const response = await campusFetch<K7ReportRequest[]>(url);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch K-7 requests: ${response.status} ${response.statusText}`);
