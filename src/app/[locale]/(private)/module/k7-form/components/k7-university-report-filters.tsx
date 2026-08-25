@@ -12,17 +12,12 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { K7FormCathedra, K7FormLecturerProfileOption, K7ReportRequest } from '@/types/models/k7-form';
 
-import { useK7ReportGeneration } from '../hooks';
+import { useK7ReportGeneration } from '../hooks/use-k7-report-generation';
 import { K7AcademicYearSelect } from './k7-academic-year-select';
-
-export interface K7UniversityFilterSelection {
-  year?: number;
-  facultyId?: number;
-  departmentId?: number;
-  targetAccountId?: number;
-  employeeId?: number;
-  position?: string;
-}
+import {
+  K7UniversityFilterSelection,
+  UniversityFilterFormValues,
+} from '@/app/[locale]/(private)/module/k7-form/components/types';
 
 interface Props {
   years: number[];
@@ -32,13 +27,6 @@ interface Props {
   isLoadingReports: boolean;
   onFilterChange: (selection: K7UniversityFilterSelection) => void;
   onRequestCreated: (request: K7ReportRequest) => void;
-}
-
-interface UniversityFilterFormValues {
-  year?: number;
-  facultyId?: number;
-  departmentId?: number;
-  profileIndex?: number;
 }
 
 export const K7UniversityReportFilters = ({

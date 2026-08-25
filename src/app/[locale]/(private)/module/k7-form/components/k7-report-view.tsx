@@ -18,8 +18,9 @@ import { K7DepartmentReportFilters } from './k7-department-report-filters';
 import { K7DashboardNavigation } from './k7-dashboard-navigation';
 import { K7PersonalReportFilters } from './k7-personal-report-filters';
 import { K7ReportsTable } from './k7-reports-table';
-import { K7UniversityFilterSelection, K7UniversityReportFilters } from './k7-university-report-filters';
-import { useK7RequestsRefresh } from './use-k7-requests-refresh';
+import { K7UniversityReportFilters } from './k7-university-report-filters';
+import { useK7RequestsRefresh } from './hooks/use-k7-requests-refresh';
+import { K7UniversityFilterSelection } from '@/app/[locale]/(private)/module/k7-form/components/types';
 
 interface Props {
   activeView: K7DashboardView;

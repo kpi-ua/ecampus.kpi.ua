@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { K7FormLecturerProfileOption, K7ReportRequest } from '@/types/models/k7-form';
 
-import { useK7ReportGeneration } from '../hooks';
+import { useK7ReportGeneration } from '../hooks/use-k7-report-generation';
 import { K7AcademicYearSelect } from './k7-academic-year-select';
 
 interface Props {
