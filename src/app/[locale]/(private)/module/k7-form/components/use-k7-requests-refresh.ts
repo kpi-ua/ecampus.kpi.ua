@@ -12,7 +12,7 @@ const ACTIVE_STATUSES = new Set<K7ReportRequest['status']>([
   K7_REPORT_REQUEST_STATUS.DataReady,
 ]);
 
-interface Props {
+interface UseK7RequestsRefreshOptions {
   reports: K7ReportRequest[];
   includeAdministered: boolean;
   filter?: K7ReportRequestFilter;
@@ -20,7 +20,12 @@ interface Props {
 }
 
 /** Polls only the request list used by the currently selected tab. */
-export const K7RequestsRefresh = ({ reports, includeAdministered, filter, onReportsChange }: Props) => {
+export const useK7RequestsRefresh = ({
+  reports,
+  includeAdministered,
+  filter,
+  onReportsChange,
+}: UseK7RequestsRefreshOptions) => {
   const statuses = useMemo(
     () => Object.fromEntries(reports.map((report) => [report.k7ReportRequestId, report.status])),
     [reports],
@@ -59,6 +64,4 @@ export const K7RequestsRefresh = ({ reports, includeAdministered, filter, onRepo
       window.clearInterval(intervalId);
     };
   }, [active, filter, includeAdministered, onReportsChange, statuses]);
-
-  return null;
 };

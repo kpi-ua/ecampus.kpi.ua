@@ -18,8 +18,8 @@ import { K7DepartmentReportFilters } from './k7-department-report-filters';
 import { K7DashboardNavigation } from './k7-dashboard-navigation';
 import { K7PersonalReportFilters } from './k7-personal-report-filters';
 import { K7ReportsTable } from './k7-reports-table';
-import { K7RequestsRefresh } from './k7-requests-refresh';
 import { K7UniversityFilterSelection, K7UniversityReportFilters } from './k7-university-report-filters';
+import { useK7RequestsRefresh } from './use-k7-requests-refresh';
 
 interface Props {
   activeView: K7DashboardView;
@@ -66,6 +66,13 @@ export const K7ReportView = ({
 
   const universityRequestFilter = useMemo(() => getUniversityRequestFilter(universitySelection), [universitySelection]);
 
+  useK7RequestsRefresh({
+    reports,
+    includeAdministered: all,
+    filter: activeView === K7_DASHBOARD_VIEW.University ? universityRequestFilter : undefined,
+    onReportsChange: setReports,
+  });
+
   const handleUniversityFilterChange = useCallback((selection: K7UniversityFilterSelection) => {
     const requestId = ++reportRequestId.current;
     const filter = getUniversityRequestFilter(selection);
@@ -86,7 +93,7 @@ export const K7ReportView = ({
       }
     };
 
-    void fetchReports();
+    fetchReports();
   }, []);
 
   const visibleReports = useMemo(() => {
@@ -124,13 +131,6 @@ export const K7ReportView = ({
 
   return (
     <>
-      <K7RequestsRefresh
-        reports={reports}
-        includeAdministered={all}
-        filter={activeView === K7_DASHBOARD_VIEW.University ? universityRequestFilter : undefined}
-        onReportsChange={setReports}
-      />
-
       <Card className="border-neutral-divider min-w-0 overflow-hidden rounded-lg border bg-white shadow-none">
         <K7DashboardNavigation
           activeView={activeView}
