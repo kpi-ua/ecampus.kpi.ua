@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 
 import { getK7FormLecturers } from '@/actions/k7-form.actions';
 import { Button } from '@/components/ui/button';
@@ -35,10 +35,10 @@ interface Props {
 }
 
 interface UniversityFilterFormValues {
-  year: string;
-  facultyId: string;
-  departmentId: string;
-  profileIndex: string;
+  year?: number;
+  facultyId?: number;
+  departmentId?: number;
+  profileIndex?: number;
 }
 
 export const K7UniversityReportFilters = ({
@@ -57,49 +57,41 @@ export const K7UniversityReportFilters = ({
   const [isLoadingLecturers, setIsLoadingLecturers] = useState(false);
   const lecturerRequestId = useRef(0);
   const { control, setValue } = useForm<UniversityFilterFormValues>({
-    defaultValues: {
-      year: years[0]?.toString() ?? '',
-      facultyId: '',
-      departmentId: '',
-      profileIndex: '',
-    },
+    defaultValues: { year: years[0] },
   });
-  const [selectedYear, selectedFaculty, selectedDepartment, selectedProfile] = useWatch({
-    control,
-    name: ['year', 'facultyId', 'departmentId', 'profileIndex'],
-  });
-  const selectedYearNumber = selectedYear === '' ? undefined : Number(selectedYear);
-  const selectedFacultyId = selectedFaculty === '' ? undefined : Number(selectedFaculty);
-  const selectedDepartmentId = selectedDepartment === '' ? undefined : Number(selectedDepartment);
-  const selectedProfileData = selectedProfile === '' ? undefined : departmentProfiles[Number(selectedProfile)];
+  const { field: yearField } = useController({ control, name: 'year' });
+  const { field: facultyField } = useController({ control, name: 'facultyId' });
+  const { field: departmentField } = useController({ control, name: 'departmentId' });
+  const { field: profileField } = useController({ control, name: 'profileIndex' });
+  const selectedProfile = profileField.value === undefined ? undefined : departmentProfiles[profileField.value];
   const facultyCathedras = useMemo(
-    () => cathedras.filter((cathedra) => cathedra.facultyId === selectedFacultyId),
-    [cathedras, selectedFacultyId],
+    () => cathedras.filter((cathedra) => cathedra.facultyId === facultyField.value),
+    [cathedras, facultyField.value],
   );
   const { generate, isSubmitting, canGenerate } = useK7ReportGeneration({
     reports,
-    selectedProfile: selectedProfileData,
-    selectedYear: selectedYearNumber,
-    targetUserAccountId: selectedProfileData?.userAccountId,
+    selectedProfile,
+    selectedYear: yearField.value,
+    targetUserAccountId: selectedProfile?.userAccountId,
     onRequestCreated,
   });
 
   useEffect(() => {
     onFilterChange({
-      year: selectedYearNumber,
-      facultyId: selectedFacultyId,
-      departmentId: selectedDepartmentId,
-      targetAccountId: selectedProfileData?.userAccountId,
-      employeeId: selectedProfileData?.employeeId,
-      position: selectedProfileData?.position,
+      year: yearField.value,
+      facultyId: facultyField.value,
+      departmentId: departmentField.value,
+      targetAccountId: selectedProfile?.userAccountId,
+      employeeId: selectedProfile?.employeeId,
+      position: selectedProfile?.position,
     });
-  }, [onFilterChange, selectedDepartmentId, selectedFacultyId, selectedProfileData, selectedYearNumber]);
+  }, [departmentField.value, facultyField.value, onFilterChange, selectedProfile, yearField.value]);
 
   const handleFacultyChange = (facultyId: string) => {
     lecturerRequestId.current += 1;
-    setValue('facultyId', facultyId);
-    setValue('departmentId', '');
-    setValue('profileIndex', '');
+    facultyField.onChange(Number(facultyId));
+    setValue('departmentId', undefined);
+    setValue('profileIndex', undefined);
     setDepartmentProfiles([]);
     setIsLoadingLecturers(false);
   };
@@ -108,8 +100,8 @@ export const K7UniversityReportFilters = ({
     const requestId = ++lecturerRequestId.current;
     const parsedDepartmentId = Number(departmentId);
 
-    setValue('departmentId', departmentId);
-    setValue('profileIndex', '');
+    departmentField.onChange(parsedDepartmentId);
+    setValue('profileIndex', undefined);
     setDepartmentProfiles([]);
     setIsLoadingLecturers(true);
 
@@ -138,116 +130,89 @@ export const K7UniversityReportFilters = ({
 
   return (
     <div className="grid min-w-0 gap-4 lg:grid-cols-4">
-      <Controller
-        control={control}
-        name="year"
-        render={({ field }) => (
-          <K7AcademicYearSelect
-            id="academic-year-university"
-            years={years}
-            value={field.value}
-            onValueChange={field.onChange}
-            disabled={isSubmitting}
-          />
-        )}
+      <K7AcademicYearSelect
+        id="academic-year-university"
+        years={years}
+        value={yearField.value?.toString() ?? ''}
+        onValueChange={(year) => yearField.onChange(Number(year))}
+        disabled={isSubmitting}
       />
 
       <div className="flex min-w-0 flex-col gap-2">
         <Label htmlFor="faculty-university">{tFilters('faculty')}</Label>
-        <Controller
-          control={control}
-          name="facultyId"
-          render={({ field }) => (
-            <Select
-              value={field.value}
-              onValueChange={handleFacultyChange}
-              disabled={isSubmitting || faculties.length === 0}
-            >
-              <SelectTrigger
-                id="faculty-university"
-                variant="small"
-                className="border-neutral-300 text-sm text-neutral-900"
-              >
-                <SelectValue placeholder={tFilters('selectFaculty')} />
-              </SelectTrigger>
-              <SelectContent>
-                {faculties.map((faculty) => (
-                  <SelectItem key={faculty.id} value={String(faculty.id)}>
-                    {faculty.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
+        <Select
+          value={facultyField.value?.toString() ?? ''}
+          onValueChange={handleFacultyChange}
+          disabled={isSubmitting || faculties.length === 0}
+        >
+          <SelectTrigger
+            id="faculty-university"
+            variant="small"
+            className="border-neutral-300 text-sm text-neutral-900"
+          >
+            <SelectValue placeholder={tFilters('selectFaculty')} />
+          </SelectTrigger>
+          <SelectContent>
+            {faculties.map((faculty) => (
+              <SelectItem key={faculty.id} value={String(faculty.id)}>
+                {faculty.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
         <Label htmlFor="department-university">{tFilters('cathedra')}</Label>
-        <Controller
-          control={control}
-          name="departmentId"
-          render={({ field }) => (
-            <Select
-              value={field.value}
-              onValueChange={handleDepartmentChange}
-              disabled={isSubmitting || selectedFacultyId === undefined || facultyCathedras.length === 0}
-            >
-              <SelectTrigger
-                id="department-university"
-                variant="small"
-                className="border-neutral-300 text-sm text-neutral-900"
-              >
-                <SelectValue placeholder={tFilters('selectCathedra')} />
-              </SelectTrigger>
-              <SelectContent>
-                {facultyCathedras.map((cathedra) => (
-                  <SelectItem key={cathedra.id} value={String(cathedra.id)}>
-                    {cathedra.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
+        <Select
+          value={departmentField.value?.toString() ?? ''}
+          onValueChange={handleDepartmentChange}
+          disabled={isSubmitting || facultyField.value === undefined || facultyCathedras.length === 0}
+        >
+          <SelectTrigger
+            id="department-university"
+            variant="small"
+            className="border-neutral-300 text-sm text-neutral-900"
+          >
+            <SelectValue placeholder={tFilters('selectCathedra')} />
+          </SelectTrigger>
+          <SelectContent>
+            {facultyCathedras.map((cathedra) => (
+              <SelectItem key={cathedra.id} value={String(cathedra.id)}>
+                {cathedra.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="flex min-w-0 flex-col gap-2">
         <Label htmlFor="lecturer-university">{tFilters('lecturerProfile')}</Label>
-        <Controller
-          control={control}
-          name="profileIndex"
-          render={({ field }) => (
-            <Select
-              value={field.value}
-              onValueChange={field.onChange}
-              disabled={
-                isSubmitting ||
-                selectedDepartmentId === undefined ||
-                isLoadingLecturers ||
-                departmentProfiles.length === 0
-              }
-            >
-              <SelectTrigger
-                id="lecturer-university"
-                variant="small"
-                className="border-neutral-300 text-sm text-neutral-900"
+        <Select
+          value={profileField.value?.toString() ?? ''}
+          onValueChange={(profileIndex) => profileField.onChange(Number(profileIndex))}
+          disabled={
+            isSubmitting || departmentField.value === undefined || isLoadingLecturers || departmentProfiles.length === 0
+          }
+        >
+          <SelectTrigger
+            id="lecturer-university"
+            variant="small"
+            className="border-neutral-300 text-sm text-neutral-900"
+          >
+            <SelectValue placeholder={tFilters('selectLecturerProfile')} />
+          </SelectTrigger>
+          <SelectContent>
+            {departmentProfiles.map((profile, index) => (
+              <SelectItem
+                key={`${profile.userAccountId}-${profile.employeeId}-${profile.departmentId}-${profile.position}`}
+                value={String(index)}
               >
-                <SelectValue placeholder={tFilters('selectLecturerProfile')} />
-              </SelectTrigger>
-              <SelectContent>
-                {departmentProfiles.map((profile, index) => (
-                  <SelectItem
-                    key={`${profile.userAccountId}-${profile.employeeId}-${profile.departmentId}-${profile.position}`}
-                    value={String(index)}
-                  >
-                    {profile.fullName} - {profile.position}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        />
+                {profile.fullName} - {profile.position}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="flex justify-end lg:col-span-full">
