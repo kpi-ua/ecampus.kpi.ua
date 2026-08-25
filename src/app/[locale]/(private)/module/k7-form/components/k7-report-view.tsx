@@ -58,7 +58,11 @@ export const K7ReportView = ({
     errorToastRef.current = errorToast;
   }, [errorToast]);
 
-  useEffect(() => setReports(initialReports), [initialReports]);
+  useEffect(() => {
+    if (activeView !== K7_DASHBOARD_VIEW.University) {
+      setReports(initialReports);
+    }
+  }, [activeView, initialReports]);
 
   const universityRequestFilter = useMemo(() => getUniversityRequestFilter(universitySelection), [universitySelection]);
 
@@ -154,7 +158,10 @@ export const K7ReportView = ({
               years={filters.years}
               faculties={filters.faculties}
               cathedras={filters.cathedras}
+              reports={visibleReports}
+              isLoadingReports={isLoadingReports}
               onFilterChange={handleUniversityFilterChange}
+              onRequestCreated={handleRequestCreated}
             />
           )}
         </div>
