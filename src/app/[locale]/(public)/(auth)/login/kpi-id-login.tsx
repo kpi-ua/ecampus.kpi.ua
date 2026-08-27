@@ -22,8 +22,7 @@ export const KPIIDLogin = () => {
         data-size="large"
         data-logo-alignment="left"
         data-locale={locale}
-        data-color="outline"
-        data-class-name="my-4"
+        data-color="brand"
         data-full-width="true"
         data-dev-mode={String(process.env.NEXT_PUBLIC_ENV !== 'production')}
       ></div>

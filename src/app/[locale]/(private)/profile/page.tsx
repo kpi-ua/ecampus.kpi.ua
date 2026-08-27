@@ -40,7 +40,7 @@ export default async function Page() {
           <InfoBlock user={user} className="h-fit w-full" />
           <Card className="h-fit w-full">
             <CardContent className="flex flex-col gap-6 space-y-1.5 p-9">
-              <Contacts contacts={contacts} contactTypes={contactTypes} />
+              <Contacts corporateEmail={user.corporateEmail} contacts={contacts} contactTypes={contactTypes} />
               {user.intellectProfile && <IntellectPublicationInfo user={user} />}
               <CodeOfHonor user={user} />
             </CardContent>

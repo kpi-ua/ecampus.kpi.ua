@@ -8,7 +8,7 @@ export const PublicLinks = async () => {
   const t = await getTranslations('auth.login.publicLink');
 
   return (
-    <div className="mt-8 grid grid-cols-2 gap-8 sm:grid-cols-3">
+    <div className="mt-[36px] flex justify-center gap-4 sm:gap-6">
       <PublicLink target="_blank" href={process.env.NEXT_PUBLIC_SUGGESTIONS_FORM!} icon={<LifebuoyOutline />}>
         {t('support')}
       </PublicLink>
