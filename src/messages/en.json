@@ -609,6 +609,7 @@
       "lecturer": "Lecturer",
       "status": "Status",
       "average-score": "Average score for the entire period of study:",
+      "average-score-selected-semester": "Average score for the selected semester:",
       "your-session": "Your session:",
       "filter": {
         "semester": "Semester",

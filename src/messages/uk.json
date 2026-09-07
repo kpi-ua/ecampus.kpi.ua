@@ -609,6 +609,7 @@
       "lecturer": "Викладач",
       "status": "Статус",
       "average-score": "Середній бал за весь період навчання:",
+      "average-score-selected-semester": "Середній бал за обраний семестр:",
       "your-session": "Ваша сесія:",
       "filter": {
         "semester": "Семестр",

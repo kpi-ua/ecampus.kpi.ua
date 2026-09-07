@@ -24,7 +24,15 @@ type TermResults = {
   averageScore: number | string;
 };
 
-export default function SessionTable({ termResults, semesters }: { termResults: TermResults; semesters: number[] }) {
+export default function SessionTable({
+  termResults,
+  semesters,
+  semesterId,
+}: {
+  termResults: TermResults;
+  semesters: number[];
+  semesterId?: string;
+}) {
   const t = useTranslations('private.vedomoststud');
   const tEnums = useTranslations('global.enums');
 
@@ -94,7 +102,9 @@ export default function SessionTable({ termResults, semesters }: { termResults: 
         </TableBody>
       </Table>
       <div className="my-2 flex items-center gap-2 pl-4">
-        <Paragraph className="text-base font-normal">{t('average-score')}</Paragraph>
+        <Paragraph className="text-base font-normal">
+          {t(semesterId ? 'average-score-selected-semester' : 'average-score')}
+        </Paragraph>
         <Badge className="bg-basic-blue text-basic-white font-semibold">{termResults.averageScore}</Badge>
       </div>
     </Card>

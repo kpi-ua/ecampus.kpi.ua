@@ -35,5 +35,5 @@ export default async function SessionPage({ searchParams }: PageProps) {
     })),
   };
 
-  return <SessionTable termResults={fixedTermResults} semesters={semesters} />;
+  return <SessionTable termResults={fixedTermResults} semesters={semesters} semesterId={semesterId} />;
 }
