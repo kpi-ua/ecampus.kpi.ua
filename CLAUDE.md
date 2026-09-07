@@ -17,7 +17,18 @@ Electronic Campus (eCampus) for Igor Sikorsky Kyiv Polytechnic Institute - a ful
 
 ## Quick Commands
 
+**Note: No local npm/node installed. Use Docker for all npm commands.**
+
 ```bash
+# Via Docker (recommended):
+docker run --rm -it -v $(pwd):/app -w /app -p 3000:3000 node:18-alpine npm run dev      # Dev server
+docker run --rm -it -v $(pwd):/app -w /app node:18-alpine npm run build                  # Production build
+docker run --rm -it -v $(pwd):/app -w /app node:18-alpine npm run lint                   # ESLint
+docker run --rm -it -v $(pwd):/app -w /app node:18-alpine npm run tsc                    # Type check
+docker run --rm -it -v $(pwd):/app -w /app node:18-alpine npm install                    # Install deps
+docker run --rm -it -v $(pwd):/app -w /app -p 6006:6006 node:18-alpine npm run storybook # Storybook
+
+# If npm is available locally:
 npm run dev          # Start dev server with Turbopack
 npm run build        # Production build
 npm run start        # Run production server
@@ -117,6 +128,81 @@ Required in `.env.development` / `.env.production`:
 ## Testing
 
 No testing framework currently configured.
+
+## Module: Certificates
+
+### Overview
+
+The certificate module handles student certificate requests and faculty certificate management (approval/rejection, signing, printing).
+
+### Certificate Status Flow
+
+```
+Created → Pending → Processed → Signed
+    ↓         ↓         ↓
+  Error     Error     Error
+```
+
+- **Created**: Initial request submitted by student
+- **Pending**: Approved by faculty, waiting for PDF generation
+- **Processed**: PDF generated, ready for signing
+- **Signed**: Certificate signed and delivered to student
+- **Error**: Generation failed (can be regenerated)
+
+### Key Types
+
+```typescript
+// Certificate statuses
+enum CertificateStatus {
+  Error = 'Error',
+  Created = 'Created',
+  Pending = 'Pending',
+  Processed = 'Processed',
+  Signed = 'Signed',
+}
+
+// Certificate model
+interface Certificate {
+  id: number;
+  publicKey: string;
+  status: CertificateStatus;
+  originalRequired: boolean;  // true = paper original needed
+  approved: boolean | null;   // null = pending review
+  // ... other fields
+}
+```
+
+### Server Actions (`src/actions/certificates.actions.ts`)
+
+| Action | Description |
+|--------|-------------|
+| `getCertificateList()` | Get student's own certificates |
+| `getCertificateTypes()` | Get available certificate types |
+| `createCertificateRequest(body)` | Student requests a certificate |
+| `getAllFacultyCertificates(query)` | Faculty: list all certificates with pagination |
+| `getCertificate(id)` | Get single certificate details |
+| `getCertificateData(id)` | Get student data for certificate |
+| `updateCertificate(id, body)` | Approve/reject certificate |
+| `regenerateCertificate(id)` | Retry failed PDF generation |
+| `signCertificate(id)` | Mark certificate as signed |
+| `getCertificatePDF(id)` | Download signed PDF (with stamp) |
+| `getUnsignedCertificatePDF(id)` | Download unsigned PDF (no stamp) |
+| `getSignatories()` | Get available signatories |
+| `verifyCertificate(id)` | Public: verify certificate by public key |
+| `createCertificateAsOperator(body)` | Operator: create certificate for student |
+| `searchStudentsForOperator(query)` | Operator: search students |
+
+### Routes
+
+- `/module/certificates` - Student certificate requests
+- `/module/facultycertificate` - Faculty certificate management
+- `/module/facultycertificate/[id]` - Certificate details & actions
+
+### Print Logic
+
+Unsigned PDF (without stamp) available when:
+- `originalRequired === false` (electronic certificate)
+- `status === Processed || status === Signed`
 
 ## Useful Paths
 
