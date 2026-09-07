@@ -9,12 +9,25 @@ import {
   CreateK7ReportRequestInput,
   K7_ACHIEVEMENT_WORK_TYPE,
   K7FormFilters,
+  K7FormLecturer,
   K7HtmlPreview,
   K7ReportRequest,
+  K7ReportRequestFilter,
   K7ReportRequestDetails,
 } from '@/types/models/k7-form';
 
 const TOO_MANY_REQUESTS = 429;
+
+export const getK7FormLecturers = async (departmentId: number): Promise<K7FormLecturer[]> => {
+  const url = qs.stringifyUrl({ url: '/k7-form/lecturers', query: { departmentId } });
+  const response = await campusFetch<K7FormLecturer[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch K-7 lecturers: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+};
 
 const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview => {
   const teachingDisciplines = response.teachingDisciplines ?? [];
@@ -70,8 +83,12 @@ export const getK7FormFilters = async (targetAccountId?: number): Promise<K7Form
   return response.json();
 };
 
-export const getK7FormRequests = async ({ all = false }): Promise<K7ReportRequest[]> => {
-  const response = await campusFetch<K7ReportRequest[]>(`/k7-form/requests${all ? '/all' : ''}`);
+export const getK7FormRequests = async ({
+  all = false,
+  ...query
+}: K7ReportRequestFilter & { all?: boolean }): Promise<K7ReportRequest[]> => {
+  const url = qs.stringifyUrl({ url: `/k7-form/requests${all ? '/all' : ''}`, query });
+  const response = await campusFetch<K7ReportRequest[]>(url);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch K-7 requests: ${response.status} ${response.statusText}`);
@@ -105,9 +122,8 @@ export const createK7FormRequest = async (input: CreateK7ReportRequestInput): Pr
   }
 
   const request = await response.json();
-  // The literal URL lives under the /[locale]/ segment, so the route file path is what
-  // invalidates the dashboard for every locale.
-  revalidatePath('/[locale]/(private)/module/k7-form', 'page');
+  // The dashboard scopes are separate pages under the same route layout.
+  revalidatePath('/[locale]/(private)/module/k7-form', 'layout');
 
   return { outcome: 'created', request };
 };
@@ -120,9 +136,8 @@ export const retryK7FormRequest = async (requestId: string): Promise<K7ReportReq
   }
 
   const request = await response.json();
-  // The literal URL lives under the /[locale]/ segment, so the route file path is what
-  // invalidates the dashboard for every locale.
-  revalidatePath('/[locale]/(private)/module/k7-form', 'page');
+  // The dashboard scopes are separate pages under the same route layout.
+  revalidatePath('/[locale]/(private)/module/k7-form', 'layout');
 
   return request;
 };

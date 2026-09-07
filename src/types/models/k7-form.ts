@@ -1,3 +1,5 @@
+import { EntityIdName } from './entity-id-name';
+
 export interface K7FormLecturerProfile {
   employeeId: number;
   departmentId: number;
@@ -14,10 +16,16 @@ export interface K7FormLecturer {
 
 export type K7FormLecturerProfileOption = Omit<K7FormLecturer, 'profiles'> & K7FormLecturerProfile;
 
+export interface K7FormCathedra extends EntityIdName {
+  facultyId: number;
+}
+
 export interface K7FormFilters {
   years: number[];
   profiles: K7FormLecturerProfile[];
   lecturers: K7FormLecturer[];
+  faculties: EntityIdName[];
+  cathedras: K7FormCathedra[];
 }
 
 export const K7_REPORT_REQUEST_STATUS = {
@@ -45,6 +53,14 @@ export interface K7ReportRequest {
   s3StorageKey: string | null;
   requestedAt: string;
   completedAt: string | null;
+}
+
+export interface K7ReportRequestFilter {
+  year?: number;
+  departmentId?: number;
+  targetAccountId?: number;
+  employeeId?: number;
+  position?: string;
 }
 
 export type CreateK7FormRequestResult =
