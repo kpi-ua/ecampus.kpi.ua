@@ -786,7 +786,9 @@
         "overallScore": "Overall score",
         "universityScore": "university-wide",
         "courseScore": "for your course",
-        "empty": "There are no published results to display"
+        "heading": "Survey results",
+        "empty": "No survey results available",
+        "emptyDescription": "The survey has not yet been conducted for your course, or the results have not yet been processed."
       },
       "state": {
         "Unavailable": {

@@ -18,66 +18,70 @@ export const VoteResultsTable = ({ voteData }: Props) => {
   const t = useTranslations('private.vote.results');
   const resultLecturers = voteData.lecturers.filter((lecturer): lecturer is ResultLecturer => lecturer.result !== null);
 
-  if (!voteData.term || resultLecturers.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</p>;
-  }
-
   return (
-    <section className="space-y-5">
-      <div className="text-center">
-        <h2 className="mb-3 text-xl font-semibold text-neutral-900 sm:text-2xl">
-          {t('title', { number: voteData.term.number, studyYear: voteData.term.studyYear })}
+    <section className="rounded-3xl bg-white p-6 shadow-[0_8px_12px_rgba(158,182,201,0.25)]">
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold text-neutral-800">
+          {voteData.term
+            ? t('title', { number: voteData.term.number, studyYear: voteData.term.studyYear })
+            : t('heading')}
         </h2>
-        {voteData.term.description && <p className="mt-2 text-sm text-neutral-600">{voteData.term.description}</p>}
       </div>
 
-      <Table className="min-w-max border border-neutral-200">
-        <TableHeader>
-          <TableRow>
-            <TableHead rowSpan={2} className="min-w-56">
-              {t('lecturer')}
-            </TableHead>
-            <TableHead colSpan={2} className="text-center [&>span]:justify-center">
-              {t('overallScore')}
-            </TableHead>
-            {voteData.criteria.map((criterion) => (
-              <TableHead
-                key={criterion.id}
-                rowSpan={2}
-                className="max-w-52 min-w-40 text-center normal-case [&>span]:justify-center"
-              >
-                {criterion.name}
+      {resultLecturers.length > 0 && (
+        <Table className="min-w-[1100px] [&_th]:h-auto [&_th]:py-4 [&_th]:text-xs [&_th]:leading-4 [&_th]:font-medium">
+          <TableHeader className="[&_tr]:border-0">
+            <TableRow>
+              <TableHead scope="col" className="w-[18%] min-w-56">
+                {t('lecturer')}
               </TableHead>
-            ))}
-          </TableRow>
-          <TableRow>
-            <TableHead className="min-w-28 text-center normal-case [&>span]:justify-center">
-              {t('universityScore')}
-            </TableHead>
-            <TableHead className="min-w-24 text-center normal-case [&>span]:justify-center">
-              {t('courseScore')}
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {resultLecturers.map((lecturer) => (
-            <TableRow key={lecturer.employeeId}>
-              <TableCell className="font-medium text-neutral-900">{lecturer.fullName}</TableCell>
-              <TableCell className="border-l border-neutral-200 text-center font-semibold text-red-500">
-                {formatNumber(lecturer.result.overallScore)}
-              </TableCell>
-              <TableCell className="border-r border-neutral-200 text-center font-semibold text-red-500">
-                {lecturer.result.courseScore === null ? '—' : formatNumber(lecturer.result.courseScore)}
-              </TableCell>
+              <TableHead scope="col" className="min-w-32">
+                <span>
+                  {t('overallScore')}
+                  <br />
+                  {t('universityScore')}
+                </span>
+              </TableHead>
+              <TableHead scope="col" className="min-w-32">
+                <span>
+                  {t('overallScore')}
+                  <br />
+                  {t('courseScore')}
+                </span>
+              </TableHead>
               {voteData.criteria.map((criterion) => (
-                <TableCell key={criterion.id} className="text-center">
-                  {formatNumber(lecturer.result.criterionScores[criterion.id])}
-                </TableCell>
+                <TableHead key={criterion.id} scope="col" className="max-w-64 min-w-32">
+                  {criterion.name}
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {resultLecturers.map((lecturer) => (
+              <TableRow key={lecturer.employeeId} className="border-0 even:bg-neutral-50">
+                <TableCell className="text-neutral-900">{lecturer.fullName}</TableCell>
+                <TableCell className="text-basic-blue font-semibold">
+                  {formatNumber(lecturer.result.overallScore)}
+                </TableCell>
+                <TableCell className="text-basic-blue font-semibold">
+                  {lecturer.result.courseScore === null ? '—' : formatNumber(lecturer.result.courseScore)}
+                </TableCell>
+                {voteData.criteria.map((criterion) => (
+                  <TableCell key={criterion.id}>
+                    {formatNumber(lecturer.result.criterionScores[criterion.id])}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+      {resultLecturers.length === 0 && (
+        <div className="flex min-h-52 flex-col items-center justify-center gap-2 px-4 py-12 text-center" role="status">
+          <p className="text-lg font-semibold text-neutral-500">{t('empty')}</p>
+          <p className="max-w-md text-base text-neutral-500">{t('emptyDescription')}</p>
+        </div>
+      )}
     </section>
   );
 };
