@@ -8,6 +8,7 @@ import {
   CreateK7FormRequestResult,
   CreateK7ReportRequestInput,
   K7_ACHIEVEMENT_WORK_TYPE,
+  K7DetailedAchievement,
   K7FormFilters,
   K7FormLecturer,
   K7HtmlPreview,
@@ -45,14 +46,26 @@ const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview
   ];
   const organizationalAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Organizational] ?? [];
   const otherAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Other] ?? [];
+  // Educational work recorded as an achievement belongs to section 1.2, the way the generated
+  // document and the MyKPI workload both count it.
+  const educationalAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Educational] ?? [];
+
+  const sumHours = (rows: K7DetailedAchievement[]) => rows.reduce((total, item) => total + item.hoursUsed, 0);
 
   const educationalHours =
     teachingDisciplines.reduce((total, item) => total + item.totalVolume, 0) +
-    otherEducationalActivities.reduce((total, item) => total + item.grandTotal, 0);
-  const scientificHours = scientificAchievements.reduce((total, item) => total + item.hoursUsed, 0);
-  const methodicalHours = methodicalAchievements.reduce((total, item) => total + item.hoursUsed, 0);
-  const organizationalHours = organizationalAchievements.reduce((total, item) => total + item.hoursUsed, 0);
-  const otherHours = otherAchievements.reduce((total, item) => total + item.hoursUsed, 0);
+    otherEducationalActivities.reduce((total, item) => total + item.grandTotal, 0) +
+    sumHours(educationalAchievements);
+  const methodicalHours = sumHours(methodicalAchievements);
+  const organizationalHours = sumHours(organizationalAchievements);
+
+  // The reporting limits of the time norms trim the credited totals without touching the rows.
+  // Reading them here is what keeps this preview and the generated document in agreement; before
+  // it, the screen showed raw totals while the downloaded file showed capped ones.
+  const scientificWorkCap = response.scientificWorkCap ?? null;
+  const otherWorkCap = response.otherWorkCap ?? null;
+  const scientificHours = sumHours(scientificAchievements) - (scientificWorkCap?.exceededHours ?? 0);
+  const otherHours = otherWorkCap?.creditedHours ?? sumHours(otherAchievements);
 
   return {
     header: response.header,
@@ -68,6 +81,10 @@ const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview
       organizationalHours,
       otherHours,
       totalHours: educationalHours + scientificHours + methodicalHours + organizationalHours + otherHours,
+    },
+    caps: {
+      scientific: scientificWorkCap,
+      otherDuties: otherWorkCap,
     },
   };
 };
