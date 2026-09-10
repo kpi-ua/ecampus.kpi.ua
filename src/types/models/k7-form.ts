@@ -203,6 +203,8 @@ export interface K7HtmlPreview {
   section1: {
     teachingDisciplines: K7TeachingDiscipline[];
     otherEducationalActivities: K7OtherEducationalActivity[];
+    /** Educational work recorded as achievements; printed after the load rows of section 1.2. */
+    educationalAchievements: K7DetailedAchievement[];
   };
   section2: K7DetailedAchievement[];
   section3: K7DetailedAchievement[];

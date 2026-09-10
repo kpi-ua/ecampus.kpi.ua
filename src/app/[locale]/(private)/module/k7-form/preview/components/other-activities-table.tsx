@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { cn, formatNumber } from '@/lib/utils';
-import { K7OtherEducationalActivity } from '@/types/models/k7-form';
+import { K7DetailedAchievement, K7OtherEducationalActivity } from '@/types/models/k7-form';
 
 import { EDUCATION_LEVEL_TRANSLATION_KEYS } from '../constants';
 import { groupOtherActivities } from '../utils/group-other-activities';
@@ -11,18 +11,30 @@ import { summaryCellClassName, summaryRowClassName, tableCellClassName, tableHea
 
 interface Props {
   rows: K7OtherEducationalActivity[];
+  /**
+   * Achievements booked as educational work. They carry no course, groups or semester once their
+   * periods are merged, so they fill the work-type and year-total cells only, as in the document.
+   */
+  achievements?: K7DetailedAchievement[];
 }
+
+const achievementLabel = (achievement: K7DetailedAchievement) =>
+  achievement.workDescription
+    ? `${achievement.workTypeDescription}. ${achievement.workDescription}`
+    : achievement.workTypeDescription;
 
 const hasSemesterData = (groupCodes: string | null, studentCount: number, hours: number) =>
   Boolean(groupCodes) || studentCount > 0 || hours > 0;
 
 const formatSemesterHours = (hours: number) => (hours > 0 ? formatNumber(hours, 2) : '—');
 
-export const OtherActivitiesTable = ({ rows }: Props) => {
+export const OtherActivitiesTable = ({ rows, achievements = [] }: Props) => {
   const t = useTranslations('private.k-7.preview');
   const semesterHeadClassName = cn(tableHeadClassName, 'h-[32px] text-center');
   const borderedSemesterHeadClassName = cn(semesterHeadClassName, 'border-neutral-divider border-x');
   const activityGroups = groupOtherActivities(rows);
+  const achievementHours = achievements.reduce((total, item) => total + item.hoursUsed, 0);
+  const isEmpty = rows.length === 0 && achievements.length === 0;
 
   return (
     <Table className="leading-xs table-fixed border-collapse text-xs [&_td:not(:last-child)]:border-r">
@@ -70,7 +82,7 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {rows.length === 0 && <EmptyTableRow colSpan={12} />}
+        {isEmpty && <EmptyTableRow colSpan={12} />}
         {activityGroups.map((group, groupIndex) =>
           group.rows.map((row, rowIndex) => {
             const hasFirstSemesterData = hasSemesterData(row.groupCodesSem1, row.studentCountSem1, row.hoursSem1);
@@ -113,7 +125,18 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
             );
           }),
         )}
-        {rows.length > 0 && (
+        {achievements.map((achievement, index) => (
+          <TableRow key={`achievement-${index}-${achievement.workTypeDescription}`} className="hover:bg-white">
+            <TableCell className={tableCellClassName}>{activityGroups.length + index + 1}</TableCell>
+            <TableCell colSpan={2} className={tableCellClassName}>
+              {achievementLabel(achievement)}
+            </TableCell>
+            <TableCell colSpan={4} className={tableCellClassName} />
+            <TableCell colSpan={4} className={tableCellClassName} />
+            <TableCell className={tableCellClassName}>{formatNumber(achievement.hoursUsed, 2)}</TableCell>
+          </TableRow>
+        ))}
+        {!isEmpty && (
           <TableRow className={summaryRowClassName}>
             <TableCell colSpan={3} className={summaryCellClassName}>
               {t('table.total')}
@@ -127,10 +150,7 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
               {formatSemesterHours(rows.reduce((total, row) => total + row.hoursSem2, 0))}
             </TableCell>
             <TableCell className={summaryCellClassName}>
-              {formatNumber(
-                rows.reduce((total, row) => total + row.grandTotal, 0),
-                2,
-              )}
+              {formatNumber(rows.reduce((total, row) => total + row.grandTotal, 0) + achievementHours, 2)}
             </TableCell>
           </TableRow>
         )}

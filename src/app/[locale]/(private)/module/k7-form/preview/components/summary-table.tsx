@@ -17,14 +17,14 @@ export const SummaryTable = ({ preview }: Props) => {
   const scientificCap = preview.caps.scientific;
   const otherDutiesCap = preview.caps.otherDuties;
   const rows = [
-    { title: t('summaryRows.educational'), hours: preview.section6.educationalHours },
+    { title: t('summaryRows.educational'), hours: preview.section6.educationalHours, mark: '' },
     {
       title: t('sections.scientific'),
       hours: preview.section6.scientificHours,
       mark: scientificCap && scientificCap.exceededHours > 0 ? '**' : '',
     },
-    { title: t('sections.methodical'), hours: preview.section6.methodicalHours },
-    { title: t('sections.organizational'), hours: preview.section6.organizationalHours },
+    { title: t('sections.methodical'), hours: preview.section6.methodicalHours, mark: '' },
+    { title: t('sections.organizational'), hours: preview.section6.organizationalHours, mark: '' },
     {
       title: t('sections.otherDuties'),
       hours: preview.section6.otherHours,
@@ -57,7 +57,7 @@ export const SummaryTable = ({ preview }: Props) => {
               <TableCell className={tableCellClassName}>{row.title}</TableCell>
               <TableCell className={`${tableCellClassName} text-right`}>
                 {formatNumber(row.hours, 2)}
-                {'mark' in row ? row.mark : ''}
+                {row.mark}
               </TableCell>
             </TableRow>
           ))}

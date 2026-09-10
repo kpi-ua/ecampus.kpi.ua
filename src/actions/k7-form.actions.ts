@@ -69,7 +69,7 @@ const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview
 
   return {
     header: response.header,
-    section1: { teachingDisciplines, otherEducationalActivities },
+    section1: { teachingDisciplines, otherEducationalActivities, educationalAchievements },
     section2: scientificAchievements,
     section3: methodicalAchievements,
     section4: organizationalAchievements,
