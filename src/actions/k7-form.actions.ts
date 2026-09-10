@@ -46,16 +46,12 @@ const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview
   ];
   const organizationalAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Organizational] ?? [];
   const otherAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Other] ?? [];
-  // Educational work recorded as an achievement belongs to section 1.2, the way the generated
-  // document and the MyKPI workload both count it.
-  const educationalAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Educational] ?? [];
 
   const sumHours = (rows: K7DetailedAchievement[]) => rows.reduce((total, item) => total + item.hoursUsed, 0);
 
   const educationalHours =
     teachingDisciplines.reduce((total, item) => total + item.totalVolume, 0) +
-    otherEducationalActivities.reduce((total, item) => total + item.grandTotal, 0) +
-    sumHours(educationalAchievements);
+    otherEducationalActivities.reduce((total, item) => total + item.grandTotal, 0);
   const methodicalHours = sumHours(methodicalAchievements);
   const organizationalHours = sumHours(organizationalAchievements);
 
@@ -69,7 +65,7 @@ const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview
 
   return {
     header: response.header,
-    section1: { teachingDisciplines, otherEducationalActivities, educationalAchievements },
+    section1: { teachingDisciplines, otherEducationalActivities },
     section2: scientificAchievements,
     section3: methodicalAchievements,
     section4: organizationalAchievements,
