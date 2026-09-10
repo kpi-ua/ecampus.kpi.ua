@@ -9,9 +9,15 @@ import { summaryCellClassName, summaryRowClassName, tableCellClassName, tableHea
 
 interface Props {
   rows: K7DetailedAchievement[];
+  /**
+   * Total printed in the summary row when it is not the plain sum of the rows: section 2 credits
+   * the 5.3–5.6 limit there, the way `scientific_total_hours` does in the generated document,
+   * while every row keeps its own hours.
+   */
+  totalHours?: number;
 }
 
-export const DepartmentWorkTable = ({ rows }: Props) => {
+export const DepartmentWorkTable = ({ rows, totalHours }: Props) => {
   const t = useTranslations('private.k-7.preview.table');
 
   return (
@@ -60,10 +66,7 @@ export const DepartmentWorkTable = ({ rows }: Props) => {
               {t('total')}
             </TableCell>
             <TableCell className={`${summaryCellClassName} text-right`}>
-              {formatNumber(
-                rows.reduce((total, row) => total + row.hoursUsed, 0),
-                2,
-              )}
+              {formatNumber(totalHours ?? rows.reduce((total, row) => total + row.hoursUsed, 0), 2)}
             </TableCell>
             <TableCell colSpan={2} className={summaryCellClassName} />
           </TableRow>

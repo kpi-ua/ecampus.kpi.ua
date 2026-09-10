@@ -913,7 +913,7 @@
           "labGroups": "Lab groups"
         },
         "caps": {
-          "scientific": "** Work types 5.3-5.6 exceed the annual limit, so only {hours} h are credited.",
+          "scientific": "** Work types 5.3–5.6 exceed the annual limit, so only {hours} h are credited.",
           "otherDuties": "* The limit is exceeded, so only {hours} h are credited."
         }
       }
