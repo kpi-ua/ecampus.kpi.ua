@@ -30,11 +30,10 @@ export const K7PreviewContent = ({ preview, pdfReady }: Props) => {
   const t = useTranslations('private.k-7');
   const tEmployeeCategory = useTranslations('private.k-7.employee-category');
   const teachingHours = preview.section1.teachingDisciplines.reduce((total, row) => total + row.totalVolume, 0);
-  // Section 1.2 lists the load and the achievements recorded as educational work, the way the
-  // generated document does, so its heading sums both.
-  const otherEducationalHours =
-    preview.section1.otherEducationalActivities.reduce((total, row) => total + row.grandTotal, 0) +
-    preview.section1.educationalAchievements.reduce((total, row) => total + row.hoursUsed, 0);
+  const otherEducationalHours = preview.section1.otherEducationalActivities.reduce(
+    (total, row) => total + row.grandTotal,
+    0,
+  );
   const employeeCategoryTranslationKey = EMPLOYEE_CATEGORY_TRANSLATION_KEYS[preview.header.employeeCategory];
   const employeeCategory = employeeCategoryTranslationKey
     ? tEmployeeCategory(employeeCategoryTranslationKey)
@@ -86,10 +85,7 @@ export const K7PreviewContent = ({ preview, pdfReady }: Props) => {
         </ReportSection>
 
         <ReportSection number="1.2" title={t('preview.sections.otherEducational')} hours={otherEducationalHours}>
-          <OtherActivitiesTable
-            rows={preview.section1.otherEducationalActivities}
-            achievements={preview.section1.educationalAchievements}
-          />
+          <OtherActivitiesTable rows={preview.section1.otherEducationalActivities} />
         </ReportSection>
 
         <div className="mt-8 flex min-w-0 flex-col gap-2">

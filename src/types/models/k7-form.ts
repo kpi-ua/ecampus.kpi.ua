@@ -147,8 +147,6 @@ export const K7_ACHIEVEMENT_WORK_TYPE = {
   Other: 'Other',
   Syllabus: 'Syllabus',
   Article: 'Article',
-  /** Educational work recorded as an achievement; it belongs to section 1.2, not to section 5. */
-  Educational: 'Educational',
 } as const;
 
 export type K7AchievementWorkType = (typeof K7_ACHIEVEMENT_WORK_TYPE)[keyof typeof K7_ACHIEVEMENT_WORK_TYPE];
@@ -203,8 +201,6 @@ export interface K7HtmlPreview {
   section1: {
     teachingDisciplines: K7TeachingDiscipline[];
     otherEducationalActivities: K7OtherEducationalActivity[];
-    /** Educational work recorded as achievements; printed after the load rows of section 1.2. */
-    educationalAchievements: K7DetailedAchievement[];
   };
   section2: K7DetailedAchievement[];
   section3: K7DetailedAchievement[];
