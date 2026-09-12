@@ -90,7 +90,7 @@ export const K7PreviewContent = ({ preview, pdfReady }: Props) => {
 
         <div className="mt-8 flex min-w-0 flex-col gap-2">
           <ReportSection number="2" title={t('preview.sections.scientific')} hours={preview.section6.scientificHours}>
-            <ScientificWorkTable rows={preview.section2} />
+            <ScientificWorkTable rows={preview.section2} totalHours={preview.section6.scientificHours} />
           </ReportSection>
 
           <ReportSection number="3" title={t('preview.sections.methodical')} hours={preview.section6.methodicalHours}>

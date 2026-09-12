@@ -167,6 +167,23 @@ export interface K7DetailedAchievement {
   semester: number | null;
 }
 
+/**
+ * A reporting limit of the time norms applied to a group of hours. The source achievements keep
+ * their own values; only the credited totals of section 6 use this result.
+ */
+export interface WorkloadCapCalculation {
+  /** Stable code of the rule, e.g. the 120 h annual limit of scientific work clauses 5.3-5.6. */
+  ruleCode: string;
+  /** Complete verified hours of the group. */
+  rawHours: number;
+  /** Hours credited after the limit. */
+  creditedHours: number;
+  /** The limit that applied. */
+  applicableLimit: number;
+  /** Hours above the limit, i.e. `rawHours - creditedHours`. */
+  exceededHours: number;
+}
+
 export interface K7HtmlPreview {
   header: {
     k7ReportRequestId: string;
@@ -197,6 +214,13 @@ export interface K7HtmlPreview {
     otherHours: number;
     totalHours: number;
   };
+  /** Limits that trimmed the section 6 totals, so the preview can footnote them like the document. */
+  caps: {
+    /** The 120 h annual limit of scientific work clauses 5.3-5.6; absent on older snapshots. */
+    scientific: WorkloadCapCalculation | null;
+    /** The 10% limit on other duties; absent on older snapshots. */
+    otherDuties: WorkloadCapCalculation | null;
+  };
 }
 
 export interface K7ReportRequestDetails {
@@ -204,4 +228,7 @@ export interface K7ReportRequestDetails {
   teachingDisciplines: K7TeachingDiscipline[];
   otherEducationalActivities: K7OtherEducationalActivity[];
   detailedAchievements: K7DetailedAchievement[];
+  /** Absent on reports captured before the limits were applied; their totals stay as captured. */
+  otherWorkCap?: WorkloadCapCalculation | null;
+  scientificWorkCap?: WorkloadCapCalculation | null;
 }
