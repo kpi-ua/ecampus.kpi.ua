@@ -4,6 +4,7 @@ import { Check, Search } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
+import { Paragraph } from '@/components/typography';
 import { Input } from '@/components/ui/input';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { ProfilePicture } from '@/components/ui/profile-picture';
@@ -17,9 +18,10 @@ interface Props {
   lecturers: VoteLecturer[];
   selectedEmployeeId: number | null;
   onSelect: (lecturer: VoteLecturer) => void;
+  disabled: boolean;
 }
 
-export const LecturerList = ({ lecturers, selectedEmployeeId, onSelect }: Props) => {
+export const LecturerList = ({ lecturers, selectedEmployeeId, onSelect, disabled }: Props) => {
   const t = useTranslations('private.vote');
   const [search, setSearch] = useState('');
 
@@ -36,10 +38,9 @@ export const LecturerList = ({ lecturers, selectedEmployeeId, onSelect }: Props)
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, filteredLecturers);
 
   return (
-    <section className="flex w-full flex-col gap-5 space-y-5 rounded-3xl bg-white p-6 shadow-lg lg:w-[516px] lg:shrink-0">
+    <section className="flex w-full flex-col gap-5 rounded-3xl bg-white p-6 shadow-lg lg:w-[516px] lg:shrink-0">
       <div>
         <Input
-          aria-label={t('search')}
           icon={<Search />}
           placeholder={t('search')}
           size="small"
@@ -59,7 +60,7 @@ export const LecturerList = ({ lecturers, selectedEmployeeId, onSelect }: Props)
               <button
                 key={lecturer.employeeId}
                 type="button"
-                disabled={lecturer.hasVoted}
+                disabled={lecturer.hasVoted || disabled}
                 onClick={() => onSelect(lecturer)}
                 className={cn(
                   'flex w-full items-center gap-3 rounded-md border border-transparent px-4 py-3 text-left transition-colors',
@@ -72,20 +73,20 @@ export const LecturerList = ({ lecturers, selectedEmployeeId, onSelect }: Props)
                   {lecturer.fullName}
                 </span>
                 <Show when={lecturer.hasVoted}>
-                  <Check className="size-4 text-green-600" aria-label={t('completed')} />
+                  <Check className="size-4 text-green-600" />
                 </Show>
               </button>
             );
           })}
           <Show when={filteredLecturers.length === 0}>
-            <p className="px-4 py-10 text-center text-sm text-neutral-500">{t('noSearchResults')}</p>
+            <Paragraph className="m-0 px-4 py-10 text-center text-sm text-neutral-500">
+              {t('noSearchResults')}
+            </Paragraph>
           </Show>
         </div>
       </div>
       <Show when={filteredLecturers.length > PAGE_SIZE_DEFAULT}>
-        <div>
-          <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={filteredLecturers.length} />
-        </div>
+        <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={filteredLecturers.length} />
       </Show>
     </section>
   );

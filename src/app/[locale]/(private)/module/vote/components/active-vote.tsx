@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { submitVote } from '@/actions/vote.actions';
@@ -24,13 +25,28 @@ export const ActiveVote = ({ initialVoteData }: Props) => {
     initialVoteData.lecturers.find((lecturer) => !lecturer.hasVoted)?.employeeId ?? null,
   );
   const [scores, setScores] = useState<Record<number, number>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { mutate, isPending: isSubmitting } = useMutation({
+    mutationFn: submitVote,
+    retry: false,
+    onSuccess: (_, request) => {
+      const updatedLecturers = lecturers.map((lecturer) =>
+        lecturer.employeeId === request.employeeId ? { ...lecturer, hasVoted: true } : lecturer,
+      );
+      const nextLecturer = updatedLecturers.find((lecturer) => !lecturer.hasVoted);
+
+      setLecturers(updatedLecturers);
+      setSelectedEmployeeId(nextLecturer?.employeeId ?? null);
+      setScores({});
+      toast({ title: t('success.title'), description: t('success.description') });
+    },
+    onError: () => errorToast(),
+  });
 
   const selectedLecturer = lecturers.find((lecturer) => lecturer.employeeId === selectedEmployeeId) ?? null;
   const isComplete = initialVoteData.criteria.every((criterion) => scores[criterion.id] !== undefined);
 
   const selectLecturer = (lecturer: VoteLecturer) => {
-    if (lecturer.hasVoted) {
+    if (lecturer.hasVoted || isSubmitting) {
       return;
     }
 
@@ -39,44 +55,34 @@ export const ActiveVote = ({ initialVoteData }: Props) => {
   };
 
   const handleScoreChange = (criterionId: number, mark: number) => {
+    if (isSubmitting) {
+      return;
+    }
     setScores((current) => ({ ...current, [criterionId]: mark }));
   };
 
-  const handleSubmit = async () => {
-    if (!selectedLecturer || !isComplete) {
+  const handleSubmit = () => {
+    if (!selectedLecturer || !isComplete || isSubmitting) {
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      await submitVote({
-        employeeId: selectedLecturer.employeeId,
-        scores: initialVoteData.criteria.map((criterion) => ({
-          criterionId: criterion.id,
-          mark: scores[criterion.id],
-        })),
-      });
-
-      const updatedLecturers = lecturers.map((lecturer) =>
-        lecturer.employeeId === selectedLecturer.employeeId ? { ...lecturer, hasVoted: true } : lecturer,
-      );
-      const nextLecturer = updatedLecturers.find((lecturer) => !lecturer.hasVoted);
-
-      setLecturers(updatedLecturers);
-      setSelectedEmployeeId(nextLecturer?.employeeId ?? null);
-      setScores({});
-      toast({ title: t('success.title'), description: t('success.description') });
-    } catch {
-      errorToast();
-    } finally {
-      setIsSubmitting(false);
-    }
+    mutate({
+      employeeId: selectedLecturer.employeeId,
+      scores: initialVoteData.criteria.map((criterion) => ({
+        criterionId: criterion.id,
+        mark: scores[criterion.id],
+      })),
+    });
   };
 
   return (
     <div className="flex flex-col items-start gap-6 lg:flex-row">
-      <LecturerList lecturers={lecturers} selectedEmployeeId={selectedEmployeeId} onSelect={selectLecturer} />
+      <LecturerList
+        lecturers={lecturers}
+        selectedEmployeeId={selectedEmployeeId}
+        onSelect={selectLecturer}
+        disabled={isSubmitting}
+      />
       <VoteForm
         criteria={initialVoteData.criteria}
         lecturer={selectedLecturer}

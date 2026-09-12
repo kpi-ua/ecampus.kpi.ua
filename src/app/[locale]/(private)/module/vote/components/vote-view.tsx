@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
+import { Paragraph } from '@/components/typography';
 import { VoteData, VoteState } from '@/types/models/vote';
 
 import { ActiveVote } from './active-vote';
@@ -20,15 +21,19 @@ export const VoteView = ({ voteData }: Props) => {
 
   if (voteData.state !== VoteState.Active) {
     return (
-      <div className="rounded-xl border border-neutral-200 bg-white px-6 py-12 text-center shadow-sm">
-        <p className="text-base font-semibold text-neutral-900">{t(`state.${voteData.state}.title`)}</p>
-        <p className="mt-2 text-sm text-neutral-600">{t(`state.${voteData.state}.description`)}</p>
+      <div className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-white px-6 py-12 text-center shadow-sm">
+        <Paragraph className="m-0 text-base font-semibold text-neutral-900">
+          {t(`state.${voteData.state}.title`)}
+        </Paragraph>
+        <Paragraph className="leading-sm m-0 text-sm text-neutral-600">
+          {t(`state.${voteData.state}.description`)}
+        </Paragraph>
       </div>
     );
   }
 
   if (voteData.lecturers.length === 0 || voteData.criteria.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</p>;
+    return <Paragraph className="text-muted-foreground m-0 py-12 text-center text-sm">{t('empty')}</Paragraph>;
   }
 
   return <ActiveVote initialVoteData={voteData} />;

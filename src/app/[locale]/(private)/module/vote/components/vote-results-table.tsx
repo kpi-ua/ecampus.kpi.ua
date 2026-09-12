@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
+import { Heading2, Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { VoteData, VoteLecturer, VoteLecturerResult } from '@/types/models/vote';
 import { formatNumber } from '@/lib/utils';
@@ -21,11 +22,11 @@ export const VoteResultsTable = ({ voteData }: Props) => {
   return (
     <section className="rounded-3xl bg-white p-6 shadow-[0_8px_12px_rgba(158,182,201,0.25)]">
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-neutral-800">
+        <Heading2 className="leading-lg lg:leading-lg text-lg text-neutral-800 lg:text-lg">
           {voteData.term
             ? t('title', { number: voteData.term.number, studyYear: voteData.term.studyYear })
             : t('heading')}
-        </h2>
+        </Heading2>
       </div>
 
       {resultLecturers.length > 0 && (
@@ -78,8 +79,8 @@ export const VoteResultsTable = ({ voteData }: Props) => {
       )}
       {resultLecturers.length === 0 && (
         <div className="flex min-h-52 flex-col items-center justify-center gap-2 px-4 py-12 text-center" role="status">
-          <p className="text-lg font-semibold text-neutral-500">{t('empty')}</p>
-          <p className="max-w-md text-base text-neutral-500">{t('emptyDescription')}</p>
+          <Paragraph className="m-0 text-lg leading-7 font-semibold text-neutral-500">{t('empty')}</Paragraph>
+          <Paragraph className="m-0 max-w-md text-base text-neutral-500">{t('emptyDescription')}</Paragraph>
         </div>
       )}
     </section>
