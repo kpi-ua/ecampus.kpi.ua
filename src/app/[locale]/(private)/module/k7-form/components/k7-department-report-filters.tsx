@@ -52,7 +52,7 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
           <SelectTrigger
             id="work-profile-department"
             variant="small"
-            className="border-neutral-300 text-sm text-neutral-900"
+            className="border-neutral-300 text-left text-sm text-neutral-900"
           >
             <SelectValue placeholder={t('filters.selectLecturerProfile')} />
           </SelectTrigger>
