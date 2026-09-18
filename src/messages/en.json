@@ -769,6 +769,49 @@
         "signed": "Signed"
       }
     },
+    "vote": {
+      "title": "Survey",
+      "subtitle": "To improve the quality of education at Igor Sikorsky Kyiv Polytechnic Institute, please evaluate the teaching staff of your faculty for the past academic year.",
+      "search": "Search",
+      "lecturers": "Lecturers",
+      "rateLecturer": "Rate the lecturer",
+      "save": "Save",
+      "completed": "Survey completed",
+      "empty": "There are no lecturers or criteria available for the survey",
+      "noSearchResults": "No lecturers found",
+      "allCompleted": {
+        "title": "Thank you for taking part",
+        "description": "You have rated all available lecturers."
+      },
+      "success": {
+        "title": "Rating saved",
+        "description": "Thank you for your feedback."
+      },
+      "results": {
+        "title": "Survey results No. {number} for the {studyYear} academic year",
+        "lecturer": "Lecturer",
+        "overallScore": "Overall score",
+        "universityScore": "university-wide",
+        "courseScore": "for your course",
+        "heading": "Survey results",
+        "empty": "No survey results available",
+        "emptyDescription": "The survey has not yet been conducted for your course, or the results have not yet been processed."
+      },
+      "state": {
+        "Unavailable": {
+          "title": "Survey unavailable",
+          "description": "There is no survey available at the moment."
+        },
+        "ResultsPending": {
+          "title": "Survey completed",
+          "description": "The survey results have not been published yet."
+        },
+        "ResultsPublished": {
+          "title": "Survey completed",
+          "description": "The survey results have been published."
+        }
+      }
+    },
     "rating": {
       "title": "Archival SPW Rating",
       "subtitle": "View scientific-pedagogical workers rating data by years and workplaces.",
