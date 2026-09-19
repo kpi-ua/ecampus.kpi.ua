@@ -86,7 +86,7 @@ const Button = ({
 
   const iconAtPosition = (position: IconPosition) => {
     if (loading) {
-      return position === 'start' ? <SpinnerGap /> : null;
+      return position === 'start' ? <SpinnerGap className="animate-spin" /> : null;
     }
 
     return icon && position === iconPosition ? icon : null;

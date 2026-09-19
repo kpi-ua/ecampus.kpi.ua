@@ -16,6 +16,16 @@ export const round = (number: number, decimalPlaces: number = 2) =>
 export const formatNumber = (num: number, decimals: number = 2, locale: string = 'uk-UA') =>
   num.toLocaleString(locale, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
 
+export function base64ToBlob(base64: string, contentType: string): Blob {
+  const byteCharacters = atob(base64);
+  const byteNumbers = new Array(byteCharacters.length);
+  for (let i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  const byteArray = new Uint8Array(byteNumbers);
+  return new Blob([byteArray], { type: contentType });
+}
+
 export const parseContentDispositionFilename = (header: string): string | null => {
   const starMatch = header.match(/filename\*\s*=\s*([^']*)''([^;]+)/i);
   if (starMatch) {
