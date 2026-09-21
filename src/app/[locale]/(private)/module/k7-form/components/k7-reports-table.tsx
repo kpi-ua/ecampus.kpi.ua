@@ -1,6 +1,7 @@
 'use client';
 
 import dayjs from 'dayjs';
+import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { type KeyboardEvent, useState } from 'react';
 
@@ -8,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { Link } from '@/i18n/routing';
+import { Link, usePathname } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from '@/types/models/k7-form';
 
@@ -41,6 +42,9 @@ const statusBadgeClassName: Record<ReportStatusKey, string> = {
 
 export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
   const t = useTranslations('private.k-7');
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const returnTo = `${pathname}${searchParams.size ? `?${searchParams}` : ''}`;
   const { errorToast } = useServerErrorToast();
   const [errorReport, setErrorReport] = useState<K7ReportRequest>();
   const [downloadingRequestId, setDownloadingRequestId] = useState<string>();
@@ -135,7 +139,7 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
                     <div className="flex justify-end gap-2">
                       <Button asChild variant="secondary" size="small" className="h-10 rounded-md px-5 py-0 text-xs">
                         <Link
-                          href={`/module/k7-form/preview?requestId=${encodeURIComponent(report.k7ReportRequestId)}${all ? '&all=true' : ''}`}
+                          href={`/module/k7-form/preview?requestId=${encodeURIComponent(report.k7ReportRequestId)}${all ? '&all=true' : ''}&returnTo=${encodeURIComponent(returnTo)}`}
                         >
                           {t('actions.view')}
                         </Link>
