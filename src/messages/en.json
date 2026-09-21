@@ -66,7 +66,6 @@
       "studdocadmin": "Student documents (Admin)",
       "yiystat": "Statistical data",
       "adminpanel": "Admin panel",
-      "employment": "Employment system",
       "rating": "Archival SPW Rating",
       "useract": "Bravo Requests",
       "viewcontrol": "Review current control",
@@ -543,13 +542,6 @@
         "credo": "Enter your credo",
         "scientific-interests": "Enter your scientific interests",
         "not-specified": "Not specified"
-      }
-    },
-    "employment-system": {
-      "title": "Employment system",
-      "subtitle": "You can proceed to filling out the skills and knowledge questionnaire or watch the video tutorial",
-      "button": {
-        "title": "Go to questionnaire"
       }
     },
     "facultycertificate": {

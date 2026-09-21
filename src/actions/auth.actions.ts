@@ -101,12 +101,6 @@ export async function getUserDetails() {
   return userResponse.json();
 }
 
-export async function redirectToEmploymentSystem() {
-  const response = await campusFetch<string>('employment-system/auth');
-  const url = await response.json();
-  redirect(url);
-}
-
 export async function getKPIIDAccounts(ticketId: string) {
   const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${ticketId}`);
 
