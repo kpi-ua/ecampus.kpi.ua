@@ -136,7 +136,7 @@ export const K7UniversityReportFilters = ({
           <SelectTrigger
             id="faculty-university"
             variant="small"
-            className="border-neutral-300 text-sm text-neutral-900"
+            className="border-neutral-300 text-left text-sm text-neutral-900"
           >
             <SelectValue placeholder={tFilters('selectFaculty')} />
           </SelectTrigger>
@@ -160,7 +160,7 @@ export const K7UniversityReportFilters = ({
           <SelectTrigger
             id="department-university"
             variant="small"
-            className="border-neutral-300 text-sm text-neutral-900"
+            className="border-neutral-300 text-left text-sm text-neutral-900"
           >
             <SelectValue placeholder={tFilters('selectCathedra')} />
           </SelectTrigger>
@@ -186,7 +186,7 @@ export const K7UniversityReportFilters = ({
           <SelectTrigger
             id="lecturer-university"
             variant="small"
-            className="border-neutral-300 text-sm text-neutral-900"
+            className="border-neutral-300 text-left text-sm text-neutral-900"
           >
             <SelectValue placeholder={tFilters('selectLecturerProfile')} />
           </SelectTrigger>
