@@ -1,7 +1,7 @@
 'use client';
 
 import { Download, Pencil } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import qs from 'query-string';
 import { useMemo, useState } from 'react';
 
@@ -12,11 +12,13 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 import { BibliotekaEmployee } from '@/types/models/biblioteka';
 
 import { exportEmployees } from '../utils/export-employees';
+import { filterEmployees } from '../utils/filter-employees';
 import { IdentifierLink } from './identifier-link';
 
 interface Props {
@@ -27,21 +29,31 @@ interface Props {
 
 export const EmployeesTable = ({ employees, exportLabel, departmentId }: Props) => {
   const t = useTranslations('private.biblioteka');
+  const locale = useLocale();
+  const { errorToast } = useServerErrorToast();
   const [filters, setFilters] = useState({ name: '', orcid: '', scopus: '', researcher: '', scholar: '' });
-  const filtered = useMemo(() => {
-    const includes = (value: string | null, query: string) => (value ?? '').toLowerCase().includes(query.toLowerCase());
-    return employees.filter(
-      (employee) =>
-        includes(`${employee.surname} ${employee.name} ${employee.patronymic}`, filters.name) &&
-        includes(employee.orcid, filters.orcid) &&
-        includes(employee.scopusId, filters.scopus) &&
-        includes(employee.researcherId, filters.researcher) &&
-        includes(employee.googleScholarId, filters.scholar),
-    );
-  }, [employees, filters]);
+  const [isExporting, setIsExporting] = useState(false);
+  const filtered = useMemo(() => filterEmployees(employees, filters), [employees, filters]);
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, filtered);
   const setFilter = (key: keyof typeof filters, value: string) =>
     setFilters((current) => ({ ...current, [key]: value }));
+
+  const handleExport = async () => {
+    setIsExporting(true);
+    try {
+      await exportEmployees({
+        ...filters,
+        departmentId,
+        letter: departmentId === undefined ? exportLabel : undefined,
+        label: exportLabel,
+        locale,
+      });
+    } catch {
+      errorToast();
+    } finally {
+      setIsExporting(false);
+    }
+  };
 
   return (
     <div className="border-neutral-divider min-w-0 overflow-hidden rounded-lg border bg-white shadow-none">
@@ -92,7 +104,8 @@ export const EmployeesTable = ({ employees, exportLabel, departmentId }: Props) 
                 className="w-full"
                 variant="secondary"
                 size="small"
-                onClick={() => exportEmployees(filtered, exportLabel, t('table.name'))}
+                loading={isExporting}
+                onClick={handleExport}
               >
                 <Download />
                 {t('export')}

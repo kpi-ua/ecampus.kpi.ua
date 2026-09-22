@@ -1,8 +1,10 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import qs from 'query-string';
+import { useEffect } from 'react';
 
 import { getBibliotekaEmployees } from '@/actions/biblioteka.actions';
 import { Description, Heading3, Paragraph } from '@/components/typography';
@@ -17,7 +19,11 @@ const LETTERS = [...'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШ�
 export const AlphabetBrowser = () => {
   const t = useTranslations('private.biblioteka');
   const { errorToast } = useServerErrorToast();
-  const [letter, setLetter] = useState<string>();
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const requestedLetter = searchParams.get('letter')?.toUpperCase();
+  const letter = requestedLetter && LETTERS.includes(requestedLetter) ? requestedLetter : undefined;
   const {
     data: employees = [],
     isFetching,
@@ -32,6 +38,13 @@ export const AlphabetBrowser = () => {
     if (error) errorToast();
   }, [error, errorToast]);
 
+  const handleLetterChange = (value: string) => {
+    const params = qs.parse(searchParams.toString());
+    params.letter = value;
+    delete params.page;
+    router.replace(qs.stringifyUrl({ url: pathname, query: params }), { scroll: false });
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
@@ -45,7 +58,7 @@ export const AlphabetBrowser = () => {
             variant={letter === item ? 'primary' : 'secondary'}
             size="small"
             disabled={isFetching}
-            onClick={() => setLetter(item)}
+            onClick={() => handleLetterChange(item)}
           >
             {item}
           </Button>

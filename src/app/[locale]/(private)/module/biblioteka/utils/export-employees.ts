@@ -1,22 +1,31 @@
-import dayjs from 'dayjs';
+import qs from 'query-string';
 
-import { BibliotekaEmployee } from '@/types/models/biblioteka';
+import { parseContentDispositionFilename } from '@/lib/utils';
 
-export const exportEmployees = (employees: BibliotekaEmployee[], label: string, nameHeader: string) => {
-  const rows = [
-    [nameHeader, 'ORCID', 'Scopus ID', 'Researcher ID', 'Google Scholar'],
-    ...employees.map((employee) => [
-      `${employee.surname} ${employee.name} ${employee.patronymic}`,
-      employee.orcid,
-      employee.scopusId,
-      employee.researcherId,
-      employee.googleScholarId,
-    ]),
-  ];
-  const csv = `\uFEFF${rows.map((row) => row.map((value) => `"${String(value ?? '').replaceAll('"', '""')}"`).join(';')).join('\n')}`;
+import { BibliotekaEmployeeFilters } from './filter-employees';
+
+interface ExportEmployeesOptions extends BibliotekaEmployeeFilters {
+  departmentId?: number;
+  letter?: string;
+  label: string;
+  locale: string;
+}
+
+export const exportEmployees = async (options: ExportEmployeesOptions) => {
+  const url = qs.stringifyUrl({ url: '/api/biblioteka/export', query: { ...options } });
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to export Biblioteka employees: ${response.status}`);
+  }
+
+  const blob = await response.blob();
   const link = document.createElement('a');
-  link.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' }));
-  link.download = `biblioteka-${label}-${dayjs().format('YYYY-MM-DD')}.csv`;
+  const objectUrl = URL.createObjectURL(blob);
+  link.href = objectUrl;
+  link.download = parseContentDispositionFilename(response.headers.get('Content-Disposition') ?? '') ?? 'biblioteka.csv';
+  document.body.appendChild(link);
   link.click();
-  URL.revokeObjectURL(link.href);
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
 };
