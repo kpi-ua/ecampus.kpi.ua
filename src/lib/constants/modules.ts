@@ -44,7 +44,6 @@ export const MODULES: Module[] = [
   { name: 'yiystat', isExternal: true },
   { name: 'adminpanel', isExternal: true },
   { name: 'mob', isExternal: true },
-  { name: 'employment', isExternal: false },
   { name: 'useract', isExternal: true },
   { name: 'viewcontrol', isExternal: true },
   { name: 'pk2026', isExternal: true },
