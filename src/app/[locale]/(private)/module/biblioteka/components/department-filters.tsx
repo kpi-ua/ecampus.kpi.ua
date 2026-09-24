@@ -46,19 +46,7 @@ export const DepartmentFilters = ({ departments }: Props) => {
     staleTime: BIBLIOTEKA_STALE_TIME,
   });
   const faculties = useMemo(
-    () =>
-      Array.from(
-        new Map(
-          departments.map((department) => [
-            department.facultyId,
-            {
-              id: department.facultyId,
-              name: department.facultyName,
-              abbreviation: department.facultyAbbreviation,
-            },
-          ]),
-        ).values(),
-      ),
+    () => [...new Map(departments.map((department) => [department.facultyId, department])).values()],
     [departments],
   );
   const facultyDepartments = useMemo(
@@ -103,8 +91,8 @@ export const DepartmentFilters = ({ departments }: Props) => {
               </SelectTrigger>
               <SelectContent>
                 {faculties.map((faculty) => (
-                  <SelectItem key={faculty.id} value={String(faculty.id)}>
-                    {faculty.name} ({faculty.abbreviation})
+                  <SelectItem key={faculty.facultyId} value={String(faculty.facultyId)}>
+                    {faculty.facultyName} ({faculty.facultyAbbreviation})
                   </SelectItem>
                 ))}
               </SelectContent>

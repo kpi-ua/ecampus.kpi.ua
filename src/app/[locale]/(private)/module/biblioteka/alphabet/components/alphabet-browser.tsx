@@ -35,7 +35,9 @@ export const AlphabetBrowser = () => {
     staleTime: BIBLIOTEKA_STALE_TIME,
   });
   useEffect(() => {
-    if (error) errorToast();
+    if (error) {
+      errorToast();
+    }
   }, [error, errorToast]);
 
   const handleLetterChange = (value: string) => {
