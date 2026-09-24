@@ -2,6 +2,8 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import { Pencil, Save, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -14,6 +16,9 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { BibliotekaIdentifier } from '@/types/models/biblioteka';
 
 import { bibliotekaQueryKeys } from '../query-keys';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 interface Props {
   identifier: BibliotekaIdentifier;
@@ -47,7 +52,7 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
         )}
       </TableCell>
       <TableCell className="text-neutral-500">
-        {identifier.changedAt ? dayjs(identifier.changedAt).format('DD.MM.YYYY HH:mm:ss') : '—'}
+        {identifier.changedAt ? dayjs.utc(identifier.changedAt).tz('Europe/Kyiv').format('DD.MM.YYYY HH:mm:ss') : '—'}
       </TableCell>
       <TableCell>
         {editing ? (
