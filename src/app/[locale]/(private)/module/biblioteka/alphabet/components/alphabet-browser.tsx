@@ -70,7 +70,7 @@ export const AlphabetBrowser = () => {
       {letter &&
         !isFetching &&
         (employees.length > 0 ? (
-          <EmployeesTable employees={employees} exportLabel={letter} />
+          <EmployeesTable employees={employees} exportLabel={letter} letter={letter} />
         ) : (
           <Paragraph className="m-0 py-10 text-center text-sm text-neutral-500">{t('empty')}</Paragraph>
         ))}

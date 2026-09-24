@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import qs from 'query-string';
 
 import { getBibliotekaDepartments, getBibliotekaEmployee } from '@/actions/biblioteka.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
@@ -9,11 +10,11 @@ import { EmployeeDetails } from '../../components/employee-details';
 
 interface Props {
   params: Promise<{ employeeId: string }>;
-  searchParams: Promise<{ userAccountId?: string; departmentId?: string }>;
+  searchParams: Promise<{ userAccountId?: string; departmentId?: string; letter?: string }>;
 }
 
 export default async function EmployeePage({ params, searchParams }: Props) {
-  const [{ employeeId }, { userAccountId, departmentId }, t] = await Promise.all([
+  const [{ employeeId }, { userAccountId, departmentId, letter }, t] = await Promise.all([
     params,
     searchParams,
     getTranslations('private.biblioteka'),
@@ -23,10 +24,20 @@ export default async function EmployeePage({ params, searchParams }: Props) {
   const department = departmentId
     ? (await getBibliotekaDepartments()).find((item) => item.id === Number(departmentId))
     : undefined;
-  const breadcrumbs = [
-    ['/module/biblioteka', t('departments.title')],
-    ...(department ? [[`/module/biblioteka/departments/${department.id}`, department.abbreviation]] : []),
-  ];
+  const alphabetLetter = letter?.toUpperCase();
+  const fromAlphabet =
+    !departmentId && alphabetLetter?.length === 1 && 'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ'.includes(alphabetLetter);
+  const breadcrumbs = fromAlphabet
+    ? [
+        [
+          qs.stringifyUrl({ url: '/module/biblioteka/alphabet', query: { letter: alphabetLetter } }),
+          `${t('tabs.alphabet')} ${alphabetLetter}`,
+        ],
+      ]
+    : [
+        ['/module/biblioteka', t('departments.title')],
+        ...(department ? [[`/module/biblioteka/departments/${department.id}`, department.abbreviation]] : []),
+      ];
 
   return (
     <SubLayout pageTitle={details.fullName} breadcrumbs={breadcrumbs}>

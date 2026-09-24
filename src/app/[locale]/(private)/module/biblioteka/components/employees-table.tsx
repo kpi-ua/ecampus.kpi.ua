@@ -25,9 +25,10 @@ interface Props {
   employees: BibliotekaEmployee[];
   exportLabel: string;
   departmentId?: number;
+  letter?: string;
 }
 
-export const EmployeesTable = ({ employees, exportLabel, departmentId }: Props) => {
+export const EmployeesTable = ({ employees, exportLabel, departmentId, letter }: Props) => {
   const t = useTranslations('private.biblioteka');
   const locale = useLocale();
   const { errorToast } = useServerErrorToast();
@@ -139,6 +140,7 @@ export const EmployeesTable = ({ employees, exportLabel, departmentId }: Props) 
                       query: {
                         userAccountId: employee.userAccountId ?? undefined,
                         departmentId,
+                        letter,
                       },
                     })}
                   >
