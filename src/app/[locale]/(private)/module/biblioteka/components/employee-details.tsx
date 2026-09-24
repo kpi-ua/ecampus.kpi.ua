@@ -31,10 +31,6 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
     <div className="flex flex-col gap-8">
       <EntityHeading
         title={details.fullName}
-        meta={details.employments
-          .map((item) => item.subdivisionName)
-          .filter((value, index, all) => all.indexOf(value) === index)
-          .join(', ')}
         description={t('employee.description')}
       />
       <section className="flex flex-col gap-4">
