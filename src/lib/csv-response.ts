@@ -1,21 +1,26 @@
 import 'server-only';
 
+import { stringify } from 'csv-stringify/sync';
+
 type CsvCell = string | number | boolean | null | undefined;
 
-const escapeCell = (value: CsvCell) => {
-  const text = String(value ?? '');
-  const safeText = typeof value === 'string' && /^\s*[=+\-@\t\r]/.test(text) ? `'${text}` : text;
-  return `"${safeText.replaceAll('"', '""')}"`;
-};
-
 export const createCsvResponse = (rows: readonly (readonly CsvCell[])[], filename: string): Response => {
-  const csv = `\uFEFF${rows.map((row) => row.map(escapeCell).join(';')).join('\r\n')}`;
-  const safeFilename = filename.replace(/[\\/\r\n";]/g, '_');
-
+  const csv = stringify(
+    rows.map((row) => [...row]),
+    {
+      bom: true,
+      delimiter: ';',
+      record_delimiter: 'windows',
+      quoted: true,
+      quoted_empty: true,
+      escape_formulas: true,
+      eof: false,
+    },
+  );
   return new Response(csv, {
     headers: {
       'Content-Type': 'text/csv; charset=utf-8',
-      'Content-Disposition': `attachment; filename="download.csv"; filename*=UTF-8''${encodeURIComponent(safeFilename)}`,
+      'Content-Disposition': `attachment; filename="download.csv"; filename*=UTF-8''${encodeURIComponent(filename)}`,
       'Cache-Control': 'private, no-store',
     },
   });

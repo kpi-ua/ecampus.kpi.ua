@@ -34,7 +34,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
         meta={details.employments
           .map((item) => item.subdivisionName)
           .filter((value, index, all) => all.indexOf(value) === index)
-          .join(' · ')}
+          .join(', ')}
         description={t('employee.description')}
       />
       <section className="flex flex-col gap-4">

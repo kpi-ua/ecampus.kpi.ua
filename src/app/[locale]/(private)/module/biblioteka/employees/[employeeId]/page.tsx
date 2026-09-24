@@ -31,7 +31,7 @@ export default async function EmployeePage({ params, searchParams }: Props) {
   return (
     <SubLayout pageTitle={details.fullName} breadcrumbs={breadcrumbs}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
-        <BibliotekaTabs active="departments" />
+        <BibliotekaTabs />
         <EmployeeDetails initialDetails={details} />
       </div>
     </SubLayout>

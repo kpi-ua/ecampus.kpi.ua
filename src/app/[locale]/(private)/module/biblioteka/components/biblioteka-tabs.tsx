@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
 interface Props {
-  active: 'departments' | 'alphabet';
+  active?: 'departments' | 'alphabet';
 }
 
 export const BibliotekaTabs = ({ active }: Props) => {
@@ -20,7 +20,7 @@ export const BibliotekaTabs = ({ active }: Props) => {
 
   return (
     <nav
-      className="border-neutral-divider flex h-12 w-full justify-start overflow-x-auto rounded-lg border bg-white"
+      className="border-neutral-divider flex h-13 w-full justify-start overflow-x-auto rounded-lg border bg-white"
     >
       <Link href="/module/biblioteka" className={itemClass(active === 'departments')}>
         {t('departments')}
