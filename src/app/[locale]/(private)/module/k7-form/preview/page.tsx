@@ -10,11 +10,19 @@ import { K7PreviewContent } from './page.content';
 const INTL_NAMESPACE = 'private.k-7';
 
 interface Props {
-  searchParams: Promise<{ requestId?: string; all?: string }>;
+  searchParams: Promise<{ requestId?: string; all?: string; returnTo?: string }>;
 }
 
 export default async function K7PreviewPage({ searchParams }: Props) {
-  const [t, { requestId, all }] = await Promise.all([getTranslations(INTL_NAMESPACE), searchParams]);
+  const [t, { requestId, all, returnTo }] = await Promise.all([getTranslations(INTL_NAMESPACE), searchParams]);
+
+  const returnPath = returnTo?.split('?')[0];
+  const backHref =
+    returnTo &&
+    returnPath &&
+    ['/module/k7-form', '/module/k7-form/department', '/module/k7-form/university'].includes(returnPath)
+      ? returnTo
+      : '/module/k7-form';
 
   if (!requestId) notFound();
 
@@ -29,9 +37,9 @@ export default async function K7PreviewPage({ searchParams }: Props) {
   const pdfReady = request?.status === K7_REPORT_REQUEST_STATUS.Ready && Boolean(request.s3StorageKey);
 
   return (
-    <SubLayout pageTitle={t('preview.title')} breadcrumbs={[['/module/k7-form', t('title')]]}>
+    <SubLayout pageTitle={t('preview.title')} breadcrumbs={[[backHref, t('title')]]}>
       <div className="col-span-12 w-full min-w-0">
-        <K7PreviewContent preview={preview} pdfReady={pdfReady} />
+        <K7PreviewContent preview={preview} pdfReady={pdfReady} backHref={backHref} />
       </div>
     </SubLayout>
   );

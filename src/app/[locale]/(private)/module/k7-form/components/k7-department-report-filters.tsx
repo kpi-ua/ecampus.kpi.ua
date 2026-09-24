@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@/components/ui/button';
@@ -8,7 +7,9 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { K7FormLecturerProfileOption, K7ReportRequest } from '@/types/models/k7-form';
 
+import { useK7FilterParams } from '../hooks/use-k7-filter-params';
 import { useK7ReportGeneration } from '../hooks/use-k7-report-generation';
+import { getProfileKey } from '../utils/get-profile-key';
 import { K7AcademicYearSelect } from './k7-academic-year-select';
 
 interface Props {
@@ -20,10 +21,11 @@ interface Props {
 
 export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestCreated }: Props) => {
   const t = useTranslations('private.k-7');
-  const [selectedYear, setSelectedYear] = useState(years[0]?.toString() ?? '');
-  const [selectedProfile, setSelectedProfile] = useState('');
+  const { searchParams, updateFilters } = useK7FilterParams();
+  const selectedYear = searchParams.get('year') ?? years[0]?.toString() ?? '';
+  const selectedProfile = searchParams.get('profile') ?? '';
   const selectedYearNumber = selectedYear === '' ? undefined : Number(selectedYear);
-  const selectedProfileData = selectedProfile === '' ? undefined : profiles[Number(selectedProfile)];
+  const selectedProfileData = profiles.find((profile) => getProfileKey(profile) === selectedProfile);
   const { generate, isSubmitting, canGenerate } = useK7ReportGeneration({
     reports,
     selectedProfile: selectedProfileData,
@@ -38,7 +40,7 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
         id="academic-year-department"
         years={years}
         value={selectedYear}
-        onValueChange={setSelectedYear}
+        onValueChange={(year) => updateFilters({ year })}
         disabled={isSubmitting}
       />
 
@@ -46,7 +48,7 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
         <Label htmlFor="work-profile-department">{t('filters.lecturerProfile')}</Label>
         <Select
           value={selectedProfile}
-          onValueChange={setSelectedProfile}
+          onValueChange={(profile) => updateFilters({ profile })}
           disabled={isSubmitting || profiles.length === 0}
         >
           <SelectTrigger
@@ -57,10 +59,10 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
             <SelectValue placeholder={t('filters.selectLecturerProfile')} />
           </SelectTrigger>
           <SelectContent>
-            {profiles.map((profile, index) => (
+            {profiles.map((profile) => (
               <SelectItem
                 key={`${profile.employeeId}-${profile.departmentId}-${profile.position}`}
-                value={String(index)}
+                value={getProfileKey(profile)}
               >
                 {profile.fullName} - {profile.departmentName} - {profile.position}
               </SelectItem>
