@@ -736,7 +736,144 @@
       "not-found": "Куратора не знайдено",
       "subdivisions": "Посада(и):",
       "contacts": "Контакти:",
-      "profile": "Особиста сторінка:"
+      "profile": "Особиста сторінка:",
+      "lecturer": {
+        "title": "Навчальні групи",
+        "subtitle": "Перелік навчальних груп і призначених кураторів.",
+        "empty": "Навчальних груп не знайдено",
+        "search-placeholder": "Пошук за ПІБ (українською)",
+        "download-csv": "Завантажити Excel",
+        "filters": {
+          "year": "Навчальний рік",
+          "all-semesters": "Усі семестри",
+          "semester": "{number} семестр"
+        },
+        "tabs": {
+          "study-groups": "Навчальні групи",
+          "group-curator": "Куратор групи",
+          "administration": "Адміністрування"
+        },
+        "table": {
+          "group": "Група",
+          "course": "Курс",
+          "department": "Кафедра",
+          "curator": "Куратор",
+          "description": "Опис",
+          "not-assigned": "Не призначено"
+        },
+        "group-curator": {
+          "title": "Куратор групи",
+          "select-group": "Оберіть групу",
+          "not-assigned": "Не призначено",
+          "empty-groups": "Немає доступних навчальних груп",
+          "facts": {
+            "study-form": "Форма навчання",
+            "speciality": "Спеціальність",
+            "course": "Курс",
+            "department": "Кафедра",
+            "group-leader": "Староста групи"
+          },
+          "leader": {
+            "select": "Оберіть старосту групи",
+            "loading": "Завантаження списку студентів",
+            "success-title": "Старосту змінено",
+            "success-description": "Нового старосту групи успішно призначено"
+          },
+          "sections": {
+            "overview": "Огляд групи",
+            "attestation": "Атестація",
+            "survey": "Опитування"
+          },
+          "overview": {
+            "title": "Інформація про групу {group}",
+            "property": "Параметр",
+            "value": "Значення"
+          },
+          "attestation": {
+            "title": "Атестація {group}"
+          },
+          "survey": {
+            "title": "Опитування {group}"
+          },
+          "filters": {
+            "student-search": "Пошук за ПІБ студента",
+            "attestation": "Атестація",
+            "survey-term": "Період опитування"
+          },
+          "students": {
+            "name": "ПІБ студента",
+            "email": "Електронна пошта",
+            "contacts": "Контакти",
+            "login": "Логін",
+            "password": "Пароль",
+            "initial-password": "до першої зміни",
+            "password-changed": "змінено",
+            "code-of-honor": "Кодекс честі",
+            "agreed": "Погоджено {date}",
+            "not-agreed": "Не погоджено",
+            "count": "Студентів: {count}"
+          },
+          "results": {
+            "student": "ПІБ студента",
+            "attested": "Атестовано",
+            "missing": "Не виставлено",
+            "not-attested": "Не атестовано",
+            "not-studying": "Оцінка відсутня",
+            "disciplines": "Дисципліни",
+            "attested-code": "А",
+            "missing-code": "НВ",
+            "not-attested-code": "НА",
+            "not-studying-code": "ОВ",
+            "expand-disciplines": "Показати дисципліни студента",
+            "collapse-disciplines": "Сховати дисципліни студента",
+            "lecturer": "Викладач",
+            "status": "Статус",
+            "completed": "Пройдено",
+            "not-completed": "Не пройдено",
+            "completed-count": "{completed}/{total} пройдено",
+            "survey-count": "Кількість пройдених опитувань",
+            "expand-surveys": "Показати опитування студента",
+            "collapse-surveys": "Сховати опитування студента",
+            "empty": "Результатів поки немає"
+          }
+        },
+        "administration": {
+          "title": "Адміністрування",
+          "subtitle": "Перегляд навчальних груп та призначених кураторів.",
+          "search": "ПІБ куратора (українською)",
+          "empty": "Навчальних груп не знайдено",
+          "not-assigned": "Не призначено",
+          "expand": "Розгорнути інформацію про групу",
+          "collapse": "Згорнути інформацію про групу",
+          "unavailable": "У вас немає прав адміністратора кураторів",
+          "all-departments": "Усі кафедри",
+          "table": {
+            "group": "Група",
+            "course": "Курс",
+            "department": "Кафедра",
+            "curator": "Куратор",
+            "description": "Опис",
+            "actions": "Дії"
+          },
+          "assign": {
+            "title": "Змінити куратора",
+            "label": "Новий куратор",
+            "placeholder": "Оберіть викладача",
+            "start-date": "Дата початку",
+            "end-date": "Дата завершення",
+            "submit": "Призначити"
+          },
+          "history": {
+            "title": "Історія призначень",
+            "present": "дотепер",
+            "empty": "Історія призначень відсутня"
+          },
+          "success": {
+            "title": "Куратора призначено",
+            "description": "Куратора групи {group} успішно оновлено"
+          }
+        }
+      }
     },
     "certificate": {
       "title": "Замовлення довідки",

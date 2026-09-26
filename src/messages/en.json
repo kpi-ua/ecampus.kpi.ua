@@ -736,7 +736,144 @@
       "not-found": "Curator not found",
       "subdivisions": "Academic position(s):",
       "contacts": "Contacts:",
-      "profile": "Personal page:"
+      "profile": "Personal page:",
+      "lecturer": {
+        "title": "Study groups",
+        "subtitle": "A list of study groups and their assigned curators.",
+        "empty": "No study groups found",
+        "search-placeholder": "Search by full name(ukr)",
+        "download-csv": "Download Excel",
+        "filters": {
+          "year": "Academic year",
+          "all-semesters": "All semesters",
+          "semester": "Semester {number}"
+        },
+        "tabs": {
+          "study-groups": "Study groups",
+          "group-curator": "Group curator",
+          "administration": "Administration"
+        },
+        "table": {
+          "group": "Group",
+          "course": "Course",
+          "department": "Department",
+          "curator": "Curator",
+          "description": "Description",
+          "not-assigned": "Not assigned"
+        },
+        "group-curator": {
+          "title": "Group curator",
+          "select-group": "Select a group",
+          "not-assigned": "Not assigned",
+          "empty-groups": "No study groups are available",
+          "facts": {
+            "study-form": "Study form",
+            "speciality": "Speciality",
+            "course": "Course",
+            "department": "Department",
+            "group-leader": "Group leader"
+          },
+          "leader": {
+            "select": "Select a group leader",
+            "loading": "Loading students",
+            "success-title": "Group leader changed",
+            "success-description": "The new group leader was assigned successfully"
+          },
+          "sections": {
+            "overview": "Group overview",
+            "attestation": "Attestation",
+            "survey": "Survey"
+          },
+          "overview": {
+            "title": "Information about group {group}",
+            "property": "Property",
+            "value": "Value"
+          },
+          "attestation": {
+            "title": "Attestation {group}"
+          },
+          "survey": {
+            "title": "Survey {group}"
+          },
+          "filters": {
+            "student-search": "Search by student name",
+            "attestation": "Attestation",
+            "survey-term": "Survey term"
+          },
+          "students": {
+            "name": "Student name",
+            "email": "Email",
+            "contacts": "Contacts",
+            "login": "Login",
+            "password": "Password",
+            "initial-password": "before first change",
+            "password-changed": "changed",
+            "code-of-honor": "Code of Honor",
+            "agreed": "Agreed {date}",
+            "not-agreed": "Not agreed",
+            "count": "Students: {count}"
+          },
+          "results": {
+            "student": "Student name",
+            "attested": "Attested",
+            "missing": "Not set",
+            "not-attested": "Not attested",
+            "not-studying": "No grade",
+            "disciplines": "Disciplines",
+            "attested-code": "A",
+            "missing-code": "NS",
+            "not-attested-code": "NA",
+            "not-studying-code": "NG",
+            "expand-disciplines": "Show student disciplines",
+            "collapse-disciplines": "Hide student disciplines",
+            "lecturer": "Lecturer",
+            "status": "Status",
+            "completed": "Completed",
+            "not-completed": "Not completed",
+            "completed-count": "{completed}/{total} completed",
+            "survey-count": "Completed surveys",
+            "expand-surveys": "Show student surveys",
+            "collapse-surveys": "Hide student surveys",
+            "empty": "No results yet"
+          }
+        },
+        "administration": {
+          "title": "Administration",
+          "subtitle": "Review study groups and their assigned curators.",
+          "search": "Curator name",
+          "empty": "No study groups found",
+          "not-assigned": "Not assigned",
+          "expand": "Expand group information",
+          "collapse": "Collapse group information",
+          "unavailable": "You do not have curator administrator access",
+          "all-departments": "All departments",
+          "table": {
+            "group": "Group",
+            "course": "Course",
+            "department": "Department",
+            "curator": "Curator",
+            "description": "Description",
+            "actions": "Actions"
+          },
+          "assign": {
+            "title": "Change curator",
+            "label": "New curator",
+            "placeholder": "Select a lecturer",
+            "start-date": "Start date",
+            "end-date": "End date",
+            "submit": "Assign"
+          },
+          "history": {
+            "title": "Assignment history",
+            "present": "present",
+            "empty": "No assignment history"
+          },
+          "success": {
+            "title": "Curator assigned",
+            "description": "The curator for group {group} was updated successfully"
+          }
+        }
+      }
     },
     "certificate": {
       "title": "Certificates",
