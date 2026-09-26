@@ -8,34 +8,34 @@ import { Pencil, Save, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { updateBibliotekaIdentifier } from '@/actions/biblioteka.actions';
+import { updateLibraryIdentifier } from '@/actions/library.actions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { BibliotekaIdentifier } from '@/types/models/biblioteka';
+import { LibraryIdentifier } from '@/types/models/library';
 
-import { bibliotekaQueryKeys } from '../query-keys';
+import { libraryQueryKeys } from '../query-keys';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
 interface Props {
-  identifier: BibliotekaIdentifier;
+  identifier: LibraryIdentifier;
   userAccountId: number;
   employeeId: number;
 }
 
 export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) => {
-  const t = useTranslations('private.biblioteka');
+  const t = useTranslations('private.library');
   const { errorToast } = useServerErrorToast();
   const queryClient = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(identifier.value ?? '');
   const { mutate: save, isPending } = useMutation({
-    mutationFn: () => updateBibliotekaIdentifier(userAccountId, identifier.contactTypeId, value),
+    mutationFn: () => updateLibraryIdentifier(userAccountId, identifier.contactTypeId, value),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: bibliotekaQueryKeys.employee(userAccountId, employeeId) });
+      await queryClient.invalidateQueries({ queryKey: libraryQueryKeys.employee(userAccountId, employeeId) });
       setEditing(false);
     },
     onError: errorToast,

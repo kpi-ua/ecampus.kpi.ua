@@ -289,7 +289,7 @@
     }
   },
   "private": {
-    "biblioteka": {
+    "library": {
       "title": "Scientometric identifiers",
       "tabs": { "label": "Browsing mode", "departments": "By department", "alphabet": "By alphabet" },
       "departments": {

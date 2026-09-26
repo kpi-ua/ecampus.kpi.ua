@@ -2,9 +2,9 @@ import qs from 'query-string';
 
 import { parseContentDispositionFilename } from '@/lib/utils';
 
-import { BibliotekaEmployeeFilters } from './filter-employees';
+import { LibraryEmployeeFilters } from './filter-employees';
 
-interface ExportEmployeesOptions extends BibliotekaEmployeeFilters {
+interface ExportEmployeesOptions extends LibraryEmployeeFilters {
   departmentId?: number;
   letter?: string;
   label: string;
@@ -12,18 +12,18 @@ interface ExportEmployeesOptions extends BibliotekaEmployeeFilters {
 }
 
 export const exportEmployees = async (options: ExportEmployeesOptions) => {
-  const url = qs.stringifyUrl({ url: '/api/biblioteka/export', query: { ...options } });
+  const url = qs.stringifyUrl({ url: '/api/library/export', query: { ...options } });
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to export Biblioteka employees: ${response.status}`);
+    throw new Error(`Failed to export Library employees: ${response.status}`);
   }
 
   const blob = await response.blob();
   const link = document.createElement('a');
   const objectUrl = URL.createObjectURL(blob);
   link.href = objectUrl;
-  link.download = parseContentDispositionFilename(response.headers.get('Content-Disposition') ?? '') ?? 'biblioteka.csv';
+  link.download = parseContentDispositionFilename(response.headers.get('Content-Disposition') ?? '') ?? 'library.csv';
   document.body.appendChild(link);
   link.click();
   link.remove();

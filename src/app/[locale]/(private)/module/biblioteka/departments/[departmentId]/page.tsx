@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
-import { getBibliotekaDepartments, getBibliotekaEmployees } from '@/actions/biblioteka.actions';
+import { getLibraryDepartments, getLibraryEmployees } from '@/actions/library.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 
-import { BibliotekaTabs } from '../../components/biblioteka-tabs';
+import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeesTable } from '../../components/employees-table';
 import { EntityHeading } from '../../components/entity-heading';
 
@@ -16,9 +16,9 @@ export default async function DepartmentPage({ params }: Props) {
   const { departmentId } = await params;
   const id = Number(departmentId);
   const [departments, employees, t] = await Promise.all([
-    getBibliotekaDepartments(),
-    getBibliotekaEmployees({ departmentId: id }),
-    getTranslations('private.biblioteka'),
+    getLibraryDepartments(),
+    getLibraryEmployees({ departmentId: id }),
+    getTranslations('private.library'),
   ]);
   const department = departments.find((item) => item.id === id);
   if (!department) notFound();
@@ -26,7 +26,7 @@ export default async function DepartmentPage({ params }: Props) {
   return (
     <SubLayout pageTitle={department.abbreviation} breadcrumbs={[['/module/biblioteka', t('departments.title')]]}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
-        <BibliotekaTabs active="departments" />
+        <LibraryTabs active="departments" />
         <EntityHeading
           title={department.name}
           badge={department.facultyAbbreviation}

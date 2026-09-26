@@ -289,7 +289,7 @@
     }
   },
   "private": {
-    "biblioteka": {
+    "library": {
       "title": "Наукометричні ідентифікатори",
       "tabs": { "label": "Спосіб перегляду", "departments": "За кафедрами", "alphabet": "За абеткою" },
       "departments": {

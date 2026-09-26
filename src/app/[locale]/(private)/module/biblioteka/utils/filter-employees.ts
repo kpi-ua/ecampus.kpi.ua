@@ -1,6 +1,6 @@
-import { BibliotekaEmployee } from '@/types/models/biblioteka';
+import { LibraryEmployee } from '@/types/models/library';
 
-export interface BibliotekaEmployeeFilters {
+export interface LibraryEmployeeFilters {
   name: string;
   orcid: string;
   scopus: string;
@@ -8,7 +8,7 @@ export interface BibliotekaEmployeeFilters {
   scholar: string;
 }
 
-export const filterEmployees = (employees: BibliotekaEmployee[], filters: BibliotekaEmployeeFilters) => {
+export const filterEmployees = (employees: LibraryEmployee[], filters: LibraryEmployeeFilters) => {
   const includes = (value: string | null, query: string) => (value ?? '').toLowerCase().includes(query.toLowerCase());
 
   return employees.filter(

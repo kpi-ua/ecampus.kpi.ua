@@ -1,4 +1,4 @@
-export interface BibliotekaDepartment {
+export interface LibraryDepartment {
   id: number;
   name: string;
   abbreviation: string;
@@ -7,7 +7,7 @@ export interface BibliotekaDepartment {
   facultyAbbreviation: string;
 }
 
-export interface BibliotekaEmployee {
+export interface LibraryEmployee {
   userAccountId: number | null;
   employeeId: number;
   surname: string;
@@ -20,7 +20,7 @@ export interface BibliotekaEmployee {
   googleScholarId: string | null;
 }
 
-export interface BibliotekaEmployment {
+export interface LibraryEmployment {
   id: number;
   employeeId: number;
   surname: string;
@@ -33,17 +33,17 @@ export interface BibliotekaEmployment {
   contractEnd: string | null;
 }
 
-export interface BibliotekaIdentifier {
+export interface LibraryIdentifier {
   contactTypeId: number;
   name: string;
   value: string | null;
   changedAt: string | null;
 }
 
-export interface BibliotekaEmployeeDetails {
+export interface LibraryEmployeeDetails {
   userAccountId: number | null;
   employeeId: number;
   fullName: string;
-  employments: BibliotekaEmployment[];
-  identifiers: BibliotekaIdentifier[];
+  employments: LibraryEmployment[];
+  identifiers: LibraryIdentifier[];
 }

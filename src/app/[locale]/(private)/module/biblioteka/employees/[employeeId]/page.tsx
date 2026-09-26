@@ -2,10 +2,10 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import qs from 'query-string';
 
-import { getBibliotekaDepartments, getBibliotekaEmployee } from '@/actions/biblioteka.actions';
+import { getLibraryDepartments, getLibraryEmployee } from '@/actions/library.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 
-import { BibliotekaTabs } from '../../components/biblioteka-tabs';
+import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeeDetails } from '../../components/employee-details';
 
 interface Props {
@@ -17,12 +17,12 @@ export default async function EmployeePage({ params, searchParams }: Props) {
   const [{ employeeId }, { userAccountId, departmentId, letter }, t] = await Promise.all([
     params,
     searchParams,
-    getTranslations('private.biblioteka'),
+    getTranslations('private.library'),
   ]);
-  const details = await getBibliotekaEmployee(userAccountId ? Number(userAccountId) : null, Number(employeeId));
+  const details = await getLibraryEmployee(userAccountId ? Number(userAccountId) : null, Number(employeeId));
   if (!details) notFound();
   const department = departmentId
-    ? (await getBibliotekaDepartments()).find((item) => item.id === Number(departmentId))
+    ? (await getLibraryDepartments()).find((item) => item.id === Number(departmentId))
     : undefined;
   const alphabetLetter = letter?.toUpperCase();
   const fromAlphabet =
@@ -42,7 +42,7 @@ export default async function EmployeePage({ params, searchParams }: Props) {
   return (
     <SubLayout pageTitle={details.fullName} breadcrumbs={breadcrumbs}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
-        <BibliotekaTabs />
+        <LibraryTabs />
         <EmployeeDetails initialDetails={details} />
       </div>
     </SubLayout>

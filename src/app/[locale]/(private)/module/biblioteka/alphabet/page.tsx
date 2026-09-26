@@ -4,9 +4,9 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { LocaleProps } from '@/types/locale-props';
 
 import { AlphabetBrowser } from './components/alphabet-browser';
-import { BibliotekaTabs } from '../components/biblioteka-tabs';
+import { LibraryTabs } from '../components/library-tabs';
 
-const INTL_NAMESPACE = 'private.biblioteka';
+const INTL_NAMESPACE = 'private.library';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -19,7 +19,7 @@ export default async function AlphabetPage() {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
-        <BibliotekaTabs active="alphabet" />
+        <LibraryTabs active="alphabet" />
         <AlphabetBrowser />
       </div>
     </SubLayout>

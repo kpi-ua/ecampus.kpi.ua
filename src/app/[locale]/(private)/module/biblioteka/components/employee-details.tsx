@@ -4,35 +4,32 @@ import { useQuery } from '@tanstack/react-query';
 import { BriefcaseBusiness, ChartNoAxesColumnIncreasing } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { getBibliotekaEmployee } from '@/actions/biblioteka.actions';
+import { getLibraryEmployee } from '@/actions/library.actions';
 import { Heading6, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { BibliotekaEmployeeDetails } from '@/types/models/biblioteka';
+import { LibraryEmployeeDetails } from '@/types/models/library';
 
-import { BIBLIOTEKA_STALE_TIME, bibliotekaQueryKeys } from '../query-keys';
+import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
 import { EntityHeading } from './entity-heading';
 import { IdentifierRow } from './identifier-row';
 
 interface Props {
-  initialDetails: BibliotekaEmployeeDetails;
+  initialDetails: LibraryEmployeeDetails;
 }
 
 export const EmployeeDetails = ({ initialDetails }: Props) => {
-  const t = useTranslations('private.biblioteka');
+  const t = useTranslations('private.library');
   const { data: details } = useQuery({
-    queryKey: bibliotekaQueryKeys.employee(initialDetails.userAccountId, initialDetails.employeeId),
-    queryFn: () => getBibliotekaEmployee(initialDetails.userAccountId, initialDetails.employeeId),
+    queryKey: libraryQueryKeys.employee(initialDetails.userAccountId, initialDetails.employeeId),
+    queryFn: () => getLibraryEmployee(initialDetails.userAccountId, initialDetails.employeeId),
     initialData: initialDetails,
-    staleTime: BIBLIOTEKA_STALE_TIME,
+    staleTime: LIBRARY_STALE_TIME,
   });
 
   return (
     <div className="flex flex-col gap-8">
-      <EntityHeading
-        title={details.fullName}
-        description={t('employee.description')}
-      />
+      <EntityHeading title={details.fullName} description={t('employee.description')} />
       <section className="flex flex-col gap-4">
         <Heading6 className="flex items-center gap-2 text-sm leading-6 text-neutral-600 lg:text-sm lg:leading-6">
           <BriefcaseBusiness className="size-4" />

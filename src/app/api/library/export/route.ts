@@ -6,7 +6,7 @@ import qs from 'query-string';
 import { filterEmployees } from '@/app/[locale]/(private)/module/biblioteka/utils/filter-employees';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
-import { BibliotekaEmployee } from '@/types/models/biblioteka';
+import { LibraryEmployee } from '@/types/models/library';
 
 const LETTERS = 'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ';
 
@@ -24,10 +24,10 @@ export async function GET(request: NextRequest) {
   }
 
   const url = qs.stringifyUrl({
-    url: '/biblioteka/employees',
+    url: '/library/employees',
     query: { departmentId, letter: departmentId === undefined ? letter : undefined },
   });
-  const response = await campusFetch<BibliotekaEmployee[]>(url);
+  const response = await campusFetch<LibraryEmployee[]>(url);
 
   if (!response.ok) {
     return new Response(null, { status: response.status });
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest) {
     scholar: params.get('scholar') ?? '',
   });
   const locale = params.get('locale') === 'en' ? 'en' : 'uk';
-  const t = await getTranslations({ locale, namespace: 'private.biblioteka' });
+  const t = await getTranslations({ locale, namespace: 'private.library' });
   const rows = [
     [t('table.name'), 'ORCID', 'Scopus ID', 'Researcher ID', 'Google Scholar'],
     ...employees.map((employee) => [
@@ -54,5 +54,5 @@ export async function GET(request: NextRequest) {
   ];
   const label = (params.get('label') ?? String(departmentId ?? letter)).replace(/[^\p{L}\p{N}_-]/gu, '_').slice(0, 80);
 
-  return createCsvResponse(rows, `biblioteka-${label}-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `library-${label}-${dayjs().format('YYYY-MM-DD')}.csv`);
 }

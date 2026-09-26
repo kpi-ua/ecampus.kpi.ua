@@ -9,8 +9,8 @@ interface Props {
   active?: 'departments' | 'alphabet';
 }
 
-export const BibliotekaTabs = ({ active }: Props) => {
-  const t = useTranslations('private.biblioteka.tabs');
+export const LibraryTabs = ({ active }: Props) => {
+  const t = useTranslations('private.library.tabs');
   const itemClass = (selected: boolean) =>
     cn(
       'inline-flex h-12 shrink-0 items-center border-b-2 border-transparent px-5 text-sm font-semibold whitespace-nowrap transition-colors',
@@ -19,9 +19,7 @@ export const BibliotekaTabs = ({ active }: Props) => {
     );
 
   return (
-    <nav
-      className="border-neutral-divider flex h-13 w-full justify-start overflow-x-auto rounded-lg border bg-white"
-    >
+    <nav className="border-neutral-divider flex h-13 w-full justify-start overflow-x-auto rounded-lg border bg-white">
       <Link href="/module/biblioteka" className={itemClass(active === 'departments')}>
         {t('departments')}
       </Link>

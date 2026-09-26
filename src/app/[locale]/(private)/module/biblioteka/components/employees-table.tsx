@@ -15,21 +15,21 @@ import { usePagination } from '@/hooks/use-pagination';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
-import { BibliotekaEmployee } from '@/types/models/biblioteka';
+import { LibraryEmployee } from '@/types/models/library';
 
 import { exportEmployees } from '../utils/export-employees';
 import { filterEmployees } from '../utils/filter-employees';
 import { IdentifierLink } from './identifier-link';
 
 interface Props {
-  employees: BibliotekaEmployee[];
+  employees: LibraryEmployee[];
   exportLabel: string;
   departmentId?: number;
   letter?: string;
 }
 
 export const EmployeesTable = ({ employees, exportLabel, departmentId, letter }: Props) => {
-  const t = useTranslations('private.biblioteka');
+  const t = useTranslations('private.library');
   const locale = useLocale();
   const { errorToast } = useServerErrorToast();
   const [filters, setFilters] = useState({ name: '', orcid: '', scopus: '', researcher: '', scholar: '' });
@@ -101,13 +101,7 @@ export const EmployeesTable = ({ employees, exportLabel, departmentId, letter }:
               />
             </TableHead>
             <TableHead className="h-auto bg-white p-3">
-              <Button
-                className="w-full"
-                variant="secondary"
-                size="small"
-                loading={isExporting}
-                onClick={handleExport}
-              >
+              <Button className="w-full" variant="secondary" size="small" loading={isExporting} onClick={handleExport}>
                 <Download />
                 {t('export')}
               </Button>

@@ -6,22 +6,22 @@ import { useTranslations } from 'next-intl';
 import qs from 'query-string';
 import { useEffect, useMemo } from 'react';
 
-import { getBibliotekaEmployees } from '@/actions/biblioteka.actions';
+import { getLibraryEmployees } from '@/actions/library.actions';
 import { Paragraph } from '@/components/typography';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { BibliotekaDepartment } from '@/types/models/biblioteka';
+import { LibraryDepartment } from '@/types/models/library';
 
-import { BIBLIOTEKA_STALE_TIME, bibliotekaQueryKeys } from '../query-keys';
+import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
 import { EmployeesTable } from './employees-table';
 
 interface Props {
-  departments: BibliotekaDepartment[];
+  departments: LibraryDepartment[];
 }
 
 export const DepartmentFilters = ({ departments }: Props) => {
-  const t = useTranslations('private.biblioteka');
+  const t = useTranslations('private.library');
   const { errorToast } = useServerErrorToast();
   const pathname = usePathname();
   const router = useRouter();
@@ -40,10 +40,10 @@ export const DepartmentFilters = ({ departments }: Props) => {
     isFetching,
     error,
   } = useQuery({
-    queryKey: bibliotekaQueryKeys.employees({ departmentId }),
-    queryFn: () => getBibliotekaEmployees({ departmentId }),
+    queryKey: libraryQueryKeys.employees({ departmentId }),
+    queryFn: () => getLibraryEmployees({ departmentId }),
     enabled: departmentId !== undefined,
-    staleTime: BIBLIOTEKA_STALE_TIME,
+    staleTime: LIBRARY_STALE_TIME,
   });
   const faculties = useMemo(
     () => [...new Map(departments.map((department) => [department.facultyId, department])).values()],
@@ -80,10 +80,10 @@ export const DepartmentFilters = ({ departments }: Props) => {
       <section className="border-neutral-divider rounded-lg border bg-white p-5 shadow-none sm:p-6">
         <div className="grid min-w-0 gap-6 md:grid-cols-2 md:gap-8">
           <div className="flex min-w-0 flex-col gap-2">
-            <Label htmlFor="biblioteka-faculty">{t('departments.faculty')}</Label>
+            <Label htmlFor="library-faculty">{t('departments.faculty')}</Label>
             <Select value={facultyId?.toString() ?? ''} onValueChange={handleFacultyChange}>
               <SelectTrigger
-                id="biblioteka-faculty"
+                id="library-faculty"
                 variant="small"
                 className="border-neutral-300 text-left text-sm text-neutral-900"
               >
@@ -100,14 +100,14 @@ export const DepartmentFilters = ({ departments }: Props) => {
           </div>
 
           <div className="flex min-w-0 flex-col gap-2">
-            <Label htmlFor="biblioteka-department">{t('departments.name')}</Label>
+            <Label htmlFor="library-department">{t('departments.name')}</Label>
             <Select
               value={departmentId?.toString() ?? ''}
               onValueChange={handleDepartmentChange}
               disabled={facultyId === undefined || facultyDepartments.length === 0}
             >
               <SelectTrigger
-                id="biblioteka-department"
+                id="library-department"
                 variant="small"
                 className="border-neutral-300 text-left text-sm text-neutral-900"
               >
