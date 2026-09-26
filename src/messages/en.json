@@ -38,7 +38,6 @@
       "rectorialcontrol": "Rectorial control",
       "certificates": "Certificates",
       "vedomoststud": "Semester control",
-      "studdoc": "Student documents",
       "plans_individual": "Individual plans",
       "journals": "Journals",
       "np": "NP",
@@ -63,16 +62,14 @@
       "zdekan": "Deans office",
       "ekk": "EKK",
       "bravook": "Bravo VC",
-      "studdocadmin": "Student documents (Admin)",
       "yiystat": "Statistical data",
       "adminpanel": "Admin panel",
       "rating": "Archival SPW Rating",
       "useract": "Bravo Requests",
       "viewcontrol": "Review current control",
-      "pk2026": "Admission 2026 (Master's)",
-      "pk2026admin": "Admission 2026 (Administrator)",
       "studbonuspoints": "Bonus points",
-      "k7-form": "K-7 Report"
+      "k7-form": "K-7 Report",
+      "biblioteka": "Library"
     },
     "menu": {
       "main": "Home",
@@ -292,6 +289,52 @@
     }
   },
   "private": {
+    "library": {
+      "title": "Scientometric identifiers",
+      "tabs": { "label": "Browsing mode", "departments": "By department", "alphabet": "By alphabet" },
+      "departments": {
+        "title": "Departments",
+        "description": "Browse and manage university departments.",
+        "name": "Department",
+        "abbreviation": "Abbr.",
+        "faculty": "Faculty",
+        "select-faculty": "Select a faculty",
+        "select-department": "Select a department",
+        "search": "Search departments..."
+      },
+      "department": { "description": "Employees and their identifiers in scientometric databases." },
+      "alphabet": {
+        "title": "Employees by alphabet",
+        "description": "Select the first letter of an employee’s surname."
+      },
+      "employee": { "description": "Employee details, workplaces, and scientometric identifiers." },
+      "search": "Search the list",
+      "export": "Export CSV",
+      "count": "Records: {count}",
+      "empty": "No records found",
+      "loading": "Loading...",
+      "back": "Back to list",
+      "employment": "Employment",
+      "identifiers": "Scientometric database identifiers",
+      "save": "Save",
+      "no-account": "No user account exists, so identifiers cannot be added.",
+      "table": {
+        "name": "Name",
+        "surname": "Surname",
+        "first-name": "First name",
+        "patronymic": "Patronymic",
+        "actions": "Actions",
+        "edit": "Edit",
+        "subdivision": "Department",
+        "sector": "Sector",
+        "position": "Position",
+        "status": "Status",
+        "contract": "Contract",
+        "database": "Database",
+        "value": "ID / Value",
+        "updated": "Updated"
+      }
+    },
     "main": {
       "welcome": "Welcome, {name}!",
       "welcome-short": "Welcome!",
