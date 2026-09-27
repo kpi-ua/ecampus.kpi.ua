@@ -6,7 +6,7 @@ import qs from 'query-string';
 import { filterEmployees } from '@/app/[locale]/(private)/module/biblioteka/utils/filter-employees';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
-import { LibraryEmployee } from '@/types/models/library';
+import { Employee } from '@/types/models/library';
 
 const LETTERS = 'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ';
 
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     url: '/library/employees',
     query: { departmentId, letter: departmentId === undefined ? letter : undefined },
   });
-  const response = await campusFetch<LibraryEmployee[]>(url);
+  const response = await campusFetch<Employee[]>(url);
 
   if (!response.ok) {
     return new Response(null, { status: response.status });

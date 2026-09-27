@@ -7,13 +7,13 @@ export interface LibraryDepartment {
   facultyAbbreviation: string;
 }
 
-export interface LibraryEmployee {
+export interface Employee {
   userAccountId: number | null;
   employeeId: number;
   surname: string;
   name: string;
   patronymic: string;
-  subdivisionName: string;
+  positions: EmployeePosition[];
   orcid: string | null;
   scopusId: string | null;
   researcherId: string | null;
@@ -47,3 +47,4 @@ export interface LibraryEmployeeDetails {
   employments: LibraryEmployment[];
   identifiers: LibraryIdentifier[];
 }
+import { EmployeePosition } from './employee-profile';

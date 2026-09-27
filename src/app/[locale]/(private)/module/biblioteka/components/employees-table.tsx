@@ -15,14 +15,14 @@ import { usePagination } from '@/hooks/use-pagination';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
-import { LibraryEmployee } from '@/types/models/library';
+import { Employee } from '@/types/models/library';
 
 import { exportEmployees } from '../utils/export-employees';
 import { filterEmployees } from '../utils/filter-employees';
 import { IdentifierLink } from './identifier-link';
 
 interface Props {
-  employees: LibraryEmployee[];
+  employees: Employee[];
   exportLabel: string;
   departmentId?: number;
   letter?: string;
