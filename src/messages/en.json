@@ -806,6 +806,7 @@
             "contacts": "Contacts",
             "login": "Login",
             "password": "Password",
+            "status": "Status",
             "initial-password": "before first change",
             "password-changed": "changed",
             "code-of-honor": "Code of Honor",

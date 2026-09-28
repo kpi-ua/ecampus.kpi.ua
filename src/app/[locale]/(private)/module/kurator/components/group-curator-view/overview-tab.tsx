@@ -45,28 +45,24 @@ export const OverviewTab = ({ groupId }: Props) => {
               <TableHead>{t('students.name')}</TableHead>
               <TableHead>{t('students.login')}</TableHead>
               <TableHead>{t('students.password')}</TableHead>
+              <TableHead>{t('students.status')}</TableHead>
               <TableHead>{t('students.contacts')}</TableHead>
               <TableHead>{t('students.code-of-honor')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {isFetching ? (
-              <LoadingRow colSpan={5} />
+              <LoadingRow colSpan={6} />
             ) : filteredStudents.length ? (
               filteredStudents.map((student) => (
                 <TableRow key={student.studentId}>
                   <TableCell className="font-medium">{student.fullName}</TableCell>
                   <TableCell>{student.login ?? '—'}</TableCell>
                   <TableCell>
-                    {student.passwordChanged ? (
-                      <span>•••••••• ({t('students.password-changed')})</span>
-                    ) : student.initialPassword ? (
-                      <span>
-                        {student.initialPassword} ({t('students.initial-password')})
-                      </span>
-                    ) : (
-                      '—'
-                    )}
+                    {student.passwordChanged ? '••••••••' : student.initialPassword ? student.initialPassword : '—'}
+                  </TableCell>
+                  <TableCell>
+                    {student.passwordChanged ? t('students.password-changed') : t('students.initial-password')}
                   </TableCell>
                   <TableCell>
                     <StudentContacts email={student.email} contacts={student.curatorContacts} />
@@ -83,7 +79,7 @@ export const OverviewTab = ({ groupId }: Props) => {
                 </TableRow>
               ))
             ) : (
-              <EmptyRow colSpan={5} />
+              <EmptyRow colSpan={6} />
             )}
           </TableBody>
         </Table>

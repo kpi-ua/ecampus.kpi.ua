@@ -806,6 +806,7 @@
             "contacts": "Контакти",
             "login": "Логін",
             "password": "Пароль",
+            "status": "Статус",
             "initial-password": "до першої зміни",
             "password-changed": "змінено",
             "code-of-honor": "Кодекс честі",
