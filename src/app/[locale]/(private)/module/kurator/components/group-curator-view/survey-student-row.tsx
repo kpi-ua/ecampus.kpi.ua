@@ -48,7 +48,7 @@ export const SurveyStudentRow = ({ rows }: Props) => {
                   className="flex min-h-12 items-center justify-between gap-4 border-b border-neutral-200 py-3 last:border-b-0"
                 >
                   <span className="text-sm">
-                    {row.disciplineName} — {row.lecturerName}
+                    {row.lecturerName} — {row.disciplineName}
                   </span>
                   {row.hasVoted ? (
                     <Check className="size-5 shrink-0 text-green-600" aria-label={t('completed')} />
