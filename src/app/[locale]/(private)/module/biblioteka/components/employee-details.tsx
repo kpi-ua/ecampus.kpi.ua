@@ -39,9 +39,6 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
           <Table className="min-w-[980px]">
             <TableHeader>
               <TableRow className="hover:bg-white [&>th]:bg-neutral-50 [&>th]:text-xs [&>th]:normal-case">
-                <TableHead>{t('table.surname')}</TableHead>
-                <TableHead>{t('table.first-name')}</TableHead>
-                <TableHead>{t('table.patronymic')}</TableHead>
                 <TableHead>{t('table.subdivision')}</TableHead>
                 <TableHead>{t('table.sector')}</TableHead>
                 <TableHead>{t('table.position')}</TableHead>
@@ -52,12 +49,9 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
             <TableBody>
               {details.employments.map((item) => (
                 <TableRow key={item.id}>
-                  <TableCell>{item.surname}</TableCell>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>{item.patronymic}</TableCell>
-                  <TableCell>{item.subdivisionName}</TableCell>
+                  <TableCell>{item.position.subdivision.name}</TableCell>
                   <TableCell>{item.sectorName}</TableCell>
-                  <TableCell>{item.position}</TableCell>
+                  <TableCell>{item.position.name}</TableCell>
                   <TableCell>
                     <Badge variant="yellow">{item.status}</Badge>
                   </TableCell>

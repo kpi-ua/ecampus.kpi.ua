@@ -320,9 +320,6 @@
       "no-account": "No user account exists, so identifiers cannot be added.",
       "table": {
         "name": "Name",
-        "surname": "Surname",
-        "first-name": "First name",
-        "patronymic": "Patronymic",
         "actions": "Actions",
         "edit": "Edit",
         "subdivision": "Department",

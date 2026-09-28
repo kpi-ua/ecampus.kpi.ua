@@ -22,13 +22,8 @@ export interface Employee {
 
 export interface LibraryEmployment {
   id: number;
-  employeeId: number;
-  surname: string;
-  name: string;
-  patronymic: string;
-  subdivisionName: string;
+  position: EmployeePosition;
   sectorName: string;
-  position: string;
   status: string;
   contractEnd: string | null;
 }
