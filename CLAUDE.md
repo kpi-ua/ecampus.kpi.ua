@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Electronic Campus (eCampus) for Igor Sikorsky Kyiv Polytechnic Institute - a full-stack web application for educational management. Supports study sheet management, certificates, employment tracking, grading, announcements, and academic modules.
+Electronic Campus (eCampus) for Igor Sikorsky Kyiv Polytechnic Institute - a full-stack web application for educational management. Supports study sheet management, certificates, grading, announcements, and academic modules.
 
 ## Tech Stack
 
@@ -57,6 +57,7 @@ src/
 ## TypeScript Configuration
 
 Strict mode enabled with:
+
 - `noUnusedLocals`, `noUnusedParameters`
 - `noImplicitReturns`, `strictNullChecks`
 - `noFallthroughCasesInSwitch`
@@ -64,30 +65,35 @@ Strict mode enabled with:
 ## Key Patterns
 
 ### Server Actions
+
 ```typescript
 'use server';
 // Actions in src/actions/*.actions.ts
 ```
 
 ### API Client
+
 ```typescript
 import { campusFetch } from '@/lib/client';
 // Automatically injects JWT from cookies
 ```
 
 ### Translations
+
 - Files: `src/messages/{uk,en}.json`
 - Supported tags: `<p>`, `<br/>`, `<h1-h6>`, `<ul>`, `<li>`, `<tel>`, `<email>`
 
 ### SVG Imports
+
 ```typescript
-import Icon from './icon.svg';        // As React component
+import Icon from './icon.svg'; // As React component
 import iconUrl from './icon.svg?url'; // As URL string
 ```
 
 ## Environment Variables
 
 Required in `.env.development` / `.env.production`:
+
 - `CAMPUS_API_BASE_PATH` - Backend API URL
 - `MAIN_COOKIE_DOMAIN`, `ROOT_COOKIE_DOMAIN` - Cookie domains
 - `OLD_CAMPUS_URL` - Legacy campus URL
