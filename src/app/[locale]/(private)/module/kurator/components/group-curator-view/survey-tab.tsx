@@ -1,6 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { Download } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -8,11 +10,14 @@ import { getCuratorSurveys } from '@/actions/curator.actions';
 import { EmptyRow } from '@/app/[locale]/(private)/module/kurator/components/EmptyRow';
 import { LoadingRow } from '@/app/[locale]/(private)/module/kurator/components/group-curator-view/loading-row';
 import { Heading4 } from '@/components/typography';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
 import { SurveyStudentRow } from './survey-student-row';
+import { exportGroupData } from '../../utils/export-group-data';
 
 interface Props {
   groupId: number;
@@ -21,7 +26,10 @@ interface Props {
 
 export const SurveyTab = ({ groupId, groupName }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator');
+  const locale = useLocale();
+  const { errorToast } = useServerErrorToast();
   const [search, setSearch] = useState('');
+  const [isExporting, setIsExporting] = useState(false);
   const { data: rows = [], isFetching } = useQuery({
     queryKey: curatorGroupQueryKeys.surveys(groupId),
     queryFn: () => getCuratorSurveys(groupId),
@@ -38,9 +46,26 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
     studentRows[0].fullName.toLocaleLowerCase().includes(query),
   );
 
+  const handleExport = async () => {
+    setIsExporting(true);
+    try {
+      await exportGroupData({ groupId, type: 'survey', search, locale });
+    } catch {
+      errorToast();
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
-      <Heading4 className="m-0">{t('survey.title', { group: groupName })}</Heading4>
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <Heading4 className="m-0">{t('survey.title', { group: groupName })}</Heading4>
+        <Button variant="secondary" size="small" loading={isExporting} onClick={handleExport}>
+          <Download />
+          {t('export')}
+        </Button>
+      </div>
       <Input
         value={search}
         onChange={(event) => setSearch(event.target.value)}

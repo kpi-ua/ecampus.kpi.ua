@@ -59,13 +59,14 @@ export const GroupCuratorView = ({ groups, filters }: Props) => {
 
         <Card className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
           <TabsContent value="overview" className="mt-0">
-            <OverviewTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} />
+            <OverviewTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
           </TabsContent>
           <TabsContent value="attestation" className="mt-0">
             {defaultYearId && (
               <AttestationTab
                 key={selectedGroup.groupId}
                 groupId={selectedGroup.groupId}
+                groupName={selectedGroup.name}
                 filters={filters}
                 defaultYearId={defaultYearId}
               />

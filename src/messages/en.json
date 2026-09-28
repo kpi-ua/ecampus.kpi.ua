@@ -766,6 +766,7 @@
           "select-group": "Select a group",
           "not-assigned": "Not assigned",
           "empty-groups": "No study groups are available",
+          "export": "Export CSV",
           "facts": {
             "study-form": "Study form",
             "speciality": "Speciality",

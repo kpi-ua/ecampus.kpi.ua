@@ -1,12 +1,17 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import { Download } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { getCuratorAttestations } from '@/actions/curator.actions';
+import { Heading4 } from '@/components/typography';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorFilters } from '../../types';
 import { EmptyRow } from '../EmptyRow';
@@ -14,16 +19,21 @@ import { AttestationStudentRow } from './attestation-student-row';
 import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
 import { LoadingRow } from './loading-row';
 import { ResultFilters } from './result-filters';
+import { exportGroupData } from '../../utils/export-group-data';
 
 interface Props {
   groupId: number;
+  groupName: string;
   filters: CuratorFilters;
   defaultYearId: number;
 }
 
-export const AttestationTab = ({ groupId, filters, defaultYearId }: Props) => {
+export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator');
+  const locale = useLocale();
+  const { errorToast } = useServerErrorToast();
   const [search, setSearch] = useState('');
+  const [isExporting, setIsExporting] = useState(false);
   const [yearId, setYearId] = useState(String(defaultYearId));
   const [semester, setSemester] = useState('all');
   const [attestationId, setAttestationId] = useState(filters.attestations[0]?.id.toString() ?? '');
@@ -41,6 +51,17 @@ export const AttestationTab = ({ groupId, filters, defaultYearId }: Props) => {
   const query = search.trim().toLocaleLowerCase();
   const filteredStudents = students.filter((student) => student.fullName.toLocaleLowerCase().includes(query));
 
+  const handleExport = async () => {
+    setIsExporting(true);
+    try {
+      await exportGroupData({ groupId, type: 'attestation', search, locale, ...params });
+    } catch {
+      errorToast();
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <ResultFilters
@@ -54,6 +75,13 @@ export const AttestationTab = ({ groupId, filters, defaultYearId }: Props) => {
         onSemesterChange={setSemester}
         onResultChange={setAttestationId}
       />
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <Heading4 className="m-0">{t('attestation.title', { group: groupName })}</Heading4>
+        <Button variant="secondary" size="small" loading={isExporting} onClick={handleExport}>
+          <Download />
+          {t('export')}
+        </Button>
+      </div>
       <Input
         value={search}
         onChange={(event) => setSearch(event.target.value)}
