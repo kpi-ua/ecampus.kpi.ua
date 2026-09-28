@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useMemo } from 'react';
 
 import { getK7FormLecturers } from '@/actions/k7-form.actions';
 import { Button } from '@/components/ui/button';
@@ -9,7 +10,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EntityIdName } from '@/types/models/entity-id-name';
-import { K7FormCathedra, K7FormLecturerProfileOption, K7ReportRequest } from '@/types/models/k7-form';
+import { K7FormCathedra, K7ReportRequest } from '@/types/models/k7-form';
 
 import { useK7FilterParams } from '../hooks/use-k7-filter-params';
 import { useK7ReportGeneration } from '../hooks/use-k7-report-generation';
@@ -39,22 +40,32 @@ export const K7UniversityReportFilters = ({
   const t = useTranslations('private.k-7');
   const tFilters = useTranslations('private.k-7.filters');
   const { errorToast } = useServerErrorToast();
-  const [departmentProfiles, setDepartmentProfiles] = useState<K7FormLecturerProfileOption[]>([]);
-  const [isLoadingLecturers, setIsLoadingLecturers] = useState(false);
-  const lecturerRequestId = useRef(0);
   const { searchParams, updateFilters } = useK7FilterParams();
-  const selectedYear = searchParams.get('year') ?? years[0]?.toString() ?? '';
-  const selectedFaculty = searchParams.get('facultyId') ?? '';
-  const selectedDepartment = searchParams.get('departmentId') ?? '';
   const selectedProfileKey = searchParams.get('profile') ?? '';
-  const year = selectedYear === '' ? undefined : Number(selectedYear);
-  const facultyId = selectedFaculty === '' ? undefined : Number(selectedFaculty);
-  const departmentId = selectedDepartment === '' ? undefined : Number(selectedDepartment);
+  const year = parseInt(searchParams.get('year') ?? years[0]?.toString() ?? '') || undefined;
+  const facultyId = parseInt(searchParams.get('facultyId') ?? '') || undefined;
+  const departmentId = parseInt(searchParams.get('departmentId') ?? '') || undefined;
+  const {
+    data: departmentProfiles = [],
+    isError: isLecturersError,
+    isLoading: isLoadingLecturers,
+  } = useQuery({
+    queryKey: ['k7-form', 'lecturers', departmentId],
+    queryFn: () => getK7FormLecturers(departmentId as number),
+    enabled: departmentId !== undefined,
+    select: (lecturers) =>
+      lecturers
+        .flatMap(({ profiles: lecturerProfiles, ...lecturer }) =>
+          lecturerProfiles
+            .filter((profile) => profile.departmentId === departmentId)
+            .map((profile) => ({ ...lecturer, ...profile })),
+        )
+        .sort(
+          (first, second) =>
+            first.fullName.localeCompare(second.fullName) || first.position.localeCompare(second.position),
+        ),
+  });
   const selectedProfile = departmentProfiles.find((profile) => getProfileKey(profile) === selectedProfileKey);
-  const errorToastRef = useRef(errorToast);
-  useEffect(() => {
-    errorToastRef.current = errorToast;
-  }, [errorToast]);
   const facultyCathedras = useMemo(
     () => cathedras.filter((cathedra) => cathedra.facultyId === facultyId),
     [cathedras, facultyId],
@@ -78,6 +89,12 @@ export const K7UniversityReportFilters = ({
     });
   }, [departmentId, facultyId, onFilterChange, selectedProfile, year]);
 
+  useEffect(() => {
+    if (isLecturersError) {
+      errorToast();
+    }
+  }, [errorToast, isLecturersError]);
+
   const handleFacultyChange = (facultyId: string) => {
     updateFilters({ facultyId, departmentId: undefined, profile: undefined });
   };
@@ -85,44 +102,6 @@ export const K7UniversityReportFilters = ({
   const handleDepartmentChange = (departmentId: string) => {
     updateFilters({ departmentId, profile: undefined });
   };
-
-  useEffect(() => {
-    const requestId = ++lecturerRequestId.current;
-    const parsedDepartmentId = Number(selectedDepartment);
-    setDepartmentProfiles([]);
-    if (!selectedDepartment) {
-      setIsLoadingLecturers(false);
-      return;
-    }
-    setIsLoadingLecturers(true);
-    const loadLecturers = async () => {
-      try {
-        const lecturers = await getK7FormLecturers(parsedDepartmentId);
-        if (requestId !== lecturerRequestId.current) return;
-
-        const profiles = lecturers
-          .flatMap(({ profiles: lecturerProfiles, ...lecturer }) =>
-            lecturerProfiles
-              .filter((profile) => profile.departmentId === parsedDepartmentId)
-              .map((profile) => ({ ...lecturer, ...profile })),
-          )
-          .sort(
-            (first, second) =>
-              first.fullName.localeCompare(second.fullName) || first.position.localeCompare(second.position),
-          );
-
-        setDepartmentProfiles(profiles);
-      } catch {
-        if (requestId === lecturerRequestId.current) errorToastRef.current();
-      } finally {
-        if (requestId === lecturerRequestId.current) setIsLoadingLecturers(false);
-      }
-    };
-    void loadLecturers();
-    return () => {
-      lecturerRequestId.current += 1;
-    };
-  }, [selectedDepartment]);
 
   return (
     <div className="grid min-w-0 gap-4 lg:grid-cols-4">
