@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { BriefcaseBusiness, ChartNoAxesColumnIncreasing } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -55,7 +56,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                   <TableCell>
                     <Badge variant="yellow">{item.status}</Badge>
                   </TableCell>
-                  <TableCell>{item.contractEnd ?? '—'}</TableCell>
+                  <TableCell>{item.contractEnd ? dayjs(item.contractEnd).format('DD.MM.YYYY') : '—'}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

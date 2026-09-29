@@ -40,6 +40,10 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
     },
     onError: errorToast,
   });
+  const cancelEditing = () => {
+    setValue(identifier.value ?? '');
+    setEditing(false);
+  };
 
   return (
     <TableRow>
@@ -61,7 +65,7 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
               <Save />
               {t('save')}
             </Button>
-            <Button variant="tertiary" size="small" onClick={() => setEditing(false)}>
+            <Button variant="tertiary" size="small" onClick={cancelEditing}>
               <X />
             </Button>
           </div>
