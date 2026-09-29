@@ -4,6 +4,7 @@ import { exo2Font } from '@/app/font';
 import { NextIntlClientProvider } from 'next-intl';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { QueryProvider } from '@/components/query-provider';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 type Props = {
   children: ReactNode;
@@ -15,9 +16,11 @@ export default function RootLayout({ children }: Props) {
   return (
     <html>
       <body className={`${exo2Font.className}`}>
-        <QueryProvider>
-          <NextIntlClientProvider messages={null}>{children}</NextIntlClientProvider>
-        </QueryProvider>
+        <NuqsAdapter>
+          <QueryProvider>
+            <NextIntlClientProvider messages={null}>{children}</NextIntlClientProvider>
+          </QueryProvider>
+        </NuqsAdapter>
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!} />
     </html>

@@ -2,6 +2,7 @@
 
 import { Download, Pencil } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { parseAsInteger, parseAsString, useQueryState, useQueryStates } from 'nuqs';
 import qs from 'query-string';
 import { useMemo, useState } from 'react';
 
@@ -18,8 +19,16 @@ import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
 import { LibraryEmployee } from '@/types/models/library';
 
 import { exportEmployees } from '../utils/export-employees';
-import { filterEmployees } from '../utils/filter-employees';
+import { filterEmployees, type LibraryEmployeeFilters } from '../utils/filter-employees';
 import { IdentifierLink } from './identifier-link';
+
+const employeeFilterParsers = {
+  name: parseAsString.withDefault(''),
+  orcid: parseAsString.withDefault(''),
+  scopus: parseAsString.withDefault(''),
+  researcher: parseAsString.withDefault(''),
+  scholar: parseAsString.withDefault(''),
+};
 
 interface Props {
   employees: LibraryEmployee[];
@@ -31,12 +40,15 @@ export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
   const t = useTranslations('private.library');
   const locale = useLocale();
   const { errorToast } = useServerErrorToast();
-  const [filters, setFilters] = useState({ name: '', orcid: '', scopus: '', researcher: '', scholar: '' });
+  const [filters, setFilters] = useQueryStates(employeeFilterParsers);
+  const [, setPage] = useQueryState('page', parseAsInteger);
   const [isExporting, setIsExporting] = useState(false);
   const filtered = useMemo(() => filterEmployees(employees, filters), [employees, filters]);
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, filtered);
-  const setFilter = (key: keyof typeof filters, value: string) =>
-    setFilters((current) => ({ ...current, [key]: value }));
+  const setFilter = (key: keyof LibraryEmployeeFilters, value: string) => {
+    setFilters({ ...filters, [key]: value });
+    setPage(null);
+  };
 
   const handleExport = async () => {
     setIsExporting(true);

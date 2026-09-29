@@ -1,9 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import qs from 'query-string';
+import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
 import { useEffect } from 'react';
 
 import { getLibraryEmployees } from '@/actions/library.actions';
@@ -18,10 +17,11 @@ import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../../query-keys';
 export const AlphabetBrowser = () => {
   const t = useTranslations('private.library');
   const { errorToast } = useServerErrorToast();
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const requestedLetter = searchParams.get('letter')?.toUpperCase();
+  const [{ letter: letterParam }, setBrowserParams] = useQueryStates({
+    letter: parseAsString,
+    page: parseAsInteger,
+  });
+  const requestedLetter = letterParam?.toUpperCase();
   const letter = requestedLetter && UKRAINIAN_ALPHABET.includes(requestedLetter) ? requestedLetter : undefined;
   const {
     data: employees = [],
@@ -40,10 +40,7 @@ export const AlphabetBrowser = () => {
   }, [error, errorToast]);
 
   const handleLetterChange = (value: string) => {
-    const params = qs.parse(searchParams.toString());
-    params.letter = value;
-    delete params.page;
-    router.replace(qs.stringifyUrl({ url: pathname, query: params }), { scroll: false });
+    setBrowserParams({ letter: value, page: null });
   };
 
   return (

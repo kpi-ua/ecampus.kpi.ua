@@ -1,9 +1,8 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import qs from 'query-string';
+import { parseAsInteger, useQueryStates } from 'nuqs';
 import { useEffect, useMemo } from 'react';
 
 import { getLibraryEmployees } from '@/actions/library.actions';
@@ -23,16 +22,13 @@ interface Props {
 export const DepartmentFilters = ({ departments }: Props) => {
   const t = useTranslations('private.library');
   const { errorToast } = useServerErrorToast();
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const parseId = (value: string | null) => {
-    const id = Number(value);
-    return Number.isInteger(id) && id > 0 ? id : undefined;
-  };
-  const requestedDepartmentId = parseId(searchParams.get('departmentId'));
+  const [{ facultyId: requestedFacultyId, departmentId: requestedDepartmentId }, setSelection] = useQueryStates({
+    facultyId: parseAsInteger,
+    departmentId: parseAsInteger,
+    page: parseAsInteger,
+  });
   const selectedDepartment = departments.find((department) => department.id === requestedDepartmentId);
-  const facultyId = parseId(searchParams.get('facultyId')) ?? selectedDepartment?.facultyId;
+  const facultyId = requestedFacultyId ?? selectedDepartment?.facultyId;
   const departmentId =
     selectedDepartment && selectedDepartment.facultyId === facultyId ? selectedDepartment.id : undefined;
   const {
@@ -60,19 +56,11 @@ export const DepartmentFilters = ({ departments }: Props) => {
   }, [error, errorToast]);
 
   const handleFacultyChange = (value: string) => {
-    const params = qs.parse(searchParams.toString());
-    params.facultyId = value;
-    delete params.departmentId;
-    delete params.page;
-    router.replace(qs.stringifyUrl({ url: pathname, query: params }), { scroll: false });
+    setSelection({ facultyId: Number(value), departmentId: null, page: null });
   };
 
   const handleDepartmentChange = (value: string) => {
-    const params = qs.parse(searchParams.toString());
-    params.facultyId = String(facultyId);
-    params.departmentId = value;
-    delete params.page;
-    router.replace(qs.stringifyUrl({ url: pathname, query: params }), { scroll: false });
+    setSelection({ facultyId: facultyId ?? null, departmentId: Number(value), page: null });
   };
 
   return (
