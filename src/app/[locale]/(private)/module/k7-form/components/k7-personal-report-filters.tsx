@@ -20,16 +20,14 @@ interface Props {
 
 export const K7PersonalReportFilters = ({ filters, reports, onRequestCreated }: Props) => {
   const t = useTranslations('private.k-7');
-  const { searchParams, updateFilters } = useK7FilterParams();
-  const selectedYear = searchParams.get('year') ?? filters.years[0]?.toString() ?? '';
-  const selectedProfile =
-    searchParams.get('profile') ?? (filters.profiles[0] ? getProfileKey(filters.profiles[0]) : '');
-  const selectedYearNumber = selectedYear === '' ? undefined : Number(selectedYear);
+  const [{ year, profile }, setFilters] = useK7FilterParams();
+  const selectedYear = year ?? filters.years[0];
+  const selectedProfile = profile ?? (filters.profiles[0] ? getProfileKey(filters.profiles[0]) : '');
   const selectedProfileData = filters.profiles.find((profile) => getProfileKey(profile) === selectedProfile);
   const { generate, isSubmitting, canGenerate } = useK7ReportGeneration({
     reports,
     selectedProfile: selectedProfileData,
-    selectedYear: selectedYearNumber,
+    selectedYear,
     onRequestCreated,
   });
 
@@ -38,8 +36,8 @@ export const K7PersonalReportFilters = ({ filters, reports, onRequestCreated }: 
       <K7AcademicYearSelect
         id="academic-year-personal"
         years={filters.years}
-        value={selectedYear}
-        onValueChange={(year) => updateFilters({ year })}
+        value={selectedYear?.toString() ?? ''}
+        onValueChange={(year) => setFilters({ year: Number(year) })}
         disabled={isSubmitting}
       />
 
@@ -47,7 +45,7 @@ export const K7PersonalReportFilters = ({ filters, reports, onRequestCreated }: 
         <Label htmlFor="work-profile-personal">{t('filters.workProfile')}</Label>
         <Select
           value={selectedProfile}
-          onValueChange={(profile) => updateFilters({ profile })}
+          onValueChange={(profile) => setFilters({ profile })}
           disabled={isSubmitting || filters.profiles.length === 0}
         >
           <SelectTrigger

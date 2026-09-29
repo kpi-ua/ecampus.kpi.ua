@@ -1,22 +1,12 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
 
-export const useK7FilterParams = () => {
-  const searchParams = useSearchParams();
-
-  const updateFilters = (values: Record<string, string | undefined>) => {
-    const url = new URL(window.location.href);
-    Object.entries(values).forEach(([key, value]) => {
-      if (value === undefined) {
-        url.searchParams.delete(key);
-      } else {
-        url.searchParams.set(key, value);
-      }
-    });
-
-    window.history.replaceState(null, '', url);
-  };
-
-  return { searchParams, updateFilters };
+const filterParsers = {
+  year: parseAsInteger,
+  facultyId: parseAsInteger,
+  departmentId: parseAsInteger,
+  profile: parseAsString,
 };
+
+export const useK7FilterParams = () => useQueryStates(filterParsers);

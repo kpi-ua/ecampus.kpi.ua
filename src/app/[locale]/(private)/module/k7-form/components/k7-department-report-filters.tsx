@@ -21,15 +21,14 @@ interface Props {
 
 export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestCreated }: Props) => {
   const t = useTranslations('private.k-7');
-  const { searchParams, updateFilters } = useK7FilterParams();
-  const selectedYear = searchParams.get('year') ?? years[0]?.toString() ?? '';
-  const selectedProfile = searchParams.get('profile') ?? '';
-  const selectedYearNumber = selectedYear === '' ? undefined : Number(selectedYear);
+  const [{ year, profile }, setFilters] = useK7FilterParams();
+  const selectedYear = year ?? years[0];
+  const selectedProfile = profile ?? '';
   const selectedProfileData = profiles.find((profile) => getProfileKey(profile) === selectedProfile);
   const { generate, isSubmitting, canGenerate } = useK7ReportGeneration({
     reports,
     selectedProfile: selectedProfileData,
-    selectedYear: selectedYearNumber,
+    selectedYear,
     targetUserAccountId: selectedProfileData?.userAccountId,
     onRequestCreated,
   });
@@ -39,8 +38,8 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
       <K7AcademicYearSelect
         id="academic-year-department"
         years={years}
-        value={selectedYear}
-        onValueChange={(year) => updateFilters({ year })}
+        value={selectedYear?.toString() ?? ''}
+        onValueChange={(year) => setFilters({ year: Number(year) })}
         disabled={isSubmitting}
       />
 
@@ -48,7 +47,7 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
         <Label htmlFor="work-profile-department">{t('filters.lecturerProfile')}</Label>
         <Select
           value={selectedProfile}
-          onValueChange={(profile) => updateFilters({ profile })}
+          onValueChange={(profile) => setFilters({ profile })}
           disabled={isSubmitting || profiles.length === 0}
         >
           <SelectTrigger

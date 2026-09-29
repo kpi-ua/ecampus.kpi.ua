@@ -40,11 +40,12 @@ export const K7UniversityReportFilters = ({
   const t = useTranslations('private.k-7');
   const tFilters = useTranslations('private.k-7.filters');
   const { errorToast } = useServerErrorToast();
-  const { searchParams, updateFilters } = useK7FilterParams();
-  const selectedProfileKey = searchParams.get('profile') ?? '';
-  const year = parseInt(searchParams.get('year') ?? years[0]?.toString() ?? '') || undefined;
-  const facultyId = parseInt(searchParams.get('facultyId') ?? '') || undefined;
-  const departmentId = parseInt(searchParams.get('departmentId') ?? '') || undefined;
+  const [{ year: queryYear, facultyId: queryFacultyId, departmentId: queryDepartmentId, profile }, setFilters] =
+    useK7FilterParams();
+  const selectedProfileKey = profile ?? '';
+  const year = queryYear ?? years[0];
+  const facultyId = queryFacultyId ?? undefined;
+  const departmentId = queryDepartmentId ?? undefined;
   const {
     data: departmentProfiles = [],
     isError: isLecturersError,
@@ -96,11 +97,11 @@ export const K7UniversityReportFilters = ({
   }, [errorToast, isLecturersError]);
 
   const handleFacultyChange = (facultyId: string) => {
-    updateFilters({ facultyId, departmentId: undefined, profile: undefined });
+    setFilters({ facultyId: Number(facultyId), departmentId: null, profile: null });
   };
 
   const handleDepartmentChange = (departmentId: string) => {
-    updateFilters({ departmentId, profile: undefined });
+    setFilters({ departmentId: Number(departmentId), profile: null });
   };
 
   return (
@@ -109,7 +110,7 @@ export const K7UniversityReportFilters = ({
         id="academic-year-university"
         years={years}
         value={year?.toString() ?? ''}
-        onValueChange={(year) => updateFilters({ year })}
+        onValueChange={(year) => setFilters({ year: Number(year) })}
         disabled={isSubmitting}
       />
 
@@ -165,7 +166,7 @@ export const K7UniversityReportFilters = ({
         <Label htmlFor="lecturer-university">{tFilters('lecturerProfile')}</Label>
         <Select
           value={selectedProfileKey}
-          onValueChange={(profile) => updateFilters({ profile })}
+          onValueChange={(profile) => setFilters({ profile })}
           disabled={isSubmitting || departmentId === undefined || isLoadingLecturers || departmentProfiles.length === 0}
         >
           <SelectTrigger
