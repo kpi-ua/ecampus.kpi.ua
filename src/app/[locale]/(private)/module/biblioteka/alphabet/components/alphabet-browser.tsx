@@ -10,11 +10,10 @@ import { getLibraryEmployees } from '@/actions/library.actions';
 import { Description, Heading3, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
 
 import { EmployeesTable } from '../../components/employees-table';
 import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../../query-keys';
-
-const LETTERS = [...'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ'];
 
 export const AlphabetBrowser = () => {
   const t = useTranslations('private.library');
@@ -23,7 +22,7 @@ export const AlphabetBrowser = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const requestedLetter = searchParams.get('letter')?.toUpperCase();
-  const letter = requestedLetter && LETTERS.includes(requestedLetter) ? requestedLetter : undefined;
+  const letter = requestedLetter && UKRAINIAN_ALPHABET.includes(requestedLetter) ? requestedLetter : undefined;
   const {
     data: employees = [],
     isFetching,
@@ -54,7 +53,7 @@ export const AlphabetBrowser = () => {
         <Description className="p-0 text-sm leading-6">{t('alphabet.description')}</Description>
       </div>
       <div className="border-neutral-divider flex flex-wrap gap-3 rounded-lg border bg-white p-5 shadow-none sm:p-6">
-        {LETTERS.map((item) => (
+        {[...UKRAINIAN_ALPHABET].map((item) => (
           <Button
             key={item}
             variant={letter === item ? 'primary' : 'secondary'}
@@ -70,7 +69,7 @@ export const AlphabetBrowser = () => {
       {letter &&
         !isFetching &&
         (employees.length > 0 ? (
-          <EmployeesTable employees={employees} exportLabel={letter} letter={letter} />
+          <EmployeesTable employees={employees} letter={letter} />
         ) : (
           <Paragraph className="m-0 py-10 text-center text-sm text-neutral-500">{t('empty')}</Paragraph>
         ))}

@@ -15,20 +15,19 @@ import { usePagination } from '@/hooks/use-pagination';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
-import { Employee } from '@/types/models/library';
+import { LibraryEmployee } from '@/types/models/library';
 
 import { exportEmployees } from '../utils/export-employees';
 import { filterEmployees } from '../utils/filter-employees';
 import { IdentifierLink } from './identifier-link';
 
 interface Props {
-  employees: Employee[];
-  exportLabel: string;
+  employees: LibraryEmployee[];
   departmentId?: number;
   letter?: string;
 }
 
-export const EmployeesTable = ({ employees, exportLabel, departmentId, letter }: Props) => {
+export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
   const t = useTranslations('private.library');
   const locale = useLocale();
   const { errorToast } = useServerErrorToast();
@@ -45,8 +44,7 @@ export const EmployeesTable = ({ employees, exportLabel, departmentId, letter }:
       await exportEmployees({
         ...filters,
         departmentId,
-        letter: departmentId === undefined ? exportLabel : undefined,
-        label: exportLabel,
+        letter,
         locale,
       });
     } catch {

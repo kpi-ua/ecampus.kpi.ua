@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache';
 import qs from 'query-string';
 
 import { campusFetch } from '@/lib/client';
-import { Employee, LibraryDepartment, LibraryEmployeeDetails } from '@/types/models/library';
+import { LibraryDepartment, LibraryEmployee, LibraryEmployeeDetails } from '@/types/models/library';
 
 export const getLibraryDepartments = async (): Promise<LibraryDepartment[]> => {
   const response = await campusFetch<LibraryDepartment[]>('/library/departments');
@@ -19,9 +19,9 @@ export const getLibraryDepartments = async (): Promise<LibraryDepartment[]> => {
 export const getLibraryEmployees = async (filter: {
   departmentId?: number;
   letter?: string;
-}): Promise<Employee[]> => {
+}): Promise<LibraryEmployee[]> => {
   const url = qs.stringifyUrl({ url: '/library/employees', query: filter });
-  const response = await campusFetch<Employee[]>(url);
+  const response = await campusFetch<LibraryEmployee[]>(url);
 
   if (!response.ok) {
     throw new Error(`Failed to fetch Library employees: ${response.status} ${response.statusText}`);

@@ -128,11 +128,7 @@ export const DepartmentFilters = ({ departments }: Props) => {
       {!isFetching && selectedDepartment && (
         <div className="flex flex-col gap-6">
           {employees.length > 0 ? (
-            <EmployeesTable
-              employees={employees}
-              exportLabel={selectedDepartment.abbreviation}
-              departmentId={selectedDepartment.id}
-            />
+            <EmployeesTable employees={employees} departmentId={selectedDepartment.id} />
           ) : (
             <Paragraph className="m-0 py-10 text-center text-sm text-neutral-500">{t('empty')}</Paragraph>
           )}

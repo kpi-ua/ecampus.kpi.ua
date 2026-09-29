@@ -5,16 +5,17 @@ interface Props {
   href: string;
 }
 
-export const IdentifierLink = ({ value, href }: Props) =>
-  value ? (
-    <Link
-      className="text-basic-blue hover:underline"
-      href={href + encodeURIComponent(value)}
-      target="_blank"
-      rel="noreferrer"
-    >
-      {value}
-    </Link>
-  ) : (
-    <span className="text-neutral-400">—</span>
-  );
+export const IdentifierLink = ({ value, href }: Props) => (
+  <Link
+    className={
+      value ? 'text-basic-blue hover:underline' : 'pointer-events-none cursor-text text-neutral-400 no-underline'
+    }
+    href={value ? href + encodeURIComponent(value) : '#'}
+    target="_blank"
+    rel="noreferrer"
+    aria-disabled={!value}
+    tabIndex={value ? undefined : -1}
+  >
+    {value ?? '—'}
+  </Link>
+);

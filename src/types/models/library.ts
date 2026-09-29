@@ -1,3 +1,5 @@
+import { EmployeePosition } from './employee-profile';
+
 export interface LibraryDepartment {
   id: number;
   name: string;
@@ -7,7 +9,7 @@ export interface LibraryDepartment {
   facultyAbbreviation: string;
 }
 
-export interface Employee {
+export interface LibraryEmployee {
   userAccountId: number | null;
   employeeId: number;
   surname: string;
@@ -42,4 +44,3 @@ export interface LibraryEmployeeDetails {
   employments: LibraryEmployment[];
   identifiers: LibraryIdentifier[];
 }
-import { EmployeePosition } from './employee-profile';

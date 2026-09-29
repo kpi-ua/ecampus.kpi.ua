@@ -8,17 +8,27 @@ import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeesTable } from '../../components/employees-table';
 import { EntityHeading } from '../../components/entity-heading';
 
+const INTL_NAMESPACE = 'private.library';
+
 interface Props {
-  params: Promise<{ departmentId: string }>;
+  params: Promise<{ locale: string; departmentId: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
+  return { title: t('title') };
 }
 
 export default async function DepartmentPage({ params }: Props) {
   const { departmentId } = await params;
   const id = Number(departmentId);
+  if (!Number.isInteger(id) || id < 1) notFound();
+
   const [departments, employees, t] = await Promise.all([
     getLibraryDepartments(),
     getLibraryEmployees({ departmentId: id }),
-    getTranslations('private.library'),
+    getTranslations(INTL_NAMESPACE),
   ]);
   const department = departments.find((item) => item.id === id);
   if (!department) notFound();
@@ -32,7 +42,7 @@ export default async function DepartmentPage({ params }: Props) {
           badge={department.facultyAbbreviation}
           description={t('department.description')}
         />
-        <EmployeesTable employees={employees} exportLabel={department.abbreviation} departmentId={id} />
+        <EmployeesTable employees={employees} departmentId={id} />
       </div>
     </SubLayout>
   );

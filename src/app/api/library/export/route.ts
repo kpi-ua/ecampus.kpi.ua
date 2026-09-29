@@ -4,11 +4,11 @@ import { type NextRequest } from 'next/server';
 import qs from 'query-string';
 
 import { filterEmployees } from '@/app/[locale]/(private)/module/biblioteka/utils/filter-employees';
+import { DEFAULT_LOCALE, LOCALE } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
+import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
 import { createCsvResponse } from '@/lib/csv-response';
-import { Employee } from '@/types/models/library';
-
-const LETTERS = 'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ';
+import { LibraryEmployee } from '@/types/models/library';
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
   if (
     (departmentId !== undefined && (!Number.isInteger(departmentId) || departmentId < 1)) ||
-    (departmentId === undefined && (!letter || letter.length !== 1 || !LETTERS.includes(letter)))
+    (departmentId === undefined && (!letter || letter.length !== 1 || !UKRAINIAN_ALPHABET.includes(letter)))
   ) {
     return new Response(null, { status: 400 });
   }
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     url: '/library/employees',
     query: { departmentId, letter: departmentId === undefined ? letter : undefined },
   });
-  const response = await campusFetch<Employee[]>(url);
+  const response = await campusFetch<LibraryEmployee[]>(url);
 
   if (!response.ok) {
     return new Response(null, { status: response.status });
@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
     researcher: params.get('researcher') ?? '',
     scholar: params.get('scholar') ?? '',
   });
-  const locale = params.get('locale') === 'en' ? 'en' : 'uk';
+  const locale = params.get('locale') === LOCALE.EN ? LOCALE.EN : DEFAULT_LOCALE;
   const t = await getTranslations({ locale, namespace: 'private.library' });
   const rows = [
     [t('table.name'), 'ORCID', 'Scopus ID', 'Researcher ID', 'Google Scholar'],
@@ -52,7 +52,5 @@ export async function GET(request: NextRequest) {
       employee.googleScholarId,
     ]),
   ];
-  const label = (params.get('label') ?? String(departmentId ?? letter)).replace(/[^\p{L}\p{N}_-]/gu, '_').slice(0, 80);
-
-  return createCsvResponse(rows, `library-${label}-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `library-${dayjs().format('YYYY-MM-DD')}.csv`);
 }

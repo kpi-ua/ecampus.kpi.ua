@@ -4,29 +4,43 @@ import qs from 'query-string';
 
 import { getLibraryDepartments, getLibraryEmployee } from '@/actions/library.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
+import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
 
 import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeeDetails } from '../../components/employee-details';
 
+const INTL_NAMESPACE = 'private.library';
+
 interface Props {
-  params: Promise<{ employeeId: string }>;
+  params: Promise<{ locale: string; employeeId: string }>;
   searchParams: Promise<{ userAccountId?: string; departmentId?: string; letter?: string }>;
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
+  return { title: t('title') };
 }
 
 export default async function EmployeePage({ params, searchParams }: Props) {
   const [{ employeeId }, { userAccountId, departmentId, letter }, t] = await Promise.all([
     params,
     searchParams,
-    getTranslations('private.library'),
+    getTranslations(INTL_NAMESPACE),
   ]);
-  const details = await getLibraryEmployee(userAccountId ? Number(userAccountId) : null, Number(employeeId));
+  const id = Number(employeeId);
+  const accountId = userAccountId ? Number(userAccountId) : null;
+  if (!Number.isInteger(id) || id < 1 || (accountId !== null && (!Number.isInteger(accountId) || accountId < 1))) {
+    notFound();
+  }
+
+  const details = await getLibraryEmployee(accountId, id);
   if (!details) notFound();
   const department = departmentId
     ? (await getLibraryDepartments()).find((item) => item.id === Number(departmentId))
     : undefined;
   const alphabetLetter = letter?.toUpperCase();
-  const fromAlphabet =
-    !departmentId && alphabetLetter?.length === 1 && 'АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ'.includes(alphabetLetter);
+  const fromAlphabet = !departmentId && alphabetLetter?.length === 1 && UKRAINIAN_ALPHABET.includes(alphabetLetter);
   const breadcrumbs = fromAlphabet
     ? [
         [
