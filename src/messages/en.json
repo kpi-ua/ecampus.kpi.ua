@@ -742,6 +742,7 @@
         "subtitle": "A list of study groups and their assigned curators.",
         "empty": "No study groups found",
         "search-placeholder": "Search by full name(ukr)",
+        "download-csv": "Download Excel",
         "filters": {
           "year": "Academic year",
           "all-semesters": "All semesters",
@@ -765,6 +766,7 @@
           "select-group": "Select a group",
           "not-assigned": "Not assigned",
           "empty-groups": "No study groups are available",
+          "export": "Export CSV",
           "facts": {
             "study-form": "Study form",
             "speciality": "Speciality",
