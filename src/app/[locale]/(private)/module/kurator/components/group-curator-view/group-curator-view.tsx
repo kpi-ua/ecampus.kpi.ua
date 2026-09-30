@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabSheetTrigger } from '@/components/ui/ta
 import { CuratorGroup } from '../../types';
 import { GroupSummary } from './group-summary';
 import { OverviewTab } from './overview-tab';
+import { SurveyTab } from './survey-tab';
 
 interface Props {
   groups: CuratorGroup[];
@@ -48,11 +49,15 @@ export const GroupCuratorView = ({ groups }: Props) => {
       <Tabs defaultValue="overview">
         <TabsList className="h-auto justify-start rounded-none border-0 bg-transparent p-0" size="small">
           <TabSheetTrigger value="overview">{t('sections.overview')}</TabSheetTrigger>
+          <TabSheetTrigger value="survey">{t('sections.survey')}</TabSheetTrigger>
         </TabsList>
 
         <Card className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
           <TabsContent value="overview" className="mt-0">
             <OverviewTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
+          </TabsContent>
+          <TabsContent value="survey" className="mt-0">
+            <SurveyTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
           </TabsContent>
         </Card>
       </Tabs>
