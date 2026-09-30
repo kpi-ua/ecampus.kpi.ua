@@ -9,6 +9,8 @@ import {
   CuratorStudent,
   CuratorStudentCredentials,
   CuratorFilters,
+  CuratorSurveyRow,
+  CuratorSurveyParams,
 } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { Curator } from '@/types/models/curator';
@@ -71,6 +73,21 @@ export const getCuratorStudentCredentials = async (groupId: number): Promise<Cur
 export const getCuratorFilters = async (yearId?: number): Promise<CuratorFilters> => {
   const response = await campusFetch<CuratorFilters>(
     `/curator/filters?${queryString.stringify({ yearId }, { skipEmptyString: true, skipNull: true })}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorSurveys = async (
+  groupId: number,
+  params: CuratorSurveyParams = {},
+): Promise<CuratorSurveyRow[]> => {
+  const response = await campusFetch<CuratorSurveyRow[]>(
+    `/curator/groups/${groupId}/surveys?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
 
   if (!response.ok) {
