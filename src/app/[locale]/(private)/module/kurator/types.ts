@@ -16,6 +16,32 @@ export interface CuratorGroup {
   curatorName: string | null;
 }
 
+export interface CuratorStudent {
+  studentId: number;
+  userAccountId: number;
+  fullName: string;
+  email: string | null;
+  curatorContacts: string[];
+}
+
+export interface CuratorStudentCredentials extends CuratorStudent {
+  login: string | null;
+  initialPassword: string | null;
+  passwordChanged: boolean;
+  codeOfHonorSignDate: string | null;
+}
+
+export interface CuratorOption {
+  id: number;
+  name: string;
+}
+
+export interface CuratorFilters {
+  years: CuratorOption[];
+  surveyTerms: CuratorOption[];
+  attestations: CuratorOption[];
+}
+
 export interface CuratorPeriodParams {
   yearId?: number;
   semester?: number;

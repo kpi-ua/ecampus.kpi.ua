@@ -743,7 +743,8 @@
         "empty": "Навчальних груп не знайдено",
         "search-placeholder": "Пошук за ПІБ (українською)",
         "tabs": {
-          "study-groups": "Навчальні групи"
+          "study-groups": "Навчальні групи",
+          "group-curator": "Куратор групи"
         },
         "table": {
           "group": "Група",
@@ -752,6 +753,55 @@
           "curator": "Куратор",
           "description": "Опис",
           "not-assigned": "Не призначено"
+        },
+        "group-curator": {
+          "title": "Куратор групи",
+          "select-group": "Оберіть групу",
+          "not-assigned": "Не призначено",
+          "empty-groups": "Немає доступних навчальних груп",
+          "facts": {
+            "study-form": "Форма навчання",
+            "speciality": "Спеціальність",
+            "course": "Курс",
+            "department": "Кафедра",
+            "group-leader": "Староста групи"
+          },
+          "leader": {
+            "select": "Оберіть старосту групи",
+            "loading": "Завантаження списку студентів",
+            "success-title": "Старосту змінено",
+            "success-description": "Нового старосту групи успішно призначено"
+          },
+          "sections": {
+            "overview": "Огляд групи"
+          },
+          "overview": {
+            "title": "Інформація про групу {group}",
+            "property": "Параметр",
+            "value": "Значення"
+          },
+          "filters": {
+            "student-search": "Пошук за ПІБ студента",
+            "survey-term": "Період опитування"
+          },
+          "students": {
+            "name": "ПІБ студента",
+            "email": "Електронна пошта",
+            "contacts": "Контакти",
+            "login": "Логін",
+            "password": "Пароль",
+            "status": "Статус",
+            "initial-password": "до першої зміни",
+            "password-changed": "змінено",
+            "code-of-honor": "Кодекс честі",
+            "agreed": "Погоджено {date}",
+            "not-agreed": "Не погоджено",
+            "count": "Студентів: {count}"
+          },
+          "results": {
+            "student": "ПІБ студента",
+            "empty": "Результатів поки немає"
+          }
         }
       }
     },

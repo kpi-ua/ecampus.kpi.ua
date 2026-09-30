@@ -743,7 +743,8 @@
         "empty": "No study groups found",
         "search-placeholder": "Search by full name(ukr)",
         "tabs": {
-          "study-groups": "Study groups"
+          "study-groups": "Study groups",
+          "group-curator": "Group curator"
         },
         "table": {
           "group": "Group",
@@ -752,6 +753,55 @@
           "curator": "Curator",
           "description": "Description",
           "not-assigned": "Not assigned"
+        },
+        "group-curator": {
+          "title": "Group curator",
+          "select-group": "Select a group",
+          "not-assigned": "Not assigned",
+          "empty-groups": "No study groups are available",
+          "facts": {
+            "study-form": "Study form",
+            "speciality": "Speciality",
+            "course": "Course",
+            "department": "Department",
+            "group-leader": "Group leader"
+          },
+          "leader": {
+            "select": "Select a group leader",
+            "loading": "Loading students",
+            "success-title": "Group leader changed",
+            "success-description": "The new group leader was assigned successfully"
+          },
+          "sections": {
+            "overview": "Group overview"
+          },
+          "overview": {
+            "title": "Information about group {group}",
+            "property": "Property",
+            "value": "Value"
+          },
+          "filters": {
+            "student-search": "Search by student name",
+            "survey-term": "Survey term"
+          },
+          "students": {
+            "name": "Student name",
+            "email": "Email",
+            "contacts": "Contacts",
+            "login": "Login",
+            "password": "Password",
+            "status": "Status",
+            "initial-password": "before first change",
+            "password-changed": "changed",
+            "code-of-honor": "Code of Honor",
+            "agreed": "Agreed {date}",
+            "not-agreed": "Not agreed",
+            "count": "Students: {count}"
+          },
+          "results": {
+            "student": "Student name",
+            "empty": "No results yet"
+          }
         }
       }
     },
