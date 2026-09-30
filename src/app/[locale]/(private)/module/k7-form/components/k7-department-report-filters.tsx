@@ -9,7 +9,7 @@ import { K7FormLecturerProfileOption, K7ReportRequest } from '@/types/models/k7-
 
 import { useK7FilterParams } from '../hooks/use-k7-filter-params';
 import { useK7ReportGeneration } from '../hooks/use-k7-report-generation';
-import { getProfileKey } from '../utils/get-profile-key';
+import { compareProfile, parseAsProfileId } from '../utils/profile-query';
 import { K7AcademicYearSelect } from './k7-academic-year-select';
 
 interface Props {
@@ -23,8 +23,7 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
   const t = useTranslations('private.k-7');
   const [{ year, profile }, setFilters] = useK7FilterParams();
   const selectedYear = year ?? years[0];
-  const selectedProfile = profile ?? '';
-  const selectedProfileData = profiles.find((profile) => getProfileKey(profile) === selectedProfile);
+  const selectedProfileData = profiles.find(compareProfile(profile));
   const { generate, isSubmitting, canGenerate } = useK7ReportGeneration({
     reports,
     selectedProfile: selectedProfileData,
@@ -46,8 +45,8 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
       <div className="flex min-w-0 flex-col gap-2">
         <Label htmlFor="work-profile-department">{t('filters.lecturerProfile')}</Label>
         <Select
-          value={selectedProfile}
-          onValueChange={(profile) => setFilters({ profile })}
+          value={parseAsProfileId.serialize(profile)}
+          onValueChange={(profile) => setFilters({ profile: parseAsProfileId.parse(profile) })}
           disabled={isSubmitting || profiles.length === 0}
         >
           <SelectTrigger
@@ -61,7 +60,7 @@ export const K7DepartmentReportFilters = ({ years, profiles, reports, onRequestC
             {profiles.map((profile) => (
               <SelectItem
                 key={`${profile.employeeId}-${profile.departmentId}-${profile.position}`}
-                value={getProfileKey(profile)}
+                value={parseAsProfileId.serialize(profile)}
               >
                 {profile.fullName} - {profile.departmentName} - {profile.position}
               </SelectItem>

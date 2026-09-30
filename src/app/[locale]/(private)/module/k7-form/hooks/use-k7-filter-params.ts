@@ -1,12 +1,14 @@
 'use client';
 
-import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
+import { parseAsInteger, useQueryStates } from 'nuqs';
+
+import { parseAsProfileId } from '../utils/profile-query';
 
 const filterParsers = {
   year: parseAsInteger,
   facultyId: parseAsInteger,
   departmentId: parseAsInteger,
-  profile: parseAsString,
+  profile: parseAsProfileId,
 };
 
 export const useK7FilterParams = () => useQueryStates(filterParsers);
