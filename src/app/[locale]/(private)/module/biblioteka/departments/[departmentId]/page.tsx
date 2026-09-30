@@ -7,6 +7,7 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeesTable } from '../../components/employees-table';
 import { EntityHeading } from '../../components/entity-heading';
+import { LIBRARY_TAB } from '../../constants';
 
 const INTL_NAMESPACE = 'private.library';
 
@@ -36,7 +37,7 @@ export default async function DepartmentPage({ params }: Props) {
   return (
     <SubLayout pageTitle={department.abbreviation} breadcrumbs={[['/module/biblioteka', t('departments.title')]]}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
-        <LibraryTabs active="departments" />
+        <LibraryTabs active={LIBRARY_TAB.DEPARTMENTS} />
         <EntityHeading
           title={department.name}
           badge={department.facultyAbbreviation}

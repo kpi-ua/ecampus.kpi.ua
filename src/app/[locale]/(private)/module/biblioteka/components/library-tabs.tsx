@@ -5,8 +5,10 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils';
 
+import { LIBRARY_TAB, type LibraryTab } from '../constants';
+
 interface Props {
-  active?: 'departments' | 'alphabet';
+  active?: LibraryTab;
 }
 
 export const LibraryTabs = ({ active }: Props) => {
@@ -20,10 +22,10 @@ export const LibraryTabs = ({ active }: Props) => {
 
   return (
     <nav className="border-neutral-divider flex h-13 w-full justify-start overflow-x-auto rounded-lg border bg-white">
-      <Link href="/module/biblioteka" className={itemClass(active === 'departments')}>
+      <Link href="/module/biblioteka" className={itemClass(active === LIBRARY_TAB.DEPARTMENTS)}>
         {t('departments')}
       </Link>
-      <Link href="/module/biblioteka/alphabet" className={itemClass(active === 'alphabet')}>
+      <Link href="/module/biblioteka/alphabet" className={itemClass(active === LIBRARY_TAB.ALPHABET)}>
         {t('alphabet')}
       </Link>
     </nav>

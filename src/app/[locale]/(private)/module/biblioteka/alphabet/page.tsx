@@ -5,6 +5,7 @@ import { LocaleProps } from '@/types/locale-props';
 
 import { AlphabetBrowser } from './components/alphabet-browser';
 import { LibraryTabs } from '../components/library-tabs';
+import { LIBRARY_TAB } from '../constants';
 
 const INTL_NAMESPACE = 'private.library';
 
@@ -19,7 +20,7 @@ export default async function AlphabetPage() {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
-        <LibraryTabs active="alphabet" />
+        <LibraryTabs active={LIBRARY_TAB.ALPHABET} />
         <AlphabetBrowser />
       </div>
     </SubLayout>
