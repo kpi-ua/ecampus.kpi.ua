@@ -51,6 +51,23 @@ export interface CuratorSurveyRow extends CuratorStudent {
   hasVoted: boolean;
 }
 
+export interface CuratorAttestationRow extends CuratorStudent {
+  employeeId: number;
+  lecturerName: string;
+  disciplineId: number;
+  disciplineName: string;
+  semester: number;
+  result: string | null;
+}
+
+export interface CuratorAttestationStudent extends CuratorStudent {
+  attested: number;
+  notAttested: number;
+  notStudying: number;
+  missing: number;
+  results: CuratorAttestationRow[];
+}
+
 export interface CuratorPeriodParams {
   yearId?: number;
   semester?: number;
@@ -59,4 +76,8 @@ export interface CuratorPeriodParams {
 export interface CuratorSurveyParams extends CuratorPeriodParams {
   termId?: number;
   employeeId?: number;
+}
+
+export interface CuratorAttestationParams extends CuratorPeriodParams {
+  attestationId?: number;
 }

@@ -742,6 +742,11 @@
         "subtitle": "Перелік навчальних груп і призначених кураторів.",
         "empty": "Навчальних груп не знайдено",
         "search-placeholder": "Пошук за ПІБ (українською)",
+        "filters": {
+          "year": "Навчальний рік",
+          "all-semesters": "Усі семестри",
+          "semester": "{number} семестр"
+        },
         "tabs": {
           "study-groups": "Навчальні групи",
           "group-curator": "Куратор групи"
@@ -774,6 +779,7 @@
           },
           "sections": {
             "overview": "Огляд групи",
+            "attestation": "Атестація",
             "survey": "Опитування"
           },
           "overview": {
@@ -781,11 +787,15 @@
             "property": "Параметр",
             "value": "Значення"
           },
+          "attestation": {
+            "title": "Атестація {group}"
+          },
           "survey": {
             "title": "Опитування {group}"
           },
           "filters": {
             "student-search": "Пошук за ПІБ студента",
+            "attestation": "Атестація",
             "survey-term": "Період опитування"
           },
           "students": {
@@ -804,6 +814,17 @@
           },
           "results": {
             "student": "ПІБ студента",
+            "attested": "Атестовано",
+            "missing": "Не виставлено",
+            "not-attested": "Не атестовано",
+            "not-studying": "Оцінка відсутня",
+            "disciplines": "Дисципліни",
+            "attested-code": "А",
+            "missing-code": "НВ",
+            "not-attested-code": "НА",
+            "not-studying-code": "ОВ",
+            "expand-disciplines": "Показати дисципліни студента",
+            "collapse-disciplines": "Сховати дисципліни студента",
             "lecturer": "Викладач",
             "status": "Статус",
             "completed": "Пройдено",

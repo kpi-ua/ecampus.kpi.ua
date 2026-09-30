@@ -742,6 +742,11 @@
         "subtitle": "A list of study groups and their assigned curators.",
         "empty": "No study groups found",
         "search-placeholder": "Search by full name(ukr)",
+        "filters": {
+          "year": "Academic year",
+          "all-semesters": "All semesters",
+          "semester": "Semester {number}"
+        },
         "tabs": {
           "study-groups": "Study groups",
           "group-curator": "Group curator"
@@ -774,6 +779,7 @@
           },
           "sections": {
             "overview": "Group overview",
+            "attestation": "Attestation",
             "survey": "Survey"
           },
           "overview": {
@@ -781,11 +787,15 @@
             "property": "Property",
             "value": "Value"
           },
+          "attestation": {
+            "title": "Attestation {group}"
+          },
           "survey": {
             "title": "Survey {group}"
           },
           "filters": {
             "student-search": "Search by student name",
+            "attestation": "Attestation",
             "survey-term": "Survey term"
           },
           "students": {
@@ -804,6 +814,17 @@
           },
           "results": {
             "student": "Student name",
+            "attested": "Attested",
+            "missing": "Not set",
+            "not-attested": "Not attested",
+            "not-studying": "No grade",
+            "disciplines": "Disciplines",
+            "attested-code": "A",
+            "missing-code": "NS",
+            "not-attested-code": "NA",
+            "not-studying-code": "NG",
+            "expand-disciplines": "Show student disciplines",
+            "collapse-disciplines": "Hide student disciplines",
             "lecturer": "Lecturer",
             "status": "Status",
             "completed": "Completed",

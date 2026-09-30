@@ -2,15 +2,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { GroupCuratorView } from './group-curator-view/group-curator-view';
 import { StudyGroupsTable } from './study-groups-table';
-import { CuratorGroup } from '../types';
+import { CuratorFilters, CuratorGroup } from '../types';
 import { getTranslations } from 'next-intl/server';
 
 interface Props {
   teachingGroups: CuratorGroup[];
   groups: CuratorGroup[];
+  filters: CuratorFilters;
 }
 
-export const LecturerCuratorView = async ({ teachingGroups, groups }: Props) => {
+export const LecturerCuratorView = async ({ teachingGroups, groups, filters }: Props) => {
   const t = await getTranslations('private.curator.lecturer');
 
   return (
@@ -24,7 +25,7 @@ export const LecturerCuratorView = async ({ teachingGroups, groups }: Props) => 
         <StudyGroupsTable groups={teachingGroups} />
       </TabsContent>
       <TabsContent value="group-curator" className="mt-0">
-        <GroupCuratorView groups={groups} />
+        <GroupCuratorView groups={groups} filters={filters} />
       </TabsContent>
     </Tabs>
   );
