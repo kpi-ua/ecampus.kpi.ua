@@ -31,6 +31,26 @@ export interface CuratorStudentCredentials extends CuratorStudent {
   codeOfHonorSignDate: string | null;
 }
 
+export interface CuratorDepartment {
+  id: number;
+  name: string;
+}
+
+export interface CuratorLecturer {
+  employeeId: number;
+  userAccountId: number;
+  fullName: string;
+  departmentId: number;
+  departmentName: string | null;
+}
+
+export interface CuratorAssignment {
+  employeeId: number;
+  curatorName: string;
+  startDate: string;
+  endDate: string | null;
+}
+
 export interface CuratorOption {
   id: number;
   name: string;
