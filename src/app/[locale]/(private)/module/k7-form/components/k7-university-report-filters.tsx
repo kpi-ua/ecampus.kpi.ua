@@ -1,23 +1,21 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useController, useForm } from 'react-hook-form';
+import { useEffect, useMemo } from 'react';
 
-import { getK7FormLecturers } from '@/actions/k7-form.actions';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EntityIdName } from '@/types/models/entity-id-name';
-import { K7FormCathedra, K7FormLecturerProfileOption, K7ReportRequest } from '@/types/models/k7-form';
+import { K7FormCathedra, K7ReportRequest } from '@/types/models/k7-form';
 
+import { useK7DepartmentProfiles } from '../hooks/use-k7-department-profiles';
+import { useK7FilterParams } from '../hooks/use-k7-filter-params';
 import { useK7ReportGeneration } from '../hooks/use-k7-report-generation';
+import { compareProfile, parseAsProfileId } from '../utils/profile-query';
 import { K7AcademicYearSelect } from './k7-academic-year-select';
-import {
-  K7UniversityFilterSelection,
-  UniversityFilterFormValues,
-} from '@/app/[locale]/(private)/module/k7-form/components/types';
+import { K7UniversityFilterSelection } from '@/app/[locale]/(private)/module/k7-form/components/types';
 
 interface Props {
   years: number[];
@@ -41,79 +39,52 @@ export const K7UniversityReportFilters = ({
   const t = useTranslations('private.k-7');
   const tFilters = useTranslations('private.k-7.filters');
   const { errorToast } = useServerErrorToast();
-  const [departmentProfiles, setDepartmentProfiles] = useState<K7FormLecturerProfileOption[]>([]);
-  const [isLoadingLecturers, setIsLoadingLecturers] = useState(false);
-  const lecturerRequestId = useRef(0);
-  const { control, setValue } = useForm<UniversityFilterFormValues>({
-    defaultValues: { year: years[0] },
-  });
-  const { field: yearField } = useController({ control, name: 'year' });
-  const { field: facultyField } = useController({ control, name: 'facultyId' });
-  const { field: departmentField } = useController({ control, name: 'departmentId' });
-  const { field: profileField } = useController({ control, name: 'profileIndex' });
-  const selectedProfile = profileField.value === undefined ? undefined : departmentProfiles[profileField.value];
+  const [{ year: queryYear, facultyId: queryFacultyId, departmentId: queryDepartmentId, profile }, setFilters] =
+    useK7FilterParams();
+  const year = queryYear ?? years[0];
+  const facultyId = queryFacultyId ?? undefined;
+  const departmentId = queryDepartmentId ?? undefined;
+  const {
+    data: departmentProfiles = [],
+    isError: isLecturersError,
+    isLoading: isLoadingLecturers,
+  } = useK7DepartmentProfiles(departmentId);
+  const selectedProfile = departmentProfiles.find(compareProfile(profile));
   const facultyCathedras = useMemo(
-    () => cathedras.filter((cathedra) => cathedra.facultyId === facultyField.value),
-    [cathedras, facultyField.value],
+    () => cathedras.filter((cathedra) => cathedra.facultyId === facultyId),
+    [cathedras, facultyId],
   );
   const { generate, isSubmitting, canGenerate } = useK7ReportGeneration({
     reports,
     selectedProfile,
-    selectedYear: yearField.value,
+    selectedYear: year,
     targetUserAccountId: selectedProfile?.userAccountId,
     onRequestCreated,
   });
 
   useEffect(() => {
     onFilterChange({
-      year: yearField.value,
-      facultyId: facultyField.value,
-      departmentId: departmentField.value,
+      year,
+      facultyId,
+      departmentId,
       targetAccountId: selectedProfile?.userAccountId,
       employeeId: selectedProfile?.employeeId,
       position: selectedProfile?.position,
     });
-  }, [departmentField.value, facultyField.value, onFilterChange, selectedProfile, yearField.value]);
+  }, [departmentId, facultyId, onFilterChange, selectedProfile, year]);
+
+  useEffect(() => {
+    if (isLecturersError) {
+      errorToast();
+    }
+  }, [errorToast, isLecturersError]);
 
   const handleFacultyChange = (facultyId: string) => {
-    lecturerRequestId.current += 1;
-    facultyField.onChange(Number(facultyId));
-    setValue('departmentId', undefined);
-    setValue('profileIndex', undefined);
-    setDepartmentProfiles([]);
-    setIsLoadingLecturers(false);
+    setFilters({ facultyId: Number(facultyId), departmentId: null, profile: null });
   };
 
-  const handleDepartmentChange = async (departmentId: string) => {
-    const requestId = ++lecturerRequestId.current;
-    const parsedDepartmentId = Number(departmentId);
-
-    departmentField.onChange(parsedDepartmentId);
-    setValue('profileIndex', undefined);
-    setDepartmentProfiles([]);
-    setIsLoadingLecturers(true);
-
-    try {
-      const lecturers = await getK7FormLecturers(parsedDepartmentId);
-      if (requestId !== lecturerRequestId.current) return;
-
-      const profiles = lecturers
-        .flatMap(({ profiles: lecturerProfiles, ...lecturer }) =>
-          lecturerProfiles
-            .filter((profile) => profile.departmentId === parsedDepartmentId)
-            .map((profile) => ({ ...lecturer, ...profile })),
-        )
-        .sort(
-          (first, second) =>
-            first.fullName.localeCompare(second.fullName) || first.position.localeCompare(second.position),
-        );
-
-      setDepartmentProfiles(profiles);
-    } catch {
-      if (requestId === lecturerRequestId.current) errorToast();
-    } finally {
-      if (requestId === lecturerRequestId.current) setIsLoadingLecturers(false);
-    }
+  const handleDepartmentChange = (departmentId: string) => {
+    setFilters({ departmentId: Number(departmentId), profile: null });
   };
 
   return (
@@ -121,15 +92,15 @@ export const K7UniversityReportFilters = ({
       <K7AcademicYearSelect
         id="academic-year-university"
         years={years}
-        value={yearField.value?.toString() ?? ''}
-        onValueChange={(year) => yearField.onChange(Number(year))}
+        value={year?.toString() ?? ''}
+        onValueChange={(year) => setFilters({ year: Number(year) })}
         disabled={isSubmitting}
       />
 
       <div className="flex min-w-0 flex-col gap-2">
         <Label htmlFor="faculty-university">{tFilters('faculty')}</Label>
         <Select
-          value={facultyField.value?.toString() ?? ''}
+          value={facultyId?.toString() ?? ''}
           onValueChange={handleFacultyChange}
           disabled={isSubmitting || faculties.length === 0}
         >
@@ -153,9 +124,9 @@ export const K7UniversityReportFilters = ({
       <div className="flex min-w-0 flex-col gap-2">
         <Label htmlFor="department-university">{tFilters('cathedra')}</Label>
         <Select
-          value={departmentField.value?.toString() ?? ''}
+          value={departmentId?.toString() ?? ''}
           onValueChange={handleDepartmentChange}
-          disabled={isSubmitting || facultyField.value === undefined || facultyCathedras.length === 0}
+          disabled={isSubmitting || facultyId === undefined || facultyCathedras.length === 0}
         >
           <SelectTrigger
             id="department-university"
@@ -177,11 +148,9 @@ export const K7UniversityReportFilters = ({
       <div className="flex min-w-0 flex-col gap-2">
         <Label htmlFor="lecturer-university">{tFilters('lecturerProfile')}</Label>
         <Select
-          value={profileField.value?.toString() ?? ''}
-          onValueChange={(profileIndex) => profileField.onChange(Number(profileIndex))}
-          disabled={
-            isSubmitting || departmentField.value === undefined || isLoadingLecturers || departmentProfiles.length === 0
-          }
+          value={parseAsProfileId.serialize(profile)}
+          onValueChange={(profile) => setFilters({ profile: parseAsProfileId.parse(profile) })}
+          disabled={isSubmitting || departmentId === undefined || isLoadingLecturers || departmentProfiles.length === 0}
         >
           <SelectTrigger
             id="lecturer-university"
@@ -191,10 +160,10 @@ export const K7UniversityReportFilters = ({
             <SelectValue placeholder={tFilters('selectLecturerProfile')} />
           </SelectTrigger>
           <SelectContent>
-            {departmentProfiles.map((profile, index) => (
+            {departmentProfiles.map((profile) => (
               <SelectItem
                 key={`${profile.userAccountId}-${profile.employeeId}-${profile.departmentId}-${profile.position}`}
-                value={String(index)}
+                value={parseAsProfileId.serialize(profile)}
               >
                 {profile.fullName} - {profile.position}
               </SelectItem>

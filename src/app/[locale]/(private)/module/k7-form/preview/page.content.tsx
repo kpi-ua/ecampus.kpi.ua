@@ -24,9 +24,10 @@ import { EMPLOYEE_CATEGORY_TRANSLATION_KEYS } from './constants';
 interface Props {
   preview: K7HtmlPreview;
   pdfReady: boolean;
+  backHref: string;
 }
 
-export const K7PreviewContent = ({ preview, pdfReady }: Props) => {
+export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
   const t = useTranslations('private.k-7');
   const tEmployeeCategory = useTranslations('private.k-7.employee-category');
   const teachingHours = preview.section1.teachingDisciplines.reduce((total, row) => total + row.totalVolume, 0);
@@ -58,7 +59,7 @@ export const K7PreviewContent = ({ preview, pdfReady }: Props) => {
   return (
     <main className="flex w-full min-w-0 flex-col">
       <Link
-        href="/module/k7-form"
+        href={backHref}
         className="leading-xs mb-[14px] inline-flex w-fit items-center gap-2 text-xs font-semibold text-neutral-500"
       >
         <CaretLeftRegular className="size-[16px]" />
