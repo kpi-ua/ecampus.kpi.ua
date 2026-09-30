@@ -736,7 +736,24 @@
       "not-found": "Curator not found",
       "subdivisions": "Academic position(s):",
       "contacts": "Contacts:",
-      "profile": "Personal page:"
+      "profile": "Personal page:",
+      "lecturer": {
+        "title": "Study groups",
+        "subtitle": "A list of study groups and their assigned curators.",
+        "empty": "No study groups found",
+        "search-placeholder": "Search by full name(ukr)",
+        "tabs": {
+          "study-groups": "Study groups"
+        },
+        "table": {
+          "group": "Group",
+          "course": "Course",
+          "department": "Department",
+          "curator": "Curator",
+          "description": "Description",
+          "not-assigned": "Not assigned"
+        }
+      }
     },
     "certificate": {
       "title": "Certificates",
