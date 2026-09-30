@@ -20,7 +20,7 @@ export async function getCurator(): Promise<Curator | null> {
 
 export const getCuratorTeachingGroups = async (params: CuratorPeriodParams = {}): Promise<CuratorGroup[]> => {
   const response = await campusFetch<CuratorGroup[]>(
-    `/curator/teaching-groups?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
+    `/curator-lecturer/teaching-groups?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
 
   if (!response.ok) {

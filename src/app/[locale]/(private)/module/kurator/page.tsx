@@ -25,7 +25,7 @@ export default async function CuratorPage() {
   const isLecturerProfile = !!user?.employeeProfile && !user.studentProfile;
 
   if (isLecturerProfile) {
-    const [teachingGroups] = await Promise.all([getCuratorTeachingGroups()]);
+    const teachingGroups = await getCuratorTeachingGroups();
 
     return (
       <SubLayout pageTitle={t('title')}>
