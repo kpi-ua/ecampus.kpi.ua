@@ -749,7 +749,8 @@
         },
         "tabs": {
           "study-groups": "Study groups",
-          "group-curator": "Group curator"
+          "group-curator": "Group curator",
+          "administration": "Administration"
         },
         "table": {
           "group": "Group",
@@ -834,6 +835,42 @@
             "expand-surveys": "Show student surveys",
             "collapse-surveys": "Hide student surveys",
             "empty": "No results yet"
+          }
+        },
+        "administration": {
+          "title": "Administration",
+          "subtitle": "Review study groups and their assigned curators.",
+          "search": "Curator name",
+          "empty": "No study groups found",
+          "not-assigned": "Not assigned",
+          "expand": "Expand group information",
+          "collapse": "Collapse group information",
+          "unavailable": "You do not have curator administrator access",
+          "all-departments": "All departments",
+          "table": {
+            "group": "Group",
+            "course": "Course",
+            "department": "Department",
+            "curator": "Curator",
+            "description": "Description",
+            "actions": "Actions"
+          },
+          "assign": {
+            "title": "Change curator",
+            "label": "New curator",
+            "placeholder": "Select a lecturer",
+            "start-date": "Start date",
+            "end-date": "End date",
+            "submit": "Assign"
+          },
+          "history": {
+            "title": "Assignment history",
+            "present": "present",
+            "empty": "No assignment history"
+          },
+          "success": {
+            "title": "Curator assigned",
+            "description": "The curator for group {group} was updated successfully"
           }
         }
       }

@@ -13,6 +13,9 @@ import {
   CuratorSurveyParams,
   CuratorAttestationStudent,
   CuratorAttestationParams,
+  CuratorDepartment,
+  CuratorLecturer,
+  CuratorAssignment,
 } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { Curator } from '@/types/models/curator';
@@ -67,6 +70,43 @@ export const getCuratorAttestations = async (
   params: CuratorAttestationParams = {},
 ): Promise<CuratorAttestationStudent[]> =>
   getJson(`/curator/groups/${groupId}/attestations?${buildQuery({ ...params })}`);
+
+export const getCuratorDepartments = async (): Promise<CuratorDepartment[]> => {
+  const response = await campusFetch<CuratorDepartment[]>('/curator/admin/departments');
+
+  if (response.status === 403) {
+    return [];
+  }
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorAdminGroups = async (departmentId?: number): Promise<CuratorGroup[]> =>
+  getJson(`/curator/admin/groups?${buildQuery({ departmentId })}`);
+
+export const getCuratorLecturers = async (departmentId?: number): Promise<CuratorLecturer[]> =>
+  getJson(`/curator/admin/lecturers?${buildQuery({ departmentId })}`);
+
+export const getCuratorAssignments = async (groupId: number): Promise<CuratorAssignment[]> =>
+  getJson(`/curator/admin/groups/${groupId}/curators`);
+
+export const assignGroupCurator = async (groupId: number, employeeId: number, startDate: string, endDate: string) => {
+  const response = await campusFetch(`/curator/admin/groups/${groupId}/curator`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ employeeId, startDate, endDate }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  revalidatePath('/module/kurator');
+};
 
 export const assignGroupLeader = async (groupId: number, studentId: number) => {
   const response = await campusFetch(`/curator/groups/${groupId}/leader`, {
