@@ -13,8 +13,6 @@ export const IdentifierLink = ({ value, href }: Props) => (
     href={value ? href + encodeURIComponent(value) : '#'}
     target="_blank"
     rel="noreferrer"
-    aria-disabled={!value}
-    tabIndex={value ? undefined : -1}
   >
     {value ?? '—'}
   </Link>

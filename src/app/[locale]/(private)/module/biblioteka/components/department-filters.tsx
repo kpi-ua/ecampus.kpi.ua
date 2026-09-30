@@ -1,18 +1,13 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { parseAsInteger, useQueryStates } from 'nuqs';
-import { useEffect, useMemo } from 'react';
 
-import { getLibraryEmployees } from '@/actions/library.actions';
 import { Paragraph } from '@/components/typography';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { LibraryDepartment } from '@/types/models/library';
 
-import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
+import { useDepartmentFilters } from '../hooks';
 import { EmployeesTable } from './employees-table';
 
 interface Props {
@@ -21,46 +16,24 @@ interface Props {
 
 export const DepartmentFilters = ({ departments }: Props) => {
   const t = useTranslations('private.library');
-  const { errorToast } = useServerErrorToast();
-  const [{ facultyId: requestedFacultyId, departmentId: requestedDepartmentId }, setSelection] = useQueryStates({
-    facultyId: parseAsInteger,
-    departmentId: parseAsInteger,
-    page: parseAsInteger,
-  });
-  const selectedDepartment = departments.find((department) => department.id === requestedDepartmentId);
-  const facultyId = requestedFacultyId ?? selectedDepartment?.facultyId;
-  const departmentId =
-    selectedDepartment && selectedDepartment.facultyId === facultyId ? selectedDepartment.id : undefined;
   const {
-    data: employees = [],
+    departmentId,
+    employees,
+    faculties,
+    facultyDepartments,
+    facultyId,
     isFetching,
-    error,
-  } = useQuery({
-    queryKey: libraryQueryKeys.employees({ departmentId }),
-    queryFn: () => getLibraryEmployees({ departmentId }),
-    enabled: departmentId !== undefined,
-    staleTime: LIBRARY_STALE_TIME,
-  });
-  const faculties = useMemo(
-    () => [...new Map(departments.map((department) => [department.facultyId, department])).values()],
-    [departments],
-  );
-  const facultyDepartments = useMemo(
-    () => departments.filter((department) => department.facultyId === facultyId),
-    [departments, facultyId],
-  );
-  useEffect(() => {
-    if (error) {
-      errorToast();
-    }
-  }, [error, errorToast]);
+    selectedDepartment,
+    selectDepartment,
+    selectFaculty,
+  } = useDepartmentFilters(departments);
 
   const handleFacultyChange = (value: string) => {
-    setSelection({ facultyId: Number(value), departmentId: null, page: null });
+    selectFaculty(Number(value));
   };
 
   const handleDepartmentChange = (value: string) => {
-    setSelection({ facultyId: facultyId ?? null, departmentId: Number(value), page: null });
+    selectDepartment(Number(value));
   };
 
   return (
