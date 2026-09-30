@@ -5,8 +5,7 @@ import { useState } from 'react';
 
 import { Heading2 } from '@/components/typography';
 import { Card } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabSheetTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabSheetTrigger, TabsTrigger } from '@/components/ui/tabs';
 
 import { CuratorGroup } from '../../types';
 import { GroupSummary } from './group-summary';
@@ -26,36 +25,33 @@ export const GroupCuratorView = ({ groups }: Props) => {
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <Tabs value={groupId} onValueChange={setGroupId} className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center gap-4">
         <Heading2 className="mb-0">{t('title')}</Heading2>
-        <Select value={groupId} onValueChange={setGroupId}>
-          <SelectTrigger className="w-32">
-            <SelectValue placeholder={t('select-group')} />
-          </SelectTrigger>
-          <SelectContent>
-            {groups.map((group) => (
-              <SelectItem key={group.groupId} value={group.groupId.toString()}>
-                {group.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <TabsList size="small" className="max-w-full overflow-x-auto bg-white" aria-label={t('select-group')}>
+          {groups.map((group) => (
+            <TabsTrigger key={group.groupId} value={group.groupId.toString()}>
+              {group.name}
+            </TabsTrigger>
+          ))}
+        </TabsList>
       </div>
 
-      <GroupSummary group={selectedGroup} />
+      <TabsContent value={groupId} className="mt-0 flex flex-col gap-8">
+        <GroupSummary group={selectedGroup} />
 
-      <Tabs defaultValue="overview">
-        <TabsList className="h-auto justify-start rounded-none border-0 bg-transparent p-0" size="small">
-          <TabSheetTrigger value="overview">{t('sections.overview')}</TabSheetTrigger>
-        </TabsList>
+        <Tabs defaultValue="overview">
+          <TabsList className="h-auto justify-start rounded-none border-0 bg-transparent p-0" size="small">
+            <TabSheetTrigger value="overview">{t('sections.overview')}</TabSheetTrigger>
+          </TabsList>
 
-        <Card className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
-          <TabsContent value="overview" className="mt-0">
-            <OverviewTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
-          </TabsContent>
-        </Card>
-      </Tabs>
-    </div>
+          <Card className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
+            <TabsContent value="overview" className="mt-0">
+              <OverviewTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
+            </TabsContent>
+          </Card>
+        </Tabs>
+      </TabsContent>
+    </Tabs>
   );
 };
