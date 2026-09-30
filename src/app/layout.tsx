@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import { QueryProvider } from '@/components/query-provider';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 type Props = {
   children: ReactNode;

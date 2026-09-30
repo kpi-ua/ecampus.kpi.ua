@@ -8,7 +8,7 @@ import { getLibraryEmployees } from '@/actions/library.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { type LibraryDepartment } from '@/types/models/library';
 
-import { LIBRARY_STALE_TIME, libraryQueryKeys } from './query-keys';
+import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
 
 export const useDepartmentFilters = (departments: LibraryDepartment[]) => {
   const { errorToast } = useServerErrorToast();

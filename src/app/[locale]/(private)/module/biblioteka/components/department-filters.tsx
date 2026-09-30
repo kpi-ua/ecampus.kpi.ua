@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LibraryDepartment } from '@/types/models/library';
 
-import { useDepartmentFilters } from '../hooks';
+import { useDepartmentFilters } from '../hooks/use-department-filters';
 import { EmployeesTable } from './employees-table';
 
 interface Props {
