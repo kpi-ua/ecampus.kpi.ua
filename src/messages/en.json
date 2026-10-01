@@ -291,7 +291,11 @@
   "private": {
     "library": {
       "title": "Scientometric identifiers",
-      "tabs": { "label": "Browsing mode", "departments": "By department", "alphabet": "By alphabet" },
+      "tabs": {
+        "label": "Browsing mode",
+        "departments": "By department",
+        "alphabet": "By alphabet"
+      },
       "departments": {
         "title": "Departments",
         "description": "Browse and manage university departments.",
@@ -302,12 +306,16 @@
         "select-department": "Select a department",
         "search": "Search departments..."
       },
-      "department": { "description": "Employees and their identifiers in scientometric databases." },
+      "department": {
+        "description": "Employees and their identifiers in scientometric databases."
+      },
       "alphabet": {
         "title": "Employees by alphabet",
         "description": "Select the first letter of an employee’s surname."
       },
-      "employee": { "description": "Employee details, workplaces, and scientometric identifiers." },
+      "employee": {
+        "description": "Employee details, workplaces, and scientometric identifiers."
+      },
       "search": "Search the list",
       "export": "Export CSV",
       "count": "Records: {count}",
@@ -792,7 +800,8 @@
           "curator": "Curator",
           "description": "Description",
           "not-assigned": "Not assigned"
-        }
+        },
+        "export": "Download Excel"
       }
     },
     "certificate": {
