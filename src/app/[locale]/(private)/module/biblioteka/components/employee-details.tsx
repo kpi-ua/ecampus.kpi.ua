@@ -56,7 +56,13 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                   <TableCell>
                     <Badge variant="yellow">{item.status}</Badge>
                   </TableCell>
-                  <TableCell>{item.contractEnd ? dayjs(item.contractEnd).format('DD.MM.YYYY') : '—'}</TableCell>
+                  <TableCell>
+                    {item.contractEnd
+                      ? dayjs(item.contractEnd).isValid()
+                        ? dayjs(item.contractEnd).format('DD.MM.YYYY')
+                        : item.contractEnd
+                      : '—'}
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
