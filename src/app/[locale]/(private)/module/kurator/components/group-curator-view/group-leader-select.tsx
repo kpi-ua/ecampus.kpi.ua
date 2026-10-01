@@ -82,9 +82,9 @@ export const GroupLeaderSelect = ({ group }: Props) => {
               {t('leader.new')}
             </Label>
             <Select value={studentId} onValueChange={setStudentId} disabled={isLoading}>
-              <SelectTrigger id={inputId} variant="small" aria-label={t('leader.select')}>
+              <SelectTrigger id={inputId} variant="small">
                 <Show when={isLoading} fallback={<SelectValue placeholder={t('leader.placeholder')} />}>
-                  <LoaderCircle className="size-4 animate-spin" aria-label={t('leader.loading')} />
+                  <LoaderCircle className="size-4 animate-spin" />
                 </Show>
               </SelectTrigger>
               <SelectContent>
