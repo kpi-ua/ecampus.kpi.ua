@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { getCuratorStudentCredentials } from '@/actions/curator.actions';
+import { getContactTypes } from '@/actions/profile.actions';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -39,6 +40,11 @@ export const OverviewTab = ({ group }: Props) => {
   const { data: students = [], isFetching } = useQuery({
     queryKey: curatorGroupQueryKeys.credentials(groupId),
     queryFn: () => getCuratorStudentCredentials(groupId),
+    staleTime: CURATOR_GROUP_STALE_TIME,
+  });
+  const { data: contactTypes = [] } = useQuery({
+    queryKey: ['contact-types'],
+    queryFn: getContactTypes,
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
   const query = search.trim().toLocaleLowerCase();
@@ -90,7 +96,7 @@ export const OverviewTab = ({ group }: Props) => {
                       {student.passwordChanged ? t('students.password-changed') : t('students.initial-password')}
                     </TableCell>
                     <TableCell>
-                      <StudentContacts email={student.email} contacts={student.curatorContacts} />
+                      <StudentContacts contacts={student.curatorContacts} contactTypes={contactTypes} />
                     </TableCell>
                     <TableCell>
                       <Show

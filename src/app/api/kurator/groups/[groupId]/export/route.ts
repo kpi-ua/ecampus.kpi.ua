@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { CuratorStudentCredentials } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
+import { getContactTypes } from '@/actions/profile.actions';
 
 interface Props {
   params: Promise<{ groupId: string }>;
@@ -26,6 +27,7 @@ export async function GET(_request: Request, { params }: Props) {
   }
 
   const students = await response.json();
+  const contactTypes = await getContactTypes();
   const t = await getTranslations('private.curator.lecturer.group-curator');
   const rows = [
     [
@@ -37,12 +39,9 @@ export async function GET(_request: Request, { params }: Props) {
       t('students.code-of-honor'),
     ],
     ...students.map((student) => {
-      const contacts = Array.from(
-        new Map(
-          [student.email, ...student.curatorContacts]
-            .filter((value): value is string => Boolean(value?.trim()))
-            .map((value) => [value.trim().toLocaleLowerCase(), value.trim()]),
-        ).values(),
+      const contacts = student.curatorContacts.map(
+        ({ contactTypeId, value }) =>
+          `${contactTypes.find((type) => type.id === contactTypeId)?.name ?? contactTypeId}: ${value}`,
       );
 
       return [

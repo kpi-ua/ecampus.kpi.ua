@@ -1,3 +1,5 @@
+import { Contact } from '@/types/models/colleague-contact';
+
 export interface CuratorGroup {
   groupId: number;
   studyGroupId: number;
@@ -21,7 +23,7 @@ export interface CuratorStudent {
   userAccountId: number;
   fullName: string;
   email: string | null;
-  curatorContacts: string[];
+  curatorContacts: Contact[];
 }
 
 export interface CuratorStudentCredentials extends CuratorStudent {
