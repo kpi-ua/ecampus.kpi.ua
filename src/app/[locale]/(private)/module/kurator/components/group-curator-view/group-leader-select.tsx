@@ -20,6 +20,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useToast } from '@/hooks/use-toast';
 
@@ -82,11 +83,9 @@ export const GroupLeaderSelect = ({ group }: Props) => {
             </Label>
             <Select value={studentId} onValueChange={setStudentId} disabled={isLoading}>
               <SelectTrigger id={inputId} variant="small" aria-label={t('leader.select')}>
-                {isLoading ? (
+                <Show when={isLoading} fallback={<SelectValue placeholder={t('leader.placeholder')} />}>
                   <LoaderCircle className="size-4 animate-spin" aria-label={t('leader.loading')} />
-                ) : (
-                  <SelectValue placeholder={t('leader.placeholder')} />
-                )}
+                </Show>
               </SelectTrigger>
               <SelectContent>
                 {studentsQuery.data?.map((student) => (

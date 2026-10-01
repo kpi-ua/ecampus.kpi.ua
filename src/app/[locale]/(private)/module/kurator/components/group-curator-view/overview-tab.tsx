@@ -12,6 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { EmptyRow } from '../EmptyRow';
@@ -76,44 +77,43 @@ export const OverviewTab = ({ group }: Props) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {isFetching ? (
-              <LoadingRow colSpan={6} />
-            ) : filteredStudents.length ? (
-              filteredStudents.map((student) => (
-                <TableRow key={student.studentId}>
-                  <TableCell className="font-medium">{student.fullName}</TableCell>
-                  <TableCell>{student.login ?? '—'}</TableCell>
-                  <TableCell>
-                    {student.passwordChanged ? '••••••••' : student.initialPassword ? student.initialPassword : '—'}
-                  </TableCell>
-                  <TableCell>
-                    {student.passwordChanged ? t('students.password-changed') : t('students.initial-password')}
-                  </TableCell>
-                  <TableCell>
-                    <StudentContacts email={student.email} contacts={student.curatorContacts} />
-                  </TableCell>
-                  <TableCell>
-                    {student.codeOfHonorSignDate ? (
-                      <Badge variant="success">
-                        {t('students.agreed', { date: dayjs(student.codeOfHonorSignDate).format('DD.MM.YYYY') })}
-                      </Badge>
-                    ) : (
-                      <Badge variant="error">{t('students.not-agreed')}</Badge>
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <EmptyRow colSpan={6} />
-            )}
+            <Show when={!isFetching} fallback={<LoadingRow colSpan={6} />}>
+              <Show when={filteredStudents.length > 0} fallback={<EmptyRow colSpan={6} />}>
+                {filteredStudents.map((student) => (
+                  <TableRow key={student.studentId}>
+                    <TableCell className="font-medium">{student.fullName}</TableCell>
+                    <TableCell>{student.login ?? '—'}</TableCell>
+                    <TableCell>
+                      {student.passwordChanged ? '••••••••' : student.initialPassword ? student.initialPassword : '—'}
+                    </TableCell>
+                    <TableCell>
+                      {student.passwordChanged ? t('students.password-changed') : t('students.initial-password')}
+                    </TableCell>
+                    <TableCell>
+                      <StudentContacts email={student.email} contacts={student.curatorContacts} />
+                    </TableCell>
+                    <TableCell>
+                      <Show
+                        when={!!student.codeOfHonorSignDate}
+                        fallback={<Badge variant="error">{t('students.not-agreed')}</Badge>}
+                      >
+                        <Badge variant="success">
+                          {t('students.agreed', { date: dayjs(student.codeOfHonorSignDate).format('DD.MM.YYYY') })}
+                        </Badge>
+                      </Show>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </Show>
+            </Show>
           </TableBody>
         </Table>
       </div>
-      {!isFetching && (
+      <Show when={!isFetching}>
         <Paragraph className="m-0 text-sm text-neutral-500">
           {t('students.count', { count: filteredStudents.length })}
         </Paragraph>
-      )}
+      </Show>
     </div>
   );
 };

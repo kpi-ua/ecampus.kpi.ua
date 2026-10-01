@@ -1,3 +1,5 @@
+import { Show } from '@/components/utils/show';
+
 interface Props {
   email: string | null;
   contacts: string[];
@@ -20,17 +22,14 @@ export const StudentContacts = ({ email, contacts }: Props) => {
     <div className="flex flex-col gap-1">
       {values.map((value) => (
         <div key={value}>
-          {isPhoneNumber(value) ? (
-            <a className="text-basic-blue hover:underline" href={`tel:${value.replace(/[^+\d]/g, '')}`}>
+          <Show when={isPhoneNumber(value) || value.includes('@')} fallback={value}>
+            <a
+              className="text-basic-blue hover:underline"
+              href={isPhoneNumber(value) ? `tel:${value.replace(/[^+\d]/g, '')}` : `mailto:${value}`}
+            >
               {value}
             </a>
-          ) : value.includes('@') ? (
-            <a className="text-basic-blue hover:underline" href={`mailto:${value}`}>
-              {value}
-            </a>
-          ) : (
-            value
-          )}
+          </Show>
         </div>
       ))}
     </div>
