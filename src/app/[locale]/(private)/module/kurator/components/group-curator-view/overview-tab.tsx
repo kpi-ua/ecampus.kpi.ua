@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { PASSWORD_MASK } from '@/lib/constants/password';
 
 import { EmptyRow } from '../EmptyRow';
 import { CuratorGroup } from '../../types';
@@ -90,7 +91,11 @@ export const OverviewTab = ({ group }: Props) => {
                     <TableCell className="font-medium">{student.fullName}</TableCell>
                     <TableCell>{student.login ?? '—'}</TableCell>
                     <TableCell>
-                      {student.passwordChanged ? '••••••••' : student.initialPassword ? student.initialPassword : '—'}
+                      {student.passwordChanged
+                        ? PASSWORD_MASK
+                        : student.initialPassword
+                          ? student.initialPassword
+                          : '—'}
                     </TableCell>
                     <TableCell>
                       {student.passwordChanged ? t('students.password-changed') : t('students.initial-password')}

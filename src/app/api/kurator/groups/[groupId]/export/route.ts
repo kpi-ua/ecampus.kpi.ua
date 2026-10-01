@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { CuratorStudentCredentials } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
+import { PASSWORD_MASK } from '@/lib/constants/password';
 import { getContactTypes } from '@/actions/profile.actions';
 
 interface Props {
@@ -47,7 +48,7 @@ export async function GET(_request: Request, { params }: Props) {
       return [
         student.fullName,
         student.login ?? '—',
-        student.passwordChanged ? '••••••••' : student.initialPassword || '—',
+        student.passwordChanged ? PASSWORD_MASK : student.initialPassword || '—',
         student.passwordChanged ? t('students.password-changed') : t('students.initial-password'),
         contacts.join(', ') || '—',
         student.codeOfHonorSignDate
