@@ -819,7 +819,16 @@
             "select": "Select a group leader",
             "loading": "Loading students",
             "success-title": "Group leader changed",
-            "success-description": "The new group leader was assigned successfully"
+            "success-description": "The new group leader was assigned successfully",
+            "current": "Current group leader",
+            "new": "New group leader",
+            "placeholder": "Leader full name",
+            "assign": "Assign new group leader",
+            "confirm-title": "Assign a new leader for group {group}?",
+            "confirm-description": "You can change this later. The current leader will be removed from the role.",
+            "now": "Current",
+            "next": "New",
+            "cancel": "Cancel"
           },
           "sections": {
             "overview": "Group overview"
@@ -850,7 +859,8 @@
           "results": {
             "student": "Student name",
             "empty": "No results yet"
-          }
+          },
+          "export": "Download Excel"
         }
       }
     },

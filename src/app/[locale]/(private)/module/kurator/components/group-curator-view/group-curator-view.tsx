@@ -47,7 +47,7 @@ export const GroupCuratorView = ({ groups }: Props) => {
 
           <Card className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
             <TabsContent value="overview" className="mt-0">
-              <OverviewTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
+              <OverviewTab key={selectedGroup.groupId} group={selectedGroup} />
             </TabsContent>
           </Card>
         </Tabs>

@@ -1,28 +1,39 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
+import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { getCuratorStudentCredentials } from '@/actions/curator.actions';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { EmptyRow } from '../EmptyRow';
+import { CuratorGroup } from '../../types';
+import { exportGroupOverview } from '../../utils/export-group-overview';
+import { GroupLeaderSelect } from './group-leader-select';
 import { LoadingRow } from './loading-row';
 import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
 import { StudentContacts } from './student-contacts';
 
 interface Props {
-  groupId: number;
-  groupName: string;
+  group: CuratorGroup;
 }
 
-export const OverviewTab = ({ groupId, groupName }: Props) => {
+export const OverviewTab = ({ group }: Props) => {
+  const { groupId, name: groupName } = group;
   const t = useTranslations('private.curator.lecturer.group-curator');
+  const { errorToast } = useServerErrorToast();
+  const exportMutation = useMutation({
+    mutationFn: () => exportGroupOverview(groupId),
+    onError: () => errorToast(),
+  });
   const [search, setSearch] = useState('');
   const { data: students = [], isFetching } = useQuery({
     queryKey: curatorGroupQueryKeys.credentials(groupId),
@@ -36,7 +47,17 @@ export const OverviewTab = ({ groupId, groupName }: Props) => {
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <Heading4 className="m-0">{t('overview.title', { group: groupName })}</Heading4>
+        <Button
+          variant="secondary"
+          size="small"
+          loading={exportMutation.isPending}
+          onClick={() => exportMutation.mutate()}
+        >
+          <Download />
+          {t('export')}
+        </Button>
       </div>
+      <GroupLeaderSelect group={group} />
       <Input
         value={search}
         onChange={(event) => setSearch(event.target.value)}

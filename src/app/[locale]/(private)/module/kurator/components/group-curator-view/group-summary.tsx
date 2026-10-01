@@ -3,7 +3,6 @@ import { useTranslations } from 'next-intl';
 import { Paragraph } from '@/components/typography';
 
 import { CuratorGroup } from '../../types';
-import { GroupLeaderSelect } from './group-leader-select';
 
 interface Props {
   group: CuratorGroup;
@@ -16,6 +15,7 @@ export const GroupSummary = ({ group }: Props) => {
     { label: t('facts.speciality'), value: group.speciality },
     { label: t('facts.course'), value: group.course.toString() },
     { label: t('facts.department'), value: group.departmentAbbreviation || group.departmentName },
+    { label: t('facts.group-leader'), value: group.groupLeaderName || t('not-assigned') },
   ];
 
   return (
@@ -26,7 +26,6 @@ export const GroupSummary = ({ group }: Props) => {
           <Paragraph className="m-0 mt-1 text-sm text-neutral-500">{label}</Paragraph>
         </div>
       ))}
-      <GroupLeaderSelect group={group} />
     </div>
   );
 };
