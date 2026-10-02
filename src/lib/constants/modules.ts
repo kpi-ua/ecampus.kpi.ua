@@ -35,7 +35,7 @@ export const MODULES: Module[] = [
   { name: 'rnpupd2', isExternal: true },
   { name: 'voteresult', isExternal: true },
   { name: 'vedomostadmin', isExternal: true },
-  { name: 'zamdekan', isExternal: true },
+  { name: 'zamdekan', isExternal: false },
   { name: 'zavkaf', isExternal: true },
   { name: 'zdekan', isExternal: true },
   { name: 'ekk', isExternal: true },
