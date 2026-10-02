@@ -1,18 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { assignGroupLeader, getCuratorStudents } from '@/actions/curator.actions';
 import { Paragraph } from '@/components/typography';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { useToast } from '@/hooks/use-toast';
+import { Show } from '@/components/utils/show';
 
+import { useGroupLeaderSelect } from './hooks/overview-tab/use-group-leader-select';
 import { CuratorGroup } from '../../types';
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
+import { GroupLeaderConfirmDialog } from './group-leader-confirm-dialog';
 
 interface Props {
   group: CuratorGroup;
@@ -20,48 +19,49 @@ interface Props {
 
 export const GroupLeaderSelect = ({ group }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator');
-  const { toast } = useToast();
-  const { errorToast } = useServerErrorToast();
-  const [studentId, setStudentId] = useState(group.groupLeaderStudentId?.toString() ?? '');
-  const studentsQuery = useQuery({
-    queryKey: curatorGroupQueryKeys.students(group.groupId),
-    queryFn: () => getCuratorStudents(group.groupId),
-    staleTime: CURATOR_GROUP_STALE_TIME,
-  });
-  const assignment = useMutation({
-    mutationFn: (nextStudentId: number) => assignGroupLeader(group.groupId, nextStudentId),
-    onSuccess: (_, nextStudentId) => {
-      setStudentId(nextStudentId.toString());
-      toast({ title: t('leader.success-title'), description: t('leader.success-description') });
-    },
-    onError: () => errorToast(),
-  });
-
-  useEffect(() => {
-    setStudentId(group.groupLeaderStudentId?.toString() ?? '');
-  }, [group.groupId, group.groupLeaderStudentId]);
-
-  const isLoading = studentsQuery.isLoading || assignment.isPending;
+  const { studentId, setStudentId, currentLeader, selectedStudent, handleAssigned, students, isLoading, canAssign } =
+    useGroupLeaderSelect(group);
+  const currentName = currentLeader.name || t('not-assigned');
+  const inputId = `group-leader-${group.groupId}`;
 
   return (
-    <div className="border-neutral-divider min-w-64 border-r px-5 last:border-r-0">
-      <Select value={studentId} onValueChange={(value) => assignment.mutate(Number(value))} disabled={isLoading}>
-        <SelectTrigger variant="small" aria-label={t('leader.select')}>
-          {isLoading ? (
-            <LoaderCircle className="size-4 animate-spin" aria-label={t('leader.loading')} />
-          ) : (
-            <SelectValue placeholder={t('not-assigned')} />
-          )}
-        </SelectTrigger>
-        <SelectContent>
-          {studentsQuery.data?.map((student) => (
-            <SelectItem key={student.studentId} value={student.studentId.toString()}>
-              {student.fullName}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <Paragraph className="m-0 mt-1 text-sm text-neutral-500">{t('facts.group-leader')}</Paragraph>
-    </div>
+    <>
+      <div className="border-neutral-divider flex flex-col gap-6 rounded-lg border p-5 md:flex-row md:items-center md:justify-between">
+        <div className="min-w-0 flex-1">
+          <Paragraph className="m-0 text-sm">{t('leader.current')}</Paragraph>
+          <Paragraph className="m-0 mt-1 font-semibold">{currentName}</Paragraph>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end md:flex-1">
+          <div className="flex min-w-0 flex-1 flex-col gap-1">
+            <Label htmlFor={inputId} className="text-sm text-neutral-500">
+              {t('leader.new')}
+            </Label>
+            <Select value={studentId} onValueChange={setStudentId} disabled={isLoading}>
+              <SelectTrigger id={inputId} variant="small">
+                <Show when={isLoading} fallback={<SelectValue placeholder={t('leader.placeholder')} />}>
+                  <LoaderCircle className="size-4 animate-spin" />
+                </Show>
+              </SelectTrigger>
+              <SelectContent>
+                {students.map((student) => (
+                  <SelectItem key={student.studentId} value={student.studentId.toString()}>
+                    {student.fullName}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <GroupLeaderConfirmDialog
+            group={{ ...group, groupLeaderStudentId: currentLeader.id, groupLeaderName: currentLeader.name }}
+            student={selectedStudent}
+            onAssigned={handleAssigned}
+          >
+            <Button size="small" disabled={!canAssign || isLoading}>
+              {t('leader.assign')}
+            </Button>
+          </GroupLeaderConfirmDialog>
+        </div>
+      </div>
+    </>
   );
 };

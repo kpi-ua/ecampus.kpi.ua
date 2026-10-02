@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 
 import { CuratorAttestationStudent } from '../../types';
 
@@ -24,12 +25,17 @@ export const AttestationStudentRow = ({ student }: Props) => {
       <TableRow>
         <TableCell className="font-semibold">{student.fullName}</TableCell>
         <TableCell>
+          <Show when={student.notAttestedTwice > 0} fallback={emptyResult}>
+            <Badge variant="red">{t('repeated-count', { count: student.notAttestedTwice })}</Badge>
+          </Show>
+        </TableCell>
+        <TableCell>
           <Badge variant="success">
             {student.attested} {t('attested-code')}
           </Badge>
         </TableCell>
         <TableCell>
-          <Badge variant="neutral">
+          <Badge variant="yellow">
             {student.missing} {t('missing-code')}
           </Badge>
         </TableCell>
@@ -39,7 +45,7 @@ export const AttestationStudentRow = ({ student }: Props) => {
           </Badge>
         </TableCell>
         <TableCell>
-          <Badge variant="yellow">
+          <Badge variant="neutral">
             {student.notStudying} {t('not-studying-code')}
           </Badge>
         </TableCell>
@@ -59,21 +65,29 @@ export const AttestationStudentRow = ({ student }: Props) => {
       </TableRow>
       {expanded &&
         student.results.map((result) => (
-          <TableRow key={`${result.disciplineId}-${result.employeeId}`} className="bg-neutral-50 hover:bg-neutral-50">
+          <TableRow
+            key={`${result.discipline.id}-${result.employeeId}-${result.semester}`}
+            className="bg-neutral-50 hover:bg-neutral-50"
+          >
             <TableCell className="pl-6">
-              {result.disciplineName} — {result.lecturerName}
+              {result.lecturerName} — {result.discipline.name}
+            </TableCell>
+            <TableCell>
+              <Show when={result.result === 'na' && result.previousResult === 'na'} fallback={emptyResult}>
+                <Badge variant="red">{t('repeated-result')}</Badge>
+              </Show>
             </TableCell>
             <TableCell>
               {result.result === 'a' ? <Badge variant="success">{t('attested-code')}</Badge> : emptyResult}
             </TableCell>
             <TableCell>
-              {result.result === null ? <Badge variant="neutral">{t('missing-code')}</Badge> : emptyResult}
+              {result.result === null ? <Badge variant="yellow">{t('missing-code')}</Badge> : emptyResult}
             </TableCell>
             <TableCell>
               {result.result === 'na' ? <Badge variant="error">{t('not-attested-code')}</Badge> : emptyResult}
             </TableCell>
             <TableCell>
-              {result.result === 'nv' ? <Badge variant="yellow">{t('not-studying-code')}</Badge> : emptyResult}
+              {result.result === 'nv' ? <Badge variant="neutral">{t('not-studying-code')}</Badge> : emptyResult}
             </TableCell>
             <TableCell />
           </TableRow>

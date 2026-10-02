@@ -1,3 +1,5 @@
+import { Contact } from '@/types/models/colleague-contact';
+
 export interface CuratorGroup {
   groupId: number;
   studyGroupId: number;
@@ -21,7 +23,7 @@ export interface CuratorStudent {
   userAccountId: number;
   fullName: string;
   email: string | null;
-  curatorContacts: string[];
+  curatorContacts: Contact[];
 }
 
 export interface CuratorStudentCredentials extends CuratorStudent {
@@ -54,15 +56,16 @@ export interface CuratorSurveyRow extends CuratorStudent {
 export interface CuratorAttestationRow extends CuratorStudent {
   employeeId: number;
   lecturerName: string;
-  disciplineId: number;
-  disciplineName: string;
+  discipline: CuratorOption;
   semester: number;
   result: string | null;
+  previousResult: string | null;
 }
 
 export interface CuratorAttestationStudent extends CuratorStudent {
   attested: number;
   notAttested: number;
+  notAttestedTwice: number;
   notStudying: number;
   missing: number;
   results: CuratorAttestationRow[];

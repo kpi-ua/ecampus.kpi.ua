@@ -1,14 +1,19 @@
 'use client';
 
+import { useMutation } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
+import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { Heading4, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorGroup } from '../types';
+import { exportStudyGroups } from '../utils/export-study-groups';
 
 interface Props {
   groups: CuratorGroup[];
@@ -16,6 +21,7 @@ interface Props {
 
 export const StudyGroupsTable = ({ groups }: Props) => {
   const t = useTranslations('private.curator.lecturer');
+  const { errorToast } = useServerErrorToast();
   const [search, setSearch] = useState('');
   const filteredGroups = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
@@ -26,10 +32,24 @@ export const StudyGroupsTable = ({ groups }: Props) => {
     return groups.filter((group) => group?.curatorName?.toLocaleLowerCase().includes(query));
   }, [groups, search]);
 
+  const exportMutation = useMutation({
+    mutationFn: exportStudyGroups,
+    onError: () => errorToast(),
+  });
+
   return (
     <Card className="w-full rounded-[20px] bg-white p-5 shadow-lg sm:p-6">
-      <div className="mb-5 flex items-center justify-between gap-4">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
         <Heading4 className="m-0 text-neutral-900">{t('title')}</Heading4>
+        <Button
+          variant="secondary"
+          size="small"
+          loading={exportMutation.isPending}
+          onClick={() => exportMutation.mutate()}
+        >
+          <Download />
+          {t('export')}
+        </Button>
       </div>
 
       <Input

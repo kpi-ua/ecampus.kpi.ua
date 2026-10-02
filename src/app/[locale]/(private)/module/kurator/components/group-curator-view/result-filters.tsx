@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { CuratorFilters, CuratorOption } from '../../types';
 
@@ -32,9 +33,9 @@ export const ResultFilters = ({
   const t = useTranslations('private.curator.lecturer');
 
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap items-center gap-5">
       <Select value={resultId} onValueChange={onResultChange}>
-        <SelectTrigger className="w-44">
+        <SelectTrigger className="w-auto shrink-0 gap-2 whitespace-nowrap [&>span]:line-clamp-none" variant="small">
           <SelectValue placeholder={resultPlaceholder} />
         </SelectTrigger>
         <SelectContent>
@@ -45,28 +46,31 @@ export const ResultFilters = ({
           ))}
         </SelectContent>
       </Select>
-      <Select value={yearId} onValueChange={onYearChange}>
-        <SelectTrigger className="w-44">
-          <SelectValue placeholder={t('filters.year')} />
-        </SelectTrigger>
-        <SelectContent>
-          {filters.years.map((year) => (
-            <SelectItem key={year.id} value={year.id.toString()}>
-              {year.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <Select value={semester} onValueChange={onSemesterChange}>
-        <SelectTrigger className="w-40">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">{t('filters.all-semesters')}</SelectItem>
-          <SelectItem value="1">{t('filters.semester', { number: 1 })}</SelectItem>
-          <SelectItem value="2">{t('filters.semester', { number: 2 })}</SelectItem>
-        </SelectContent>
-      </Select>
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-neutral-500">{t('filters.year')}</span>
+        <Select value={yearId} onValueChange={onYearChange}>
+          <SelectTrigger className="w-auto shrink-0 gap-2 whitespace-nowrap [&>span]:line-clamp-none" variant="small">
+            <SelectValue placeholder={t('filters.year')} />
+          </SelectTrigger>
+          <SelectContent>
+            {filters.years.map((year) => (
+              <SelectItem key={year.id} value={year.id.toString()}>
+                {year.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-neutral-500">{t('filters.half-year')}</span>
+        <Tabs value={semester} onValueChange={onSemesterChange}>
+          <TabsList size="small" className="inline-grid w-max grid-cols-3 bg-white">
+            <TabsTrigger value="all">{t('filters.all')}</TabsTrigger>
+            <TabsTrigger value="1">{t('filters.first-semester')}</TabsTrigger>
+            <TabsTrigger value="2">{t('filters.second-semester')}</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
     </div>
   );
 };
