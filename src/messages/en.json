@@ -858,7 +858,8 @@
           "filters": {
             "student-search": "Search by student name",
             "attestation": "Attestation",
-            "survey-term": "Survey term"
+            "survey-term": "Survey term",
+            "all-attestations": "All attestations"
           },
           "students": {
             "name": "Student name",

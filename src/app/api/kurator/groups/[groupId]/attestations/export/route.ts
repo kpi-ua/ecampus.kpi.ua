@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
 import { CuratorAttestationStudent } from '@/app/[locale]/(private)/module/kurator/types';
+import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/kurator/constants';
+import { getSemesterAttestations } from '@/app/[locale]/(private)/module/kurator/utils/get-semester-attestations';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 
@@ -38,18 +40,29 @@ export async function GET(request: Request, { params }: Props) {
     return new Response(null, { status: response.status });
   }
 
-  const students = await response.json();
+  const students: CuratorAttestationStudent[] = await response.json();
   const t = await getTranslations('private.curator.lecturer.group-curator.results');
+  const semesterT = await getTranslations('private.curator.lecturer.filters');
+  const showRepeated = attestationId === null;
+  const semesters = semester === null ? [1, 2] : [Number(semester)];
   const rows = [
-    [t('student'), t('not-attested-twice'), t('attested'), t('missing'), t('not-attested'), t('not-studying')],
-    ...students.map((student) => [
-      student.fullName,
-      student.notAttestedTwice,
-      student.attested,
-      student.missing,
-      student.notAttested,
-      student.notStudying,
-    ]),
+    [
+      semesterT('half-year'),
+      t('student'),
+      ...(showRepeated ? [t('not-attested-twice')] : []),
+      ...ATTESTATION_COLUMNS.map((column) => t(column.label)),
+    ],
+    ...semesters.flatMap((term) =>
+      getSemesterAttestations(students, term).map((student) => [
+        semesterT(term === 1 ? 'first-semester' : 'second-semester'),
+        student.fullName,
+        ...(showRepeated ? [student.notAttestedTwice] : []),
+        student.attested,
+        student.missing,
+        student.notAttested,
+        student.notStudying,
+      ]),
+    ),
   ];
 
   return createCsvResponse(rows, `attestations-${id}-${yearId}-${dayjs().format('YYYY-MM-DD')}.csv`);

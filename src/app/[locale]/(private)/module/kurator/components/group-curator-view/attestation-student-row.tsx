@@ -9,14 +9,17 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
 import { CuratorAttestationStudent } from '../../types';
+import { groupAttestationResults } from '../../utils/group-attestation-results';
+import { AttestationResultCells } from './attestation-result-cells';
 
 interface Props {
+  showRepeated: boolean;
   student: CuratorAttestationStudent;
 }
 
 const emptyResult = '—';
 
-export const AttestationStudentRow = ({ student }: Props) => {
+export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator.results');
   const [expanded, setExpanded] = useState(false);
 
@@ -24,31 +27,14 @@ export const AttestationStudentRow = ({ student }: Props) => {
     <Fragment>
       <TableRow>
         <TableCell className="font-semibold">{student.fullName}</TableCell>
-        <TableCell>
-          <Show when={student.notAttestedTwice > 0} fallback={emptyResult}>
-            <Badge variant="red">{t('repeated-count', { count: student.notAttestedTwice })}</Badge>
-          </Show>
-        </TableCell>
-        <TableCell>
-          <Badge variant="success">
-            {student.attested} {t('attested-code')}
-          </Badge>
-        </TableCell>
-        <TableCell>
-          <Badge variant="yellow">
-            {student.missing} {t('missing-code')}
-          </Badge>
-        </TableCell>
-        <TableCell>
-          <Badge variant="error">
-            {student.notAttested} {t('not-attested-code')}
-          </Badge>
-        </TableCell>
-        <TableCell>
-          <Badge variant="neutral">
-            {student.notStudying} {t('not-studying-code')}
-          </Badge>
-        </TableCell>
+        <Show when={showRepeated}>
+          <TableCell>
+            <Show when={student.notAttestedTwice > 0} fallback={emptyResult}>
+              <Badge variant="red">{t('repeated-count', { count: student.notAttestedTwice })}</Badge>
+            </Show>
+          </TableCell>
+        </Show>
+        <AttestationResultCells results={student.results} />
         <TableCell className="w-12 text-right">
           {student.results.length > 0 && (
             <button
@@ -63,35 +49,24 @@ export const AttestationStudentRow = ({ student }: Props) => {
           )}
         </TableCell>
       </TableRow>
-      {expanded &&
-        student.results.map((result) => (
-          <TableRow
-            key={`${result.discipline.id}-${result.employeeId}-${result.semester}`}
-            className="bg-neutral-50 hover:bg-neutral-50"
-          >
+      <Show when={expanded}>
+        {groupAttestationResults(student.results, 'discipline').map(({ key, results }) => (
+          <TableRow key={key} className="bg-neutral-50 hover:bg-neutral-50">
             <TableCell className="pl-6">
-              {result.lecturerName} — {result.discipline.name}
+              {results[0].lecturerName} — {results[0].discipline.name}
             </TableCell>
-            <TableCell>
-              <Show when={result.result === 'na' && result.previousResult === 'na'} fallback={emptyResult}>
-                <Badge variant="red">{t('repeated-result')}</Badge>
-              </Show>
-            </TableCell>
-            <TableCell>
-              {result.result === 'a' ? <Badge variant="success">{t('attested-code')}</Badge> : emptyResult}
-            </TableCell>
-            <TableCell>
-              {result.result === null ? <Badge variant="yellow">{t('missing-code')}</Badge> : emptyResult}
-            </TableCell>
-            <TableCell>
-              {result.result === 'na' ? <Badge variant="error">{t('not-attested-code')}</Badge> : emptyResult}
-            </TableCell>
-            <TableCell>
-              {result.result === 'nv' ? <Badge variant="neutral">{t('not-studying-code')}</Badge> : emptyResult}
-            </TableCell>
+            <Show when={showRepeated}>
+              <TableCell>
+                <Show when={results.some((result) => result.notAttestedTwice)} fallback={emptyResult}>
+                  <Badge variant="red">{t('repeated-result')}</Badge>
+                </Show>
+              </TableCell>
+            </Show>
+            <AttestationResultCells results={results} />
             <TableCell />
           </TableRow>
         ))}
+      </Show>
     </Fragment>
   );
 };

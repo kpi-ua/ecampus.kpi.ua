@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
+import { Show } from '@/components/utils/show';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -9,6 +10,7 @@ import { CuratorFilters, CuratorOption } from '../../types';
 
 interface Props {
   filters: CuratorFilters;
+  includeAll?: boolean;
   yearId: string;
   semester: string;
   resultId: string;
@@ -21,6 +23,7 @@ interface Props {
 
 export const ResultFilters = ({
   filters,
+  includeAll = false,
   yearId,
   semester,
   resultId,
@@ -39,6 +42,9 @@ export const ResultFilters = ({
           <SelectValue placeholder={resultPlaceholder} />
         </SelectTrigger>
         <SelectContent>
+          <Show when={includeAll}>
+            <SelectItem value="all">{t('filters.all')}</SelectItem>
+          </Show>
           {resultOptions.map((option) => (
             <SelectItem key={option.id} value={option.id.toString()}>
               {option.name}

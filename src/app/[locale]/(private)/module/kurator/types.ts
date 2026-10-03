@@ -1,5 +1,9 @@
 import { Contact } from '@/types/models/colleague-contact';
 
+import { ATTESTATION_RESULT } from './constants';
+
+export type CuratorAttestationResult = (typeof ATTESTATION_RESULT)[keyof typeof ATTESTATION_RESULT];
+
 export interface CuratorGroup {
   groupId: number;
   studyGroupId: number;
@@ -58,8 +62,9 @@ export interface CuratorAttestationRow extends CuratorStudent {
   lecturerName: string;
   discipline: CuratorOption;
   semester: number;
-  result: string | null;
-  previousResult: string | null;
+  result: CuratorAttestationResult;
+  attestationId: number;
+  notAttestedTwice: boolean;
 }
 
 export interface CuratorAttestationStudent extends CuratorStudent {

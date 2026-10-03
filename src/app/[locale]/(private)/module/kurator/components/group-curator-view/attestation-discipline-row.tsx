@@ -9,8 +9,11 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
 import { CuratorAttestationRow } from '../../types';
+import { groupAttestationResults } from '../../utils/group-attestation-results';
+import { AttestationResultCells } from './attestation-result-cells';
 
 interface Props {
+  showRepeated: boolean;
   discipline: {
     name: string;
     lecturerName: string;
@@ -18,37 +21,25 @@ interface Props {
   };
 }
 
-export const AttestationDisciplineRow = ({ discipline }: Props) => {
+export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator.results');
   const [expanded, setExpanded] = useState(false);
-  const repeated = discipline.results.filter(
-    (result) => result.result === 'na' && result.previousResult === 'na',
-  ).length;
-  const statuses = [
-    { result: 'a', label: 'attested-code', variant: 'success' },
-    { result: null, label: 'missing-code', variant: 'yellow' },
-    { result: 'na', label: 'not-attested-code', variant: 'error' },
-    { result: 'nv', label: 'not-studying-code', variant: 'neutral' },
-  ] as const;
-
+  const students = groupAttestationResults(discipline.results, 'student');
+  const repeated = students.filter((student) => student.results.some((result) => result.notAttestedTwice)).length;
   return (
     <>
       <TableRow>
         <TableCell className="font-semibold">
           {discipline.name} — {discipline.lecturerName}
         </TableCell>
-        <TableCell>
-          <Show when={repeated > 0} fallback="—">
-            <Badge variant="red">{repeated}</Badge>
-          </Show>
-        </TableCell>
-        {statuses.map((status) => (
-          <TableCell key={status.label}>
-            <Badge variant={status.variant}>
-              {discipline.results.filter((result) => result.result === status.result).length} {t(status.label)}
-            </Badge>
+        <Show when={showRepeated}>
+          <TableCell>
+            <Show when={repeated > 0} fallback="—">
+              <Badge variant="red">{repeated}</Badge>
+            </Show>
           </TableCell>
-        ))}
+        </Show>
+        <AttestationResultCells results={discipline.results} />
         <TableCell className="w-12 text-right">
           <button
             type="button"
@@ -62,21 +53,17 @@ export const AttestationDisciplineRow = ({ discipline }: Props) => {
         </TableCell>
       </TableRow>
       <Show when={expanded}>
-        {discipline.results.map((result) => (
-          <TableRow key={result.studentId} className="bg-neutral-50 hover:bg-neutral-50">
-            <TableCell className="pl-6">{result.fullName}</TableCell>
-            <TableCell>
-              <Show when={result.result === 'na' && result.previousResult === 'na'} fallback="—">
-                <Badge variant="red">{t('repeated-result')}</Badge>
-              </Show>
-            </TableCell>
-            {statuses.map((status) => (
-              <TableCell key={status.label}>
-                <Show when={result.result === status.result} fallback="—">
-                  <Badge variant={status.variant}>{t(status.label)}</Badge>
+        {students.map(({ key, results }) => (
+          <TableRow key={key} className="bg-neutral-50 hover:bg-neutral-50">
+            <TableCell className="pl-6">{results[0].fullName}</TableCell>
+            <Show when={showRepeated}>
+              <TableCell>
+                <Show when={results.some((result) => result.notAttestedTwice)} fallback="—">
+                  <Badge variant="red">{t('repeated-result')}</Badge>
                 </Show>
               </TableCell>
-            ))}
+            </Show>
+            <AttestationResultCells results={results} />
             <TableCell />
           </TableRow>
         ))}

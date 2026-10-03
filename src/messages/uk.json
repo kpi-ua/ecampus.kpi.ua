@@ -858,7 +858,8 @@
           "filters": {
             "student-search": "Пошук за ПІБ студента",
             "attestation": "Атестація",
-            "survey-term": "Період опитування"
+            "survey-term": "Період опитування",
+            "all-attestations": "Всі атестації"
           },
           "students": {
             "name": "ПІБ студента",

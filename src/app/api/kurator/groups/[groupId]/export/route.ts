@@ -25,7 +25,7 @@ export async function GET(_request: Request, { params }: Props) {
     return new Response(null, { status: response.status });
   }
 
-  const students = await response.json();
+  const students: CuratorStudentCredentials[] = await response.json();
   const contactTypes = await getContactTypes();
   const t = await getTranslations('private.curator.lecturer.group-curator');
   const rows = [

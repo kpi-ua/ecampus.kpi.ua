@@ -12,19 +12,16 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Show } from '@/components/utils/show';
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorFilters } from '../../types';
 import { exportAttestations } from '../../utils/export-attestations';
-import { EmptyRow } from '../EmptyRow';
-import { AttestationStudentRow } from './attestation-student-row';
-import { AttestationDisciplineRow } from './attestation-discipline-row';
+import { getSemesterAttestations } from '../../utils/get-semester-attestations';
+import { AttestationTable } from './attestation-table';
 import { AttestationSummary } from './attestation-summary';
 import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
-import { LoadingRow } from './loading-row';
 import { ResultFilters } from './result-filters';
 
 interface Props {
@@ -36,6 +33,7 @@ interface Props {
 
 export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator');
+  const semesterT = useTranslations('private.curator.lecturer.filters');
   const [search, setSearch] = useState('');
   const [view, setView] = useState('students');
   const [onlyNotAttested, setOnlyNotAttested] = useState(false);
@@ -43,10 +41,11 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
   const [yearId, setYearId] = useState(String(defaultYearId));
   const [semester, setSemester] = useState('all');
   const [attestationId, setAttestationId] = useState(filters.attestations[0]?.id.toString() ?? '');
+  const showRepeated = attestationId === 'all';
   const params = {
     yearId: Number(yearId),
     semester: semester === 'all' ? undefined : Number(semester),
-    attestationId: attestationId ? Number(attestationId) : undefined,
+    attestationId: attestationId === 'all' ? undefined : Number(attestationId),
   };
   const { data: students = [], isFetching } = useQuery({
     queryKey: curatorGroupQueryKeys.attestations(groupId, params.yearId, params.semester, params.attestationId),
@@ -59,38 +58,6 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
     mutationFn: () => exportAttestations(groupId, params),
     onError: () => errorToast(),
   });
-  const query = search.trim().toLocaleLowerCase();
-  const filteredStudents = students.filter(
-    (student) =>
-      student.fullName.toLocaleLowerCase().includes(query) &&
-      (!onlyNotAttested || student.notAttested > 0) &&
-      (!onlyRepeated || student.notAttestedTwice > 0),
-  );
-
-  const disciplines = Array.from(
-    students
-      .flatMap((student) => student.results)
-      .reduce((groups, result) => {
-        const key = `${result.discipline.id}-${result.employeeId}-${result.semester}`;
-        const group = groups.get(key) ?? {
-          key,
-          name: result.discipline.name,
-          lecturerName: result.lecturerName,
-          results: [],
-        };
-        group.results.push(result);
-        groups.set(key, group);
-        return groups;
-      }, new Map<string, { key: string; name: string; lecturerName: string; results: (typeof students)[number]['results'] }>()),
-  )
-    .map(([, discipline]) => discipline)
-    .filter(
-      (discipline) =>
-        `${discipline.name} ${discipline.lecturerName}`.toLocaleLowerCase().includes(query) &&
-        (!onlyNotAttested || discipline.results.some((result) => result.result === 'na')) &&
-        (!onlyRepeated ||
-          discipline.results.some((result) => result.result === 'na' && result.previousResult === 'na')),
-    );
 
   return (
     <div className="flex flex-col gap-6">
@@ -103,10 +70,14 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
             semester={semester}
             resultId={attestationId}
             resultOptions={filters.attestations}
+            includeAll
             resultPlaceholder={t('filters.attestation')}
             onYearChange={setYearId}
             onSemesterChange={setSemester}
-            onResultChange={setAttestationId}
+            onResultChange={(value) => {
+              setAttestationId(value);
+              setOnlyRepeated(false);
+            }}
           />
           <Button
             variant="secondary"
@@ -132,16 +103,22 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
             {t('results.only-not-attested')}
             <Switch checked={onlyNotAttested} onCheckedChange={setOnlyNotAttested} />
           </Label>
-          <Label className="flex items-center gap-3">
-            {t('results.only-repeated')}
-            <Switch checked={onlyRepeated} onCheckedChange={setOnlyRepeated} />
-          </Label>
+          <Show when={showRepeated}>
+            <Label className="flex items-center gap-3">
+              {t('results.only-repeated')}
+              <Switch checked={onlyRepeated} onCheckedChange={setOnlyRepeated} />
+            </Label>
+          </Show>
         </div>
       </div>
       <Show when={!isFetching}>
         <AttestationSummary
           students={students}
-          attestationName={filters.attestations.find((item) => item.id === Number(attestationId))?.name ?? ''}
+          attestationName={
+            showRepeated
+              ? t('filters.all-attestations')
+              : (filters.attestations.find((item) => item.id === Number(attestationId))?.name ?? '')
+          }
         />
       </Show>
       <Input
@@ -149,43 +126,20 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
         onChange={(event) => setSearch(event.target.value)}
         placeholder={view === 'students' ? t('filters.student-search') : t('results.discipline-search')}
       />
-      <div className="border-neutral-divider overflow-hidden rounded-lg border bg-white">
-        <Table className="min-w-[900px]">
-          <TableHeader>
-            <TableRow className="hover:bg-white [&>th]:bg-neutral-100 [&>th]:text-xs [&>th]:uppercase">
-              <TableHead>{view === 'students' ? t('results.student') : t('results.discipline')}</TableHead>
-              <TableHead>{t('results.not-attested-twice')}</TableHead>
-              <TableHead>{t('results.attested')}</TableHead>
-              <TableHead>{t('results.missing')}</TableHead>
-              <TableHead>{t('results.not-attested')}</TableHead>
-              <TableHead>{t('results.not-studying')}</TableHead>
-              <TableHead>
-                <span className="sr-only">{t('results.disciplines')}</span>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <Show when={!isFetching} fallback={<LoadingRow colSpan={7} />}>
-              <Show
-                when={view === 'students'}
-                fallback={
-                  <Show when={disciplines.length > 0} fallback={<EmptyRow colSpan={7} />}>
-                    {disciplines.map((discipline) => (
-                      <AttestationDisciplineRow key={discipline.key} discipline={discipline} />
-                    ))}
-                  </Show>
-                }
-              >
-                <Show when={filteredStudents.length > 0} fallback={<EmptyRow colSpan={7} />}>
-                  {filteredStudents.map((student) => (
-                    <AttestationStudentRow key={student.studentId} student={student} />
-                  ))}
-                </Show>
-              </Show>
-            </Show>
-          </TableBody>
-        </Table>
-      </div>
+      {(semester === 'all' ? [1, 2] : [Number(semester)]).map((term) => (
+        <section key={term} className="flex flex-col gap-4">
+          <Heading4 className="m-0">{semesterT(term === 1 ? 'first-semester' : 'second-semester')}</Heading4>
+          <AttestationTable
+            students={getSemesterAttestations(students, term)}
+            search={search}
+            view={view}
+            onlyNotAttested={onlyNotAttested}
+            onlyRepeated={onlyRepeated}
+            showRepeated={showRepeated}
+            isFetching={isFetching}
+          />
+        </section>
+      ))}
     </div>
   );
 };
