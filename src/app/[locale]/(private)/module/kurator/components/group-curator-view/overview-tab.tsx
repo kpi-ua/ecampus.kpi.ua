@@ -6,7 +6,7 @@ import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { getCuratorStudentCredentials } from '@/actions/curator.actions';
+import { getCuratorStudents } from '@/actions/curator.actions';
 import { getContactTypes } from '@/actions/profile.actions';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
@@ -39,8 +39,8 @@ export const OverviewTab = ({ group }: Props) => {
   });
   const [search, setSearch] = useState('');
   const { data: students = [], isFetching } = useQuery({
-    queryKey: curatorGroupQueryKeys.credentials(groupId),
-    queryFn: () => getCuratorStudentCredentials(groupId),
+    queryKey: curatorGroupQueryKeys.students(groupId),
+    queryFn: () => getCuratorStudents(groupId),
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
   const { data: contactTypes = [] } = useQuery({
