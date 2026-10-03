@@ -18,7 +18,6 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorFilters } from '../../types';
 import { exportAttestations } from '../../utils/export-attestations';
-import { getSemesterAttestations } from '../../utils/get-semester-attestations';
 import { AttestationTable } from './attestation-table';
 import { AttestationSummary } from './attestation-summary';
 import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
@@ -40,14 +39,14 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
   const [onlyRepeated, setOnlyRepeated] = useState(false);
   const [yearId, setYearId] = useState(String(defaultYearId));
   const [semester, setSemester] = useState('all');
-  const [attestationId, setAttestationId] = useState(filters.attestations[0]?.id.toString() ?? '');
+  const [attestationId, setAttestationId] = useState('all');
   const showRepeated = attestationId === 'all';
   const params = {
     yearId: Number(yearId),
     semester: semester === 'all' ? undefined : Number(semester),
     attestationId: attestationId === 'all' ? undefined : Number(attestationId),
   };
-  const { data: students = [], isFetching } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: curatorGroupQueryKeys.attestations(groupId, params.yearId, params.semester, params.attestationId),
     queryFn: () => getCuratorAttestations(groupId, params),
     enabled: !!yearId && !!attestationId,
@@ -113,7 +112,7 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
       </div>
       <Show when={!isFetching}>
         <AttestationSummary
-          students={students}
+          students={data?.semesters.flatMap((term) => term.students) ?? []}
           attestationName={
             showRepeated
               ? t('filters.all-attestations')
@@ -126,11 +125,12 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
         onChange={(event) => setSearch(event.target.value)}
         placeholder={view === 'students' ? t('filters.student-search') : t('results.discipline-search')}
       />
-      {(semester === 'all' ? [1, 2] : [Number(semester)]).map((term) => (
-        <section key={term} className="flex flex-col gap-4">
-          <Heading4 className="m-0">{semesterT(term === 1 ? 'first-semester' : 'second-semester')}</Heading4>
+      <Show
+        when={!!data}
+        fallback={
           <AttestationTable
-            students={getSemesterAttestations(students, term)}
+            students={[]}
+            disciplines={[]}
             search={search}
             view={view}
             onlyNotAttested={onlyNotAttested}
@@ -138,8 +138,24 @@ export const AttestationTab = ({ groupId, groupName, filters, defaultYearId }: P
             showRepeated={showRepeated}
             isFetching={isFetching}
           />
-        </section>
-      ))}
+        }
+      >
+        {data?.semesters.map((term) => (
+          <section key={term.semester} className="flex flex-col gap-4">
+            <Heading4 className="m-0">{semesterT(term.semester === 1 ? 'first-semester' : 'second-semester')}</Heading4>
+            <AttestationTable
+              students={term.students}
+              disciplines={term.disciplines}
+              search={search}
+              view={view}
+              onlyNotAttested={onlyNotAttested}
+              onlyRepeated={onlyRepeated}
+              showRepeated={showRepeated}
+              isFetching={isFetching}
+            />
+          </section>
+        ))}
+      </Show>
     </div>
   );
 };

@@ -30,7 +30,7 @@ export interface CuratorStudent {
   curatorContacts: Contact[];
 }
 
-export interface CuratorStudentCredentials extends CuratorStudent {
+export interface CuratorStudentDetails extends CuratorStudent {
   login: string | null;
   initialPassword: string | null;
   passwordChanged: boolean;
@@ -70,10 +70,30 @@ export interface CuratorAttestationRow extends CuratorStudent {
 export interface CuratorAttestationStudent extends CuratorStudent {
   attested: number;
   notAttested: number;
-  notAttestedTwice: number;
+  notAttestedTwiceCount: number;
   notStudying: number;
   missing: number;
   results: CuratorAttestationRow[];
+}
+
+export interface CuratorAttestationSemester {
+  semester: number;
+  students: CuratorAttestationStudent[];
+  disciplines: CuratorAttestationDiscipline[];
+}
+
+export interface CuratorAttestationDiscipline {
+  disciplineId: number;
+  employeeId: number;
+  name: string;
+  lecturerName: string;
+  notAttestedTwiceCount: number;
+  results: CuratorAttestationRow[];
+  students: CuratorAttestationStudent[];
+}
+
+export interface CuratorAttestations {
+  semesters: CuratorAttestationSemester[];
 }
 
 export interface CuratorPeriodParams {

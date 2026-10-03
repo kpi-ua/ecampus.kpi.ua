@@ -1,9 +1,8 @@
 import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
-import { CuratorAttestationStudent } from '@/app/[locale]/(private)/module/kurator/types';
+import { CuratorAttestations } from '@/app/[locale]/(private)/module/kurator/types';
 import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/kurator/constants';
-import { getSemesterAttestations } from '@/app/[locale]/(private)/module/kurator/utils/get-semester-attestations';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 
@@ -32,19 +31,16 @@ export async function GET(request: Request, { params }: Props) {
   const query = new URLSearchParams({ yearId: String(yearId) });
   if (semester !== null) query.set('semester', semester);
   if (attestationId !== null) query.set('attestationId', attestationId);
-  const response = await campusFetch<CuratorAttestationStudent[]>(
-    `/curator-lecturer/groups/${id}/attestations?${query}`,
-  );
+  const response = await campusFetch<CuratorAttestations>(`/curator-lecturer/groups/${id}/attestations?${query}`);
 
   if (!response.ok) {
     return new Response(null, { status: response.status });
   }
 
-  const students: CuratorAttestationStudent[] = await response.json();
+  const data = await response.json();
   const t = await getTranslations('private.curator.lecturer.group-curator.results');
   const semesterT = await getTranslations('private.curator.lecturer.filters');
   const showRepeated = attestationId === null;
-  const semesters = semester === null ? [1, 2] : [Number(semester)];
   const rows = [
     [
       semesterT('half-year'),
@@ -52,11 +48,11 @@ export async function GET(request: Request, { params }: Props) {
       ...(showRepeated ? [t('not-attested-twice')] : []),
       ...ATTESTATION_COLUMNS.map((column) => t(column.label)),
     ],
-    ...semesters.flatMap((term) =>
-      getSemesterAttestations(students, term).map((student) => [
-        semesterT(term === 1 ? 'first-semester' : 'second-semester'),
+    ...data.semesters.flatMap((term) =>
+      term.students.map((student) => [
+        semesterT(term.semester === 1 ? 'first-semester' : 'second-semester'),
         student.fullName,
-        ...(showRepeated ? [student.notAttestedTwice] : []),
+        ...(showRepeated ? [student.notAttestedTwiceCount] : []),
         student.attested,
         student.missing,
         student.notAttested,
