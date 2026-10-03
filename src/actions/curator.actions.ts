@@ -5,7 +5,6 @@ import { revalidatePath } from 'next/cache';
 
 import {
   CuratorGroup,
-  CuratorStudent,
   CuratorStudentCredentials,
   CuratorFilters,
   CuratorSurveyRow,
@@ -49,20 +48,8 @@ export const getCuratorGroups = async (): Promise<CuratorGroup[]> => {
   return response.json();
 };
 
-export const getCuratorStudents = async (groupId: number): Promise<CuratorStudent[]> => {
-  const response = await campusFetch<CuratorStudent[]>(`/curator-lecturer/groups/${groupId}/students`);
-
-  if (!response.ok) {
-    throw new Error(`${response.status} Error`);
-  }
-
-  return response.json();
-};
-
-export const getCuratorStudentCredentials = async (groupId: number): Promise<CuratorStudentCredentials[]> => {
-  const response = await campusFetch<CuratorStudentCredentials[]>(
-    `/curator-lecturer/groups/${groupId}/students/credentials`,
-  );
+export const getCuratorStudents = async (groupId: number): Promise<CuratorStudentCredentials[]> => {
+  const response = await campusFetch<CuratorStudentCredentials[]>(`/curator-lecturer/groups/${groupId}/students`);
 
   if (!response.ok) {
     throw new Error(`${response.status} Error`);

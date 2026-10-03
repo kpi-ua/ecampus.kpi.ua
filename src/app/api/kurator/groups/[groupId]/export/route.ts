@@ -19,9 +19,7 @@ export async function GET(_request: Request, { params }: Props) {
     return new Response(null, { status: 400 });
   }
 
-  const response = await campusFetch<CuratorStudentCredentials[]>(
-    `/curator-lecturer/groups/${id}/students/credentials`,
-  );
+  const response = await campusFetch<CuratorStudentCredentials[]>(`/curator-lecturer/groups/${id}/students`);
 
   if (!response.ok) {
     return new Response(null, { status: response.status });
