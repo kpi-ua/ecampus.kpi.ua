@@ -29,7 +29,7 @@ export const GroupCuratorView = ({ groups }: Props) => {
     <Tabs value={groupId} onValueChange={setGroupId} className="flex flex-col gap-8">
       <div className="flex flex-wrap items-center gap-4">
         <Heading2 className="mb-0">{t('title')}</Heading2>
-        <TabsList size="small" className="max-w-full overflow-x-auto bg-white" aria-label={t('select-group')}>
+        <TabsList size="small" className="max-w-full overflow-x-auto bg-white">
           {groups.map((group) => (
             <TabsTrigger key={group.groupId} value={group.groupId.toString()}>
               {group.name}
@@ -49,7 +49,7 @@ export const GroupCuratorView = ({ groups }: Props) => {
 
           <Card className="rounded-2xl bg-white p-6 shadow-sm sm:p-8">
             <TabsContent value="overview" className="mt-0">
-              <OverviewTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
+              <OverviewTab key={selectedGroup.groupId} group={selectedGroup} />
             </TabsContent>
             <TabsContent value="survey" className="mt-0">
               <SurveyTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
