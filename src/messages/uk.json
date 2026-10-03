@@ -831,12 +831,16 @@
             "cancel": "Скасувати"
           },
           "sections": {
-            "overview": "Огляд групи"
+            "overview": "Огляд групи",
+            "survey": "Опитування"
           },
           "overview": {
             "title": "Інформація про групу {group}",
             "property": "Параметр",
             "value": "Значення"
+          },
+          "survey": {
+            "title": "Опитування {group}"
           },
           "filters": {
             "student-search": "Пошук за ПІБ студента",
@@ -858,6 +862,14 @@
           },
           "results": {
             "student": "ПІБ студента",
+            "lecturer": "Викладач",
+            "status": "Статус",
+            "completed": "Пройдено",
+            "not-completed": "Не пройдено",
+            "completed-count": "{completed}/{total} пройдено",
+            "survey-count": "Кількість пройдених опитувань",
+            "expand-surveys": "Показати опитування студента",
+            "collapse-surveys": "Сховати опитування студента",
             "empty": "Результатів поки немає"
           },
           "export": "Завантажити excel"
