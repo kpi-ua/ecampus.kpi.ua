@@ -12,7 +12,7 @@ export async function GET() {
     return new Response(null, { status: response.status });
   }
 
-  const groups = await response.json();
+  const groups: CuratorGroup[] = await response.json();
   const t = await getTranslations('private.curator.lecturer');
   const rows = [
     [t('table.group'), t('table.course'), t('table.curator'), t('table.description'), t('table.department')],

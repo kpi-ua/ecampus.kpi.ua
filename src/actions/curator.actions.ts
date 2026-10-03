@@ -5,10 +5,12 @@ import { revalidatePath } from 'next/cache';
 
 import {
   CuratorGroup,
-  CuratorStudentCredentials,
+  CuratorStudentDetails,
   CuratorFilters,
   CuratorSurveyRow,
   CuratorSurveyParams,
+  CuratorAttestations,
+  CuratorAttestationParams,
 } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { Curator } from '@/types/models/curator';
@@ -46,8 +48,8 @@ export const getCuratorGroups = async (): Promise<CuratorGroup[]> => {
   return response.json();
 };
 
-export const getCuratorStudents = async (groupId: number): Promise<CuratorStudentCredentials[]> => {
-  const response = await campusFetch<CuratorStudentCredentials[]>(`/curator-lecturer/groups/${groupId}/students`);
+export const getCuratorStudents = async (groupId: number): Promise<CuratorStudentDetails[]> => {
+  const response = await campusFetch<CuratorStudentDetails[]>(`/curator-lecturer/groups/${groupId}/students`);
 
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
@@ -73,7 +75,22 @@ export const getCuratorSurveys = async (
   params: CuratorSurveyParams = {},
 ): Promise<CuratorSurveyRow[]> => {
   const response = await campusFetch<CuratorSurveyRow[]>(
-    `/curator/groups/${groupId}/surveys?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
+    `/curator-lecturer/groups/${groupId}/surveys?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorAttestations = async (
+  groupId: number,
+  params: CuratorAttestationParams = {},
+): Promise<CuratorAttestations> => {
+  const response = await campusFetch<CuratorAttestations>(
+    `/curator-lecturer/groups/${groupId}/attestations?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
 
   if (!response.ok) {

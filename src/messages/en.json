@@ -790,6 +790,15 @@
         "subtitle": "A list of study groups and their assigned curators.",
         "empty": "No study groups found",
         "search-placeholder": "Search by full name(ukr)",
+        "filters": {
+          "year": "Academic year",
+          "all-semesters": "All semesters",
+          "half-year": "Semester",
+          "first-semester": "First",
+          "second-semester": "Second",
+          "all": "All",
+          "semester": "Semester {number}"
+        },
         "tabs": {
           "study-groups": "Study groups",
           "group-curator": "Group curator"
@@ -832,6 +841,7 @@
           },
           "sections": {
             "overview": "Group overview",
+            "attestation": "Attestation",
             "survey": "Survey"
           },
           "overview": {
@@ -839,12 +849,17 @@
             "property": "Property",
             "value": "Value"
           },
+          "attestation": {
+            "title": "Attestation {group}"
+          },
           "survey": {
             "title": "Survey {group}"
           },
           "filters": {
             "student-search": "Search by student name",
-            "survey-term": "Survey term"
+            "attestation": "Attestation",
+            "survey-term": "Survey term",
+            "all-attestations": "All attestations"
           },
           "students": {
             "name": "Student name",
@@ -862,6 +877,30 @@
           },
           "results": {
             "student": "Student name",
+            "by-students": "By students",
+            "by-disciplines": "By disciplines",
+            "discipline": "Discipline",
+            "discipline-search": "Discipline name or lecturer",
+            "expand-students": "Show discipline students",
+            "collapse-students": "Hide discipline students",
+            "repeated-result": "Not attested in both assessments",
+            "only-not-attested": "Show only non-attested",
+            "only-repeated": "Show only repeated non-attestations",
+            "not-attested-twice": "Not attested twice in a row",
+            "repeated-count": "{count, plural, one {# discipline not attested twice} other {# disciplines not attested twice}}",
+            "group-summary": "Group status",
+            "result-count": "{count} results",
+            "attested": "Attested",
+            "missing": "Not set",
+            "not-attested": "Not attested",
+            "not-studying": "No grade",
+            "disciplines": "Disciplines",
+            "attested-code": "A",
+            "missing-code": "NS",
+            "not-attested-code": "NA",
+            "not-studying-code": "NG",
+            "expand-disciplines": "Show student disciplines",
+            "collapse-disciplines": "Hide student disciplines",
             "lecturer": "Lecturer",
             "status": "Status",
             "completed": "Completed",

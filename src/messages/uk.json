@@ -790,6 +790,15 @@
         "subtitle": "Перелік навчальних груп і призначених кураторів.",
         "empty": "Навчальних груп не знайдено",
         "search-placeholder": "Пошук за ПІБ (українською)",
+        "filters": {
+          "year": "Навчальний рік",
+          "all-semesters": "Усі семестри",
+          "half-year": "Півріччя",
+          "first-semester": "Перше",
+          "second-semester": "Друге",
+          "all": "Всі",
+          "semester": "{number} семестр"
+        },
         "tabs": {
           "study-groups": "Навчальні групи",
           "group-curator": "Куратор групи"
@@ -832,6 +841,7 @@
           },
           "sections": {
             "overview": "Огляд групи",
+            "attestation": "Атестація",
             "survey": "Опитування"
           },
           "overview": {
@@ -839,12 +849,17 @@
             "property": "Параметр",
             "value": "Значення"
           },
+          "attestation": {
+            "title": "Атестація {group}"
+          },
           "survey": {
             "title": "Опитування {group}"
           },
           "filters": {
             "student-search": "Пошук за ПІБ студента",
-            "survey-term": "Період опитування"
+            "attestation": "Атестація",
+            "survey-term": "Період опитування",
+            "all-attestations": "Всі атестації"
           },
           "students": {
             "name": "ПІБ студента",
@@ -862,6 +877,30 @@
           },
           "results": {
             "student": "ПІБ студента",
+            "by-students": "За студентами",
+            "by-disciplines": "За дисциплінами",
+            "discipline": "Дисципліна",
+            "discipline-search": "Назва дисципліни або викладач",
+            "expand-students": "Показати студентів дисципліни",
+            "collapse-students": "Сховати студентів дисципліни",
+            "repeated-result": "НА в двох атестаціях",
+            "only-not-attested": "Показати лише неатестовані",
+            "only-repeated": "Показати лише з повторними неатестаціями",
+            "not-attested-twice": "Неатестовано двічі поспіль",
+            "repeated-count": "{count, plural, one {# дисципліна НА поспіль} few {# дисципліни НА поспіль} other {# дисциплін НА поспіль}}",
+            "group-summary": "Стан групи",
+            "result-count": "{count} результатів",
+            "attested": "Атестовано",
+            "missing": "Не виставлено",
+            "not-attested": "Не атестовано",
+            "not-studying": "Оцінка відсутня",
+            "disciplines": "Дисципліни",
+            "attested-code": "А",
+            "missing-code": "НВ",
+            "not-attested-code": "НА",
+            "not-studying-code": "ОВ",
+            "expand-disciplines": "Показати дисципліни студента",
+            "collapse-disciplines": "Сховати дисципліни студента",
             "lecturer": "Викладач",
             "status": "Статус",
             "completed": "Пройдено",
