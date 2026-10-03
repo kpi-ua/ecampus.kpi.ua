@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
-import { CuratorStudentCredentials } from '@/app/[locale]/(private)/module/kurator/types';
+import { CuratorStudentDetails } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 import { PASSWORD_MASK } from '@/lib/constants/password';
@@ -19,13 +19,13 @@ export async function GET(_request: Request, { params }: Props) {
     return new Response(null, { status: 400 });
   }
 
-  const response = await campusFetch<CuratorStudentCredentials[]>(`/curator-lecturer/groups/${id}/students`);
+  const response = await campusFetch<CuratorStudentDetails[]>(`/curator-lecturer/groups/${id}/students`);
 
   if (!response.ok) {
     return new Response(null, { status: response.status });
   }
 
-  const students: CuratorStudentCredentials[] = await response.json();
+  const students: CuratorStudentDetails[] = await response.json();
   const contactTypes = await getContactTypes();
   const t = await getTranslations('private.curator.lecturer.group-curator');
   const rows = [

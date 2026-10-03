@@ -5,11 +5,11 @@ import { revalidatePath } from 'next/cache';
 
 import {
   CuratorGroup,
-  CuratorStudentCredentials,
+  CuratorStudentDetails,
   CuratorFilters,
   CuratorSurveyRow,
   CuratorSurveyParams,
-  CuratorAttestationStudent,
+  CuratorAttestationSemester,
   CuratorAttestationParams,
 } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
@@ -48,8 +48,8 @@ export const getCuratorGroups = async (): Promise<CuratorGroup[]> => {
   return response.json();
 };
 
-export const getCuratorStudents = async (groupId: number): Promise<CuratorStudentCredentials[]> => {
-  const response = await campusFetch<CuratorStudentCredentials[]>(`/curator-lecturer/groups/${groupId}/students`);
+export const getCuratorStudents = async (groupId: number): Promise<CuratorStudentDetails[]> => {
+  const response = await campusFetch<CuratorStudentDetails[]>(`/curator-lecturer/groups/${groupId}/students`);
 
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
@@ -88,8 +88,8 @@ export const getCuratorSurveys = async (
 export const getCuratorAttestations = async (
   groupId: number,
   params: CuratorAttestationParams = {},
-): Promise<CuratorAttestationStudent[]> => {
-  const response = await campusFetch<CuratorAttestationStudent[]>(
+): Promise<CuratorAttestationSemester[]> => {
+  const response = await campusFetch<CuratorAttestationSemester[]>(
     `/curator-lecturer/groups/${groupId}/attestations?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
 

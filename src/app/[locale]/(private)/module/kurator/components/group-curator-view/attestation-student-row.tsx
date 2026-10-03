@@ -29,8 +29,8 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
         <TableCell className="font-semibold">{student.fullName}</TableCell>
         <Show when={showRepeated}>
           <TableCell>
-            <Show when={student.notAttestedTwice > 0} fallback={emptyResult}>
-              <Badge variant="red">{t('repeated-count', { count: student.notAttestedTwice })}</Badge>
+            <Show when={student.notAttestedTwiceCount > 0} fallback={emptyResult}>
+              <Badge variant="red">{t('repeated-count', { count: student.notAttestedTwiceCount })}</Badge>
             </Show>
           </TableCell>
         </Show>

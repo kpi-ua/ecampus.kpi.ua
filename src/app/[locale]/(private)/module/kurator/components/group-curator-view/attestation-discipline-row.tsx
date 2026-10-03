@@ -8,24 +8,17 @@ import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
-import { CuratorAttestationRow } from '../../types';
-import { groupAttestationResults } from '../../utils/group-attestation-results';
+import { CuratorAttestationDiscipline } from '../../types';
 import { AttestationResultCells } from './attestation-result-cells';
 
 interface Props {
   showRepeated: boolean;
-  discipline: {
-    name: string;
-    lecturerName: string;
-    results: CuratorAttestationRow[];
-  };
+  discipline: CuratorAttestationDiscipline;
 }
 
 export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator.results');
   const [expanded, setExpanded] = useState(false);
-  const students = groupAttestationResults(discipline.results, 'student');
-  const repeated = students.filter((student) => student.results.some((result) => result.notAttestedTwice)).length;
   return (
     <>
       <TableRow>
@@ -34,8 +27,8 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
         </TableCell>
         <Show when={showRepeated}>
           <TableCell>
-            <Show when={repeated > 0} fallback="—">
-              <Badge variant="red">{repeated}</Badge>
+            <Show when={discipline.notAttestedTwiceCount > 0} fallback="—">
+              <Badge variant="red">{discipline.notAttestedTwiceCount}</Badge>
             </Show>
           </TableCell>
         </Show>
@@ -53,12 +46,12 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
         </TableCell>
       </TableRow>
       <Show when={expanded}>
-        {students.map(({ key, results }) => (
-          <TableRow key={key} className="bg-neutral-50 hover:bg-neutral-50">
-            <TableCell className="pl-6">{results[0].fullName}</TableCell>
+        {discipline.students.map(({ studentId, fullName, results, notAttestedTwiceCount }) => (
+          <TableRow key={studentId} className="bg-neutral-50 hover:bg-neutral-50">
+            <TableCell className="pl-6">{fullName}</TableCell>
             <Show when={showRepeated}>
               <TableCell>
-                <Show when={results.some((result) => result.notAttestedTwice)} fallback="—">
+                <Show when={notAttestedTwiceCount > 0} fallback="—">
                   <Badge variant="red">{t('repeated-result')}</Badge>
                 </Show>
               </TableCell>
