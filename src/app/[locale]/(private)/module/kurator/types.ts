@@ -73,6 +73,16 @@ export interface CuratorAttestationStudent extends CuratorStudent {
   notStudying: number;
   missing: number;
   results: CuratorAttestationRow[];
+  disciplines: CuratorStudentAttestationDiscipline[];
+}
+
+export interface CuratorStudentAttestationDiscipline {
+  disciplineId: number;
+  employeeId: number;
+  name: string;
+  lecturerName: string;
+  notAttestedTwice: boolean;
+  results: CuratorAttestationRow[];
 }
 
 export interface CuratorAttestationSemester {

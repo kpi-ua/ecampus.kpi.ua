@@ -9,7 +9,6 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
 import { CuratorAttestationStudent } from '../../types';
-import { groupAttestationResults } from '../../utils/group-attestation-results';
 import { AttestationResultCells } from './attestation-result-cells';
 
 interface Props {
@@ -36,7 +35,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
         </Show>
         <AttestationResultCells results={student.results} />
         <TableCell className="w-12 text-right">
-          {student.results.length > 0 && (
+          {student.disciplines.length > 0 && (
             <button
               type="button"
               className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-100"
@@ -50,19 +49,22 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
         </TableCell>
       </TableRow>
       <Show when={expanded}>
-        {groupAttestationResults(student.results, 'discipline').map(({ key, results }) => (
-          <TableRow key={key} className="bg-neutral-50 hover:bg-neutral-50">
+        {student.disciplines.map((discipline) => (
+          <TableRow
+            key={`${discipline.disciplineId}-${discipline.employeeId}`}
+            className="bg-neutral-50 hover:bg-neutral-50"
+          >
             <TableCell className="pl-6">
-              {results[0].lecturerName} — {results[0].discipline.name}
+              {discipline.lecturerName} — {discipline.name}
             </TableCell>
             <Show when={showRepeated}>
               <TableCell>
-                <Show when={results.some((result) => result.notAttestedTwice)} fallback={emptyResult}>
+                <Show when={discipline.notAttestedTwice} fallback={emptyResult}>
                   <Badge variant="red">{t('repeated-result')}</Badge>
                 </Show>
               </TableCell>
             </Show>
-            <AttestationResultCells results={results} />
+            <AttestationResultCells results={discipline.results} />
             <TableCell />
           </TableRow>
         ))}
