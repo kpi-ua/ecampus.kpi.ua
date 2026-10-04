@@ -20,6 +20,10 @@ export const SurveyStudentRow = ({ rows }: Props) => {
   const completed = rows.filter((row) => row.hasVoted).length;
   const badgeVariant = completed === rows.length ? 'success' : completed === 0 ? 'error' : 'neutral';
 
+  const handleExpand = () => {
+    setExpanded((current) => !current);
+  };
+
   return (
     <Fragment>
       <TableRow>
@@ -31,9 +35,7 @@ export const SurveyStudentRow = ({ rows }: Props) => {
           <button
             type="button"
             className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-100"
-            aria-label={expanded ? t('collapse-surveys') : t('expand-surveys')}
-            aria-expanded={expanded}
-            onClick={() => setExpanded((current) => !current)}
+            onClick={handleExpand}
           >
             {expanded ? <ChevronUp className="size-5" /> : <ChevronDown className="size-5" />}
           </button>

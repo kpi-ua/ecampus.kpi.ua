@@ -6,7 +6,6 @@ import { revalidatePath } from 'next/cache';
 import {
   CuratorGroup,
   CuratorStudentCredentials,
-  CuratorFilters,
   CuratorSurveyRow,
   CuratorSurveyParams,
 } from '@/app/[locale]/(private)/module/kurator/types';
@@ -48,18 +47,6 @@ export const getCuratorGroups = async (): Promise<CuratorGroup[]> => {
 
 export const getCuratorStudents = async (groupId: number): Promise<CuratorStudentCredentials[]> => {
   const response = await campusFetch<CuratorStudentCredentials[]>(`/curator-lecturer/groups/${groupId}/students`);
-
-  if (!response.ok) {
-    throw new Error(`${response.status} Error`);
-  }
-
-  return response.json();
-};
-
-export const getCuratorFilters = async (yearId?: number): Promise<CuratorFilters> => {
-  const response = await campusFetch<CuratorFilters>(
-    `/curator-lecturer/filters?${queryString.stringify({ yearId }, { skipEmptyString: true, skipNull: true })}`,
-  );
 
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
