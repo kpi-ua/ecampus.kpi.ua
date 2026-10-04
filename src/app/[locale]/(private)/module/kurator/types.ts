@@ -47,8 +47,7 @@ export interface CuratorFilters {
 export interface CuratorSurveyRow extends CuratorStudent {
   employeeId: number;
   lecturerName: string;
-  disciplineId: number;
-  disciplineName: string;
+  discipline: CuratorOption;
   termId: number;
   hasVoted: boolean;
 }
