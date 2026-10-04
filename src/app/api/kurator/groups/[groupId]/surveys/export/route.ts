@@ -31,7 +31,7 @@ export async function GET(_request: Request, { params }: Props) {
     ...surveys.map((row) => [
       row.fullName,
       row.lecturerName,
-      row.disciplineName,
+      row.discipline.name,
       row.hasVoted ? t('results.completed') : t('results.not-completed'),
     ]),
   ];

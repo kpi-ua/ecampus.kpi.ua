@@ -28,7 +28,7 @@ export const SurveyStudentRow = ({ rows }: Props) => {
     <Fragment>
       <TableRow>
         <TableCell className="font-semibold">{rows[0].fullName}</TableCell>
-        <TableCell className="w-64">
+        <TableCell className="w-64 text-center">
           <Badge variant={badgeVariant}>{t('completed-count', { completed, total: rows.length })}</Badge>
         </TableCell>
         <TableCell className="w-12 text-right">
@@ -42,25 +42,19 @@ export const SurveyStudentRow = ({ rows }: Props) => {
         </TableCell>
       </TableRow>
       <Show when={expanded}>
-        <TableRow className="hover:bg-transparent">
-          <TableCell colSpan={3} className="p-0">
-            <div className="bg-neutral-50 px-6 py-2">
-              {rows.map((row) => (
-                <div
-                  key={`${row.disciplineId}-${row.employeeId}`}
-                  className="flex min-h-12 items-center justify-between gap-4 border-b border-neutral-200 py-3 last:border-b-0"
-                >
-                  <span className="text-sm">
-                    {row.lecturerName} — {row.disciplineName}
-                  </span>
-                  <Show when={row.hasVoted} fallback={<X className="size-5 shrink-0 text-red-600" />}>
-                    <Check className="size-5 shrink-0 text-green-600" />
-                  </Show>
-                </div>
-              ))}
-            </div>
-          </TableCell>
-        </TableRow>
+        {rows.map((row) => (
+          <TableRow key={`${row.discipline.id}-${row.employeeId}`} className="bg-neutral-50 hover:bg-neutral-50">
+            <TableCell className="py-3 pl-6 text-sm">
+              {row.lecturerName} — {row.discipline.name}
+            </TableCell>
+            <TableCell className="w-64 py-3">
+              <Show when={row.hasVoted} fallback={<X className="mx-auto size-5 shrink-0 text-red-600" />}>
+                <Check className="mx-auto size-5 shrink-0 text-green-600" />
+              </Show>
+            </TableCell>
+            <TableCell className="w-12 py-3" />
+          </TableRow>
+        ))}
       </Show>
     </Fragment>
   );
