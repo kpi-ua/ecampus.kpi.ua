@@ -73,7 +73,7 @@ export const getCuratorSurveys = async (
   params: CuratorSurveyParams = {},
 ): Promise<CuratorSurveyRow[]> => {
   const response = await campusFetch<CuratorSurveyRow[]>(
-    `/curator/groups/${groupId}/surveys?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
+    `/curator-lecturer/groups/${groupId}/surveys?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
 
   if (!response.ok) {
