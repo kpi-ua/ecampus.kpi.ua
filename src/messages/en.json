@@ -853,7 +853,8 @@
             "title": "Attestation {group}"
           },
           "survey": {
-            "title": "Survey {group}"
+            "title": "Survey {group}",
+            "discipline": "Discipline"
           },
           "filters": {
             "student-search": "Search by student name",

@@ -853,7 +853,8 @@
             "title": "Атестація {group}"
           },
           "survey": {
-            "title": "Опитування {group}"
+            "title": "Опитування {group}",
+            "discipline": "Дисципліна"
           },
           "filters": {
             "student-search": "Пошук за ПІБ студента",

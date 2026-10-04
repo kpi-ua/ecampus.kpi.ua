@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 
 import { CuratorSurveyRow } from '../../types';
 
@@ -19,6 +20,10 @@ export const SurveyStudentRow = ({ rows }: Props) => {
   const completed = rows.filter((row) => row.hasVoted).length;
   const badgeVariant = completed === rows.length ? 'success' : completed === 0 ? 'error' : 'neutral';
 
+  const handleExpand = () => {
+    setExpanded((current) => !current);
+  };
+
   return (
     <Fragment>
       <TableRow>
@@ -30,15 +35,13 @@ export const SurveyStudentRow = ({ rows }: Props) => {
           <button
             type="button"
             className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-100"
-            aria-label={expanded ? t('collapse-surveys') : t('expand-surveys')}
-            aria-expanded={expanded}
-            onClick={() => setExpanded((current) => !current)}
+            onClick={handleExpand}
           >
             {expanded ? <ChevronUp className="size-5" /> : <ChevronDown className="size-5" />}
           </button>
         </TableCell>
       </TableRow>
-      {expanded && (
+      <Show when={expanded}>
         <TableRow className="hover:bg-transparent">
           <TableCell colSpan={3} className="p-0">
             <div className="bg-neutral-50 px-6 py-2">
@@ -50,17 +53,15 @@ export const SurveyStudentRow = ({ rows }: Props) => {
                   <span className="text-sm">
                     {row.lecturerName} — {row.disciplineName}
                   </span>
-                  {row.hasVoted ? (
-                    <Check className="size-5 shrink-0 text-green-600" aria-label={t('completed')} />
-                  ) : (
-                    <X className="size-5 shrink-0 text-red-600" aria-label={t('not-completed')} />
-                  )}
+                  <Show when={row.hasVoted} fallback={<X className="size-5 shrink-0 text-red-600" />}>
+                    <Check className="size-5 shrink-0 text-green-600" />
+                  </Show>
                 </div>
               ))}
             </div>
           </TableCell>
         </TableRow>
-      )}
+      </Show>
     </Fragment>
   );
 };

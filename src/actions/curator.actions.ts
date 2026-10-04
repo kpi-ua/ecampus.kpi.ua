@@ -5,8 +5,8 @@ import { revalidatePath } from 'next/cache';
 
 import {
   CuratorGroup,
-  CuratorStudentDetails,
   CuratorFilters,
+  CuratorStudentDetails,
   CuratorSurveyRow,
   CuratorSurveyParams,
   CuratorAttestationSemester,
