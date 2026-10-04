@@ -39,8 +39,6 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
             <button
               type="button"
               className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-100"
-              aria-label={expanded ? t('collapse-disciplines') : t('expand-disciplines')}
-              aria-expanded={expanded}
               onClick={() => setExpanded((current) => !current)}
             >
               {expanded ? <ChevronUp className="size-5" /> : <ChevronDown className="size-5" />}

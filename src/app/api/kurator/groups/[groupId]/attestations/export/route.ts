@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
+import queryString from 'query-string';
 
 import { CuratorAttestationSemester } from '@/app/[locale]/(private)/module/kurator/types';
 import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/kurator/constants';
@@ -17,20 +18,8 @@ export async function GET(request: Request, { params }: Props) {
   const yearId = Number(searchParams.get('yearId'));
   const semester = searchParams.get('semester');
   const attestationId = searchParams.get('attestationId');
-  const isValidId = (value: number) => Number.isInteger(value) && value > 0 && value <= 2147483647;
 
-  if (
-    !isValidId(id) ||
-    !isValidId(yearId) ||
-    (semester !== null && semester !== '1' && semester !== '2') ||
-    (attestationId !== null && !isValidId(Number(attestationId)))
-  ) {
-    return new Response(null, { status: 400 });
-  }
-
-  const query = new URLSearchParams({ yearId: String(yearId) });
-  if (semester !== null) query.set('semester', semester);
-  if (attestationId !== null) query.set('attestationId', attestationId);
+  const query = queryString.stringify({ yearId, semester, attestationId }, { skipNull: true });
   const response = await campusFetch<CuratorAttestationSemester[]>(
     `/curator-lecturer/groups/${id}/attestations?${query}`,
   );
