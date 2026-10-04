@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 
 import { CuratorSurveyRow } from '../../types';
 
@@ -38,7 +39,7 @@ export const SurveyStudentRow = ({ rows }: Props) => {
           </button>
         </TableCell>
       </TableRow>
-      {expanded && (
+      <Show when={expanded}>
         <TableRow className="hover:bg-transparent">
           <TableCell colSpan={3} className="p-0">
             <div className="bg-neutral-50 px-6 py-2">
@@ -50,17 +51,15 @@ export const SurveyStudentRow = ({ rows }: Props) => {
                   <span className="text-sm">
                     {row.lecturerName} — {row.disciplineName}
                   </span>
-                  {row.hasVoted ? (
-                    <Check className="size-5 shrink-0 text-green-600" aria-label={t('completed')} />
-                  ) : (
-                    <X className="size-5 shrink-0 text-red-600" aria-label={t('not-completed')} />
-                  )}
+                  <Show when={row.hasVoted} fallback={<X className="size-5 shrink-0 text-red-600" />}>
+                    <Check className="size-5 shrink-0 text-green-600" />
+                  </Show>
                 </div>
               ))}
             </div>
           </TableCell>
         </TableRow>
-      )}
+      </Show>
     </Fragment>
   );
 };

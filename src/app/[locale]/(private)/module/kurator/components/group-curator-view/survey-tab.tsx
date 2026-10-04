@@ -10,9 +10,11 @@ import { LoadingRow } from '@/app/[locale]/(private)/module/kurator/components/g
 import { Heading4 } from '@/components/typography';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 
 import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
 import { SurveyStudentRow } from './survey-student-row';
+import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/kurator/types';
 
 interface Props {
   groupId: number;
@@ -28,10 +30,13 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
   const query = search.trim().toLocaleLowerCase();
-  const students = rows.reduce<(typeof rows)[]>((groups, row) => {
+  const students = rows.reduce<CuratorSurveyRow[][]>((groups, row) => {
     const group = groups.find((items) => items[0].studentId === row.studentId);
-    if (group) group.push(row);
-    else groups.push([row]);
+    if (group) {
+      group.push(row);
+    } else {
+      groups.push([row]);
+    }
     return groups;
   }, []);
   const filteredStudents = students.filter((studentRows) =>
@@ -60,15 +65,13 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {isFetching ? (
-              <LoadingRow colSpan={3} />
-            ) : filteredStudents.length ? (
-              filteredStudents.map((studentRows) => (
-                <SurveyStudentRow key={studentRows[0].studentId} rows={studentRows} />
-              ))
-            ) : (
-              <EmptyRow colSpan={3} />
-            )}
+            <Show when={!isFetching} fallback={<LoadingRow colSpan={3} />}>
+              <Show when={filteredStudents.length > 0} fallback={<EmptyRow colSpan={3} />}>
+                {filteredStudents.map((studentRows) => (
+                  <SurveyStudentRow key={studentRows[0].studentId} rows={studentRows} />
+                ))}
+              </Show>
+            </Show>
           </TableBody>
         </Table>
       </div>
