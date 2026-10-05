@@ -16,8 +16,6 @@ interface Props {
   student: CuratorStudentAttestation;
 }
 
-const emptyResult = '—';
-
 export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.results');
   const [expanded, setExpanded] = useState(false);
@@ -28,14 +26,14 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
         <TableCell className="font-semibold">{student.fullName}</TableCell>
         <Show when={showRepeated}>
           <TableCell>
-            <Show when={student.notAttestedTwiceCount > 0} fallback={emptyResult}>
+            <Show when={student.notAttestedTwiceCount > 0} fallback={'—'}>
               <Badge variant="red">{t('repeated-count', { count: student.notAttestedTwiceCount })}</Badge>
             </Show>
           </TableCell>
         </Show>
         <AttestationResultCells results={student.results} />
         <TableCell className="w-12 text-right">
-          {student.disciplines.length > 0 && (
+          <Show when={student.disciplines.length > 0}>
             <button
               type="button"
               className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-100"
@@ -43,7 +41,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
             >
               {expanded ? <ChevronUp className="size-5" /> : <ChevronDown className="size-5" />}
             </button>
-          )}
+          </Show>
         </TableCell>
       </TableRow>
       <Show when={expanded}>
@@ -57,7 +55,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
             </TableCell>
             <Show when={showRepeated}>
               <TableCell>
-                <Show when={discipline.notAttestedTwice} fallback={emptyResult}>
+                <Show when={discipline.notAttestedTwice} fallback={'—'}>
                   <Badge variant="red">{t('repeated-result')}</Badge>
                 </Show>
               </TableCell>

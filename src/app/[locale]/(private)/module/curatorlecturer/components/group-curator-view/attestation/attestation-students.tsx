@@ -24,9 +24,11 @@ interface Props {
 
 export const AttestationStudents = ({ groupId, filters, state }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator');
-  const semesterT = useTranslations('private.curatorlecturer.filters');
   const [search, setSearch] = useState('');
   const { params, onlyNotAttested, onlyRepeated, showRepeated, attestationId } = state;
+  const attestationName = showRepeated
+    ? t('attestation.both-attestations')
+    : (filters.attestations.find((item) => item.id === Number(attestationId))?.name ?? '');
   const { data, isFetching } = useQuery({
     queryKey: [
       ...curatorGroupQueryKeys.attestations(groupId, params.yearId, params.semester, params.attestationId),
@@ -42,11 +44,7 @@ export const AttestationStudents = ({ groupId, filters, state }: Props) => {
       <Show when={!isFetching}>
         <AttestationSummary
           students={data?.summaryStudents ?? []}
-          attestationName={
-            showRepeated
-              ? t('filters.all-attestations')
-              : (filters.attestations.find((item) => item.id === Number(attestationId))?.name ?? '')
-          }
+          attestationName={attestationName}
         />
       </Show>
       <Input
@@ -69,7 +67,12 @@ export const AttestationStudents = ({ groupId, filters, state }: Props) => {
       >
         {data?.semesters.map((term) => (
           <section key={term.semester} className="flex flex-col gap-4">
-            <Heading4 className="m-0">{semesterT(term.semester === 1 ? 'first-semester' : 'second-semester')}</Heading4>
+            <Heading4 className="m-0">
+              {t('attestation.semester-title', {
+                semester: t(term.semester === 1 ? 'attestation.first-semester' : 'attestation.second-semester'),
+                attestation: attestationName,
+              })}
+            </Heading4>
             <AttestationStudentTable
               students={term.students}
               search={search}

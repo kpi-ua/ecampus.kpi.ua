@@ -852,7 +852,11 @@
           "value": "Значення"
         },
         "attestation": {
-          "title": "Атестація {group}"
+          "title": "Атестація {group}",
+          "first-semester": "Перше півріччя",
+          "second-semester": "Друге півріччя",
+          "both-attestations": "Атестація 1 і 2",
+          "semester-title": "{semester}, {attestation}"
         },
         "survey": {
           "title": "Опитування {group}",

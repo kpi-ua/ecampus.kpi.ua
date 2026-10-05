@@ -852,7 +852,11 @@
           "value": "Value"
         },
         "attestation": {
-          "title": "Attestation {group}"
+          "title": "Attestation {group}",
+          "first-semester": "First semester",
+          "second-semester": "Second semester",
+          "both-attestations": "Attestations 1 and 2",
+          "semester-title": "{semester}, {attestation}"
         },
         "survey": {
           "title": "Survey {group}",
