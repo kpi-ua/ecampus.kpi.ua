@@ -28,7 +28,8 @@
     "modules": {
       "directory": "Список контактів",
       "msg": "Повідомлення",
-      "kurator": "Куратор",
+      "curatorstudent": "Куратор",
+      "curatorlecturer": "Куратор групи",
       "announcementseditor": "Управління оголошеннями",
       "facultycertificate": "Запити на сертифікати",
       "rnp": "РНП",
@@ -38,7 +39,6 @@
       "rectorialcontrol": "Ректорський контроль",
       "certificates": "Замовлення довідки",
       "vedomoststud": "Семестровий контроль",
-      "studdoc": "Документи студ.",
       "plans_individual": "Індивідуальні плани",
       "journals": "Журнали",
       "np": "НП",
@@ -63,16 +63,14 @@
       "zdekan": "Кабінет декана",
       "ekk": "ЕКК",
       "bravook": "Браво ВК",
-      "studdocadmin": "Документи студ. (адм.)",
       "yiystat": "Статистичні дані",
       "adminpanel": "Адміністративна панель",
       "rating": "Архівний рейтинг НПП",
       "useract": "Заявки Браво ВК",
       "viewcontrol": "Перегляд контролів",
-      "pk2026": "Вступ 2026 (магістратура)",
-      "pk2026admin": "Вступ 2026 (адміністратор)",
       "studbonuspoints": "Додаткові бали",
-      "k7-form": "Звіт К-7"
+      "k7-form": "Звіт К-7",
+      "biblioteka": "Бібліотека"
     },
     "menu": {
       "main": "Головна",
@@ -292,6 +290,57 @@
     }
   },
   "private": {
+    "library": {
+      "title": "Наукометричні ідентифікатори",
+      "tabs": {
+        "label": "Спосіб перегляду",
+        "departments": "За кафедрами",
+        "alphabet": "За абеткою"
+      },
+      "departments": {
+        "title": "Кафедри",
+        "description": "Перегляд та управління кафедрами університету.",
+        "name": "Кафедра",
+        "abbreviation": "Абр.",
+        "faculty": "Факультет",
+        "select-faculty": "Оберіть факультет",
+        "select-department": "Оберіть кафедру",
+        "search": "Пошук кафедри..."
+      },
+      "department": {
+        "description": "Перелік співробітників та їхніх ідентифікаторів у наукометричних базах."
+      },
+      "alphabet": {
+        "title": "Співробітники за абеткою",
+        "description": "Оберіть першу літеру прізвища співробітника."
+      },
+      "employee": {
+        "description": "Інформація про співробітника, місця роботи та наукометричні ідентифікатори."
+      },
+      "search": "Пошук у списку",
+      "export": "Експорт CSV",
+      "count": "Записів: {count}",
+      "empty": "Записів не знайдено",
+      "loading": "Завантаження...",
+      "back": "Назад до списку",
+      "employment": "Місця роботи",
+      "identifiers": "Ідентифікатори у наукометричних базах даних",
+      "save": "Зберегти",
+      "no-account": "Обліковий запис відсутній — додавання ідентифікаторів неможливе.",
+      "table": {
+        "name": "ПІБ",
+        "actions": "Дії",
+        "edit": "Редагувати",
+        "subdivision": "Кафедра",
+        "sector": "Сектор",
+        "position": "Посада",
+        "status": "Статус",
+        "contract": "Контракт",
+        "database": "НМБД",
+        "value": "ID / Значення",
+        "updated": "Дата оновлення"
+      }
+    },
     "main": {
       "welcome": "Вітаємо, {name}!",
       "welcome-short": "Вітаємо!",
@@ -729,114 +778,148 @@
         "attestation": "Атестація №{attestationNumber}"
       }
     },
-    "curator": {
+    "curatorstudent": {
       "title": "Куратор",
       "info": "У цьому модулі представлено офіційну інформацію про вашого куратора, зокрема займані посади, кафедри, контактні дані та посилання на персональну сторінку.",
       "curator-info": "Інформація про куратора",
       "not-found": "Куратора не знайдено",
       "subdivisions": "Посада(и):",
       "contacts": "Контакти:",
-      "profile": "Особиста сторінка:",
-      "lecturer": {
-        "title": "Навчальні групи",
-        "subtitle": "Перелік навчальних груп і призначених кураторів.",
-        "empty": "Навчальних груп не знайдено",
-        "search-placeholder": "Пошук за ПІБ (українською)",
-        "filters": {
-          "year": "Навчальний рік",
-          "all-semesters": "Усі семестри",
-          "semester": "{number} семестр"
-        },
-        "tabs": {
-          "study-groups": "Навчальні групи",
-          "group-curator": "Куратор групи",
-          "administration": "Адміністрування"
-        },
-        "table": {
-          "group": "Група",
+      "profile": "Особиста сторінка:"
+    },
+    "curatorlecturer": {
+      "title": "Мої навчальні групи",
+      "subtitle": "Перелік навчальних груп і призначених кураторів.",
+      "empty": "Навчальних груп не знайдено",
+      "search-placeholder": "Пошук за ПІБ (українською)",
+      "filters": {
+        "year": "Навчальний рік",
+        "all-semesters": "Усі семестри",
+        "half-year": "Півріччя",
+        "first-semester": "Перше",
+        "second-semester": "Друге",
+        "all": "Всі",
+        "semester": "{number} семестр"
+      },
+      "tabs": {
+        "study-groups": "Навчальні групи",
+        "group-curator": "Куратор групи",
+        "administration": "Адміністрування"
+      },
+      "table": {
+        "group": "Група",
+        "course": "Курс",
+        "department": "Кафедра",
+        "curator": "Куратор",
+        "description": "Опис",
+        "not-assigned": "Не призначено"
+      },
+      "export": "Завантажити excel",
+      "group-curator": {
+        "title": "Куратор групи",
+        "select-group": "Оберіть групу",
+        "not-assigned": "Не призначено",
+        "empty-groups": "Немає доступних навчальних груп",
+        "facts": {
+          "study-form": "Форма навчання",
+          "speciality": "Спеціальність",
           "course": "Курс",
           "department": "Кафедра",
-          "curator": "Куратор",
-          "description": "Опис",
-          "not-assigned": "Не призначено"
+          "group-leader": "Староста групи"
         },
-        "group-curator": {
-          "title": "Куратор групи",
-          "select-group": "Оберіть групу",
-          "not-assigned": "Не призначено",
-          "empty-groups": "Немає доступних навчальних груп",
-          "facts": {
-            "study-form": "Форма навчання",
-            "speciality": "Спеціальність",
-            "course": "Курс",
-            "department": "Кафедра",
-            "group-leader": "Староста групи"
-          },
-          "leader": {
-            "select": "Оберіть старосту групи",
-            "loading": "Завантаження списку студентів",
-            "success-title": "Старосту змінено",
-            "success-description": "Нового старосту групи успішно призначено"
-          },
-          "sections": {
-            "overview": "Огляд групи",
-            "attestation": "Атестація",
-            "survey": "Опитування"
-          },
-          "overview": {
-            "title": "Інформація про групу {group}",
-            "property": "Параметр",
-            "value": "Значення"
-          },
-          "attestation": {
-            "title": "Атестація {group}"
-          },
-          "survey": {
-            "title": "Опитування {group}"
-          },
-          "filters": {
-            "student-search": "Пошук за ПІБ студента",
-            "attestation": "Атестація",
-            "survey-term": "Період опитування"
-          },
-          "students": {
-            "name": "ПІБ студента",
-            "email": "Електронна пошта",
-            "contacts": "Контакти",
-            "login": "Логін",
-            "password": "Пароль",
-            "status": "Статус",
-            "initial-password": "до першої зміни",
-            "password-changed": "змінено",
-            "code-of-honor": "Кодекс честі",
-            "agreed": "Погоджено {date}",
-            "not-agreed": "Не погоджено",
-            "count": "Студентів: {count}"
-          },
-          "results": {
-            "student": "ПІБ студента",
-            "attested": "Атестовано",
-            "missing": "Не виставлено",
-            "not-attested": "Не атестовано",
-            "not-studying": "Оцінка відсутня",
-            "disciplines": "Дисципліни",
-            "attested-code": "А",
-            "missing-code": "НВ",
-            "not-attested-code": "НА",
-            "not-studying-code": "ОВ",
-            "expand-disciplines": "Показати дисципліни студента",
-            "collapse-disciplines": "Сховати дисципліни студента",
-            "lecturer": "Викладач",
-            "status": "Статус",
-            "completed": "Пройдено",
-            "not-completed": "Не пройдено",
-            "completed-count": "{completed}/{total} пройдено",
-            "survey-count": "Кількість пройдених опитувань",
-            "expand-surveys": "Показати опитування студента",
-            "collapse-surveys": "Сховати опитування студента",
-            "empty": "Результатів поки немає"
-          }
+        "leader": {
+          "select": "Оберіть старосту групи",
+          "loading": "Завантаження списку студентів",
+          "success-title": "Старосту змінено",
+          "success-description": "Нового старосту групи успішно призначено",
+          "current": "Поточний староста групи",
+          "new": "Новий староста групи",
+          "placeholder": "ПІБ старости",
+          "assign": "Призначити нового старосту",
+          "confirm-title": "Призначити старостою групи {group}?",
+          "confirm-description": "Цю дію можна змінити пізніше. Поточного старосту буде знято з ролі.",
+          "now": "Зараз",
+          "next": "Буде",
+          "cancel": "Скасувати"
         },
+        "sections": {
+          "overview": "Огляд групи",
+          "attestation": "Атестація",
+          "survey": "Опитування"
+        },
+        "overview": {
+          "title": "Інформація про групу {group}",
+          "property": "Параметр",
+          "value": "Значення"
+        },
+        "attestation": {
+          "title": "Атестація {group}",
+          "first-semester": "Перше півріччя",
+          "second-semester": "Друге півріччя",
+          "both-attestations": "Атестація 1 і 2",
+          "semester-title": "{semester}, {attestation}"
+        },
+        "survey": {
+          "title": "Опитування {group}",
+          "discipline": "Дисципліна"
+        },
+        "filters": {
+          "student-search": "Пошук за ПІБ студента",
+          "attestation": "Атестація",
+          "survey-term": "Період опитування",
+          "all-attestations": "Всі атестації"
+        },
+        "students": {
+          "name": "ПІБ студента",
+          "email": "Електронна пошта",
+          "contacts": "Контакти",
+          "login": "Логін",
+          "password": "Пароль",
+          "status": "Статус",
+          "initial-password": "до першої зміни",
+          "password-changed": "змінено",
+          "code-of-honor": "Кодекс честі",
+          "agreed": "Погоджено {date}",
+          "not-agreed": "Не погоджено",
+          "count": "Студентів: {count}"
+        },
+        "results": {
+          "student": "ПІБ студента",
+          "by-students": "За студентами",
+          "by-disciplines": "За дисциплінами",
+          "discipline": "Дисципліна",
+          "discipline-search": "Назва дисципліни або викладач",
+          "expand-students": "Показати студентів дисципліни",
+          "collapse-students": "Сховати студентів дисципліни",
+          "repeated-result": "НА в двох атестаціях",
+          "only-not-attested": "Показати лише неатестовані",
+          "only-repeated": "Показати лише з повторними неатестаціями",
+          "not-attested-twice": "Неатестовано двічі поспіль",
+          "repeated-count": "{count, plural, one {# дисципліна НА поспіль} few {# дисципліни НА поспіль} other {# дисциплін НА поспіль}}",
+          "group-summary": "Стан групи",
+          "result-count": "{count} результатів",
+          "attested": "Атестовано",
+          "missing": "Не виставлено",
+          "not-attested": "Не атестовано",
+          "not-studying": "Оцінка відсутня",
+          "disciplines": "Дисципліни",
+          "attested-code": "А",
+          "missing-code": "НВ",
+          "not-attested-code": "НА",
+          "not-studying-code": "ОВ",
+          "expand-disciplines": "Показати дисципліни студента",
+          "collapse-disciplines": "Сховати дисципліни студента",
+          "lecturer": "Викладач",
+          "status": "Статус",
+          "completed": "Пройдено",
+          "not-completed": "Не пройдено",
+          "completed-count": "{completed}/{total} пройдено",
+          "survey-count": "Кількість пройдених опитувань",
+          "expand-surveys": "Показати опитування студента",
+          "collapse-surveys": "Сховати опитування студента",
+          "empty": "Результатів поки немає"
+        },
+        "export": "Завантажити excel",
         "administration": {
           "title": "Адміністрування",
           "subtitle": "Перегляд навчальних груп та призначених кураторів.",

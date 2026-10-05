@@ -28,7 +28,8 @@
     "modules": {
       "directory": "Contact list",
       "msg": "Messages",
-      "kurator": "Curator",
+      "curatorstudent": "Curator",
+      "curatorlecturer": "Group curator",
       "announcementseditor": "Announcements management",
       "facultycertificate": "Faculty certificate",
       "rnp": "RNP",
@@ -38,7 +39,6 @@
       "rectorialcontrol": "Rectorial control",
       "certificates": "Certificates",
       "vedomoststud": "Semester control",
-      "studdoc": "Student documents",
       "plans_individual": "Individual plans",
       "journals": "Journals",
       "np": "NP",
@@ -63,16 +63,14 @@
       "zdekan": "Deans office",
       "ekk": "EKK",
       "bravook": "Bravo VC",
-      "studdocadmin": "Student documents (Admin)",
       "yiystat": "Statistical data",
       "adminpanel": "Admin panel",
       "rating": "Archival SPW Rating",
       "useract": "Bravo Requests",
       "viewcontrol": "Review current control",
-      "pk2026": "Admission 2026 (Master's)",
-      "pk2026admin": "Admission 2026 (Administrator)",
       "studbonuspoints": "Bonus points",
-      "k7-form": "K-7 Report"
+      "k7-form": "K-7 Report",
+      "biblioteka": "Library"
     },
     "menu": {
       "main": "Home",
@@ -292,6 +290,57 @@
     }
   },
   "private": {
+    "library": {
+      "title": "Scientometric identifiers",
+      "tabs": {
+        "label": "Browsing mode",
+        "departments": "By department",
+        "alphabet": "By alphabet"
+      },
+      "departments": {
+        "title": "Departments",
+        "description": "Browse and manage university departments.",
+        "name": "Department",
+        "abbreviation": "Abbr.",
+        "faculty": "Faculty",
+        "select-faculty": "Select a faculty",
+        "select-department": "Select a department",
+        "search": "Search departments..."
+      },
+      "department": {
+        "description": "Employees and their identifiers in scientometric databases."
+      },
+      "alphabet": {
+        "title": "Employees by alphabet",
+        "description": "Select the first letter of an employee’s surname."
+      },
+      "employee": {
+        "description": "Employee details, workplaces, and scientometric identifiers."
+      },
+      "search": "Search the list",
+      "export": "Export CSV",
+      "count": "Records: {count}",
+      "empty": "No records found",
+      "loading": "Loading...",
+      "back": "Back to list",
+      "employment": "Employment",
+      "identifiers": "Scientometric database identifiers",
+      "save": "Save",
+      "no-account": "No user account exists, so identifiers cannot be added.",
+      "table": {
+        "name": "Name",
+        "actions": "Actions",
+        "edit": "Edit",
+        "subdivision": "Department",
+        "sector": "Sector",
+        "position": "Position",
+        "status": "Status",
+        "contract": "Contract",
+        "database": "Database",
+        "value": "ID / Value",
+        "updated": "Updated"
+      }
+    },
     "main": {
       "welcome": "Welcome, {name}!",
       "welcome-short": "Welcome!",
@@ -729,114 +778,148 @@
         "attestation": "Attestation №{attestationNumber}"
       }
     },
-    "curator": {
+    "curatorstudent": {
       "title": "Curator",
       "info": "This section provides official information about your curator, including positions held, departments, contact details, and a link to the personal profile.",
       "curator-info": "Curator information",
       "not-found": "Curator not found",
       "subdivisions": "Academic position(s):",
       "contacts": "Contacts:",
-      "profile": "Personal page:",
-      "lecturer": {
-        "title": "Study groups",
-        "subtitle": "A list of study groups and their assigned curators.",
-        "empty": "No study groups found",
-        "search-placeholder": "Search by full name(ukr)",
-        "filters": {
-          "year": "Academic year",
-          "all-semesters": "All semesters",
-          "semester": "Semester {number}"
-        },
-        "tabs": {
-          "study-groups": "Study groups",
-          "group-curator": "Group curator",
-          "administration": "Administration"
-        },
-        "table": {
-          "group": "Group",
+      "profile": "Personal page:"
+    },
+    "curatorlecturer": {
+      "title": "Study groups",
+      "subtitle": "A list of study groups and their assigned curators.",
+      "empty": "No study groups found",
+      "search-placeholder": "Search by full name(ukr)",
+      "filters": {
+        "year": "Academic year",
+        "all-semesters": "All semesters",
+        "half-year": "Semester",
+        "first-semester": "First",
+        "second-semester": "Second",
+        "all": "All",
+        "semester": "Semester {number}"
+      },
+      "tabs": {
+        "study-groups": "Study groups",
+        "group-curator": "Group curator",
+        "administration": "Administration"
+      },
+      "table": {
+        "group": "Group",
+        "course": "Course",
+        "department": "Department",
+        "curator": "Curator",
+        "description": "Description",
+        "not-assigned": "Not assigned"
+      },
+      "export": "Download Excel",
+      "group-curator": {
+        "title": "Group curator",
+        "select-group": "Select a group",
+        "not-assigned": "Not assigned",
+        "empty-groups": "No study groups are available",
+        "facts": {
+          "study-form": "Study form",
+          "speciality": "Speciality",
           "course": "Course",
           "department": "Department",
-          "curator": "Curator",
-          "description": "Description",
-          "not-assigned": "Not assigned"
+          "group-leader": "Group leader"
         },
-        "group-curator": {
-          "title": "Group curator",
-          "select-group": "Select a group",
-          "not-assigned": "Not assigned",
-          "empty-groups": "No study groups are available",
-          "facts": {
-            "study-form": "Study form",
-            "speciality": "Speciality",
-            "course": "Course",
-            "department": "Department",
-            "group-leader": "Group leader"
-          },
-          "leader": {
-            "select": "Select a group leader",
-            "loading": "Loading students",
-            "success-title": "Group leader changed",
-            "success-description": "The new group leader was assigned successfully"
-          },
-          "sections": {
-            "overview": "Group overview",
-            "attestation": "Attestation",
-            "survey": "Survey"
-          },
-          "overview": {
-            "title": "Information about group {group}",
-            "property": "Property",
-            "value": "Value"
-          },
-          "attestation": {
-            "title": "Attestation {group}"
-          },
-          "survey": {
-            "title": "Survey {group}"
-          },
-          "filters": {
-            "student-search": "Search by student name",
-            "attestation": "Attestation",
-            "survey-term": "Survey term"
-          },
-          "students": {
-            "name": "Student name",
-            "email": "Email",
-            "contacts": "Contacts",
-            "login": "Login",
-            "password": "Password",
-            "status": "Status",
-            "initial-password": "before first change",
-            "password-changed": "changed",
-            "code-of-honor": "Code of Honor",
-            "agreed": "Agreed {date}",
-            "not-agreed": "Not agreed",
-            "count": "Students: {count}"
-          },
-          "results": {
-            "student": "Student name",
-            "attested": "Attested",
-            "missing": "Not set",
-            "not-attested": "Not attested",
-            "not-studying": "No grade",
-            "disciplines": "Disciplines",
-            "attested-code": "A",
-            "missing-code": "NS",
-            "not-attested-code": "NA",
-            "not-studying-code": "NG",
-            "expand-disciplines": "Show student disciplines",
-            "collapse-disciplines": "Hide student disciplines",
-            "lecturer": "Lecturer",
-            "status": "Status",
-            "completed": "Completed",
-            "not-completed": "Not completed",
-            "completed-count": "{completed}/{total} completed",
-            "survey-count": "Completed surveys",
-            "expand-surveys": "Show student surveys",
-            "collapse-surveys": "Hide student surveys",
-            "empty": "No results yet"
-          }
+        "leader": {
+          "select": "Select a group leader",
+          "loading": "Loading students",
+          "success-title": "Group leader changed",
+          "success-description": "The new group leader was assigned successfully",
+          "current": "Current group leader",
+          "new": "New group leader",
+          "placeholder": "Leader full name",
+          "assign": "Assign new group leader",
+          "confirm-title": "Assign a new leader for group {group}?",
+          "confirm-description": "You can change this later. The current leader will be removed from the role.",
+          "now": "Current",
+          "next": "New",
+          "cancel": "Cancel"
         },
+        "sections": {
+          "overview": "Group overview",
+          "attestation": "Attestation",
+          "survey": "Survey"
+        },
+        "overview": {
+          "title": "Information about group {group}",
+          "property": "Property",
+          "value": "Value"
+        },
+        "attestation": {
+          "title": "Attestation {group}",
+          "first-semester": "First semester",
+          "second-semester": "Second semester",
+          "both-attestations": "Attestations 1 and 2",
+          "semester-title": "{semester}, {attestation}"
+        },
+        "survey": {
+          "title": "Survey {group}",
+          "discipline": "Discipline"
+        },
+        "filters": {
+          "student-search": "Search by student name",
+          "attestation": "Attestation",
+          "survey-term": "Survey term",
+          "all-attestations": "All attestations"
+        },
+        "students": {
+          "name": "Student name",
+          "email": "Email",
+          "contacts": "Contacts",
+          "login": "Login",
+          "password": "Password",
+          "status": "Status",
+          "initial-password": "before first change",
+          "password-changed": "changed",
+          "code-of-honor": "Code of Honor",
+          "agreed": "Agreed {date}",
+          "not-agreed": "Not agreed",
+          "count": "Students: {count}"
+        },
+        "results": {
+          "student": "Student name",
+          "by-students": "By students",
+          "by-disciplines": "By disciplines",
+          "discipline": "Discipline",
+          "discipline-search": "Discipline name or lecturer",
+          "expand-students": "Show discipline students",
+          "collapse-students": "Hide discipline students",
+          "repeated-result": "Not attested in both assessments",
+          "only-not-attested": "Show only non-attested",
+          "only-repeated": "Show only repeated non-attestations",
+          "not-attested-twice": "Not attested twice in a row",
+          "repeated-count": "{count, plural, one {# discipline not attested twice} other {# disciplines not attested twice}}",
+          "group-summary": "Group status",
+          "result-count": "{count} results",
+          "attested": "Attested",
+          "missing": "Not set",
+          "not-attested": "Not attested",
+          "not-studying": "No grade",
+          "disciplines": "Disciplines",
+          "attested-code": "A",
+          "missing-code": "NS",
+          "not-attested-code": "NA",
+          "not-studying-code": "NG",
+          "expand-disciplines": "Show student disciplines",
+          "collapse-disciplines": "Hide student disciplines",
+          "lecturer": "Lecturer",
+          "status": "Status",
+          "completed": "Completed",
+          "not-completed": "Not completed",
+          "completed-count": "{completed}/{total} completed",
+          "survey-count": "Completed surveys",
+          "expand-surveys": "Show student surveys",
+          "collapse-surveys": "Hide student surveys",
+          "empty": "No results yet"
+        },
+        "export": "Download Excel",
         "administration": {
           "title": "Administration",
           "subtitle": "Review study groups and their assigned curators.",
