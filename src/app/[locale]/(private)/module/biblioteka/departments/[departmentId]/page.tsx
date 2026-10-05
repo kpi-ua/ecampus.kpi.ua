@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function DepartmentPage({ params }: Props) {
   const { departmentId } = await params;
-  const id = parseInt(departmentId);
+  const id = Number(departmentId);
   if (!Number.isInteger(id) || id < 1) {
     notFound();
   }

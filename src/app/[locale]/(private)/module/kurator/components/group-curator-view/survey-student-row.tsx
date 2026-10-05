@@ -17,6 +17,7 @@ interface Props {
 export const SurveyStudentRow = ({ rows }: Props) => {
   const t = useTranslations('private.curator.lecturer.group-curator.results');
   const [expanded, setExpanded] = useState(false);
+
   const completed = rows.filter((row) => row.hasVoted).length;
   const badgeVariant = completed === rows.length ? 'success' : completed === 0 ? 'error' : 'neutral';
 
@@ -27,7 +28,7 @@ export const SurveyStudentRow = ({ rows }: Props) => {
   return (
     <Fragment>
       <TableRow>
-        <TableCell className="font-semibold">{rows[0].fullName}</TableCell>
+        <TableCell className="font-semibold">{rows[0]?.fullName}</TableCell>
         <TableCell className="w-64 text-center">
           <Badge variant={badgeVariant}>{t('completed-count', { completed, total: rows.length })}</Badge>
         </TableCell>
