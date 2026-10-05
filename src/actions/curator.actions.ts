@@ -6,7 +6,8 @@ import { revalidatePath } from 'next/cache';
 import {
   CuratorGroup,
   CuratorStudentCredentials,
-  CuratorFilters,
+  CuratorSurveyRow,
+  CuratorSurveyParams,
 } from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { Curator } from '@/types/models/curator';
@@ -54,9 +55,12 @@ export const getCuratorStudents = async (groupId: number): Promise<CuratorStuden
   return response.json();
 };
 
-export const getCuratorFilters = async (yearId?: number): Promise<CuratorFilters> => {
-  const response = await campusFetch<CuratorFilters>(
-    `/curator-lecturer/filters?${queryString.stringify({ yearId }, { skipEmptyString: true, skipNull: true })}`,
+export const getCuratorSurveys = async (
+  groupId: number,
+  params: CuratorSurveyParams = {},
+): Promise<CuratorSurveyRow[]> => {
+  const response = await campusFetch<CuratorSurveyRow[]>(
+    `/curator-lecturer/groups/${groupId}/surveys?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
 
   if (!response.ok) {

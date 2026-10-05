@@ -831,12 +831,17 @@
             "cancel": "Cancel"
           },
           "sections": {
-            "overview": "Group overview"
+            "overview": "Group overview",
+            "survey": "Survey"
           },
           "overview": {
             "title": "Information about group {group}",
             "property": "Property",
             "value": "Value"
+          },
+          "survey": {
+            "title": "Survey {group}",
+            "discipline": "Discipline"
           },
           "filters": {
             "student-search": "Search by student name",
@@ -858,6 +863,14 @@
           },
           "results": {
             "student": "Student name",
+            "lecturer": "Lecturer",
+            "status": "Status",
+            "completed": "Completed",
+            "not-completed": "Not completed",
+            "completed-count": "{completed}/{total} completed",
+            "survey-count": "Completed surveys",
+            "expand-surveys": "Show student surveys",
+            "collapse-surveys": "Hide student surveys",
             "empty": "No results yet"
           },
           "export": "Download Excel"

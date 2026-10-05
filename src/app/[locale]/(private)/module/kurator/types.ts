@@ -44,7 +44,20 @@ export interface CuratorFilters {
   attestations: CuratorOption[];
 }
 
+export interface CuratorSurveyRow extends CuratorStudent {
+  employeeId: number;
+  lecturerName: string;
+  discipline: CuratorOption;
+  termId: number;
+  hasVoted: boolean;
+}
+
 export interface CuratorPeriodParams {
   yearId?: number;
   semester?: number;
+}
+
+export interface CuratorSurveyParams extends CuratorPeriodParams {
+  termId?: number;
+  employeeId?: number;
 }

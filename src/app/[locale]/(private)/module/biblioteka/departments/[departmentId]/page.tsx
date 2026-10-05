@@ -24,7 +24,9 @@ export async function generateMetadata({ params }: Props) {
 export default async function DepartmentPage({ params }: Props) {
   const { departmentId } = await params;
   const id = Number(departmentId);
-  if (!Number.isInteger(id) || id < 1) notFound();
+  if (!Number.isInteger(id) || id < 1) {
+    notFound();
+  }
 
   const [departments, employees, t] = await Promise.all([
     getLibraryDepartments(),
@@ -32,7 +34,9 @@ export default async function DepartmentPage({ params }: Props) {
     getTranslations(INTL_NAMESPACE),
   ]);
   const department = departments.find((item) => item.id === id);
-  if (!department) notFound();
+  if (!department) {
+    notFound();
+  }
 
   return (
     <SubLayout pageTitle={department.abbreviation} breadcrumbs={[['/module/biblioteka', t('departments.title')]]}>
