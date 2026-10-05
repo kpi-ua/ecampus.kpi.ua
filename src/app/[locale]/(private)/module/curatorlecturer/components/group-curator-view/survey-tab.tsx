@@ -18,7 +18,7 @@ import { exportGroupSurveys } from '../../utils/export-group-surveys';
 
 import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
 import { SurveyStudentRow } from './survey-student-row';
-import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { groupSurveysByStudent } from '@/app/[locale]/(private)/module/curatorlecturer/utils/group-surveys-by-student';
 
 interface Props {
   groupId: number;
@@ -33,21 +33,13 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
     onError: () => errorToast(),
   });
   const [search, setSearch] = useState('');
-  const { data: rows = [], isFetching } = useQuery({
+  const { data: students = [], isFetching } = useQuery({
     queryKey: curatorGroupQueryKeys.surveys(groupId),
     queryFn: () => getCuratorSurveys(groupId),
     staleTime: CURATOR_GROUP_STALE_TIME,
+    select: groupSurveysByStudent,
   });
   const query = search.trim().toLocaleLowerCase();
-  const students = rows.reduce<CuratorSurveyRow[][]>((groups, row) => {
-    const group = groups.find((items) => items[0].studentId === row.studentId);
-    if (group) {
-      group.push(row);
-    } else {
-      groups.push([row]);
-    }
-    return groups;
-  }, []);
   const filteredStudents = students.filter((studentRows) =>
     studentRows[0].fullName.toLocaleLowerCase().includes(query),
   );
