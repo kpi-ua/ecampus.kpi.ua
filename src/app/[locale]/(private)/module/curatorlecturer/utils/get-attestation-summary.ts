@@ -1,6 +1,6 @@
-import { CuratorAttestationStudent } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { CuratorStudentAttestationTotals } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
-export const getAttestationSummary = (students: CuratorAttestationStudent[]) => {
+export const getAttestationSummary = (students: CuratorStudentAttestationTotals[]) => {
   const statuses = [
     { key: 'attested', count: students.reduce((sum, student) => sum + student.attested, 0), color: 'bg-green-500' },
     { key: 'missing', count: students.reduce((sum, student) => sum + student.missing, 0), color: 'bg-yellow-400' },

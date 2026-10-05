@@ -4,18 +4,18 @@ import { Badge } from '@/components/ui/badge';
 import { TableCell } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
-import { CuratorAttestationRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { CuratorAttestationTotals } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
 
 interface Props {
-  results: CuratorAttestationRow[];
+  totals: CuratorAttestationTotals;
 }
 
-export const AttestationResultCells = ({ results }: Props) => {
+export const AttestationResultCells = ({ totals }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.results');
 
   return ATTESTATION_COLUMNS.map((status) => {
-    const count = results.filter((result) => result.result === status.result).length;
+    const count = totals[status.key];
     return (
       <TableCell key={status.label}>
         <Show when={count > 0} fallback="—">

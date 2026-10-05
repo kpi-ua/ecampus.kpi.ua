@@ -45,9 +45,7 @@ export async function GET(request: Request, { params }: Props) {
         semesterName,
         `${discipline.lecturerName} — ${discipline.name}`,
         ...(showRepeated ? [discipline.notAttestedTwiceCount] : []),
-        ...ATTESTATION_COLUMNS.map(
-          (column) => discipline.results.filter((result) => result.result === column.result).length,
-        ),
+        ...ATTESTATION_COLUMNS.map((column) => discipline[column.key]),
       ]);
     }),
   ];

@@ -31,7 +31,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
             </Show>
           </TableCell>
         </Show>
-        <AttestationResultCells results={student.results} />
+        <AttestationResultCells totals={student} />
         <TableCell className="w-12 text-right">
           <Show when={student.disciplines.length > 0}>
             <button
@@ -60,7 +60,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
                 </Show>
               </TableCell>
             </Show>
-            <AttestationResultCells results={discipline.results} />
+            <AttestationResultCells totals={discipline} />
             <TableCell />
           </TableRow>
         ))}

@@ -32,7 +32,7 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
             </Show>
           </TableCell>
         </Show>
-        <AttestationResultCells results={discipline.results} />
+        <AttestationResultCells totals={discipline} />
         <TableCell className="w-12 text-right">
           <button
             type="button"
@@ -44,17 +44,17 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
         </TableCell>
       </TableRow>
       <Show when={expanded}>
-        {discipline.students.map(({ studentId, fullName, results, notAttestedTwiceCount }) => (
-          <TableRow key={studentId} className="bg-neutral-50 hover:bg-neutral-50">
-            <TableCell className="pl-6">{fullName}</TableCell>
+        {discipline.students.map((student) => (
+          <TableRow key={student.studentId} className="bg-neutral-50 hover:bg-neutral-50">
+            <TableCell className="pl-6">{student.fullName}</TableCell>
             <Show when={showRepeated}>
               <TableCell>
-                <Show when={notAttestedTwiceCount > 0} fallback="—">
+                <Show when={student.notAttestedTwiceCount > 0} fallback="—">
                   <Badge variant="red">{t('repeated-result')}</Badge>
                 </Show>
               </TableCell>
             </Show>
-            <AttestationResultCells results={results} />
+            <AttestationResultCells totals={student} />
             <TableCell />
           </TableRow>
         ))}

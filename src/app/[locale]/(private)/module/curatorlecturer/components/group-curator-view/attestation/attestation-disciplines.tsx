@@ -8,7 +8,6 @@ import { Heading4 } from '@/components/typography/index';
 import { Input } from '@/components/ui/input';
 import { Show } from '@/components/utils/show';
 import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { ATTESTATION_RESULT } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
 import { AttestationSummary } from './attestation-summary';
 import { AttestationDisciplineTable } from './attestation-discipline-table';
 import { AttestationFiltersState } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
@@ -46,7 +45,7 @@ export const AttestationDisciplines = ({ groupId, filters, state }: Props) => {
     disciplines: term.disciplines.filter(
       (discipline) =>
         `${discipline.name} ${discipline.lecturerName}`.toLocaleLowerCase().includes(query) &&
-        (!onlyNotAttested || discipline.results.some((result) => result.result === ATTESTATION_RESULT.NotAttested)) &&
+        (!onlyNotAttested || discipline.notAttested > 0) &&
         (!showRepeated || !onlyRepeated || discipline.notAttestedTwiceCount > 0),
     ),
   }));
