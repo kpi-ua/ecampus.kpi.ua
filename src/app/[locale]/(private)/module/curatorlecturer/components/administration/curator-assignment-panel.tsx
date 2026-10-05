@@ -25,11 +25,10 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
     setStartDate,
     endDate,
     setEndDate,
-    departmentLecturers,
-    canAssign,
     handleAssign,
     isAssigning,
-  } = useCuratorAssignment(group, lecturers);
+  } = useCuratorAssignment(group);
+  const departmentLecturers = lecturers.filter((item) => item.department.id === group.departmentId);
 
   return (
     <div className="flex flex-col gap-6 rounded-2xl bg-neutral-50 p-6">
@@ -62,7 +61,6 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
           variant="primary"
           size="medium"
           loading={isAssigning}
-          disabled={!canAssign}
           onClick={handleAssign}
         >
           {t('assign.submit')}

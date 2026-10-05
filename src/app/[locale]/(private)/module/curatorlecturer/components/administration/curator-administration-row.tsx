@@ -30,12 +30,7 @@ export const CuratorAdministrationRow = ({ group, lecturers, expanded, onToggle 
         <TableCell>{group.description || '—'}</TableCell>
         <TableCell>{group.departmentAbbreviation || group.departmentName}</TableCell>
         <TableCell>
-          <Button
-            variant="tertiary"
-            size="small"
-            aria-label={expanded ? t('collapse') : t('expand')}
-            onClick={onToggle}
-          >
+          <Button variant="tertiary" size="small" onClick={onToggle}>
             <Show when={expanded} fallback={<ChevronDown className="size-4" />}>
               <ChevronUp className="size-4" />
             </Show>
