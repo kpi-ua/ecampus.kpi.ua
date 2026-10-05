@@ -16,8 +16,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-import { useGroupLeaderAssignment } from './hooks/overview-tab/use-group-leader-assignment';
-import { CuratorGroup, CuratorStudent } from '../../types';
+import { useGroupLeaderAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/hooks/use-group-leader-assignment';
+import { CuratorGroup, CuratorStudent } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 interface Props {
   group: CuratorGroup;

@@ -8,7 +8,7 @@ import { useState } from 'react';
 
 import { getCuratorStudents } from '@/actions/curatorlecturer.actions';
 import { getContactTypes } from '@/actions/profile.actions';
-import { Heading4, Paragraph } from '@/components/typography';
+import { Heading4, Paragraph } from '@/components/typography/index';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -17,12 +17,12 @@ import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { PASSWORD_MASK } from '@/lib/constants/password';
 
-import { EmptyRow } from '../EmptyRow';
-import { CuratorGroup } from '../../types';
-import { exportGroupOverview } from '../../utils/export-group-overview';
+import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
+import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { exportGroupOverview } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-overview';
 import { GroupLeaderSelect } from './group-leader-select';
-import { LoadingRow } from './loading-row';
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
+import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
+import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { StudentContacts } from './student-contacts';
 
 interface Props {

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { CuratorAttestationStudent } from '../../types';
+import { CuratorAttestationStudent } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 interface Props {
   students: CuratorAttestationStudent[];

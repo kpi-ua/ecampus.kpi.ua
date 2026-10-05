@@ -1,4 +1,4 @@
-import { SpinnerGap } from '@/app/images';
+import { SpinnerGap } from '@/app/images/index';
 import { TableCell, TableRow } from '@/components/ui/table';
 
 interface Props {

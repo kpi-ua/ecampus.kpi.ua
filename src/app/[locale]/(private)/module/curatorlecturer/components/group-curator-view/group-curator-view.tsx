@@ -10,9 +10,9 @@ import { Show } from '@/components/utils/show';
 
 import { CuratorFilters, CuratorGroup } from '../../types';
 import { GroupSummary } from './group-summary';
-import { OverviewTab } from './overview-tab';
-import { AttestationTab } from './attestation-tab';
-import { SurveyTab } from './survey-tab';
+import { OverviewTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/overview-tab';
+import { AttestationTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/attestation-tab';
+import { SurveyTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/survey/survey-tab';
 
 interface Props {
   groups: CuratorGroup[];

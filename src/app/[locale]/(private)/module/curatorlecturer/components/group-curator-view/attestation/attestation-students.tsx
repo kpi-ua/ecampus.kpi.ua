@@ -4,14 +4,14 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getCuratorStudentAttestations } from '@/actions/curatorlecturer.actions';
-import { Heading4 } from '@/components/typography';
+import { Heading4 } from '@/components/typography/index';
 import { Input } from '@/components/ui/input';
 import { Show } from '@/components/utils/show';
-import { CuratorFilters } from '../../types';
+import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { AttestationSummary } from './attestation-summary';
 import { AttestationStudentTable } from './attestation-student-table';
-import { AttestationFiltersState } from './hooks/attestation-tab/use-attestation-filters';
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
+import { AttestationFiltersState } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
+import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 
 interface Props {
   groupId: number;

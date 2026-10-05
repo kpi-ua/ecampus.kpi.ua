@@ -3,14 +3,14 @@
 import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
-import { ATTESTATION_COLUMNS } from '../../constants';
-import { CuratorStudentAttestation } from '../../types';
-import { EmptyRow } from '../EmptyRow';
-import { AttestationStudentRow } from './attestation-student-row';
-import { LoadingRow } from './loading-row';
+import { ATTESTATION_COLUMNS, ATTESTATION_RESULT } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
+import { CuratorAttestationDiscipline } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
+import { AttestationDisciplineRow } from './attestation-discipline-row';
+import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
 
 interface Props {
-  students: CuratorStudentAttestation[];
+  disciplines: CuratorAttestationDiscipline[];
   search: string;
   onlyNotAttested: boolean;
   onlyRepeated: boolean;
@@ -18,8 +18,8 @@ interface Props {
   isFetching: boolean;
 }
 
-export const AttestationStudentTable = ({
-  students,
+export const AttestationDisciplineTable = ({
+  disciplines,
   search,
   onlyNotAttested,
   onlyRepeated,
@@ -29,11 +29,12 @@ export const AttestationStudentTable = ({
   const t = useTranslations('private.curatorlecturer.group-curator');
   const colSpan = ATTESTATION_COLUMNS.length + 2 + Number(showRepeated);
   const query = search.trim().toLocaleLowerCase();
-  const filteredStudents = students.filter(
-    (student) =>
-      student.fullName.toLocaleLowerCase().includes(query) &&
-      (!onlyNotAttested || student.notAttested > 0) &&
-      (!showRepeated || !onlyRepeated || student.notAttestedTwiceCount > 0),
+
+  const filteredDisciplines = disciplines.filter(
+    (discipline) =>
+      `${discipline.name} ${discipline.lecturerName}`.toLocaleLowerCase().includes(query) &&
+      (!onlyNotAttested || discipline.results.some((result) => result.result === ATTESTATION_RESULT.NotAttested)) &&
+      (!showRepeated || !onlyRepeated || discipline.notAttestedTwiceCount > 0),
   );
 
   return (
@@ -41,7 +42,7 @@ export const AttestationStudentTable = ({
       <Table className="min-w-[900px]">
         <TableHeader>
           <TableRow className="hover:bg-white [&>th]:bg-neutral-100 [&>th]:text-xs [&>th]:uppercase">
-            <TableHead>{t('results.student')}</TableHead>
+            <TableHead>{t('results.discipline')}</TableHead>
             <Show when={showRepeated}>
               <TableHead>{t('results.not-attested-twice')}</TableHead>
             </Show>
@@ -55,9 +56,13 @@ export const AttestationStudentTable = ({
         </TableHeader>
         <TableBody>
           <Show when={!isFetching} fallback={<LoadingRow colSpan={colSpan} />}>
-            <Show when={filteredStudents.length > 0} fallback={<EmptyRow colSpan={colSpan} />}>
-              {filteredStudents.map((student) => (
-                <AttestationStudentRow key={student.studentId} student={student} showRepeated={showRepeated} />
+            <Show when={filteredDisciplines.length > 0} fallback={<EmptyRow colSpan={colSpan} />}>
+              {filteredDisciplines.map((discipline) => (
+                <AttestationDisciplineRow
+                  key={`${discipline.disciplineId}-${discipline.employeeId}`}
+                  discipline={discipline}
+                  showRepeated={showRepeated}
+                />
               ))}
             </Show>
           </Show>

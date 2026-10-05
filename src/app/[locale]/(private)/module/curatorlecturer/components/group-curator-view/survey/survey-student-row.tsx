@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
-import { CuratorSurveyRow } from '../../types';
+import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 interface Props {
   rows: CuratorSurveyRow[];

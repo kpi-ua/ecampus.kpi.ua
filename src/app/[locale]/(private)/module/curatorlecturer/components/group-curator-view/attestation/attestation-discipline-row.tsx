@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
-import { CuratorAttestationDiscipline } from '../../types';
+import { CuratorAttestationDiscipline } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { AttestationResultCells } from './attestation-result-cells';
 
 interface Props {

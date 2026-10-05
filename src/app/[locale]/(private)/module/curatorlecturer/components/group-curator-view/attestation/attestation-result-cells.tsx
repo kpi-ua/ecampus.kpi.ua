@@ -4,8 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { TableCell } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
-import { CuratorAttestationRow } from '../../types';
-import { ATTESTATION_COLUMNS } from '../../constants';
+import { CuratorAttestationRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
 
 interface Props {
   results: CuratorAttestationRow[];

@@ -7,16 +7,16 @@ import { useState } from 'react';
 
 import { getCuratorSurveys } from '@/actions/curatorlecturer.actions';
 import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
-import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/loading-row';
-import { Heading4 } from '@/components/typography';
+import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
+import { Heading4 } from '@/components/typography/index';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { exportGroupSurveys } from '../../utils/export-group-surveys';
+import { exportGroupSurveys } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-surveys';
 
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from './query-keys';
+import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { SurveyStudentRow } from './survey-student-row';
 import { groupSurveysByStudent } from '@/app/[locale]/(private)/module/curatorlecturer/utils/group-surveys-by-student';
 

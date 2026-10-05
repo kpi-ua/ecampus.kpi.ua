@@ -2,13 +2,13 @@
 
 import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { Heading4 } from '@/components/typography';
+import { Heading4 } from '@/components/typography/index';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Show } from '@/components/utils/show';
 import { TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CuratorFilters } from '../../types';
-import { AttestationFiltersState } from './hooks/attestation-tab/use-attestation-filters';
+import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { AttestationFiltersState } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
 import { ResultFilters } from './result-filters';
 
 interface Props {

@@ -3,14 +3,14 @@
 import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { Paragraph } from '@/components/typography';
+import { Paragraph } from '@/components/typography/index';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Show } from '@/components/utils/show';
 
-import { useGroupLeaderSelect } from './hooks/overview-tab/use-group-leader-select';
-import { CuratorGroup } from '../../types';
+import { useGroupLeaderSelect } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/hooks/use-group-leader-select';
+import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { GroupLeaderConfirmDialog } from './group-leader-confirm-dialog';
 
 interface Props {

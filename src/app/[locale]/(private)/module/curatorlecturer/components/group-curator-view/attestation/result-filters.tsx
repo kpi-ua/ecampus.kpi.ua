@@ -6,7 +6,7 @@ import { Show } from '@/components/utils/show';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import { CuratorFilters, CuratorOption } from '../../types';
+import { CuratorFilters, CuratorOption } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 interface Props {
   filters: CuratorFilters;
