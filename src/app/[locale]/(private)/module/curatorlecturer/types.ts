@@ -85,6 +85,16 @@ export interface CuratorDisciplineAttestationSemester {
   disciplines: CuratorAttestationDiscipline[];
 }
 
+export interface CuratorStudentAttestations {
+  semesters: CuratorStudentAttestationSemester[];
+  summaryStudents: CuratorAttestationStudent[];
+}
+
+export interface CuratorDisciplineAttestations {
+  semesters: CuratorDisciplineAttestationSemester[];
+  summaryStudents: CuratorAttestationStudent[];
+}
+
 export interface CuratorAttestationDiscipline {
   disciplineId: number;
   employeeId: number;

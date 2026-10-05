@@ -12,6 +12,8 @@ import {
   CuratorStudentAttestationSemester,
   CuratorDisciplineAttestationSemester,
   CuratorAttestationParams,
+  CuratorStudentAttestations,
+  CuratorDisciplineAttestations,
 } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 
@@ -75,7 +77,7 @@ export const getCuratorSurveys = async (
 export const getCuratorStudentAttestations = async (
   groupId: number,
   params: CuratorAttestationParams = {},
-): Promise<CuratorStudentAttestationSemester[]> => {
+): Promise<CuratorStudentAttestations> => {
   const response = await campusFetch<CuratorStudentAttestationSemester[]>(
     `/curator-lecturer/groups/${groupId}/attestations/students?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
@@ -84,13 +86,18 @@ export const getCuratorStudentAttestations = async (
     throw new Error(`${response.status} Error`);
   }
 
-  return response.json();
+  const semesters = await response.json();
+
+  return {
+    semesters,
+    summaryStudents: semesters.flatMap((term) => term.students),
+  };
 };
 
 export const getCuratorDisciplineAttestations = async (
   groupId: number,
   params: CuratorAttestationParams = {},
-): Promise<CuratorDisciplineAttestationSemester[]> => {
+): Promise<CuratorDisciplineAttestations> => {
   const response = await campusFetch<CuratorDisciplineAttestationSemester[]>(
     `/curator-lecturer/groups/${groupId}/attestations/disciplines?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
   );
@@ -99,7 +106,12 @@ export const getCuratorDisciplineAttestations = async (
     throw new Error(`${response.status} Error`);
   }
 
-  return response.json();
+  const semesters = await response.json();
+
+  return {
+    semesters,
+    summaryStudents: semesters.flatMap((term) => term.disciplines.flatMap((discipline) => discipline.students)),
+  };
 };
 
 export const assignGroupLeader = async (groupId: number, studentId: number) => {

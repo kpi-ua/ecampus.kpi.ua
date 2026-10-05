@@ -11,7 +11,10 @@ import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/
 import { AttestationSummary } from './attestation-summary';
 import { AttestationStudentTable } from './attestation-student-table';
 import { AttestationFiltersState } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 
 interface Props {
   groupId: number;
@@ -33,12 +36,12 @@ export const AttestationStudents = ({ groupId, filters, state }: Props) => {
     enabled: !!params.yearId && !!attestationId,
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
-  const summaryStudents = data?.flatMap((term) => term.students) ?? [];
+
   return (
     <div className="flex flex-col gap-6">
       <Show when={!isFetching}>
         <AttestationSummary
-          students={summaryStudents}
+          students={data?.summaryStudents ?? []}
           attestationName={
             showRepeated
               ? t('filters.all-attestations')
@@ -64,7 +67,7 @@ export const AttestationStudents = ({ groupId, filters, state }: Props) => {
           />
         }
       >
-        {data?.map((term) => (
+        {data?.semesters.map((term) => (
           <section key={term.semester} className="flex flex-col gap-4">
             <Heading4 className="m-0">{semesterT(term.semester === 1 ? 'first-semester' : 'second-semester')}</Heading4>
             <AttestationStudentTable

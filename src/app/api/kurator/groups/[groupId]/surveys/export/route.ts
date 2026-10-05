@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
-import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/kurator/types';
+import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 import { notFound } from 'next/navigation';

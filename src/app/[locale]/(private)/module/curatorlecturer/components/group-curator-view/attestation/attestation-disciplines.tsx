@@ -8,10 +8,14 @@ import { Heading4 } from '@/components/typography/index';
 import { Input } from '@/components/ui/input';
 import { Show } from '@/components/utils/show';
 import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { ATTESTATION_RESULT } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
 import { AttestationSummary } from './attestation-summary';
 import { AttestationDisciplineTable } from './attestation-discipline-table';
 import { AttestationFiltersState } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 
 interface Props {
   groupId: number;
@@ -33,12 +37,23 @@ export const AttestationDisciplines = ({ groupId, filters, state }: Props) => {
     enabled: !!params.yearId && !!attestationId,
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
-  const summaryStudents = data?.flatMap((term) => term.disciplines.flatMap((discipline) => discipline.students)) ?? [];
+
+  const query = search.trim().toLocaleLowerCase();
+  const filteredData = data?.semesters.map((term) => ({
+    ...term,
+    disciplines: term.disciplines.filter(
+      (discipline) =>
+        `${discipline.name} ${discipline.lecturerName}`.toLocaleLowerCase().includes(query) &&
+        (!onlyNotAttested || discipline.results.some((result) => result.result === ATTESTATION_RESULT.NotAttested)) &&
+        (!showRepeated || !onlyRepeated || discipline.notAttestedTwiceCount > 0),
+    ),
+  }));
+
   return (
     <div className="flex flex-col gap-6">
       <Show when={!isFetching}>
         <AttestationSummary
-          students={summaryStudents}
+          students={data?.summaryStudents ?? []}
           attestationName={
             showRepeated
               ? t('filters.all-attestations')
@@ -53,25 +68,13 @@ export const AttestationDisciplines = ({ groupId, filters, state }: Props) => {
       />
       <Show
         when={!!data}
-        fallback={
-          <AttestationDisciplineTable
-            disciplines={[]}
-            search={search}
-            onlyNotAttested={onlyNotAttested}
-            onlyRepeated={onlyRepeated}
-            showRepeated={showRepeated}
-            isFetching={isFetching}
-          />
-        }
+        fallback={<AttestationDisciplineTable disciplines={[]} showRepeated={showRepeated} isFetching={isFetching} />}
       >
-        {data?.map((term) => (
+        {filteredData?.map((term) => (
           <section key={term.semester} className="flex flex-col gap-4">
             <Heading4 className="m-0">{semesterT(term.semester === 1 ? 'first-semester' : 'second-semester')}</Heading4>
             <AttestationDisciplineTable
               disciplines={term.disciplines}
-              search={search}
-              onlyNotAttested={onlyNotAttested}
-              onlyRepeated={onlyRepeated}
               showRepeated={showRepeated}
               isFetching={isFetching}
             />

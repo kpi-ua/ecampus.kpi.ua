@@ -1,4 +1,4 @@
-import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/kurator/types';
+import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 export const groupSurveysByStudent = (rows: CuratorSurveyRow[]): CuratorSurveyRow[][] => {
   const students = new Map<number, CuratorSurveyRow[]>();
