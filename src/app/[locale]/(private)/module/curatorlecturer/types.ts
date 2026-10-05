@@ -109,8 +109,6 @@ export interface CuratorAttestationParams extends CuratorPeriodParams {
   attestationId?: number;
 }
 
-export type CuratorAttestationView = 'students' | 'disciplines';
-
 export interface CuratorStudentAttestation extends CuratorAttestationStudent {
   disciplines: CuratorStudentAttestationDiscipline[];
 }
