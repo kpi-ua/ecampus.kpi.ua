@@ -49,6 +49,11 @@ export interface CuratorLecturer {
   department: CuratorOption;
 }
 
+export interface CuratorAdministrationData {
+  groups: CuratorGroup[];
+  lecturers: CuratorLecturer[];
+}
+
 export interface CuratorAssignment {
   employeeId: number;
   curatorName: string;

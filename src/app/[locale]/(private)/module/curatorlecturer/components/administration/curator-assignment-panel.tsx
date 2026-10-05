@@ -1,47 +1,35 @@
 'use client';
 
-import { useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import dayjs from 'dayjs';
-import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
-import { assignGroupCurator, getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { useToast } from '@/hooks/use-toast';
 
 import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { useCuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-assignment';
+import { CuratorAssignmentHistory } from './curator-assignment-history';
 
 interface Props {
   group: CuratorGroup;
   lecturers: CuratorLecturer[];
-  onAssigned: (employeeId: number, curatorName: string) => void;
 }
 
-export const CuratorAssignmentPanel = ({ group, lecturers, onAssigned }: Props) => {
+export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
-  const { errorToast } = useServerErrorToast();
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const [employeeId, setEmployeeId] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const historyKey = ['curatorlecturer', 'administration', group.groupId, 'assignments'] as const;
-  const history = useQuery({ queryKey: historyKey, queryFn: () => getCuratorAssignments(group.groupId) });
-  const assignment = useMutation({
-    mutationFn: () => assignGroupCurator(group.groupId, Number(employeeId), startDate, endDate),
-    onSuccess: async () => {
-      const lecturer = lecturers.find((item) => item.employeeId === Number(employeeId));
-      onAssigned(Number(employeeId), lecturer?.fullName ?? '');
-      await queryClient.invalidateQueries({ queryKey: historyKey });
-      toast({ title: t('success.title'), description: t('success.description', { group: group.name }) });
-    },
-    onError: () => errorToast(),
-  });
+  const {
+    employeeId,
+    setEmployeeId,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    departmentLecturers,
+    canAssign,
+    handleAssign,
+    isAssigning,
+  } = useCuratorAssignment(group, lecturers);
 
   return (
     <div className="flex flex-col gap-6 rounded-2xl bg-neutral-50 p-6">
@@ -54,13 +42,11 @@ export const CuratorAssignmentPanel = ({ group, lecturers, onAssigned }: Props) 
               <SelectValue placeholder={t('assign.placeholder')} />
             </SelectTrigger>
             <SelectContent>
-              {lecturers
-                .filter((item) => item.department.id === group.departmentId)
-                .map((lecturer) => (
-                  <SelectItem key={lecturer.employeeId} value={lecturer.employeeId.toString()}>
-                    {lecturer.fullName}
-                  </SelectItem>
-                ))}
+              {departmentLecturers.map((lecturer) => (
+                <SelectItem key={lecturer.employeeId} value={lecturer.employeeId.toString()}>
+                  {lecturer.fullName}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
@@ -75,34 +61,14 @@ export const CuratorAssignmentPanel = ({ group, lecturers, onAssigned }: Props) 
         <Button
           variant="primary"
           size="medium"
-          loading={assignment.isPending}
-          disabled={!employeeId || !startDate || !endDate || endDate < startDate}
-          onClick={() => assignment.mutate()}
+          loading={isAssigning}
+          disabled={!canAssign}
+          onClick={handleAssign}
         >
           {t('assign.submit')}
         </Button>
       </div>
-      <div className="flex flex-col gap-3">
-        <Heading4 className="m-0">{t('history.title')}</Heading4>
-        {history.isFetching ? (
-          <LoaderCircle className="size-5 animate-spin" />
-        ) : history.data?.length ? (
-          history.data.map((item) => (
-            <div
-              key={`${item.employeeId}-${item.startDate}`}
-              className="flex justify-between gap-4 border-b py-2 last:border-0"
-            >
-              <span>{item.curatorName}</span>
-              <span>
-                {dayjs(item.startDate).format('DD.MM.YYYY')} —{' '}
-                {item.endDate ? dayjs(item.endDate).format('DD.MM.YYYY') : t('history.present')}
-              </span>
-            </div>
-          ))
-        ) : (
-          <Paragraph className="m-0 text-sm text-neutral-500">{t('history.empty')}</Paragraph>
-        )}
-      </div>
+      <CuratorAssignmentHistory groupId={group.groupId} />
     </div>
   );
 };
