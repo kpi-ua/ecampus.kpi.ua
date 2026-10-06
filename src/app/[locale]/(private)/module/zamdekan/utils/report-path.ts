@@ -13,7 +13,7 @@ export const getZamdekanReportPath = (query: ZamdekanQuery): string => {
     case 'groups':
       return ZAMDEKAN_PATH;
     case 'agreements':
-      return `${ZAMDEKAN_PATH}/groups/${reportId(query.groupId)}/agreements`;
+      return `${ZAMDEKAN_PATH}/agreements${query.groupId === undefined ? '' : `/${reportId(query.groupId)}`}`;
     case 'results':
       return `${getZamdekanReportPath({ view: 'agreements', groupId: query.groupId })}/students/${reportId(query.studentId)}`;
     case 'monitoring-groups':
@@ -35,9 +35,10 @@ export const getZamdekanReportPath = (query: ZamdekanQuery): string => {
     case 'sheet':
       return `${getZamdekanReportPath({ ...query, view: 'sheets' })}/sheets/${reportId(query.monitoringId)}`;
     case 'statistics':
+      return `${monitoringPath}/statistics${query.departmentId === undefined ? '' : `/${reportId(query.departmentId)}`}`;
     case 'statistics-other':
     case 'summary':
     case 'summary-other':
-      return `${monitoringPath}/${query.view}`;
+      return `${monitoringPath}/${query.view}${query.view === 'statistics-other' && query.cathedraId ? `/${reportId(query.cathedraId)}` : ''}`;
   }
 };

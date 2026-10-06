@@ -1,10 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getZamdekanReport } from '@/actions/zamdekan.actions';
+import { getZamdekanSheetMarks } from '@/actions/zamdekan.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { ZamdekanReportTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-report-table';
+import { ZamdekanGroupSheetMarksTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-group-sheet-marks-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
-import { ZamdekanQuery } from '@/app/[locale]/(private)/module/zamdekan/types';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { Heading2, Heading3 } from '@/components/typography';
@@ -30,8 +29,7 @@ export default async function GroupSheetPage({ params }: Props) {
   const groupId = parseReportId(groupIdParam);
   const disciplineId = parseReportId(disciplineIdParam);
   const monitoringId = parseReportId(monitoringIdParam);
-  const query: ZamdekanQuery = { view: 'sheet', groupId, disciplineId, monitoringId };
-  const [report, t] = await Promise.all([getZamdekanReport(query), getTranslations(INTL_NAMESPACE)]);
+  const [items, t] = await Promise.all([getZamdekanSheetMarks(monitoringId), getTranslations(INTL_NAMESPACE)]);
 
   return (
     <SubLayout
@@ -52,7 +50,7 @@ export default async function GroupSheetPage({ params }: Props) {
               <Link href={getZamdekanReportPath({ view: 'sheets', groupId, disciplineId })}>{t('back')}</Link>
             </Button>
           </div>
-          <ZamdekanReportTable key={getZamdekanReportPath(query)} report={report} query={query} />
+          <ZamdekanGroupSheetMarksTable key={monitoringId} marks={items} />
         </ZamdekanTabs>
       </div>
     </SubLayout>

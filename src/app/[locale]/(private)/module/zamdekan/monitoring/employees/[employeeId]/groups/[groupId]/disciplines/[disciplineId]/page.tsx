@@ -1,10 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getZamdekanReport } from '@/actions/zamdekan.actions';
+import { getZamdekanSheets } from '@/actions/zamdekan.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { ZamdekanReportTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-report-table';
+import { ZamdekanEmployeeSheetsTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-employee-sheets-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
-import { ZamdekanQuery } from '@/app/[locale]/(private)/module/zamdekan/types';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { Heading2, Heading3 } from '@/components/typography';
@@ -30,8 +29,10 @@ export default async function EmployeeSheetsPage({ params }: Props) {
   const employeeId = parseReportId(employeeIdParam);
   const groupId = parseReportId(groupIdParam);
   const disciplineId = parseReportId(disciplineIdParam);
-  const query: ZamdekanQuery = { view: 'sheets', employeeId, groupId, disciplineId };
-  const [report, t] = await Promise.all([getZamdekanReport(query), getTranslations(INTL_NAMESPACE)]);
+  const [items, t] = await Promise.all([
+    getZamdekanSheets(groupId, disciplineId, employeeId),
+    getTranslations(INTL_NAMESPACE),
+  ]);
 
   return (
     <SubLayout
@@ -51,7 +52,7 @@ export default async function EmployeeSheetsPage({ params }: Props) {
               <Link href={getZamdekanReportPath({ view: 'employee-load', employeeId })}>{t('back')}</Link>
             </Button>
           </div>
-          <ZamdekanReportTable key={getZamdekanReportPath(query)} report={report} query={query} />
+          <ZamdekanEmployeeSheetsTable key={`${groupId}-${disciplineId}`} sheets={items} employeeId={employeeId} />
         </ZamdekanTabs>
       </div>
     </SubLayout>

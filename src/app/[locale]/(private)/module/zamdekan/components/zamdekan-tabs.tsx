@@ -25,6 +25,9 @@ export const ZamdekanTabs = ({ section, monitoringView = 'monitoring-groups', ch
         <TabsTrigger value="groups" asChild>
           <Link href={getZamdekanReportPath({ view: 'groups' })}>{t('sections.groups')}</Link>
         </TabsTrigger>
+        <TabsTrigger value="agreements" asChild>
+          <Link href={getZamdekanReportPath({ view: 'agreements' })}>{t('sections.agreements')}</Link>
+        </TabsTrigger>
         <TabsTrigger value="monitoring" asChild>
           <Link href={getZamdekanReportPath({ view: 'monitoring-groups' })}>{t('sections.monitoring')}</Link>
         </TabsTrigger>

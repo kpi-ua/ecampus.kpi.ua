@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getZamdekanReport } from '@/actions/zamdekan.actions';
+import { getZamdekanDepartmentSummary } from '@/actions/zamdekan.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { ZamdekanReportTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-report-table';
+import { ZamdekanCathedrasTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-cathedras-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
-import { ZamdekanQuery } from '@/app/[locale]/(private)/module/zamdekan/types';
+
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { Heading2, Heading3 } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
@@ -20,8 +20,7 @@ export async function generateMetadata({ params }: LocaleProps) {
 }
 
 export default async function OtherStatisticsPage() {
-  const query: ZamdekanQuery = { view: 'statistics-other' };
-  const [report, t] = await Promise.all([getZamdekanReport(query), getTranslations(INTL_NAMESPACE)]);
+  const [report, t] = await Promise.all([getZamdekanDepartmentSummary(), getTranslations(INTL_NAMESPACE)]);
 
   return (
     <SubLayout
@@ -32,7 +31,7 @@ export default async function OtherStatisticsPage() {
         <Heading2>{t('title')}</Heading2>
         <ZamdekanTabs section="monitoring" monitoringView="statistics-other">
           <Heading3>{t('views.statistics-other')}</Heading3>
-          <ZamdekanReportTable key={getZamdekanReportPath(query)} report={report} query={query} />
+          <ZamdekanCathedrasTable departments={report.departments} />
         </ZamdekanTabs>
       </div>
     </SubLayout>
