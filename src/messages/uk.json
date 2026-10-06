@@ -935,7 +935,8 @@
         },
         "ResultsPending": {
           "title": "Опитування завершено",
-          "description": "Результати опитування ще не опубліковані."
+          "description": "Результати опитування ще не опубліковані.",
+          "scheduledDescription": "Результати опитування № {number} за {studyYear} н.р. будуть доступні {date}"
         },
         "ResultsPublished": {
           "title": "Опитування завершено",

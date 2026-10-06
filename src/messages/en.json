@@ -935,7 +935,8 @@
         },
         "ResultsPending": {
           "title": "Survey completed",
-          "description": "The survey results have not been published yet."
+          "description": "The survey results have not been published yet.",
+          "scheduledDescription": "Results of survey No. {number} for the {studyYear} academic year will be available on {date}"
         },
         "ResultsPublished": {
           "title": "Survey completed",
