@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getUserDetails } from '@/actions/auth.actions';
-import { getCurator, getCuratorTeachingGroups } from '@/actions/curator.actions';
+import { getCurator, getCuratorGroups, getCuratorTeachingGroups } from '@/actions/curator.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2 } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
@@ -25,12 +25,12 @@ export default async function CuratorPage() {
   const isLecturerProfile = !!user?.employeeProfile && !user.studentProfile;
 
   if (isLecturerProfile) {
-    const teachingGroups = await getCuratorTeachingGroups();
+    const [teachingGroups, groups] = await Promise.all([getCuratorTeachingGroups(), getCuratorGroups()]);
 
     return (
       <SubLayout pageTitle={t('title')}>
         <div className="col-span-12 w-full px-2 sm:px-4 md:px-0">
-          <LecturerCuratorView teachingGroups={teachingGroups} />
+          <LecturerCuratorView teachingGroups={teachingGroups} groups={groups} />
         </div>
       </SubLayout>
     );

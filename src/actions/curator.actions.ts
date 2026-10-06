@@ -1,6 +1,14 @@
 'use server';
 
-import { CuratorGroup } from '@/app/[locale]/(private)/module/kurator/types';
+import queryString from 'query-string';
+import { revalidatePath } from 'next/cache';
+
+import {
+  CuratorGroup,
+  CuratorStudentCredentials,
+  CuratorSurveyRow,
+  CuratorSurveyParams,
+} from '@/app/[locale]/(private)/module/kurator/types';
 import { campusFetch } from '@/lib/client';
 import { Curator } from '@/types/models/curator';
 
@@ -25,4 +33,53 @@ export const getCuratorTeachingGroups = async (): Promise<CuratorGroup[]> => {
   }
 
   return response.json();
+};
+
+export const getCuratorGroups = async (): Promise<CuratorGroup[]> => {
+  const response = await campusFetch<CuratorGroup[]>('/curator-lecturer/groups');
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorStudents = async (groupId: number): Promise<CuratorStudentCredentials[]> => {
+  const response = await campusFetch<CuratorStudentCredentials[]>(`/curator-lecturer/groups/${groupId}/students`);
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorSurveys = async (
+  groupId: number,
+  params: CuratorSurveyParams = {},
+): Promise<CuratorSurveyRow[]> => {
+  const response = await campusFetch<CuratorSurveyRow[]>(
+    `/curator-lecturer/groups/${groupId}/surveys?${queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true })}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const assignGroupLeader = async (groupId: number, studentId: number) => {
+  const response = await campusFetch(`/curator-lecturer/groups/${groupId}/leader`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ studentId }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  revalidatePath('/module/kurator');
 };
