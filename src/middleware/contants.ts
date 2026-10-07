@@ -8,7 +8,6 @@ export const PUBLIC_PATHS = [
   '/suggestions',
   '/support',
   '/faq',
-  '/validate-certificate',
 ];
 export const MODULES_BASE_PATH = '/module';
 export const CODE_OF_HONOR_PATH = '/accept-code-of-honor';
