@@ -13,7 +13,7 @@ import { campusFetch } from '@/lib/client';
 import { Curator } from '@/types/models/curator';
 
 export async function getCurator(): Promise<Curator | null> {
-  const response = await campusFetch<Curator>('/curator');
+  const response = await campusFetch<Curator>('/curator-student');
   if (response.status === 404) {
     return null;
   }
