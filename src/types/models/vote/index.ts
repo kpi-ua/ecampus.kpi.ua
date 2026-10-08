@@ -26,10 +26,15 @@ export interface VoteScore {
   mark: number;
 }
 
+export interface VoteCriterionScore {
+  criterionId: number;
+  score: number;
+}
+
 export interface VoteLecturerResult {
   overallScore: number;
   courseScore: number | null;
-  criterionScores: Record<number, number>;
+  criterionScores: VoteCriterionScore[];
 }
 
 export interface VoteLecturer {
