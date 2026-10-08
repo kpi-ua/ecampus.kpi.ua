@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import { CuratorStudentAttestationTotals } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { getAttestationSummary } from '@/app/[locale]/(private)/module/curatorlecturer/utils/get-attestation-summary';
+import { Paragraph } from '@/components/typography';
 
 interface Props {
   students: CuratorStudentAttestationTotals[];
@@ -38,9 +39,9 @@ export const AttestationSummary = ({ students, attestationName }: Props) => {
               <span className={`size-2 rounded-full ${status.color}`} />
               {t(status.key)}
             </div>
-            <p className="mt-1 pl-4 text-neutral-500">
+            <Paragraph className="mt-1 pl-4 text-neutral-500">
               {status.count} ({total ? Math.round((status.count / total) * 100) : 0}%)
-            </p>
+            </Paragraph>
           </div>
         ))}
       </div>
