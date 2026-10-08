@@ -1,6 +1,5 @@
 'use client';
 
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
 
@@ -24,23 +23,35 @@ export const CuratorAdministrationRow = ({ group, lecturers, expanded, onToggle 
 
   return (
     <Fragment>
-      <TableRow>
-        <TableCell className="font-semibold">{group.name}</TableCell>
+      <TableRow className={expanded ? 'border-0 hover:bg-white' : undefined}>
+        <TableCell className="font-normal">{group.name}</TableCell>
         <TableCell>{group.course}</TableCell>
         <TableCell>{group.curatorName ?? t('not-assigned')}</TableCell>
         <TableCell>{group.description || EMPTY_VALUE}</TableCell>
         <TableCell>{group.departmentAbbreviation || group.departmentName}</TableCell>
         <TableCell>
-          <Button variant="tertiary" size="small" onClick={onToggle}>
-            <Show when={expanded} fallback={<ChevronDown className="size-4" />}>
-              <ChevronUp className="size-4" />
-            </Show>
+          <Button
+            variant="tertiary"
+            size="small"
+            className="h-6 w-6 p-0"
+            onClick={onToggle}
+            aria-expanded={expanded}
+            aria-label={t(expanded ? 'collapse' : 'expand')}
+          >
+            <span
+              aria-hidden="true"
+              className={
+                expanded
+                  ? 'border-x-[8px] border-t-[8px] border-x-transparent border-t-black'
+                  : 'border-x-[8px] border-b-[8px] border-x-transparent border-b-black'
+              }
+            />
           </Button>
         </TableCell>
       </TableRow>
       <Show when={expanded}>
-        <TableRow>
-          <TableCell colSpan={6} className="bg-neutral-50 p-5">
+        <TableRow className="border-0 hover:bg-white">
+          <TableCell colSpan={6} className="!px-0 !pt-0 !pb-2">
             <CuratorAssignmentPanel group={group} lecturers={lecturers} />
           </TableCell>
         </TableRow>

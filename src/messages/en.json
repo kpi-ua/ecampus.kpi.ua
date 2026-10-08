@@ -921,8 +921,9 @@
         },
         "export": "Download Excel",
         "administration": {
-          "title": "Administration",
+          "title": "Curator administration",
           "subtitle": "Review study groups and their assigned curators.",
+          "export": "Export CSV",
           "search": "Curator name",
           "empty": "No study groups found",
           "not-assigned": "Not assigned",
