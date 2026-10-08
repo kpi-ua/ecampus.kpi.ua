@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 import { formatNumber } from '@/lib/utils';
 import { K7DetailedAchievement } from '@/types/models/k7-form';
 
@@ -53,10 +54,10 @@ export const DepartmentWorkTable = ({ rows, totalHours }: Props) => {
               {formatNumber(row.hoursUsed, 2)}
             </TableCell>
             <TableCell className={`${tableCellClassName} [overflow-wrap:anywhere] whitespace-normal`}>
-              {row.proofOfPerformance || '—'}
+              {row.proofOfPerformance || EMPTY_VALUE}
             </TableCell>
             <TableCell className={`${tableCellClassName} [overflow-wrap:anywhere]`}>
-              {row.responsibleDepartment || '—'}
+              {row.responsibleDepartment || EMPTY_VALUE}
             </TableCell>
           </TableRow>
         ))}

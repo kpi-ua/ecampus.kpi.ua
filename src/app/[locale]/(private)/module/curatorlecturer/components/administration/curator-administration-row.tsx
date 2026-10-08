@@ -8,6 +8,7 @@ import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/c
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 
 import { CuratorAssignmentPanel } from './curator-assignment-panel';
 
@@ -27,7 +28,7 @@ export const CuratorAdministrationRow = ({ group, lecturers, expanded, onToggle 
         <TableCell className="font-semibold">{group.name}</TableCell>
         <TableCell>{group.course}</TableCell>
         <TableCell>{group.curatorName ?? t('not-assigned')}</TableCell>
-        <TableCell>{group.description || '—'}</TableCell>
+        <TableCell>{group.description || EMPTY_VALUE}</TableCell>
         <TableCell>{group.departmentAbbreviation || group.departmentName}</TableCell>
         <TableCell>
           <Button variant="tertiary" size="small" onClick={onToggle}>

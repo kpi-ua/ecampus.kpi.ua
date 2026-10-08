@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 import { formatNumber } from '@/lib/utils';
 import { K7DetailedAchievement } from '@/types/models/k7-form';
 
@@ -40,7 +41,7 @@ export const MethodicalWorkTable = ({ rows }: Props) => {
             <TableCell className={`${tableCellClassName} wrap-anywhere`}>{row.workTypeDescription}</TableCell>
             <TableCell className={`${tableCellClassName} wrap-anywhere`}>{row.workDescription}</TableCell>
             <TableCell className={`${tableCellClassName} wrap-anywhere whitespace-normal`}>
-              {row.proofOfPerformance || '—'}
+              {row.proofOfPerformance || EMPTY_VALUE}
             </TableCell>
             <TableCell className={`${tableCellClassName} text-right whitespace-nowrap`}>
               {formatNumber(row.hoursUsed, 2)}

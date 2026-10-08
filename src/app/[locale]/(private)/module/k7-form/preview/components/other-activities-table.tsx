@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 import { cn, formatNumber } from '@/lib/utils';
 import { K7OtherEducationalActivity } from '@/types/models/k7-form';
 
@@ -16,7 +17,7 @@ interface Props {
 const hasSemesterData = (groupCodes: string | null, studentCount: number, hours: number) =>
   Boolean(groupCodes) || studentCount > 0 || hours > 0;
 
-const formatSemesterHours = (hours: number) => (hours > 0 ? formatNumber(hours, 2) : '—');
+const formatSemesterHours = (hours: number) => (hours > 0 ? formatNumber(hours, 2) : EMPTY_VALUE);
 
 export const OtherActivitiesTable = ({ rows }: Props) => {
   const t = useTranslations('private.k-7.preview');
@@ -94,18 +95,20 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
                 <TableCell className={tableCellClassName}>
                   {t(`educationLevel.${EDUCATION_LEVEL_TRANSLATION_KEYS[row.educationLevel]}`)}
                 </TableCell>
-                <TableCell className={tableCellClassName}>{hasFirstSemesterData ? (row.course ?? '—') : '—'}</TableCell>
-                <TableCell className={tableCellClassName}>{row.groupCodesSem1 || '—'}</TableCell>
                 <TableCell className={tableCellClassName}>
-                  {hasFirstSemesterData ? row.studentCountSem1 : '—'}
+                  {hasFirstSemesterData ? (row.course ?? EMPTY_VALUE) : EMPTY_VALUE}
+                </TableCell>
+                <TableCell className={tableCellClassName}>{row.groupCodesSem1 || EMPTY_VALUE}</TableCell>
+                <TableCell className={tableCellClassName}>
+                  {hasFirstSemesterData ? row.studentCountSem1 : EMPTY_VALUE}
                 </TableCell>
                 <TableCell className={tableCellClassName}>{formatSemesterHours(row.hoursSem1)}</TableCell>
                 <TableCell className={tableCellClassName}>
-                  {hasSecondSemesterData ? (row.course ?? '—') : '—'}
+                  {hasSecondSemesterData ? (row.course ?? EMPTY_VALUE) : EMPTY_VALUE}
                 </TableCell>
-                <TableCell className={tableCellClassName}>{row.groupCodesSem2 || '—'}</TableCell>
+                <TableCell className={tableCellClassName}>{row.groupCodesSem2 || EMPTY_VALUE}</TableCell>
                 <TableCell className={tableCellClassName}>
-                  {hasSecondSemesterData ? row.studentCountSem2 : '—'}
+                  {hasSecondSemesterData ? row.studentCountSem2 : EMPTY_VALUE}
                 </TableCell>
                 <TableCell className={tableCellClassName}>{formatSemesterHours(row.hoursSem2)}</TableCell>
                 <TableCell className={tableCellClassName}>{formatNumber(row.grandTotal, 2)}</TableCell>

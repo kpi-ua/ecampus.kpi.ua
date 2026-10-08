@@ -4,8 +4,9 @@ import { useTranslations } from 'next-intl';
 
 import { Heading2, Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { VoteData, VoteLecturer, VoteLecturerResult } from '@/types/models/vote';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 import { formatNumber } from '@/lib/utils';
+import { VoteData, VoteLecturer, VoteLecturerResult } from '@/types/models/vote';
 
 interface Props {
   voteData: VoteData;
@@ -65,7 +66,7 @@ export const VoteResultsTable = ({ voteData }: Props) => {
                   {formatNumber(lecturer.result.overallScore)}
                 </TableCell>
                 <TableCell className="text-basic-blue font-semibold">
-                  {lecturer.result.courseScore === null ? '—' : formatNumber(lecturer.result.courseScore)}
+                  {lecturer.result.courseScore === null ? EMPTY_VALUE : formatNumber(lecturer.result.courseScore)}
                 </TableCell>
                 {voteData.criteria.map((criterion) => {
                   const criterionScore = lecturer.result.criterionScores.find(
@@ -74,7 +75,7 @@ export const VoteResultsTable = ({ voteData }: Props) => {
 
                   return (
                     <TableCell key={criterion.id}>
-                      {criterionScore ? formatNumber(criterionScore.score) : '—'}
+                      {criterionScore ? formatNumber(criterionScore.score) : EMPTY_VALUE}
                     </TableCell>
                   );
                 })}

@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 import { cn, formatNumber } from '@/lib/utils';
 import { K7TeachingDiscipline } from '@/types/models/k7-form';
 
@@ -61,8 +62,8 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
                 <TableRow key={`${row.subjectName}-${row.streamId}-${index}`} className="hover:bg-white">
                   <TableCell className={tableCellClassName}>{index + 1}</TableCell>
                   <TableCell className={tableCellClassName}>{row.subjectName}</TableCell>
-                  <TableCell className={tableCellClassName}>{row.streamId || '—'}</TableCell>
-                  <TableCell className={tableCellClassName}>{row.groupCodes || '—'}</TableCell>
+                  <TableCell className={tableCellClassName}>{row.streamId || EMPTY_VALUE}</TableCell>
+                  <TableCell className={tableCellClassName}>{row.groupCodes || EMPTY_VALUE}</TableCell>
                   <TableCell className={tableCellClassName}>{formatNumber(row.totalVolume, 2)}</TableCell>
                   <TableCell className={tableCellClassName}>{row.practiceGroupsCount}</TableCell>
                   <TableCell className={tableCellClassName}>{row.labGroupsCount}</TableCell>

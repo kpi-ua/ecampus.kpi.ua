@@ -4,11 +4,12 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { CuratorAttestationDiscipline } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 
-import { CuratorAttestationDiscipline } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { AttestationResultCells } from './attestation-result-cells';
 
 interface Props {
@@ -27,7 +28,7 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
         </TableCell>
         <Show when={showRepeated}>
           <TableCell>
-            <Show when={discipline.notAttestedTwiceCount > 0} fallback="—">
+            <Show when={discipline.notAttestedTwiceCount > 0} fallback={EMPTY_VALUE}>
               <Badge variant="red">{discipline.notAttestedTwiceCount}</Badge>
             </Show>
           </TableCell>
@@ -49,7 +50,7 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
             <TableCell className="pl-6">{student.fullName}</TableCell>
             <Show when={showRepeated}>
               <TableCell>
-                <Show when={student.notAttestedTwiceCount > 0} fallback="—">
+                <Show when={student.notAttestedTwiceCount > 0} fallback={EMPTY_VALUE}>
                   <Badge variant="red">{t('repeated-result')}</Badge>
                 </Show>
               </TableCell>

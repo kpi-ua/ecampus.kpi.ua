@@ -8,11 +8,13 @@ import { PencilRegular } from '@/app/images';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link } from '@/i18n/routing';
 import { useTableSort } from '@/hooks/use-table-sort';
+import { Link } from '@/i18n/routing';
+import { EMPTY_VALUE } from '@/lib/constants/empty-value';
 import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem } from '@/types/models/announcement';
-import { formatFilterCell, rolesText, studyFormsText, coursesText } from './utils';
+
+import { coursesText, formatFilterCell, rolesText, studyFormsText } from './utils';
 
 interface Props {
   items: AdminAnnouncementItem[];
@@ -27,9 +29,7 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
     items,
     (row, header) => {
       const key = header as 'title' | 'start';
-      return key === 'title'
-        ? row.announcement.title
-        : dayjs(row.announcement.start).valueOf();
+      return key === 'title' ? row.announcement.title : dayjs(row.announcement.start).valueOf();
     },
     ['title', 'start'] as unknown as Array<keyof AdminAnnouncementItem & string>,
   );
@@ -50,9 +50,9 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
             {t('table.period')}
           </TableHead>
           <TableHead className="w-28">{t('table.status')}</TableHead>
-          <TableHead className="min-w-28 max-w-40 text-start">{t('table.roles')}</TableHead>
-          <TableHead className="min-w-28 max-w-40 text-start">{t('table.studyForms')}</TableHead>
-          <TableHead className="min-w-24 max-w-32 text-start">{t('table.courses')}</TableHead>
+          <TableHead className="max-w-40 min-w-28 text-start">{t('table.roles')}</TableHead>
+          <TableHead className="max-w-40 min-w-28 text-start">{t('table.studyForms')}</TableHead>
+          <TableHead className="max-w-32 min-w-24 text-start">{t('table.courses')}</TableHead>
           <TableHead className="w-28 text-right">{t('table.actions')}</TableHead>
         </TableRow>
       </TableHeader>
@@ -68,10 +68,10 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
               </TableCell>
               <TableCell>
                 <Badge variant="neutral" className="uppercase">
-                  {announcement.language ?? '—'}
+                  {announcement.language ?? EMPTY_VALUE}
                 </Badge>
               </TableCell>
-              <TableCell className="whitespace-nowrap text-sm">
+              <TableCell className="text-sm whitespace-nowrap">
                 {dayjs(announcement.start).format('DD.MM.YYYY')} – {dayjs(announcement.end).format('DD.MM.YYYY')}
               </TableCell>
               <TableCell>
@@ -79,13 +79,13 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
                   {outdated ? t('status.outdated') : t('status.active')}
                 </Badge>
               </TableCell>
-              <TableCell className="text-muted-foreground align-middle text-start">
+              <TableCell className="text-muted-foreground text-start align-middle">
                 {formatFilterCell(rolesText(filter), noRestriction)}
               </TableCell>
-              <TableCell className="text-muted-foreground align-middle text-start">
+              <TableCell className="text-muted-foreground text-start align-middle">
                 {formatFilterCell(studyFormsText(filter), noRestriction)}
               </TableCell>
-              <TableCell className="text-muted-foreground align-middle text-start">
+              <TableCell className="text-muted-foreground text-start align-middle">
                 {formatFilterCell(coursesText(filter), noRestriction)}
               </TableCell>
               <TableCell>
