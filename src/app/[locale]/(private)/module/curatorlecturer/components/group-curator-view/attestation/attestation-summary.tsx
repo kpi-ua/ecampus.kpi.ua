@@ -2,11 +2,11 @@
 
 import { useTranslations } from 'next-intl';
 
-import { CuratorAttestationStudent } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { CuratorStudentAttestationTotals } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { getAttestationSummary } from '@/app/[locale]/(private)/module/curatorlecturer/utils/get-attestation-summary';
 
 interface Props {
-  students: CuratorAttestationStudent[];
+  students: CuratorStudentAttestationTotals[];
   attestationName: string;
 }
 

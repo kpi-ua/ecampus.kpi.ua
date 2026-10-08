@@ -85,12 +85,18 @@ export interface CuratorAttestationRow extends CuratorStudent {
   notAttestedTwice: boolean;
 }
 
-export interface CuratorAttestationStudent extends CuratorStudent {
+export interface CuratorAttestationTotals {
   attested: number;
   notAttested: number;
-  notAttestedTwiceCount: number;
   notStudying: number;
   missing: number;
+}
+
+export interface CuratorStudentAttestationTotals extends CuratorStudent, CuratorAttestationTotals {
+  notAttestedTwiceCount: number;
+}
+
+export interface CuratorAttestationStudent extends CuratorStudentAttestationTotals {
   results: CuratorAttestationRow[];
 }
 
@@ -106,15 +112,15 @@ export interface CuratorDisciplineAttestationSemester {
 
 export interface CuratorStudentAttestations {
   semesters: CuratorStudentAttestationSemester[];
-  summaryStudents: CuratorAttestationStudent[];
+  summaryStudents: CuratorStudentAttestationTotals[];
 }
 
 export interface CuratorDisciplineAttestations {
   semesters: CuratorDisciplineAttestationSemester[];
-  summaryStudents: CuratorAttestationStudent[];
+  summaryStudents: CuratorStudentAttestationTotals[];
 }
 
-export interface CuratorAttestationDiscipline {
+export interface CuratorAttestationDiscipline extends CuratorAttestationTotals {
   disciplineId: number;
   employeeId: number;
   name: string;
@@ -138,11 +144,11 @@ export interface CuratorAttestationParams extends CuratorPeriodParams {
   attestationId?: number;
 }
 
-export interface CuratorStudentAttestation extends CuratorAttestationStudent {
+export interface CuratorStudentAttestation extends CuratorStudentAttestationTotals {
   disciplines: CuratorStudentAttestationDiscipline[];
 }
 
-export interface CuratorStudentAttestationDiscipline {
+export interface CuratorStudentAttestationDiscipline extends CuratorAttestationTotals {
   disciplineId: number;
   employeeId: number;
   name: string;

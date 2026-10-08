@@ -13,7 +13,7 @@ interface Props {
 
 export const LecturerCuratorView = ({ children }: Props) => {
   const t = useTranslations('private.curatorlecturer');
-  const activeTab = useSelectedLayoutSegment();
+  const activeTab = useSelectedLayoutSegment() ?? 'study-groups';
 
   return (
     <div>

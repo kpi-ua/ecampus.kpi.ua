@@ -56,7 +56,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
         </div>
         <div className="flex flex-wrap gap-2">
           <Select value={departmentId} onValueChange={setDepartmentId} disabled={isFetching}>
-            <SelectTrigger className="w-64">
+            <SelectTrigger className="w-64 text-left">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
