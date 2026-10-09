@@ -3,7 +3,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 
 import { useCuratorAdministrationData } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-administration-data';
 import { CuratorGroup, CuratorLecturer, CuratorOption } from '@/app/[locale]/(private)/module/curatorlecturer/types';
@@ -33,6 +33,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
   });
   const [departmentId, setDepartmentId] = useState('all');
   const [search, setSearch] = useState('');
+  const deferredSearch = useDeferredValue(search);
   const parsedDepartmentId = departmentId === 'all' ? undefined : Number(departmentId);
   const { data, isFetching } = useCuratorAdministrationData(
     {
@@ -42,9 +43,10 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
     yearId,
     parsedDepartmentId,
   );
-  const query = search.trim().toLocaleLowerCase();
-  const filteredGroups =
-    data?.groups.filter((group) => !query || group.curatorName?.toLocaleLowerCase().includes(query)) ?? [];
+  const filteredGroups = useMemo(() => {
+    const query = deferredSearch.trim().toLocaleLowerCase();
+    return data?.groups.filter((group) => !query || group.curatorName?.toLocaleLowerCase().includes(query)) ?? [];
+  }, [data?.groups, deferredSearch]);
 
   const handleExport = () => {
     if (yearId) {
