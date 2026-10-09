@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { Show } from '@/components/utils/show';
 import { LibraryIdentifier } from '@/types/models/library';
 
 import { libraryQueryKeys } from '../query-keys';
@@ -65,7 +66,7 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
       <TableCell className="text-neutral-500">
         {identifier.changedAt ? dayjs.utc(identifier.changedAt).tz('Europe/Kyiv').format('DD.MM.YYYY HH:mm:ss') : '—'}
       </TableCell>
-      {canEdit && (
+      <Show when={canEdit}>
         <TableCell>
           {editing ? (
             <div className="flex flex-wrap gap-3">
@@ -84,7 +85,7 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
             </Button>
           )}
         </TableCell>
-      )}
+      </Show>
     </TableRow>
   );
 };

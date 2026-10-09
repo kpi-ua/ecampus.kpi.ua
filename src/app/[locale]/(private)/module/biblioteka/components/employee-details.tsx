@@ -12,6 +12,7 @@ import { getLibraryEmployee } from '@/actions/library.actions';
 import { Heading6, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 import { LibraryEmployeeDetails } from '@/types/models/library';
 
 import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
@@ -86,7 +87,9 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                   <TableHead>{t('table.database')}</TableHead>
                   <TableHead>{t('table.value')}</TableHead>
                   <TableHead>{t('table.updated')}</TableHead>
-                  {canEdit && <TableHead>{t('table.actions')}</TableHead>}
+                  <Show when={canEdit}>
+                    <TableHead>{t('table.actions')}</TableHead>
+                  </Show>
                 </TableRow>
               </TableHeader>
               <TableBody>

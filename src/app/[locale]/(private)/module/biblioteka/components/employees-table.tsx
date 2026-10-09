@@ -141,7 +141,7 @@ export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
                 <IdentifierLink value={employee.googleScholarId} href="https://scholar.google.com/citations?user=" />
               </TableCell>
               <TableCell>
-                {canEdit && (
+                <Show when={canEdit}>
                   <Button asChild variant="secondary" size="small">
                     <Link
                       href={qs.stringifyUrl({
@@ -157,7 +157,7 @@ export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
                       {t('table.edit')}
                     </Link>
                   </Button>
-                )}
+                </Show>
               </TableCell>
             </TableRow>
           ))}
