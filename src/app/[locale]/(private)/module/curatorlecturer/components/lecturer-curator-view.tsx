@@ -13,18 +13,18 @@ interface Props {
 
 export const LecturerCuratorView = ({ children }: Props) => {
   const t = useTranslations('private.curatorlecturer');
-  const isGroupCurator = useSelectedLayoutSegment() === 'groups';
+  const activeTab = useSelectedLayoutSegment() ?? 'study-groups';
 
   return (
     <div>
-      <Tabs value={isGroupCurator ? 'group-curator' : 'study-groups'}>
+      <Tabs value={activeTab}>
         <TabsList className="mb-6 bg-white" size="small">
           <TabsTrigger value="study-groups" asChild>
             <Link prefetch={false} href="/module/curatorlecturer">
               {t('tabs.study-groups')}
             </Link>
           </TabsTrigger>
-          <TabsTrigger value="group-curator" asChild>
+          <TabsTrigger value="groups" asChild>
             <Link prefetch={false} href="/module/curatorlecturer/groups">
               {t('tabs.group-curator')}
             </Link>
