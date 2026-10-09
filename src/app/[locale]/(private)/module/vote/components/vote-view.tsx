@@ -1,5 +1,6 @@
 'use client';
 
+import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
@@ -26,7 +27,13 @@ export const VoteView = ({ voteData }: Props) => {
           {t(`state.${voteData.state}.title`)}
         </Paragraph>
         <Paragraph className="leading-sm m-0 text-sm text-neutral-600">
-          {t(`state.${voteData.state}.description`)}
+          {voteData.state === VoteState.ResultsPending && voteData.term?.resultsPublishOn
+            ? t('state.ResultsPending.scheduledDescription', {
+                number: voteData.term.number,
+                studyYear: voteData.term.studyYear,
+                date: dayjs(voteData.term.resultsPublishOn).format('DD.MM.YYYY'),
+              })
+            : t(`state.${voteData.state}.description`)}
         </Paragraph>
       </div>
     );

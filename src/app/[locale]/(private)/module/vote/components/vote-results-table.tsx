@@ -67,11 +67,17 @@ export const VoteResultsTable = ({ voteData }: Props) => {
                 <TableCell className="text-basic-blue font-semibold">
                   {lecturer.result.courseScore === null ? '—' : formatNumber(lecturer.result.courseScore)}
                 </TableCell>
-                {voteData.criteria.map((criterion) => (
-                  <TableCell key={criterion.id}>
-                    {formatNumber(lecturer.result.criterionScores[criterion.id])}
-                  </TableCell>
-                ))}
+                {voteData.criteria.map((criterion) => {
+                  const criterionScore = lecturer.result.criterionScores.find(
+                    (score) => score.criterionId === criterion.id,
+                  );
+
+                  return (
+                    <TableCell key={criterion.id}>
+                      {criterionScore ? formatNumber(criterionScore.score) : '—'}
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             ))}
           </TableBody>
