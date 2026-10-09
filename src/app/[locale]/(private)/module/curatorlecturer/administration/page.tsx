@@ -7,6 +7,7 @@ import {
 } from '@/actions/curatorlecturer.actions';
 import { CuratorAdministrationView } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/curator-administration-view';
 import { LocaleProps } from '@/types/locale-props';
+import { LecturerCuratorView } from '../components/lecturer-curator-view';
 
 const INTL_NAMESPACE = 'private.curatorlecturer.group-curator.administration';
 
@@ -20,16 +21,17 @@ export default async function CuratorAdministrationPage() {
   const departments = await getCuratorDepartments();
   const filters = departments.length ? await getCuratorFilters() : null;
   const yearId = filters?.years[0]?.id;
-  const [groups, lecturers] = departments.length && yearId
-    ? await Promise.all([getCuratorAdminGroups(yearId), getCuratorLecturers()])
-    : [[], []];
+  const [groups, lecturers] =
+    departments.length && yearId ? await Promise.all([getCuratorAdminGroups(yearId), getCuratorLecturers()]) : [[], []];
 
   return (
-    <CuratorAdministrationView
-      initialGroups={groups}
-      initialLecturers={lecturers}
-      departments={departments}
-      yearId={yearId}
-    />
+    <LecturerCuratorView activeTab="administration">
+      <CuratorAdministrationView
+        initialGroups={groups}
+        initialLecturers={lecturers}
+        departments={departments}
+        yearId={yearId}
+      />
+    </LecturerCuratorView>
   );
 }

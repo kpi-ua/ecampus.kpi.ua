@@ -2,18 +2,17 @@
 
 import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { useSelectedLayoutSegment } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 
 interface Props {
   children: ReactNode;
+  activeTab: 'study-groups' | 'groups' | 'administration';
 }
 
-export const LecturerCuratorView = ({ children }: Props) => {
+export const LecturerCuratorView = ({ children, activeTab }: Props) => {
   const t = useTranslations('private.curatorlecturer');
-  const activeTab = useSelectedLayoutSegment() ?? 'study-groups';
 
   return (
     <div>
