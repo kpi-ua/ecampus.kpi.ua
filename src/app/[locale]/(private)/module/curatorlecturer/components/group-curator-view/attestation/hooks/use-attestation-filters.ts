@@ -31,10 +31,7 @@ const useAttestationFiltersState = (defaultYearId: number) => {
     setOnlyRepeated,
     showRepeated,
     params,
-    enabled:
-      Number.isInteger(params.yearId) &&
-      params.yearId > 0 &&
-      (params.attestationId === undefined || (Number.isInteger(params.attestationId) && params.attestationId > 0)),
+    enabled: !!params.yearId,
   };
 };
 
