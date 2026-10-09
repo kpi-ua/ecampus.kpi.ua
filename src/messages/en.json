@@ -896,7 +896,7 @@
           "not-attested-twice": "Not attested twice in a row",
           "repeated-count": "{count, plural, one {# discipline not attested twice} other {# disciplines not attested twice}}",
           "group-summary": "Group status",
-          "result-count": "{count} results",
+          "result-count": "{count, plural, one {# result} other {# results}}",
           "attested": "Attested",
           "missing": "Not set",
           "not-attested": "Not attested",
