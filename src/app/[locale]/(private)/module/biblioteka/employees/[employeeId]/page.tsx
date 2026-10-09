@@ -5,11 +5,9 @@ import qs from 'query-string';
 import { getLibraryDepartments, getLibraryEmployee } from '@/actions/library.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
-import { userHasModule } from '@/lib/jwt';
 
 import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeeDetails } from '../../components/employee-details';
-import { LIBRARY_EDIT_MODULE } from '../../constants';
 
 const INTL_NAMESPACE = 'private.library';
 
@@ -25,7 +23,6 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function EmployeePage({ params, searchParams }: Props) {
-  const canEdit = await userHasModule(LIBRARY_EDIT_MODULE);
   const [{ employeeId }, { userAccountId, departmentId, letter }, t] = await Promise.all([
     params,
     searchParams,
@@ -60,7 +57,7 @@ export default async function EmployeePage({ params, searchParams }: Props) {
     <SubLayout pageTitle={details.fullName} breadcrumbs={breadcrumbs}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <LibraryTabs />
-        <EmployeeDetails initialDetails={details} canEdit={canEdit} />
+        <EmployeeDetails initialDetails={details} />
       </div>
     </SubLayout>
   );

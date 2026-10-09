@@ -1,5 +1,8 @@
 'use client';
 
+import { usePermission } from '@/hooks/use-permission';
+import { LIBRARY_EDIT_MODULE } from '../constants';
+
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BriefcaseBusiness, ChartNoAxesColumnIncreasing } from 'lucide-react';
@@ -17,10 +20,10 @@ import { IdentifierRow } from './identifier-row';
 
 interface Props {
   initialDetails: LibraryEmployeeDetails;
-  canEdit?: boolean;
 }
 
-export const EmployeeDetails = ({ initialDetails, canEdit = false }: Props) => {
+export const EmployeeDetails = ({ initialDetails }: Props) => {
+  const canEdit = usePermission(LIBRARY_EDIT_MODULE);
   const t = useTranslations('private.library');
   const { data: details } = useQuery({
     queryKey: libraryQueryKeys.employee(initialDetails.userAccountId, initialDetails.employeeId),
@@ -93,7 +96,6 @@ export const EmployeeDetails = ({ initialDetails, canEdit = false }: Props) => {
                     identifier={identifier}
                     userAccountId={details.userAccountId!}
                     employeeId={details.employeeId}
-                    canEdit={canEdit}
                   />
                 ))}
               </TableBody>

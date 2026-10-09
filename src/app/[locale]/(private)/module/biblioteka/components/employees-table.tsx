@@ -1,5 +1,8 @@
 'use client';
 
+import { usePermission } from '@/hooks/use-permission';
+import { LIBRARY_EDIT_MODULE } from '../constants';
+
 import { Download, Pencil } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { parseAsInteger, parseAsString, useQueryState, useQueryStates } from 'nuqs';
@@ -34,10 +37,10 @@ interface Props {
   employees: LibraryEmployee[];
   departmentId?: number;
   letter?: string;
-  canEdit?: boolean;
 }
 
-export const EmployeesTable = ({ employees, departmentId, letter, canEdit = false }: Props) => {
+export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
+  const canEdit = usePermission(LIBRARY_EDIT_MODULE);
   const t = useTranslations('private.library');
   const locale = useLocale();
   const { errorToast } = useServerErrorToast();

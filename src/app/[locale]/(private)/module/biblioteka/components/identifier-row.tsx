@@ -1,5 +1,8 @@
 'use client';
 
+import { usePermission } from '@/hooks/use-permission';
+import { LIBRARY_EDIT_MODULE } from '../constants';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
@@ -24,10 +27,10 @@ interface Props {
   identifier: LibraryIdentifier;
   userAccountId: number;
   employeeId: number;
-  canEdit?: boolean;
 }
 
-export const IdentifierRow = ({ identifier, userAccountId, employeeId, canEdit = false }: Props) => {
+export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) => {
+  const canEdit = usePermission(LIBRARY_EDIT_MODULE);
   const t = useTranslations('private.library');
   const { errorToast } = useServerErrorToast();
   const queryClient = useQueryClient();
