@@ -4,7 +4,8 @@ import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Link, usePathname } from '@/i18n/routing';
+import { useSelectedLayoutSegment } from 'next/navigation';
+import { Link } from '@/i18n/routing';
 
 interface Props {
   children: ReactNode;
@@ -12,8 +13,7 @@ interface Props {
 
 export const LecturerCuratorView = ({ children }: Props) => {
   const t = useTranslations('private.curatorlecturer');
-  const pathname = usePathname();
-  const isGroupCurator = pathname.startsWith('/module/curatorlecturer/groups');
+  const isGroupCurator = useSelectedLayoutSegment() === 'groups';
 
   return (
     <div>
