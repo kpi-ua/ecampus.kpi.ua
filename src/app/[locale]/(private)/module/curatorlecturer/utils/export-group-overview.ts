@@ -1,6 +1,4 @@
-import saveAs from 'file-saver';
-
-import { parseContentDispositionFilename } from '@/lib/utils';
+import { saveAsBlob } from '@/lib/save-as-blob';
 
 export const exportGroupOverview = async (groupId: number) => {
   const response = await fetch(`/api/curatorlecturer/groups/${groupId}/export`);
@@ -9,8 +7,5 @@ export const exportGroupOverview = async (groupId: number) => {
     throw new Error(`Failed to export group overview: ${response.status}`);
   }
 
-  const blob = await response.blob();
-  const filename =
-    parseContentDispositionFilename(response.headers.get('Content-Disposition') ?? '') ?? 'group-overview.csv';
-  saveAs(blob, filename);
+  await saveAsBlob(response, 'group-overview.csv');
 };

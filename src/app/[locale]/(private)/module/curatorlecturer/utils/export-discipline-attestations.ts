@@ -1,7 +1,6 @@
-import saveAs from 'file-saver';
 import queryString from 'query-string';
 
-import { parseContentDispositionFilename } from '@/lib/utils';
+import { saveAsBlob } from '@/lib/save-as-blob';
 
 import { CuratorAttestationParams } from '../types';
 
@@ -13,7 +12,5 @@ export const exportDisciplineAttestations = async (groupId: number, params: Cura
     throw new Error(`Failed to export attestations: ${response.status}`);
   }
 
-  const filename =
-    parseContentDispositionFilename(response.headers.get('Content-Disposition') ?? '') ?? 'attestations.csv';
-  saveAs(await response.blob(), filename);
+  await saveAsBlob(response, 'attestations.csv');
 };
