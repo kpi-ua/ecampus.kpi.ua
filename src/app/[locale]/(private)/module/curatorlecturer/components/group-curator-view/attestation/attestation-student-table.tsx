@@ -1,4 +1,5 @@
 'use client';
+import { useDeferredValue, useMemo } from 'react';
 
 import { useTranslations } from 'next-intl';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -9,6 +10,7 @@ import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/compon
 import { AttestationStudentRow } from './attestation-student-row';
 import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
 
+import { filterAttestationResults } from '@/app/[locale]/(private)/module/curatorlecturer/utils/filter-attestation-results';
 interface Props {
   students: CuratorStudentAttestation[];
   search: string;
@@ -28,12 +30,16 @@ export const AttestationStudentTable = ({
 }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator');
   const colSpan = ATTESTATION_COLUMNS.length + 2 + Number(showRepeated);
-  const query = search.trim().toLocaleLowerCase();
-  const filteredStudents = students.filter(
-    (student) =>
-      student.fullName.toLocaleLowerCase().includes(query) &&
-      (!onlyNotAttested || student.notAttested > 0) &&
-      (!showRepeated || !onlyRepeated || student.notAttestedTwiceCount > 0),
+  const deferredSearch = useDeferredValue(search);
+  const filteredStudents = useMemo(
+    () =>
+      filterAttestationResults(students, (student) => student.fullName, {
+        search: deferredSearch,
+        onlyNotAttested,
+        onlyRepeated,
+        showRepeated,
+      }),
+    [students, deferredSearch, onlyNotAttested, onlyRepeated, showRepeated],
   );
 
   return (
