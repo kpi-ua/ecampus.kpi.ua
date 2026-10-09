@@ -34,9 +34,10 @@ interface Props {
   employees: LibraryEmployee[];
   departmentId?: number;
   letter?: string;
+  canEdit?: boolean;
 }
 
-export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
+export const EmployeesTable = ({ employees, departmentId, letter, canEdit = false }: Props) => {
   const t = useTranslations('private.library');
   const locale = useLocale();
   const { errorToast } = useServerErrorToast();
@@ -137,21 +138,23 @@ export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
                 <IdentifierLink value={employee.googleScholarId} href="https://scholar.google.com/citations?user=" />
               </TableCell>
               <TableCell>
-                <Button asChild variant="secondary" size="small">
-                  <Link
-                    href={qs.stringifyUrl({
-                      url: `/module/biblioteka/employees/${employee.employeeId}`,
-                      query: {
-                        userAccountId: employee.userAccountId ?? undefined,
-                        departmentId,
-                        letter,
-                      },
-                    })}
-                  >
-                    <Pencil />
-                    {t('table.edit')}
-                  </Link>
-                </Button>
+                {canEdit && (
+                  <Button asChild variant="secondary" size="small">
+                    <Link
+                      href={qs.stringifyUrl({
+                        url: `/module/biblioteka/employees/${employee.employeeId}`,
+                        query: {
+                          userAccountId: employee.userAccountId ?? undefined,
+                          departmentId,
+                          letter,
+                        },
+                      })}
+                    >
+                      <Pencil />
+                      {t('table.edit')}
+                    </Link>
+                  </Button>
+                )}
               </TableCell>
             </TableRow>
           ))}

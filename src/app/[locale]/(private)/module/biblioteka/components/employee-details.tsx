@@ -17,9 +17,10 @@ import { IdentifierRow } from './identifier-row';
 
 interface Props {
   initialDetails: LibraryEmployeeDetails;
+  canEdit?: boolean;
 }
 
-export const EmployeeDetails = ({ initialDetails }: Props) => {
+export const EmployeeDetails = ({ initialDetails, canEdit = false }: Props) => {
   const t = useTranslations('private.library');
   const { data: details } = useQuery({
     queryKey: libraryQueryKeys.employee(initialDetails.userAccountId, initialDetails.employeeId),
@@ -82,7 +83,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                   <TableHead>{t('table.database')}</TableHead>
                   <TableHead>{t('table.value')}</TableHead>
                   <TableHead>{t('table.updated')}</TableHead>
-                  <TableHead>{t('table.actions')}</TableHead>
+                  {canEdit && <TableHead>{t('table.actions')}</TableHead>}
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -92,6 +93,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                     identifier={identifier}
                     userAccountId={details.userAccountId!}
                     employeeId={details.employeeId}
+                    canEdit={canEdit}
                   />
                 ))}
               </TableBody>

@@ -24,16 +24,20 @@ interface Props {
   identifier: LibraryIdentifier;
   userAccountId: number;
   employeeId: number;
+  canEdit?: boolean;
 }
 
-export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) => {
+export const IdentifierRow = ({ identifier, userAccountId, employeeId, canEdit = false }: Props) => {
   const t = useTranslations('private.library');
   const { errorToast } = useServerErrorToast();
   const queryClient = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(identifier.value ?? '');
   const { mutate: save, isPending } = useMutation({
-    mutationFn: () => updateLibraryIdentifier(userAccountId, identifier.contactTypeId, value),
+    mutationFn: async () => {
+      if (!canEdit) return;
+      await updateLibraryIdentifier(userAccountId, identifier.contactTypeId, value);
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: libraryQueryKeys.employee(userAccountId, employeeId) });
       setEditing(false);
@@ -49,7 +53,7 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
     <TableRow>
       <TableCell>{identifier.name}</TableCell>
       <TableCell className="text-basic-blue">
-        {editing ? (
+        {canEdit && editing ? (
           <Input className="min-w-64" value={value} onChange={(event) => setValue(event.target.value)} />
         ) : (
           identifier.value || '—'
@@ -58,24 +62,26 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
       <TableCell className="text-neutral-500">
         {identifier.changedAt ? dayjs.utc(identifier.changedAt).tz('Europe/Kyiv').format('DD.MM.YYYY HH:mm:ss') : '—'}
       </TableCell>
-      <TableCell>
-        {editing ? (
-          <div className="flex flex-wrap gap-3">
-            <Button size="small" loading={isPending} onClick={() => save()}>
-              <Save />
-              {t('save')}
+      {canEdit && (
+        <TableCell>
+          {editing ? (
+            <div className="flex flex-wrap gap-3">
+              <Button size="small" loading={isPending} onClick={() => save()}>
+                <Save />
+                {t('save')}
+              </Button>
+              <Button variant="tertiary" size="small" onClick={cancelEditing}>
+                <X />
+              </Button>
+            </div>
+          ) : (
+            <Button variant="secondary" size="small" onClick={() => setEditing(true)}>
+              <Pencil />
+              {t('table.edit')}
             </Button>
-            <Button variant="tertiary" size="small" onClick={cancelEditing}>
-              <X />
-            </Button>
-          </div>
-        ) : (
-          <Button variant="secondary" size="small" onClick={() => setEditing(true)}>
-            <Pencil />
-            {t('table.edit')}
-          </Button>
-        )}
-      </TableCell>
+          )}
+        </TableCell>
+      )}
     </TableRow>
   );
 };

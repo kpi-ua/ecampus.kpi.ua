@@ -3,11 +3,12 @@ import { getTranslations } from 'next-intl/server';
 
 import { getLibraryDepartments, getLibraryEmployees } from '@/actions/library.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
+import { userHasModule } from '@/lib/jwt';
 
 import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeesTable } from '../../components/employees-table';
 import { EntityHeading } from '../../components/entity-heading';
-import { LIBRARY_TAB } from '../../constants';
+import { LIBRARY_EDIT_MODULE, LIBRARY_TAB } from '../../constants';
 
 const INTL_NAMESPACE = 'private.library';
 
@@ -28,10 +29,11 @@ export default async function DepartmentPage({ params }: Props) {
     notFound();
   }
 
-  const [departments, employees, t] = await Promise.all([
+  const [departments, employees, t, canEdit] = await Promise.all([
     getLibraryDepartments(),
     getLibraryEmployees({ departmentId: id }),
     getTranslations(INTL_NAMESPACE),
+    userHasModule(LIBRARY_EDIT_MODULE),
   ]);
   const department = departments.find((item) => item.id === id);
   if (!department) {
@@ -47,7 +49,7 @@ export default async function DepartmentPage({ params }: Props) {
           badge={department.facultyAbbreviation}
           description={t('department.description')}
         />
-        <EmployeesTable employees={employees} departmentId={id} />
+        <EmployeesTable employees={employees} departmentId={id} canEdit={canEdit} />
       </div>
     </SubLayout>
   );

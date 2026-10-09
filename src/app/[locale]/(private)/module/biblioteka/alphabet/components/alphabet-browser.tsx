@@ -10,7 +10,11 @@ import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
 import { EmployeesTable } from '../../components/employees-table';
 import { useAlphabetBrowser } from '../../hooks/use-alphabet-browser';
 
-export const AlphabetBrowser = () => {
+interface Props {
+  canEdit?: boolean;
+}
+
+export const AlphabetBrowser = ({ canEdit = false }: Props) => {
   const t = useTranslations('private.library');
   const { employees, isFetching, letter, selectLetter } = useAlphabetBrowser();
 
@@ -40,7 +44,7 @@ export const AlphabetBrowser = () => {
         <Paragraph className="m-0 py-10 text-center text-sm text-neutral-500">{t('empty')}</Paragraph>
       </Show>
       <Show when={!!letter && !isFetching && employees.length > 0}>
-        <EmployeesTable employees={employees} letter={letter} />
+        <EmployeesTable employees={employees} letter={letter} canEdit={canEdit} />
       </Show>
     </div>
   );
