@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { getCuratorDisciplineAttestations } from '@/actions/curatorlecturer.actions';
 import { Heading4 } from '@/components/typography/index';
@@ -10,53 +10,54 @@ import { Show } from '@/components/utils/show';
 import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { AttestationSummary } from './attestation-summary';
 import { AttestationDisciplineTable } from './attestation-discipline-table';
-import { AttestationFiltersState } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
+import { useAttestationFilters } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
 import {
   CURATOR_GROUP_STALE_TIME,
   curatorGroupQueryKeys,
 } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 
+import { filterAttestationResults } from '@/app/[locale]/(private)/module/curatorlecturer/utils/filter-attestation-results';
 interface Props {
   groupId: number;
   filters: CuratorFilters;
-  state: AttestationFiltersState;
 }
 
-export const AttestationDisciplines = ({ groupId, filters, state }: Props) => {
+export const AttestationDisciplines = ({ groupId, filters }: Props) => {
+  const state = useAttestationFilters();
   const t = useTranslations('private.curatorlecturer.group-curator');
   const [search, setSearch] = useState('');
-  const { params, onlyNotAttested, onlyRepeated, showRepeated, attestationId } = state;
+  const { params, onlyNotAttested, onlyRepeated, showRepeated, enabled } = state;
   const attestationName = showRepeated
     ? t('attestation.both-attestations')
-    : (filters.attestations.find((item) => item.id === Number(attestationId))?.name ?? '');
+    : (filters.attestations.find((item) => item.id === params.attestationId)?.name ?? '');
   const { data, isFetching } = useQuery({
     queryKey: [
       ...curatorGroupQueryKeys.attestations(groupId, params.yearId, params.semester, params.attestationId),
       'disciplines',
     ],
     queryFn: () => getCuratorDisciplineAttestations(groupId, params),
-    enabled: !!params.yearId && !!attestationId,
+    enabled,
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
 
-  const query = search.trim().toLocaleLowerCase();
-  const filteredData = data?.semesters.map((term) => ({
-    ...term,
-    disciplines: term.disciplines.filter(
-      (discipline) =>
-        `${discipline.name} ${discipline.lecturerName}`.toLocaleLowerCase().includes(query) &&
-        (!onlyNotAttested || discipline.notAttested > 0) &&
-        (!showRepeated || !onlyRepeated || discipline.notAttestedTwiceCount > 0),
-    ),
-  }));
+  const deferredSearch = useDeferredValue(search);
+  const filteredData = useMemo(
+    () =>
+      data?.semesters.map((term) => ({
+        ...term,
+        disciplines: filterAttestationResults(
+          term.disciplines,
+          (discipline) => `${discipline.name} ${discipline.lecturerName}`,
+          { search: deferredSearch, onlyNotAttested, onlyRepeated, showRepeated },
+        ),
+      })),
+    [data, deferredSearch, onlyNotAttested, onlyRepeated, showRepeated],
+  );
 
   return (
     <div className="flex flex-col gap-6">
       <Show when={!isFetching}>
-        <AttestationSummary
-          students={data?.summaryStudents ?? []}
-          attestationName={attestationName}
-        />
+        <AttestationSummary students={data?.summaryStudents ?? []} attestationName={attestationName} />
       </Show>
       <Input
         value={search}

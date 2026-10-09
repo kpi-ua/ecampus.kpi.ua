@@ -1,6 +1,8 @@
-import { useState } from 'react';
+'use client';
 
-export const useAttestationFilters = (defaultYearId: number) => {
+import { createContext, createElement, ReactNode, useContext, useState } from 'react';
+
+const useAttestationFiltersState = (defaultYearId: number) => {
   const [onlyNotAttested, setOnlyNotAttested] = useState(false);
   const [onlyRepeated, setOnlyRepeated] = useState(false);
   const [yearId, setYearId] = useState(String(defaultYearId));
@@ -29,7 +31,25 @@ export const useAttestationFilters = (defaultYearId: number) => {
     setOnlyRepeated,
     showRepeated,
     params,
+    enabled:
+      Number.isInteger(params.yearId) &&
+      params.yearId > 0 &&
+      (params.attestationId === undefined || (Number.isInteger(params.attestationId) && params.attestationId > 0)),
   };
 };
 
-export type AttestationFiltersState = ReturnType<typeof useAttestationFilters>;
+type AttestationFiltersState = ReturnType<typeof useAttestationFiltersState>;
+const AttestationFiltersContext = createContext<AttestationFiltersState | null>(null);
+interface Props {
+  defaultYearId: number;
+  children: ReactNode;
+}
+export const AttestationFiltersProvider = ({ defaultYearId, children }: Props) => {
+  const state = useAttestationFiltersState(defaultYearId);
+  return createElement(AttestationFiltersContext.Provider, { value: state }, children);
+};
+export const useAttestationFilters = () => {
+  const state = useContext(AttestationFiltersContext);
+  if (!state) throw new Error('Attestation filters provider is required');
+  return state;
+};

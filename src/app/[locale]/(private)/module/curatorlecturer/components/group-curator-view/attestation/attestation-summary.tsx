@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { CuratorStudentAttestationTotals } from '@/app/[locale]/(private)/module/curatorlecturer/types';
@@ -13,7 +14,7 @@ interface Props {
 
 export const AttestationSummary = ({ students, attestationName }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.results');
-  const { statuses, total } = getAttestationSummary(students);
+  const { statuses, total } = useMemo(() => getAttestationSummary(students), [students]);
 
   return (
     <div className="border-neutral-divider flex flex-col gap-4 rounded-lg border p-5">
@@ -25,11 +26,7 @@ export const AttestationSummary = ({ students, attestationName }: Props) => {
       </div>
       <div className="flex h-6 overflow-hidden rounded-lg bg-neutral-100" aria-hidden="true">
         {statuses.map((status) => (
-          <div
-            key={status.key}
-            className={status.color}
-            style={{ width: `${total ? (status.count / total) * 100 : 0}%` }}
-          />
+          <div key={status.key} className={status.color} style={{ width: `${status.percentage}%` }} />
         ))}
       </div>
       <div className="grid grid-cols-2 gap-4 text-sm md:grid-cols-4">
@@ -40,7 +37,7 @@ export const AttestationSummary = ({ students, attestationName }: Props) => {
               {t(status.key)}
             </div>
             <Paragraph className="mt-1 pl-4 text-neutral-500">
-              {status.count} ({total ? Math.round((status.count / total) * 100) : 0}%)
+              {status.count} ({Math.round(status.percentage)}%)
             </Paragraph>
           </div>
         ))}

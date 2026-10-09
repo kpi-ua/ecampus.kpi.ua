@@ -8,17 +8,17 @@ import { Switch } from '@/components/ui/switch';
 import { Show } from '@/components/utils/show';
 import { TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { AttestationFiltersState } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
+import { useAttestationFilters } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
 import { ResultFilters } from './result-filters';
 
 interface Props {
   groupName: string;
   filters: CuratorFilters;
-  state: AttestationFiltersState;
   exportButton: ReactNode;
 }
 
-export const AttestationControls = ({ groupName, filters, state, exportButton }: Props) => {
+export const AttestationControls = ({ groupName, filters, exportButton }: Props) => {
+  const state = useAttestationFilters();
   const t = useTranslations('private.curatorlecturer.group-curator');
   const {
     yearId,

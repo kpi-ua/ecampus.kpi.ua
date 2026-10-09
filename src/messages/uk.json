@@ -897,7 +897,7 @@
           "not-attested-twice": "Неатестовано двічі поспіль",
           "repeated-count": "{count, plural, one {# дисципліна НА поспіль} few {# дисципліни НА поспіль} other {# дисциплін НА поспіль}}",
           "group-summary": "Стан групи",
-          "result-count": "{count} результатів",
+          "result-count": "{count, plural, one {# результат} few {# результати} many {# результатів} other {# результату}}",
           "attested": "Атестовано",
           "missing": "Не виставлено",
           "not-attested": "Не атестовано",
