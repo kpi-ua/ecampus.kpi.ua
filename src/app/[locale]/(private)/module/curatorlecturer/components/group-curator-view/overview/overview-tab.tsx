@@ -16,7 +16,7 @@ import {
 } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { exportGroupOverview } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-overview';
-import { Heading4, Paragraph } from '@/components/typography/index';
+import { Heading4, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

@@ -7,9 +7,7 @@ import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem, Announcement } from '@/types/models/announcement';
 import { LOCALE } from '@/i18n/routing';
 
-// URL pathname (no [locale] prefix, no route group). Matches the convention
-// used by other actions in the repo, e.g. certificates.actions revalidating
-// `/module/certificates`.
+// URL pathname (no [locale] prefix, no route group).
 const ANNOUNCEMENTS_EDITOR_PATH = '/module/announcementseditor';
 
 export interface AdminAnnouncementsQuery {
