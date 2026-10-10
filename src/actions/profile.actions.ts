@@ -5,7 +5,7 @@ import { campusFetch } from '@/lib/client';
 import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
+import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 
 export async function getContacts() {
   try {
@@ -64,7 +64,6 @@ export async function deleteContact(id: number) {
     throw new Error('Error while deleting contact');
   }
 }
-
 
 export async function updateIntellectInfo(credo: string, scientificInterests: string) {
   try {

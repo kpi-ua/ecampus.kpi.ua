@@ -8,7 +8,7 @@ import { Link } from '@/i18n/routing';
 
 interface Props {
   children: ReactNode;
-  activeTab: 'study-groups' | 'groups';
+  activeTab: 'study-groups' | 'groups' | 'administration';
 }
 
 export const LecturerCuratorView = ({ children, activeTab }: Props) => {
@@ -26,6 +26,11 @@ export const LecturerCuratorView = ({ children, activeTab }: Props) => {
           <TabsTrigger value="groups" asChild>
             <Link prefetch={false} href="/module/curatorlecturer/groups">
               {t('tabs.group-curator')}
+            </Link>
+          </TabsTrigger>
+          <TabsTrigger value="administration" asChild>
+            <Link prefetch={false} href="/module/curatorlecturer/administration">
+              {t('tabs.administration')}
             </Link>
           </TabsTrigger>
         </TabsList>

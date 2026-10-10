@@ -1,14 +1,15 @@
 'use client';
 
-import { Fragment, useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Fragment, useState } from 'react';
 
+import { CuratorStudentAttestation } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 
-import { CuratorStudentAttestation } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { AttestationResultCells } from './attestation-result-cells';
 
 interface Props {
@@ -26,7 +27,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
         <TableCell className="font-semibold">{student.fullName}</TableCell>
         <Show when={showRepeated}>
           <TableCell>
-            <Show when={student.notAttestedTwiceCount > 0} fallback={'—'}>
+            <Show when={student.notAttestedTwiceCount > 0} fallback={EMPTY_VALUE}>
               <Badge variant="red">{t('repeated-count', { count: student.notAttestedTwiceCount })}</Badge>
             </Show>
           </TableCell>
@@ -55,7 +56,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
             </TableCell>
             <Show when={showRepeated}>
               <TableCell>
-                <Show when={discipline.notAttestedTwice} fallback={'—'}>
+                <Show when={discipline.notAttestedTwice} fallback={EMPTY_VALUE}>
                   <Badge variant="red">{t('repeated-result')}</Badge>
                 </Show>
               </TableCell>

@@ -6,7 +6,7 @@ import qs from 'query-string';
 import { filterEmployees } from '@/app/[locale]/(private)/module/biblioteka/utils/filter-employees';
 import { DEFAULT_LOCALE, LOCALE } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
-import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
+import { UKRAINIAN_ALPHABET } from '@/lib/constants/common';
 import { createCsvResponse } from '@/lib/csv-response';
 import { LibraryEmployee } from '@/types/models/library';
 

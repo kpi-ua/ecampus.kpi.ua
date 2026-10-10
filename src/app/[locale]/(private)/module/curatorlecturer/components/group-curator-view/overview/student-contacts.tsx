@@ -1,3 +1,4 @@
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { Contact } from '@/types/models/colleague-contact';
 import { ContactType } from '@/types/models/contact';
 
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export const StudentContacts = ({ contacts, contactTypes }: Props) => {
-  if (!contacts.length) return '—';
+  if (!contacts.length) return EMPTY_VALUE;
 
   return (
     <div className="flex flex-col gap-1">

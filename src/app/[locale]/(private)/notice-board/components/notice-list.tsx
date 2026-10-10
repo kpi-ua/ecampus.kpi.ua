@@ -14,7 +14,7 @@ import { useTranslations } from 'next-intl';
 import { Show } from '@/components/utils/show';
 import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
 import { Announcement } from '@/types/models/announcement';
-import { PAGE_SIZE_SMALL } from '@/lib/constants/page-size';
+import { PAGE_SIZE_SMALL } from '@/lib/constants/common';
 import React from 'react';
 
 interface NoticeListProps {

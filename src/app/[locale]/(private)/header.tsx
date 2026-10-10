@@ -14,7 +14,7 @@ import { logout } from '@/actions/auth.actions';
 import { useTranslations } from 'next-intl';
 import { SignOut } from '@/app/images';
 import { Paragraph } from '@/components/typography/paragraph';
-import { USER_CATEGORIES } from '@/lib/constants/user-category';
+import { USER_CATEGORIES } from '@/lib/constants/common';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface Props {

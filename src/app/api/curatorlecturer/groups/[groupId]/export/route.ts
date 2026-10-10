@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
+import { getContactTypes } from '@/actions/profile.actions';
 import { CuratorStudentDetails } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
+import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
+
 import { createCsvResponse } from '@/lib/csv-response';
-import { PASSWORD_MASK } from '@/lib/constants/password';
-import { getContactTypes } from '@/actions/profile.actions';
 
 interface Props {
   params: Promise<{ groupId: string }>;
@@ -45,10 +46,10 @@ export async function GET(_request: Request, { params }: Props) {
 
       return [
         student.fullName,
-        student.login ?? '—',
-        student.passwordChanged ? PASSWORD_MASK : student.initialPassword || '—',
+        student.login ?? EMPTY_VALUE,
+        student.passwordChanged ? PASSWORD_MASK : student.initialPassword || EMPTY_VALUE,
         student.passwordChanged ? t('students.password-changed') : t('students.initial-password'),
-        contacts.join(', ') || '—',
+        contacts.join(', ') || EMPTY_VALUE,
         student.codeOfHonorSignDate
           ? t('students.agreed', { date: dayjs(student.codeOfHonorSignDate).format('DD.MM.YYYY') })
           : t('students.not-agreed'),

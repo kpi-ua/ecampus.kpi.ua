@@ -42,6 +42,25 @@ export interface CuratorOption {
   name: string;
 }
 
+export interface CuratorLecturer {
+  employeeId: number;
+  userAccountId: number;
+  fullName: string;
+  department: CuratorOption;
+}
+
+export interface CuratorAdministrationData {
+  groups: CuratorGroup[];
+  lecturers: CuratorLecturer[];
+}
+
+export interface CuratorAssignment {
+  employeeId: number;
+  curatorName: string;
+  startDate: string;
+  endDate: string | null;
+}
+
 export interface CuratorFilters {
   years: CuratorOption[];
   surveyTerms: CuratorOption[];

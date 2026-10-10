@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { EMPTY_VALUE } from '@/lib/constants/common';
+
 interface Props {
   value: string | null;
   href: string;
@@ -14,6 +16,6 @@ export const IdentifierLink = ({ value, href }: Props) => (
     target="_blank"
     rel="noreferrer"
   >
-    {value ?? '—'}
+    {value ?? EMPTY_VALUE}
   </Link>
 );
