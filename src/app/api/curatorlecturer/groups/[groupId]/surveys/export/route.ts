@@ -4,7 +4,6 @@ import { getTranslations } from 'next-intl/server';
 import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
-import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{ groupId: string }>;
@@ -15,7 +14,7 @@ export async function GET(_request: Request, { params }: Props) {
   const id = parseInt(groupId);
 
   if (!Number.isInteger(id) || id < 1) {
-    notFound();
+    return new Response(null, { status: 400 });
   }
 
   const response = await campusFetch<CuratorSurveyRow[]>(`/curator-lecturer/groups/${id}/surveys`);
