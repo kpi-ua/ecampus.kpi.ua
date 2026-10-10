@@ -1,5 +1,8 @@
 'use client';
 
+import { usePermission } from '@/hooks/use-permission';
+import { LIBRARY_EDIT_MODULE } from '../constants';
+
 import { Download, Pencil } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { parseAsInteger, parseAsString, useQueryState, useQueryStates } from 'nuqs';
@@ -37,6 +40,7 @@ interface Props {
 }
 
 export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
+  const canEdit = usePermission(LIBRARY_EDIT_MODULE);
   const t = useTranslations('private.library');
   const locale = useLocale();
   const { errorToast } = useServerErrorToast();
@@ -137,21 +141,23 @@ export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
                 <IdentifierLink value={employee.googleScholarId} href="https://scholar.google.com/citations?user=" />
               </TableCell>
               <TableCell>
-                <Button asChild variant="secondary" size="small">
-                  <Link
-                    href={qs.stringifyUrl({
-                      url: `/module/biblioteka/employees/${employee.employeeId}`,
-                      query: {
-                        userAccountId: employee.userAccountId ?? undefined,
-                        departmentId,
-                        letter,
-                      },
-                    })}
-                  >
-                    <Pencil />
-                    {t('table.edit')}
-                  </Link>
-                </Button>
+                <Show when={canEdit}>
+                  <Button asChild variant="secondary" size="small">
+                    <Link
+                      href={qs.stringifyUrl({
+                        url: `/module/biblioteka/employees/${employee.employeeId}`,
+                        query: {
+                          userAccountId: employee.userAccountId ?? undefined,
+                          departmentId,
+                          letter,
+                        },
+                      })}
+                    >
+                      <Pencil />
+                      {t('table.edit')}
+                    </Link>
+                  </Button>
+                </Show>
               </TableCell>
             </TableRow>
           ))}

@@ -4,3 +4,5 @@ export const LIBRARY_TAB = {
 } as const;
 
 export type LibraryTab = (typeof LIBRARY_TAB)[keyof typeof LIBRARY_TAB];
+
+export const LIBRARY_EDIT_MODULE = 'library-edit';

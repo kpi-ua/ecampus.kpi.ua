@@ -1,5 +1,8 @@
 'use client';
 
+import { usePermission } from '@/hooks/use-permission';
+import { LIBRARY_EDIT_MODULE } from '../constants';
+
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BriefcaseBusiness, ChartNoAxesColumnIncreasing } from 'lucide-react';
@@ -9,6 +12,7 @@ import { getLibraryEmployee } from '@/actions/library.actions';
 import { Heading6, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 import { LibraryEmployeeDetails } from '@/types/models/library';
 
 import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
@@ -20,6 +24,7 @@ interface Props {
 }
 
 export const EmployeeDetails = ({ initialDetails }: Props) => {
+  const canEdit = usePermission(LIBRARY_EDIT_MODULE);
   const t = useTranslations('private.library');
   const { data: details } = useQuery({
     queryKey: libraryQueryKeys.employee(initialDetails.userAccountId, initialDetails.employeeId),
@@ -82,7 +87,9 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                   <TableHead>{t('table.database')}</TableHead>
                   <TableHead>{t('table.value')}</TableHead>
                   <TableHead>{t('table.updated')}</TableHead>
-                  <TableHead>{t('table.actions')}</TableHead>
+                  <Show when={canEdit}>
+                    <TableHead>{t('table.actions')}</TableHead>
+                  </Show>
                 </TableRow>
               </TableHeader>
               <TableBody>
