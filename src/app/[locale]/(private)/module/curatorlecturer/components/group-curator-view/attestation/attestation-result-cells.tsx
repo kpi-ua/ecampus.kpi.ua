@@ -5,7 +5,7 @@ import { CuratorAttestationTotals } from '@/app/[locale]/(private)/module/curato
 import { Badge } from '@/components/ui/badge';
 import { TableCell } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 
 interface Props {
   totals: CuratorAttestationTotals;

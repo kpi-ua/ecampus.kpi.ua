@@ -4,7 +4,7 @@ import queryString from 'query-string';
 
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { createCsvResponse } from '@/lib/csv-response';
 
 export async function GET(request: Request) {

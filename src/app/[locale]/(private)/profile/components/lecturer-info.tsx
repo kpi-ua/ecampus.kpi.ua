@@ -1,5 +1,5 @@
 import { EmployeePosition, EmployeeProfile } from '@/types/models/employee-profile';
-import { EMPLOYMENT_TYPE } from '@/lib/constants/employment-type';
+import { EMPLOYMENT_TYPE } from '@/lib/constants/common';
 import { InfoItem, InfoList } from './info-list';
 import { Heading6 } from '@/components/typography/headers';
 import { Show } from '@/components/utils/show';

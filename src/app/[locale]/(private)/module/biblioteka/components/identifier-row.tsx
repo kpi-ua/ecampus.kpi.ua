@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { LibraryIdentifier } from '@/types/models/library';
 
 import { libraryQueryKeys } from '../query-keys';

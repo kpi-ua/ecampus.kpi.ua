@@ -4,8 +4,8 @@ import { getTranslations } from 'next-intl/server';
 import { getContactTypes } from '@/actions/profile.actions';
 import { CuratorStudentDetails } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
-import { PASSWORD_MASK } from '@/lib/constants/password';
+import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
+
 import { createCsvResponse } from '@/lib/csv-response';
 
 interface Props {

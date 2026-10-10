@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { cn, formatNumber } from '@/lib/utils';
 import { K7OtherEducationalActivity } from '@/types/models/k7-form';
 

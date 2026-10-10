@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
-import { TOKEN_COOKIE_NAME } from './constants/cookies';
+import { TOKEN_COOKIE_NAME } from './constants/common';
 import { DEFAULT_LOCALE } from '@/i18n/routing';
 import { headers as nextHeaders } from 'next/headers';
 

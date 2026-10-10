@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { sift } from 'radash';
 import { Contact } from '@/types/models/colleague-contact';
 import { ContactType } from '@/types/models/contact';
-import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/contact-types';
+import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/common';
 
 export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[]) => {
   return useMemo(() => {

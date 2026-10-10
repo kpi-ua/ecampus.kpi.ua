@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link, usePathname } from '@/i18n/routing';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { cn } from '@/lib/utils';
 import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from '@/types/models/k7-form';
 

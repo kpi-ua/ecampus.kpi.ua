@@ -10,7 +10,7 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { ProfilePicture } from '@/components/ui/profile-picture';
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { cn } from '@/lib/utils';
 import { VoteLecturer } from '@/types/models/vote';
 

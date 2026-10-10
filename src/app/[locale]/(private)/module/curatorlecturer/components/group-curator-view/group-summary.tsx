@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 
 import { CuratorGroup } from '../../types';
 

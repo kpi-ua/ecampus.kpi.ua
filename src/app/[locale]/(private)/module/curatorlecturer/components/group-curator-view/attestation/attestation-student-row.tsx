@@ -8,7 +8,7 @@ import { CuratorStudentAttestation } from '@/app/[locale]/(private)/module/curat
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 
 import { AttestationResultCells } from './attestation-result-cells';
 

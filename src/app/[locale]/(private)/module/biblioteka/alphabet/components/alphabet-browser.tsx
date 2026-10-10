@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Description, Heading3, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
-import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
+import { UKRAINIAN_ALPHABET } from '@/lib/constants/common';
 
 import { EmployeesTable } from '../../components/employees-table';
 import { useAlphabetBrowser } from '../../hooks/use-alphabet-browser';

@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import { Heading2, Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { formatNumber } from '@/lib/utils';
 import { VoteData, VoteLecturer, VoteLecturerResult } from '@/types/models/vote';
 

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 
 interface Props {
   value: string | null;

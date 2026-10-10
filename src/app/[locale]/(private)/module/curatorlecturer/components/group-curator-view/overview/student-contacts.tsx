@@ -1,4 +1,4 @@
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { Contact } from '@/types/models/colleague-contact';
 import { ContactType } from '@/types/models/contact';
 

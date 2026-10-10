@@ -23,8 +23,7 @@ import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
-import { PASSWORD_MASK } from '@/lib/constants/password';
+import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
 
 import { GroupLeaderSelect } from './group-leader-select';
 import { StudentContacts } from './student-contacts';

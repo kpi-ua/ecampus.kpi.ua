@@ -7,7 +7,7 @@ import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/c
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 
 import { CuratorAssignmentPanel } from './curator-assignment-panel';
 

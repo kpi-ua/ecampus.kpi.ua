@@ -9,7 +9,7 @@ import { getLibraryEmployee } from '@/actions/library.actions';
 import { Heading6, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { LibraryEmployeeDetails } from '@/types/models/library';
 
 import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';

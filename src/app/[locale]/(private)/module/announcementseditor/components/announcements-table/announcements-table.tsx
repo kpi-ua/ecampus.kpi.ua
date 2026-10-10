@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
-import { EMPTY_VALUE } from '@/lib/constants/empty-value';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem } from '@/types/models/announcement';
 
