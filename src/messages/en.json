@@ -196,6 +196,26 @@
       "description": "You have successfully logged in with your KPI ID. Select the account you wish to log in with.",
       "sign-in": "Sign in"
     },
+    "kpi-id-failed": {
+      "account-not-found": {
+        "header": "Account not found",
+        "description": "You have signed in with KPI ID, but no Electronic Campus account is linked to it.",
+        "student": {
+          "title": "If you are a student",
+          "text": "This is usually a synchronization delay: your data is already in the Dean's Office system but has not reached the Electronic Campus yet. It typically takes 7–14 days. If you still cannot sign in after that, contact your faculty's dean's office. <guide>Learn more about what to do</guide>"
+        },
+        "employee": {
+          "title": "If you are an employee",
+          "text": "Your data is not in the Electronic Campus yet. Contact your department so they can check that you are registered in the university's HR system."
+        },
+        "retry": "Back to sign in"
+      },
+      "error": {
+        "header": "Could not sign in with KPI ID",
+        "description": "Please try again. If the error persists, contact user support.",
+        "retry": "Try again"
+      }
+    },
     "passwordChange": {
       "header": "Change password",
       "description": "Now create a new password. Secure password includes digits, letters and delimiter symbols.",
