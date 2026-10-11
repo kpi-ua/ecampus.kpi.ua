@@ -5,16 +5,15 @@ import RichText from '@/components/typography/rich-text';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { LOGIN_PATH } from '@/middleware/contants';
+import { KPIID_FAILURE_TYPES } from '@/types/models/kpi-id-account';
 import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'auth.kpi-id-failed';
 
-const STUDENT_GUIDE_URL = 'https://kbis.kpi.ua/blog/campus-account-not-found';
-
 const AUDIENCES = ['student', 'employee'] as const;
 
 // Only echo codes the KPI ID route produces, so the URL cannot put arbitrary text on the page.
-const ERROR_CODE_PATTERN = /^(missing-ticket|no-accounts|username-mismatch|network|api-\d{3})$/;
+const API_ERROR_CODE_PATTERN = /^api-\d{3}$/;
 
 interface Props extends LocaleProps {
   searchParams: Promise<{ reason?: string | string[] }>;
@@ -33,7 +32,11 @@ export async function generateMetadata({ params }: LocaleProps) {
 export default async function KPIIDFailedPage({ searchParams }: Props) {
   const { reason } = await searchParams;
   const t = await getTranslations(INTL_NAMESPACE);
-  const errorCode = typeof reason === 'string' && ERROR_CODE_PATTERN.test(reason) ? reason : undefined;
+  const errorCode =
+    typeof reason === 'string' &&
+    (API_ERROR_CODE_PATTERN.test(reason) || (KPIID_FAILURE_TYPES as readonly string[]).includes(reason))
+      ? reason
+      : undefined;
 
   return (
     <AuthNavLayout header={t('header')} description={t('description')}>
@@ -45,7 +48,11 @@ export default async function KPIIDFailedPage({ searchParams }: Props) {
               t.rich(`${audience}.text`, {
                 ...tags,
                 guide: (chunks) => (
-                  <Link href={STUDENT_GUIDE_URL} target="_blank" rel="noopener noreferrer">
+                  <Link
+                    href={process.env.NEXT_PUBLIC_CAMPUS_ACCOUNT_NOT_FOUND_URL!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {chunks}
                   </Link>
                 ),

@@ -101,24 +101,25 @@ export async function getUserDetails() {
 
 export async function exchangeKPIIDTicket(ticketId: string): Promise<KPIIDTicketExchange> {
   try {
-    const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${encodeURIComponent(ticketId)}`);
+    const url = qs.stringifyUrl({ url: '/auth/kpi-id', query: { ticketId } });
+    const response = await campusFetch<KPIIDAccount[]>(url);
 
     if (!response.ok) {
-      return { failure: `api-${response.status}` };
+      return { ok: false, reason: `api-${response.status}` };
     }
 
     const accounts: KPIIDAccount[] = await response.json();
 
-    return accounts.length ? { accounts } : { failure: 'no-accounts' };
+    return accounts.length ? { ok: true, accounts } : { ok: false, reason: 'no-accounts' };
   } catch (error) {
     console.error('KPI ID ticket exchange failed:', error);
 
-    return { failure: 'network' };
+    return { ok: false, reason: 'network' };
   }
 }
 
 export async function getKPIIDAccounts(ticketId: string) {
   const result = await exchangeKPIIDTicket(ticketId);
 
-  return 'accounts' in result ? result.accounts : null;
+  return result.ok ? result.accounts : null;
 }
