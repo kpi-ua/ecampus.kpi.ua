@@ -105,7 +105,7 @@ export async function exchangeKPIIDTicket(ticketId: string): Promise<KPIIDTicket
     const response = await campusFetch<KPIIDAccount[]>(url);
 
     if (!response.ok) {
-      return { ok: false, reason: `api-${response.status}` };
+      return { ok: false, reason: 'api', status: response.status };
     }
 
     const accounts: KPIIDAccount[] = await response.json();
