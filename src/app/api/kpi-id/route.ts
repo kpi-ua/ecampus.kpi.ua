@@ -26,8 +26,8 @@ export async function GET(request: NextRequest) {
 
   const result = await exchangeKPIIDTicket(ticketId);
 
-  if ('failure' in result) {
-    fail(result.failure, locale, ticketId);
+  if (!result.ok) {
+    fail(result.reason, locale, ticketId);
     return;
   }
 

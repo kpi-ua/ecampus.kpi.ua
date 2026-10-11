@@ -12,6 +12,8 @@ export interface KPIIDAccount extends KPIIDAccountSlim {
 }
 
 // Shown to the user as an error code and logged, so support can tell KPI ID login failures apart.
-export type KPIIDFailureReason = 'missing-ticket' | 'no-accounts' | 'username-mismatch' | 'network' | `api-${number}`;
+export const KPIID_FAILURE_TYPES = ['missing-ticket', 'no-accounts', 'username-mismatch', 'network'] as const;
 
-export type KPIIDTicketExchange = { accounts: KPIIDAccount[] } | { failure: KPIIDFailureReason };
+export type KPIIDFailureReason = (typeof KPIID_FAILURE_TYPES)[number] | `api-${number}`;
+
+export type KPIIDTicketExchange = { ok: true; accounts: KPIIDAccount[] } | { ok: false; reason: KPIIDFailureReason };
