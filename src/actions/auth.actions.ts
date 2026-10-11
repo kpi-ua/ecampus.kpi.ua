@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 import { campusFetch } from '@/lib/client';
 import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
-import { KPIIDAccount, KPIIDRole, KPIIDTicketExchange } from '@/types/models/kpi-id-account';
+import { KPIIDAccount } from '@/types/models/kpi-id-account';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
@@ -99,38 +99,12 @@ export async function getUserDetails() {
   return userResponse.json();
 }
 
-export async function exchangeKPIIDTicket(ticketId: string): Promise<KPIIDTicketExchange> {
-  try {
-    const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${encodeURIComponent(ticketId)}`);
-
-    // 404 means the ticket is valid but no Campus account is linked to it;
-    // lockout, ticket exchange and server failures come back with other statuses.
-    if (response.status === 404) {
-      const body = (await response.json()) as { has_student_id?: boolean; has_employee_id?: boolean };
-      const roles: KPIIDRole[] = [];
-
-      if (body.has_student_id) roles.push('student');
-      if (body.has_employee_id) roles.push('employee');
-
-      return { failure: 'account-not-found', roles };
-    }
-
-    if (!response.ok) {
-      return { failure: 'error' };
-    }
-
-    const accounts: KPIIDAccount[] = await response.json();
-
-    return accounts.length ? { accounts } : { failure: 'account-not-found', roles: [] };
-  } catch (error) {
-    console.error('KPI ID ticket exchange failed:', error);
-
-    return { failure: 'error' };
-  }
-}
-
 export async function getKPIIDAccounts(ticketId: string) {
-  const result = await exchangeKPIIDTicket(ticketId);
+  const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${ticketId}`);
 
-  return 'accounts' in result ? result.accounts : null;
+  if (!response.ok) {
+    return null;
+  }
+
+  return response.json();
 }
