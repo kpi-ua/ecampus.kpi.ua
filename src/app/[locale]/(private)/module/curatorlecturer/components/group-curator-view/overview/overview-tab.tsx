@@ -8,21 +8,24 @@ import { useState } from 'react';
 
 import { getCuratorStudents } from '@/actions/curatorlecturer.actions';
 import { getContactTypes } from '@/actions/profile.actions';
-import { Heading4, Paragraph } from '@/components/typography/index';
+import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
+import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
+import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { exportGroupOverview } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-overview';
+import { Heading4, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { PASSWORD_MASK } from '@/lib/constants/password';
+import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
 
-import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
-import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { exportGroupOverview } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-overview';
 import { GroupLeaderSelect } from './group-leader-select';
-import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { StudentContacts } from './student-contacts';
 
 interface Props {
@@ -89,13 +92,13 @@ export const OverviewTab = ({ group }: Props) => {
                 {filteredStudents.map((student) => (
                   <TableRow key={student.studentId}>
                     <TableCell className="font-medium">{student.fullName}</TableCell>
-                    <TableCell>{student.login ?? '—'}</TableCell>
+                    <TableCell>{student.login ?? EMPTY_VALUE}</TableCell>
                     <TableCell>
                       {student.passwordChanged
                         ? PASSWORD_MASK
                         : student.initialPassword
                           ? student.initialPassword
-                          : '—'}
+                          : EMPTY_VALUE}
                     </TableCell>
                     <TableCell>
                       {student.passwordChanged ? t('students.password-changed') : t('students.initial-password')}

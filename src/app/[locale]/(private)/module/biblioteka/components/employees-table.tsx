@@ -15,7 +15,7 @@ import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LibraryEmployee } from '@/types/models/library';
 
 import { exportEmployees } from '../utils/export-employees';

@@ -14,6 +14,9 @@ import {
   CuratorAttestationParams,
   CuratorStudentAttestations,
   CuratorDisciplineAttestations,
+  CuratorOption,
+  CuratorLecturer,
+  CuratorAssignment,
 } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 
@@ -126,4 +129,66 @@ export const assignGroupLeader = async (groupId: number, studentId: number) => {
   }
 
   revalidatePath('/[locale]/module/curatorlecturer/groups', 'page');
+};
+
+export const getCuratorDepartments = async (): Promise<CuratorOption[]> => {
+  const response = await campusFetch<CuratorOption[]>('/curator-lecturer/admin/departments');
+
+  if (response.status === 403) {
+    return [];
+  }
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorAdminGroups = async (yearId: number, departmentId?: number): Promise<CuratorGroup[]> => {
+  const response = await campusFetch<CuratorGroup[]>(
+    `/curator-lecturer/admin/groups?${queryString.stringify({ yearId, departmentId }, { skipEmptyString: true, skipNull: true })}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorLecturers = async (departmentId?: number): Promise<CuratorLecturer[]> => {
+  const response = await campusFetch<CuratorLecturer[]>(
+    `/curator-lecturer/admin/lecturers?${queryString.stringify({ departmentId }, { skipEmptyString: true, skipNull: true })}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const getCuratorAssignments = async (groupId: number): Promise<CuratorAssignment[]> => {
+  const response = await campusFetch<CuratorAssignment[]>(`/curator-lecturer/admin/groups/${groupId}/curators`);
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  return response.json();
+};
+
+export const assignGroupCurator = async (groupId: number, employeeId: number, startDate: string, endDate: string) => {
+  const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curator`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ employeeId, startDate, endDate }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+
+  revalidatePath('/[locale]/module/curatorlecturer', 'layout');
 };
