@@ -10,3 +10,8 @@ export interface KPIIDAccount extends KPIIDAccountSlim {
   token_type: string;
   expires_in: number;
 }
+
+// Shown to the user as an error code and logged, so support can tell KPI ID login failures apart.
+export type KPIIDFailureReason = 'missing-ticket' | 'no-accounts' | 'username-mismatch' | 'network' | `api-${number}`;
+
+export type KPIIDTicketExchange = { accounts: KPIIDAccount[] } | { failure: KPIIDFailureReason };

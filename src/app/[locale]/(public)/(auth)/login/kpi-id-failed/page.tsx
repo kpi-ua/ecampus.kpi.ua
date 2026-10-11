@@ -13,6 +13,13 @@ const STUDENT_GUIDE_URL = 'https://kbis.kpi.ua/blog/campus-account-not-found';
 
 const AUDIENCES = ['student', 'employee'] as const;
 
+// Only echo codes the KPI ID route produces, so the URL cannot put arbitrary text on the page.
+const ERROR_CODE_PATTERN = /^(missing-ticket|no-accounts|username-mismatch|network|api-\d{3})$/;
+
+interface Props extends LocaleProps {
+  searchParams: Promise<{ reason?: string | string[] }>;
+}
+
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
 
@@ -23,8 +30,10 @@ export async function generateMetadata({ params }: LocaleProps) {
   };
 }
 
-export default async function KPIIDFailedPage() {
+export default async function KPIIDFailedPage({ searchParams }: Props) {
+  const { reason } = await searchParams;
   const t = await getTranslations(INTL_NAMESPACE);
+  const errorCode = typeof reason === 'string' && ERROR_CODE_PATTERN.test(reason) ? reason : undefined;
 
   return (
     <AuthNavLayout header={t('header')} description={t('description')}>
@@ -48,6 +57,7 @@ export default async function KPIIDFailedPage() {
       <Button size="big" className="my-4 w-full" asChild>
         <Link href={LOGIN_PATH}>{t('retry')}</Link>
       </Button>
+      {errorCode && <p className="text-sm text-neutral-500">{t('error-code', { code: errorCode })}</p>}
     </AuthNavLayout>
   );
 }

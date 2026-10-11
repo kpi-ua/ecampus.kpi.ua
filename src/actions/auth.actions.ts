@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 import { campusFetch } from '@/lib/client';
 import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
-import { KPIIDAccount } from '@/types/models/kpi-id-account';
+import { KPIIDAccount, KPIIDTicketExchange } from '@/types/models/kpi-id-account';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
@@ -99,12 +99,26 @@ export async function getUserDetails() {
   return userResponse.json();
 }
 
-export async function getKPIIDAccounts(ticketId: string) {
-  const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${ticketId}`);
+export async function exchangeKPIIDTicket(ticketId: string): Promise<KPIIDTicketExchange> {
+  try {
+    const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${encodeURIComponent(ticketId)}`);
 
-  if (!response.ok) {
-    return null;
+    if (!response.ok) {
+      return { failure: `api-${response.status}` };
+    }
+
+    const accounts: KPIIDAccount[] = await response.json();
+
+    return accounts.length ? { accounts } : { failure: 'no-accounts' };
+  } catch (error) {
+    console.error('KPI ID ticket exchange failed:', error);
+
+    return { failure: 'network' };
   }
+}
 
-  return response.json();
+export async function getKPIIDAccounts(ticketId: string) {
+  const result = await exchangeKPIIDTicket(ticketId);
+
+  return 'accounts' in result ? result.accounts : null;
 }
