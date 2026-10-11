@@ -1,6 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
@@ -26,7 +27,14 @@ export const useCuratorAssignment = (group: CuratorGroup) => {
         queryClient.invalidateQueries({ queryKey: curatorAdministrationQueryKeys.groups }),
         queryClient.invalidateQueries({ queryKey: curatorAdministrationQueryKeys.assignments(group.groupId) }),
       ]);
-      toast({ title: t('success.title'), description: t('success.description', { group: group.name }) });
+      toast({
+        title: t('success.title'),
+        description: t('success.description', {
+          group: group.name,
+          startDate: dayjs(startDate).format('DD.MM.YYYY'),
+          endDate: dayjs(endDate).format('DD.MM.YYYY'),
+        }),
+      });
     },
     onError: () => errorToast(),
   });
@@ -35,7 +43,7 @@ export const useCuratorAssignment = (group: CuratorGroup) => {
     if (assignment.isPending) {
       return;
     }
-    
+
     assignment.mutate();
   };
 

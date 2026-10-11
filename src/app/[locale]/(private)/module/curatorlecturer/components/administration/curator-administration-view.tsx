@@ -8,7 +8,7 @@ import { useDeferredValue, useMemo, useState } from 'react';
 import { useCuratorAdministrationData } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-administration-data';
 import { CuratorGroup, CuratorLecturer, CuratorOption } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { exportCuratorAdministration } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-curator-administration';
-import { Heading2 } from '@/components/typography';
+import { Heading2, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -96,6 +96,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
           </Button>
         </div>
       </div>
+      <Paragraph className="mb-4 text-sm text-neutral-600">{t('subtitle')}</Paragraph>
       <Input
         className="mb-6 h-9 text-sm"
         value={search}
