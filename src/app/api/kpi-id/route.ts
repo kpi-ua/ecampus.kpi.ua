@@ -1,4 +1,4 @@
-import { exchangeKPIIDTicket, setLoginCookies } from '@/actions/auth.actions';
+import { getKPIIDAccounts, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
 import { type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
@@ -16,17 +16,12 @@ export async function GET(request: NextRequest) {
     return;
   }
 
-  const result = await exchangeKPIIDTicket(ticketId);
+  const accounts = await getKPIIDAccounts(ticketId);
 
-  if ('failure' in result) {
-    const query =
-      result.failure === 'account-not-found' ? { reason: result.failure, roles: result.roles.join(',') } : {};
-
-    redirect({ href: { pathname: KPIID_FAILED_PATH, query }, locale });
+  if (!accounts?.length) {
+    redirect({ href: KPIID_FAILED_PATH, locale });
     return;
   }
-
-  const { accounts } = result;
 
   if (accounts.length === 1) {
     const [account] = accounts;
