@@ -207,7 +207,8 @@
         "title": "If you are an employee",
         "text": "Your data is not in the Electronic Campus yet. Contact your department so they can check that you are registered in the university's HR system."
       },
-      "retry": "Try again"
+      "retry": "Try again",
+      "error-code": "Error code: {code}"
     },
     "passwordChange": {
       "header": "Change password",
