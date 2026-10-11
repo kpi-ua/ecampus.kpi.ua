@@ -5,19 +5,28 @@ import RichText from '@/components/typography/rich-text';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { LOGIN_PATH } from '@/middleware/contants';
-import { KPIID_FAILURE_TYPES } from '@/types/models/kpi-id-account';
+import { KPIID_FAILURE_REASONS } from '@/types/models/kpi-id-account';
 import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'auth.kpi-id-failed';
 
 const AUDIENCES = ['student', 'employee'] as const;
 
-// Only echo codes the KPI ID route produces, so the URL cannot put arbitrary text on the page.
-const API_ERROR_CODE_PATTERN = /^api-\d{3}$/;
-
 interface Props extends LocaleProps {
-  searchParams: Promise<{ reason?: string | string[] }>;
+  searchParams: Promise<{ reason?: string | string[]; status?: string | string[] }>;
 }
+
+// Only echo values the KPI ID route produces, so the URL cannot put arbitrary text on the page.
+const getErrorCode = (reason: unknown, status: unknown) => {
+  if (typeof reason !== 'string' || !(KPIID_FAILURE_REASONS as readonly string[]).includes(reason)) {
+    return undefined;
+  }
+
+  const statusCode = Number(status);
+  const isHttpStatus = Number.isInteger(statusCode) && statusCode >= 100 && statusCode <= 599;
+
+  return isHttpStatus ? `${reason}-${statusCode}` : reason;
+};
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -30,13 +39,9 @@ export async function generateMetadata({ params }: LocaleProps) {
 }
 
 export default async function KPIIDFailedPage({ searchParams }: Props) {
-  const { reason } = await searchParams;
+  const { reason, status } = await searchParams;
   const t = await getTranslations(INTL_NAMESPACE);
-  const errorCode =
-    typeof reason === 'string' &&
-    (API_ERROR_CODE_PATTERN.test(reason) || (KPIID_FAILURE_TYPES as readonly string[]).includes(reason))
-      ? reason
-      : undefined;
+  const errorCode = getErrorCode(reason, status);
 
   return (
     <AuthNavLayout header={t('header')} description={t('description')}>
