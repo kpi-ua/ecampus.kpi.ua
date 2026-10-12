@@ -36,8 +36,12 @@ export const TOKEN_COOKIE_NAME = 'ecampus-token';
 export const SID_COOKIE_NAME = 'SID';
 // Holds the KPI ID login state between starting a login and its callback.
 export const KPIID_STATE_COOKIE_NAME = 'kpi-id-state';
-// KPI ID tickets live 5 minutes; the state only needs to outlive the sign-in page.
+// KPI ID tickets live 5 minutes. A login page left open longer than this is not an error: the callback restarts the
+// login with a fresh state and SSO brings the user straight back.
 export const KPIID_STATE_MAX_AGE_SECONDS = 15 * 60;
+// Where the widget sends the user: data-dev-mode (see kpi-id-login.tsx) picks the test environment the same way.
+export const KPIID_URL =
+  process.env.NEXT_PUBLIC_ENV === 'production' ? 'https://auth.kpi.ua' : 'https://auth.cloud.kpi.ua';
 
 export const EMPLOYMENT_TYPE = {
   [EmploymentType.Unknown]: 'невідомо',

@@ -17,16 +17,9 @@ const isAuthenticated = (request: NextRequest) => {
   return payload.exp && payload.exp > dayjs().unix();
 };
 
-export const authenticationMiddleware = (request: NextRequest) => {
-  const userAuthenticated = isAuthenticated(request);
-
-  if (userAuthenticated) {
+const resolve = (request: NextRequest) => {
+  if (isAuthenticated(request)) {
     return codeOfHonorMiddleware(request);
-  }
-
-  // A state already in the cookie is still unused (the callback deletes it), so it is reused rather than replaced.
-  if (matchesUrl(request, LOGIN_PATH) && !request.cookies.has(KPIID_STATE_COOKIE_NAME)) {
-    return withKPIIDState(intlMiddleware(request));
   }
 
   if (matchesAnyUrl(request, PUBLIC_PATHS, false)) {
@@ -34,4 +27,17 @@ export const authenticationMiddleware = (request: NextRequest) => {
   }
 
   return gotoLogin(request);
+};
+
+export const authenticationMiddleware = async (request: NextRequest) => {
+  const response = await resolve(request);
+
+  // The login page is served to signed-in users as well (e.g. to switch accounts), so its KPI ID button needs a state
+  // whatever the branch above chose. A state already in the cookie is still unused (the callback deletes it), so it
+  // is reused rather than replaced.
+  if (matchesUrl(request, LOGIN_PATH) && !request.cookies.has(KPIID_STATE_COOKIE_NAME)) {
+    return withKPIIDState(response);
+  }
+
+  return response;
 };
