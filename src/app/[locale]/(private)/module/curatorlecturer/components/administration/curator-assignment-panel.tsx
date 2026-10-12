@@ -18,8 +18,18 @@ interface Props {
 
 export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
-  const { employeeId, setEmployeeId, startDate, setStartDate, endDate, setEndDate, handleAssign, isAssigning } =
-    useCuratorAssignment(group);
+  const {
+    employeeId,
+    setEmployeeId,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    handleAssign,
+    isAssigning,
+    isLoadingAssignments,
+    validationError,
+  } = useCuratorAssignment(group);
   const departmentLecturers = lecturers.filter((item) => item.department.id === group.departmentId);
 
   return (
@@ -60,10 +70,22 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
             onChange={(event) => setEndDate(event.target.value)}
           />
         </div>
-        <Button variant="primary" size="small" className="h-9" loading={isAssigning} onClick={handleAssign}>
+        <Button
+          variant="primary"
+          size="small"
+          className="h-9"
+          loading={isAssigning}
+          disabled={isLoadingAssignments}
+          onClick={handleAssign}
+        >
           {t('assign.submit')}
         </Button>
       </div>
+      {validationError && (
+        <p role="alert" className="text-sm text-red-600">
+          {t(`validation.${validationError}`)}
+        </p>
+      )}
       <CuratorAssignmentHistory groupId={group.groupId} />
     </div>
   );

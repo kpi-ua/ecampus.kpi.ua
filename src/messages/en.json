@@ -884,6 +884,13 @@
           "success": {
             "title": "Assignment saved",
             "description": "The curator for group {group} is assigned for {startDate} — {endDate}"
+          },
+          "validation": {
+            "required": "Enter both the start and end dates.",
+            "invalid-date": "Enter valid dates.",
+            "date-order": "The end date cannot precede the start date.",
+            "conflict": "This period overlaps an existing curator assignment. Choose a different period.",
+            "lecturer-required": "Select a curator."
           }
         }
       }
