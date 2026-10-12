@@ -18,8 +18,8 @@ export const useCuratorAssignment = (group: CuratorGroup) => {
   const queryClient = useQueryClient();
   const [employeeId, setEmployeeId] = useState('');
   const [startDate, setStartDate] = useState(() =>
-    group.academicYearStartDate && dayjs(group.academicYearStartDate).isValid()
-      ? dayjs(group.academicYearStartDate).format('YYYY-MM-DD')
+    group.studyStartDate && dayjs(group.studyStartDate).isValid()
+      ? dayjs(group.studyStartDate).format('YYYY-MM-DD')
       : '',
   );
   const [endDate, setEndDate] = useState(() =>
