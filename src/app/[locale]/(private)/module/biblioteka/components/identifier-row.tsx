@@ -1,6 +1,6 @@
 'use client';
 
-import { usePermission } from '@/hooks/use-permission';
+import { usePermission } from '@/components/permission-provider';
 import { LIBRARY_EDIT_MODULE } from '../constants';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
