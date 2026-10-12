@@ -790,7 +790,15 @@
         },
         "survey": {
           "title": "Survey {group}",
-          "discipline": "Discipline"
+          "discipline": "Discipline",
+          "completion": {
+            "label": "Survey participation",
+            "all": "All students",
+            "incomplete": "Incomplete participation",
+            "none": "No surveys completed",
+            "partial": "Some surveys completed",
+            "complete": "All surveys completed"
+          }
         },
         "filters": {
           "student-search": "Search by student name",
