@@ -850,6 +850,13 @@
         },
         "export": "Download Excel",
         "administration": {
+          "validation": {
+            "required": "Enter both the start and end dates.",
+            "invalid-date": "Enter valid dates.",
+            "date-order": "The end date cannot precede the start date.",
+            "conflict": "This period overlaps an existing curator assignment. Choose a different period.",
+            "lecturer-required": "Select a curator."
+          },
           "title": "Curator administration",
           "subtitle": "The table shows the current curator as of today. Future assignments take effect on their start date; all assignments are available in the group history.",
           "export": "Export CSV",
@@ -884,13 +891,6 @@
           "success": {
             "title": "Assignment saved",
             "description": "The curator for group {group} is assigned for {startDate} — {endDate}"
-          },
-          "validation": {
-            "required": "Enter both the start and end dates.",
-            "invalid-date": "Enter valid dates.",
-            "date-order": "The end date cannot precede the start date.",
-            "conflict": "This period overlaps an existing curator assignment. Choose a different period.",
-            "lecturer-required": "Select a curator."
           }
         }
       }

@@ -14,17 +14,18 @@ import { useToast } from '@/hooks/use-toast';
 
 export const useCuratorAssignment = (group: CuratorGroup) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
+  const [validationError, setValidationError] = useState<string | null>(null);
+  const { data: assignments, isFetching: isLoadingAssignments } = useQuery({
+    queryKey: curatorAdministrationQueryKeys.assignments(group.groupId),
+    queryFn: () => getCuratorAssignments(group.groupId),
+  });
+
   const { errorToast } = useServerErrorToast();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [employeeId, setEmployeeId] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [validationError, setValidationError] = useState<string | null>(null);
-  const { data: assignments, isFetching: isLoadingAssignments } = useQuery({
-    queryKey: curatorAdministrationQueryKeys.assignments(group.groupId),
-    queryFn: () => getCuratorAssignments(group.groupId),
-  });
 
   const assignment = useMutation({
     mutationFn: () => assignGroupCurator(group.groupId, Number(employeeId), startDate, endDate),
