@@ -40,7 +40,7 @@ export const StudyGroupsTable = ({ groups }: Props) => {
   return (
     <Card className="w-full rounded-[20px] bg-white p-5 shadow-lg sm:p-6">
       <div className="mb-5 flex flex-wrap items-center justify-between gap-4">
-        <Heading4 className="m-0 text-neutral-900">{t('title')}</Heading4>
+        <Heading4 className="m-0 text-neutral-900">{t('tabs.study-groups')}</Heading4>
         <Button
           variant="secondary"
           size="small"
