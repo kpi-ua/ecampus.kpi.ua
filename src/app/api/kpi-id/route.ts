@@ -2,11 +2,10 @@ import { timingSafeEqual } from 'node:crypto';
 import { exchangeKPIIDTicket, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
 import { cookies } from 'next/headers';
-import { redirect as redirectToPath } from 'next/navigation';
 import { type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
 import { KPIID_STATE_COOKIE_NAME } from '@/lib/constants/common';
-import { KPIID_FAILED_PATH, KPIID_LOGIN_PATH } from '@/middleware/contants';
+import { KPIID_FAILED_PATH, LOGIN_PATH } from '@/middleware/contants';
 import { KPIIDFailure } from '@/types/models/kpi-id-account';
 
 // The browser lands here straight from KPI ID, so every failure goes to a page, never a raw JSON error.
@@ -36,10 +35,10 @@ export async function GET(request: NextRequest) {
     return;
   }
 
-  // A login started from the KPI ID catalogue carries no state. Start our own instead:
-  // thanks to SSO the user comes straight back with a ticket bound to it.
+  // A login started from the KPI ID catalogue carries no state. Send the user to our login page, where the
+  // button carries a fresh one; thanks to SSO, KPI ID brings them straight back with a ticket bound to it.
   if (!state) {
-    redirectToPath(KPIID_LOGIN_PATH);
+    redirect({ href: LOGIN_PATH, locale });
     return;
   }
 

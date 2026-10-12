@@ -1,8 +1,10 @@
 import { Description, Heading2 } from '@/components/typography';
 import { CredentialsLogin } from './credentials-login';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { cookies } from 'next/headers';
 import { TextDivider } from '@/components/ui/text-divider';
 import { KPIIDLogin } from './kpi-id-login';
+import { KPIID_STATE_COOKIE_NAME } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'auth.login';
@@ -23,6 +25,7 @@ export default async function LoginPage({ params }: LocaleProps) {
   setRequestLocale(locale);
 
   const t = await getTranslations(INTL_NAMESPACE);
+  const kpiIdState = (await cookies()).get(KPIID_STATE_COOKIE_NAME)?.value;
 
   return (
     <div>
@@ -33,7 +36,7 @@ export default async function LoginPage({ params }: LocaleProps) {
         <Description className="p-0 text-center">{t('description')}</Description>
       </div>
       <div className="mt-[28px]">
-        <KPIIDLogin />
+        <KPIIDLogin state={kpiIdState} />
         <div className="my-[24px]">
           <TextDivider>{t('or')}</TextDivider>
         </div>

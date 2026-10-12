@@ -1,16 +1,38 @@
-import { getTranslations } from 'next-intl/server';
-import KPIIDLogo from '@/app/images/icons/KPIID.svg';
-import { Button } from '@/components/ui/button';
-import { KPIID_LOGIN_PATH } from '@/middleware/contants';
+'use client';
 
-// A plain link instead of the KPI ID widget: the state has to be minted per login on the server,
-// which the widget's static data-state attribute cannot do.
-export const KPIIDLogin = async () => {
-  const t = await getTranslations('auth.login.button');
+import { useLocale } from 'next-intl';
+import Script from 'next/script';
 
+interface KPIIDLoginProps {
+  // Minted by the middleware for this login; the callback checks it. See https://auth.kpi.ua/uk/button-wizard.
+  state?: string;
+}
+
+export const KPIIDLogin = ({ state }: KPIIDLoginProps) => {
+  const locale = useLocale();
+
+  const init = () => {
+    if (window.KPIID) {
+      window.KPIID.init();
+    }
+  };
+
+  // Make sure to keep this empty div wrapper. Read here:
+  // https://github.com/vercel/next.js/discussions/25049
   return (
-    <Button size="big" className="w-full" icon={<KPIIDLogo />} asChild>
-      <a href={KPIID_LOGIN_PATH}>{t('kpi-id')}</a>
-    </Button>
+    <div>
+      <div
+        id="kpi_id_signin"
+        data-app-id={process.env.NEXT_PUBLIC_KPI_ID_APP_ID!}
+        data-size="large"
+        data-logo-alignment="left"
+        data-locale={locale}
+        data-color="brand"
+        data-full-width="true"
+        data-dev-mode={String(process.env.NEXT_PUBLIC_ENV !== 'production')}
+        data-state={state}
+      ></div>
+      <Script id="kpi-script" src={process.env.NEXT_PUBLIC_KPI_ID_BUTTON!} strategy="lazyOnload" onReady={init} />
+    </div>
   );
 };
