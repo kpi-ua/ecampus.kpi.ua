@@ -3,8 +3,12 @@
 import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 
+import { usePermission } from '@/components/permission-provider';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Show } from '@/components/utils/show';
 import { Link } from '@/i18n/routing';
+
+import { CURATOR_ADMIN_MODULE } from '../constants';
 
 interface Props {
   children: ReactNode;
@@ -13,6 +17,7 @@ interface Props {
 
 export const LecturerCuratorView = ({ children, activeTab }: Props) => {
   const t = useTranslations('private.curatorlecturer');
+  const canAdmin = usePermission(CURATOR_ADMIN_MODULE);
 
   return (
     <div>
@@ -28,11 +33,13 @@ export const LecturerCuratorView = ({ children, activeTab }: Props) => {
               {t('tabs.group-curator')}
             </Link>
           </TabsTrigger>
-          <TabsTrigger value="administration" asChild>
-            <Link prefetch={false} href="/module/curatorlecturer/administration">
-              {t('tabs.administration')}
-            </Link>
-          </TabsTrigger>
+          <Show when={canAdmin}>
+            <TabsTrigger value="administration" asChild>
+              <Link prefetch={false} href="/module/curatorlecturer/administration">
+                {t('tabs.administration')}
+              </Link>
+            </TabsTrigger>
+          </Show>
         </TabsList>
       </Tabs>
       {children}
