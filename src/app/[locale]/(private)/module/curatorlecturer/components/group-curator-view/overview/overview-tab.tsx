@@ -51,8 +51,10 @@ export const OverviewTab = ({ group }: Props) => {
     queryFn: getContactTypes,
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
-  const query = search.trim().toLocaleLowerCase();
-  const filteredStudents = students.filter((student) => student.fullName.toLocaleLowerCase().includes(query));
+  const query = search.trim().toLocaleLowerCase('uk');
+  const filteredStudents = students
+    .filter((student) => student.fullName.toLocaleLowerCase('uk').includes(query))
+    .sort((first, second) => first.fullName.localeCompare(second.fullName, 'uk'));
 
   return (
     <div className="flex flex-col gap-6">
