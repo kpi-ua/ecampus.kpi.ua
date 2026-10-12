@@ -1,5 +1,8 @@
 'use client';
 
+import { usePermission } from '@/components/permission-provider';
+import { LIBRARY_EDIT_MODULE } from '../constants';
+
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
@@ -13,6 +16,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { Show } from '@/components/utils/show';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { LibraryIdentifier } from '@/types/models/library';
 
@@ -28,13 +32,17 @@ interface Props {
 }
 
 export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) => {
+  const canEdit = usePermission(LIBRARY_EDIT_MODULE);
   const t = useTranslations('private.library');
   const { errorToast } = useServerErrorToast();
   const queryClient = useQueryClient();
   const [editing, setEditing] = useState(false);
   const [value, setValue] = useState(identifier.value ?? '');
   const { mutate: save, isPending } = useMutation({
-    mutationFn: () => updateLibraryIdentifier(userAccountId, identifier.contactTypeId, value),
+    mutationFn: async () => {
+      if (!canEdit) return;
+      await updateLibraryIdentifier(userAccountId, identifier.contactTypeId, value);
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: libraryQueryKeys.employee(userAccountId, employeeId) });
       setEditing(false);
@@ -50,7 +58,7 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
     <TableRow>
       <TableCell>{identifier.name}</TableCell>
       <TableCell className="text-basic-blue">
-        {editing ? (
+        {canEdit && editing ? (
           <Input className="min-w-64" value={value} onChange={(event) => setValue(event.target.value)} />
         ) : (
           identifier.value || EMPTY_VALUE
@@ -61,24 +69,26 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
           ? dayjs.utc(identifier.changedAt).tz('Europe/Kyiv').format('DD.MM.YYYY HH:mm:ss')
           : EMPTY_VALUE}
       </TableCell>
-      <TableCell>
-        {editing ? (
-          <div className="flex flex-wrap gap-3">
-            <Button size="small" loading={isPending} onClick={() => save()}>
-              <Save />
-              {t('save')}
+      <Show when={canEdit}>
+        <TableCell>
+          {editing ? (
+            <div className="flex flex-wrap gap-3">
+              <Button size="small" loading={isPending} onClick={() => save()}>
+                <Save />
+                {t('save')}
+              </Button>
+              <Button variant="tertiary" size="small" onClick={cancelEditing}>
+                <X />
+              </Button>
+            </div>
+          ) : (
+            <Button variant="secondary" size="small" onClick={() => setEditing(true)}>
+              <Pencil />
+              {t('table.edit')}
             </Button>
-            <Button variant="tertiary" size="small" onClick={cancelEditing}>
-              <X />
-            </Button>
-          </div>
-        ) : (
-          <Button variant="secondary" size="small" onClick={() => setEditing(true)}>
-            <Pencil />
-            {t('table.edit')}
-          </Button>
-        )}
-      </TableCell>
+          )}
+        </TableCell>
+      </Show>
     </TableRow>
   );
 };
