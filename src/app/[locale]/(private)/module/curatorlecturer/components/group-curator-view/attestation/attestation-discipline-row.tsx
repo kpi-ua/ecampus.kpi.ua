@@ -1,5 +1,7 @@
 'use client';
 
+import { sortByStudentName } from '@/app/[locale]/(private)/module/curatorlecturer/utils/sort-by-student-name';
+
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -20,9 +22,7 @@ interface Props {
 export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.results');
   const [expanded, setExpanded] = useState(false);
-  const sortedStudents = [...discipline.students].sort((first, second) =>
-    first.fullName.localeCompare(second.fullName, 'uk'),
-  );
+  const sortedStudents = sortByStudentName(discipline.students, (student) => student.fullName);
   return (
     <>
       <TableRow>

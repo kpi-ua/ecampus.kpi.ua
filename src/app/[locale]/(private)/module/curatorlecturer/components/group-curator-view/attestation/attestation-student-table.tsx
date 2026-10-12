@@ -1,4 +1,6 @@
 'use client';
+
+import { sortByStudentName } from '@/app/[locale]/(private)/module/curatorlecturer/utils/sort-by-student-name';
 import { useDeferredValue, useMemo } from 'react';
 
 import { useTranslations } from 'next-intl';
@@ -33,12 +35,15 @@ export const AttestationStudentTable = ({
   const deferredSearch = useDeferredValue(search);
   const filteredStudents = useMemo(
     () =>
-      filterAttestationResults(students, (student) => student.fullName, {
-        search: deferredSearch,
-        onlyNotAttested,
-        onlyRepeated,
-        showRepeated,
-      }).sort((first, second) => first.fullName.localeCompare(second.fullName, 'uk')),
+      sortByStudentName(
+        filterAttestationResults(students, (student) => student.fullName, {
+          search: deferredSearch,
+          onlyNotAttested,
+          onlyRepeated,
+          showRepeated,
+        }),
+        (student) => student.fullName,
+      ),
     [students, deferredSearch, onlyNotAttested, onlyRepeated, showRepeated],
   );
 

@@ -1,5 +1,7 @@
 'use client';
 
+import { sortByStudentName } from '@/app/[locale]/(private)/module/curatorlecturer/utils/sort-by-student-name';
+
 import { useMutation, useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { Download } from 'lucide-react';
@@ -51,10 +53,11 @@ export const OverviewTab = ({ group }: Props) => {
     queryFn: getContactTypes,
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
-  const query = search.trim().toLocaleLowerCase('uk');
-  const filteredStudents = students
-    .filter((student) => student.fullName.toLocaleLowerCase('uk').includes(query))
-    .sort((first, second) => first.fullName.localeCompare(second.fullName, 'uk'));
+  const query = search.trim().toLocaleLowerCase();
+  const filteredStudents = sortByStudentName(
+    students.filter((student) => student.fullName.toLocaleLowerCase('uk').includes(query)),
+    (student) => student.fullName,
+  );
 
   return (
     <div className="flex flex-col gap-6">
