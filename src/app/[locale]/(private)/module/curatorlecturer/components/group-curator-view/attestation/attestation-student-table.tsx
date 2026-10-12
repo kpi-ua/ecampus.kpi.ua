@@ -38,7 +38,7 @@ export const AttestationStudentTable = ({
         onlyNotAttested,
         onlyRepeated,
         showRepeated,
-      }),
+      }).sort((first, second) => first.fullName.localeCompare(second.fullName, 'uk')),
     [students, deferredSearch, onlyNotAttested, onlyRepeated, showRepeated],
   );
 

@@ -20,6 +20,9 @@ interface Props {
 export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.results');
   const [expanded, setExpanded] = useState(false);
+  const sortedStudents = [...discipline.students].sort((first, second) =>
+    first.fullName.localeCompare(second.fullName, 'uk'),
+  );
   return (
     <>
       <TableRow>
@@ -45,7 +48,7 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
         </TableCell>
       </TableRow>
       <Show when={expanded}>
-        {discipline.students.map((student) => (
+        {sortedStudents.map((student) => (
           <TableRow key={student.studentId} className="bg-neutral-50 hover:bg-neutral-50">
             <TableCell className="pl-6">{student.fullName}</TableCell>
             <Show when={showRepeated}>

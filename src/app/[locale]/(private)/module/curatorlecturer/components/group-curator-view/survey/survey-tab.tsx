@@ -16,7 +16,10 @@ import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { exportGroupSurveys } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-surveys';
 
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { SurveyStudentRow } from './survey-student-row';
 import { groupSurveysByStudent } from '@/app/[locale]/(private)/module/curatorlecturer/utils/group-surveys-by-student';
 
@@ -40,9 +43,9 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
     select: groupSurveysByStudent,
   });
   const query = search.trim().toLocaleLowerCase();
-  const filteredStudents = students.filter((studentRows) =>
-    studentRows[0].fullName.toLocaleLowerCase().includes(query),
-  );
+  const filteredStudents = students
+    .filter((studentRows) => studentRows[0].fullName.toLocaleLowerCase().includes(query))
+    .sort((first, second) => first[0].fullName.localeCompare(second[0].fullName, 'uk'));
 
   return (
     <div className="flex flex-col gap-6">
