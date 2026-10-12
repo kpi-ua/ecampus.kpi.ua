@@ -17,6 +17,7 @@ import { Input } from '@/components/ui/input';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Show } from '@/components/utils/show';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { LibraryIdentifier } from '@/types/models/library';
 
 import { libraryQueryKeys } from '../query-keys';
@@ -60,11 +61,13 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
         {canEdit && editing ? (
           <Input className="min-w-64" value={value} onChange={(event) => setValue(event.target.value)} />
         ) : (
-          identifier.value || '—'
+          identifier.value || EMPTY_VALUE
         )}
       </TableCell>
       <TableCell className="text-neutral-500">
-        {identifier.changedAt ? dayjs.utc(identifier.changedAt).tz('Europe/Kyiv').format('DD.MM.YYYY HH:mm:ss') : '—'}
+        {identifier.changedAt
+          ? dayjs.utc(identifier.changedAt).tz('Europe/Kyiv').format('DD.MM.YYYY HH:mm:ss')
+          : EMPTY_VALUE}
       </TableCell>
       <Show when={canEdit}>
         <TableCell>

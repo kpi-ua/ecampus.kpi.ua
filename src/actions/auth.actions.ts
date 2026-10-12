@@ -8,7 +8,7 @@ import { campusFetch } from '@/lib/client';
 import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount } from '@/types/models/kpi-id-account';
-import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
+import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
 const ROOT_COOKIE_DOMAIN = process.env.ROOT_COOKIE_DOMAIN;
@@ -86,8 +86,6 @@ export async function resetPassword(username: string, recaptchaToken: string) {
     throw new Error('Bad request');
   }
 }
-
-import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
 
 export async function getUserDetails() {
   const userResponse = await campusFetch<User>('profile', {

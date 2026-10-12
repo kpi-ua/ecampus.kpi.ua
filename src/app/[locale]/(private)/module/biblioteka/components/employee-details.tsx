@@ -12,6 +12,7 @@ import { getLibraryEmployee } from '@/actions/library.actions';
 import { Heading6, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { Show } from '@/components/utils/show';
 import { LibraryEmployeeDetails } from '@/types/models/library';
 
@@ -66,7 +67,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                       ? dayjs(item.contractEnd).isValid()
                         ? dayjs(item.contractEnd).format('DD.MM.YYYY')
                         : item.contractEnd
-                      : '—'}
+                      : EMPTY_VALUE}
                   </TableCell>
                 </TableRow>
               ))}

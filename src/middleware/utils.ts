@@ -5,7 +5,7 @@ import UrlPattern from 'url-pattern';
 import { LOGIN_PATH, NOT_FOUND_PATH, ROOT_PATH } from './contants';
 import { getJWTPayload } from '@/lib/jwt';
 import { CampusJwtPayload } from '@/types/campus-jwt-payload';
-import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/common';
 
 export const redirectWithIntl = (request: NextRequest, path: string) => {
   const url = request.nextUrl.clone();

@@ -3,7 +3,7 @@ import 'server-only';
 import JWT, { JwtPayload } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 
-import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/common';
 import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 
 export const getJWTPayload = <T extends JwtPayload>(token: string) => {
