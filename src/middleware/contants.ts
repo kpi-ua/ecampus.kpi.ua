@@ -1,6 +1,8 @@
 export const ROOT_PATH = '/';
 export const NOT_FOUND_PATH = '/not-found';
 export const LOGIN_PATH = '/login';
+// Public because it sits under LOGIN_PATH.
+export const KPIID_FAILED_PATH = '/login/kpi-id-failed';
 export const PUBLIC_PATHS = [
   '/login',
   '/password-reset',
