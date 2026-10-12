@@ -4,6 +4,9 @@ import { redirect } from 'next/navigation';
 import { getLocale } from 'next-intl/server';
 import { KPIID_STATE_COOKIE_NAME, KPIID_STATE_MAX_AGE_SECONDS } from '@/lib/constants/common';
 
+// The same switch the KPI ID widget made from its data-dev-mode attribute.
+const KPI_ID_URL = process.env.NEXT_PUBLIC_ENV === 'production' ? 'https://auth.kpi.ua' : 'https://auth.cloud.kpi.ua';
+
 // Starts a KPI ID login with a fresh state, so the callback can tell this browser's login from a planted one.
 // See https://auth.kpi.ua/uk/integration, "Параметр state".
 export async function GET() {
@@ -21,7 +24,7 @@ export async function GET() {
     path: '/',
   });
 
-  const url = new URL(`/${locale}/`, process.env.KPI_ID_URL);
+  const url = new URL(`/${locale}/`, KPI_ID_URL);
   url.searchParams.set('appId', process.env.NEXT_PUBLIC_KPI_ID_APP_ID!);
   url.searchParams.set('state', state);
 
