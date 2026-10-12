@@ -810,7 +810,9 @@
           "code-of-honor": "Code of Honor",
           "agreed": "Agreed {date}",
           "not-agreed": "Not agreed",
-          "count": "Students: {count}"
+          "count": "Students: {count}",
+          "account-email": "Account-linked email",
+          "recovery-email": "Use this address to recover the password."
         },
         "results": {
           "student": "Student name",
