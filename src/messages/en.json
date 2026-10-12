@@ -884,6 +884,12 @@
           "success": {
             "title": "Assignment saved",
             "description": "The curator for group {group} is assigned for {startDate} — {endDate}"
+          },
+          "filters": {
+            "all": "All",
+            "course": "Course",
+            "educationLevel": "Education level",
+            "studyForm": "Form of study"
           }
         }
       }
