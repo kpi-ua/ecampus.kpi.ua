@@ -1,8 +1,12 @@
+import { timingSafeEqual } from 'node:crypto';
 import { exchangeKPIIDTicket, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
+import { cookies } from 'next/headers';
+import { redirect as redirectToPath } from 'next/navigation';
 import { type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
-import { KPIID_FAILED_PATH } from '@/middleware/contants';
+import { KPIID_STATE_COOKIE_NAME } from '@/lib/constants/common';
+import { KPIID_FAILED_PATH, KPIID_LOGIN_PATH } from '@/middleware/contants';
 import { KPIIDFailure } from '@/types/models/kpi-id-account';
 
 // The browser lands here straight from KPI ID, so every failure goes to a page, never a raw JSON error.
@@ -15,20 +19,40 @@ const fail = ({ reason, status }: KPIIDFailure, locale: string, ticketId?: strin
   redirect({ href: { pathname: KPIID_FAILED_PATH, query }, locale });
 };
 
+const isSameState = (actual: string, expected: string) =>
+  actual.length === expected.length && timingSafeEqual(Buffer.from(actual), Buffer.from(expected));
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const locale = await getLocale();
+  const resolvedCookies = await cookies();
   const ticketId = searchParams.get('ticketId');
   const username = searchParams.get('username');
+  const state = searchParams.get('state');
+  const expectedState = resolvedCookies.get(KPIID_STATE_COOKIE_NAME)?.value;
 
   if (!ticketId) {
     fail({ reason: 'missing-ticket' }, locale);
     return;
   }
 
+  // A login started from the KPI ID catalogue carries no state. Start our own instead:
+  // thanks to SSO the user comes straight back with a ticket bound to it.
+  if (!state) {
+    redirectToPath(KPIID_LOGIN_PATH);
+    return;
+  }
+
+  if (!expectedState || !isSameState(state, expectedState)) {
+    resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
+    fail({ reason: 'state-mismatch' }, locale, ticketId);
+    return;
+  }
+
   const result = await exchangeKPIIDTicket(ticketId);
 
   if (!result.ok) {
+    resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
     fail(result, locale, ticketId);
     return;
   }
@@ -38,23 +62,27 @@ export async function GET(request: NextRequest) {
   if (accounts.length === 1) {
     const [account] = accounts;
 
+    resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
     await setLoginCookies(account.access_token, account.sessionId, true);
     redirect({ href: '/', locale });
     return;
   }
 
+  // The account picker sends the user back here with a username, so the state stays until that hop is verified too.
   if (!username) {
-    redirect({ href: { pathname: '/login/kpi-id', query: { ticketId } }, locale });
+    redirect({ href: { pathname: '/login/kpi-id', query: { ticketId, state } }, locale });
     return;
   }
 
   const account = accounts.find((acc) => acc.username === username);
 
   if (!account) {
+    resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
     fail({ reason: 'username-mismatch' }, locale, ticketId);
     return;
   }
 
+  resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
   await setLoginCookies(account.access_token, account.sessionId, true);
   redirect({ href: '/', locale });
   return;

@@ -9,14 +9,6 @@ declare global {
   interface TypedResponse<T> extends Response {
     json(): Promise<T>;
   }
-
-  interface KPI_ID {
-    init(): void;
-  }
-
-  interface Window {
-    KPIID: KPI_ID;
-  }
 }
 
 export {};

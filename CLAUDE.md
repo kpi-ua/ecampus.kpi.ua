@@ -98,7 +98,8 @@ Required in `.env.development` / `.env.production`:
 - `MAIN_COOKIE_DOMAIN`, `ROOT_COOKIE_DOMAIN` - Cookie domains
 - `OLD_CAMPUS_URL` - Legacy campus URL
 - `NEXT_PUBLIC_RECAPTCHA_KEY` - reCAPTCHA v3 key
-- `NEXT_PUBLIC_KPI_ID_APP_ID` - OAuth app ID
+- `NEXT_PUBLIC_KPI_ID_APP_ID` - KPI ID application ID
+- `KPI_ID_URL` - KPI ID portal (`https://auth.kpi.ua`, or `https://auth.cloud.kpi.ua` for test)
 
 ## Authentication
 

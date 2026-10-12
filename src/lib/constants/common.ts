@@ -34,6 +34,10 @@ export const ACADEMIC_IDENTIFIER_IDS = [
 
 export const TOKEN_COOKIE_NAME = 'ecampus-token';
 export const SID_COOKIE_NAME = 'SID';
+// Holds the KPI ID login state between starting a login and its callback.
+export const KPIID_STATE_COOKIE_NAME = 'kpi-id-state';
+// KPI ID tickets live 5 minutes; the state only needs to outlive the sign-in page.
+export const KPIID_STATE_MAX_AGE_SECONDS = 15 * 60;
 
 export const EMPLOYMENT_TYPE = {
   [EmploymentType.Unknown]: 'невідомо',

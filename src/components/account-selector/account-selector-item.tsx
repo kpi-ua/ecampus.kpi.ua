@@ -10,9 +10,10 @@ interface AccountSelectorItemProps {
   avatarUrl: string;
   username: string;
   ticketId: string;
+  state: string;
 }
 
-export const AccountSelectorItem = ({ avatarUrl, username, ticketId }: AccountSelectorItemProps) => {
+export const AccountSelectorItem = ({ avatarUrl, username, ticketId, state }: AccountSelectorItemProps) => {
   const t = useTranslations('auth.kpi-id');
   const fallbackUsername = capitalize(username.charAt(0));
 
@@ -26,7 +27,7 @@ export const AccountSelectorItem = ({ avatarUrl, username, ticketId }: AccountSe
         <span className="text-neutral-600">{username}</span>
       </div>
       <Button variant="secondary" size="small" className="w-[100px]" asChild>
-        <Link href={{ pathname: '/api/kpi-id', query: { username, ticketId } }}>{t('sign-in')}</Link>
+        <Link href={{ pathname: '/api/kpi-id', query: { username, ticketId, state } }}>{t('sign-in')}</Link>
       </Button>
     </li>
   );

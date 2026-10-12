@@ -23,10 +23,11 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function KPIID({ searchParams }: Props) {
-  const { ticketId } = await searchParams;
+  const { ticketId, state } = await searchParams;
   const t = await getTranslations(INTL_NAMESPACE);
 
-  if (!ticketId) {
+  // Both come from the callback route; the state is handed back to it with the chosen account.
+  if (!ticketId || !state) {
     notFound();
   }
 
@@ -45,7 +46,12 @@ export default async function KPIID({ searchParams }: Props) {
 
   return (
     <AuthNavLayout header={t('header')} description={t('description')}>
-      <AccountSelector accounts={sanitizedAccounts} ticketId={ticketId as string} className="my-4" />
+      <AccountSelector
+        accounts={sanitizedAccounts}
+        ticketId={ticketId as string}
+        state={state as string}
+        className="my-4"
+      />
     </AuthNavLayout>
   );
 }
