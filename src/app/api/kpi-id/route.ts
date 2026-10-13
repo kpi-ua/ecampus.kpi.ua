@@ -2,11 +2,10 @@ import { timingSafeEqual } from 'node:crypto';
 import { exchangeKPIIDTicket, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
 import { cookies } from 'next/headers';
-import { type NextRequest, NextResponse } from 'next/server';
+import { type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
 import { KPIID_STATE_COOKIE_NAME } from '@/lib/constants/common';
-import { createKPIIDState, getKPIIDLoginUrl, isRestartedKPIIDState, setKPIIDStateCookie } from '@/lib/kpi-id-state';
-import { KPIID_FAILED_PATH } from '@/middleware/contants';
+import { KPIID_FAILED_PATH, LOGIN_PATH } from '@/middleware/contants';
 import { KPIIDFailure } from '@/types/models/kpi-id-account';
 
 // The browser lands here straight from KPI ID, so every failure goes to a page, never a raw JSON error.
@@ -17,17 +16,6 @@ const fail = ({ reason, status }: KPIIDFailure, locale: string, ticketId?: strin
   const query = status === undefined ? { reason } : { reason, status };
 
   redirect({ href: { pathname: KPIID_FAILED_PATH, query }, locale });
-};
-
-// Starts a login of our own, bound to a fresh state. Thanks to SSO, KPI ID brings the user straight back with a
-// ticket, so the user does not have to press the button again.
-const restart = (locale: string) => {
-  const state = createKPIIDState(true);
-  const response = NextResponse.redirect(getKPIIDLoginUrl(state, locale));
-
-  setKPIIDStateCookie(response.cookies, state);
-
-  return response;
 };
 
 const isSameState = (actual: string, expected: string) => {
@@ -52,23 +40,17 @@ export async function GET(request: NextRequest) {
     return;
   }
 
-  // A login started from the KPI ID catalogue carries no state, so this browser has nothing to compare it with.
+  // A login started from the KPI ID catalogue carries no state, so this browser has nothing to compare it with. The
+  // button on the login page starts a login of its own, and SSO brings the user straight back.
   if (!state) {
-    return restart(locale);
+    redirect({ href: LOGIN_PATH, locale });
+    return;
   }
 
-  if (!expectedState) {
-    // The restarted login came back without its cookie as well: the browser is not keeping cookies.
-    if (isRestartedKPIIDState(state)) {
-      fail({ reason: 'no-state-cookie' }, locale, ticketId);
-      return;
-    }
-
-    // The login page outlived its cookie (it lives KPIID_STATE_MAX_AGE_SECONDS); nothing to compare with either.
-    return restart(locale);
-  }
-
-  if (!isSameState(state, expectedState)) {
+  // Checked before the exchange: the ticket is single-use, so a foreign one must not be spent. A state the cookie
+  // does not hold (the login page outlived it, or the browser keeps no cookies) is refused the same way; the login
+  // page then issues a fresh one.
+  if (!expectedState || !isSameState(state, expectedState)) {
     resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
     fail({ reason: 'state-mismatch' }, locale, ticketId);
     return;

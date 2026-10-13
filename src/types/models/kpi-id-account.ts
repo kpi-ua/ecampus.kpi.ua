@@ -15,7 +15,6 @@ export interface KPIIDAccount extends KPIIDAccountSlim {
 export const KPIID_FAILURE_REASONS = [
   'missing-ticket',
   'state-mismatch',
-  'no-state-cookie',
   'no-accounts',
   'username-mismatch',
   'network',
