@@ -27,7 +27,10 @@ export const AccountSelectorItem = ({ avatarUrl, username, ticketId, state }: Ac
         <span className="text-neutral-600">{username}</span>
       </div>
       <Button variant="secondary" size="small" className="w-[100px]" asChild>
-        <Link href={{ pathname: '/api/kpi-id', query: { username, ticketId, state } }}>{t('sign-in')}</Link>
+        {/* No prefetch: the callback spends the one-time ticket and signs the user in, so it must run on the click only. */}
+        <Link prefetch={false} href={{ pathname: '/api/kpi-id', query: { username, ticketId, state } }}>
+          {t('sign-in')}
+        </Link>
       </Button>
     </li>
   );
