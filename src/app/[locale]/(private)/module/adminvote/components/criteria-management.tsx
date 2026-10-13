@@ -61,19 +61,47 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
   const archiving = archiveMutation.isPending;
   const disabled = data.isVotingOpen || isFetching || archiving;
 
+  const handleAdd = () => {
+    setEditingCriterion(undefined);
+    setIsFormOpen(true);
+  };
+
+  const handleEdit = (criterion: VoteAdminCriterion) => {
+    setEditingCriterion(criterion);
+    setIsFormOpen(true);
+  };
+
+  const handleFormClose = () => {
+    setIsFormOpen(false);
+  };
+
+  const handleSaved = () => {
+    setIsFormOpen(false);
+    toast({ title: t('saved-success') });
+  };
+
+  const handleArchiveOpenChange = (open: boolean) => {
+    if (!open && !archiving) {
+      setArchiveTarget(null);
+    }
+  };
+
+  const handleArchiveCancel = () => {
+    setArchiveTarget(null);
+  };
+
+  const handleArchiveConfirm = () => {
+    if (archiveTarget && !disabled) {
+      archiveMutation.mutate(archiveTarget.id);
+    }
+  };
+
   return (
     <Tabs defaultValue="current" className="flex flex-col gap-4 rounded-2xl bg-white p-4 shadow-sm sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Heading2 className="text-lg leading-6 lg:text-lg lg:leading-6">{titleTranslation('title')}</Heading2>
         <TabsContent value="current" className="mt-0">
-          <Button
-            size="small"
-            disabled={disabled || isFormOpen}
-            onClick={() => {
-              setEditingCriterion(undefined);
-              setIsFormOpen(true);
-            }}
-          >
+          <Button size="small" disabled={disabled || isFormOpen} onClick={handleAdd}>
             {t('add')}
           </Button>
         </TabsContent>
@@ -94,35 +122,20 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
         </TabsList>
       </div>
       {isFormOpen && !data.isVotingOpen && (
-        <CriterionForm
-          criterion={editingCriterion}
-          onClose={() => setIsFormOpen(false)}
-          onSaved={() => {
-            setIsFormOpen(false);
-            toast({ title: t('saved-success') });
-          }}
-        />
+        <CriterionForm criterion={editingCriterion} onClose={handleFormClose} onSaved={handleSaved} />
       )}
       <TabsContent value="current" className="mt-0">
         <CurrentCriteriaTable
           criteria={data.currentCriteria}
           disabled={disabled || isFormOpen}
-          onEdit={(criterion) => {
-            setEditingCriterion(criterion);
-            setIsFormOpen(true);
-          }}
+          onEdit={handleEdit}
           onArchive={setArchiveTarget}
         />
       </TabsContent>
       <TabsContent value="archived" className="mt-0">
         <ArchivedCriteriaTable criteria={data.archivedCriteria} />
       </TabsContent>
-      <AlertDialog
-        open={!!archiveTarget}
-        onOpenChange={(open) => {
-          if (!open && !archiving) setArchiveTarget(null);
-        }}
-      >
+      <AlertDialog open={!!archiveTarget} onOpenChange={handleArchiveOpenChange}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{t('archive-title')}</AlertDialogTitle>
@@ -134,16 +147,10 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <Button variant="secondary" disabled={archiving} onClick={() => setArchiveTarget(null)}>
+            <Button variant="secondary" disabled={archiving} onClick={handleArchiveCancel}>
               {t('cancel')}
             </Button>
-            <Button
-              loading={archiving}
-              disabled={data.isVotingOpen || isFetching}
-              onClick={() => {
-                if (archiveTarget && !disabled) archiveMutation.mutate(archiveTarget.id);
-              }}
-            >
+            <Button loading={archiving} disabled={data.isVotingOpen || isFetching} onClick={handleArchiveConfirm}>
               {t('confirm-archive')}
             </Button>
           </AlertDialogFooter>

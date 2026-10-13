@@ -69,31 +69,28 @@ export const CriterionForm = ({ criterion, onClose, onSaved }: Props) => {
     onError: () => errorToast(),
   });
 
+  const handleOpenChange = (open: boolean) => {
+    if (!open && !saveMutation.isPending) {
+      onClose();
+    }
+  };
+
+  const handleSubmit = form.handleSubmit((values) => saveMutation.mutate(values));
+
   return (
-    <Dialog
-      open
-      onOpenChange={(open) => {
-        if (!open && !saveMutation.isPending) onClose();
-      }}
-    >
+    <Dialog open onOpenChange={handleOpenChange}>
       <DialogContent
         className="max-h-[calc(100dvh-2rem)] overflow-y-auto sm:max-w-[704px]"
         overlayClassName="bg-neutral-900/10"
         showCloseButton={!saveMutation.isPending}
-        onEscapeKeyDown={(event) => {
-          if (saveMutation.isPending) event.preventDefault();
-        }}
-        onInteractOutside={(event) => {
-          if (saveMutation.isPending) event.preventDefault();
-        }}
       >
         <Form {...form}>
-          <form onSubmit={form.handleSubmit((values) => saveMutation.mutate(values))} className="flex flex-col gap-8">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-8">
             <DialogHeader className="text-left">
               <DialogTitle className="pr-6 leading-6">{t(criterion ? 'edit' : 'add')}</DialogTitle>
               <DialogDescription className={criterion ? undefined : 'sr-only'}>{t('history-note')}</DialogDescription>
             </DialogHeader>
-            <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_160px]">
+            <div className="grid items-start gap-4 sm:grid-cols-[minmax(0,1fr)_160px]">
               <FormField
                 control={form.control}
                 name="name"
