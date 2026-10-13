@@ -40,17 +40,16 @@ export async function GET(request: NextRequest) {
     return;
   }
 
-  // A login started from the KPI ID catalogue carries no state, so this browser has nothing to compare it with. The
-  // button on the login page starts a login of its own, and SSO brings the user straight back.
-  if (!state) {
+  // A login started from the KPI ID catalogue carries no state, and a login page left open longer than the cookie
+  // lives has nothing to compare it with. Either way the login page issues a fresh state, its button starts a login
+  // of this browser's own, and SSO brings the user straight back with a ticket bound to it.
+  if (!state || !expectedState) {
     redirect({ href: LOGIN_PATH, locale });
     return;
   }
 
-  // Checked before the exchange: the ticket is single-use, so a foreign one must not be spent. A state the cookie
-  // does not hold (the login page outlived it, or the browser keeps no cookies) is refused the same way; the login
-  // page then issues a fresh one.
-  if (!expectedState || !isSameState(state, expectedState)) {
+  // Checked before the exchange: the ticket is single-use, so a foreign one must not be spent.
+  if (!isSameState(state, expectedState)) {
     resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
     fail({ reason: 'state-mismatch' }, locale, ticketId);
     return;
