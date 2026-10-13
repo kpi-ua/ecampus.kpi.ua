@@ -1,4 +1,3 @@
-import { timingSafeEqual } from 'node:crypto';
 import { exchangeKPIIDTicket, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
 import { cookies } from 'next/headers';
@@ -16,14 +15,6 @@ const fail = ({ reason, status }: KPIIDFailure, locale: string, ticketId?: strin
   const query = status === undefined ? { reason } : { reason, status };
 
   redirect({ href: { pathname: KPIID_FAILED_PATH, query }, locale });
-};
-
-const isSameState = (actual: string, expected: string) => {
-  const actualBytes = Buffer.from(actual);
-  const expectedBytes = Buffer.from(expected);
-
-  // timingSafeEqual throws on buffers of different length, and equal string lengths do not imply equal byte lengths.
-  return actualBytes.length === expectedBytes.length && timingSafeEqual(actualBytes, expectedBytes);
 };
 
 export async function GET(request: NextRequest) {
@@ -48,17 +39,21 @@ export async function GET(request: NextRequest) {
     return;
   }
 
-  // Checked before the exchange: the ticket is single-use, so a foreign one must not be spent.
-  if (!isSameState(state, expectedState)) {
-    resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
+  // Checked before the exchange: the ticket is single-use, so a foreign one must not be spent. The cookie stays:
+  // a forged callback must not cancel this browser's own login.
+  if (state !== expectedState) {
     fail({ reason: 'state-mismatch' }, locale, ticketId);
     return;
   }
 
   const result = await exchangeKPIIDTicket(ticketId);
 
-  if (!result.ok) {
+  // One state per login. Only the account picker keeps it, since it sends the user back here with a username.
+  if (!result.ok || result.accounts.length === 1 || username) {
     resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
+  }
+
+  if (!result.ok) {
     fail(result, locale, ticketId);
     return;
   }
@@ -68,13 +63,11 @@ export async function GET(request: NextRequest) {
   if (accounts.length === 1) {
     const [account] = accounts;
 
-    resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
     await setLoginCookies(account.access_token, account.sessionId, true);
     redirect({ href: '/', locale });
     return;
   }
 
-  // The account picker sends the user back here with a username, so the state stays until that hop is verified too.
   if (!username) {
     redirect({ href: { pathname: '/login/kpi-id', query: { ticketId, state } }, locale });
     return;
@@ -83,12 +76,10 @@ export async function GET(request: NextRequest) {
   const account = accounts.find((acc) => acc.username === username);
 
   if (!account) {
-    resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
     fail({ reason: 'username-mismatch' }, locale, ticketId);
     return;
   }
 
-  resolvedCookies.delete(KPIID_STATE_COOKIE_NAME);
   await setLoginCookies(account.access_token, account.sessionId, true);
   redirect({ href: '/', locale });
   return;
