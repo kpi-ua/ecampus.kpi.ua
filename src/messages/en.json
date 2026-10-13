@@ -175,6 +175,7 @@
       "header": "Sign in to Electronic Campus",
       "description": "The university system for managing the educational process, tracking academic progress, and interacting within the university.",
       "or": "or",
+      "kpi-id-continue": "You came from KPI ID. Press “Sign in with KPI ID” to finish signing in; you will not have to enter anything again.",
       "passwordReset": "Forgot my password",
       "publicLink": {
         "support": "User support",

@@ -3,7 +3,7 @@ import { redirect } from '@/i18n/routing';
 import { cookies } from 'next/headers';
 import { type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
-import { KPIID_STATE_COOKIE_NAME } from '@/lib/constants/common';
+import { KPIID_CONTINUE_PARAM, KPIID_STATE_COOKIE_NAME } from '@/lib/constants/common';
 import { KPIID_FAILED_PATH, LOGIN_PATH } from '@/middleware/contants';
 import { KPIIDFailure } from '@/types/models/kpi-id-account';
 
@@ -32,10 +32,10 @@ export async function GET(request: NextRequest) {
   }
 
   // A login started from the KPI ID catalogue carries no state, and a login page left open longer than the cookie
-  // lives has nothing to compare it with. Either way the login page issues a fresh state, its button starts a login
-  // of this browser's own, and SSO brings the user straight back with a ticket bound to it.
+  // lives has nothing to compare it with. Either way the login page issues a fresh state and tells the user to press
+  // the button again; it starts a login of this browser's own, and SSO brings them straight back with a bound ticket.
   if (!state || !expectedState) {
-    redirect({ href: LOGIN_PATH, locale });
+    redirect({ href: { pathname: LOGIN_PATH, query: { [KPIID_CONTINUE_PARAM]: '' } }, locale });
     return;
   }
 

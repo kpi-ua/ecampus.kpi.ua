@@ -39,6 +39,8 @@ export const KPIID_STATE_COOKIE_NAME = 'kpi-id-state';
 // KPI ID tickets live 5 minutes. A login page left open longer than this is sent back to the login page, which
 // issues a fresh state; SSO brings the user straight back after the next click.
 export const KPIID_STATE_MAX_AGE_SECONDS = 15 * 60;
+// Query parameter the callback adds when it sends the user back to the login page to press the KPI ID button again.
+export const KPIID_CONTINUE_PARAM = 'kpi-id';
 
 export const EMPLOYMENT_TYPE = {
   [EmploymentType.Unknown]: 'невідомо',
