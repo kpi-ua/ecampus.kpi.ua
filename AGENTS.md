@@ -49,6 +49,7 @@ Standard wiring for a paginated, sortable table:
 import { memo } from 'react';
 import { useTranslations } from 'next-intl';
 
+import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Show } from '@/components/utils/show';
@@ -62,7 +63,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
   const { paginatedItems } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
 
   if (items.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</p>;
+    return <Paragraph className="text-muted-foreground my-0 py-12 text-center text-sm">{t('empty')}</Paragraph>;
   }
 
   return (
@@ -76,7 +77,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 });
 ```
 
-- Empty state: inline early return with a translated `<p>`.
+- Empty state: inline early return with a translated `<Paragraph>`.
 - Pagination is conditional via `<Show when={...}>` — don't show it when there's only one page worth of rows.
 - Use `PAGE_SIZE_DEFAULT` from `@/lib/constants/page-size` (or `PAGE_SIZE_SMALL` for compact lists). Don't hardcode page sizes.
 
@@ -158,6 +159,15 @@ Notable variants:
 - `<Badge variant="neutral|success|error|red|blue|orange|purple|yellow|default">`
 
 Conditional rendering helper: `<Show when={cond} fallback={null}>` from `@/components/utils/show`.
+
+- In the `adminvote` module, do not add explicit `aria-*` attributes to feature components. Use the visible labels and existing UI primitives; keep the primitives' built-in attributes intact.
+
+### Typography
+
+- Use the existing typography components from `@/components/typography` instead of raw `<h1>`–`<h6>` and `<p>` tags in pages and feature components: `Heading1`–`Heading6`, `Paragraph`, and `Description`.
+- Choose the heading component by semantic level. Adjust `className` to match the design, including responsive typography and default paragraph margins when necessary.
+- Keep specialized UI components such as `DialogTitle`, `DialogDescription`, `AlertDialogTitle`, and `AlertDialogDescription` for their accessible semantics; do not replace them with raw HTML tags.
+- Raw heading and paragraph tags belong inside the shared typography/UI primitives themselves, not new feature markup.
 
 ## 10. Types
 
