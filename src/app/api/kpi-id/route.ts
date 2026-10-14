@@ -1,14 +1,21 @@
-import { exchangeKPIIDTicket, setLoginCookies } from '@/actions/auth.actions';
+import { exchangeKPIIDCode, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
+import { cookies } from 'next/headers';
 import { type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
-import { KPIID_FAILED_PATH } from '@/middleware/contants';
-import { KPIIDFailure } from '@/types/models/kpi-id-account';
+import {
+  KPIID_ACCOUNTS_COOKIE_NAME,
+  KPIID_COOKIE_MAX_AGE_SECONDS,
+  KPIID_TRANSACTION_COOKIE_NAME,
+  parseKPIIDTransaction,
+} from '@/lib/kpi-id';
+import { KPIID_CALLBACK_PATH, KPIID_FAILED_PATH } from '@/middleware/contants';
+import { KPIIDAccountSlim, KPIIDFailure } from '@/types/models/kpi-id-account';
 
-// The browser lands here straight from KPI ID, so every failure goes to a page, never a raw JSON error.
-// The ticket id is a one-time credential: it goes to the server log only, never into the redirect URL.
-const fail = ({ reason, status }: KPIIDFailure, locale: string, ticketId?: string | null) => {
-  console.error('KPI ID login failed:', { reason, status, ticketId });
+// The browser lands here straight from KPI ID (the redirect URI), so every failure goes to a page, never a raw JSON
+// error. The code is a one-time credential: it is never logged nor put into a redirect URL.
+const fail = ({ reason, status }: KPIIDFailure, locale: string, details?: unknown) => {
+  console.error('KPI ID login failed:', { reason, status, details });
 
   const query = status === undefined ? { reason } : { reason, status };
 
@@ -18,44 +25,81 @@ const fail = ({ reason, status }: KPIIDFailure, locale: string, ticketId?: strin
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const locale = await getLocale();
-  const ticketId = searchParams.get('ticketId');
-  const username = searchParams.get('username');
+  const resolvedCookies = await cookies();
+  const transaction = parseKPIIDTransaction(resolvedCookies.get(KPIID_TRANSACTION_COOKIE_NAME)?.value);
+  const code = searchParams.get('code');
+  const error = searchParams.get('error');
 
-  if (!ticketId) {
-    fail({ reason: 'missing-ticket' }, locale);
+  // No sign-in was started in this browser, or it was started longer ago than the cookie lives.
+  if (!transaction) {
+    fail({ reason: 'session-expired' }, locale);
     return;
   }
 
-  const result = await exchangeKPIIDTicket(ticketId);
+  // Checked first: the code is single-use, so a foreign one must not be spent. The cookie stays: a forged callback
+  // must not cancel this browser's own sign-in.
+  if (searchParams.get('state') !== transaction.state) {
+    fail({ reason: 'state-mismatch' }, locale);
+    return;
+  }
+
+  // One transaction per sign-in.
+  resolvedCookies.delete({ name: KPIID_TRANSACTION_COOKIE_NAME, path: KPIID_CALLBACK_PATH });
+
+  if (error) {
+    fail({ reason: error === 'access_denied' ? 'access-denied' : 'kpi-id-error' }, locale, error);
+    return;
+  }
+
+  if (!code) {
+    fail({ reason: 'missing-code' }, locale);
+    return;
+  }
+
+  const result = await exchangeKPIIDCode({
+    code,
+    codeVerifier: transaction.codeVerifier,
+    redirectUri: transaction.redirectUri,
+    nonce: transaction.nonce,
+  });
 
   if (!result.ok) {
-    fail(result, locale, ticketId);
+    fail(result, locale);
     return;
   }
 
   const { accounts } = result;
+  const { username } = transaction;
+  const account = accounts.length === 1 ? accounts[0] : accounts.find((acc) => username && acc.username === username);
 
-  if (accounts.length === 1) {
-    const [account] = accounts;
+  if (account) {
+    resolvedCookies.delete(KPIID_ACCOUNTS_COOKIE_NAME);
 
     await setLoginCookies(account.access_token, account.sessionId, true);
     redirect({ href: '/', locale });
     return;
   }
 
-  if (!username) {
-    redirect({ href: { pathname: '/login/kpi-id', query: { ticketId } }, locale });
+  if (username) {
+    fail({ reason: 'username-mismatch' }, locale);
     return;
   }
 
-  const account = accounts.find((acc) => acc.username === username);
+  // Several accounts: the picker lists them and starts a new sign-in for the chosen one, which KPI ID answers without
+  // asking the user again (SSO). Only the public part of the accounts is kept; the Campus tokens are dropped.
+  const slimAccounts: KPIIDAccountSlim[] = accounts.map(({ username, photo, full_name }) => ({
+    username,
+    photo,
+    full_name,
+  }));
 
-  if (!account) {
-    fail({ reason: 'username-mismatch' }, locale, ticketId);
-    return;
-  }
+  resolvedCookies.set(KPIID_ACCOUNTS_COOKIE_NAME, JSON.stringify(slimAccounts), {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: KPIID_COOKIE_MAX_AGE_SECONDS,
+    path: '/',
+  });
 
-  await setLoginCookies(account.access_token, account.sessionId, true);
-  redirect({ href: '/', locale });
-  return;
+  redirect({ href: '/login/kpi-id', locale });
 }

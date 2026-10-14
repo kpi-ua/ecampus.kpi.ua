@@ -12,7 +12,17 @@ export interface KPIIDAccount extends KPIIDAccountSlim {
 }
 
 // Shown to the user as an error code and logged, so support can tell KPI ID login failures apart.
-export const KPIID_FAILURE_REASONS = ['missing-ticket', 'no-accounts', 'username-mismatch', 'network', 'api'] as const;
+export const KPIID_FAILURE_REASONS = [
+  'session-expired',
+  'state-mismatch',
+  'access-denied',
+  'kpi-id-error',
+  'missing-code',
+  'no-accounts',
+  'username-mismatch',
+  'network',
+  'api',
+] as const;
 
 export type KPIIDFailureReason = (typeof KPIID_FAILURE_REASONS)[number];
 
@@ -22,4 +32,12 @@ export interface KPIIDFailure {
   status?: number;
 }
 
-export type KPIIDTicketExchange = { ok: true; accounts: KPIIDAccount[] } | ({ ok: false } & KPIIDFailure);
+// What the callback hands the Campus API to redeem the KPI ID authorization code.
+export interface KPIIDAuthorization {
+  code: string;
+  codeVerifier: string;
+  redirectUri: string;
+  nonce: string;
+}
+
+export type KPIIDCodeExchange = { ok: true; accounts: KPIIDAccount[] } | ({ ok: false } & KPIIDFailure);
