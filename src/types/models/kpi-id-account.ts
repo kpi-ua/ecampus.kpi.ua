@@ -14,7 +14,7 @@ export interface KPIIDAccount extends KPIIDAccountSlim {
 // Shown to the user as an error code and logged, so support can tell KPI ID login failures apart.
 export const KPIID_FAILURE_REASONS = [
   'session-expired',
-  'state-mismatch',
+  'invalid-response',
   'access-denied',
   'kpi-id-error',
   'missing-code',
