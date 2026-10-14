@@ -1,4 +1,5 @@
 import { type NextRequest } from 'next/server';
+import * as oauth from 'oauth4webapi';
 import * as client from 'openid-client';
 import { KPIID_CALLBACK_PATH } from '@/middleware/contants';
 import { KPIIDAccountSlim } from '@/types/models/kpi-id-account';
@@ -103,4 +104,17 @@ export async function getKPIIDAuthorizationUrl({ state, nonce, codeVerifier, red
     code_challenge: await client.calculatePKCECodeChallenge(codeVerifier),
     code_challenge_method: 'S256',
   });
+}
+
+/**
+ * Checks what KPI ID brought the browser back with against the sign-in it started: the issuer (RFC 9207), the state
+ * and an OAuth error. Returns the parameters to read the code from.
+ *
+ * @throws {oauth.AuthorizationResponseError} KPI ID answered this sign-in with an error.
+ * @throws {oauth.OperationProcessingError} The response does not belong to this sign-in (issuer or state).
+ */
+export async function validateKPIIDCallback(parameters: URLSearchParams, { state }: KPIIDTransaction) {
+  const configuration = await getConfiguration();
+
+  return oauth.validateAuthResponse(configuration.serverMetadata(), configuration.clientMetadata(), parameters, state);
 }
