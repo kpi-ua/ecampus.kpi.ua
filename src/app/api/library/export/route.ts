@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 import { type NextRequest } from 'next/server';
 import qs from 'query-string';
@@ -8,6 +7,7 @@ import { DEFAULT_LOCALE, LOCALE } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
 import { UKRAINIAN_ALPHABET } from '@/lib/constants/common';
 import { createCsvResponse } from '@/lib/csv-response';
+import { formatDate } from '@/lib/utils';
 import { LibraryEmployee } from '@/types/models/library';
 
 export async function GET(request: NextRequest) {
@@ -52,5 +52,5 @@ export async function GET(request: NextRequest) {
       employee.googleScholarId,
     ]),
   ];
-  return createCsvResponse(rows, `library-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `library-${formatDate(new Date())}.csv`);
 }

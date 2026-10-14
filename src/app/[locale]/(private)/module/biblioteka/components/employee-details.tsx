@@ -1,5 +1,7 @@
 'use client';
 
+import { formatDate } from '@/lib/utils';
+
 import { usePermission } from '@/components/permission-provider';
 import { LIBRARY_EDIT_MODULE } from '../constants';
 
@@ -65,7 +67,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
                   <TableCell>
                     {item.contractEnd
                       ? dayjs(item.contractEnd).isValid()
-                        ? dayjs(item.contractEnd).format('DD.MM.YYYY')
+                        ? formatDate(item.contractEnd)
                         : item.contractEnd
                       : EMPTY_VALUE}
                   </TableCell>

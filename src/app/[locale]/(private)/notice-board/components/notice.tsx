@@ -1,6 +1,6 @@
+import { formatDate } from '@/lib/utils';
 import { Heading4 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
-import dayjs from 'dayjs';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Show } from '@/components/utils/show';
@@ -11,8 +11,8 @@ interface NoticeProps {
   announcement: Announcement;
 }
 export function Notice({ announcement }: NoticeProps) {
-  const formattedDateStart = dayjs(announcement.start).format('DD.MM.YYYY');
-  const formattedDateEnd = dayjs(announcement.end).format('DD.MM.YYYY');
+  const formattedDateStart = formatDate(announcement.start);
+  const formattedDateEnd = formatDate(announcement.end);
   const isAnnouncementOutdated = isOutdated(announcement.end);
 
   return (

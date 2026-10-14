@@ -1,9 +1,9 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
 import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
+import { formatDate } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 
 interface Props {
@@ -36,5 +36,5 @@ export async function GET(_request: Request, { params }: Props) {
     ]),
   ];
 
-  return createCsvResponse(rows, `surveys-${id}-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `surveys-${id}-${formatDate(new Date())}.csv`);
 }

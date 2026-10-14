@@ -1,6 +1,7 @@
 'use client';
 
-import dayjs from 'dayjs';
+import { formatDate } from '@/lib/utils';
+
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
@@ -31,7 +32,7 @@ export const VoteView = ({ voteData }: Props) => {
             ? t('state.ResultsPending.scheduledDescription', {
                 number: voteData.term.number,
                 studyYear: voteData.term.studyYear,
-                date: dayjs(voteData.term.resultsPublishOn).format('DD.MM.YYYY'),
+                date: formatDate(voteData.term.resultsPublishOn),
               })
             : t(`state.${voteData.state}.description`)}
         </Paragraph>
