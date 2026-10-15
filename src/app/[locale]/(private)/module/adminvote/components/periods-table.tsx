@@ -20,8 +20,9 @@ interface Props {
 export const PeriodsTable = ({ periods, disabled, onEdit, onDelete }: Props) => {
   const t = useTranslations('private.adminvote.periods.table');
 
-  if (!periods.length)
+  if (!periods.length) {
     return <Paragraph className="my-0 py-12 text-center text-sm text-neutral-600">{t('empty')}</Paragraph>;
+  }
 
   return (
     <Table>
