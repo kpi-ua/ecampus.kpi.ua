@@ -17,8 +17,9 @@ interface Props {
 export const CurrentCriteriaTable = ({ criteria, disabled, onEdit, onArchive }: Props) => {
   const t = useTranslations('private.adminvote.table');
 
-  if (!criteria.length)
+  if (!criteria.length) {
     return <Paragraph className="text-muted-foreground my-0 py-12 text-center text-sm">{t('empty')}</Paragraph>;
+  }
 
   return (
     <Table>

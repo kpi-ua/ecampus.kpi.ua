@@ -43,7 +43,9 @@ export const CriterionForm = ({ criterion, onClose, onSaved }: Props) => {
       .refine((value) => Number.isFinite(Number(value)) && Number(value) > 0, t('validation.coefficient'))
       .refine((value) => {
         const coefficient = Number(value);
-        if (!Number.isFinite(coefficient) || coefficient <= 0) return true;
+        if (!Number.isFinite(coefficient) || coefficient <= 0) {
+          return true;
+        }
         return coefficient <= MAX_COEFFICIENT;
       }, t('validation.coefficients-total')),
   });

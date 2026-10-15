@@ -111,6 +111,8 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 
 ## 6. Component declaration style
 
+Always use curly braces for conditional and loop bodies (`if`, `else`, `for`, `for...of`, `for...in`, `while`, and `do...while`), even for a single statement or early return. ESLint enforces this with `curly: ['error', 'all']`.
+
 The codebase has two coexisting styles:
 
 ```tsx
