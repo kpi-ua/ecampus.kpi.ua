@@ -1,7 +1,8 @@
 'use client';
 
+import { formatDate } from '@/lib/utils';
+
 import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -37,8 +38,7 @@ export const CuratorAssignmentHistory = ({ groupId }: Props) => {
             >
               <span>{item.curatorName}</span>
               <span>
-                {dayjs(item.startDate).format('DD.MM.YYYY')} —{' '}
-                {item.endDate ? dayjs(item.endDate).format('DD.MM.YYYY') : t('history.present')}
+                {formatDate(item.startDate)} — {item.endDate ? formatDate(item.endDate) : t('history.present')}
               </span>
             </div>
           ))}

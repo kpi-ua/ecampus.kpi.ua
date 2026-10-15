@@ -1,5 +1,7 @@
 'use client';
 
+import { formatDate } from '@/lib/utils';
+
 import dayjs from 'dayjs';
 import { Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -72,7 +74,7 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
                 </Badge>
               </TableCell>
               <TableCell className="text-sm whitespace-nowrap">
-                {dayjs(announcement.start).format('DD.MM.YYYY')} – {dayjs(announcement.end).format('DD.MM.YYYY')}
+                {formatDate(announcement.start)} – {formatDate(announcement.end)}
               </TableCell>
               <TableCell>
                 <Badge variant={outdated ? 'default' : 'success'}>

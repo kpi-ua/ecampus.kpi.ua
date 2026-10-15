@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 import { createVoteCriterion, updateVoteCriterion } from '@/actions/vote-administration.actions';
 import { Button } from '@/components/ui/button';
@@ -22,39 +21,25 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { VoteAdminCriterion } from '@/types/models/vote/administration';
 
 import { voteAdministrationQueryKey } from '../query-keys';
+import { createCriterionFormSchema, CriterionFormValues, MAX_COEFFICIENT } from './schema';
 
 interface Props {
   criterion?: VoteAdminCriterion;
   onClose: () => void;
   onSaved: () => void;
 }
-const MAX_COEFFICIENT = 1;
 export const CriterionForm = ({ criterion, onClose, onSaved }: Props) => {
   const t = useTranslations('private.adminvote.form');
   const { errorToast } = useServerErrorToast();
   const queryClient = useQueryClient();
 
-  const formSchema = z.object({
-    name: z.string().trim().min(1, t('validation.name')).max(255, t('validation.name-length')),
-    coefficient: z
-      .string()
-      .trim()
-      .min(1, t('validation.coefficient'))
-      .refine((value) => Number.isFinite(Number(value)) && Number(value) > 0, t('validation.coefficient'))
-      .refine((value) => {
-        const coefficient = Number(value);
-        if (!Number.isFinite(coefficient) || coefficient <= 0) return true;
-        return coefficient <= MAX_COEFFICIENT;
-      }, t('validation.coefficients-total')),
-  });
-  type FormValues = z.infer<typeof formSchema>;
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CriterionFormValues>({
+    resolver: zodResolver(createCriterionFormSchema(t)),
     defaultValues: { name: criterion?.name ?? '', coefficient: criterion ? String(criterion.coefficient) : '1' },
   });
 
   const saveMutation = useMutation({
-    mutationFn: async (values: FormValues) => {
+    mutationFn: async (values: CriterionFormValues) => {
       const request = { name: values.name, coefficient: Number(values.coefficient) };
       if (criterion) {
         await updateVoteCriterion(criterion.id, request);

@@ -47,6 +47,8 @@ export const AttestationFiltersProvider = ({ defaultYearId, children }: Props) =
 };
 export const useAttestationFilters = () => {
   const state = useContext(AttestationFiltersContext);
-  if (!state) throw new Error('Attestation filters provider is required');
+  if (!state) {
+    throw new Error('Attestation filters provider is required');
+  }
   return state;
 };
