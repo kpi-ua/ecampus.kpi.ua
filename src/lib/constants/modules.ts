@@ -9,7 +9,7 @@ export const MODULES: Module[] = [
   // KBX-1477: temporarily sent to the old Campus curator page until the official release.
   // Restore the line below and drop the next one at the release.
   // { name: 'curatorlecturer', isExternal: false },
-  { name: 'curatorlecturer', isExternal: true, legacyMode: 'kurator' },
+  { name: 'curatorlecturer', isExternal: true, legacyPath: 'tutor/index.php?mode=kurator' },
   { name: 'announcementseditor', isExternal: false },
   { name: 'msg', isExternal: false },
   { name: 'directory', isExternal: false },
