@@ -25,9 +25,10 @@ import { PeriodsTable } from './periods-table';
 
 interface Props {
   data: VoteCriteriaAdministrationData;
+  studyYears: string[];
 }
 
-export const PeriodsManagement = ({ data: initialData }: Props) => {
+export const PeriodsManagement = ({ data: initialData, studyYears }: Props) => {
   const t = useTranslations('private.adminvote.periods.actions');
   const { errorToast } = useServerErrorToast();
   const { toast } = useToast();
@@ -90,7 +91,7 @@ export const PeriodsManagement = ({ data: initialData }: Props) => {
       </div>
       <PeriodsTable periods={data.terms} disabled={disabled} onEdit={handleEdit} onDelete={setDeleteTarget} />
       {isFormOpen && (
-        <PeriodForm period={editingPeriod} periods={data.terms} onClose={handleClose} onSaved={handleSaved} />
+        <PeriodForm studyYears={studyYears} period={editingPeriod} periods={data.terms} onClose={handleClose} onSaved={handleSaved} />
       )}
       <AlertDialog open={!!deleteTarget} onOpenChange={handleDeleteOpenChange}>
         <AlertDialogContent>

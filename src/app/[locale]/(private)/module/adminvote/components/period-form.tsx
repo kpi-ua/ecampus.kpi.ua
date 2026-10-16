@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
@@ -29,30 +28,21 @@ import { createPeriodFormSchema, PeriodFormValues } from './schema';
 interface Props {
   period?: VoteAdminTerm;
   periods: VoteAdminTerm[];
+  studyYears: string[];
   onClose: () => void;
   onSaved: () => void;
 }
 
-export const PeriodForm = ({ period, periods, onClose, onSaved }: Props) => {
+export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Props) => {
   const t = useTranslations('private.adminvote.periods.form');
   const { errorToast } = useServerErrorToast();
   const queryClient = useQueryClient();
   const hasResponses = !!period?.respondentCount;
-  const currentYear = dayjs().year();
-  const academicYear = dayjs().month() >= 8 ? currentYear : currentYear - 1;
-  const studyYears = Array.from(
-    new Set([
-      ...Array.from({ length: 7 }, (_, index) => `${academicYear - 3 + index}-${academicYear - 2 + index}`),
-      ...periods.map((item) => item.studyYear),
-    ]),
-  )
-    .sort()
-    .reverse();
   const form = useForm<PeriodFormValues>({
     resolver: zodResolver(createPeriodFormSchema(t, periods, period?.id)),
     defaultValues: {
       number: period ? String(period.number) : '',
-      studyYear: period?.studyYear ?? `${academicYear}-${academicYear + 1}`,
+      studyYear: period?.studyYear ?? '',
       semester: period?.semester === 2 ? '2' : '1',
       startsOn: formatDate(period?.startsOn),
       endsOn: formatDate(period?.endsOn),

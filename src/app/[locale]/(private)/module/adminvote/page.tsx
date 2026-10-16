@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getVoteCriteriaAdministration } from '@/actions/vote-administration.actions';
+import { getVoteCriteriaAdministration, getVoteStudyYears } from '@/actions/vote-administration.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { LocaleProps } from '@/types/locale-props';
 
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: LocaleProps) {
 export default async function AdminVotePage() {
   const t = await getTranslations(INTL_NAMESPACE);
 
-  const data = await getVoteCriteriaAdministration();
+  const [data, studyYears] = await Promise.all([getVoteCriteriaAdministration(), getVoteStudyYears()]);
 
   return (
     <SubLayout pageTitle={t('module-title')}>
@@ -30,7 +30,7 @@ export default async function AdminVotePage() {
             <TabsTrigger value="criteria">{t('tabs.criteria')}</TabsTrigger>
           </TabsList>
           <TabsContent value="periods" className="mt-0">
-            <PeriodsManagement data={data} />
+            <PeriodsManagement data={data} studyYears={studyYears} />
           </TabsContent>
           <TabsContent value="criteria" className="mt-0">
             <CriteriaManagement data={data} />

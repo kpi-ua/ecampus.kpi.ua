@@ -11,6 +11,14 @@ import {
   VoteAdminCriterion,
 } from '@/types/models/vote/administration';
 
+export const getVoteStudyYears = async (): Promise<string[]> => {
+  const response = await campusFetch<string[]>('/vote/admin/study-years');
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
 export const getVoteCriteriaAdministration = async (): Promise<VoteCriteriaAdministrationData> => {
   const response = await campusFetch<VoteCriteriaAdministration>('/vote/admin');
   if (!response.ok) {
