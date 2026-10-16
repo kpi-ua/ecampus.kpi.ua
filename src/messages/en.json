@@ -588,8 +588,14 @@
       }
     },
     "msg": {
+      "archived": {
+        "title": "The Messages module has been archived",
+        "description": "This module has been archived. Messaging features are no longer available and the module will be deactivated in the future.",
+        "email-description": "Please use your corporate email for further communication. To request messages from past periods, submit a separate request through the KBIS support channel.",
+        "support": "Contact KBIS support"
+      },
       "title": "Message",
-      "subtitle": "You can send a message to students or lecturers.",
+      "subtitle": "Messaging features are no longer available.",
       "tab": {
         "inbox": "Inbox",
         "sent": "Sent",

@@ -1,17 +1,11 @@
 import { getTranslations } from 'next-intl/server';
+import Image from 'next/image';
 import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { Description, Heading2 } from '@/components/typography';
-import { getMails } from '@/actions/msg.actions';
-import { getUserDetails } from '@/actions/auth.actions';
-import { MessageTranslationKeys } from './constants';
-import { Card } from '@/components/ui/card';
-import { TabSheetTrigger } from '@/components/ui/tabs';
-import { Tabs, TabsList, TabsContent } from '@radix-ui/react-tabs';
-import Inbox from './components/inbox';
-import { MailFilter } from '@/types/enums/mail-filter';
-import { ProfileArea } from '@/types/enums/profile-area';
-import Compose from '@/app/[locale]/(private)/module/msg/components/compose';
+import { Description, Heading2, Paragraph } from '@/components/typography';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 const INTL_NAMESPACE = 'private.msg';
 
@@ -27,45 +21,31 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function MessagePage() {
   const t = await getTranslations(INTL_NAMESPACE);
-  const [incomingMails, sentMails, importantMails, user] = await Promise.all([
-    getMails(MailFilter.Incoming),
-    getMails(MailFilter.Outgoing),
-    getMails(MailFilter.Important),
-    getUserDetails(),
-  ]);
-  const profileArea = user?.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
 
-  const tabList = Object.values(MessageTranslationKeys);
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-7">
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
-        <div className="mt-8 flex flex-col">
-          <Tabs defaultValue={MessageTranslationKeys.Inbox}>
-            <TabsList className="rounded-none border-0 bg-transparent p-0">
-              {tabList.map((item) => (
-                <TabSheetTrigger key={item} value={item}>
-                  {t(`tab.${item}`)}
-                </TabSheetTrigger>
-              ))}
-            </TabsList>
-            <Card className="rounded-b-6 col-span-full w-full rounded-t-none bg-white p-6 xl:col-span-5">
-              <TabsContent value={MessageTranslationKeys.Sent}>
-                <Inbox mails={sentMails} filter={MailFilter.Outgoing} />
-              </TabsContent>
-              <TabsContent value={MessageTranslationKeys.Inbox}>
-                <Inbox mails={incomingMails} filter={MailFilter.Incoming} />
-              </TabsContent>
-              <TabsContent value={MessageTranslationKeys.Important}>
-                <Inbox mails={importantMails} filter={MailFilter.Important} />
-              </TabsContent>
-              <TabsContent value={MessageTranslationKeys.Compose}>
-                <Compose profileArea={profileArea} />
-              </TabsContent>
-            </Card>
-          </Tabs>
-        </div>
+        <Card className="mt-8 w-full bg-white">
+          <CardContent className="flex flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between lg:p-10">
+            <div className="max-w-2xl">
+              <Heading2 className="text-2xl lg:text-3xl">{t('archived.title')}</Heading2>
+              <Paragraph className="text-basic-black m-0 text-sm leading-5">{t('archived.description')}</Paragraph>
+              <Paragraph className="text-basic-black m-0 mt-3 text-sm leading-5">
+                {t('archived.email-description')}
+              </Paragraph>
+              <Link href={process.env.NEXT_PUBLIC_WHATSAPP_SUPPORT_LINK!} target="_blank" rel="noopener noreferrer">
+                <Button className="mt-8" size="big">
+                  {t('archived.support')}
+                </Button>
+              </Link>
+            </div>
+            <div className="text-basic-blue flex shrink-0 justify-center lg:w-56">
+              <Image src="/images/message-archived-cat.png" alt="cat" width={300} height={150} />
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </SubLayout>
   );
