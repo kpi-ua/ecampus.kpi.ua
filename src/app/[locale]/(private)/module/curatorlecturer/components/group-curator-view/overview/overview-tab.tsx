@@ -105,7 +105,20 @@ export const OverviewTab = ({ group }: Props) => {
                       {student.passwordChanged ? t('students.password-changed') : t('students.initial-password')}
                     </TableCell>
                     <TableCell>
-                      <StudentContacts contacts={student.curatorContacts} contactTypes={contactTypes} />
+                      <div className="flex flex-col gap-2">
+                        <Show when={!!student.email}>
+                          <div className={student.passwordChanged ? 'rounded-md bg-orange-50 p-2' : ''}>
+                            <p className="text-xs font-medium text-neutral-600">{t('students.account-email')}</p>
+                            <a className="text-sm break-all underline" href={`mailto:${student.email}`}>
+                              {student.email}
+                            </a>
+                            <Show when={student.passwordChanged}>
+                              <p className="mt-1 text-xs text-neutral-600">{t('students.recovery-email')}</p>
+                            </Show>
+                          </div>
+                        </Show>
+                        <StudentContacts contacts={student.curatorContacts} contactTypes={contactTypes} />
+                      </div>
                     </TableCell>
                     <TableCell>
                       <Show
