@@ -4,6 +4,6 @@ export interface Module {
   name: string;
   isExternal: boolean | ((profileArea: ProfileArea) => boolean);
   group?: string;
-  // Old Campus mode to open when it differs from the module name.
-  legacyMode?: string;
+  // Fixed old Campus page (relative to OLD_CAMPUS_URL), opened regardless of the profile area.
+  legacyPath?: string;
 }
