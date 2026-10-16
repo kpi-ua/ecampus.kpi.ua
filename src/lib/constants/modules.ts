@@ -6,12 +6,14 @@ export const MODULES: Module[] = [
   { name: 'attestationresults', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'vedomoststud', isExternal: false },
   { name: 'curatorstudent', isExternal: false },
-  { name: 'curatorlecturer', isExternal: false },
+  // Temporarily sent to the old Campus curator page until the new module is ready.
+  { name: 'curatorlecturer', isExternal: true, legacyMode: 'kurator' },
   { name: 'announcementseditor', isExternal: false },
   { name: 'msg', isExternal: false },
   { name: 'directory', isExternal: false },
   { name: 'rnp', isExternal: true },
-  { name: 'vote', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  // Temporarily sent to the old Campus for students too until the new module is ready.
+  { name: 'vote', isExternal: true },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'plans_individual', isExternal: true },
   { name: 'journals', isExternal: true },
