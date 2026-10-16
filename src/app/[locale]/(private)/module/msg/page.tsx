@@ -41,7 +41,7 @@ export default async function MessagePage() {
               </Link>
             </div>
             <div className="text-basic-blue flex shrink-0 justify-center lg:w-56">
-              <Image src="/images/message-archived-cat.png" alt="cat" width={300} height={150} />
+              <Image src="/images/message-archived-cat.svg" alt="cat" width={220} height={150} />
             </div>
           </CardContent>
         </Card>
