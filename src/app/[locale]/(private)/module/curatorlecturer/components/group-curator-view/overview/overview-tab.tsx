@@ -69,6 +69,11 @@ export const OverviewTab = ({ group }: Props) => {
           {t('export')}
         </Button>
       </div>
+      <Show when={!isFetching}>
+        <Paragraph className="m-0 text-sm text-neutral-500">
+          {t('students.count', { count: students.length })}
+        </Paragraph>
+      </Show>
       <GroupLeaderSelect group={group} />
       <Input
         value={search}
@@ -124,11 +129,6 @@ export const OverviewTab = ({ group }: Props) => {
           </TableBody>
         </Table>
       </div>
-      <Show when={!isFetching}>
-        <Paragraph className="m-0 text-sm text-neutral-500">
-          {t('students.count', { count: filteredStudents.length })}
-        </Paragraph>
-      </Show>
     </div>
   );
 };
