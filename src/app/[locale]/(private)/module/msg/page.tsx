@@ -32,9 +32,12 @@ export default async function MessagePage() {
               <Heading2 className="text-2xl lg:text-3xl">{t('archived.title')}</Heading2>
               <Paragraph className="text-basic-black m-0 text-sm leading-5">{t('archived.description')}</Paragraph>
               <Paragraph className="text-basic-black m-0 mt-3 text-sm leading-5">
+                {t('archived.archive-description')}
+              </Paragraph>
+              <Paragraph className="text-basic-black m-0 mt-3 text-sm leading-5">
                 {t('archived.email-description')}
               </Paragraph>
-              <Link href={process.env.NEXT_PUBLIC_WHATSAPP_SUPPORT_LINK!} target="_blank" rel="noopener noreferrer">
+              <Link href={process.env.NEXT_PUBLIC_SIKORSKY_DISTANCE_BOT_URL!} target="_blank" rel="noopener noreferrer">
                 <Button className="mt-8" size="big">
                   {t('archived.support')}
                 </Button>

@@ -590,9 +590,10 @@
     "msg": {
       "archived": {
         "title": "The Messages module has been archived",
-        "description": "This module has been archived. Messaging features are no longer available and the module will be deactivated in the future.",
-        "email-description": "Please use your corporate email for further communication. To request messages from past periods, submit a separate request through the KBIS support channel.",
-        "support": "Contact KBIS support"
+        "description": "The Messages module has been moved to archive mode, so its features are no longer available. The module will be shut down permanently later.",
+        "archive-description": "If you need messages from past periods, send a request to kbis@edu.kpi.ua.",
+        "email-description": "Please use your corporate email for further communication. If you do not have a corporate account yet or have lost access to it, contact the Department of Educational Process Organization.",
+        "support": "Message @SikorskyDistance_bot"
       },
       "title": "Message"
     },
