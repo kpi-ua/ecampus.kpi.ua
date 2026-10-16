@@ -863,6 +863,41 @@
           "title": "Survey completed",
           "description": "The survey results have been published."
         }
+      },
+      "tabs": {
+        "navigation": "Survey sections",
+        "survey": "Survey",
+        "criteria": "Criteria description"
+      },
+      "criteria": {
+        "title": "Evaluation criteria description",
+        "items": {
+          "objectivity": {
+            "name": "Objectivity of assessment",
+            "description": "The ability to assess a student’s knowledge and skills in a discipline fairly, regardless of personal preferences or other factors, while strictly following the assessment criteria specified in the rating system.",
+            "evaluation": "A mark of 5 means that the lecturer fully follows the assessment criteria and assigns fair, impartial marks. A mark of 1 means that the lecturer does not follow the rating system criteria and deliberately lowers or raises marks regardless of the learning outcomes demonstrated by students."
+          },
+          "clarity": {
+            "name": "Ability to explain material to students",
+            "description": "The lecturer’s combined teaching and public speaking skills that make learning material clear and accessible so students can master the discipline effectively.",
+            "evaluation": "A mark of 5 means that the lecturer presents learning material clearly, uses accessible language and explains difficult topics with visual aids. A mark of 1 means that the lecturer cannot explain the material in an accessible way."
+          },
+          "partnership": {
+            "name": "Ability to build partnerships with students",
+            "description": "The ability to build equal relationships with students during learning, conduct dialogue based on mutual respect, establish student feedback and interact effectively in teaching.",
+            "evaluation": "A mark of 5 means that the lecturer is fully able to build partnerships with students. A mark of 1 means that the lecturer cannot build such partnerships."
+          },
+          "respect": {
+            "name": "Kindness and tact towards students",
+            "description": "Following ethical principles of communication in learning, avoiding intolerance on grounds such as gender, age or race, avoiding aggression and following the principle of student centred learning.",
+            "evaluation": "A mark of 5 means that the lecturer demonstrates kindness and tact towards students during classes. A mark of 1 means that the lecturer does not demonstrate kindness or tact and allows insults or humiliating remarks."
+          },
+          "distance": {
+            "name": "Interaction with students during distance learning",
+            "description": "The lecturer’s ability to use digital communication tools freely in learning, including email, Electronic Campus services, ZOOM and Skype.",
+            "evaluation": "A mark of 5 means that the lecturer uses tools for remote communication with students effectively. A mark of 1 means that the lecturer does not use these tools or uses them ineffectively."
+          }
+        }
       }
     },
     "rating": {
