@@ -15,6 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
+import { filterAdministrationGroups } from '../../utils/filter-administration-groups';
+
 import { CuratorAdministrationTable } from './curator-administration-table';
 
 interface Props {
@@ -33,6 +35,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
   });
   const [departmentId, setDepartmentId] = useState('all');
   const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({ course: '', educationLevel: '', studyForm: '' });
   const deferredSearch = useDeferredValue(search);
   const parsedDepartmentId = departmentId === 'all' ? undefined : Number(departmentId);
   const { data, isFetching } = useCuratorAdministrationData(
@@ -43,14 +46,14 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
     yearId,
     parsedDepartmentId,
   );
-  const filteredGroups = useMemo(() => {
-    const query = deferredSearch.trim().toLocaleLowerCase();
-    return data?.groups.filter((group) => !query || group.curatorName?.toLocaleLowerCase().includes(query)) ?? [];
-  }, [data?.groups, deferredSearch]);
+  const filteredGroups = useMemo(
+    () => filterAdministrationGroups(data?.groups ?? [], { search: deferredSearch, ...filters }),
+    [data?.groups, deferredSearch, filters],
+  );
 
   const handleExport = () => {
     if (yearId) {
-      exportMutation.mutate({ yearId, departmentId: parsedDepartmentId, search });
+      exportMutation.mutate({ yearId, departmentId: parsedDepartmentId, search, ...filters });
     }
   };
 
@@ -71,7 +74,14 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
           <label htmlFor="curator-department" className="text-sm text-neutral-600">
             {t('table.department')}
           </label>
-          <Select value={departmentId} onValueChange={setDepartmentId} disabled={isFetching}>
+          <Select
+            value={departmentId}
+            onValueChange={(value) => {
+              setDepartmentId(value);
+              setFilters({ course: '', educationLevel: '', studyForm: '' });
+            }}
+            disabled={isFetching}
+          >
             <SelectTrigger id="curator-department" variant="small" className="w-full text-left sm:w-[410px]">
               <SelectValue />
             </SelectTrigger>
@@ -97,6 +107,41 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
         </div>
       </div>
       <Paragraph className="mb-4 text-sm text-neutral-600">{t('subtitle')}</Paragraph>
+      <div className="mb-4 grid gap-4 sm:grid-cols-3">
+        {(['course', 'educationLevel', 'studyForm'] as const).map((key) => {
+          const options = Array.from(
+            new Set(
+              (data?.groups ?? []).map((group) => group[key]?.toString()).filter((value): value is string => !!value),
+            ),
+          ).sort((first, second) => first.localeCompare(second, 'uk', { numeric: true }));
+          return (
+            <div key={key} className="flex flex-col gap-1">
+              <label htmlFor={`curator-${key}`} className="text-sm text-neutral-600">
+                {t(`filters.${key}`)}
+              </label>
+              <Select
+                value={filters[key] || 'all'}
+                disabled={isFetching}
+                onValueChange={(value) =>
+                  setFilters((current) => ({ ...current, [key]: value === 'all' ? '' : value }))
+                }
+              >
+                <SelectTrigger id={`curator-${key}`} variant="small">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t('filters.all')}</SelectItem>
+                  {options.map((value) => (
+                    <SelectItem key={value} value={value}>
+                      {value}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          );
+        })}
+      </div>
       <Input
         className="mb-6 h-9 text-sm"
         value={search}

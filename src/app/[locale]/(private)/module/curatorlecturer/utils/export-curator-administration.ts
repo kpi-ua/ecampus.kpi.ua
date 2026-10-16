@@ -7,6 +7,9 @@ interface Params {
   yearId: number;
   departmentId?: number;
   search: string;
+  course?: string;
+  educationLevel?: string;
+  studyForm?: string;
 }
 
 export const exportCuratorAdministration = async (params: Params) => {

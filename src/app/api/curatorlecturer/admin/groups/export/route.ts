@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import queryString from 'query-string';
 
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { filterAdministrationGroups } from '@/app/[locale]/(private)/module/curatorlecturer/utils/filter-administration-groups';
 import { campusFetch } from '@/lib/client';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { createCsvResponse } from '@/lib/csv-response';
@@ -24,15 +25,18 @@ export async function GET(request: Request) {
   const t = await getTranslations('private.curatorlecturer.group-curator.administration');
   const rows = [
     [t('table.group'), t('table.course'), t('table.curator'), t('table.description'), t('table.department')],
-    ...groups
-      .filter((group) => !search || group.curatorName?.toLocaleLowerCase().includes(search))
-      .map((group) => [
-        group.name,
-        group.course,
-        group.curatorName ?? t('not-assigned'),
-        group.description || EMPTY_VALUE,
-        group.departmentAbbreviation || group.departmentName,
-      ]),
+    ...filterAdministrationGroups(groups, {
+      search: search ?? '',
+      course: params.get('course') || undefined,
+      educationLevel: params.get('educationLevel') || undefined,
+      studyForm: params.get('studyForm') || undefined,
+    }).map((group) => [
+      group.name,
+      group.course,
+      group.curatorName ?? t('not-assigned'),
+      group.description || EMPTY_VALUE,
+      group.departmentAbbreviation || group.departmentName,
+    ]),
   ];
 
   return createCsvResponse(rows, `curator-administration-${yearId}-${formatDate(new Date())}.csv`);

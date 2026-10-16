@@ -817,6 +817,12 @@
           "success": {
             "title": "Призначення збережено",
             "description": "Куратора групи {group} призначено на період {startDate} — {endDate}"
+          },
+          "filters": {
+            "all": "Усі",
+            "course": "Курс",
+            "educationLevel": "Рівень освіти",
+            "studyForm": "Форма навчання"
           }
         }
       }

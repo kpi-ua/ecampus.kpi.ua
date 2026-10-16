@@ -17,6 +17,7 @@ export interface CuratorGroup {
   studyStartDate?: string | null;
   expectedCompletionDate?: string | null;
   studyForm: string;
+  educationLevel?: string | null;
   speciality: string;
   groupLeaderStudentId: number | null;
   groupLeaderName: string | null;
