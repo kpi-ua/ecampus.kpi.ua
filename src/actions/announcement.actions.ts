@@ -25,13 +25,19 @@ export interface AdminAnnouncementsResult {
 export const getAdminAnnouncements = async (query: AdminAnnouncementsQuery): Promise<AdminAnnouncementsResult> => {
   try {
     const params = new URLSearchParams();
-    if (query.search) params.set('search', query.search);
+    if (query.search) {
+      params.set('search', query.search);
+    }
     if (query.language) {
       // Backend enum is PascalCase (Uk/En); the model binder is case-insensitive.
       params.set('language', query.language);
     }
-    if (query.page) params.set('page', String(query.page));
-    if (query.pageSize) params.set('pageSize', String(query.pageSize));
+    if (query.page) {
+      params.set('page', String(query.page));
+    }
+    if (query.pageSize) {
+      params.set('pageSize', String(query.pageSize));
+    }
 
     const qs = params.toString();
     const url = qs ? `announcements/admin?${qs}` : 'announcements/admin';
@@ -56,13 +62,13 @@ export const getAdminAnnouncementById = async (id: number): Promise<AdminAnnounc
     const response = await campusFetch<AdminAnnouncementItem>(`announcements/admin/${id}`);
 
     if (!response.ok) {
-      throw new Error("Failed to fetch announcement");
+      throw new Error('Failed to fetch announcement');
     }
 
     return await response.json();
   } catch (error) {
     console.error('Error fetching announcement by id:', error);
-    throw new Error("Failed to fetch announcement");
+    throw new Error('Failed to fetch announcement');
   }
 };
 

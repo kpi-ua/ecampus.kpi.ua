@@ -34,6 +34,7 @@
       "rnp": "RNP",
       "mob": "Methodological support",
       "vote": "Survey Teacher through students eyes",
+      "adminvote": "Survey administration",
       "studysheet": "Current control",
       "rectorialcontrol": "Rectorial control",
       "vedomoststud": "Semester control",
@@ -265,6 +266,50 @@
     }
   },
   "private": {
+    "adminvote": {
+      "title": "Survey criteria",
+      "table": {
+        "name": "Name",
+        "coefficient": "Coefficient",
+        "actions": "Actions",
+        "empty": "No criteria available",
+        "edit": "Edit",
+        "archive": "Archive",
+        "edit-label": "Edit criterion “{name}”",
+        "archive-label": "Archive criterion “{name}”"
+      },
+      "form": {
+        "add": "Add criterion",
+        "edit": "Edit criterion",
+        "name": "Criterion name",
+        "coefficient": "Coefficient",
+        "cancel": "Cancel",
+        "save": "Save",
+        "history-note": "Results from previous periods will remain unchanged. The previous version of an edited criterion will stay in the archive.",
+        "placeholders": {
+          "name": "For example, Clarity of teaching",
+          "coefficient": "1"
+        },
+        "validation": {
+          "name": "Enter a criterion name",
+          "name-length": "The name must contain no more than 255 characters",
+          "coefficient": "Enter a positive numeric coefficient",
+          "coefficients-total": "The total of all current criteria coefficients must not exceed 1"
+        }
+      },
+      "actions": {
+        "current": "Current criteria",
+        "archived": "Archived criteria",
+        "add": "Add criterion",
+        "voting-open": "Adding, editing and archiving criteria are unavailable while voting is open.",
+        "saved-success": "Criterion saved",
+        "archived-success": "Criterion archived",
+        "archive-title": "Archive criterion?",
+        "archive-description": "The criterion “{name}” (coefficient {coefficient}) will move to the archive. It will remain available for viewing with its coefficient and will continue to be used in statistics.",
+        "cancel": "Cancel",
+        "confirm-archive": "Archive"
+      }
+    },
     "library": {
       "title": "Scientometric identifiers",
       "tabs": {
