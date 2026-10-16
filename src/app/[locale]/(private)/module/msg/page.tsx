@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import { LocaleProps } from '@/types/locale-props';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { Description, Heading2, Paragraph } from '@/components/typography';
+import { Heading2, Paragraph } from '@/components/typography';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -26,7 +26,6 @@ export default async function MessagePage() {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-7">
         <Heading2>{t('title')}</Heading2>
-        <Description>{t('subtitle')}</Description>
         <Card className="mt-8 w-full bg-white">
           <CardContent className="flex flex-col gap-8 p-6 lg:flex-row lg:items-center lg:justify-between lg:p-10">
             <div className="max-w-2xl">
