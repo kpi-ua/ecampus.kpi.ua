@@ -26,7 +26,7 @@ const getIsExternal = (module: Module, profileArea: ProfileArea) =>
 
 const composeUrl = (module: Module, profileArea: ProfileArea) => {
   if (getIsExternal(module, profileArea)) {
-    return `${OLD_CAMPUS_URL}/${OLD_CAMPUS_PROFILE_AREA[profileArea]}/index.php?mode=${module.name}`;
+    return `${OLD_CAMPUS_URL}/${OLD_CAMPUS_PROFILE_AREA[profileArea]}/index.php?mode=${module.legacyMode ?? module.name}`;
   }
 
   return `/module/${module.name}`;
