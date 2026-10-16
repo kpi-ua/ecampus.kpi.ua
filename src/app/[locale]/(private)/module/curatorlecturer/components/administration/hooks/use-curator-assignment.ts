@@ -17,8 +17,8 @@ export const useCuratorAssignment = (group: CuratorGroup) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [employeeId, setEmployeeId] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState(() => formatDate(group.studyStartDate));
+  const [endDate, setEndDate] = useState(() => formatDate(group.expectedCompletionDate));
 
   const assignment = useMutation({
     mutationFn: () => assignGroupCurator(group.groupId, Number(employeeId), startDate, endDate),
