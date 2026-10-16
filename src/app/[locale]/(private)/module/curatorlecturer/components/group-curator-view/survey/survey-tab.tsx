@@ -11,12 +11,16 @@ import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/comp
 import { Heading4 } from '@/components/typography/index';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { exportGroupSurveys } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-surveys';
 
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { SurveyStudentRow } from './survey-student-row';
 import { groupSurveysByStudent } from '@/app/[locale]/(private)/module/curatorlecturer/utils/group-surveys-by-student';
 
@@ -33,6 +37,7 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
     onError: () => errorToast(),
   });
   const [search, setSearch] = useState('');
+  const [completion, setCompletion] = useState('all');
   const { data: students = [], isFetching } = useQuery({
     queryKey: curatorGroupQueryKeys.surveys(groupId),
     queryFn: () => getCuratorSurveys(groupId),
@@ -40,9 +45,22 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
     select: groupSurveysByStudent,
   });
   const query = search.trim().toLocaleLowerCase();
-  const filteredStudents = students.filter((studentRows) =>
-    studentRows[0].fullName.toLocaleLowerCase().includes(query),
-  );
+  const filteredStudents = students.filter((studentRows) => {
+    if (!studentRows[0].fullName.toLocaleLowerCase().includes(query)) return false;
+    const completed = studentRows.filter((row) => row.hasVoted).length;
+    switch (completion) {
+      case 'none':
+        return completed === 0;
+      case 'partial':
+        return completed > 0 && completed < studentRows.length;
+      case 'complete':
+        return completed === studentRows.length;
+      case 'incomplete':
+        return completed < studentRows.length;
+      default:
+        return true;
+    }
+  });
 
   return (
     <div className="flex flex-col gap-6">
@@ -53,6 +71,18 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
           {t('export')}
         </Button>
       </div>
+      <Select value={completion} onValueChange={setCompletion}>
+        <SelectTrigger className="w-full sm:w-72" aria-label={t('survey.completion.label')}>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {['all', 'incomplete', 'none', 'partial', 'complete'].map((value) => (
+            <SelectItem key={value} value={value}>
+              {t(`survey.completion.${value}`)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
       <Input
         value={search}
         onChange={(event) => setSearch(event.target.value)}
