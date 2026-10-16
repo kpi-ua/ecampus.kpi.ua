@@ -25,6 +25,8 @@ import { VoteAdminTerm } from '@/types/models/vote/administration';
 import { voteAdministrationQueryKey } from '../query-keys';
 import { createPeriodFormSchema, PeriodFormValues } from './schema';
 
+const DATE_FIELDS = ['startsOn', 'endsOn', 'resultsPublishOn'] as const;
+
 interface Props {
   period?: VoteAdminTerm;
   periods: VoteAdminTerm[];
@@ -37,18 +39,21 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
   const t = useTranslations('private.adminvote.periods.form');
   const { errorToast } = useServerErrorToast();
   const queryClient = useQueryClient();
+
   const hasResponses = !!period?.respondentCount;
+
   const form = useForm<PeriodFormValues>({
     resolver: zodResolver(createPeriodFormSchema(t, periods, period?.id)),
     defaultValues: {
       number: period ? String(period.number) : '',
       studyYear: period?.studyYear ?? '',
-      semester: period?.semester === 2 ? '2' : '1',
+      semester: period?.semester,
       startsOn: formatDate(period?.startsOn),
       endsOn: formatDate(period?.endsOn),
       resultsPublishOn: formatDate(period?.resultsPublishOn),
     },
   });
+
   const saveMutation = useMutation({
     mutationFn: async (values: PeriodFormValues) => {
       const request = { ...values, number: Number(values.number), semester: Number(values.semester) };
@@ -64,11 +69,13 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
     },
     onError: () => errorToast(),
   });
+
   const handleOpenChange = (open: boolean) => {
     if (!open && !saveMutation.isPending) {
       onClose();
     }
   };
+
   const handleSubmit = form.handleSubmit((values) => saveMutation.mutate(values));
 
   return (
@@ -141,8 +148,8 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
                   <FormItem className="gap-1">
                     <FormLabel>{t('semester')}</FormLabel>
                     <Select
-                      value={field.value}
-                      onValueChange={field.onChange}
+                      value={String(field.value)}
+                      onValueChange={(value) => field.onChange(Number(value))}
                       disabled={hasResponses || saveMutation.isPending}
                     >
                       <FormControl>
@@ -159,7 +166,7 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
                   </FormItem>
                 )}
               />
-              {(['startsOn', 'endsOn', 'resultsPublishOn'] as const).map((name) => (
+              {DATE_FIELDS.map((name) => (
                 <FormField
                   key={name}
                   control={form.control}

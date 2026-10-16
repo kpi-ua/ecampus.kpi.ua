@@ -32,8 +32,8 @@ export const createPeriodFormSchema = (t: (key: string) => string, periods: Vote
         .string()
         .refine((value) => Number.isSafeInteger(Number(value)) && Number(value) > 0, t('validation.number')),
       studyYear: z.string().length(9, t('validation.year')),
-      semester: z.enum(['1', '2']),
       startsOn: validDate,
+      semester: z.number().nonnegative().min(1),
       endsOn: validDate,
       resultsPublishOn: validDate,
     })
