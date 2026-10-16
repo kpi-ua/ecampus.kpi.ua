@@ -4,9 +4,9 @@ export const LOGIN_PATH = '/login';
 // Public because it sits under LOGIN_PATH.
 export const KPIID_FAILED_PATH = '/login/kpi-id-failed';
 // The KPI ID redirect URI, registered in KPI ID for every origin the Campus is served from.
-export const KPIID_CALLBACK_PATH = '/api/kpi-id';
-// Starts a KPI ID sign-in.
-export const KPIID_LOGIN_PATH = '/api/kpi-id/login';
+export const KPIID_CALLBACK_PATH = '/api/kpi-id/callback';
+// Starts a KPI ID sign-in: the KPI ID initiate login URI, registered next to the redirect URI.
+export const KPIID_LOGIN_PATH = '/api/kpi-id';
 export const PUBLIC_PATHS = [
   '/login',
   '/password-reset',
