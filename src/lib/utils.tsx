@@ -29,14 +29,14 @@ export const parseContentDispositionFilename = (header: string): string | null =
   return match ? match[2] : null;
 };
 
-/** Formats a date as YYYY-MM-DD by default, returning an empty string for missing or invalid values. */
+/** Formats a date as DD.MM.YYYY by default, returning an empty string for missing or invalid values. */
 export const formatDate = (dateString?: string | Date | null): string => {
   if (!dateString) {
     return '';
   }
 
   const date = dayjs(dateString);
-  return date.isValid() ? date.format('YYYY-MM-DD') : '';
+  return date.isValid() ? date.format('DD.MM.YYYY') : '';
 };
 
 export const formatTime = (dateString: string) => dayjs(dateString).format('HH:mm');

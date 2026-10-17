@@ -308,6 +308,66 @@
         "archive-description": "The criterion “{name}” (coefficient {coefficient}) will move to the archive. It will remain available for viewing with its coefficient and will continue to be used in statistics.",
         "cancel": "Cancel",
         "confirm-archive": "Archive"
+      },
+      "module-title": "Survey administration",
+      "tabs": {
+        "periods": "Survey periods",
+        "criteria": "Survey criteria"
+      },
+      "periods": {
+        "table": {
+          "number": "Number",
+          "year": "Year",
+          "start": "Start",
+          "end": "End",
+          "status": "Status",
+          "results": "Results",
+          "actions": "Actions",
+          "empty": "No survey periods available",
+          "respondent-count": "Respondents",
+          "edit": "Edit",
+          "delete": "Delete",
+          "upcoming": "Scheduled",
+          "active": "Active",
+          "ended": "Completed",
+          "cannot-delete": "Periods with responses cannot be deleted"
+        },
+        "actions": {
+          "title": "Survey periods",
+          "add": "Add period",
+          "saved": "Period saved",
+          "deleted": "Period deleted",
+          "delete-title": "Delete survey period?",
+          "delete-description": "Period No. {number} for academic year {year} will be removed from the list. Please confirm.",
+          "cancel": "Cancel",
+          "confirm-delete": "Delete period"
+        },
+        "form": {
+          "add": "Add survey period",
+          "edit": "Edit survey period",
+          "description": "Enter the number, academic year and survey dates.",
+          "responses-note": "This period already has responses. Only dates can be changed; its number, academic year and semester are fixed.",
+          "number": "Survey number",
+          "number-placeholder": "For example, 1",
+          "year": "Academic year",
+          "year-placeholder": "Select academic year",
+          "semester": "Semester",
+          "first-semester": "First semester",
+          "second-semester": "Second semester",
+          "startsOn": "Start date",
+          "endsOn": "End date",
+          "resultsPublishOn": "Results publication date",
+          "cancel": "Cancel",
+          "save": "Save",
+          "validation": {
+            "number": "Enter a positive whole survey number",
+            "year": "Enter consecutive years, for example 2026-2027",
+            "date": "Enter a valid date",
+            "end": "The end date cannot precede the start date",
+            "results": "Results must be published after the survey ends",
+            "overlap": "These dates overlap another survey period"
+          }
+        }
       }
     },
     "library": {

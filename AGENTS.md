@@ -186,7 +186,9 @@ Conditional rendering helper: `<Show when={cond} fallback={null}>` from `@/compo
 
 ## 12. Dates
 
-`dayjs` everywhere. Standard display format: `dayjs(date).format('DD.MM.YYYY')`. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
+Use `formatDate` from `@/lib/utils` for date formatting, including displayed dates, date-input values, and normalized dates used in comparisons. Do not add custom `dayjs(...).format(...)` calls in feature code. The utility defines the shared format (`DD.MM.YYYY`) and handles missing or invalid values. Keep formatting implementation inside the shared utility.
+
+Use `dayjs` for date arithmetic and comparisons. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
 
 ## 13. Error handling pattern
 
