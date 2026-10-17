@@ -18,7 +18,6 @@ import {
   CuratorLecturer,
   CuratorAssignment,
 } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { getAssignmentPeriodError } from '@/app/[locale]/(private)/module/curatorlecturer/utils/get-assignment-period-error';
 import { campusFetch } from '@/lib/client';
 
 export const getCuratorTeachingGroups = async (): Promise<CuratorGroup[]> => {
@@ -185,13 +184,7 @@ export const assignGroupCurator = async (
   employeeId: number,
   startDate: string,
   endDate: string,
-): Promise<'assigned' | 'required' | 'invalid-date' | 'date-order' | 'conflict' | 'lecturer-required'> => {
-  if (!Number.isInteger(employeeId) || employeeId <= 0) return 'lecturer-required';
-  const periodError = getAssignmentPeriodError(startDate, endDate);
-  if (periodError) return periodError;
-  const assignments = await getCuratorAssignments(groupId);
-  const conflict = getAssignmentPeriodError(startDate, endDate, assignments);
-  if (conflict) return conflict;
+): Promise<'assigned' | 'conflict'> => {
   const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curator`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
