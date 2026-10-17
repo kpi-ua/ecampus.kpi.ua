@@ -1,7 +1,6 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import { assignGroupCurator } from '@/actions/curatorlecturer.actions';
@@ -9,6 +8,7 @@ import { curatorAdministrationQueryKeys } from '@/app/[locale]/(private)/module/
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useToast } from '@/hooks/use-toast';
+import { formatDate } from '@/lib/utils';
 
 interface AssignmentValues {
   employeeId: number;
@@ -35,8 +35,8 @@ export const useCuratorAssignment = (group: CuratorGroup) => {
         title: t('success.title'),
         description: t('success.description', {
           group: group.name,
-          startDate: dayjs(startDate).format('DD.MM.YYYY'),
-          endDate: dayjs(endDate).format('DD.MM.YYYY'),
+          startDate: formatDate(startDate),
+          endDate: formatDate(endDate),
         }),
       });
     },

@@ -588,81 +588,14 @@
       }
     },
     "msg": {
-      "title": "Повідомлення",
-      "subtitle": "Ви можете надіслати повідомлення студентам або викладачам.",
-      "tab": {
-        "inbox": "Вхідні",
-        "sent": "Вихідні",
-        "important": "Важливі",
-        "compose": "Створити нове"
+      "archived": {
+        "title": "Модуль повідомлень архівовано",
+        "description": "Модуль «Повідомлення» переведено в архівний режим, тому його функції більше недоступні. Згодом модуль буде остаточно вимкнено.",
+        "archive-description": "Якщо вам потрібні повідомлення за минулі періоди, надішліть запит на адресу kbis@edu.kpi.ua.",
+        "email-description": "Для подальшого спілкування використовуйте корпоративну пошту. Якщо у вас ще немає корпоративного облікового запису або ви втратили до нього доступ, зверніться до Департаменту організації освітнього процесу.",
+        "support": "Написати в @SikorskyDistance_bot"
       },
-      "inbox": {
-        "selected": "обрано:",
-        "refresh": "Оновити",
-        "table": {
-          "sender": "Відправник",
-          "recipient": "Отримувач",
-          "message": "Лист",
-          "date": "Дата"
-        },
-        "badge": {
-          "important": "Важливе"
-        },
-        "dialog": {
-          "to": "До:"
-        },
-        "delete-dialog": {
-          "title": "Видалення",
-          "description": "Ви дійсно бажаєте видалити {count, plural, one {# лист} few {# листа} many {# листів} other {# листа}}?",
-          "cancel": "Відміна",
-          "confirm": "Видалити"
-        },
-        "toast": {
-          "success-title-delete": "Повідомлення видалено",
-          "success-description-delete": "Повідомлення успішно видалено",
-          "success-title-mark-as-important": "Повідомлення змінено",
-          "success-description-mark-as-important": "Важливість повідомлення успішно змінена",
-          "error-title-delete": "Помилка видалення повідомлення",
-          "error-description-delete": "Повідомлення не видалено",
-          "error-title-mark-as-important": "Помилка зміни важливості повідомлення",
-          "error-description-mark-as-important": "Важливість повідомлення не змінена",
-          "error-title-refresh": "Помилка оновлення",
-          "error-description-refresh": "Не вдалося оновити дані"
-        }
-      },
-      "compose": {
-        "title": "Нове повідомлення",
-        "individual": "Індивідуальне",
-        "broadcast": "Масове",
-        "recipient-type": {
-          "employee": "Співробітник",
-          "student": "Студент"
-        },
-        "form": {
-          "subdivision": "Підрозділ",
-          "study-group": "Навчальна група",
-          "recipient-name": "ПІБ одержувача",
-          "subject": "Тема повідомлення",
-          "subject-placeholder": "Тема повідомлення",
-          "content": "Текст повідомлення",
-          "content-placeholder": "Текст повідомлення",
-          "send": "Відправити",
-          "search-placeholder": "Введіть мінімум 5 символів для пошуку...",
-          "search-empty": "Не знайдено результатів",
-          "select-recipient-placeholder": "Оберіть одержувача...",
-          "select-group-first": "Спочатку оберіть навчальну групу"
-        },
-        "validation": {
-          "group-required": "Оберіть групу",
-          "user-required": "Оберіть одержувача",
-          "subject-required": "Напишіть тему",
-          "content-required": "Напишіть текст"
-        },
-        "toast": {
-          "success-title": "Повідомлення відправлено",
-          "success-description": "Повідомлення відправлено успішно"
-        }
-      }
+      "title": "Повідомлення"
     },
     "study-sheet": {
       "title": "Поточний контроль",
@@ -828,14 +761,14 @@
           "group-summary": "Стан групи",
           "result-count": "{count, plural, one {# результат} few {# результати} many {# результатів} other {# результату}}",
           "attested": "Атестовано",
-          "missing": "Не виставлено",
+          "missing": "Оцінка відсутня",
           "not-attested": "Не атестовано",
-          "not-studying": "Оцінка відсутня",
+          "not-studying": "Не вивчає",
           "disciplines": "Дисципліни",
           "attested-code": "А",
-          "missing-code": "НВ",
+          "missing-code": "ОВ",
           "not-attested-code": "НА",
-          "not-studying-code": "ОВ",
+          "not-studying-code": "НВ",
           "expand-disciplines": "Показати дисципліни студента",
           "collapse-disciplines": "Сховати дисципліни студента",
           "lecturer": "Викладач",
