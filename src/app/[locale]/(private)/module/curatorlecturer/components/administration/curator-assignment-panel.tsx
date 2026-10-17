@@ -1,13 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
-import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { useCuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-assignment';
-import { curatorAdministrationQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/query-keys';
 import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Heading4 } from '@/components/typography';
 import { Button } from '@/components/ui/button';
@@ -26,15 +23,7 @@ interface Props {
 export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { handleAssign, isAssigning } = useCuratorAssignment(group);
-  const {
-    data: assignments = [],
-    isFetching: isLoadingAssignments,
-    isError,
-  } = useQuery({
-    queryKey: curatorAdministrationQueryKeys.assignments(group.groupId),
-    queryFn: () => getCuratorAssignments(group.groupId),
-  });
-  const formSchema = createCuratorAssignmentSchema(t, assignments);
+  const formSchema = createCuratorAssignmentSchema(t);
   const form = useForm<CuratorAssignmentFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { employeeId: '', startDate: '', endDate: '' },
@@ -42,12 +31,14 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   const departmentLecturers = lecturers.filter((item) => item.department.id === group.departmentId);
 
   const onSubmit = (values: CuratorAssignmentFormValues) => {
-    if (isAssigning || isLoadingAssignments || isError) return;
+    if (isAssigning) return;
+    form.clearErrors();
     handleAssign(
       { ...values, employeeId: Number(values.employeeId) },
       {
         onSuccess: (result) => {
           if (result === 'conflict') form.setError('root', { message: t('validation.conflict') });
+          if (result === 'invalid-period') form.setError('endDate', { message: t('validation.invalid-period') });
         },
       },
     );
@@ -106,7 +97,7 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
               <FormItem className="flex min-w-0 flex-col gap-1">
                 <FormLabel className="text-sm font-normal text-neutral-500">{t('assign.end-date')}</FormLabel>
                 <FormControl>
-                  <Input className="h-9 bg-white text-sm" type="date" min={form.watch('startDate')} {...field} />
+                  <Input className="h-9 bg-white text-sm" type="date" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -118,7 +109,6 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
             size="small"
             className="h-9"
             loading={isAssigning}
-            disabled={isLoadingAssignments || isError}
           >
             {t('assign.submit')}
           </Button>

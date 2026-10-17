@@ -853,7 +853,7 @@
           "validation": {
             "required": "Enter both the start and end dates.",
             "invalid-date": "Enter valid dates.",
-            "date-order": "The end date cannot precede the start date.",
+            "invalid-period": "Enter valid start and end dates. The end date must be on or after the start date.",
             "conflict": "This period overlaps an existing curator assignment. Choose a different period.",
             "lecturer-required": "Select a curator."
           },
