@@ -19,7 +19,6 @@ interface AssignmentValues {
 
 export const useCuratorAssignment = (group: CuratorGroup) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
-  const global = useTranslations('global');
   const { errorToast } = useServerErrorToast();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -31,7 +30,10 @@ export const useCuratorAssignment = (group: CuratorGroup) => {
         : assignGroupCurator(group.groupId, employeeId, startDate, endDate),
     onSuccess: async (result, { startDate, endDate }) => {
       if (result !== 'assigned') {
-        toast({ title: global('curator-assignment-rejected'), variant: 'destructive' });
+        toast({
+          title: t(`validation.${result}`),
+          variant: 'destructive',
+        });
         await queryClient.invalidateQueries({ queryKey: curatorAdministrationQueryKeys.assignments(group.groupId) });
         return;
       }

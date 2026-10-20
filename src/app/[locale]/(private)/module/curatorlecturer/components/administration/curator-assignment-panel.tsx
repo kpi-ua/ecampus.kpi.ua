@@ -1,12 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { useCuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-assignment';
 import {
   CuratorAssignment,
@@ -18,7 +16,6 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorAssignmentHistory } from './curator-assignment-history';
 import {
@@ -35,7 +32,6 @@ interface Props {
 export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { handleAssign, isAssigning } = useCuratorAssignment(group);
-  const { errorToast } = useServerErrorToast();
   const [editingAssignment, setEditingAssignment] = useState<CuratorAssignment | null>(null);
   const { minDate, maxDate } = getCuratorAssignmentDateBounds();
   const formSchema = createCuratorAssignmentSchema(t);
@@ -59,39 +55,21 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
     form.reset({ employeeId: '', startDate: '', endDate: '' });
   };
 
-  const onSubmit = async (values: CuratorAssignmentFormValues) => {
+  const onSubmit = (values: CuratorAssignmentFormValues) => {
     if (isAssigning) {
       return;
     }
 
-    try {
-      const assignments = await getCuratorAssignments(group.groupId);
-      const hasOverlap = assignments.some(
-        (assignment) =>
-          assignment.assignmentId !== editingAssignment?.assignmentId &&
-          (!assignment.endDate || !dayjs(assignment.endDate).isBefore(dayjs(assignment.startDate), 'day')) &&
-          !dayjs(assignment.startDate).isAfter(dayjs(values.endDate), 'day') &&
-          (!assignment.endDate || !dayjs(assignment.endDate).isBefore(dayjs(values.startDate), 'day')),
-      );
-
-      if (hasOverlap) {
-        form.setError('endDate', { message: t('validation.overlap') });
-        return;
-      }
-
-      handleAssign(
-        { ...values, employeeId: Number(values.employeeId), assignmentId: editingAssignment?.assignmentId },
-        {
-          onSuccess: (result) => {
-            if (result === 'assigned') {
-              cancelEdit();
-            }
-          },
+    handleAssign(
+      { ...values, employeeId: Number(values.employeeId), assignmentId: editingAssignment?.assignmentId },
+      {
+        onSuccess: (result) => {
+          if (result === 'assigned') {
+            cancelEdit();
+          }
         },
-      );
-    } catch {
-      errorToast();
-    }
+      },
+    );
   };
 
   return (

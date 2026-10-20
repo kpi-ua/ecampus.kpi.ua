@@ -184,13 +184,16 @@ export const assignGroupCurator = async (
   employeeId: number,
   startDate: string,
   endDate: string,
-): Promise<'assigned' | 'rejected'> => {
+): Promise<'assigned' | 'rejected' | 'overlap'> => {
   const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curator`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ employeeId, startDate, endDate }),
   });
 
+  if (response.status === 409) {
+    return 'overlap';
+  }
   if (response.status === 400) {
     return 'rejected';
   }
@@ -208,12 +211,15 @@ export const updateCuratorAssignmentDates = async (
   assignmentId: number,
   startDate: string,
   endDate: string,
-): Promise<'assigned' | 'rejected'> => {
+): Promise<'assigned' | 'rejected' | 'overlap'> => {
   const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curators/${assignmentId}/dates`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ startDate, endDate }),
   });
+  if (response.status === 409) {
+    return 'overlap';
+  }
   if (response.status === 400) {
     return 'rejected';
   }

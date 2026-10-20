@@ -169,8 +169,7 @@
         "signed": "Signed"
       }
     },
-    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>",
-    "curator-assignment-rejected": "Assignment rejected. Check the allowed date range and overlaps with assignment history."
+    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
   },
   "auth": {
     "login": {
@@ -843,7 +842,8 @@
             "invalid-period": "Enter valid start and end dates. The end date must be on or after the start date.",
             "lecturer-required": "Select a curator.",
             "date-range": "Choose a date between {minDate} and {maxDate}.",
-            "overlap": "This period overlaps another assignment. Change the dates."
+            "overlap": "This period overlaps another curator assignment. Change the dates.",
+            "rejected": "Assignment rejected. Check the allowed date range and overlaps with assignment history."
           },
           "title": "Curator administration",
           "subtitle": "The table shows the current curator as of today. Future assignments take effect on their start date; all assignments are available in the group history.",
