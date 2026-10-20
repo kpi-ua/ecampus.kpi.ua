@@ -18,7 +18,6 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { CuratorAssignmentHistory } from './curator-assignment-history';
-import { useCuratorAcademicYear } from './hooks/use-curator-academic-year';
 import {
   createCuratorAssignmentSchema,
   getCuratorAssignmentDateBounds,
@@ -26,12 +25,12 @@ import {
 } from './schema';
 
 interface Props {
+  startYear: number;
   group: CuratorGroup;
   lecturers: CuratorLecturer[];
 }
 
-export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
-  const { startYear } = useCuratorAcademicYear();
+export const CuratorAssignmentPanel = ({ group, lecturers, startYear }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { handleAssign, isAssigning } = useCuratorAssignment(group);
   const [editingAssignment, setEditingAssignment] = useState<CuratorAssignment | null>(null);

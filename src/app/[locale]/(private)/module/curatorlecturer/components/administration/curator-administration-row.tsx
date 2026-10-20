@@ -14,11 +14,12 @@ import { CuratorAssignmentPanel } from './curator-assignment-panel';
 interface Props {
   group: CuratorGroup;
   lecturers: CuratorLecturer[];
+  startYear: number;
   expanded: boolean;
   onToggle: () => void;
 }
 
-export const CuratorAdministrationRow = ({ group, lecturers, expanded, onToggle }: Props) => {
+export const CuratorAdministrationRow = ({ group, lecturers, startYear, expanded, onToggle }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
 
   return (
@@ -36,7 +37,7 @@ export const CuratorAdministrationRow = ({ group, lecturers, expanded, onToggle 
       <Show when={expanded}>
         <TableRow className="border-0 hover:bg-white">
           <TableCell colSpan={6} className="!px-0 !pb-2 !pt-0">
-            <CuratorAssignmentPanel group={group} lecturers={lecturers} />
+            <CuratorAssignmentPanel group={group} lecturers={lecturers} startYear={startYear} />
           </TableCell>
         </TableRow>
       </Show>

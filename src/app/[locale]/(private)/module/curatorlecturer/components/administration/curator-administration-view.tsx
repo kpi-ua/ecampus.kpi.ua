@@ -21,7 +21,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorAdministrationTable } from './curator-administration-table';
-import { CuratorAcademicYearProvider } from './hooks/use-curator-academic-year';
 
 interface Props {
   currentYear: CuratorAcademicYear | null;
@@ -110,14 +109,13 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
         onChange={(event) => setSearch(event.target.value)}
         placeholder={t('search')}
       />
-      <CuratorAcademicYearProvider year={currentYear}>
-        <CuratorAdministrationTable
-          key={departmentId}
-          groups={filteredGroups}
-          lecturers={data?.lecturers ?? []}
-          isFetching={isFetching}
-        />
-      </CuratorAcademicYearProvider>
+      <CuratorAdministrationTable
+        key={departmentId}
+        groups={filteredGroups}
+        lecturers={data?.lecturers ?? []}
+        startYear={currentYear.startYear}
+        isFetching={isFetching}
+      />
     </Card>
   );
 };

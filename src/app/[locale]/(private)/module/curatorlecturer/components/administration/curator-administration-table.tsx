@@ -13,10 +13,11 @@ import { CuratorAdministrationRow } from './curator-administration-row';
 interface Props {
   groups: CuratorGroup[];
   lecturers: CuratorLecturer[];
+  startYear: number;
   isFetching: boolean;
 }
 
-export const CuratorAdministrationTable = ({ groups, lecturers, isFetching }: Props) => {
+export const CuratorAdministrationTable = ({ groups, lecturers, startYear, isFetching }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const [expandedGroupId, setExpandedGroupId] = useState<number | null>(null);
 
@@ -55,6 +56,7 @@ export const CuratorAdministrationTable = ({ groups, lecturers, isFetching }: Pr
                 key={group.groupId}
                 group={group}
                 lecturers={lecturers}
+                startYear={startYear}
                 expanded={expandedGroupId === group.groupId}
                 onToggle={() => handleToggle(group.groupId)}
               />
