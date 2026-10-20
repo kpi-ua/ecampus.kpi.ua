@@ -1,61 +1,45 @@
-import { exchangeKPIIDTicket, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
-import { type NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
-import { KPIID_FAILED_PATH } from '@/middleware/contants';
-import { KPIIDFailure } from '@/types/models/kpi-id-account';
+import {
+  createKPIIDTransaction,
+  getKPIIDAuthorizationUrl,
+  KPIID_COOKIE_MAX_AGE_SECONDS,
+  KPIID_TRANSACTION_COOKIE_NAME,
+  serializeKPIIDTransaction,
+} from '@/lib/kpi-id';
+import { KPIID_CALLBACK_PATH, KPIID_FAILED_PATH } from '@/middleware/contants';
 
-// The browser lands here straight from KPI ID, so every failure goes to a page, never a raw JSON error.
-// The ticket id is a one-time credential: it goes to the server log only, never into the redirect URL.
-const fail = ({ reason, status }: KPIIDFailure, locale: string, ticketId?: string | null) => {
-  console.error('KPI ID login failed:', { reason, status, ticketId });
-
-  const query = status === undefined ? { reason } : { reason, status };
-
-  redirect({ href: { pathname: KPIID_FAILED_PATH, query }, locale });
-};
-
+// Starts a KPI ID sign-in: the "Sign in with KPI ID" button, the account picker and the KPI ID catalog (initiate login
+// URI, with `iss` and `target_link_uri`, which are not needed) lead here. A `ticketId` left over from the ticket flow
+// is ignored too: the user signs in through OpenID Connect instead.
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const locale = await getLocale();
-  const ticketId = searchParams.get('ticketId');
-  const username = searchParams.get('username');
+  const username = request.nextUrl.searchParams.get('username') || undefined;
+  const transaction = createKPIIDTransaction(request, username);
 
-  if (!ticketId) {
-    fail({ reason: 'missing-ticket' }, locale);
+  let authorizationUrl: URL;
+
+  try {
+    authorizationUrl = await getKPIIDAuthorizationUrl(transaction);
+  } catch (error) {
+    console.error('KPI ID login could not start:', error);
+
+    const locale = await getLocale();
+
+    redirect({ href: { pathname: KPIID_FAILED_PATH, query: { reason: 'network' } }, locale });
     return;
   }
 
-  const result = await exchangeKPIIDTicket(ticketId);
+  const response = NextResponse.redirect(authorizationUrl);
 
-  if (!result.ok) {
-    fail(result, locale, ticketId);
-    return;
-  }
+  // Lax, because KPI ID brings the user back with a cross-site top-level redirect.
+  response.cookies.set(KPIID_TRANSACTION_COOKIE_NAME, serializeKPIIDTransaction(transaction), {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: KPIID_COOKIE_MAX_AGE_SECONDS,
+    path: KPIID_CALLBACK_PATH,
+  });
 
-  const { accounts } = result;
-
-  if (accounts.length === 1) {
-    const [account] = accounts;
-
-    await setLoginCookies(account.access_token, account.sessionId, true);
-    redirect({ href: '/', locale });
-    return;
-  }
-
-  if (!username) {
-    redirect({ href: { pathname: '/login/kpi-id', query: { ticketId } }, locale });
-    return;
-  }
-
-  const account = accounts.find((acc) => acc.username === username);
-
-  if (!account) {
-    fail({ reason: 'username-mismatch' }, locale, ticketId);
-    return;
-  }
-
-  await setLoginCookies(account.access_token, account.sessionId, true);
-  redirect({ href: '/', locale });
-  return;
+  return response;
 }

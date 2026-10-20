@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 import { campusFetch } from '@/lib/client';
 import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
-import { KPIIDAccount, KPIIDTicketExchange } from '@/types/models/kpi-id-account';
+import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
@@ -99,10 +99,12 @@ export async function getUserDetails() {
   return userResponse.json();
 }
 
-export async function exchangeKPIIDTicket(ticketId: string): Promise<KPIIDTicketExchange> {
+export async function exchangeKPIIDCode(authorization: KPIIDAuthorization): Promise<KPIIDCodeExchange> {
   try {
-    const url = qs.stringifyUrl({ url: '/auth/kpi-id', query: { ticketId } });
-    const response = await campusFetch<KPIIDAccount[]>(url);
+    const response = await campusFetch<KPIIDAccount[]>('/auth/kpi-id', {
+      method: 'POST',
+      body: JSON.stringify(authorization),
+    });
 
     if (!response.ok) {
       return { ok: false, reason: 'api', status: response.status };
@@ -112,14 +114,8 @@ export async function exchangeKPIIDTicket(ticketId: string): Promise<KPIIDTicket
 
     return accounts.length ? { ok: true, accounts } : { ok: false, reason: 'no-accounts' };
   } catch (error) {
-    console.error('KPI ID ticket exchange failed:', error);
+    console.error('KPI ID code exchange failed:', error);
 
     return { ok: false, reason: 'network' };
   }
-}
-
-export async function getKPIIDAccounts(ticketId: string) {
-  const result = await exchangeKPIIDTicket(ticketId);
-
-  return result.ok ? result.accounts : null;
 }

@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Link } from '@/i18n/routing';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import { Card } from '@/components/ui/card';
+import { Paragraph } from '@/components/typography';
 import { getAttestationResults } from '@/actions/attestation.actions';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
 import { LocaleProps } from '@/types/locale-props';
@@ -33,6 +34,12 @@ export default async function AttestationResultsPage() {
     return attestation ? attestation.result : null;
   };
 
+  const hasResults = results.some((result) =>
+    SEMESTERS.some((semester) =>
+      ATTESTATION_NUMBERS.some((number) => getAttestationResult(result.attestations, semester, number) !== null),
+    ),
+  );
+
   return (
     <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">
       <Table>
@@ -49,36 +56,45 @@ export default async function AttestationResultsPage() {
         </TableHeader>
 
         <TableBody>
-          {results.map((result, index) => (
-            <TableRow key={index}>
-              <TableCell className="max-w-[336px] min-w-[200px]">
-                {result.id ? (
-                  <Link
-                    className="text-basic-black text-sm font-medium underline"
-                    href={`/module/studysheet/${result.id}`}
-                  >
-                    {result.name}
-                  </Link>
-                ) : (
-                  <span className="text-basic-black text-sm font-medium">{result.name}</span>
-                )}
+          {!hasResults ? (
+            <TableRow className="hover:bg-white">
+              <TableCell colSpan={6} className="h-[212px] text-center text-neutral-500">
+                <Paragraph className="m-0 text-lg font-semibold">{t('empty.title')}</Paragraph>
+                <Paragraph className="m-0 mt-2 text-base">{t('empty.description')}</Paragraph>
               </TableCell>
-
-              <TableCell className="max-w-[360px]">
-                <LecturerItemCell photo={result.lecturer.photo} fullName={result.lecturer.fullName} />
-              </TableCell>
-              {SEMESTERS.map((semester) =>
-                ATTESTATION_NUMBERS.map((number) => {
-                  const currentResult = getAttestationResult(result?.attestations, semester, number);
-                  return (
-                    <TableCell key={`${semester}-${number}`}>
-                      {currentResult !== null && <AttestationBadge result={currentResult} />}
-                    </TableCell>
-                  );
-                }),
-              )}
             </TableRow>
-          ))}
+          ) : (
+            results.map((result, index) => (
+              <TableRow key={index}>
+                <TableCell className="max-w-[336px] min-w-[200px]">
+                  {result.id ? (
+                    <Link
+                      className="text-basic-black text-sm font-medium underline"
+                      href={`/module/studysheet/${result.id}`}
+                    >
+                      {result.name}
+                    </Link>
+                  ) : (
+                    <span className="text-basic-black text-sm font-medium">{result.name}</span>
+                  )}
+                </TableCell>
+
+                <TableCell className="max-w-[360px]">
+                  <LecturerItemCell photo={result.lecturer.photo} fullName={result.lecturer.fullName} />
+                </TableCell>
+                {SEMESTERS.map((semester) =>
+                  ATTESTATION_NUMBERS.map((number) => {
+                    const currentResult = getAttestationResult(result?.attestations, semester, number);
+                    return (
+                      <TableCell key={`${semester}-${number}`}>
+                        {currentResult !== null && <AttestationBadge result={currentResult} />}
+                      </TableCell>
+                    );
+                  }),
+                )}
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </Card>

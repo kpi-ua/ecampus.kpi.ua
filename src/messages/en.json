@@ -620,6 +620,10 @@
       },
       "table": {
         "date": "Date",
+        "empty": {
+          "title": "No results",
+          "description": "There are no grades in the current control sheets for the reporting period"
+        },
         "subject": "Educational component",
         "score": "Score",
         "lecturer": "Lecturer",
@@ -629,6 +633,10 @@
       }
     },
     "attestation-results": {
+      "empty": {
+        "title": "No results",
+        "description": "There are no calendar control results for the reporting period"
+      },
       "title": "Calendar control results",
       "subtitle": "This presents the results of calendar controls by semester, indicating disciplines, teachers, and grades according to the educational process schedule.",
       "subject": "Educational component",
