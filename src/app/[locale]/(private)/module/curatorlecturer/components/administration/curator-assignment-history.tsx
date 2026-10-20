@@ -1,14 +1,14 @@
 'use client';
 
-import { formatDate } from '@/lib/utils';
-
 import { useQuery } from '@tanstack/react-query';
+import dayjs from 'dayjs';
 import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Show } from '@/components/utils/show';
+import { formatDate } from '@/lib/utils';
 
 import { curatorAdministrationQueryKeys } from './query-keys';
 
@@ -39,6 +39,9 @@ export const CuratorAssignmentHistory = ({ groupId }: Props) => {
               <span>{item.curatorName}</span>
               <span>
                 {formatDate(item.startDate)} — {item.endDate ? formatDate(item.endDate) : t('history.present')}
+                {item.endDate && dayjs(item.endDate).isBefore(dayjs(item.startDate), 'day') && (
+                  <span className="ml-2 text-neutral-500">{t('history.superseded')}</span>
+                )}
               </span>
             </div>
           ))}

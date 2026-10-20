@@ -1,16 +1,29 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { useCuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-assignment';
 import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Heading4 } from '@/components/typography';
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorAssignmentHistory } from './curator-assignment-history';
 import { createCuratorAssignmentSchema, type CuratorAssignmentFormValues } from './schema';
@@ -23,6 +36,8 @@ interface Props {
 export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { handleAssign, isAssigning } = useCuratorAssignment(group);
+  const { errorToast } = useServerErrorToast();
+  const [pendingAssignment, setPendingAssignment] = useState<CuratorAssignmentFormValues | null>(null);
   const formSchema = createCuratorAssignmentSchema(t);
   const form = useForm<CuratorAssignmentFormValues>({
     resolver: zodResolver(formSchema),
@@ -30,18 +45,40 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   });
   const departmentLecturers = lecturers.filter((item) => item.department.id === group.departmentId);
 
-  const onSubmit = (values: CuratorAssignmentFormValues) => {
+  const assign = (values: CuratorAssignmentFormValues) => {
     if (isAssigning) return;
     form.clearErrors();
     handleAssign(
       { ...values, employeeId: Number(values.employeeId) },
       {
-        onSuccess: (result) => {
-          if (result === 'conflict') form.setError('root', { message: t('validation.conflict') });
-          if (result === 'invalid-period') form.setError('endDate', { message: t('validation.invalid-period') });
+        onSuccess: () => {
+          setPendingAssignment(null);
         },
       },
     );
+  };
+
+  const onSubmit = async (values: CuratorAssignmentFormValues) => {
+    if (isAssigning) return;
+
+    try {
+      const assignments = await getCuratorAssignments(group.groupId);
+      const hasOverlap = assignments.some(
+        (assignment) =>
+          (!assignment.endDate || !dayjs(assignment.endDate).isBefore(dayjs(assignment.startDate), 'day')) &&
+          !dayjs(assignment.startDate).isAfter(dayjs(values.endDate), 'day') &&
+          (!assignment.endDate || !dayjs(assignment.endDate).isBefore(dayjs(values.startDate), 'day')),
+      );
+
+      if (hasOverlap) {
+        setPendingAssignment(values);
+        return;
+      }
+
+      assign(values);
+    } catch {
+      errorToast();
+    }
   };
 
   return (
@@ -108,17 +145,31 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
             variant="primary"
             size="small"
             className="h-9"
-            loading={isAssigning}
+            loading={form.formState.isSubmitting || isAssigning}
           >
             {t('assign.submit')}
           </Button>
-          {form.formState.errors.root && (
-            <p role="alert" className="text-sm text-red-600 lg:col-span-4">
-              {form.formState.errors.root.message}
-            </p>
-          )}
         </form>
       </Form>
+      <AlertDialog
+        open={pendingAssignment !== null}
+        onOpenChange={(open) => {
+          if (!open && !isAssigning) setPendingAssignment(null);
+        }}
+      >
+        <AlertDialogContent closable={false}>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t('assign.conflict.title')}</AlertDialogTitle>
+            <AlertDialogDescription>{t('assign.conflict.description')}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isAssigning}>{t('assign.conflict.cancel')}</AlertDialogCancel>
+            <Button loading={isAssigning} onClick={() => pendingAssignment && assign(pendingAssignment)}>
+              {t('assign.conflict.change')}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <CuratorAssignmentHistory groupId={group.groupId} />
     </div>
   );

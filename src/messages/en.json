@@ -840,7 +840,6 @@
             "required": "Enter both the start and end dates.",
             "invalid-date": "Enter valid dates.",
             "invalid-period": "Enter valid start and end dates. The end date must be on or after the start date.",
-            "conflict": "This period overlaps an existing curator assignment. Choose a different period.",
             "lecturer-required": "Select a curator."
           },
           "title": "Curator administration",
@@ -863,6 +862,12 @@
           },
           "assign": {
             "title": "Change curator",
+            "conflict": {
+              "title": "Overlapping curator assignments",
+              "description": "The selected dates overlap an existing curator assignment. If you continue, overlapping assignments, including future assignments, will end the day before the new start date and remain in history. Change the curator?",
+              "cancel": "Cancel",
+              "change": "Change"
+            },
             "label": "New curator",
             "placeholder": "Select a lecturer",
             "start-date": "Start date",
@@ -871,6 +876,7 @@
           },
           "history": {
             "title": "Assignment history",
+            "superseded": "Replaced before its start date",
             "present": "present",
             "empty": "No assignment history"
           },

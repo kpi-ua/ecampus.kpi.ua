@@ -184,15 +184,12 @@ export const assignGroupCurator = async (
   employeeId: number,
   startDate: string,
   endDate: string,
-): Promise<'assigned' | 'conflict' | 'invalid-period'> => {
+): Promise<'assigned'> => {
   const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curator`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ employeeId, startDate, endDate }),
   });
-
-  if (response.status === 400) return 'invalid-period';
-  if (response.status === 409) return 'conflict';
 
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
