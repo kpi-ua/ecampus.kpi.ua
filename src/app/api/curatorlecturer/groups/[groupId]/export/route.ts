@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
 import { getContactTypes } from '@/actions/profile.actions';
@@ -7,6 +6,7 @@ import { campusFetch } from '@/lib/client';
 import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
 
 import { createCsvResponse } from '@/lib/csv-response';
+import { formatDate } from '@/lib/utils';
 
 interface Props {
   params: Promise<{ groupId: string }>;
@@ -51,11 +51,11 @@ export async function GET(_request: Request, { params }: Props) {
         student.passwordChanged ? t('students.password-changed') : t('students.initial-password'),
         contacts.join(', ') || EMPTY_VALUE,
         student.codeOfHonorSignDate
-          ? t('students.agreed', { date: dayjs(student.codeOfHonorSignDate).format('DD.MM.YYYY') })
+          ? t('students.agreed', { date: formatDate(student.codeOfHonorSignDate) })
           : t('students.not-agreed'),
       ];
     }),
   ];
 
-  return createCsvResponse(rows, `group-${id}-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `group-${id}-${formatDate(new Date())}.csv`);
 }

@@ -25,7 +25,6 @@ import ChartBarHorizontal from './icons/ChartBarHorizontal.svg';
 import ChatCenteredText from './icons/ChatCenteredText.svg';
 import Chats from './icons/Chats.svg';
 import ChatsTeardrop from './icons/ChatsTeardrop.svg';
-import ChatTeardropDots from './icons/ChatTeardropDots.svg';
 import Check from './icons/Check.svg';
 import CheckBold from './icons/CheckBold.svg';
 import CheckLight from './icons/CheckLight.svg';
@@ -189,7 +188,6 @@ export {
   ChatCenteredText,
   Chats,
   ChatsTeardrop,
-  ChatTeardropDots,
   Check,
   CheckBold,
   CheckLight,

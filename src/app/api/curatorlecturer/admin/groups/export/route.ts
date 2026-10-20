@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 import queryString from 'query-string';
 
@@ -8,6 +7,7 @@ import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorl
 import { campusFetch } from '@/lib/client';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { createCsvResponse } from '@/lib/csv-response';
+import { formatDate } from '@/lib/utils';
 
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
@@ -40,5 +40,5 @@ export async function GET(request: Request) {
     ]),
   ];
 
-  return createCsvResponse(rows, `curator-administration-${yearId}-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `curator-administration-${yearId}-${formatDate(new Date())}.csv`);
 }

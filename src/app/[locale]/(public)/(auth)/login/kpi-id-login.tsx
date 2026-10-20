@@ -2,6 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import Script from 'next/script';
+import { KPIID_LOGIN_PATH } from '@/middleware/contants';
 
 export const KPIIDLogin = () => {
   const locale = useLocale();
@@ -18,13 +19,12 @@ export const KPIIDLogin = () => {
     <div>
       <div
         id="kpi_id_signin"
-        data-app-id={process.env.NEXT_PUBLIC_KPI_ID_APP_ID!}
+        data-login-url={KPIID_LOGIN_PATH}
         data-size="large"
         data-logo-alignment="left"
         data-locale={locale}
         data-color="brand"
         data-full-width="true"
-        data-dev-mode={String(process.env.NEXT_PUBLIC_ENV !== 'production')}
       ></div>
       <Script id="kpi-script" src={process.env.NEXT_PUBLIC_KPI_ID_BUTTON!} strategy="lazyOnload" onReady={init} />
     </div>

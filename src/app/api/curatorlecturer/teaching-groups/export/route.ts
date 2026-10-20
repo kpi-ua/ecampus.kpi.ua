@@ -1,10 +1,10 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
+import { formatDate } from '@/lib/utils';
 
 export async function GET() {
   const response = await campusFetch<CuratorGroup[]>('/curator-lecturer/teaching-groups');
@@ -26,5 +26,5 @@ export async function GET() {
     ]),
   ];
 
-  return createCsvResponse(rows, `study-groups-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `study-groups-${formatDate(new Date())}.csv`);
 }

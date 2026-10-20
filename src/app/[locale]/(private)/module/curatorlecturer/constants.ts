@@ -1,5 +1,7 @@
 import type { CuratorAttestationTotals } from './types';
 
+export const CURATOR_ADMIN_MODULE = 'kurator';
+
 export const GROUP_FILTERS = ['course', 'educationLevel', 'studyForm'] as const;
 
 export const GROUP_FILTER_LABELS: Record<(typeof GROUP_FILTERS)[number], Readonly<Record<string, string>>> = {
@@ -28,7 +30,8 @@ export const ATTESTATION_RESULT = {
   Attested: 'a',
   NotAttested: 'na',
   NotStudying: 'nv',
-  Missing: null,
+  Missing: 'ov',
+  Unset: null,
 } as const;
 
 export const ATTESTATION_COLUMNS = [

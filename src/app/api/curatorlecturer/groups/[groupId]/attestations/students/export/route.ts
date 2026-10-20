@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
 import queryString from 'query-string';
 
@@ -6,6 +5,7 @@ import { CuratorStudentAttestationSemester } from '@/app/[locale]/(private)/modu
 import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
+import { formatDate } from '@/lib/utils';
 
 interface Props {
   params: Promise<{ groupId: string }>;
@@ -53,5 +53,5 @@ export async function GET(request: Request, { params }: Props) {
     }),
   ];
 
-  return createCsvResponse(rows, `attestations-students-${id}-${yearId}-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `attestations-students-${id}-${yearId}-${formatDate(new Date())}.csv`);
 }

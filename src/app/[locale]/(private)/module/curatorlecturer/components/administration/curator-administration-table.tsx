@@ -52,7 +52,7 @@ export const CuratorAdministrationTable = ({ groups, lecturers, isFetching }: Pr
           >
             {groups.map((group) => (
               <CuratorAdministrationRow
-                key={group.groupId}
+                key={`${group.groupId}-${group.curatorEmployeeId}`}
                 group={group}
                 lecturers={lecturers}
                 expanded={expandedGroupId === group.groupId}
