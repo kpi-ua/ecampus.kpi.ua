@@ -54,7 +54,7 @@
     "query-string": "9.3.1",
     "radash": "12.1.1",
     "react": "19.2.0",
-    "react-dom": "19.2.0",
+    "react-dom": "19.3.1",
     "react-hook-form": "7.65.0",
     "react19-google-recaptcha-v3": "1.0.0",
     "server-only": "0.0.1",
@@ -79,7 +79,7 @@
     "@types/jsonwebtoken": "9.0.10",
     "@types/node": "24",
     "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
+    "@types/react-dom": "19.3.0",
     "eslint": "9",
     "eslint-config-next": "15.4.8",
     "eslint-config-prettier": "^9.1.0",
@@ -95,6 +95,6 @@
   },
   "overrides": {
     "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2"
+    "@types/react-dom": "19.3.0"
   }
 }
