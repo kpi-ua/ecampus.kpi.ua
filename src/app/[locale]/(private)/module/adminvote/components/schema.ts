@@ -1,6 +1,6 @@
+import dayjs from 'dayjs';
 import { z } from 'zod';
 
-import { formatDate } from '@/lib/utils';
 import { VoteAdminTerm } from '@/types/models/vote/administration';
 
 export const MAX_COEFFICIENT = 1;
@@ -37,11 +37,11 @@ export const createPeriodFormSchema = (t: (key: string) => string, periods: Vote
       endsOn: validDate,
       resultsPublishOn: validDate,
     })
-    .refine((values) => values.endsOn >= values.startsOn, {
+    .refine((values) => !dayjs(values.endsOn).isBefore(dayjs(values.startsOn), 'day'), {
       path: ['endsOn'],
       message: t('validation.end'),
     })
-    .refine((values) => values.resultsPublishOn > values.endsOn, {
+    .refine((values) => dayjs(values.resultsPublishOn).isAfter(dayjs(values.endsOn), 'day'), {
       path: ['resultsPublishOn'],
       message: t('validation.results'),
     })
@@ -51,8 +51,8 @@ export const createPeriodFormSchema = (t: (key: string) => string, periods: Vote
           (other) =>
             other.id !== periodId &&
             other.isActive &&
-            values.startsOn <= formatDate(other.endsOn) &&
-            values.endsOn >= formatDate(other.startsOn),
+            !dayjs(values.startsOn).isAfter(dayjs(other.endsOn), 'day') &&
+            !dayjs(values.endsOn).isBefore(dayjs(other.startsOn), 'day'),
         ),
       {
         path: ['startsOn'],

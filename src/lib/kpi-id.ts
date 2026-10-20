@@ -1,7 +1,7 @@
 import { type NextRequest } from 'next/server';
 import * as oauth from 'oauth4webapi';
 import * as client from 'openid-client';
-import { KPIID_CALLBACK_PATH } from '@/middleware/contants';
+import { KPIID_CALLBACK_PATH } from '@/proxy/contants';
 import { KPIIDAccountSlim } from '@/types/models/kpi-id-account';
 
 // KPI ID OpenID Connect client: the site starts the sign-in (state, nonce and the PKCE verifier stay in an httpOnly
