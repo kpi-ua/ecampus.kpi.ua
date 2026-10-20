@@ -14,6 +14,7 @@ export const MODULES: Module[] = [
   { name: 'msg', isExternal: false },
   { name: 'directory', isExternal: false },
   { name: 'rnp', isExternal: true },
+  { name: 'adminvote', isExternal: false },
   // KBX-1477: temporarily sent to the old Campus for students too until the official release.
   // Restore the line below and drop the next one at the release.
   // { name: 'vote', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },

@@ -24,7 +24,9 @@ export default async function K7PreviewPage({ searchParams }: Props) {
       ? returnTo
       : '/module/k7-form';
 
-  if (!requestId) notFound();
+  if (!requestId) {
+    notFound();
+  }
 
   // The preview itself only needs the captured data, but the download button must wait for the
   // rendered file, and the details payload carries no status — so the request is looked up in the

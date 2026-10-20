@@ -19,7 +19,9 @@ export const DownloadPdfButton = ({ requestId, year }: Props) => {
   const [isDownloading, setIsDownloading] = useState(false);
 
   const handleDownload = async () => {
-    if (isDownloading) return;
+    if (isDownloading) {
+      return;
+    }
 
     setIsDownloading(true);
 

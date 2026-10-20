@@ -40,7 +40,9 @@ export const IdentifierRow = ({ identifier, userAccountId, employeeId }: Props) 
   const [value, setValue] = useState(identifier.value ?? '');
   const { mutate: save, isPending } = useMutation({
     mutationFn: async () => {
-      if (!canEdit) return;
+      if (!canEdit) {
+        return;
+      }
       await updateLibraryIdentifier(userAccountId, identifier.contactTypeId, value);
     },
     onSuccess: async () => {

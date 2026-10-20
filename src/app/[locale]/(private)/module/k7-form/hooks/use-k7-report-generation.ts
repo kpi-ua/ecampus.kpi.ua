@@ -44,7 +44,9 @@ export const useK7ReportGeneration = ({
   );
 
   const generate = async () => {
-    if (!selectedProfile || selectedYear === undefined || isSubmitting) return;
+    if (!selectedProfile || selectedYear === undefined || isSubmitting) {
+      return;
+    }
 
     if (activeRequest) {
       toast({ title: t('generation.queuedTitle'), description: t('generation.queuedDescription') });
