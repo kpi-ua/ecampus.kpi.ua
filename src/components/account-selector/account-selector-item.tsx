@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Button } from '../ui/button';
 import { capitalize } from 'radash';
 import Link from 'next/link';
-import { KPIID_LOGIN_PATH } from '@/middleware/contants';
+import { KPIID_LOGIN_PATH } from '@/proxy/contants';
 
 interface AccountSelectorItemProps {
   avatarUrl: string;

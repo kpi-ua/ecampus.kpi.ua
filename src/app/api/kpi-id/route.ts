@@ -8,7 +8,7 @@ import {
   KPIID_TRANSACTION_COOKIE_NAME,
   serializeKPIIDTransaction,
 } from '@/lib/kpi-id';
-import { KPIID_CALLBACK_PATH, KPIID_FAILED_PATH } from '@/middleware/contants';
+import { KPIID_CALLBACK_PATH, KPIID_FAILED_PATH } from '@/proxy/contants';
 
 // Starts a KPI ID sign-in: the "Sign in with KPI ID" button, the account picker and the KPI ID catalog (initiate login
 // URI, with `iss` and `target_link_uri`, which are not needed) lead here. A `ticketId` left over from the ticket flow
