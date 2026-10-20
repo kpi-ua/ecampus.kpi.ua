@@ -1,14 +1,14 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDate } from '@/lib/utils';
 import { VoteAdminTerm } from '@/types/models/vote/administration';
+
+import { PeriodBadge } from './period-badge';
 
 interface Props {
   periods: VoteAdminTerm[];
@@ -42,9 +42,6 @@ export const PeriodsTable = ({ periods, disabled, onEdit, onDelete }: Props) => 
         {periods.map((period) => {
           const handleEdit = () => onEdit(period);
           const handleDelete = () => onDelete(period);
-          const today = dayjs().startOf('day');
-          const upcoming = today.isBefore(dayjs(period.startsOn), 'day');
-          const ended = today.isAfter(dayjs(period.endsOn), 'day');
 
           return (
             <TableRow key={period.id}>
@@ -53,16 +50,7 @@ export const PeriodsTable = ({ periods, disabled, onEdit, onDelete }: Props) => 
               <TableCell>{formatDate(period.startsOn)}</TableCell>
               <TableCell>{formatDate(period.endsOn)}</TableCell>
               <TableCell>
-                <Badge
-                  variant={upcoming ? 'blue' : 'success'}
-                  className={
-                    upcoming
-                      ? 'border-other-blue bg-other-blue/10 text-other-blue border'
-                      : 'border-status-success-300 bg-status-success-100 text-status-success-300 border'
-                  }
-                >
-                  {t(upcoming ? 'upcoming' : ended ? 'ended' : 'active')}
-                </Badge>
+                <PeriodBadge period={period} />
               </TableCell>
               <TableCell>{formatDate(period.resultsPublishOn)}</TableCell>
               <TableCell>{period.respondentCount}</TableCell>
