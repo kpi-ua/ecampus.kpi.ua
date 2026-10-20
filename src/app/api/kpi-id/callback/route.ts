@@ -11,7 +11,7 @@ import {
   parseKPIIDTransaction,
   validateKPIIDCallback,
 } from '@/lib/kpi-id';
-import { KPIID_CALLBACK_PATH, KPIID_FAILED_PATH } from '@/middleware/contants';
+import { KPIID_CALLBACK_PATH, KPIID_FAILED_PATH } from '@/proxy/contants';
 import { KPIIDAccountSlim, KPIIDFailure } from '@/types/models/kpi-id-account';
 
 // The browser lands here straight from KPI ID (the redirect URI), so every failure goes to a page, never a raw JSON

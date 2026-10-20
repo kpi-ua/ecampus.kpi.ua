@@ -4,7 +4,7 @@ import { Heading5 } from '@/components/typography/headers';
 import RichText from '@/components/typography/rich-text';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
-import { LOGIN_PATH } from '@/middleware/contants';
+import { LOGIN_PATH } from '@/proxy/contants';
 import { KPIID_FAILURE_REASONS } from '@/types/models/kpi-id-account';
 import { LocaleProps } from '@/types/locale-props';
 
