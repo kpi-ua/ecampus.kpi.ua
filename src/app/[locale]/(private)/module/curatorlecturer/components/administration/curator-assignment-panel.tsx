@@ -8,17 +8,12 @@ import { useForm } from 'react-hook-form';
 
 import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { useCuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-assignment';
-import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { Heading4 } from '@/components/typography';
 import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
+  CuratorAssignment,
+  CuratorGroup,
+  CuratorLecturer,
+} from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { Heading4, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -26,7 +21,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 import { CuratorAssignmentHistory } from './curator-assignment-history';
-import { createCuratorAssignmentSchema, type CuratorAssignmentFormValues } from './schema';
+import {
+  createCuratorAssignmentSchema,
+  getCuratorAssignmentDateBounds,
+  type CuratorAssignmentFormValues,
+} from './schema';
 
 interface Props {
   group: CuratorGroup;
@@ -37,7 +36,8 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { handleAssign, isAssigning } = useCuratorAssignment(group);
   const { errorToast } = useServerErrorToast();
-  const [pendingAssignment, setPendingAssignment] = useState<CuratorAssignmentFormValues | null>(null);
+  const [editingAssignment, setEditingAssignment] = useState<CuratorAssignment | null>(null);
+  const { minDate, maxDate } = getCuratorAssignmentDateBounds();
   const formSchema = createCuratorAssignmentSchema(t);
   const form = useForm<CuratorAssignmentFormValues>({
     resolver: zodResolver(formSchema),
@@ -45,37 +45,50 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
   });
   const departmentLecturers = lecturers.filter((item) => item.department.id === group.departmentId);
 
-  const assign = (values: CuratorAssignmentFormValues) => {
-    if (isAssigning) return;
-    form.clearErrors();
-    handleAssign(
-      { ...values, employeeId: Number(values.employeeId) },
-      {
-        onSuccess: () => {
-          setPendingAssignment(null);
-        },
-      },
-    );
+  const editAssignment = (assignment: CuratorAssignment) => {
+    setEditingAssignment(assignment);
+    form.reset({
+      employeeId: String(assignment.employeeId),
+      startDate: assignment.startDate.slice(0, 10),
+      endDate: assignment.endDate?.slice(0, 10) ?? '',
+    });
+  };
+
+  const cancelEdit = () => {
+    setEditingAssignment(null);
+    form.reset({ employeeId: '', startDate: '', endDate: '' });
   };
 
   const onSubmit = async (values: CuratorAssignmentFormValues) => {
-    if (isAssigning) return;
+    if (isAssigning) {
+      return;
+    }
 
     try {
       const assignments = await getCuratorAssignments(group.groupId);
       const hasOverlap = assignments.some(
         (assignment) =>
+          assignment.assignmentId !== editingAssignment?.assignmentId &&
           (!assignment.endDate || !dayjs(assignment.endDate).isBefore(dayjs(assignment.startDate), 'day')) &&
           !dayjs(assignment.startDate).isAfter(dayjs(values.endDate), 'day') &&
           (!assignment.endDate || !dayjs(assignment.endDate).isBefore(dayjs(values.startDate), 'day')),
       );
 
       if (hasOverlap) {
-        setPendingAssignment(values);
+        form.setError('endDate', { message: t('validation.overlap') });
         return;
       }
 
-      assign(values);
+      handleAssign(
+        { ...values, employeeId: Number(values.employeeId), assignmentId: editingAssignment?.assignmentId },
+        {
+          onSuccess: (result) => {
+            if (result === 'assigned') {
+              cancelEdit();
+            }
+          },
+        },
+      );
     } catch {
       errorToast();
     }
@@ -83,33 +96,48 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
 
   return (
     <div className="flex flex-col gap-8 rounded-[24px] bg-neutral-50 p-5 sm:px-8 sm:py-6">
-      <Heading4 className="m-0 text-base font-semibold">{t('assign.title')}</Heading4>
+      <Heading4 className="m-0 text-base font-semibold">
+        {t(editingAssignment ? 'edit.title' : 'assign.title')}
+      </Heading4>
+      <Paragraph className="m-0 text-sm text-neutral-500">{t('assign.date-range', { minDate, maxDate })}</Paragraph>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           noValidate
-          className="grid gap-4 lg:grid-cols-[minmax(200px,1fr)_200px_200px_auto] lg:items-end"
+          className="grid gap-4 lg:grid-cols-[minmax(200px,1fr)_200px_200px_auto] lg:items-start"
         >
           <FormField
             control={form.control}
             name="employeeId"
             render={({ field }) => (
               <FormItem className="flex min-w-0 flex-col gap-1">
-                <FormLabel className="text-sm font-normal text-neutral-500">{t('assign.label')}</FormLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
+                <FormLabel className="text-sm font-normal leading-5 text-neutral-500">
+                  {t(editingAssignment ? 'edit.curator' : 'assign.label')}
+                </FormLabel>
+                {editingAssignment ? (
                   <FormControl>
-                    <SelectTrigger ref={field.ref} onBlur={field.onBlur} variant="small" className="bg-white text-sm">
-                      <SelectValue placeholder={t('assign.placeholder')} />
-                    </SelectTrigger>
+                    <Input value={editingAssignment.curatorName} readOnly className="h-9 bg-white text-sm" />
                   </FormControl>
-                  <SelectContent>
-                    {departmentLecturers.map((lecturer) => (
-                      <SelectItem key={lecturer.employeeId} value={lecturer.employeeId.toString()}>
-                        {lecturer.fullName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                ) : (
+                  <Select
+                    value={field.value}
+                    onValueChange={field.onChange}
+                    disabled={isAssigning || form.formState.isSubmitting}
+                  >
+                    <FormControl>
+                      <SelectTrigger ref={field.ref} onBlur={field.onBlur} variant="small" className="bg-white text-sm">
+                        <SelectValue placeholder={t('assign.placeholder')} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {departmentLecturers.map((lecturer) => (
+                        <SelectItem key={lecturer.employeeId} value={lecturer.employeeId.toString()}>
+                          {lecturer.fullName}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
                 <FormMessage />
               </FormItem>
             )}
@@ -119,9 +147,18 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
             name="startDate"
             render={({ field }) => (
               <FormItem className="flex min-w-0 flex-col gap-1">
-                <FormLabel className="text-sm font-normal text-neutral-500">{t('assign.start-date')}</FormLabel>
+                <FormLabel className="text-sm font-normal leading-5 text-neutral-500">
+                  {t('assign.start-date')}
+                </FormLabel>
                 <FormControl>
-                  <Input className="h-9 bg-white text-sm" type="date" {...field} />
+                  <Input
+                    className="h-9 bg-white text-sm"
+                    type="date"
+                    min={minDate}
+                    max={maxDate}
+                    disabled={isAssigning}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -132,45 +169,51 @@ export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
             name="endDate"
             render={({ field }) => (
               <FormItem className="flex min-w-0 flex-col gap-1">
-                <FormLabel className="text-sm font-normal text-neutral-500">{t('assign.end-date')}</FormLabel>
+                <FormLabel className="text-sm font-normal leading-5 text-neutral-500">{t('assign.end-date')}</FormLabel>
                 <FormControl>
-                  <Input className="h-9 bg-white text-sm" type="date" {...field} />
+                  <Input
+                    className="h-9 bg-white text-sm"
+                    type="date"
+                    min={minDate}
+                    max={maxDate}
+                    disabled={isAssigning}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button
-            type="submit"
-            variant="primary"
-            size="small"
-            className="h-9"
-            loading={form.formState.isSubmitting || isAssigning}
-          >
-            {t('assign.submit')}
-          </Button>
+          <div className="flex items-center gap-2 lg:pt-6">
+            <Button
+              type="submit"
+              variant="primary"
+              size="small"
+              className="h-9"
+              loading={form.formState.isSubmitting || isAssigning}
+            >
+              {t(editingAssignment ? 'edit.submit' : 'assign.submit')}
+            </Button>
+            {editingAssignment && (
+              <Button
+                type="button"
+                variant="secondary"
+                size="small"
+                className="h-9"
+                disabled={isAssigning || form.formState.isSubmitting}
+                onClick={cancelEdit}
+              >
+                {t('edit.cancel')}
+              </Button>
+            )}
+          </div>
         </form>
       </Form>
-      <AlertDialog
-        open={pendingAssignment !== null}
-        onOpenChange={(open) => {
-          if (!open && !isAssigning) setPendingAssignment(null);
-        }}
-      >
-        <AlertDialogContent closable={false}>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t('assign.conflict.title')}</AlertDialogTitle>
-            <AlertDialogDescription>{t('assign.conflict.description')}</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isAssigning}>{t('assign.conflict.cancel')}</AlertDialogCancel>
-            <Button loading={isAssigning} onClick={() => pendingAssignment && assign(pendingAssignment)}>
-              {t('assign.conflict.change')}
-            </Button>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      <CuratorAssignmentHistory groupId={group.groupId} />
+      <CuratorAssignmentHistory
+        groupId={group.groupId}
+        onEdit={editAssignment}
+        disabled={isAssigning || form.formState.isSubmitting}
+      />
     </div>
   );
 };

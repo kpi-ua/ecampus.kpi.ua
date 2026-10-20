@@ -1,11 +1,12 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
+import { CuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { Button } from '@/components/ui/button';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Show } from '@/components/utils/show';
 import { formatDate } from '@/lib/utils';
@@ -14,9 +15,11 @@ import { curatorAdministrationQueryKeys } from './query-keys';
 
 interface Props {
   groupId: number;
+  onEdit: (assignment: CuratorAssignment) => void;
+  disabled: boolean;
 }
 
-export const CuratorAssignmentHistory = ({ groupId }: Props) => {
+export const CuratorAssignmentHistory = ({ groupId, onEdit, disabled }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { data: assignments = [], isFetching } = useQuery({
     queryKey: curatorAdministrationQueryKeys.assignments(groupId),
@@ -33,16 +36,16 @@ export const CuratorAssignmentHistory = ({ groupId }: Props) => {
         >
           {assignments.map((item) => (
             <div
-              key={`${item.employeeId}-${item.startDate}`}
+              key={item.assignmentId}
               className="flex flex-wrap justify-between gap-x-4 gap-y-1 border-b border-neutral-200 py-3 text-sm last:border-0"
             >
               <span>{item.curatorName}</span>
               <span>
                 {formatDate(item.startDate)} — {item.endDate ? formatDate(item.endDate) : t('history.present')}
-                {item.endDate && dayjs(item.endDate).isBefore(dayjs(item.startDate), 'day') && (
-                  <span className="ml-2 text-neutral-500">{t('history.superseded')}</span>
-                )}
               </span>
+              <Button type="button" variant="secondary" size="small" disabled={disabled} onClick={() => onEdit(item)}>
+                {t('edit.title')}
+              </Button>
             </div>
           ))}
         </Show>

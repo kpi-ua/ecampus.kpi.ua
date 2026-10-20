@@ -57,6 +57,7 @@ export interface CuratorAdministrationData {
 }
 
 export interface CuratorAssignment {
+  assignmentId: number;
   employeeId: number;
   curatorName: string;
   startDate: string;

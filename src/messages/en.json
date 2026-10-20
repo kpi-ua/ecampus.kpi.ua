@@ -169,7 +169,8 @@
         "signed": "Signed"
       }
     },
-    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>"
+    "footer": "<paragraph>Developer: <kbislink>KBIS</kbislink></paragraph><paragraph>© {year} Igor Sikorsky Kyiv Polytechnic Institute</paragraph>",
+    "curator-assignment-rejected": "Assignment rejected. Check the allowed date range and overlaps with assignment history."
   },
   "auth": {
     "login": {
@@ -840,7 +841,9 @@
             "required": "Enter both the start and end dates.",
             "invalid-date": "Enter valid dates.",
             "invalid-period": "Enter valid start and end dates. The end date must be on or after the start date.",
-            "lecturer-required": "Select a curator."
+            "lecturer-required": "Select a curator.",
+            "date-range": "Choose a date between {minDate} and {maxDate}.",
+            "overlap": "This period overlaps another assignment. Change the dates."
           },
           "title": "Curator administration",
           "subtitle": "The table shows the current curator as of today. Future assignments take effect on their start date; all assignments are available in the group history.",
@@ -861,28 +864,28 @@
             "actions": "Actions"
           },
           "assign": {
-            "title": "Change curator",
-            "conflict": {
-              "title": "Overlapping curator assignments",
-              "description": "The selected dates overlap an existing curator assignment. If you continue, overlapping assignments, including future assignments, will end the day before the new start date and remain in history. Change the curator?",
-              "cancel": "Cancel",
-              "change": "Change"
-            },
+            "title": "Assign curator",
             "label": "New curator",
             "placeholder": "Select a lecturer",
             "start-date": "Start date",
             "end-date": "End date",
-            "submit": "Assign"
+            "submit": "Assign",
+            "date-range": "Allowed dates: {minDate} to {maxDate}. Assignment periods must not overlap."
           },
           "history": {
             "title": "Assignment history",
-            "superseded": "Replaced before its start date",
-            "present": "present",
+            "present": "not specified",
             "empty": "No assignment history"
           },
           "success": {
             "title": "Assignment saved",
             "description": "The curator for group {group} is assigned for {startDate} — {endDate}"
+          },
+          "edit": {
+            "title": "Edit dates",
+            "submit": "Save dates",
+            "cancel": "Cancel",
+            "curator": "Curator"
           }
         }
       }

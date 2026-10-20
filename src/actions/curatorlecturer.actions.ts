@@ -184,17 +184,42 @@ export const assignGroupCurator = async (
   employeeId: number,
   startDate: string,
   endDate: string,
-): Promise<'assigned'> => {
+): Promise<'assigned' | 'rejected'> => {
   const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curator`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ employeeId, startDate, endDate }),
   });
 
+  if (response.status === 400) {
+    return 'rejected';
+  }
+
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
 
+  revalidatePath('/[locale]/module/curatorlecturer', 'layout');
+  return 'assigned';
+};
+
+export const updateCuratorAssignmentDates = async (
+  groupId: number,
+  assignmentId: number,
+  startDate: string,
+  endDate: string,
+): Promise<'assigned' | 'rejected'> => {
+  const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curators/${assignmentId}/dates`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ startDate, endDate }),
+  });
+  if (response.status === 400) {
+    return 'rejected';
+  }
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   revalidatePath('/[locale]/module/curatorlecturer', 'layout');
   return 'assigned';
 };
