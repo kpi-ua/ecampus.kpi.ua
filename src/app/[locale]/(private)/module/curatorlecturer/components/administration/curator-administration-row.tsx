@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
 
 import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
 import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
@@ -27,7 +28,7 @@ export const CuratorAdministrationRow = ({ group, lecturers, expanded, onToggle 
         <TableCell className="font-normal">{group.name}</TableCell>
         <TableCell>{group.course}</TableCell>
         <TableCell>{group.curatorName ?? t('not-assigned')}</TableCell>
-        <TableCell>{group.description || EMPTY_VALUE}</TableCell>
+        <TableCell>{formatGroupDescription(group) || EMPTY_VALUE}</TableCell>
         <TableCell>{group.departmentAbbreviation || group.departmentName}</TableCell>
         <TableCell>
           <Button

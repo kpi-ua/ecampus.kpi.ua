@@ -1,5 +1,29 @@
 import type { CuratorAttestationTotals } from './types';
 
+export const GROUP_FILTERS = ['course', 'educationLevel', 'studyForm'] as const;
+
+export const GROUP_FILTER_LABELS: Record<(typeof GROUP_FILTERS)[number], Readonly<Record<string, string>>> = {
+  course: {},
+  educationLevel: {
+    Bachelor: 'Бакалавр',
+    MasterProfessional: 'Магістр ОПП',
+    MasterScientific: 'Магістр ОНП',
+    PhD: 'Доктор філософії',
+    Other: 'Інше',
+  },
+  studyForm: {
+    None: 'Не вказано',
+    Evening: 'Вечірня',
+    FullTime: 'Денна',
+    Remote: 'Дистанційна',
+    Extern: 'Екстернат',
+    Correspondence: 'Заочна',
+    Shortened: 'Скорочена',
+    OutOfPostgraduate: 'Поза аспірантурою',
+    Other: 'Інше',
+  },
+};
+
 export const ATTESTATION_RESULT = {
   Attested: 'a',
   NotAttested: 'na',

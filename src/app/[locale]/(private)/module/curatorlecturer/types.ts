@@ -1,3 +1,5 @@
+import { EducationLevel } from '@/types/enums/education-level';
+import { StudyForm } from '@/types/enums/study-form';
 import { Contact } from '@/types/models/colleague-contact';
 
 import { ATTESTATION_RESULT } from './constants';
@@ -13,9 +15,8 @@ export interface CuratorGroup {
   departmentId: number;
   departmentName: string;
   departmentAbbreviation: string;
-  description: string;
-  studyForm: string;
-  educationLevel?: string | null;
+  studyForm: StudyForm;
+  educationLevel: EducationLevel | null;
   speciality: string;
   groupLeaderStudentId: number | null;
   groupLeaderName: string | null;

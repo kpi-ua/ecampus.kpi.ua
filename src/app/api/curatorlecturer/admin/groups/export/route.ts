@@ -4,6 +4,7 @@ import queryString from 'query-string';
 
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { filterAdministrationGroups } from '@/app/[locale]/(private)/module/curatorlecturer/utils/filter-administration-groups';
+import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
 import { campusFetch } from '@/lib/client';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { createCsvResponse } from '@/lib/csv-response';
@@ -34,7 +35,7 @@ export async function GET(request: Request) {
       group.name,
       group.course,
       group.curatorName ?? t('not-assigned'),
-      group.description || EMPTY_VALUE,
+      formatGroupDescription(group) || EMPTY_VALUE,
       group.departmentAbbreviation || group.departmentName,
     ]),
   ];

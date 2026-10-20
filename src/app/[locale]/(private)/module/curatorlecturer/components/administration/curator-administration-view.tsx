@@ -15,8 +15,8 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
+import { GROUP_FILTER_LABELS, GROUP_FILTERS } from '../../constants';
 import { filterAdministrationGroups } from '../../utils/filter-administration-groups';
-
 import { CuratorAdministrationTable } from './curator-administration-table';
 
 interface Props {
@@ -108,7 +108,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
       </div>
       <Paragraph className="mb-4 text-sm text-neutral-600">{t('subtitle')}</Paragraph>
       <div className="mb-4 grid gap-4 sm:grid-cols-3">
-        {(['course', 'educationLevel', 'studyForm'] as const).map((key) => {
+        {GROUP_FILTERS.map((key) => {
           const options = Array.from(
             new Set(
               (data?.groups ?? []).map((group) => group[key]?.toString()).filter((value): value is string => !!value),
@@ -133,7 +133,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
                   <SelectItem value="all">{t('filters.all')}</SelectItem>
                   {options.map((value) => (
                     <SelectItem key={value} value={value}>
-                      {value}
+                      {GROUP_FILTER_LABELS[key][value] ?? value}
                     </SelectItem>
                   ))}
                 </SelectContent>

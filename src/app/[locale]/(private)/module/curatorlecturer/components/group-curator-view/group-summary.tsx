@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import { Paragraph } from '@/components/typography';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 
+import { GROUP_FILTER_LABELS } from '../../constants';
 import { CuratorGroup } from '../../types';
 
 interface Props {
@@ -12,7 +13,10 @@ interface Props {
 export const GroupSummary = ({ group }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator');
   const facts = [
-    { label: t('facts.study-form'), value: group.studyForm },
+    {
+      label: t('facts.study-form'),
+      value: GROUP_FILTER_LABELS.studyForm[group.studyForm] || EMPTY_VALUE,
+    },
     { label: t('facts.speciality'), value: group.speciality },
     { label: t('facts.course'), value: group.course.toString() },
     { label: t('facts.department'), value: group.departmentAbbreviation || group.departmentName },
