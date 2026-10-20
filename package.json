@@ -54,7 +54,7 @@
     "openid-client": "6.8.8",
     "query-string": "9.5.1",
     "radash": "12.1.1",
-    "react": "19.2.0",
+    "react": "19.3.1",
     "react-dom": "19.2.0",
     "react-hook-form": "7.65.0",
     "react19-google-recaptcha-v3": "1.0.0",
@@ -72,7 +72,7 @@
     "@types/file-saver": "2.0.7",
     "@types/jsonwebtoken": "9.0.10",
     "@types/node": "24",
-    "@types/react": "19.2.2",
+    "@types/react": "19.3.0",
     "@types/react-dom": "19.2.2",
     "eslint": "9",
     "eslint-config-next": "15.4.8",
@@ -88,7 +88,7 @@
     "typescript": "^5.9.3"
   },
   "overrides": {
-    "@types/react": "19.2.2",
+    "@types/react": "19.3.0",
     "@types/react-dom": "19.2.2"
   },
   "allowScripts": {
