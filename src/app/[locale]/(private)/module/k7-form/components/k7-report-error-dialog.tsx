@@ -32,7 +32,9 @@ export const K7ReportErrorDialog = ({ report, onClose }: Props) => {
   const [isRetrying, setIsRetrying] = useState(false);
 
   const handleRetry = async () => {
-    if (!report || isRetrying) return;
+    if (!report || isRetrying) {
+      return;
+    }
 
     setIsRetrying(true);
 

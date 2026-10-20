@@ -26,7 +26,9 @@ export const parseAsProfileId = createParser<K7FormLecturerProfileQuery | null>(
     };
   },
   serialize(value) {
-    if (!value) return '';
+    if (!value) {
+      return '';
+    }
 
     return [value.userAccountId ?? '', value.employeeId, value.departmentId, value.position].join(':');
   },
