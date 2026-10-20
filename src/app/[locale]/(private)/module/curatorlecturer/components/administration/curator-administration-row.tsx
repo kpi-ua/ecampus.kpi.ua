@@ -35,7 +35,7 @@ export const CuratorAdministrationRow = ({ group, lecturers, expanded, onToggle 
       </TableRow>
       <Show when={expanded}>
         <TableRow className="border-0 hover:bg-white">
-          <TableCell colSpan={6} className="!px-0 !pt-0 !pb-2">
+          <TableCell colSpan={6} className="!px-0 !pb-2 !pt-0">
             <CuratorAssignmentPanel group={group} lecturers={lecturers} />
           </TableCell>
         </TableRow>

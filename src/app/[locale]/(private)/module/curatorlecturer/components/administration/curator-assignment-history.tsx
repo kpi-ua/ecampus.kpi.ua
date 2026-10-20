@@ -37,13 +37,20 @@ export const CuratorAssignmentHistory = ({ groupId, onEdit, disabled }: Props) =
           {assignments.map((item) => (
             <div
               key={item.assignmentId}
-              className="flex flex-wrap justify-between gap-x-4 gap-y-1 border-b border-neutral-200 py-3 text-sm last:border-0"
+              className="grid items-center gap-x-4 gap-y-2 border-b border-neutral-200 py-3 text-sm last:border-0 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]"
             >
-              <span>{item.curatorName}</span>
-              <span>
+              <span className="min-w-0 break-words">{item.curatorName}</span>
+              <span className="whitespace-nowrap tabular-nums">
                 {formatDate(item.startDate)} — {item.endDate ? formatDate(item.endDate) : t('history.present')}
               </span>
-              <Button type="button" variant="secondary" size="small" disabled={disabled} onClick={() => onEdit(item)}>
+              <Button
+                type="button"
+                variant="secondary"
+                size="small"
+                className="justify-self-end"
+                disabled={disabled}
+                onClick={() => onEdit(item)}
+              >
                 {t('edit.title')}
               </Button>
             </div>

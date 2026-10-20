@@ -18,6 +18,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { CuratorAssignmentHistory } from './curator-assignment-history';
+import { useCuratorAcademicYear } from './hooks/use-curator-academic-year';
 import {
   createCuratorAssignmentSchema,
   getCuratorAssignmentDateBounds,
@@ -30,11 +31,12 @@ interface Props {
 }
 
 export const CuratorAssignmentPanel = ({ group, lecturers }: Props) => {
+  const { startYear } = useCuratorAcademicYear();
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { handleAssign, isAssigning } = useCuratorAssignment(group);
   const [editingAssignment, setEditingAssignment] = useState<CuratorAssignment | null>(null);
-  const { minDate, maxDate } = getCuratorAssignmentDateBounds();
-  const formSchema = createCuratorAssignmentSchema(t);
+  const { minDate, maxDate } = getCuratorAssignmentDateBounds(startYear);
+  const formSchema = createCuratorAssignmentSchema(t, startYear);
   const form = useForm<CuratorAssignmentFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { employeeId: '', startDate: '', endDate: '' },

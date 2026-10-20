@@ -2,13 +2,14 @@ import dayjs from 'dayjs';
 import type { useTranslations } from 'next-intl';
 import { z } from 'zod';
 
-export const getCuratorAssignmentDateBounds = () => {
-  const year = Number(new Intl.DateTimeFormat('en', { timeZone: 'Europe/Kiev', year: 'numeric' }).format(new Date()));
-  return { minDate: `${year - 1}-01-01`, maxDate: `${year + 1}-12-31` };
-};
+export const getCuratorAssignmentDateBounds = (year: number) => ({
+  minDate: `${year - 1}-01-01`,
+  maxDate: `${year + 1}-12-31`,
+});
 
 export const createCuratorAssignmentSchema = (
   t: ReturnType<typeof useTranslations<'private.curatorlecturer.group-curator.administration'>>,
+  year: number,
 ) =>
   z
     .object({
@@ -19,10 +20,10 @@ export const createCuratorAssignmentSchema = (
         .pipe(z.iso.date({ error: t('validation.invalid-date') }))
         .refine(
           (date) => {
-            const { minDate, maxDate } = getCuratorAssignmentDateBounds();
+            const { minDate, maxDate } = getCuratorAssignmentDateBounds(year);
             return date >= minDate && date <= maxDate;
           },
-          t('validation.date-range', getCuratorAssignmentDateBounds()),
+          t('validation.date-range', getCuratorAssignmentDateBounds(year)),
         ),
       endDate: z
         .string()
@@ -30,10 +31,10 @@ export const createCuratorAssignmentSchema = (
         .pipe(z.iso.date({ error: t('validation.invalid-date') }))
         .refine(
           (date) => {
-            const { minDate, maxDate } = getCuratorAssignmentDateBounds();
+            const { minDate, maxDate } = getCuratorAssignmentDateBounds(year);
             return date >= minDate && date <= maxDate;
           },
-          t('validation.date-range', getCuratorAssignmentDateBounds()),
+          t('validation.date-range', getCuratorAssignmentDateBounds(year)),
         ),
     })
     .refine(({ startDate, endDate }) => !dayjs(endDate).isBefore(dayjs(startDate), 'day'), {

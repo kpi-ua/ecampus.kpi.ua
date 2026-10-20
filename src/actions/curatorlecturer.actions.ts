@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 import {
   CuratorGroup,
   CuratorFilters,
+  CuratorAdminFilters,
   CuratorStudentDetails,
   CuratorSurveyRow,
   CuratorSurveyParams,
@@ -14,7 +15,6 @@ import {
   CuratorAttestationParams,
   CuratorStudentAttestations,
   CuratorDisciplineAttestations,
-  CuratorOption,
   CuratorLecturer,
   CuratorAssignment,
 } from '@/app/[locale]/(private)/module/curatorlecturer/types';
@@ -131,17 +131,14 @@ export const assignGroupLeader = async (groupId: number, studentId: number) => {
   revalidatePath('/[locale]/module/curatorlecturer/groups', 'page');
 };
 
-export const getCuratorDepartments = async (): Promise<CuratorOption[]> => {
-  const response = await campusFetch<CuratorOption[]>('/curator-lecturer/admin/departments');
-
+export const getCuratorAdminFilters = async (): Promise<CuratorAdminFilters | null> => {
+  const response = await campusFetch<CuratorAdminFilters>('/curator-lecturer/admin/filters');
   if (response.status === 403) {
-    return [];
+    return null;
   }
-
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
-
   return response.json();
 };
 
