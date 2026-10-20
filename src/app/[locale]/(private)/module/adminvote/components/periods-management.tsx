@@ -38,8 +38,8 @@ export const PeriodsManagement = ({ data: initialData, studyYears }: Props) => {
     queryFn: getVoteCriteriaAdministration,
     initialData,
   });
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingPeriod, setEditingPeriod] = useState<VoteAdminTerm>();
+  const [form, setForm] = useState<{ period?: VoteAdminTerm } | null>(null);
+  const isFormOpen = form !== null;
   const [deleteTarget, setDeleteTarget] = useState<VoteAdminTerm | null>(null);
   const deletion = useMutation({
     mutationFn: deleteVoteTerm,
@@ -53,18 +53,16 @@ export const PeriodsManagement = ({ data: initialData, studyYears }: Props) => {
   const disabled = isFetching || deletion.isPending || isFormOpen;
 
   const handleAdd = () => {
-    setEditingPeriod(undefined);
-    setIsFormOpen(true);
+    setForm({});
   };
   const handleEdit = (period: VoteAdminTerm) => {
-    setEditingPeriod(period);
-    setIsFormOpen(true);
+    setForm({ period });
   };
   const handleClose = () => {
-    setIsFormOpen(false);
+    setForm(null);
   };
   const handleSaved = () => {
-    setIsFormOpen(false);
+    setForm(null);
     toast({ title: t('saved') });
   };
   const handleDeleteOpenChange = (open: boolean) => {
@@ -90,8 +88,14 @@ export const PeriodsManagement = ({ data: initialData, studyYears }: Props) => {
         </Button>
       </div>
       <PeriodsTable periods={data.terms} disabled={disabled} onEdit={handleEdit} onDelete={setDeleteTarget} />
-      {isFormOpen && (
-        <PeriodForm studyYears={studyYears} period={editingPeriod} periods={data.terms} onClose={handleClose} onSaved={handleSaved} />
+      {form && (
+        <PeriodForm
+          studyYears={studyYears}
+          period={form.period}
+          periods={data.terms}
+          onClose={handleClose}
+          onSaved={handleSaved}
+        />
       )}
       <AlertDialog open={!!deleteTarget} onOpenChange={handleDeleteOpenChange}>
         <AlertDialogContent>
