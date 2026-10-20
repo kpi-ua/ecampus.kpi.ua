@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 
 import { Button } from '../components/ui/button';
 import ArrowsDownUpBold from '../app/images/icons/ArrowsDownUpBold.svg';

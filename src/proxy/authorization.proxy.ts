@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import { MODULES_BASE_PATH } from './contants';
 import { getAuthInfo, gotoNotFound, matchesUrl } from './utils';
 import UrlPattern from 'url-pattern';
-import { intlMiddleware } from './intl.middleware';
+import { intlProxy } from './intl.proxy';
 
 const isAuthorized = async (request: NextRequest) => {
   const payload = getAuthInfo(request);
@@ -24,10 +24,10 @@ const isAuthorized = async (request: NextRequest) => {
   return payload.modules.includes(module);
 };
 
-export const authorizationMiddleware = async (request: NextRequest) => {
+export const authorizationProxy = async (request: NextRequest) => {
   // Skip authorization check for non-restricted pages
   if (!matchesUrl(request, MODULES_BASE_PATH, false)) {
-    return intlMiddleware(request);
+    return intlProxy(request);
   }
 
   const authorized = await isAuthorized(request);
@@ -36,5 +36,5 @@ export const authorizationMiddleware = async (request: NextRequest) => {
     return gotoNotFound(request);
   }
 
-  return intlMiddleware(request);
+  return intlProxy(request);
 };

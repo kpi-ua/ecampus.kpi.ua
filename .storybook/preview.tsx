@@ -1,7 +1,7 @@
-import '../src/app/[locale]/globals.css';
+import '../src/app/globals.css';
 
 import type { Preview } from '@storybook/react';
-import { interFont } from '../src/app/font';
+import { exo2Font } from '../src/app/font';
 
 const preview: Preview = {
   parameters: {
@@ -14,7 +14,7 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <main className={`${interFont.className}`}>
+      <main className={`${exo2Font.className}`}>
         <Story />
       </main>
     ),
