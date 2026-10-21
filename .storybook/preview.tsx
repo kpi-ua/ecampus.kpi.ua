@@ -1,6 +1,6 @@
 import '../src/app/globals.css';
-
 import type { Preview } from '@storybook/react';
+
 import { exo2Font } from '../src/app/font';
 
 const preview: Preview = {

@@ -1,7 +1,5 @@
 'use client';
 
-import { formatDate } from '@/lib/utils';
-
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -25,6 +23,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
+import { formatDate } from '@/lib/utils';
 
 import { GroupLeaderSelect } from './group-leader-select';
 import { StudentContacts } from './student-contacts';
@@ -75,7 +74,7 @@ export const OverviewTab = ({ group }: Props) => {
         onChange={(event) => setSearch(event.target.value)}
         placeholder={t('filters.student-search')}
       />
-      <div className="border-neutral-divider overflow-hidden rounded-lg border bg-white">
+      <div className="overflow-hidden rounded-lg border border-neutral-divider bg-white">
         <Table className="min-w-[1000px]">
           <TableHeader>
             <TableRow className="hover:bg-white [&>th]:bg-neutral-100 [&>th]:text-xs [&>th]:uppercase">

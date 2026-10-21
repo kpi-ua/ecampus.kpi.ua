@@ -1,8 +1,10 @@
-import { getRatingData } from '@/actions/rating.actions';
-import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';
+
+import { getRatingData } from '@/actions/rating.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Paragraph } from '@/components/typography';
+import { LocaleProps } from '@/types/locale-props';
+
 import { RatingView } from './components/rating-view';
 
 const INTL_NAMESPACE = 'private.rating';
@@ -24,7 +26,7 @@ export default async function RatingPage() {
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12 w-full px-2 sm:px-4 md:px-0">
         <Heading2>{t('title')}</Heading2>
-        <Paragraph className="leading-sm mt-3 mb-7 max-w-full text-sm font-normal text-neutral-700 sm:max-w-2xl">
+        <Paragraph className="mt-3 mb-7 max-w-full text-sm leading-sm font-normal text-neutral-700 sm:max-w-2xl">
           {t('subtitle')}
         </Paragraph>
         <RatingView ratingData={ratingData} />

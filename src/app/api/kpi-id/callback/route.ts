@@ -1,9 +1,10 @@
-import { exchangeKPIIDCode, setLoginCookies } from '@/actions/auth.actions';
-import { redirect } from '@/i18n/routing';
+import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { type NextRequest } from 'next/server';
-import { getLocale } from 'next-intl/server';
 import * as oauth from 'oauth4webapi';
+
+import { exchangeKPIIDCode, setLoginCookies } from '@/actions/auth.actions';
+import { redirect } from '@/i18n/routing';
 import {
   KPIID_ACCOUNTS_COOKIE_NAME,
   KPIID_COOKIE_MAX_AGE_SECONDS,

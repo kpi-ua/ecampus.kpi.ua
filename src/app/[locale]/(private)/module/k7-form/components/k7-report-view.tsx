@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { getK7FormRequests } from '@/actions/k7-form.actions';
+import { K7UniversityFilterSelection } from '@/app/[locale]/(private)/module/k7-form/components/types';
 import { SpinnerGap } from '@/app/images';
 import { Card } from '@/components/ui/card';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
@@ -14,13 +15,12 @@ import {
 } from '@/types/models/k7-form';
 
 import { K7_DASHBOARD_VIEW, K7DashboardView } from '../constants';
-import { K7DepartmentReportFilters } from './k7-department-report-filters';
+import { useK7RequestsRefresh } from './hooks/use-k7-requests-refresh';
 import { K7DashboardNavigation } from './k7-dashboard-navigation';
+import { K7DepartmentReportFilters } from './k7-department-report-filters';
 import { K7PersonalReportFilters } from './k7-personal-report-filters';
 import { K7ReportsTable } from './k7-reports-table';
 import { K7UniversityReportFilters } from './k7-university-report-filters';
-import { useK7RequestsRefresh } from './hooks/use-k7-requests-refresh';
-import { K7UniversityFilterSelection } from '@/app/[locale]/(private)/module/k7-form/components/types';
 
 interface Props {
   activeView: K7DashboardView;
@@ -142,7 +142,7 @@ export const K7ReportView = ({
 
   return (
     <>
-      <Card className="border-neutral-divider min-w-0 overflow-hidden rounded-lg border bg-white shadow-none">
+      <Card className="min-w-0 overflow-hidden rounded-lg border border-neutral-divider bg-white shadow-none">
         <K7DashboardNavigation
           activeView={activeView}
           hasDepartmentProfiles={hasDepartmentProfiles}
@@ -181,7 +181,7 @@ export const K7ReportView = ({
       <div className="mt-3">
         {isLoadingReports ? (
           <div
-            className="border-neutral-divider flex min-h-32 items-center justify-center rounded-lg border bg-white"
+            className="flex min-h-32 items-center justify-center rounded-lg border border-neutral-divider bg-white"
             aria-busy="true"
           >
             <SpinnerGap className="text-basic-blue" />

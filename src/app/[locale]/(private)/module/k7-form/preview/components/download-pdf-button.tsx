@@ -38,7 +38,7 @@ export const DownloadPdfButton = ({ requestId, year }: Props) => {
     <Button
       type="button"
       size="small"
-      className="leading-xs h-8 w-[136px] shrink-0 px-3 py-0 text-xs active:px-[11px] active:py-0"
+      className="h-8 w-[136px] shrink-0 px-3 py-0 text-xs leading-xs active:px-[11px] active:py-0"
       loading={isDownloading}
       onClick={handleDownload}
     >

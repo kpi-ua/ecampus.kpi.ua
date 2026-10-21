@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 import { formatDate } from '@/lib/utils';
-import { notFound } from 'next/navigation';
 
 interface Props {
   params: Promise<{ groupId: string }>;

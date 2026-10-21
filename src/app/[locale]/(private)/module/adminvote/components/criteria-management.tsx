@@ -22,10 +22,10 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useToast } from '@/hooks/use-toast';
 import { VoteAdminCriterion, VoteCriteriaAdministrationData } from '@/types/models/vote/administration';
 
-import { ArchivedCriteriaTable } from './archived-criteria-table';
-import { CurrentCriteriaTable } from './current-criteria-table';
-import { CriterionForm } from './criterion-form';
 import { voteAdministrationQueryKey } from '../query-keys';
+import { ArchivedCriteriaTable } from './archived-criteria-table';
+import { CriterionForm } from './criterion-form';
+import { CurrentCriteriaTable } from './current-criteria-table';
 
 interface Props {
   data: VoteCriteriaAdministrationData;

@@ -1,6 +1,7 @@
-import { redirect } from '@/i18n/routing';
-import { NextResponse, type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
+import { NextResponse, type NextRequest } from 'next/server';
+
+import { redirect } from '@/i18n/routing';
 import {
   createKPIIDTransaction,
   getKPIIDAuthorizationUrl,

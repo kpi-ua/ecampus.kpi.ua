@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+
 import { Heading3 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { AspectRatio } from '@/components/ui/aspect-ratio';

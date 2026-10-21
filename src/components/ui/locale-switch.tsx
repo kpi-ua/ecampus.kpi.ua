@@ -1,10 +1,11 @@
 'use client';
 
-import { Link, LOCALE, usePathname } from '@/i18n/routing';
 import { useLocale } from 'next-intl';
-import { FlagGB, FlagUA } from '@/app/images';
-import { ReactNode } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { ReactNode } from 'react';
+
+import { FlagGB, FlagUA } from '@/app/images';
+import { Link, LOCALE, usePathname } from '@/i18n/routing';
 
 const LocaleOption = ({ text, icon }: { text: string; icon: ReactNode }) => (
   <>

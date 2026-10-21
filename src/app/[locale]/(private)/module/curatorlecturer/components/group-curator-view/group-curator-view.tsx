@@ -1,8 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
+import { AttestationTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/attestation-tab';
+import { OverviewTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/overview-tab';
+import { SurveyTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/survey/survey-tab';
 import { Heading2 } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabSheetTrigger, TabsTrigger } from '@/components/ui/tabs';
@@ -10,9 +13,6 @@ import { Show } from '@/components/utils/show';
 
 import { CuratorFilters, CuratorGroup } from '../../types';
 import { GroupSummary } from './group-summary';
-import { OverviewTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/overview-tab';
-import { AttestationTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/attestation-tab';
-import { SurveyTab } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/survey/survey-tab';
 
 interface Props {
   groups: CuratorGroup[];

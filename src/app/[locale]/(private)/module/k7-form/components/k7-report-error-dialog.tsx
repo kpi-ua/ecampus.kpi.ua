@@ -1,7 +1,7 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { XIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { retryK7FormRequest } from '@/actions/k7-form.actions';
@@ -58,8 +58,8 @@ export const K7ReportErrorDialog = ({ report, onClose }: Props) => {
       >
         <DialogHeader className="gap-3">
           <div className="flex items-center justify-between gap-4">
-            <DialogTitle className="leading-lg flex items-center gap-2 text-left text-lg font-semibold">
-              <Warning className="text-status-danger-300 size-5 shrink-0" />
+            <DialogTitle className="flex items-center gap-2 text-left text-lg leading-lg font-semibold">
+              <Warning className="size-5 shrink-0 text-status-danger-300" />
               {t('title')}
             </DialogTitle>
             <DialogClose className="shrink-0 text-neutral-500 transition-colors hover:text-neutral-900">
@@ -67,7 +67,7 @@ export const K7ReportErrorDialog = ({ report, onClose }: Props) => {
               <span className="sr-only">{t('close')}</span>
             </DialogClose>
           </div>
-          <DialogDescription className="leading-base text-left text-base text-neutral-600">
+          <DialogDescription className="text-left text-base leading-base text-neutral-600">
             {/* The API sends a ready-to-read Ukrainian explanation; the generic text is the fallback. */}
             {report?.errorMessage || t('description')}
           </DialogDescription>

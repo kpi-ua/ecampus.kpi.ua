@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Paragraph } from '@/components/typography/paragraph';
-import { PencilBold, XBold } from '@/app/images';
 import { useTranslations } from 'next-intl';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { useState, useEffect } from 'react';
+
+import { PencilBold, XBold } from '@/app/images';
+import { Heading6 } from '@/components/typography/headers';
+import { Paragraph } from '@/components/typography/paragraph';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,7 +17,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
-import { Heading6 } from '@/components/typography/headers';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface Props {
   onSave: (newValue: string) => void;

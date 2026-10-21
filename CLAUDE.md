@@ -21,7 +21,10 @@ Electronic Campus (eCampus) for Igor Sikorsky Kyiv Polytechnic Institute - a ful
 npm run dev          # Start dev server with Turbopack
 npm run build        # Production build
 npm run start        # Run production server
-npm run lint         # Run ESLint
+npm run lint         # Run Oxlint
+npm run lint:fix     # Fix auto-fixable lint issues
+npm run format       # Format with Oxfmt (including imports and Tailwind classes)
+npm run format:check # Check formatting without writing
 npm run tsc          # Type check only
 npm run storybook    # Start Storybook on port 6006
 ```
@@ -49,9 +52,9 @@ src/
 
 ## Code Style
 
-- **ESLint**: Next.js + Prettier config
-- **Prettier**: Single quotes, trailing commas, 120 print width, Tailwind plugin
-- **Imports**: Sorted with eslint-plugin-simple-import-sort
+- **Oxlint**: `.oxlintrc.json` preserves supported Next.js, React, React Hooks, accessibility, and import rules, plus required braces. The legacy `react/no-deprecated` rule has no native equivalent; JSX usage tracking rules are unnecessary without ESLint's unused-variable analysis.
+- **Oxfmt**: `.oxfmtrc.json` uses single quotes, trailing commas, 120 print width, LF line endings, and built-in Tailwind class sorting with the project's Tailwind v4 stylesheet.
+- **Imports**: Sorted with Oxfmt into external packages, `@/` aliases, and relative imports. Run `npm run format` after `npm run lint:fix`.
 - **Path alias**: `@/*` maps to `./src/*`
 
 ## TypeScript Configuration

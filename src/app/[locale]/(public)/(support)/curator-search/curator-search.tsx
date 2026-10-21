@@ -1,16 +1,18 @@
 'use client';
 
-import { CuratorSearchItem } from './curator-search-item';
-import { Input } from '@/components/ui/input';
-import { EmptyPlaceholder } from './empty-placeholder';
-import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.svg';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { searchByGroupName } from '@/actions/group.actions';
-import { useCallback, useEffect, useState } from 'react';
-import { Group } from '@/types/models/group';
-import { debounce } from 'radash';
-import { Show } from '@/components/utils/show';
 import { useTranslations } from 'next-intl';
+import { debounce } from 'radash';
+import { useCallback, useEffect, useState } from 'react';
+
+import { searchByGroupName } from '@/actions/group.actions';
+import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.svg';
+import { Input } from '@/components/ui/input';
+import { Show } from '@/components/utils/show';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { Group } from '@/types/models/group';
+
+import { CuratorSearchItem } from './curator-search-item';
+import { EmptyPlaceholder } from './empty-placeholder';
 
 export const CuratorSearch = () => {
   const t = useTranslations('public.curator-search');

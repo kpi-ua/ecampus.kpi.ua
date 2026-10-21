@@ -1,14 +1,13 @@
 'use client';
 
-import { Fragment, useState } from 'react';
 import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { Fragment, useState } from 'react';
 
+import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
-
-import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 interface Props {
   rows: CuratorSurveyRow[];
