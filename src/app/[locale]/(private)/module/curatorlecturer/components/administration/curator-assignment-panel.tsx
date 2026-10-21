@@ -25,17 +25,18 @@ import {
 } from './schema';
 
 interface Props {
-  startYear: number;
+  academicYearStart: string;
+  academicYearEnd: string;
   group: CuratorGroup;
   lecturers: CuratorLecturer[];
 }
 
-export const CuratorAssignmentPanel = ({ group, lecturers, startYear }: Props) => {
+export const CuratorAssignmentPanel = ({ group, lecturers, academicYearStart, academicYearEnd }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { handleAssign, isAssigning } = useCuratorAssignment(group);
   const [editingAssignment, setEditingAssignment] = useState<CuratorAssignment | null>(null);
-  const { minDate, maxDate } = getCuratorAssignmentDateBounds(startYear);
-  const formSchema = createCuratorAssignmentSchema(t, startYear);
+  const { minDate, maxDate } = getCuratorAssignmentDateBounds(academicYearStart, academicYearEnd);
+  const formSchema = createCuratorAssignmentSchema(t, academicYearStart, academicYearEnd);
   const form = useForm<CuratorAssignmentFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: { employeeId: '', startDate: '', endDate: '' },

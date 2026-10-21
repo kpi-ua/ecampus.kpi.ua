@@ -113,7 +113,8 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
         key={departmentId}
         groups={filteredGroups}
         lecturers={data?.lecturers ?? []}
-        startYear={currentYear.startYear}
+        academicYearStart={currentYear.startDate}
+        academicYearEnd={currentYear.endDate}
         isFetching={isFetching}
       />
     </Card>

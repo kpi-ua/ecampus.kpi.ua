@@ -2,14 +2,15 @@ import dayjs from 'dayjs';
 import type { useTranslations } from 'next-intl';
 import { z } from 'zod';
 
-export const getCuratorAssignmentDateBounds = (year: number) => ({
-  minDate: `${year - 1}-01-01`,
-  maxDate: `${year + 1}-12-31`,
+export const getCuratorAssignmentDateBounds = (startDate: string, endDate: string) => ({
+  minDate: startDate.slice(0, 10),
+  maxDate: endDate.slice(0, 10),
 });
 
 export const createCuratorAssignmentSchema = (
   t: ReturnType<typeof useTranslations<'private.curatorlecturer.group-curator.administration'>>,
-  year: number,
+  academicYearStart: string,
+  academicYearEnd: string,
 ) =>
   z
     .object({
@@ -20,10 +21,10 @@ export const createCuratorAssignmentSchema = (
         .pipe(z.iso.date({ error: t('validation.invalid-date') }))
         .refine(
           (date) => {
-            const { minDate, maxDate } = getCuratorAssignmentDateBounds(year);
+            const { minDate, maxDate } = getCuratorAssignmentDateBounds(academicYearStart, academicYearEnd);
             return date >= minDate && date <= maxDate;
           },
-          t('validation.date-range', getCuratorAssignmentDateBounds(year)),
+          t('validation.date-range', getCuratorAssignmentDateBounds(academicYearStart, academicYearEnd)),
         ),
       endDate: z
         .string()
@@ -31,10 +32,10 @@ export const createCuratorAssignmentSchema = (
         .pipe(z.iso.date({ error: t('validation.invalid-date') }))
         .refine(
           (date) => {
-            const { minDate, maxDate } = getCuratorAssignmentDateBounds(year);
+            const { minDate, maxDate } = getCuratorAssignmentDateBounds(academicYearStart, academicYearEnd);
             return date >= minDate && date <= maxDate;
           },
-          t('validation.date-range', getCuratorAssignmentDateBounds(year)),
+          t('validation.date-range', getCuratorAssignmentDateBounds(academicYearStart, academicYearEnd)),
         ),
     })
     .refine(({ startDate, endDate }) => !dayjs(endDate).isBefore(dayjs(startDate), 'day'), {

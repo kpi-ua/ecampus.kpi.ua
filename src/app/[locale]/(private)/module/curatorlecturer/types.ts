@@ -168,5 +168,6 @@ export interface CuratorStudentAttestationDiscipline extends CuratorAttestationT
 
 export interface CuratorAcademicYear {
   id: number;
-  startYear: number;
+  startDate: string;
+  endDate: string;
 }
