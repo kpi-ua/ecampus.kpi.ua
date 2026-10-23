@@ -24,6 +24,7 @@ export const CriterionRating = ({ criterion, score, disabled, onScoreChange }: P
           key={mark}
           type="button"
           role="radio"
+          aria-checked={mark <= (score ?? 0)}
           onClick={() => onScoreChange(criterion.id, mark)}
           className={cn(
             'size-11 rounded-md border text-sm font-medium transition-colors',
