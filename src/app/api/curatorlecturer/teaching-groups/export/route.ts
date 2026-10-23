@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 import { formatDate } from '@/lib/utils';
@@ -20,7 +21,7 @@ export async function GET() {
       group.name,
       group.course,
       group.curatorName ?? t('table.not-assigned'),
-      group.description,
+      formatGroupDescription(group),
       group.departmentName,
     ]),
   ];

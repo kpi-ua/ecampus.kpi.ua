@@ -19,11 +19,10 @@ export const AnnouncementsFilters = () => {
 
   const search = searchParams.get('search') ?? '';
   const rawLanguage = searchParams.get('language')?.toLowerCase();
-  const language =
-    ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
+  const language = ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
 
   const [searchValue, setSearchValue] = useState(search);
-  
+
   useEffect(() => {
     setSearchValue(search);
   }, [search]);

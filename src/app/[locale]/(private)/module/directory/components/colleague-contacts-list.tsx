@@ -22,10 +22,7 @@ export function ColleagueContactsList({ colleagues, contactTypes }: ColleagueCon
 
   const allSubdivisions = useMemo(() => {
     return alphabetical(
-      unique(
-        flat(colleagues.map((x) => x.positions.map((x) => x.subdivision))),
-        (subdivision) => subdivision.id,
-      ),
+      unique(flat(colleagues.map((x) => x.positions.map((x) => x.subdivision))), (subdivision) => subdivision.id),
       (subdivision) => subdivision.name,
     );
   }, [colleagues]);

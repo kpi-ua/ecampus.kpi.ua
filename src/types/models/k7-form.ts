@@ -1,3 +1,5 @@
+import { EducationLevel } from '@/types/enums/education-level';
+
 import { EntityIdName } from './entity-id-name';
 
 export interface K7FormLecturerProfile {
@@ -111,16 +113,6 @@ export const K7_EMPLOYEE_CATEGORY = {
 
 export type K7EmployeeCategory = (typeof K7_EMPLOYEE_CATEGORY)[keyof typeof K7_EMPLOYEE_CATEGORY];
 
-export const K7_EDUCATION_LEVEL = {
-  Bachelor: 'Bachelor',
-  MasterProfessional: 'MasterProfessional',
-  MasterScientific: 'MasterScientific',
-  PhD: 'PhD',
-  Other: 'Other',
-} as const;
-
-export type K7EducationLevel = (typeof K7_EDUCATION_LEVEL)[keyof typeof K7_EDUCATION_LEVEL];
-
 export interface K7OtherEducationalActivity {
   employeeCategory: K7EmployeeCategory;
   employeeId: number;
@@ -128,7 +120,7 @@ export interface K7OtherEducationalActivity {
   position: string;
   salary: number;
   workType: string;
-  educationLevel: K7EducationLevel;
+  educationLevel: EducationLevel;
   course: number | null;
   groupCodesSem1: string | null;
   studentCountSem1: number;

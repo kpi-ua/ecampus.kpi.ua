@@ -941,6 +941,33 @@
             "title": "Призначення збережено",
             "description": "Куратора групи {group} призначено на період {startDate} — {endDate}"
           },
+          "filters": {
+            "all": "Усі",
+            "course": "Курс",
+            "onlyUnassigned": "Лише без куратора",
+            "educationLevel": "Рівень освіти",
+            "studyForm": "Форма навчання",
+            "options": {
+              "educationLevel": {
+                "Bachelor": "Бакалавр",
+                "MasterProfessional": "Магістр ОПП",
+                "MasterScientific": "Магістр ОНП",
+                "PhD": "Доктор філософії",
+                "Other": "Інше"
+              },
+              "studyForm": {
+                "None": "Не вказано",
+                "Evening": "Вечірня",
+                "FullTime": "Денна",
+                "Remote": "Дистанційна",
+                "Extern": "Екстернат",
+                "Correspondence": "Заочна",
+                "Shortened": "Скорочена",
+                "OutOfPostgraduate": "Поза аспірантурою",
+                "Other": "Інше"
+              }
+            }
+          },
           "edit": {
             "title": "Редагувати дати",
             "submit": "Зберегти дати",
