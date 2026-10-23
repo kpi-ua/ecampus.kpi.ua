@@ -49,6 +49,7 @@ Standard wiring for a paginated, sortable table:
 import { memo } from 'react';
 import { useTranslations } from 'next-intl';
 
+import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Show } from '@/components/utils/show';
@@ -62,7 +63,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
   const { paginatedItems } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
 
   if (items.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</p>;
+    return <Paragraph className="text-muted-foreground my-0 py-12 text-center text-sm">{t('empty')}</Paragraph>;
   }
 
   return (
@@ -76,7 +77,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 });
 ```
 
-- Empty state: inline early return with a translated `<p>`.
+- Empty state: inline early return with a translated `<Paragraph>`.
 - Pagination is conditional via `<Show when={...}>` — don't show it when there's only one page worth of rows.
 - Use `PAGE_SIZE_DEFAULT` from `@/lib/constants/page-size` (or `PAGE_SIZE_SMALL` for compact lists). Don't hardcode page sizes.
 
@@ -109,6 +110,8 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 - SVG icons: import from the central index at `@/app/images` (e.g. `import { PencilRegular, EyeBold } from '@/app/images'`). Lucide icons (`lucide-react`) are also used directly when no in-house icon exists.
 
 ## 6. Component declaration style
+
+Always use curly braces for conditional and loop bodies (`if`, `else`, `for`, `for...of`, `for...in`, `while`, and `do...while`), even for a single statement or early return. ESLint enforces this with `curly: ['error', 'all']`.
 
 The codebase has two coexisting styles:
 
@@ -159,6 +162,15 @@ Notable variants:
 
 Conditional rendering helper: `<Show when={cond} fallback={null}>` from `@/components/utils/show`.
 
+- In the `adminvote` module, do not add explicit `aria-*` attributes to feature components. Use the visible labels and existing UI primitives; keep the primitives' built-in attributes intact.
+
+### Typography
+
+- Use the existing typography components from `@/components/typography` instead of raw `<h1>`–`<h6>` and `<p>` tags in pages and feature components: `Heading1`–`Heading6`, `Paragraph`, and `Description`.
+- Choose the heading component by semantic level. Adjust `className` to match the design, including responsive typography and default paragraph margins when necessary.
+- Keep specialized UI components such as `DialogTitle`, `DialogDescription`, `AlertDialogTitle`, and `AlertDialogDescription` for their accessible semantics; do not replace them with raw HTML tags.
+- Raw heading and paragraph tags belong inside the shared typography/UI primitives themselves, not new feature markup.
+
 ## 10. Types
 
 - Domain models: `src/types/models/<domain>/<thing>.ts` (e.g. `types/models/certificate/certificate.ts`, `types/models/announcement.ts`).
@@ -174,7 +186,13 @@ Conditional rendering helper: `<Show when={cond} fallback={null}>` from `@/compo
 
 ## 12. Dates
 
-`dayjs` everywhere. Standard display format: `dayjs(date).format('DD.MM.YYYY')`. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
+Use `formatDate` from `@/lib/utils` with its default `YYYY-MM-DD` format for displayed dates, native `<input type="date">` values, and API date-only values. Do not override the format just for display. Keep date-only form state and API request values in `YYYY-MM-DD` format. Do not add custom `dayjs(...).format(...)` calls in feature code; keep formatting implementation inside the shared utility.
+
+Compare dates with Day.js (`isBefore`, `isAfter`, `isSame`) using `'day'` precision for date-only rules. Never compare display-formatted strings or call `formatDate` to prepare values for comparisons. Validate dates before applying ordering or overlap rules. For inclusive interval overlap, use `!start.isAfter(otherEnd, 'day') && !end.isBefore(otherStart, 'day')`; shared boundary dates count as overlapping.
+
+Native date inputs provide `YYYY-MM-DD` values. If an external source requires another date format, parse it explicitly with Day.js's `customParseFormat` plugin in strict mode before comparing dates; do not rely on automatic parsing of localized date strings.
+
+Use `dayjs` for date arithmetic and comparisons. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
 
 ## 13. Error handling pattern
 

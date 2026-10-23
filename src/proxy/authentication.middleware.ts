@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server';
 import { getAuthInfo, gotoLogin, matchesAnyUrl } from './utils';
-import { codeOfHonorMiddleware } from './code-of-honor.middleware';
+import { codeOfHonorProxy } from './code-of-honor.proxy';
 import { PUBLIC_PATHS } from './contants';
-import { intlMiddleware } from './intl.middleware';
+import { intlProxy } from './intl.proxy';
 
 const isAuthenticated = (request: NextRequest) => {
   const payload = getAuthInfo(request);
@@ -15,15 +15,15 @@ const isAuthenticated = (request: NextRequest) => {
   return payload.exp && payload.exp > dayjs().unix();
 };
 
-export const authenticationMiddleware = (request: NextRequest) => {
+export const authenticationProxy = (request: NextRequest) => {
   const userAuthenticated = isAuthenticated(request);
 
   if (userAuthenticated) {
-    return codeOfHonorMiddleware(request);
+    return codeOfHonorProxy(request);
   }
 
   if (matchesAnyUrl(request, PUBLIC_PATHS, false)) {
-    return intlMiddleware(request);
+    return intlProxy(request);
   }
 
   return gotoLogin(request);
