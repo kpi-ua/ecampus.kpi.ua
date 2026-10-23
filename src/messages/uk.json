@@ -800,7 +800,8 @@
           "speciality": "Спеціальність",
           "course": "Курс",
           "department": "Кафедра",
-          "group-leader": "Староста групи"
+          "group-leader": "Староста групи",
+          "count-label": "Кількість студентів"
         },
         "leader": {
           "select": "Оберіть старосту групи",
@@ -855,8 +856,7 @@
           "password-changed": "змінено",
           "code-of-honor": "Кодекс честі",
           "agreed": "Погоджено {date}",
-          "not-agreed": "Не погоджено",
-          "count": "Студентів: {count}"
+          "not-agreed": "Не погоджено"
         },
         "results": {
           "student": "ПІБ студента",

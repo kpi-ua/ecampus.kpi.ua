@@ -17,7 +17,7 @@ import {
 } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { exportGroupOverview } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-overview';
-import { Heading4, Paragraph } from '@/components/typography';
+import { Heading4 } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -69,11 +69,6 @@ export const OverviewTab = ({ group }: Props) => {
           {t('export')}
         </Button>
       </div>
-      <Show when={!isFetching}>
-        <Paragraph className="m-0 text-sm text-neutral-500">
-          {t('students.count', { count: students.length })}
-        </Paragraph>
-      </Show>
       <GroupLeaderSelect group={group} />
       <Input
         value={search}
