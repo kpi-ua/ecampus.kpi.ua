@@ -19,10 +19,7 @@ import { SubLayout } from '../../../sub-layout';
 export function StudySheet() {
   const t = useTranslations('private.study-sheet');
   const { errorToast } = useServerErrorToast();
-  const {
-    data: sheet,
-    isPending,
-  } = useQuery({
+  const { data: sheet, isPending } = useQuery({
     queryKey: ['monitoring'],
     queryFn: async () => {
       try {
