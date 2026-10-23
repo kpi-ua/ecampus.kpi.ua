@@ -1,6 +1,6 @@
 import { LOCALE } from '@/i18n/routing';
 
-export type AdminAnnouncementsLanguage = LOCALE | null;
+export type AdminAnnouncementsLanguage = 'all' | LOCALE;
 
 export interface AnnouncementCreateFilter {
   courses: number[];

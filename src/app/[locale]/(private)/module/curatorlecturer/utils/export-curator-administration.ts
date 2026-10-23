@@ -7,9 +7,9 @@ interface Params {
   yearId: number;
   departmentId?: number;
   search: string;
-  course?: string | null;
-  educationLevel?: string | null;
-  studyForm?: string | null;
+  course?: string;
+  educationLevel?: string;
+  studyForm?: string;
   onlyUnassigned?: boolean;
 }
 

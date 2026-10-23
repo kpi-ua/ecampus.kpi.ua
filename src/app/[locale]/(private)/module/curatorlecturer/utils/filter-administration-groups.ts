@@ -2,9 +2,9 @@ import { CuratorGroup } from '../types';
 
 interface Filters {
   search: string;
-  course?: string | null;
-  educationLevel?: string | null;
-  studyForm?: string | null;
+  course?: string;
+  educationLevel?: string;
+  studyForm?: string;
   onlyUnassigned?: boolean;
 }
 

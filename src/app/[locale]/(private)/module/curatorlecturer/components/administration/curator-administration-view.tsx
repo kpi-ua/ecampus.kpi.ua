@@ -19,7 +19,7 @@ import { Heading2 } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { FilterSelect } from '@/components/ui/filter-select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
@@ -42,16 +42,12 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
     mutationFn: exportCuratorAdministration,
     onError: () => errorToast(),
   });
-  const [departmentId, setDepartmentId] = useState<string | null>(null);
+  const [departmentId, setDepartmentId] = useState('all');
   const [search, setSearch] = useState('');
-  const [filters, setFilters] = useState<Record<(typeof GROUP_FILTERS)[number], string | null>>({
-    course: null,
-    educationLevel: null,
-    studyForm: null,
-  });
+  const [filters, setFilters] = useState({ course: '', educationLevel: '', studyForm: '' });
   const [onlyUnassigned, setOnlyUnassigned] = useState(false);
   const deferredSearch = useDeferredValue(search);
-  const parsedDepartmentId = departmentId === null ? undefined : Number(departmentId);
+  const parsedDepartmentId = departmentId === 'all' ? undefined : Number(departmentId);
   const { data, isFetching } = useCuratorAdministrationData(
     {
       groups: initialGroups,
@@ -62,20 +58,18 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
   );
   const groups = data?.groups ?? [];
   const getFilterOptions = (key: (typeof GROUP_FILTERS)[number]) =>
-    unique(groups.flatMap((group) => (group[key] == null ? [] : [String(group[key])])))
-      .sort((first, second) => first.localeCompare(second, 'uk', { numeric: true }))
-      .map((value) => ({
-        value,
-        label: key === 'course' ? value : t('filters.options.' + key + '.' + value),
-      }));
+    unique(groups.flatMap((group) => (group[key] == null ? [] : [String(group[key])]))).map((value) => ({
+      value,
+      label: key === 'course' ? value : t('filters.options.' + key + '.' + value),
+    }));
   const filteredGroups = useMemo(
     () => filterAdministrationGroups(data?.groups ?? [], { search: deferredSearch, ...filters, onlyUnassigned }),
     [data?.groups, deferredSearch, filters, onlyUnassigned],
   );
 
-  const handleDepartmentChange = (value: string | null) => {
+  const handleDepartmentChange = (value: string) => {
     setDepartmentId(value);
-    setFilters({ course: null, educationLevel: null, studyForm: null });
+    setFilters({ course: '', educationLevel: '', studyForm: '' });
   };
 
   const handleExport = () => {
@@ -103,14 +97,19 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
           <label htmlFor="curator-department" className="text-sm text-neutral-600">
             {t('table.department')}
           </label>
-          <FilterSelect
-            id="curator-department"
-            className="w-full text-left sm:w-80"
-            options={departments.map((department) => ({ value: department.id.toString(), label: department.name }))}
-            value={departmentId}
-            onValueChange={handleDepartmentChange}
-            disabled={isFetching}
-          />
+          <Select value={departmentId} onValueChange={handleDepartmentChange} disabled={isFetching}>
+            <SelectTrigger id="curator-department" variant="small" className="w-full text-left sm:w-80">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">{t('all-departments')}</SelectItem>
+              {departments.map((department) => (
+                <SelectItem key={department.id} value={department.id.toString()}>
+                  {department.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Button
             variant="secondary"
             size="small"
@@ -137,14 +136,23 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
             <label htmlFor={'curator-' + key} className="text-sm text-neutral-600">
               {t('filters.' + key)}
             </label>
-            <FilterSelect
-              id={'curator-' + key}
-              className="w-40"
-              options={getFilterOptions(key)}
-              value={filters[key]}
+            <Select
+              value={filters[key] || 'all'}
               disabled={isFetching}
-              onValueChange={(value) => setFilters((current) => ({ ...current, [key]: value }))}
-            />
+              onValueChange={(value) => setFilters((current) => ({ ...current, [key]: value === 'all' ? '' : value }))}
+            >
+              <SelectTrigger id={'curator-' + key} variant="small" className="w-40">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">{t('filters.all')}</SelectItem>
+                {getFilterOptions(key).map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         ))}
         <div className="flex items-center gap-3">

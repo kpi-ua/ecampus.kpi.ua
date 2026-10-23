@@ -2,7 +2,7 @@
 
 import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { Heading4 } from '@/components/typography';
+import { Heading4 } from '@/components/typography/index';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Show } from '@/components/utils/show';
@@ -44,6 +44,7 @@ export const AttestationControls = ({ groupName, filters, exportButton }: Props)
             semester={semester}
             resultId={attestationId}
             resultOptions={filters.attestations}
+            includeAll
             resultPlaceholder={t('filters.attestation')}
             onYearChange={setYearId}
             onSemesterChange={setSemester}

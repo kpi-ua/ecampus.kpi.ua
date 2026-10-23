@@ -7,7 +7,7 @@ import { debounce } from 'radash';
 
 import { MagnifyingGlassRegular } from '@/app/images';
 import { Input } from '@/components/ui/input';
-import { FilterSelect } from '@/components/ui/filter-select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 import { ANNOUNCEMENT_FILTER_LANGUAGES } from '../constants';
 
@@ -19,7 +19,7 @@ export const AnnouncementsFilters = () => {
 
   const search = searchParams.get('search') ?? '';
   const rawLanguage = searchParams.get('language')?.toLowerCase();
-  const language = ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? null;
+  const language = ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
 
   const [searchValue, setSearchValue] = useState(search);
 
@@ -44,9 +44,9 @@ export const AnnouncementsFilters = () => {
     });
   };
 
-  const updateLanguageParam = (value: string | null) => {
+  const updateLanguageParam = (value: string) => {
     commitSearchParams((params) => {
-      if (value === null) {
+      if (value === 'all') {
         params.delete('language');
       } else {
         params.set('language', value);
@@ -75,15 +75,18 @@ export const AnnouncementsFilters = () => {
         />
       </div>
       <div className="md:w-56">
-        <FilterSelect
-          value={language}
-          onValueChange={updateLanguageParam}
-          variant="medium"
-          options={ANNOUNCEMENT_FILTER_LANGUAGES.map((value) => ({
-            value,
-            label: t(`language.${value}`),
-          }))}
-        />
+        <Select value={language} onValueChange={updateLanguageParam}>
+          <SelectTrigger>
+            <SelectValue placeholder={t('languageLabel')} />
+          </SelectTrigger>
+          <SelectContent>
+            {ANNOUNCEMENT_FILTER_LANGUAGES.map((value) => (
+              <SelectItem key={value} value={value}>
+                {t(`language.${value}`)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
