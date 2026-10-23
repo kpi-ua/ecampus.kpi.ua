@@ -46,7 +46,7 @@ export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) =>
       </TableRow>
       <Show when={expanded}>
         {discipline.students.map((student) => (
-          <TableRow key={student.studentId} className="bg-neutral-50 hover:bg-neutral-50">
+          <TableRow key={student.studentId} className="bg-neutral-50 hover:bg-neutral-50 [&>td]:py-2 [&>td]:text-sm">
             <TableCell className="pl-6">{student.fullName}</TableCell>
             <Show when={showRepeated}>
               <TableCell>

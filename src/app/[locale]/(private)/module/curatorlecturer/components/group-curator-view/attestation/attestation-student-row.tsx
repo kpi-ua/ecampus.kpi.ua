@@ -49,7 +49,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
         {student.disciplines.map((discipline) => (
           <TableRow
             key={`${discipline.disciplineId}-${discipline.employeeId}`}
-            className="bg-neutral-50 hover:bg-neutral-50"
+            className="bg-neutral-50 hover:bg-neutral-50 [&>td]:py-2 [&>td]:text-sm"
           >
             <TableCell className="pl-6">
               {discipline.lecturerName} — {discipline.name}
