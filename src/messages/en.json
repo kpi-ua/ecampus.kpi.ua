@@ -800,7 +800,8 @@
           "speciality": "Speciality",
           "course": "Course",
           "department": "Department",
-          "group-leader": "Group leader"
+          "group-leader": "Group leader",
+          "count-label": "Students"
         },
         "leader": {
           "select": "Select a group leader",
@@ -855,8 +856,7 @@
           "password-changed": "changed",
           "code-of-honor": "Code of Honor",
           "agreed": "Agreed {date}",
-          "not-agreed": "Not agreed",
-          "count": "Students: {count}"
+          "not-agreed": "Not agreed"
         },
         "results": {
           "student": "Student name",
