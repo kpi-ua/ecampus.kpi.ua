@@ -37,13 +37,7 @@ const config: StorybookConfig = {
     return config;
   },
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
-  addons: [
-    '@storybook/addon-onboarding',
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@chromatic-com/storybook',
-    '@storybook/addon-interactions',
-  ],
+  addons: ['@chromatic-com/storybook'],
   framework: {
     name: '@storybook/nextjs',
     options: {},

@@ -1,11 +1,12 @@
 'use client';
 
 import { Fragment, useState } from 'react';
-import { Check, ChevronDown, ChevronUp, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { TableExpandButton } from '@/components/ui/table-expand-button';
 import { Show } from '@/components/utils/show';
 
 import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
@@ -33,13 +34,7 @@ export const SurveyStudentRow = ({ rows }: Props) => {
           <Badge variant={badgeVariant}>{t('completed-count', { completed, total: rows.length })}</Badge>
         </TableCell>
         <TableCell className="w-12 text-right">
-          <button
-            type="button"
-            className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-100"
-            onClick={handleExpand}
-          >
-            {expanded ? <ChevronUp className="size-5" /> : <ChevronDown className="size-5" />}
-          </button>
+          <TableExpandButton expanded={expanded} onToggle={handleExpand} />
         </TableCell>
       </TableRow>
       <Show when={expanded}>
