@@ -44,8 +44,8 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
     initialData,
   });
 
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingCriterion, setEditingCriterion] = useState<VoteAdminCriterion>();
+  const [form, setForm] = useState<{ criterion?: VoteAdminCriterion } | null>(null);
+  const isFormOpen = form !== null;
   const [archiveTarget, setArchiveTarget] = useState<VoteAdminCriterion | null>(null);
 
   const archiveMutation = useMutation({
@@ -62,21 +62,19 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
   const disabled = data.isVotingOpen || isFetching || archiving;
 
   const handleAdd = () => {
-    setEditingCriterion(undefined);
-    setIsFormOpen(true);
+    setForm({});
   };
 
   const handleEdit = (criterion: VoteAdminCriterion) => {
-    setEditingCriterion(criterion);
-    setIsFormOpen(true);
+    setForm({ criterion });
   };
 
   const handleFormClose = () => {
-    setIsFormOpen(false);
+    setForm(null);
   };
 
   const handleSaved = () => {
-    setIsFormOpen(false);
+    setForm(null);
     toast({ title: t('saved-success') });
   };
 
@@ -121,8 +119,8 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
           </TabsTrigger>
         </TabsList>
       </div>
-      {isFormOpen && !data.isVotingOpen && (
-        <CriterionForm criterion={editingCriterion} onClose={handleFormClose} onSaved={handleSaved} />
+      {form && !data.isVotingOpen && (
+        <CriterionForm criterion={form.criterion} onClose={handleFormClose} onSaved={handleSaved} />
       )}
       <TabsContent value="current" className="mt-0">
         <CurrentCriteriaTable

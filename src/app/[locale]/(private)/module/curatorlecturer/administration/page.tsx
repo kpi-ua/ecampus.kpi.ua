@@ -1,14 +1,7 @@
 import { getTranslations } from 'next-intl/server';
-
-import {
-  getCuratorAdminGroups,
-  getCuratorDepartments,
-  getCuratorFilters,
-  getCuratorLecturers,
-} from '@/actions/curatorlecturer.actions';
+import { getCuratorAdminGroups, getCuratorAdminFilters, getCuratorLecturers } from '@/actions/curatorlecturer.actions';
 import { CuratorAdministrationView } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/curator-administration-view';
 import { LocaleProps } from '@/types/locale-props';
-
 import { LecturerCuratorView } from '../components/lecturer-curator-view';
 
 const INTL_NAMESPACE = 'private.curatorlecturer.group-curator.administration';
@@ -20,11 +13,13 @@ export async function generateMetadata({ params }: LocaleProps) {
 }
 
 export default async function CuratorAdministrationPage() {
-  const departments = await getCuratorDepartments();
-  const filters = departments.length ? await getCuratorFilters() : null;
-  const yearId = filters?.years[0]?.id;
+  const filters = await getCuratorAdminFilters();
+  const departments = filters?.departments ?? [];
+  const currentYear = filters?.currentYear;
   const [groups, lecturers] =
-    departments.length && yearId ? await Promise.all([getCuratorAdminGroups(yearId), getCuratorLecturers()]) : [[], []];
+    departments.length && currentYear
+      ? await Promise.all([getCuratorAdminGroups(currentYear.id), getCuratorLecturers()])
+      : [[], []];
 
   return (
     <LecturerCuratorView activeTab="administration">
@@ -32,7 +27,7 @@ export default async function CuratorAdministrationPage() {
         initialGroups={groups}
         initialLecturers={lecturers}
         departments={departments}
-        yearId={yearId}
+        currentYear={currentYear ?? null}
       />
     </LecturerCuratorView>
   );

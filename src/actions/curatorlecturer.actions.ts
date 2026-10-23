@@ -6,6 +6,7 @@ import queryString from 'query-string';
 import {
   CuratorGroup,
   CuratorFilters,
+  CuratorAdminFilters,
   CuratorStudentDetails,
   CuratorSurveyRow,
   CuratorSurveyParams,
@@ -14,7 +15,6 @@ import {
   CuratorAttestationParams,
   CuratorStudentAttestations,
   CuratorDisciplineAttestations,
-  CuratorOption,
   CuratorLecturer,
   CuratorAssignment,
 } from '@/app/[locale]/(private)/module/curatorlecturer/types';
@@ -131,17 +131,14 @@ export const assignGroupLeader = async (groupId: number, studentId: number) => {
   revalidatePath('/[locale]/module/curatorlecturer/groups', 'page');
 };
 
-export const getCuratorDepartments = async (): Promise<CuratorOption[]> => {
-  const response = await campusFetch<CuratorOption[]>('/curator-lecturer/admin/departments');
-
+export const getCuratorAdminFilters = async (): Promise<CuratorAdminFilters | null> => {
+  const response = await campusFetch<CuratorAdminFilters>('/curator-lecturer/admin/filters');
   if (response.status === 403) {
-    return [];
+    return null;
   }
-
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
-
   return response.json();
 };
 
@@ -179,16 +176,53 @@ export const getCuratorAssignments = async (groupId: number): Promise<CuratorAss
   return response.json();
 };
 
-export const assignGroupCurator = async (groupId: number, employeeId: number, startDate: string, endDate: string) => {
+export const assignGroupCurator = async (
+  groupId: number,
+  employeeId: number,
+  startDate: string,
+  endDate: string,
+): Promise<'assigned' | 'rejected' | 'overlap'> => {
   const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curator`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ employeeId, startDate, endDate }),
   });
 
+  if (response.status === 409) {
+    return 'overlap';
+  }
+  if (response.status === 400) {
+    return 'rejected';
+  }
+
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
 
   revalidatePath('/[locale]/module/curatorlecturer', 'layout');
+  return 'assigned';
+};
+
+export const updateCuratorAssignmentDates = async (
+  groupId: number,
+  assignmentId: number,
+  startDate: string,
+  endDate: string,
+): Promise<'assigned' | 'rejected' | 'overlap'> => {
+  const response = await campusFetch(`/curator-lecturer/admin/groups/${groupId}/curators/${assignmentId}/dates`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ startDate, endDate }),
+  });
+  if (response.status === 409) {
+    return 'overlap';
+  }
+  if (response.status === 400) {
+    return 'rejected';
+  }
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  revalidatePath('/[locale]/module/curatorlecturer', 'layout');
+  return 'assigned';
 };

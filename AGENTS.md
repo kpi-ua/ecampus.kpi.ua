@@ -187,7 +187,13 @@ Conditional rendering helper: `<Show when={cond} fallback={null}>` from `@/compo
 
 ## 12. Dates
 
-`dayjs` everywhere. Standard display format: `dayjs(date).format('DD.MM.YYYY')`. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
+Use `formatDate` from `@/lib/utils` with its default `YYYY-MM-DD` format for displayed dates, native `<input type="date">` values, and API date-only values. Do not override the format just for display. Keep date-only form state and API request values in `YYYY-MM-DD` format. Do not add custom `dayjs(...).format(...)` calls in feature code; keep formatting implementation inside the shared utility.
+
+Compare dates with Day.js (`isBefore`, `isAfter`, `isSame`) using `'day'` precision for date-only rules. Never compare display-formatted strings or call `formatDate` to prepare values for comparisons. Validate dates before applying ordering or overlap rules. For inclusive interval overlap, use `!start.isAfter(otherEnd, 'day') && !end.isBefore(otherStart, 'day')`; shared boundary dates count as overlapping.
+
+Native date inputs provide `YYYY-MM-DD` values. If an external source requires another date format, parse it explicitly with Day.js's `customParseFormat` plugin in strict mode before comparing dates; do not rely on automatic parsing of localized date strings.
+
+Use `dayjs` for date arithmetic and comparisons. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
 
 ## 13. Error handling pattern
 

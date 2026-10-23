@@ -6,7 +6,12 @@ import { useTranslations } from 'next-intl';
 import { useDeferredValue, useMemo, useState } from 'react';
 
 import { useCuratorAdministrationData } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-administration-data';
-import { CuratorGroup, CuratorLecturer, CuratorOption } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import {
+  CuratorAcademicYear,
+  CuratorGroup,
+  CuratorLecturer,
+  CuratorOption,
+} from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { exportCuratorAdministration } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-curator-administration';
 import { Heading2, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
@@ -18,13 +23,14 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { CuratorAdministrationTable } from './curator-administration-table';
 
 interface Props {
+  currentYear: CuratorAcademicYear | null;
   initialGroups: CuratorGroup[];
   initialLecturers: CuratorLecturer[];
   departments: CuratorOption[];
-  yearId?: number;
 }
 
-export const CuratorAdministrationView = ({ initialGroups, initialLecturers, departments, yearId }: Props) => {
+export const CuratorAdministrationView = ({ initialGroups, initialLecturers, departments, currentYear }: Props) => {
+  const yearId = currentYear?.id;
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const { errorToast } = useServerErrorToast();
   const exportMutation = useMutation({
@@ -54,7 +60,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
     }
   };
 
-  if (departments.length === 0) {
+  if (departments.length === 0 || !currentYear) {
     return (
       <>
         <Heading2>{t('title')}</Heading2>
@@ -107,6 +113,8 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
         key={departmentId}
         groups={filteredGroups}
         lecturers={data?.lecturers ?? []}
+        academicYearStart={currentYear.startDate}
+        academicYearEnd={currentYear.endDate}
         isFetching={isFetching}
       />
     </Card>
