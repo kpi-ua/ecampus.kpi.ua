@@ -25,7 +25,7 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
   const teachingTableHeadClassName = cn(tableHeadClassName, 'h-[72px] align-middle');
 
   return (
-    <Table className="leading-xs table-fixed border-collapse text-xs">
+    <Table className="table-fixed border-collapse text-xs leading-xs">
       <colgroup>
         <col className="w-[4%]" />
         <col className="w-[31%]" />

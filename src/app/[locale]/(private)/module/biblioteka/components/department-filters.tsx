@@ -38,7 +38,7 @@ export const DepartmentFilters = ({ departments }: Props) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="border-neutral-divider rounded-lg border bg-white p-5 shadow-none sm:p-6">
+      <section className="rounded-lg border border-neutral-divider bg-white p-5 shadow-none sm:p-6">
         <div className="grid min-w-0 gap-6 md:grid-cols-2 md:gap-8">
           <div className="flex min-w-0 flex-col gap-2">
             <Label htmlFor="library-faculty">{t('departments.faculty')}</Label>

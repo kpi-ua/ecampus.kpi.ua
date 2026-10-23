@@ -1,12 +1,12 @@
-import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 import { getLibraryDepartments, getLibraryEmployees } from '@/actions/library.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 
-import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeesTable } from '../../components/employees-table';
 import { EntityHeading } from '../../components/entity-heading';
+import { LibraryTabs } from '../../components/library-tabs';
 import { LIBRARY_TAB } from '../../constants';
 
 const INTL_NAMESPACE = 'private.library';

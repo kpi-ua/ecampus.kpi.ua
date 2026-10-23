@@ -2,6 +2,7 @@
 
 import { useLocale } from 'next-intl';
 import Script from 'next/script';
+
 import { KPIID_LOGIN_PATH } from '@/proxy/contants';
 
 export const KPIIDLogin = () => {

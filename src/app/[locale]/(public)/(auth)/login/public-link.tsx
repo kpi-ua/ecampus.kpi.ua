@@ -1,4 +1,5 @@
 import { HTMLAttributeAnchorTarget } from 'react';
+
 import { Link } from '@/i18n/routing';
 
 interface PublicLinkProps {

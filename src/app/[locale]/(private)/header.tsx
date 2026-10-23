@@ -1,21 +1,22 @@
 'use client';
 
-import { FC, useEffect, useRef, useState } from 'react';
-import { sleep } from 'radash';
-import { LocaleSwitch } from '@/components/ui/locale-switch';
-import { SidebarTrigger } from '@/components/ui/sidebar';
-import { ProfilePicture } from '@/components/ui/profile-picture';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { Show } from '@/components/utils/show';
-import { cn, getUniqueUserPhotoUrl } from '@/lib/utils';
-import { User } from '@/types/models/user';
-import { Button } from '@/components/ui/button';
-import { logout } from '@/actions/auth.actions';
 import { useTranslations } from 'next-intl';
+import { sleep } from 'radash';
+import { FC, useEffect, useRef, useState } from 'react';
+
+import { logout } from '@/actions/auth.actions';
 import { SignOut } from '@/app/images';
 import { Paragraph } from '@/components/typography/paragraph';
-import { USER_CATEGORIES } from '@/lib/constants/common';
+import { Button } from '@/components/ui/button';
+import { LocaleSwitch } from '@/components/ui/locale-switch';
+import { ProfilePicture } from '@/components/ui/profile-picture';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Show } from '@/components/utils/show';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { USER_CATEGORIES } from '@/lib/constants/common';
+import { cn, getUniqueUserPhotoUrl } from '@/lib/utils';
+import { User } from '@/types/models/user';
 
 interface Props {
   user: User;

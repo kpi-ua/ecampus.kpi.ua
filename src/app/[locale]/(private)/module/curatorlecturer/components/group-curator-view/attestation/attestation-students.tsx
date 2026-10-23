@@ -1,20 +1,22 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { getCuratorStudentAttestations } from '@/actions/curatorlecturer.actions';
-import { Heading4 } from '@/components/typography/index';
-import { Input } from '@/components/ui/input';
-import { Show } from '@/components/utils/show';
-import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { AttestationSummary } from './attestation-summary';
-import { AttestationStudentTable } from './attestation-student-table';
 import { useAttestationFilters } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
 import {
   CURATOR_GROUP_STALE_TIME,
   curatorGroupQueryKeys,
 } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
+import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { Heading4 } from '@/components/typography/index';
+import { Input } from '@/components/ui/input';
+import { Show } from '@/components/utils/show';
+
+import { AttestationStudentTable } from './attestation-student-table';
+import { AttestationSummary } from './attestation-summary';
 
 interface Props {
   groupId: number;

@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cva, type VariantProps } from 'class-variance-authority';
+import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
@@ -47,7 +47,7 @@ const TabSheetTrigger = ({ className, ref, ...props }: React.ComponentProps<type
   return (
     <TabsTrigger
       {...props}
-      className="data-[state=active]:bg-basic-white data-[state=active]:text-basic-blue h-12 rounded-t-[8px] rounded-b-none px-3 py-0 text-base font-semibold data-[state=inactive]:bg-transparent data-[state=inactive]:text-neutral-700 md:px-8"
+      className="h-12 rounded-t-[8px] rounded-b-none px-3 py-0 text-base font-semibold data-[state=active]:bg-basic-white data-[state=active]:text-basic-blue data-[state=inactive]:bg-transparent data-[state=inactive]:text-neutral-700 md:px-8"
     />
   );
 };

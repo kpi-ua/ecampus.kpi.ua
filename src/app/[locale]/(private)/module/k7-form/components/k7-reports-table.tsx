@@ -1,8 +1,8 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { type KeyboardEvent, useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -51,7 +51,7 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
   const [downloadingRequestId, setDownloadingRequestId] = useState<string>();
 
   if (reports.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
+    return <p className="py-12 text-center text-sm text-muted-foreground">{t('table.empty')}</p>;
   }
 
   const handleErrorRowKeyDown = (report: K7ReportRequest) => (event: KeyboardEvent<HTMLTableRowElement>) => {

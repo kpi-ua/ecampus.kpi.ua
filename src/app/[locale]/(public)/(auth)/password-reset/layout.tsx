@@ -5,10 +5,9 @@
 // when it starts to support React 19
 import { GoogleReCaptchaProvider } from 'react19-google-recaptcha-v3';
 
-interface Props
-  extends Readonly<{
-    children: React.ReactNode;
-  }> {}
+interface Props extends Readonly<{
+  children: React.ReactNode;
+}> {}
 
 export default function PasswordResetLayout({ children }: Props) {
   return (
