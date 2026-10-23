@@ -1,4 +1,3 @@
-import React from 'react';
 import { getRatingData } from '@/actions/rating.actions';
 import { LocaleProps } from '@/types/locale-props';
 import { getTranslations } from 'next-intl/server';

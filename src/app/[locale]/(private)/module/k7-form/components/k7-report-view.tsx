@@ -34,7 +34,9 @@ interface Props {
 
 const getUniversityRequestFilter = (selection: K7UniversityFilterSelection): K7ReportRequestFilter | undefined => {
   const { year, departmentId, targetAccountId, employeeId, position } = selection;
-  if (!year || !departmentId || !targetAccountId || !employeeId || !position) return undefined;
+  if (!year || !departmentId || !targetAccountId || !employeeId || !position) {
+    return undefined;
+  }
 
   return { year, departmentId, targetAccountId, employeeId, position };
 };
@@ -81,16 +83,24 @@ export const K7ReportView = ({
     setUniversitySelection(selection);
     setReports([]);
     setIsLoadingReports(filter !== undefined);
-    if (!filter) return;
+    if (!filter) {
+      return;
+    }
 
     const fetchReports = async () => {
       try {
         const selectedReports = await getK7FormRequests({ all: true, ...filter });
-        if (requestId === reportRequestId.current) setReports(selectedReports);
+        if (requestId === reportRequestId.current) {
+          setReports(selectedReports);
+        }
       } catch {
-        if (requestId === reportRequestId.current) errorToastRef.current();
+        if (requestId === reportRequestId.current) {
+          errorToastRef.current();
+        }
       } finally {
-        if (requestId === reportRequestId.current) setIsLoadingReports(false);
+        if (requestId === reportRequestId.current) {
+          setIsLoadingReports(false);
+        }
       }
     };
 
