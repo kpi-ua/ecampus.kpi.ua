@@ -7,7 +7,7 @@ import { debounce } from 'radash';
 
 import { MagnifyingGlassRegular } from '@/app/images';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FilterSelect } from '@/components/ui/filter-select';
 
 import { ANNOUNCEMENT_FILTER_LANGUAGES } from '../constants';
 
@@ -19,11 +19,10 @@ export const AnnouncementsFilters = () => {
 
   const search = searchParams.get('search') ?? '';
   const rawLanguage = searchParams.get('language')?.toLowerCase();
-  const language =
-    ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
+  const language = ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? null;
 
   const [searchValue, setSearchValue] = useState(search);
-  
+
   useEffect(() => {
     setSearchValue(search);
   }, [search]);
@@ -45,9 +44,9 @@ export const AnnouncementsFilters = () => {
     });
   };
 
-  const updateLanguageParam = (value: string) => {
+  const updateLanguageParam = (value: string | null) => {
     commitSearchParams((params) => {
-      if (value === 'all') {
+      if (value === null) {
         params.delete('language');
       } else {
         params.set('language', value);
@@ -76,18 +75,15 @@ export const AnnouncementsFilters = () => {
         />
       </div>
       <div className="md:w-56">
-        <Select value={language} onValueChange={updateLanguageParam}>
-          <SelectTrigger>
-            <SelectValue placeholder={t('languageLabel')} />
-          </SelectTrigger>
-          <SelectContent>
-            {ANNOUNCEMENT_FILTER_LANGUAGES.map((value) => (
-              <SelectItem key={value} value={value}>
-                {t(`language.${value}`)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <FilterSelect
+          value={language}
+          onValueChange={updateLanguageParam}
+          variant="medium"
+          options={ANNOUNCEMENT_FILTER_LANGUAGES.map((value) => ({
+            value,
+            label: t(`language.${value}`),
+          }))}
+        />
       </div>
     </div>
   );

@@ -6,15 +6,15 @@ const useAttestationFiltersState = (defaultYearId: number) => {
   const [onlyNotAttested, setOnlyNotAttested] = useState(false);
   const [onlyRepeated, setOnlyRepeated] = useState(false);
   const [yearId, setYearId] = useState(String(defaultYearId));
-  const [semester, setSemester] = useState('all');
-  const [attestationId, setAttestationId] = useState('all');
-  const showRepeated = attestationId === 'all';
+  const [semester, setSemester] = useState<string | null>(null);
+  const [attestationId, setAttestationId] = useState<string | null>(null);
+  const showRepeated = attestationId === null;
   const params = {
     yearId: Number(yearId),
-    semester: semester === 'all' ? undefined : Number(semester),
-    attestationId: attestationId === 'all' ? undefined : Number(attestationId),
+    semester: semester === null ? undefined : Number(semester),
+    attestationId: attestationId === null ? undefined : Number(attestationId),
   };
-  const handleAttestationChange = (value: string) => {
+  const handleAttestationChange = (value: string | null) => {
     setAttestationId(value);
     setOnlyRepeated(false);
   };

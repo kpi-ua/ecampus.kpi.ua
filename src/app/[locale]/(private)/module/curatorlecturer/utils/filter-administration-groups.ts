@@ -2,9 +2,9 @@ import { CuratorGroup } from '../types';
 
 interface Filters {
   search: string;
-  course?: string;
-  speciality?: string;
-  groupId?: string;
+  course?: string | null;
+  educationLevel?: string | null;
+  studyForm?: string | null;
   onlyUnassigned?: boolean;
 }
 
@@ -14,8 +14,8 @@ export const filterAdministrationGroups = (groups: CuratorGroup[], filters: Filt
     (group) =>
       (!query || group.curatorName?.toLocaleLowerCase('uk').includes(query)) &&
       (!filters.course || group.course.toString() === filters.course) &&
-      (!filters.speciality || group.speciality === filters.speciality) &&
-      (!filters.groupId || group.groupId.toString() === filters.groupId) &&
+      (!filters.educationLevel || group.educationLevel === filters.educationLevel) &&
+      (!filters.studyForm || group.studyForm === filters.studyForm) &&
       (!filters.onlyUnassigned || group.curatorEmployeeId == null),
   );
 };

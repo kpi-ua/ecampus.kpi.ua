@@ -3,6 +3,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { unique } from 'radash';
 import { useDeferredValue, useMemo, useState } from 'react';
 
 import { useCuratorAdministrationData } from '@/app/[locale]/(private)/module/curatorlecturer/components/administration/hooks/use-curator-administration-data';
@@ -18,7 +19,7 @@ import { Heading2 } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FilterSelect } from '@/components/ui/filter-select';
 import { Switch } from '@/components/ui/switch';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
@@ -41,12 +42,16 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
     mutationFn: exportCuratorAdministration,
     onError: () => errorToast(),
   });
-  const [departmentId, setDepartmentId] = useState('all');
+  const [departmentId, setDepartmentId] = useState<string | null>(null);
   const [search, setSearch] = useState('');
-  const [filters, setFilters] = useState({ course: '', speciality: '', groupId: '' });
+  const [filters, setFilters] = useState<Record<(typeof GROUP_FILTERS)[number], string | null>>({
+    course: null,
+    educationLevel: null,
+    studyForm: null,
+  });
   const [onlyUnassigned, setOnlyUnassigned] = useState(false);
   const deferredSearch = useDeferredValue(search);
-  const parsedDepartmentId = departmentId === 'all' ? undefined : Number(departmentId);
+  const parsedDepartmentId = departmentId === null ? undefined : Number(departmentId);
   const { data, isFetching } = useCuratorAdministrationData(
     {
       groups: initialGroups,
@@ -55,10 +60,23 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
     yearId,
     parsedDepartmentId,
   );
+  const groups = data?.groups ?? [];
+  const getFilterOptions = (key: (typeof GROUP_FILTERS)[number]) =>
+    unique(groups.flatMap((group) => (group[key] == null ? [] : [String(group[key])])))
+      .sort((first, second) => first.localeCompare(second, 'uk', { numeric: true }))
+      .map((value) => ({
+        value,
+        label: key === 'course' ? value : t('filters.options.' + key + '.' + value),
+      }));
   const filteredGroups = useMemo(
     () => filterAdministrationGroups(data?.groups ?? [], { search: deferredSearch, ...filters, onlyUnassigned }),
     [data?.groups, deferredSearch, filters, onlyUnassigned],
   );
+
+  const handleDepartmentChange = (value: string | null) => {
+    setDepartmentId(value);
+    setFilters({ course: null, educationLevel: null, studyForm: null });
+  };
 
   const handleExport = () => {
     if (yearId) {
@@ -85,26 +103,14 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
           <label htmlFor="curator-department" className="text-sm text-neutral-600">
             {t('table.department')}
           </label>
-          <Select
+          <FilterSelect
+            id="curator-department"
+            className="w-full text-left sm:w-80"
+            options={departments.map((department) => ({ value: department.id.toString(), label: department.name }))}
             value={departmentId}
-            onValueChange={(value) => {
-              setDepartmentId(value);
-              setFilters({ course: '', speciality: '', groupId: '' });
-            }}
+            onValueChange={handleDepartmentChange}
             disabled={isFetching}
-          >
-            <SelectTrigger id="curator-department" variant="small" className="w-full text-left sm:w-80">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">{t('all-departments')}</SelectItem>
-              {departments.map((department) => (
-                <SelectItem key={department.id} value={department.id.toString()}>
-                  {department.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          />
           <Button
             variant="secondary"
             size="small"
@@ -126,41 +132,21 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
             placeholder={t('search')}
           />
         </div>
-        {GROUP_FILTERS.map((key) => {
-          const options = Array.from(
-            new Set(
-              (data?.groups ?? []).map((group) => group[key]?.toString()).filter((value): value is string => !!value),
-            ),
-          ).sort((first, second) => first.localeCompare(second, 'uk', { numeric: true }));
-          return (
-            <div key={key} className="flex items-center gap-3">
-              <label htmlFor={`curator-${key}`} className="text-sm text-neutral-600">
-                {t(`filters.${key}`)}
-              </label>
-              <Select
-                value={filters[key] || 'all'}
-                disabled={isFetching}
-                onValueChange={(value) =>
-                  setFilters((current) => ({ ...current, [key]: value === 'all' ? '' : value }))
-                }
-              >
-                <SelectTrigger id={`curator-${key}`} variant="small" className="w-32">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">{t('filters.all')}</SelectItem>
-                  {options.map((value) => (
-                    <SelectItem key={value} value={value}>
-                      {key === 'groupId'
-                        ? data?.groups.find((group) => group.groupId.toString() === value)?.name
-                        : value}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          );
-        })}
+        {GROUP_FILTERS.map((key) => (
+          <div key={key} className="flex items-center gap-3">
+            <label htmlFor={'curator-' + key} className="text-sm text-neutral-600">
+              {t('filters.' + key)}
+            </label>
+            <FilterSelect
+              id={'curator-' + key}
+              className="w-40"
+              options={getFilterOptions(key)}
+              value={filters[key]}
+              disabled={isFetching}
+              onValueChange={(value) => setFilters((current) => ({ ...current, [key]: value }))}
+            />
+          </div>
+        ))}
         <div className="flex items-center gap-3">
           <label htmlFor="curator-only-unassigned" className="text-sm whitespace-nowrap text-neutral-600">
             {t('filters.onlyUnassigned')}

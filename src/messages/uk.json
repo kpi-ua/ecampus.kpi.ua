@@ -1,5 +1,6 @@
 {
   "global": {
+    "all": "Усі",
     "metadata": {
       "title": "Кампус КПІ",
       "description": "Кампус КПІ"
@@ -944,9 +945,29 @@
           "filters": {
             "all": "Усі",
             "course": "Курс",
-            "speciality": "Спеціальність",
-            "groupId": "Група",
-            "onlyUnassigned": "Лише без куратора"
+            "onlyUnassigned": "Лише без куратора",
+            "educationLevel": "Рівень освіти",
+            "studyForm": "Форма навчання",
+            "options": {
+              "educationLevel": {
+                "Bachelor": "Бакалавр",
+                "MasterProfessional": "Магістр ОПП",
+                "MasterScientific": "Магістр ОНП",
+                "PhD": "Доктор філософії",
+                "Other": "Інше"
+              },
+              "studyForm": {
+                "None": "Не вказано",
+                "Evening": "Вечірня",
+                "FullTime": "Денна",
+                "Remote": "Дистанційна",
+                "Extern": "Екстернат",
+                "Correspondence": "Заочна",
+                "Shortened": "Скорочена",
+                "OutOfPostgraduate": "Поза аспірантурою",
+                "Other": "Інше"
+              }
+            }
           },
           "edit": {
             "title": "Редагувати дати",

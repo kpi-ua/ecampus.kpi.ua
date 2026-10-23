@@ -5,7 +5,7 @@ import { ContactType } from '@/types/models/contact';
 import { ColleagueCard } from './colleague-card';
 import { Input } from '@/components/ui/input';
 import { useState, useMemo } from 'react';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FilterSelect } from '@/components/ui/filter-select';
 import { useTranslations } from 'next-intl';
 import { Paragraph } from '@/components/typography';
 import { alphabetical, unique, flat } from 'radash';
@@ -18,14 +18,11 @@ interface ColleagueContactsListProps {
 export function ColleagueContactsList({ colleagues, contactTypes }: ColleagueContactsListProps) {
   const t = useTranslations('private.directory');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSubdivision, setSelectedSubdivision] = useState<string>('all');
+  const [selectedSubdivision, setSelectedSubdivision] = useState<string | null>(null);
 
   const allSubdivisions = useMemo(() => {
     return alphabetical(
-      unique(
-        flat(colleagues.map((x) => x.positions.map((x) => x.subdivision))),
-        (subdivision) => subdivision.id,
-      ),
+      unique(flat(colleagues.map((x) => x.positions.map((x) => x.subdivision))), (subdivision) => subdivision.id),
       (subdivision) => subdivision.name,
     );
   }, [colleagues]);
@@ -42,7 +39,7 @@ export function ColleagueContactsList({ colleagues, contactTypes }: ColleagueCon
         );
 
       const matchesSubdivision =
-        selectedSubdivision === 'all' ||
+        selectedSubdivision === null ||
         colleague.positions.some((pos) => pos.subdivision.id.toString() === selectedSubdivision);
 
       return matchesSearch && matchesSubdivision;
@@ -62,21 +59,16 @@ export function ColleagueContactsList({ colleagues, contactTypes }: ColleagueCon
           onChange={(e) => setSearchQuery(e.target.value)}
           className="flex-1"
         />
-        <Select value={selectedSubdivision} onValueChange={setSelectedSubdivision}>
-          <SelectTrigger className="w-full sm:w-64">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="all">{t('all-subdivisions')}</SelectItem>
-              {allSubdivisions.map((subdivision) => (
-                <SelectItem key={subdivision.id} value={subdivision.id.toString()}>
-                  {subdivision.name}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+        <FilterSelect
+          value={selectedSubdivision}
+          onValueChange={setSelectedSubdivision}
+          variant="medium"
+          className="w-full sm:w-64"
+          options={allSubdivisions.map((subdivision) => ({
+            value: subdivision.id.toString(),
+            label: subdivision.name,
+          }))}
+        />
       </div>
 
       {filteredColleagues.length === 0 ? (

@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { Show } from '@/components/utils/show';
+import { FilterSelect } from '@/components/ui/filter-select';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -10,20 +10,18 @@ import { CuratorFilters, CuratorOption } from '@/app/[locale]/(private)/module/c
 
 interface Props {
   filters: CuratorFilters;
-  includeAll?: boolean;
   yearId: string;
-  semester: string;
-  resultId: string;
+  semester: string | null;
+  resultId: string | null;
   resultOptions: CuratorOption[];
   resultPlaceholder: string;
   onYearChange: (value: string) => void;
-  onSemesterChange: (value: string) => void;
-  onResultChange: (value: string) => void;
+  onSemesterChange: (value: string | null) => void;
+  onResultChange: (value: string | null) => void;
 }
 
 export const ResultFilters = ({
   filters,
-  includeAll = false,
   yearId,
   semester,
   resultId,
@@ -37,21 +35,13 @@ export const ResultFilters = ({
 
   return (
     <div className="flex flex-wrap items-center gap-5">
-      <Select value={resultId} onValueChange={onResultChange}>
-        <SelectTrigger className="w-auto shrink-0 gap-2 whitespace-nowrap [&>span]:line-clamp-none" variant="small">
-          <SelectValue placeholder={resultPlaceholder} />
-        </SelectTrigger>
-        <SelectContent>
-          <Show when={includeAll}>
-            <SelectItem value="all">{t('filters.all')}</SelectItem>
-          </Show>
-          {resultOptions.map((option) => (
-            <SelectItem key={option.id} value={option.id.toString()}>
-              {option.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <FilterSelect
+        value={resultId}
+        onValueChange={onResultChange}
+        placeholder={resultPlaceholder}
+        className="w-auto shrink-0 gap-2 whitespace-nowrap [&>span]:line-clamp-none"
+        options={resultOptions.map((option) => ({ value: option.id.toString(), label: option.name }))}
+      />
       <div className="flex items-center gap-3">
         <span className="text-sm text-neutral-500">{t('filters.year')}</span>
         <Select value={yearId} onValueChange={onYearChange}>
@@ -69,9 +59,9 @@ export const ResultFilters = ({
       </div>
       <div className="flex items-center gap-3">
         <span className="text-sm text-neutral-500">{t('filters.half-year')}</span>
-        <Tabs value={semester} onValueChange={onSemesterChange}>
+        <Tabs value={semester ?? ''} onValueChange={(value) => onSemesterChange(value || null)}>
           <TabsList size="small" className="inline-grid w-max grid-cols-3 bg-white">
-            <TabsTrigger value="all">{t('filters.all')}</TabsTrigger>
+            <TabsTrigger value="">{t('filters.all')}</TabsTrigger>
             <TabsTrigger value="1">{t('filters.first-semester')}</TabsTrigger>
             <TabsTrigger value="2">{t('filters.second-semester')}</TabsTrigger>
           </TabsList>

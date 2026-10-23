@@ -2,7 +2,7 @@ import type { CuratorAttestationTotals } from './types';
 
 export const CURATOR_ADMIN_MODULE = 'kurator';
 
-export const GROUP_FILTERS = ['course', 'speciality', 'groupId'] as const;
+export const GROUP_FILTERS = ['course', 'educationLevel', 'studyForm'] as const;
 
 export const GROUP_FILTER_LABELS: Record<string, Readonly<Record<string, string>>> = {
   course: {},

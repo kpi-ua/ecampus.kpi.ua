@@ -1,5 +1,6 @@
 {
   "global": {
+    "all": "All",
     "metadata": {
       "title": "Campus KPI",
       "description": "Campus KPI"
@@ -944,9 +945,29 @@
           "filters": {
             "all": "All",
             "course": "Course",
-            "speciality": "Specialty",
-            "groupId": "Group",
-            "onlyUnassigned": "Only without curator"
+            "onlyUnassigned": "Only without curator",
+            "educationLevel": "Education Level",
+            "studyForm": "Form of Study",
+            "options": {
+              "educationLevel": {
+                "Bachelor": "Bachelor",
+                "MasterProfessional": "Professional master",
+                "MasterScientific": "Research master",
+                "PhD": "Doctor of Philosophy",
+                "Other": "Other"
+              },
+              "studyForm": {
+                "None": "Not specified",
+                "Evening": "Evening",
+                "FullTime": "Full-time",
+                "Remote": "Distance",
+                "Extern": "External",
+                "Correspondence": "Correspondence",
+                "Shortened": "Shortened",
+                "OutOfPostgraduate": "Outside postgraduate studies",
+                "Other": "Other"
+              }
+            }
           },
           "edit": {
             "title": "Edit dates",
