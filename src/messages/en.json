@@ -858,7 +858,9 @@
           "agreed": "Agreed {date}",
           "not-agreed": "Not agreed",
           "account-email": "Account-linked email",
-          "recovery-email": "Use this address to recover the password."
+          "password-and-email": "Password and email",
+          "email-not-linked": "Email not linked yet",
+          "recovery-email": "The student changed the initial password and linked this email. Account recovery messages are sent to this address."
         },
         "results": {
           "student": "Student name",
