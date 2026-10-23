@@ -946,8 +946,7 @@
             "course": "Course",
             "speciality": "Specialty",
             "groupId": "Group",
-            "onlyUnassigned": "Only without curator",
-            "year": "Year"
+            "onlyUnassigned": "Only without curator"
           },
           "edit": {
             "title": "Edit dates",

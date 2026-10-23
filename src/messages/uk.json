@@ -946,8 +946,7 @@
             "course": "Курс",
             "speciality": "Спеціальність",
             "groupId": "Група",
-            "onlyUnassigned": "Лише без куратора",
-            "year": "Рік"
+            "onlyUnassigned": "Лише без куратора"
           },
           "edit": {
             "title": "Редагувати дати",

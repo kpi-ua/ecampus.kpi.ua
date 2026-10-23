@@ -1,7 +1,6 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useDeferredValue, useMemo, useState } from 'react';
@@ -83,21 +82,6 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
           {t('title')}
         </Heading2>
         <div className="flex w-full flex-wrap items-center gap-4 lg:w-auto">
-          <div className="flex items-center gap-3">
-            <label htmlFor="curator-year" className="text-sm text-neutral-600">
-              {t('filters.year')}
-            </label>
-            <Select value={currentYear.id.toString()}>
-              <SelectTrigger id="curator-year" variant="small" className="w-32">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={currentYear.id.toString()}>
-                  {dayjs(currentYear.startDate).format('YYYY')}–{dayjs(currentYear.endDate).format('YYYY')}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
           <label htmlFor="curator-department" className="text-sm text-neutral-600">
             {t('table.department')}
           </label>
