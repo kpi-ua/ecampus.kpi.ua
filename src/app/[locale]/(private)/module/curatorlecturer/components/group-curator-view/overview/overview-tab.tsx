@@ -1,7 +1,8 @@
 'use client';
 
+import { formatDate } from '@/lib/utils';
+
 import { useMutation, useQuery } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -117,7 +118,7 @@ export const OverviewTab = ({ group }: Props) => {
                         fallback={<Badge variant="error">{t('students.not-agreed')}</Badge>}
                       >
                         <Badge variant="success">
-                          {t('students.agreed', { date: dayjs(student.codeOfHonorSignDate).format('DD.MM.YYYY') })}
+                          {t('students.agreed', { date: formatDate(student.codeOfHonorSignDate) })}
                         </Badge>
                       </Show>
                     </TableCell>

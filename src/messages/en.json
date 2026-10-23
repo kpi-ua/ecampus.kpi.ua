@@ -34,6 +34,7 @@
       "rnp": "RNP",
       "mob": "Methodological support",
       "vote": "Survey Teacher through students eyes",
+      "adminvote": "Survey administration",
       "studysheet": "Current control",
       "rectorialcontrol": "Rectorial control",
       "vedomoststud": "Semester control",
@@ -265,6 +266,110 @@
     }
   },
   "private": {
+    "adminvote": {
+      "title": "Survey criteria",
+      "table": {
+        "name": "Name",
+        "coefficient": "Coefficient",
+        "actions": "Actions",
+        "empty": "No criteria available",
+        "edit": "Edit",
+        "archive": "Archive",
+        "edit-label": "Edit criterion “{name}”",
+        "archive-label": "Archive criterion “{name}”"
+      },
+      "form": {
+        "add": "Add criterion",
+        "edit": "Edit criterion",
+        "name": "Criterion name",
+        "coefficient": "Coefficient",
+        "cancel": "Cancel",
+        "save": "Save",
+        "history-note": "Results from previous periods will remain unchanged. The previous version of an edited criterion will stay in the archive.",
+        "placeholders": {
+          "name": "For example, Clarity of teaching",
+          "coefficient": "1"
+        },
+        "validation": {
+          "name": "Enter a criterion name",
+          "name-length": "The name must contain no more than 255 characters",
+          "coefficient": "Enter a positive numeric coefficient",
+          "coefficients-total": "The total of all current criteria coefficients must not exceed 1"
+        }
+      },
+      "actions": {
+        "current": "Current criteria",
+        "archived": "Archived criteria",
+        "add": "Add criterion",
+        "voting-open": "Adding, editing and archiving criteria are unavailable while voting is open.",
+        "saved-success": "Criterion saved",
+        "archived-success": "Criterion archived",
+        "archive-title": "Archive criterion?",
+        "archive-description": "The criterion “{name}” (coefficient {coefficient}) will move to the archive. It will remain available for viewing with its coefficient and will continue to be used in statistics.",
+        "cancel": "Cancel",
+        "confirm-archive": "Archive"
+      },
+      "module-title": "Survey administration",
+      "tabs": {
+        "periods": "Survey periods",
+        "criteria": "Survey criteria"
+      },
+      "periods": {
+        "table": {
+          "number": "Number",
+          "year": "Year",
+          "start": "Start",
+          "end": "End",
+          "status": "Status",
+          "results": "Results",
+          "actions": "Actions",
+          "empty": "No survey periods available",
+          "respondent-count": "Respondents",
+          "edit": "Edit",
+          "delete": "Delete",
+          "upcoming": "Scheduled",
+          "active": "Active",
+          "ended": "Completed",
+          "cannot-delete": "Periods with responses cannot be deleted"
+        },
+        "actions": {
+          "title": "Survey periods",
+          "add": "Add period",
+          "saved": "Period saved",
+          "deleted": "Period deleted",
+          "delete-title": "Delete survey period?",
+          "delete-description": "Period No. {number} for academic year {year} will be removed from the list. Please confirm.",
+          "cancel": "Cancel",
+          "confirm-delete": "Delete period"
+        },
+        "form": {
+          "add": "Add survey period",
+          "edit": "Edit survey period",
+          "description": "Enter the number, academic year and survey dates.",
+          "responses-note": "This period already has responses. Only dates can be changed; its number, academic year and semester are fixed.",
+          "number": "Survey number",
+          "number-placeholder": "For example, 1",
+          "year": "Academic year",
+          "year-placeholder": "Select academic year",
+          "semester": "Semester",
+          "first-semester": "First semester",
+          "second-semester": "Second semester",
+          "startsOn": "Start date",
+          "endsOn": "End date",
+          "resultsPublishOn": "Results publication date",
+          "cancel": "Cancel",
+          "save": "Save",
+          "validation": {
+            "number": "Enter a positive whole survey number",
+            "year": "Enter consecutive years, for example 2026-2027",
+            "date": "Enter a valid date",
+            "end": "The end date cannot precede the start date",
+            "results": "Results must be published after the survey ends",
+            "overlap": "These dates overlap another survey period"
+          }
+        }
+      }
+    },
     "library": {
       "title": "Scientometric identifiers",
       "tabs": {
@@ -588,81 +693,14 @@
       }
     },
     "msg": {
-      "title": "Message",
-      "subtitle": "You can send a message to students or lecturers.",
-      "tab": {
-        "inbox": "Inbox",
-        "sent": "Sent",
-        "important": "Important",
-        "compose": "Compose"
+      "archived": {
+        "title": "The Messages module has been archived",
+        "description": "The Messages module has been moved to archive mode, so its features are no longer available. The module will be shut down permanently later.",
+        "archive-description": "If you need messages from past periods, send a request to kbis@edu.kpi.ua.",
+        "email-description": "Please use your corporate email for further communication. If you do not have a corporate account yet or have lost access to it, contact the Department of Educational Process Organization.",
+        "support": "Message @SikorskyDistance_bot"
       },
-      "inbox": {
-        "selected": "selected:",
-        "refresh": "Refresh",
-        "table": {
-          "sender": "Sender",
-          "recipient": "Recipient",
-          "message": "Message",
-          "date": "Date"
-        },
-        "badge": {
-          "important": "Important"
-        },
-        "dialog": {
-          "to": "To:"
-        },
-        "delete-dialog": {
-          "title": "Delete",
-          "description": "Do you really want to delete {count, plural, one {# message} other {# messages}}?",
-          "cancel": "Cancel",
-          "confirm": "Delete"
-        },
-        "toast": {
-          "success-title-delete": "Message deleted",
-          "success-description-delete": "Message deleted successfully",
-          "success-title-mark-as-important": "Message marked as important",
-          "success-description-mark-as-important": "Message marked as important successfully",
-          "error-title-delete": "Error deleting message",
-          "error-description-delete": "Message not deleted",
-          "error-title-mark-as-important": "Error marking message as important",
-          "error-description-mark-as-important": "Message not marked as important",
-          "error-title-refresh": "Error refreshing data",
-          "error-description-refresh": "Failed to refresh data"
-        }
-      },
-      "compose": {
-        "title": "New message",
-        "individual": "Individual",
-        "broadcast": "Broadcast",
-        "recipient-type": {
-          "employee": "Employee",
-          "student": "Student"
-        },
-        "form": {
-          "subdivision": "Subdivision",
-          "study-group": "Study group",
-          "recipient-name": "Recipient name",
-          "subject": "Message subject",
-          "subject-placeholder": "Message subject",
-          "content": "Message text",
-          "content-placeholder": "Message text",
-          "send": "Send",
-          "search-placeholder": "Enter at least 5 characters to search...",
-          "search-empty": "No results found",
-          "select-recipient-placeholder": "Select recipient...",
-          "select-group-first": "Select study group first"
-        },
-        "validation": {
-          "group-required": "Select a group",
-          "user-required": "Select a user",
-          "subject-required": "Enter subject",
-          "content-required": "Enter message text"
-        },
-        "toast": {
-          "success-title": "Message sent",
-          "success-description": "Message sent successfully"
-        }
-      }
+      "title": "Message"
     },
     "study-sheet": {
       "title": "Current control",
@@ -687,6 +725,10 @@
       },
       "table": {
         "date": "Date",
+        "empty": {
+          "title": "No results",
+          "description": "There are no grades in the current control sheets for the reporting period"
+        },
         "subject": "Educational component",
         "score": "Score",
         "lecturer": "Lecturer",
@@ -696,6 +738,10 @@
       }
     },
     "attestation-results": {
+      "empty": {
+        "title": "No results",
+        "description": "There are no calendar control results for the reporting period"
+      },
       "title": "Calendar control results",
       "subtitle": "This presents the results of calendar controls by semester, indicating disciplines, teachers, and grades according to the educational process schedule.",
       "subject": "Educational component",
@@ -731,7 +777,7 @@
         "semester": "Semester {number}"
       },
       "tabs": {
-        "study-groups": "Study groups",
+        "study-groups": "My study groups",
         "group-curator": "Group curator",
         "administration": "Administration"
       },
@@ -828,14 +874,14 @@
           "group-summary": "Group status",
           "result-count": "{count, plural, one {# result} other {# results}}",
           "attested": "Attested",
-          "missing": "Not set",
+          "missing": "No grade",
           "not-attested": "Not attested",
-          "not-studying": "No grade",
+          "not-studying": "Not studying",
           "disciplines": "Disciplines",
           "attested-code": "A",
-          "missing-code": "NS",
+          "missing-code": "NG",
           "not-attested-code": "NA",
-          "not-studying-code": "NG",
+          "not-studying-code": "NS",
           "expand-disciplines": "Show student disciplines",
           "collapse-disciplines": "Hide student disciplines",
           "lecturer": "Lecturer",
@@ -929,6 +975,41 @@
         "ResultsPublished": {
           "title": "Survey completed",
           "description": "The survey results have been published."
+        }
+      },
+      "tabs": {
+        "navigation": "Survey sections",
+        "survey": "Survey",
+        "criteria": "Criteria description"
+      },
+      "criteria": {
+        "title": "Evaluation criteria description",
+        "items": {
+          "objectivity": {
+            "name": "Objectivity of assessment",
+            "description": "The ability to assess a student’s knowledge and skills in a discipline fairly, regardless of personal preferences or other factors, while strictly following the assessment criteria specified in the rating system.",
+            "evaluation": "A mark of 5 means that the lecturer fully follows the assessment criteria and assigns fair, impartial marks. A mark of 1 means that the lecturer does not follow the rating system criteria and deliberately lowers or raises marks regardless of the learning outcomes demonstrated by students."
+          },
+          "clarity": {
+            "name": "Ability to explain material to students",
+            "description": "The lecturer’s combined teaching and public speaking skills that make learning material clear and accessible so students can master the discipline effectively.",
+            "evaluation": "A mark of 5 means that the lecturer presents learning material clearly, uses accessible language and explains difficult topics with visual aids. A mark of 1 means that the lecturer cannot explain the material in an accessible way."
+          },
+          "partnership": {
+            "name": "Ability to build partnerships with students",
+            "description": "The ability to build equal relationships with students during learning, conduct dialogue based on mutual respect, establish student feedback and interact effectively in teaching.",
+            "evaluation": "A mark of 5 means that the lecturer is fully able to build partnerships with students. A mark of 1 means that the lecturer cannot build such partnerships."
+          },
+          "respect": {
+            "name": "Kindness and tact towards students",
+            "description": "Following ethical principles of communication in learning, avoiding intolerance on grounds such as gender, age or race, avoiding aggression and following the principle of student centred learning.",
+            "evaluation": "A mark of 5 means that the lecturer demonstrates kindness and tact towards students during classes. A mark of 1 means that the lecturer does not demonstrate kindness or tact and allows insults or humiliating remarks."
+          },
+          "distance": {
+            "name": "Interaction with students during distance learning",
+            "description": "The lecturer’s ability to use digital communication tools freely in learning, including email, Electronic Campus services, ZOOM and Skype.",
+            "evaluation": "A mark of 5 means that the lecturer uses tools for remote communication with students effectively. A mark of 1 means that the lecturer does not use these tools or uses them ineffectively."
+          }
         }
       }
     },

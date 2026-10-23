@@ -35,7 +35,9 @@ export default async function EmployeePage({ params, searchParams }: Props) {
   }
 
   const details = await getLibraryEmployee(accountId, id);
-  if (!details) notFound();
+  if (!details) {
+    notFound();
+  }
   const department = departmentId
     ? (await getLibraryDepartments()).find((item) => item.id === Number(departmentId))
     : undefined;
