@@ -64,7 +64,9 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
   };
 
   const handleDownload = async (report: K7ReportRequest) => {
-    if (downloadingRequestId) return;
+    if (downloadingRequestId) {
+      return;
+    }
 
     setDownloadingRequestId(report.k7ReportRequestId);
 

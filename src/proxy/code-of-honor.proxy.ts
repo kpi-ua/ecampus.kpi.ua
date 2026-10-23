@@ -2,10 +2,10 @@ import { getUserDetails } from '@/actions/auth.actions';
 import { NextRequest } from 'next/server';
 import { gotoLogin, gotoRoot, matchesUrl, redirectWithIntl } from './utils';
 import { CODE_OF_HONOR_PATH } from './contants';
-import { authorizationMiddleware } from './authorization.middleware';
-import { intlMiddleware } from './intl.middleware';
+import { authorizationProxy } from './authorization.proxy';
+import { intlProxy } from './intl.proxy';
 
-export const codeOfHonorMiddleware = async (request: NextRequest) => {
+export const codeOfHonorProxy = async (request: NextRequest) => {
   try {
     // TODO: Refactor to not use actions here
     const user = await getUserDetails();
@@ -19,7 +19,7 @@ export const codeOfHonorMiddleware = async (request: NextRequest) => {
 
     if (!codeOfHonorSigned) {
       if (isCodeOfHonorPage) {
-        return intlMiddleware(request);
+        return intlProxy(request);
       }
 
       return redirectWithIntl(request, CODE_OF_HONOR_PATH);
@@ -29,8 +29,8 @@ export const codeOfHonorMiddleware = async (request: NextRequest) => {
       return gotoRoot(request);
     }
 
-    return authorizationMiddleware(request);
+    return authorizationProxy(request);
   } catch (error) {
-    return authorizationMiddleware(request);
+    return authorizationProxy(request);
   }
 };

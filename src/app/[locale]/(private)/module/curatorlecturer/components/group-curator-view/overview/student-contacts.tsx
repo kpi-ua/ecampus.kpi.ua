@@ -8,7 +8,9 @@ interface Props {
 }
 
 export const StudentContacts = ({ contacts, contactTypes }: Props) => {
-  if (!contacts.length) return EMPTY_VALUE;
+  if (!contacts.length) {
+    return EMPTY_VALUE;
+  }
 
   return (
     <div className="flex flex-col gap-1">

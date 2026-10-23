@@ -1,14 +1,12 @@
 import { getTranslations } from 'next-intl/server';
 import { AuthNavLayout } from '../../../auth-nav-layout';
 import { AccountSelector } from '@/components/account-selector/account-selector';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { getKPIIDAccounts } from '@/actions/auth.actions';
-import { KPIIDAccountSlim } from '@/types/models/kpi-id-account';
+import { KPIID_ACCOUNTS_COOKIE_NAME, parseKPIIDAccounts } from '@/lib/kpi-id';
 import { LocaleProps } from '@/types/locale-props';
 
-interface Props extends LocaleProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}
+type Props = LocaleProps;
 
 const INTL_NAMESPACE = 'auth.kpi-id';
 
@@ -22,30 +20,20 @@ export async function generateMetadata({ params }: Props) {
   };
 }
 
-export default async function KPIID({ searchParams }: Props) {
-  const { ticketId } = await searchParams;
+export default async function KPIID() {
   const t = await getTranslations(INTL_NAMESPACE);
 
-  if (!ticketId) {
-    notFound();
-  }
-
-  const accounts = await getKPIIDAccounts(ticketId as string);
+  // Left by the KPI ID callback when the person has several Campus accounts.
+  const accounts = parseKPIIDAccounts((await cookies()).get(KPIID_ACCOUNTS_COOKIE_NAME)?.value);
 
   // This page shouldn't be shown only with one account
-  if (!accounts?.length || accounts.length < 2) {
+  if (accounts.length < 2) {
     notFound();
   }
-
-  const sanitizedAccounts: KPIIDAccountSlim[] = accounts.map(({ username, photo, full_name }) => ({
-    username,
-    photo,
-    full_name,
-  }));
 
   return (
     <AuthNavLayout header={t('header')} description={t('description')}>
-      <AccountSelector accounts={sanitizedAccounts} ticketId={ticketId as string} className="my-4" />
+      <AccountSelector accounts={accounts} className="my-4" />
     </AuthNavLayout>
   );
 }

@@ -1,10 +1,13 @@
 import type { CuratorAttestationTotals } from './types';
 
+export const CURATOR_ADMIN_MODULE = 'kurator';
+
 export const ATTESTATION_RESULT = {
   Attested: 'a',
   NotAttested: 'na',
   NotStudying: 'nv',
-  Missing: null,
+  Missing: 'ov',
+  Unset: null,
 } as const;
 
 export const ATTESTATION_COLUMNS = [

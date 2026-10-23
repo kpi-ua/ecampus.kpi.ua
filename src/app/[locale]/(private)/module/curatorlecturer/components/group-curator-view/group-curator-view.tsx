@@ -23,9 +23,10 @@ export const GroupCuratorView = ({ groups, filters }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator');
   const [groupId, setGroupId] = useState(groups[0]?.groupId.toString() ?? '');
   const selectedGroup = groups.find((group) => group.groupId.toString() === groupId);
-  if (!selectedGroup)
+  if (!selectedGroup) {
     return <Card className="bg-white p-10 text-center text-sm text-neutral-500">{t('empty-groups')}</Card>;
-  const defaultYearId = selectedGroup.yearId || filters.years[0]?.id;
+  }
+  const defaultYearId = selectedGroup.yearId || filters.currentYearId;
 
   return (
     <div className="flex flex-col gap-8">
