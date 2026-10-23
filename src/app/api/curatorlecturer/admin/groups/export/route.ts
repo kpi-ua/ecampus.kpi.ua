@@ -29,8 +29,9 @@ export async function GET(request: Request) {
     ...filterAdministrationGroups(groups, {
       search: search ?? '',
       course: params.get('course') || undefined,
-      educationLevel: params.get('educationLevel') || undefined,
-      studyForm: params.get('studyForm') || undefined,
+      speciality: params.get('speciality') || undefined,
+      groupId: params.get('groupId') || undefined,
+      onlyUnassigned: params.get('onlyUnassigned') === 'true',
     }).map((group) => [
       group.name,
       group.course,

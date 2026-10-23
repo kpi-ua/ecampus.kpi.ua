@@ -59,13 +59,20 @@ export interface CuratorAdministrationData {
 }
 
 export interface CuratorAssignment {
+  assignmentId: number;
   employeeId: number;
   curatorName: string;
   startDate: string;
   endDate: string | null;
 }
 
+export interface CuratorAdminFilters {
+  currentYear: CuratorAcademicYear;
+  departments: CuratorOption[];
+}
+
 export interface CuratorFilters {
+  currentYearId: number;
   years: CuratorOption[];
   surveyTerms: CuratorOption[];
   attestations: CuratorOption[];
@@ -159,4 +166,10 @@ export interface CuratorStudentAttestationDiscipline extends CuratorAttestationT
   lecturerName: string;
   notAttestedTwice: boolean;
   results: CuratorAttestationRow[];
+}
+
+export interface CuratorAcademicYear {
+  id: number;
+  startDate: string;
+  endDate: string;
 }

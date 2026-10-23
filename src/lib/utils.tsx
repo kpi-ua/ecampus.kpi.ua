@@ -30,13 +30,13 @@ export const parseContentDispositionFilename = (header: string): string | null =
 };
 
 /** Formats a date as YYYY-MM-DD by default, returning an empty string for missing or invalid values. */
-export const formatDate = (dateString?: string | Date | null): string => {
+export const formatDate = (dateString?: string | Date | null, format = 'YYYY-MM-DD'): string => {
   if (!dateString) {
     return '';
   }
 
   const date = dayjs(dateString);
-  return date.isValid() ? date.format('YYYY-MM-DD') : '';
+  return date.isValid() ? date.format(format) : '';
 };
 
 export const formatTime = (dateString: string) => dayjs(dateString).format('HH:mm');

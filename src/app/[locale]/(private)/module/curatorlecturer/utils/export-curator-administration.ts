@@ -8,8 +8,9 @@ interface Params {
   departmentId?: number;
   search: string;
   course?: string;
-  educationLevel?: string;
-  studyForm?: string;
+  speciality?: string;
+  groupId?: string;
+  onlyUnassigned?: boolean;
 }
 
 export const exportCuratorAdministration = async (params: Params) => {

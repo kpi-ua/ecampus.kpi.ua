@@ -1,5 +1,13 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 
+import { getCuratorStudents } from '@/actions/curatorlecturer.actions';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { Paragraph } from '@/components/typography';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 
@@ -12,6 +20,11 @@ interface Props {
 
 export const GroupSummary = ({ group }: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator');
+  const { data: students = [], isFetching } = useQuery({
+    queryKey: curatorGroupQueryKeys.students(group.groupId),
+    queryFn: () => getCuratorStudents(group.groupId),
+    staleTime: CURATOR_GROUP_STALE_TIME,
+  });
   const facts = [
     {
       label: t('facts.study-form'),
@@ -20,6 +33,7 @@ export const GroupSummary = ({ group }: Props) => {
     { label: t('facts.speciality'), value: group.speciality },
     { label: t('facts.course'), value: group.course.toString() },
     { label: t('facts.department'), value: group.departmentAbbreviation || group.departmentName },
+    { label: t('facts.count-label'), value: isFetching ? EMPTY_VALUE : students.length.toString() },
     { label: t('facts.group-leader'), value: group.groupLeaderName || t('not-assigned') },
   ];
 

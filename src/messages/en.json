@@ -308,6 +308,66 @@
         "archive-description": "The criterion “{name}” (coefficient {coefficient}) will move to the archive. It will remain available for viewing with its coefficient and will continue to be used in statistics.",
         "cancel": "Cancel",
         "confirm-archive": "Archive"
+      },
+      "module-title": "Survey administration",
+      "tabs": {
+        "periods": "Survey periods",
+        "criteria": "Survey criteria"
+      },
+      "periods": {
+        "table": {
+          "number": "Number",
+          "year": "Year",
+          "start": "Start",
+          "end": "End",
+          "status": "Status",
+          "results": "Results",
+          "actions": "Actions",
+          "empty": "No survey periods available",
+          "respondent-count": "Respondents",
+          "edit": "Edit",
+          "delete": "Delete",
+          "upcoming": "Scheduled",
+          "active": "Active",
+          "ended": "Completed",
+          "cannot-delete": "Periods with responses cannot be deleted"
+        },
+        "actions": {
+          "title": "Survey periods",
+          "add": "Add period",
+          "saved": "Period saved",
+          "deleted": "Period deleted",
+          "delete-title": "Delete survey period?",
+          "delete-description": "Period No. {number} for academic year {year} will be removed from the list. Please confirm.",
+          "cancel": "Cancel",
+          "confirm-delete": "Delete period"
+        },
+        "form": {
+          "add": "Add survey period",
+          "edit": "Edit survey period",
+          "description": "Enter the number, academic year and survey dates.",
+          "responses-note": "This period already has responses. Only dates can be changed; its number, academic year and semester are fixed.",
+          "number": "Survey number",
+          "number-placeholder": "For example, 1",
+          "year": "Academic year",
+          "year-placeholder": "Select academic year",
+          "semester": "Semester",
+          "first-semester": "First semester",
+          "second-semester": "Second semester",
+          "startsOn": "Start date",
+          "endsOn": "End date",
+          "resultsPublishOn": "Results publication date",
+          "cancel": "Cancel",
+          "save": "Save",
+          "validation": {
+            "number": "Enter a positive whole survey number",
+            "year": "Enter consecutive years, for example 2026-2027",
+            "date": "Enter a valid date",
+            "end": "The end date cannot precede the start date",
+            "results": "Results must be published after the survey ends",
+            "overlap": "These dates overlap another survey period"
+          }
+        }
       }
     },
     "library": {
@@ -717,7 +777,7 @@
         "semester": "Semester {number}"
       },
       "tabs": {
-        "study-groups": "Study groups",
+        "study-groups": "My study groups",
         "group-curator": "Group curator",
         "administration": "Administration"
       },
@@ -740,7 +800,8 @@
           "speciality": "Speciality",
           "course": "Course",
           "department": "Department",
-          "group-leader": "Group leader"
+          "group-leader": "Group leader",
+          "count-label": "Students"
         },
         "leader": {
           "select": "Select a group leader",
@@ -795,8 +856,7 @@
           "password-changed": "changed",
           "code-of-honor": "Code of Honor",
           "agreed": "Agreed {date}",
-          "not-agreed": "Not agreed",
-          "count": "Students: {count}"
+          "not-agreed": "Not agreed"
         },
         "results": {
           "student": "Student name",
@@ -836,6 +896,15 @@
         },
         "export": "Download Excel",
         "administration": {
+          "validation": {
+            "required": "Enter both the start and end dates.",
+            "invalid-date": "Enter valid dates.",
+            "invalid-period": "Enter valid start and end dates. The end date must be on or after the start date.",
+            "lecturer-required": "Select a curator.",
+            "date-range": "Choose a date between {minDate} and {maxDate}.",
+            "overlap": "This period overlaps another curator assignment. Change the dates.",
+            "rejected": "Assignment rejected. Check the allowed date range and overlaps with assignment history."
+          },
           "title": "Curator administration",
           "subtitle": "The table shows the current curator as of today. Future assignments take effect on their start date; all assignments are available in the group history.",
           "export": "Export CSV",
@@ -855,16 +924,17 @@
             "actions": "Actions"
           },
           "assign": {
-            "title": "Change curator",
+            "title": "Assign curator",
             "label": "New curator",
             "placeholder": "Select a lecturer",
             "start-date": "Start date",
             "end-date": "End date",
-            "submit": "Assign"
+            "submit": "Assign",
+            "date-range": "Allowed dates: {minDate} to {maxDate}. Assignment periods must not overlap."
           },
           "history": {
             "title": "Assignment history",
-            "present": "present",
+            "present": "not specified",
             "empty": "No assignment history"
           },
           "success": {
@@ -874,8 +944,16 @@
           "filters": {
             "all": "All",
             "course": "Course",
-            "educationLevel": "Education level",
-            "studyForm": "Form of study"
+            "speciality": "Specialty",
+            "groupId": "Group",
+            "onlyUnassigned": "Only without curator",
+            "year": "Year"
+          },
+          "edit": {
+            "title": "Edit dates",
+            "submit": "Save dates",
+            "cancel": "Cancel",
+            "curator": "Curator"
           }
         }
       }
