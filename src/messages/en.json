@@ -896,6 +896,15 @@
         },
         "export": "Download Excel",
         "administration": {
+          "validation": {
+            "required": "Enter both the start and end dates.",
+            "invalid-date": "Enter valid dates.",
+            "invalid-period": "Enter valid start and end dates. The end date must be on or after the start date.",
+            "lecturer-required": "Select a curator.",
+            "date-range": "Choose a date between {minDate} and {maxDate}.",
+            "overlap": "This period overlaps another curator assignment. Change the dates.",
+            "rejected": "Assignment rejected. Check the allowed date range and overlaps with assignment history."
+          },
           "title": "Curator administration",
           "subtitle": "The table shows the current curator as of today. Future assignments take effect on their start date; all assignments are available in the group history.",
           "export": "Export CSV",
@@ -915,21 +924,28 @@
             "actions": "Actions"
           },
           "assign": {
-            "title": "Change curator",
+            "title": "Assign curator",
             "label": "New curator",
             "placeholder": "Select a lecturer",
             "start-date": "Start date",
             "end-date": "End date",
-            "submit": "Assign"
+            "submit": "Assign",
+            "date-range": "Allowed dates: {minDate} to {maxDate}. Assignment periods must not overlap."
           },
           "history": {
             "title": "Assignment history",
-            "present": "present",
+            "present": "not specified",
             "empty": "No assignment history"
           },
           "success": {
             "title": "Assignment saved",
             "description": "The curator for group {group} is assigned for {startDate} — {endDate}"
+          },
+          "edit": {
+            "title": "Edit dates",
+            "submit": "Save dates",
+            "cancel": "Cancel",
+            "curator": "Curator"
           }
         }
       }

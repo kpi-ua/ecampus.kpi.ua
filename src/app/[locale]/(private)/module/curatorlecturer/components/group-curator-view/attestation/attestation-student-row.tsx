@@ -1,12 +1,12 @@
 'use client';
 
-import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 
 import { CuratorStudentAttestation } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Badge } from '@/components/ui/badge';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { TableExpandButton } from '@/components/ui/table-expand-button';
 import { Show } from '@/components/utils/show';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 
@@ -35,13 +35,7 @@ export const AttestationStudentRow = ({ student, showRepeated }: Props) => {
         <AttestationResultCells totals={student} />
         <TableCell className="w-12 text-right">
           <Show when={student.disciplines.length > 0}>
-            <button
-              type="button"
-              className="inline-flex size-9 cursor-pointer items-center justify-center rounded-md hover:bg-neutral-100"
-              onClick={() => setExpanded((current) => !current)}
-            >
-              {expanded ? <ChevronUp className="size-5" /> : <ChevronDown className="size-5" />}
-            </button>
+            <TableExpandButton expanded={expanded} onToggle={() => setExpanded((current) => !current)} />
           </Show>
         </TableCell>
       </TableRow>
