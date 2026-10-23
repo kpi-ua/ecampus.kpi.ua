@@ -12,6 +12,7 @@ import {
   CuratorGroup,
   CuratorLecturer,
   CuratorOption,
+  GroupFilterKey,
 } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { exportCuratorAdministration } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-curator-administration';
 
@@ -57,11 +58,18 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
     parsedDepartmentId,
   );
   const groups = data?.groups ?? [];
-  const getFilterOptions = (key: (typeof GROUP_FILTERS)[number]) =>
-    unique(groups.flatMap((group) => (group[key] == null ? [] : [String(group[key])]))).map((value) => ({
+
+  const getFilterOptions = (key: GroupFilterKey) => {
+    const values = groups.map((group) => group[key]);
+    const definedValues = values.filter((value) => value != null);
+    const uniqueValues = unique(definedValues.map(String));
+
+    return uniqueValues.map((value) => ({
       value,
-      label: key === 'course' ? value : t('filters.options.' + key + '.' + value),
+      label: key === 'course' ? value : t(`filters.options.${key}.${value}`),
     }));
+  };
+
   const filteredGroups = useMemo(
     () => filterAdministrationGroups(data?.groups ?? [], { search: deferredSearch, ...filters, onlyUnassigned }),
     [data?.groups, deferredSearch, filters, onlyUnassigned],
@@ -70,6 +78,12 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
   const handleDepartmentChange = (value: string) => {
     setDepartmentId(value);
     setFilters({ course: '', educationLevel: '', studyForm: '' });
+  };
+
+  const handleFilterChange = (key: GroupFilterKey, value: string) => {
+    const filterValue = value === 'all' ? '' : value;
+
+    setFilters((current) => ({ ...current, [key]: filterValue }));
   };
 
   const handleExport = () => {
@@ -139,7 +153,7 @@ export const CuratorAdministrationView = ({ initialGroups, initialLecturers, dep
             <Select
               value={filters[key] || 'all'}
               disabled={isFetching}
-              onValueChange={(value) => setFilters((current) => ({ ...current, [key]: value === 'all' ? '' : value }))}
+              onValueChange={(value) => handleFilterChange(key, value)}
             >
               <SelectTrigger id={'curator-' + key} variant="small" className="w-40">
                 <SelectValue />

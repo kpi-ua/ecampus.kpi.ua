@@ -2,7 +2,9 @@ import { EducationLevel } from '@/types/enums/education-level';
 import { StudyForm } from '@/types/enums/study-form';
 import { Contact } from '@/types/models/colleague-contact';
 
-import { ATTESTATION_RESULT } from './constants';
+import { ATTESTATION_RESULT, GROUP_FILTERS } from './constants';
+
+export type GroupFilterKey = (typeof GROUP_FILTERS)[number];
 
 export type CuratorAttestationResult = (typeof ATTESTATION_RESULT)[keyof typeof ATTESTATION_RESULT];
 
