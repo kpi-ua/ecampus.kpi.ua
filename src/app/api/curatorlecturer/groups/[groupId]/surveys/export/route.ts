@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import queryString from 'query-string';
 
 import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
@@ -9,7 +10,7 @@ interface Props {
   params: Promise<{ groupId: string }>;
 }
 
-export async function GET(_request: Request, { params }: Props) {
+export async function GET(request: Request, { params }: Props) {
   const { groupId } = await params;
   const id = parseInt(groupId);
 
@@ -17,7 +18,17 @@ export async function GET(_request: Request, { params }: Props) {
     return new Response(null, { status: 400 });
   }
 
-  const response = await campusFetch<CuratorSurveyRow[]>(`/curator-lecturer/groups/${id}/surveys`);
+  const searchParams = new URL(request.url).searchParams;
+  const query = queryString.stringify(
+    {
+      yearId: searchParams.get('yearId'),
+      semester: searchParams.get('semester'),
+      termId: searchParams.get('termId'),
+      employeeId: searchParams.get('employeeId'),
+    },
+    { skipEmptyString: true, skipNull: true },
+  );
+  const response = await campusFetch<CuratorSurveyRow[]>(`/curator-lecturer/groups/${id}/surveys?${query}`);
 
   if (!response.ok) {
     return new Response(null, { status: response.status });
