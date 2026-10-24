@@ -837,6 +837,9 @@
         },
         "survey": {
           "title": "Survey {group}",
+          "all": "All surveys",
+          "incomplete-count": "Incomplete participation: {count} of {total} students",
+          "only-incomplete": "Show only incomplete participation",
           "discipline": "Discipline"
         },
         "filters": {
