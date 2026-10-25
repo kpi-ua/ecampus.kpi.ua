@@ -3,6 +3,7 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useId, useState } from 'react';
+import { sum } from 'radash';
 
 import { Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
@@ -60,9 +61,7 @@ export const PeriodResultsTable = ({ period, latest }: Props) => {
             EMPTY_VALUE
           )}
         </TableCell>
-        <TableCell className="text-center">
-          {courses.reduce((total, item) => total + item.respondentCount, 0)}
-        </TableCell>
+        <TableCell className="text-center">{sum(courses, ({ respondentCount }) => respondentCount)}</TableCell>
         <TableCell className="w-12 px-2">
           <Button
             variant="tertiary"

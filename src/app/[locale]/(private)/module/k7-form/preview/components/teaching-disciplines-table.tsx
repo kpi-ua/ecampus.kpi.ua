@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
+import { sort, sum, unique } from 'radash';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EMPTY_VALUE } from '@/lib/constants/common';
@@ -21,7 +22,7 @@ interface Props {
 
 export const TeachingDisciplinesTable = ({ rows }: Props) => {
   const t = useTranslations('private.k-7.preview.table');
-  const semesters = [...new Set(rows.map((row) => row.semester))].sort((a, b) => a - b);
+  const semesters = sort(unique(rows.map(({ semester }) => semester)), (semester) => semester);
   const teachingTableHeadClassName = cn(tableHeadClassName, 'h-[72px] align-middle');
 
   return (
@@ -75,15 +76,15 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
                 </TableCell>
                 <TableCell className={summaryCellClassName}>
                   {formatNumber(
-                    semesterRows.reduce((total, row) => total + row.totalVolume, 0),
+                    sum(semesterRows, ({ totalVolume }) => totalVolume),
                     2,
                   )}
                 </TableCell>
                 <TableCell className={summaryCellClassName}>
-                  {semesterRows.reduce((total, row) => total + row.practiceGroupsCount, 0)}
+                  {sum(semesterRows, ({ practiceGroupsCount }) => practiceGroupsCount)}
                 </TableCell>
                 <TableCell className={summaryCellClassName}>
-                  {semesterRows.reduce((total, row) => total + row.labGroupsCount, 0)}
+                  {sum(semesterRows, ({ labGroupsCount }) => labGroupsCount)}
                 </TableCell>
               </TableRow>
             </Fragment>
@@ -96,16 +97,14 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
             </TableCell>
             <TableCell className={summaryCellClassName}>
               {formatNumber(
-                rows.reduce((total, row) => total + row.totalVolume, 0),
+                sum(rows, ({ totalVolume }) => totalVolume),
                 2,
               )}
             </TableCell>
             <TableCell className={summaryCellClassName}>
-              {rows.reduce((total, row) => total + row.practiceGroupsCount, 0)}
+              {sum(rows, ({ practiceGroupsCount }) => practiceGroupsCount)}
             </TableCell>
-            <TableCell className={summaryCellClassName}>
-              {rows.reduce((total, row) => total + row.labGroupsCount, 0)}
-            </TableCell>
+            <TableCell className={summaryCellClassName}>{sum(rows, ({ labGroupsCount }) => labGroupsCount)}</TableCell>
           </TableRow>
         )}
       </TableBody>
