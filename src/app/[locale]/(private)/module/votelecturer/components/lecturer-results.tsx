@@ -73,8 +73,11 @@ export const LecturerResults = ({ results }: Props) => {
         <Table className="min-w-[760px] [&_th]:h-10 [&_th]:py-3 [&_th]:text-xs [&_th]:font-medium">
           <TableHeader>
             <TableRow className="border-0">
-              <TableHead scope="col" className="w-[52%]">
+              <TableHead scope="col" className="w-[42%]">
                 {t('results.periodHeading')}
+              </TableHead>
+              <TableHead scope="col" className="text-center [&>span]:justify-center">
+                {t('results.course')}
               </TableHead>
               <TableHead scope="col" className="text-center [&>span]:justify-center">
                 {t('results.universityScore')}
