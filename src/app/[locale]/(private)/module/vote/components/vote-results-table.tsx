@@ -31,7 +31,7 @@ export const VoteResultsTable = ({ voteData }: Props) => {
       </div>
 
       {resultLecturers.length > 0 && (
-        <Table className="min-w-[1100px] [&_th]:h-auto [&_th]:py-4 [&_th]:text-xs [&_th]:leading-4 [&_th]:font-medium">
+        <Table className="min-w-[1100px] [&_th]:h-auto [&_th]:py-4 [&_th]:text-xs [&_th]:font-medium [&_th]:leading-4">
           <TableHeader className="[&_tr]:border-0">
             <TableRow>
               <TableHead scope="col" className="w-[18%] min-w-56">
@@ -52,7 +52,7 @@ export const VoteResultsTable = ({ voteData }: Props) => {
                 </span>
               </TableHead>
               {voteData.criteria.map((criterion) => (
-                <TableHead key={criterion.id} scope="col" className="max-w-64 min-w-32">
+                <TableHead key={criterion.id} scope="col" className="min-w-32 max-w-64">
                   {criterion.name}
                 </TableHead>
               ))}
@@ -69,13 +69,11 @@ export const VoteResultsTable = ({ voteData }: Props) => {
                   {lecturer.result.courseScore === null ? EMPTY_VALUE : formatNumber(lecturer.result.courseScore)}
                 </TableCell>
                 {voteData.criteria.map((criterion) => {
-                  const criterionScore = lecturer.result.criterionScores.find(
-                    (score) => score.criterionId === criterion.id,
-                  );
+                  const criterionScore = lecturer.result.criterionScores[criterion.id];
 
                   return (
                     <TableCell key={criterion.id}>
-                      {criterionScore ? formatNumber(criterionScore.score) : EMPTY_VALUE}
+                      {criterionScore == null ? EMPTY_VALUE : formatNumber(criterionScore)}
                     </TableCell>
                   );
                 })}
@@ -86,7 +84,7 @@ export const VoteResultsTable = ({ voteData }: Props) => {
       )}
       {resultLecturers.length === 0 && (
         <div className="flex min-h-52 flex-col items-center justify-center gap-2 px-4 py-12 text-center" role="status">
-          <Paragraph className="m-0 text-lg leading-7 font-semibold text-neutral-500">{t('empty')}</Paragraph>
+          <Paragraph className="m-0 text-lg font-semibold leading-7 text-neutral-500">{t('empty')}</Paragraph>
           <Paragraph className="m-0 max-w-md text-base text-neutral-500">{t('emptyDescription')}</Paragraph>
         </div>
       )}
