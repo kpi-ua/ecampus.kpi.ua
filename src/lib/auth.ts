@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { cookies } from 'next/headers';
-import { TOKEN_COOKIE_NAME } from './constants/cookies';
+import { TOKEN_COOKIE_NAME } from './constants/common';
 import { getJWTPayload } from './jwt';
 import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 
