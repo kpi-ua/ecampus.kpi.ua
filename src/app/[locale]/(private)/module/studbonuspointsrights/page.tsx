@@ -1,36 +1,25 @@
 import { getTranslations } from 'next-intl/server';
+import { SearchParams } from 'nuqs/server';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { getSbpLoads, getSbpRights, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
-import { hasModule } from '@/lib/auth';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
+import { hasModule } from '@/lib/jwt';
 import { LocaleProps } from '@/types/locale-props';
 import { AccessDeniedState } from './components/access-denied-state';
 import { GrantButton } from './components/grant-button';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';
 import { RightsTable } from './components/rights-table';
+import { SBP_RIGHTS_MODULE } from './constants';
+import { loadRightsSearchParams } from './search-params';
 
 const INTL_NAMESPACE = 'private.studbonuspointsrights';
-const PAGE_SIZE = 20;
 
 interface PageProps extends LocaleProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<SearchParams>;
 }
-
-const pickString = (raw: string | string[] | undefined): string | undefined =>
-  Array.isArray(raw) ? raw[0] : raw;
-
-const parsePage = (raw?: string): number => {
-  const n = parseInt(raw ?? '1', 10);
-  return Number.isFinite(n) && n > 0 ? n : 1;
-};
-
-const parseId = (raw?: string): number | undefined => {
-  if (!raw) return undefined;
-  const n = parseInt(raw, 10);
-  return Number.isFinite(n) && n > 0 ? n : undefined;
-};
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -41,25 +30,20 @@ export async function generateMetadata({ params }: LocaleProps) {
 export default async function SbpRightsPage({ searchParams }: PageProps) {
   const t = await getTranslations(INTL_NAMESPACE);
 
-  if (!(await hasModule('studbonuspointsrights'))) {
+  if (!(await hasModule(SBP_RIGHTS_MODULE))) {
     return <AccessDeniedState />;
   }
 
-  const params = await searchParams;
-  const page = parsePage(pickString(params.page));
-  const search = pickString(params.search);
-  const studyingYearId = parseId(pickString(params.studyingYearId));
-  const subdivisionId = parseId(pickString(params.subdivisionId));
-  const loadId = parseId(pickString(params.loadId));
+  const filters = await loadRightsSearchParams(searchParams);
 
   const [rights, loads, subdivisions, years] = await Promise.all([
-    getSbpRights({ page, pageSize: PAGE_SIZE, search, studyingYearId, subdivisionId, loadId }),
+    getSbpRights({ ...filters, pageSize: PAGE_SIZE_DEFAULT }),
     getSbpLoads(),
     getSbpSubdivisions(),
     getSbpStudyYears(),
   ]);
 
-  const hasFilters = Boolean(search || studyingYearId || subdivisionId || loadId);
+  const hasFilters = Boolean(filters.search || filters.studyingYearId || filters.subdivisionId || filters.loadId);
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -72,21 +56,16 @@ export default async function SbpRightsPage({ searchParams }: PageProps) {
           <GrantButton />
         </div>
 
-        <RightsFilters
-          loads={loads}
-          subdivisions={subdivisions}
-          years={years}
-          initial={{ search, studyingYearId, subdivisionId, loadId }}
-        />
+        <RightsFilters loads={loads} subdivisions={subdivisions} years={years} />
 
         <div className="mt-8">
-          {rights.total === 0 ? (
+          {rights.items.length === 0 ? (
             <RightsEmptyState hasFilters={hasFilters} />
           ) : (
             <>
               <RightsTable items={rights.items} />
               <div className="mt-4">
-                <PaginationWithLinks page={page} pageSize={PAGE_SIZE} totalCount={rights.total} />
+                <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={rights.total} />
               </div>
             </>
           )}

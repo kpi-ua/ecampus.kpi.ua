@@ -2,10 +2,11 @@ import { getTranslations } from 'next-intl/server';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { getSbpLoads, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
-import { hasModule } from '@/lib/auth';
+import { hasModule } from '@/lib/jwt';
 import { LocaleProps } from '@/types/locale-props';
 import { AccessDeniedState } from '../components/access-denied-state';
 import { GrantForm } from '../components/grant-form';
+import { SBP_RIGHTS_MODULE, SBP_RIGHTS_PATH } from '../constants';
 
 const INTL_NAMESPACE = 'private.studbonuspointsrights.grant';
 
@@ -19,17 +20,13 @@ export default async function GrantSbpRightsPage() {
   const t = await getTranslations(INTL_NAMESPACE);
   const tParent = await getTranslations('private.studbonuspointsrights');
 
-  if (!(await hasModule('studbonuspointsrights'))) {
+  if (!(await hasModule(SBP_RIGHTS_MODULE))) {
     return <AccessDeniedState />;
   }
 
-  const [loads, subdivisions, years] = await Promise.all([
-    getSbpLoads(),
-    getSbpSubdivisions(),
-    getSbpStudyYears(),
-  ]);
+  const [loads, subdivisions, years] = await Promise.all([getSbpLoads(), getSbpSubdivisions(), getSbpStudyYears()]);
 
-  const breadcrumbs: string[][] = [['/module/studbonuspointsrights', tParent('title')]];
+  const breadcrumbs: string[][] = [[SBP_RIGHTS_PATH, tParent('title')]];
 
   return (
     <SubLayout pageTitle={t('title')} breadcrumbs={breadcrumbs}>

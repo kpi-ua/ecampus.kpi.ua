@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Trash2 } from 'lucide-react';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -14,23 +13,25 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { revokeSbpRight } from '@/actions/sbp-rights.actions';
 import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { SbpResponsibilityListItem } from '@/types/models/sbp-rights';
 
 interface Props {
-  item: SbpResponsibilityListItem;
+  /** Message group under `private.studbonuspointsrights` with the dialog copy. */
+  messages: 'revoke' | 'revokeAll';
+  /** Values interpolated into the dialog description. */
+  descriptionValues: Record<string, string>;
+  icon: ReactNode;
+  onConfirm: () => Promise<void>;
 }
 
 /**
- * Per-row revoke action. Wraps a destructive AlertDialog around a small
- * trash-icon button. Confirmation copy includes the user, point and
- * subdivision so the SuperAdmin can sanity-check the target before clicking
- * through.
+ * Destructive confirmation behind a small icon button, shared by the per-row
+ * and per-user revoke actions. The description names the target so the
+ * SuperAdmin can sanity-check it before clicking through.
  */
-export function RevokeButton({ item }: Props) {
-  const t = useTranslations('private.studbonuspointsrights.revoke');
+export function RevokeDialog({ messages, descriptionValues, icon, onConfirm }: Props) {
+  const t = useTranslations(`private.studbonuspointsrights.${messages}`);
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -42,7 +43,7 @@ export function RevokeButton({ item }: Props) {
     // in-flight.
     setIsSubmitting(true);
     try {
-      await revokeSbpRight(item.id);
+      await onConfirm();
       toast({ title: t('success.title'), description: t('success.description') });
       setOpen(false);
     } catch {
@@ -61,20 +62,13 @@ export function RevokeButton({ item }: Props) {
           aria-label={t('trigger')}
           className="text-status-danger-300 hover:text-red-700"
         >
-          <Trash2 className="h-4 w-4" />
+          {icon}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t('title')}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {t('description', {
-              user: item.fullName,
-              load: item.loadName,
-              subdivision: item.subdivisionAbbreviation ?? item.subdivisionName,
-              year: item.studyingYearName,
-            })}
-          </AlertDialogDescription>
+          <AlertDialogDescription>{t('description', descriptionValues)}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>

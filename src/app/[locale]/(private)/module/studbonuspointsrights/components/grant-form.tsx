@@ -5,14 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
@@ -25,11 +18,11 @@ import {
   SbpStudyYearCatalogItem,
   SbpSubdivisionCatalogItem,
 } from '@/types/models/sbp-rights';
+import { EntityIdName } from '@/types/models/entity-id-name';
+import { SBP_RIGHTS_PATH } from '../constants';
 import { GrantRightsFormValues, grantRightsSchema } from './grant-rights-schema';
 import { LoadMultiSelect } from './load-multi-select';
-import { PickedUser, UserPicker } from './user-picker';
-
-const LIST_PATH = '/module/studbonuspointsrights';
+import { UserPicker } from './user-picker';
 
 interface Props {
   loads: SbpLoadCatalogItem[];
@@ -43,10 +36,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
   const { errorToast } = useServerErrorToast();
   const router = useRouter();
 
-  const facultyOptions = useMemo(
-    () => subdivisions.filter((s) => !s.isUniversityWide),
-    [subdivisions],
-  );
+  const facultyOptions = useMemo(() => subdivisions.filter((s) => !s.isUniversityWide), [subdivisions]);
   const currentYear = useMemo(() => years.find((y) => y.isCurrent) ?? years[0], [years]);
 
   const form = useForm<GrantRightsFormValues>({
@@ -62,7 +52,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
   });
 
   const scope = form.watch('scope');
-  const [selectedUser, setSelectedUser] = useState<PickedUser | null>(null);
+  const [selectedUser, setSelectedUser] = useState<EntityIdName | null>(null);
 
   const onSubmit = async (values: GrantRightsFormValues) => {
     try {
@@ -80,7 +70,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
           skipped: result.skippedDuplicates.length,
         }),
       });
-      router.push(LIST_PATH);
+      router.push(SBP_RIGHTS_PATH);
     } catch {
       errorToast();
     }
@@ -143,7 +133,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
                   <FormItem>
                     <FormLabel>{t('subdivision')}</FormLabel>
                     <Select
-                      value={field.value ? String(field.value) : ''}
+                      value={field.value ? String(field.value) : undefined}
                       onValueChange={(v) => field.onChange(Number(v))}
                     >
                       <FormControl>
@@ -213,7 +203,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
           <Button type="submit" variant="primary" disabled={form.formState.isSubmitting}>
             {t('submit')}
           </Button>
-          <Button type="button" variant="secondary" onClick={() => router.push(LIST_PATH)}>
+          <Button type="button" variant="secondary" onClick={() => router.push(SBP_RIGHTS_PATH)}>
             {t('cancel')}
           </Button>
         </div>

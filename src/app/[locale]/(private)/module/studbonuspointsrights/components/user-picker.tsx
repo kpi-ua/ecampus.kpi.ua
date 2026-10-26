@@ -1,31 +1,18 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Check, ChevronDown, Loader2 } from 'lucide-react';
-import {
-  Command,
-  CommandEmpty,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
+import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { useDebounce } from '@/components/ui/multi-select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { searchSbpUsers } from '@/actions/sbp-rights.actions';
 import { cn } from '@/lib/utils';
 import { EntityIdName } from '@/types/models/entity-id-name';
-
-const MIN_CHARS = 2;
-
-export interface PickedUser {
-  id: number;
-  name: string;
-}
+import { useUserSearch } from '../hooks/use-user-search';
 
 interface Props {
-  value: PickedUser | null;
-  onChange: (user: PickedUser | null) => void;
+  value: EntityIdName | null;
+  onChange: (user: EntityIdName | null) => void;
 }
 
 /**
@@ -39,30 +26,10 @@ export function UserPicker({ value, onChange }: Props) {
   const listboxId = useId();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<EntityIdName[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
   const debouncedQuery = useDebounce(query, 300);
+  const { users: results, isFetching: isSearching, isTooShort } = useUserSearch(debouncedQuery);
 
-  useEffect(() => {
-    let cancelled = false;
-    if (debouncedQuery.trim().length < MIN_CHARS) {
-      setResults([]);
-      setIsSearching(false);
-      return;
-    }
-    setIsSearching(true);
-    void searchSbpUsers(debouncedQuery).then((rows) => {
-      if (!cancelled) {
-        setResults(rows);
-        setIsSearching(false);
-      }
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [debouncedQuery]);
-
-  const showMinCharsHint = !isSearching && debouncedQuery.trim().length < MIN_CHARS;
+  const showMinCharsHint = !isSearching && isTooShort;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -83,11 +50,7 @@ export function UserPicker({ value, onChange }: Props) {
       </PopoverTrigger>
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
         <Command shouldFilter={false}>
-          <CommandInput
-            value={query}
-            onValueChange={setQuery}
-            placeholder={t('userSearchPlaceholder')}
-          />
+          <CommandInput value={query} onValueChange={setQuery} placeholder={t('userSearchPlaceholder')} />
           <CommandList id={listboxId}>
             {isSearching && (
               <div className="text-muted-foreground flex items-center justify-center gap-2 py-4 text-sm">

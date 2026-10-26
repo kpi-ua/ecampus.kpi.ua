@@ -629,10 +629,6 @@
         "university": "Університет"
       },
       "table": {
-        "user": "Користувач",
-        "scope": "Рівень",
-        "subdivision": "Підрозділ",
-        "year": "Рік",
         "load": "Пункт",
         "created": "Видано",
         "actions": "Дії"
@@ -679,9 +675,7 @@
         "year": "Навчальний рік",
         "yearPlaceholder": "Виберіть рік",
         "loads": "Пункти",
-        "loadsPlaceholder": "Виберіть пункти",
         "loadsSelected": "Обрано пунктів: {count}",
-        "loadsSearchPlaceholder": "Пошук пункту",
         "loadsNotFound": "Пункти не знайдено.",
         "selectAll": "Вибрати все",
         "clearAll": "Очистити",

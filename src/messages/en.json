@@ -629,10 +629,6 @@
         "university": "University"
       },
       "table": {
-        "user": "User",
-        "scope": "Scope",
-        "subdivision": "Subdivision",
-        "year": "Year",
         "load": "Point",
         "created": "Granted",
         "actions": "Actions"
@@ -679,9 +675,7 @@
         "year": "Study year",
         "yearPlaceholder": "Pick a year",
         "loads": "Points",
-        "loadsPlaceholder": "Pick points",
         "loadsSelected": "{count} selected",
-        "loadsSearchPlaceholder": "Search a point",
         "loadsNotFound": "No point found.",
         "selectAll": "Select all",
         "clearAll": "Clear",

@@ -1,6 +1,12 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import qs from 'query-string';
+
+import {
+  SBP_RIGHTS_PATH,
+  USER_SEARCH_MIN_CHARS,
+} from '@/app/[locale]/(private)/module/studbonuspointsrights/constants';
 import { campusFetch } from '@/lib/client';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import {
@@ -12,8 +18,6 @@ import {
   SbpStudyYearCatalogItem,
   SbpSubdivisionCatalogItem,
 } from '@/types/models/sbp-rights';
-
-const MODULE_PATH = '/module/studbonuspointsrights';
 
 export const getSbpLoads = async (): Promise<SbpLoadCatalogItem[]> => {
   try {
@@ -57,11 +61,11 @@ export const getSbpStudyYears = async (): Promise<SbpStudyYearCatalogItem[]> => 
 export const searchSbpUsers = async (query: string): Promise<EntityIdName[]> => {
   try {
     const trimmed = query.trim();
-    if (trimmed.length < 2) {
+    if (trimmed.length < USER_SEARCH_MIN_CHARS) {
       return [];
     }
-    const params = new URLSearchParams({ q: trimmed });
-    const response = await campusFetch<EntityIdName[]>(`sbp-rights/users/search?${params.toString()}`);
+    const url = qs.stringifyUrl({ url: 'sbp-rights/users/search', query: { q: trimmed } });
+    const response = await campusFetch<EntityIdName[]>(url);
     if (!response.ok) {
       return [];
     }
@@ -79,17 +83,7 @@ export interface SbpRightsResult {
 
 export const getSbpRights = async (query: SbpRightsListQuery = {}): Promise<SbpRightsResult> => {
   try {
-    const params = new URLSearchParams();
-    if (query.search) params.set('search', query.search);
-    if (query.userAccountId) params.set('userAccountId', String(query.userAccountId));
-    if (query.loadId) params.set('loadId', String(query.loadId));
-    if (query.subdivisionId) params.set('subdivisionId', String(query.subdivisionId));
-    if (query.studyingYearId) params.set('studyingYearId', String(query.studyingYearId));
-    if (query.page) params.set('page', String(query.page));
-    if (query.pageSize) params.set('pageSize', String(query.pageSize));
-
-    const qs = params.toString();
-    const url = qs ? `sbp-rights?${qs}` : 'sbp-rights';
+    const url = qs.stringifyUrl({ url: 'sbp-rights', query: { ...query } }, { skipNull: true, skipEmptyString: true });
     const response = await campusFetch<SbpResponsibilityListItem[]>(url);
 
     if (!response.ok) {
@@ -125,7 +119,7 @@ export const grantSbpRights = async (payload: GrantSbpRightsPayload): Promise<Gr
   }
 
   const result = (await response.json()) as GrantSbpRightsResult;
-  revalidatePath(MODULE_PATH);
+  revalidatePath(SBP_RIGHTS_PATH);
   return result;
 };
 
@@ -136,7 +130,7 @@ export const revokeSbpRight = async (sbpResponsibleId: number): Promise<void> =>
     throw new Error(`Failed to revoke SBP right: ${response.status} ${response.statusText}`);
   }
 
-  revalidatePath(MODULE_PATH);
+  revalidatePath(SBP_RIGHTS_PATH);
 };
 
 export const revokeAllSbpRightsForUser = async (userAccountId: number): Promise<void> => {
@@ -146,5 +140,5 @@ export const revokeAllSbpRightsForUser = async (userAccountId: number): Promise<
     throw new Error(`Failed to revoke all SBP rights for user: ${response.status} ${response.statusText}`);
   }
 
-  revalidatePath(MODULE_PATH);
+  revalidatePath(SBP_RIGHTS_PATH);
 };

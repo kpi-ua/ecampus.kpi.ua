@@ -2,12 +2,14 @@
 
 import { Fragment, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { Trash2, UserX } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { revokeAllSbpRightsForUser, revokeSbpRight } from '@/actions/sbp-rights.actions';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 import { SbpResponsibilityListItem } from '@/types/models/sbp-rights';
-import { RevokeAllButton } from './revoke-all-button';
-import { RevokeButton } from './revoke-button';
+import { RevokeDialog } from './revoke-dialog';
 
 interface Props {
   items: SbpResponsibilityListItem[];
@@ -73,11 +75,17 @@ export function RightsTable({ items }: Props) {
             <TableRow className="bg-muted/40 hover:bg-muted/40">
               <TableCell colSpan={COLUMN_COUNT} className="py-2">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className="text-muted-foreground whitespace-nowrap text-xs uppercase tracking-wide">
+                  <span className="text-muted-foreground text-xs tracking-wide whitespace-nowrap uppercase">
                     {group.studyingYearName}
                   </span>
                   <span className="font-medium">{group.fullName}</span>
-                  <RevokeAllButton userAccountId={group.userAccountId} fullName={group.fullName} />
+                  {/* Per-user bulk revoke (KB-1336): also removes the module from their menu. */}
+                  <RevokeDialog
+                    messages="revokeAll"
+                    descriptionValues={{ user: group.fullName }}
+                    icon={<UserX className="h-4 w-4" />}
+                    onConfirm={() => revokeAllSbpRightsForUser(group.userAccountId)}
+                  />
                   <Badge variant={group.scope === 'University' ? 'purple' : 'blue'}>
                     {t(`scope.${group.scope === 'University' ? 'university' : 'faculty'}`)}
                   </Badge>
@@ -99,10 +107,20 @@ export function RightsTable({ items }: Props) {
                   </div>
                 </TableCell>
                 <TableCell className="text-muted-foreground whitespace-nowrap">
-                  {item.changeDate ? formatDate(item.changeDate) : '—'}
+                  {item.changeDate ? formatDate(item.changeDate) : EMPTY_VALUE}
                 </TableCell>
                 <TableCell className="text-right">
-                  <RevokeButton item={item} />
+                  <RevokeDialog
+                    messages="revoke"
+                    descriptionValues={{
+                      user: item.fullName,
+                      load: item.loadName,
+                      subdivision: item.subdivisionAbbreviation ?? item.subdivisionName,
+                      year: item.studyingYearName,
+                    }}
+                    icon={<Trash2 className="h-4 w-4" />}
+                    onConfirm={() => revokeSbpRight(item.id)}
+                  />
                 </TableCell>
               </TableRow>
             ))}

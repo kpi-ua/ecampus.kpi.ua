@@ -1,5 +1,3 @@
-import { EntityIdName } from './entity-id-name';
-
 /**
  * Scope of an SBP rights grant. Mirrors `KPI.Domain.Base.AccessScope`
  * (serialized as a string thanks to `JsonStringEnumConverter`).
@@ -31,9 +29,6 @@ export interface SbpStudyYearCatalogItem {
   isCurrent: boolean;
 }
 
-/** User search result for the grant autocomplete — reuses the shared `EntityIdName`. */
-export type SbpUserPick = EntityIdName;
-
 /** Denormalized row returned by `GET /sbp-rights`. */
 export interface SbpResponsibilityListItem {
   id: number;
@@ -54,14 +49,15 @@ export interface SbpResponsibilityListItem {
   comment: string | null;
 }
 
+/** Filters for `GET /sbp-rights`; `null` (an unset URL filter) is dropped like `undefined`. */
 export interface SbpRightsListQuery {
-  search?: string;
-  userAccountId?: number;
-  loadId?: number;
-  subdivisionId?: number;
-  studyingYearId?: number;
-  page?: number;
-  pageSize?: number;
+  search?: string | null;
+  userAccountId?: number | null;
+  loadId?: number | null;
+  subdivisionId?: number | null;
+  studyingYearId?: number | null;
+  page?: number | null;
+  pageSize?: number | null;
 }
 
 export interface GrantSbpRightsPayload {

@@ -1,84 +1,49 @@
 'use client';
 
-import { useEffect, useRef, useState, useTransition } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { debounce, useQueryStates } from 'nuqs';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useDebounce } from '@/components/ui/multi-select';
-import {
-  SbpLoadCatalogItem,
-  SbpStudyYearCatalogItem,
-  SbpSubdivisionCatalogItem,
-} from '@/types/models/sbp-rights';
+import { SbpLoadCatalogItem, SbpStudyYearCatalogItem, SbpSubdivisionCatalogItem } from '@/types/models/sbp-rights';
+import { rightsSearchParams } from '../search-params';
 
 const ALL_VALUE = 'all';
+const SEARCH_DEBOUNCE_MS = 300;
+
+type SelectFilter = 'studyingYearId' | 'subdivisionId' | 'loadId';
 
 interface Props {
   loads: SbpLoadCatalogItem[];
   subdivisions: SbpSubdivisionCatalogItem[];
   years: SbpStudyYearCatalogItem[];
-  /** Initial values pulled from the querystring on the server. */
-  initial: {
-    search?: string;
-    studyingYearId?: number;
-    subdivisionId?: number;
-    loadId?: number;
-  };
 }
 
 /**
- * Querystring-driven filter bar. Each change rewrites the URL via
- * `router.replace`; the page re-renders on the server and the table refreshes.
- * Search input is debounced 300ms; selects are immediate.
+ * Querystring-driven filter bar. Filters live in the URL (nuqs, non-shallow),
+ * so the page re-renders on the server and the table refreshes. Every change
+ * drops `page`, since the current page may be out of range.
  */
-export function RightsFilters({ loads, subdivisions, years, initial }: Props) {
+export function RightsFilters({ loads, subdivisions, years }: Props) {
   const t = useTranslations('private.studbonuspointsrights');
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [, startTransition] = useTransition();
+  const [filters, setFilters] = useQueryStates(rightsSearchParams, { shallow: false, history: 'replace' });
 
-  const [search, setSearch] = useState(initial.search ?? '');
-  const debouncedSearch = useDebounce(search, 300);
-  // Track first render so we don't re-push the search the server already
-  // applied. After mount every change to debouncedSearch — including
-  // clearing back to '' — pushes to the URL.
-  const isFirstRender = useRef(true);
-
-  const pushParam = (key: string, value: string | undefined) => {
-    const params = new URLSearchParams(searchParams?.toString() ?? '');
-    if (value) params.set(key, value);
-    else params.delete(key);
-    // Reset paging whenever a filter changes — current page may be out of range.
-    params.delete('page');
-    startTransition(() => {
-      router.replace(`${pathname}?${params.toString()}`);
-    });
+  const onSearchChange = (value: string) => {
+    setFilters({ search: value, page: null }, { limitUrlUpdates: value ? debounce(SEARCH_DEBOUNCE_MS) : undefined });
   };
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    pushParam('search', debouncedSearch || undefined);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearch]);
-
-  const onSelectChange = (key: string) => (raw: string) => {
-    pushParam(key, raw === ALL_VALUE ? undefined : raw);
+  const onSelectChange = (key: SelectFilter) => (raw: string) => {
+    setFilters({ [key]: raw === ALL_VALUE ? null : Number(raw), page: null });
   };
 
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <Input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={filters.search}
+        onChange={(e) => onSearchChange(e.target.value)}
         placeholder={t('filters.searchPlaceholder')}
       />
 
-      <Select value={initial.studyingYearId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('studyingYearId')}>
+      <Select value={filters.studyingYearId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('studyingYearId')}>
         <SelectTrigger>
           <SelectValue placeholder={t('filters.year')} />
         </SelectTrigger>
@@ -93,7 +58,7 @@ export function RightsFilters({ loads, subdivisions, years, initial }: Props) {
         </SelectContent>
       </Select>
 
-      <Select value={initial.subdivisionId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('subdivisionId')}>
+      <Select value={filters.subdivisionId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('subdivisionId')}>
         <SelectTrigger>
           <SelectValue placeholder={t('filters.subdivision')} />
         </SelectTrigger>
@@ -107,7 +72,7 @@ export function RightsFilters({ loads, subdivisions, years, initial }: Props) {
         </SelectContent>
       </Select>
 
-      <Select value={initial.loadId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('loadId')}>
+      <Select value={filters.loadId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('loadId')}>
         <SelectTrigger>
           <SelectValue placeholder={t('filters.load')} />
         </SelectTrigger>

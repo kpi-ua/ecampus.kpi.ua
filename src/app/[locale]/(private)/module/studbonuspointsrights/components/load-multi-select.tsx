@@ -70,7 +70,9 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
       onChange(value.filter((id) => !groupSet.has(id)));
     } else {
       const merged = new Set(value);
-      for (const id of groupIds) merged.add(id);
+      for (const id of groupIds) {
+        merged.add(id);
+      }
       onChange([...merged]);
     }
   };
@@ -82,16 +84,8 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="text-muted-foreground text-xs">
-          {t('loadsSelected', { count: value.length })}
-        </span>
-        <Button
-          type="button"
-          variant="tertiary"
-          size="small"
-          onClick={toggleAll}
-          className="px-2 py-1 text-xs"
-        >
+        <span className="text-muted-foreground text-xs">{t('loadsSelected', { count: value.length })}</span>
+        <Button type="button" variant="tertiary" size="small" onClick={toggleAll} className="px-2 py-1 text-xs">
           {allSelected ? t('clearAll') : t('selectAll')}
         </Button>
       </div>
@@ -102,7 +96,7 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
           return (
             <div key={`${group.workKindId}:${group.treeId}`}>
               <div className="mb-2 flex items-center justify-between gap-2">
-                <div className="text-muted-foreground text-xs font-semibold uppercase tracking-wide">
+                <div className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
                   {group.workKindName} · {group.treeName}
                 </div>
                 <Button
@@ -119,11 +113,7 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
                 {group.loads.map((load) => {
                   const id = `${idPrefix}-${load.loadId}`;
                   return (
-                    <label
-                      key={load.loadId}
-                      htmlFor={id}
-                      className="flex cursor-pointer items-start gap-2 text-sm"
-                    >
+                    <label key={load.loadId} htmlFor={id} className="flex cursor-pointer items-start gap-2 text-sm">
                       <Checkbox
                         id={id}
                         checked={selected.has(load.loadId)}
