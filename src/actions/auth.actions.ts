@@ -7,8 +7,8 @@ import { redirect } from 'next/navigation';
 import { campusFetch } from '@/lib/client';
 import { User } from '@/types/models/user';
 import { AuthResponse } from '@/types/models/auth-response';
-import { KPIIDAccount } from '@/types/models/kpi-id-account';
-import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
+import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
+import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
 const ROOT_COOKIE_DOMAIN = process.env.ROOT_COOKIE_DOMAIN;
@@ -87,8 +87,6 @@ export async function resetPassword(username: string, recaptchaToken: string) {
   }
 }
 
-import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
-
 export async function getUserDetails() {
   const userResponse = await campusFetch<User>('profile', {
     next: { tags: [USER_PROFILE_CACHE_TAG] },
@@ -101,18 +99,23 @@ export async function getUserDetails() {
   return userResponse.json();
 }
 
-export async function redirectToEmploymentSystem() {
-  const response = await campusFetch<string>('employment-system/auth');
-  const url = await response.json();
-  redirect(url);
-}
+export async function exchangeKPIIDCode(authorization: KPIIDAuthorization): Promise<KPIIDCodeExchange> {
+  try {
+    const response = await campusFetch<KPIIDAccount[]>('/auth/kpi-id', {
+      method: 'POST',
+      body: JSON.stringify(authorization),
+    });
 
-export async function getKPIIDAccounts(ticketId: string) {
-  const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${ticketId}`);
+    if (!response.ok) {
+      return { ok: false, reason: 'api', status: response.status };
+    }
 
-  if (!response.ok) {
-    return null;
+    const accounts: KPIIDAccount[] = await response.json();
+
+    return accounts.length ? { ok: true, accounts } : { ok: false, reason: 'no-accounts' };
+  } catch (error) {
+    console.error('KPI ID code exchange failed:', error);
+
+    return { ok: false, reason: 'network' };
   }
-
-  return response.json();
 }

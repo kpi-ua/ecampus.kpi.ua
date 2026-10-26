@@ -17,6 +17,7 @@ export const MenuItem = ({ name, title, url, isExternal = false }: MenuItemProps
   const pathname = usePathname();
   const router = useRouter();
   const sidebar = useSidebar();
+  const isActive = pathname === url || (url !== '/' && pathname.startsWith(`${url}/`));
 
   const Icon = menuIcon.get(name) || Question;
 
@@ -32,7 +33,7 @@ export const MenuItem = ({ name, title, url, isExternal = false }: MenuItemProps
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton isActive={pathname === url} className="flex justify-between" onClick={handleNavigate}>
+      <SidebarMenuButton isActive={isActive} className="flex justify-between" onClick={handleNavigate}>
         <span className="flex w-full items-center gap-2 font-semibold [&>svg]:size-[24px] [&>svg]:shrink-0">
           <Icon />
           {title}

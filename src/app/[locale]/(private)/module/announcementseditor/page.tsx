@@ -1,11 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
-import {
-  getAdminAnnouncements,
-} from '@/actions/announcement.actions';
+import { getAdminAnnouncements } from '@/actions/announcement.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
 
 import { AnnouncementsListPage } from './announcements-list-page';
@@ -22,7 +20,7 @@ export async function generateMetadata({ params }: LocaleProps) {
 }
 
 interface PageProps extends LocaleProps {
-  searchParams: Promise<{ page: number; search: string; language: LOCALE; }>;
+  searchParams: Promise<{ page: number; search: string; language: LOCALE }>;
 }
 
 export default async function AnnouncementsPage({ searchParams }: PageProps) {

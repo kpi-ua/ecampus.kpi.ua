@@ -1,13 +1,19 @@
 'use server';
 
-import { campusFetch } from '@/lib/client';
-import { fileUpload } from '@/lib/file-upload';
 import { revalidatePath } from 'next/cache';
+import * as z from 'zod';
+
+import { campusFetch } from '@/lib/client';
+import { isKpiCorporateEmail } from '@/lib/email.utils';
+import { fileUpload } from '@/lib/file-upload';
+
+const corporateEmailSchema = z.string().trim().email().refine(isKpiCorporateEmail);
 
 export async function changeEmail(email: string) {
+  const validatedEmail = corporateEmailSchema.parse(email);
   const response = await campusFetch('settings/email', {
     method: 'PUT',
-    body: JSON.stringify({ email }),
+    body: JSON.stringify({ email: validatedEmail }),
   });
 
   if (!response.ok) {

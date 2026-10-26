@@ -7,6 +7,8 @@ import { Footer } from '@/components/app-sidebar/footer';
 import React from 'react';
 
 import { PrivacyConsentDialog } from '@/components/privacy-consent-dialog';
+import { PermissionProvider } from '@/components/permission-provider';
+import { getUserModules } from '@/lib/jwt';
 
 export default async function MainPageLayout({
   children,
@@ -20,17 +22,20 @@ export default async function MainPageLayout({
   }
 
   const showPrivacyConsent = !!user.employeeProfile && !user.privacyConsentDate;
+  const modules = await getUserModules();
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <Header user={user} />
-        <div className="bg-uncategorized-main grow p-[20px] lg:p-[28px]">{children}</div>
-        <Footer />
-      </SidebarInset>
+    <PermissionProvider modules={modules}>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <Header user={user} />
+          <div className="bg-uncategorized-main grow p-[20px] lg:p-[28px]">{children}</div>
+          <Footer />
+        </SidebarInset>
 
-      {showPrivacyConsent && <PrivacyConsentDialog />}
-    </SidebarProvider>
+        {showPrivacyConsent && <PrivacyConsentDialog />}
+      </SidebarProvider>
+    </PermissionProvider>
   );
 }

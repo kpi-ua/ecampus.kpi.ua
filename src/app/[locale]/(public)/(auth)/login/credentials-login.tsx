@@ -1,19 +1,18 @@
 'use client';
 
 import * as z from 'zod';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { loginWithCredentials } from '@/actions/auth.actions';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Link } from '@/i18n/routing';
-import { loginWithCredentials } from '@/actions/auth.actions';
-import { useTranslations } from 'next-intl';
-import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import PasswordInput from '@/components/ui/password-input';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { useRouter } from 'next/navigation';
+import { Link } from '@/i18n/routing';
 
 export const CredentialsLogin = () => {
   const t = useTranslations('auth.login');
@@ -23,7 +22,6 @@ export const CredentialsLogin = () => {
   const FormSchema = z.object({
     username: z.string().min(1),
     password: z.string().min(1),
-    rememberMe: z.boolean(),
   });
 
   type FormData = z.infer<typeof FormSchema>;
@@ -33,7 +31,6 @@ export const CredentialsLogin = () => {
     defaultValues: {
       username: '',
       password: '',
-      rememberMe: true,
     },
   });
 
@@ -41,7 +38,7 @@ export const CredentialsLogin = () => {
     form.clearErrors();
 
     try {
-      const response = await loginWithCredentials(data.username, data.password, data.rememberMe);
+      const response = await loginWithCredentials(data.username, data.password, true);
 
       if (!response) {
         form.setError('root', { message: t('field.error') });
@@ -60,9 +57,9 @@ export const CredentialsLogin = () => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="mb-6 grid w-full items-center gap-2">
+            <FormItem className="mb-[24px] grid w-full items-center gap-[8px]">
               <Label htmlFor="username">{t('field.username')}</Label>
-              <Input {...field} />
+              <Input id="username" {...field} />
             </FormItem>
           )}
         />
@@ -70,29 +67,23 @@ export const CredentialsLogin = () => {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="my-6 grid w-full items-center gap-2">
+            <FormItem className="grid w-full items-center gap-[8px]">
               <Label htmlFor="password">{t('field.password')}</Label>
-              <PasswordInput {...field} />
+              <PasswordInput id="password" {...field} />
             </FormItem>
           )}
         />
-        <div className="mb-6 flex items-center justify-between">
-          <FormField
-            control={form.control}
-            name="rememberMe"
-            render={({ field }) => (
-              <div className="flex items-center space-x-2">
-                <Checkbox checked={field.value} onCheckedChange={(checked) => field.onChange(checked)} />
-                <Label className="text-neutral-800">{t('rememberMe')}</Label>
-              </div>
-            )}
-          />
-          <Link className="text-sm" href="/password-reset">
-            {t('passwordReset')}
-          </Link>
-        </div>
+        <Link className="mt-2 block text-right text-sm" href="/password-reset">
+          {t('passwordReset')}
+        </Link>
         <FormMessage>{form.formState.errors.root?.message}</FormMessage>
-        <Button size="big" className="my-4 w-full" type="submit" loading={form.formState.isSubmitting}>
+        <Button
+          variant="secondary"
+          size="big"
+          className="mt-[36px] w-full"
+          type="submit"
+          loading={form.formState.isSubmitting}
+        >
           {t('button.login')}
         </Button>
       </form>

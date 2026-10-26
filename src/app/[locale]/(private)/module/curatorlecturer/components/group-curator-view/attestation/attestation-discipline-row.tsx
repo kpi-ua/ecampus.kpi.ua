@@ -1,0 +1,59 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
+import { CuratorAttestationDiscipline } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { Badge } from '@/components/ui/badge';
+import { TableCell, TableRow } from '@/components/ui/table';
+import { TableExpandButton } from '@/components/ui/table-expand-button';
+import { Show } from '@/components/utils/show';
+import { EMPTY_VALUE } from '@/lib/constants/common';
+
+import { AttestationResultCells } from './attestation-result-cells';
+
+interface Props {
+  showRepeated: boolean;
+  discipline: CuratorAttestationDiscipline;
+}
+
+export const AttestationDisciplineRow = ({ discipline, showRepeated }: Props) => {
+  const t = useTranslations('private.curatorlecturer.group-curator.results');
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <>
+      <TableRow>
+        <TableCell className="font-semibold">
+          {discipline.name} — {discipline.lecturerName}
+        </TableCell>
+        <Show when={showRepeated}>
+          <TableCell>
+            <Show when={discipline.notAttestedTwiceCount > 0} fallback={EMPTY_VALUE}>
+              <Badge variant="red">{discipline.notAttestedTwiceCount}</Badge>
+            </Show>
+          </TableCell>
+        </Show>
+        <AttestationResultCells totals={discipline} />
+        <TableCell className="w-12 text-right">
+          <TableExpandButton expanded={expanded} onToggle={() => setExpanded((value) => !value)} />
+        </TableCell>
+      </TableRow>
+      <Show when={expanded}>
+        {discipline.students.map((student) => (
+          <TableRow key={student.studentId} className="bg-neutral-50 hover:bg-neutral-50 [&>td]:py-2 [&>td]:text-sm">
+            <TableCell className="pl-6">{student.fullName}</TableCell>
+            <Show when={showRepeated}>
+              <TableCell>
+                <Show when={student.notAttestedTwiceCount > 0} fallback={EMPTY_VALUE}>
+                  <Badge variant="red">{t('repeated-result')}</Badge>
+                </Show>
+              </TableCell>
+            </Show>
+            <AttestationResultCells totals={student} />
+            <TableCell />
+          </TableRow>
+        ))}
+      </Show>
+    </>
+  );
+};

@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { sift } from 'radash';
 import { Contact } from '@/types/models/colleague-contact';
 import { ContactType } from '@/types/models/contact';
-import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/contact-types';
+import { ACADEMIC_IDENTIFIER_IDS } from '@/lib/constants/common';
 
 export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[]) => {
   return useMemo(() => {
@@ -12,10 +12,14 @@ export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[
     const processedContacts = sift(
       contacts.map((contact) => {
         const contactType = contactTypes.find((type) => type.id === contact.contactTypeId);
-        if (!contactType) return null;
+        if (!contactType) {
+          return null;
+        }
 
         // Skip empty values
-        if (!contact.value || contact.value.trim() === '') return null;
+        if (!contact.value || contact.value.trim() === '') {
+          return null;
+        }
 
         return {
           typeId: contact.contactTypeId,
@@ -30,7 +34,9 @@ export const useSplitContacts = (contacts: Contact[], contactTypes: ContactType[
     const missingAcademicContacts = sift(
       ACADEMIC_IDENTIFIER_IDS.filter((id) => !existingAcademicIds.has(id)).map((id) => {
         const contactType = contactTypes.find((type) => type.id === id);
-        if (!contactType) return null;
+        if (!contactType) {
+          return null;
+        }
         return {
           typeId: id,
           typeName: contactType.name,

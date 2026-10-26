@@ -2,10 +2,10 @@
 
 import { Contact, ContactType } from '@/types/models/contact';
 import { campusFetch } from '@/lib/client';
-import { revalidateTag } from 'next/cache';
+import { updateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
-import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
+import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 
 export async function getContacts() {
   try {
@@ -34,7 +34,7 @@ export async function createContact(typeId: number, value: string) {
       body: JSON.stringify({ typeId, value }),
     });
 
-    revalidateTag(USER_PROFILE_CACHE_TAG);
+    updateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while creating contact');
   }
@@ -47,7 +47,7 @@ export async function updateContact(id: number, typeId: number, value: string) {
       body: JSON.stringify({ typeId, value }),
     });
 
-    revalidateTag(USER_PROFILE_CACHE_TAG);
+    updateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while updating contact');
   }
@@ -59,12 +59,11 @@ export async function deleteContact(id: number) {
       method: 'DELETE',
     });
 
-    revalidateTag(USER_PROFILE_CACHE_TAG);
+    updateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while deleting contact');
   }
 }
-
 
 export async function updateIntellectInfo(credo: string, scientificInterests: string) {
   try {
@@ -72,7 +71,7 @@ export async function updateIntellectInfo(credo: string, scientificInterests: st
       method: 'PUT',
       body: JSON.stringify({ credo, scientificInterests }),
     });
-    revalidateTag(USER_PROFILE_CACHE_TAG);
+    updateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while updating intellect info');
   }
@@ -94,7 +93,7 @@ export async function acceptPrivacyConsent() {
     await campusFetch('profile/privacy-consent', {
       method: 'POST',
     });
-    revalidateTag(USER_PROFILE_CACHE_TAG);
+    updateTag(USER_PROFILE_CACHE_TAG);
   } catch (error) {
     throw new Error('Error while accepting privacy consent');
   }

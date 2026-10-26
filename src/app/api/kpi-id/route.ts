@@ -1,45 +1,45 @@
-import { getKPIIDAccounts, setLoginCookies } from '@/actions/auth.actions';
 import { redirect } from '@/i18n/routing';
-import { type NextRequest } from 'next/server';
-import { badRequestResponse, notFoundResponse } from '../responses';
+import { NextResponse, type NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
+import {
+  createKPIIDTransaction,
+  getKPIIDAuthorizationUrl,
+  KPIID_COOKIE_MAX_AGE_SECONDS,
+  KPIID_TRANSACTION_COOKIE_NAME,
+  serializeKPIIDTransaction,
+} from '@/lib/kpi-id';
+import { KPIID_CALLBACK_PATH, KPIID_FAILED_PATH } from '@/proxy/contants';
 
+// Starts a KPI ID sign-in: the "Sign in with KPI ID" button, the account picker and the KPI ID catalog (initiate login
+// URI, with `iss` and `target_link_uri`, which are not needed) lead here. A `ticketId` left over from the ticket flow
+// is ignored too: the user signs in through OpenID Connect instead.
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const locale = await getLocale();
-  const ticketId = searchParams.get('ticketId');
-  const username = searchParams.get('username');
+  const username = request.nextUrl.searchParams.get('username') || undefined;
+  const transaction = createKPIIDTransaction(request, username);
 
-  if (!ticketId) {
-    return badRequestResponse('ticketId is required');
-  }
+  let authorizationUrl: URL;
 
-  const accounts = await getKPIIDAccounts(ticketId);
+  try {
+    authorizationUrl = await getKPIIDAuthorizationUrl(transaction);
+  } catch (error) {
+    console.error('KPI ID login could not start:', error);
 
-  if (!accounts?.length) {
-    return notFoundResponse('No accounts found');
-  }
+    const locale = await getLocale();
 
-  if (accounts.length === 1) {
-    const [account] = accounts;
-
-    await setLoginCookies(account.access_token, account.sessionId, true);
-    redirect({ href: '/', locale });
+    redirect({ href: { pathname: KPIID_FAILED_PATH, query: { reason: 'network' } }, locale });
     return;
   }
 
-  if (!username) {
-    redirect({ href: { pathname: '/login/kpi-id', query: { ticketId } }, locale });
-    return;
-  }
+  const response = NextResponse.redirect(authorizationUrl);
 
-  const account = accounts.find((acc) => acc.username === username);
+  // Lax, because KPI ID brings the user back with a cross-site top-level redirect.
+  response.cookies.set(KPIID_TRANSACTION_COOKIE_NAME, serializeKPIIDTransaction(transaction), {
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: KPIID_COOKIE_MAX_AGE_SECONDS,
+    path: KPIID_CALLBACK_PATH,
+  });
 
-  if (!account) {
-    return notFoundResponse('Account not found');
-  }
-
-  await setLoginCookies(account.access_token, account.sessionId, true);
-  redirect({ href: '/', locale });
-  return;
+  return response;
 }

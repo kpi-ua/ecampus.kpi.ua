@@ -15,11 +15,12 @@ import { useTranslations } from 'next-intl';
 import ContactsList from '@/app/[locale]/(private)/profile/components/contacts-list';
 
 interface Props {
+  corporateEmail?: string | null;
   contacts: Contact[];
   contactTypes: ContactType[];
 }
 
-export function Contacts({ contacts, contactTypes }: Props) {
+export function Contacts({ corporateEmail, contacts, contactTypes }: Props) {
   const t = useTranslations('private.profile');
 
   const FormSchema = z.object({
@@ -56,7 +57,12 @@ export function Contacts({ contacts, contactTypes }: Props) {
       <div className="flex w-full flex-col gap-3">
         <Heading6>{t('contact.title')}</Heading6>
         <Separator />
-        <ContactsList contacts={contacts} onDeleteContact={handleDeleteContact} onUpdateContact={handleUpdateContact} />
+        <ContactsList
+          corporateEmail={corporateEmail}
+          contacts={contacts}
+          onDeleteContact={handleDeleteContact}
+          onUpdateContact={handleUpdateContact}
+        />
       </div>
 
       <div className="mt-6 flex flex-col gap-3">

@@ -18,6 +18,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
 import { toast } from '@/hooks/use-toast';
 import { getUniqueUserPhotoUrl } from '@/lib/utils';
+import { isKpiCorporateEmail } from '@/lib/email.utils';
 import EnvelopeSimple from '@/app/images/icons/EnvelopeSimple.svg';
 
 interface Props {
@@ -38,7 +39,10 @@ export function SettingsForm({ user }: Props) {
         .string()
         .trim()
         .min(1)
-        .email({ message: t('error.invalid-email') }),
+        .email({ message: t('error.invalid-email') })
+        .refine((email) => email === user.email || isKpiCorporateEmail(email), {
+          message: t('error.corporate-email-only'),
+        }),
       currentPassword: z.string().trim().optional(),
       newPassword: z.string().trim().optional(),
       confirmPassword: z.string().trim().optional(),
