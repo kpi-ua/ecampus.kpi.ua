@@ -15,6 +15,14 @@
       "download": "Завантажити",
       "view": "Ознайомитись"
     },
+    "combobox": {
+      "placeholder": "Виберіть...",
+      "search": "Пошук...",
+      "loading": "Завантаження...",
+      "noResults": "Нічого не знайдено.",
+      "minChars": "Введіть щонайменше {count} символи.",
+      "clear": "Очистити"
+    },
     "tooltip": {
       "edit": "Редагувати",
       "delete": "Видалити"
@@ -660,9 +668,7 @@
         "user": "Користувач",
         "userPickerPlaceholder": "Виберіть користувача",
         "userSearchPlaceholder": "Почніть вводити ПІБ",
-        "userMinChars": "Введіть щонайменше 2 символи.",
         "userNotFound": "Користувача не знайдено.",
-        "userSearching": "Пошук...",
         "scope": "Рівень",
         "scopeFaculty": "Факультет",
         "scopeUniversity": "Університет",

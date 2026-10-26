@@ -15,6 +15,14 @@
       "download": "Download",
       "view": "View"
     },
+    "combobox": {
+      "placeholder": "Select...",
+      "search": "Search...",
+      "loading": "Loading...",
+      "noResults": "Nothing found.",
+      "minChars": "Type at least {count} characters.",
+      "clear": "Clear"
+    },
     "tooltip": {
       "edit": "Edit",
       "delete": "Delete"
@@ -660,9 +668,7 @@
         "user": "User",
         "userPickerPlaceholder": "Pick a user",
         "userSearchPlaceholder": "Start typing a name",
-        "userMinChars": "Type at least 2 characters.",
         "userNotFound": "No user found.",
-        "userSearching": "Searching...",
         "scope": "Scope",
         "scopeFaculty": "Faculty",
         "scopeUniversity": "University",

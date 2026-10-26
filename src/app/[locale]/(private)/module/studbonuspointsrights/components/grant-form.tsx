@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import { AsyncCombobox, ComboboxOption } from '@/components/ui/async-combobox';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -11,18 +12,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useRouter } from '@/i18n/routing';
-import { grantSbpRights } from '@/actions/sbp-rights.actions';
+import { grantSbpRights, searchSbpUsers } from '@/actions/sbp-rights.actions';
 import {
   AccessScope,
   SbpLoadCatalogItem,
   SbpStudyYearCatalogItem,
   SbpSubdivisionCatalogItem,
 } from '@/types/models/sbp-rights';
-import { EntityIdName } from '@/types/models/entity-id-name';
-import { SBP_RIGHTS_PATH } from '../constants';
+import { SBP_RIGHTS_PATH, USER_SEARCH_MIN_CHARS } from '../constants';
 import { createGrantRightsSchema, GrantRightsFormValues } from './grant-rights-schema';
 import { LoadMultiSelect } from './load-multi-select';
-import { UserPicker } from './user-picker';
 
 interface Props {
   loads: SbpLoadCatalogItem[];
@@ -52,7 +51,12 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
   });
 
   const scope = form.watch('scope');
-  const [selectedUser, setSelectedUser] = useState<EntityIdName | null>(null);
+
+  const fetchUsers = useCallback(
+    async (query: string): Promise<ComboboxOption[]> =>
+      (await searchSbpUsers(query)).map((user) => ({ value: user.id, label: user.name })),
+    [],
+  );
 
   const onSubmit = async (values: GrantRightsFormValues) => {
     try {
@@ -88,12 +92,15 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
                 <FormItem>
                   <FormLabel>{t('user')}</FormLabel>
                   <FormControl>
-                    <UserPicker
-                      value={selectedUser}
-                      onChange={(user) => {
-                        setSelectedUser(user);
-                        field.onChange(user?.id ?? 0);
-                      }}
+                    <AsyncCombobox
+                      fetchOptions={fetchUsers}
+                      value={field.value || null}
+                      onChange={(id) => field.onChange(id ?? 0)}
+                      onBlur={field.onBlur}
+                      minQueryLength={USER_SEARCH_MIN_CHARS}
+                      placeholder={t('userPickerPlaceholder')}
+                      searchPlaceholder={t('userSearchPlaceholder')}
+                      emptyText={t('userNotFound')}
                     />
                   </FormControl>
                   <FormMessage />
