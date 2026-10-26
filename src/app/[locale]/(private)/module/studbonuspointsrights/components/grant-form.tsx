@@ -20,7 +20,7 @@ import {
 } from '@/types/models/sbp-rights';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { SBP_RIGHTS_PATH } from '../constants';
-import { GrantRightsFormValues, grantRightsSchema } from './grant-rights-schema';
+import { createGrantRightsSchema, GrantRightsFormValues } from './grant-rights-schema';
 import { LoadMultiSelect } from './load-multi-select';
 import { UserPicker } from './user-picker';
 
@@ -40,7 +40,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
   const currentYear = useMemo(() => years.find((y) => y.isCurrent) ?? years[0], [years]);
 
   const form = useForm<GrantRightsFormValues>({
-    resolver: zodResolver(grantRightsSchema),
+    resolver: zodResolver(createGrantRightsSchema(t)),
     defaultValues: {
       userAccountId: 0,
       scope: 'Faculty',
@@ -84,7 +84,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
             <FormField
               control={form.control}
               name="userAccountId"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t('user')}</FormLabel>
                   <FormControl>
@@ -96,7 +96,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
                       }}
                     />
                   </FormControl>
-                  {fieldState.error && <FormMessage>{t(fieldState.error.message ?? '')}</FormMessage>}
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -131,7 +131,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
               <FormField
                 control={form.control}
                 name="subdivisionId"
-                render={({ field, fieldState }) => (
+                render={({ field }) => (
                   <FormItem>
                     <FormLabel>{t('subdivision')}</FormLabel>
                     <Select
@@ -151,7 +151,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
                         ))}
                       </SelectContent>
                     </Select>
-                    {fieldState.error && <FormMessage>{t(fieldState.error.message ?? '')}</FormMessage>}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -160,7 +160,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
             <FormField
               control={form.control}
               name="studyingYearId"
-              render={({ field, fieldState }) => (
+              render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t('year')}</FormLabel>
                   <Select
@@ -180,7 +180,7 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
                       ))}
                     </SelectContent>
                   </Select>
-                  {fieldState.error && <FormMessage>{t(fieldState.error.message ?? '')}</FormMessage>}
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -189,13 +189,13 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
           <FormField
             control={form.control}
             name="loadIds"
-            render={({ field, fieldState }) => (
+            render={({ field }) => (
               <FormItem>
                 <FormLabel>{t('loads')}</FormLabel>
                 <FormControl>
                   <LoadMultiSelect loads={loads} value={field.value} onChange={field.onChange} />
                 </FormControl>
-                {fieldState.error && <FormMessage>{t(fieldState.error.message ?? '')}</FormMessage>}
+                <FormMessage />
               </FormItem>
             )}
           />

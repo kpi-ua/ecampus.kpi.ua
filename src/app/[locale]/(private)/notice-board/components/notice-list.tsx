@@ -14,7 +14,7 @@ import { useTranslations } from 'next-intl';
 import { Show } from '@/components/utils/show';
 import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
 import { Announcement } from '@/types/models/announcement';
-import { PAGE_SIZE_SMALL } from '@/lib/constants/common';
+import { PAGE_SIZE_SMALL, SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 import React from 'react';
 
 interface NoticeListProps {
@@ -35,7 +35,7 @@ export function NoticeList({ announcements }: NoticeListProps) {
 
   const { paginatedItems, page } = usePagination(PAGE_SIZE_SMALL, filteredAnnouncements);
 
-  const handleSearchChange = debounce({ delay: 200 }, (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = debounce({ delay: SEARCH_DEBOUNCE_MS }, (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch = e.target.value;
     const params = new URLSearchParams(searchParams);
 

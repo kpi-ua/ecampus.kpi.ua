@@ -6,14 +6,12 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { getSbpLoads, getSbpRights, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { redirect } from '@/i18n/routing';
-import { hasModule } from '@/lib/jwt';
 import { LocaleProps } from '@/types/locale-props';
-import { AccessDeniedState } from './components/access-denied-state';
 import { GrantButton } from './components/grant-button';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';
 import { RightsTable } from './components/rights-table';
-import { SBP_RIGHTS_MODULE, SBP_RIGHTS_PATH } from './constants';
+import { SBP_RIGHTS_PATH } from './constants';
 import { loadRightsSearchParams, serializeRightsSearchParams } from './search-params';
 
 const INTL_NAMESPACE = 'private.studbonuspointsrights';
@@ -31,10 +29,6 @@ export async function generateMetadata({ params }: LocaleProps) {
 export default async function SbpRightsPage({ params, searchParams }: PageProps) {
   const { locale } = await params;
   const t = await getTranslations(INTL_NAMESPACE);
-
-  if (!(await hasModule(SBP_RIGHTS_MODULE))) {
-    return <AccessDeniedState />;
-  }
 
   const filters = await loadRightsSearchParams(searchParams);
 

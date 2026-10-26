@@ -2,6 +2,7 @@
 
 import { Fragment, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { group } from 'radash';
 import { Trash2, UserX } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -15,16 +16,6 @@ interface Props {
   items: SbpResponsibilityListItem[];
 }
 
-interface Group {
-  key: string;
-  studyingYearName: string;
-  userAccountId: number;
-  fullName: string;
-  scope: SbpResponsibilityListItem['scope'];
-  subdivisionLabel: string;
-  items: SbpResponsibilityListItem[];
-}
-
 const COLUMN_COUNT = 3;
 
 /**
@@ -35,28 +26,13 @@ const COLUMN_COUNT = 3;
 export function RightsTable({ items }: Props) {
   const t = useTranslations('private.studbonuspointsrights');
 
-  const groups = useMemo<Group[]>(() => {
-    const map = new Map<string, Group>();
-    for (const item of items) {
-      const subdivisionLabel = item.subdivisionAbbreviation ?? item.subdivisionName;
-      const key = `${item.studyingYearId}|${item.userAccountId}|${item.subdivisionId}`;
-      let group = map.get(key);
-      if (!group) {
-        group = {
-          key,
-          studyingYearName: item.studyingYearName,
-          userAccountId: item.userAccountId,
-          fullName: item.fullName,
-          scope: item.scope,
-          subdivisionLabel,
-          items: [],
-        };
-        map.set(key, group);
-      }
-      group.items.push(item);
-    }
-    return [...map.values()];
-  }, [items]);
+  const groups = useMemo(
+    () =>
+      Object.values(group(items, (x) => `${x.studyingYearId}|${x.userAccountId}|${x.subdivisionId}`)).filter(
+        (g): g is SbpResponsibilityListItem[] => g != null,
+      ),
+    [items],
+  );
 
   return (
     <Table>
@@ -70,62 +46,67 @@ export function RightsTable({ items }: Props) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {groups.map((group) => (
-          <Fragment key={group.key}>
-            <TableRow className="bg-muted/40 hover:bg-muted/40">
-              <TableCell colSpan={COLUMN_COUNT} className="py-2">
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                  <span className="text-muted-foreground text-xs tracking-wide whitespace-nowrap uppercase">
-                    {group.studyingYearName}
-                  </span>
-                  <span className="font-medium">{group.fullName}</span>
-                  {/* Per-user bulk revoke (KB-1336): also removes the module from their menu. */}
-                  <RevokeDialog
-                    messages="revokeAll"
-                    descriptionValues={{ user: group.fullName }}
-                    icon={<UserX className="h-4 w-4" />}
-                    onConfirm={() => revokeAllSbpRightsForUser(group.userAccountId)}
-                  />
-                  <Badge variant={group.scope === 'University' ? 'purple' : 'blue'}>
-                    {t(`scope.${group.scope === 'University' ? 'university' : 'faculty'}`)}
-                  </Badge>
-                  <span className="text-muted-foreground text-sm">{group.subdivisionLabel}</span>
-                </div>
-              </TableCell>
-            </TableRow>
-            {group.items.map((item) => (
-              <TableRow key={item.id} className="align-top">
-                <TableCell>
-                  <div className="flex flex-col">
-                    <span>
-                      {item.loadSubTreeNumber != null ? `${item.loadSubTreeNumber}. ` : ''}
-                      {item.loadName}
+        {groups.map((rows) => {
+          const head = rows[0];
+          return (
+            <Fragment key={head.id}>
+              <TableRow className="bg-muted/40 hover:bg-muted/40">
+                <TableCell colSpan={COLUMN_COUNT} className="py-2">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="text-muted-foreground text-xs tracking-wide whitespace-nowrap uppercase">
+                      {head.studyingYearName}
                     </span>
-                    <span className="text-muted-foreground text-xs">
-                      {item.workKindName} · {item.treeName}
+                    <span className="font-medium">{head.fullName}</span>
+                    {/* Per-user bulk revoke (KB-1336): also removes the module from their menu. */}
+                    <RevokeDialog
+                      messages="revokeAll"
+                      descriptionValues={{ user: head.fullName }}
+                      icon={<UserX className="h-4 w-4" />}
+                      onConfirm={() => revokeAllSbpRightsForUser(head.userAccountId)}
+                    />
+                    <Badge variant={head.scope === 'University' ? 'purple' : 'blue'}>
+                      {t(`scope.${head.scope === 'University' ? 'university' : 'faculty'}`)}
+                    </Badge>
+                    <span className="text-muted-foreground text-sm">
+                      {head.subdivisionAbbreviation ?? head.subdivisionName}
                     </span>
                   </div>
                 </TableCell>
-                <TableCell className="text-muted-foreground whitespace-nowrap">
-                  {item.changeDate ? formatDate(item.changeDate) : EMPTY_VALUE}
-                </TableCell>
-                <TableCell className="text-right">
-                  <RevokeDialog
-                    messages="revoke"
-                    descriptionValues={{
-                      user: item.fullName,
-                      load: item.loadName,
-                      subdivision: item.subdivisionAbbreviation ?? item.subdivisionName,
-                      year: item.studyingYearName,
-                    }}
-                    icon={<Trash2 className="h-4 w-4" />}
-                    onConfirm={() => revokeSbpRight(item.id)}
-                  />
-                </TableCell>
               </TableRow>
-            ))}
-          </Fragment>
-        ))}
+              {rows.map((item) => (
+                <TableRow key={item.id} className="align-top">
+                  <TableCell>
+                    <div className="flex flex-col">
+                      <span>
+                        {item.loadSubTreeNumber != null ? `${item.loadSubTreeNumber}. ` : ''}
+                        {item.loadName}
+                      </span>
+                      <span className="text-muted-foreground text-xs">
+                        {item.workKindName} · {item.treeName}
+                      </span>
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-muted-foreground whitespace-nowrap">
+                    {item.changeDate ? formatDate(item.changeDate) : EMPTY_VALUE}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <RevokeDialog
+                      messages="revoke"
+                      descriptionValues={{
+                        user: item.fullName,
+                        load: item.loadName,
+                        subdivision: item.subdivisionAbbreviation ?? item.subdivisionName,
+                        year: item.studyingYearName,
+                      }}
+                      icon={<Trash2 className="h-4 w-4" />}
+                      onConfirm={() => revokeSbpRight(item.id)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </Fragment>
+          );
+        })}
       </TableBody>
     </Table>
   );

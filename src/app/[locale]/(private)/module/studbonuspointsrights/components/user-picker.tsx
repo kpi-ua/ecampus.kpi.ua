@@ -6,6 +6,7 @@ import { Check, ChevronDown, Loader2 } from 'lucide-react';
 import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { useDebounce } from '@/components/ui/multi-select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 import { cn } from '@/lib/utils';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { useUserSearch } from '../hooks/use-user-search';
@@ -27,7 +28,7 @@ export function UserPicker({ value, onChange, className, ...triggerProps }: Prop
   const listboxId = useId();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const debouncedQuery = useDebounce(query, 300);
+  const debouncedQuery = useDebounce(query, SEARCH_DEBOUNCE_MS);
   const { users: results, isFetching: isSearching, isTooShort } = useUserSearch(debouncedQuery);
 
   const showMinCharsHint = !isSearching && isTooShort;

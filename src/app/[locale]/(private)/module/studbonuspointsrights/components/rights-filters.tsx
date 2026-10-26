@@ -3,12 +3,12 @@
 import { debounce, useQueryStates } from 'nuqs';
 import { useTranslations } from 'next-intl';
 import { Input } from '@/components/ui/input';
+import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { SbpLoadCatalogItem, SbpStudyYearCatalogItem, SbpSubdivisionCatalogItem } from '@/types/models/sbp-rights';
 import { rightsSearchParams } from '../search-params';
 
 const ALL_VALUE = 'all';
-const SEARCH_DEBOUNCE_MS = 300;
 
 type SelectFilter = 'studyingYearId' | 'subdivisionId' | 'loadId';
 

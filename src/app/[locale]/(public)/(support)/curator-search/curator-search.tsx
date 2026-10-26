@@ -9,6 +9,7 @@ import { searchByGroupName } from '@/actions/group.actions';
 import { useCallback, useEffect, useState } from 'react';
 import { Group } from '@/types/models/group';
 import { debounce } from 'radash';
+import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 import { Show } from '@/components/utils/show';
 import { useTranslations } from 'next-intl';
 
@@ -49,7 +50,7 @@ export const CuratorSearch = () => {
       <Input
         placeholder={t('search-placeholder')}
         icon={<MagnifyingGlassRegular />}
-        onChange={debounce({ delay: 200 }, handleChange)}
+        onChange={debounce({ delay: SEARCH_DEBOUNCE_MS }, handleChange)}
       />
       <div className="relative grow">
         <Show when={!search && !groups.length}>

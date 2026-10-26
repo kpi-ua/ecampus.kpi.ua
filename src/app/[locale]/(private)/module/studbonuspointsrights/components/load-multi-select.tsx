@@ -65,18 +65,13 @@ export function LoadMultiSelect({ loads, value, onChange, className, ...groupPro
     onChange(allSelected ? [] : allLoadIds);
   };
 
-  const toggleGroup = (group: Group) => {
+  const toggleGroup = (group: Group, allInGroup: boolean) => {
     const groupIds = group.loads.map((l) => l.loadId);
-    const allInGroup = groupIds.every((id) => selected.has(id));
     if (allInGroup) {
       const groupSet = new Set(groupIds);
       onChange(value.filter((id) => !groupSet.has(id)));
     } else {
-      const merged = new Set(value);
-      for (const id of groupIds) {
-        merged.add(id);
-      }
-      onChange([...merged]);
+      onChange([...new Set([...value, ...groupIds])]);
     }
   };
 
@@ -94,8 +89,7 @@ export function LoadMultiSelect({ loads, value, onChange, className, ...groupPro
       </div>
       <div className="max-h-96 space-y-4 overflow-y-auto rounded-md border p-3">
         {groups.map((group) => {
-          const groupIds = group.loads.map((l) => l.loadId);
-          const allInGroup = groupIds.every((id) => selected.has(id));
+          const allInGroup = group.loads.every(({ loadId }) => selected.has(loadId));
           return (
             <div key={`${group.workKindId}:${group.treeId}`}>
               <div className="mb-2 flex items-center justify-between gap-2">
@@ -106,7 +100,7 @@ export function LoadMultiSelect({ loads, value, onChange, className, ...groupPro
                   type="button"
                   variant="tertiary"
                   size="small"
-                  onClick={() => toggleGroup(group)}
+                  onClick={() => toggleGroup(group, allInGroup)}
                   className="px-2 py-1 text-xs"
                 >
                   {allInGroup ? t('clearAll') : t('selectAll')}

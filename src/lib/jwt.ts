@@ -16,9 +16,3 @@ export const getUserModules = async () => {
 
   return payload?.modules ?? [];
 };
-
-export const hasModule = async (name: string) => {
-  const modules = await getUserModules();
-
-  return modules.includes(name);
-};
