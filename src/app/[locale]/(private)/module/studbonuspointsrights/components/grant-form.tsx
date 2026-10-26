@@ -87,13 +87,15 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
               render={({ field, fieldState }) => (
                 <FormItem>
                   <FormLabel>{t('user')}</FormLabel>
-                  <UserPicker
-                    value={selectedUser}
-                    onChange={(user) => {
-                      setSelectedUser(user);
-                      field.onChange(user?.id ?? 0);
-                    }}
-                  />
+                  <FormControl>
+                    <UserPicker
+                      value={selectedUser}
+                      onChange={(user) => {
+                        setSelectedUser(user);
+                        field.onChange(user?.id ?? 0);
+                      }}
+                    />
+                  </FormControl>
                   {fieldState.error && <FormMessage>{t(fieldState.error.message ?? '')}</FormMessage>}
                 </FormItem>
               )}

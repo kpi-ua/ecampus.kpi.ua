@@ -1,12 +1,13 @@
 'use client';
 
-import { useId, useMemo } from 'react';
+import { ComponentProps, useId, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { cn } from '@/lib/utils';
 import { SbpLoadCatalogItem } from '@/types/models/sbp-rights';
 
-interface Props {
+interface Props extends Omit<ComponentProps<'div'>, 'onChange'> {
   loads: SbpLoadCatalogItem[];
   value: number[];
   onChange: (next: number[]) => void;
@@ -24,8 +25,10 @@ interface Group {
  * Flat checkbox list of SBP loads, grouped by work-kind → tree. Selection
  * is held in the parent form (array of loadIds). A global and per-group
  * Select-all / Clear toggle (KB-1307) avoids hand-checking long lists.
+ * Remaining props (id, aria-* from `FormControl`) go to the checkbox group,
+ * so the required-field error is tied to it.
  */
-export function LoadMultiSelect({ loads, value, onChange }: Props) {
+export function LoadMultiSelect({ loads, value, onChange, className, ...groupProps }: Props) {
   const t = useTranslations('private.studbonuspointsrights.grant');
   const idPrefix = useId();
 
@@ -82,7 +85,7 @@ export function LoadMultiSelect({ loads, value, onChange }: Props) {
   }
 
   return (
-    <div className="space-y-2">
+    <div {...groupProps} role="group" aria-label={t('loads')} className={cn('space-y-2', className)}>
       <div className="flex items-center justify-between">
         <span className="text-muted-foreground text-xs">{t('loadsSelected', { count: value.length })}</span>
         <Button type="button" variant="tertiary" size="small" onClick={toggleAll} className="px-2 py-1 text-xs">

@@ -1,4 +1,4 @@
-import { createLoader, createParser, parseAsString } from 'nuqs/server';
+import { createLoader, createParser, createSerializer, parseAsString } from 'nuqs/server';
 
 // `parseAsInteger` reads '12abc' as 12; ids in the URL must be plain positive integers.
 const parseAsId = createParser({
@@ -15,3 +15,4 @@ export const rightsSearchParams = {
 };
 
 export const loadRightsSearchParams = createLoader(rightsSearchParams);
+export const serializeRightsSearchParams = createSerializer(rightsSearchParams);

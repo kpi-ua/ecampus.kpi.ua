@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { ComponentProps, useId, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Check, ChevronDown, Loader2 } from 'lucide-react';
 import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { useUserSearch } from '../hooks/use-user-search';
 
-interface Props {
+interface Props extends Omit<ComponentProps<'button'>, 'value' | 'onChange'> {
   value: EntityIdName | null;
   onChange: (user: EntityIdName | null) => void;
 }
@@ -19,9 +19,10 @@ interface Props {
  * Single-pick user picker with async search. Trigger looks like a `<Select>`;
  * after selection, the chosen user's name renders as plain text. Reopening
  * the popover starts a fresh search — no removable badges, no multi-select
- * affordances.
+ * affordances. Remaining props (id, aria-*, ref from `FormControl`) go to the
+ * trigger, so the field label and error point at it.
  */
-export function UserPicker({ value, onChange }: Props) {
+export function UserPicker({ value, onChange, className, ...triggerProps }: Props) {
   const t = useTranslations('private.studbonuspointsrights.grant');
   const listboxId = useId();
   const [open, setOpen] = useState(false);
@@ -35,12 +36,16 @@ export function UserPicker({ value, onChange }: Props) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <button
+          {...triggerProps}
           type="button"
           role="combobox"
           aria-expanded={open}
           aria-controls={listboxId}
           aria-haspopup="listbox"
-          className="border-input bg-background ring-offset-background focus:ring-ring flex h-[44px] w-full cursor-pointer items-center justify-between rounded-[8px] border px-3 py-2 text-sm focus:ring-2 focus:ring-offset-2 focus:outline-hidden"
+          className={cn(
+            'border-input bg-background ring-offset-background focus:ring-ring flex h-[44px] w-full cursor-pointer items-center justify-between rounded-[8px] border px-3 py-2 text-sm focus:ring-2 focus:ring-offset-2 focus:outline-hidden',
+            className,
+          )}
         >
           <span className={cn('truncate', !value && 'text-muted-foreground')}>
             {value ? value.name : t('userPickerPlaceholder')}
