@@ -266,6 +266,36 @@
     }
   },
   "private": {
+    "yiystat": {
+      "title": "Statistical data",
+      "retry": "Try again",
+      "tabs": {
+        "surveys": "Surveys",
+        "visits": "Visits"
+      },
+      "surveys": {
+        "title": "Survey participation",
+        "id": "Survey ID",
+        "year": "Academic year",
+        "start": "Start date",
+        "end": "End date",
+        "respondents": "Participants",
+        "empty": "No survey participation data yet."
+      },
+      "visits": {
+        "title": "Electronic Campus visits",
+        "description": "Unique visitors per complete calendar day. Repeated sign-ins on the same day count once.",
+        "period": "Last {days} days",
+        "date": "Date",
+        "lecturers": "Academic staff",
+        "students": "Students with a study group",
+        "all-students": "All students",
+        "empty": "No visit data available.",
+        "weekly-summary": "Unique visitors over the last 7 complete days",
+        "visitor-type": "Visitor type",
+        "unique-visitors": "Unique visitors"
+      }
+    },
     "adminvote": {
       "title": "Survey criteria",
       "table": {
