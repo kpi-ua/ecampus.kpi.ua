@@ -7,10 +7,10 @@ import { Heading2, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 
 interface Props {
-  reset: () => void;
+  retry: () => void;
 }
 
-export default function Error({ reset }: Props) {
+export default function Error({ retry }: Props) {
   const t = useTranslations('private.yiystat');
   const error = useTranslations('global.server-error');
 
@@ -19,7 +19,7 @@ export default function Error({ reset }: Props) {
       <div className="col-span-12 flex flex-col items-start gap-4">
         <Heading2>{error('title')}</Heading2>
         <Paragraph className="my-0">{error('description')}</Paragraph>
-        <Button onClick={reset}>{t('retry')}</Button>
+        <Button onClick={retry}>{t('retry')}</Button>
       </div>
     </SubLayout>
   );
