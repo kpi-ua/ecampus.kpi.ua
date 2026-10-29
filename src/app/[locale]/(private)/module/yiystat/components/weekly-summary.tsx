@@ -1,6 +1,4 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { Heading3 } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -10,8 +8,8 @@ interface Props {
   totals: VisitTotals;
 }
 
-export const WeeklySummary = ({ totals }: Props) => {
-  const t = useTranslations('private.yiystat.visits');
+export const WeeklySummary = async ({ totals }: Props) => {
+  const t = await getTranslations('private.yiystat.visits');
 
   return (
     <section className="flex flex-col gap-4">

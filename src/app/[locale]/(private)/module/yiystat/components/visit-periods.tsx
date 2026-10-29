@@ -1,6 +1,4 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
@@ -11,8 +9,8 @@ interface Props {
   days: number;
 }
 
-export const VisitPeriods = ({ days }: Props) => {
-  const t = useTranslations('private.yiystat.visits');
+export const VisitPeriods = async ({ days }: Props) => {
+  const t = await getTranslations('private.yiystat.visits');
 
   return (
     <nav className="flex flex-wrap gap-2">

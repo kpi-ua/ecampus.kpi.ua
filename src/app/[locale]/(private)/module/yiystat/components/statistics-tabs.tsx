@@ -1,6 +1,4 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
@@ -11,8 +9,8 @@ interface Props {
   active: 'surveys' | 'visits';
 }
 
-export const StatisticsTabs = ({ active }: Props) => {
-  const t = useTranslations('private.yiystat.tabs');
+export const StatisticsTabs = async ({ active }: Props) => {
+  const t = await getTranslations('private.yiystat.tabs');
 
   return (
     <nav className="flex flex-wrap gap-2">

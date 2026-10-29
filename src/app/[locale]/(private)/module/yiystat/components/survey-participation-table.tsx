@@ -1,31 +1,27 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { Paragraph } from '@/components/typography';
-import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+} from '@/components/ui/pagination';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Show } from '@/components/utils/show';
-import { usePagination } from '@/hooks/use-pagination';
-import { useTableSort } from '@/hooks/use-table-sort';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
+import { createPagesRange } from '@/lib/pagination.utils';
 import { formatDate } from '@/lib/utils';
 import { SurveyParticipation } from '@/types/models/statistics';
 
 interface Props {
   items: SurveyParticipation[];
+  page: number;
+  totalCount: number;
 }
 
-export const SurveyParticipationTable = ({ items }: Props) => {
-  const t = useTranslations('private.yiystat.surveys');
-  const { sortedRows, sortHandlers } = useTableSort(items, undefined, [
-    'id',
-    'studyYear',
-    'startsOn',
-    'endsOn',
-    'respondentCount',
-  ]);
-  const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
+export const SurveyParticipationTable = async ({ items, page, totalCount }: Props) => {
+  const t = await getTranslations('private.yiystat.surveys');
 
   if (!items.length) {
     return <Paragraph className="my-0 py-12 text-center text-sm text-neutral-600">{t('empty')}</Paragraph>;
@@ -36,25 +32,15 @@ export const SurveyParticipationTable = ({ items }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="id">
-              {t('id')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="studyYear">
-              {t('year')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="startsOn">
-              {t('start')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="endsOn">
-              {t('end')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="respondentCount">
-              {t('respondents')}
-            </TableHead>
+            <TableHead>{t('id')}</TableHead>
+            <TableHead>{t('year')}</TableHead>
+            <TableHead>{t('start')}</TableHead>
+            <TableHead>{t('end')}</TableHead>
+            <TableHead>{t('respondents')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedItems.map((item) => (
+          {items.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.id}</TableCell>
               <TableCell className="whitespace-nowrap">{item.studyYear}</TableCell>
@@ -65,9 +51,27 @@ export const SurveyParticipationTable = ({ items }: Props) => {
           ))}
         </TableBody>
       </Table>
-      <Show when={items.length > PAGE_SIZE_DEFAULT}>
-        <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={items.length} />
-      </Show>
+      {totalCount > PAGE_SIZE_DEFAULT && (
+        <Pagination>
+          <PaginationContent>
+            {createPagesRange({
+              currentPage: page,
+              pagesCount: Math.ceil(totalCount / PAGE_SIZE_DEFAULT),
+              visibleRange: 3,
+            }).map((item, index) => (
+              <PaginationItem key={`${item}-${index}`}>
+                {item === '...' ? (
+                  <PaginationEllipsis />
+                ) : (
+                  <PaginationLink href={`?page=${item}`} isActive={item === page}>
+                    {item}
+                  </PaginationLink>
+                )}
+              </PaginationItem>
+            ))}
+          </PaginationContent>
+        </Pagination>
+      )}
     </>
   );
 };

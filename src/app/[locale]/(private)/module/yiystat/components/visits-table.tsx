@@ -1,10 +1,7 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useTableSort } from '@/hooks/use-table-sort';
 import { formatDate } from '@/lib/utils';
 import { DailyVisits } from '@/types/models/statistics';
 
@@ -12,9 +9,8 @@ interface Props {
   items: DailyVisits[];
 }
 
-export const VisitsTable = ({ items }: Props) => {
-  const t = useTranslations('private.yiystat.visits');
-  const { sortedRows, sortHandlers } = useTableSort(items, undefined, ['date', 'lecturers', 'students']);
+export const VisitsTable = async ({ items }: Props) => {
+  const t = await getTranslations('private.yiystat.visits');
 
   if (!items.length) {
     return <Paragraph className="my-0 py-12 text-center text-sm text-neutral-600">{t('empty')}</Paragraph>;
@@ -24,19 +20,13 @@ export const VisitsTable = ({ items }: Props) => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead sortHandlers={sortHandlers} sortHeader="date">
-            {t('date')}
-          </TableHead>
-          <TableHead sortHandlers={sortHandlers} sortHeader="lecturers">
-            {t('lecturers')}
-          </TableHead>
-          <TableHead sortHandlers={sortHandlers} sortHeader="students">
-            {t('students')}
-          </TableHead>
+          <TableHead>{t('date')}</TableHead>
+          <TableHead>{t('lecturers')}</TableHead>
+          <TableHead>{t('students')}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {sortedRows.map((item) => (
+        {items.map((item) => (
           <TableRow key={item.date}>
             <TableCell>{formatDate(item.date)}</TableCell>
             <TableCell>{item.lecturers}</TableCell>
