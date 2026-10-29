@@ -6,7 +6,6 @@ import { Heading2 } from '@/components/typography';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
 
-import { StatisticsTabs } from './components/statistics-tabs';
 import { SurveyParticipationTable } from './components/survey-participation-table';
 
 const INTL_NAMESPACE = 'private.yiystat';
@@ -32,7 +31,6 @@ export default async function StatisticsPage({ searchParams }: Props) {
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12 flex min-w-0 flex-col gap-6">
-        <StatisticsTabs active="surveys" />
         <Heading2>{t('surveys.title')}</Heading2>
         <SurveyParticipationTable items={items} page={page} totalCount={surveys.length} />
       </div>
