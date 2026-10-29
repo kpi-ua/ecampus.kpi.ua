@@ -140,13 +140,14 @@ No testing framework currently configured.
 
 # Conventions
 
-The *de facto* conventions used in this repo. Follow them so PRs match what already exists and don't churn through review.
+The _de facto_ conventions used in this repo. Follow them so PRs match what already exists and don't churn through review.
 
 ## Golden rule
 
 **Match the surrounding code.** Before adding a new pattern, open 2–3 existing modules under `src/app/[locale]/(private)/module/` and copy their structure. If you find yourself introducing an abstraction (custom layout view, new helper file, new wrapper component) that no other module uses, stop — there is almost certainly an existing pattern you should be following instead.
 
 Concrete examples of recent drift to avoid:
+
 - Adding a separate mobile card view inside a table component (no other table does this — `<Table>` is used as-is).
 - Wrapping create/edit forms in modal `<Dialog>` for primary CRUD flows. Inline forms above the table are the convention (see `announcement-management.tsx`).
 - Inventing a new file type like `schema.ts` when the form's Zod schema is small enough to live next to `useForm`.
@@ -182,12 +183,12 @@ Reference: `module/facultycertificate/components/all-docs-table.tsx`, `module/ce
 Standard wiring for a paginated, sortable table:
 
 ```tsx
-import { memo } from 'react';
 import { useTranslations } from 'next-intl';
+import { memo } from 'react';
 
 import { Paragraph } from '@/components/typography';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
@@ -199,7 +200,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
   const { paginatedItems } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
 
   if (items.length === 0) {
-    return <Paragraph className="text-muted-foreground my-0 py-12 text-center text-sm">{t('empty')}</Paragraph>;
+    return <Paragraph className="my-0 py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
   }
 
   return (
@@ -226,7 +227,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 - Error handling has two flavors in the codebase:
   - **Throw** on non-OK (`certificates.actions.ts`) — caller wraps in try/catch with `useServerErrorToast`.
   - **Return a safe default** like `{ items: [], total: 0 }` (`announcement.actions.ts`) when the page can render an empty state.
-  Pick one consistently per action and document the contract via the return type.
+    Pick one consistently per action and document the contract via the return type.
 
 ## 4. Forms (React Hook Form + Zod)
 
@@ -276,14 +277,14 @@ Memoization: only wrap in `memo(function Name() {})` when the component is rende
 
 In `src/hooks/`:
 
-| Hook | Purpose |
-|------|---------|
-| `usePagination(pageSize, items)` | Slices items + reads/writes `?page=` URL param |
+| Hook                                               | Purpose                                                                              |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `usePagination(pageSize, items)`                   | Slices items + reads/writes `?page=` URL param                                       |
 | `useTableSort(rows, getSortValue?, sortableKeys?)` | Client-side column sorting, returns `{ sortedRows, sortHandlers, getSortDirection }` |
-| `useServerErrorToast()` | `errorToast()` showing the standard `'global.server-error'` message |
-| `useToast()` | Manual toasts: `toast({ title, description, variant: 'destructive' })` |
-| `useLocalStorage(key, default)` | Persist client state |
-| `useIsMobile()` | Viewport check (use sparingly — Tailwind breakpoints are usually enough) |
+| `useServerErrorToast()`                            | `errorToast()` showing the standard `'global.server-error'` message                  |
+| `useToast()`                                       | Manual toasts: `toast({ title, description, variant: 'destructive' })`               |
+| `useLocalStorage(key, default)`                    | Persist client state                                                                 |
+| `useIsMobile()`                                    | Viewport check (use sparingly — Tailwind breakpoints are usually enough)             |
 
 If you need a hook only inside one module, put it in `<module>/hooks.ts` (see `module/rating/hooks.ts`).
 
@@ -361,6 +362,7 @@ npm run format:check $(git diff --name-only main..HEAD)
 ```
 
 Quick self-review pass:
+
 - [ ] Did I match the file layout, naming, and component style of a sibling module?
 - [ ] Am I introducing any new abstraction that no other module uses? If yes, why?
 - [ ] Did I add translation keys to **both** `uk.json` and `en.json`?
