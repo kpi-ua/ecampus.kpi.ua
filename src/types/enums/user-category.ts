@@ -1,4 +1,5 @@
 export enum UserCategory {
   Student = 'Student',
-  Lecturer = 'Lecturer',
+  AcademicStaff = 'AcademicStaff',
+  AdministrativeStaff = 'AdministrativeStaff',
 }
