@@ -31,7 +31,7 @@ export const LecturerResults = ({ results }: Props) => {
   return (
     <section className="min-w-0 rounded-3xl bg-white p-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-        <Heading2 className="leading-xl lg:leading-xl m-0 text-2xl lg:text-2xl">{t('heading')}</Heading2>
+        <Heading2 className="m-0 text-2xl leading-xl lg:text-2xl lg:leading-xl">{t('heading')}</Heading2>
         {periods.length > 0 && (
           <div className="flex flex-wrap items-center gap-6">
             <div className="flex items-center gap-3">
@@ -68,7 +68,7 @@ export const LecturerResults = ({ results }: Props) => {
       </div>
       <Show
         when={filteredPeriods.length > 0}
-        fallback={<Paragraph className="text-muted-foreground my-0 py-12 text-center text-sm">{t('empty')}</Paragraph>}
+        fallback={<Paragraph className="my-0 py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>}
       >
         <Table className="min-w-[760px] [&_th]:h-10 [&_th]:py-3 [&_th]:text-xs [&_th]:font-medium">
           <TableHeader>

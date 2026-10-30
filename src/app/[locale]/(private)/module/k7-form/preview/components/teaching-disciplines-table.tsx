@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
-import { Fragment } from 'react';
 import { sort, sum, unique } from 'radash';
+import { Fragment } from 'react';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EMPTY_VALUE } from '@/lib/constants/common';

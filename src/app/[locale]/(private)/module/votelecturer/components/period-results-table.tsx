@@ -110,7 +110,7 @@ export const PeriodResultsTable = ({ period, latest }: Props) => {
                                   {score != null ? (
                                     <div className="h-2 w-full overflow-hidden rounded-full bg-neutral-200">
                                       <div
-                                        className="bg-basic-blue h-full rounded-full"
+                                        className="h-full rounded-full bg-basic-blue"
                                         style={{ width: String(Math.max(0, Math.min(5, score)) * 20) + '%' }}
                                       />
                                     </div>

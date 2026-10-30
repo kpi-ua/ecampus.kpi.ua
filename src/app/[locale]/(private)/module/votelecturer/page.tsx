@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getLecturerVoteResults } from '@/actions/vote-lecturer.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { CriteriaDescription } from '@/app/[locale]/(private)/module/vote/components/criteria-description';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { LocaleProps } from '@/types/locale-props';
 
