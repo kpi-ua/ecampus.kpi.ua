@@ -10,6 +10,7 @@ import { Show } from '@/components/utils/show';
 interface Props {
   filters: CuratorFilters;
   includeAll?: boolean;
+  allLabel?: string;
   yearId: string;
   semester: string;
   resultId: string;
@@ -23,6 +24,7 @@ interface Props {
 export const ResultFilters = ({
   filters,
   includeAll = false,
+  allLabel,
   yearId,
   semester,
   resultId,
@@ -42,7 +44,7 @@ export const ResultFilters = ({
         </SelectTrigger>
         <SelectContent>
           <Show when={includeAll}>
-            <SelectItem value="all">{t('filters.all')}</SelectItem>
+            <SelectItem value="all">{allLabel ?? t('filters.all')}</SelectItem>
           </Show>
           {resultOptions.map((option) => (
             <SelectItem key={option.id} value={option.id.toString()}>

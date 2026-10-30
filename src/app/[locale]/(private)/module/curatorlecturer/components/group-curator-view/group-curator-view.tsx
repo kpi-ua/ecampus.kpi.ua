@@ -65,7 +65,13 @@ export const GroupCuratorView = ({ groups, filters }: Props) => {
             </Show>
           </TabsContent>
           <TabsContent value="survey" className="mt-0">
-            <SurveyTab key={selectedGroup.groupId} groupId={selectedGroup.groupId} groupName={selectedGroup.name} />
+            <SurveyTab
+              key={selectedGroup.groupId}
+              groupId={selectedGroup.groupId}
+              groupName={selectedGroup.name}
+              filters={filters}
+              defaultYearId={defaultYearId}
+            />
           </TabsContent>
         </Card>
       </Tabs>

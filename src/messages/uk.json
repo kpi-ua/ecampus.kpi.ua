@@ -948,6 +948,9 @@
         },
         "survey": {
           "title": "Опитування {group}",
+          "all": "Усі опитування",
+          "incomplete-count": "Неповна участь: {count} з {total} студентів",
+          "only-incomplete": "Показати лише з неповною участю",
           "discipline": "Дисципліна"
         },
         "filters": {

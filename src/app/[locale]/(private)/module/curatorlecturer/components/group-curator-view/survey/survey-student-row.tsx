@@ -28,9 +28,11 @@ export const SurveyStudentRow = ({ rows }: Props) => {
   return (
     <Fragment>
       <TableRow>
-        <TableCell className="font-semibold">{rows[0]?.fullName}</TableCell>
-        <TableCell className="w-64 text-center">
-          <Badge variant={badgeVariant}>{t('completed-count', { completed, total: rows.length })}</Badge>
+        <TableCell>{rows[0]?.fullName}</TableCell>
+        <TableCell className="w-80 text-center">
+          <Badge variant={badgeVariant} className="border border-current/20 font-normal">
+            {t('completed-count', { completed, total: rows.length })}
+          </Badge>
         </TableCell>
         <TableCell className="w-12 text-right">
           <TableExpandButton expanded={expanded} onToggle={handleExpand} />
@@ -38,16 +40,28 @@ export const SurveyStudentRow = ({ rows }: Props) => {
       </TableRow>
       <Show when={expanded}>
         {rows.map((row) => (
-          <TableRow key={`${row.discipline.id}-${row.employeeId}`} className="bg-neutral-50 hover:bg-neutral-50">
-            <TableCell className="py-3 pl-6 text-sm">
+          <TableRow
+            key={`${row.termId}-${row.discipline.id}-${row.employeeId}`}
+            className="border-0 bg-neutral-50 hover:bg-neutral-50"
+          >
+            <TableCell className="py-2 pl-6 text-sm">
               {row.lecturerName} — {row.discipline.name}
             </TableCell>
-            <TableCell className="w-64 py-3">
-              <Show when={row.hasVoted} fallback={<X className="mx-auto size-5 shrink-0 text-red-600" />}>
-                <Check className="mx-auto size-5 shrink-0 text-green-600" />
+            <TableCell className="w-80 py-2">
+              <Show
+                when={row.hasVoted}
+                fallback={
+                  <>
+                    <X aria-hidden className="mx-auto size-5 shrink-0 text-red-600" />
+                    <span className="sr-only">{t('not-completed')}</span>
+                  </>
+                }
+              >
+                <Check aria-hidden className="mx-auto size-5 shrink-0 text-green-600" />
+                <span className="sr-only">{t('completed')}</span>
               </Show>
             </TableCell>
-            <TableCell className="w-12 py-3" />
+            <TableCell className="w-12 py-2" />
           </TableRow>
         ))}
       </Show>
