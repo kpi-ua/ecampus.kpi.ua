@@ -71,7 +71,7 @@ export const Header: FC<Props> = ({ user }) => {
               <Link
                 href="/profile"
                 aria-label={t('title')}
-                className="rounded-full p-1 ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                className="rounded-full p-1 ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden"
               >
                 <ProfilePicture size="sm" src={profilePhoto} />
               </Link>
