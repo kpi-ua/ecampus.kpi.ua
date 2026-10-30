@@ -9,6 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useTableSort } from '@/hooks/use-table-sort';
+import { useUserCategoryLabel } from '@/hooks/use-user-category-label';
 import { Link } from '@/i18n/routing';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { isOutdated } from '@/lib/date.utils';
@@ -24,6 +25,7 @@ interface Props {
 
 export const AnnouncementsTable = ({ items, onDelete }: Props) => {
   const t = useTranslations('private.announcementseditor');
+  const roleLabel = useUserCategoryLabel();
   const noRestriction = t('table.noRestriction');
 
   const { sortedRows, sortHandlers } = useTableSort(
@@ -81,7 +83,7 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
                 </Badge>
               </TableCell>
               <TableCell className="text-start align-middle text-muted-foreground">
-                {formatFilterCell(rolesText(filter), noRestriction)}
+                {formatFilterCell(rolesText(filter, roleLabel), noRestriction)}
               </TableCell>
               <TableCell className="text-start align-middle text-muted-foreground">
                 {formatFilterCell(studyFormsText(filter), noRestriction)}

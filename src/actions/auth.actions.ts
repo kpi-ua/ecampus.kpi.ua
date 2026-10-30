@@ -7,6 +7,7 @@ import qs from 'query-string';
 
 import { campusFetch } from '@/lib/client';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
+import { normalizeUserCategories } from '@/lib/user-category.utils';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
 import { User } from '@/types/models/user';
@@ -97,7 +98,10 @@ export async function getUserDetails() {
     return null;
   }
 
-  return userResponse.json();
+  const user: User = await userResponse.json();
+
+  // Roles are normalised once here, so every consumer sees UserCategory values only
+  return { ...user, roles: normalizeUserCategories(user.roles) };
 }
 
 export async function exchangeKPIIDCode(authorization: KPIIDAuthorization): Promise<KPIIDCodeExchange> {

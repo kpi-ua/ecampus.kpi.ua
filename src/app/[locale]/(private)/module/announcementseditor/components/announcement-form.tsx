@@ -10,6 +10,7 @@ import MultipleSelector from '@/components/ui/multi-select';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useUserCategoryLabel } from '@/hooks/use-user-category-label';
 
 import { formSchema, type AnnouncementFormValues } from './schema';
 
@@ -48,6 +49,7 @@ interface Props {
 
 export function AnnouncementForm({ rolesData, studyFormsData, coursesData, initialValues, onSubmit }: Props) {
   const t = useTranslations('private.announcementseditor.form');
+  const roleLabel = useUserCategoryLabel();
   const { errorToast } = useServerErrorToast();
   const form = useForm<AnnouncementFormValues>({
     resolver: zodResolver(formSchema),
@@ -221,8 +223,8 @@ export function AnnouncementForm({ rolesData, studyFormsData, coursesData, initi
               <FormLabel>{t('fields.roles')}</FormLabel>
               <FormControl>
                 <MultipleSelector
-                  value={(field.value ?? []).map((v) => ({ value: v, label: v }))}
-                  defaultOptions={rolesData.map((role) => ({ value: role, label: role }))}
+                  value={(field.value ?? []).map((v) => ({ value: v, label: roleLabel(v) }))}
+                  defaultOptions={rolesData.map((role) => ({ value: role, label: roleLabel(role) }))}
                   placeholder={t('placeholders.roles')}
                   onChange={(options) => field.onChange(options.map((option) => option.value as string))}
                   emptyIndicator={<EmptyIndicator />}

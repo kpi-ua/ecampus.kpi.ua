@@ -16,7 +16,8 @@ export interface User {
   sid: string;
   modules: string[];
   intellectProfile?: string;
-  userCategories: UserCategory[];
+  /** Normalised by `getUserDetails`; the API's `userCategories` field is an obsolete alias of this. */
+  roles: UserCategory[];
   codeOfHonorSignDate: string;
   privacyConsentDate?: string | null;
   studentProfile?: StudentProfile;

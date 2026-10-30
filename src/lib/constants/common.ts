@@ -53,10 +53,9 @@ export const PASSWORD_MASK = '••••••••';
 /** Delay before a search input pushes its value to the URL or the server. */
 export const SEARCH_DEBOUNCE_MS = 200;
 
-export const USER_CATEGORIES: Record<string, string> = {
+/** Translation keys under `global.user-category`, one per category: a missing one fails `tsc`. */
+export const USER_CATEGORIES: Record<UserCategory, string> = {
   [UserCategory.Student]: 'student',
   [UserCategory.AcademicStaff]: 'spw', // SPW stands for scientific and pedagogical worker
-  // Wire name of AcademicStaff before KBX-1526, until the API with the new name is deployed
-  Lecturer: 'spw',
   [UserCategory.AdministrativeStaff]: 'administrative-staff',
 };

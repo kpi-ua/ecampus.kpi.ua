@@ -70,7 +70,7 @@ export const Header: FC<Props> = ({ user }) => {
           <ProfilePicture size="sm" src={profilePhoto} />
           <div className="hidden flex-col md:flex">
             <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
-            {user?.userCategories.map((category) => (
+            {user?.roles.map((category) => (
               <Paragraph className="m-0 text-base font-semibold" key={category}>
                 {tUserCategory(USER_CATEGORIES[category])}
               </Paragraph>

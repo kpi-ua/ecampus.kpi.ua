@@ -6,7 +6,8 @@ export const formatFilterCell = (value: string, noRestriction: string) => (
   </span>
 );
 
-export const rolesText = (filter: AnnouncementFilter) => (filter.roles.length ? filter.roles.join(', ') : '');
+export const rolesText = (filter: AnnouncementFilter, label: (role: string) => string = (role) => role) =>
+  filter.roles.length ? filter.roles.map(label).join(', ') : '';
 
 export const studyFormsText = (filter: AnnouncementFilter) =>
   filter.studyForms.length ? filter.studyForms.join(', ') : '';

@@ -34,7 +34,7 @@ export async function InfoBlock({ user, className }: Props) {
           <div className="flex flex-col gap-4 md:gap-2">
             <Heading4>{user.fullName}</Heading4>
             <div className="flex items-center gap-2">
-              {user.userCategories.map((category) => (
+              {user.roles.map((category) => (
                 <Heading6 key={category} className="text-basic-blue">
                   {tUserCategory(USER_CATEGORIES[category])}
                 </Heading6>
