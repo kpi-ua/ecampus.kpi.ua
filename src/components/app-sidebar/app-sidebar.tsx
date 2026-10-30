@@ -1,9 +1,11 @@
-import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar';
-import { ModulesMenuItems } from './modules-menu-items';
-import { Logo } from '../logo';
-import { MenuSection } from './menu-section';
-import { MenuItem } from './menu-item';
 import { getTranslations } from 'next-intl/server';
+
+import { Sidebar, SidebarContent, SidebarHeader } from '@/components/ui/sidebar';
+
+import { Logo } from '../logo';
+import { MenuItem } from './menu-item';
+import { MenuSection } from './menu-section';
+import { ModulesMenuItems } from './modules-menu-items';
 
 export async function AppSidebar() {
   const t = await getTranslations('global.menu');

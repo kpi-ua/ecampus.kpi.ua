@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { sum } from 'radash';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EMPTY_VALUE } from '@/lib/constants/common';
@@ -16,7 +17,7 @@ export const MethodicalWorkTable = ({ rows }: Props) => {
   const t = useTranslations('private.k-7.preview.table');
 
   return (
-    <Table className="leading-xs table-fixed border-collapse text-xs">
+    <Table className="table-fixed border-collapse text-xs leading-xs">
       <colgroup>
         <col className="w-[5%]" />
         <col className="w-[20%]" />
@@ -55,7 +56,7 @@ export const MethodicalWorkTable = ({ rows }: Props) => {
             </TableCell>
             <TableCell className={`${summaryCellClassName} text-right`}>
               {formatNumber(
-                rows.reduce((total, row) => total + row.hoursUsed, 0),
+                sum(rows, ({ hoursUsed }) => hoursUsed),
                 2,
               )}
             </TableCell>

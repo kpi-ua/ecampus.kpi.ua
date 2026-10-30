@@ -18,7 +18,7 @@ export const CurrentCriteriaTable = ({ criteria, disabled, onEdit, onArchive }: 
   const t = useTranslations('private.adminvote.table');
 
   if (!criteria.length) {
-    return <Paragraph className="text-muted-foreground my-0 py-12 text-center text-sm">{t('empty')}</Paragraph>;
+    return <Paragraph className="my-0 py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
   }
 
   return (

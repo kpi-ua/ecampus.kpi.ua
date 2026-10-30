@@ -1,12 +1,14 @@
-import { EmployeePosition, EmployeeProfile } from '@/types/models/employee-profile';
-import { EMPLOYMENT_TYPE } from '@/lib/constants/common';
-import { InfoItem, InfoList } from './info-list';
-import { Heading6 } from '@/components/typography/headers';
-import { Show } from '@/components/utils/show';
-import { Separator } from '@/components/ui/separator';
-import { dash } from 'radash';
 import { getTranslations } from 'next-intl/server';
+import { dash } from 'radash';
 import React from 'react';
+
+import { Heading6 } from '@/components/typography/headers';
+import { Separator } from '@/components/ui/separator';
+import { Show } from '@/components/utils/show';
+import { EMPLOYMENT_TYPE } from '@/lib/constants/common';
+import { EmployeePosition, EmployeeProfile } from '@/types/models/employee-profile';
+
+import { InfoItem, InfoList } from './info-list';
 
 interface Props {
   employeeProfile: EmployeeProfile;

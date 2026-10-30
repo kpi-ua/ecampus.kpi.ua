@@ -1,7 +1,9 @@
 import { getTranslations } from 'next-intl/server';
-import PasswordResetForm from './password-reset-form';
-import { AuthNavLayout } from '../../auth-nav-layout';
+
 import { LocaleProps } from '@/types/locale-props';
+
+import { AuthNavLayout } from '../../auth-nav-layout';
+import PasswordResetForm from './password-reset-form';
 
 const INTL_NAMESPACE = 'auth.passwordReset';
 

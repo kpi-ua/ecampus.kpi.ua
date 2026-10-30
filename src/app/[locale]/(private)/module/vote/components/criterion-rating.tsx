@@ -24,6 +24,7 @@ export const CriterionRating = ({ criterion, score, disabled, onScoreChange }: P
           key={mark}
           type="button"
           role="radio"
+          aria-checked={mark <= (score ?? 0)}
           onClick={() => onScoreChange(criterion.id, mark)}
           className={cn(
             'size-11 rounded-md border text-sm font-medium transition-colors',
@@ -35,7 +36,7 @@ export const CriterionRating = ({ criterion, score, disabled, onScoreChange }: P
         </button>
       ))}
     </div>
-    <Paragraph className="leading-sm m-0 text-sm font-medium text-neutral-800">
+    <Paragraph className="m-0 text-sm leading-sm font-medium text-neutral-800">
       {criterion.name}
       <CircleHelp className="ml-1.5 inline-block size-3.5 align-middle text-neutral-400" aria-hidden="true" />
     </Paragraph>

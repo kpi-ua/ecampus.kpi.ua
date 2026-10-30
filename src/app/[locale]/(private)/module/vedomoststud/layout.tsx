@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
-import { Description, Heading2 } from '@/components/typography';
+
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
+import { Description, Heading2 } from '@/components/typography';
 
 interface Props {
   children: React.ReactNode;

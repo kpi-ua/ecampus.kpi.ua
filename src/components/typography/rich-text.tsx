@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
-import { Paragraph } from './paragraph';
-import { Strong } from './strong';
+
 import { Heading1, Heading2, Heading3, Heading4, Heading5, Heading6 } from './headers';
 import { UList } from './lists';
+import { Paragraph } from './paragraph';
+import { Strong } from './strong';
 
 type Tag = 'p' | 'br' | 'b' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'ul' | 'li' | 'tel' | 'email';
 

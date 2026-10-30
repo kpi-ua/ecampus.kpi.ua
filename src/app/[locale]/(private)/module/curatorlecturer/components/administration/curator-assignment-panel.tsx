@@ -91,7 +91,7 @@ export const CuratorAssignmentPanel = ({ group, lecturers, academicYearStart, ac
             name="employeeId"
             render={({ field }) => (
               <FormItem className="flex min-w-0 flex-col gap-1">
-                <FormLabel className="text-sm font-normal leading-5 text-neutral-500">
+                <FormLabel className="text-sm leading-5 font-normal text-neutral-500">
                   {t(editingAssignment ? 'edit.curator' : 'assign.label')}
                 </FormLabel>
                 {editingAssignment ? (
@@ -127,7 +127,7 @@ export const CuratorAssignmentPanel = ({ group, lecturers, academicYearStart, ac
             name="startDate"
             render={({ field }) => (
               <FormItem className="flex min-w-0 flex-col gap-1">
-                <FormLabel className="text-sm font-normal leading-5 text-neutral-500">
+                <FormLabel className="text-sm leading-5 font-normal text-neutral-500">
                   {t('assign.start-date')}
                 </FormLabel>
                 <FormControl>
@@ -149,7 +149,7 @@ export const CuratorAssignmentPanel = ({ group, lecturers, academicYearStart, ac
             name="endDate"
             render={({ field }) => (
               <FormItem className="flex min-w-0 flex-col gap-1">
-                <FormLabel className="text-sm font-normal leading-5 text-neutral-500">{t('assign.end-date')}</FormLabel>
+                <FormLabel className="text-sm leading-5 font-normal text-neutral-500">{t('assign.end-date')}</FormLabel>
                 <FormControl>
                   <Input
                     className="h-9 bg-white text-sm"

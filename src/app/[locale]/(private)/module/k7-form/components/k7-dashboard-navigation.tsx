@@ -28,7 +28,7 @@ export const K7DashboardNavigation = ({ activeView, hasDepartmentProfiles, hasUn
   );
 
   return (
-    <nav className="border-neutral-divider flex h-12 w-full justify-start overflow-x-auto border-b bg-white">
+    <nav className="flex h-12 w-full justify-start overflow-x-auto border-b border-neutral-divider bg-white">
       {visibleItems.map(({ view, href }) => {
         const active = view === activeView;
 

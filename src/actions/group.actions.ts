@@ -1,8 +1,9 @@
 'use server';
 
+import queryString from 'query-string';
+
 import { campusFetch } from '@/lib/client';
 import { Group } from '@/types/models/group';
-import queryString from 'query-string';
 
 export async function searchByGroupName(search: string) {
   try {

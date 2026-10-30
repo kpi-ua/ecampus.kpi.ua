@@ -1,8 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { AnnouncementSlide } from './announcement-slide';
+
 import RichText from '@/components/typography/rich-text';
+
+import { AnnouncementSlide } from './announcement-slide';
 
 export const DefaultAnnouncementSlide = () => {
   const t = useTranslations('private.main.cards.carousel.default-slide');

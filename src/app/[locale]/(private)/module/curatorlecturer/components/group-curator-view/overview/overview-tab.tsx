@@ -77,7 +77,7 @@ export const OverviewTab = ({ group }: Props) => {
         onChange={(event) => setSearch(event.target.value)}
         placeholder={t('filters.student-search')}
       />
-      <div className="border-neutral-divider overflow-hidden rounded-lg border bg-white">
+      <div className="overflow-hidden rounded-lg border border-neutral-divider bg-white">
         <Table className="min-w-[1000px]">
           <TableHeader>
             <TableRow className="hover:bg-white [&>th]:bg-neutral-100 [&>th]:text-xs [&>th]:uppercase">

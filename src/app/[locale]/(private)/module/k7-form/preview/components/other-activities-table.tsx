@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { sum } from 'radash';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EMPTY_VALUE } from '@/lib/constants/common';
@@ -26,7 +27,7 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
   const activityGroups = groupOtherActivities(rows);
 
   return (
-    <Table className="leading-xs table-fixed border-collapse text-xs [&_td:not(:last-child)]:border-r">
+    <Table className="table-fixed border-collapse text-xs leading-xs [&_td:not(:last-child)]:border-r">
       <colgroup>
         <col className="w-[4%]" />
         <col className="w-[23%]" />
@@ -123,15 +124,15 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
             </TableCell>
             <TableCell colSpan={3} className={summaryCellClassName} />
             <TableCell className={summaryCellClassName}>
-              {formatSemesterHours(rows.reduce((total, row) => total + row.hoursSem1, 0))}
+              {formatSemesterHours(sum(rows, ({ hoursSem1 }) => hoursSem1))}
             </TableCell>
             <TableCell colSpan={3} className={summaryCellClassName} />
             <TableCell className={summaryCellClassName}>
-              {formatSemesterHours(rows.reduce((total, row) => total + row.hoursSem2, 0))}
+              {formatSemesterHours(sum(rows, ({ hoursSem2 }) => hoursSem2))}
             </TableCell>
             <TableCell className={summaryCellClassName}>
               {formatNumber(
-                rows.reduce((total, row) => total + row.grandTotal, 0),
+                sum(rows, ({ grandTotal }) => grandTotal),
                 2,
               )}
             </TableCell>

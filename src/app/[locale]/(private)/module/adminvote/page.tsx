@@ -1,12 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getVoteCriteriaAdministration, getVoteStudyYears } from '@/actions/vote-administration.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { LocaleProps } from '@/types/locale-props';
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PeriodsManagement } from '@/app/[locale]/(private)/module/adminvote/components/periods-management';
 import { CriteriaManagement } from '@/app/[locale]/(private)/module/adminvote/components/criteria-management';
+import { PeriodsManagement } from '@/app/[locale]/(private)/module/adminvote/components/periods-management';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.adminvote';
 

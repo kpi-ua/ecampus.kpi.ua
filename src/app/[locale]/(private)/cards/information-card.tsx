@@ -1,10 +1,11 @@
+import { getTranslations } from 'next-intl/server';
+
 import { Heading3 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { Link } from '@/i18n/routing';
 import { Separator } from '@/components/ui/separator';
-import { getTranslations } from 'next-intl/server';
+import { Link } from '@/i18n/routing';
+import { cn } from '@/lib/utils';
 
 interface InformationCardProps {
   className?: string;

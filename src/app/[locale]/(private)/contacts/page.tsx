@@ -1,11 +1,13 @@
-import { Heading2, Heading3 } from '@/components/typography/headers';
-import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Link } from '@/i18n/routing';
-import { TextButton } from '@/components/ui/text-button';
+
 import { ChatsTeardrop, EnvelopeSimple } from '@/app/images';
-import { LocaleProps } from '@/types/locale-props';
+import { Heading2, Heading3 } from '@/components/typography/headers';
 import RichText from '@/components/typography/rich-text';
+import { TextButton } from '@/components/ui/text-button';
+import { Link } from '@/i18n/routing';
+import { LocaleProps } from '@/types/locale-props';
+
+import { SubLayout } from '../sub-layout';
 
 const INTL_NAMESPACE = 'private.contacts';
 

@@ -1,4 +1,5 @@
 import { sum } from 'radash';
+
 import { CuratorStudentAttestationTotals } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 export const getAttestationSummary = (students: CuratorStudentAttestationTotals[]) => {

@@ -69,7 +69,8 @@
       "viewcontrol": "Review current control",
       "studbonuspoints": "Bonus points",
       "k7-form": "K-7 Report",
-      "biblioteka": "Library"
+      "biblioteka": "Library",
+      "votelecturer": "Lecturer survey results"
     },
     "menu": {
       "main": "Home",
@@ -266,6 +267,19 @@
     }
   },
   "private": {
+    "yiystat": {
+      "title": "Statistical data",
+      "retry": "Try again",
+      "surveys": {
+        "title": "Survey participation",
+        "id": "Survey ID",
+        "year": "Academic year",
+        "start": "Start date",
+        "end": "End date",
+        "respondents": "Participants",
+        "empty": "No survey participation data yet."
+      }
+    },
     "adminvote": {
       "title": "Survey criteria",
       "table": {
@@ -1227,6 +1241,45 @@
       "responsibility": "I understand the responsibility and potential negative consequences of this decision, including the possibility of unauthorized use of this data by third parties.",
       "revocation": "This consent is granted indefinitely and may be revoked at any time by submitting a written application.",
       "accept-button": "I give my consent"
+    },
+    "votelecturer": {
+      "title": "Survey",
+      "subtitle": "Your results for all published survey periods.",
+      "empty": "No survey results yet.",
+      "filter": {
+        "label": "Year",
+        "all": "All years",
+        "period": "Survey",
+        "allPeriods": "All"
+      },
+      "results": {
+        "period": "{studyYear}, Survey {number}",
+        "unknownPeriod": "Survey period",
+        "latest": "Latest period",
+        "dates": "Survey dates: {start} — {end}",
+        "universityScore": "Overall university score",
+        "courseScore": "Overall course score",
+        "votes": "Number of votes",
+        "course": "Course",
+        "courseNumber": "Course {number}",
+        "coefficient": "Coefficient: {value}",
+        "empty": "No results for this period.",
+        "emptyCourses": "No course results available.",
+        "periodHeading": "Period",
+        "criterion": "Criterion",
+        "coefficientHeading": "Coefficient",
+        "rating": "Rating",
+        "score": "Score",
+        "details": "Details",
+        "expand": "Expand: {period}",
+        "collapse": "Collapse: {period}",
+        "emptyDescription": "The survey has not taken place or there were too few votes."
+      },
+      "heading": "Teacher Through Students’ Eyes",
+      "tabs": {
+        "results": "Survey results",
+        "criteria": "Criteria descriptions"
+      }
     }
   }
 }

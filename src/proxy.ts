@@ -1,7 +1,8 @@
 import { NextRequest } from 'next/server';
-import { needsLocaleHandling } from './proxy/utils';
+
 import { authenticationProxy } from './proxy/authentication.middleware';
 import { intlProxy } from './proxy/intl.proxy';
+import { needsLocaleHandling } from './proxy/utils';
 
 export const config = {
   matcher: ['/', `/(uk|en)/:path*`, '/((?!_next|api|favicon.ico|.*\\.[^/]+$).*)'],

@@ -1,16 +1,17 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { Heading4, Heading6 } from '@/components/typography/headers';
-import { Separator } from '@/components/ui/separator';
-import { Badge } from '@/components/ui/badge';
-import { User } from '@/types/models/user';
-import { USER_CATEGORIES } from '@/lib/constants/common';
-import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
-import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
-import { ProfilePicture } from '@/components/ui/profile-picture';
-import { dash } from 'radash';
 import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
+import { dash } from 'radash';
+
+import { LecturerInfo } from '@/app/[locale]/(private)/profile/components/lecturer-info';
+import { StudentInfo } from '@/app/[locale]/(private)/profile/components/student-info';
+import { Heading4, Heading6 } from '@/components/typography/headers';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { ProfilePicture } from '@/components/ui/profile-picture';
+import { Separator } from '@/components/ui/separator';
+import { USER_CATEGORIES } from '@/lib/constants/common';
+import { cn } from '@/lib/utils';
+import { User } from '@/types/models/user';
 
 interface Props {
   user: User;
@@ -54,7 +55,7 @@ export async function InfoBlock({ user, className }: Props) {
 
         {user.intellectProfile && (
           <Link
-            className="text-basic-blue text-lg font-semibold hover:underline"
+            className="text-lg font-semibold text-basic-blue hover:underline"
             href={user.intellectProfile}
             target="_blank"
             rel="noopener noreferrer"

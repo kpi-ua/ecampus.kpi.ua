@@ -1,7 +1,8 @@
+import { getTranslations } from 'next-intl/server';
+
 import { getUserDetails } from '@/actions/auth.actions';
 import { Heading1 } from '@/components/typography/headers';
 import { cn } from '@/lib/utils';
-import { getTranslations } from 'next-intl/server';
 
 interface GreetingProps {
   className?: string;
