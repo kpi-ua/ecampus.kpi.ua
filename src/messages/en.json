@@ -83,7 +83,8 @@
     },
     "user-category": {
       "student": "Student",
-      "spw": "SPW"
+      "spw": "SPW",
+      "administrative-staff": "Administrative staff"
     },
     "enums": {
       "academic-degree": {

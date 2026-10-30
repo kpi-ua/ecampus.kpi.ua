@@ -53,4 +53,5 @@ export const PASSWORD_MASK = '••••••••';
 export const USER_CATEGORIES = {
   [UserCategory.Student]: 'student',
   [UserCategory.Lecturer]: 'spw', // SPW stands for scientific and pedagogical worker
+  [UserCategory.AdministrativeStaff]: 'administrative-staff',
 };
