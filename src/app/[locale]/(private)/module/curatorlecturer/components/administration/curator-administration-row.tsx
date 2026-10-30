@@ -5,8 +5,8 @@ import { Fragment } from 'react';
 
 import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
-import { TableExpandButton } from '@/components/ui/table-expand-button';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { TableExpandButton } from '@/components/ui/table-expand-button';
 import { Show } from '@/components/utils/show';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 

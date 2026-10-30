@@ -15,7 +15,6 @@ import {
   GroupFilterKey,
 } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { exportCuratorAdministration } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-curator-administration';
-
 import { Heading2 } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
