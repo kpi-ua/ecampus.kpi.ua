@@ -8,6 +8,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { MagnifyingGlassRegular } from '@/app/images';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 
 import { ANNOUNCEMENT_FILTER_LANGUAGES } from '../constants';
 
@@ -57,7 +58,7 @@ export const AnnouncementsFilters = () => {
   const updateSearchParamRef = useRef(updateSearchParam);
   updateSearchParamRef.current = updateSearchParam;
   const debouncedSearch = useMemo(
-    () => debounce({ delay: 200 }, (value: string) => updateSearchParamRef.current(value)),
+    () => debounce({ delay: SEARCH_DEBOUNCE_MS }, (value: string) => updateSearchParamRef.current(value)),
     [],
   );
 

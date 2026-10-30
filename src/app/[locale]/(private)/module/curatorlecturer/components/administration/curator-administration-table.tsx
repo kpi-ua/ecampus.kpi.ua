@@ -60,7 +60,7 @@ export const CuratorAdministrationTable = ({
           >
             {groups.map((group) => (
               <CuratorAdministrationRow
-                key={group.groupId}
+                key={`${group.groupId}-${group.curatorEmployeeId}`}
                 group={group}
                 lecturers={lecturers}
                 academicYearStart={academicYearStart}

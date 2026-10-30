@@ -50,6 +50,9 @@ export const PAGE_SIZE_SMALL = 5;
 
 export const PASSWORD_MASK = '••••••••';
 
+/** Delay before a search input pushes its value to the URL or the server. */
+export const SEARCH_DEBOUNCE_MS = 200;
+
 export const USER_CATEGORIES: Record<string, string> = {
   [UserCategory.Student]: 'student',
   [UserCategory.AcademicStaff]: 'spw', // SPW stands for scientific and pedagogical worker

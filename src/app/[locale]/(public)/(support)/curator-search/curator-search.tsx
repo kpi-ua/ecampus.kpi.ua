@@ -10,6 +10,7 @@ import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.sv
 import { Input } from '@/components/ui/input';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 
 import { CuratorSearchItem } from './curator-search-item';
 import { EmptyPlaceholder } from './empty-placeholder';
@@ -18,7 +19,7 @@ export const CuratorSearch = () => {
   const t = useTranslations('public.curator-search');
   const [inputValue, setInputValue] = useState('');
   const [search, setSearch] = useState('');
-  const debouncedSearch = useMemo(() => debounce({ delay: 200 }, setSearch), []);
+  const debouncedSearch = useMemo(() => debounce({ delay: SEARCH_DEBOUNCE_MS }, setSearch), []);
   const { errorToast } = useServerErrorToast();
 
   const unknownValue = t('unknown-value');
