@@ -1,9 +1,11 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useMemo, useState } from 'react';
+
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { RatingData } from '@/types/models/rating';
+
 import { WorkplaceCard } from './workplace-card';
 
 interface RatingViewProps {

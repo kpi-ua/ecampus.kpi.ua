@@ -1,12 +1,14 @@
 import { getTranslations } from 'next-intl/server';
-import { AuthNavLayout } from '../../../auth-nav-layout';
+
 import { Heading5 } from '@/components/typography/headers';
 import RichText from '@/components/typography/rich-text';
 import { Button } from '@/components/ui/button';
 import { Link } from '@/i18n/routing';
 import { LOGIN_PATH } from '@/proxy/contants';
-import { KPIID_FAILURE_REASONS } from '@/types/models/kpi-id-account';
 import { LocaleProps } from '@/types/locale-props';
+import { KPIID_FAILURE_REASONS } from '@/types/models/kpi-id-account';
+
+import { AuthNavLayout } from '../../../auth-nav-layout';
 
 const INTL_NAMESPACE = 'auth.kpi-id-failed';
 

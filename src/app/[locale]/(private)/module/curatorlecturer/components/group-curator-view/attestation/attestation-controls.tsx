@@ -1,14 +1,16 @@
 'use client';
 
-import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
+import { ReactNode } from 'react';
+
+import { useAttestationFilters } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
+import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Heading4 } from '@/components/typography/index';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { Show } from '@/components/utils/show';
 import { TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { useAttestationFilters } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
+import { Show } from '@/components/utils/show';
+
 import { ResultFilters } from './result-filters';
 
 interface Props {

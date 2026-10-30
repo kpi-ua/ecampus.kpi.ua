@@ -2,11 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 
-import { Show } from '@/components/utils/show';
+import { CuratorFilters, CuratorOption } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-import { CuratorFilters, CuratorOption } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { Show } from '@/components/utils/show';
 
 interface Props {
   filters: CuratorFilters;

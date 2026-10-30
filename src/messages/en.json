@@ -267,6 +267,19 @@
     }
   },
   "private": {
+    "yiystat": {
+      "title": "Statistical data",
+      "retry": "Try again",
+      "surveys": {
+        "title": "Survey participation",
+        "id": "Survey ID",
+        "year": "Academic year",
+        "start": "Start date",
+        "end": "End date",
+        "respondents": "Participants",
+        "empty": "No survey participation data yet."
+      }
+    },
     "adminvote": {
       "title": "Survey criteria",
       "table": {

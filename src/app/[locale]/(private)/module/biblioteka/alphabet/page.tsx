@@ -3,9 +3,9 @@ import { getTranslations } from 'next-intl/server';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { LocaleProps } from '@/types/locale-props';
 
-import { AlphabetBrowser } from './components/alphabet-browser';
 import { LibraryTabs } from '../components/library-tabs';
 import { LIBRARY_TAB } from '../constants';
+import { AlphabetBrowser } from './components/alphabet-browser';
 
 const INTL_NAMESPACE = 'private.library';
 

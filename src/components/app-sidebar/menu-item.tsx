@@ -1,10 +1,11 @@
 'use client';
 
-import { usePathname, useRouter } from '@/i18n/routing';
-import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '../ui/sidebar';
-import { menuIcon } from './menu-icon';
 import { ArrowSquareOutRegular, Question } from '@/app/images';
+import { usePathname, useRouter } from '@/i18n/routing';
+
+import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '../ui/sidebar';
 import { Show } from '../utils/show';
+import { menuIcon } from './menu-icon';
 
 interface MenuItemProps {
   name: string;

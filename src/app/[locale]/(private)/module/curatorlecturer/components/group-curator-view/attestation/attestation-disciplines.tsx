@@ -1,22 +1,23 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { useDeferredValue, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useDeferredValue, useMemo, useState } from 'react';
+
 import { getCuratorDisciplineAttestations } from '@/actions/curatorlecturer.actions';
-import { Heading4 } from '@/components/typography/index';
-import { Input } from '@/components/ui/input';
-import { Show } from '@/components/utils/show';
-import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { AttestationSummary } from './attestation-summary';
-import { AttestationDisciplineTable } from './attestation-discipline-table';
 import { useAttestationFilters } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/attestation/hooks/use-attestation-filters';
 import {
   CURATOR_GROUP_STALE_TIME,
   curatorGroupQueryKeys,
 } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
-
+import { CuratorFilters } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { filterAttestationResults } from '@/app/[locale]/(private)/module/curatorlecturer/utils/filter-attestation-results';
+import { Heading4 } from '@/components/typography/index';
+import { Input } from '@/components/ui/input';
+import { Show } from '@/components/utils/show';
+
+import { AttestationDisciplineTable } from './attestation-discipline-table';
+import { AttestationSummary } from './attestation-summary';
 interface Props {
   groupId: number;
   filters: CuratorFilters;

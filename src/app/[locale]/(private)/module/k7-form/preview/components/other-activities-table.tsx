@@ -27,7 +27,7 @@ export const OtherActivitiesTable = ({ rows }: Props) => {
   const activityGroups = groupOtherActivities(rows);
 
   return (
-    <Table className="leading-xs table-fixed border-collapse text-xs [&_td:not(:last-child)]:border-r">
+    <Table className="table-fixed border-collapse text-xs leading-xs [&_td:not(:last-child)]:border-r">
       <colgroup>
         <col className="w-[4%]" />
         <col className="w-[23%]" />

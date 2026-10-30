@@ -1,15 +1,16 @@
 'use client';
 
-import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-
 import Autoplay from 'embla-carousel-autoplay';
-import { AnnouncementSlide } from './announcement-slide';
-import { Announcement } from '@/types/models/announcement';
-import { DotButton } from './dot-button';
 import { useState } from 'react';
-import { useDotButton } from './use-dot-button';
-import { DefaultAnnouncementSlide } from './default-announcement-slide';
+
+import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { Show } from '@/components/utils/show';
+import { Announcement } from '@/types/models/announcement';
+
+import { AnnouncementSlide } from './announcement-slide';
+import { DefaultAnnouncementSlide } from './default-announcement-slide';
+import { DotButton } from './dot-button';
+import { useDotButton } from './use-dot-button';
 
 const AUTOPLAY_DELAY = 10_000; // 10 seconds
 

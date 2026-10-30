@@ -1,13 +1,13 @@
-import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import qs from 'query-string';
 
 import { getLibraryDepartments, getLibraryEmployee } from '@/actions/library.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { UKRAINIAN_ALPHABET } from '@/lib/constants/common';
 
-import { LibraryTabs } from '../../components/library-tabs';
 import { EmployeeDetails } from '../../components/employee-details';
+import { LibraryTabs } from '../../components/library-tabs';
 
 const INTL_NAMESPACE = 'private.library';
 

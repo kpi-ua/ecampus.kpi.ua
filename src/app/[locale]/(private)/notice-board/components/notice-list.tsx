@@ -1,21 +1,23 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
-import { Separator } from '@/components/ui/separator';
 import { debounce } from 'radash';
-import { Input } from '@/components/ui/input';
-import { usePagination } from '@/hooks/use-pagination';
-import { Card } from '@/components/ui/card';
+import { useMemo } from 'react';
+import React from 'react';
+
 import { Notice } from '@/app/[locale]/(private)/notice-board/components/notice';
 import { Paragraph } from '@/components/typography/paragraph';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
-import { useTranslations } from 'next-intl';
+import { Separator } from '@/components/ui/separator';
 import { Show } from '@/components/utils/show';
-import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
-import { Announcement } from '@/types/models/announcement';
+import { usePagination } from '@/hooks/use-pagination';
 import { PAGE_SIZE_SMALL } from '@/lib/constants/common';
-import React from 'react';
+import { Announcement } from '@/types/models/announcement';
+
+import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
 
 interface NoticeListProps {
   announcements: Announcement[];

@@ -1,10 +1,12 @@
 import { getTranslations } from 'next-intl/server';
-import { AuthNavLayout } from '../../../auth-nav-layout';
-import { AccountSelector } from '@/components/account-selector/account-selector';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
+
+import { AccountSelector } from '@/components/account-selector/account-selector';
 import { KPIID_ACCOUNTS_COOKIE_NAME, parseKPIIDAccounts } from '@/lib/kpi-id';
 import { LocaleProps } from '@/types/locale-props';
+
+import { AuthNavLayout } from '../../../auth-nav-layout';
 
 type Props = LocaleProps;
 

@@ -1,5 +1,5 @@
-import { ContactTypeId } from '@/types/enums/contact-type';
 import { PHONE_TYPE_IDS, WEB_TYPE_IDS } from '@/lib/constants/common';
+import { ContactTypeId } from '@/types/enums/contact-type';
 
 interface ContactLinkProps {
   typeId: number;

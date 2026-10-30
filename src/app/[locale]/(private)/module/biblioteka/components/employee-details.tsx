@@ -1,23 +1,21 @@
 'use client';
 
-import { formatDate } from '@/lib/utils';
-
-import { usePermission } from '@/components/permission-provider';
-import { LIBRARY_EDIT_MODULE } from '../constants';
-
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { BriefcaseBusiness, ChartNoAxesColumnIncreasing } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { getLibraryEmployee } from '@/actions/library.actions';
+import { usePermission } from '@/components/permission-provider';
 import { Heading6, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EMPTY_VALUE } from '@/lib/constants/common';
 import { Show } from '@/components/utils/show';
+import { EMPTY_VALUE } from '@/lib/constants/common';
+import { formatDate } from '@/lib/utils';
 import { LibraryEmployeeDetails } from '@/types/models/library';
 
+import { LIBRARY_EDIT_MODULE } from '../constants';
 import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
 import { EntityHeading } from './entity-heading';
 import { IdentifierRow } from './identifier-row';
@@ -44,7 +42,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
           <BriefcaseBusiness className="size-4" />
           {t('employment')}
         </Heading6>
-        <div className="border-neutral-divider overflow-hidden rounded-lg border bg-white shadow-none">
+        <div className="overflow-hidden rounded-lg border border-neutral-divider bg-white shadow-none">
           <Table className="min-w-[980px]">
             <TableHeader>
               <TableRow className="hover:bg-white [&>th]:bg-neutral-50 [&>th]:text-xs [&>th]:normal-case">
@@ -83,7 +81,7 @@ export const EmployeeDetails = ({ initialDetails }: Props) => {
           {t('identifiers')}
         </Heading6>
         {details.userAccountId ? (
-          <div className="border-neutral-divider overflow-hidden rounded-lg border bg-white shadow-none">
+          <div className="overflow-hidden rounded-lg border border-neutral-divider bg-white shadow-none">
             <Table className="min-w-[760px]">
               <TableHeader>
                 <TableRow className="hover:bg-white [&>th]:bg-neutral-50 [&>th]:text-xs [&>th]:normal-case">

@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import queryString from 'query-string';
 
-import { CuratorDisciplineAttestationSemester } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
+import { CuratorDisciplineAttestationSemester } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 import { formatDate } from '@/lib/utils';

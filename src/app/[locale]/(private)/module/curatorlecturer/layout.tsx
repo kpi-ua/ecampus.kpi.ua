@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import { getTranslations } from 'next-intl/server';
+import { ReactNode } from 'react';
 
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 

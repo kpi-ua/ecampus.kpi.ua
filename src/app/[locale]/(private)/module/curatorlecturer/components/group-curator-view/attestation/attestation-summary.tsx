@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
 
 import { CuratorStudentAttestationTotals } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { getAttestationSummary } from '@/app/[locale]/(private)/module/curatorlecturer/utils/get-attestation-summary';
@@ -17,7 +17,7 @@ export const AttestationSummary = ({ students, attestationName }: Props) => {
   const { statuses, total } = useMemo(() => getAttestationSummary(students), [students]);
 
   return (
-    <div className="border-neutral-divider flex flex-col gap-4 rounded-lg border p-5">
+    <div className="flex flex-col gap-4 rounded-lg border border-neutral-divider p-5">
       <div className="flex flex-wrap justify-between gap-2 text-sm text-neutral-500">
         <span>{t('group-summary')}</span>
         <span>

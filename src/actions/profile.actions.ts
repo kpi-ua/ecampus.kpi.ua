@@ -1,11 +1,11 @@
 'use server';
 
-import { Contact, ContactType } from '@/types/models/contact';
-import { campusFetch } from '@/lib/client';
 import { updateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
+import { campusFetch } from '@/lib/client';
 import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
+import { Contact, ContactType } from '@/types/models/contact';
 
 export async function getContacts() {
   try {

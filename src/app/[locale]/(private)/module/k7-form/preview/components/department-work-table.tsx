@@ -23,7 +23,7 @@ export const DepartmentWorkTable = ({ rows, totalHours }: Props) => {
   const t = useTranslations('private.k-7.preview.table');
 
   return (
-    <Table className="leading-xs table-fixed border-collapse text-xs">
+    <Table className="table-fixed border-collapse text-xs leading-xs">
       <colgroup>
         <col className="w-[5%]" />
         <col className="w-[22%]" />

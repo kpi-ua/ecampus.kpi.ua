@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+
 import { TableCell, TableRow } from '@/components/ui/table';
 
 export const EmptyRow = ({ colSpan }: { colSpan: number }) => {

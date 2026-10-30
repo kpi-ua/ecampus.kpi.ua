@@ -41,7 +41,7 @@ export default async function VotePage() {
           </TabsList>
           <TabsContent value="survey" forceMount className="mt-0 data-[state=inactive]:hidden">
             <Heading2>{t('title')}</Heading2>
-            <Paragraph className="leading-sm mt-3 mb-7 max-w-4xl text-sm font-normal text-neutral-700">
+            <Paragraph className="mt-3 mb-7 max-w-4xl text-sm leading-sm font-normal text-neutral-700">
               {t('subtitle')}
             </Paragraph>
             <VoteView voteData={voteData} />

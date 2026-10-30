@@ -1,14 +1,15 @@
 'use server';
 
-import qs from 'query-string';
 import JWT from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import qs from 'query-string';
+
 import { campusFetch } from '@/lib/client';
-import { User } from '@/types/models/user';
+import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
-import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
+import { User } from '@/types/models/user';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
 const ROOT_COOKIE_DOMAIN = process.env.ROOT_COOKIE_DOMAIN;
