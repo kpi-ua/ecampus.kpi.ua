@@ -1,10 +1,9 @@
 'use client';
 
-import { formatDate } from '@/lib/utils';
-
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
+import { formatDate } from '@/lib/utils';
 import { VoteData, VoteState } from '@/types/models/vote';
 
 import { ActiveVote } from './active-vote';
@@ -27,7 +26,7 @@ export const VoteView = ({ voteData }: Props) => {
         <Paragraph className="m-0 text-base font-semibold text-neutral-900">
           {t(`state.${voteData.state}.title`)}
         </Paragraph>
-        <Paragraph className="leading-sm m-0 text-sm text-neutral-600">
+        <Paragraph className="m-0 text-sm leading-sm text-neutral-600">
           {voteData.state === VoteState.ResultsPending && voteData.term?.resultsPublishOn
             ? t('state.ResultsPending.scheduledDescription', {
                 number: voteData.term.number,
@@ -41,7 +40,7 @@ export const VoteView = ({ voteData }: Props) => {
   }
 
   if (voteData.lecturers.length === 0 || voteData.criteria.length === 0) {
-    return <Paragraph className="text-muted-foreground m-0 py-12 text-center text-sm">{t('empty')}</Paragraph>;
+    return <Paragraph className="m-0 py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
   }
 
   return <ActiveVote initialVoteData={voteData} />;

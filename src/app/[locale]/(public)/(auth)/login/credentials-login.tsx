@@ -1,10 +1,11 @@
 'use client';
 
-import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
 import { loginWithCredentials } from '@/actions/auth.actions';
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';

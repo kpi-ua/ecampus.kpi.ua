@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
+
+import { Logo } from '@/components/logo';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { cn } from '@/lib/utils';
-import { Logo } from '@/components/logo';
 
 interface HeaderProps {
   className?: string;

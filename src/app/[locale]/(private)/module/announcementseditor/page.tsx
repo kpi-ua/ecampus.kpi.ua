@@ -3,11 +3,11 @@ import { getTranslations } from 'next-intl/server';
 import { getAdminAnnouncements } from '@/actions/announcement.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
+import { LOCALE } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
 
 import { AnnouncementsListPage } from './announcements-list-page';
-import { LOCALE } from '@/i18n/routing';
 
 const INTL_NAMESPACE = 'private.announcementseditor';
 

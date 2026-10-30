@@ -3,14 +3,14 @@
 import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import { useGroupLeaderSelect } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/hooks/use-group-leader-select';
+import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Paragraph } from '@/components/typography/index';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Show } from '@/components/utils/show';
 
-import { useGroupLeaderSelect } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/hooks/use-group-leader-select';
-import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { GroupLeaderConfirmDialog } from './group-leader-confirm-dialog';
 
 interface Props {
@@ -26,7 +26,7 @@ export const GroupLeaderSelect = ({ group }: Props) => {
 
   return (
     <>
-      <div className="border-neutral-divider flex flex-col gap-6 rounded-lg border p-5 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-6 rounded-lg border border-neutral-divider p-5 md:flex-row md:items-center md:justify-between">
         <div className="min-w-0 flex-1">
           <Paragraph className="m-0 text-sm">{t('leader.current')}</Paragraph>
           <Paragraph className="m-0 mt-1 font-semibold">{currentName}</Paragraph>

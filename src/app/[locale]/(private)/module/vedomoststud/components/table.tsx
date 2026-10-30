@@ -1,19 +1,17 @@
 'use client';
 
-import { Suspense } from 'react';
 import { useTranslations } from 'next-intl';
 import { dash } from 'radash';
-
-import { useTableSort } from '@/hooks/use-table-sort';
+import { Suspense } from 'react';
 
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
+import { SemesterFilter } from '@/app/[locale]/(private)/module/vedomoststud/components/semester-filter';
+import { TermStatusBadge } from '@/app/[locale]/(private)/module/vedomoststud/components/term-status-badge';
+import { Heading6, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { TermStatusBadge } from '@/app/[locale]/(private)/module/vedomoststud/components/term-status-badge';
-import { SemesterFilter } from '@/app/[locale]/(private)/module/vedomoststud/components/semester-filter';
-import { Heading6, Paragraph } from '@/components/typography';
-
+import { useTableSort } from '@/hooks/use-table-sort';
 import { Status } from '@/types/enums/session/status';
 import { TermDiscipline } from '@/types/models/term';
 
@@ -77,7 +75,7 @@ export default function SessionTable({
               <TableCell className="w-[300px]">{discipline.name}</TableCell>
               <TableCell className="w-[109px] text-center">
                 {discipline.mark !== undefined && discipline.mark !== null && (
-                  <Badge className="text-basic-blue font-semibold">
+                  <Badge className="font-semibold text-basic-blue">
                     {Number(discipline.mark)}/{MAX_SCORE}
                   </Badge>
                 )}
@@ -105,7 +103,7 @@ export default function SessionTable({
         <Paragraph className="text-base font-normal">
           {t(semesterId ? 'average-score-selected-semester' : 'average-score')}
         </Paragraph>
-        <Badge className="bg-basic-blue text-basic-white font-semibold">{termResults.averageScore}</Badge>
+        <Badge className="bg-basic-blue font-semibold text-basic-white">{termResults.averageScore}</Badge>
       </div>
     </Card>
   );

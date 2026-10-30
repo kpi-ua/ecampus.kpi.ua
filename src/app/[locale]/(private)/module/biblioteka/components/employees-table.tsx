@@ -1,16 +1,14 @@
 'use client';
 
-import { usePermission } from '@/components/permission-provider';
-import { LIBRARY_EDIT_MODULE } from '../constants';
-
 import { Download, Pencil } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { parseAsInteger, parseAsString, useQueryState, useQueryStates } from 'nuqs';
 import qs from 'query-string';
 import { useMemo, useState } from 'react';
 
-import { Button } from '@/components/ui/button';
+import { usePermission } from '@/components/permission-provider';
 import { Paragraph } from '@/components/typography';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -21,6 +19,7 @@ import { Link } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LibraryEmployee } from '@/types/models/library';
 
+import { LIBRARY_EDIT_MODULE } from '../constants';
 import { exportEmployees } from '../utils/export-employees';
 import { filterEmployees, type LibraryEmployeeFilters } from '../utils/filter-employees';
 import { IdentifierLink } from './identifier-link';
@@ -71,7 +70,7 @@ export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
   };
 
   return (
-    <div className="border-neutral-divider min-w-0 overflow-hidden rounded-lg border bg-white shadow-none">
+    <div className="min-w-0 overflow-hidden rounded-lg border border-neutral-divider bg-white shadow-none">
       <Table className="min-w-[1050px]">
         <TableHeader>
           <TableRow className="hover:bg-white [&>th]:bg-neutral-50 [&>th]:text-xs [&>th]:normal-case">
@@ -163,11 +162,11 @@ export const EmployeesTable = ({ employees, departmentId, letter }: Props) => {
           ))}
         </TableBody>
       </Table>
-      <Paragraph className="border-neutral-divider m-0 border-t px-5 py-4 text-sm leading-6 text-neutral-600">
+      <Paragraph className="m-0 border-t border-neutral-divider px-5 py-4 text-sm leading-6 text-neutral-600">
         {t('count', { count: filtered.length })}
       </Paragraph>
       <Show when={filtered.length > PAGE_SIZE_DEFAULT}>
-        <div className="border-neutral-divider border-t px-5 py-4">
+        <div className="border-t border-neutral-divider px-5 py-4">
           <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={filtered.length} />
         </div>
       </Show>

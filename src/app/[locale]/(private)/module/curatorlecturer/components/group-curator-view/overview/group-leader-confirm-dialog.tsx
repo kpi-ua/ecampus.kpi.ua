@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { ReactNode } from 'react';
 
+import { useGroupLeaderAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/hooks/use-group-leader-assignment';
+import { CuratorGroup, CuratorStudent } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -15,9 +17,6 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
-import { useGroupLeaderAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/hooks/use-group-leader-assignment';
-import { CuratorGroup, CuratorStudent } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 interface Props {
   group: CuratorGroup;

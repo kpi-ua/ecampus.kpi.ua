@@ -1,7 +1,7 @@
 'use server';
 
-import queryString from 'query-string';
 import { revalidatePath } from 'next/cache';
+import queryString from 'query-string';
 
 import {
   CuratorGroup,

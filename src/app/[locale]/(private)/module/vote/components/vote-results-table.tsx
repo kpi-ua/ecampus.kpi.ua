@@ -23,7 +23,7 @@ export const VoteResultsTable = ({ voteData }: Props) => {
   return (
     <section className="rounded-3xl bg-white p-6 shadow-[0_8px_12px_rgba(158,182,201,0.25)]">
       <div className="mb-6">
-        <Heading2 className="leading-lg lg:leading-lg text-lg text-neutral-800 lg:text-lg">
+        <Heading2 className="text-lg leading-lg text-neutral-800 lg:text-lg lg:leading-lg">
           {voteData.term
             ? t('title', { number: voteData.term.number, studyYear: voteData.term.studyYear })
             : t('heading')}
@@ -62,10 +62,10 @@ export const VoteResultsTable = ({ voteData }: Props) => {
             {resultLecturers.map((lecturer) => (
               <TableRow key={lecturer.employeeId} className="border-0 even:bg-neutral-50">
                 <TableCell className="text-neutral-900">{lecturer.fullName}</TableCell>
-                <TableCell className="text-basic-blue font-semibold">
+                <TableCell className="font-semibold text-basic-blue">
                   {formatNumber(lecturer.result.overallScore)}
                 </TableCell>
-                <TableCell className="text-basic-blue font-semibold">
+                <TableCell className="font-semibold text-basic-blue">
                   {lecturer.result.courseScore === null ? EMPTY_VALUE : formatNumber(lecturer.result.courseScore)}
                 </TableCell>
                 {voteData.criteria.map((criterion) => {

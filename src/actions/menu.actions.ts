@@ -1,16 +1,18 @@
 'use server';
 
-import { getJWTPayload } from '@/lib/jwt';
-import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
-import { getUserDetails } from './auth.actions';
-import { MenuGroup } from '@/types/menu-item-meta';
-import { MODULES } from '@/lib/constants/modules';
-import { ProfileArea } from '@/types/enums/profile-area';
-import { Module } from '@/types/module';
-import { TOKEN_COOKIE_NAME } from '@/lib/constants/common';
 import { group } from 'radash';
+
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/common';
+import { MODULES } from '@/lib/constants/modules';
+import { getJWTPayload } from '@/lib/jwt';
+import { CampusJwtPayload } from '@/types/campus-jwt-payload';
+import { ProfileArea } from '@/types/enums/profile-area';
+import { MenuGroup } from '@/types/menu-item-meta';
+import { Module } from '@/types/module';
+
+import { getUserDetails } from './auth.actions';
 
 const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
 const OLD_CAMPUS_PROFILE_AREA = {

@@ -17,10 +17,10 @@ export const AlphabetBrowser = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <Heading3 className="leading-xl lg:leading-xl text-2xl lg:text-2xl">{t('alphabet.title')}</Heading3>
+        <Heading3 className="text-2xl leading-xl lg:text-2xl lg:leading-xl">{t('alphabet.title')}</Heading3>
         <Description className="p-0 text-sm leading-6">{t('alphabet.description')}</Description>
       </div>
-      <div className="border-neutral-divider flex flex-wrap gap-3 rounded-lg border bg-white p-5 shadow-none sm:p-6">
+      <div className="flex flex-wrap gap-3 rounded-lg border border-neutral-divider bg-white p-5 shadow-none sm:p-6">
         {[...UKRAINIAN_ALPHABET].map((item) => (
           <Button
             key={item}

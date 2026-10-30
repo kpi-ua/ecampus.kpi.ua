@@ -1,12 +1,14 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { Card } from '@/components/ui/card';
-import { Heading5 } from '@/components/typography';
 import { MapPin } from 'lucide-react';
-import { WorkPlaceRating } from '@/types/models/rating';
-import { EntriesTable } from './entries-table';
+import { useTranslations } from 'next-intl';
+
+import { Heading5 } from '@/components/typography';
+import { Card } from '@/components/ui/card';
 import { formatNumber } from '@/lib/utils';
+import { WorkPlaceRating } from '@/types/models/rating';
+
+import { EntriesTable } from './entries-table';
 
 interface WorkplaceCardProps {
   workplace: WorkPlaceRating;
@@ -19,7 +21,7 @@ export function WorkplaceCard({ workplace }: WorkplaceCardProps) {
     <Card className="overflow-hidden bg-white">
       <div className="p-6">
         <div className="mb-4 flex items-start gap-2">
-          <MapPin className="text-basic-blue mt-1 h-5 w-5 shrink-0" />
+          <MapPin className="mt-1 h-5 w-5 shrink-0 text-basic-blue" />
           <Heading5>{workplace.workPlace.name}</Heading5>
         </div>
 
@@ -39,13 +41,13 @@ export function WorkplaceCard({ workplace }: WorkplaceCardProps) {
 
         <div className="border-t border-neutral-200 pt-4">
           <span className="font-semibold text-neutral-900">{t('total')}:</span>{' '}
-          <span className="text-basic-blue text-lg font-bold">
+          <span className="text-lg font-bold text-basic-blue">
             {formatNumber(workplace.totalResult)} {t('points')} ({t('entries', { count: workplace.totalEntryCount })})
           </span>
         </div>
       </div>
 
-      <div className="border-t border-neutral-200 px-6 pb-6 pt-6">
+      <div className="border-t border-neutral-200 px-6 pt-6 pb-6">
         <EntriesTable entries={workplace.entries} />
       </div>
     </Card>

@@ -1,7 +1,9 @@
 import { getTranslations } from 'next-intl/server';
+
 import { getCuratorFilters, getCuratorGroups } from '@/actions/curatorlecturer.actions';
 import { GroupCuratorView } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/group-curator-view';
 import { LocaleProps } from '@/types/locale-props';
+
 import { LecturerCuratorView } from '../components/lecturer-curator-view';
 
 const INTL_NAMESPACE = 'private.curatorlecturer';
