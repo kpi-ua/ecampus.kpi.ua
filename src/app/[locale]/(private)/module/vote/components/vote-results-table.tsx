@@ -69,13 +69,11 @@ export const VoteResultsTable = ({ voteData }: Props) => {
                   {lecturer.result.courseScore === null ? EMPTY_VALUE : formatNumber(lecturer.result.courseScore)}
                 </TableCell>
                 {voteData.criteria.map((criterion) => {
-                  const criterionScore = lecturer.result.criterionScores.find(
-                    (score) => score.criterionId === criterion.id,
-                  );
+                  const criterionScore = lecturer.result.criterionScores[criterion.id];
 
                   return (
                     <TableCell key={criterion.id}>
-                      {criterionScore ? formatNumber(criterionScore.score) : EMPTY_VALUE}
+                      {criterionScore == null ? EMPTY_VALUE : formatNumber(criterionScore)}
                     </TableCell>
                   );
                 })}

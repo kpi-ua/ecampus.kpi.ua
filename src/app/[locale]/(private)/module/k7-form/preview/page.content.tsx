@@ -2,6 +2,7 @@
 
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
+import { sum } from 'radash';
 
 import { CaretLeftRegular } from '@/app/images';
 import { Heading2, Paragraph } from '@/components/typography';
@@ -30,11 +31,8 @@ interface Props {
 export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
   const t = useTranslations('private.k-7');
   const tEmployeeCategory = useTranslations('private.k-7.employee-category');
-  const teachingHours = preview.section1.teachingDisciplines.reduce((total, row) => total + row.totalVolume, 0);
-  const otherEducationalHours = preview.section1.otherEducationalActivities.reduce(
-    (total, row) => total + row.grandTotal,
-    0,
-  );
+  const teachingHours = sum(preview.section1.teachingDisciplines, ({ totalVolume }) => totalVolume);
+  const otherEducationalHours = sum(preview.section1.otherEducationalActivities, ({ grandTotal }) => grandTotal);
   const employeeCategoryTranslationKey = EMPLOYEE_CATEGORY_TRANSLATION_KEYS[preview.header.employeeCategory];
   const employeeCategory = employeeCategoryTranslationKey
     ? tEmployeeCategory(employeeCategoryTranslationKey)

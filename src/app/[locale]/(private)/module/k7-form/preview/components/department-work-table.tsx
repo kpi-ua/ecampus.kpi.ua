@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { sum } from 'radash';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EMPTY_VALUE } from '@/lib/constants/common';
@@ -67,7 +68,7 @@ export const DepartmentWorkTable = ({ rows, totalHours }: Props) => {
               {t('total')}
             </TableCell>
             <TableCell className={`${summaryCellClassName} text-right`}>
-              {formatNumber(totalHours ?? rows.reduce((total, row) => total + row.hoursUsed, 0), 2)}
+              {formatNumber(totalHours ?? sum(rows, ({ hoursUsed }) => hoursUsed), 2)}
             </TableCell>
             <TableCell colSpan={2} className={summaryCellClassName} />
           </TableRow>
