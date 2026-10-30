@@ -1,7 +1,7 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useMutation } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import { submitVote } from '@/actions/vote.actions';

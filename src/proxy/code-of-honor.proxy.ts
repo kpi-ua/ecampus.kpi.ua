@@ -1,9 +1,11 @@
-import { getUserDetails } from '@/actions/auth.actions';
 import { NextRequest } from 'next/server';
-import { gotoLogin, gotoRoot, matchesUrl, redirectWithIntl } from './utils';
-import { CODE_OF_HONOR_PATH } from './contants';
+
+import { getUserDetails } from '@/actions/auth.actions';
+
 import { authorizationProxy } from './authorization.proxy';
+import { CODE_OF_HONOR_PATH } from './contants';
 import { intlProxy } from './intl.proxy';
+import { gotoLogin, gotoRoot, matchesUrl, redirectWithIntl } from './utils';
 
 export const codeOfHonorProxy = async (request: NextRequest) => {
   try {

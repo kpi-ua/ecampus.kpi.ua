@@ -316,7 +316,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       };
 
       void exec();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // oxlint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus]);
 
     useEffect(() => {
@@ -344,7 +344,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       };
 
       void exec();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // oxlint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus]);
 
     const CreatableItem = () => {
@@ -486,7 +486,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
                     }}
                     onClick={() => handleUnselect(option)}
                   >
-                    <X className="text-muted-foreground hover:text-foreground h-3 w-3" />
+                    <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
                   </button>
                 </Badge>
               );
@@ -553,7 +553,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
         <div className="relative">
           {open && (
             <CommandList
-              className="bg-popover text-popover-foreground animate-in absolute top-1 z-10 w-full rounded-md border shadow-md outline-none"
+              className="absolute top-1 z-10 w-full animate-in rounded-md border bg-popover text-popover-foreground shadow-md outline-none"
               onMouseLeave={() => {
                 setOnScrollbar(false);
               }}

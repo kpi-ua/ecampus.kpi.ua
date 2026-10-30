@@ -21,8 +21,8 @@ export const PeriodBadge = ({ period }: Props) => {
       variant={upcoming ? 'blue' : 'success'}
       className={
         upcoming
-          ? 'border-other-blue bg-other-blue/10 text-other-blue border'
-          : 'border-status-success-300 bg-status-success-100 text-status-success-300 border'
+          ? 'border border-other-blue bg-other-blue/10 text-other-blue'
+          : 'border border-status-success-300 bg-status-success-100 text-status-success-300'
       }
     >
       {t(upcoming ? 'upcoming' : ended ? 'ended' : 'active')}

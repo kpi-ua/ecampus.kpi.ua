@@ -9,7 +9,7 @@ export const LoadingRow = ({ colSpan }: Props) => (
   <TableRow>
     <TableCell colSpan={colSpan} className="h-32">
       <div className="flex items-center justify-center">
-        <SpinnerGap className="text-basic-blue size-8" />
+        <SpinnerGap className="size-8 text-basic-blue" />
       </div>
     </TableCell>
   </TableRow>

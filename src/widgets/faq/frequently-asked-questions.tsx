@@ -1,7 +1,8 @@
+import { getTranslations } from 'next-intl/server';
+
 import { Heading4 } from '@/components/typography/headers';
 import RichText from '@/components/typography/rich-text';
 import { Link } from '@/i18n/routing';
-import { getTranslations } from 'next-intl/server';
 
 interface FrequentlyAskedQuestionsProps {
   i18nNamespace: string;
@@ -33,7 +34,7 @@ export const FrequentlyAskedQuestions = async ({ i18nNamespace, sections }: Freq
         );
 
         return (
-          <section key={section} className="leading-lg my-8 text-lg">
+          <section key={section} className="my-8 text-lg leading-lg">
             <Heading4>{header}</Heading4>
             {content}
           </section>

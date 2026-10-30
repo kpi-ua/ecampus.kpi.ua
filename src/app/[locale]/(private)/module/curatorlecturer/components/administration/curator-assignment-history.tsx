@@ -6,8 +6,8 @@ import { useTranslations } from 'next-intl';
 
 import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { CuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { Button } from '@/components/ui/button';
 import { Heading4, Paragraph } from '@/components/typography';
+import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
 import { formatDate } from '@/lib/utils';
 

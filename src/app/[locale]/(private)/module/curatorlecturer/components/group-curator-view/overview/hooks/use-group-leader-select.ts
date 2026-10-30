@@ -4,9 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import { getCuratorStudents } from '@/actions/curatorlecturer.actions';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { CuratorGroup, CuratorStudent } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 
 export const useGroupLeaderSelect = (group: CuratorGroup) => {
   const [studentId, setStudentId] = useState('');

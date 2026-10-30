@@ -1,5 +1,5 @@
-import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 import { getAdminAnnouncementById, getCourses, getRoles, getStudyForms } from '@/actions/announcement.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';

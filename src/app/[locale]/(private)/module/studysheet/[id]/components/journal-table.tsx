@@ -1,12 +1,13 @@
 'use client';
 
-import { useTableSort } from '@/hooks/use-table-sort';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Paragraph } from '@/components/typography/paragraph';
-import { Journal } from '@/types/models/current-control/journal';
 import { useTranslations } from 'next-intl';
+
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
+import { Paragraph } from '@/components/typography/paragraph';
+import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useTableSort } from '@/hooks/use-table-sort';
+import { Journal } from '@/types/models/current-control/journal';
 
 interface Props {
   journal: Journal;
@@ -46,7 +47,7 @@ export function JournalTable({ journal }: Props) {
               <TableCell className="w-[116px] text-sm font-medium">{row.date ?? ''}</TableCell>
               <TableCell className="w-[109px] text-center">
                 {(row.presence || row.score) && (
-                  <Badge className="text-basic-blue font-semibold">{row.presence ? row.presence : row.score}</Badge>
+                  <Badge className="font-semibold text-basic-blue">{row.presence ? row.presence : row.score}</Badge>
                 )}
               </TableCell>
               <TableCell className="w-[240px] text-sm font-medium">{row.controlType ?? ''}</TableCell>
@@ -62,7 +63,7 @@ export function JournalTable({ journal }: Props) {
       </Table>
       <div className="mt-2 flex h-9 items-center gap-2 pl-4">
         <Paragraph className="text-base font-normal">{t('total-score')}</Paragraph>
-        <Badge className="bg-basic-blue text-basic-white font-semibold">{journal.totalScore}</Badge>
+        <Badge className="bg-basic-blue font-semibold text-basic-white">{journal.totalScore}</Badge>
       </div>
     </>
   );

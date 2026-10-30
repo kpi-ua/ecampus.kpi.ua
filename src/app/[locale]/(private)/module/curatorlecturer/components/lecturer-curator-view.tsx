@@ -1,7 +1,7 @@
 'use client';
 
-import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
+import { ReactNode } from 'react';
 
 import { usePermission } from '@/components/permission-provider';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
