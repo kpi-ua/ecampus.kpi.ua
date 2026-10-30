@@ -1,5 +1,5 @@
 declare global {
-  declare function fetch<ResponseType = any>(
+  function fetch<ResponseType = any>(
     input: RequestInfo | URL,
     init?: TypedRequestInit,
   ): Promise<TypedResponse<ResponseType>>;

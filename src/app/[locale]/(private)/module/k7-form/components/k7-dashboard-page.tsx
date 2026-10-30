@@ -33,7 +33,7 @@ export const K7DashboardPage = async ({
       <div className="col-span-12 flex w-full min-w-0 flex-col gap-4">
         <div>
           <Heading2>{t('title')}</Heading2>
-          <Paragraph className="leading-sm mt-3 mb-7 max-w-full text-sm font-normal text-neutral-700 sm:max-w-2xl">
+          <Paragraph className="mt-3 mb-7 max-w-full text-sm leading-sm font-normal text-neutral-700 sm:max-w-2xl">
             {t('subtitle')}
           </Paragraph>
         </div>

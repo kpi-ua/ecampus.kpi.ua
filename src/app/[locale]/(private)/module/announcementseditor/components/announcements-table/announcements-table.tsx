@@ -1,7 +1,5 @@
 'use client';
 
-import { formatDate } from '@/lib/utils';
-
 import dayjs from 'dayjs';
 import { Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -14,6 +12,7 @@ import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { isOutdated } from '@/lib/date.utils';
+import { formatDate } from '@/lib/utils';
 import { AdminAnnouncementItem } from '@/types/models/announcement';
 
 import { coursesText, formatFilterCell, rolesText, studyFormsText } from './utils';
@@ -37,7 +36,7 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
   );
 
   if (items.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
+    return <p className="py-12 text-center text-sm text-muted-foreground">{t('table.empty')}</p>;
   }
 
   return (
@@ -81,13 +80,13 @@ export const AnnouncementsTable = ({ items, onDelete }: Props) => {
                   {outdated ? t('status.outdated') : t('status.active')}
                 </Badge>
               </TableCell>
-              <TableCell className="text-muted-foreground text-start align-middle">
+              <TableCell className="text-start align-middle text-muted-foreground">
                 {formatFilterCell(rolesText(filter), noRestriction)}
               </TableCell>
-              <TableCell className="text-muted-foreground text-start align-middle">
+              <TableCell className="text-start align-middle text-muted-foreground">
                 {formatFilterCell(studyFormsText(filter), noRestriction)}
               </TableCell>
-              <TableCell className="text-muted-foreground text-start align-middle">
+              <TableCell className="text-start align-middle text-muted-foreground">
                 {formatFilterCell(coursesText(filter), noRestriction)}
               </TableCell>
               <TableCell>

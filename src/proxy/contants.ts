@@ -7,13 +7,6 @@ export const KPIID_FAILED_PATH = '/login/kpi-id-failed';
 export const KPIID_CALLBACK_PATH = '/api/kpi-id/callback';
 // Starts a KPI ID sign-in: the KPI ID initiate login URI, registered next to the redirect URI.
 export const KPIID_LOGIN_PATH = '/api/kpi-id';
-export const PUBLIC_PATHS = [
-  '/login',
-  '/password-reset',
-  '/curator-search',
-  '/suggestions',
-  '/support',
-  '/faq',
-];
+export const PUBLIC_PATHS = ['/login', '/password-reset', '/curator-search', '/suggestions', '/support', '/faq'];
 export const MODULES_BASE_PATH = '/module';
 export const CODE_OF_HONOR_PATH = '/accept-code-of-honor';

@@ -1,6 +1,7 @@
+import { getLocale } from 'next-intl/server';
+
 import { LogoEN, LogoUK, LogoBetaEN, LogoBetaUK } from '@/app/images';
 import { Link, LOCALE } from '@/i18n/routing';
-import { getLocale } from 'next-intl/server';
 
 export const Logo = async () => {
   const locale = await getLocale();

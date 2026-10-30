@@ -4,8 +4,9 @@ import { useTranslations } from 'next-intl';
 import { Fragment } from 'react';
 
 import { CuratorGroup, CuratorLecturer } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { TableExpandButton } from '@/components/ui/table-expand-button';
+import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
 import { TableCell, TableRow } from '@/components/ui/table';
+import { TableExpandButton } from '@/components/ui/table-expand-button';
 import { Show } from '@/components/utils/show';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 
@@ -20,7 +21,14 @@ interface Props {
   onToggle: () => void;
 }
 
-export const CuratorAdministrationRow = ({ group, lecturers, academicYearStart, academicYearEnd, expanded, onToggle }: Props) => {
+export const CuratorAdministrationRow = ({
+  group,
+  lecturers,
+  academicYearStart,
+  academicYearEnd,
+  expanded,
+  onToggle,
+}: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
 
   return (
@@ -29,7 +37,7 @@ export const CuratorAdministrationRow = ({ group, lecturers, academicYearStart, 
         <TableCell className="font-normal">{group.name}</TableCell>
         <TableCell>{group.course}</TableCell>
         <TableCell>{group.curatorName ?? t('not-assigned')}</TableCell>
-        <TableCell>{group.description || EMPTY_VALUE}</TableCell>
+        <TableCell>{formatGroupDescription(group) || EMPTY_VALUE}</TableCell>
         <TableCell>{group.departmentAbbreviation || group.departmentName}</TableCell>
         <TableCell className="w-12 text-right">
           <TableExpandButton expanded={expanded} onToggle={onToggle} />
@@ -37,7 +45,7 @@ export const CuratorAdministrationRow = ({ group, lecturers, academicYearStart, 
       </TableRow>
       <Show when={expanded}>
         <TableRow className="border-0 hover:bg-white">
-          <TableCell colSpan={6} className="!px-0 !pb-2 !pt-0">
+          <TableCell colSpan={6} className="!px-0 !pt-0 !pb-2">
             <CuratorAssignmentPanel
               group={group}
               lecturers={lecturers}

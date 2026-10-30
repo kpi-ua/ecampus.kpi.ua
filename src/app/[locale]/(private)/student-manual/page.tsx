@@ -1,10 +1,12 @@
-import { Heading1 } from '@/components/typography/headers';
-import { SubLayout } from '../sub-layout';
-import { DownloadButton } from './download-button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+import { Heading1 } from '@/components/typography/headers';
 import { Show } from '@/components/utils/show';
 import { isIOS } from '@/lib/user-agent';
 import { LocaleProps } from '@/types/locale-props';
+
+import { SubLayout } from '../sub-layout';
+import { DownloadButton } from './download-button';
 
 // TODO: remove this page when the manual is ready for lecturers
 

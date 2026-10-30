@@ -1,7 +1,7 @@
-import { Journal } from '@/types/models/current-control/journal';
 import { EventsPlan } from '@/types/models/current-control/events-plan';
-import { Lecturer } from '@/types/models/lecturer';
+import { Journal } from '@/types/models/current-control/journal';
 import { ExternalMaterials, InternalMaterials } from '@/types/models/current-control/materials';
+import { Lecturer } from '@/types/models/lecturer';
 
 export interface CreditModule {
   id: string;

@@ -1,13 +1,14 @@
 import { getTranslations } from 'next-intl/server';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link } from '@/i18n/routing';
-import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
-import { Card } from '@/components/ui/card';
-import { Paragraph } from '@/components/typography';
+
 import { getAttestationResults } from '@/actions/attestation.actions';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
-import { LocaleProps } from '@/types/locale-props';
 import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
+import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
+import { Paragraph } from '@/components/typography';
+import { Card } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Link } from '@/i18n/routing';
+import { LocaleProps } from '@/types/locale-props';
 import { Attestation } from '@/types/models/attestation-results/attestation-result';
 
 const INTL_NAMESPACE = 'private.attestation-results';
@@ -69,13 +70,13 @@ export default async function AttestationResultsPage() {
                 <TableCell className="max-w-[336px] min-w-[200px]">
                   {result.id ? (
                     <Link
-                      className="text-basic-black text-sm font-medium underline"
+                      className="text-sm font-medium text-basic-black underline"
                       href={`/module/studysheet/${result.id}`}
                     >
                       {result.name}
                     </Link>
                   ) : (
-                    <span className="text-basic-black text-sm font-medium">{result.name}</span>
+                    <span className="text-sm font-medium text-basic-black">{result.name}</span>
                   )}
                 </TableCell>
 
