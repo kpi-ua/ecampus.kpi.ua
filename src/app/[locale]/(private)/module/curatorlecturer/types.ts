@@ -1,6 +1,10 @@
+import { EducationLevel } from '@/types/enums/education-level';
+import { StudyForm } from '@/types/enums/study-form';
 import { Contact } from '@/types/models/colleague-contact';
 
-import { ATTESTATION_RESULT } from './constants';
+import { ATTESTATION_RESULT, GROUP_FILTERS } from './constants';
+
+export type GroupFilterKey = (typeof GROUP_FILTERS)[number];
 
 export type CuratorAttestationResult = (typeof ATTESTATION_RESULT)[keyof typeof ATTESTATION_RESULT];
 
@@ -13,10 +17,10 @@ export interface CuratorGroup {
   departmentId: number;
   departmentName: string;
   departmentAbbreviation: string;
-  description: string;
+  studyForm: StudyForm;
+  educationLevel?: EducationLevel | null;
   studyStartDate?: string | null;
   expectedCompletionDate?: string | null;
-  studyForm: string;
   speciality: string;
   groupLeaderStudentId: number | null;
   groupLeaderName: string | null;

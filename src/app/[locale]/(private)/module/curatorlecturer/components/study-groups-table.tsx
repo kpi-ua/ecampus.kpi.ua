@@ -5,6 +5,7 @@ import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
+import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -78,7 +79,7 @@ export const StudyGroupsTable = ({ groups }: Props) => {
                 <TableCell className="py-4 font-normal">{group.name}</TableCell>
                 <TableCell className="py-4">{group.course}</TableCell>
                 <TableCell className="py-4">{group.curatorName ?? t('table.not-assigned')}</TableCell>
-                <TableCell className="py-4">{group.description}</TableCell>
+                <TableCell className="py-4">{formatGroupDescription(group)}</TableCell>
                 <TableCell className="py-4">{group.departmentName}</TableCell>
               </TableRow>
             ))}
