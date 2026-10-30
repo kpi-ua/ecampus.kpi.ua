@@ -21,7 +21,7 @@ export const LibraryTabs = ({ active }: Props) => {
     );
 
   return (
-    <nav className="border-neutral-divider flex h-13 w-full justify-start overflow-x-auto rounded-lg border bg-white">
+    <nav className="flex h-13 w-full justify-start overflow-x-auto rounded-lg border border-neutral-divider bg-white">
       <Link href="/module/biblioteka" className={itemClass(active === LIBRARY_TAB.DEPARTMENTS)}>
         {t('departments')}
       </Link>

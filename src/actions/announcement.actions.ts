@@ -1,11 +1,12 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+
 import { AnnouncementCreate } from '@/app/[locale]/(private)/module/announcementseditor/types';
+import { LOCALE } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
 import { isOutdated } from '@/lib/date.utils';
 import { AdminAnnouncementItem, Announcement } from '@/types/models/announcement';
-import { LOCALE } from '@/i18n/routing';
 
 // URL pathname (no [locale] prefix, no route group).
 const ANNOUNCEMENTS_EDITOR_PATH = '/module/announcementseditor';

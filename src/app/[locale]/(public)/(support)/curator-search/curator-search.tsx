@@ -1,47 +1,45 @@
 'use client';
 
-import { CuratorSearchItem } from './curator-search-item';
-import { Input } from '@/components/ui/input';
-import { EmptyPlaceholder } from './empty-placeholder';
-import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.svg';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { searchByGroupName } from '@/actions/group.actions';
-import { useCallback, useEffect, useState } from 'react';
-import { Group } from '@/types/models/group';
-import { debounce } from 'radash';
-import { Show } from '@/components/utils/show';
+import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
+import { debounce } from 'radash';
+import { type ChangeEvent, useMemo, useState } from 'react';
+
+import { searchByGroupName } from '@/actions/group.actions';
+import MagnifyingGlassRegular from '@/app/images/icons/MagnifyingGlassRegular.svg';
+import { Input } from '@/components/ui/input';
+import { Show } from '@/components/utils/show';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+
+import { CuratorSearchItem } from './curator-search-item';
+import { EmptyPlaceholder } from './empty-placeholder';
 
 export const CuratorSearch = () => {
   const t = useTranslations('public.curator-search');
+  const [inputValue, setInputValue] = useState('');
   const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [groups, setGroups] = useState<Group[]>([]);
+  const debouncedSearch = useMemo(() => debounce({ delay: 200 }, setSearch), []);
   const { errorToast } = useServerErrorToast();
 
   const unknownValue = t('unknown-value');
 
-  const searchGroups = useCallback(async (name: string) => {
-    try {
-      setIsLoading(true);
+  const { data: groups = [], isLoading } = useQuery({
+    queryKey: ['groups', 'search', search],
+    queryFn: async () => {
+      try {
+        return await searchByGroupName(search);
+      } catch (error) {
+        errorToast();
+        throw error;
+      }
+    },
+    enabled: !!search,
+  });
 
-      const response = name ? await searchByGroupName(name) : [];
-
-      setGroups(response);
-    } catch (error) {
-      errorToast();
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    searchGroups(search);
-  }, [search, searchGroups]);
-
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearch(value);
+  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setInputValue(value);
+    debouncedSearch(value);
   };
 
   return (
@@ -49,7 +47,8 @@ export const CuratorSearch = () => {
       <Input
         placeholder={t('search-placeholder')}
         icon={<MagnifyingGlassRegular />}
-        onChange={debounce({ delay: 200 }, handleChange)}
+        value={inputValue}
+        onChange={handleInput}
       />
       <div className="relative grow">
         <Show when={!search && !groups.length}>

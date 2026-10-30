@@ -1,9 +1,9 @@
 'use client';
 
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { Check } from 'lucide-react';
 import * as React from 'react';
 
-import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Checkbox = ({ className, ref, ...props }: React.ComponentProps<typeof CheckboxPrimitive.Root>) => (

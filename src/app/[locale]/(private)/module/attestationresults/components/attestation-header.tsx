@@ -1,6 +1,7 @@
-import { TableHead } from '@/components/ui/table';
 import { getTranslations } from 'next-intl/server';
+
 import { HeaderLabel } from '@/app/[locale]/(private)/module/attestationresults/components/header-label';
+import { TableHead } from '@/components/ui/table';
 
 interface Props {
   semesterNumber: number;

@@ -1,16 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ChevronDown, ChevronRight } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 import { sum, toggle } from 'radash';
+import React, { useState } from 'react';
+
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatNumber, linkifyText } from '@/lib/utils';
-import { EntriesTableProps, GroupedByWorkKind } from '../types';
+
 import { useGroupedEntries } from '../hooks';
+import { EntriesTableProps, GroupedByWorkKind } from '../types';
 
 function NumericTableHead({ children }: { children: React.ReactNode }) {
-  return <TableHead className="w-24 whitespace-nowrap text-right">{children}</TableHead>;
+  return <TableHead className="w-24 text-right whitespace-nowrap">{children}</TableHead>;
 }
 
 export function EntriesTable({ entries }: EntriesTableProps) {
@@ -72,11 +74,7 @@ export function EntriesTable({ entries }: EntriesTableProps) {
                         <TableCell colSpan={6} className="py-2">
                           <div className="flex items-center gap-2">
                             <span className="text-neutral-400">
-                              {isExpanded ? (
-                                <ChevronDown className="h-4 w-4" />
-                              ) : (
-                                <ChevronRight className="h-4 w-4" />
-                              )}
+                              {isExpanded ? <ChevronDown className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
                             </span>
                             <span className="font-semibold">{treeGroup.treeName}</span>
                           </div>
@@ -95,7 +93,7 @@ export function EntriesTable({ entries }: EntriesTableProps) {
                                 {entry.textFull && (
                                   <>
                                     <br />
-                                    <span className="whitespace-pre-wrap text-sm text-neutral-600">
+                                    <span className="text-sm whitespace-pre-wrap text-neutral-600">
                                       {linkifyText(entry.textFull)}
                                     </span>
                                   </>
@@ -105,7 +103,7 @@ export function EntriesTable({ entries }: EntriesTableProps) {
                             <TableCell className="text-right">{formatNumber(entry.mark)}</TableCell>
                             <TableCell className="text-right">{formatNumber(entry.quantity)}</TableCell>
                             <TableCell className="text-right">{formatNumber(entry.quantityPercent)}%</TableCell>
-                            <TableCell className="text-basic-blue text-right font-medium">
+                            <TableCell className="text-right font-medium text-basic-blue">
                               {formatNumber(entry.result)}
                             </TableCell>
                           </TableRow>
