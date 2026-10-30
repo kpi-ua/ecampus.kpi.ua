@@ -7,8 +7,8 @@ import qs from 'query-string';
 
 import { campusFetch } from '@/lib/client';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
-import { AuthResponse } from '@/types/models/auth-response';
 import { UserCategory } from '@/types/enums/user-category';
+import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
 import { User } from '@/types/models/user';
 
