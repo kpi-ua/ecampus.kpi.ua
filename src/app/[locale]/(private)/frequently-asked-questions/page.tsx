@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import { FrequentlyAskedQuestions } from '@/app/[locale]/(private)/frequently-asked-questions/components/frequently-asked-questions';
 import { Heading2 } from '@/components/typography/headers';
 import { LocaleProps } from '@/types/locale-props';
-import { FrequentlyAskedQuestions } from '@/app/[locale]/(private)/frequently-asked-questions/components/frequently-asked-questions';
 
 import { SubLayout } from '../sub-layout';
 

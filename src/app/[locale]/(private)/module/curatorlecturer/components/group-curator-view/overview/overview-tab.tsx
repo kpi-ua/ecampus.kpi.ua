@@ -3,6 +3,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { getCuratorStudents } from '@/actions/curatorlecturer.actions';
@@ -24,7 +25,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import Link from 'next/link';
 import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 
@@ -111,7 +111,7 @@ export const OverviewTab = ({ group }: Props) => {
                         >
                           <div className="flex items-center gap-2">
                             <Link
-                              className="text-basic-blue rounded-md border border-neutral-100 bg-neutral-50 px-2 py-1 text-sm font-semibold break-all"
+                              className="rounded-md border border-neutral-100 bg-neutral-50 px-2 py-1 text-sm font-semibold break-all text-basic-blue"
                               href={`mailto:${student.email}`}
                             >
                               {student.email}
