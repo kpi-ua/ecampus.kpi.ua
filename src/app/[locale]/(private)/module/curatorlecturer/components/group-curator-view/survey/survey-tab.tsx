@@ -22,8 +22,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
@@ -121,7 +121,7 @@ export const SurveyTab = ({ groupId, groupName, filters, defaultYearId }: Props)
           />
         </div>
         <Show when={!isFetching}>
-          <Badge variant="neutral" className="border-neutral-divider border bg-white font-normal" role="status">
+          <Badge variant="neutral" className="border border-neutral-divider bg-white font-normal" role="status">
             {t('survey.incomplete-count', { count: incompleteCount, total: students.length })}
           </Badge>
         </Show>
