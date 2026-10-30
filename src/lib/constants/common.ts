@@ -50,8 +50,10 @@ export const PAGE_SIZE_SMALL = 5;
 
 export const PASSWORD_MASK = '••••••••';
 
-export const USER_CATEGORIES = {
+export const USER_CATEGORIES: Record<string, string> = {
   [UserCategory.Student]: 'student',
-  [UserCategory.Lecturer]: 'spw', // SPW stands for scientific and pedagogical worker
+  [UserCategory.AcademicStaff]: 'spw', // SPW stands for scientific and pedagogical worker
+  // Wire name of AcademicStaff before KBX-1526, until the API with the new name is deployed
+  Lecturer: 'spw',
   [UserCategory.AdministrativeStaff]: 'administrative-staff',
 };
