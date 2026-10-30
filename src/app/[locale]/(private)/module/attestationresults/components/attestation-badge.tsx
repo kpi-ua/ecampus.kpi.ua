@@ -1,5 +1,6 @@
-import { Badge } from '@/components/ui/badge';
 import { getTranslations } from 'next-intl/server';
+
+import { Badge } from '@/components/ui/badge';
 
 interface Props {
   result: boolean;

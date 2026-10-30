@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 import { NextRequest } from 'next/server';
-import { getAuthInfo, gotoLogin, matchesAnyUrl } from './utils';
+
 import { codeOfHonorProxy } from './code-of-honor.proxy';
 import { PUBLIC_PATHS } from './contants';
 import { intlProxy } from './intl.proxy';
+import { getAuthInfo, gotoLogin, matchesAnyUrl } from './utils';
 
 const isAuthenticated = (request: NextRequest) => {
   const payload = getAuthInfo(request);

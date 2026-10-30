@@ -18,7 +18,13 @@ interface Props {
   isFetching: boolean;
 }
 
-export const CuratorAdministrationTable = ({ groups, lecturers, academicYearStart, academicYearEnd, isFetching }: Props) => {
+export const CuratorAdministrationTable = ({
+  groups,
+  lecturers,
+  academicYearStart,
+  academicYearEnd,
+  isFetching,
+}: Props) => {
   const t = useTranslations('private.curatorlecturer.group-curator.administration');
   const [expandedGroupId, setExpandedGroupId] = useState<number | null>(null);
 
@@ -54,7 +60,7 @@ export const CuratorAdministrationTable = ({ groups, lecturers, academicYearStar
           >
             {groups.map((group) => (
               <CuratorAdministrationRow
-                key={group.groupId}
+                key={`${group.groupId}-${group.curatorEmployeeId}`}
                 group={group}
                 lecturers={lecturers}
                 academicYearStart={academicYearStart}

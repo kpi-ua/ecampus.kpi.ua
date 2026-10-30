@@ -1,5 +1,5 @@
-import { Module } from '@/types/module';
 import { ProfileArea } from '@/types/enums/profile-area';
+import { Module } from '@/types/module';
 
 export const MODULES: Module[] = [
   { name: 'studysheet', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
@@ -46,7 +46,7 @@ export const MODULES: Module[] = [
   { name: 'zdekan', isExternal: true },
   { name: 'ekk', isExternal: true },
   { name: 'bravook', isExternal: true },
-  { name: 'yiystat', isExternal: true },
+  { name: 'yiystat', isExternal: false },
   { name: 'adminpanel', isExternal: true },
   { name: 'mob', isExternal: true },
   { name: 'useract', isExternal: true },

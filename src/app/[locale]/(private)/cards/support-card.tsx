@@ -1,11 +1,12 @@
+import { getTranslations } from 'next-intl/server';
+import { FC } from 'react';
+
 import { Chats, ChatsTeardrop, EnvelopeSimple } from '@/app/images';
 import { Heading3 } from '@/components/typography/headers';
 import { Paragraph } from '@/components/typography/paragraph';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { TextButton } from '@/components/ui/text-button';
 import { cn } from '@/lib/utils';
-import { getTranslations } from 'next-intl/server';
-import { FC } from 'react';
 
 interface Props {
   className?: string;

@@ -1,25 +1,26 @@
 'use client';
 
-import { Heading5 } from '@/components/typography/headers';
-import { useTranslations } from 'next-intl';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import PasswordInput from '@/components/ui/password-input';
-import { Button } from '@/components/ui/button';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { Card, CardContent } from '@/components/ui/card';
-import { User } from '@/types/models/user';
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
 import { changeEmail, changePassword, changePhoto } from '@/actions/settings.actions';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { PhotoUploader } from '@/app/[locale]/(private)/settings/photo-uploader';
-import { toast } from '@/hooks/use-toast';
-import { getUniqueUserPhotoUrl } from '@/lib/utils';
-import { isKpiCorporateEmail } from '@/lib/email.utils';
 import EnvelopeSimple from '@/app/images/icons/EnvelopeSimple.svg';
+import { Heading5 } from '@/components/typography/headers';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import PasswordInput from '@/components/ui/password-input';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { toast } from '@/hooks/use-toast';
+import { isKpiCorporateEmail } from '@/lib/email.utils';
+import { getUniqueUserPhotoUrl } from '@/lib/utils';
+import { User } from '@/types/models/user';
 
 interface Props {
   user: User;

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from 'storybook/test';
 
-import { Button } from '../components/ui/button';
 import ArrowsDownUpBold from '../app/images/icons/ArrowsDownUpBold.svg';
 import ArrowsDownUpLight from '../app/images/icons/ArrowsDownUpLight.svg';
 import ArrowsDownUpRegular from '../app/images/icons/ArrowsDownUpRegular.svg';
@@ -107,6 +106,7 @@ import X from '../app/images/icons/X.svg';
 import XBold from '../app/images/icons/XBold.svg';
 import XLight from '../app/images/icons/XLight.svg';
 import XRegular from '../app/images/icons/XRegular.svg';
+import { Button } from '../components/ui/button';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

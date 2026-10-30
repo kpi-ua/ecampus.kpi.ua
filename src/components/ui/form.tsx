@@ -1,13 +1,13 @@
 'use client';
 
-import * as React from 'react';
 import * as LabelPrimitive from '@radix-ui/react-label';
 import { Slot } from '@radix-ui/react-slot';
+import * as React from 'react';
 import { Controller, ControllerProps, FieldPath, FieldValues, FormProvider, useFormContext } from 'react-hook-form';
 
-import { cn } from '@/lib/utils';
-import { Label } from '@/components/ui/label';
 import { Warning } from '@/app/images';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 
 const Form = FormProvider;
 
@@ -112,11 +112,14 @@ const FormMessage = ({ className, children, ref, ...props }: React.ComponentProp
   }
 
   return (
-    <div ref={ref} id={formMessageId} className={cn('flex items-center gap-0.5 text-status-danger-300 text-sm font-medium', className)} {...props}>
+    <div
+      ref={ref}
+      id={formMessageId}
+      className={cn('flex items-center gap-0.5 text-status-danger-300 text-sm font-medium', className)}
+      {...props}
+    >
       <Warning className="size-4" />
-      <p>
-      {body}
-      </p>
+      <p>{body}</p>
     </div>
   );
 };

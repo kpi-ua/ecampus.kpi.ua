@@ -1,9 +1,10 @@
-import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { Viewport } from 'next';
-import { routing } from '@/i18n/routing';
-import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
+
 import { Toaster } from '@/components/ui/toaster';
+import { routing } from '@/i18n/routing';
 import { LocaleProps } from '@/types/locale-props';
 
 interface Props extends LocaleProps {

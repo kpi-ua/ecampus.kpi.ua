@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 import { Description, Heading4, Heading6, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
@@ -33,7 +33,7 @@ export const StudentCuratorView = ({ curator }: Props) => {
                 </Paragraph>
                 <div className="flex flex-1 flex-col gap-2">
                   {curator?.subdivisions.map((subdivision) => (
-                    <Paragraph key={subdivision.id} className="text-basic-black m-0 text-lg font-normal break-words">
+                    <Paragraph key={subdivision.id} className="m-0 text-lg font-normal break-words text-basic-black">
                       {subdivision.name}
                     </Paragraph>
                   ))}
@@ -47,7 +47,7 @@ export const StudentCuratorView = ({ curator }: Props) => {
                       <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px] sm:pl-4">
                         {contact.name}
                       </Paragraph>
-                      <Paragraph className="text-basic-black m-0 text-lg font-normal break-all">
+                      <Paragraph className="m-0 text-lg font-normal break-all text-basic-black">
                         {contact.value}
                       </Paragraph>
                     </div>
@@ -59,7 +59,7 @@ export const StudentCuratorView = ({ curator }: Props) => {
                   <Paragraph className="m-0 w-full text-lg font-semibold text-neutral-400 sm:w-[170px]">
                     {t('profile')}
                   </Paragraph>
-                  <Paragraph className="text-basic-black m-0 flex-1 text-lg font-normal break-all">
+                  <Paragraph className="m-0 flex-1 text-lg font-normal break-all text-basic-black">
                     <Link href={curator?.userInfo.profile ?? ''} target="_blank" rel="noopener noreferrer">
                       {curator?.userInfo.profile}
                     </Link>

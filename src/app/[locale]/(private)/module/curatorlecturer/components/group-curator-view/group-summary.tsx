@@ -11,6 +11,7 @@ import {
 import { Paragraph } from '@/components/typography';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 
+import { GROUP_FILTER_LABELS } from '../../constants';
 import { CuratorGroup } from '../../types';
 
 interface Props {
@@ -25,7 +26,10 @@ export const GroupSummary = ({ group }: Props) => {
     staleTime: CURATOR_GROUP_STALE_TIME,
   });
   const facts = [
-    { label: t('facts.study-form'), value: group.studyForm },
+    {
+      label: t('facts.study-form'),
+      value: GROUP_FILTER_LABELS.studyForm[group.studyForm] || EMPTY_VALUE,
+    },
     { label: t('facts.speciality'), value: group.speciality },
     { label: t('facts.course'), value: group.course.toString() },
     { label: t('facts.department'), value: group.departmentAbbreviation || group.departmentName },
@@ -36,7 +40,7 @@ export const GroupSummary = ({ group }: Props) => {
   return (
     <div className="flex flex-wrap gap-y-5">
       {facts.map(({ label, value }) => (
-        <div key={label} className="border-neutral-divider min-w-36 border-r px-5 first:pl-2 last:border-r-0">
+        <div key={label} className="min-w-36 border-r border-neutral-divider px-5 first:pl-2 last:border-r-0">
           <Paragraph className="m-0 text-sm font-semibold text-neutral-900">{value || EMPTY_VALUE}</Paragraph>
           <Paragraph className="m-0 mt-1 text-sm text-neutral-500">{label}</Paragraph>
         </div>

@@ -1,8 +1,10 @@
-import { StudentProfile } from '@/types/models/student-profile';
-import { InfoItem, InfoList } from './info-list';
-import { dash } from 'radash';
-import { StudyForm } from '@/types/enums/study-form';
 import { getTranslations } from 'next-intl/server';
+import { dash } from 'radash';
+
+import { StudyForm } from '@/types/enums/study-form';
+import { StudentProfile } from '@/types/models/student-profile';
+
+import { InfoItem, InfoList } from './info-list';
 
 interface Props {
   studentProfile: StudentProfile;

@@ -8,17 +8,20 @@ import { useState } from 'react';
 import { getCuratorSurveys } from '@/actions/curatorlecturer.actions';
 import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
 import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
+import {
+  CURATOR_GROUP_STALE_TIME,
+  curatorGroupQueryKeys,
+} from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
+import { exportGroupSurveys } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-surveys';
+import { groupSurveysByStudent } from '@/app/[locale]/(private)/module/curatorlecturer/utils/group-surveys-by-student';
 import { Heading4 } from '@/components/typography/index';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { exportGroupSurveys } from '@/app/[locale]/(private)/module/curatorlecturer/utils/export-group-surveys';
 
-import { CURATOR_GROUP_STALE_TIME, curatorGroupQueryKeys } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/query-keys';
 import { SurveyStudentRow } from './survey-student-row';
-import { groupSurveysByStudent } from '@/app/[locale]/(private)/module/curatorlecturer/utils/group-surveys-by-student';
 
 interface Props {
   groupId: number;
@@ -58,7 +61,7 @@ export const SurveyTab = ({ groupId, groupName }: Props) => {
         onChange={(event) => setSearch(event.target.value)}
         placeholder={t('filters.student-search')}
       />
-      <div className="border-neutral-divider overflow-hidden rounded-lg border bg-white">
+      <div className="overflow-hidden rounded-lg border border-neutral-divider bg-white">
         <Table>
           <TableHeader>
             <TableRow>

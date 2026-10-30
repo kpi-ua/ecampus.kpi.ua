@@ -4,7 +4,6 @@ import { getContactTypes } from '@/actions/profile.actions';
 import { CuratorStudentDetails } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 import { EMPTY_VALUE, PASSWORD_MASK } from '@/lib/constants/common';
-
 import { createCsvResponse } from '@/lib/csv-response';
 import { formatDate } from '@/lib/utils';
 

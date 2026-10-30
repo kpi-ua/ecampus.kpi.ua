@@ -1,16 +1,16 @@
 'use client';
+import { useTranslations } from 'next-intl';
 import { useDeferredValue, useMemo } from 'react';
 
-import { useTranslations } from 'next-intl';
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Show } from '@/components/utils/show';
+import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
+import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
 import { ATTESTATION_COLUMNS } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
 import { CuratorStudentAttestation } from '@/app/[locale]/(private)/module/curatorlecturer/types';
-import { EmptyRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/EmptyRow';
-import { AttestationStudentRow } from './attestation-student-row';
-import { LoadingRow } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/shared/loading-row';
-
 import { filterAttestationResults } from '@/app/[locale]/(private)/module/curatorlecturer/utils/filter-attestation-results';
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
+
+import { AttestationStudentRow } from './attestation-student-row';
 interface Props {
   students: CuratorStudentAttestation[];
   search: string;
@@ -43,7 +43,7 @@ export const AttestationStudentTable = ({
   );
 
   return (
-    <div className="border-neutral-divider overflow-hidden rounded-lg border bg-white">
+    <div className="overflow-hidden rounded-lg border border-neutral-divider bg-white">
       <Table className="min-w-[900px]">
         <TableHeader>
           <TableRow className="hover:bg-white [&>th]:bg-neutral-100 [&>th]:text-xs [&>th]:uppercase">

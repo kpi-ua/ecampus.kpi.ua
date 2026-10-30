@@ -1,10 +1,12 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
-import { TOKEN_COOKIE_NAME } from './constants/common';
-import { DEFAULT_LOCALE } from '@/i18n/routing';
+import { cookies } from 'next/headers';
 import { headers as nextHeaders } from 'next/headers';
+
+import { DEFAULT_LOCALE } from '@/i18n/routing';
+
+import { TOKEN_COOKIE_NAME } from './constants/common';
 
 const getLocaleSafe = async () => {
   try {

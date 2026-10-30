@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { acceptPrivacyConsent } from '@/actions/profile.actions';
 import { Button } from '@/components/ui/button';
 import {
@@ -47,7 +48,7 @@ export function PrivacyConsentDialog() {
           <DialogDescription className="sr-only">{t('description')}</DialogDescription>
         </DialogHeader>
 
-        <div className="text-foreground flex flex-col gap-4 py-4 text-sm">
+        <div className="flex flex-col gap-4 py-4 text-sm text-foreground">
           <p>{t('agreement-intro')}</p>
           <ul className="list-disc space-y-1 pl-6">
             <li>{t('data-items.name')}</li>

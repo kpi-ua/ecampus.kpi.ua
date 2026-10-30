@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { debounce } from 'radash';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { MagnifyingGlassRegular } from '@/app/images';
 import { Input } from '@/components/ui/input';
@@ -20,11 +20,10 @@ export const AnnouncementsFilters = () => {
 
   const search = searchParams.get('search') ?? '';
   const rawLanguage = searchParams.get('language')?.toLowerCase();
-  const language =
-    ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
+  const language = ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
 
   const [searchValue, setSearchValue] = useState(search);
-  
+
   useEffect(() => {
     setSearchValue(search);
   }, [search]);
