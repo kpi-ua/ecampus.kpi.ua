@@ -1,24 +1,26 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import { useCallback, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { grantSbpRights, searchSbpUsers } from '@/actions/sbp-rights.actions';
 import { AsyncCombobox, ComboboxOption } from '@/components/ui/async-combobox';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useRouter } from '@/i18n/routing';
-import { grantSbpRights, searchSbpUsers } from '@/actions/sbp-rights.actions';
 import {
   AccessScope,
   SbpLoadCatalogItem,
   SbpStudyYearCatalogItem,
   SbpSubdivisionCatalogItem,
 } from '@/types/models/sbp-rights';
+
 import { SBP_RIGHTS_PATH, USER_SEARCH_MIN_CHARS } from '../constants';
 import { createGrantRightsSchema, GrantRightsFormValues } from './grant-rights-schema';
 import { LoadMultiSelect } from './load-multi-select';

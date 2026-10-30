@@ -1,15 +1,17 @@
 'use client';
 
-import { Fragment, useMemo } from 'react';
+import { Trash2, UserX } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { group } from 'radash';
-import { Trash2, UserX } from 'lucide-react';
+import { Fragment, useMemo } from 'react';
+
+import { revokeAllSbpRightsForUser, revokeSbpRight } from '@/actions/sbp-rights.actions';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { revokeAllSbpRightsForUser, revokeSbpRight } from '@/actions/sbp-rights.actions';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 import { SbpResponsibilityListItem } from '@/types/models/sbp-rights';
+
 import { RevokeDialog } from './revoke-dialog';
 
 interface Props {
@@ -53,7 +55,7 @@ export function RightsTable({ items }: Props) {
               <TableRow className="bg-muted/40 hover:bg-muted/40">
                 <TableCell colSpan={COLUMN_COUNT} className="py-2">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <span className="text-muted-foreground text-xs tracking-wide whitespace-nowrap uppercase">
+                    <span className="text-xs tracking-wide whitespace-nowrap text-muted-foreground uppercase">
                       {head.studyingYearName}
                     </span>
                     <span className="font-medium">{head.fullName}</span>
@@ -67,7 +69,7 @@ export function RightsTable({ items }: Props) {
                     <Badge variant={head.scope === 'University' ? 'purple' : 'blue'}>
                       {t(`scope.${head.scope === 'University' ? 'university' : 'faculty'}`)}
                     </Badge>
-                    <span className="text-muted-foreground text-sm">
+                    <span className="text-sm text-muted-foreground">
                       {head.subdivisionAbbreviation ?? head.subdivisionName}
                     </span>
                   </div>
@@ -81,12 +83,12 @@ export function RightsTable({ items }: Props) {
                         {item.loadSubTreeNumber != null ? `${item.loadSubTreeNumber}. ` : ''}
                         {item.loadName}
                       </span>
-                      <span className="text-muted-foreground text-xs">
+                      <span className="text-xs text-muted-foreground">
                         {item.workKindName} · {item.treeName}
                       </span>
                     </div>
                   </TableCell>
-                  <TableCell className="text-muted-foreground whitespace-nowrap">
+                  <TableCell className="whitespace-nowrap text-muted-foreground">
                     {item.changeDate ? formatDate(item.changeDate) : EMPTY_VALUE}
                   </TableCell>
                   <TableCell className="text-right">

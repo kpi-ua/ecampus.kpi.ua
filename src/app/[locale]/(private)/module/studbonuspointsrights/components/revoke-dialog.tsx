@@ -1,7 +1,8 @@
 'use client';
 
-import { ReactNode, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { ReactNode, useState } from 'react';
+
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -13,8 +14,8 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useToast } from '@/hooks/use-toast';
 
 interface Props {
   /** Message group under `private.studbonuspointsrights` with the dialog copy. */

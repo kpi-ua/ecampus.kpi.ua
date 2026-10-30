@@ -1,8 +1,10 @@
 import { getTranslations } from 'next-intl/server';
+
+import { getSbpLoads, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
-import { getSbpLoads, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { LocaleProps } from '@/types/locale-props';
+
 import { GrantForm } from '../components/grant-form';
 import { SBP_RIGHTS_PATH } from '../constants';
 

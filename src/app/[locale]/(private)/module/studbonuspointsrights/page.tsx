@@ -1,12 +1,14 @@
 import { getTranslations } from 'next-intl/server';
 import { SearchParams } from 'nuqs/server';
+
+import { getSbpLoads, getSbpRights, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
-import { getSbpLoads, getSbpRights, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { redirect } from '@/i18n/routing';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
+
 import { GrantButton } from './components/grant-button';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';

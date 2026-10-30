@@ -1,5 +1,6 @@
-import { Description, Heading3 } from '@/components/typography';
 import { useTranslations } from 'next-intl';
+
+import { Description, Heading3 } from '@/components/typography';
 
 interface Props {
   hasFilters: boolean;

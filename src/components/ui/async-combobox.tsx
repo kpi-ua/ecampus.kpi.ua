@@ -1,8 +1,9 @@
 'use client';
 
-import * as React from 'react';
-import { useTranslations } from 'next-intl';
 import { Check, ChevronDown, Loader2, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import * as React from 'react';
+
 import { Command, CommandEmpty, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { useDebounce } from '@/components/ui/multi-select';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -179,7 +180,7 @@ function AsyncCombobox<T extends ComboboxOption>({
             type="button"
             aria-label={t('clear')}
             onClick={handleClear}
-            className="text-muted-foreground hover:text-foreground absolute top-1/2 right-9 -translate-y-1/2 cursor-pointer rounded-sm p-0.5"
+            className="absolute top-1/2 right-9 -translate-y-1/2 cursor-pointer rounded-sm p-0.5 text-muted-foreground hover:text-foreground"
           >
             <X className="h-4 w-4" />
           </button>
@@ -190,7 +191,7 @@ function AsyncCombobox<T extends ComboboxOption>({
           <CommandInput value={query} onValueChange={setQuery} placeholder={searchPlaceholder ?? t('search')} />
           <CommandList id={listboxId}>
             {isLoading && (
-              <div className="text-muted-foreground flex items-center justify-center gap-2 py-4 text-sm">
+              <div className="flex items-center justify-center gap-2 py-4 text-sm text-muted-foreground">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 {loadingText ?? t('loading')}
               </div>

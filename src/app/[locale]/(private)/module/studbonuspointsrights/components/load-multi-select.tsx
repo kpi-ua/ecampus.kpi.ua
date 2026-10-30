@@ -1,7 +1,8 @@
 'use client';
 
-import { ComponentProps, useId, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { ComponentProps, useId, useMemo } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
@@ -76,13 +77,13 @@ export function LoadMultiSelect({ loads, value, onChange, className, ...groupPro
   };
 
   if (groups.length === 0) {
-    return <p className="text-muted-foreground text-sm">{t('loadsNotFound')}</p>;
+    return <p className="text-sm text-muted-foreground">{t('loadsNotFound')}</p>;
   }
 
   return (
     <div {...groupProps} role="group" aria-label={t('loads')} className={cn('space-y-2', className)}>
       <div className="flex items-center justify-between">
-        <span className="text-muted-foreground text-xs">{t('loadsSelected', { count: value.length })}</span>
+        <span className="text-xs text-muted-foreground">{t('loadsSelected', { count: value.length })}</span>
         <Button type="button" variant="tertiary" size="small" onClick={toggleAll} className="px-2 py-1 text-xs">
           {allSelected ? t('clearAll') : t('selectAll')}
         </Button>
@@ -93,7 +94,7 @@ export function LoadMultiSelect({ loads, value, onChange, className, ...groupPro
           return (
             <div key={`${group.workKindId}:${group.treeId}`}>
               <div className="mb-2 flex items-center justify-between gap-2">
-                <div className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                <div className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                   {group.workKindName} · {group.treeName}
                 </div>
                 <Button
@@ -121,7 +122,7 @@ export function LoadMultiSelect({ loads, value, onChange, className, ...groupPro
                         {load.subTreeNumber != null ? `${load.subTreeNumber}. ` : ''}
                         {load.loadName}
                       </span>
-                      <span className="text-muted-foreground text-xs">{load.mark}</span>
+                      <span className="text-xs text-muted-foreground">{load.mark}</span>
                     </label>
                   );
                 })}
