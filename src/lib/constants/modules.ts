@@ -46,7 +46,7 @@ export const MODULES: Module[] = [
   { name: 'zdekan', isExternal: true },
   { name: 'ekk', isExternal: true },
   { name: 'bravook', isExternal: true },
-  { name: 'yiystat', isExternal: true },
+  { name: 'yiystat', isExternal: false },
   { name: 'adminpanel', isExternal: true },
   { name: 'mob', isExternal: true },
   { name: 'useract', isExternal: true },
