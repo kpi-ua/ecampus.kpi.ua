@@ -15,6 +15,14 @@
       "download": "Download",
       "view": "View"
     },
+    "combobox": {
+      "placeholder": "Select...",
+      "search": "Search...",
+      "loading": "Loading...",
+      "noResults": "Nothing found.",
+      "minChars": "Type at least {count} characters.",
+      "clear": "Clear"
+    },
     "tooltip": {
       "edit": "Edit",
       "delete": "Delete"
@@ -68,6 +76,7 @@
       "useract": "Bravo Requests",
       "viewcontrol": "Review current control",
       "studbonuspoints": "Bonus points",
+      "studbonuspointsrights": "Rights: Bonus points",
       "k7-form": "K-7 Report",
       "biblioteka": "Library",
       "votelecturer": "Lecturer survey results"
@@ -632,6 +641,94 @@
         "confirm": "Delete",
         "cancel": "Cancel",
         "success": "Announcement deleted"
+      }
+    },
+    "studbonuspointsrights": {
+      "title": "Rights: Bonus points",
+      "subtitle": "Grant and revoke admin access for individual points of the Bonus points module.",
+      "scope": {
+        "faculty": "Faculty",
+        "university": "University"
+      },
+      "table": {
+        "load": "Point",
+        "created": "Granted",
+        "actions": "Actions"
+      },
+      "filters": {
+        "searchPlaceholder": "Search by full name",
+        "year": "Study year",
+        "allYears": "All years",
+        "currentSuffix": "current",
+        "subdivision": "Subdivision",
+        "allSubdivisions": "All subdivisions",
+        "load": "Point",
+        "allLoads": "All points"
+      },
+      "empty": {
+        "initial": {
+          "title": "No rights granted yet",
+          "subtitle": "No user has admin rights for any point yet."
+        },
+        "filtered": {
+          "title": "Nothing matches",
+          "subtitle": "Try adjusting the filters or clearing the search."
+        }
+      },
+      "grant": {
+        "button": "Grant rights",
+        "title": "Grant rights",
+        "description": "Pick a user, scope, and the points this user will administer.",
+        "user": "User",
+        "userPickerPlaceholder": "Pick a user",
+        "userSearchPlaceholder": "Start typing a name",
+        "userNotFound": "No user found.",
+        "scope": "Scope",
+        "scopeFaculty": "Faculty",
+        "scopeUniversity": "University",
+        "subdivision": "Subdivision",
+        "subdivisionPlaceholder": "Pick a faculty",
+        "year": "Study year",
+        "yearPlaceholder": "Pick a year",
+        "loads": "Points",
+        "loadsSelected": "{count} selected",
+        "loadsNotFound": "No point found.",
+        "selectAll": "Select all",
+        "clearAll": "Clear",
+        "submit": "Grant",
+        "cancel": "Cancel",
+        "errors": {
+          "userRequired": "Pick a user.",
+          "yearRequired": "Pick a study year.",
+          "loadsRequired": "Pick at least one point.",
+          "subdivisionRequired": "Pick a faculty."
+        },
+        "success": {
+          "title": "Done",
+          "description": "Granted {granted}, skipped {skipped} duplicates."
+        }
+      },
+      "revoke": {
+        "trigger": "Revoke right",
+        "title": "Revoke this right?",
+        "description": "{user} will lose admin access to \"{load}\" for {subdivision} ({year}).",
+        "confirm": "Revoke",
+        "cancel": "Cancel",
+        "success": {
+          "title": "Done",
+          "description": "Right revoked."
+        }
+      },
+      "revokeAll": {
+        "trigger": "Revoke all rights for user",
+        "title": "Revoke all rights?",
+        "description": "{user} will lose admin access to every point of the module and the module will disappear from their menu.",
+        "confirm": "Revoke all",
+        "cancel": "Cancel",
+        "success": {
+          "title": "Done",
+          "description": "All user rights revoked."
+        }
       }
     },
     "profile": {

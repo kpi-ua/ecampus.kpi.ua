@@ -52,4 +52,5 @@ export const MODULES: Module[] = [
   { name: 'useract', isExternal: true },
   { name: 'viewcontrol', isExternal: true },
   { name: 'studbonuspoints', isExternal: true },
+  { name: 'studbonuspointsrights', isExternal: false },
 ];

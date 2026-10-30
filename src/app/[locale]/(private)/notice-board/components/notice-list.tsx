@@ -14,7 +14,7 @@ import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Separator } from '@/components/ui/separator';
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
-import { PAGE_SIZE_SMALL } from '@/lib/constants/common';
+import { PAGE_SIZE_SMALL, SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 import { Announcement } from '@/types/models/announcement';
 
 import MagnifyingGlassRegular from '../../../../images/icons/MagnifyingGlassRegular.svg';
@@ -37,7 +37,7 @@ export function NoticeList({ announcements }: NoticeListProps) {
 
   const { paginatedItems, page } = usePagination(PAGE_SIZE_SMALL, filteredAnnouncements);
 
-  const handleSearchChange = debounce({ delay: 200 }, (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = debounce({ delay: SEARCH_DEBOUNCE_MS }, (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSearch = e.target.value;
     const params = new URLSearchParams(searchParams);
 
