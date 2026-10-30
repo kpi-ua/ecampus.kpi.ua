@@ -8,6 +8,7 @@ import qs from 'query-string';
 import { campusFetch } from '@/lib/client';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 import { AuthResponse } from '@/types/models/auth-response';
+import { UserCategory } from '@/types/enums/user-category';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
 import { User } from '@/types/models/user';
 
@@ -97,7 +98,14 @@ export async function getUserDetails() {
     return null;
   }
 
-  return userResponse.json();
+  const user: User = await userResponse.json();
+
+  // TODO(KBX-1526): drop once kpi-ua/api.campus.kpi.ua#979 is deployed; until then the API sends "Lecturer"
+  const userCategories = user.userCategories.map((category) =>
+    (category as string) === 'Lecturer' ? UserCategory.AcademicStaff : category,
+  );
+
+  return { ...user, userCategories };
 }
 
 export async function exchangeKPIIDCode(authorization: KPIIDAuthorization): Promise<KPIIDCodeExchange> {
