@@ -19,6 +19,7 @@ export const MODULES: Module[] = [
   // Restore the line below and drop the next one at the release.
   // { name: 'vote', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'vote', isExternal: true },
+  { name: 'votelecturer', isExternal: true, legacyPath: 'tutor/index.php?mode=vote' },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'plans_individual', isExternal: true },
   { name: 'journals', isExternal: true },
