@@ -6,6 +6,7 @@ import { useEffect, useMemo } from 'react';
 
 import { getLibraryEmployees } from '@/actions/library.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { LOCALE } from '@/i18n/routing';
 import { type LibraryDepartment } from '@/types/models/library';
 
 import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
@@ -34,7 +35,7 @@ export const useDepartmentFilters = (departments: LibraryDepartment[]) => {
   const faculties = useMemo(
     () =>
       [...new Map(departments.map((department) => [department.facultyId, department])).values()].sort((a, b) =>
-        a.facultyName.localeCompare(b.facultyName, 'uk'),
+        a.facultyName.localeCompare(b.facultyName, LOCALE.UK),
       ),
     [departments],
   );
