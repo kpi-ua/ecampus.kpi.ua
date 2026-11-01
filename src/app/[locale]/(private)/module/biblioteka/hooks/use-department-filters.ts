@@ -32,7 +32,10 @@ export const useDepartmentFilters = (departments: LibraryDepartment[]) => {
     staleTime: LIBRARY_STALE_TIME,
   });
   const faculties = useMemo(
-    () => [...new Map(departments.map((department) => [department.facultyId, department])).values()],
+    () =>
+      [...new Map(departments.map((department) => [department.facultyId, department])).values()].sort((a, b) =>
+        a.facultyName.localeCompare(b.facultyName, 'uk'),
+      ),
     [departments],
   );
   const facultyDepartments = useMemo(
