@@ -6,6 +6,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 
 import { logout } from '@/actions/auth.actions';
 import { SignOut } from '@/app/images';
+import { Paragraph } from '@/components/typography/paragraph';
 import { Button } from '@/components/ui/button';
 import { LocaleSwitch } from '@/components/ui/locale-switch';
 import { ProfilePicture } from '@/components/ui/profile-picture';
@@ -67,7 +68,6 @@ export const Header: FC<Props> = ({ user }) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              {/* p-1 widens the 36px avatar to a 44px target; login and categories live on the profile page */}
               <Link
                 href="/profile"
                 aria-label={t('title')}
@@ -77,7 +77,7 @@ export const Header: FC<Props> = ({ user }) => {
               </Link>
             </TooltipTrigger>
             <TooltipContent>
-              <p>{t('title')}</p>
+              <Paragraph className="m-0 text-sm leading-sm">{t('title')}</Paragraph>
             </TooltipContent>
           </Tooltip>
           <Tooltip>
@@ -85,7 +85,7 @@ export const Header: FC<Props> = ({ user }) => {
               <Button variant="secondary" icon={<SignOut />} onClick={handleLogout} />
             </TooltipTrigger>
             <TooltipContent>
-              <p>{t('button.logout')}</p>
+              <Paragraph className="m-0 text-sm leading-sm">{t('button.logout')}</Paragraph>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
