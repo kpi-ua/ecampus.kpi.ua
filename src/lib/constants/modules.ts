@@ -6,10 +6,7 @@ export const MODULES: Module[] = [
   { name: 'attestationresults', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'vedomoststud', isExternal: false },
   { name: 'curatorstudent', isExternal: false },
-  // KBX-1477: temporarily sent to the old Campus curator page until the official release.
-  // Restore the line below and drop the next one at the release.
-  // { name: 'curatorlecturer', isExternal: false },
-  { name: 'curatorlecturer', isExternal: true, legacyPath: 'tutor/index.php?mode=kurator' },
+  { name: 'curatorlecturer', isExternal: false },
   { name: 'announcementseditor', isExternal: false },
   { name: 'msg', isExternal: false },
   { name: 'directory', isExternal: false },
