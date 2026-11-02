@@ -93,7 +93,8 @@
     },
     "user-category": {
       "student": "Студент",
-      "spw": "НПП"
+      "spw": "НПП",
+      "administrative-staff": "Адміністративний персонал"
     },
     "enums": {
       "academic-degree": {

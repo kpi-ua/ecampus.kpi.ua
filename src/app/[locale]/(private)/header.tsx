@@ -14,7 +14,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Show } from '@/components/utils/show';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { USER_CATEGORIES } from '@/lib/constants/common';
+import { Link } from '@/i18n/routing';
 import { cn, getUniqueUserPhotoUrl } from '@/lib/utils';
 import { User } from '@/types/models/user';
 
@@ -26,7 +26,6 @@ export const Header: FC<Props> = ({ user }) => {
   const isMobile = useIsMobile();
 
   const t = useTranslations('private.profile');
-  const tUserCategory = useTranslations('global.user-category');
   const [profilePhoto, setProfilePhoto] = useState('');
   const firstRender = useRef(true);
 
@@ -66,24 +65,27 @@ export const Header: FC<Props> = ({ user }) => {
       </Show>
       <div className="flex items-center gap-8">
         <LocaleSwitch />
-        <div className="flex items-center gap-3">
-          <ProfilePicture size="sm" src={profilePhoto} />
-          <div className="hidden flex-col md:flex">
-            <Paragraph className="m-0 text-base font-medium">{user?.username}</Paragraph>
-            {user?.userCategories.map((category) => (
-              <Paragraph className="m-0 text-base font-semibold" key={category}>
-                {tUserCategory(USER_CATEGORIES[category])}
-              </Paragraph>
-            ))}
-          </div>
-        </div>
         <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                href="/profile"
+                aria-label={t('title')}
+                className="rounded-full p-1 ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden"
+              >
+                <ProfilePicture size="sm" src={profilePhoto} />
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent>
+              <Paragraph className="m-0 text-sm leading-sm">{t('title')}</Paragraph>
+            </TooltipContent>
+          </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
               <Button variant="secondary" icon={<SignOut />} onClick={handleLogout} />
             </TooltipTrigger>
             <TooltipContent>
-              <p>{t('button.logout')}</p>
+              <Paragraph className="m-0 text-sm leading-sm">{t('button.logout')}</Paragraph>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
