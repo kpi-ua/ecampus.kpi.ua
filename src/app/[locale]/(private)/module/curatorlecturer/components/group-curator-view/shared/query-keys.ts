@@ -4,5 +4,6 @@ export const curatorGroupQueryKeys = {
   students: (groupId: number) => ['curator', 'group', groupId, 'students'] as const,
   attestations: (groupId: number, yearId?: number, semester?: number, attestationId?: number) =>
     ['curator', 'group', groupId, 'attestations', { yearId, semester, attestationId }] as const,
-  surveys: (groupId: number) => ['curator', 'group', groupId, 'active-survey'] as const,
+  surveys: (groupId: number, yearId?: number, semester?: number, termId?: number) =>
+    ['curator', 'group', groupId, 'active-survey', { yearId, semester, termId }] as const,
 };
