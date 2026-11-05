@@ -1,5 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 FROM node:22-alpine AS base
+RUN npm install --global pnpm@12.14.0
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -7,9 +8,9 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies based on the preferred package manager
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* .npmrc* ./
-RUN npm ci
+# Install dependencies using the pinned pnpm version
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile
 
 
 # Rebuild the source code only when needed
@@ -25,7 +26,7 @@ ARG NEXT_PUBLIC_ENV
 ENV NEXT_PUBLIC_KPI_ID_APP_ID=$NEXT_PUBLIC_KPI_ID_APP_ID
 ENV NEXT_PUBLIC_ENV=$NEXT_PUBLIC_ENV
 
-RUN npm run build
+RUN pnpm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
