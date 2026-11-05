@@ -119,7 +119,7 @@ Required in `.env.development` / `.env.production`:
 
 ## Deployment
 
-- Docker multi-stage build (Node 18-alpine)
+- Docker multi-stage build (Node 24-alpine)
 - Standalone output mode
 - GitHub Actions CI/CD
 - Image: `kpiua/ecampus.kpi.ua`

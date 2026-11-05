@@ -16,7 +16,7 @@ The information system "Electronic Campus of Igor Sikorsky Kyiv Polytechnic Inst
 
 ## Run project locally
 
-Use Node.js 22 and pnpm 12.5.1 (pinned in `package.json`). Install pnpm first if needed:
+Use Node.js 24 and pnpm 12.5.1 (pinned in `package.json`). Install pnpm first if needed:
 
 ```shell
 npm install --global pnpm@12.5.1
