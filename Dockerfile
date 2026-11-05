@@ -1,6 +1,6 @@
 # syntax=docker.io/docker/dockerfile:1
 FROM node:22-alpine AS base
-RUN npm install --global pnpm@12.14.0
+RUN npm install --global pnpm@12.5.1
 
 # Install dependencies only when needed
 FROM base AS deps
