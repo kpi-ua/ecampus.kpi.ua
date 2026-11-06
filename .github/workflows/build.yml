@@ -15,7 +15,7 @@ on:
       - dev
 
 jobs:
-  lint:
+  build:
     if: ${{ !github.event.pull_request.draft }}
     runs-on: ubuntu-latest
 
@@ -36,23 +36,6 @@ jobs:
 
       - name: Check Formatting
         run: pnpm run format:check
-
-  build:
-    needs: lint
-    if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v5
-
-      - uses: pnpm/setup@v1
-        with:
-          runtime: node@24
-          cache: true
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
 
       - name: Build Application
         run: pnpm run build
