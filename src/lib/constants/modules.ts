@@ -12,11 +12,8 @@ export const MODULES: Module[] = [
   { name: 'directory', isExternal: false },
   { name: 'rnp', isExternal: true },
   { name: 'adminvote', isExternal: false },
-  // KBX-1477: temporarily sent to the old Campus for students too until the official release.
-  // Restore the line below and drop the next one at the release.
-  // { name: 'vote', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
-  { name: 'vote', isExternal: true },
-  { name: 'votelecturer', isExternal: true, legacyPath: 'tutor/index.php?mode=vote' },
+  { name: 'vote', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  { name: 'votelecturer', isExternal: false },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'plans_individual', isExternal: true },
   { name: 'journals', isExternal: true },
