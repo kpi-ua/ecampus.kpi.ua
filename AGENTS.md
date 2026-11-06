@@ -18,16 +18,16 @@ Electronic Campus (eCampus) for Igor Sikorsky Kyiv Polytechnic Institute - a ful
 ## Quick Commands
 
 ```bash
-npm run dev          # Start dev server with Turbopack
-npm run build        # Production build
-npm run start        # Run production server
-npm run lint         # Run Oxlint
-npm run lint:fix     # Fix auto-fixable lint issues
-npm run format       # Format with Oxfmt (including imports and Tailwind classes)
-npm run format:check # Check formatting without writing
-npm run lint         # Run Oxlint
-npm run tsc          # Type check only
-npm run storybook    # Start Storybook on port 6006
+pnpm run dev          # Start dev server with Turbopack
+pnpm run build        # Production build
+pnpm run start        # Run production server
+pnpm run lint         # Run Oxlint
+pnpm run lint:fix     # Fix auto-fixable lint issues
+pnpm run format       # Format with Oxfmt (including imports and Tailwind classes)
+pnpm run format:check # Check formatting without writing
+pnpm run lint         # Run Oxlint
+pnpm run tsc          # Type check only
+pnpm run storybook    # Start Storybook on port 6006
 ```
 
 ## Project Structure
@@ -55,7 +55,7 @@ src/
 
 - **Oxlint**: `.oxlintrc.json` preserves supported Next.js, React, React Hooks, accessibility, and import rules, plus required braces. The legacy `react/no-deprecated` rule has no native equivalent;
 - **Oxfmt**: `.oxfmtrc.json` uses single quotes, trailing commas, 120 print width, LF line endings, and built-in Tailwind class sorting with the project's Tailwind v4 stylesheet.
-- **Imports**: Sorted with Oxfmt into external packages, `@/` aliases, and relative imports. Run `npm run format` after `npm run lint:fix`.
+- **Imports**: Sorted with Oxfmt into external packages, `@/` aliases, and relative imports. Run `pnpm run format` after `pnpm run lint:fix`.
 - **Path alias**: `@/*` maps to `./src/*`
 
 ## TypeScript Configuration
@@ -119,7 +119,7 @@ Required in `.env.development` / `.env.production`:
 
 ## Deployment
 
-- Docker multi-stage build (Node 18-alpine)
+- Docker multi-stage build (Node 24-alpine)
 - Standalone output mode
 - GitHub Actions CI/CD
 - Image: `kpiua/ecampus.kpi.ua`
@@ -243,7 +243,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 
 - `'use client'` is line 1, no blank lines above it.
 - Use `@/` path aliases everywhere except true sibling imports (`./schema`, `./components/x`).
-- Import sorting is enforced by Oxfmt — let `npm run format` do it. Don't hand-order.
+- Import sorting is enforced by Oxfmt — let `pnpm run format` do it. Don't hand-order.
 - SVG icons: import from the central index at `@/app/images` (e.g. `import { PencilRegular, EyeBold } from '@/app/images'`). Lucide icons (`lucide-react`) are also used directly when no in-house icon exists.
 
 ## 6. Component declaration style
@@ -356,9 +356,9 @@ Don't surface raw error messages from the API to users — `errorToast()` shows 
 Before opening the PR, run:
 
 ```bash
-npm run lint     # oxlint
-npm run tsc      # type check
-npm run format:check $(git diff --name-only main..HEAD)
+pnpm run lint     # oxlint
+pnpm run tsc      # type check
+pnpm run format:check $(git diff --name-only main..HEAD)
 ```
 
 Quick self-review pass:
@@ -368,4 +368,4 @@ Quick self-review pass:
 - [ ] Did I add translation keys to **both** `uk.json` and `en.json`?
 - [ ] Did I call `revalidatePath` after a mutating server action?
 - [ ] Are inputs controlled? (Recent review feedback: `MultipleSelector` was switched from uncontrolled to controlled — uncontrolled defaults are a code smell here.)
-- [ ] Did I run `npm run format` so formatting matches Oxfmt?
+- [ ] Did I run `pnpm run format` so formatting matches Oxfmt?
