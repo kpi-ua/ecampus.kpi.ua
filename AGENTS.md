@@ -1,5 +1,22 @@
 # AGENTS.md — eCampus KPI Project Guide
 
+<!-- BEGIN kpi-ua/.ai: synced from https://github.com/kpi-ua/.ai, do not edit here -->
+## Organisation rules
+
+@.ai/AGENTS.md
+
+This repository follows the kpi-ua organisation rules in [`.ai/`](.ai/). Read them before working here and take
+the rules from there:
+
+- [`.ai/AGENTS.md`](.ai/AGENTS.md) — working rules: Jira, branches, commits, pull requests, code, language,
+  validation, secrets, live systems.
+- [`.ai/REVIEW.md`](.ai/REVIEW.md) — how to review pull requests.
+- [`.ai/GIT_MESSAGES.md`](.ai/GIT_MESSAGES.md) — commit messages, pull request titles and descriptions.
+
+The files in `.ai/` are copies from kpi-ua/.ai: change them there, not here. The rest of this file is this
+repository's own context; where it departs from `.ai/`, it says so explicitly.
+<!-- END kpi-ua/.ai -->
+
 ## Project Overview
 
 Electronic Campus (eCampus) for Igor Sikorsky Kyiv Polytechnic Institute - a full-stack web application for educational management. Supports study sheet management, certificates, grading, announcements, and academic modules.
@@ -144,7 +161,7 @@ The _de facto_ conventions used in this repo. Follow them so PRs match what alre
 
 ## Golden rule
 
-**Match the surrounding code.** Before adding a new pattern, open 2–3 existing modules under `src/app/[locale]/(private)/module/` and copy their structure. If you find yourself introducing an abstraction (custom layout view, new helper file, new wrapper component) that no other module uses, stop — there is almost certainly an existing pattern you should be following instead.
+Before adding a new pattern, open 2–3 existing modules under `src/app/[locale]/(private)/module/` and copy their structure. If you find yourself introducing an abstraction (custom layout view, new helper file, new wrapper component) that no other module uses, stop — there is almost certainly an existing pattern you should be following instead.
 
 Concrete examples of recent drift to avoid:
 
@@ -363,8 +380,6 @@ npm run format:check $(git diff --name-only main..HEAD)
 
 Quick self-review pass:
 
-- [ ] Did I match the file layout, naming, and component style of a sibling module?
-- [ ] Am I introducing any new abstraction that no other module uses? If yes, why?
 - [ ] Did I add translation keys to **both** `uk.json` and `en.json`?
 - [ ] Did I call `revalidatePath` after a mutating server action?
 - [ ] Are inputs controlled? (Recent review feedback: `MultipleSelector` was switched from uncontrolled to controlled — uncontrolled defaults are a code smell here.)
