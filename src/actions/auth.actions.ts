@@ -79,7 +79,9 @@ export async function resetPassword(username: string, recaptchaToken: string) {
       body: JSON.stringify(payload),
     });
 
-    if (response.status < 200 || response.status >= 300) {
+    // 404 (no such user) and 409 (no email on the account) end like a sent link, so the form does not tell
+    // which logins exist.
+    if (!response.ok && response.status !== 404 && response.status !== 409) {
       throw new Error(`${response.status} Error`);
     }
 

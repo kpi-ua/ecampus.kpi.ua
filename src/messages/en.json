@@ -249,7 +249,7 @@
       },
       "success": {
         "header": "Check your inbox",
-        "description": "We've sent you a link to reset your password on email {username}. Click below to sign in to your account.",
+        "description": "If the account {username} exists and has an email address, we've sent a password reset link to it. If no email arrives, check the username or contact user support.",
         "retryMessage": "Didn't get an email? <link>Click to resend.</link>",
         "button": "Continue"
       }
