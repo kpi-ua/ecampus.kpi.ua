@@ -10,7 +10,6 @@ import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/li
 import { UserCategory } from '@/types/enums/user-category';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
-import { PasswordResetOutcome } from '@/types/models/password-reset';
 import { User } from '@/types/models/user';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
@@ -68,30 +67,27 @@ export async function logout() {
   redirect('/');
 }
 
-export async function resetPassword(username: string, recaptchaToken: string): Promise<PasswordResetOutcome> {
-  const payload = {
-    Captcha: recaptchaToken,
-    UserIdentifier: username,
-  };
+export async function resetPassword(username: string, recaptchaToken: string) {
+  try {
+    const payload = {
+      Captcha: recaptchaToken,
+      UserIdentifier: username,
+    };
 
-  const response = await campusFetch('account/recovery', {
-    method: 'POST',
-    body: JSON.stringify(payload),
-  });
+    const response = await campusFetch('account/recovery', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
 
-  if (response.ok) {
-    return 'success';
-  }
+    // 404 (no such user) and 409 (no email on the account) end like a sent link, so the form does not tell
+    // which logins exist.
+    if (!response.ok && response.status !== 404 && response.status !== 409) {
+      throw new Error(`${response.status} Error`);
+    }
 
-  switch (response.status) {
-    case 404:
-      return 'user-not-found';
-    case 409:
-      return 'no-email';
-    case 400:
-      return 'captcha-failed';
-    default:
-      throw new Error(`Password reset failed: ${response.status}`);
+    return null;
+  } catch (error) {
+    throw new Error('Bad request');
   }
 }
 
