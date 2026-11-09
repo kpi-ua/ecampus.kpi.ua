@@ -247,6 +247,11 @@
       "field": {
         "username": "Username or email address"
       },
+      "error": {
+        "user-not-found": "No user with this username or email address was found",
+        "no-email": "This account has no email address linked to it, so we cannot send a reset link. Please contact user support.",
+        "captcha-failed": "The reCAPTCHA check failed. Please try again."
+      },
       "success": {
         "header": "Check your inbox",
         "description": "We've sent you a link to reset your password on email {username}. Click below to sign in to your account.",

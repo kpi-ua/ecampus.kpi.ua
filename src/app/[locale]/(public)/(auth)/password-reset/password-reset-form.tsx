@@ -11,10 +11,11 @@ import * as z from 'zod';
 
 import { resetPassword } from '@/actions/auth.actions';
 import { Button } from '@/components/ui/button';
-import { Form, FormField, FormItem } from '@/components/ui/form';
+import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useRouter } from '@/i18n/routing';
 
 interface PasswordResetFormProps {
@@ -25,6 +26,7 @@ export default function PasswordResetForm({ username }: PasswordResetFormProps) 
   const t = useTranslations('auth.passwordReset');
   const router = useRouter();
   const { errorToast } = useServerErrorToast();
+  const { toast } = useToast();
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const FormSchema = z.object({
@@ -50,7 +52,17 @@ export default function PasswordResetForm({ username }: PasswordResetFormProps) 
 
       const token = await executeRecaptcha();
 
-      await resetPassword(data.username, token);
+      const outcome = await resetPassword(data.username, token);
+
+      if (outcome === 'user-not-found' || outcome === 'no-email') {
+        form.setError('username', { message: t(`error.${outcome}`) });
+        return;
+      }
+
+      if (outcome === 'captcha-failed') {
+        toast({ variant: 'destructive', title: t('error.captcha-failed') });
+        return;
+      }
 
       router.replace(`/password-reset/success?username=${data.username}`);
     } catch (error) {
@@ -68,6 +80,7 @@ export default function PasswordResetForm({ username }: PasswordResetFormProps) 
             <FormItem className="my-6 grid w-full items-center gap-2">
               <Label htmlFor="username">{t('field.username')}</Label>
               <Input {...field} />
+              <FormMessage />
             </FormItem>
           )}
         />
