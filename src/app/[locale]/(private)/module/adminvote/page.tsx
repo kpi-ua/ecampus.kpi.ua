@@ -29,7 +29,7 @@ export default async function AdminVotePage() {
             <TabsTrigger value="criteria">{t('tabs.criteria')}</TabsTrigger>
           </TabsList>
           <TabsContent value="periods" className="mt-0">
-            <PeriodsManagement data={data} studyYears={studyYears} />
+            <PeriodsManagement periods={data.terms} studyYears={studyYears} />
           </TabsContent>
           <TabsContent value="criteria" className="mt-0">
             <CriteriaManagement data={data} />

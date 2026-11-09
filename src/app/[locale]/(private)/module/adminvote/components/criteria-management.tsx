@@ -1,10 +1,10 @@
 'use client';
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { archiveVoteCriterion, getVoteCriteriaAdministration } from '@/actions/vote-administration.actions';
+import { archiveVoteCriterion } from '@/actions/vote-administration.actions';
 import { Heading2 } from '@/components/typography';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import {
@@ -22,7 +22,6 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useToast } from '@/hooks/use-toast';
 import { VoteAdminCriterion, VoteCriteriaAdministrationData } from '@/types/models/vote/administration';
 
-import { voteAdministrationQueryKey } from '../query-keys';
 import { ArchivedCriteriaTable } from './archived-criteria-table';
 import { CriterionForm } from './criterion-form';
 import { CurrentCriteriaTable } from './current-criteria-table';
@@ -31,18 +30,11 @@ interface Props {
   data: VoteCriteriaAdministrationData;
 }
 
-export const CriteriaManagement = ({ data: initialData }: Props) => {
+export const CriteriaManagement = ({ data }: Props) => {
   const t = useTranslations('private.adminvote.actions');
   const titleTranslation = useTranslations('private.adminvote');
   const { errorToast } = useServerErrorToast();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-
-  const { data, isFetching } = useQuery({
-    queryKey: voteAdministrationQueryKey,
-    queryFn: getVoteCriteriaAdministration,
-    initialData,
-  });
 
   const [form, setForm] = useState<{ criterion?: VoteAdminCriterion } | null>(null);
   const isFormOpen = form !== null;
@@ -50,16 +42,15 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
 
   const archiveMutation = useMutation({
     mutationFn: archiveVoteCriterion,
-    onSuccess: async () => {
+    onSuccess: () => {
       setArchiveTarget(null);
-      await queryClient.invalidateQueries({ queryKey: voteAdministrationQueryKey });
       toast({ title: t('archived-success') });
     },
     onError: () => errorToast(),
   });
 
   const archiving = archiveMutation.isPending;
-  const disabled = data.isVotingOpen || isFetching || archiving;
+  const disabled = data.isVotingOpen || archiving;
 
   const handleAdd = () => {
     setForm({});
@@ -148,7 +139,7 @@ export const CriteriaManagement = ({ data: initialData }: Props) => {
             <Button variant="secondary" disabled={archiving} onClick={handleArchiveCancel}>
               {t('cancel')}
             </Button>
-            <Button loading={archiving} disabled={data.isVotingOpen || isFetching} onClick={handleArchiveConfirm}>
+            <Button loading={archiving} disabled={data.isVotingOpen} onClick={handleArchiveConfirm}>
               {t('confirm-archive')}
             </Button>
           </AlertDialogFooter>

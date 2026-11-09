@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
@@ -22,7 +22,6 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { formatDate } from '@/lib/utils';
 import { VoteAdminTerm } from '@/types/models/vote/administration';
 
-import { voteAdministrationQueryKey } from '../query-keys';
 import { createPeriodFormSchema, PeriodFormValues } from './schema';
 
 const DATE_FIELDS = ['startsOn', 'endsOn', 'resultsPublishOn'] as const;
@@ -38,7 +37,6 @@ interface Props {
 export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Props) => {
   const t = useTranslations('private.adminvote.periods.form');
   const { errorToast } = useServerErrorToast();
-  const queryClient = useQueryClient();
 
   const hasResponses = !!period?.respondentCount;
 
@@ -63,10 +61,7 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
         await createVoteTerm(request);
       }
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: voteAdministrationQueryKey });
-      onSaved();
-    },
+    onSuccess: onSaved,
     onError: () => errorToast(),
   });
 

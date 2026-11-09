@@ -1,10 +1,10 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { deleteVoteTerm, getVoteCriteriaAdministration } from '@/actions/vote-administration.actions';
+import { deleteVoteTerm } from '@/actions/vote-administration.actions';
 import { Heading2 } from '@/components/typography';
 import {
   AlertDialog,
@@ -17,40 +17,32 @@ import {
 import { Button } from '@/components/ui/button';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useToast } from '@/hooks/use-toast';
-import { VoteAdminTerm, VoteCriteriaAdministrationData } from '@/types/models/vote/administration';
+import { VoteAdminTerm } from '@/types/models/vote/administration';
 
-import { voteAdministrationQueryKey } from '../query-keys';
 import { PeriodForm } from './period-form';
 import { PeriodsTable } from './periods-table';
 
 interface Props {
-  data: VoteCriteriaAdministrationData;
+  periods: VoteAdminTerm[];
   studyYears: string[];
 }
 
-export const PeriodsManagement = ({ data: initialData, studyYears }: Props) => {
+export const PeriodsManagement = ({ periods, studyYears }: Props) => {
   const t = useTranslations('private.adminvote.periods.actions');
   const { errorToast } = useServerErrorToast();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const { data, isFetching } = useQuery({
-    queryKey: voteAdministrationQueryKey,
-    queryFn: getVoteCriteriaAdministration,
-    initialData,
-  });
   const [form, setForm] = useState<{ period?: VoteAdminTerm } | null>(null);
-  const isFormOpen = form !== null;
   const [deleteTarget, setDeleteTarget] = useState<VoteAdminTerm | null>(null);
   const deletion = useMutation({
     mutationFn: deleteVoteTerm,
-    onSuccess: async () => {
+    onSuccess: () => {
       setDeleteTarget(null);
-      await queryClient.invalidateQueries({ queryKey: voteAdministrationQueryKey });
       toast({ title: t('deleted') });
     },
     onError: () => errorToast(),
   });
-  const disabled = isFetching || deletion.isPending || isFormOpen;
+
+  const disabled = deletion.isPending;
 
   const handleAdd = () => {
     setForm({});
@@ -87,12 +79,12 @@ export const PeriodsManagement = ({ data: initialData, studyYears }: Props) => {
           {t('add')}
         </Button>
       </div>
-      <PeriodsTable periods={data.terms} disabled={disabled} onEdit={handleEdit} onDelete={setDeleteTarget} />
+      <PeriodsTable periods={periods} disabled={disabled} onEdit={handleEdit} onDelete={setDeleteTarget} />
       {form && (
         <PeriodForm
           studyYears={studyYears}
           period={form.period}
-          periods={data.terms}
+          periods={periods}
           onClose={handleClose}
           onSaved={handleSaved}
         />
@@ -112,7 +104,6 @@ export const PeriodsManagement = ({ data: initialData, studyYears }: Props) => {
             <Button
               className="bg-status-danger-300 hover:bg-status-danger-300"
               loading={deletion.isPending}
-              disabled={isFetching}
               onClick={handleDeleteConfirm}
             >
               {t('confirm-delete')}

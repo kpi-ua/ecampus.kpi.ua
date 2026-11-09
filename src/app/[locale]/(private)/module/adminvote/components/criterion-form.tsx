@@ -1,7 +1,7 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 
@@ -20,7 +20,6 @@ import { Input } from '@/components/ui/input';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { VoteAdminCriterion } from '@/types/models/vote/administration';
 
-import { voteAdministrationQueryKey } from '../query-keys';
 import { createCriterionFormSchema, CriterionFormValues, MAX_COEFFICIENT } from './schema';
 
 interface Props {
@@ -31,7 +30,6 @@ interface Props {
 export const CriterionForm = ({ criterion, onClose, onSaved }: Props) => {
   const t = useTranslations('private.adminvote.form');
   const { errorToast } = useServerErrorToast();
-  const queryClient = useQueryClient();
 
   const form = useForm<CriterionFormValues>({
     resolver: zodResolver(createCriterionFormSchema(t)),
@@ -47,10 +45,7 @@ export const CriterionForm = ({ criterion, onClose, onSaved }: Props) => {
         await createVoteCriterion(request);
       }
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: voteAdministrationQueryKey });
-      onSaved();
-    },
+    onSuccess: onSaved,
     onError: () => errorToast(),
   });
 
