@@ -10,15 +10,7 @@
   "sortTailwindcss": {
     "stylesheet": "./src/app/globals.css"
   },
-  "ignorePatterns": [
-    ".next/**",
-    "out/**",
-    "build/**",
-    "storybook-static/**",
-    "next-env.d.ts",
-    "package-lock.json",
-    "pnpm-lock.yaml"
-  ],
+  "ignorePatterns": [".next/**", "out/**", "build/**", "storybook-static/**", "next-env.d.ts", "pnpm-lock.yaml"],
   "endOfLine": "lf",
   "sortImports": {
     "internalPattern": ["@/"],
