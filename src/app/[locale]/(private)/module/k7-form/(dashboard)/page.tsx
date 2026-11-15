@@ -1,3 +1,5 @@
+import { objectify } from 'radash';
+
 import { getK7FormFilters, getK7FormRequests } from '@/actions/k7-form.actions';
 
 import { K7DashboardPage } from '../components/k7-dashboard-page';
@@ -8,8 +10,10 @@ export default async function K7PersonalReportsPage() {
   const departmentProfiles = filters.lecturers.flatMap(({ profiles, ...lecturer }) =>
     profiles.map((profile) => ({ ...lecturer, ...profile })),
   );
-  const departmentNames = Object.fromEntries(
-    filters.profiles.map((profile) => [profile.departmentId, profile.departmentName]),
+  const departmentNames = objectify(
+    filters.profiles,
+    ({ departmentId }) => departmentId,
+    ({ departmentName }) => departmentName,
   );
 
   return (

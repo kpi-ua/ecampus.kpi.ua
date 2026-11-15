@@ -1,10 +1,12 @@
-import { Description, Heading2 } from '@/components/typography';
-import { SubLayout } from '../sub-layout';
 import { getTranslations } from 'next-intl/server';
-import { SettingsForm } from '@/app/[locale]/(private)/settings/settings-form';
-import { getUserDetails } from '@/actions/auth.actions';
 import { notFound } from 'next/navigation';
+
+import { getUserDetails } from '@/actions/auth.actions';
+import { SettingsForm } from '@/app/[locale]/(private)/settings/settings-form';
+import { Description, Heading2 } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
+
+import { SubLayout } from '../sub-layout';
 
 const INTL_NAMESPACE = 'private.settings';
 

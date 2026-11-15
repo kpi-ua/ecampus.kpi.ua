@@ -1,13 +1,14 @@
 'use client';
 
-import { Heading2 } from '@/components/typography/headers';
-import RichText from '@/components/typography/rich-text';
-import { Button } from '@/components/ui/button';
-import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
+
+import { Heading2 } from '@/components/typography/headers';
+import RichText from '@/components/typography/rich-text';
+import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/routing';
 
 const PageContents = () => {
   const t = useTranslations('auth.passwordReset.success');

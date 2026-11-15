@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { debounce } from 'radash';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { MagnifyingGlassRegular } from '@/app/images';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
 
 import { ANNOUNCEMENT_FILTER_LANGUAGES } from '../constants';
 
@@ -19,11 +20,10 @@ export const AnnouncementsFilters = () => {
 
   const search = searchParams.get('search') ?? '';
   const rawLanguage = searchParams.get('language')?.toLowerCase();
-  const language =
-    ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
+  const language = ANNOUNCEMENT_FILTER_LANGUAGES.find((v) => v === rawLanguage) ?? 'all';
 
   const [searchValue, setSearchValue] = useState(search);
-  
+
   useEffect(() => {
     setSearchValue(search);
   }, [search]);
@@ -58,7 +58,7 @@ export const AnnouncementsFilters = () => {
   const updateSearchParamRef = useRef(updateSearchParam);
   updateSearchParamRef.current = updateSearchParam;
   const debouncedSearch = useMemo(
-    () => debounce({ delay: 200 }, (value: string) => updateSearchParamRef.current(value)),
+    () => debounce({ delay: SEARCH_DEBOUNCE_MS }, (value: string) => updateSearchParamRef.current(value)),
     [],
   );
 

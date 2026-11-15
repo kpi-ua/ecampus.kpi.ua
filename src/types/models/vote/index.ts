@@ -29,7 +29,7 @@ export interface VoteScore {
 export interface VoteLecturerResult {
   overallScore: number;
   courseScore: number | null;
-  criterionScores: Record<number, number>;
+  criterionScores: Record<string, number>;
 }
 
 export interface VoteLecturer {

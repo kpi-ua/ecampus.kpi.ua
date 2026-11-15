@@ -1,10 +1,12 @@
-import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
+
 import { getAnnouncements } from '@/actions/announcement.actions';
 import { NoticeList } from '@/app/[locale]/(private)/notice-board/components/notice-list';
 import { Description, Heading2 } from '@/components/typography';
-import { Suspense } from 'react';
 import { LocaleProps } from '@/types/locale-props';
+
+import { SubLayout } from '../sub-layout';
 
 const INTL_NAMESPACE = 'private.notice-board';
 

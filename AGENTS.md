@@ -1,16 +1,171 @@
-# AGENTS.md — eCampus Frontend Conventions
+# AGENTS.md — eCampus KPI Project Guide
 
-This file documents the *de facto* conventions used in this repo. Follow them so PRs match what already exists and don't churn through review.
+<!-- BEGIN kpi-ua/.ai: synced from https://github.com/kpi-ua/.ai, do not edit here -->
 
-For tech stack, commands, and env vars see [CLAUDE.md](./CLAUDE.md).
+## Organisation rules
+
+@.ai/AGENTS.md
+
+This repository follows the kpi-ua organisation rules in [`.ai/`](.ai/). Read them before working here and take
+the rules from there:
+
+- [`.ai/AGENTS.md`](.ai/AGENTS.md) — working rules: Jira, branches, commits, pull requests, code, language,
+  validation, secrets, live systems.
+- [`.ai/REVIEW.md`](.ai/REVIEW.md) — how to review pull requests.
+- [`.ai/GIT_MESSAGES.md`](.ai/GIT_MESSAGES.md) — commit messages, pull request titles and descriptions.
+
+The files in `.ai/` are copies from kpi-ua/.ai: change them there, not here. The rest of this file is this
+repository's own context; where it departs from `.ai/`, it says so explicitly.
+<!-- END kpi-ua/.ai -->
+
+## Project Overview
+
+Electronic Campus (eCampus) for Igor Sikorsky Kyiv Polytechnic Institute - a full-stack web application for educational management. Supports study sheet management, certificates, grading, announcements, and academic modules.
+
+## Tech Stack
+
+- **Framework**: Next.js 15.4.7 (App Router with Turbopack)
+- **React**: 19.1.0 with Server Components
+- **Language**: TypeScript 5+ (strict mode)
+- **Styling**: Tailwind CSS 4.1.10
+- **UI Components**: shadcn/ui (Radix UI primitives)
+- **Forms**: React Hook Form + Zod validation
+- **i18n**: next-intl (Ukrainian default, English)
+- **Backend**: External Campus API (REST with JWT auth)
+
+## Quick Commands
+
+```bash
+pnpm run dev          # Start dev server with Turbopack
+pnpm run build        # Production build
+pnpm run start        # Run production server
+pnpm run lint         # Run Oxlint
+pnpm run lint:fix     # Fix auto-fixable lint issues
+pnpm run format       # Format with Oxfmt (including imports and Tailwind classes)
+pnpm run format:check # Check formatting without writing
+pnpm run lint         # Run Oxlint
+pnpm run tsc          # Type check only
+pnpm run storybook    # Start Storybook on port 6006
+```
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── [locale]/          # Locale-based routing (uk, en)
+│   │   ├── (public)/      # Public routes (auth, support)
+│   │   └── (private)/     # Protected routes (modules)
+│   └── api/               # API routes (healthz, kpi-id)
+├── actions/               # Server actions (auth, certificates, etc.)
+├── components/
+│   ├── ui/               # shadcn/ui components (43+)
+│   └── typography/       # Text components
+├── hooks/                # Custom React hooks
+├── lib/                  # Utilities & constants
+├── middleware/           # Auth & i18n middleware
+├── types/                # TypeScript types & enums
+├── messages/             # Translation files (en.json, uk.json)
+└── i18n/                 # i18n configuration
+```
+
+## Code Style
+
+- **Oxlint**: `.oxlintrc.json` preserves supported Next.js, React, React Hooks, accessibility, and import rules, plus required braces. The legacy `react/no-deprecated` rule has no native equivalent;
+- **Oxfmt**: `.oxfmtrc.json` uses single quotes, trailing commas, 120 print width, LF line endings, and built-in Tailwind class sorting with the project's Tailwind v4 stylesheet.
+- **Imports**: Sorted with Oxfmt into external packages, `@/` aliases, and relative imports. Run `pnpm run format` after `pnpm run lint:fix`.
+- **Path alias**: `@/*` maps to `./src/*`
+
+## TypeScript Configuration
+
+Strict mode enabled with:
+
+- `noUnusedLocals`, `noUnusedParameters`
+- `noImplicitReturns`, `strictNullChecks`
+- `noFallthroughCasesInSwitch`
+
+## Key Patterns
+
+### Server Actions
+
+```typescript
+'use server';
+// Actions in src/actions/*.actions.ts
+```
+
+### API Client
+
+```typescript
+import { campusFetch } from '@/lib/client';
+// Automatically injects JWT from cookies
+```
+
+### Translations
+
+- Files: `src/messages/{uk,en}.json`
+- Supported tags: `<p>`, `<br/>`, `<h1-h6>`, `<ul>`, `<li>`, `<tel>`, `<email>`
+
+### SVG Imports
+
+```typescript
+import Icon from './icon.svg'; // As React component
+import iconUrl from './icon.svg?url'; // As URL string
+```
+
+## Environment Variables
+
+Required in `.env.development` / `.env.production`:
+
+- `CAMPUS_API_BASE_PATH` - Backend API URL
+- `MAIN_COOKIE_DOMAIN`, `ROOT_COOKIE_DOMAIN` - Cookie domains
+- `OLD_CAMPUS_URL` - Legacy campus URL
+- `NEXT_PUBLIC_RECAPTCHA_KEY` - reCAPTCHA v3 key
+- `NEXT_PUBLIC_KPI_ID_APP_ID` - OAuth app ID
+
+## Authentication
+
+- JWT stored in cookies
+- Middleware handles auth checks (`src/middleware/`)
+- Multiple account types: student, lecturer, curator, admin
+- Code of honor acceptance required for new users
+
+## Locales
+
+- Default: Ukrainian (uk)
+- Supported: English (en)
+- URL pattern: `/{locale}/...`
+
+## Deployment
+
+- Docker multi-stage build (Node 24-alpine)
+- Standalone output mode
+- GitHub Actions CI/CD
+- Image: `kpiua/ecampus.kpi.ua`
+
+## Testing
+
+No testing framework currently configured.
+
+## Useful Paths
+
+- Components: `src/components/ui/`
+- Server actions: `src/actions/`
+- Types/Enums: `src/types/`
+- Translations: `src/messages/`
+- Middleware: `src/middleware/`
 
 ---
 
+# Conventions
+
+The _de facto_ conventions used in this repo. Follow them so PRs match what already exists and don't churn through review.
+
 ## Golden rule
 
-**Match the surrounding code.** Before adding a new pattern, open 2–3 existing modules under `src/app/[locale]/(private)/module/` and copy their structure. If you find yourself introducing an abstraction (custom layout view, new helper file, new wrapper component) that no other module uses, stop — there is almost certainly an existing pattern you should be following instead.
+Before adding a new pattern, open 2–3 existing modules under `src/app/[locale]/(private)/module/` and copy their structure. If you find yourself introducing an abstraction (custom layout view, new helper file, new wrapper component) that no other module uses, stop — there is almost certainly an existing pattern you should be following instead.
 
 Concrete examples of recent drift to avoid:
+
 - Adding a separate mobile card view inside a table component (no other table does this — `<Table>` is used as-is).
 - Wrapping create/edit forms in modal `<Dialog>` for primary CRUD flows. Inline forms above the table are the convention (see `announcement-management.tsx`).
 - Inventing a new file type like `schema.ts` when the form's Zod schema is small enough to live next to `useForm`.
@@ -46,11 +201,12 @@ Reference: `module/facultycertificate/components/all-docs-table.tsx`, `module/ce
 Standard wiring for a paginated, sortable table:
 
 ```tsx
-import { memo } from 'react';
 import { useTranslations } from 'next-intl';
+import { memo } from 'react';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Paragraph } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
@@ -62,7 +218,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
   const { paginatedItems } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
 
   if (items.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</p>;
+    return <Paragraph className="my-0 py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
   }
 
   return (
@@ -76,7 +232,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 });
 ```
 
-- Empty state: inline early return with a translated `<p>`.
+- Empty state: inline early return with a translated `<Paragraph>`.
 - Pagination is conditional via `<Show when={...}>` — don't show it when there's only one page worth of rows.
 - Use `PAGE_SIZE_DEFAULT` from `@/lib/constants/page-size` (or `PAGE_SIZE_SMALL` for compact lists). Don't hardcode page sizes.
 
@@ -89,7 +245,7 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 - Error handling has two flavors in the codebase:
   - **Throw** on non-OK (`certificates.actions.ts`) — caller wraps in try/catch with `useServerErrorToast`.
   - **Return a safe default** like `{ items: [], total: 0 }` (`announcement.actions.ts`) when the page can render an empty state.
-  Pick one consistently per action and document the contract via the return type.
+    Pick one consistently per action and document the contract via the return type.
 
 ## 4. Forms (React Hook Form + Zod)
 
@@ -105,10 +261,12 @@ export const ThingsTable = memo(function ThingsTable({ items, totalCount }: Prop
 
 - `'use client'` is line 1, no blank lines above it.
 - Use `@/` path aliases everywhere except true sibling imports (`./schema`, `./components/x`).
-- Import sorting is enforced by `eslint-plugin-simple-import-sort` — let `npm run lint -- --fix` do it. Don't hand-order.
+- Import sorting is enforced by Oxfmt — let `pnpm run format` do it. Don't hand-order.
 - SVG icons: import from the central index at `@/app/images` (e.g. `import { PencilRegular, EyeBold } from '@/app/images'`). Lucide icons (`lucide-react`) are also used directly when no in-house icon exists.
 
 ## 6. Component declaration style
+
+Always use curly braces for conditional and loop bodies (`if`, `else`, `for`, `for...of`, `for...in`, `while`, and `do...while`), even for a single statement or early return. Oxlint enforces this with `curly: ['error', 'all']`.
 
 The codebase has two coexisting styles:
 
@@ -137,14 +295,14 @@ Memoization: only wrap in `memo(function Name() {})` when the component is rende
 
 In `src/hooks/`:
 
-| Hook | Purpose |
-|------|---------|
-| `usePagination(pageSize, items)` | Slices items + reads/writes `?page=` URL param |
+| Hook                                               | Purpose                                                                              |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `usePagination(pageSize, items)`                   | Slices items + reads/writes `?page=` URL param                                       |
 | `useTableSort(rows, getSortValue?, sortableKeys?)` | Client-side column sorting, returns `{ sortedRows, sortHandlers, getSortDirection }` |
-| `useServerErrorToast()` | `errorToast()` showing the standard `'global.server-error'` message |
-| `useToast()` | Manual toasts: `toast({ title, description, variant: 'destructive' })` |
-| `useLocalStorage(key, default)` | Persist client state |
-| `useIsMobile()` | Viewport check (use sparingly — Tailwind breakpoints are usually enough) |
+| `useServerErrorToast()`                            | `errorToast()` showing the standard `'global.server-error'` message                  |
+| `useToast()`                                       | Manual toasts: `toast({ title, description, variant: 'destructive' })`               |
+| `useLocalStorage(key, default)`                    | Persist client state                                                                 |
+| `useIsMobile()`                                    | Viewport check (use sparingly — Tailwind breakpoints are usually enough)             |
 
 If you need a hook only inside one module, put it in `<module>/hooks.ts` (see `module/rating/hooks.ts`).
 
@@ -158,6 +316,15 @@ Notable variants:
 - `<Badge variant="neutral|success|error|red|blue|orange|purple|yellow|default">`
 
 Conditional rendering helper: `<Show when={cond} fallback={null}>` from `@/components/utils/show`.
+
+- In the `adminvote` module, do not add explicit `aria-*` attributes to feature components. Use the visible labels and existing UI primitives; keep the primitives' built-in attributes intact.
+
+### Typography
+
+- Use the existing typography components from `@/components/typography` instead of raw `<h1>`–`<h6>` and `<p>` tags in pages and feature components: `Heading1`–`Heading6`, `Paragraph`, and `Description`.
+- Choose the heading component by semantic level. Adjust `className` to match the design, including responsive typography and default paragraph margins when necessary.
+- Keep specialized UI components such as `DialogTitle`, `DialogDescription`, `AlertDialogTitle`, and `AlertDialogDescription` for their accessible semantics; do not replace them with raw HTML tags.
+- Raw heading and paragraph tags belong inside the shared typography/UI primitives themselves, not new feature markup.
 
 ## 10. Types
 
@@ -174,7 +341,13 @@ Conditional rendering helper: `<Show when={cond} fallback={null}>` from `@/compo
 
 ## 12. Dates
 
-`dayjs` everywhere. Standard display format: `dayjs(date).format('DD.MM.YYYY')`. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
+Use `formatDate` from `@/lib/utils` with its default `YYYY-MM-DD` format for displayed dates, native `<input type="date">` values, and API date-only values. Do not override the format just for display. Keep date-only form state and API request values in `YYYY-MM-DD` format. Do not add custom `dayjs(...).format(...)` calls in feature code; keep formatting implementation inside the shared utility.
+
+Compare dates with Day.js (`isBefore`, `isAfter`, `isSame`) using `'day'` precision for date-only rules. Never compare display-formatted strings or call `formatDate` to prepare values for comparisons. Validate dates before applying ordering or overlap rules. For inclusive interval overlap, use `!start.isAfter(otherEnd, 'day') && !end.isBefore(otherStart, 'day')`; shared boundary dates count as overlapping.
+
+Native date inputs provide `YYYY-MM-DD` values. If an external source requires another date format, parse it explicitly with Day.js's `customParseFormat` plugin in strict mode before comparing dates; do not rely on automatic parsing of localized date strings.
+
+Use `dayjs` for date arithmetic and comparisons. Use `isOutdated` from `@/lib/date.utils` for "is this in the past" checks. No moment.js, no manual `Date.toLocaleString` for UI.
 
 ## 13. Error handling pattern
 
@@ -201,17 +374,14 @@ Don't surface raw error messages from the API to users — `errorToast()` shows 
 Before opening the PR, run:
 
 ```bash
-npm run lint     # eslint + import-sort
-npm run tsc      # type check
-npx prettier --check $(git diff --name-only main..HEAD)
+pnpm run lint     # oxlint
+pnpm run tsc      # type check
+pnpm run format:check $(git diff --name-only main..HEAD)
 ```
 
-(Or wrap each in the Docker invocation per [CLAUDE.md](./CLAUDE.md).)
-
 Quick self-review pass:
-- [ ] Did I match the file layout, naming, and component style of a sibling module?
-- [ ] Am I introducing any new abstraction that no other module uses? If yes, why?
+
 - [ ] Did I add translation keys to **both** `uk.json` and `en.json`?
 - [ ] Did I call `revalidatePath` after a mutating server action?
 - [ ] Are inputs controlled? (Recent review feedback: `MultipleSelector` was switched from uncontrolled to controlled — uncontrolled defaults are a code smell here.)
-- [ ] Did I run `prettier --write` so the diff isn't a wall of reformatting?
+- [ ] Did I run `pnpm run format` so formatting matches Oxfmt?

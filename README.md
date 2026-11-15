@@ -16,27 +16,33 @@ The information system "Electronic Campus of Igor Sikorsky Kyiv Polytechnic Inst
 
 ## Run project locally
 
+Use Node.js 24 and pnpm 12.5.1 (pinned in `package.json`). Install pnpm first if needed:
+
 ```shell
-npm i
-npm run dev
+npm install --global pnpm@12.5.1
+```
+
+```shell
+pnpm install
+pnpm run dev
 ```
 
 ## Build project for production
 
 ```shell
-npm run build
+pnpm run build
 ```
 
 ## Run production build
 
 ```shell
-npm run start
+pnpm run start
 ```
 
 ### Run storybook
 
 ```shell
-npm run storybook
+pnpm run storybook
 ```
 
 ## [Docker](https://hub.docker.com/r/kpiua/ecampus.kpi.ua)

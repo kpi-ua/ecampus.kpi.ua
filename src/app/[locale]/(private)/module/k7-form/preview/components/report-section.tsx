@@ -20,13 +20,13 @@ export const ReportSection = ({ number, title, hours, summaryText, children }: P
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <section className="border-neutral-divider min-w-0 overflow-hidden rounded-[6px] border bg-white">
-      <div className="border-neutral-divider flex min-h-[40px] items-center gap-3 border-b px-4 py-[11px]">
-        <Books className="text-basic-blue size-[16px] shrink-0" />
-        <span className="leading-xs min-w-0 text-xs font-semibold text-neutral-900">
+    <section className="min-w-0 overflow-hidden rounded-[6px] border border-neutral-divider bg-white">
+      <div className="flex min-h-[40px] items-center gap-3 border-b border-neutral-divider px-4 py-[11px]">
+        <Books className="size-[16px] shrink-0 text-basic-blue" />
+        <span className="min-w-0 text-xs leading-xs font-semibold text-neutral-900">
           {t('section', { number, title })}
         </span>
-        <span className="leading-xs ml-auto shrink-0 pl-2 text-xs font-semibold text-neutral-900">
+        <span className="ml-auto shrink-0 pl-2 text-xs leading-xs font-semibold text-neutral-900">
           {summaryText ?? t('hours', { hours: formatNumber(hours, 0) })}
         </span>
         <button

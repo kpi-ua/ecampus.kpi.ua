@@ -29,7 +29,15 @@ export const parseContentDispositionFilename = (header: string): string | null =
   return match ? match[2] : null;
 };
 
-export const formatDate = (dateString: string) => dayjs(dateString).format('YYYY-MM-DD');
+/** Formats a date as YYYY-MM-DD by default, returning an empty string for missing or invalid values. */
+export const formatDate = (dateString?: string | Date | null, format = 'YYYY-MM-DD'): string => {
+  if (!dateString) {
+    return '';
+  }
+
+  const date = dayjs(dateString);
+  return date.isValid() ? date.format(format) : '';
+};
 
 export const formatTime = (dateString: string) => dayjs(dateString).format('HH:mm');
 
@@ -41,7 +49,13 @@ export function linkifyText(text: string): ReactNode[] {
     if (urlRegex.test(part)) {
       urlRegex.lastIndex = 0;
       return (
-        <a key={index} href={part} target="_blank" rel="noopener noreferrer" className="text-basic-blue hover:underline">
+        <a
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-basic-blue hover:underline"
+        >
           {part}
         </a>
       );

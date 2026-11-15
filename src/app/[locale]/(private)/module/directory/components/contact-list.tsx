@@ -1,4 +1,5 @@
 import { Paragraph } from '@/components/typography';
+
 import { ContactLink } from './contact-link';
 
 interface ProcessedContact {
@@ -16,7 +17,7 @@ export function ContactList({ contacts }: ContactListProps) {
     <div className="flex flex-col gap-2">
       {contacts.map((contact, index) => (
         <div key={`${contact.typeId}-${index}`} className="flex items-baseline gap-2">
-          <Paragraph className="m-0 text-xs font-semibold text-neutral-600 whitespace-nowrap">
+          <Paragraph className="m-0 text-xs font-semibold whitespace-nowrap text-neutral-600">
             {contact.typeName}:
           </Paragraph>
           <Paragraph className="m-0 text-xs">

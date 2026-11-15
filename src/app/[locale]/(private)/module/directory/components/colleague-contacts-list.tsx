@@ -1,14 +1,16 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import { alphabetical, unique, flat } from 'radash';
+import { useState, useMemo } from 'react';
+
+import { Paragraph } from '@/components/typography';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ColleagueContact } from '@/types/models/colleague-contact';
 import { ContactType } from '@/types/models/contact';
+
 import { ColleagueCard } from './colleague-card';
-import { Input } from '@/components/ui/input';
-import { useState, useMemo } from 'react';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useTranslations } from 'next-intl';
-import { Paragraph } from '@/components/typography';
-import { alphabetical, unique, flat } from 'radash';
 
 interface ColleagueContactsListProps {
   colleagues: ColleagueContact[];
@@ -22,10 +24,7 @@ export function ColleagueContactsList({ colleagues, contactTypes }: ColleagueCon
 
   const allSubdivisions = useMemo(() => {
     return alphabetical(
-      unique(
-        flat(colleagues.map((x) => x.positions.map((x) => x.subdivision))),
-        (subdivision) => subdivision.id,
-      ),
+      unique(flat(colleagues.map((x) => x.positions.map((x) => x.subdivision))), (subdivision) => subdivision.id),
       (subdivision) => subdivision.name,
     );
   }, [colleagues]);

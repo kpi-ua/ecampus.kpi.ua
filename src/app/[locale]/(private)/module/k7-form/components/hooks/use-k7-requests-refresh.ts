@@ -33,16 +33,22 @@ export const useK7RequestsRefresh = ({
   const active = reports.some((report) => ACTIVE_STATUSES.has(report.status));
 
   useEffect(() => {
-    if (!active) return;
+    if (!active) {
+      return;
+    }
 
     let cancelled = false;
 
     const checkForUpdates = async () => {
-      if (document.hidden) return;
+      if (document.hidden) {
+        return;
+      }
 
       try {
         const currentReports = await getK7FormRequests({ all: includeAdministered, ...filter });
-        if (cancelled) return;
+        if (cancelled) {
+          return;
+        }
 
         const currentStatuses = Object.fromEntries(
           currentReports.map((report) => [report.k7ReportRequestId, report.status]),
@@ -51,7 +57,9 @@ export const useK7RequestsRefresh = ({
           Object.keys(currentStatuses).length !== Object.keys(statuses).length ||
           Object.entries(currentStatuses).some(([requestId, status]) => statuses[requestId] !== status);
 
-        if (changed) onReportsChange(currentReports);
+        if (changed) {
+          onReportsChange(currentReports);
+        }
       } catch {
         // A transient polling failure is retried on the next tick.
       }

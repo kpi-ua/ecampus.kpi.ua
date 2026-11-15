@@ -1,9 +1,10 @@
 'use client';
 
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import { AvatarFallback } from '@radix-ui/react-avatar';
-import { CircleUserRound } from 'lucide-react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { CircleUserRound } from 'lucide-react';
+
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
 const avatarVariants = cva('rounded-full', {
   variants: {

@@ -1,9 +1,10 @@
-import { Badge } from '@/components/ui/badge';
 import { useTranslations } from 'next-intl';
 import { dash } from 'radash';
-import { Status } from '@/types/enums/session/status';
-import { cn } from '@/lib/utils';
+
 import { getStatusStyle } from '@/app/[locale]/(private)/module/vedomoststud/components/utils';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
+import { Status } from '@/types/enums/session/status';
 
 interface TermStatusBadgeProps {
   status: Status;

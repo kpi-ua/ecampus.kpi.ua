@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useMemo } from 'react';
 
+import { K7UniversityFilterSelection } from '@/app/[locale]/(private)/module/k7-form/components/types';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -15,7 +16,6 @@ import { useK7FilterParams } from '../hooks/use-k7-filter-params';
 import { useK7ReportGeneration } from '../hooks/use-k7-report-generation';
 import { compareProfile, parseAsProfileId } from '../utils/profile-query';
 import { K7AcademicYearSelect } from './k7-academic-year-select';
-import { K7UniversityFilterSelection } from '@/app/[locale]/(private)/module/k7-form/components/types';
 
 interface Props {
   years: number[];

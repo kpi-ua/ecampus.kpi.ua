@@ -1,18 +1,19 @@
-import { Module } from '@/types/module';
 import { ProfileArea } from '@/types/enums/profile-area';
+import { Module } from '@/types/module';
 
 export const MODULES: Module[] = [
   { name: 'studysheet', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'attestationresults', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
   { name: 'vedomoststud', isExternal: false },
-  { name: 'kurator', isExternal: false },
+  { name: 'curatorstudent', isExternal: false },
+  { name: 'curatorlecturer', isExternal: false },
   { name: 'announcementseditor', isExternal: false },
-  { name: 'facultycertificate', isExternal: false },
   { name: 'msg', isExternal: false },
   { name: 'directory', isExternal: false },
-  { name: 'certificates', isExternal: false },
   { name: 'rnp', isExternal: true },
+  { name: 'adminvote', isExternal: false },
   { name: 'vote', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  { name: 'votelecturer', isExternal: false },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'plans_individual', isExternal: true },
   { name: 'journals', isExternal: true },
@@ -40,10 +41,11 @@ export const MODULES: Module[] = [
   { name: 'zdekan', isExternal: true },
   { name: 'ekk', isExternal: true },
   { name: 'bravook', isExternal: true },
-  { name: 'yiystat', isExternal: true },
+  { name: 'yiystat', isExternal: false },
   { name: 'adminpanel', isExternal: true },
   { name: 'mob', isExternal: true },
   { name: 'useract', isExternal: true },
   { name: 'viewcontrol', isExternal: true },
   { name: 'studbonuspoints', isExternal: true },
+  { name: 'studbonuspointsrights', isExternal: false },
 ];

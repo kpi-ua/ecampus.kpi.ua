@@ -1,7 +1,9 @@
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+import { LocaleProps } from '@/types/locale-props';
+
 import { SupportNavLayout } from '../support-nav-layout';
 import { CuratorSearch } from './curator-search';
-import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'public.curator-search';
 

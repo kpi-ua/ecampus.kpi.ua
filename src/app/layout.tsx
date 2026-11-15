@@ -1,9 +1,11 @@
-import { ReactNode } from 'react';
-import './globals.css';
-import { exo2Font } from '@/app/font';
-import { NextIntlClientProvider } from 'next-intl';
 import { GoogleAnalytics } from '@next/third-parties/google';
+
+import './globals.css';
+import { NextIntlClientProvider } from 'next-intl';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import { ReactNode } from 'react';
+
+import { exo2Font } from '@/app/font';
 import { QueryProvider } from '@/components/query-provider';
 
 type Props = {

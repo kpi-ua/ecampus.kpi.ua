@@ -30,10 +30,7 @@ const announcementLinkFormSchema = z
 
 const announcementFormSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title must be at most 100 characters'),
-  description: z
-    .string()
-    .min(1, 'Description is required')
-    .max(700, 'Description must be at most 700 characters'),
+  description: z.string().min(1, 'Description is required').max(700, 'Description must be at most 700 characters'),
   /** API: required field, `null` or URI; form may use `''` for empty — map with {@link toAnnouncementCreate}. */
   image: z.union([
     z.literal(''),

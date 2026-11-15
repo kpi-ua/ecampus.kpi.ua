@@ -1,9 +1,10 @@
 'use client';
 
-import { Paragraph } from '@/components/typography/paragraph';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTranslations } from 'next-intl';
+
+import { Paragraph } from '@/components/typography/paragraph';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Semester } from '@/types/enums/current-control/semester';
 
 interface Props {

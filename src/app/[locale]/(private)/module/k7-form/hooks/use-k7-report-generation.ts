@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import { createK7FormRequest } from '@/actions/k7-form.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
@@ -44,7 +44,9 @@ export const useK7ReportGeneration = ({
   );
 
   const generate = async () => {
-    if (!selectedProfile || selectedYear === undefined || isSubmitting) return;
+    if (!selectedProfile || selectedYear === undefined || isSubmitting) {
+      return;
+    }
 
     if (activeRequest) {
       toast({ title: t('generation.queuedTitle'), description: t('generation.queuedDescription') });

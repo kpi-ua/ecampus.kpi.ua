@@ -1,18 +1,19 @@
 'use client';
 
-import { Heading6 } from '@/components/typography/headers';
-import { Separator } from '@/components/ui/separator';
-import { Input } from '@/components/ui/input';
-import { Contact, ContactType } from '@/types/models/contact';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
 import { createContact, deleteContact, updateContact } from '@/actions/profile.actions';
+import ContactsList from '@/app/[locale]/(private)/profile/components/contacts-list';
+import { Heading6 } from '@/components/typography/headers';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useTranslations } from 'next-intl';
-import ContactsList from '@/app/[locale]/(private)/profile/components/contacts-list';
+import { Separator } from '@/components/ui/separator';
+import { Contact, ContactType } from '@/types/models/contact';
 
 interface Props {
   corporateEmail?: string | null;

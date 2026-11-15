@@ -1,9 +1,11 @@
-import { Heading1 } from '@/components/typography/headers';
-import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+
 import { BookBookmark, BookOpen, Roll } from '@/app/images';
-import { DocumentCard } from './document-card';
+import { Heading1 } from '@/components/typography/headers';
 import { LocaleProps } from '@/types/locale-props';
+
+import { SubLayout } from '../sub-layout';
+import { DocumentCard } from './document-card';
 
 const INTL_NAMESPACE = 'private.documents';
 

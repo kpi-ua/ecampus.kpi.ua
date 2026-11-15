@@ -1,7 +1,8 @@
-import { TextButton } from '@/components/ui/text-button';
+import { getTranslations } from 'next-intl/server';
+
 import CaretLeftRegular from '@/app/images/icons/CaretLeftRegular.svg';
 import { Heading2 } from '@/components/typography/headers';
-import { getTranslations } from 'next-intl/server';
+import { TextButton } from '@/components/ui/text-button';
 
 export interface AuthNavLayoutProps {
   children: React.ReactNode;

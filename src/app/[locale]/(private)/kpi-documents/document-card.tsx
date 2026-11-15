@@ -1,8 +1,9 @@
+import { getTranslations } from 'next-intl/server';
+
 import { Heading5 } from '@/components/typography/headers';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { TextButton } from '@/components/ui/text-button';
 import { cn } from '@/lib/utils';
-import { getTranslations } from 'next-intl/server';
 
 interface DocumentCardProps {
   BackgroundImage: React.ElementType;

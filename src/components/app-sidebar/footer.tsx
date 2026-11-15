@@ -1,10 +1,12 @@
-import { Paragraph } from '../typography/paragraph';
-import { TextButton } from '../ui/text-button';
-import { Link } from '@/i18n/routing';
 import dayjs from 'dayjs';
-import RichText from '../typography/rich-text';
 import { getTranslations } from 'next-intl/server';
 import React from 'react';
+
+import { Link } from '@/i18n/routing';
+
+import { Paragraph } from '../typography/paragraph';
+import RichText from '../typography/rich-text';
+import { TextButton } from '../ui/text-button';
 
 const createFooterLinks = (t: Awaited<ReturnType<typeof getTranslations>>) => [
   { title: t('about'), url: '/about' },
@@ -19,8 +21,8 @@ export const Footer = async () => {
   const footerLinks = createFooterLinks(t);
 
   return (
-    <footer className="bg-uncategorized-main flex flex-wrap items-start justify-between gap-4 px-[20px] text-xs text-neutral-600 md:items-center lg:p-[28px]">
-      <Paragraph className="leading-base my-0 flex flex-col items-start gap-4 md:flex-row md:gap-8">
+    <footer className="flex flex-wrap items-start justify-between gap-4 bg-uncategorized-main px-[20px] text-xs text-neutral-600 md:items-center lg:p-[28px]">
+      <Paragraph className="my-0 flex flex-col items-start gap-4 leading-base md:flex-row md:gap-8">
         {footerLinks.map((link) => (
           <React.Fragment key={link.url}>
             <TextButton href={link.url} className="no-underline" variant="link" size="small">

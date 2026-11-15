@@ -1,5 +1,6 @@
-import { CarouselApi } from '@/components/ui/carousel';
 import { useCallback, useEffect, useState } from 'react';
+
+import { CarouselApi } from '@/components/ui/carousel';
 
 export const useDotButton = (api: CarouselApi) => {
   const [selectedIndex, setSelectedIndex] = useState(0);

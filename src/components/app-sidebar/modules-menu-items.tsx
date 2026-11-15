@@ -1,7 +1,8 @@
-import { MenuItem } from './menu-item';
 import { getModuleMenuSection } from '@/actions/menu.actions';
-import { CollapsibleMenuItem } from './collapsible-menu-item';
 import { MenuGroup } from '@/types/menu-item-meta';
+
+import { CollapsibleMenuItem } from './collapsible-menu-item';
+import { MenuItem } from './menu-item';
 
 export async function ModulesMenuItems() {
   const moduleMenuSection = await getModuleMenuSection();

@@ -1,10 +1,10 @@
-import dayjs from 'dayjs';
 import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
-import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/kurator/types';
+import { CuratorSurveyRow } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
-import { notFound } from 'next/navigation';
+import { formatDate } from '@/lib/utils';
 
 interface Props {
   params: Promise<{ groupId: string }>;
@@ -25,7 +25,7 @@ export async function GET(_request: Request, { params }: Props) {
   }
 
   const surveys = await response.json();
-  const t = await getTranslations('private.curator.lecturer.group-curator');
+  const t = await getTranslations('private.curatorlecturer.group-curator');
   const rows = [
     [t('results.student'), t('results.lecturer'), t('survey.discipline'), t('results.status')],
     ...surveys.map((row) => [
@@ -36,5 +36,5 @@ export async function GET(_request: Request, { params }: Props) {
     ]),
   ];
 
-  return createCsvResponse(rows, `surveys-${id}-${dayjs().format('YYYY-MM-DD')}.csv`);
+  return createCsvResponse(rows, `surveys-${id}-${formatDate(new Date())}.csv`);
 }

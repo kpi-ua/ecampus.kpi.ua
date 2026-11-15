@@ -1,8 +1,8 @@
 'use server';
 
+import { campusFetch } from '@/lib/client';
 import { ColleagueContact } from '@/types/models/colleague-contact';
 import { ContactType } from '@/types/models/contact';
-import { campusFetch } from '@/lib/client';
 
 export async function getColleagueContacts() {
   try {

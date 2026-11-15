@@ -1,4 +1,5 @@
-import { K7_EDUCATION_LEVEL, K7_EMPLOYEE_CATEGORY, K7EducationLevel, K7EmployeeCategory } from '@/types/models/k7-form';
+import { EducationLevel } from '@/types/enums/education-level';
+import { K7_EMPLOYEE_CATEGORY, K7EmployeeCategory } from '@/types/models/k7-form';
 
 type EmployeeCategoryTranslationKey = 'npp' | 'pp';
 
@@ -11,10 +12,10 @@ export const EMPLOYEE_CATEGORY_TRANSLATION_KEYS: Partial<Record<K7EmployeeCatego
 
 type EducationLevelTranslationKey = 'bachelor' | 'masterProfessional' | 'masterScientific' | 'phd' | 'other';
 
-export const EDUCATION_LEVEL_TRANSLATION_KEYS: Record<K7EducationLevel, EducationLevelTranslationKey> = {
-  [K7_EDUCATION_LEVEL.Bachelor]: 'bachelor',
-  [K7_EDUCATION_LEVEL.MasterProfessional]: 'masterProfessional',
-  [K7_EDUCATION_LEVEL.MasterScientific]: 'masterScientific',
-  [K7_EDUCATION_LEVEL.PhD]: 'phd',
-  [K7_EDUCATION_LEVEL.Other]: 'other',
+export const EDUCATION_LEVEL_TRANSLATION_KEYS: Record<EducationLevel, EducationLevelTranslationKey> = {
+  [EducationLevel.Bachelor]: 'bachelor',
+  [EducationLevel.MasterProfessional]: 'masterProfessional',
+  [EducationLevel.MasterScientific]: 'masterScientific',
+  [EducationLevel.PhD]: 'phd',
+  [EducationLevel.Other]: 'other',
 };

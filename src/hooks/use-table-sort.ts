@@ -40,7 +40,9 @@ export function useTableSort<T, K extends keyof T & string = keyof T & string>(
     : data;
 
   function getSortDirection(header: K): SortDirection {
-    if (!sort || sort.header !== header) return null;
+    if (!sort || sort.header !== header) {
+      return null;
+    }
     return sort.direction;
   }
 

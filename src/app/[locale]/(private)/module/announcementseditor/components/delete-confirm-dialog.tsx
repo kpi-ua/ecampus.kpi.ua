@@ -21,18 +21,16 @@ interface Props {
 export const DeleteConfirmDialog = ({ title, onClose, onConfirm }: Props) => {
   const t = useTranslations('private.announcementseditor.delete');
   return (
-    <AlertDialog
-      defaultOpen={true}
-    >
+    <AlertDialog defaultOpen={true}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{t('title')}</AlertDialogTitle>
-          <AlertDialogDescription>
-            {t('description', { title })}
-          </AlertDialogDescription>
+          <AlertDialogDescription>{t('description', { title })}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Button variant="secondary" onClick={onClose}>{t('cancel')}</Button>
+          <Button variant="secondary" onClick={onClose}>
+            {t('cancel')}
+          </Button>
           <Button variant="primary" onClick={onConfirm}>
             {t('confirm')}
           </Button>

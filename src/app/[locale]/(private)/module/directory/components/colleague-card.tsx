@@ -1,11 +1,13 @@
 'use client';
 
+import Link from 'next/link';
+
+import { Paragraph } from '@/components/typography';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { ColleagueContact } from '@/types/models/colleague-contact';
 import { ContactType } from '@/types/models/contact';
-import { Paragraph } from '@/components/typography';
+
 import { ContactList } from './contact-list';
-import Link from 'next/link';
 import { useSplitContacts } from './use-split-contacts';
 
 interface ColleagueCardProps {
@@ -31,19 +33,19 @@ export function ColleagueCard({ colleague, contactTypes }: ColleagueCardProps) {
                 {colleague.fullName}
               </Link>
             ) : (
-              <CardTitle className="text-base font-semibold leading-tight">{colleague.fullName}</CardTitle>
+              <CardTitle className="text-base leading-tight font-semibold">{colleague.fullName}</CardTitle>
             )}
             <div className="flex flex-col gap-1.5">
               {colleague.positions.map((position, index) => (
                 <div key={index}>
-                  {index > 0 && <div className="border-t border-neutral-200 my-1.5" />}
+                  {index > 0 && <div className="my-1.5 border-t border-neutral-200" />}
                   <Paragraph className="m-0 text-xs text-neutral-500">{position.name}</Paragraph>
                   <Paragraph className="m-0 text-xs text-neutral-400">{position.subdivision.name}</Paragraph>
                 </div>
               ))}
             </div>
           </div>
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2">
+          <div className="grid flex-1 grid-cols-1 gap-x-6 gap-y-2 md:grid-cols-2">
             <ContactList contacts={academicContacts} />
             <ContactList contacts={otherContacts} />
           </div>

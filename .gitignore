@@ -45,9 +45,6 @@ typings/
 # Optional npm cache directory
 .npm
 
-# Optional eslint cache
-.eslintcache
-
 # Optional REPL history
 .node_repl_history
 
@@ -69,3 +66,5 @@ build/
 .DS_Store
 *storybook.log
 .early.coverage
+
+.pnpm-store/

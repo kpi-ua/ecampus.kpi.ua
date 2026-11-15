@@ -1,8 +1,8 @@
 'use server';
 
 import { campusFetch } from '@/lib/client';
-import { Sheet } from '@/types/models/current-control/sheet';
 import { CreditModule } from '@/types/models/current-control/credit-module';
+import { Sheet } from '@/types/models/current-control/sheet';
 
 export async function getMonitoring() {
   const response = await campusFetch<Sheet>('monitoring');

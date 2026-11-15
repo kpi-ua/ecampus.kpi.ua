@@ -1,9 +1,11 @@
-import { Heading2 } from '@/components/typography/headers';
-import { Description } from '@/components/typography';
-import { SubLayout } from '../../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { LocaleProps } from '@/types/locale-props';
+
 import { getColleagueContacts, getColleagueContactTypes } from '@/actions/colleague-contacts.actions';
+import { Description } from '@/components/typography';
+import { Heading2 } from '@/components/typography/headers';
+import { LocaleProps } from '@/types/locale-props';
+
+import { SubLayout } from '../../sub-layout';
 import { ColleagueContactsList } from './components/colleague-contacts-list';
 
 const INTL_NAMESPACE = 'private.directory';

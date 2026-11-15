@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { SidebarGroup, SidebarGroupContent, SidebarMenu } from '../ui/sidebar';
 
 export function MenuSection({ children }: { children: React.ReactNode }) {

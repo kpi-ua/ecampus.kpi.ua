@@ -149,7 +149,9 @@ const CommandEmpty = forwardRef<HTMLDivElement, React.ComponentProps<typeof Comm
   ({ className, ...props }, forwardedRef) => {
     const render = useCommandState((state) => state.filtered.count === 0);
 
-    if (!render) return null;
+    if (!render) {
+      return null;
+    }
 
     return (
       <div
@@ -300,7 +302,9 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       };
 
       const exec = async () => {
-        if (!onSearchSync || !open) return;
+        if (!onSearchSync || !open) {
+          return;
+        }
 
         if (triggerSearchOnFocus) {
           doSearchSync();
@@ -312,7 +316,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       };
 
       void exec();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // oxlint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus]);
 
     useEffect(() => {
@@ -326,7 +330,9 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       };
 
       const exec = async () => {
-        if (!onSearch || !open) return;
+        if (!onSearch || !open) {
+          return;
+        }
 
         if (triggerSearchOnFocus) {
           await doSearch();
@@ -338,11 +344,13 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
       };
 
       void exec();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      // oxlint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm, groupBy, open, triggerSearchOnFocus]);
 
     const CreatableItem = () => {
-      if (!creatable) return undefined;
+      if (!creatable) {
+        return undefined;
+      }
       if (
         isOptionsExist(options, [{ value: inputValue, label: inputValue }]) ||
         selected.find((s) => s.value === inputValue)
@@ -387,7 +395,9 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
     };
 
     const EmptyItem = React.useCallback(() => {
-      if (!emptyIndicator) return undefined;
+      if (!emptyIndicator) {
+        return undefined;
+      }
 
       // For async search that showing emptyIndicator
       if (onSearch && !creatable && Object.keys(options).length === 0) {
@@ -439,7 +449,9 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
             className,
           )}
           onClick={() => {
-            if (disabled) return;
+            if (disabled) {
+              return;
+            }
             inputRef?.current?.focus();
           }}
         >
@@ -474,7 +486,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
                     }}
                     onClick={() => handleUnselect(option)}
                   >
-                    <X className="text-muted-foreground hover:text-foreground h-3 w-3" />
+                    <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
                   </button>
                 </Badge>
               );
@@ -541,7 +553,7 @@ const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorP
         <div className="relative">
           {open && (
             <CommandList
-              className="bg-popover text-popover-foreground animate-in absolute top-1 z-10 w-full rounded-md border shadow-md outline-none"
+              className="absolute top-1 z-10 w-full animate-in rounded-md border bg-popover text-popover-foreground shadow-md outline-none"
               onMouseLeave={() => {
                 setOnScrollbar(false);
               }}

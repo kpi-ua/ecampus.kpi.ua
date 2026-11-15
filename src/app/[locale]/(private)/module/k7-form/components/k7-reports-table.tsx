@@ -1,8 +1,8 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { type KeyboardEvent, useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link, usePathname } from '@/i18n/routing';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { cn } from '@/lib/utils';
 import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from '@/types/models/k7-form';
 
@@ -50,7 +51,7 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
   const [downloadingRequestId, setDownloadingRequestId] = useState<string>();
 
   if (reports.length === 0) {
-    return <p className="text-muted-foreground py-12 text-center text-sm">{t('table.empty')}</p>;
+    return <p className="py-12 text-center text-sm text-muted-foreground">{t('table.empty')}</p>;
   }
 
   const handleErrorRowKeyDown = (report: K7ReportRequest) => (event: KeyboardEvent<HTMLTableRowElement>) => {
@@ -63,7 +64,9 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
   };
 
   const handleDownload = async (report: K7ReportRequest) => {
-    if (downloadingRequestId) return;
+    if (downloadingRequestId) {
+      return;
+    }
 
     setDownloadingRequestId(report.k7ReportRequestId);
 
@@ -121,7 +124,7 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
                   {report.year}-{report.year + 1}
                 </TableCell>
                 {/* Only the department listing mixes lecturers; personal reports are all the reader's own. */}
-                {all && <TableCell>{report.targetFullName ?? '—'}</TableCell>}
+                {all && <TableCell>{report.targetFullName ?? EMPTY_VALUE}</TableCell>}
                 <TableCell>{departmentNames[report.departmentId] ?? report.departmentId}</TableCell>
                 <TableCell>{report.position}</TableCell>
                 <TableCell>

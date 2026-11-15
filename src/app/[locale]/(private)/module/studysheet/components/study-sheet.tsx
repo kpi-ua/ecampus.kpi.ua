@@ -1,5 +1,9 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
+import { useMemo } from 'react';
+
 import { getMonitoring } from '@/actions/monitoring.actions';
 import { DisciplinesTable } from '@/app/[locale]/(private)/module/studysheet/components/disciplines-table';
 import { StudySheetFilters } from '@/app/[locale]/(private)/module/studysheet/components/study-sheet-filters';
@@ -9,38 +13,29 @@ import { Card } from '@/components/ui/card';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useLocalStorage } from '@/hooks/use-storage';
 import { Semester } from '@/types/enums/current-control/semester';
-import { Sheet } from '@/types/models/current-control/sheet';
-import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { SubLayout } from '../../../sub-layout';
 
 export function StudySheet() {
   const t = useTranslations('private.study-sheet');
-  const [sheet, setSheet] = useState<Sheet | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
   const { errorToast } = useServerErrorToast();
+  const { data: sheet, isPending } = useQuery({
+    queryKey: ['monitoring'],
+    queryFn: async () => {
+      try {
+        return await getMonitoring();
+      } catch (error) {
+        errorToast();
+        throw error;
+      }
+    },
+  });
 
   const studyYears = sheet?.studyYears ?? [];
   const currentYear = studyYears.at(-1) || '';
 
   const [selectedStudyYear = currentYear, setSelectedStudyYear] = useLocalStorage<string>('studyYear');
   const [selectedSemester = Semester.All, setSelectedSemester] = useLocalStorage<Semester>('semester');
-
-  const fetchData = useCallback(async () => {
-    try {
-      const data = await getMonitoring();
-      setSheet(data);
-    } catch (error) {
-      errorToast();
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   const filteredDisciplines = useMemo(() => {
     const disciplines = sheet?.disciplines ?? [];
@@ -56,7 +51,7 @@ export function StudySheet() {
       <div className="col-span-8">
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
-        {isLoading ? (
+        {isPending ? (
           <LoadingScreen />
         ) : (
           <Card className="rounded-b-6 col-span-full w-full bg-white p-6 xl:col-span-5">

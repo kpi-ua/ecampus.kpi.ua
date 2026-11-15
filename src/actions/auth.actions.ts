@@ -1,14 +1,16 @@
 'use server';
 
-import qs from 'query-string';
 import JWT from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import qs from 'query-string';
+
 import { campusFetch } from '@/lib/client';
-import { User } from '@/types/models/user';
+import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
+import { UserCategory } from '@/types/enums/user-category';
 import { AuthResponse } from '@/types/models/auth-response';
-import { KPIIDAccount } from '@/types/models/kpi-id-account';
-import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
+import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
+import { User } from '@/types/models/user';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
 const ROOT_COOKIE_DOMAIN = process.env.ROOT_COOKIE_DOMAIN;
@@ -77,7 +79,9 @@ export async function resetPassword(username: string, recaptchaToken: string) {
       body: JSON.stringify(payload),
     });
 
-    if (response.status < 200 || response.status >= 300) {
+    // 404 (no such user) and 409 (no email on the account) end like a sent link, so the form does not tell
+    // which logins exist.
+    if (!response.ok && response.status !== 404 && response.status !== 409) {
       throw new Error(`${response.status} Error`);
     }
 
@@ -86,8 +90,6 @@ export async function resetPassword(username: string, recaptchaToken: string) {
     throw new Error('Bad request');
   }
 }
-
-import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/cache-tags';
 
 export async function getUserDetails() {
   const userResponse = await campusFetch<User>('profile', {
@@ -98,15 +100,33 @@ export async function getUserDetails() {
     return null;
   }
 
-  return userResponse.json();
+  const user: User = await userResponse.json();
+
+  // TODO(KBX-1526): drop once kpi-ua/api.campus.kpi.ua#979 is deployed; until then the API sends "Lecturer"
+  const userCategories = user.userCategories.map((category) =>
+    (category as string) === 'Lecturer' ? UserCategory.AcademicStaff : category,
+  );
+
+  return { ...user, userCategories };
 }
 
-export async function getKPIIDAccounts(ticketId: string) {
-  const response = await campusFetch<KPIIDAccount[]>(`/auth/kpi-id?ticketId=${ticketId}`);
+export async function exchangeKPIIDCode(authorization: KPIIDAuthorization): Promise<KPIIDCodeExchange> {
+  try {
+    const response = await campusFetch<KPIIDAccount[]>('/auth/kpi-id', {
+      method: 'POST',
+      body: JSON.stringify(authorization),
+    });
 
-  if (!response.ok) {
-    return null;
+    if (!response.ok) {
+      return { ok: false, reason: 'api', status: response.status };
+    }
+
+    const accounts: KPIIDAccount[] = await response.json();
+
+    return accounts.length ? { ok: true, accounts } : { ok: false, reason: 'no-accounts' };
+  } catch (error) {
+    console.error('KPI ID code exchange failed:', error);
+
+    return { ok: false, reason: 'network' };
   }
-
-  return response.json();
 }

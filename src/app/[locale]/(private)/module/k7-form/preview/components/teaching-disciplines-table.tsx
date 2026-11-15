@@ -1,7 +1,9 @@
 import { useTranslations } from 'next-intl';
+import { sort, sum, unique } from 'radash';
 import { Fragment } from 'react';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { cn, formatNumber } from '@/lib/utils';
 import { K7TeachingDiscipline } from '@/types/models/k7-form';
 
@@ -20,11 +22,11 @@ interface Props {
 
 export const TeachingDisciplinesTable = ({ rows }: Props) => {
   const t = useTranslations('private.k-7.preview.table');
-  const semesters = [...new Set(rows.map((row) => row.semester))].sort((a, b) => a - b);
+  const semesters = sort(unique(rows.map(({ semester }) => semester)), (semester) => semester);
   const teachingTableHeadClassName = cn(tableHeadClassName, 'h-[72px] align-middle');
 
   return (
-    <Table className="leading-xs table-fixed border-collapse text-xs">
+    <Table className="table-fixed border-collapse text-xs leading-xs">
       <colgroup>
         <col className="w-[4%]" />
         <col className="w-[31%]" />
@@ -61,8 +63,8 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
                 <TableRow key={`${row.subjectName}-${row.streamId}-${index}`} className="hover:bg-white">
                   <TableCell className={tableCellClassName}>{index + 1}</TableCell>
                   <TableCell className={tableCellClassName}>{row.subjectName}</TableCell>
-                  <TableCell className={tableCellClassName}>{row.streamId || '—'}</TableCell>
-                  <TableCell className={tableCellClassName}>{row.groupCodes || '—'}</TableCell>
+                  <TableCell className={tableCellClassName}>{row.streamId || EMPTY_VALUE}</TableCell>
+                  <TableCell className={tableCellClassName}>{row.groupCodes || EMPTY_VALUE}</TableCell>
                   <TableCell className={tableCellClassName}>{formatNumber(row.totalVolume, 2)}</TableCell>
                   <TableCell className={tableCellClassName}>{row.practiceGroupsCount}</TableCell>
                   <TableCell className={tableCellClassName}>{row.labGroupsCount}</TableCell>
@@ -74,15 +76,15 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
                 </TableCell>
                 <TableCell className={summaryCellClassName}>
                   {formatNumber(
-                    semesterRows.reduce((total, row) => total + row.totalVolume, 0),
+                    sum(semesterRows, ({ totalVolume }) => totalVolume),
                     2,
                   )}
                 </TableCell>
                 <TableCell className={summaryCellClassName}>
-                  {semesterRows.reduce((total, row) => total + row.practiceGroupsCount, 0)}
+                  {sum(semesterRows, ({ practiceGroupsCount }) => practiceGroupsCount)}
                 </TableCell>
                 <TableCell className={summaryCellClassName}>
-                  {semesterRows.reduce((total, row) => total + row.labGroupsCount, 0)}
+                  {sum(semesterRows, ({ labGroupsCount }) => labGroupsCount)}
                 </TableCell>
               </TableRow>
             </Fragment>
@@ -95,16 +97,14 @@ export const TeachingDisciplinesTable = ({ rows }: Props) => {
             </TableCell>
             <TableCell className={summaryCellClassName}>
               {formatNumber(
-                rows.reduce((total, row) => total + row.totalVolume, 0),
+                sum(rows, ({ totalVolume }) => totalVolume),
                 2,
               )}
             </TableCell>
             <TableCell className={summaryCellClassName}>
-              {rows.reduce((total, row) => total + row.practiceGroupsCount, 0)}
+              {sum(rows, ({ practiceGroupsCount }) => practiceGroupsCount)}
             </TableCell>
-            <TableCell className={summaryCellClassName}>
-              {rows.reduce((total, row) => total + row.labGroupsCount, 0)}
-            </TableCell>
+            <TableCell className={summaryCellClassName}>{sum(rows, ({ labGroupsCount }) => labGroupsCount)}</TableCell>
           </TableRow>
         )}
       </TableBody>

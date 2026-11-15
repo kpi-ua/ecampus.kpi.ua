@@ -1,11 +1,12 @@
 'use client';
 
-import { useTableSort } from '@/hooks/use-table-sort';
+import { useTranslations } from 'next-intl';
+
+import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
 import { ExternalMaterials } from '@/types/models/current-control/materials';
-import { useTranslations } from 'next-intl';
-import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 
 interface Props {
   externalMaterials: ExternalMaterials[];

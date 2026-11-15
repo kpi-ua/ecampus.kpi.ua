@@ -1,4 +1,4 @@
-import { LOCALE } from "@/i18n/routing";
+import { LOCALE } from '@/i18n/routing';
 
 export type AdminAnnouncementsLanguage = 'all' | LOCALE;
 

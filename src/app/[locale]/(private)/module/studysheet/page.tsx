@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+
 import { StudySheet } from '@/app/[locale]/(private)/module/studysheet/components/study-sheet';
 import { LocaleProps } from '@/types/locale-props';
 

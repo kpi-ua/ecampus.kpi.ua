@@ -1,11 +1,12 @@
-import { Heading6 } from '@/components/typography/headers';
-import { Separator } from '@/components/ui/separator';
-import { Paragraph } from '@/components/typography/paragraph';
-import { User } from '@/types/models/user';
-import { Link } from '@/i18n/routing';
-import { Show } from '@/components/utils/show';
-import RichText from '@/components/typography/rich-text';
 import { getTranslations } from 'next-intl/server';
+
+import { Heading6 } from '@/components/typography/headers';
+import { Paragraph } from '@/components/typography/paragraph';
+import RichText from '@/components/typography/rich-text';
+import { Separator } from '@/components/ui/separator';
+import { Show } from '@/components/utils/show';
+import { Link } from '@/i18n/routing';
+import { User } from '@/types/models/user';
 
 interface Props {
   user: User;

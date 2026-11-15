@@ -2,13 +2,13 @@
 
 import { revalidatePath } from 'next/cache';
 import qs from 'query-string';
+import { sum } from 'radash';
 
 import { campusFetch } from '@/lib/client';
 import {
   CreateK7FormRequestResult,
   CreateK7ReportRequestInput,
   K7_ACHIEVEMENT_WORK_TYPE,
-  K7DetailedAchievement,
   K7FormFilters,
   K7FormLecturer,
   K7HtmlPreview,
@@ -47,21 +47,20 @@ const normalizeK7FormPreview = (response: K7ReportRequestDetails): K7HtmlPreview
   const organizationalAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Organizational] ?? [];
   const otherAchievements = achievementsByWorkType[K7_ACHIEVEMENT_WORK_TYPE.Other] ?? [];
 
-  const sumHours = (rows: K7DetailedAchievement[]) => rows.reduce((total, item) => total + item.hoursUsed, 0);
-
   const educationalHours =
-    teachingDisciplines.reduce((total, item) => total + item.totalVolume, 0) +
-    otherEducationalActivities.reduce((total, item) => total + item.grandTotal, 0);
-  const methodicalHours = sumHours(methodicalAchievements);
-  const organizationalHours = sumHours(organizationalAchievements);
+    sum(teachingDisciplines, ({ totalVolume }) => totalVolume) +
+    sum(otherEducationalActivities, ({ grandTotal }) => grandTotal);
+  const methodicalHours = sum(methodicalAchievements, ({ hoursUsed }) => hoursUsed);
+  const organizationalHours = sum(organizationalAchievements, ({ hoursUsed }) => hoursUsed);
 
   // The reporting limits of the time norms trim the credited totals without touching the rows.
   // Reading them here is what keeps this preview and the generated document in agreement; before
   // it, the screen showed raw totals while the downloaded file showed capped ones.
   const scientificWorkCap = response.scientificWorkCap ?? null;
   const otherWorkCap = response.otherWorkCap ?? null;
-  const scientificHours = sumHours(scientificAchievements) - (scientificWorkCap?.exceededHours ?? 0);
-  const otherHours = otherWorkCap?.creditedHours ?? sumHours(otherAchievements);
+  const scientificHours =
+    sum(scientificAchievements, ({ hoursUsed }) => hoursUsed) - (scientificWorkCap?.exceededHours ?? 0);
+  const otherHours = otherWorkCap?.creditedHours ?? sum(otherAchievements, ({ hoursUsed }) => hoursUsed);
 
   return {
     header: response.header,

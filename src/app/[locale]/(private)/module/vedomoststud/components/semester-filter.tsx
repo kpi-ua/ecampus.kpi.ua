@@ -1,9 +1,10 @@
 'use client';
 
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useRouter, useSearchParams, usePathname } from 'next/navigation';
+
 import { Paragraph } from '@/components/typography/paragraph';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 export function SemesterFilter({ semesters }: { semesters: number[] }) {
   const router = useRouter();

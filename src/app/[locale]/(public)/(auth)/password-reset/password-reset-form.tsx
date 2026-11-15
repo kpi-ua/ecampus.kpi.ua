@@ -1,19 +1,20 @@
 'use client';
 
-import * as z from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { resetPassword } from '@/actions/auth.actions';
-import { Form, FormField, FormItem } from '@/components/ui/form';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 // FIXME:
 // This version of recaptcha library should be replace with official one,
 // when it starts to support React 19
 import { useGoogleReCaptcha } from 'react19-google-recaptcha-v3';
+import * as z from 'zod';
+
+import { resetPassword } from '@/actions/auth.actions';
+import { Button } from '@/components/ui/button';
+import { Form, FormField, FormItem } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useRouter } from '@/i18n/routing';
 
 interface PasswordResetFormProps {

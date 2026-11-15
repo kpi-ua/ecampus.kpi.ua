@@ -1,16 +1,18 @@
 'use server';
 
-import { getJWTPayload } from '@/lib/jwt';
-import { CampusJwtPayload } from '@/types/campus-jwt-payload';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
-import { getUserDetails } from './auth.actions';
-import { MenuGroup } from '@/types/menu-item-meta';
-import { MODULES } from '@/lib/constants/modules';
-import { ProfileArea } from '@/types/enums/profile-area';
-import { Module } from '@/types/module';
-import { TOKEN_COOKIE_NAME } from '@/lib/constants/cookies';
 import { group } from 'radash';
+
+import { TOKEN_COOKIE_NAME } from '@/lib/constants/common';
+import { MODULES } from '@/lib/constants/modules';
+import { getJWTPayload } from '@/lib/jwt';
+import { CampusJwtPayload } from '@/types/campus-jwt-payload';
+import { ProfileArea } from '@/types/enums/profile-area';
+import { MenuGroup } from '@/types/menu-item-meta';
+import { Module } from '@/types/module';
+
+import { getUserDetails } from './auth.actions';
 
 const OLD_CAMPUS_URL = process.env.OLD_CAMPUS_URL;
 const OLD_CAMPUS_PROFILE_AREA = {
@@ -21,11 +23,20 @@ type Translation = Awaited<ReturnType<typeof getTranslations>>;
 
 const byTitle = (a: MenuGroup, b: MenuGroup) => a.title.localeCompare(b.title);
 
-const getIsExternal = (module: Module, profileArea: ProfileArea) =>
-  typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal;
+const getIsExternal = (module: Module, profileArea: ProfileArea) => {
+  if (module.legacyPath && process.env.NEXT_PUBLIC_ENV === 'development') {
+    return false;
+  }
+
+  return typeof module.isExternal === 'function' ? module.isExternal(profileArea) : module.isExternal;
+};
 
 const composeUrl = (module: Module, profileArea: ProfileArea) => {
   if (getIsExternal(module, profileArea)) {
+    if (module.legacyPath) {
+      return `${OLD_CAMPUS_URL}/${module.legacyPath}`;
+    }
+
     return `${OLD_CAMPUS_URL}/${OLD_CAMPUS_PROFILE_AREA[profileArea]}/index.php?mode=${module.name}`;
   }
 

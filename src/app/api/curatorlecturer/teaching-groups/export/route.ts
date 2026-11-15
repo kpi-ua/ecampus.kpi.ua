@@ -1,0 +1,30 @@
+import { getTranslations } from 'next-intl/server';
+
+import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { formatGroupDescription } from '@/app/[locale]/(private)/module/curatorlecturer/utils/format-group-description';
+import { campusFetch } from '@/lib/client';
+import { createCsvResponse } from '@/lib/csv-response';
+import { formatDate } from '@/lib/utils';
+
+export async function GET() {
+  const response = await campusFetch<CuratorGroup[]>('/curator-lecturer/teaching-groups');
+
+  if (!response.ok) {
+    return new Response(null, { status: response.status });
+  }
+
+  const groups: CuratorGroup[] = await response.json();
+  const t = await getTranslations('private.curatorlecturer');
+  const rows = [
+    [t('table.group'), t('table.course'), t('table.curator'), t('table.description'), t('table.department')],
+    ...groups.map((group) => [
+      group.name,
+      group.course,
+      group.curatorName ?? t('table.not-assigned'),
+      formatGroupDescription(group),
+      group.departmentName,
+    ]),
+  ];
+
+  return createCsvResponse(rows, `study-groups-${formatDate(new Date())}.csv`);
+}

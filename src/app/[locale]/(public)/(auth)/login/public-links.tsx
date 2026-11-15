@@ -1,8 +1,10 @@
-import { PublicLink } from './public-link';
+import { getTranslations } from 'next-intl/server';
+
+import { Chats } from '@/app/images';
 import LifebuoyOutline from '@/app/images/icons/LifebuoyOutline.svg';
 import Student from '@/app/images/icons/Student.svg';
-import { getTranslations } from 'next-intl/server';
-import { Chats } from '@/app/images';
+
+import { PublicLink } from './public-link';
 
 export const PublicLinks = async () => {
   const t = await getTranslations('auth.login.publicLink');

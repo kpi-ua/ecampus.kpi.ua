@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "trailingComma": "all",
+  "semi": true,
+  "tabWidth": 2,
+  "jsxSingleQuote": false,
+  "printWidth": 120,
+  "sortPackageJson": false,
+  "sortTailwindcss": {
+    "stylesheet": "./src/app/globals.css"
+  },
+  "ignorePatterns": [".next/**", "out/**", "build/**", "storybook-static/**", "next-env.d.ts", "pnpm-lock.yaml"],
+  "endOfLine": "lf",
+  "sortImports": {
+    "internalPattern": ["@/"],
+    "groups": [["builtin", "external"], "internal", ["parent", "sibling", "index"], "unknown"]
+  }
+}

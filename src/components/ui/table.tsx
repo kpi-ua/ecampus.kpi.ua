@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { SortIcon } from '@/components/ui/sort-icon';
+import { cn } from '@/lib/utils';
 
 type SortDirection = 'asc' | 'desc' | null;
 type SortHandlers = Record<

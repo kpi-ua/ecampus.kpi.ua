@@ -1,5 +1,5 @@
-import { Status } from '@/types/enums/session/status';
 import { badgeVariants } from '@/components/ui/badge';
+import { Status } from '@/types/enums/session/status';
 
 export function getStatusStyle(status: Status) {
   switch (status) {

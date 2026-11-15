@@ -1,0 +1,11 @@
+overrides:
+  '@types/react': '19.3.0'
+  '@types/react-dom': '19.2.2'
+
+allowBuilds:
+  'esbuild@0.28.2': true
+  '@swc/core@1.16.18': true
+  'unrs-resolver@1.11.1': true
+  '@parcel/watcher@2.6.0': true
+  'fsevents@2.3.3': true
+  'core-js-pure@3.51.0': false

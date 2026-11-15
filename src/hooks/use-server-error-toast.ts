@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import { useToast } from './use-toast';
 
 export const useServerErrorToast = () => {

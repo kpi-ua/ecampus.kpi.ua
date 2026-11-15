@@ -1,8 +1,9 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useParams, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { getMonitoringById } from '@/actions/monitoring.actions';
 import {
@@ -17,36 +18,32 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { LoadingScreen } from '@/components/loading-screen';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabSheetTrigger, TabsList } from '@/components/ui/tabs';
-import { CreditModule } from '@/types/models/current-control/credit-module';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 
 export default function InfoPageClient() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const searchParams = useSearchParams();
   const t = useTranslations('private.study-sheet');
   const tTab = useTranslations(`private.study-sheet.tab`);
   const [selectedSheet, setSelectedSheet] = useState(SheetTranslationKeys.Journal);
+  const { errorToast } = useServerErrorToast();
 
   const querySemester = searchParams.get('semester');
   const queryYear = searchParams.get('studyYear');
 
-  const [creditModule, setCreditModule] = useState<CreditModule>();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
+  const { data: creditModule, isPending } = useQuery({
+    queryKey: ['monitoring', id],
+    queryFn: async () => {
       try {
-        const data = await getMonitoringById(id as string);
-        setCreditModule(data);
-        setIsLoading(false);
+        return await getMonitoringById(id);
       } catch (error) {
-        setIsLoading(false);
+        errorToast();
+        throw error;
       }
-    }
+    },
+  });
 
-    fetchData();
-  }, []);
-
-  if (isLoading) {
+  if (isPending) {
     return <LoadingScreen />;
   }
 

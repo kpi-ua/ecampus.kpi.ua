@@ -1,7 +1,8 @@
 import { getAnnouncements } from '@/actions/announcement.actions';
-import { AnnouncementsCarousel } from './announcements-carousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+
+import { AnnouncementsCarousel } from './announcements-carousel';
 
 interface AnnouncementsCardProps {
   className?: string;

@@ -1,5 +1,5 @@
-import Greeting from './greeting';
 import { AnnouncementsCard, InformationCard, SocialNetworksCard, SupportCard } from './cards';
+import Greeting from './greeting';
 
 export default function Home() {
   return (

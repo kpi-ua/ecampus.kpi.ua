@@ -1,9 +1,10 @@
 'use client';
 
+import { CaretRightRegular, Question } from '@/app/images';
+
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible';
 import { SidebarMenuButton, SidebarMenuItem, SidebarMenuSub } from '../ui/sidebar';
 import { menuIcon } from './menu-icon';
-import { CaretRightRegular, Question } from '@/app/images';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../ui/collapsible';
 
 interface CollapsibleMenuItemProps {
   title: string;

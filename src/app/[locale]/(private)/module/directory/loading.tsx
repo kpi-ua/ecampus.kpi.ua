@@ -1,5 +1,4 @@
 import SpinnerGap from '../../../../images/icons/SpinnerGap.svg';
-import React from 'react';
 
 export default function Loading() {
   return (

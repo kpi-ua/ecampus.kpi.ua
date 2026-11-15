@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { objectify } from 'radash';
 
 import { getK7FormFilters, getK7FormRequests } from '@/actions/k7-form.actions';
 
@@ -16,8 +17,10 @@ export default async function K7DepartmentReportsPage() {
   }
 
   const administeredReports = await getK7FormRequests({ all: true });
-  const departmentNames = Object.fromEntries(
-    [...filters.profiles, ...departmentProfiles].map((profile) => [profile.departmentId, profile.departmentName]),
+  const departmentNames = objectify(
+    [...filters.profiles, ...departmentProfiles],
+    ({ departmentId }) => departmentId,
+    ({ departmentName }) => departmentName,
   );
 
   return (

@@ -1,12 +1,12 @@
 'use client';
 
-import * as React from 'react';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
+import * as React from 'react';
+
 import CaretLeftRegular from '@/app/images/icons/CaretLeftRegular.svg';
 import CaretRightRegular from '@/app/images/icons/CaretRightRegular.svg';
-
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;

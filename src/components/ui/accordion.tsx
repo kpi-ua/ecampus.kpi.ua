@@ -1,10 +1,10 @@
 'use client';
 
-import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import * as React from 'react';
 
-import { cn } from '@/lib/utils';
 import { MinusRegular, PlusRegular } from '@/app/images';
+import { cn } from '@/lib/utils';
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -44,7 +44,7 @@ const AccordionContent = ({
 }: React.ComponentProps<typeof AccordionPrimitive.Content>) => (
   <AccordionPrimitive.Content
     ref={ref}
-    className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden text-sm transition-all"
+    className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
     {...props}
   >
     <div className={cn('pt-0 pb-4', className)}>{children}</div>

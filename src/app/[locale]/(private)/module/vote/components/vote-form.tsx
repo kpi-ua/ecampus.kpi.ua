@@ -30,17 +30,17 @@ export const VoteForm = ({ criteria, lecturer, scores, isComplete, isSubmitting,
         fallback={
           <div className="flex flex-col gap-2 py-12 text-center">
             <Paragraph className="m-0 text-base font-semibold text-neutral-900">{t('allCompleted.title')}</Paragraph>
-            <Paragraph className="leading-sm m-0 text-sm text-neutral-600">{t('allCompleted.description')}</Paragraph>
+            <Paragraph className="m-0 text-sm leading-sm text-neutral-600">{t('allCompleted.description')}</Paragraph>
           </div>
         }
       >
         <div className="flex items-center gap-3">
           <ProfilePicture size="lg" src={lecturer?.photo ?? ''} />
           <div className="flex flex-col gap-1">
-            <Heading3 className="leading-lg lg:leading-lg text-xl text-neutral-900 lg:text-xl">
+            <Heading3 className="text-xl leading-lg text-neutral-900 lg:text-xl lg:leading-lg">
               {lecturer?.fullName}
             </Heading3>
-            <Paragraph className="leading-sm m-0 text-sm text-neutral-500">{t('rateLecturer')}</Paragraph>
+            <Paragraph className="m-0 text-sm leading-sm text-neutral-500">{t('rateLecturer')}</Paragraph>
           </div>
         </div>
 

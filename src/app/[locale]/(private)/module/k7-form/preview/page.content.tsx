@@ -2,6 +2,7 @@
 
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
+import { sum } from 'radash';
 
 import { CaretLeftRegular } from '@/app/images';
 import { Heading2, Paragraph } from '@/components/typography';
@@ -30,11 +31,8 @@ interface Props {
 export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
   const t = useTranslations('private.k-7');
   const tEmployeeCategory = useTranslations('private.k-7.employee-category');
-  const teachingHours = preview.section1.teachingDisciplines.reduce((total, row) => total + row.totalVolume, 0);
-  const otherEducationalHours = preview.section1.otherEducationalActivities.reduce(
-    (total, row) => total + row.grandTotal,
-    0,
-  );
+  const teachingHours = sum(preview.section1.teachingDisciplines, ({ totalVolume }) => totalVolume);
+  const otherEducationalHours = sum(preview.section1.otherEducationalActivities, ({ grandTotal }) => grandTotal);
   const employeeCategoryTranslationKey = EMPLOYEE_CATEGORY_TRANSLATION_KEYS[preview.header.employeeCategory];
   const employeeCategory = employeeCategoryTranslationKey
     ? tEmployeeCategory(employeeCategoryTranslationKey)
@@ -51,7 +49,7 @@ export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
   const downloadAction = pdfReady ? (
     <DownloadPdfButton {...downloadButtonProps} />
   ) : (
-    <Badge className="border-other-blue bg-other-blue/10 text-other-blue leading-xs justify-center rounded-md border px-4 py-[5px] text-xs font-semibold">
+    <Badge className="justify-center rounded-md border border-other-blue bg-other-blue/10 px-4 py-[5px] text-xs leading-xs font-semibold text-other-blue">
       {t('status.dataReady')}
     </Badge>
   );
@@ -60,7 +58,7 @@ export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
     <main className="flex w-full min-w-0 flex-col">
       <Link
         href={backHref}
-        className="leading-xs mb-[14px] inline-flex w-fit items-center gap-2 text-xs font-semibold text-neutral-500"
+        className="mb-[14px] inline-flex w-fit items-center gap-2 text-xs leading-xs font-semibold text-neutral-500"
       >
         <CaretLeftRegular className="size-[16px]" />
         {t('preview.back')}
@@ -68,10 +66,10 @@ export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
 
       <div className="mb-[20px] flex min-w-0 flex-col items-start justify-between gap-3 sm:flex-row">
         <div className="min-w-0">
-          <Heading2 className="leading-lg lg:leading-lg text-xl text-neutral-900 lg:text-xl">
+          <Heading2 className="text-xl leading-lg text-neutral-900 lg:text-xl lg:leading-lg">
             {t('preview.pageHeading', { rate: preview.header.totalEmploymentRate, category: employeeCategory })}
           </Heading2>
-          <Paragraph className="!leading-xs mt-2 mb-0 text-xs font-medium text-neutral-500">
+          <Paragraph className="mt-2 mb-0 text-xs !leading-xs font-medium text-neutral-500">
             {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName}
             {preview.header.facultyName && ` (${preview.header.facultyName})`} · {academicYear}
             {snapshotAt && ` · ${t('preview.snapshotAt', { date: dayjs(snapshotAt).format('DD.MM.YYYY, HH:mm') })}`}
@@ -123,8 +121,8 @@ export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
           </ReportSection>
         </div>
 
-        <div className="border-neutral-divider mt-2 flex flex-col items-start justify-between gap-3 rounded-[10px] border bg-white px-4 py-4 sm:flex-row sm:items-center">
-          <p className="leading-sm m-0 text-base">
+        <div className="mt-2 flex flex-col items-start justify-between gap-3 rounded-[10px] border border-neutral-divider bg-white px-4 py-4 sm:flex-row sm:items-center">
+          <p className="m-0 text-base leading-sm">
             <span className="font-semibold text-neutral-900">
               {t('preview.totalWorkload', { hours: formatNumber(preview.section6.totalHours, 0) })}
             </span>

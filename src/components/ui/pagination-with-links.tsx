@@ -1,6 +1,13 @@
 'use client';
 
-import { useCallback } from 'react';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { createSerializer, parseAsInteger, useQueryStates } from 'nuqs';
+import { type ComponentProps } from 'react';
+
+import { useIsMobile } from '@/hooks/use-mobile';
+import { createPagesRange } from '@/lib/pagination.utils';
+import { cn } from '@/lib/utils';
+
 import {
   Pagination,
   PaginationContent,
@@ -10,10 +17,13 @@ import {
   PaginationNext,
 } from './pagination';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { cn } from '@/lib/utils';
-import { useIsMobile } from '@/hooks/use-mobile';
-import { createPagesRange } from '@/lib/pagination.utils';
+
+const paginationParsers = {
+  page: parseAsInteger,
+  pageSize: parseAsInteger,
+};
+
+type NavigateHandler = NonNullable<ComponentProps<typeof PaginationLink>['onNavigate']>;
 
 export interface PaginationWithLinksProps {
   pageSizeSelectOptions?: {
@@ -30,38 +40,47 @@ export function PaginationWithLinks({
   pageSizeSelectOptions,
   pageSize,
   totalCount,
-  page,
+  page = 1,
   pageSearchParam,
 }: PaginationWithLinksProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const isMobile = useIsMobile();
+  const urlKeys = {
+    page: pageSearchParam || 'page',
+    pageSize: pageSizeSelectOptions?.pageSizeSearchParam || 'pageSize',
+  };
+  const [, setPagination] = useQueryStates(paginationParsers, {
+    urlKeys,
+    history: 'push',
+    shallow: false,
+    scroll: true,
+  });
+  const serialize = createSerializer(paginationParsers, { urlKeys });
 
-  const totalPageCount = Math.ceil(totalCount / pageSize);
+  const totalPageCount = Math.max(1, Math.ceil(totalCount / pageSize));
   const visibleRange = isMobile ? 3 : 5;
   const pages = createPagesRange({ currentPage: page, pagesCount: totalPageCount, visibleRange });
 
-  const buildLink = useCallback(
-    (newPage: number) => {
-      const key = pageSearchParam || 'page';
-      const newSearchParams = new URLSearchParams(searchParams || undefined);
-      newSearchParams.set(key, String(newPage));
-      return `${pathname}?${newSearchParams.toString()}`;
-    },
-    [searchParams, pathname],
-  );
+  const buildLink = (newPage: number) => serialize(`${pathname}?${searchParams.toString()}`, { page: newPage });
 
-  const navToPageSize = useCallback(
-    (newPageSize: number) => {
-      const key = pageSizeSelectOptions?.pageSizeSearchParam || 'pageSize';
-      const newSearchParams = new URLSearchParams(searchParams || undefined);
-      newSearchParams.set(key, String(newPageSize));
-      newSearchParams.delete(pageSearchParam || 'page');
-      router.push(`${pathname}?${newSearchParams.toString()}`);
-    },
-    [searchParams, pathname],
-  );
+  const navToPageSize = (newPageSize: number) => {
+    void setPagination({ page: null, pageSize: newPageSize });
+  };
+
+  const handlePageNavigate = (newPage: number): NavigateHandler => {
+    return (event) => {
+      event.preventDefault();
+      void setPagination({ page: newPage });
+    };
+  };
+
+  const handleNextNavigate: NavigateHandler = (event) => {
+    event.preventDefault();
+    if (page < totalPageCount) {
+      void setPagination({ page: page + 1 });
+    }
+  };
 
   return (
     <div className="flex w-full flex-col items-center gap-3 md:flex-row">
@@ -77,13 +96,13 @@ export function PaginationWithLinks({
       <Pagination className={cn({ 'md:justify-end': pageSizeSelectOptions })}>
         <PaginationContent className="max-sm:gap-0">
           {pages.map((p, index) =>
-            p === '...' ? (
+            typeof p !== 'number' ? (
               <PaginationItem key={p + index}>
                 <PaginationEllipsis />
               </PaginationItem>
             ) : (
               <PaginationItem key={p}>
-                <PaginationLink href={buildLink(p as number)} isActive={page === p}>
+                <PaginationLink href={buildLink(p)} isActive={page === p} onNavigate={handlePageNavigate(p)}>
                   {p}
                 </PaginationLink>
               </PaginationItem>
@@ -92,10 +111,9 @@ export function PaginationWithLinks({
           <PaginationItem>
             <PaginationNext
               href={buildLink(Math.min(page + 1, totalPageCount))}
-              aria-disabled={page === totalPageCount}
-              tabIndex={page === totalPageCount ? -1 : undefined}
+              onNavigate={handleNextNavigate}
               className={`text-lg font-semibold text-neutral-900 ${
-                page === totalPageCount ? 'pointer-events-none opacity-50' : undefined
+                page >= totalPageCount ? 'pointer-events-none opacity-50' : undefined
               }`}
             />
           </PaginationItem>

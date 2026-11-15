@@ -1,0 +1,224 @@
+'use client';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
+import { useCallback, useMemo } from 'react';
+import { useForm } from 'react-hook-form';
+
+import { grantSbpRights, searchSbpUsers } from '@/actions/sbp-rights.actions';
+import { AsyncCombobox, ComboboxOption } from '@/components/ui/async-combobox';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useToast } from '@/hooks/use-toast';
+import { useRouter } from '@/i18n/routing';
+import {
+  AccessScope,
+  SbpLoadCatalogItem,
+  SbpStudyYearCatalogItem,
+  SbpSubdivisionCatalogItem,
+} from '@/types/models/sbp-rights';
+
+import { SBP_RIGHTS_PATH, USER_SEARCH_MIN_CHARS } from '../constants';
+import { createGrantRightsSchema, GrantRightsFormValues } from './grant-rights-schema';
+import { LoadMultiSelect } from './load-multi-select';
+
+interface Props {
+  loads: SbpLoadCatalogItem[];
+  subdivisions: SbpSubdivisionCatalogItem[];
+  years: SbpStudyYearCatalogItem[];
+}
+
+export function GrantForm({ loads, subdivisions, years }: Props) {
+  const t = useTranslations('private.studbonuspointsrights.grant');
+  const { toast } = useToast();
+  const { errorToast } = useServerErrorToast();
+  const router = useRouter();
+
+  const facultyOptions = useMemo(() => subdivisions.filter((s) => !s.isUniversityWide), [subdivisions]);
+  const currentYear = useMemo(() => years.find((y) => y.isCurrent) ?? years[0], [years]);
+
+  const form = useForm<GrantRightsFormValues>({
+    resolver: zodResolver(createGrantRightsSchema(t)),
+    defaultValues: {
+      userAccountId: 0,
+      scope: 'Faculty',
+      subdivisionId: undefined,
+      studyingYearId: currentYear?.id ?? 0,
+      loadIds: [],
+    },
+    mode: 'onChange',
+  });
+
+  const scope = form.watch('scope');
+
+  const fetchUsers = useCallback(
+    async (query: string): Promise<ComboboxOption[]> =>
+      (await searchSbpUsers(query)).map((user) => ({ value: user.id, label: user.name })),
+    [],
+  );
+
+  const onSubmit = async (values: GrantRightsFormValues) => {
+    try {
+      const result = await grantSbpRights({
+        userAccountId: values.userAccountId,
+        scope: values.scope,
+        subdivisionId: values.scope === 'University' ? undefined : values.subdivisionId,
+        studyingYearId: values.studyingYearId,
+        loadIds: values.loadIds,
+      });
+      toast({
+        title: t('success.title'),
+        description: t('success.description', {
+          granted: result.createdIds.length,
+          skipped: result.skippedDuplicates.length,
+        }),
+      });
+      router.push(SBP_RIGHTS_PATH);
+    } catch {
+      errorToast();
+    }
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <div className="flex flex-col gap-4">
+            <FormField
+              control={form.control}
+              name="userAccountId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('user')}</FormLabel>
+                  <FormControl>
+                    <AsyncCombobox
+                      fetchOptions={fetchUsers}
+                      value={field.value || null}
+                      onChange={(id) => field.onChange(id ?? 0)}
+                      onBlur={field.onBlur}
+                      minQueryLength={USER_SEARCH_MIN_CHARS}
+                      placeholder={t('userPickerPlaceholder')}
+                      searchPlaceholder={t('userSearchPlaceholder')}
+                      emptyText={t('userNotFound')}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="scope"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('scope')}</FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      value={field.value}
+                      onValueChange={(v) => field.onChange(v as AccessScope)}
+                      className="flex gap-4"
+                    >
+                      <label className="flex items-center gap-2">
+                        <RadioGroupItem value="Faculty" />
+                        {t('scopeFaculty')}
+                      </label>
+                      <label className="flex items-center gap-2">
+                        <RadioGroupItem value="University" />
+                        {t('scopeUniversity')}
+                      </label>
+                    </RadioGroup>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            {scope === 'Faculty' && (
+              <FormField
+                control={form.control}
+                name="subdivisionId"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('subdivision')}</FormLabel>
+                    <Select
+                      value={field.value ? String(field.value) : undefined}
+                      onValueChange={(v) => field.onChange(Number(v))}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('subdivisionPlaceholder')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {facultyOptions.map((s) => (
+                          <SelectItem key={s.id} value={String(s.id)}>
+                            {s.abbreviation ?? s.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            <FormField
+              control={form.control}
+              name="studyingYearId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t('year')}</FormLabel>
+                  <Select
+                    value={field.value ? String(field.value) : undefined}
+                    onValueChange={(v) => field.onChange(Number(v))}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder={t('yearPlaceholder')} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {years.map((y) => (
+                        <SelectItem key={y.id} value={String(y.id)}>
+                          {y.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+
+          <FormField
+            control={form.control}
+            name="loadIds"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t('loads')}</FormLabel>
+                <FormControl>
+                  <LoadMultiSelect loads={loads} value={field.value} onChange={field.onChange} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex gap-2">
+          <Button type="submit" variant="primary" disabled={form.formState.isSubmitting}>
+            {t('submit')}
+          </Button>
+          <Button type="button" variant="secondary" onClick={() => router.push(SBP_RIGHTS_PATH)}>
+            {t('cancel')}
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+}

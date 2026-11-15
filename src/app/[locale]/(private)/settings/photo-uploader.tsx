@@ -1,10 +1,11 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
+
+import { Paragraph } from '@/components/typography/paragraph';
 import { Button } from '@/components/ui/button';
 import { ProfilePicture } from '@/components/ui/profile-picture';
-import { Paragraph } from '@/components/typography/paragraph';
-import { useTranslations } from 'next-intl';
 
 const FILE_MAX_SIZE = 1024 * 1024; // 1 Mb
 const FILE_TYPES = ['image/png', 'image/jpeg'];
@@ -52,7 +53,7 @@ export function PhotoUploader({ photoSrc, onFileUpload }: PhotoUploaderProps) {
 
   return (
     <div className="flex flex-col">
-      {error && <Paragraph className="text-status-danger-300 m-0">{error}</Paragraph>}
+      {error && <Paragraph className="m-0 text-status-danger-300">{error}</Paragraph>}
       <div className="mt-4 flex items-center gap-4">
         <ProfilePicture size="xl" src={photoPreview} />
         <Button className="h-fit" variant="secondary" onClick={handleFileUploadClick}>

@@ -1,7 +1,8 @@
-/* eslint-disable react/display-name */
-import { cn } from '@/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import React from 'react';
+
+/* oxlint-disable react/display-name */
+import { cn } from '@/lib/utils';
 
 const headingVariants = cva('font-semibold');
 

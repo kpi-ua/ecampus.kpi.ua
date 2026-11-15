@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
+
 import { acceptPrivacyConsent } from '@/actions/profile.actions';
 import { Button } from '@/components/ui/button';
 import {
@@ -49,7 +50,7 @@ export function PrivacyConsentDialog() {
 
         <div className="flex flex-col gap-4 py-4 text-sm text-foreground">
           <p>{t('agreement-intro')}</p>
-          <ul className="list-disc pl-6 space-y-1">
+          <ul className="list-disc space-y-1 pl-6">
             <li>{t('data-items.name')}</li>
             <li>{t('data-items.education')}</li>
             <li>{t('data-items.media')}</li>
@@ -61,7 +62,12 @@ export function PrivacyConsentDialog() {
         </div>
 
         <DialogFooter>
-          <Button onClick={handleAccept} loading={isPending} disabled={isPending} className="w-full sm:w-auto min-w-[120px]">
+          <Button
+            onClick={handleAccept}
+            loading={isPending}
+            disabled={isPending}
+            className="w-full min-w-[120px] sm:w-auto"
+          >
             {t('accept-button')}
           </Button>
         </DialogFooter>

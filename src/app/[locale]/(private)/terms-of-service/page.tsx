@@ -1,8 +1,10 @@
-import { Heading2 } from '@/components/typography/headers';
-import { SubLayout } from '../sub-layout';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { LocaleProps } from '@/types/locale-props';
+
+import { Heading2 } from '@/components/typography/headers';
 import RichText from '@/components/typography/rich-text';
+import { LocaleProps } from '@/types/locale-props';
+
+import { SubLayout } from '../sub-layout';
 
 const INTL_NAMESPACE = 'private.terms-of-service';
 

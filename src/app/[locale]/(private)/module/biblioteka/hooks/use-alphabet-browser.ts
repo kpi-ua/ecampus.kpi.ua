@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import { getLibraryEmployees } from '@/actions/library.actions';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { UKRAINIAN_ALPHABET } from '@/lib/constants/alphabet';
+import { UKRAINIAN_ALPHABET } from '@/lib/constants/common';
 
 import { LIBRARY_STALE_TIME, libraryQueryKeys } from '../query-keys';
 

@@ -1,9 +1,10 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { saveAs } from 'file-saver';
 import { useTranslations } from 'next-intl';
+
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface DownloadButtonProps {
   url: string;

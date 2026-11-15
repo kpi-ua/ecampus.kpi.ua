@@ -42,7 +42,7 @@ export const SummaryTable = ({ preview }: Props) => {
 
   return (
     <>
-      <Table className="leading-xs table-fixed border-collapse text-xs">
+      <Table className="table-fixed border-collapse text-xs leading-xs">
         <TableHeader>
           <TableRow className="hover:bg-white">
             <TableHead className={tableHeadClassName}>{t('table.workType')}</TableHead>
@@ -70,7 +70,7 @@ export const SummaryTable = ({ preview }: Props) => {
         </TableBody>
       </Table>
       {notes.length > 0 && (
-        <ul className="leading-xs mt-2 flex flex-col gap-1 text-xs text-neutral-500">
+        <ul className="mt-2 flex flex-col gap-1 text-xs leading-xs text-neutral-500">
           {notes.map((note) => (
             <li key={note}>{note}</li>
           ))}

@@ -1,7 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+
 import { acceptCodeOfHonor } from '@/actions/profile.actions';
+import RichText from '@/components/typography/rich-text';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,7 +14,6 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Link } from '@/i18n/routing';
-import RichText from '@/components/typography/rich-text';
 
 export default function CodeOfHonorAlert() {
   const t = useTranslations('private.profile');
@@ -36,7 +37,7 @@ export default function CodeOfHonorAlert() {
                   </Link>
                 ),
                 paragraph: (chunks) => (
-                  <AlertDialogDescription className="leading-lg m-0 my-4 text-lg">{chunks}</AlertDialogDescription>
+                  <AlertDialogDescription className="m-0 my-4 text-lg leading-lg">{chunks}</AlertDialogDescription>
                 ),
               })
             }
