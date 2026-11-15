@@ -23,6 +23,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -184,19 +185,27 @@ export const PlansView = ({ years, workplaces, initialLoads }: Props) => {
         )}
       </div>
 
-      {showForm && (
-        <PlanForm
-          workplaces={workplaces}
-          onCancel={() => setShowForm(false)}
-          onSaved={async () => {
-            await refresh();
-            setShowForm(false);
-            setNotice(t('saved'));
-          }}
-        />
-      )}
+      <Dialog open={showForm} onOpenChange={setShowForm}>
+        <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>{t('addTitle')}</DialogTitle>
+            <DialogDescription>{t('addHint')}</DialogDescription>
+          </DialogHeader>
+          {showForm && (
+            <PlanForm
+              workplaces={workplaces}
+              onCancel={() => setShowForm(false)}
+              onSaved={async () => {
+                await refresh();
+                setShowForm(false);
+                setNotice(t('saved'));
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
 
-      <div className="mb-5 grid gap-3 rounded-xl border border-neutral-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mb-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {tab === 'loads' && (
           <label className="grid gap-1 text-sm font-medium">
             {t('year')}

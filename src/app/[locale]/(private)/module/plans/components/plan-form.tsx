@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useMemo, useState } from 'react';
 
 import { createPlanLoads, getPlanCatalog, getPlanGroups } from '@/actions/plans.actions';
-import { Description, Heading3, Paragraph } from '@/components/typography';
+import { Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
@@ -118,11 +118,7 @@ export const PlanForm = ({ workplaces, onCancel, onSaved }: Props) => {
   };
 
   return (
-    <div className="mb-8 rounded-xl border border-neutral-200 bg-white p-5 shadow-sm sm:p-7">
-      <div className="mb-5">
-        <Heading3 className="mb-1">{t('addTitle')}</Heading3>
-        <Description>{t('addHint')}</Description>
-      </div>
+    <div>
       <div className="grid gap-5 md:grid-cols-2">
         <label className="grid gap-2 text-sm font-medium">
           {t('workplace')}
