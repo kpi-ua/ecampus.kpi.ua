@@ -12,7 +12,6 @@ export interface ZamdekanQuery {
   employeeId?: number;
   disciplineId?: number;
   monitoringId?: number;
-  cathedraId?: number;
   departmentId?: number;
 }
 

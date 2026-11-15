@@ -9,10 +9,11 @@ import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 import { ZamdekanEmployee } from '../types';
 import { getZamdekanReportPath } from '../utils/report-path';
+import { ZamdekanTableCard } from './zamdekan-table-card';
 
 interface Props {
   employees: ZamdekanEmployee[];
@@ -30,11 +31,12 @@ export const ZamdekanEmployeesTable = ({ employees }: Props) => {
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
 
   if (employees.length === 0)
-    return <Paragraph className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</Paragraph>;
+    return <Paragraph className="py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
 
   return (
     <div className="space-y-4">
-      <Table>
+      <ZamdekanTableCard>
+        <Table>
         <TableHeader>
           <TableRow>
             <TableHead sortHandlers={sortHandlers} sortHeader="department">
@@ -72,7 +74,8 @@ export const ZamdekanEmployeesTable = ({ employees }: Props) => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+        </Table>
+      </ZamdekanTableCard>
       <Show when={employees.length > PAGE_SIZE_DEFAULT}>
         <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={employees.length} />
       </Show>

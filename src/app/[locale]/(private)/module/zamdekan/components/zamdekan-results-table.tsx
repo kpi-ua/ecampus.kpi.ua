@@ -9,10 +9,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 import { ZamdekanExamResult } from '../types';
 import { formatZamdekanMark } from '../utils/format-mark';
+import { ZamdekanTableCard } from './zamdekan-table-card';
 
 interface Props {
   results: ZamdekanExamResult[];
@@ -40,11 +41,12 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
     return t('values.editing');
   };
   if (results.length === 0)
-    return <Paragraph className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</Paragraph>;
+    return <Paragraph className="py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
 
   return (
     <div className="space-y-4">
-      <Table>
+      <ZamdekanTableCard>
+        <Table>
         <TableHeader>
           <TableRow>
             <TableHead sortHandlers={sortHandlers} sortHeader="part">
@@ -103,7 +105,8 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+        </Table>
+      </ZamdekanTableCard>
       <Show when={results.length > PAGE_SIZE_DEFAULT}>
         <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={results.length} />
       </Show>

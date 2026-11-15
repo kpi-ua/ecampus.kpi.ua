@@ -32,7 +32,7 @@ export const ZamdekanTabs = ({ section, monitoringView = 'monitoring-groups', ch
           <Link href={getZamdekanReportPath({ view: 'monitoring-groups' })}>{t('sections.monitoring')}</Link>
         </TabsTrigger>
       </TabsList>
-      <TabsContent value={section} className="mt-6 space-y-6">
+      <TabsContent value={section} className="mt-8">
         {section === 'monitoring' ? (
           <Tabs value={monitoringView} activationMode="manual">
             <div className="overflow-x-auto">
@@ -44,12 +44,12 @@ export const ZamdekanTabs = ({ section, monitoringView = 'monitoring-groups', ch
                 ))}
               </TabsList>
             </div>
-            <TabsContent value={monitoringView} className="mt-6 space-y-6">
-              {children}
+            <TabsContent value={monitoringView} className="mt-8">
+              <div className="flex flex-col gap-8">{children}</div>
             </TabsContent>
           </Tabs>
         ) : (
-          children
+          <div className="flex flex-col gap-8">{children}</div>
         )}
       </TabsContent>
     </Tabs>

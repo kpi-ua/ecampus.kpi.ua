@@ -36,9 +36,8 @@ export const getZamdekanReportPath = (query: ZamdekanQuery): string => {
       return `${getZamdekanReportPath({ ...query, view: 'sheets' })}/sheets/${reportId(query.monitoringId)}`;
     case 'statistics':
       return `${monitoringPath}/statistics${query.departmentId === undefined ? '' : `/${reportId(query.departmentId)}`}`;
-    case 'statistics-other':
     case 'summary':
     case 'summary-other':
-      return `${monitoringPath}/${query.view}${query.view === 'statistics-other' && query.cathedraId ? `/${reportId(query.cathedraId)}` : ''}`;
+      return `${monitoringPath}/${query.view}`;
   }
 };

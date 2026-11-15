@@ -6,6 +6,7 @@ import { Heading3, Heading4, Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 import { ZamdekanCourseIndicators, ZamdekanDepartmentSummary } from '../types';
+import { ZamdekanTableCard } from './zamdekan-table-card';
 
 interface Props {
   summary: ZamdekanDepartmentSummary;
@@ -27,7 +28,8 @@ export const ZamdekanSummaryTable = ({ summary, outwardOnly = false }: Props) =>
   const renderIndicators = (indicators: ZamdekanCourseIndicators[], title: string) => (
     <div className="space-y-3">
       <Heading4>{title}</Heading4>
-      <Table>
+      <ZamdekanTableCard>
+        <Table>
         <TableHeader>
           <TableRow>
             <TableHead rowSpan={2}>{t('summary.indicator')}</TableHead>
@@ -63,7 +65,8 @@ export const ZamdekanSummaryTable = ({ summary, outwardOnly = false }: Props) =>
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+        </Table>
+      </ZamdekanTableCard>
     </div>
   );
 

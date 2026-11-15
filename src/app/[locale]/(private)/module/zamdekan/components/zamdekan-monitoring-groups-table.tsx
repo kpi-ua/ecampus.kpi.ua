@@ -9,10 +9,11 @@ import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/page-size';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 import { ZamdekanMonitoringGroup } from '../types';
 import { getZamdekanReportPath } from '../utils/report-path';
+import { ZamdekanTableCard } from './zamdekan-table-card';
 
 interface Props {
   groups: ZamdekanMonitoringGroup[];
@@ -29,11 +30,12 @@ export const ZamdekanMonitoringGroupsTable = ({ groups }: Props) => {
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
 
   if (groups.length === 0)
-    return <Paragraph className="text-muted-foreground py-12 text-center text-sm">{t('empty')}</Paragraph>;
+    return <Paragraph className="py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
 
   return (
     <div className="space-y-4">
-      <Table>
+      <ZamdekanTableCard>
+        <Table>
         <TableHeader>
           <TableRow>
             <TableHead sortHandlers={sortHandlers} sortHeader="course">
@@ -64,7 +66,8 @@ export const ZamdekanMonitoringGroupsTable = ({ groups }: Props) => {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
+        </Table>
+      </ZamdekanTableCard>
       <Show when={groups.length > PAGE_SIZE_DEFAULT}>
         <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={groups.length} />
       </Show>

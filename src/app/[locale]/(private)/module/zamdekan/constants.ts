@@ -10,7 +10,6 @@ export const REPORT_VIEWS = [
   'employee-load',
   'activity',
   'statistics',
-  'statistics-other',
   'summary',
   'summary-other',
 ] as const;
@@ -21,7 +20,6 @@ export const MONITORING_VIEWS = [
   'monitoring-groups',
   'employees',
   'statistics',
-  'statistics-other',
   'summary',
   'summary-other',
 ] as const;
