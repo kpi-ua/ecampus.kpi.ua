@@ -41,8 +41,8 @@ export const getPlanCatalog = async (workplaceId: number) =>
   read<PlanCatalog>(`plans/catalog?workplaceId=${workplaceId}`);
 export const getPlanGroups = async (workplaceId: number, rowId: number) =>
   read<PlanOption[]>(`plans/groups?workplaceId=${workplaceId}&rowId=${rowId}`);
-export const getPlanResponsibilities = async (yearId: number, semester: number) =>
-  read<PlanResponsibility[]>(`plans/responsibilities?yearId=${yearId}&semester=${semester}`);
+export const getPlanResponsibilities = async (semester: number) =>
+  read<PlanResponsibility[]>(`plans/responsibilities?semester=${semester}`);
 export const createPlanLoads = async (payload: PlanCreateRequest) => {
   const response = await campusFetch<{ created: number }>('plans', { method: 'POST', body: JSON.stringify(payload) });
   if (!response.ok) {

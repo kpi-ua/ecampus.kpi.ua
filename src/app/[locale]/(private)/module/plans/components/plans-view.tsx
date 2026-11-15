@@ -67,7 +67,7 @@ export const PlansView = ({ years, workplaces, initialLoads }: Props) => {
     let active = true;
     setLoading(true);
     setError('');
-    Promise.all([getPlanLoads(yearId, semester), getPlanResponsibilities(yearId, semester)])
+    Promise.all([getPlanLoads(yearId, semester), getPlanResponsibilities(semester)])
       .then(([nextLoads, nextResponsibilities]) => {
         if (active) {
           setLoads(nextLoads);
@@ -92,7 +92,7 @@ export const PlansView = ({ years, workplaces, initialLoads }: Props) => {
   const refresh = async () => {
     const [nextLoads, nextResponsibilities] = await Promise.all([
       getPlanLoads(yearId, semester),
-      getPlanResponsibilities(yearId, semester),
+      getPlanResponsibilities(semester),
     ]);
     setLoads(nextLoads);
     setResponsibilities(nextResponsibilities);
@@ -197,28 +197,30 @@ export const PlansView = ({ years, workplaces, initialLoads }: Props) => {
       )}
 
       <div className="mb-5 grid gap-3 rounded-xl border border-neutral-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-4">
-        <label className="grid gap-1 text-sm font-medium">
-          {t('year')}
-          <Select
-            value={String(yearId)}
-            onValueChange={(value) => {
-              setYearId(Number(value));
-              setPage(1);
-              setShowForm(false);
-            }}
-          >
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {years.map((year) => (
-                <SelectItem key={year.id} value={String(year.id)}>
-                  {year.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </label>
+        {tab === 'loads' && (
+          <label className="grid gap-1 text-sm font-medium">
+            {t('year')}
+            <Select
+              value={String(yearId)}
+              onValueChange={(value) => {
+                setYearId(Number(value));
+                setPage(1);
+                setShowForm(false);
+              }}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {years.map((year) => (
+                  <SelectItem key={year.id} value={String(year.id)}>
+                    {year.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </label>
+        )}
         <label className="grid gap-1 text-sm font-medium">
           {t('semester')}
           <Select
@@ -455,7 +457,7 @@ export const PlansView = ({ years, workplaces, initialLoads }: Props) => {
                   ) : (
                     <Select
                       value={item.teachers.find((teacher) => teacher.isResponsible)?.employeeId.toString()}
-                      disabled={!canEdit || busy}
+                      disabled={busy}
                       onValueChange={(value) =>
                         run(
                           () => setPlanResponsible(item.curriculumRowId, item.semester, item.groupId, Number(value)),
