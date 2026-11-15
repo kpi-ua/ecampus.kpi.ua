@@ -450,27 +450,31 @@ export const PlansView = ({ years, workplaces, initialLoads }: Props) => {
                 <TableCell>{item.group}</TableCell>
                 <TableCell>{item.semester === 1 ? t('firstSemester') : t('secondSemester')}</TableCell>
                 <TableCell className="min-w-52">
-                  <Select
-                    value={item.teachers.find((teacher) => teacher.isResponsible)?.employeeId.toString()}
-                    disabled={!canEdit || busy}
-                    onValueChange={(value) =>
-                      run(
-                        () => setPlanResponsible(item.curriculumRowId, item.semester, item.groupId, Number(value)),
-                        t('saved'),
-                      )
-                    }
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('chooseTeacher')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {item.teachers.map((teacher) => (
-                        <SelectItem key={teacher.employeeId} value={String(teacher.employeeId)}>
-                          {teacher.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
+                  {item.teachers.length === 1 ? (
+                    item.teachers[0].name
+                  ) : (
+                    <Select
+                      value={item.teachers.find((teacher) => teacher.isResponsible)?.employeeId.toString()}
+                      disabled={!canEdit || busy}
+                      onValueChange={(value) =>
+                        run(
+                          () => setPlanResponsible(item.curriculumRowId, item.semester, item.groupId, Number(value)),
+                          t('saved'),
+                        )
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={t('chooseTeacher')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {item.teachers.map((teacher) => (
+                          <SelectItem key={teacher.employeeId} value={String(teacher.employeeId)}>
+                            {teacher.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
                 </TableCell>
               </TableRow>
             ))}
