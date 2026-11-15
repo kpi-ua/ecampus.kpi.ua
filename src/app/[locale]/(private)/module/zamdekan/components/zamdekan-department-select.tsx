@@ -12,9 +12,10 @@ import { getZamdekanReportPath } from '../utils/report-path';
 interface Props {
   departments: ZamdekanDepartmentIndicators[];
   departmentId?: number;
+  view?: 'statistics' | 'summary' | 'summary-other';
 }
 
-export const ZamdekanDepartmentSelect = ({ departments, departmentId }: Props) => {
+export const ZamdekanDepartmentSelect = ({ departments, departmentId, view = 'statistics' }: Props) => {
   const t = useTranslations('private.zamdekan');
   const router = useRouter();
 
@@ -24,9 +25,7 @@ export const ZamdekanDepartmentSelect = ({ departments, departmentId }: Props) =
       <Select
         value={departmentId === undefined ? '' : String(departmentId)}
         disabled={departments.length === 0}
-        onValueChange={(value) =>
-          router.push(getZamdekanReportPath({ view: 'statistics', departmentId: Number(value) }))
-        }
+        onValueChange={(value) => router.push(getZamdekanReportPath({ view, departmentId: Number(value) }))}
       >
         <SelectTrigger id="statistics-department">
           <SelectValue placeholder={t('select-department')} />

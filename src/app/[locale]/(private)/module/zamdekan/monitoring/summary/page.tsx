@@ -2,11 +2,11 @@ import { getTranslations } from 'next-intl/server';
 
 import { getZamdekanDepartmentSummary } from '@/actions/zamdekan.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { ZamdekanSummaryTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-summary-table';
+import { ZamdekanDepartmentSelect } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-department-select';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
 
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
-import { Heading2, Heading3 } from '@/components/typography';
+import { Heading2, Heading3, Paragraph } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
 
 const INTL_NAMESPACE = 'private.zamdekan';
@@ -28,7 +28,10 @@ export default async function SummaryPage() {
         <Heading2>{t('title')}</Heading2>
         <ZamdekanTabs section="monitoring" monitoringView="summary">
           <Heading3>{t('views.summary')}</Heading3>
-          <ZamdekanSummaryTable summary={report} />
+          <ZamdekanDepartmentSelect departments={report.departments} view="summary" />
+          <Paragraph className="text-muted-foreground text-sm">
+            {report.departments.length ? t('select-department-hint') : t('empty')}
+          </Paragraph>
         </ZamdekanTabs>
       </div>
     </SubLayout>

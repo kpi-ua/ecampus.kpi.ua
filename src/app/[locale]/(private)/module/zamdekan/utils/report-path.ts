@@ -38,6 +38,6 @@ export const getZamdekanReportPath = (query: ZamdekanQuery): string => {
       return `${monitoringPath}/statistics${query.departmentId === undefined ? '' : `/${reportId(query.departmentId)}`}`;
     case 'summary':
     case 'summary-other':
-      return `${monitoringPath}/${query.view}`;
+      return `${monitoringPath}/${query.view}${query.departmentId === undefined ? '' : `/${reportId(query.departmentId)}`}`;
   }
 };

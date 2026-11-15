@@ -98,8 +98,12 @@ export const getZamdekanDepartmentStatistics = async (
   return response.json();
 };
 
-export const getZamdekanDepartmentSummary = async (): Promise<ZamdekanDepartmentSummary> => {
-  const response = await campusFetch<ZamdekanDepartmentSummary>('/zamdekan/department-summary');
+export const getZamdekanDepartmentSummary = async (departmentId?: number): Promise<ZamdekanDepartmentSummary> => {
+  const path =
+    departmentId === undefined
+      ? '/zamdekan/department-summary'
+      : `/zamdekan/department-summary?departmentId=${departmentId}`;
+  const response = await campusFetch<ZamdekanDepartmentSummary>(path);
   if (!response.ok) throw new Error(`${response.status} Error`);
   return response.json();
 };

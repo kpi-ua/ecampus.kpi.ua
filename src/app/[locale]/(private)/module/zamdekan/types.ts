@@ -20,6 +20,7 @@ export interface ZamdekanGroup {
   course: number;
   group: string;
   curator: string;
+  department: string;
 }
 
 export interface ZamdekanAgreement {

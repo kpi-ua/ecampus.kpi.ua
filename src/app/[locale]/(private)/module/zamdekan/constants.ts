@@ -16,10 +16,4 @@ export const REPORT_VIEWS = [
 
 export const ZAMDEKAN_PATH = '/module/zamdekan';
 
-export const MONITORING_VIEWS = [
-  'monitoring-groups',
-  'employees',
-  'statistics',
-  'summary',
-  'summary-other',
-] as const;
+export const MONITORING_VIEWS = ['monitoring-groups', 'employees', 'statistics', 'summary', 'summary-other'] as const;

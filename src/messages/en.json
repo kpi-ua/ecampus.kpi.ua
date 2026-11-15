@@ -1441,6 +1441,7 @@
         "department": "Department",
         "hasAgreement": "Agreement",
         "acceptedAt": "Acceptance date",
+        "agreementStatus": "Agreement status",
         "part": "Sheet part",
         "eventDate": "Event date",
         "discipline": "Discipline",
@@ -1472,6 +1473,9 @@
         "not-graded": "Not graded",
         "yes": "Yes",
         "no": "No",
+        "agreed": "Agreed {date}",
+        "agreed-without-date": "Agreed",
+        "not-agreed": "Not agreed",
         "part-0": "Main sheet",
         "part-1": "First additional sheet",
         "part-2": "Second additional sheet",
@@ -1483,6 +1487,9 @@
       },
       "back": "Back to the list",
       "actions": "Actions",
+      "expand-group": "Expand group",
+      "collapse-group": "Collapse group",
+      "loading": "Loading...",
       "empty": "No data available.",
       "summary": {
         "indicator": "Indicators",
@@ -1498,6 +1505,8 @@
       },
       "select-group": "Select a group",
       "select-group-hint": "Select a group to view student agreements.",
+      "group-search-placeholder": "Search by group name or curator...",
+      "no-groups-found": "No groups match your search.",
       "select-department": "Select a department",
       "select-department-hint": "Select a department to view curriculum statistics."
     }
