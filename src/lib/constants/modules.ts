@@ -20,7 +20,7 @@ export const MODULES: Module[] = [
   { name: 'np', isExternal: true },
   { name: 'lists', isExternal: true },
   { name: 'sessiyaNPP', isExternal: true },
-  { name: 'plans', isExternal: true },
+  { name: 'plans', isExternal: false },
   { name: 'attestation', isExternal: true },
   { name: 'vedomost', isExternal: true },
   { name: 'vidpovidalniy', isExternal: true },
