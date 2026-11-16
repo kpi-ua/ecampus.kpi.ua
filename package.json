@@ -49,7 +49,7 @@
     "embla-carousel-react": "^8.6.0",
     "file-saver": "2.0.5",
     "jsonwebtoken": "9.0.2",
-    "lucide-react": "0.546.0",
+    "lucide-react": "1.72.0",
     "next": "16.4.2",
     "next-intl": "4.9.2",
     "nuqs": "^2.10.1",
