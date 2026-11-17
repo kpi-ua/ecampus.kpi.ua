@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
@@ -10,6 +9,7 @@ import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
+import { formatDate } from '@/lib/utils';
 
 import { ZamdekanExamStatus, ZamdekanMarkStatus } from '../constants';
 import { ZamdekanExamResult } from '../types';
@@ -93,9 +93,7 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
                 <TableCell className="whitespace-pre-wrap">
                   {[0, 1, 2].includes(row.part) ? t(`values.part-${row.part}`) : row.part}
                 </TableCell>
-                <TableCell className="whitespace-pre-wrap">
-                  {row.eventDate ? dayjs(row.eventDate).format('DD.MM.YYYY') : ''}
-                </TableCell>
+                <TableCell className="whitespace-pre-wrap">{formatDate(row.eventDate)}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.controlForm}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.examiner}</TableCell>
@@ -104,12 +102,8 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
                 </TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? ''}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{statusLabels[row.status]}</TableCell>
-                <TableCell className="whitespace-pre-wrap">
-                  {row.opensAt ? dayjs(row.opensAt).format('DD.MM.YYYY') : ''}
-                </TableCell>
-                <TableCell className="whitespace-pre-wrap">
-                  {row.closesAt ? dayjs(row.closesAt).format('DD.MM.YYYY') : ''}
-                </TableCell>
+                <TableCell className="whitespace-pre-wrap">{formatDate(row.opensAt)}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{formatDate(row.closesAt)}</TableCell>
               </TableRow>
             ))}
           </TableBody>
