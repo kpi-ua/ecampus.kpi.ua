@@ -1,7 +1,6 @@
-import { MONITORING_VIEWS, REPORT_VIEWS } from './constants';
+import { REPORT_VIEWS } from './constants';
 
 export type ZamdekanView = (typeof REPORT_VIEWS)[number];
-export type ZamdekanMonitoringView = (typeof MONITORING_VIEWS)[number];
 
 export type ZamdekanSection = 'groups' | 'monitoring';
 
