@@ -14,3 +14,10 @@ export enum ZamdekanView {
   Summary = 'summary',
 }
 export const ZAMDEKAN_PATH = '/module/zamdekan';
+
+export enum ZamdekanExamStatus {
+  Editing = 'Editing',
+  Submitted = 'Submitted',
+  Closed = 'Closed',
+  Pending = 'Pending',
+}

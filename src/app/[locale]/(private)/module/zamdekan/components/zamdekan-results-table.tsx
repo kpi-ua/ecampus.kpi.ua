@@ -11,6 +11,7 @@ import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
+import { ZamdekanExamStatus } from '../constants';
 import { ZamdekanExamResult } from '../types';
 import { formatZamdekanMark } from '../utils/format-mark';
 import { ZamdekanTableCard } from './zamdekan-table-card';
@@ -34,17 +35,11 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
     'closesAt',
   ]);
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
-  const getStatus = (result: ZamdekanExamResult) => {
-    if (result.status === 1) {
-      return t('values.submitted');
-    }
-    if (result.closesAt && dayjs().isAfter(dayjs(result.closesAt))) {
-      return t('values.closed');
-    }
-    if (result.opensAt && dayjs().isBefore(dayjs(result.opensAt))) {
-      return t('values.pending');
-    }
-    return t('values.editing');
+  const statusLabels = {
+    [ZamdekanExamStatus.Submitted]: t('values.submitted'),
+    [ZamdekanExamStatus.Closed]: t('values.closed'),
+    [ZamdekanExamStatus.Pending]: t('values.pending'),
+    [ZamdekanExamStatus.Editing]: t('values.editing'),
   };
   if (results.length === 0) {
     return <Paragraph className="py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
@@ -102,7 +97,7 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
                 <TableCell className="whitespace-pre-wrap">{row.examiner}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{formatZamdekanMark(row.mark, t)}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? ''}</TableCell>
-                <TableCell className="whitespace-pre-wrap">{getStatus(row)}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{statusLabels[row.status]}</TableCell>
                 <TableCell className="whitespace-pre-wrap">
                   {row.opensAt ? dayjs(row.opensAt).format('DD.MM.YYYY') : ''}
                 </TableCell>
