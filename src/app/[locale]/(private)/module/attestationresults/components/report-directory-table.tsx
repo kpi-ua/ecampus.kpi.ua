@@ -69,7 +69,8 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
     'details',
     'fullName',
   ]);
-  const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
+  const pageSearchParam = `${view}Page`;
+  const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows, pageSearchParam);
   return (
     <Show when={rows.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>
       <div className="space-y-4">
@@ -159,7 +160,12 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
           </TableBody>
         </Table>
         <Show when={filteredRows.length > PAGE_SIZE_DEFAULT}>
-          <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={filteredRows.length} />
+          <PaginationWithLinks
+            page={page}
+            pageSize={PAGE_SIZE_DEFAULT}
+            totalCount={filteredRows.length}
+            pageSearchParam={pageSearchParam}
+          />
         </Show>
       </div>
     </Show>
