@@ -1,18 +1,30 @@
 import { getTranslations } from 'next-intl/server';
 
+import {
+  getAttestationReportGroups,
+  getAttestationReportOptions,
+  getAttestationReportStudents,
+} from '@/actions/attestation-results.actions';
 import { getAttestationResults } from '@/actions/attestation.actions';
 import { getUserDetails } from '@/actions/auth.actions';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
 import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
+import { ReportDirectory } from '@/app/[locale]/(private)/module/attestationresults/components/report-directory';
+import { getAttestationReportQuery } from '@/app/[locale]/(private)/module/attestationresults/utils/report-query';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
-import { Paragraph } from '@/components/typography';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
+import { Heading2, Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link, redirect } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
 import { LocaleProps } from '@/types/locale-props';
 import { Attestation } from '@/types/models/attestation-results/attestation-result';
 
 const INTL_NAMESPACE = 'private.attestation-results';
+
+interface Props extends LocaleProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
@@ -26,11 +38,24 @@ export async function generateMetadata({ params }: LocaleProps) {
 const SEMESTERS = [1, 2];
 const ATTESTATION_NUMBERS = [1, 2];
 
-export default async function AttestationResultsPage({ params }: LocaleProps) {
+export default async function AttestationResultsPage({ searchParams }: Props) {
   const user = await getUserDetails();
   if (user && !user.studentProfile) {
-    const { locale } = await params;
-    redirect({ href: '/module/attestationresults/reports/groups', locale });
+    const t = await getTranslations('private.attestation-reports');
+    const options = await getAttestationReportOptions();
+    const query = getAttestationReportQuery(await searchParams, options);
+    const [groups, students] = await Promise.all([
+      getAttestationReportGroups(query),
+      getAttestationReportStudents(query),
+    ]);
+    return (
+      <SubLayout pageTitle={t('title')}>
+        <Card className="col-span-full flex min-w-0 flex-col gap-6 p-6">
+          <Heading2>{t('title')}</Heading2>
+          <ReportDirectory options={options} query={query} groups={groups} students={students} />
+        </Card>
+      </SubLayout>
+    );
   }
   const results = await getAttestationResults();
 

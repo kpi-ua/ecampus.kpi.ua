@@ -4,5 +4,3 @@ export enum AttestationReportView {
   Department = 'department',
   Students = 'students',
 }
-
-export const ATTESTATION_RESULTS_PATH = '/module/attestationresults';
