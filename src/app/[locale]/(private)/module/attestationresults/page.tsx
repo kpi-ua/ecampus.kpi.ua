@@ -9,13 +9,18 @@ import { getAttestationResults } from '@/actions/attestation.actions';
 import { getUserDetails } from '@/actions/auth.actions';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
 import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
-import { ReportDirectory } from '@/app/[locale]/(private)/module/attestationresults/components/report-directory';
+import { ReportCoursesTable } from '@/app/[locale]/(private)/module/attestationresults/components/report-courses-table';
+import { ReportDepartmentTable } from '@/app/[locale]/(private)/module/attestationresults/components/report-department-table';
+import { ReportFilters } from '@/app/[locale]/(private)/module/attestationresults/components/report-filters';
+import { ReportGroupsTable } from '@/app/[locale]/(private)/module/attestationresults/components/report-groups-table';
+import { ReportStudentsTable } from '@/app/[locale]/(private)/module/attestationresults/components/report-students-table';
+import { AttestationReportView } from '@/app/[locale]/(private)/module/attestationresults/constants';
 import { getAttestationReportQuery } from '@/app/[locale]/(private)/module/attestationresults/utils/report-query';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { Heading2, Paragraph } from '@/components/typography';
+import { Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 import { LocaleProps } from '@/types/locale-props';
 import { Attestation } from '@/types/models/attestation-results/attestation-result';
@@ -49,12 +54,34 @@ export default async function AttestationResultsPage({ searchParams }: Props) {
       getAttestationReportStudents(query),
     ]);
     return (
-      <SubLayout pageTitle={t('title')}>
-        <Card className="col-span-full flex min-w-0 flex-col gap-6 p-6">
-          <Heading2>{t('title')}</Heading2>
-          <ReportDirectory options={options} query={query} groups={groups} students={students} />
-        </Card>
-      </SubLayout>
+      <Card className="col-span-full flex min-w-0 flex-col gap-6 p-6">
+        <Tabs defaultValue={AttestationReportView.Groups}>
+          <div className="overflow-x-auto">
+            <TabsList className="bg-white" size="small">
+              {Object.values(AttestationReportView).map((view) => (
+                <TabsTrigger key={view} value={view}>
+                  {t(`views.${view}`)}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+          <div className="my-6">
+            <ReportFilters options={options} query={query} />
+          </div>
+          <TabsContent value={AttestationReportView.Groups}>
+            <ReportGroupsTable groups={groups} query={query} />
+          </TabsContent>
+          <TabsContent value={AttestationReportView.Courses}>
+            <ReportCoursesTable groups={groups} query={query} />
+          </TabsContent>
+          <TabsContent value={AttestationReportView.Department}>
+            <ReportDepartmentTable groups={groups} query={query} />
+          </TabsContent>
+          <TabsContent value={AttestationReportView.Students}>
+            <ReportStudentsTable groups={groups} students={students} query={query} />
+          </TabsContent>
+        </Tabs>
+      </Card>
     );
   }
   const results = await getAttestationResults();
