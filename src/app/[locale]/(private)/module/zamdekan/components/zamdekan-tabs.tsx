@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { ReactNode } from 'react';
 
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 
@@ -19,10 +20,10 @@ export const ZamdekanTabs = async ({ section, children }: Props) => {
     <Tabs value={section} activationMode="manual">
       <TabsList aria-label={t('title')}>
         <TabsTrigger value="groups" asChild>
-          <Link href={getZamdekanReportPath({ view: 'groups' })}>{t('sections.groups')}</Link>
+          <Link href={getZamdekanReportPath({ view: ZamdekanView.Groups })}>{t('sections.groups')}</Link>
         </TabsTrigger>
         <TabsTrigger value="monitoring" asChild>
-          <Link href={getZamdekanReportPath({ view: 'monitoring-groups' })}>{t('sections.monitoring')}</Link>
+          <Link href={getZamdekanReportPath({ view: ZamdekanView.MonitoringGroups })}>{t('sections.monitoring')}</Link>
         </TabsTrigger>
       </TabsList>
       <TabsContent value={section} className="mt-8">

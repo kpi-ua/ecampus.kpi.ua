@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 
 import { getZamdekanAgreements } from '@/actions/zamdekan.actions';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -114,7 +115,7 @@ export const ZamdekanGroupsTable = ({ groups }: Props) => {
                                   <TableCell className="whitespace-pre-wrap">
                                     <Link
                                       href={getZamdekanReportPath({
-                                        view: 'results',
+                                        view: ZamdekanView.Results,
                                         groupId: student.groupId,
                                         studentId: student.studentId,
                                       })}
