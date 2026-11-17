@@ -1424,14 +1424,13 @@
       "group": "Study group",
       "lecturer": "Lecturer",
       "missing": "No mark",
-      "open": "Open results",
       "result": {
         "a": "Attested",
         "na": "Not attested",
         "nv": "Not studying",
         "ov": "No mark"
       },
-      "results": "Results and export",
+      "results": "Export",
       "second-semester": "Second half-year",
       "semester": "Half-year",
       "student": "Student",
