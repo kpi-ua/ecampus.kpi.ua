@@ -1,5 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
+import {
+  loadAttestationReportSearchParams,
+  serializeAttestationReportSearchParams,
+} from '@/app/[locale]/(private)/module/attestationresults/search-params';
 import { AttestationReport } from '@/app/[locale]/(private)/module/attestationresults/types';
 import { getAttestationReportTables } from '@/app/[locale]/(private)/module/attestationresults/utils/report-tables';
 import { ATTESTATION_RESULT } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
@@ -42,7 +46,3 @@ export async function GET(request: Request) {
     `attestation-results-${query.yearId}-${query.semester}-${query.attestationId}-${formatDate(new Date())}.csv`,
   );
 }
-import {
-  loadAttestationReportSearchParams,
-  serializeAttestationReportSearchParams,
-} from '@/app/[locale]/(private)/module/attestationresults/search-params';
