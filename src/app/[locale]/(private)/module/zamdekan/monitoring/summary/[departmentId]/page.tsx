@@ -92,7 +92,7 @@ export default async function MonitoringPage({ params }: Props) {
     <SubLayout pageTitle={t('views.summary')} breadcrumbs={[[getZamdekanReportPath({ view: 'groups' }), t('title')]]}>
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <Heading2>{t('title')}</Heading2>
-        <ZamdekanTabs section="monitoring" monitoringView="summary">
+        <ZamdekanTabs section="monitoring">
           <Heading3>{t('views.summary')}</Heading3>
           <Show
             when={departments.length > 0}

@@ -30,7 +30,15 @@ export default async function MonitoringPage() {
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <Heading2>{t('title')}</Heading2>
-        <ZamdekanTabs section="monitoring" monitoringView="monitoring-groups">
+        <ZamdekanTabs section="monitoring">
+          <nav aria-label={t('sections.monitoring')} className="flex flex-wrap gap-4">
+            <Link className="underline" href={getZamdekanReportPath({ view: 'employees' })}>
+              {t('views.employees')}
+            </Link>
+            <Link className="underline" href={getZamdekanReportPath({ view: 'summary' })}>
+              {t('views.summary')}
+            </Link>
+          </nav>
           <Heading3>{t('navigation.departments')}</Heading3>
           <Show when={departments.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>
             <ZamdekanTableCard>

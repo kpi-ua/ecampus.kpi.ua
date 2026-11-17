@@ -29,7 +29,7 @@ export default async function MonitoringPage({ params }: Props) {
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <Heading2>{t('title')}</Heading2>
-        <ZamdekanTabs section="monitoring" monitoringView="employees">
+        <ZamdekanTabs section="monitoring">
           <Heading3>{t('navigation.lecturers')}</Heading3>
           <ZamdekanEmployeesTable employees={items} departmentId={departmentId} />
         </ZamdekanTabs>
