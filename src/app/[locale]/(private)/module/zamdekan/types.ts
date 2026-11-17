@@ -119,6 +119,43 @@ export interface ZamdekanEmployeeActivity {
   date: string;
 }
 
+export interface ZamdekanDepartmentStatistics {
+  departmentId: number;
+  groupId: number;
+  group: string;
+  disciplineId: number;
+  discipline: string;
+  teachingDepartmentId: number;
+  teachingDepartment: string;
+  recipientDepartment: string;
+  lecturers: string | null;
+  semester: number;
+  markCount: number;
+}
+
+export interface ZamdekanCourseIndicators {
+  educationLevel: 'bachelor' | 'master' | 'phd';
+  course: number;
+  groupCount: number;
+  moduleCount: number;
+  sheetCount: number;
+  filledSheetCount: number;
+}
+
+export interface ZamdekanDepartmentIndicators {
+  departmentId: number;
+  faculty: string;
+  department: string;
+  curriculum: ZamdekanCourseIndicators[];
+  outwardTeaching: ZamdekanCourseIndicators[];
+}
+
+export interface ZamdekanDepartmentSummary {
+  yearId: number;
+  semester: number;
+  departments: ZamdekanDepartmentIndicators[];
+}
+
 export interface ZamdekanDepartment {
   id: number;
   name: string;

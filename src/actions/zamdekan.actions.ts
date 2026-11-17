@@ -13,6 +13,8 @@ import {
   ZamdekanEmployee,
   ZamdekanEmployeeDiscipline,
   ZamdekanEmployeeActivity,
+  ZamdekanDepartmentStatistics,
+  ZamdekanDepartmentSummary,
   ZamdekanDepartment,
 } from '@/app/[locale]/(private)/module/zamdekan/types';
 import { campusFetch } from '@/lib/client';
@@ -113,8 +115,39 @@ export const getZamdekanEmployeeActivity = async (employeeId: number): Promise<Z
   return response.json();
 };
 
+export const getZamdekanDepartmentStatistics = async (
+  departmentId: number,
+): Promise<ZamdekanDepartmentStatistics[]> => {
+  const url = qs.stringifyUrl({ url: '/zamdekan/department-statistics', query: { departmentId } });
+  const response = await campusFetch<ZamdekanDepartmentStatistics[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanDepartmentSummary = async (departmentId?: number): Promise<ZamdekanDepartmentSummary> => {
+  const url = qs.stringifyUrl({ url: '/zamdekan/department-summary', query: { departmentId } });
+  const response = await campusFetch<ZamdekanDepartmentSummary>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
 export const getZamdekanDepartments = async (): Promise<ZamdekanDepartment[]> => {
   const response = await campusFetch<ZamdekanDepartment[]>('/zamdekan/monitoring/departments');
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanOtherDepartmentStatistics = async (
+  departmentId: number,
+): Promise<ZamdekanDepartmentStatistics[]> => {
+  const url = qs.stringifyUrl({ url: '/zamdekan/department-statistics/other', query: { departmentId } });
+  const response = await campusFetch<ZamdekanDepartmentStatistics[]>(url);
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
