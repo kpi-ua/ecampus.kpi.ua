@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { group } from 'radash';
+import { group, objectify, listify, sift, unique } from 'radash';
 import { useState } from 'react';
 
 import { Paragraph } from '@/components/typography';
@@ -34,19 +34,28 @@ const columns = [
 
 export const ReportCoursesTable = ({ groups, query }: Props) => {
   const t = useTranslations('private.attestation-reports');
-  const [filters, setFilters] = useState<Partial<Record<keyof CourseRow, string>>>({});
-  const rows: CourseRow[] = Object.entries(group(groups, (item) => item.course)).map(([course, items = []]) => ({
-    course: Number(course),
-    name: items.map((item) => item.name).join(', '),
-    curator: [...new Set(items.map((item) => item.curator).filter(Boolean))].join(', '),
-    details: [...new Set(items.map((item) => item.details))].join('; '),
-  }));
+  const [filters, setFilters] = useState(() =>
+    objectify(
+      columns,
+      ({ key }) => key,
+      () => '',
+    ),
+  );
+  const rows: CourseRow[] = listify(
+    group(groups, (item) => item.course),
+    (course, items = []) => ({
+      course: Number(course),
+      name: items.map((item) => item.name).join(', '),
+      curator: unique(sift(items.map((item) => item.curator))).join(', '),
+      details: unique(items.map((item) => item.details)).join('; '),
+    }),
+  );
   const filteredRows = rows.filter((row) =>
-    columns.every(({ key }) =>
+    listify(filters, (key, value) =>
       String(row[key])
         .toLocaleLowerCase()
-        .includes((filters[key] ?? '').trim().toLocaleLowerCase()),
-    ),
+        .includes((value ?? '').trim().toLocaleLowerCase()),
+    ).every(Boolean),
   );
   const { sortedRows, sortHandlers } = useTableSort(filteredRows, undefined, ['course', 'name', 'curator', 'details']);
   return (
