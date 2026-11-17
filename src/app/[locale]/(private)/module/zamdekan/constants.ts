@@ -21,3 +21,10 @@ export enum ZamdekanExamStatus {
   Closed = 'Closed',
   Pending = 'Pending',
 }
+
+export enum ZamdekanMarkStatus {
+  Missing = 'Missing',
+  Graded = 'Graded',
+  NotAdmitted = 'NotAdmitted',
+  NotGraded = 'NotGraded',
+}
