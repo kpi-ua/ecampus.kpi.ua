@@ -1,4 +1,4 @@
-import { ZamdekanView } from './constants';
+import { ZamdekanExamStatus, ZamdekanView } from './constants';
 
 export type ZamdekanSection = 'groups' | 'monitoring';
 
@@ -36,7 +36,7 @@ export interface ZamdekanExamResult {
   controlForm: string;
   examiner: string;
   part: number;
-  status: number;
+  status: ZamdekanExamStatus;
   eventDate: string | null;
   opensAt: string | null;
   closesAt: string | null;
