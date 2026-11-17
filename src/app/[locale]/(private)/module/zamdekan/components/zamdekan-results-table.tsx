@@ -11,9 +11,8 @@ import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
-import { ZamdekanExamStatus } from '../constants';
+import { ZamdekanExamStatus, ZamdekanMarkStatus } from '../constants';
 import { ZamdekanExamResult } from '../types';
-import { formatZamdekanMark } from '../utils/format-mark';
 import { ZamdekanTableCard } from './zamdekan-table-card';
 
 interface Props {
@@ -35,6 +34,11 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
     'closesAt',
   ]);
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
+  const markLabels = {
+    [ZamdekanMarkStatus.Missing]: '',
+    [ZamdekanMarkStatus.NotAdmitted]: t('values.not-admitted'),
+    [ZamdekanMarkStatus.NotGraded]: t('values.not-graded'),
+  };
   const statusLabels = {
     [ZamdekanExamStatus.Submitted]: t('values.submitted'),
     [ZamdekanExamStatus.Closed]: t('values.closed'),
@@ -95,7 +99,9 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
                 <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.controlForm}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.examiner}</TableCell>
-                <TableCell className="whitespace-pre-wrap">{formatZamdekanMark(row.mark, t)}</TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  {row.markStatus === ZamdekanMarkStatus.Graded ? row.mark : markLabels[row.markStatus]}
+                </TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? ''}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{statusLabels[row.status]}</TableCell>
                 <TableCell className="whitespace-pre-wrap">
