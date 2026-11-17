@@ -1,4 +1,4 @@
-import { ZamdekanExamStatus, ZamdekanView } from './constants';
+import { ZamdekanExamStatus, ZamdekanMarkStatus, ZamdekanView } from './constants';
 
 export type ZamdekanSection = 'groups' | 'monitoring';
 
@@ -41,6 +41,7 @@ export interface ZamdekanExamResult {
   opensAt: string | null;
   closesAt: string | null;
   mark: number | null;
+  markStatus: ZamdekanMarkStatus;
   nationalScale: string | null;
 }
 
