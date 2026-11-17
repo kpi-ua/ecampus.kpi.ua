@@ -10,9 +10,7 @@ The information system "Electronic Campus of Igor Sikorsky Kyiv Polytechnic Inst
 ## Student attestation
 
 Student results use `/module/student-attestation` and the API endpoint `/student-attestation`.
-Deploy the API support before this UI. The former `/module/attestationresults` page redirects to
-the new route; existing student JWTs with `attestationresults` remain supported. Employee navigation
-keeps the legacy `attestationresults` module.
+Deploy the API support before this UI.
 
 ## Environment variables
 

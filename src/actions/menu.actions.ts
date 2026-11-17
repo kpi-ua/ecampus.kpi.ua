@@ -82,11 +82,7 @@ export const getModuleMenuSection = async (): Promise<MenuGroup[]> => {
     const t = await getTranslations('global.modules');
     const profileArea = userDetails.studentProfile ? ProfileArea.Student : ProfileArea.Employee;
     const isEmployee = profileArea === ProfileArea.Employee;
-    // Older student JWTs use the shared employee results identifier.
-    const moduleNames = jwtPayload.modules.map((name) =>
-      profileArea === ProfileArea.Student && name === 'attestationresults' ? 'student-attestation' : name,
-    );
-    const availableModules = MODULES.filter((module) => moduleNames.includes(module.name));
+    const availableModules = MODULES.filter((module) => jwtPayload.modules.includes(module.name));
     const groups = group(availableModules, (module) => module.group || module.name);
 
     const composeMenuGroup = getMenuGroupComposer(t);

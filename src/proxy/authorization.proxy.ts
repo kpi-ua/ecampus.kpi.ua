@@ -22,15 +22,6 @@ const isAuthorized = async (request: NextRequest) => {
 
   const { module } = match;
 
-  if (module === 'attestationresults' && payload.modules.includes('student-attestation')) {
-    return true;
-  }
-
-  // Preserve access for student JWTs issued before the module rename.
-  if (module === 'student-attestation' && payload.modules.includes('attestationresults')) {
-    return true;
-  }
-
   return payload.modules.includes(module);
 };
 
