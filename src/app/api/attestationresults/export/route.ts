@@ -28,7 +28,6 @@ export async function GET(request: Request) {
     [ATTESTATION_RESULT.Missing]: t('result.ov'),
   };
   const rows = getAttestationReportTables(report).flatMap(({ group, students, columns, cells }) => [
-    [group.name, t('course'), group.course],
     [t('student'), t('group'), t('course'), ...columns.map((column) => `${column.lecturer}\n${column.discipline}`)],
     ...students.map((student) => [
       student.fullName,
@@ -39,7 +38,6 @@ export async function GET(request: Request) {
         return result ? (labels[result] ?? result) : t('missing');
       }),
     ]),
-    [],
   ]);
   return createCsvResponse(
     rows,
