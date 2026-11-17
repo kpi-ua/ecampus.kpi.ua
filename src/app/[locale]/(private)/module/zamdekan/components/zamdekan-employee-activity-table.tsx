@@ -21,14 +21,12 @@ export const ZamdekanEmployeeActivityTable = ({ activity }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>#</TableHead>
             <TableHead>{t('columns.activityDate')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {activity.map((row, index) => (
             <TableRow key={index}>
-              <TableCell className="whitespace-pre-wrap">{index + 1}</TableCell>
               <TableCell className="whitespace-pre-wrap">{formatDate(row.date)}</TableCell>
             </TableRow>
           ))}

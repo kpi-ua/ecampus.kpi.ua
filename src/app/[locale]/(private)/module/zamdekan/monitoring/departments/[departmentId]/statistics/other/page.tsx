@@ -39,7 +39,6 @@ export default async function MonitoringPage({ params }: Props) {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>#</TableHead>
                     <TableHead>{t('columns.curriculumRow')}</TableHead>
 
                     <TableHead>{t('columns.group')}</TableHead>
@@ -51,7 +50,6 @@ export default async function MonitoringPage({ params }: Props) {
                 <TableBody>
                   {items.map((row, index) => (
                     <TableRow key={index}>
-                      <TableCell>{index + 1}</TableCell>
                       <TableCell>{row.discipline}</TableCell>
 
                       <TableCell>{row.group}</TableCell>
