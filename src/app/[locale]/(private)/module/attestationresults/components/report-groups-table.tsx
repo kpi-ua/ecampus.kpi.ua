@@ -58,7 +58,6 @@ export const ReportGroupsTable = ({ groups, query }: Props) => {
             {columns.map(({ key, label }) => (
               <TableCell key={key}>
                 <Input
-                  aria-label={t(label)}
                   placeholder={t(label)}
                   value={filters[key] ?? ''}
                   onChange={(event) => setFilters((current) => ({ ...current, [key]: event.target.value }))}

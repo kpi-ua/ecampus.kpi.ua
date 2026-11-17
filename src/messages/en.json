@@ -1418,7 +1418,7 @@
       "details": "Study group details",
       "discipline": "Discipline",
       "empty": "No data found",
-      "export": "Export to Excel (CSV)",
+      "export": "Export to Excel",
       "facultyId": "Faculty",
       "first-semester": "First half-year",
       "group": "Study group",
@@ -1434,7 +1434,6 @@
       "second-semester": "Second half-year",
       "semester": "Half-year",
       "student": "Student",
-      "title": "Attestation results",
       "views": {
         "courses": "Department groups by course",
         "department": "All department groups",
