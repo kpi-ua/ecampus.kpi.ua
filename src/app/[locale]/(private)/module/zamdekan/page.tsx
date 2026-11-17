@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getZamdekanGroups } from '@/actions/zamdekan.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { ZamdekanGroupsTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-groups-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
 

@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getZamdekanDepartmentSummary } from '@/actions/zamdekan.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { ZamdekanDepartmentSelect } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-department-select';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3, Paragraph } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
 
@@ -31,7 +31,7 @@ export default async function StatisticsPage() {
         <ZamdekanTabs section="monitoring" monitoringView="statistics">
           <Heading3>{t('views.statistics')}</Heading3>
           <ZamdekanDepartmentSelect departments={summary.departments} />
-          <Paragraph className="text-muted-foreground text-sm">
+          <Paragraph className="text-sm text-muted-foreground">
             {summary.departments.length ? t('select-department-hint') : t('empty')}
           </Paragraph>
         </ZamdekanTabs>

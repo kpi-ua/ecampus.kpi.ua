@@ -38,52 +38,52 @@ export const ZamdekanGroupSheetsTable = ({ sheets }: Props) => {
     <div className="space-y-4">
       <ZamdekanTableCard>
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="group">
-              {t('columns.group')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
-              {t('columns.discipline')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="name">
-              {t('columns.name')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="employee">
-              {t('columns.employee')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="assessmentCount">
-              {t('columns.assessmentCount')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="markCount">
-              {t('columns.markCount')}
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedItems.map((row) => (
-            <TableRow key={row.employeeSheetId}>
-              <TableCell className="whitespace-pre-wrap">{row.group}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
-              <TableCell className="whitespace-pre-wrap">
-                <Link
-                  href={getZamdekanReportPath({
-                    view: 'sheet',
-                    groupId: row.groupId,
-                    disciplineId: row.disciplineId,
-                    monitoringId: row.sheetId,
-                  })}
-                  className="underline"
-                >
-                  {row.name || t('values.unnamed-sheet')}
-                </Link>
-              </TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.employee}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.assessmentCount}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.markCount}</TableCell>
+          <TableHeader>
+            <TableRow>
+              <TableHead sortHandlers={sortHandlers} sortHeader="group">
+                {t('columns.group')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
+                {t('columns.discipline')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="name">
+                {t('columns.name')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="employee">
+                {t('columns.employee')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="assessmentCount">
+                {t('columns.assessmentCount')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="markCount">
+                {t('columns.markCount')}
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
+          </TableHeader>
+          <TableBody>
+            {paginatedItems.map((row) => (
+              <TableRow key={row.employeeSheetId}>
+                <TableCell className="whitespace-pre-wrap">{row.group}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  <Link
+                    href={getZamdekanReportPath({
+                      view: 'sheet',
+                      groupId: row.groupId,
+                      disciplineId: row.disciplineId,
+                      monitoringId: row.sheetId,
+                    })}
+                    className="underline"
+                  >
+                    {row.name || t('values.unnamed-sheet')}
+                  </Link>
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.employee}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.assessmentCount}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.markCount}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ZamdekanTableCard>
       <Show when={sheets.length > PAGE_SIZE_DEFAULT}>

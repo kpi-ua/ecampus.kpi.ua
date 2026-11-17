@@ -37,44 +37,44 @@ export const ZamdekanDepartmentStatisticsTable = ({ statistics }: Props) => {
     <div className="space-y-4">
       <ZamdekanTableCard>
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="recipientDepartment">
-              {t('columns.recipientDepartment')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="group">
-              {t('columns.group')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
-              {t('columns.discipline')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="semester">
-              {t('columns.semester')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="teachingDepartment">
-              {t('columns.teachingDepartment')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="lecturers">
-              {t('columns.lecturers')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="markCount">
-              {t('columns.markCount')}
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedItems.map((row) => (
-            <TableRow key={`${row.departmentId}-${row.groupId}-${row.disciplineId}`}>
-              <TableCell className="whitespace-pre-wrap">{row.recipientDepartment}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.group}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.semester}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.teachingDepartment}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.lecturers ?? ''}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.markCount}</TableCell>
+          <TableHeader>
+            <TableRow>
+              <TableHead sortHandlers={sortHandlers} sortHeader="recipientDepartment">
+                {t('columns.recipientDepartment')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="group">
+                {t('columns.group')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
+                {t('columns.discipline')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="semester">
+                {t('columns.semester')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="teachingDepartment">
+                {t('columns.teachingDepartment')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="lecturers">
+                {t('columns.lecturers')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="markCount">
+                {t('columns.markCount')}
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
+          </TableHeader>
+          <TableBody>
+            {paginatedItems.map((row) => (
+              <TableRow key={`${row.departmentId}-${row.groupId}-${row.disciplineId}`}>
+                <TableCell className="whitespace-pre-wrap">{row.recipientDepartment}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.group}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.semester}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.teachingDepartment}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.lecturers ?? ''}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.markCount}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ZamdekanTableCard>
       <Show when={statistics.length > PAGE_SIZE_DEFAULT}>

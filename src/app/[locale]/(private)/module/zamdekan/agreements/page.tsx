@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getZamdekanGroups } from '@/actions/zamdekan.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { ZamdekanGroupSelect } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-group-select';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3, Paragraph } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
 
@@ -30,7 +30,7 @@ export default async function AgreementsPage() {
         <ZamdekanTabs section="agreements">
           <Heading3>{t('views.agreements')}</Heading3>
           <ZamdekanGroupSelect groups={groups} />
-          <Paragraph className="text-muted-foreground text-sm">
+          <Paragraph className="text-sm text-muted-foreground">
             {groups.length ? t('select-group-hint') : t('empty')}
           </Paragraph>
         </ZamdekanTabs>

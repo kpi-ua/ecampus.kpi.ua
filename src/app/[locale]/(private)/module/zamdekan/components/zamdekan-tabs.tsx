@@ -1,7 +1,7 @@
 'use client';
 
-import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
+import { ReactNode } from 'react';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';

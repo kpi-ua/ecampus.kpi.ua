@@ -1,12 +1,12 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getZamdekanAgreements, getZamdekanGroups } from '@/actions/zamdekan.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
-import { ZamdekanGroupSelect } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-group-select';
 import { ZamdekanAgreementsTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-agreements-table';
+import { ZamdekanGroupSelect } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-group-select';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
 
 const INTL_NAMESPACE = 'private.zamdekan';

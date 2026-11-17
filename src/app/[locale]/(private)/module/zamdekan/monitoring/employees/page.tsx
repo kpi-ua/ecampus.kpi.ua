@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getZamdekanEmployees } from '@/actions/zamdekan.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { ZamdekanEmployeesTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-employees-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
 

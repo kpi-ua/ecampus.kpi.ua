@@ -37,43 +37,47 @@ export const ZamdekanGroupDisciplinesTable = ({ disciplines }: Props) => {
     <div className="space-y-4">
       <ZamdekanTableCard>
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="course">
-              {t('columns.course')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="group">
-              {t('columns.group')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
-              {t('columns.discipline')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="teachingDepartment">
-              {t('columns.teachingDepartment')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="sheetCount">
-              {t('columns.sheetCount')}
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedItems.map((row) => (
-            <TableRow key={`${row.groupId}-${row.disciplineId}`}>
-              <TableCell className="whitespace-pre-wrap">{row.course}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.group}</TableCell>
-              <TableCell className="whitespace-pre-wrap">
-                <Link
-                  href={getZamdekanReportPath({ view: 'sheets', groupId: row.groupId, disciplineId: row.disciplineId })}
-                  className="underline"
-                >
-                  {row.discipline}
-                </Link>
-              </TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.teachingDepartment}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.sheetCount}</TableCell>
+          <TableHeader>
+            <TableRow>
+              <TableHead sortHandlers={sortHandlers} sortHeader="course">
+                {t('columns.course')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="group">
+                {t('columns.group')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
+                {t('columns.discipline')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="teachingDepartment">
+                {t('columns.teachingDepartment')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="sheetCount">
+                {t('columns.sheetCount')}
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
+          </TableHeader>
+          <TableBody>
+            {paginatedItems.map((row) => (
+              <TableRow key={`${row.groupId}-${row.disciplineId}`}>
+                <TableCell className="whitespace-pre-wrap">{row.course}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.group}</TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  <Link
+                    href={getZamdekanReportPath({
+                      view: 'sheets',
+                      groupId: row.groupId,
+                      disciplineId: row.disciplineId,
+                    })}
+                    className="underline"
+                  >
+                    {row.discipline}
+                  </Link>
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.teachingDepartment}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.sheetCount}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ZamdekanTableCard>
       <Show when={disciplines.length > PAGE_SIZE_DEFAULT}>

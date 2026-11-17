@@ -47,64 +47,64 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
     <div className="space-y-4">
       <ZamdekanTableCard>
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="part">
-              {t('columns.part')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="eventDate">
-              {t('columns.eventDate')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
-              {t('columns.discipline')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="controlForm">
-              {t('columns.controlForm')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="examiner">
-              {t('columns.examiner')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="mark">
-              {t('columns.mark')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="nationalScale">
-              {t('columns.nationalScale')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="status">
-              {t('columns.examStatus')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="opensAt">
-              {t('columns.opensAt')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="closesAt">
-              {t('columns.closesAt')}
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedItems.map((row, index) => (
-            <TableRow key={`${row.discipline}-${row.part}-${row.eventDate}-${index}`}>
-              <TableCell className="whitespace-pre-wrap">
-                {[0, 1, 2].includes(row.part) ? t(`values.part-${row.part}`) : row.part}
-              </TableCell>
-              <TableCell className="whitespace-pre-wrap">
-                {row.eventDate ? dayjs(row.eventDate).format('DD.MM.YYYY') : ''}
-              </TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.controlForm}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.examiner}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{formatZamdekanMark(row.mark, t)}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? ''}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{getStatus(row)}</TableCell>
-              <TableCell className="whitespace-pre-wrap">
-                {row.opensAt ? dayjs(row.opensAt).format('DD.MM.YYYY') : ''}
-              </TableCell>
-              <TableCell className="whitespace-pre-wrap">
-                {row.closesAt ? dayjs(row.closesAt).format('DD.MM.YYYY') : ''}
-              </TableCell>
+          <TableHeader>
+            <TableRow>
+              <TableHead sortHandlers={sortHandlers} sortHeader="part">
+                {t('columns.part')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="eventDate">
+                {t('columns.eventDate')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
+                {t('columns.discipline')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="controlForm">
+                {t('columns.controlForm')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="examiner">
+                {t('columns.examiner')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="mark">
+                {t('columns.mark')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="nationalScale">
+                {t('columns.nationalScale')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="status">
+                {t('columns.examStatus')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="opensAt">
+                {t('columns.opensAt')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="closesAt">
+                {t('columns.closesAt')}
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
+          </TableHeader>
+          <TableBody>
+            {paginatedItems.map((row, index) => (
+              <TableRow key={`${row.discipline}-${row.part}-${row.eventDate}-${index}`}>
+                <TableCell className="whitespace-pre-wrap">
+                  {[0, 1, 2].includes(row.part) ? t(`values.part-${row.part}`) : row.part}
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  {row.eventDate ? dayjs(row.eventDate).format('DD.MM.YYYY') : ''}
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.discipline}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.controlForm}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.examiner}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{formatZamdekanMark(row.mark, t)}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? ''}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{getStatus(row)}</TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  {row.opensAt ? dayjs(row.opensAt).format('DD.MM.YYYY') : ''}
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  {row.closesAt ? dayjs(row.closesAt).format('DD.MM.YYYY') : ''}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ZamdekanTableCard>
       <Show when={results.length > PAGE_SIZE_DEFAULT}>

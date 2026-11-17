@@ -30,28 +30,28 @@ export const ZamdekanEmployeeActivityTable = ({ activities }: Props) => {
     <div className="space-y-4">
       <ZamdekanTableCard>
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="employee">
-              {t('columns.employee')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="department">
-              {t('columns.department')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="date">
-              {t('columns.date')}
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedItems.map((row) => (
-            <TableRow key={`${row.employeeId}-${row.date}`}>
-              <TableCell className="whitespace-pre-wrap">{row.employee}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.department}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{dayjs(row.date).format('DD.MM.YYYY')}</TableCell>
+          <TableHeader>
+            <TableRow>
+              <TableHead sortHandlers={sortHandlers} sortHeader="employee">
+                {t('columns.employee')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="department">
+                {t('columns.department')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="date">
+                {t('columns.date')}
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
+          </TableHeader>
+          <TableBody>
+            {paginatedItems.map((row) => (
+              <TableRow key={`${row.employeeId}-${row.date}`}>
+                <TableCell className="whitespace-pre-wrap">{row.employee}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.department}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{dayjs(row.date).format('DD.MM.YYYY')}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ZamdekanTableCard>
       <Show when={activities.length > PAGE_SIZE_DEFAULT}>

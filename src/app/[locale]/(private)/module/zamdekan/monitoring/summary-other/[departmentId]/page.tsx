@@ -1,12 +1,12 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getZamdekanDepartmentSummary } from '@/actions/zamdekan.actions';
-import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { ZamdekanDepartmentSelect } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-department-select';
 import { ZamdekanSummaryTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-summary-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
+import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
 
 interface Props {

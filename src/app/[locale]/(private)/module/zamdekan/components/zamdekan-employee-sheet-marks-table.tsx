@@ -13,8 +13,8 @@ import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 import { ZamdekanSheetMark } from '../types';
 import { formatZamdekanMark } from '../utils/format-mark';
-import { ZamdekanTableCard } from './zamdekan-table-card';
 import { groupSheetMarks } from '../utils/group-sheet-marks';
+import { ZamdekanTableCard } from './zamdekan-table-card';
 
 interface Props {
   marks: ZamdekanSheetMark[];
@@ -33,34 +33,34 @@ export const ZamdekanEmployeeSheetMarksTable = ({ marks }: Props) => {
     <div className="space-y-4">
       <ZamdekanTableCard>
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="student">
-              {t('columns.student')}
-            </TableHead>
-            {assessments.map((assessment) => (
-              <TableHead key={assessment.key} className="whitespace-pre-wrap">
-                {[
-                  assessment.description || assessment.sheetName || t('columns.assessment'),
-                  assessment.teacher,
-                  assessment.date ? dayjs(assessment.date).format('DD.MM.YYYY') : '',
-                ]
-                  .filter(Boolean)
-                  .join('\n')}
+          <TableHeader>
+            <TableRow>
+              <TableHead sortHandlers={sortHandlers} sortHeader="student">
+                {t('columns.student')}
               </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedItems.map((student) => (
-            <TableRow key={student.studentId}>
-              <TableCell>{student.student}</TableCell>
               {assessments.map((assessment) => (
-                <TableCell key={assessment.key}>{formatZamdekanMark(student.marks[assessment.key], t)}</TableCell>
+                <TableHead key={assessment.key} className="whitespace-pre-wrap">
+                  {[
+                    assessment.description || assessment.sheetName || t('columns.assessment'),
+                    assessment.teacher,
+                    assessment.date ? dayjs(assessment.date).format('DD.MM.YYYY') : '',
+                  ]
+                    .filter(Boolean)
+                    .join('\n')}
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
+          </TableHeader>
+          <TableBody>
+            {paginatedItems.map((student) => (
+              <TableRow key={student.studentId}>
+                <TableCell>{student.student}</TableCell>
+                {assessments.map((assessment) => (
+                  <TableCell key={assessment.key}>{formatZamdekanMark(student.marks[assessment.key], t)}</TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ZamdekanTableCard>
       <Show when={students.length > PAGE_SIZE_DEFAULT}>

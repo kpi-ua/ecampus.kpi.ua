@@ -37,43 +37,43 @@ export const ZamdekanEmployeesTable = ({ employees }: Props) => {
     <div className="space-y-4">
       <ZamdekanTableCard>
         <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead sortHandlers={sortHandlers} sortHeader="department">
-              {t('columns.department')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="fullName">
-              {t('columns.fullName')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="status">
-              {t('columns.status')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="contractEnd">
-              {t('columns.contractEnd')}
-            </TableHead>
-            <TableHead sortHandlers={sortHandlers} sortHeader="sheetCount">
-              {t('columns.sheetCount')}
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {paginatedItems.map((row) => (
-            <TableRow key={row.employeeId}>
-              <TableCell className="whitespace-pre-wrap">{row.department}</TableCell>
-              <TableCell className="whitespace-pre-wrap">
-                <Link
-                  href={getZamdekanReportPath({ view: 'employee-load', employeeId: row.employeeId })}
-                  className="underline"
-                >
-                  {row.fullName}
-                </Link>
-              </TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.status ?? ''}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.contractEnd ?? ''}</TableCell>
-              <TableCell className="whitespace-pre-wrap">{row.sheetCount}</TableCell>
+          <TableHeader>
+            <TableRow>
+              <TableHead sortHandlers={sortHandlers} sortHeader="department">
+                {t('columns.department')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="fullName">
+                {t('columns.fullName')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="status">
+                {t('columns.status')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="contractEnd">
+                {t('columns.contractEnd')}
+              </TableHead>
+              <TableHead sortHandlers={sortHandlers} sortHeader="sheetCount">
+                {t('columns.sheetCount')}
+              </TableHead>
             </TableRow>
-          ))}
-        </TableBody>
+          </TableHeader>
+          <TableBody>
+            {paginatedItems.map((row) => (
+              <TableRow key={row.employeeId}>
+                <TableCell className="whitespace-pre-wrap">{row.department}</TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  <Link
+                    href={getZamdekanReportPath({ view: 'employee-load', employeeId: row.employeeId })}
+                    className="underline"
+                  >
+                    {row.fullName}
+                  </Link>
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.status ?? ''}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.contractEnd ?? ''}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.sheetCount}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </ZamdekanTableCard>
       <Show when={employees.length > PAGE_SIZE_DEFAULT}>
