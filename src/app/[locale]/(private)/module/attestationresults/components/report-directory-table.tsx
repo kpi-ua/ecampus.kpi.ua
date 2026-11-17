@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import qs from 'query-string';
 import { group } from 'radash';
 import { useState } from 'react';
 
@@ -12,10 +11,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
-import { Link } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
-import { ATTESTATION_RESULTS_PATH, AttestationReportView } from '../constants';
+import { AttestationReportView } from '../constants';
 import { AttestationReportGroup, AttestationReportQuery, AttestationReportStudent } from '../types';
 import { ReportExportButton } from './report-export-button';
 
@@ -155,15 +153,6 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
                 <TableCell>{row.curator}</TableCell>
                 <TableCell>{row.details}</TableCell>
                 <TableCell>
-                  <Link
-                    className="underline"
-                    href={qs.stringifyUrl({
-                      url: `${ATTESTATION_RESULTS_PATH}/report`,
-                      query: { ...query, ...row.target },
-                    })}
-                  >
-                    {t('open')}
-                  </Link>
                   <ReportExportButton query={{ ...query, ...row.target }} />
                 </TableCell>
               </TableRow>

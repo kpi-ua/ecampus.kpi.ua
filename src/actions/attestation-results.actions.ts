@@ -3,7 +3,6 @@
 import qs from 'query-string';
 
 import {
-  AttestationReport,
   AttestationReportGroup,
   AttestationReportOptions,
   AttestationReportQuery,
@@ -34,16 +33,6 @@ export const getAttestationReportStudents = async (
 ): Promise<AttestationReportStudent[]> => {
   const response = await campusFetch<AttestationReportStudent[]>(
     qs.stringifyUrl({ url: '/attestation-results/students', query: { ...query } }),
-  );
-  if (!response.ok) {
-    throw new Error(`${response.status} Error`);
-  }
-  return response.json();
-};
-
-export const getAttestationReport = async (query: AttestationReportQuery): Promise<AttestationReport> => {
-  const response = await campusFetch<AttestationReport>(
-    qs.stringifyUrl({ url: '/attestation-results/report', query: { ...query } }),
   );
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
