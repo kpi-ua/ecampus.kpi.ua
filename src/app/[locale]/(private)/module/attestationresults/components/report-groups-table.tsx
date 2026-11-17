@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { objectify, listify } from 'radash';
 import { useState } from 'react';
 
 import { Paragraph } from '@/components/typography';
@@ -26,18 +27,23 @@ const columns = [
 
 export const ReportGroupsTable = ({ groups, query }: Props) => {
   const t = useTranslations('private.attestation-reports');
-  const [filters, setFilters] = useState<Partial<Record<keyof AttestationReportGroup, string>>>({});
-  const rows = groups;
-  const filteredRows = rows.filter((row) =>
-    columns.every(({ key }) =>
+  const [filters, setFilters] = useState(() =>
+    objectify(
+      columns,
+      ({ key }) => key,
+      () => '',
+    ),
+  );
+  const filteredRows = groups.filter((row) =>
+    listify(filters, (key, value) =>
       String(row[key])
         .toLocaleLowerCase()
-        .includes((filters[key] ?? '').trim().toLocaleLowerCase()),
-    ),
+        .includes((value ?? '').trim().toLocaleLowerCase()),
+    ).every(Boolean),
   );
   const { sortedRows, sortHandlers } = useTableSort(filteredRows, undefined, ['course', 'name', 'curator', 'details']);
   return (
-    <Show when={rows.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>
+    <Show when={groups.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>
       <Table>
         <TableHeader>
           <TableRow>
