@@ -47,6 +47,51 @@ export interface ZamdekanExamResult {
   nationalScale: string | null;
 }
 
+export interface ZamdekanMonitoringGroup {
+  groupId: number;
+  course: number;
+  group: string;
+  disciplineCount: number;
+  sheetCount: number;
+}
+
+export interface ZamdekanGroupDiscipline {
+  groupId: number;
+  course: number;
+  group: string;
+  disciplineId: number;
+  discipline: string;
+  teachingDepartment: string;
+  sheetCount: number;
+}
+
+export interface ZamdekanMonitoringSheet {
+  course: number;
+  sheetId: number;
+  employeeSheetId: number;
+  groupId: number;
+  group: string;
+  disciplineId: number;
+  discipline: string;
+  employeeId: number;
+  employee: string;
+  name: string;
+  assessmentCount: number;
+  markCount: number;
+}
+
+export interface ZamdekanSheetMark {
+  studentId: number;
+  student: string;
+  employeeSheetId: number;
+  assessmentId: number | null;
+  assessmentDescription: string | null;
+  assessmentDate: string | null;
+  sheetName: string;
+  teacher: string;
+  mark: number | null;
+}
+
 export interface ZamdekanDepartment {
   id: number;
   name: string;

@@ -6,6 +6,10 @@ import {
   ZamdekanGroup,
   ZamdekanAgreement,
   ZamdekanExamResult,
+  ZamdekanMonitoringGroup,
+  ZamdekanGroupDiscipline,
+  ZamdekanMonitoringSheet,
+  ZamdekanSheetMark,
   ZamdekanDepartment,
 } from '@/app/[locale]/(private)/module/zamdekan/types';
 import { campusFetch } from '@/lib/client';
@@ -30,6 +34,47 @@ export const getZamdekanAgreements = async (groupId: number): Promise<ZamdekanAg
 export const getZamdekanStudentResults = async (studentId: number, groupId: number): Promise<ZamdekanExamResult[]> => {
   const url = qs.stringifyUrl({ url: `/zamdekan/students/${studentId}/results`, query: { groupId } });
   const response = await campusFetch<ZamdekanExamResult[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanMonitoringGroups = async (departmentId: number): Promise<ZamdekanMonitoringGroup[]> => {
+  const url = qs.stringifyUrl({ url: '/zamdekan/monitoring/groups', query: { departmentId } });
+  const response = await campusFetch<ZamdekanMonitoringGroup[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanGroupDisciplines = async (groupId: number): Promise<ZamdekanGroupDiscipline[]> => {
+  const response = await campusFetch<ZamdekanGroupDiscipline[]>(`/zamdekan/monitoring/groups/${groupId}/disciplines`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanSheets = async (
+  groupId: number,
+  disciplineId: number,
+  employeeId?: number,
+): Promise<ZamdekanMonitoringSheet[]> => {
+  const url = qs.stringifyUrl({
+    url: '/zamdekan/monitoring/sheets',
+    query: { groupId, disciplineId, employeeId },
+  });
+  const response = await campusFetch<ZamdekanMonitoringSheet[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanSheetMarks = async (monitoringId: number): Promise<ZamdekanSheetMark[]> => {
+  const response = await campusFetch<ZamdekanSheetMark[]>(`/zamdekan/monitoring/sheets/${monitoringId}/marks`);
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
