@@ -1,23 +1,19 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { ReactNode } from 'react';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 
-import { MONITORING_VIEWS } from '../constants';
-import { ZamdekanMonitoringView, ZamdekanSection } from '../types';
+import { ZamdekanSection } from '../types';
 import { getZamdekanReportPath } from '../utils/report-path';
 
 interface Props {
   section: ZamdekanSection;
-  monitoringView?: ZamdekanMonitoringView;
   children: ReactNode;
 }
 
-export const ZamdekanTabs = ({ section, monitoringView = 'monitoring-groups', children }: Props) => {
-  const t = useTranslations('private.zamdekan');
+export const ZamdekanTabs = async ({ section, children }: Props) => {
+  const t = await getTranslations('private.zamdekan');
 
   return (
     <Tabs value={section} activationMode="manual">
@@ -30,24 +26,7 @@ export const ZamdekanTabs = ({ section, monitoringView = 'monitoring-groups', ch
         </TabsTrigger>
       </TabsList>
       <TabsContent value={section} className="mt-8">
-        {section === 'monitoring' ? (
-          <Tabs value={monitoringView} activationMode="manual">
-            <div className="overflow-x-auto">
-              <TabsList aria-label={t('sections.monitoring')}>
-                {MONITORING_VIEWS.map((view) => (
-                  <TabsTrigger key={view} value={view} asChild>
-                    <Link href={getZamdekanReportPath({ view })}>{t(`views.${view}`)}</Link>
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </div>
-            <TabsContent value={monitoringView} className="mt-8">
-              <div className="flex flex-col gap-8">{children}</div>
-            </TabsContent>
-          </Tabs>
-        ) : (
-          <div className="flex flex-col gap-8">{children}</div>
-        )}
+        <div className="flex flex-col gap-8">{children}</div>
       </TabsContent>
     </Tabs>
   );
