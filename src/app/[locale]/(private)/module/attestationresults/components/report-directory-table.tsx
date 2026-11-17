@@ -2,8 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import qs from 'query-string';
+import { useState } from 'react';
 
 import { Paragraph } from '@/components/typography';
+import { Input } from '@/components/ui/input';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
@@ -30,6 +32,7 @@ interface DirectoryRow extends AttestationReportGroup {
 
 export const ReportDirectoryTable = ({ groups, students, view, query }: Props) => {
   const t = useTranslations('private.attestation-reports');
+  const [filters, setFilters] = useState<Partial<Record<keyof DirectoryRow, string>>>({});
   const groupMap = new Map(groups.map((g) => [g.id, g]));
   const rows: DirectoryRow[] =
     view === AttestationReportView.Students
@@ -53,7 +56,14 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
               target: view === AttestationReportView.Courses ? { course } : {},
             }),
           );
-  const { sortedRows, sortHandlers } = useTableSort(rows, undefined, [
+  const filteredRows = rows.filter((row) =>
+    Object.entries(filters).every(([key, value]) =>
+      String(row[key as keyof DirectoryRow] ?? '')
+        .toLocaleLowerCase()
+        .includes(value.trim().toLocaleLowerCase()),
+    ),
+  );
+  const { sortedRows, sortHandlers } = useTableSort(filteredRows, undefined, [
     'course',
     'name',
     'curator',
@@ -86,6 +96,51 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
               </TableHead>
               <TableHead>{t('results')}</TableHead>
             </TableRow>
+            <TableRow>
+              <Show when={view === AttestationReportView.Students}>
+                <TableCell>
+                  <Input
+                    aria-label={t('student')}
+                    placeholder={t('student')}
+                    value={filters.fullName ?? ''}
+                    onChange={(event) => setFilters((current) => ({ ...current, fullName: event.target.value }))}
+                  />
+                </TableCell>
+              </Show>
+              <TableCell>
+                <Input
+                  aria-label={t('course')}
+                  placeholder={t('course')}
+                  value={filters.course ?? ''}
+                  onChange={(event) => setFilters((current) => ({ ...current, course: event.target.value }))}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  aria-label={t('group')}
+                  placeholder={t('group')}
+                  value={filters.name ?? ''}
+                  onChange={(event) => setFilters((current) => ({ ...current, name: event.target.value }))}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  aria-label={t('curator')}
+                  placeholder={t('curator')}
+                  value={filters.curator ?? ''}
+                  onChange={(event) => setFilters((current) => ({ ...current, curator: event.target.value }))}
+                />
+              </TableCell>
+              <TableCell>
+                <Input
+                  aria-label={t('details')}
+                  placeholder={t('details')}
+                  value={filters.details ?? ''}
+                  onChange={(event) => setFilters((current) => ({ ...current, details: event.target.value }))}
+                />
+              </TableCell>
+              <TableCell />
+            </TableRow>
           </TableHeader>
           <TableBody>
             {paginatedItems.map((row) => (
@@ -112,8 +167,8 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
             ))}
           </TableBody>
         </Table>
-        <Show when={rows.length > PAGE_SIZE_DEFAULT}>
-          <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={rows.length} />
+        <Show when={filteredRows.length > PAGE_SIZE_DEFAULT}>
+          <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={filteredRows.length} />
         </Show>
       </div>
     </Show>
