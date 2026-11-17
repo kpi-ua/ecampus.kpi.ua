@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getZamdekanSheets } from '@/actions/zamdekan.actions';
 import { ZamdekanEmployeeSheetsTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-employee-sheets-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
@@ -29,8 +30,11 @@ export default async function MonitoringPage({ params }: Props) {
     <SubLayout
       pageTitle={t('navigation.lecturerSheets')}
       breadcrumbs={[
-        [getZamdekanReportPath({ view: 'groups' }), t('title')],
-        [getZamdekanReportPath({ view: 'employee-load', departmentId, employeeId }), t('views.employee-load')],
+        [getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')],
+        [
+          getZamdekanReportPath({ view: ZamdekanView.EmployeeLoad, departmentId, employeeId }),
+          t('views.employee-load'),
+        ],
       ]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">

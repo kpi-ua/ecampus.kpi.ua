@@ -4,6 +4,7 @@ import { getZamdekanEmployeeDisciplines, getZamdekanEmployeeActivity } from '@/a
 import { ZamdekanEmployeeActivityTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-employee-activity-table';
 import { ZamdekanEmployeeDisciplinesTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-employee-disciplines-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
@@ -31,8 +32,8 @@ export default async function MonitoringPage({ params }: Props) {
     <SubLayout
       pageTitle={t('views.employee-load')}
       breadcrumbs={[
-        [getZamdekanReportPath({ view: 'groups' }), t('title')],
-        [getZamdekanReportPath({ view: 'department-employees', departmentId }), t('navigation.lecturers')],
+        [getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')],
+        [getZamdekanReportPath({ view: ZamdekanView.DepartmentEmployees, departmentId }), t('navigation.lecturers')],
       ]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">

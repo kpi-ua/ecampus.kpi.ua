@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getZamdekanDepartmentSummary } from '@/actions/zamdekan.actions';
 import { ZamdekanTableCard } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-table-card';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { ZamdekanCourseIndicators, ZamdekanDepartmentSummary } from '@/app/[locale]/(private)/module/zamdekan/types';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
@@ -89,7 +90,10 @@ export default async function MonitoringPage({ params }: Props) {
   );
 
   return (
-    <SubLayout pageTitle={t('views.summary')} breadcrumbs={[[getZamdekanReportPath({ view: 'groups' }), t('title')]]}>
+    <SubLayout
+      pageTitle={t('views.summary')}
+      breadcrumbs={[[getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')]]}
+    >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <Heading2>{t('title')}</Heading2>
         <ZamdekanTabs section="monitoring">

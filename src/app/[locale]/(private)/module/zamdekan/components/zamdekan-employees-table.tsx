@@ -1,6 +1,8 @@
 'use client';
+
 import { useTranslations } from 'next-intl';
 
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
@@ -40,7 +42,11 @@ export const ZamdekanEmployeesTable = ({ employees, departmentId }: Props) => {
               <TableCell className="whitespace-pre-wrap">
                 <Link
                   className="underline"
-                  href={getZamdekanReportPath({ view: 'employee-load', departmentId, employeeId: row.employeeId })}
+                  href={getZamdekanReportPath({
+                    view: ZamdekanView.EmployeeLoad,
+                    departmentId,
+                    employeeId: row.employeeId,
+                  })}
                 >
                   {row.fullName}
                 </Link>

@@ -1,16 +1,16 @@
-export const REPORT_VIEWS = [
-  'groups',
-  'results',
-  'monitoring-groups',
-  'department-groups',
-  'department-employees',
-  'group-load',
-  'sheets',
-  'sheet',
-  'employees',
-  'employee-load',
-  'statistics',
-  'outward-statistics',
-  'summary',
-] as const;
+export enum ZamdekanView {
+  Groups = 'groups',
+  Results = 'results',
+  MonitoringGroups = 'monitoring-groups',
+  DepartmentGroups = 'department-groups',
+  DepartmentEmployees = 'department-employees',
+  GroupLoad = 'group-load',
+  Sheets = 'sheets',
+  Sheet = 'sheet',
+  Employees = 'employees',
+  EmployeeLoad = 'employee-load',
+  Statistics = 'statistics',
+  OutwardStatistics = 'outward-statistics',
+  Summary = 'summary',
+}
 export const ZAMDEKAN_PATH = '/module/zamdekan';
