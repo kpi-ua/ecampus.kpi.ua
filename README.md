@@ -7,6 +7,13 @@
 
 The information system "Electronic Campus of Igor Sikorsky Kyiv Polytechnic Institute" is an automated system supporting educational process informatization. It provides digital communication tools for students, faculty, and department heads, enhancing educational quality through modern technology.
 
+## Student attestation
+
+Student results use `/module/student-attestation` and the API endpoint `/student-attestation`.
+Deploy the API support before this UI. The former `/module/attestationresults` page redirects to
+the new route; existing student JWTs with `attestationresults` remain supported. Employee navigation
+keeps the legacy `attestationresults` module.
+
 ## Environment variables
 
 - CAMPUS_API_BASE_PATH - Campus API URL. Dev value: `https://dev-api.campus.cloud.kpi.ua`
