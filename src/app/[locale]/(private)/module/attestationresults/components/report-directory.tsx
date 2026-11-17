@@ -11,8 +11,11 @@ import {
   AttestationReportQuery,
   AttestationReportStudent,
 } from '../types';
-import { ReportDirectoryTable } from './report-directory-table';
+import { ReportCoursesTable } from './report-courses-table';
+import { ReportDepartmentTable } from './report-department-table';
 import { ReportFilters } from './report-filters';
+import { ReportGroupsTable } from './report-groups-table';
+import { ReportStudentsTable } from './report-students-table';
 
 interface Props {
   options: AttestationReportOptions;
@@ -37,11 +40,18 @@ export const ReportDirectory = ({ options, query, groups, students }: Props) => 
       <div className="my-6">
         <ReportFilters options={options} query={query} />
       </div>
-      {Object.values(AttestationReportView).map((view) => (
-        <TabsContent key={view} value={view}>
-          <ReportDirectoryTable groups={groups} students={students} view={view} query={query} />
-        </TabsContent>
-      ))}
+      <TabsContent value={AttestationReportView.Groups}>
+        <ReportGroupsTable groups={groups} query={query} />
+      </TabsContent>
+      <TabsContent value={AttestationReportView.Courses}>
+        <ReportCoursesTable groups={groups} query={query} />
+      </TabsContent>
+      <TabsContent value={AttestationReportView.Department}>
+        <ReportDepartmentTable groups={groups} query={query} />
+      </TabsContent>
+      <TabsContent value={AttestationReportView.Students}>
+        <ReportStudentsTable groups={groups} students={students} query={query} />
+      </TabsContent>
     </Tabs>
   );
 };
