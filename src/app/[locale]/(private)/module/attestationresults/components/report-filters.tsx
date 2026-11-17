@@ -6,6 +6,7 @@ import { useQueryStates } from 'nuqs';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+import { attestationReportSearchParams } from '../search-params';
 import { AttestationReportOptions, AttestationReportQuery } from '../types';
 
 interface Props {
@@ -74,4 +75,3 @@ export const ReportFilters = ({ options, query }: Props) => {
     </div>
   );
 };
-import { attestationReportSearchParams } from '../search-params';
