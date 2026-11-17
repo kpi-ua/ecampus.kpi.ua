@@ -1,4 +1,4 @@
-import { ZAMDEKAN_PATH } from '../constants';
+import { ZamdekanView, ZAMDEKAN_PATH } from '../constants';
 import { ZamdekanQuery } from '../types';
 
 const reportId = (id: number | undefined): number => {
@@ -12,36 +12,36 @@ export const getZamdekanReportPath = (query: ZamdekanQuery): string => {
   const monitoringPath = `${ZAMDEKAN_PATH}/monitoring`;
   const departmentPath = () => `${monitoringPath}/departments/${reportId(query.departmentId)}`;
   switch (query.view) {
-    case 'groups':
+    case ZamdekanView.Groups:
       return ZAMDEKAN_PATH;
-    case 'results':
+    case ZamdekanView.Results:
       return `${ZAMDEKAN_PATH}/groups/${reportId(query.groupId)}/students/${reportId(query.studentId)}`;
-    case 'monitoring-groups':
+    case ZamdekanView.MonitoringGroups:
       return monitoringPath;
-    case 'employees':
+    case ZamdekanView.Employees:
       return `${monitoringPath}/employees`;
-    case 'department-groups':
+    case ZamdekanView.DepartmentGroups:
       return departmentPath();
-    case 'department-employees':
+    case ZamdekanView.DepartmentEmployees:
       return `${departmentPath()}/employees`;
-    case 'group-load':
+    case ZamdekanView.GroupLoad:
       return `${departmentPath()}/groups/${reportId(query.groupId)}`;
-    case 'employee-load':
+    case ZamdekanView.EmployeeLoad:
       return `${departmentPath()}/employees/${reportId(query.employeeId)}`;
-    case 'sheets': {
+    case ZamdekanView.Sheets: {
       const parent =
         query.employeeId === undefined
-          ? getZamdekanReportPath({ ...query, view: 'group-load' })
-          : `${getZamdekanReportPath({ ...query, view: 'employee-load' })}/groups/${reportId(query.groupId)}`;
+          ? getZamdekanReportPath({ ...query, view: ZamdekanView.GroupLoad })
+          : `${getZamdekanReportPath({ ...query, view: ZamdekanView.EmployeeLoad })}/groups/${reportId(query.groupId)}`;
       return `${parent}/disciplines/${reportId(query.disciplineId)}`;
     }
-    case 'sheet':
-      return `${getZamdekanReportPath({ ...query, view: 'sheets' })}/sheets/${reportId(query.monitoringId)}`;
-    case 'statistics':
+    case ZamdekanView.Sheet:
+      return `${getZamdekanReportPath({ ...query, view: ZamdekanView.Sheets })}/sheets/${reportId(query.monitoringId)}`;
+    case ZamdekanView.Statistics:
       return `${departmentPath()}/statistics`;
-    case 'outward-statistics':
+    case ZamdekanView.OutwardStatistics:
       return `${departmentPath()}/statistics/other`;
-    case 'summary':
+    case ZamdekanView.Summary:
       return `${monitoringPath}/summary${query.departmentId === undefined ? '' : `/${reportId(query.departmentId)}`}`;
   }
 };
