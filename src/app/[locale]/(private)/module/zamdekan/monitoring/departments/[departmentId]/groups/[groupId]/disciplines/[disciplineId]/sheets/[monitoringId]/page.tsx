@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getZamdekanSheetMarks } from '@/actions/zamdekan.actions';
 import { ZamdekanTableCard } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-table-card';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { groupSheetMarks } from '@/app/[locale]/(private)/module/zamdekan/utils/group-sheet-marks';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
@@ -40,8 +41,8 @@ export default async function MonitoringPage({ params }: Props) {
     <SubLayout
       pageTitle={t('views.sheet')}
       breadcrumbs={[
-        [getZamdekanReportPath({ view: 'groups' }), t('title')],
-        [getZamdekanReportPath({ view: 'sheets', departmentId, groupId, disciplineId }), t('views.sheets')],
+        [getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')],
+        [getZamdekanReportPath({ view: ZamdekanView.Sheets, departmentId, groupId, disciplineId }), t('views.sheets')],
       ]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">

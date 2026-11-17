@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getZamdekanSheets } from '@/actions/zamdekan.actions';
 import { ZamdekanTableCard } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-table-card';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
@@ -31,8 +32,8 @@ export default async function MonitoringPage({ params }: Props) {
     <SubLayout
       pageTitle={t('views.sheets')}
       breadcrumbs={[
-        [getZamdekanReportPath({ view: 'groups' }), t('title')],
-        [getZamdekanReportPath({ view: 'group-load', departmentId, groupId }), t('navigation.group')],
+        [getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')],
+        [getZamdekanReportPath({ view: ZamdekanView.GroupLoad, departmentId, groupId }), t('navigation.group')],
       ]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
@@ -63,7 +64,7 @@ export default async function MonitoringPage({ params }: Props) {
                         <Link
                           className="underline"
                           href={getZamdekanReportPath({
-                            view: 'sheet',
+                            view: ZamdekanView.Sheet,
                             departmentId,
                             groupId: row.groupId,
                             disciplineId: row.disciplineId,

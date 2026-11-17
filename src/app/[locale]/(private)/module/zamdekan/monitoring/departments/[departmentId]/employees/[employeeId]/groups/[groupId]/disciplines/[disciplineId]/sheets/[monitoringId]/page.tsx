@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getZamdekanSheetMarks } from '@/actions/zamdekan.actions';
 import { ZamdekanEmployeeSheetMarksTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-employee-sheet-marks-table';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
@@ -37,8 +38,11 @@ export default async function MonitoringPage({ params }: Props) {
     <SubLayout
       pageTitle={t('views.sheet')}
       breadcrumbs={[
-        [getZamdekanReportPath({ view: 'groups' }), t('title')],
-        [getZamdekanReportPath({ view: 'sheets', departmentId, groupId, disciplineId, employeeId }), t('views.sheets')],
+        [getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')],
+        [
+          getZamdekanReportPath({ view: ZamdekanView.Sheets, departmentId, groupId, disciplineId, employeeId }),
+          t('views.sheets'),
+        ],
       ]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">

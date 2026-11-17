@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { getZamdekanDepartments } from '@/actions/zamdekan.actions';
 import { ZamdekanTableCard } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-table-card';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3, Paragraph } from '@/components/typography';
@@ -26,7 +27,7 @@ export default async function MonitoringPage() {
   return (
     <SubLayout
       pageTitle={t('navigation.departments')}
-      breadcrumbs={[[getZamdekanReportPath({ view: 'groups' }), t('title')]]}
+      breadcrumbs={[[getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')]]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <Heading2>{t('title')}</Heading2>
@@ -48,7 +49,10 @@ export default async function MonitoringPage() {
                       <TableCell>
                         <Link
                           className="underline"
-                          href={getZamdekanReportPath({ view: 'department-employees', departmentId: department.id })}
+                          href={getZamdekanReportPath({
+                            view: ZamdekanView.DepartmentEmployees,
+                            departmentId: department.id,
+                          })}
                         >
                           {department.name}
                         </Link>

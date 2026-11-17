@@ -1,6 +1,8 @@
 'use client';
+
 import { useTranslations } from 'next-intl';
 
+import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
@@ -44,7 +46,7 @@ export const ZamdekanEmployeeSheetsTable = ({ sheets, departmentId, employeeId }
                 <Link
                   className="underline"
                   href={getZamdekanReportPath({
-                    view: 'sheet',
+                    view: ZamdekanView.Sheet,
                     departmentId,
                     employeeId,
                     groupId: row.groupId,
