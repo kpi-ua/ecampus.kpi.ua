@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import qs from 'query-string';
+import { group } from 'radash';
 
 import { Paragraph } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
@@ -14,6 +15,7 @@ import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 import { ATTESTATION_RESULTS_PATH, AttestationReportView } from '../constants';
 import { AttestationReportGroup, AttestationReportQuery, AttestationReportStudent } from '../types';
+import { ReportExportButton } from './report-export-button';
 
 interface Props {
   groups: AttestationReportGroup[];
@@ -41,16 +43,16 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
         }))
       : view === AttestationReportView.Groups
         ? groups.map((group) => ({ ...group, fullName: '', key: String(group.id), target: { groupId: group.id } }))
-        : [...Map.groupBy(groups, (group) => (view === AttestationReportView.Courses ? group.course : 0))].map(
-            ([course, items]) => ({
-              id: course,
-              course,
+        : Object.entries(group(groups, (item) => (view === AttestationReportView.Courses ? item.course : 0))).map(
+            ([course, items = []]) => ({
+              id: Number(course),
+              course: Number(course),
               name: items.map((g) => g.name).join(', '),
               curator: [...new Set(items.map((g) => g.curator).filter(Boolean))].join(', '),
               details: [...new Set(items.map((g) => g.details))].join('; '),
               fullName: '',
               key: String(course),
-              target: view === AttestationReportView.Courses ? { course } : {},
+              target: view === AttestationReportView.Courses ? { course: Number(course) } : {},
             }),
           );
   const { sortedRows, sortHandlers } = useTableSort(rows, undefined, [
@@ -107,6 +109,7 @@ export const ReportDirectoryTable = ({ groups, students, view, query }: Props) =
                   >
                     {t('open')}
                   </Link>
+                  <ReportExportButton query={{ ...query, ...row.target }} />
                 </TableCell>
               </TableRow>
             ))}
