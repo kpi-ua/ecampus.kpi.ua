@@ -15,6 +15,38 @@ export interface ZamdekanQuery {
   departmentId?: number;
 }
 
+export interface ZamdekanGroup {
+  groupId: number;
+  course: number;
+  group: string;
+  curator: string;
+  department: string;
+}
+
+export interface ZamdekanAgreement {
+  studentId: number;
+  fullName: string;
+  status: string;
+  groupId: number;
+  group: string;
+  department: string;
+  hasAgreement: boolean;
+  acceptedAt: string | null;
+}
+
+export interface ZamdekanExamResult {
+  discipline: string;
+  controlForm: string;
+  examiner: string;
+  part: number;
+  status: number;
+  eventDate: string | null;
+  opensAt: string | null;
+  closesAt: string | null;
+  mark: number | null;
+  nationalScale: string | null;
+}
+
 export interface ZamdekanDepartment {
   id: number;
   name: string;
