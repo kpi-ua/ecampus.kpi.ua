@@ -1,12 +1,14 @@
+import queryString from 'query-string';
+
 import { saveAsBlob } from '@/lib/save-as-blob';
 
-import { serializeAttestationReportSearchParams } from '../search-params';
 import { AttestationReportQuery } from '../types';
 
-export const exportAttestationResults = async (query: AttestationReportQuery) => {
-  const response = await fetch(serializeAttestationReportSearchParams('/api/attestationresults/export', query));
+export const exportAttestationResults = async (params: AttestationReportQuery) => {
+  const query = queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true });
+  const response = await fetch(`/api/attestationresults/export?${query}`);
   if (!response.ok) {
-    throw new Error(`${response.status} Error`);
+    throw new Error(`Failed to export attestations: ${response.status}`);
   }
   await saveAsBlob(response, 'attestation-results.csv');
 };
