@@ -3,7 +3,7 @@ import { MONITORING_VIEWS, REPORT_VIEWS } from './constants';
 export type ZamdekanView = (typeof REPORT_VIEWS)[number];
 export type ZamdekanMonitoringView = (typeof MONITORING_VIEWS)[number];
 
-export type ZamdekanSection = 'groups' | 'agreements' | 'monitoring';
+export type ZamdekanSection = 'groups' | 'monitoring';
 
 export interface ZamdekanQuery {
   view: ZamdekanView;
@@ -66,6 +66,7 @@ export interface ZamdekanGroupDiscipline {
 }
 
 export interface ZamdekanMonitoringSheet {
+  course: number;
   sheetId: number;
   employeeSheetId: number;
   groupId: number;
@@ -124,6 +125,7 @@ export interface ZamdekanDepartmentStatistics {
   group: string;
   disciplineId: number;
   discipline: string;
+  teachingDepartmentId: number;
   teachingDepartment: string;
   recipientDepartment: string;
   lecturers: string | null;
@@ -152,4 +154,10 @@ export interface ZamdekanDepartmentSummary {
   yearId: number;
   semester: number;
   departments: ZamdekanDepartmentIndicators[];
+}
+
+export interface ZamdekanDepartment {
+  id: number;
+  name: string;
+  faculty: string;
 }

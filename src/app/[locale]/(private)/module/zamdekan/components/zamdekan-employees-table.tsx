@@ -1,15 +1,9 @@
 'use client';
-
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
-import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Show } from '@/components/utils/show';
-import { usePagination } from '@/hooks/use-pagination';
-import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 import { ZamdekanEmployee } from '../types';
 import { getZamdekanReportPath } from '../utils/report-path';
@@ -17,68 +11,47 @@ import { ZamdekanTableCard } from './zamdekan-table-card';
 
 interface Props {
   employees: ZamdekanEmployee[];
+  departmentId: number;
 }
-
-export const ZamdekanEmployeesTable = ({ employees }: Props) => {
+export const ZamdekanEmployeesTable = ({ employees, departmentId }: Props) => {
   const t = useTranslations('private.zamdekan');
-  const { sortedRows, sortHandlers } = useTableSort(employees, undefined, [
-    'department',
-    'fullName',
-    'status',
-    'contractEnd',
-    'sheetCount',
-  ]);
-  const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
 
-  if (employees.length === 0)
-    return <Paragraph className="py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
-
+  if (employees.length === 0) {
+    return <Paragraph>{t('empty')}</Paragraph>;
+  }
   return (
-    <div className="space-y-4">
-      <ZamdekanTableCard>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead sortHandlers={sortHandlers} sortHeader="department">
-                {t('columns.department')}
-              </TableHead>
-              <TableHead sortHandlers={sortHandlers} sortHeader="fullName">
-                {t('columns.fullName')}
-              </TableHead>
-              <TableHead sortHandlers={sortHandlers} sortHeader="status">
-                {t('columns.status')}
-              </TableHead>
-              <TableHead sortHandlers={sortHandlers} sortHeader="contractEnd">
-                {t('columns.contractEnd')}
-              </TableHead>
-              <TableHead sortHandlers={sortHandlers} sortHeader="sheetCount">
-                {t('columns.sheetCount')}
-              </TableHead>
+    <ZamdekanTableCard>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>#</TableHead>
+            <TableHead>{t('columns.department')}</TableHead>
+            <TableHead>{t('columns.fullName')}</TableHead>
+            <TableHead>{t('columns.reportStatus')}</TableHead>
+            <TableHead>{t('columns.contractEnd')}</TableHead>
+            <TableHead>{t('columns.reportSheetCount')}</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {employees.map((row, index) => (
+            <TableRow key={index}>
+              <TableCell className="whitespace-pre-wrap">{index + 1}</TableCell>
+              <TableCell className="whitespace-pre-wrap">{row.department}</TableCell>
+              <TableCell className="whitespace-pre-wrap">
+                <Link
+                  className="underline"
+                  href={getZamdekanReportPath({ view: 'employee-load', departmentId, employeeId: row.employeeId })}
+                >
+                  {row.fullName}
+                </Link>
+              </TableCell>
+              <TableCell className="whitespace-pre-wrap">{row.status}</TableCell>
+              <TableCell className="whitespace-pre-wrap">{row.contractEnd}</TableCell>
+              <TableCell className="whitespace-pre-wrap">{row.sheetCount}</TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {paginatedItems.map((row) => (
-              <TableRow key={row.employeeId}>
-                <TableCell className="whitespace-pre-wrap">{row.department}</TableCell>
-                <TableCell className="whitespace-pre-wrap">
-                  <Link
-                    href={getZamdekanReportPath({ view: 'employee-load', employeeId: row.employeeId })}
-                    className="underline"
-                  >
-                    {row.fullName}
-                  </Link>
-                </TableCell>
-                <TableCell className="whitespace-pre-wrap">{row.status ?? ''}</TableCell>
-                <TableCell className="whitespace-pre-wrap">{row.contractEnd ?? ''}</TableCell>
-                <TableCell className="whitespace-pre-wrap">{row.sheetCount}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </ZamdekanTableCard>
-      <Show when={employees.length > PAGE_SIZE_DEFAULT}>
-        <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={employees.length} />
-      </Show>
-    </div>
+          ))}
+        </TableBody>
+      </Table>
+    </ZamdekanTableCard>
   );
 };

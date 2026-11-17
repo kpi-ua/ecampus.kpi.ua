@@ -1420,16 +1420,15 @@
         "groups": "Study groups",
         "agreements": "Student agreement",
         "results": "Exam results",
-        "monitoring-groups": "By group",
+        "monitoring-groups": "Department indicators",
         "group-load": "Group disciplines",
         "sheets": "Current control sheets",
         "sheet": "Current control marks",
-        "employees": "By lecturer",
+        "employees": "Lecturer indicators",
         "employee-load": "Lecturer workload",
         "activity": "Lecturer activity dates",
         "statistics": "Department curriculum statistics",
-        "summary": "Department summary",
-        "summary-other": "Summary for other departments"
+        "summary": "Department summary indicators"
       },
       "columns": {
         "course": "Course",
@@ -1466,7 +1465,18 @@
         "semester": "Semester",
         "lecturers": "Lecturers",
         "faculty": "Faculty / institute",
-        "assessment": "Assessment"
+        "assessment": "Assessment",
+        "reportModule": "Module",
+        "reportTeachingDepartment": "Teaching dept.",
+        "reportRecipientDepartment": "Recipient dept.",
+        "reportMarkCount": "Mark count",
+        "sheetName": "Sheet name",
+        "reportSheetCount": "Sheet count",
+        "reportStatus": "Status",
+        "reportName": "Full name",
+        "facultyShort": "Faculty",
+        "curriculumRow": "Curriculum row",
+        "activityDate": "Activity date"
       },
       "values": {
         "not-admitted": "Not admitted",
@@ -1508,7 +1518,18 @@
       "group-search-placeholder": "Search by group name or curator...",
       "no-groups-found": "No groups match your search.",
       "select-department": "Select a department",
-      "select-department-hint": "Select a department to view curriculum statistics."
+      "select-department-hint": "Select a department to view curriculum statistics.",
+      "navigation": {
+        "departments": "Department / faculty navigation",
+        "groups": "Group navigation",
+        "group": "Group navigation",
+        "lecturers": "Department lecturer navigation",
+        "lecturerSheets": "Curriculum row sheets",
+        "departmentGroups": "Go to department groups",
+        "curriculumStatistics": "Go to department curriculum statistics",
+        "outwardStatistics": "Go to statistics for disciplines taught to other departments",
+        "open": "Open"
+      }
     }
   }
 }

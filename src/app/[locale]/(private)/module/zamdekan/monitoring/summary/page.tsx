@@ -1,36 +1,69 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getZamdekanDepartmentSummary } from '@/actions/zamdekan.actions';
-import { ZamdekanDepartmentSelect } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-department-select';
+import { getZamdekanDepartments } from '@/actions/zamdekan.actions';
+import { ZamdekanTableCard } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-table-card';
 import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
 import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3, Paragraph } from '@/components/typography';
-import { LocaleProps } from '@/types/locale-props';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
+import { Link } from '@/i18n/routing';
 
 const INTL_NAMESPACE = 'private.zamdekan';
-
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params }: LocaleProps) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
-  return { title: t('views.summary') };
+interface Props {
+  params: Promise<{ locale: string }>;
 }
 
-export default async function SummaryPage() {
-  const [report, t] = await Promise.all([getZamdekanDepartmentSummary(), getTranslations(INTL_NAMESPACE)]);
+export async function generateMetadata({ params }: Props) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: INTL_NAMESPACE });
+  return { title: t('navigation.departments') };
+}
+
+export default async function MonitoringPage() {
+  const t = await getTranslations(INTL_NAMESPACE);
+
+  const departments = await getZamdekanDepartments();
 
   return (
-    <SubLayout pageTitle={t('views.summary')} breadcrumbs={[[getZamdekanReportPath({ view: 'groups' }), t('title')]]}>
+    <SubLayout
+      pageTitle={t('navigation.departments')}
+      breadcrumbs={[[getZamdekanReportPath({ view: 'groups' }), t('title')]]}
+    >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <Heading2>{t('title')}</Heading2>
         <ZamdekanTabs section="monitoring" monitoringView="summary">
-          <Heading3>{t('views.summary')}</Heading3>
-          <ZamdekanDepartmentSelect departments={report.departments} view="summary" />
-          <Paragraph className="text-sm text-muted-foreground">
-            {report.departments.length ? t('select-department-hint') : t('empty')}
-          </Paragraph>
+          <Heading3>{t('navigation.departments')}</Heading3>
+          <Show when={departments.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>
+            <ZamdekanTableCard>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>{t('columns.facultyShort')}</TableHead>
+                    <TableHead>{t('navigation.departmentGroups')}</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {departments.map((department) => (
+                    <TableRow key={department.id}>
+                      <TableCell>{department.faculty}</TableCell>
+                      <TableCell>
+                        <Link
+                          className="underline"
+                          href={getZamdekanReportPath({ view: 'summary', departmentId: department.id })}
+                        >
+                          {department.name}
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </ZamdekanTableCard>
+          </Show>
         </ZamdekanTabs>
       </div>
     </SubLayout>

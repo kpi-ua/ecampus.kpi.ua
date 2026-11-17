@@ -1,7 +1,10 @@
 'use server';
 
+import qs from 'query-string';
+
 import {
   ZamdekanAgreement,
+  ZamdekanDepartment,
   ZamdekanDepartmentStatistics,
   ZamdekanDepartmentSummary,
   ZamdekanEmployee,
@@ -18,33 +21,44 @@ import { campusFetch } from '@/lib/client';
 
 export const getZamdekanGroups = async (): Promise<ZamdekanGroup[]> => {
   const response = await campusFetch<ZamdekanGroup[]>('/zamdekan/groups');
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
 export const getZamdekanAgreements = async (groupId: number): Promise<ZamdekanAgreement[]> => {
-  const response = await campusFetch<ZamdekanAgreement[]>(`/zamdekan/agreements?groupId=${groupId}`);
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  const url = qs.stringifyUrl({ url: '/zamdekan/agreements', query: { groupId } });
+  const response = await campusFetch<ZamdekanAgreement[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
 export const getZamdekanStudentResults = async (studentId: number, groupId: number): Promise<ZamdekanExamResult[]> => {
-  const response = await campusFetch<ZamdekanExamResult[]>(
-    `/zamdekan/students/${studentId}/results?groupId=${groupId}`,
-  );
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  const url = qs.stringifyUrl({ url: `/zamdekan/students/${studentId}/results`, query: { groupId } });
+  const response = await campusFetch<ZamdekanExamResult[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
-export const getZamdekanMonitoringGroups = async (): Promise<ZamdekanMonitoringGroup[]> => {
-  const response = await campusFetch<ZamdekanMonitoringGroup[]>('/zamdekan/monitoring/groups');
-  if (!response.ok) throw new Error(`${response.status} Error`);
+export const getZamdekanMonitoringGroups = async (departmentId: number): Promise<ZamdekanMonitoringGroup[]> => {
+  const url = qs.stringifyUrl({ url: '/zamdekan/monitoring/groups', query: { departmentId } });
+  const response = await campusFetch<ZamdekanMonitoringGroup[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
 export const getZamdekanGroupDisciplines = async (groupId: number): Promise<ZamdekanGroupDiscipline[]> => {
   const response = await campusFetch<ZamdekanGroupDiscipline[]>(`/zamdekan/monitoring/groups/${groupId}/disciplines`);
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
@@ -53,22 +67,31 @@ export const getZamdekanSheets = async (
   disciplineId: number,
   employeeId?: number,
 ): Promise<ZamdekanMonitoringSheet[]> => {
-  const params = new URLSearchParams({ groupId: String(groupId), disciplineId: String(disciplineId) });
-  if (employeeId !== undefined) params.set('employeeId', String(employeeId));
-  const response = await campusFetch<ZamdekanMonitoringSheet[]>(`/zamdekan/monitoring/sheets?${params}`);
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  const url = qs.stringifyUrl({
+    url: '/zamdekan/monitoring/sheets',
+    query: { groupId, disciplineId, employeeId },
+  });
+  const response = await campusFetch<ZamdekanMonitoringSheet[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
 export const getZamdekanSheetMarks = async (monitoringId: number): Promise<ZamdekanSheetMark[]> => {
   const response = await campusFetch<ZamdekanSheetMark[]>(`/zamdekan/monitoring/sheets/${monitoringId}/marks`);
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
-export const getZamdekanEmployees = async (): Promise<ZamdekanEmployee[]> => {
-  const response = await campusFetch<ZamdekanEmployee[]>('/zamdekan/monitoring/employees');
-  if (!response.ok) throw new Error(`${response.status} Error`);
+export const getZamdekanEmployees = async (departmentId: number): Promise<ZamdekanEmployee[]> => {
+  const url = qs.stringifyUrl({ url: '/zamdekan/monitoring/employees', query: { departmentId } });
+  const response = await campusFetch<ZamdekanEmployee[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
@@ -76,7 +99,9 @@ export const getZamdekanEmployeeDisciplines = async (employeeId: number): Promis
   const response = await campusFetch<ZamdekanEmployeeDiscipline[]>(
     `/zamdekan/monitoring/employees/${employeeId}/disciplines`,
   );
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
@@ -84,26 +109,47 @@ export const getZamdekanEmployeeActivity = async (employeeId: number): Promise<Z
   const response = await campusFetch<ZamdekanEmployeeActivity[]>(
     `/zamdekan/monitoring/employees/${employeeId}/activity`,
   );
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
 export const getZamdekanDepartmentStatistics = async (
   departmentId: number,
 ): Promise<ZamdekanDepartmentStatistics[]> => {
-  const response = await campusFetch<ZamdekanDepartmentStatistics[]>(
-    `/zamdekan/department-statistics?departmentId=${departmentId}`,
-  );
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  const url = qs.stringifyUrl({ url: '/zamdekan/department-statistics', query: { departmentId } });
+  const response = await campusFetch<ZamdekanDepartmentStatistics[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };
 
 export const getZamdekanDepartmentSummary = async (departmentId?: number): Promise<ZamdekanDepartmentSummary> => {
-  const path =
-    departmentId === undefined
-      ? '/zamdekan/department-summary'
-      : `/zamdekan/department-summary?departmentId=${departmentId}`;
-  const response = await campusFetch<ZamdekanDepartmentSummary>(path);
-  if (!response.ok) throw new Error(`${response.status} Error`);
+  const url = qs.stringifyUrl({ url: '/zamdekan/department-summary', query: { departmentId } });
+  const response = await campusFetch<ZamdekanDepartmentSummary>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanDepartments = async (): Promise<ZamdekanDepartment[]> => {
+  const response = await campusFetch<ZamdekanDepartment[]>('/zamdekan/monitoring/departments');
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getZamdekanOtherDepartmentStatistics = async (
+  departmentId: number,
+): Promise<ZamdekanDepartmentStatistics[]> => {
+  const url = qs.stringifyUrl({ url: '/zamdekan/department-statistics/other', query: { departmentId } });
+  const response = await campusFetch<ZamdekanDepartmentStatistics[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
   return response.json();
 };

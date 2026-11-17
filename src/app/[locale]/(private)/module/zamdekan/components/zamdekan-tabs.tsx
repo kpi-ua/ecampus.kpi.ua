@@ -18,10 +18,9 @@ interface Props {
 
 export const ZamdekanTabs = ({ section, monitoringView = 'monitoring-groups', children }: Props) => {
   const t = useTranslations('private.zamdekan');
-  const activeSection = section === 'agreements' ? 'groups' : section;
 
   return (
-    <Tabs value={activeSection} activationMode="manual">
+    <Tabs value={section} activationMode="manual">
       <TabsList aria-label={t('title')}>
         <TabsTrigger value="groups" asChild>
           <Link href={getZamdekanReportPath({ view: 'groups' })}>{t('sections.groups')}</Link>
@@ -30,8 +29,8 @@ export const ZamdekanTabs = ({ section, monitoringView = 'monitoring-groups', ch
           <Link href={getZamdekanReportPath({ view: 'monitoring-groups' })}>{t('sections.monitoring')}</Link>
         </TabsTrigger>
       </TabsList>
-      <TabsContent value={activeSection} className="mt-8">
-        {activeSection === 'monitoring' ? (
+      <TabsContent value={section} className="mt-8">
+        {section === 'monitoring' ? (
           <Tabs value={monitoringView} activationMode="manual">
             <div className="overflow-x-auto">
               <TabsList aria-label={t('sections.monitoring')}>

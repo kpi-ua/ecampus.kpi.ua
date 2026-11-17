@@ -1,15 +1,12 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { Search } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 import { getZamdekanAgreements } from '@/actions/zamdekan.actions';
 import { Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { TableExpandButton } from '@/components/ui/table-expand-button';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
@@ -27,28 +24,12 @@ interface Props {
 
 export const ZamdekanGroupsTable = ({ groups }: Props) => {
   const t = useTranslations('private.zamdekan');
-  const [search, setSearch] = useState('');
   const [expandedGroupId, setExpandedGroupId] = useState<number | null>(null);
   const [studentsByGroup, setStudentsByGroup] = useState<Record<number, ZamdekanAgreement[]>>({});
   const studentsMutation = useMutation({ mutationFn: getZamdekanAgreements });
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const { errorToast } = useServerErrorToast();
-  const filteredGroups = useMemo(() => {
-    const query = search.trim().toLocaleLowerCase();
-    if (!query) {
-      return groups;
-    }
-    return groups.filter(
-      (group) => group.group.toLocaleLowerCase().includes(query) || group.curator.toLocaleLowerCase().includes(query),
-    );
-  }, [groups, search]);
-  const { sortedRows, sortHandlers } = useTableSort(filteredGroups, undefined, [
-    'course',
-    'group',
-    'curator',
-    'department',
-  ]);
+
+  const { sortedRows, sortHandlers } = useTableSort(groups, undefined, ['course', 'group', 'curator', 'department']);
 
   const toggleGroup = async (groupId: number) => {
     if (expandedGroupId === groupId) {
@@ -76,18 +57,6 @@ export const ZamdekanGroupsTable = ({ groups }: Props) => {
 
   return (
     <div className="space-y-4">
-      <Input
-        icon={<Search />}
-        size="small"
-        value={search}
-        onChange={(event) => {
-          setSearch(event.target.value);
-          const params = new URLSearchParams(searchParams.toString());
-          params.set('page', '1');
-          router.replace(`?${params.toString()}`, { scroll: false });
-        }}
-        placeholder={t('group-search-placeholder')}
-      />
       <ZamdekanTableCard>
         <Table>
           <TableHeader>
@@ -183,9 +152,6 @@ export const ZamdekanGroupsTable = ({ groups }: Props) => {
           </TableBody>
         </Table>
       </ZamdekanTableCard>
-      {filteredGroups.length === 0 && (
-        <Paragraph className="py-12 text-center text-sm text-muted-foreground">{t('no-groups-found')}</Paragraph>
-      )}
     </div>
   );
 };
