@@ -46,6 +46,10 @@ export interface PlanCreateRequest {
   plannedHours: number;
 }
 
+export interface PlanCreateBatchRequest {
+  loads: PlanCreateRequest[];
+}
+
 export interface PlanResponsibleTeacher {
   employeeId: number;
   name: string;
