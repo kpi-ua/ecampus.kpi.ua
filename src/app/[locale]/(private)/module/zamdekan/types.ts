@@ -92,6 +92,33 @@ export interface ZamdekanSheetMark {
   mark: number | null;
 }
 
+export interface ZamdekanEmployee {
+  employeeId: number;
+  fullName: string;
+  department: string;
+  status: string | null;
+  contractEnd: string | null;
+  sheetCount: number;
+}
+
+export interface ZamdekanEmployeeDiscipline {
+  employeeId: number;
+  employee: string;
+  groupId: number;
+  group: string;
+  disciplineId: number;
+  discipline: string;
+  teachingTypes: string | null;
+  sheetCount: number;
+}
+
+export interface ZamdekanEmployeeActivity {
+  employeeId: number;
+  employee: string;
+  department: string;
+  date: string;
+}
+
 export interface ZamdekanDepartment {
   id: number;
   name: string;
