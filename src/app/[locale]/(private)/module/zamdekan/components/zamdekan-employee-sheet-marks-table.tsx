@@ -22,7 +22,6 @@ export const ZamdekanEmployeeSheetMarksTable = ({ marks }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>#</TableHead>
             <TableHead>{t('columns.student')}</TableHead>
             {assessments.map((assessment) => (
               <TableHead key={assessment.key}>{assessment.date ? formatDate(assessment.date) : ''}</TableHead>
@@ -30,9 +29,8 @@ export const ZamdekanEmployeeSheetMarksTable = ({ marks }: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {students.map((student, index) => (
+          {students.map((student) => (
             <TableRow key={student.studentId}>
-              <TableCell>{index + 1}</TableCell>
               <TableCell>{student.student}</TableCell>
               {assessments.map((assessment) => (
                 <TableCell key={assessment.key}>{student.marks[assessment.key] ?? ''}</TableCell>

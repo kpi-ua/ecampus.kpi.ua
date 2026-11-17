@@ -26,7 +26,6 @@ export const ZamdekanEmployeesTable = ({ employees, departmentId }: Props) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>#</TableHead>
             <TableHead>{t('columns.department')}</TableHead>
             <TableHead>{t('columns.fullName')}</TableHead>
             <TableHead>{t('columns.reportStatus')}</TableHead>
@@ -37,7 +36,6 @@ export const ZamdekanEmployeesTable = ({ employees, departmentId }: Props) => {
         <TableBody>
           {employees.map((row, index) => (
             <TableRow key={index}>
-              <TableCell className="whitespace-pre-wrap">{index + 1}</TableCell>
               <TableCell className="whitespace-pre-wrap">{row.department}</TableCell>
               <TableCell className="whitespace-pre-wrap">
                 <Link
