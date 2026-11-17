@@ -1,13 +1,14 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getAttestationResults } from '@/actions/attestation.actions';
+import { getUserDetails } from '@/actions/auth.actions';
 import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
 import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import { Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Link } from '@/i18n/routing';
+import { Link, redirect } from '@/i18n/routing';
 import { LocaleProps } from '@/types/locale-props';
 import { Attestation } from '@/types/models/attestation-results/attestation-result';
 
@@ -25,7 +26,12 @@ export async function generateMetadata({ params }: LocaleProps) {
 const SEMESTERS = [1, 2];
 const ATTESTATION_NUMBERS = [1, 2];
 
-export default async function AttestationResultsPage() {
+export default async function AttestationResultsPage({ params }: LocaleProps) {
+  const user = await getUserDetails();
+  if (user && !user.studentProfile) {
+    const { locale } = await params;
+    redirect({ href: '/module/attestationresults/reports/groups', locale });
+  }
   const results = await getAttestationResults();
 
   const t = await getTranslations(INTL_NAMESPACE);
