@@ -12,7 +12,7 @@ export default async function AttestationResultsLayout({ children }: Props) {
   const t = await getTranslations('private.attestation-results');
   return (
     <SubLayout pageTitle={t('title')}>
-      <div className="col-span-8">
+      <div className="col-span-full min-w-0">
         <Heading2>{t('title')}</Heading2>
         <Description>{t('subtitle')}</Description>
         {children}
