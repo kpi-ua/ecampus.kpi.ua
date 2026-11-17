@@ -3,7 +3,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import qs from 'query-string';
 
 import { Button } from '@/components/ui/button';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
@@ -20,7 +19,7 @@ export const ReportExportButton = ({ query }: Props) => {
   const { errorToast } = useServerErrorToast();
   const download = useMutation({
     mutationFn: async () => {
-      const response = await fetch(qs.stringifyUrl({ url: '/api/attestationresults/export', query: { ...query } }));
+      const response = await fetch(serializeAttestationReportSearchParams('/api/attestationresults/export', query));
       if (!response.ok) {
         throw new Error(`${response.status} Error`);
       }
@@ -35,3 +34,4 @@ export const ReportExportButton = ({ query }: Props) => {
     </Button>
   );
 };
+import { serializeAttestationReportSearchParams } from '../search-params';

@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import qs from 'query-string';
 
 import { AttestationReport } from '@/app/[locale]/(private)/module/attestationresults/types';
 import { getAttestationReportTables } from '@/app/[locale]/(private)/module/attestationresults/utils/report-tables';
@@ -9,8 +8,10 @@ import { createCsvResponse } from '@/lib/csv-response';
 import { formatDate } from '@/lib/utils';
 
 export async function GET(request: Request) {
-  const query = qs.parse(new URL(request.url).search);
-  const response = await campusFetch<AttestationReport>(qs.stringifyUrl({ url: '/attestation-results/report', query }));
+  const query = loadAttestationReportSearchParams(new URL(request.url).searchParams);
+  const response = await campusFetch<AttestationReport>(
+    serializeAttestationReportSearchParams('/attestation-results/report', query),
+  );
   if (!response.ok) {
     return new Response(null, { status: response.status });
   }
@@ -41,3 +42,7 @@ export async function GET(request: Request) {
     `attestation-results-${query.yearId}-${query.semester}-${query.attestationId}-${formatDate(new Date())}.csv`,
   );
 }
+import {
+  loadAttestationReportSearchParams,
+  serializeAttestationReportSearchParams,
+} from '@/app/[locale]/(private)/module/attestationresults/search-params';

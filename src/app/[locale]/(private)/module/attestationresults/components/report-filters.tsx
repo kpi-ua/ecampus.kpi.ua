@@ -1,11 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import qs from 'query-string';
+import { useQueryStates } from 'nuqs';
 
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { usePathname, useRouter } from '@/i18n/routing';
 
 import { AttestationReportOptions, AttestationReportQuery } from '../types';
 
@@ -16,9 +15,14 @@ interface Props {
 
 export const ReportFilters = ({ options, query }: Props) => {
   const t = useTranslations('private.attestation-reports');
-  const router = useRouter();
-  const pathname = usePathname();
-  const facultyId = options.departments.find((d) => d.id === query.departmentId)?.facultyId;
+  const [filters, setFilters] = useQueryStates(attestationReportSearchParams, { shallow: false, history: 'push' });
+  const selectedQuery = {
+    departmentId: filters.departmentId ?? query.departmentId,
+    yearId: filters.yearId ?? query.yearId,
+    semester: filters.semester,
+    attestationId: filters.attestationId ?? query.attestationId,
+  };
+  const facultyId = options.departments.find((d) => d.id === selectedQuery.departmentId)?.facultyId;
   const faculties = [
     ...new Map(options.departments.map((d) => [d.facultyId, { id: d.facultyId, name: d.facultyName }])).values(),
   ];
@@ -26,29 +30,27 @@ export const ReportFilters = ({ options, query }: Props) => {
     { key: 'facultyId', value: facultyId, items: faculties },
     {
       key: 'departmentId',
-      value: query.departmentId,
+      value: selectedQuery.departmentId,
       items: options.departments.filter((d) => d.facultyId === facultyId),
     },
-    { key: 'yearId', value: query.yearId, items: options.years },
+    { key: 'yearId', value: selectedQuery.yearId, items: options.years },
     {
       key: 'semester',
-      value: query.semester,
+      value: selectedQuery.semester,
       items: [
         { id: 1, name: t('first-semester') },
         { id: 2, name: t('second-semester') },
       ],
     },
-    { key: 'attestationId', value: query.attestationId, items: options.attestations },
-  ];
-  const update = (key: string, value: string) => {
-    const next = { ...query, groupId: undefined, course: undefined, studentId: undefined };
+    { key: 'attestationId', value: selectedQuery.attestationId, items: options.attestations },
+  ] as const;
+  const update = (key: (typeof fields)[number]['key'], value: string) => {
     const selected = Number(value);
-    if (key === 'facultyId') {
-      next.departmentId = options.departments.find((d) => d.facultyId === selected)?.id ?? query.departmentId;
-    } else {
-      Object.assign(next, { [key]: selected });
-    }
-    router.push(qs.stringifyUrl({ url: pathname, query: { ...next } }));
+    const next =
+      key === 'facultyId'
+        ? { departmentId: options.departments.find((d) => d.facultyId === selected)?.id ?? selectedQuery.departmentId }
+        : { [key]: selected };
+    void setFilters({ ...next, groupId: null, course: null, studentId: null });
   };
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -72,3 +74,4 @@ export const ReportFilters = ({ options, query }: Props) => {
     </div>
   );
 };
+import { attestationReportSearchParams } from '../search-params';
