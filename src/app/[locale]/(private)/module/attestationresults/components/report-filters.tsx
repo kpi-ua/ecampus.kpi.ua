@@ -23,16 +23,14 @@ export const ReportFilters = ({ options, query }: Props) => {
     semester: filters.semester,
     attestationId: filters.attestationId ?? query.attestationId,
   };
-  const facultyId = options.departments.find((d) => d.id === selectedQuery.departmentId)?.facultyId;
-  const faculties = [
-    ...new Map(options.departments.map((d) => [d.facultyId, { id: d.facultyId, name: d.facultyName }])).values(),
-  ];
+  const facultyId = options.departments.find((d) => d.id === selectedQuery.departmentId)?.faculty.id;
+  const faculties = [...new Map(options.departments.map((d) => [d.faculty.id, d.faculty])).values()];
   const fields = [
     { key: 'facultyId', value: facultyId, items: faculties },
     {
       key: 'departmentId',
       value: selectedQuery.departmentId,
-      items: options.departments.filter((d) => d.facultyId === facultyId),
+      items: options.departments.filter((d) => d.faculty.id === facultyId),
     },
     { key: 'yearId', value: selectedQuery.yearId, items: options.years },
     {
@@ -49,7 +47,7 @@ export const ReportFilters = ({ options, query }: Props) => {
     const selected = Number(value);
     const next =
       key === 'facultyId'
-        ? { departmentId: options.departments.find((d) => d.facultyId === selected)?.id ?? selectedQuery.departmentId }
+        ? { departmentId: options.departments.find((d) => d.faculty.id === selected)?.id ?? selectedQuery.departmentId }
         : { [key]: selected };
     void setFilters({ ...next, groupId: null, course: null, studentId: null });
   };
