@@ -1,8 +1,7 @@
 import { CuratorOption } from '@/app/[locale]/(private)/module/curatorlecturer/types';
 
 export interface AttestationDepartment extends CuratorOption {
-  facultyId: number;
-  facultyName: string;
+  faculty: { id: number; name: string };
 }
 
 export interface AttestationReportOptions {
@@ -39,8 +38,7 @@ export interface AttestationReportStudent {
 export interface AttestationReportResult {
   groupId: number;
   studentId: number;
-  disciplineId: number;
-  discipline: string;
+  discipline: { id: number; name: string };
   employeeId: number;
   lecturer: string;
   result: string | null;

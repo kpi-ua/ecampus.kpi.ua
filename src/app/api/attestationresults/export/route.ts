@@ -28,13 +28,18 @@ export async function GET(request: Request) {
     [ATTESTATION_RESULT.Missing]: t('result.ov'),
   };
   const rows = getAttestationReportTables(report).flatMap(({ group, students, columns, cells }) => [
-    [t('student'), t('group'), t('course'), ...columns.map((column) => `${column.lecturer}\n${column.discipline}`)],
+    [
+      t('student'),
+      t('group'),
+      t('course'),
+      ...columns.map((column) => `${column.lecturer}\n${column.discipline.name}`),
+    ],
     ...students.map((student) => [
       student.fullName,
       group.name,
       group.course,
       ...columns.map((column) => {
-        const result = cells.get(`${student.studentId}-${column.disciplineId}-${column.employeeId}`);
+        const result = cells.get(`${student.studentId}-${column.discipline.id}-${column.employeeId}`);
         return result ? (labels[result] ?? result) : t('missing');
       }),
     ]),
