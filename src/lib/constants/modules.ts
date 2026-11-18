@@ -3,7 +3,8 @@ import { Module } from '@/types/module';
 
 export const MODULES: Module[] = [
   { name: 'studysheet', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
-  { name: 'attestationresults', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  { name: 'student-attestation', isExternal: false },
+  { name: 'attestationresults', isExternal: true },
   { name: 'vedomoststud', isExternal: false },
   { name: 'curatorstudent', isExternal: false },
   { name: 'curatorlecturer', isExternal: false },
