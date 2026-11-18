@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getAttestationResults } from '@/actions/attestation.actions';
-import { AttestationBadge } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-badge';
-import { AttestationHeader } from '@/app/[locale]/(private)/module/attestationresults/components/attestation-header';
+import { AttestationBadge } from '@/app/[locale]/(private)/module/student-attestation/components/attestation-badge';
+import { AttestationHeader } from '@/app/[locale]/(private)/module/student-attestation/components/attestation-header';
 import { LecturerItemCell } from '@/app/[locale]/(private)/module/studysheet/[id]/components/lecturer-item-cell';
 import { Paragraph } from '@/components/typography';
 import { Card } from '@/components/ui/card';
@@ -11,7 +11,7 @@ import { Link } from '@/i18n/routing';
 import { LocaleProps } from '@/types/locale-props';
 import { Attestation } from '@/types/models/attestation-results/attestation-result';
 
-const INTL_NAMESPACE = 'private.attestation-results';
+const INTL_NAMESPACE = 'private.student-attestation';
 
 export async function generateMetadata({ params }: LocaleProps) {
   const { locale } = await params;
