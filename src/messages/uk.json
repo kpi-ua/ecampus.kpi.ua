@@ -56,6 +56,7 @@
       "vedomost": "Сесія",
       "vidpovidalniy": "Відповідальний",
       "webometrics": "Переклад метаданих ЕІР",
+      "student-attestation": "Результати календарного контролю",
       "attestationresults": "Результати календарного контролю",
       "ekanat": "Деканат",
       "editRNP": "Редагування РНП Руслан",
@@ -849,7 +850,7 @@
         "note": "Примітка"
       }
     },
-    "attestation-results": {
+    "student-attestation": {
       "empty": {
         "title": "Результати відсутні",
         "description": "За звітний період результати календарного контролю відсутні"

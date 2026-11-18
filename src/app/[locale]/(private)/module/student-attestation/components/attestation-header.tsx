@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { HeaderLabel } from '@/app/[locale]/(private)/module/attestationresults/components/header-label';
+import { HeaderLabel } from '@/app/[locale]/(private)/module/student-attestation/components/header-label';
 import { TableHead } from '@/components/ui/table';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export async function AttestationHeader({ semesterNumber, attestationNumber }: Props) {
-  const t = await getTranslations('private.attestation-results');
+  const t = await getTranslations('private.student-attestation');
 
   return (
     <TableHead className="w-[130px] text-center">

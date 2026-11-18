@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default async function AttestationResultsLayout({ children }: Props) {
-  const t = await getTranslations('private.attestation-results');
+  const t = await getTranslations('private.student-attestation');
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-8">
