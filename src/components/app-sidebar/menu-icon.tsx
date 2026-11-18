@@ -62,6 +62,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['vedomost', GraduationCap],
   ['vidpovidalniy', User],
   ['webometrics', Binary],
+  ['student-attestation', Notepad],
   ['attestationresults', Notepad],
   ['ekanat', Student],
   ['editRNP', NotePencil],
