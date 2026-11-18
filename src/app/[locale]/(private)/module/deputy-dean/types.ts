@@ -1,9 +1,9 @@
-import { ZamdekanExamStatus, ZamdekanMarkStatus, ZamdekanView } from './constants';
+import { DeputyDeanExamStatus, DeputyDeanMarkStatus, DeputyDeanView } from './constants';
 
-export type ZamdekanSection = 'groups' | 'monitoring';
+export type DeputyDeanSection = 'groups' | 'monitoring';
 
-export interface ZamdekanQuery {
-  view: ZamdekanView;
+export interface DeputyDeanQuery {
+  view: DeputyDeanView;
   groupId?: number;
   studentId?: number;
   employeeId?: number;
@@ -12,7 +12,7 @@ export interface ZamdekanQuery {
   departmentId?: number;
 }
 
-export interface ZamdekanGroup {
+export interface DeputyDeanGroup {
   groupId: number;
   course: number;
   group: string;
@@ -20,7 +20,7 @@ export interface ZamdekanGroup {
   department: string;
 }
 
-export interface ZamdekanAgreement {
+export interface DeputyDeanAgreement {
   studentId: number;
   fullName: string;
   status: string;
@@ -31,21 +31,21 @@ export interface ZamdekanAgreement {
   acceptedAt: string | null;
 }
 
-export interface ZamdekanExamResult {
+export interface DeputyDeanExamResult {
   discipline: string;
   controlForm: string;
   examiner: string;
   part: number;
-  status: ZamdekanExamStatus;
+  status: DeputyDeanExamStatus;
   eventDate: string | null;
   opensAt: string | null;
   closesAt: string | null;
   mark: number | null;
-  markStatus: ZamdekanMarkStatus;
+  markStatus: DeputyDeanMarkStatus;
   nationalScale: string | null;
 }
 
-export interface ZamdekanDepartment {
+export interface DeputyDeanDepartment {
   id: number;
   name: string;
   faculty: string;

@@ -11,16 +11,16 @@ import { useTableSort } from '@/hooks/use-table-sort';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 
-import { ZamdekanExamStatus, ZamdekanMarkStatus } from '../constants';
-import { ZamdekanExamResult } from '../types';
-import { ZamdekanTableCard } from './zamdekan-table-card';
+import { DeputyDeanExamStatus, DeputyDeanMarkStatus } from '../constants';
+import { DeputyDeanExamResult } from '../types';
+import { DeputyDeanTableCard } from './deputy-dean-table-card';
 
 interface Props {
-  results: ZamdekanExamResult[];
+  results: DeputyDeanExamResult[];
 }
 
-export const ZamdekanResultsTable = ({ results }: Props) => {
-  const t = useTranslations('private.zamdekan');
+export const DeputyDeanResultsTable = ({ results }: Props) => {
+  const t = useTranslations('private.deputy-dean');
   const { sortedRows, sortHandlers } = useTableSort(results, undefined, [
     'part',
     'eventDate',
@@ -35,15 +35,15 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
   ]);
   const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
   const markLabels = {
-    [ZamdekanMarkStatus.Missing]: '',
-    [ZamdekanMarkStatus.NotAdmitted]: t('values.not-admitted'),
-    [ZamdekanMarkStatus.NotGraded]: t('values.not-graded'),
+    [DeputyDeanMarkStatus.Missing]: '',
+    [DeputyDeanMarkStatus.NotAdmitted]: t('values.not-admitted'),
+    [DeputyDeanMarkStatus.NotGraded]: t('values.not-graded'),
   };
   const statusLabels = {
-    [ZamdekanExamStatus.Submitted]: t('values.submitted'),
-    [ZamdekanExamStatus.Closed]: t('values.closed'),
-    [ZamdekanExamStatus.Pending]: t('values.pending'),
-    [ZamdekanExamStatus.Editing]: t('values.editing'),
+    [DeputyDeanExamStatus.Submitted]: t('values.submitted'),
+    [DeputyDeanExamStatus.Closed]: t('values.closed'),
+    [DeputyDeanExamStatus.Pending]: t('values.pending'),
+    [DeputyDeanExamStatus.Editing]: t('values.editing'),
   };
   if (results.length === 0) {
     return <Paragraph className="py-12 text-center text-sm text-muted-foreground">{t('empty')}</Paragraph>;
@@ -51,7 +51,7 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
 
   return (
     <div className="space-y-4">
-      <ZamdekanTableCard>
+      <DeputyDeanTableCard>
         <Table>
           <TableHeader>
             <TableRow>
@@ -98,7 +98,7 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
                 <TableCell className="whitespace-pre-wrap">{row.controlForm}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.examiner}</TableCell>
                 <TableCell className="whitespace-pre-wrap">
-                  {row.markStatus === ZamdekanMarkStatus.Graded ? row.mark : markLabels[row.markStatus]}
+                  {row.markStatus === DeputyDeanMarkStatus.Graded ? row.mark : markLabels[row.markStatus]}
                 </TableCell>
                 <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? ''}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{statusLabels[row.status]}</TableCell>
@@ -108,7 +108,7 @@ export const ZamdekanResultsTable = ({ results }: Props) => {
             ))}
           </TableBody>
         </Table>
-      </ZamdekanTableCard>
+      </DeputyDeanTableCard>
       <Show when={results.length > PAGE_SIZE_DEFAULT}>
         <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={results.length} />
       </Show>

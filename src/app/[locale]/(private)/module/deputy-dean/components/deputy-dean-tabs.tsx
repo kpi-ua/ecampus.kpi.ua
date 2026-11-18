@@ -1,29 +1,29 @@
 import { getTranslations } from 'next-intl/server';
 import { ReactNode } from 'react';
 
-import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
+import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Link } from '@/i18n/routing';
 
-import { ZamdekanSection } from '../types';
-import { getZamdekanReportPath } from '../utils/report-path';
+import { DeputyDeanSection } from '../types';
+import { getDeputyDeanReportPath } from '../utils/report-path';
 
 interface Props {
-  section: ZamdekanSection;
+  section: DeputyDeanSection;
   children: ReactNode;
 }
 
-export const ZamdekanTabs = async ({ section, children }: Props) => {
-  const t = await getTranslations('private.zamdekan');
+export const DeputyDeanTabs = async ({ section, children }: Props) => {
+  const t = await getTranslations('private.deputy-dean');
 
   return (
     <Tabs value={section} activationMode="manual">
       <TabsList aria-label={t('title')}>
         <TabsTrigger value="groups" asChild>
-          <Link href={getZamdekanReportPath({ view: ZamdekanView.Groups })}>{t('sections.groups')}</Link>
+          <Link href={getDeputyDeanReportPath({ view: DeputyDeanView.Groups })}>{t('sections.groups')}</Link>
         </TabsTrigger>
         <TabsTrigger value="monitoring" asChild>
-          <Link href={getZamdekanReportPath({ view: ZamdekanView.MonitoringGroups })}>{t('sections.monitoring')}</Link>
+          <Link href={getDeputyDeanReportPath({ view: DeputyDeanView.MonitoringGroups })}>{t('sections.monitoring')}</Link>
         </TabsTrigger>
       </TabsList>
       <TabsContent value={section} className="mt-8">

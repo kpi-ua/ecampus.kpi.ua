@@ -4,8 +4,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 
-import { getZamdekanAgreements } from '@/actions/zamdekan.actions';
-import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
+import { getDeputyDeanAgreements } from '@/actions/deputy-dean.actions';
+import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
 import { Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -15,19 +15,19 @@ import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
 import { formatDate } from '@/lib/utils';
 
-import { ZamdekanAgreement, ZamdekanGroup } from '../types';
-import { getZamdekanReportPath } from '../utils/report-path';
-import { ZamdekanTableCard } from './zamdekan-table-card';
+import { DeputyDeanAgreement, DeputyDeanGroup } from '../types';
+import { getDeputyDeanReportPath } from '../utils/report-path';
+import { DeputyDeanTableCard } from './deputy-dean-table-card';
 
 interface Props {
-  groups: ZamdekanGroup[];
+  groups: DeputyDeanGroup[];
 }
 
-export const ZamdekanGroupsTable = ({ groups }: Props) => {
-  const t = useTranslations('private.zamdekan');
+export const DeputyDeanGroupsTable = ({ groups }: Props) => {
+  const t = useTranslations('private.deputy-dean');
   const [expandedGroupId, setExpandedGroupId] = useState<number | null>(null);
-  const [studentsByGroup, setStudentsByGroup] = useState<Record<number, ZamdekanAgreement[]>>({});
-  const studentsMutation = useMutation({ mutationFn: getZamdekanAgreements });
+  const [studentsByGroup, setStudentsByGroup] = useState<Record<number, DeputyDeanAgreement[]>>({});
+  const studentsMutation = useMutation({ mutationFn: getDeputyDeanAgreements });
   const { errorToast } = useServerErrorToast();
 
   const { sortedRows, sortHandlers } = useTableSort(groups, undefined, ['course', 'group', 'curator', 'department']);
@@ -58,7 +58,7 @@ export const ZamdekanGroupsTable = ({ groups }: Props) => {
 
   return (
     <div className="space-y-4">
-      <ZamdekanTableCard>
+      <DeputyDeanTableCard>
         <Table>
           <TableHeader>
             <TableRow>
@@ -114,8 +114,8 @@ export const ZamdekanGroupsTable = ({ groups }: Props) => {
                                 <TableRow key={student.studentId}>
                                   <TableCell className="whitespace-pre-wrap">
                                     <Link
-                                      href={getZamdekanReportPath({
-                                        view: ZamdekanView.Results,
+                                      href={getDeputyDeanReportPath({
+                                        view: DeputyDeanView.Results,
                                         groupId: student.groupId,
                                         studentId: student.studentId,
                                       })}
@@ -152,7 +152,7 @@ export const ZamdekanGroupsTable = ({ groups }: Props) => {
             ))}
           </TableBody>
         </Table>
-      </ZamdekanTableCard>
+      </DeputyDeanTableCard>
     </div>
   );
 };

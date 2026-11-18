@@ -1,15 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getZamdekanStudentResults } from '@/actions/zamdekan.actions';
-import { ZamdekanResultsTable } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-results-table';
-import { ZamdekanTabs } from '@/app/[locale]/(private)/module/zamdekan/components/zamdekan-tabs';
-import { ZamdekanView } from '@/app/[locale]/(private)/module/zamdekan/constants';
-import { parseReportId } from '@/app/[locale]/(private)/module/zamdekan/utils/parse-report-id';
-import { getZamdekanReportPath } from '@/app/[locale]/(private)/module/zamdekan/utils/report-path';
+import { getDeputyDeanStudentResults } from '@/actions/deputy-dean.actions';
+import { DeputyDeanResultsTable } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-results-table';
+import { DeputyDeanTabs } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-tabs';
+import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
+import { parseReportId } from '@/app/[locale]/(private)/module/deputy-dean/utils/parse-report-id';
+import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
 
-const INTL_NAMESPACE = 'private.zamdekan';
+const INTL_NAMESPACE = 'private.deputy-dean';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,21 +28,21 @@ export default async function StudentResultsPage({ params }: Props) {
   const groupId = parseReportId(groupIdParam);
   const studentId = parseReportId(studentIdParam);
   const [items, t] = await Promise.all([
-    getZamdekanStudentResults(studentId, groupId),
+    getDeputyDeanStudentResults(studentId, groupId),
     getTranslations(INTL_NAMESPACE),
   ]);
 
   return (
     <SubLayout
       pageTitle={t('views.results')}
-      breadcrumbs={[[getZamdekanReportPath({ view: ZamdekanView.Groups }), t('title')]]}
+      breadcrumbs={[[getDeputyDeanReportPath({ view: DeputyDeanView.Groups }), t('title')]]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
         <Heading2>{t('title')}</Heading2>
-        <ZamdekanTabs section="groups">
+        <DeputyDeanTabs section="groups">
           <Heading3>{t('views.results')}</Heading3>
-          <ZamdekanResultsTable key={studentId} results={items} />
-        </ZamdekanTabs>
+          <DeputyDeanResultsTable key={studentId} results={items} />
+        </DeputyDeanTabs>
       </div>
     </SubLayout>
   );
