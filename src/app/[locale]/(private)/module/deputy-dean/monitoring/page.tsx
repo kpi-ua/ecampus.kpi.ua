@@ -70,7 +70,10 @@ export default async function MonitoringPage() {
                       <TableCell>
                         <Link
                           className="underline"
-                          href={getDeputyDeanReportPath({ view: DeputyDeanView.Statistics, departmentId: department.id })}
+                          href={getDeputyDeanReportPath({
+                            view: DeputyDeanView.Statistics,
+                            departmentId: department.id,
+                          })}
                         >
                           {t('navigation.open')}
                         </Link>

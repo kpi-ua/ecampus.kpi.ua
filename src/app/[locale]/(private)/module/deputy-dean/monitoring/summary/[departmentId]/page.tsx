@@ -4,7 +4,10 @@ import { getDeputyDeanDepartmentSummary } from '@/actions/deputy-dean.actions';
 import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
 import { DeputyDeanTabs } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-tabs';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
-import { DeputyDeanCourseIndicators, DeputyDeanDepartmentSummary } from '@/app/[locale]/(private)/module/deputy-dean/types';
+import {
+  DeputyDeanCourseIndicators,
+  DeputyDeanDepartmentSummary,
+} from '@/app/[locale]/(private)/module/deputy-dean/types';
 import { parseReportId } from '@/app/[locale]/(private)/module/deputy-dean/utils/parse-report-id';
 import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
