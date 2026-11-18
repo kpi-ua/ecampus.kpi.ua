@@ -7,7 +7,7 @@ interface Props {
 }
 
 export async function AttestationBadge({ result }: Props) {
-  const t = await getTranslations('private.attestation-results');
+  const t = await getTranslations('private.student-attestation');
 
   const status = result ? t('success-attestation') : t('fail-attestation');
   return (
