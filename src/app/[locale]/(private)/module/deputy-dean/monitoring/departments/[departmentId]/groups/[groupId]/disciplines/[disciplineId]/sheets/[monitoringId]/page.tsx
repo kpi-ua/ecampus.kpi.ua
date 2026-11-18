@@ -42,7 +42,10 @@ export default async function MonitoringPage({ params }: Props) {
       pageTitle={t('views.sheet')}
       breadcrumbs={[
         [getDeputyDeanReportPath({ view: DeputyDeanView.Groups }), t('title')],
-        [getDeputyDeanReportPath({ view: DeputyDeanView.Sheets, departmentId, groupId, disciplineId }), t('views.sheets')],
+        [
+          getDeputyDeanReportPath({ view: DeputyDeanView.Sheets, departmentId, groupId, disciplineId }),
+          t('views.sheets'),
+        ],
       ]}
     >
       <div className="col-span-full flex w-full min-w-0 flex-col gap-6 pb-8">
