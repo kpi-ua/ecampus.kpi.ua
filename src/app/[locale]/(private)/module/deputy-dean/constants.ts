@@ -1,4 +1,4 @@
-export enum ZamdekanView {
+export enum DeputyDeanView {
   Groups = 'groups',
   Results = 'results',
   MonitoringGroups = 'monitoring-groups',
@@ -13,16 +13,16 @@ export enum ZamdekanView {
   OutwardStatistics = 'outward-statistics',
   Summary = 'summary',
 }
-export const ZAMDEKAN_PATH = '/module/zamdekan';
+export const DEPUTY_DEAN_PATH = '/module/deputy-dean';
 
-export enum ZamdekanExamStatus {
+export enum DeputyDeanExamStatus {
   Editing = 'Editing',
   Submitted = 'Submitted',
   Closed = 'Closed',
   Pending = 'Pending',
 }
 
-export enum ZamdekanMarkStatus {
+export enum DeputyDeanMarkStatus {
   Missing = 'Missing',
   Graded = 'Graded',
   NotAdmitted = 'NotAdmitted',
