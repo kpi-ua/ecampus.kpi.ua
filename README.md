@@ -96,6 +96,6 @@ For more information see `src/i18n/request.tsx` file.
 
 ## Deputy dean current control
 
-The Zamdekan monitoring tab follows the legacy page_4 reports with three sections: department indicators, lecturer indicators, and department summaries. Each starts with a faculty/department table. Department links open groups, curriculum statistics, or statistics for modules taught to other departments. Lecturer workload includes its activity-date table; both summary tables stay on the department summary page.
+The DeputyDean monitoring tab follows the legacy page_4 reports with three sections: department indicators, lecturer indicators, and department summaries. Each starts with a faculty/department table. Department links open groups, curriculum statistics, or statistics for modules taught to other departments. Lecturer workload includes its activity-date table; both summary tables stay on the department summary page.
 
-Drill-down URLs retain department context under `/module/zamdekan/monitoring/departments/[departmentId]`. Tables preserve the legacy column order and show all report rows; sheet marks use one dated column per assessment. The API and UI must be updated together for the department list, outward statistics, and course/teaching-department fields.
+Drill-down URLs retain department context under `/module/deputy-dean/monitoring/departments/[departmentId]`. Tables preserve the legacy column order and show all report rows; sheet marks use one dated column per assessment. The API and UI must be updated together for the department list, outward statistics, and course/teaching-department fields.
