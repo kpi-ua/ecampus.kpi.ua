@@ -31,7 +31,10 @@ export const getDeputyDeanAgreements = async (groupId: number): Promise<DeputyDe
   return response.json();
 };
 
-export const getDeputyDeanStudentResults = async (studentId: number, groupId: number): Promise<DeputyDeanExamResult[]> => {
+export const getDeputyDeanStudentResults = async (
+  studentId: number,
+  groupId: number,
+): Promise<DeputyDeanExamResult[]> => {
   const url = qs.stringifyUrl({ url: `/deputy-dean/students/${studentId}/results`, query: { groupId } });
   const response = await campusFetch<DeputyDeanExamResult[]>(url);
   if (!response.ok) {
@@ -50,7 +53,9 @@ export const getDeputyDeanMonitoringGroups = async (departmentId: number): Promi
 };
 
 export const getDeputyDeanGroupDisciplines = async (groupId: number): Promise<DeputyDeanGroupDiscipline[]> => {
-  const response = await campusFetch<DeputyDeanGroupDiscipline[]>(`/deputy-dean/monitoring/groups/${groupId}/disciplines`);
+  const response = await campusFetch<DeputyDeanGroupDiscipline[]>(
+    `/deputy-dean/monitoring/groups/${groupId}/disciplines`,
+  );
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
