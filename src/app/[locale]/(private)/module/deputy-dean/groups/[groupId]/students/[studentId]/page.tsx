@@ -4,7 +4,6 @@ import { getDeputyDeanStudentResults } from '@/actions/deputy-dean.actions';
 import { DeputyDeanResultsTable } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-results-table';
 import { DeputyDeanTabs } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-tabs';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
-import { parseReportId } from '@/app/[locale]/(private)/module/deputy-dean/utils/parse-report-id';
 import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
@@ -25,8 +24,8 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function StudentResultsPage({ params }: Props) {
   const { groupId: groupIdParam, studentId: studentIdParam } = await params;
-  const groupId = parseReportId(groupIdParam);
-  const studentId = parseReportId(studentIdParam);
+  const groupId = Number(groupIdParam);
+  const studentId = Number(studentIdParam);
   const [items, t] = await Promise.all([
     getDeputyDeanStudentResults(studentId, groupId),
     getTranslations(INTL_NAMESPACE),
