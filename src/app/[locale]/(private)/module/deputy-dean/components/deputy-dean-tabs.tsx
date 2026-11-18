@@ -23,7 +23,9 @@ export const DeputyDeanTabs = async ({ section, children }: Props) => {
           <Link href={getDeputyDeanReportPath({ view: DeputyDeanView.Groups })}>{t('sections.groups')}</Link>
         </TabsTrigger>
         <TabsTrigger value="monitoring" asChild>
-          <Link href={getDeputyDeanReportPath({ view: DeputyDeanView.MonitoringGroups })}>{t('sections.monitoring')}</Link>
+          <Link href={getDeputyDeanReportPath({ view: DeputyDeanView.MonitoringGroups })}>
+            {t('sections.monitoring')}
+          </Link>
         </TabsTrigger>
       </TabsList>
       <TabsContent value={section} className="mt-8">
