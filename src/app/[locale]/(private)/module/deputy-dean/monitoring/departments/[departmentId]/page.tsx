@@ -4,7 +4,6 @@ import { getDeputyDeanMonitoringGroups } from '@/actions/deputy-dean.actions';
 import { DeputyDeanMonitoringGroupsTable } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-monitoring-groups-table';
 import { DeputyDeanTabs } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-tabs';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
-import { parseReportId } from '@/app/[locale]/(private)/module/deputy-dean/utils/parse-report-id';
 import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
@@ -20,7 +19,7 @@ export async function generateMetadata({ params }: Props) {
 }
 export default async function MonitoringPage({ params }: Props) {
   const route = await params;
-  const departmentId = parseReportId(route.departmentId);
+  const departmentId = Number(route.departmentId);
   const t = await getTranslations(INTL_NAMESPACE);
   const items = await getDeputyDeanMonitoringGroups(departmentId);
   return (
