@@ -56,6 +56,7 @@
       "vedomost": "Session",
       "vidpovidalniy": "Responsible",
       "webometrics": "Translation of EIR metadata",
+      "student-attestation": "Results of calendar control",
       "attestationresults": "Results of calendar control",
       "ekanat": "Dean’s office",
       "editRNP": "RNP Editing Ruslan",
@@ -849,7 +850,7 @@
         "note": "Note"
       }
     },
-    "attestation-results": {
+    "student-attestation": {
       "empty": {
         "title": "No results",
         "description": "There are no calendar control results for the reporting period"
@@ -1441,6 +1442,10 @@
         "students": "Students"
       },
       "yearId": "Academic year"
+    },
+    "attestation-results": {
+      "title": "Calendar control results",
+      "subtitle": "This presents the results of calendar controls by semester, indicating disciplines, teachers, and grades according to the educational process schedule."
     }
   }
 }
