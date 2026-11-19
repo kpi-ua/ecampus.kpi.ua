@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 
 import { DeputyDeanSheetMark } from '../types';
@@ -33,7 +34,7 @@ export const DeputyDeanEmployeeSheetMarksTable = ({ marks }: Props) => {
             <TableRow key={student.studentId}>
               <TableCell>{student.student}</TableCell>
               {assessments.map((assessment) => (
-                <TableCell key={assessment.key}>{student.marks[assessment.key] ?? ''}</TableCell>
+                <TableCell key={assessment.key}>{student.marks[assessment.key] ?? EMPTY_VALUE}</TableCell>
               ))}
             </TableRow>
           ))}

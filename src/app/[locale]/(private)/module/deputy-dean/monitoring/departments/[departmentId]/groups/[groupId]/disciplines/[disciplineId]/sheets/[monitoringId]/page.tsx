@@ -10,6 +10,7 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3, Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 const INTL_NAMESPACE = 'private.deputy-dean';
 export const dynamic = 'force-dynamic';
@@ -69,7 +70,7 @@ export default async function MonitoringPage({ params }: Props) {
                     <TableRow key={student.studentId}>
                       <TableCell>{student.student}</TableCell>
                       {assessments.map((assessment) => (
-                        <TableCell key={assessment.key}>{student.marks[assessment.key] ?? ''}</TableCell>
+                        <TableCell key={assessment.key}>{student.marks[assessment.key] ?? EMPTY_VALUE}</TableCell>
                       ))}
                     </TableRow>
                   ))}
