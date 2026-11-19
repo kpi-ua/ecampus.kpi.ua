@@ -2,7 +2,6 @@ import { getTranslations } from 'next-intl/server';
 import { type SearchParams } from 'nuqs/server';
 
 import { getDeputyDeanStudentResults } from '@/actions/deputy-dean.actions';
-import { DeputyDeanResultsTable } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-results-table';
 import { DeputyDeanTabs } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-tabs';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
 import { loadStudentResultsSearchParams } from '@/app/[locale]/(private)/module/deputy-dean/student-results-search-params';
@@ -11,6 +10,8 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
+
+import { DeputyDeanResultsTable } from './components/deputy-dean-results-table';
 
 const INTL_NAMESPACE = 'private.deputy-dean';
 

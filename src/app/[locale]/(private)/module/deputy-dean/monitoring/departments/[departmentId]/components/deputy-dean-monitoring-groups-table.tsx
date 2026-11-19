@@ -2,14 +2,13 @@
 
 import { useTranslations } from 'next-intl';
 
+import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
+import { DeputyDeanMonitoringGroup } from '@/app/[locale]/(private)/module/deputy-dean/types';
+import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
-
-import { DeputyDeanMonitoringGroup } from '../types';
-import { getDeputyDeanReportPath } from '../utils/report-path';
-import { DeputyDeanTableCard } from './deputy-dean-table-card';
 
 interface Props {
   groups: DeputyDeanMonitoringGroup[];
