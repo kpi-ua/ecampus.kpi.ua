@@ -1,6 +1,4 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { group, listify, sift, unique } from 'radash';
 
 import { Paragraph } from '@/components/typography';
@@ -29,8 +27,8 @@ const columns = [
   { key: 'details', label: 'details' },
 ] as const;
 
-export const ReportCoursesTable = ({ groups, query }: Props) => {
-  const t = useTranslations('private.attestation-reports');
+export const ReportCoursesTable = async ({ groups, query }: Props) => {
+  const t = await getTranslations('private.attestation-reports');
   const rows: CourseRow[] = listify(
     group(groups, (item) => item.course),
     (course, items = []) => ({
