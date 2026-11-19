@@ -85,9 +85,15 @@ const TableCell = ({ className, ref, ...props }: React.ComponentProps<'td'>) => 
 );
 TableCell.displayName = 'TableCell';
 
+const TableEmptyRow = ({ colSpan, children }: { colSpan: number; children: React.ReactNode }) => (
+  <TableRow>
+    <TableCell colSpan={colSpan}>{children}</TableCell>
+  </TableRow>
+);
+
 const TableCaption = ({ className, ref, ...props }: React.ComponentProps<'caption'>) => (
   <caption ref={ref} className={cn('text-muted-foreground mt-4 text-sm', className)} {...props} />
 );
 TableCaption.displayName = 'TableCaption';
 
-export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption };
+export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableEmptyRow, TableCaption };

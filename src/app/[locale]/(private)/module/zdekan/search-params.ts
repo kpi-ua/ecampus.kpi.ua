@@ -1,4 +1,4 @@
-import { createLoader, createParser, createSerializer, parseAsString, parseAsStringLiteral } from 'nuqs/server';
+import { createLoader, createParser, parseAsString, parseAsStringLiteral } from 'nuqs/server';
 
 const parseAsId = createParser({
   parse(value) {
@@ -30,5 +30,3 @@ export const loadDepartmentSearchParams = createLoader(departmentSearchParams);
 export const loadSurveySearchParams = createLoader(surveySearchParams);
 export const loadStudentSearchParams = createLoader(studentSearchParams);
 export const loadEmployeeSearchParams = createLoader(employeeSearchParams);
-export const serializeSurveySearchParams = createSerializer(surveySearchParams);
-export const serializeStudentSearchParams = createSerializer(studentSearchParams);

@@ -1,7 +1,8 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { createSerializer, parseAsInteger, useQueryStates } from 'nuqs';
+import { parseAsInteger, useQueryStates } from 'nuqs';
+import queryString from 'query-string';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { createPagesRange } from '@/lib/pagination.utils';
@@ -53,13 +54,14 @@ export function PaginationWithLinks({
     shallow: false,
     scroll: true,
   });
-  const serialize = createSerializer(paginationParsers, { urlKeys });
+  const query = queryString.parse(searchParams.toString());
 
   const totalPageCount = Math.max(1, Math.ceil(totalCount / pageSize));
   const visibleRange = isMobile ? 3 : 5;
   const pages = createPagesRange({ currentPage: page, pagesCount: totalPageCount, visibleRange });
 
-  const buildLink = (newPage: number) => serialize(`${pathname}?${searchParams.toString()}`, { page: newPage });
+  const buildLink = (newPage: number) =>
+    queryString.stringifyUrl({ url: pathname, query: { ...query, [urlKeys.page]: newPage } });
 
   const navToPageSize = (newPageSize: number) => {
     void setPagination({ page: null, pageSize: newPageSize });

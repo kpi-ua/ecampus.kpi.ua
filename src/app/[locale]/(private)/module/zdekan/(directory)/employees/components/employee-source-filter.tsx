@@ -5,7 +5,7 @@ import { useQueryState } from 'nuqs';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-import { employeeSearchParams } from '../search-params';
+import { employeeSearchParams } from '../../../search-params';
 
 export function EmployeeSourceFilter({ hasSelectedDepartment }: { hasSelectedDepartment: boolean }) {
   const t = useTranslations('private.dean-office');

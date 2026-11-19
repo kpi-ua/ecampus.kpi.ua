@@ -5,7 +5,7 @@ import { useQueryStates } from 'nuqs';
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-import { studentSearchParams } from '../search-params';
+import { studentSearchParams } from '../../../search-params';
 
 interface Props {
   departments: { id: number; name: string }[];

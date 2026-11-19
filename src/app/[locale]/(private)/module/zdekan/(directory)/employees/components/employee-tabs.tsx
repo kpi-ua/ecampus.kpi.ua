@@ -3,13 +3,14 @@
 import { useTranslations } from 'next-intl';
 import { useSelectedLayoutSegment } from 'next/navigation';
 import { useQueryState } from 'nuqs';
+import queryString from 'query-string';
 import { type ReactNode } from 'react';
 
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useRouter } from '@/i18n/routing';
 
-import { departmentSearchParams } from '../search-params';
+import { departmentSearchParams } from '../../../search-params';
 
 const paths = {
   staffDirectory: '/module/zdekan/employees',
@@ -29,10 +30,12 @@ export function EmployeeTabs({ children }: { children: ReactNode }) {
       value={active}
       activationMode="manual"
       onValueChange={(view) =>
-        router.push({
-          pathname: paths[view as keyof typeof paths],
-          query: departmentId === null ? {} : { departmentId },
-        })
+        router.push(
+          queryString.stringifyUrl(
+            { url: paths[view as keyof typeof paths], query: { departmentId } },
+            { skipNull: true },
+          ),
+        )
       }
     >
       <Card className="overflow-x-auto rounded-none px-6 pt-4 shadow-none">
