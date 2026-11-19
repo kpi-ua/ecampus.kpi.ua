@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Show } from '@/components/utils/show';
 import { usePagination } from '@/hooks/use-pagination';
 import { useTableSort } from '@/hooks/use-table-sort';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 
@@ -100,7 +101,7 @@ export const DeputyDeanResultsTable = ({ results }: Props) => {
                 <TableCell className="whitespace-pre-wrap">
                   {row.markStatus === DeputyDeanMarkStatus.Graded ? row.mark : markLabels[row.markStatus]}
                 </TableCell>
-                <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? ''}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.nationalScale ?? EMPTY_VALUE}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{statusLabels[row.status]}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{formatDate(row.opensAt)}</TableCell>
                 <TableCell className="whitespace-pre-wrap">{formatDate(row.closesAt)}</TableCell>
