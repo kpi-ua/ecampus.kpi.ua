@@ -14,6 +14,8 @@ import {
   DeputyDeanEmployee,
   DeputyDeanEmployeeDiscipline,
   DeputyDeanEmployeeActivity,
+  DeputyDeanDepartmentStatistics,
+  DeputyDeanDepartmentSummary,
   DeputyDeanDepartment,
 } from '@/app/[locale]/(private)/module/deputy-dean/types';
 import { campusFetch } from '@/lib/client';
@@ -126,8 +128,39 @@ export const getDeputyDeanEmployeeActivity = async (employeeId: number): Promise
   return response.json();
 };
 
+export const getDeputyDeanDepartmentStatistics = async (
+  departmentId: number,
+): Promise<DeputyDeanDepartmentStatistics[]> => {
+  const url = qs.stringifyUrl({ url: '/deputy-dean/department-statistics', query: { departmentId } });
+  const response = await campusFetch<DeputyDeanDepartmentStatistics[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanDepartmentSummary = async (departmentId?: number): Promise<DeputyDeanDepartmentSummary> => {
+  const url = qs.stringifyUrl({ url: '/deputy-dean/department-summary', query: { departmentId } });
+  const response = await campusFetch<DeputyDeanDepartmentSummary>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
 export const getDeputyDeanDepartments = async (): Promise<DeputyDeanDepartment[]> => {
   const response = await campusFetch<DeputyDeanDepartment[]>('/deputy-dean/monitoring/departments');
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanOtherDepartmentStatistics = async (
+  departmentId: number,
+): Promise<DeputyDeanDepartmentStatistics[]> => {
+  const url = qs.stringifyUrl({ url: '/deputy-dean/department-statistics/other', query: { departmentId } });
+  const response = await campusFetch<DeputyDeanDepartmentStatistics[]>(url);
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
