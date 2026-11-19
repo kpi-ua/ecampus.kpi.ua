@@ -1,18 +1,15 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useQueryStates } from 'nuqs';
 
 import { Paragraph } from '@/components/typography';
-import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Show } from '@/components/utils/show';
-import { usePagination } from '@/hooks/use-pagination';
-import { useTableSort } from '@/hooks/use-table-sort';
 import { EMPTY_VALUE } from '@/lib/constants/common';
-import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 
 import { DeputyDeanExamStatus, DeputyDeanMarkStatus } from '../constants';
+import { examResultSortColumns, studentResultsSearchParams } from '../student-results-search-params';
 import { DeputyDeanExamResult } from '../types';
 import { DeputyDeanTableCard } from './deputy-dean-table-card';
 
@@ -22,19 +19,27 @@ interface Props {
 
 export const DeputyDeanResultsTable = ({ results }: Props) => {
   const t = useTranslations('private.deputy-dean');
-  const { sortedRows, sortHandlers } = useTableSort(results, undefined, [
-    'part',
-    'eventDate',
-    'discipline',
-    'controlForm',
-    'examiner',
-    'mark',
-    'nationalScale',
-    'status',
-    'opensAt',
-    'closesAt',
-  ]);
-  const { paginatedItems, page } = usePagination(PAGE_SIZE_DEFAULT, sortedRows);
+  const [{ sort, direction }, setQuery] = useQueryStates(studentResultsSearchParams, {
+    shallow: false,
+    history: 'push',
+  });
+  const sortHandlers = Object.fromEntries(
+    examResultSortColumns.map((column) => [
+      column,
+      {
+        dir: sort === column ? direction : null,
+        onClick: () => {
+          if (sort !== column) {
+            void setQuery({ sort: column, direction: null, page: null });
+          } else if (direction === 'desc') {
+            void setQuery({ direction: 'asc', page: null });
+          } else {
+            void setQuery({ sort: null, direction: null, page: null });
+          }
+        },
+      },
+    ]),
+  );
   const markLabels = {
     [DeputyDeanMarkStatus.Missing]: '',
     [DeputyDeanMarkStatus.NotAdmitted]: t('values.not-admitted'),
@@ -89,7 +94,7 @@ export const DeputyDeanResultsTable = ({ results }: Props) => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedItems.map((row, index) => (
+            {results.map((row, index) => (
               <TableRow key={`${row.discipline}-${row.part}-${row.eventDate}-${index}`}>
                 <TableCell className="whitespace-pre-wrap">
                   {[0, 1, 2].includes(row.part) ? t(`values.part-${row.part}`) : row.part}
@@ -110,9 +115,6 @@ export const DeputyDeanResultsTable = ({ results }: Props) => {
           </TableBody>
         </Table>
       </DeputyDeanTableCard>
-      <Show when={results.length > PAGE_SIZE_DEFAULT}>
-        <PaginationWithLinks page={page} pageSize={PAGE_SIZE_DEFAULT} totalCount={results.length} />
-      </Show>
     </div>
   );
 };
