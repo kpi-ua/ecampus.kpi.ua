@@ -1,12 +1,16 @@
 import { getTranslations } from 'next-intl/server';
+import { type SearchParams } from 'nuqs/server';
 
 import { getDeputyDeanStudentResults } from '@/actions/deputy-dean.actions';
 import { DeputyDeanResultsTable } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-results-table';
 import { DeputyDeanTabs } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-tabs';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
+import { loadStudentResultsSearchParams } from '@/app/[locale]/(private)/module/deputy-dean/student-results-search-params';
 import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
+import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 const INTL_NAMESPACE = 'private.deputy-dean';
 
@@ -14,6 +18,7 @@ export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ locale: string; groupId: string; studentId: string }>;
+  searchParams: Promise<SearchParams>;
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -22,12 +27,20 @@ export async function generateMetadata({ params }: Props) {
   return { title: t('views.results') };
 }
 
-export default async function StudentResultsPage({ params }: Props) {
+export default async function StudentResultsPage({ params, searchParams }: Props) {
+  const query = await loadStudentResultsSearchParams(searchParams);
   const { groupId: groupIdParam, studentId: studentIdParam } = await params;
   const groupId = Number(groupIdParam);
   const studentId = Number(studentIdParam);
-  const [items, t] = await Promise.all([
-    getDeputyDeanStudentResults(studentId, groupId),
+  const [results, t] = await Promise.all([
+    getDeputyDeanStudentResults({
+      studentId,
+      groupId,
+      page: query.page,
+      pageSize: PAGE_SIZE_DEFAULT,
+      sort: query.sort,
+      descending: query.direction === 'desc',
+    }),
     getTranslations(INTL_NAMESPACE),
   ]);
 
@@ -40,7 +53,10 @@ export default async function StudentResultsPage({ params }: Props) {
         <Heading2>{t('title')}</Heading2>
         <DeputyDeanTabs section="groups">
           <Heading3>{t('views.results')}</Heading3>
-          <DeputyDeanResultsTable key={studentId} results={items} />
+          <DeputyDeanResultsTable results={results.items} />
+          {results.totalCount > results.pageSize && (
+            <PaginationWithLinks page={query.page} pageSize={results.pageSize} totalCount={results.totalCount} />
+          )}
         </DeputyDeanTabs>
       </div>
     </SubLayout>
