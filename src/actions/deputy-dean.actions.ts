@@ -7,6 +7,10 @@ import {
   DeputyDeanGroup,
   DeputyDeanAgreement,
   DeputyDeanExamResultPage,
+  DeputyDeanMonitoringGroup,
+  DeputyDeanGroupDiscipline,
+  DeputyDeanMonitoringSheet,
+  DeputyDeanSheetMark,
   DeputyDeanDepartment,
 } from '@/app/[locale]/(private)/module/deputy-dean/types';
 import { campusFetch } from '@/lib/client';
@@ -41,6 +45,49 @@ export const getDeputyDeanStudentResults = async ({
 }): Promise<DeputyDeanExamResultPage> => {
   const url = qs.stringifyUrl({ url: `/deputy-dean/students/${studentId}/results/page`, query }, { skipNull: true });
   const response = await campusFetch<DeputyDeanExamResultPage>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanMonitoringGroups = async (departmentId: number): Promise<DeputyDeanMonitoringGroup[]> => {
+  const url = qs.stringifyUrl({ url: '/deputy-dean/monitoring/groups', query: { departmentId } });
+  const response = await campusFetch<DeputyDeanMonitoringGroup[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanGroupDisciplines = async (groupId: number): Promise<DeputyDeanGroupDiscipline[]> => {
+  const response = await campusFetch<DeputyDeanGroupDiscipline[]>(
+    `/deputy-dean/monitoring/groups/${groupId}/disciplines`,
+  );
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanSheets = async (
+  groupId: number,
+  disciplineId: number,
+  employeeId?: number,
+): Promise<DeputyDeanMonitoringSheet[]> => {
+  const url = qs.stringifyUrl({
+    url: '/deputy-dean/monitoring/sheets',
+    query: { groupId, disciplineId, employeeId },
+  });
+  const response = await campusFetch<DeputyDeanMonitoringSheet[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanSheetMarks = async (monitoringId: number): Promise<DeputyDeanSheetMark[]> => {
+  const response = await campusFetch<DeputyDeanSheetMark[]>(`/deputy-dean/monitoring/sheets/${monitoringId}/marks`);
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
