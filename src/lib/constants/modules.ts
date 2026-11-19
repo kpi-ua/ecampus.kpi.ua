@@ -39,7 +39,7 @@ export const MODULES: Module[] = [
   { name: 'vedomostadmin', isExternal: true },
   { name: 'zamdekan', isExternal: true },
   { name: 'zavkaf', isExternal: true },
-  { name: 'zdekan', isExternal: true },
+  { name: 'zdekan', isExternal: false },
   { name: 'ekk', isExternal: true },
   { name: 'bravook', isExternal: true },
   { name: 'yiystat', isExternal: false },

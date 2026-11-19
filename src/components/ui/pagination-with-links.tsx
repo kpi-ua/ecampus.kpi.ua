@@ -2,7 +2,6 @@
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import { createSerializer, parseAsInteger, useQueryStates } from 'nuqs';
-import { type ComponentProps } from 'react';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { createPagesRange } from '@/lib/pagination.utils';
@@ -22,8 +21,6 @@ const paginationParsers = {
   page: parseAsInteger,
   pageSize: parseAsInteger,
 };
-
-type NavigateHandler = NonNullable<ComponentProps<typeof PaginationLink>['onNavigate']>;
 
 export interface PaginationWithLinksProps {
   pageSizeSelectOptions?: {
@@ -68,20 +65,6 @@ export function PaginationWithLinks({
     void setPagination({ page: null, pageSize: newPageSize });
   };
 
-  const handlePageNavigate = (newPage: number): NavigateHandler => {
-    return (event) => {
-      event.preventDefault();
-      void setPagination({ page: newPage });
-    };
-  };
-
-  const handleNextNavigate: NavigateHandler = (event) => {
-    event.preventDefault();
-    if (page < totalPageCount) {
-      void setPagination({ page: page + 1 });
-    }
-  };
-
   return (
     <div className="flex w-full flex-col items-center gap-3 md:flex-row">
       {pageSizeSelectOptions && (
@@ -102,7 +85,7 @@ export function PaginationWithLinks({
               </PaginationItem>
             ) : (
               <PaginationItem key={p}>
-                <PaginationLink href={buildLink(p)} isActive={page === p} onNavigate={handlePageNavigate(p)}>
+                <PaginationLink href={buildLink(p)} isActive={page === p}>
                   {p}
                 </PaginationLink>
               </PaginationItem>
@@ -111,7 +94,8 @@ export function PaginationWithLinks({
           <PaginationItem>
             <PaginationNext
               href={buildLink(Math.min(page + 1, totalPageCount))}
-              onNavigate={handleNextNavigate}
+              aria-disabled={page >= totalPageCount}
+              tabIndex={page >= totalPageCount ? -1 : undefined}
               className={`text-lg font-semibold text-neutral-900 ${
                 page >= totalPageCount ? 'pointer-events-none opacity-50' : undefined
               }`}
