@@ -9,6 +9,7 @@ import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { Show } from '@/components/utils/show';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 
 import { DeputyDeanResultsTable } from './components/deputy-dean-results-table';
@@ -55,9 +56,9 @@ export default async function StudentResultsPage({ params, searchParams }: Props
         <DeputyDeanTabs section="groups">
           <Heading3>{t('views.results')}</Heading3>
           <DeputyDeanResultsTable results={results.items} />
-          {results.totalCount > results.pageSize && (
+          <Show when={results.totalCount > results.pageSize}>
             <PaginationWithLinks page={query.page} pageSize={results.pageSize} totalCount={results.totalCount} />
-          )}
+          </Show>
         </DeputyDeanTabs>
       </div>
     </SubLayout>
