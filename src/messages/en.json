@@ -255,6 +255,20 @@
         "button": "Continue"
       }
     },
+    "emailConfirmation": {
+      "header": "Email confirmation",
+      "description": "Press the button to confirm the new email address of your account.",
+      "button": "Confirm",
+      "success": {
+        "description": "Your email address has been changed.",
+        "button": "Continue"
+      },
+      "invalid": {
+        "description": "This link is invalid or has already been used. To change your email, send the request again in the settings.",
+        "button": "Go to settings"
+      },
+      "too-many-attempts": "Too many confirmation attempts. Try again in a few minutes."
+    },
     "footer": {
       "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
       "developer": "Developer: <kbislink>Design bureau of information systems</kbislink>",
