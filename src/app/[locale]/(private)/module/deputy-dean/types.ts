@@ -105,6 +105,33 @@ export interface DeputyDeanSheetMark {
   mark: number | null;
 }
 
+export interface DeputyDeanEmployee {
+  employeeId: number;
+  fullName: string;
+  department: string;
+  status: string | null;
+  contractEnd: string | null;
+  sheetCount: number;
+}
+
+export interface DeputyDeanEmployeeDiscipline {
+  employeeId: number;
+  employee: string;
+  groupId: number;
+  group: string;
+  disciplineId: number;
+  discipline: string;
+  teachingTypes: string | null;
+  sheetCount: number;
+}
+
+export interface DeputyDeanEmployeeActivity {
+  employeeId: number;
+  employee: string;
+  department: string;
+  date: string;
+}
+
 export interface DeputyDeanDepartment {
   id: number;
   name: string;

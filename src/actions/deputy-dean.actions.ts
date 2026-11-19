@@ -11,6 +11,9 @@ import {
   DeputyDeanGroupDiscipline,
   DeputyDeanMonitoringSheet,
   DeputyDeanSheetMark,
+  DeputyDeanEmployee,
+  DeputyDeanEmployeeDiscipline,
+  DeputyDeanEmployeeActivity,
   DeputyDeanDepartment,
 } from '@/app/[locale]/(private)/module/deputy-dean/types';
 import { campusFetch } from '@/lib/client';
@@ -88,6 +91,35 @@ export const getDeputyDeanSheets = async (
 
 export const getDeputyDeanSheetMarks = async (monitoringId: number): Promise<DeputyDeanSheetMark[]> => {
   const response = await campusFetch<DeputyDeanSheetMark[]>(`/deputy-dean/monitoring/sheets/${monitoringId}/marks`);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanEmployees = async (departmentId: number): Promise<DeputyDeanEmployee[]> => {
+  const url = qs.stringifyUrl({ url: '/deputy-dean/monitoring/employees', query: { departmentId } });
+  const response = await campusFetch<DeputyDeanEmployee[]>(url);
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanEmployeeDisciplines = async (employeeId: number): Promise<DeputyDeanEmployeeDiscipline[]> => {
+  const response = await campusFetch<DeputyDeanEmployeeDiscipline[]>(
+    `/deputy-dean/monitoring/employees/${employeeId}/disciplines`,
+  );
+  if (!response.ok) {
+    throw new Error(`${response.status} Error`);
+  }
+  return response.json();
+};
+
+export const getDeputyDeanEmployeeActivity = async (employeeId: number): Promise<DeputyDeanEmployeeActivity[]> => {
+  const response = await campusFetch<DeputyDeanEmployeeActivity[]>(
+    `/deputy-dean/monitoring/employees/${employeeId}/activity`,
+  );
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
