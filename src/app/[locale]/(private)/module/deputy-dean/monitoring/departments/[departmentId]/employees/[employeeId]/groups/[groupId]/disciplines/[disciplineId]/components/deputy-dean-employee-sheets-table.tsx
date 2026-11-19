@@ -1,6 +1,4 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
@@ -16,8 +14,8 @@ interface Props {
   departmentId: number;
   employeeId: number;
 }
-export const DeputyDeanEmployeeSheetsTable = ({ sheets, departmentId, employeeId }: Props) => {
-  const t = useTranslations('private.deputy-dean');
+export const DeputyDeanEmployeeSheetsTable = async ({ sheets, departmentId, employeeId }: Props) => {
+  const t = await getTranslations('private.deputy-dean');
 
   return (
     <Show when={sheets.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>

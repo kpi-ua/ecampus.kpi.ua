@@ -1,5 +1,4 @@
-'use client';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
 import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
 import { DeputyDeanSheetMark } from '@/app/[locale]/(private)/module/deputy-dean/types';
@@ -12,8 +11,8 @@ import { formatDate } from '@/lib/utils';
 interface Props {
   marks: DeputyDeanSheetMark[];
 }
-export const DeputyDeanEmployeeSheetMarksTable = ({ marks }: Props) => {
-  const t = useTranslations('private.deputy-dean');
+export const DeputyDeanEmployeeSheetMarksTable = async ({ marks }: Props) => {
+  const t = await getTranslations('private.deputy-dean');
   const { students, assessments } = groupSheetMarks(marks);
   return (
     <Show when={students.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>
