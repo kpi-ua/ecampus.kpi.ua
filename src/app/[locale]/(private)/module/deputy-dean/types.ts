@@ -54,6 +54,12 @@ export interface DeputyDeanExamResult {
   nationalScale: string | null;
 }
 
+export interface DeputyDeanExamResultPage {
+  items: DeputyDeanExamResult[];
+  totalCount: number;
+  pageSize: number;
+}
+
 export interface DeputyDeanDepartment {
   id: number;
   name: string;
