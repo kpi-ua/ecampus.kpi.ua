@@ -2,10 +2,11 @@
 
 import qs from 'query-string';
 
+import { type ExamResultSortColumn } from '@/app/[locale]/(private)/module/deputy-dean/student-results-search-params';
 import {
   DeputyDeanGroup,
   DeputyDeanAgreement,
-  DeputyDeanExamResult,
+  DeputyDeanExamResultPage,
   DeputyDeanMonitoringGroup,
   DeputyDeanGroupDiscipline,
   DeputyDeanMonitoringSheet,
@@ -31,12 +32,19 @@ export const getDeputyDeanAgreements = async (groupId: number): Promise<DeputyDe
   return response.json();
 };
 
-export const getDeputyDeanStudentResults = async (
-  studentId: number,
-  groupId: number,
-): Promise<DeputyDeanExamResult[]> => {
-  const url = qs.stringifyUrl({ url: `/deputy-dean/students/${studentId}/results`, query: { groupId } });
-  const response = await campusFetch<DeputyDeanExamResult[]>(url);
+export const getDeputyDeanStudentResults = async ({
+  studentId,
+  ...query
+}: {
+  studentId: number;
+  groupId: number;
+  page: number;
+  pageSize: number;
+  sort: ExamResultSortColumn | null;
+  descending: boolean;
+}): Promise<DeputyDeanExamResultPage> => {
+  const url = qs.stringifyUrl({ url: `/deputy-dean/students/${studentId}/results/page`, query }, { skipNull: true });
+  const response = await campusFetch<DeputyDeanExamResultPage>(url);
   if (!response.ok) {
     throw new Error(`${response.status} Error`);
   }
