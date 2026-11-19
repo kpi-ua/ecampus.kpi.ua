@@ -1,3 +1,3 @@
-export type PasswordResetConfirmation = 'success' | 'expired' | 'error';
+export type PasswordResetConfirmation = 'success' | 'expired';
 
-export type EmailConfirmation = 'success' | 'invalid' | 'too-many-attempts' | 'error';
+export type EmailConfirmation = 'success' | 'invalid' | 'too-many-attempts';

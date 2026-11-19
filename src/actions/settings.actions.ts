@@ -26,25 +26,25 @@ export async function changeEmail(email: string) {
 }
 
 export async function confirmEmail(code: string): Promise<EmailConfirmation> {
-  try {
-    const response = await campusFetch('settings/email/validate', {
-      method: 'POST',
-      body: JSON.stringify({ code }),
-    });
+  const response = await campusFetch('settings/email/validate', {
+    method: 'POST',
+    body: JSON.stringify({ code }),
+  });
 
-    if (response.ok) {
-      updateTag(USER_PROFILE_CACHE_TAG);
-      return 'success';
-    }
-
-    if (response.status === 400) {
-      return 'invalid';
-    }
-
-    return response.status === 429 ? 'too-many-attempts' : 'error';
-  } catch (error) {
-    return 'error';
+  if (response.ok) {
+    updateTag(USER_PROFILE_CACHE_TAG);
+    return 'success';
   }
+
+  if (response.status === 400) {
+    return 'invalid';
+  }
+
+  if (response.status === 429) {
+    return 'too-many-attempts';
+  }
+
+  throw new Error(`${response.status} Error`);
 }
 
 export async function changePhoto(formData: FormData) {
