@@ -4,12 +4,14 @@ import JWT from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import qs from 'query-string';
+import * as z from 'zod';
 
 import { campusFetch } from '@/lib/client';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 import { UserCategory } from '@/types/enums/user-category';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
+import { PasswordResetConfirmation } from '@/types/models/link-confirmation';
 import { User } from '@/types/models/user';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
@@ -88,6 +90,30 @@ export async function resetPassword(username: string, recaptchaToken: string) {
     return null;
   } catch (error) {
     throw new Error('Bad request');
+  }
+}
+
+export async function confirmPasswordReset(key: string): Promise<PasswordResetConfirmation> {
+  // A malformed key cannot belong to any link, so it ends like an expired one without calling the API.
+  const parsedKey = z.uuid().safeParse(key);
+
+  if (!parsedKey.success) {
+    return 'expired';
+  }
+
+  try {
+    const response = await campusFetch('account/recovery/verify', {
+      method: 'POST',
+      body: JSON.stringify({ key: parsedKey.data }),
+    });
+
+    if (response.ok) {
+      return 'success';
+    }
+
+    return response.status === 410 ? 'expired' : 'error';
+  } catch (error) {
+    return 'error';
   }
 }
 

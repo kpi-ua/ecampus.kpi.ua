@@ -255,6 +255,19 @@
         "button": "Continue"
       }
     },
+    "passwordResetConfirm": {
+      "header": "New password",
+      "description": "Press the button and we will generate a new password and send it to your email.",
+      "button": "Get a new password",
+      "success": {
+        "description": "Your new password has been sent to your email. Sign in with it and change it in the settings if needed.",
+        "button": "Sign in"
+      },
+      "expired": {
+        "description": "This link has expired or has already been used. Request a new password recovery link.",
+        "button": "Request a new link"
+      }
+    },
     "emailConfirmation": {
       "header": "Email confirmation",
       "description": "Press the button to confirm the new email address of your account.",
