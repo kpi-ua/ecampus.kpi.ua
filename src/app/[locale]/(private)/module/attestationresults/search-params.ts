@@ -1,4 +1,4 @@
-import { createLoader, createSerializer, parseAsInteger } from 'nuqs/server';
+import { createLoader, parseAsInteger } from 'nuqs/server';
 
 export const attestationReportSearchParams = {
   departmentId: parseAsInteger,
@@ -11,6 +11,3 @@ export const attestationReportSearchParams = {
 };
 
 export const loadAttestationReportSearchParams = createLoader(attestationReportSearchParams);
-export const serializeAttestationReportSearchParams = createSerializer(attestationReportSearchParams, {
-  clearOnDefault: false,
-});
