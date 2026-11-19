@@ -11,4 +11,6 @@ export const attestationReportSearchParams = {
 };
 
 export const loadAttestationReportSearchParams = createLoader(attestationReportSearchParams);
-export const serializeAttestationReportSearchParams = createSerializer(attestationReportSearchParams);
+export const serializeAttestationReportSearchParams = createSerializer(attestationReportSearchParams, {
+  clearOnDefault: false,
+});
