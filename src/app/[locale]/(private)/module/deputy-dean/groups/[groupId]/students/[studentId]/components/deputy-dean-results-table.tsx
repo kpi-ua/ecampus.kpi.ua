@@ -3,15 +3,17 @@
 import { useTranslations } from 'next-intl';
 import { useQueryStates } from 'nuqs';
 
+import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
+import { DeputyDeanExamStatus, DeputyDeanMarkStatus } from '@/app/[locale]/(private)/module/deputy-dean/constants';
+import {
+  examResultSortColumns,
+  studentResultsSearchParams,
+} from '@/app/[locale]/(private)/module/deputy-dean/student-results-search-params';
+import { DeputyDeanExamResult } from '@/app/[locale]/(private)/module/deputy-dean/types';
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
-
-import { DeputyDeanExamStatus, DeputyDeanMarkStatus } from '../constants';
-import { examResultSortColumns, studentResultsSearchParams } from '../student-results-search-params';
-import { DeputyDeanExamResult } from '../types';
-import { DeputyDeanTableCard } from './deputy-dean-table-card';
 
 interface Props {
   results: DeputyDeanExamResult[];
