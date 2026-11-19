@@ -1,12 +1,11 @@
 'use client';
 import { useTranslations } from 'next-intl';
 
+import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
+import { DeputyDeanEmployeeActivity } from '@/app/[locale]/(private)/module/deputy-dean/types';
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { formatDate } from '@/lib/utils';
-
-import { DeputyDeanEmployeeActivity } from '../types';
-import { DeputyDeanTableCard } from './deputy-dean-table-card';
 interface Props {
   activity: DeputyDeanEmployeeActivity[];
 }

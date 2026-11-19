@@ -1,12 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getDeputyDeanSheets } from '@/actions/deputy-dean.actions';
-import { DeputyDeanEmployeeSheetsTable } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-employee-sheets-table';
 import { DeputyDeanTabs } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-tabs';
 import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
 import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2, Heading3 } from '@/components/typography';
+
+import { DeputyDeanEmployeeSheetsTable } from './components/deputy-dean-employee-sheets-table';
 const INTL_NAMESPACE = 'private.deputy-dean';
 export const dynamic = 'force-dynamic';
 interface Props {
