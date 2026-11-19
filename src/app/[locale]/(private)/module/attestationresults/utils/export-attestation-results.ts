@@ -5,8 +5,11 @@ import { saveAsBlob } from '@/lib/save-as-blob';
 import { AttestationReportQuery } from '../types';
 
 export const exportAttestationResults = async (params: AttestationReportQuery) => {
-  const query = queryString.stringify({ ...params }, { skipEmptyString: true, skipNull: true });
-  const response = await fetch(`/api/attestationresults/export?${query}`);
+  const url = queryString.stringifyUrl(
+    { url: '/api/attestationresults/export', query: { ...params } },
+    { skipEmptyString: true, skipNull: true },
+  );
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to export attestations: ${response.status}`);
   }

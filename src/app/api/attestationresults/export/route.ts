@@ -1,9 +1,7 @@
 import { getTranslations } from 'next-intl/server';
+import queryString from 'query-string';
 
-import {
-  loadAttestationReportSearchParams,
-  serializeAttestationReportSearchParams,
-} from '@/app/[locale]/(private)/module/attestationresults/search-params';
+import { loadAttestationReportSearchParams } from '@/app/[locale]/(private)/module/attestationresults/search-params';
 import { AttestationReport } from '@/app/[locale]/(private)/module/attestationresults/types';
 import { getAttestationReportTables } from '@/app/[locale]/(private)/module/attestationresults/utils/report-tables';
 import { ATTESTATION_RESULT } from '@/app/[locale]/(private)/module/curatorlecturer/constants';
@@ -14,7 +12,7 @@ import { formatDate } from '@/lib/utils';
 export async function GET(request: Request) {
   const query = loadAttestationReportSearchParams(new URL(request.url).searchParams);
   const response = await campusFetch<AttestationReport>(
-    serializeAttestationReportSearchParams('/attestation-results/report', query),
+    queryString.stringifyUrl({ url: '/attestation-results/report', query }, { skipNull: true }),
   );
   if (!response.ok) {
     return new Response(null, { status: response.status });
