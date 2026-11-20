@@ -25,7 +25,7 @@ export default async function PasswordResetConfirmPage({ params }: Props) {
   const t = await getTranslations(INTL_NAMESPACE);
 
   return (
-    <AuthNavLayout header={t('header')}>
+    <AuthNavLayout header={t('header')} description={t('description')}>
       <PasswordResetConfirm recoveryKey={key} />
     </AuthNavLayout>
   );

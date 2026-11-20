@@ -2,15 +2,17 @@
 
 import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef } from 'react';
+import { useCallback } from 'react';
 
 import { confirmEmail } from '@/actions/settings.actions';
-import { Paragraph } from '@/components/typography';
+import { CircleWavyCheck, SpinnerGap, Warning } from '@/app/images';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
-import { EmailConfirmation as EmailConfirmationResult } from '@/types/models/link-confirmation';
+import { EmailConfirmationResult } from '@/types/models/link-confirmation';
+import { useRunOnce } from '@/hooks/use-run-once';
 
 type State = EmailConfirmationResult | 'pending' | 'error';
 
@@ -26,36 +28,45 @@ interface Props {
 export const EmailConfirmation = ({ code }: Props) => {
   const t = useTranslations('auth.emailConfirmation');
   const { errorToast } = useServerErrorToast();
-  const requested = useRef(false);
 
   const { mutate, data, isError } = useMutation({
     mutationFn: confirmEmail,
     onError: () => errorToast(),
   });
 
-  // The ref keeps React Strict Mode from sending the request twice: the second one would find the code spent.
-  useEffect(() => {
-    if (requested.current) {
-      return;
-    }
+  const confirmEmailMutation = useCallback(() => mutate(code), [mutate, code]);
 
-    requested.current = true;
-    mutate(code);
-  }, [mutate, code]);
+  useRunOnce(confirmEmailMutation);
 
   const state: State = data ?? (isError ? 'error' : 'pending');
   const nextStep = NEXT_STEP[state];
 
   return (
     <>
-      <Paragraph className="text-base text-neutral-600">{t(`${state}.description`)}</Paragraph>
+      <Show
+        when={state !== 'pending'}
+        fallback={
+          <div className="flex items-center justify-center py-6">
+            <SpinnerGap className="text-basic-blue" />
+          </div>
+        }
+      >
+        <Alert variant={state === 'success' ? 'default' : 'destructive'} className="my-4">
+          <AlertDescription className="flex items-center gap-4">
+            <Show when={state === 'success'} fallback={<Warning className="text-status-danger-300" />}>
+              <CircleWavyCheck className="text-status-success-300" />
+            </Show>
+            {t(`${state}.description`)}
+          </AlertDescription>
+        </Alert>
+      </Show>
       {nextStep && (
-        <Button size="big" className="my-4 w-full" asChild>
+        <Button size="big" className="w-full my-4" asChild>
           <Link href={nextStep}>{t(`${state}.button`)}</Link>
         </Button>
       )}
       <Show when={state === 'error'}>
-        <Button size="big" className="my-4 w-full" onClick={() => mutate(code)}>
+        <Button size="big" className="w-full my-4" onClick={() => mutate(code)}>
           {t('error.button')}
         </Button>
       </Show>

@@ -10,7 +10,7 @@ import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/li
 import { UserCategory } from '@/types/enums/user-category';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
-import { PasswordResetConfirmation } from '@/types/models/link-confirmation';
+import { PasswordResetConfirmationResult } from '@/types/models/link-confirmation';
 import { User } from '@/types/models/user';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
@@ -92,7 +92,7 @@ export async function resetPassword(username: string, recaptchaToken: string) {
   }
 }
 
-export async function confirmPasswordReset(key: string): Promise<PasswordResetConfirmation> {
+export async function confirmPasswordReset(key: string): Promise<PasswordResetConfirmationResult> {
   const response = await campusFetch('account/recovery/verify', {
     method: 'POST',
     body: JSON.stringify({ key }),

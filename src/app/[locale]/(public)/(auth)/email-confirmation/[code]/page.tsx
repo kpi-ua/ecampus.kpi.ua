@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import { AuthNavLayout } from '../../../auth-nav-layout';
-import { EmailConfirmation } from './email-confirmation';
+import { EmailConfirmation } from "./email-confirmation";
 
 const INTL_NAMESPACE = 'auth.emailConfirmation';
 
@@ -25,7 +25,7 @@ export default async function EmailConfirmationPage({ params }: Props) {
   const t = await getTranslations(INTL_NAMESPACE);
 
   return (
-    <AuthNavLayout header={t('header')}>
+    <AuthNavLayout header={t('header')} description={t('description')}>
       <EmailConfirmation code={code} />
     </AuthNavLayout>
   );

@@ -257,6 +257,7 @@
     },
     "passwordResetConfirm": {
       "header": "New password",
+      "description": "We're verifying your recovery link and generating a new password for your account.",
       "pending": {
         "description": "Generating a new password…"
       },
@@ -275,6 +276,7 @@
     },
     "emailConfirmation": {
       "header": "Email confirmation",
+      "description": "We're verifying the link from your email to confirm the new address for your account.",
       "pending": {
         "description": "Confirming your new email address…"
       },

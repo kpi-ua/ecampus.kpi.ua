@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import CaretLeftRegular from '@/app/images/icons/CaretLeftRegular.svg';
 import { Heading2 } from '@/components/typography/headers';
 import { TextButton } from '@/components/ui/text-button';
+import { cn } from "@/lib/utils";
 
 export interface AuthNavLayoutProps {
   children: React.ReactNode;
@@ -15,15 +16,15 @@ export const AuthNavLayout = async ({ children, header, description, className }
   const t = await getTranslations('global.navigation');
 
   return (
-    <>
+    <div className="flex flex-col items-start">
       <TextButton variant="secondary" icon={<CaretLeftRegular />} className="mb-6" href="/">
         {t('back')}
       </TextButton>
-      <article className={className}>
+      <article className={cn('w-full', className)}>
         <Heading2>{header}</Heading2>
         {description && <p className="py-4 text-neutral-600">{description}</p>}
         {children}
       </article>
-    </>
+    </div>
   );
 };
