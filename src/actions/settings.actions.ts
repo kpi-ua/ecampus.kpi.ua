@@ -7,7 +7,7 @@ import { campusFetch } from '@/lib/client';
 import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 import { isKpiCorporateEmail } from '@/lib/email.utils';
 import { fileUpload } from '@/lib/file-upload';
-import { EmailConfirmation } from '@/types/models/link-confirmation';
+import { EmailConfirmationResult } from "@/types/models/link-confirmation";
 
 const corporateEmailSchema = z.string().trim().email().refine(isKpiCorporateEmail);
 
@@ -25,7 +25,7 @@ export async function changeEmail(email: string) {
   revalidatePath('/settings');
 }
 
-export async function confirmEmail(code: string): Promise<EmailConfirmation> {
+export async function confirmEmail(code: string): Promise<EmailConfirmationResult> {
   const response = await campusFetch('settings/email/validate', {
     method: 'POST',
     body: JSON.stringify({ code }),
