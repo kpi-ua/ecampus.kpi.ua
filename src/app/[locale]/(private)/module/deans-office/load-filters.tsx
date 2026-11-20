@@ -3,16 +3,13 @@ import { type SearchParams } from 'nuqs/server';
 
 import { getDeansOfficeOptions } from '@/actions/deans-office.actions';
 
-import { DeansOfficeSelect } from './components/deans-office-select';
 import { loadDeansOfficeSearchParams } from './search-params';
 import { INTL_NAMESPACE } from './translations';
 
 export async function loadDeansOfficeFilters(searchParams: Promise<SearchParams>) {
   const params = await loadDeansOfficeSearchParams(searchParams);
-  const [options, t] = await Promise.all([getDeansOfficeOptions(params.facultyId), getTranslations(INTL_NAMESPACE)]);
-  const faculty = options.faculties.find((item) => item.id === params.facultyId) ?? options.faculties[0];
+  const [options, t] = await Promise.all([getDeansOfficeOptions(null), getTranslations(INTL_NAMESPACE)]);
   const departmentId = options.departments.find((item) => item.id === params.departmentId)?.id ?? null;
-  const yearId = options.years.find((item) => item.id === params.yearId)?.id ?? options.years[0]?.id ?? null;
   const semester = params.semester === 2 ? 2 : 1;
   const periodTypeId =
     options.periodTypes.find((item) => item.id === params.periodTypeId)?.id ?? options.periodTypes[0]?.id ?? null;
@@ -21,12 +18,7 @@ export async function loadDeansOfficeFilters(searchParams: Promise<SearchParams>
     params,
     options,
     t,
-    faculty,
-    facultyFilter: faculty && (
-      <DeansOfficeSelect name="facultyId" value={faculty.id} label={t('faculty')} options={options.faculties} />
-    ),
     departmentId,
-    yearId,
     semester,
     periodTypeId,
   };

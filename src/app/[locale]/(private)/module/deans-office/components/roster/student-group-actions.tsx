@@ -8,6 +8,7 @@ import { Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Show } from '@/components/utils/show';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { type DeansOfficeStudentSearchResult } from '@/types/models/deans-office';
 
 import { StudentGroupConfirm } from './student-group-confirm';
@@ -17,8 +18,8 @@ export function StudentGroupActions({ facultyId, groupId }: { facultyId: number 
   const [search, setSearch] = useState('');
   const [matches, setMatches] = useState<DeansOfficeStudentSearchResult[]>([]);
   const [searched, setSearched] = useState(false);
-  const [error, setError] = useState(false);
   const [pending, startTransition] = useTransition();
+  const { errorToast } = useServerErrorToast();
 
   return (
     <div className="space-y-3">
@@ -27,14 +28,13 @@ export function StudentGroupActions({ facultyId, groupId }: { facultyId: number 
         onSubmit={(event) => {
           event.preventDefault();
           startTransition(async () => {
-            setError(false);
             try {
               setMatches(await searchDeansOfficeStudents(facultyId, search.trim()));
               setSearched(true);
             } catch {
               setMatches([]);
               setSearched(false);
-              setError(true);
+              errorToast();
             }
           });
         }}
@@ -51,9 +51,6 @@ export function StudentGroupActions({ facultyId, groupId }: { facultyId: number 
           {t('search')}
         </Button>
       </form>
-      <Show when={error}>
-        <Paragraph role="alert">{t('requestFailed')}</Paragraph>
-      </Show>
       <Show when={searched && !matches.length}>
         <Paragraph>{t('empty')}</Paragraph>
       </Show>
@@ -66,17 +63,16 @@ export function StudentGroupActions({ facultyId, groupId }: { facultyId: number 
             pending={pending}
             onConfirm={() => {
               startTransition(async () => {
-                setError(false);
                 try {
                   if (await setDeansOfficeStudentGroup(student.id, groupId, student.groupId)) {
                     setMatches([]);
                     setSearched(false);
                     setSearch('');
                   } else {
-                    setError(true);
+                    errorToast();
                   }
                 } catch {
-                  setError(true);
+                  errorToast();
                 }
               });
             }}

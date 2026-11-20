@@ -30,29 +30,26 @@ export function DeansOfficeSelect({
   const selected = options.find((option) => option.id === query[name]);
 
   return (
-    <label className="grid min-w-0 gap-1 text-sm">
-      {label}
-      <Select
-        value={String(selected?.id ?? value ?? '')}
-        disabled={options.length === 0}
-        onValueChange={(next) =>
-          void setQuery({
-            ...Object.fromEntries((resets[name] ?? []).map((filter) => [filter, null])),
-            [name]: Number(next),
-          })
-        }
-      >
-        <SelectTrigger className="w-full" aria-label={label}>
-          <SelectValue placeholder={label} />
-        </SelectTrigger>
-        <SelectContent>
-          {options.map((option) => (
-            <SelectItem key={option.id} value={String(option.id)}>
-              {option.name}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </label>
+    <Select
+      value={String(selected?.id ?? value ?? '')}
+      disabled={options.length === 0}
+      onValueChange={(next) =>
+        void setQuery({
+          ...Object.fromEntries((resets[name] ?? []).map((filter) => [filter, null])),
+          [name]: Number(next),
+        })
+      }
+    >
+      <SelectTrigger className="w-full" aria-label={label}>
+        <SelectValue placeholder={label} />
+      </SelectTrigger>
+      <SelectContent>
+        {options.map((option) => (
+          <SelectItem key={option.id} value={String(option.id)}>
+            {option.name}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }

@@ -1,14 +1,10 @@
 'use client';
 
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { useQueryStates } from 'nuqs';
-import qs from 'query-string';
 import { type ReactNode } from 'react';
 
 import { Tabs, TabsContent, TabsList } from '@/components/ui/tabs';
 import { useRouter } from '@/i18n/routing';
-
-import { deansOfficeSearchParams } from '../search-params';
 
 export function DeansOfficeTabs({
   basePath,
@@ -23,16 +19,16 @@ export function DeansOfficeTabs({
 }) {
   const router = useRouter();
   const segment = useSelectedLayoutSegment();
-  const [filters] = useQueryStates(deansOfficeSearchParams);
   const active = segment ?? 'index';
 
   return (
     <Tabs
       value={active}
+      className="flex min-w-0 flex-col gap-4"
       activationMode="manual"
       onValueChange={(tab) => {
         const url = tab === 'index' ? basePath : `${basePath}/${tab}`;
-        router.push(qs.stringifyUrl({ url, query: filters }, { skipNull: true }));
+        router.push(url);
       }}
     >
       <div className="overflow-x-auto">
@@ -40,7 +36,7 @@ export function DeansOfficeTabs({
           {triggers}
         </TabsList>
       </div>
-      <TabsContent value={active} className="space-y-5">
+      <TabsContent value={active} className="mt-0 min-w-0">
         {children}
       </TabsContent>
     </Tabs>

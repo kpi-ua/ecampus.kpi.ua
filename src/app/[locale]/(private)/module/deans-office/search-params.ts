@@ -11,7 +11,6 @@ const positiveId = createParser({
 export const deansOfficeSearchParams = {
   facultyId: positiveId,
   departmentId: positiveId,
-  yearId: positiveId,
   course: positiveId,
   groupId: positiveId,
   programId: positiveId,

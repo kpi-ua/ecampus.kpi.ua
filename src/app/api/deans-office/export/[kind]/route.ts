@@ -7,12 +7,16 @@ import { DEFAULT_LOCALE, LOCALE } from '@/i18n/routing';
 import { campusFetch } from '@/lib/client';
 import { createCsvResponse } from '@/lib/csv-response';
 import { formatDate } from '@/lib/utils';
-import { type DeansOfficeGroupCount, type DeansOfficeOption, type DeansOfficeReportRow } from '@/types/models/deans-office';
+import {
+  type DeansOfficeGroupCount,
+  type DeansOfficeOption,
+  type DeansOfficeReportRow,
+} from '@/types/models/deans-office';
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ kind: string }> }) {
   const { kind } = await params;
   const query = request.nextUrl.searchParams;
-  const { facultyId, groupId, yearId, semester, periodTypeId } = loadDeansOfficeSearchParams(query);
+  const { facultyId, groupId, semester, periodTypeId } = loadDeansOfficeSearchParams(query);
   const locale = query.get('locale') === LOCALE.EN ? LOCALE.EN : DEFAULT_LOCALE;
   const t = await getTranslations({ locale, namespace: 'private.deans-office' });
   const filename = `deans-office-${kind}-${formatDate(new Date())}.csv`;
@@ -30,8 +34,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     return createCsvResponse([[t('student')], ...students.map((student) => [student.name])], filename);
   }
 
-  if (kind === 'groups' && yearId) {
-    const url = qs.stringifyUrl({ url: '/deans-office/group-counts', query: { facultyId, yearId } }, { skipNull: true });
+  if (kind === 'groups') {
+    const url = '/deans-office/group-counts';
     const response = await campusFetch<DeansOfficeGroupCount[]>(url);
     if (!response.ok) {
       return new Response(null, { status: response.status });
@@ -46,9 +50,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     );
   }
 
-  if (kind === 'reports' && yearId && (semester === 1 || semester === 2) && periodTypeId) {
+  if (kind === 'reports' && (semester === 1 || semester === 2) && periodTypeId) {
     const url = qs.stringifyUrl(
-      { url: '/deans-office/reports', query: { facultyId, yearId, semester, periodTypeId } },
+      { url: '/deans-office/reports', query: { facultyId, semester, periodTypeId } },
       { skipNull: true },
     );
     const response = await campusFetch<DeansOfficeReportRow[]>(url);

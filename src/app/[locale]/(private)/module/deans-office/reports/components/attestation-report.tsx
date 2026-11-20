@@ -1,56 +1,46 @@
-import { type ReactNode } from 'react';
-
 import { getDeansOfficeReport } from '@/actions/deans-office.actions';
 import { Table, TableBody, TableCell, TableEmptyRow, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 import { type DeansOfficeOption } from '@/types/models/deans-office';
 
-import { DeansOfficeExport } from '../../components/deans-office-export';
 import { DeansOfficeSelect } from '../../components/deans-office-select';
+import { ExportButton } from '../../components/export-button';
 import { type DeansOfficeTranslations } from '../../translations';
 
 export async function AttestationReport({
   t,
-  facultyFilter,
-  facultyId,
-  years,
   periodTypes,
-  yearId,
   semester,
   periodTypeId,
 }: {
   t: DeansOfficeTranslations;
-  facultyFilter: ReactNode;
-  facultyId: number | null;
-  years: DeansOfficeOption[];
   periodTypes: DeansOfficeOption[];
-  yearId: number | null;
   semester: number;
   periodTypeId: number | null;
 }) {
-  const rows = yearId && periodTypeId ? await getDeansOfficeReport(facultyId, yearId, semester, periodTypeId) : [];
+  const rows = periodTypeId ? await getDeansOfficeReport(null, semester, periodTypeId) : [];
 
   return (
     <>
-      <div className="grid items-end gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {facultyFilter}
-        <DeansOfficeSelect name="yearId" value={yearId} label={t('year')} options={years} />
-        <DeansOfficeSelect
-          name="semester"
-          value={semester}
-          label={t('semester')}
-          options={[
-            { id: 1, name: t('firstSemester') },
-            { id: 2, name: t('secondSemester') },
-          ]}
-        />
-        <DeansOfficeSelect name="periodTypeId" value={periodTypeId} label={t('attestation')} options={periodTypes} />
-      </div>
-      <Show when={rows.length > 0}>
-        <div className="flex justify-end">
-          <DeansOfficeExport kind="reports" label={t('export')} query={{ facultyId, yearId, semester, periodTypeId }} />
+      <div className="flex w-full flex-wrap items-end gap-x-4 gap-y-3">
+        <div className="grid min-w-0 grid-cols-2 items-end gap-4 max-sm:w-full">
+          <DeansOfficeSelect
+            name="semester"
+            value={semester}
+            label={t('semester')}
+            options={[
+              { id: 1, name: t('firstSemester') },
+              { id: 2, name: t('secondSemester') },
+            ]}
+          />
+          <DeansOfficeSelect name="periodTypeId" value={periodTypeId} label={t('attestation')} options={periodTypes} />
         </div>
-      </Show>
+        <Show when={rows.length > 0}>
+          <div className="ml-auto shrink-0">
+            <ExportButton kind="reports" label={t('export')} query={{ semester, periodTypeId }} />
+          </div>
+        </Show>
+      </div>
       <Table>
         <TableHeader>
           <TableRow>

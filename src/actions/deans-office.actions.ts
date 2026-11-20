@@ -13,62 +13,116 @@ import {
   type DeansOfficeStudentSearchResult,
 } from '@/types/models/deans-office';
 
-type Filters = Record<string, number | string | null>;
+export async function getDeansOfficeOptions(facultyId: number | null) {
+  const url = qs.stringifyUrl({ url: '/deans-office/options', query: { facultyId } }, { skipNull: true });
+  const response = await campusFetch<DeansOfficeOptions>(url);
 
-async function read<T>(path: string, query: Filters) {
-  const url = qs.stringifyUrl({ url: `/deans-office/${path}`, query }, { skipNull: true });
-  const response = await campusFetch<T>(url);
   if (!response.ok) {
     throw new Error(`DeansOffice request failed: ${response.status}`);
   }
+
   return response.json();
 }
 
-export async function getDeansOfficeOptions(facultyId: number | null) {
-  return read<DeansOfficeOptions>('options', { facultyId });
-}
-
 export async function getDeansOfficeGroups(facultyId: number | null, departmentId: number, course: number) {
-  return read<DeansOfficeOption[]>('groups', { facultyId, departmentId, course });
+  const url = qs.stringifyUrl(
+    { url: '/deans-office/groups', query: { facultyId, departmentId, course } },
+    { skipNull: true },
+  );
+  const response = await campusFetch<DeansOfficeOption[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`DeansOffice request failed: ${response.status}`);
+  }
+
+  return response.json();
 }
 
 export async function getDeansOfficeStudents(facultyId: number | null, groupId: number) {
-  return read<DeansOfficeOption[]>(`groups/${groupId}/students`, { facultyId });
+  const url = qs.stringifyUrl(
+    { url: `/deans-office/groups/${groupId}/students`, query: { facultyId } },
+    { skipNull: true },
+  );
+  const response = await campusFetch<DeansOfficeOption[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`DeansOffice request failed: ${response.status}`);
+  }
+
+  return response.json();
 }
 
 export async function searchDeansOfficeStudents(facultyId: number | null, search: string) {
-  return read<DeansOfficeStudentSearchResult[]>('students', { facultyId, search });
+  const url = qs.stringifyUrl({ url: '/deans-office/students', query: { facultyId, search } }, { skipNull: true });
+  const response = await campusFetch<DeansOfficeStudentSearchResult[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`DeansOffice request failed: ${response.status}`);
+  }
+
+  return response.json();
 }
 
 export async function getDeansOfficePrograms(facultyId: number | null, departmentId: number) {
-  return read<DeansOfficeOption[]>('programs', { facultyId, departmentId });
+  const url = qs.stringifyUrl(
+    { url: '/deans-office/programs', query: { facultyId, departmentId } },
+    { skipNull: true },
+  );
+  const response = await campusFetch<DeansOfficeOption[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`DeansOffice request failed: ${response.status}`);
+  }
+
+  return response.json();
 }
 
 export async function getDeansOfficeDisciplines(filters: {
   facultyId: number | null;
   departmentId: number;
-  yearId: number;
   programId: number;
   semester: number | null;
   periodTypeId: number | null;
 }) {
-  return read<DeansOfficeDiscipline[]>('disciplines', filters);
+  const url = qs.stringifyUrl({ url: '/deans-office/disciplines', query: filters }, { skipNull: true });
+  const response = await campusFetch<DeansOfficeDiscipline[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`DeansOffice request failed: ${response.status}`);
+  }
+
+  return response.json();
 }
 
-export async function getDeansOfficeGroupCounts(facultyId: number | null, yearId: number) {
-  return read<DeansOfficeGroupCount[]>('group-counts', { facultyId, yearId });
+export async function getDeansOfficeGroupCounts() {
+  const response = await campusFetch<DeansOfficeGroupCount[]>('/deans-office/group-counts');
+
+  if (!response.ok) {
+    throw new Error(`DeansOffice request failed: ${response.status}`);
+  }
+
+  return response.json();
 }
 
-export async function getDeansOfficeReport(
-  facultyId: number | null,
-  yearId: number,
-  semester: number,
-  periodTypeId: number,
+export async function getDeansOfficeReport(facultyId: number | null, semester: number, periodTypeId: number) {
+  const url = qs.stringifyUrl(
+    { url: '/deans-office/reports', query: { facultyId, semester, periodTypeId } },
+    { skipNull: true },
+  );
+  const response = await campusFetch<DeansOfficeReportRow[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`DeansOffice request failed: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+export async function setDeansOfficeStudentGroup(
+  studentId: number,
+  groupId: number | null,
+  currentGroupId: number | null,
 ) {
-  return read<DeansOfficeReportRow[]>('reports', { facultyId, yearId, semester, periodTypeId });
-}
-
-export async function setDeansOfficeStudentGroup(studentId: number, groupId: number | null, currentGroupId: number | null) {
   const response = await campusFetch(`/deans-office/students/${studentId}/group`, {
     method: 'PUT',
     body: JSON.stringify({ groupId, currentGroupId }),

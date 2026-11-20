@@ -1,40 +1,33 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { useState, useTransition } from 'react';
+import { useTransition } from 'react';
 
 import { setDeansOfficeStudentGroup } from '@/actions/deans-office.actions';
-import { Paragraph } from '@/components/typography';
-import { Show } from '@/components/utils/show';
+import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { type DeansOfficeOption } from '@/types/models/deans-office';
 
 import { StudentGroupConfirm } from './student-group-confirm';
 
 export function RemoveStudentButton({ student, groupId }: { student: DeansOfficeOption; groupId: number }) {
-  const t = useTranslations('private.deans-office');
   const [pending, startTransition] = useTransition();
-  const [error, setError] = useState(false);
+  const { errorToast } = useServerErrorToast();
 
   return (
-    <>
-      <StudentGroupConfirm
-        action="remove"
-        student={student.name}
-        pending={pending}
-        onConfirm={() => {
-          startTransition(async () => {
-            setError(false);
-            try {
-              setError(!(await setDeansOfficeStudentGroup(student.id, null, groupId)));
-            } catch {
-              setError(true);
+    <StudentGroupConfirm
+      action="remove"
+      student={student.name}
+      pending={pending}
+      onConfirm={() => {
+        startTransition(async () => {
+          try {
+            if (!(await setDeansOfficeStudentGroup(student.id, null, groupId))) {
+              errorToast();
             }
-          });
-        }}
-      />
-      <Show when={error}>
-        <Paragraph role="alert">{t('requestFailed')}</Paragraph>
-      </Show>
-    </>
+          } catch {
+            errorToast();
+          }
+        });
+      }}
+    />
   );
 }
