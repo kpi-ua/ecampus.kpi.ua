@@ -1,8 +1,8 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { createSerializer, parseAsInteger, useQueryStates } from 'nuqs';
-import { type ComponentProps } from 'react';
+import { parseAsInteger, useQueryStates } from 'nuqs';
+import queryString from 'query-string';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { createPagesRange } from '@/lib/pagination.utils';
@@ -22,8 +22,6 @@ const paginationParsers = {
   page: parseAsInteger,
   pageSize: parseAsInteger,
 };
-
-type NavigateHandler = NonNullable<ComponentProps<typeof PaginationLink>['onNavigate']>;
 
 export interface PaginationWithLinksProps {
   pageSizeSelectOptions?: {
@@ -56,30 +54,17 @@ export function PaginationWithLinks({
     shallow: false,
     scroll: true,
   });
-  const serialize = createSerializer(paginationParsers, { urlKeys });
+  const query = queryString.parse(searchParams.toString());
 
   const totalPageCount = Math.max(1, Math.ceil(totalCount / pageSize));
   const visibleRange = isMobile ? 3 : 5;
   const pages = createPagesRange({ currentPage: page, pagesCount: totalPageCount, visibleRange });
 
-  const buildLink = (newPage: number) => serialize(`${pathname}?${searchParams.toString()}`, { page: newPage });
+  const buildLink = (newPage: number) =>
+    queryString.stringifyUrl({ url: pathname, query: { ...query, [urlKeys.page]: newPage } });
 
   const navToPageSize = (newPageSize: number) => {
     void setPagination({ page: null, pageSize: newPageSize });
-  };
-
-  const handlePageNavigate = (newPage: number): NavigateHandler => {
-    return (event) => {
-      event.preventDefault();
-      void setPagination({ page: newPage });
-    };
-  };
-
-  const handleNextNavigate: NavigateHandler = (event) => {
-    event.preventDefault();
-    if (page < totalPageCount) {
-      void setPagination({ page: page + 1 });
-    }
   };
 
   return (
@@ -102,7 +87,7 @@ export function PaginationWithLinks({
               </PaginationItem>
             ) : (
               <PaginationItem key={p}>
-                <PaginationLink href={buildLink(p)} isActive={page === p} onNavigate={handlePageNavigate(p)}>
+                <PaginationLink href={buildLink(p)} isActive={page === p}>
                   {p}
                 </PaginationLink>
               </PaginationItem>
@@ -111,7 +96,8 @@ export function PaginationWithLinks({
           <PaginationItem>
             <PaginationNext
               href={buildLink(Math.min(page + 1, totalPageCount))}
-              onNavigate={handleNextNavigate}
+              aria-disabled={page >= totalPageCount}
+              tabIndex={page >= totalPageCount ? -1 : undefined}
               className={`text-lg font-semibold text-neutral-900 ${
                 page >= totalPageCount ? 'pointer-events-none opacity-50' : undefined
               }`}

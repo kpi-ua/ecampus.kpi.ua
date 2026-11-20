@@ -75,7 +75,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['adminvote', NotePencil],
   ['zamdekan', UserSquare],
   ['zavkaf', UserSquare],
-  ['zdekan', Lectern],
+  ['dean', Lectern],
   ['ekk', Notebook],
   ['bravook', Scroll],
   ['rating', Ranking],
