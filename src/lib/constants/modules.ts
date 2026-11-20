@@ -29,7 +29,7 @@ export const MODULES: Module[] = [
   { name: 'k7-form', isExternal: false },
   { name: 'biblioteka', isExternal: false },
   { name: 'webometrics', isExternal: true },
-  { name: 'ekanat', isExternal: true },
+  { name: 'ekanat', isExternal: false },
   { name: 'editRNP', isExternal: true },
   { name: 'hignyak', isExternal: true },
   { name: 'rnpedit', isExternal: true },
