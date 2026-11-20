@@ -7,7 +7,7 @@ import { campusFetch } from '@/lib/client';
 import { USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
 import { isKpiCorporateEmail } from '@/lib/email.utils';
 import { fileUpload } from '@/lib/file-upload';
-import { EmailConfirmationResult } from "@/types/models/link-confirmation";
+import { EmailConfirmationResult } from '@/types/models/link-confirmation';
 
 const corporateEmailSchema = z.string().trim().email().refine(isKpiCorporateEmail);
 

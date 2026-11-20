@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import { AuthNavLayout } from '../../../auth-nav-layout';
-import { EmailConfirmation } from "./email-confirmation";
+import { EmailConfirmation } from './email-confirmation';
 
 const INTL_NAMESPACE = 'auth.emailConfirmation';
 

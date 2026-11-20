@@ -9,11 +9,11 @@ import { CircleWavyCheck, SpinnerGap, Warning } from '@/app/images';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
+import { useRunOnce } from '@/hooks/use-run-once';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 import { LOGIN_PATH } from '@/proxy/contants';
 import { PasswordResetConfirmationResult } from '@/types/models/link-confirmation';
-import { useRunOnce } from '@/hooks/use-run-once';
 
 type State = PasswordResetConfirmationResult | 'pending' | 'error';
 
@@ -36,7 +36,7 @@ export const PasswordResetConfirm = ({ recoveryKey }: Props) => {
   });
 
   const confirmPasswordResetMutation = useCallback(() => mutate(recoveryKey), [mutate, recoveryKey]);
-  
+
   useRunOnce(confirmPasswordResetMutation);
 
   const state: State = data ?? (isError ? 'error' : 'pending');
@@ -62,12 +62,12 @@ export const PasswordResetConfirm = ({ recoveryKey }: Props) => {
         </Alert>
       </Show>
       {nextStep && (
-        <Button size="big" className="w-full my-4" asChild>
+        <Button size="big" className="my-4 w-full" asChild>
           <Link href={nextStep}>{t(`${state}.button`)}</Link>
         </Button>
       )}
       <Show when={state === 'error'}>
-        <Button size="big" className="w-full my-4" onClick={() => mutate(recoveryKey)}>
+        <Button size="big" className="my-4 w-full" onClick={() => mutate(recoveryKey)}>
           {t('error.button')}
         </Button>
       </Show>

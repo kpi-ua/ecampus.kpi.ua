@@ -9,10 +9,10 @@ import { CircleWavyCheck, SpinnerGap, Warning } from '@/app/images';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
+import { useRunOnce } from '@/hooks/use-run-once';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link } from '@/i18n/routing';
 import { EmailConfirmationResult } from '@/types/models/link-confirmation';
-import { useRunOnce } from '@/hooks/use-run-once';
 
 type State = EmailConfirmationResult | 'pending' | 'error';
 
@@ -61,12 +61,12 @@ export const EmailConfirmation = ({ code }: Props) => {
         </Alert>
       </Show>
       {nextStep && (
-        <Button size="big" className="w-full my-4" asChild>
+        <Button size="big" className="my-4 w-full" asChild>
           <Link href={nextStep}>{t(`${state}.button`)}</Link>
         </Button>
       )}
       <Show when={state === 'error'}>
-        <Button size="big" className="w-full my-4" onClick={() => mutate(code)}>
+        <Button size="big" className="my-4 w-full" onClick={() => mutate(code)}>
           {t('error.button')}
         </Button>
       </Show>

@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import CaretLeftRegular from '@/app/images/icons/CaretLeftRegular.svg';
 import { Heading2 } from '@/components/typography/headers';
 import { TextButton } from '@/components/ui/text-button';
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils';
 
 export interface AuthNavLayoutProps {
   children: React.ReactNode;
