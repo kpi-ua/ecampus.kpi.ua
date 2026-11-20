@@ -58,7 +58,7 @@
       "webometrics": "Translation of EIR metadata",
       "student-attestation": "Results of calendar control",
       "attestationresults": "Results of calendar control",
-      "ekanat": "Dean’s office",
+      "deans-office": "Dean’s office",
       "editRNP": "RNP Editing Ruslan",
       "hignyak": "Reporting for DNVR",
       "rnpedit": "RNP Editing Alexey",
@@ -319,7 +319,7 @@
     }
   },
   "private": {
-    "ekanat": {
+    "deans-office": {
       "title": "Dean’s Office",
       "roster": "Group rosters",
       "disciplines": "Disciplines",
