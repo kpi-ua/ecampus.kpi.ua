@@ -68,7 +68,7 @@
       "vedomostadmin": "Адміністратор Сесії",
       "zamdekan": "Зам.декан",
       "zavkaf": "Зав.Каф.",
-      "zdekan": "Кабінет декана",
+      "dean": "Кабінет декана",
       "ekk": "ЕКК",
       "bravook": "Браво ВК",
       "yiystat": "Статистичні дані",
@@ -278,7 +278,7 @@
     }
   },
   "private": {
-    "dean-office": {
+    "dean": {
       "teachingStaffContacts": "Перелік НПП",
       "supportStaffContacts": "Перелік НДП (навчально-допоміжний персонал)",
       "researchStaffContacts": "Перелік НДЧ",

@@ -68,7 +68,7 @@
       "vedomostadmin": "Session Administrator",
       "zamdekan": "Deputy Dean",
       "zavkaf": "Head of Department",
-      "zdekan": "Deans office",
+      "dean": "Dean",
       "ekk": "EKK",
       "bravook": "Bravo VC",
       "yiystat": "Statistical data",
@@ -278,7 +278,7 @@
     }
   },
   "private": {
-    "dean-office": {
+    "dean": {
       "teachingStaffContacts": "Teaching staff",
       "supportStaffContacts": "Teaching support staff (НДП)",
       "researchStaffContacts": "НДЧ staff",
@@ -325,7 +325,7 @@
       "date": "Date",
       "result": "Result",
       "sheet": "Sheet",
-      "title": "Dean’s Office",
+      "title": "Dean",
       "department": "Department",
       "employees": "Employees",
       "students": "Students",
