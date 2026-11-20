@@ -37,7 +37,7 @@ export const MODULES: Module[] = [
   { name: 'rnpupd2', isExternal: true },
   { name: 'voteresult', isExternal: true },
   { name: 'vedomostadmin', isExternal: true },
-  { name: 'zamdekan', isExternal: true },
+  { name: 'deputy-dean', isExternal: false, legacyPath: '/tutor/index.php?mode=zamdekan' },
   { name: 'zavkaf', isExternal: true },
   { name: 'zdekan', isExternal: true },
   { name: 'ekk', isExternal: true },
