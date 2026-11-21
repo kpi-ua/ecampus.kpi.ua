@@ -767,6 +767,91 @@
           "title": "Done",
           "description": "All user rights revoked."
         }
+      },
+      "tabs": {
+        "rights": "Rights",
+        "periods": "Periods"
+      },
+      "periods": {
+        "periodLabel": "{year}, semester {semester}",
+        "phases": {
+          "Planned": "Planned",
+          "Submission": "Submission",
+          "SubmissionAndReview": "Submission and review",
+          "Review": "Review",
+          "Appeal": "Appeal",
+          "Leftover": "Leftovers",
+          "Archive": "Archive"
+        },
+        "table": {
+          "year": "Study year",
+          "semester": "Semester",
+          "submission": "Submission",
+          "review": "Dean's office review",
+          "appeal": "Appeal",
+          "export": "Export from",
+          "phase": "Phase",
+          "records": "Records",
+          "actions": "Actions",
+          "edit": "Edit",
+          "delete": "Delete",
+          "empty": "No periods yet"
+        },
+        "actions": {
+          "title": "Bonus points collection periods",
+          "add": "Add period",
+          "saved": "Period saved",
+          "deleted": "Period deleted",
+          "deleteTitle": "Delete the period {period}?",
+          "deleteDescription": "The period leaves the list, and the Bonus points module stops using it.",
+          "cancel": "Cancel",
+          "confirmDelete": "Delete"
+        },
+        "form": {
+          "add": "Add period",
+          "edit": "Edit period",
+          "description": "Enter the study year, semester and dates from the order on collecting bonus points.",
+          "recordsNote": "The period already has records, so its study year and semester cannot change.",
+          "currentNote": "The period has started: its study year, semester and submission start cannot change. Other dates can move to today or later.",
+          "year": "Study year",
+          "yearPlaceholder": "Choose a study year",
+          "semester": "Semester",
+          "firstSemester": "Semester 1",
+          "secondSemester": "Semester 2",
+          "studentDateStart": "Submission start",
+          "studentDateEnd": "Submission end",
+          "operatorDateStart": "Review start",
+          "operatorDateEnd": "Review end",
+          "dateExport": "Export date",
+          "dateExportHint": "Appeals last until the day before, inclusive.",
+          "summary": {
+            "submission": "Submission: {from}–{to}",
+            "review": "Review: {from}–{to}",
+            "appeal": "Appeal: {from}–{to}",
+            "export": "Export from {date}"
+          },
+          "noAppealWarning": "The export date is the day after the review ends, so there is no appeal.",
+          "cancel": "Cancel",
+          "save": "Save"
+        },
+        "errors": {
+          "year": "Choose a study year.",
+          "R1": "The submission cannot end before it starts.",
+          "R2": "The review cannot end before it starts.",
+          "R3": "The review cannot start before the submission.",
+          "R4": "The review cannot end before the submission.",
+          "R5": "The export date must be later than the day the review ends.",
+          "R6": "The export date cannot be in the past.",
+          "R7": "A period for this study year and semester already exists.",
+          "R8": "The period overlaps the period {period}.",
+          "R9": "The period must start after the period {period} and before the later ones.",
+          "R10": "Enter a date.",
+          "E1": "The study year and semester cannot change: the period has started or has records.",
+          "E2": "The submission has already started; its start cannot change.",
+          "E3": "A date of the current period can only move to today or later.",
+          "E4": "A period after its export date is read-only.",
+          "E5": "Only a future period without records can be deleted."
+        }
       }
     },
     "profile": {

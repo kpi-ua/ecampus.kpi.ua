@@ -1,15 +1,18 @@
 import { getTranslations } from 'next-intl/server';
 import { SearchParams } from 'nuqs/server';
 
+import { getSbpPeriods, getSbpPeriodStudyYears } from '@/actions/sbp-periods.actions';
 import { getSbpLoads, getSbpRightsHolders, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { redirect } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
 
 import { GrantButton } from './components/grant-button';
+import { PeriodsManagement } from './components/periods/periods-management';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';
 import { RightsTable } from './components/rights-table';
@@ -34,10 +37,12 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
 
   const filters = await loadRightsSearchParams(searchParams);
 
-  const [holders, loads, subdivisions] = await Promise.all([
+  const [holders, loads, subdivisions, periods, studyYears] = await Promise.all([
     getSbpRightsHolders({ ...filters, pageSize: PAGE_SIZE_DEFAULT }),
     getSbpLoads(),
     getSbpSubdivisions(),
+    getSbpPeriods(),
+    getSbpPeriodStudyYears(),
   ]);
 
   // Revoking the last rights of the last page leaves the URL past the end; go to the new last page.
@@ -51,28 +56,40 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12">
-        <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-          <div className="max-w-2xl">
-            <Heading2>{t('title')}</Heading2>
-            <Description>{t('subtitle')}</Description>
-          </div>
-          <GrantButton />
+        <div className="mb-6 max-w-2xl">
+          <Heading2>{t('title')}</Heading2>
+          <Description>{t('subtitle')}</Description>
         </div>
 
-        <RightsFilters loads={loads} subdivisions={subdivisions} />
+        <Tabs defaultValue="rights" className="flex min-w-0 flex-col gap-6">
+          <TabsList size="small" className="self-start">
+            <TabsTrigger value="rights">{t('tabs.rights')}</TabsTrigger>
+            <TabsTrigger value="periods">{t('tabs.periods')}</TabsTrigger>
+          </TabsList>
+          <TabsContent value="rights" className="mt-0">
+            <div className="mb-4 flex justify-end">
+              <GrantButton />
+            </div>
 
-        <div className="mt-8">
-          {holders.items.length === 0 ? (
-            <RightsEmptyState hasFilters={hasFilters} />
-          ) : (
-            <>
-              <RightsTable holders={holders.items} />
-              <div className="mt-4">
-                <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={holders.total} />
-              </div>
-            </>
-          )}
-        </div>
+            <RightsFilters loads={loads} subdivisions={subdivisions} />
+
+            <div className="mt-8">
+              {holders.items.length === 0 ? (
+                <RightsEmptyState hasFilters={hasFilters} />
+              ) : (
+                <>
+                  <RightsTable holders={holders.items} />
+                  <div className="mt-4">
+                    <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={holders.total} />
+                  </div>
+                </>
+              )}
+            </div>
+          </TabsContent>
+          <TabsContent value="periods" className="mt-0">
+            <PeriodsManagement periods={periods} studyYears={studyYears} />
+          </TabsContent>
+        </Tabs>
       </div>
     </SubLayout>
   );
