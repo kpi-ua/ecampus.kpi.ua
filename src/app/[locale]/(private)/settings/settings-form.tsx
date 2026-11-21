@@ -74,6 +74,7 @@ export function SettingsForm({ user }: Props) {
         const formData = new FormData();
         formData.append('file', file, file.name);
         await changePhoto(formData);
+        setFile(null);
       }
 
       if (data.newPassword && data.currentPassword && data.confirmPassword) {
