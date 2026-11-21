@@ -52,8 +52,8 @@ export async function getDeansOfficeStudents(facultyId: number | null, groupId: 
   return response.json();
 }
 
-export async function searchDeansOfficeStudents(facultyId: number | null, search: string) {
-  const url = qs.stringifyUrl({ url: '/deans-office/students', query: { facultyId, search } }, { skipNull: true });
+export async function searchDeansOfficeStudents(groupId: number, search: string) {
+  const url = qs.stringifyUrl({ url: '/deans-office/students', query: { groupId, search } }, { skipNull: true });
   const response = await campusFetch<DeansOfficeStudentSearchResult[]>(url);
 
   if (!response.ok) {

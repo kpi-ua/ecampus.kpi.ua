@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { type FocusEvent, type KeyboardEvent, type MouseEvent, useEffect, useEffectEvent, useState } from 'react';
 
@@ -14,6 +14,7 @@ import { type DeansOfficeStudentSearchResult } from '@/types/models/deans-office
 
 export function AddStudentSearch({ groupId }: { groupId: number }) {
   const t = useTranslations('private.deans-office');
+  const queryClient = useQueryClient();
   const combobox = useTranslations('global.combobox');
   const { errorToast } = useServerErrorToast();
   const [input, setInput] = useState('');
@@ -23,8 +24,8 @@ export function AddStudentSearch({ groupId }: { groupId: number }) {
   const debouncedTerm = useDebounce(term, SEARCH_DEBOUNCE_MS);
   const showResults = focused && !selected && term.length >= 2;
   const search = useQuery({
-    queryKey: ['deans-office', 'student-search', debouncedTerm],
-    queryFn: () => searchDeansOfficeStudents(null, debouncedTerm),
+    queryKey: ['deans-office', 'student-search', groupId, debouncedTerm],
+    queryFn: () => searchDeansOfficeStudents(groupId, debouncedTerm),
     enabled: showResults && term === debouncedTerm,
     retry: false,
   });
@@ -44,6 +45,7 @@ export function AddStudentSearch({ groupId }: { groupId: number }) {
       }
     },
     onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['deans-office', 'student-search'] });
       setInput('');
       setSelected(null);
     },
