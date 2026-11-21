@@ -320,10 +320,6 @@
   },
   "private": {
     "session-administration": {
-      "monitoring": "Моніторинг відомостей",
-      "instructions": "Інструкція",
-      "instructionsDescription": "Інструкція для відповідальних осіб факультету чи інституту щодо роботи з модулем «Адміністратор сесії».",
-      "downloadInstructions": "Завантажити інструкцію",
       "course": "Курс",
       "courseOption": "{course} курс",
       "phdCourse": "{course} курс (PhD)",

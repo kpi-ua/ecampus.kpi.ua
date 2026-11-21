@@ -320,10 +320,6 @@
   },
   "private": {
     "session-administration": {
-      "monitoring": "Sheet monitoring",
-      "instructions": "Instructions",
-      "instructionsDescription": "Instructions for faculty and institute staff using Session Administrator.",
-      "downloadInstructions": "Download instructions",
       "course": "Course",
       "courseOption": "Year {course}",
       "phdCourse": "PhD year {course}",

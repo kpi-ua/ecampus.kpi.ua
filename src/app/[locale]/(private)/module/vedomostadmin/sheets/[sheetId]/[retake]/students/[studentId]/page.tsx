@@ -31,7 +31,7 @@ export default async function Page({
   }
 
   return (
-    <Card className="min-w-0 space-y-5 p-6">
+    <Card className="flex min-w-0 flex-col gap-5 p-4 sm:p-6">
       <h2 className="text-xl font-semibold">{result.name || t('studentMarks')}</h2>
       <Table>
         <TableHeader>

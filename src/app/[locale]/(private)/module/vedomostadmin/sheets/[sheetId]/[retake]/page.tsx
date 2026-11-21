@@ -46,11 +46,11 @@ export default async function Page({
   ];
 
   return (
-    <Card className="min-w-0 space-y-5 p-6">
+    <Card className="flex min-w-0 flex-col gap-5 p-4 sm:p-6">
       <h2 className="text-xl font-semibold">{sheet.discipline}</h2>
-      <dl className="grid gap-3 sm:grid-cols-3">
+      <dl className="grid gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
         {fields.map(([label, value]) => (
-          <div key={label}>
+          <div key={label} className="space-y-1">
             <dt className="text-sm text-muted-foreground">{label}</dt>
             <dd>{value ?? '—'}</dd>
           </div>

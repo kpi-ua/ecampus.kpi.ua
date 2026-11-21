@@ -18,7 +18,7 @@ export function CourseFilter() {
 
   return (
     <Select value={String(course)} onValueChange={(value) => void setCourse(Number(value))}>
-      <SelectTrigger className="w-full sm:max-w-xs" aria-label={t('course')}>
+      <SelectTrigger className="w-full" aria-label={t('course')}>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
