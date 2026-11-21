@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ChevronDown, ChevronRight, Trash2, UserX } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
@@ -7,7 +8,6 @@ import { Fragment, useState } from 'react';
 import { getSbpUserRights, revokeAllSbpRightsForUser, revokeSbpRight } from '@/actions/sbp-rights.actions';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 import { SbpResponsibilityListItem, SbpRightsHolder } from '@/types/models/sbp-rights';
@@ -19,6 +19,8 @@ interface Props {
 }
 
 const COLUMN_COUNT = 4;
+
+const userRightsQueryKey = (userAccountId: number) => ['sbp-rights', 'users', userAccountId] as const;
 
 /**
  * One row per person with active rights: access level, number of rights and a revoke-all action.
@@ -50,32 +52,26 @@ export function RightsTable({ holders }: Props) {
 
 function HolderRows({ holder }: { holder: SbpRightsHolder }) {
   const t = useTranslations('private.studbonuspointsrights.table');
-  const { errorToast } = useServerErrorToast();
+  const queryClient = useQueryClient();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [rights, setRights] = useState<SbpResponsibilityListItem[] | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const queryKey = userRightsQueryKey(holder.userAccountId);
+  const {
+    data: rights,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey,
+    queryFn: () => getSbpUserRights(holder.userAccountId),
+    enabled: isExpanded,
+  });
 
-  const loadRights = async () => {
-    setIsLoading(true);
-    try {
-      setRights(await getSbpUserRights(holder.userAccountId));
-    } catch {
-      errorToast();
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const toggle = () => {
-    if (!isExpanded && rights === null) {
-      void loadRights();
-    }
-    setIsExpanded(!isExpanded);
-  };
+  const toggle = () => setIsExpanded(!isExpanded);
 
   const revokeOne = async (sbpResponsibleId: number) => {
     await revokeSbpRight(sbpResponsibleId);
-    setRights((prev) => prev?.filter((r) => r.id !== sbpResponsibleId) ?? null);
+    queryClient.setQueryData<SbpResponsibilityListItem[]>(queryKey, (prev) =>
+      prev?.filter((r) => r.id !== sbpResponsibleId),
+    );
   };
 
   const level = holder.subdivisions
@@ -109,10 +105,10 @@ function HolderRows({ holder }: { holder: SbpRightsHolder }) {
           />
         </TableCell>
       </TableRow>
-      {isExpanded && isLoading && (
+      {isExpanded && (isLoading || isError) && (
         <TableRow>
           <TableCell colSpan={COLUMN_COUNT} className="pl-14 text-sm text-muted-foreground">
-            {t('loading')}
+            {isError ? t('loadError') : t('loading')}
           </TableCell>
         </TableRow>
       )}
@@ -133,7 +129,7 @@ function HolderRows({ holder }: { holder: SbpRightsHolder }) {
                 </div>
               </TableCell>
               <TableCell className="text-right whitespace-nowrap text-muted-foreground">
-                {item.changeDate ? formatDate(item.changeDate) : EMPTY_VALUE}
+                {item.changeDate ? formatDate(item.changeDate, 'DD.MM.YYYY') : EMPTY_VALUE}
               </TableCell>
               <TableCell className="text-right">
                 <RevokeDialog

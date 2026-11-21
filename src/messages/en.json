@@ -697,7 +697,8 @@
         "university": "KPI",
         "expand": "Show points",
         "collapse": "Hide points",
-        "loading": "Loading…"
+        "loading": "Loading…",
+        "loadError": "Could not load the points. Try again."
       },
       "filters": {
         "searchPlaceholder": "Search by full name",
