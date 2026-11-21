@@ -7,7 +7,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 import { sessionAdministrationSearchParams } from '../search-params';
 
-const courses = [1, 2, 3, 4, 5, 6, 7, 8];
+const COURSES = [
+  { value: '1', label: 'courseOption', year: 1 },
+  { value: '2', label: 'courseOption', year: 2 },
+  { value: '3', label: 'courseOption', year: 3 },
+  { value: '4', label: 'courseOption', year: 4 },
+  { value: '5', label: 'mastersCourse', year: 1 },
+  { value: '6', label: 'mastersCourse', year: 2 },
+  { value: '7', label: 'phdCourse', year: 1 },
+  { value: '8', label: 'phdCourse', year: 2 },
+] as const;
 
 export function CourseFilter() {
   const t = useTranslations('private.session-administration');
@@ -20,25 +29,15 @@ export function CourseFilter() {
     void setCourse(Number(value));
   };
 
-  const getCourseLabel = (value: number) => {
-    if (value <= 4) {
-      return t('courseOption', { course: value });
-    }
-    if (value <= 6) {
-      return t('mastersCourse', { course: value - 4 });
-    }
-    return t('phdCourse', { course: value - 6 });
-  };
-
   return (
     <Select value={String(course)} onValueChange={handleCourseChange}>
       <SelectTrigger className="w-full">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {courses.map((value) => (
-          <SelectItem key={value} value={String(value)}>
-            {getCourseLabel(value)}
+        {COURSES.map(({ value, label, year }) => (
+          <SelectItem key={value} value={value}>
+            {t(label, { course: year })}
           </SelectItem>
         ))}
       </SelectContent>
