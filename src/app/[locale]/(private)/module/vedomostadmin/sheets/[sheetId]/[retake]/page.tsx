@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
 import { EMPTY_VALUE } from '@/lib/constants/common';
-import { formatDate } from '@/lib/utils';
+import { formatDateOrPlaceholder } from '@/lib/utils';
 
 import { loadSheetSearchParams } from '../../../search-params';
 
@@ -30,14 +30,13 @@ export default async function Page({
     notFound();
   }
   const { sheet, students } = data;
-  const date = (value: string | null) => (value ? formatDate(value, 'DD.MM.YYYY HH:mm') : EMPTY_VALUE);
 
   const fields = [
     [t('number'), sheet.number],
     [t('group'), sheet.group],
-    [t('opensAt'), date(sheet.opensAt)],
-    [t('examAt'), date(sheet.examAt)],
-    [t('closesAt'), date(sheet.closesAt)],
+    [t('opensAt'), formatDateOrPlaceholder(sheet.opensAt, 'DD.MM.YYYY HH:mm')],
+    [t('examAt'), formatDateOrPlaceholder(sheet.examAt, 'DD.MM.YYYY HH:mm')],
+    [t('closesAt'), formatDateOrPlaceholder(sheet.closesAt, 'DD.MM.YYYY HH:mm')],
     [t('assessment'), sheet.assessment],
     [t('retake'), t(sheet.retake === 0 ? 'main' : 'retakeOption', { number: sheet.retake })],
     [t('lecturer'), sheet.lecturer],

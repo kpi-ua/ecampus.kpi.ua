@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { formatDate } from '@/lib/utils';
+import { formatDateOrPlaceholder } from '@/lib/utils';
 import { VoteAdminTerm } from '@/types/models/vote/administration';
 
 import { PeriodBadge } from './period-badge';
@@ -47,12 +47,12 @@ export const PeriodsTable = ({ periods, disabled, onEdit, onDelete }: Props) => 
             <TableRow key={period.id}>
               <TableCell>{period.number}</TableCell>
               <TableCell className="whitespace-nowrap">{period.studyYear}</TableCell>
-              <TableCell>{formatDate(period.startsOn)}</TableCell>
-              <TableCell>{formatDate(period.endsOn)}</TableCell>
+              <TableCell>{formatDateOrPlaceholder(period.startsOn)}</TableCell>
+              <TableCell>{formatDateOrPlaceholder(period.endsOn)}</TableCell>
               <TableCell>
                 <PeriodBadge period={period} />
               </TableCell>
-              <TableCell>{formatDate(period.resultsPublishOn)}</TableCell>
+              <TableCell>{formatDateOrPlaceholder(period.resultsPublishOn)}</TableCell>
               <TableCell>{period.respondentCount}</TableCell>
               <TableCell>
                 <div className="flex gap-2">

@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { sum } from 'radash';
 
@@ -8,7 +7,7 @@ import { CaretLeftRegular } from '@/app/images';
 import { Heading2, Paragraph } from '@/components/typography';
 import { Badge } from '@/components/ui/badge';
 import { Link } from '@/i18n/routing';
-import { formatNumber } from '@/lib/utils';
+import { formatNumber, formatDateOrPlaceholder } from '@/lib/utils';
 import { K7HtmlPreview } from '@/types/models/k7-form';
 
 import { DownloadPdfButton } from './components/download-pdf-button';
@@ -72,7 +71,8 @@ export const K7PreviewContent = ({ preview, pdfReady, backHref }: Props) => {
           <Paragraph className="mt-2 mb-0 text-xs !leading-xs font-medium text-neutral-500">
             {preview.header.fullName} · {preview.header.position} · {preview.header.departmentName}
             {preview.header.facultyName && ` (${preview.header.facultyName})`} · {academicYear}
-            {snapshotAt && ` · ${t('preview.snapshotAt', { date: dayjs(snapshotAt).format('DD.MM.YYYY, HH:mm') })}`}
+            {snapshotAt &&
+              ` · ${t('preview.snapshotAt', { date: formatDateOrPlaceholder(snapshotAt, 'DD.MM.YYYY, HH:mm') })}`}
           </Paragraph>
         </div>
         {downloadAction}

@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
 import { EMPTY_VALUE } from '@/lib/constants/common';
-import { cn, formatDate } from '@/lib/utils';
+import { cn, formatDateOrPlaceholder } from '@/lib/utils';
 import { type SessionSheet, SessionSheetStatus } from '@/types/models/session-administration';
 
 import { CourseFilter } from './course-filter';
@@ -49,7 +49,6 @@ export function SessionSheetsTable({
       (retake === 'all' || (retake === 'additional' ? sheet.retake > 0 : String(sheet.retake) === retake)) &&
       (form === 'all' || sheet.educationFormId === form),
   );
-  const date = (value: string | null) => (value ? formatDate(value, 'DD.MM.YYYY') : EMPTY_VALUE);
 
   const handleRetakeChange = (value: string) => {
     setRetake(value);
@@ -134,9 +133,9 @@ export function SessionSheetsTable({
               <TableRow key={sheet.id + ':' + sheet.retake} className={statusStyles[sheet.status]}>
                 <TableCell>{sheet.number ?? EMPTY_VALUE}</TableCell>
                 <TableCell>{sheet.course}</TableCell>
-                <TableCell>{date(sheet.opensAt)}</TableCell>
-                <TableCell>{date(sheet.examAt)}</TableCell>
-                <TableCell>{date(sheet.closesAt)}</TableCell>
+                <TableCell>{formatDateOrPlaceholder(sheet.opensAt)}</TableCell>
+                <TableCell>{formatDateOrPlaceholder(sheet.examAt)}</TableCell>
+                <TableCell>{formatDateOrPlaceholder(sheet.closesAt)}</TableCell>
                 <TableCell className="wrap-anywhere">{sheet.group ?? EMPTY_VALUE}</TableCell>
                 <TableCell>
                   <Link

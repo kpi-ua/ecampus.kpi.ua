@@ -8,8 +8,7 @@ import { Fragment, useMemo } from 'react';
 import { revokeAllSbpRightsForUser, revokeSbpRight } from '@/actions/sbp-rights.actions';
 import { Badge } from '@/components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EMPTY_VALUE } from '@/lib/constants/common';
-import { formatDate } from '@/lib/utils';
+import { formatDateOrPlaceholder } from '@/lib/utils';
 import { SbpResponsibilityListItem } from '@/types/models/sbp-rights';
 
 import { RevokeDialog } from './revoke-dialog';
@@ -89,7 +88,7 @@ export function RightsTable({ items }: Props) {
                     </div>
                   </TableCell>
                   <TableCell className="whitespace-nowrap text-muted-foreground">
-                    {item.changeDate ? formatDate(item.changeDate) : EMPTY_VALUE}
+                    {formatDateOrPlaceholder(item.changeDate)}
                   </TableCell>
                   <TableCell className="text-right">
                     <RevokeDialog
