@@ -49,6 +49,8 @@ export async function confirmEmail(code: string): Promise<EmailConfirmationResul
 
 export async function changePhoto(formData: FormData) {
   await fileUpload('profile/photo', formData);
+  // A new photo has a new address, which comes with the profile.
+  updateTag(USER_PROFILE_CACHE_TAG);
   revalidatePath('/');
 }
 
