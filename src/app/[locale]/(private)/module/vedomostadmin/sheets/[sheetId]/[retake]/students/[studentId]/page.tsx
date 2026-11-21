@@ -10,8 +10,6 @@ import { EMPTY_VALUE } from '@/lib/constants/common';
 
 import { loadSheetSearchParams } from '../../../../../search-params';
 
-const columns = ['discipline', 'assessment', 'mark'] as const;
-
 export default async function Page({
   params,
   searchParams,
@@ -39,15 +37,15 @@ export default async function Page({
       <Table>
         <TableHeader>
           <TableRow>
-            {columns.map((column) => (
-              <TableHead key={column}>{t(column)}</TableHead>
-            ))}
+            <TableHead>{t('discipline')}</TableHead>
+            <TableHead>{t('assessment')}</TableHead>
+            <TableHead>{t('mark')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {result.marks.length === 0 && (
             <TableRow>
-              <TableCell colSpan={columns.length}>{t('empty')}</TableCell>
+              <TableCell colSpan={3}>{t('empty')}</TableCell>
             </TableRow>
           )}
           {result.marks.map((row, index) => (

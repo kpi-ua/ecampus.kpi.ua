@@ -15,6 +15,14 @@ import { type SessionSheet, SessionSheetStatus } from '@/types/models/session-ad
 
 import { CourseFilter } from './course-filter';
 
+enum RetakeFilter {
+  All = 'all',
+  Main = '0',
+  Additional = 'additional',
+  First = '1',
+  Second = '2',
+}
+
 const statuses = Object.values(SessionSheetStatus);
 const statusStyles: Record<SessionSheetStatus, string> = {
   [SessionSheetStatus.Open]: 'bg-green-50',
@@ -34,7 +42,7 @@ export function SessionSheetsTable({
 }) {
   const t = useTranslations('private.session-administration');
   const [hiddenStatuses, setHiddenStatuses] = useState<SessionSheetStatus[]>([]);
-  const [retake, setRetake] = useState('all');
+  const [retake, setRetake] = useState(RetakeFilter.All);
   const [form, setForm] = useState('all');
   const studyModes = new Map(
     select(
@@ -46,12 +54,16 @@ export function SessionSheetsTable({
   const rows = sheets.filter(
     (sheet) =>
       !hiddenStatuses.includes(sheet.status) &&
-      (retake === 'all' || (retake === 'additional' ? sheet.retake > 0 : String(sheet.retake) === retake)) &&
+      (retake === RetakeFilter.All ||
+        (retake === RetakeFilter.Additional ? sheet.retake > 0 : String(sheet.retake) === retake)) &&
       (form === 'all' || sheet.educationFormId === form),
   );
 
   const handleRetakeChange = (value: string) => {
-    setRetake(value);
+    const selected = Object.values(RetakeFilter).find((option) => option === value);
+    if (!!selected) {
+      setRetake(selected);
+    }
   };
 
   const handleFormChange = (value: string) => {
@@ -73,11 +85,11 @@ export function SessionSheetsTable({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t('allSheetTypes')}</SelectItem>
-            <SelectItem value="0">{t('main')}</SelectItem>
-            <SelectItem value="additional">{t('additionalSheets')}</SelectItem>
-            <SelectItem value="1">{t('retakeOption', { number: 1 })}</SelectItem>
-            <SelectItem value="2">{t('retakeOption', { number: 2 })}</SelectItem>
+            <SelectItem value={RetakeFilter.All}>{t('allSheetTypes')}</SelectItem>
+            <SelectItem value={RetakeFilter.Main}>{t('main')}</SelectItem>
+            <SelectItem value={RetakeFilter.Additional}>{t('additionalSheets')}</SelectItem>
+            <SelectItem value={RetakeFilter.First}>{t('retakeOption', { number: 1 })}</SelectItem>
+            <SelectItem value={RetakeFilter.Second}>{t('retakeOption', { number: 2 })}</SelectItem>
           </SelectContent>
         </Select>
         <Select value={form} onValueChange={handleFormChange}>
