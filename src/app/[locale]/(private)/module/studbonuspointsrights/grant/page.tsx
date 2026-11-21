@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getSbpLoads, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
+import { getSbpLoads, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
@@ -20,7 +20,7 @@ export default async function GrantSbpRightsPage() {
   const t = await getTranslations(INTL_NAMESPACE);
   const tParent = await getTranslations('private.studbonuspointsrights');
 
-  const [loads, subdivisions, years] = await Promise.all([getSbpLoads(), getSbpSubdivisions(), getSbpStudyYears()]);
+  const [loads, subdivisions] = await Promise.all([getSbpLoads(), getSbpSubdivisions()]);
 
   const breadcrumbs: string[][] = [[SBP_RIGHTS_PATH, tParent('title')]];
 
@@ -31,7 +31,7 @@ export default async function GrantSbpRightsPage() {
           <Heading2>{t('title')}</Heading2>
           <Description>{t('description')}</Description>
         </div>
-        <GrantForm loads={loads} subdivisions={subdivisions} years={years} />
+        <GrantForm loads={loads} subdivisions={subdivisions} />
       </div>
     </SubLayout>
   );

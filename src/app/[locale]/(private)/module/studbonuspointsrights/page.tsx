@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { SearchParams } from 'nuqs/server';
 
-import { getSbpLoads, getSbpRights, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
+import { getSbpLoads, getSbpRightsHolders, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
@@ -34,20 +34,19 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
 
   const filters = await loadRightsSearchParams(searchParams);
 
-  const [rights, loads, subdivisions, years] = await Promise.all([
-    getSbpRights({ ...filters, pageSize: PAGE_SIZE_DEFAULT }),
+  const [holders, loads, subdivisions] = await Promise.all([
+    getSbpRightsHolders({ ...filters, pageSize: PAGE_SIZE_DEFAULT }),
     getSbpLoads(),
     getSbpSubdivisions(),
-    getSbpStudyYears(),
   ]);
 
-  // Revoking the last rows of the last page leaves the URL past the end; go to the new last page.
-  const lastPage = Math.max(1, Math.ceil(rights.total / PAGE_SIZE_DEFAULT));
-  if (rights.items.length === 0 && filters.page > lastPage) {
+  // Revoking the last rights of the last page leaves the URL past the end; go to the new last page.
+  const lastPage = Math.max(1, Math.ceil(holders.total / PAGE_SIZE_DEFAULT));
+  if (holders.items.length === 0 && filters.page > lastPage) {
     redirect({ href: serializeRightsSearchParams(SBP_RIGHTS_PATH, { ...filters, page: lastPage }), locale });
   }
 
-  const hasFilters = Boolean(filters.search || filters.studyingYearId || filters.subdivisionId || filters.loadId);
+  const hasFilters = Boolean(filters.search || filters.subdivisionId || filters.loadId);
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -60,16 +59,16 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
           <GrantButton />
         </div>
 
-        <RightsFilters loads={loads} subdivisions={subdivisions} years={years} />
+        <RightsFilters loads={loads} subdivisions={subdivisions} />
 
         <div className="mt-8">
-          {rights.items.length === 0 ? (
+          {holders.items.length === 0 ? (
             <RightsEmptyState hasFilters={hasFilters} />
           ) : (
             <>
-              <RightsTable items={rights.items} />
+              <RightsTable holders={holders.items} />
               <div className="mt-4">
-                <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={rights.total} />
+                <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={holders.total} />
               </div>
             </>
           )}

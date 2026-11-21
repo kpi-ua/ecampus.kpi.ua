@@ -14,12 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from '@/i18n/routing';
-import {
-  AccessScope,
-  SbpLoadCatalogItem,
-  SbpStudyYearCatalogItem,
-  SbpSubdivisionCatalogItem,
-} from '@/types/models/sbp-rights';
+import { AccessScope, SbpLoadCatalogItem, SbpSubdivisionCatalogItem } from '@/types/models/sbp-rights';
 
 import { SBP_RIGHTS_PATH, USER_SEARCH_MIN_CHARS } from '../constants';
 import { createGrantRightsSchema, GrantRightsFormValues } from './grant-rights-schema';
@@ -28,17 +23,15 @@ import { LoadMultiSelect } from './load-multi-select';
 interface Props {
   loads: SbpLoadCatalogItem[];
   subdivisions: SbpSubdivisionCatalogItem[];
-  years: SbpStudyYearCatalogItem[];
 }
 
-export function GrantForm({ loads, subdivisions, years }: Props) {
+export function GrantForm({ loads, subdivisions }: Props) {
   const t = useTranslations('private.studbonuspointsrights.grant');
   const { toast } = useToast();
   const { errorToast } = useServerErrorToast();
   const router = useRouter();
 
   const facultyOptions = useMemo(() => subdivisions.filter((s) => !s.isUniversityWide), [subdivisions]);
-  const currentYear = useMemo(() => years.find((y) => y.isCurrent) ?? years[0], [years]);
 
   const form = useForm<GrantRightsFormValues>({
     resolver: zodResolver(createGrantRightsSchema(t)),
@@ -46,7 +39,6 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
       userAccountId: 0,
       scope: 'Faculty',
       subdivisionId: undefined,
-      studyingYearId: currentYear?.id ?? 0,
       loadIds: [],
     },
     mode: 'onChange',
@@ -66,7 +58,6 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
         userAccountId: values.userAccountId,
         scope: values.scope,
         subdivisionId: values.scope === 'University' ? undefined : values.subdivisionId,
-        studyingYearId: values.studyingYearId,
         loadIds: values.loadIds,
       });
       toast({
@@ -165,34 +156,6 @@ export function GrantForm({ loads, subdivisions, years }: Props) {
                 )}
               />
             )}
-
-            <FormField
-              control={form.control}
-              name="studyingYearId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('year')}</FormLabel>
-                  <Select
-                    value={field.value ? String(field.value) : undefined}
-                    onValueChange={(v) => field.onChange(Number(v))}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('yearPlaceholder')} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {years.map((y) => (
-                        <SelectItem key={y.id} value={String(y.id)}>
-                          {y.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
 
           <FormField

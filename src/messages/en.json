@@ -77,7 +77,7 @@
       "useract": "Bravo Requests",
       "viewcontrol": "Review current control",
       "studbonuspoints": "Bonus points",
-      "studbonuspointsrights": "Rights: Bonus points",
+      "studbonuspointsrights": "Bonus points administration",
       "k7-form": "K-7 Report",
       "biblioteka": "Library",
       "votelecturer": "Lecturer survey results"
@@ -687,22 +687,20 @@
       }
     },
     "studbonuspointsrights": {
-      "title": "Rights: Bonus points",
-      "subtitle": "Grant and revoke admin access for individual points of the Bonus points module.",
-      "scope": {
-        "faculty": "Faculty",
-        "university": "University"
-      },
+      "title": "Bonus points administration",
+      "subtitle": "Grant and revoke admin access for individual points of the Bonus points module. Rights stay active until they are revoked.",
       "table": {
-        "load": "Point",
-        "created": "Granted",
-        "actions": "Actions"
+        "person": "Full name",
+        "level": "Access level",
+        "rightsCount": "Available points",
+        "actions": "Actions",
+        "university": "KPI",
+        "expand": "Show points",
+        "collapse": "Hide points",
+        "loading": "Loading…"
       },
       "filters": {
         "searchPlaceholder": "Search by full name",
-        "year": "Study year",
-        "allYears": "All years",
-        "currentSuffix": "current",
         "subdivision": "Subdivision",
         "allSubdivisions": "All subdivisions",
         "load": "Point",
@@ -731,8 +729,6 @@
         "scopeUniversity": "University",
         "subdivision": "Subdivision",
         "subdivisionPlaceholder": "Pick a faculty",
-        "year": "Study year",
-        "yearPlaceholder": "Pick a year",
         "loads": "Points",
         "loadsSelected": "{count} selected",
         "loadsNotFound": "No point found.",
@@ -742,7 +738,6 @@
         "cancel": "Cancel",
         "errors": {
           "userRequired": "Pick a user.",
-          "yearRequired": "Pick a study year.",
           "loadsRequired": "Pick at least one point.",
           "subdivisionRequired": "Pick a faculty."
         },
@@ -754,7 +749,7 @@
       "revoke": {
         "trigger": "Revoke right",
         "title": "Revoke this right?",
-        "description": "{user} will lose admin access to \"{load}\" for {subdivision} ({year}).",
+        "description": "{user} will lose admin access to point “{load}” for {subdivision}.",
         "confirm": "Revoke",
         "cancel": "Cancel",
         "success": {

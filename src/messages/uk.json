@@ -77,7 +77,7 @@
       "useract": "Заявки Браво ВК",
       "viewcontrol": "Перегляд контролів",
       "studbonuspoints": "Додаткові бали",
-      "studbonuspointsrights": "Права: Додаткові бали",
+      "studbonuspointsrights": "Адміністрування: Додаткові бали",
       "k7-form": "Звіт К-7",
       "biblioteka": "Бібліотека",
       "votelecturer": "Результати опитування «Викладач очима студентів»"
@@ -687,22 +687,20 @@
       }
     },
     "studbonuspointsrights": {
-      "title": "Права: Додаткові бали",
-      "subtitle": "Видавайте та відкликайте права на адміністрування пунктів модуля «Додаткові бали».",
-      "scope": {
-        "faculty": "Факультет",
-        "university": "Університет"
-      },
+      "title": "Адміністрування: Додаткові бали",
+      "subtitle": "Видавайте та відкликайте права на адміністрування пунктів модуля «Додаткові бали». Права діють, доки їх не відкликано.",
       "table": {
-        "load": "Пункт",
-        "created": "Видано",
-        "actions": "Дії"
+        "person": "ПІБ",
+        "level": "Рівень доступу",
+        "rightsCount": "Доступних пунктів",
+        "actions": "Дії",
+        "university": "КПІ",
+        "expand": "Показати пункти",
+        "collapse": "Сховати пункти",
+        "loading": "Завантаження…"
       },
       "filters": {
         "searchPlaceholder": "Пошук за ПІБ",
-        "year": "Навчальний рік",
-        "allYears": "Усі роки",
-        "currentSuffix": "поточний",
         "subdivision": "Підрозділ",
         "allSubdivisions": "Усі підрозділи",
         "load": "Пункт",
@@ -731,8 +729,6 @@
         "scopeUniversity": "Університет",
         "subdivision": "Підрозділ",
         "subdivisionPlaceholder": "Виберіть факультет",
-        "year": "Навчальний рік",
-        "yearPlaceholder": "Виберіть рік",
         "loads": "Пункти",
         "loadsSelected": "Обрано пунктів: {count}",
         "loadsNotFound": "Пункти не знайдено.",
@@ -742,7 +738,6 @@
         "cancel": "Скасувати",
         "errors": {
           "userRequired": "Виберіть користувача.",
-          "yearRequired": "Виберіть навчальний рік.",
           "loadsRequired": "Виберіть щонайменше один пункт.",
           "subdivisionRequired": "Виберіть факультет."
         },
@@ -754,7 +749,7 @@
       "revoke": {
         "trigger": "Відкликати право",
         "title": "Відкликати право?",
-        "description": "{user} втратить право адмініструвати пункт «{load}» для {subdivision} ({year}).",
+        "description": "{user} втратить право адмініструвати пункт «{load}» для {subdivision}.",
         "confirm": "Відкликати",
         "cancel": "Скасувати",
         "success": {

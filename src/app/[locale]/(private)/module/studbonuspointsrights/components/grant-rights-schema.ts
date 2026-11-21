@@ -13,7 +13,6 @@ export const createGrantRightsSchema = (t: (key: string) => string) =>
       userAccountId: z.number().int().positive(t('errors.userRequired')),
       scope: z.enum(['Faculty', 'University']),
       subdivisionId: z.number().int().positive().optional(),
-      studyingYearId: z.number().int().positive(t('errors.yearRequired')),
       loadIds: z.array(z.number().int().positive()).min(1, t('errors.loadsRequired')),
     })
     .refine((d) => d.scope === 'University' || (d.subdivisionId != null && d.subdivisionId > 0), {

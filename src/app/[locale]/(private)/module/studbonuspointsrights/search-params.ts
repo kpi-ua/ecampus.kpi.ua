@@ -8,7 +8,6 @@ const parseAsId = createParser({
 
 export const rightsSearchParams = {
   search: parseAsString.withDefault(''),
-  studyingYearId: parseAsId,
   subdivisionId: parseAsId,
   loadId: parseAsId,
   page: parseAsId.withDefault(1),
