@@ -29,16 +29,18 @@ export function DeansOfficeSelect({
   const [query, setQuery] = useQueryStates(deansOfficeSearchParams, { shallow: false, history: 'push' });
   const selected = options.find((option) => option.id === query[name]);
 
+  const handleValueChange = (next: string) => {
+    void setQuery({
+      ...Object.fromEntries((resets[name] ?? []).map((filter) => [filter, null])),
+      [name]: Number(next),
+    });
+  };
+
   return (
     <Select
       value={String(selected?.id ?? value ?? '')}
       disabled={options.length === 0}
-      onValueChange={(next) =>
-        void setQuery({
-          ...Object.fromEntries((resets[name] ?? []).map((filter) => [filter, null])),
-          [name]: Number(next),
-        })
-      }
+      onValueChange={handleValueChange}
     >
       <SelectTrigger className="w-full" aria-label={label}>
         <SelectValue placeholder={label} />

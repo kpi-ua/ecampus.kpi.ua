@@ -7,10 +7,10 @@ import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableEmptyRow, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Show } from '@/components/utils/show';
 
+import { AddStudentSearch } from './components/add-student-search';
 import { DeansOfficeSelect } from './components/deans-office-select';
 import { ExportButton } from './components/export-button';
-import { AddStudentSearch } from './components/roster/add-student-search';
-import { RemoveStudentButton } from './components/roster/remove-student-button';
+import { RemoveStudentButton } from './components/remove-student-button';
 import { loadDeansOfficeSearchParams } from './search-params';
 import { INTL_NAMESPACE } from './translations';
 

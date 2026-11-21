@@ -4,10 +4,9 @@ import { type ReactNode } from 'react';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Heading2 } from '@/components/typography';
 import { Card } from '@/components/ui/card';
-import { TabsTrigger } from '@/components/ui/tabs';
 import { type LocaleProps } from '@/types/locale-props';
 
-import { DeansOfficeTabs } from './components/deans-office-tabs';
+import { DeansOfficeNavigation } from './components/deans-office-navigation';
 import { INTL_NAMESPACE } from './translations';
 
 export async function generateMetadata({ params }: LocaleProps) {
@@ -23,20 +22,9 @@ export default async function DeansOfficeLayout({ children }: { children: ReactN
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-full flex min-w-0 flex-col gap-4">
         <Heading2>{t('title')}</Heading2>
-        <DeansOfficeTabs
-          basePath="/module/deans-office"
-          label={t('title')}
-          triggers={
-            <>
-              <TabsTrigger value="index">{t('roster')}</TabsTrigger>
-              <TabsTrigger value="disciplines">{t('disciplines')}</TabsTrigger>
-              <TabsTrigger value="reports">{t('reports')}</TabsTrigger>
-              <TabsTrigger value="groups">{t('groups')}</TabsTrigger>
-            </>
-          }
-        >
+        <DeansOfficeNavigation>
           <Card className="flex min-w-0 flex-col gap-6 p-4 sm:p-6">{children}</Card>
-        </DeansOfficeTabs>
+        </DeansOfficeNavigation>
       </div>
     </SubLayout>
   );

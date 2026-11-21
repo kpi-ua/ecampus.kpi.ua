@@ -12,22 +12,17 @@ export function RemoveStudentButton({ student, groupId }: { student: DeansOffice
   const [pending, startTransition] = useTransition();
   const { errorToast } = useServerErrorToast();
 
-  return (
-    <StudentGroupConfirm
-      action="remove"
-      student={student.name}
-      pending={pending}
-      onConfirm={() => {
-        startTransition(async () => {
-          try {
-            if (!(await setDeansOfficeStudentGroup(student.id, null, groupId))) {
-              errorToast();
-            }
-          } catch {
-            errorToast();
-          }
-        });
-      }}
-    />
-  );
+  const handleRemove = () => {
+    startTransition(async () => {
+      try {
+        if (!(await setDeansOfficeStudentGroup(student.id, null, groupId))) {
+          errorToast();
+        }
+      } catch {
+        errorToast();
+      }
+    });
+  };
+
+  return <StudentGroupConfirm action="remove" student={student.name} pending={pending} onConfirm={handleRemove} />;
 }

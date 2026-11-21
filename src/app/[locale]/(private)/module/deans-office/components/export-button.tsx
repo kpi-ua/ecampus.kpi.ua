@@ -36,13 +36,12 @@ export function ExportButton({
     onError: () => errorToast(),
   });
 
+  const handleExport = () => {
+    exportMutation.mutate();
+  };
+
   return (
-    <Button
-      type="button"
-      variant="secondary"
-      loading={exportMutation.isPending}
-      onClick={() => exportMutation.mutate()}
-    >
+    <Button type="button" variant="secondary" loading={exportMutation.isPending} onClick={handleExport}>
       {label}
     </Button>
   );

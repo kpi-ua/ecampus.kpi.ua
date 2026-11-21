@@ -12,21 +12,23 @@ export function AttestationSemesterSelect({ id, semester }: { id: number; semest
   const [pending, startTransition] = useTransition();
   const { errorToast } = useServerErrorToast();
 
+  const handleSemesterChange = (value: string) => {
+    startTransition(async () => {
+      try {
+        if (!(await setDeansOfficeAttestationSemester(id, value === '0' ? null : Number(value)))) {
+          errorToast();
+        }
+      } catch {
+        errorToast();
+      }
+    });
+  };
+
   return (
     <Select
       value={semester === null ? 'unset' : String(semester)}
       disabled={pending}
-      onValueChange={(value) => {
-        startTransition(async () => {
-          try {
-            if (!(await setDeansOfficeAttestationSemester(id, value === '0' ? null : Number(value)))) {
-              errorToast();
-            }
-          } catch {
-            errorToast();
-          }
-        });
-      }}
+      onValueChange={handleSemesterChange}
     >
       <SelectTrigger aria-label={t('attestationSemester')}>
         <SelectValue />

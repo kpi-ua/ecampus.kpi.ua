@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
-import { useEffect, useEffectEvent, useState } from 'react';
+import { type FocusEvent, type KeyboardEvent, type MouseEvent, useEffect, useEffectEvent, useState } from 'react';
 
 import { searchDeansOfficeStudents, setDeansOfficeStudentGroup } from '@/actions/deans-office.actions';
 import { Button } from '@/components/ui/button';
@@ -52,22 +52,57 @@ export function AddStudentSearch({ groupId }: { groupId: number }) {
 
   const loading = term !== debouncedTerm || search.isFetching;
 
+  const handleFocus = () => {
+    setFocused(true);
+  };
+
+  const handleBlur = (event: FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
+      setFocused(false);
+    }
+  };
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      setFocused(false);
+    }
+  };
+
+  const handleInputChange = (value: string) => {
+    setInput(value);
+    setSelected(null);
+    setFocused(true);
+  };
+
+  const handleOptionMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  const handleStudentSelect = (value: string) => {
+    const student = search.data?.find((option) => String(option.id) === value);
+    if (!student) {
+      return;
+    }
+
+    setSelected(student);
+    setInput(student.name);
+    setFocused(false);
+  };
+
+  const handleAddStudent = () => {
+    if (selected) {
+      assignment.mutate(selected);
+    }
+  };
+
   return (
     <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3">
       <Command
         className="relative h-auto w-full overflow-visible border sm:max-w-sm"
         shouldFilter={false}
-        onFocus={() => setFocused(true)}
-        onBlur={(event) => {
-          if (!event.currentTarget.contains(event.relatedTarget)) {
-            setFocused(false);
-          }
-        }}
-        onKeyDown={(event) => {
-          if (event.key === 'Escape') {
-            setFocused(false);
-          }
-        }}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
       >
         <CommandInput
           aria-label={t('searchStudent')}
@@ -75,11 +110,7 @@ export function AddStudentSearch({ groupId }: { groupId: number }) {
           value={input}
           maxLength={100}
           disabled={assignment.isPending}
-          onValueChange={(value) => {
-            setInput(value);
-            setSelected(null);
-            setFocused(true);
-          }}
+          onValueChange={handleInputChange}
         />
         <CommandList
           hidden={!showResults}
@@ -96,12 +127,8 @@ export function AddStudentSearch({ groupId }: { groupId: number }) {
                 <CommandItem
                   key={student.id}
                   value={String(student.id)}
-                  onMouseDown={(event) => event.preventDefault()}
-                  onSelect={() => {
-                    setSelected(student);
-                    setInput(student.name);
-                    setFocused(false);
-                  }}
+                  onMouseDown={handleOptionMouseDown}
+                  onSelect={handleStudentSelect}
                 >
                   {student.name}
                 </CommandItem>
@@ -109,16 +136,7 @@ export function AddStudentSearch({ groupId }: { groupId: number }) {
             ))}
         </CommandList>
       </Command>
-      <Button
-        type="button"
-        loading={assignment.isPending}
-        disabled={!selected}
-        onClick={() => {
-          if (selected) {
-            assignment.mutate(selected);
-          }
-        }}
-      >
+      <Button type="button" loading={assignment.isPending} disabled={!selected} onClick={handleAddStudent}>
         {t('addStudent')}
       </Button>
     </div>
