@@ -1,17 +1,17 @@
 'use client';
 
-import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ChevronDown, ChevronRight, Trash2, UserX } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 
-import { getSbpUserRights, revokeAllSbpRightsForUser, revokeSbpRight } from '@/actions/sbp-rights.actions';
+import { revokeAllSbpRightsForUser } from '@/actions/sbp-rights.actions';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EMPTY_VALUE } from '@/lib/constants/common';
+import { DATE_FORMAT, EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
-import { SbpResponsibilityListItem, SbpRightsHolder } from '@/types/models/sbp-rights';
+import { SbpRightsHolder } from '@/types/models/sbp-rights';
 
+import { useUserRights } from '../hooks/use-user-rights';
 import { RevokeDialog } from './revoke-dialog';
 
 interface Props {
@@ -19,8 +19,6 @@ interface Props {
 }
 
 const COLUMN_COUNT = 4;
-
-const userRightsQueryKey = (userAccountId: number) => ['sbp-rights', 'users', userAccountId] as const;
 
 /**
  * One row per person with active rights: access level, number of rights and a revoke-all action.
@@ -52,28 +50,10 @@ export function RightsTable({ holders }: Props) {
 
 function HolderRows({ holder }: { holder: SbpRightsHolder }) {
   const t = useTranslations('private.studbonuspointsrights.table');
-  const queryClient = useQueryClient();
   const [isExpanded, setIsExpanded] = useState(false);
-  const queryKey = userRightsQueryKey(holder.userAccountId);
-  const {
-    data: rights,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey,
-    queryFn: () => getSbpUserRights(holder.userAccountId),
-    enabled: isExpanded,
-    retry: false,
-  });
+  const { rights, isLoading, isError, revoke } = useUserRights(holder.userAccountId, isExpanded);
 
   const toggle = () => setIsExpanded(!isExpanded);
-
-  const revokeOne = async (sbpResponsibleId: number) => {
-    await revokeSbpRight(sbpResponsibleId);
-    queryClient.setQueryData<SbpResponsibilityListItem[]>(queryKey, (prev) =>
-      prev?.filter((r) => r.id !== sbpResponsibleId),
-    );
-  };
 
   const level = holder.subdivisions
     .map((s) => (s.isUniversityWide ? t('university') : (s.abbreviation ?? s.name)))
@@ -130,14 +110,14 @@ function HolderRows({ holder }: { holder: SbpRightsHolder }) {
                 </div>
               </TableCell>
               <TableCell className="text-right whitespace-nowrap text-muted-foreground">
-                {item.changeDate ? formatDate(item.changeDate, 'DD.MM.YYYY') : EMPTY_VALUE}
+                {item.changeDate ? formatDate(item.changeDate, DATE_FORMAT) : EMPTY_VALUE}
               </TableCell>
               <TableCell className="text-right">
                 <RevokeDialog
                   messages="revoke"
                   descriptionValues={{ user: item.fullName, load: item.loadName, subdivision }}
                   icon={<Trash2 className="h-4 w-4" />}
-                  onConfirm={() => revokeOne(item.id)}
+                  onConfirm={() => revoke(item.id)}
                 />
               </TableCell>
             </TableRow>

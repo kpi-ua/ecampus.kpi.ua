@@ -1,20 +1,17 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { Pencil, Trash2 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EMPTY_VALUE } from '@/lib/constants/common';
+import { DATE_FORMAT, EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 import { SbpPeriod } from '@/types/models/sbp-periods';
 
 import { PeriodBadge } from './period-badge';
-import { periodYear, toDay } from './schema';
-
-const DATE = 'DD.MM.YYYY';
+import { appealRange, canDeletePeriod, canEditPeriod, periodYear } from './utils';
 
 /** A range that breaks after the dash, so nine columns fit without a horizontal scroll. */
 const DateRange = ({ from, to }: { from: string; to: string }) => (
@@ -22,20 +19,6 @@ const DateRange = ({ from, to }: { from: string; to: string }) => (
     <span className="whitespace-nowrap">{from} –</span> <span className="whitespace-nowrap">{to}</span>
   </>
 );
-
-/** Appeal runs from the day after OperatorDateEnd to the day before DateExport; none when they are adjacent. */
-export const appealRange = (operatorDateEnd: string, dateExport: string | null) => {
-  if (!dateExport) {
-    return null;
-  }
-  const from = dayjs(toDay(operatorDateEnd)).add(1, 'day');
-  const to = dayjs(toDay(dateExport)).subtract(1, 'day');
-  return from.isAfter(to, 'day') ? null : { from, to };
-};
-
-export const canEditPeriod = (period: SbpPeriod) => period.state !== 'Finished';
-
-export const canDeletePeriod = (period: SbpPeriod) => period.state === 'Future' && period.recordsCount === 0;
 
 interface Props {
   periods: SbpPeriod[];
@@ -80,20 +63,26 @@ export const PeriodsTable = ({ periods, disabled, onEdit, onDelete }: Props) => 
               <TableCell>{period.semester}</TableCell>
               <TableCell>
                 <DateRange
-                  from={formatDate(period.studentDateStart, DATE)}
-                  to={formatDate(period.studentDateEnd, DATE)}
+                  from={formatDate(period.studentDateStart, DATE_FORMAT)}
+                  to={formatDate(period.studentDateEnd, DATE_FORMAT)}
                 />
               </TableCell>
               <TableCell>
                 <DateRange
-                  from={formatDate(period.operatorDateStart, DATE)}
-                  to={formatDate(period.operatorDateEnd, DATE)}
+                  from={formatDate(period.operatorDateStart, DATE_FORMAT)}
+                  to={formatDate(period.operatorDateEnd, DATE_FORMAT)}
                 />
               </TableCell>
               <TableCell>
-                {appeal ? <DateRange from={appeal.from.format(DATE)} to={appeal.to.format(DATE)} /> : EMPTY_VALUE}
+                {appeal ? (
+                  <DateRange from={appeal.from.format(DATE_FORMAT)} to={appeal.to.format(DATE_FORMAT)} />
+                ) : (
+                  EMPTY_VALUE
+                )}
               </TableCell>
-              <TableCell className="whitespace-nowrap">{formatDate(period.dateExport, DATE) || EMPTY_VALUE}</TableCell>
+              <TableCell className="whitespace-nowrap">
+                {formatDate(period.dateExport, DATE_FORMAT) || EMPTY_VALUE}
+              </TableCell>
               <TableCell>
                 <PeriodBadge phase={period.phase} />
               </TableCell>

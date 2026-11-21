@@ -1,10 +1,10 @@
 'use client';
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { deleteSbpPeriod, getSbpPeriods, getSbpPeriodStudyYears } from '@/actions/sbp-periods.actions';
+import { deleteSbpPeriod } from '@/actions/sbp-periods.actions';
 import { Heading2, Paragraph } from '@/components/typography';
 import {
   AlertDialog,
@@ -19,29 +19,17 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { useToast } from '@/hooks/use-toast';
 import { SbpPeriod } from '@/types/models/sbp-periods';
 
+import { usePeriods } from '../../hooks/use-periods';
 import { PeriodForm } from './period-form';
 import { PeriodsTable } from './periods-table';
-import { periodLabel } from './schema';
-
-const PERIODS_QUERY_KEY = ['sbp-periods'] as const;
+import { periodLabel } from './utils';
 
 /** Loads its own data, so the periods are requested only once the tab is opened. */
 export const PeriodsManagement = () => {
   const t = useTranslations('private.studbonuspointsrights.periods');
   const { errorToast } = useServerErrorToast();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const periodsQuery = useQuery({ queryKey: PERIODS_QUERY_KEY, queryFn: getSbpPeriods, retry: false });
-  const yearsQuery = useQuery({
-    queryKey: [...PERIODS_QUERY_KEY, 'study-years'],
-    queryFn: getSbpPeriodStudyYears,
-    retry: false,
-  });
-  const periods = periodsQuery.data ?? [];
-  const studyYears = yearsQuery.data ?? [];
-  const isReady = periodsQuery.isSuccess && yearsQuery.isSuccess;
-  const isError = periodsQuery.isError || yearsQuery.isError;
-  const refreshPeriods = () => queryClient.invalidateQueries({ queryKey: PERIODS_QUERY_KEY, exact: true });
+  const { periods, studyYears, isReady, isError, refresh } = usePeriods();
   const [form, setForm] = useState<{ period?: SbpPeriod } | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<SbpPeriod | null>(null);
 
@@ -49,14 +37,11 @@ export const PeriodsManagement = () => {
     mutationFn: deleteSbpPeriod,
     onSuccess: async (result) => {
       setDeleteTarget(null);
-      await refreshPeriods();
-      const errorKey = result.ok ? null : `errors.${result.violation.code}`;
-      if (!errorKey) {
+      await refresh();
+      if (result.ok) {
         toast({ title: t('actions.deleted') });
-      } else if (t.has(errorKey)) {
-        toast({ title: t(errorKey, { period: '' }), variant: 'destructive' });
       } else {
-        errorToast();
+        toast({ title: t(`errors.${result.violation.code}`, { period: '' }), variant: 'destructive' });
       }
     },
     onError: () => errorToast(),
@@ -68,7 +53,7 @@ export const PeriodsManagement = () => {
   const handleSaved = async () => {
     setForm(null);
     toast({ title: t('actions.saved') });
-    await refreshPeriods();
+    await refresh();
   };
   const handleDeleteOpenChange = (open: boolean) => {
     if (!open && !deletion.isPending) {
@@ -96,15 +81,7 @@ export const PeriodsManagement = () => {
           {t(isError ? 'loadError' : 'loading')}
         </Paragraph>
       )}
-      {form && (
-        <PeriodForm
-          period={form.period}
-          periods={periods}
-          studyYears={studyYears}
-          onClose={handleClose}
-          onSaved={handleSaved}
-        />
-      )}
+      {form && <PeriodForm period={form.period} studyYears={studyYears} onClose={handleClose} onSaved={handleSaved} />}
       <AlertDialog open={!!deleteTarget} onOpenChange={handleDeleteOpenChange}>
         <AlertDialogContent>
           <AlertDialogHeader>

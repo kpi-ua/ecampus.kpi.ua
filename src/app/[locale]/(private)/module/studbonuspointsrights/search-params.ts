@@ -14,7 +14,6 @@ export const rightsSearchParams = {
 };
 
 export const SBP_TABS = ['rights', 'periods'] as const;
-export type SbpTab = (typeof SBP_TABS)[number];
 
 /** Kept apart from the rights filters: it never goes to the API and changing it does not reload the page. */
 export const tabSearchParam = parseAsStringLiteral(SBP_TABS).withDefault('rights');

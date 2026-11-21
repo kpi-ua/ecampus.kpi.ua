@@ -2,11 +2,11 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useForm, useWatch } from 'react-hook-form';
 
 import { saveSbpPeriod } from '@/actions/sbp-periods.actions';
+import { Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,8 +23,9 @@ import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import { SbpPeriod, SbpPeriodRuleViolation } from '@/types/models/sbp-periods';
 
-import { appealRange } from './periods-table';
-import { createPeriodFormSchema, PeriodFormValues, periodLabel, periodYear, toDay } from './schema';
+import { PeriodSummary } from './period-summary';
+import { createPeriodFormSchema, PeriodFormValues } from './schema';
+import { periodLabel, periodYear, toDay } from './utils';
 
 const DATE_FIELDS = [
   'studentDateStart',
@@ -34,17 +35,14 @@ const DATE_FIELDS = [
   'dateExport',
 ] as const;
 
-const SHORT_DATE = 'DD.MM';
-
 interface Props {
   period?: SbpPeriod;
-  periods: SbpPeriod[];
   studyYears: EntityIdName[];
   onClose: () => void;
   onSaved: () => void;
 }
 
-export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Props) => {
+export const PeriodForm = ({ period, studyYears, onClose, onSaved }: Props) => {
   const t = useTranslations('private.studbonuspointsrights.periods');
   const { errorToast } = useServerErrorToast();
 
@@ -52,7 +50,7 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
   const yearLocked = isCurrent || !!period?.recordsCount;
 
   const form = useForm<PeriodFormValues>({
-    resolver: zodResolver(createPeriodFormSchema(t, periods, studyYears, period?.id)),
+    resolver: zodResolver(createPeriodFormSchema(t)),
     defaultValues: {
       studyingYearId: period ? String(period.studyingYearId) : '',
       semester: period?.semester ?? 1,
@@ -65,12 +63,9 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
   });
 
   const showViolation = (violation: SbpPeriodRuleViolation) => {
-    const key = `errors.${violation.code}`;
-    if (!t.has(key)) {
-      errorToast();
-      return;
-    }
-    const message = t(key, { period: violation.conflict ? periodLabel(t, violation.conflict) : '' });
+    const message = t(`errors.${violation.code}`, {
+      period: violation.conflict ? periodLabel(t, violation.conflict) : '',
+    });
     form.setError(violation.field || 'root', { message });
   };
 
@@ -178,7 +173,9 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
             </div>
             <PeriodSummary values={values} />
             {form.formState.errors.root && (
-              <p className="text-sm text-status-danger-300">{form.formState.errors.root.message}</p>
+              <Paragraph className="my-0 text-sm text-status-danger-300">
+                {form.formState.errors.root.message}
+              </Paragraph>
             )}
             <DialogFooter>
               <Button type="button" variant="secondary" disabled={pending} onClick={onClose}>
@@ -192,32 +189,5 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
         </Form>
       </DialogContent>
     </Dialog>
-  );
-};
-
-/** «Подача: 30.11–08.12 · Перевірка: 01.12–10.12 · Апеляція: 11.12–21.12 · Експорт з 22.12», once the dates are set. */
-const PeriodSummary = ({ values }: { values: Partial<PeriodFormValues> }) => {
-  const t = useTranslations('private.studbonuspointsrights.periods.form');
-  const { studentDateStart, studentDateEnd, operatorDateStart, operatorDateEnd, dateExport } = values;
-
-  if (!studentDateStart || !studentDateEnd || !operatorDateStart || !operatorDateEnd || !dateExport) {
-    return null;
-  }
-
-  const short = (date: string | dayjs.Dayjs) => dayjs(date).format(SHORT_DATE);
-  const appeal = appealRange(operatorDateEnd, dateExport);
-  const parts = [
-    t('summary.submission', { from: short(studentDateStart), to: short(studentDateEnd) }),
-    t('summary.review', { from: short(operatorDateStart), to: short(operatorDateEnd) }),
-    appeal ? t('summary.appeal', { from: short(appeal.from), to: short(appeal.to) }) : null,
-    t('summary.export', { date: short(dateExport) }),
-  ].filter(Boolean);
-  const noAppeal = !appeal && dateExport > operatorDateEnd;
-
-  return (
-    <div className="flex flex-col gap-1 text-sm">
-      <p className="text-neutral-700">{parts.join(' · ')}</p>
-      {noAppeal && <p className="text-other-orange">{t('noAppealWarning')}</p>}
-    </div>
   );
 };
