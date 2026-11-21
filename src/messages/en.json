@@ -322,6 +322,7 @@
     "session-administration": {
       "course": "Course",
       "courseOption": "Year {course}",
+      "mastersCourse": "Master’s year {course}",
       "phdCourse": "PhD year {course}",
       "number": "Sheet number",
       "opensAt": "Opening date",
@@ -353,10 +354,10 @@
       "notes": "Notes",
       "studentMarks": "Student marks",
       "attendanceValues": {
-        "0": "Attended",
-        "-1": "Absent",
-        "-2": "Not admitted",
-        "-3": "Removed"
+        "Attended": "Attended",
+        "Absent": "Absent",
+        "NotAdmitted": "Not admitted",
+        "Removed": "Removed"
       }
     },
     "yiystat": {

@@ -16,15 +16,29 @@ export function CourseFilter() {
     sessionAdministrationSearchParams.course.withOptions({ shallow: false, history: 'replace' }),
   );
 
+  const handleCourseChange = (value: string) => {
+    void setCourse(Number(value));
+  };
+
+  const getCourseLabel = (value: number) => {
+    if (value <= 4) {
+      return t('courseOption', { course: value });
+    }
+    if (value <= 6) {
+      return t('mastersCourse', { course: value - 4 });
+    }
+    return t('phdCourse', { course: value - 6 });
+  };
+
   return (
-    <Select value={String(course)} onValueChange={(value) => void setCourse(Number(value))}>
-      <SelectTrigger className="w-full" aria-label={t('course')}>
+    <Select value={String(course)} onValueChange={handleCourseChange}>
+      <SelectTrigger className="w-full">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {courses.map((value) => (
           <SelectItem key={value} value={String(value)}>
-            {value < 7 ? t('courseOption', { course: value }) : t('phdCourse', { course: value - 6 })}
+            {getCourseLabel(value)}
           </SelectItem>
         ))}
       </SelectContent>

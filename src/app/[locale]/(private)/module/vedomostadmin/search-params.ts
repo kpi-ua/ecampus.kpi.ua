@@ -1,16 +1,21 @@
 import { createLoader, createParser, parseAsString } from 'nuqs/server';
+import { z } from 'zod';
 
-const course = createParser({
-  parse: (value) => (/^[1-8]$/.test(value) ? Number(value) : null),
-  serialize: String,
-});
+const singleDigit = z.string().regex(/^\d$/).transform(Number);
 
-export const sessionAdministrationSearchParams = { course: course.withDefault(1), employeeId: parseAsString };
+const parseAsCourse = (minimum: number) => {
+  const schema = singleDigit.pipe(z.number().min(minimum).max(8));
+
+  return createParser({
+    parse(value) {
+      const result = schema.safeParse(value);
+      return result.success ? result.data : null;
+    },
+    serialize: String,
+  }).withDefault(1);
+};
+
+export const sessionAdministrationSearchParams = { course: parseAsCourse(1), employeeId: parseAsString };
 export const loadSessionAdministrationSearchParams = createLoader(sessionAdministrationSearchParams);
 
-export const loadSheetSearchParams = createLoader({
-  course: createParser({
-    parse: (value) => (/^[0-8]$/.test(value) ? Number(value) : null),
-    serialize: String,
-  }).withDefault(1),
-});
+export const loadSheetSearchParams = createLoader({ course: parseAsCourse(0) });

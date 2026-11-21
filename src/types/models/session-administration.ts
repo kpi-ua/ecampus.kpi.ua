@@ -1,3 +1,10 @@
+export enum SessionSheetStatus {
+  Open = 'open',
+  Closed = 'closed',
+  Upcoming = 'upcoming',
+  Unscheduled = 'unscheduled',
+}
+
 export interface SessionSheet {
   id: string;
   retake: number;
@@ -13,12 +20,25 @@ export interface SessionSheet {
   opensAt: string | null;
   examAt: string | null;
   closesAt: string | null;
-  status: 'open' | 'upcoming' | 'closed' | 'unscheduled';
+  status: SessionSheetStatus;
+}
+
+export enum ExaminationAttendanceStatus {
+  Attended = 'Attended',
+  Absent = 'Absent',
+  NotAdmitted = 'NotAdmitted',
+  Removed = 'Removed',
 }
 
 export interface SessionSheetDetails {
   sheet: SessionSheet;
-  students: { id: string; name: string; mark: string | null; attendance: string | null; notes: string | null }[];
+  students: {
+    id: string;
+    name: string;
+    mark: string | null;
+    attendance: ExaminationAttendanceStatus | null;
+    notes: string | null;
+  }[];
 }
 
 export interface SessionMark {

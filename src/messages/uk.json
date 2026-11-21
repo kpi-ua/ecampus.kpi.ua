@@ -322,6 +322,7 @@
     "session-administration": {
       "course": "Курс",
       "courseOption": "{course} курс",
+      "mastersCourse": "{course} курс (магістратура)",
       "phdCourse": "{course} курс (PhD)",
       "number": "Номер відомості",
       "opensAt": "Дата відкриття",
@@ -353,10 +354,10 @@
       "notes": "Коментар",
       "studentMarks": "Оцінки студента",
       "attendanceValues": {
-        "0": "З’явився",
-        "-1": "Не з’явився",
-        "-2": "Не допущений",
-        "-3": "Усунено"
+        "Attended": "З’явився",
+        "Absent": "Не з’явився",
+        "NotAdmitted": "Не допущений",
+        "Removed": "Усунено"
       }
     },
     "yiystat": {

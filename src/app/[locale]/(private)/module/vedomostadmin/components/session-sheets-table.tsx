@@ -1,45 +1,27 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { select } from 'radash';
 import { useState } from 'react';
 
+import { Paragraph } from '@/components/typography';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Link } from '@/i18n/routing';
+import { EMPTY_VALUE } from '@/lib/constants/common';
 import { cn, formatDate } from '@/lib/utils';
-import { type SessionSheet } from '@/types/models/session-administration';
+import { type SessionSheet, SessionSheetStatus } from '@/types/models/session-administration';
 
 import { CourseFilter } from './course-filter';
 
-const columns = [
-  'number',
-  'course',
-  'opensAt',
-  'examAt',
-  'closesAt',
-  'group',
-  'sheet',
-  'retake',
-  'assessment',
-  'discipline',
-  'lecturer',
-] as const;
-const columnWidths = {
-  number: 'w-[9%]',
-  course: 'w-[5%]',
-  opensAt: 'w-[9%]',
-  examAt: 'w-[9%]',
-  closesAt: 'w-[9%]',
-  group: 'w-[7%]',
-  sheet: 'w-[7%]',
-  retake: 'w-[9%]',
-  assessment: 'w-[10%]',
-  discipline: 'w-[14%]',
-  lecturer: 'w-[12%]',
-} as const;
-const statuses = ['open', 'closed', 'upcoming', 'unscheduled'] as const;
-const statusStyles = { open: 'bg-green-50', closed: '', upcoming: 'bg-blue-50', unscheduled: '' };
+const statuses = Object.values(SessionSheetStatus);
+const statusStyles: Record<SessionSheetStatus, string> = {
+  [SessionSheetStatus.Open]: 'bg-green-50',
+  [SessionSheetStatus.Closed]: '',
+  [SessionSheetStatus.Upcoming]: 'bg-blue-50',
+  [SessionSheetStatus.Unscheduled]: '',
+};
 
 export function SessionSheetsTable({
   sheets,
@@ -51,46 +33,44 @@ export function SessionSheetsTable({
   lecturerView: boolean;
 }) {
   const t = useTranslations('private.session-administration');
-  const [hiddenStatuses, setHiddenStatuses] = useState<SessionSheet['status'][]>([]);
+  const [hiddenStatuses, setHiddenStatuses] = useState<SessionSheetStatus[]>([]);
   const [retake, setRetake] = useState('all');
   const [form, setForm] = useState('all');
-  const filterOptions = [
-    ...new Map(
-      sheets
-        .filter((sheet) => sheet.educationFormId && sheet.educationForm)
-        .map((sheet) => [sheet.educationFormId, sheet.educationForm]),
-    ).entries(),
-  ];
-  const rows = sheets
-    .map((sheet) => ({
-      sheet,
-      values: {
-        number: sheet.number,
-        course: String(sheet.course),
-        opensAt: sheet.opensAt ? formatDate(sheet.opensAt, 'DD.MM.YYYY') : '—',
-        examAt: sheet.examAt ? formatDate(sheet.examAt, 'DD.MM.YYYY') : '—',
-        closesAt: sheet.closesAt ? formatDate(sheet.closesAt, 'DD.MM.YYYY') : '—',
-        group: sheet.group,
-        sheet: t('view'),
-        retake: t(sheet.retake === 0 ? 'main' : 'retakeOption', { number: sheet.retake }),
-        assessment: sheet.assessment,
-        discipline: sheet.discipline,
-        lecturer: sheet.lecturer ?? '—',
-      },
-    }))
-    .filter(
-      ({ sheet }) =>
-        !hiddenStatuses.includes(sheet.status) &&
-        (retake === 'all' || (retake === 'additional' ? sheet.retake > 0 : String(sheet.retake) === retake)) &&
-        (form === 'all' || sheet.educationFormId === form),
+  const studyModes = new Map(
+    select(
+      sheets,
+      ({ educationFormId, educationForm }) => [educationFormId, educationForm] as const,
+      ({ educationFormId, educationForm }) => Boolean(educationFormId && educationForm),
+    ),
+  );
+  const rows = sheets.filter(
+    (sheet) =>
+      !hiddenStatuses.includes(sheet.status) &&
+      (retake === 'all' || (retake === 'additional' ? sheet.retake > 0 : String(sheet.retake) === retake)) &&
+      (form === 'all' || sheet.educationFormId === form),
+  );
+  const date = (value: string | null) => (value ? formatDate(value, 'DD.MM.YYYY') : EMPTY_VALUE);
+
+  const handleRetakeChange = (value: string) => {
+    setRetake(value);
+  };
+
+  const handleFormChange = (value: string) => {
+    setForm(value);
+  };
+
+  const handleStatusChange = (status: SessionSheetStatus) => (checked: boolean | 'indeterminate') => {
+    setHiddenStatuses((previous) =>
+      checked === true ? previous.filter((item) => item !== status) : [...previous, status],
     );
+  };
 
   return (
     <div className="flex min-w-0 flex-col gap-5">
       <div className={cn('grid gap-4', lecturerView ? 'sm:grid-cols-2' : 'md:grid-cols-3')}>
         {!lecturerView && <CourseFilter />}
-        <Select value={retake} onValueChange={setRetake}>
-          <SelectTrigger className="w-full" aria-label={t('retake')}>
+        <Select value={retake} onValueChange={handleRetakeChange}>
+          <SelectTrigger className="w-full">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -101,13 +81,13 @@ export function SessionSheetsTable({
             <SelectItem value="2">{t('retakeOption', { number: 2 })}</SelectItem>
           </SelectContent>
         </Select>
-        <Select value={form} onValueChange={setForm}>
-          <SelectTrigger className="w-full" aria-label={t('educationForm')}>
+        <Select value={form} onValueChange={handleFormChange}>
+          <SelectTrigger className="w-full">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t('allForms')}</SelectItem>
-            {filterOptions.map(([value, name]) => (
+            {Array.from(studyModes, ([value, name]) => (
               <SelectItem key={value} value={value}>
                 {name}
               </SelectItem>
@@ -119,65 +99,71 @@ export function SessionSheetsTable({
         <legend className="mb-2 text-sm font-medium">{t('status')}</legend>
         {statuses.map((value) => (
           <label key={value} className="flex items-center gap-2 text-sm">
-            <Checkbox
-              checked={!hiddenStatuses.includes(value)}
-              onCheckedChange={(checked) => {
-                setHiddenStatuses((previous) =>
-                  checked === true ? previous.filter((item) => item !== value) : [...previous, value],
-                );
-              }}
-            />
+            <Checkbox checked={!hiddenStatuses.includes(value)} onCheckedChange={handleStatusChange(value)} />
             {t(value)}
           </label>
         ))}
       </fieldset>
       <div className="flex min-w-0 flex-col gap-3">
-        <p className="text-sm text-muted-foreground">{t('count', { visible: rows.length, total: sheets.length })}</p>
+        <Paragraph className="my-0 text-sm leading-normal text-muted-foreground">
+          {t('count', { visible: rows.length, total: sheets.length })}
+        </Paragraph>
         <Table className="min-w-[72rem] table-fixed">
-          <colgroup>
-            {columns.map((column) => (
-              <col key={column} className={columnWidths[column]} />
-            ))}
-          </colgroup>
           <TableHeader>
             <TableRow>
-              {columns.map((column) => (
-                <TableHead key={column}>{t(column)}</TableHead>
-              ))}
+              <TableHead className="w-[9%]">{t('number')}</TableHead>
+              <TableHead className="w-[5%]">{t('course')}</TableHead>
+              <TableHead className="w-[9%]">{t('opensAt')}</TableHead>
+              <TableHead className="w-[9%]">{t('examAt')}</TableHead>
+              <TableHead className="w-[9%]">{t('closesAt')}</TableHead>
+              <TableHead className="w-[7%]">{t('group')}</TableHead>
+              <TableHead className="w-[7%]">{t('sheet')}</TableHead>
+              <TableHead className="w-[9%]">{t('retake')}</TableHead>
+              <TableHead className="w-[10%]">{t('assessment')}</TableHead>
+              <TableHead className="w-[14%]">{t('discipline')}</TableHead>
+              <TableHead className="w-[12%]">{t('lecturer')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {rows.length === 0 && (
               <TableRow>
-                <TableCell colSpan={columns.length}>{t('empty')}</TableCell>
+                <TableCell colSpan={11}>{t('empty')}</TableCell>
               </TableRow>
             )}
-            {rows.map(({ sheet, values }) => (
+            {rows.map((sheet) => (
               <TableRow key={sheet.id + ':' + sheet.retake} className={statusStyles[sheet.status]}>
-                {columns.map((column) => (
-                  <TableCell key={column} className="wrap-anywhere">
-                    {column === 'sheet' ? (
-                      <Link
-                        className="underline"
-                        href={{
-                          pathname: '/module/vedomostadmin/sheets/' + encodeURIComponent(sheet.id) + '/' + sheet.retake,
-                          query: { course: lecturerView ? 0 : course },
-                        }}
-                      >
-                        {values.sheet}
-                      </Link>
-                    ) : column === 'lecturer' && !lecturerView && sheet.employeeId && sheet.employeeId !== '0' ? (
-                      <Link
-                        className="underline"
-                        href={{ pathname: '/module/vedomostadmin', query: { employeeId: sheet.employeeId } }}
-                      >
-                        {values.lecturer}
-                      </Link>
-                    ) : (
-                      (values[column] ?? '—')
-                    )}
-                  </TableCell>
-                ))}
+                <TableCell>{sheet.number ?? EMPTY_VALUE}</TableCell>
+                <TableCell>{sheet.course}</TableCell>
+                <TableCell>{date(sheet.opensAt)}</TableCell>
+                <TableCell>{date(sheet.examAt)}</TableCell>
+                <TableCell>{date(sheet.closesAt)}</TableCell>
+                <TableCell className="wrap-anywhere">{sheet.group ?? EMPTY_VALUE}</TableCell>
+                <TableCell>
+                  <Link
+                    className="underline"
+                    href={{
+                      pathname: '/module/vedomostadmin/sheets/' + encodeURIComponent(sheet.id) + '/' + sheet.retake,
+                      query: { course: lecturerView ? 0 : course },
+                    }}
+                  >
+                    {t('view')}
+                  </Link>
+                </TableCell>
+                <TableCell>{t(sheet.retake === 0 ? 'main' : 'retakeOption', { number: sheet.retake })}</TableCell>
+                <TableCell className="wrap-anywhere">{sheet.assessment ?? EMPTY_VALUE}</TableCell>
+                <TableCell className="wrap-anywhere">{sheet.discipline ?? EMPTY_VALUE}</TableCell>
+                <TableCell className="wrap-anywhere">
+                  {!lecturerView && sheet.employeeId && sheet.employeeId !== '0' ? (
+                    <Link
+                      className="underline"
+                      href={{ pathname: '/module/vedomostadmin', query: { employeeId: sheet.employeeId } }}
+                    >
+                      {sheet.lecturer ?? EMPTY_VALUE}
+                    </Link>
+                  ) : (
+                    (sheet.lecturer ?? EMPTY_VALUE)
+                  )}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
