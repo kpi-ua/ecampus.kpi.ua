@@ -1,8 +1,5 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
-
-import { SBP_RIGHTS_PATH } from '@/app/[locale]/(private)/module/studbonuspointsrights/constants';
 import { campusFetch } from '@/lib/client';
 import { EntityIdName } from '@/types/models/entity-id-name';
 import {
@@ -12,36 +9,26 @@ import {
   SbpPeriodRuleViolation,
 } from '@/types/models/sbp-periods';
 
+/** Throws on failure: an empty list would read as «no periods yet» and switch the form's overlap checks off. */
 export const getSbpPeriods = async (): Promise<SbpPeriod[]> => {
-  try {
-    const response = await campusFetch<SbpPeriod[]>('sbp-periods');
-    if (!response.ok) {
-      return [];
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching SBP periods:', error);
-    return [];
+  const response = await campusFetch<SbpPeriod[]>('sbp-periods');
+  if (!response.ok) {
+    throw new Error(`Failed to fetch SBP periods: ${response.status} ${response.statusText}`);
   }
+  return (await response.json()) as SbpPeriod[];
 };
 
 export const getSbpPeriodStudyYears = async (): Promise<EntityIdName[]> => {
-  try {
-    const response = await campusFetch<EntityIdName[]>('sbp-periods/study-years');
-    if (!response.ok) {
-      return [];
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching SBP study years:', error);
-    return [];
+  const response = await campusFetch<EntityIdName[]>('sbp-periods/study-years');
+  if (!response.ok) {
+    throw new Error(`Failed to fetch SBP study years: ${response.status} ${response.statusText}`);
   }
+  return (await response.json()) as EntityIdName[];
 };
 
 /** A broken period rule comes back as a result, so the form can show it next to its field. */
 const toResult = async (response: Response, failure: string): Promise<SbpPeriodActionResult> => {
   if (response.ok) {
-    revalidatePath(SBP_RIGHTS_PATH);
     return { ok: true };
   }
 

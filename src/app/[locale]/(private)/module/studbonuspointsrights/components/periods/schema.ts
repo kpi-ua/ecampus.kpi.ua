@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { z } from 'zod';
 
 import { EntityIdName } from '@/types/models/entity-id-name';
@@ -13,6 +12,9 @@ export const periodYear = (studyingYearName: string) => studyingYearName.replace
 
 export const periodLabel = (t: Translate, period: Pick<SbpPeriod, 'studyingYearName' | 'semester'>) =>
   t('periodLabel', { year: periodYear(period.studyingYearName), semester: period.semester });
+
+/** Today as the API sees it: the period rules are checked in Europe/Kyiv, whatever the browser's zone is. */
+const kyivToday = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Kyiv' }).format(new Date());
 
 /** Study year names are «2026-2027», so ordinal order is chronological. */
 const compareOrder = (a: { year: string; semester: number }, b: { year: string; semester: number }) =>
@@ -58,7 +60,7 @@ export const createPeriodFormSchema = (
       }
       if (v.dateExport <= v.operatorDateEnd) {
         issue('dateExport', 'R5');
-      } else if (v.dateExport < dayjs().format('YYYY-MM-DD')) {
+      } else if (v.dateExport < kyivToday()) {
         issue('dateExport', 'R6');
       }
 

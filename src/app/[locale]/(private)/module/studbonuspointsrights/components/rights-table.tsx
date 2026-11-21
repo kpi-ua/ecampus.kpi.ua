@@ -63,6 +63,7 @@ function HolderRows({ holder }: { holder: SbpRightsHolder }) {
     queryKey,
     queryFn: () => getSbpUserRights(holder.userAccountId),
     enabled: isExpanded,
+    retry: false,
   });
 
   const toggle = () => setIsExpanded(!isExpanded);

@@ -1,17 +1,17 @@
 import { getTranslations } from 'next-intl/server';
 import { SearchParams } from 'nuqs/server';
 
-import { getSbpPeriods, getSbpPeriodStudyYears } from '@/actions/sbp-periods.actions';
 import { getSbpLoads, getSbpRightsHolders, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { redirect } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
 
 import { GrantButton } from './components/grant-button';
+import { ModuleTabs } from './components/module-tabs';
 import { PeriodsManagement } from './components/periods/periods-management';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';
@@ -37,12 +37,10 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
 
   const filters = await loadRightsSearchParams(searchParams);
 
-  const [holders, loads, subdivisions, periods, studyYears] = await Promise.all([
+  const [holders, loads, subdivisions] = await Promise.all([
     getSbpRightsHolders({ ...filters, pageSize: PAGE_SIZE_DEFAULT }),
     getSbpLoads(),
     getSbpSubdivisions(),
-    getSbpPeriods(),
-    getSbpPeriodStudyYears(),
   ]);
 
   // Revoking the last rights of the last page leaves the URL past the end; go to the new last page.
@@ -61,7 +59,7 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
           <Description>{t('subtitle')}</Description>
         </div>
 
-        <Tabs defaultValue="rights" className="flex min-w-0 flex-col gap-6">
+        <ModuleTabs>
           <TabsList size="small" className="self-start">
             <TabsTrigger value="rights">{t('tabs.rights')}</TabsTrigger>
             <TabsTrigger value="periods">{t('tabs.periods')}</TabsTrigger>
@@ -87,9 +85,9 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
             </div>
           </TabsContent>
           <TabsContent value="periods" className="mt-0">
-            <PeriodsManagement periods={periods} studyYears={studyYears} />
+            <PeriodsManagement />
           </TabsContent>
-        </Tabs>
+        </ModuleTabs>
       </div>
     </SubLayout>
   );

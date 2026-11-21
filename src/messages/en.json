@@ -852,7 +852,9 @@
           "E3": "A date of the current period can only move to today or later.",
           "E4": "A period after its export date is read-only.",
           "E5": "Only a future period without records can be deleted."
-        }
+        },
+        "loading": "Loading…",
+        "loadError": "Could not load the periods. Reload the page."
       }
     },
     "profile": {

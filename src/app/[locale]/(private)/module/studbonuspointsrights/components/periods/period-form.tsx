@@ -65,9 +65,12 @@ export const PeriodForm = ({ period, periods, studyYears, onClose, onSaved }: Pr
   });
 
   const showViolation = (violation: SbpPeriodRuleViolation) => {
-    const message = t(`errors.${violation.code}`, {
-      period: violation.conflict ? periodLabel(t, violation.conflict) : '',
-    });
+    const key = `errors.${violation.code}`;
+    if (!t.has(key)) {
+      errorToast();
+      return;
+    }
+    const message = t(key, { period: violation.conflict ? periodLabel(t, violation.conflict) : '' });
     form.setError(violation.field || 'root', { message });
   };
 
