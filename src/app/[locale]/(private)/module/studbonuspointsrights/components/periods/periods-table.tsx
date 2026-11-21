@@ -16,6 +16,13 @@ import { periodYear, toDay } from './schema';
 
 const DATE = 'DD.MM.YYYY';
 
+/** A range that breaks after the dash, so nine columns fit without a horizontal scroll. */
+const DateRange = ({ from, to }: { from: string; to: string }) => (
+  <>
+    <span className="whitespace-nowrap">{from} –</span> <span className="whitespace-nowrap">{to}</span>
+  </>
+);
+
 /** Appeal runs from the day after OperatorDateEnd to the day before DateExport; none when they are adjacent. */
 export const appealRange = (operatorDateEnd: string, dateExport: string | null) => {
   if (!dateExport) {
@@ -71,14 +78,20 @@ export const PeriodsTable = ({ periods, disabled, onEdit, onDelete }: Props) => 
             <TableRow key={period.id}>
               <TableCell className="whitespace-nowrap">{periodYear(period.studyingYearName)}</TableCell>
               <TableCell>{period.semester}</TableCell>
-              <TableCell className="whitespace-nowrap">
-                {formatDate(period.studentDateStart, DATE)} – {formatDate(period.studentDateEnd, DATE)}
+              <TableCell>
+                <DateRange
+                  from={formatDate(period.studentDateStart, DATE)}
+                  to={formatDate(period.studentDateEnd, DATE)}
+                />
               </TableCell>
-              <TableCell className="whitespace-nowrap">
-                {formatDate(period.operatorDateStart, DATE)} – {formatDate(period.operatorDateEnd, DATE)}
+              <TableCell>
+                <DateRange
+                  from={formatDate(period.operatorDateStart, DATE)}
+                  to={formatDate(period.operatorDateEnd, DATE)}
+                />
               </TableCell>
-              <TableCell className="whitespace-nowrap">
-                {appeal ? `${appeal.from.format(DATE)} – ${appeal.to.format(DATE)}` : EMPTY_VALUE}
+              <TableCell>
+                {appeal ? <DateRange from={appeal.from.format(DATE)} to={appeal.to.format(DATE)} /> : EMPTY_VALUE}
               </TableCell>
               <TableCell className="whitespace-nowrap">{formatDate(period.dateExport, DATE) || EMPTY_VALUE}</TableCell>
               <TableCell>
