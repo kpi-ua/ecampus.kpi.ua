@@ -336,6 +336,7 @@
       "student": "Student",
       "actions": "Actions",
       "empty": "No records found.",
+      "addStudent": "Add student",
       "searchStudent": "Search students by name",
       "search": "Search",
       "requestFailed": "The request failed. Try again.",

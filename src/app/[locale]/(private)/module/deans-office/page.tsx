@@ -9,8 +9,8 @@ import { Show } from '@/components/utils/show';
 
 import { DeansOfficeSelect } from './components/deans-office-select';
 import { ExportButton } from './components/export-button';
+import { AddStudentSearch } from './components/roster/add-student-search';
 import { RemoveStudentButton } from './components/roster/remove-student-button';
-import { StudentGroupActions } from './components/roster/student-group-actions';
 import { loadDeansOfficeSearchParams } from './search-params';
 import { INTL_NAMESPACE } from './translations';
 
@@ -41,8 +41,8 @@ export default async function RosterPage({ searchParams }: { searchParams: Promi
       </div>
       {selected && (
         <>
-          <StudentGroupActions key={selected.id} facultyId={null} groupId={selected.id} />
-          <div className="flex justify-end">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <AddStudentSearch key={selected.id} groupId={selected.id} />
             <ExportButton kind="roster" label={t('export')} query={{ groupId: selected.id }} />
           </div>
           <Table>

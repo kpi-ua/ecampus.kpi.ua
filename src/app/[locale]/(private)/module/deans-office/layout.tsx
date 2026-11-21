@@ -21,7 +21,7 @@ export default async function DeansOfficeLayout({ children }: { children: ReactN
 
   return (
     <SubLayout pageTitle={t('title')}>
-      <div className="col-span-full min-w-0">
+      <div className="col-span-full flex min-w-0 flex-col gap-4">
         <Heading2>{t('title')}</Heading2>
         <DeansOfficeTabs
           basePath="/module/deans-office"
