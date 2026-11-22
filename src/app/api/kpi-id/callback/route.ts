@@ -103,11 +103,7 @@ export async function GET(request: NextRequest) {
 
   // Several accounts: the picker lists them and starts a new sign-in for the chosen one, which KPI ID answers without
   // asking the user again (SSO). Only the public part of the accounts is kept; the Campus tokens are dropped.
-  const slimAccounts: KPIIDAccountSlim[] = accounts.map(({ username, photo, full_name }) => ({
-    username,
-    photo,
-    full_name,
-  }));
+  const slimAccounts: KPIIDAccountSlim[] = accounts.map(({ username, photo }) => ({ username, photo }));
 
   resolvedCookies.set(KPIID_ACCOUNTS_COOKIE_NAME, JSON.stringify(slimAccounts), {
     httpOnly: true,

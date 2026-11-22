@@ -1,6 +1,5 @@
 export interface KPIIDAccountSlim {
   username: string;
-  full_name: string;
   photo: string;
 }
 
