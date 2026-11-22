@@ -38,7 +38,7 @@ export async function InfoBlock({ user, className }: Props) {
               <Paragraph className="m-0 text-base text-muted-foreground">{user.username}</Paragraph>
             </div>
             <div className="flex flex-wrap items-center gap-2">
-              {user.userCategories.map((category) => (
+              {user.roles.map((category) => (
                 <Badge key={category} variant="blue" className="whitespace-nowrap">
                   {tUserCategory(USER_CATEGORIES[category])}
                 </Badge>

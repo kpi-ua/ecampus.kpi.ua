@@ -19,7 +19,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { toast } from '@/hooks/use-toast';
 import { isKpiCorporateEmail } from '@/lib/email.utils';
-import { getUniqueUserPhotoUrl } from '@/lib/utils';
 import { User } from '@/types/models/user';
 
 interface Props {
@@ -32,7 +31,6 @@ export function SettingsForm({ user }: Props) {
   const t = useTranslations('private.settings');
   const [file, setFile] = useState<File | null>(null);
   const [shouldShowEmailAlert, setShouldShowEmailAlert] = useState(false);
-  const profilePhoto = getUniqueUserPhotoUrl(user.photo);
 
   const FormSchema = z
     .object({
@@ -76,6 +74,7 @@ export function SettingsForm({ user }: Props) {
         const formData = new FormData();
         formData.append('file', file, file.name);
         await changePhoto(formData);
+        setFile(null);
       }
 
       if (data.newPassword && data.currentPassword && data.confirmPassword) {
@@ -97,7 +96,7 @@ export function SettingsForm({ user }: Props) {
     <Card>
       <CardContent className="flex flex-col gap-8 space-y-1.5 p-10">
         <Heading5>{t('section.photo')}</Heading5>
-        <PhotoUploader photoSrc={profilePhoto} onFileUpload={setFile} />
+        <PhotoUploader photoSrc={user.photo} onFileUpload={setFile} />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleFormSubmit)} className="flex flex-col items-start space-y-4">
             <Heading5>{t('section.contacts')}</Heading5>
