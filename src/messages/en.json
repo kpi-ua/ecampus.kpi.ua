@@ -255,6 +255,47 @@
         "button": "Continue"
       }
     },
+    "passwordResetConfirm": {
+      "header": "New password",
+      "description": "We're verifying your recovery link and generating a new password for your account.",
+      "pending": {
+        "description": "Generating a new password…"
+      },
+      "success": {
+        "description": "Your new password has been sent to your email. Sign in with it and change it in the settings if needed.",
+        "button": "Sign in"
+      },
+      "expired": {
+        "description": "This link has expired or has already been used. Request a new password recovery link.",
+        "button": "Request a new link"
+      },
+      "error": {
+        "description": "Could not generate a new password.",
+        "button": "Try again"
+      }
+    },
+    "emailConfirmation": {
+      "header": "Email confirmation",
+      "description": "We're verifying the link from your email to confirm the new address for your account.",
+      "pending": {
+        "description": "Confirming your new email address…"
+      },
+      "success": {
+        "description": "Your email address has been changed.",
+        "button": "Continue"
+      },
+      "invalid": {
+        "description": "This link is invalid or has already been used. To change your email, send the request again in the settings.",
+        "button": "Go to settings"
+      },
+      "too-many-attempts": {
+        "description": "Too many confirmation attempts. Try again in a few minutes."
+      },
+      "error": {
+        "description": "Could not confirm your new email address.",
+        "button": "Try again"
+      }
+    },
     "footer": {
       "rights": "All rights reserved. © {year} Igor Sikorsky Kyiv Polytechnic Institute",
       "developer": "Developer: <kbislink>Design bureau of information systems</kbislink>",
