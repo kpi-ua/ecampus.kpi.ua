@@ -1450,6 +1450,43 @@
         "results": "Survey results",
         "criteria": "Criteria descriptions"
       }
+    },
+    "attestation-reports": {
+      "all-courses": "All courses",
+      "attestationId": "Attestation",
+      "course": "Course",
+      "curator": "Curator",
+      "departmentId": "Department",
+      "details": "Study group details",
+      "discipline": "Discipline",
+      "empty": "No data found",
+      "export": "Export to Excel",
+      "facultyId": "Faculty",
+      "first-semester": "First half-year",
+      "group": "Study group",
+      "lecturer": "Lecturer",
+      "missing": "No mark",
+      "result": {
+        "a": "Attested",
+        "na": "Not attested",
+        "nv": "Not studying",
+        "ov": "No mark"
+      },
+      "results": "Export",
+      "second-semester": "Second half-year",
+      "semester": "Half-year",
+      "student": "Student",
+      "views": {
+        "courses": "Department groups by course",
+        "department": "All department groups",
+        "groups": "Study groups",
+        "students": "Students"
+      },
+      "yearId": "Academic year"
+    },
+    "attestation-results": {
+      "title": "Calendar control results",
+      "subtitle": "This presents the results of calendar controls by semester, indicating disciplines, teachers, and grades according to the educational process schedule."
     }
   }
 }
