@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@next/third-parties": "16.4.2",
+    "@next/third-parties": "16.4.6",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.7",
@@ -50,7 +50,7 @@
     "file-saver": "2.0.5",
     "jsonwebtoken": "9.0.2",
     "lucide-react": "0.546.0",
-    "next": "16.4.2",
+    "next": "16.4.6",
     "next-intl": "4.9.2",
     "nuqs": "^2.10.1",
     "oauth4webapi": "3.8.8",
