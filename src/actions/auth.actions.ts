@@ -121,11 +121,9 @@ export async function getUserDetails() {
   const user: User = await userResponse.json();
 
   // TODO(KBX-1526): drop once kpi-ua/api.campus.kpi.ua#979 is deployed; until then the API sends "Lecturer"
-  const userCategories = user.userCategories.map((category) =>
-    (category as string) === 'Lecturer' ? UserCategory.AcademicStaff : category,
-  );
+  const roles = user.roles.map((role) => ((role as string) === 'Lecturer' ? UserCategory.AcademicStaff : role));
 
-  return { ...user, userCategories };
+  return { ...user, roles };
 }
 
 export async function exchangeKPIIDCode(authorization: KPIIDAuthorization): Promise<KPIIDCodeExchange> {

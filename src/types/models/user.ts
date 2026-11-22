@@ -13,11 +13,9 @@ export interface User {
   fullName: string;
   photo: string;
   credo: string;
-  sid: string;
-  modules: string[];
   intellectProfile?: string;
-  userCategories: UserCategory[];
-  codeOfHonorSignDate: string;
+  roles: UserCategory[];
+  codeOfHonorSignDate: string | null;
   privacyConsentDate?: string | null;
   studentProfile?: StudentProfile;
   employeeProfile?: EmployeeProfile;
