@@ -1,6 +1,5 @@
 export interface KPIIDAccountSlim {
   username: string;
-  photo: string;
 }
 
 export interface KPIIDAccount extends KPIIDAccountSlim {
