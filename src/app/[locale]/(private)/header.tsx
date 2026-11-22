@@ -1,8 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { sleep } from 'radash';
-import { FC, useEffect, useRef, useState } from 'react';
+import { FC } from 'react';
 
 import { logout } from '@/actions/auth.actions';
 import { SignOut } from '@/app/images';
@@ -15,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { Show } from '@/components/utils/show';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Link } from '@/i18n/routing';
-import { cn, getUniqueUserPhotoUrl } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { User } from '@/types/models/user';
 
 interface Props {
@@ -26,30 +25,6 @@ export const Header: FC<Props> = ({ user }) => {
   const isMobile = useIsMobile();
 
   const t = useTranslations('private.profile');
-  const [profilePhoto, setProfilePhoto] = useState('');
-  const firstRender = useRef(true);
-
-  // This is to update profile picture when it's been uploaded in profile settings.
-  // Photo is cached on CDN level, but the link to it is always the same.
-  // We need to wait several seconds after image upload. During this time the cache is purged.
-  // Then we re-render component with an updated link with a random parameter, which is
-  // propagated to CDN url via campus backend.
-  useEffect(() => {
-    const setProfilePhotoUrl = () => setProfilePhoto(getUniqueUserPhotoUrl(user.photo));
-
-    const deferProfileImageUpdate = async () => {
-      await sleep(5000);
-      setProfilePhotoUrl();
-    };
-
-    if (firstRender.current) {
-      setProfilePhotoUrl();
-      firstRender.current = false;
-    } else {
-      deferProfileImageUpdate();
-    }
-  }, [user]);
-
   const handleLogout = async () => {
     await logout();
   };
@@ -73,7 +48,7 @@ export const Header: FC<Props> = ({ user }) => {
                 aria-label={t('title')}
                 className="rounded-full p-1 ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden"
               >
-                <ProfilePicture size="sm" src={profilePhoto} />
+                <ProfilePicture size="sm" src={user.photo} />
               </Link>
             </TooltipTrigger>
             <TooltipContent>

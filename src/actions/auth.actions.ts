@@ -7,9 +7,9 @@ import qs from 'query-string';
 
 import { campusFetch } from '@/lib/client';
 import { SID_COOKIE_NAME, TOKEN_COOKIE_NAME, USER_PROFILE_CACHE_TAG } from '@/lib/constants/common';
-import { UserCategory } from '@/types/enums/user-category';
 import { AuthResponse } from '@/types/models/auth-response';
 import { KPIIDAccount, KPIIDAuthorization, KPIIDCodeExchange } from '@/types/models/kpi-id-account';
+import { PasswordResetConfirmationResult } from '@/types/models/link-confirmation';
 import { User } from '@/types/models/user';
 
 const MAIN_COOKIE_DOMAIN = process.env.MAIN_COOKIE_DOMAIN;
@@ -91,6 +91,23 @@ export async function resetPassword(username: string, recaptchaToken: string) {
   }
 }
 
+export async function confirmPasswordReset(key: string): Promise<PasswordResetConfirmationResult> {
+  const response = await campusFetch('account/recovery/verify', {
+    method: 'POST',
+    body: JSON.stringify({ key }),
+  });
+
+  if (response.ok) {
+    return 'success';
+  }
+
+  if (response.status === 410) {
+    return 'expired';
+  }
+
+  throw new Error(`${response.status} Error`);
+}
+
 export async function getUserDetails() {
   const userResponse = await campusFetch<User>('profile', {
     next: { tags: [USER_PROFILE_CACHE_TAG] },
@@ -100,14 +117,7 @@ export async function getUserDetails() {
     return null;
   }
 
-  const user: User = await userResponse.json();
-
-  // TODO(KBX-1526): drop once kpi-ua/api.campus.kpi.ua#979 is deployed; until then the API sends "Lecturer"
-  const userCategories = user.userCategories.map((category) =>
-    (category as string) === 'Lecturer' ? UserCategory.AcademicStaff : category,
-  );
-
-  return { ...user, userCategories };
+  return userResponse.json();
 }
 
 export async function exchangeKPIIDCode(authorization: KPIIDAuthorization): Promise<KPIIDCodeExchange> {
