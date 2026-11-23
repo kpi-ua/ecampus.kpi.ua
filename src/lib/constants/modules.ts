@@ -13,8 +13,7 @@ export const MODULES: Module[] = [
   { name: 'directory', isExternal: false },
   { name: 'rnp', isExternal: true },
   { name: 'adminvote', isExternal: false },
-  // The old Campus vote module that employees were sent to is gone; their results are in votelecturer.
-  { name: 'vote', isExternal: false, profileAreas: [ProfileArea.Student] },
+  { name: 'vote', isExternal: false },
   { name: 'votelecturer', isExternal: false },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'plans_individual', isExternal: true },
