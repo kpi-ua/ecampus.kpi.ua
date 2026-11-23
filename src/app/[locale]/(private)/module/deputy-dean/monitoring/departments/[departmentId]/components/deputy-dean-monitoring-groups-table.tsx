@@ -1,0 +1,56 @@
+import { getTranslations } from 'next-intl/server';
+
+import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
+import { DeputyDeanView } from '@/app/[locale]/(private)/module/deputy-dean/constants';
+import { DeputyDeanMonitoringGroup } from '@/app/[locale]/(private)/module/deputy-dean/types';
+import { getDeputyDeanReportPath } from '@/app/[locale]/(private)/module/deputy-dean/utils/report-path';
+import { Paragraph } from '@/components/typography';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
+import { Link } from '@/i18n/routing';
+
+interface Props {
+  groups: DeputyDeanMonitoringGroup[];
+  departmentId: number;
+}
+export const DeputyDeanMonitoringGroupsTable = async ({ groups, departmentId }: Props) => {
+  const t = await getTranslations('private.deputy-dean');
+
+  return (
+    <Show when={groups.length > 0} fallback={<Paragraph>{t('empty')}</Paragraph>}>
+      <DeputyDeanTableCard>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>{t('columns.course')}</TableHead>
+              <TableHead>{t('columns.group')}</TableHead>
+              <TableHead>{t('columns.disciplineCount')}</TableHead>
+              <TableHead>{t('columns.sheetCount')}</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {groups.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell className="whitespace-pre-wrap">{row.course}</TableCell>
+                <TableCell className="whitespace-pre-wrap">
+                  <Link
+                    className="underline"
+                    href={getDeputyDeanReportPath({
+                      view: DeputyDeanView.GroupLoad,
+                      departmentId,
+                      groupId: row.groupId,
+                    })}
+                  >
+                    {row.group}
+                  </Link>
+                </TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.disciplineCount}</TableCell>
+                <TableCell className="whitespace-pre-wrap">{row.sheetCount}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </DeputyDeanTableCard>
+    </Show>
+  );
+};
