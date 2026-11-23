@@ -1,14 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useQueryStates } from 'nuqs';
 
 import { DeputyDeanTableCard } from '@/app/[locale]/(private)/module/deputy-dean/components/deputy-dean-table-card';
 import { DeputyDeanExamStatus, DeputyDeanMarkStatus } from '@/app/[locale]/(private)/module/deputy-dean/constants';
-import {
-  examResultSortColumns,
-  studentResultsSearchParams,
-} from '@/app/[locale]/(private)/module/deputy-dean/student-results-search-params';
 import { DeputyDeanExamResult } from '@/app/[locale]/(private)/module/deputy-dean/types';
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -22,27 +17,6 @@ interface Props {
 
 export const DeputyDeanResultsTable = ({ results }: Props) => {
   const t = useTranslations('private.deputy-dean');
-  const [{ sort, direction }, setQuery] = useQueryStates(studentResultsSearchParams, {
-    shallow: false,
-    history: 'push',
-  });
-  const sortHandlers = Object.fromEntries(
-    examResultSortColumns.map((column) => [
-      column,
-      {
-        dir: sort === column ? direction : null,
-        onClick: () => {
-          if (sort !== column) {
-            void setQuery({ sort: column, direction: null, page: null });
-          } else if (direction === 'desc') {
-            void setQuery({ direction: 'asc', page: null });
-          } else {
-            void setQuery({ sort: null, direction: null, page: null });
-          }
-        },
-      },
-    ]),
-  );
   const markLabels = {
     [DeputyDeanMarkStatus.Missing]: '',
     [DeputyDeanMarkStatus.NotAdmitted]: t('values.not-admitted'),
@@ -64,36 +38,16 @@ export const DeputyDeanResultsTable = ({ results }: Props) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead sortHandlers={sortHandlers} sortHeader="part">
-                  {t('columns.part')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="eventDate">
-                  {t('columns.eventDate')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="discipline">
-                  {t('columns.discipline')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="controlForm">
-                  {t('columns.controlForm')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="examiner">
-                  {t('columns.examiner')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="mark">
-                  {t('columns.mark')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="nationalScale">
-                  {t('columns.nationalScale')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="status">
-                  {t('columns.examStatus')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="opensAt">
-                  {t('columns.opensAt')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="closesAt">
-                  {t('columns.closesAt')}
-                </TableHead>
+                <TableHead>{t('columns.part')}</TableHead>
+                <TableHead>{t('columns.eventDate')}</TableHead>
+                <TableHead>{t('columns.discipline')}</TableHead>
+                <TableHead>{t('columns.controlForm')}</TableHead>
+                <TableHead>{t('columns.examiner')}</TableHead>
+                <TableHead>{t('columns.mark')}</TableHead>
+                <TableHead>{t('columns.nationalScale')}</TableHead>
+                <TableHead>{t('columns.examStatus')}</TableHead>
+                <TableHead>{t('columns.opensAt')}</TableHead>
+                <TableHead>{t('columns.closesAt')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

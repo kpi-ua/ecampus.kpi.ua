@@ -12,7 +12,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { TableExpandButton } from '@/components/ui/table-expand-button';
 import { Show } from '@/components/utils/show';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
-import { useTableSort } from '@/hooks/use-table-sort';
 import { Link } from '@/i18n/routing';
 import { formatDate } from '@/lib/utils';
 
@@ -30,8 +29,6 @@ export const DeputyDeanGroupsTable = ({ groups }: Props) => {
   const [studentsByGroup, setStudentsByGroup] = useState<Record<number, DeputyDeanAgreement[]>>({});
   const studentsMutation = useMutation({ mutationFn: getDeputyDeanAgreements });
   const { errorToast } = useServerErrorToast();
-
-  const { sortedRows, sortHandlers } = useTableSort(groups, undefined, ['course', 'group', 'curator', 'department']);
 
   const toggleGroup = async (groupId: number) => {
     if (expandedGroupId === groupId) {
@@ -63,25 +60,17 @@ export const DeputyDeanGroupsTable = ({ groups }: Props) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead sortHandlers={sortHandlers} sortHeader="course">
-                  {t('columns.course')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="group">
-                  {t('columns.group')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="department">
-                  {t('columns.department')}
-                </TableHead>
-                <TableHead sortHandlers={sortHandlers} sortHeader="curator">
-                  {t('columns.curator')}
-                </TableHead>
+                <TableHead>{t('columns.course')}</TableHead>
+                <TableHead>{t('columns.group')}</TableHead>
+                <TableHead>{t('columns.department')}</TableHead>
+                <TableHead>{t('columns.curator')}</TableHead>
                 <TableHead className="w-12">
                   <span className="sr-only">{t('actions')}</span>
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedRows.map((row) => (
+              {groups.map((row) => (
                 <Fragment key={row.groupId}>
                   <TableRow key={row.groupId}>
                     <TableCell className="whitespace-pre-wrap">{row.course}</TableCell>

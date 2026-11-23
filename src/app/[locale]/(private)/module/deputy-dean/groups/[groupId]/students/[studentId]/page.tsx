@@ -40,8 +40,6 @@ export default async function StudentResultsPage({ params, searchParams }: Props
       groupId,
       page: query.page,
       pageSize: PAGE_SIZE_DEFAULT,
-      sort: query.sort,
-      descending: query.direction === 'desc',
     }),
     getTranslations(INTL_NAMESPACE),
   ]);

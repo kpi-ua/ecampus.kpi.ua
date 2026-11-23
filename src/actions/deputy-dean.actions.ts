@@ -2,7 +2,6 @@
 
 import qs from 'query-string';
 
-import { type ExamResultSortColumn } from '@/app/[locale]/(private)/module/deputy-dean/student-results-search-params';
 import {
   DeputyDeanGroup,
   DeputyDeanAgreement,
@@ -36,8 +35,6 @@ export const getDeputyDeanStudentResults = async ({
   groupId: number;
   page: number;
   pageSize: number;
-  sort: ExamResultSortColumn | null;
-  descending: boolean;
 }): Promise<DeputyDeanExamResultPage> => {
   const url = qs.stringifyUrl({ url: `/deputy-dean/students/${studentId}/results/page`, query }, { skipNull: true });
   const response = await campusFetch<DeputyDeanExamResultPage>(url);
