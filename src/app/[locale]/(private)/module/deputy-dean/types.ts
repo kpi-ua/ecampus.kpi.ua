@@ -60,6 +60,51 @@ export interface DeputyDeanExamResultPage {
   pageSize: number;
 }
 
+export interface DeputyDeanMonitoringGroup {
+  groupId: number;
+  course: number;
+  group: string;
+  disciplineCount: number;
+  sheetCount: number;
+}
+
+export interface DeputyDeanGroupDiscipline {
+  groupId: number;
+  course: number;
+  group: string;
+  disciplineId: number;
+  discipline: string;
+  teachingDepartment: string;
+  sheetCount: number;
+}
+
+export interface DeputyDeanMonitoringSheet {
+  course: number;
+  sheetId: number;
+  employeeSheetId: number;
+  groupId: number;
+  group: string;
+  disciplineId: number;
+  discipline: string;
+  employeeId: number;
+  employee: string;
+  name: string;
+  assessmentCount: number;
+  markCount: number;
+}
+
+export interface DeputyDeanSheetMark {
+  studentId: number;
+  student: string;
+  employeeSheetId: number;
+  assessmentId: number | null;
+  assessmentDescription: string | null;
+  assessmentDate: string | null;
+  sheetName: string;
+  teacher: string;
+  mark: number | null;
+}
+
 export interface DeputyDeanDepartment {
   id: number;
   name: string;
