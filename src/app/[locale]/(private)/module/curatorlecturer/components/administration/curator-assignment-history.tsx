@@ -1,11 +1,11 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { getCuratorAssignments } from '@/actions/curatorlecturer.actions';
 import { CuratorAssignment } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { SpinnerGap } from '@/app/images';
 import { Heading4, Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Show } from '@/components/utils/show';
@@ -29,7 +29,7 @@ export const CuratorAssignmentHistory = ({ groupId, onEdit, disabled }: Props) =
   return (
     <div className="flex flex-col gap-2">
       <Heading4 className="m-0 mb-1 text-base font-semibold">{t('history.title')}</Heading4>
-      <Show when={!isFetching} fallback={<LoaderCircle className="size-5 animate-spin" />}>
+      <Show when={!isFetching} fallback={<SpinnerGap className="size-5" />}>
         <Show
           when={assignments.length > 0}
           fallback={<Paragraph className="m-0 text-sm text-neutral-500">{t('history.empty')}</Paragraph>}

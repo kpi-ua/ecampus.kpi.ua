@@ -188,6 +188,7 @@ src/app/[locale]/(private)/module/<name>/
 ```
 
 - `page.tsx` is **always** a server component. It fetches data (via server actions in `@/actions/`), declares `generateMetadata`, and renders inside `<SubLayout>`. See `module/rating/page.tsx`, `module/certificates/page.tsx`, `module/facultycertificate/page.tsx`.
+- A module needs no `loading.tsx` of its own: `(private)/loading.tsx` and `module/loading.tsx` show the shared `LoadingScreen` whenever a page or a module is opened. A `loading.tsx` fires only when the child segment of its own folder changes, so add one inside a module only for navigation within it — nested routes (`curatorlecturer`, `biblioteka`, `k7-form`), search params that the page fetches by (`announcementseditor`), or a module `layout.tsx` that should stay on screen while the page loads (`vedomoststud`).
 - Heavy interactive logic goes into a client component imported from `./components/`. Use `page.content.tsx` only when you need a thin client wrapper around the whole page (see `facultycertificate/page.content.tsx`).
 - File names are **kebab-case**. Suffix-based naming: `*-table.tsx`, `*-form.tsx`, `*-dialog.tsx`, `*-card.tsx`, `*-filters.tsx`.
 - Module-local helpers live in `<module>/utils/<concern>.ts` (one helper per file — see `facultycertificate/utils/print-certificate.ts`, `button-state-controller.ts`). Do not create a single grab-bag `utils.ts` unless the file genuinely covers a single concern (e.g. `certificates/utils.ts` only has badge styling helpers).
