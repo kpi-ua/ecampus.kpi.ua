@@ -13,7 +13,8 @@ export const MODULES: Module[] = [
   { name: 'directory', isExternal: false },
   { name: 'rnp', isExternal: true },
   { name: 'adminvote', isExternal: false },
-  { name: 'vote', isExternal: (profileArea: ProfileArea) => profileArea === ProfileArea.Employee },
+  // The old Campus vote module that employees were sent to is gone; their results are in votelecturer.
+  { name: 'vote', isExternal: false, profileAreas: [ProfileArea.Student] },
   { name: 'votelecturer', isExternal: false },
   { name: 'rectorialcontrol', isExternal: true },
   { name: 'plans_individual', isExternal: true },
