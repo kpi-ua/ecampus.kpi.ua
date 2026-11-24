@@ -327,6 +327,7 @@
       "workplace": "Workplace",
       "contract": "Contract",
       "sessionLoadError": "Session results could not be loaded.",
+      "courseLabel": "{course, plural, =1 {Bachelor's, year 1} =2 {Bachelor's, year 2} =3 {Bachelor's, year 3} =4 {Bachelor's, year 4} =5 {Master's, year 1} =6 {Master's, year 2} =7 {PhD, year 1} =8 {PhD, year 2} =9 {PhD, year 3} =10 {PhD, year 4} =11 {PhD, year 5} =12 {PhD, year 6} other {#}}",
       "allFilterValues": "All",
       "allDepartments": "All departments",
       "staffDirectory": "Department teaching staff",

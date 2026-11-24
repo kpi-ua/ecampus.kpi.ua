@@ -39,7 +39,7 @@ export async function StudentDirectoryTable({
                   }
                 </TableCell>
                 <TableCell>{row.groupName ?? EMPTY_VALUE}</TableCell>
-                <TableCell>{row.course ?? EMPTY_VALUE}</TableCell>
+                <TableCell>{row.course == null ? EMPTY_VALUE : t('courseLabel', { course: row.course })}</TableCell>
                 <TableCell>{row.educationLevel ?? EMPTY_VALUE}</TableCell>
               </TableRow>
             ))}

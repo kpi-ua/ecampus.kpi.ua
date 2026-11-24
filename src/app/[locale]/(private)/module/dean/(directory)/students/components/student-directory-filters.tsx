@@ -34,7 +34,7 @@ export function StudentDirectoryFilters({ departments, groups }: Props) {
     {
       key: 'course',
       value: course?.toString(),
-      options: courses.map((item) => ({ value: item.toString(), label: item.toString() })),
+      options: courses.map((item) => ({ value: item.toString(), label: t('courseLabel', { course: item }) })),
       onChange: (value: string | null) =>
         setFilters({ course: value === null ? null : Number(value), group: null, page: null }),
     },
