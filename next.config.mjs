@@ -33,6 +33,61 @@ const nextConfig = {
       },
     },
   },
+  async redirects() {
+    return [
+      {
+        source: '/:locale(uk|en)/module/zdekan/employees/contacts/:departmentId(\\d+)',
+        destination: '/:locale/module/dean/employees/contacts?departmentId=:departmentId',
+        permanent: false,
+      },
+      {
+        source: '/:locale(uk|en)/module/zdekan/employees/lecturer-surveys/all/:page(\\d+)',
+        destination: '/:locale/module/dean/employees/lecturer-surveys?page=:page',
+        permanent: false,
+      },
+      {
+        source: '/:locale(uk|en)/module/zdekan/employees/lecturer-surveys/:departmentId(\\d+)/:page(\\d+)',
+        destination: '/:locale/module/dean/employees/lecturer-surveys?departmentId=:departmentId&page=:page',
+        permanent: false,
+      },
+      {
+        source: '/:locale(uk|en)/module/zdekan/employees/lecturer-surveys/:departmentId(\\d+)',
+        destination: '/:locale/module/dean/employees/lecturer-surveys?departmentId=:departmentId',
+        permanent: false,
+      },
+      {
+        source: '/:locale(uk|en)/module/zdekan/employees',
+        has: [{ type: 'query', key: 'staffView', value: 'lecturerSurveys' }],
+        destination: '/:locale/module/dean/employees/lecturer-surveys',
+        permanent: false,
+      },
+      {
+        source: '/:locale(uk|en)/module/zdekan',
+        destination: '/:locale/module/dean/employees',
+        permanent: false,
+      },
+      {
+        source: '/module/zdekan',
+        destination: '/module/dean/employees',
+        permanent: false,
+      },
+      {
+        source: '/:locale(uk|en)/module/zdekan/:path+',
+        destination: '/:locale/module/dean/:path+',
+        permanent: false,
+      },
+      {
+        source: '/:locale(uk|en)/module/dean',
+        destination: '/:locale/module/dean/employees',
+        permanent: false,
+      },
+      {
+        source: '/module/dean',
+        destination: '/module/dean/employees',
+        permanent: false,
+      },
+    ];
+  },
   output: 'standalone',
   images: {
     remotePatterns: [
