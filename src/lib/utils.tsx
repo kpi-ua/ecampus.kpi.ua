@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 import type { ReactNode } from 'react';
 import { twMerge } from 'tailwind-merge';
 
+import { EMPTY_VALUE } from './constants/common';
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -35,6 +37,9 @@ export const formatDate = (dateString?: string | Date | null, format = 'YYYY-MM-
   const date = dayjs(dateString);
   return date.isValid() ? date.format(format) : '';
 };
+
+export const formatDateOrPlaceholder = (value?: string | Date | null, format = 'DD.MM.YYYY'): string =>
+  formatDate(value, format) || EMPTY_VALUE;
 
 export const formatTime = (dateString: string) => dayjs(dateString).format('HH:mm');
 

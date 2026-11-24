@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { type KeyboardEvent, useState } from 'react';
@@ -11,7 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
 import { Link, usePathname } from '@/i18n/routing';
 import { EMPTY_VALUE } from '@/lib/constants/common';
-import { cn } from '@/lib/utils';
+import { cn, formatDateOrPlaceholder } from '@/lib/utils';
 import { K7_REPORT_REQUEST_STATUS, K7ReportRequest, K7ReportRequestStatus } from '@/types/models/k7-form';
 
 import { downloadK7Report } from '../utils/download-k7-report';
@@ -118,7 +117,7 @@ export const K7ReportsTable = ({ reports, departmentNames, all }: Props) => {
                 tabIndex={isError ? 0 : undefined}
               >
                 <TableCell className="py-4 font-normal whitespace-nowrap">
-                  {dayjs(report.requestedAt).format('DD.MM.YYYY, HH:mm')}
+                  {formatDateOrPlaceholder(report.requestedAt, 'DD.MM.YYYY, HH:mm')}
                 </TableCell>
                 <TableCell>
                   {report.year}-{report.year + 1}

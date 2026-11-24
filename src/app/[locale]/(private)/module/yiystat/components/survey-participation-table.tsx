@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { Paragraph } from '@/components/typography';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { formatDate } from '@/lib/utils';
+import { formatDateOrPlaceholder } from '@/lib/utils';
 import { SurveyParticipation } from '@/types/models/statistics';
 
 interface Props {
@@ -32,8 +32,8 @@ export const SurveyParticipationTable = async ({ items }: Props) => {
           <TableRow key={item.id}>
             <TableCell>{item.id}</TableCell>
             <TableCell className="whitespace-nowrap">{item.studyYear}</TableCell>
-            <TableCell>{formatDate(item.startsOn)}</TableCell>
-            <TableCell>{formatDate(item.endsOn)}</TableCell>
+            <TableCell>{formatDateOrPlaceholder(item.startsOn)}</TableCell>
+            <TableCell>{formatDateOrPlaceholder(item.endsOn)}</TableCell>
             <TableCell>{item.respondentCount}</TableCell>
           </TableRow>
         ))}
