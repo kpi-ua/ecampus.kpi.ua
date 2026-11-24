@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { select } from 'radash';
+import { dash, select } from 'radash';
 import { useState } from 'react';
 
 import { Paragraph } from '@/components/typography';
@@ -41,6 +41,7 @@ export function SessionSheetsTable({
   lecturerView: boolean;
 }) {
   const t = useTranslations('private.session-administration');
+  const tStudyForm = useTranslations('global.enums.study-form');
   const [hiddenStatuses, setHiddenStatuses] = useState<SessionSheetStatus[]>([]);
   const [retake, setRetake] = useState(RetakeFilter.All);
   const [form, setForm] = useState('all');
@@ -98,9 +99,9 @@ export function SessionSheetsTable({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">{t('allForms')}</SelectItem>
-            {Array.from(studyModes, ([value, name]) => (
+            {Array.from(studyModes, ([value, studyForm]) => (
               <SelectItem key={value} value={value}>
-                {name}
+                {tStudyForm(dash(studyForm))}
               </SelectItem>
             ))}
           </SelectContent>

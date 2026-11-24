@@ -1,3 +1,5 @@
+import { type StudyForm } from '@/types/enums/study-form';
+
 export enum SessionSheetStatus {
   Open = 'open',
   Closed = 'closed',
@@ -12,7 +14,7 @@ export interface SessionSheet {
   group: string;
   discipline: string;
   assessment: string;
-  educationForm: string;
+  educationForm: StudyForm;
   educationFormId: string;
   employeeId: string;
   lecturer: string | null;
