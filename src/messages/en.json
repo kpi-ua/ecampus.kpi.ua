@@ -337,6 +337,8 @@
       "actions": "Actions",
       "empty": "No records found.",
       "addStudent": "Add student",
+      "studentAdded": "Student {student} was added to group {group}",
+      "studentRemoved": "Student {student} was removed from group {group}",
       "searchStudent": "Search students by name",
       "search": "Search",
       "requestFailed": "The request failed. Try again.",

@@ -9,14 +9,17 @@ import { Button } from '@/components/ui/button';
 import { Command, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { useDebounce } from '@/components/ui/multi-select';
 import { useServerErrorToast } from '@/hooks/use-server-error-toast';
+import { useToast } from '@/hooks/use-toast';
 import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
-import { type DeansOfficeStudentSearchResult } from '@/types/models/deans-office';
+import { type DeansOfficeOption, type DeansOfficeStudentSearchResult } from '@/types/models/deans-office';
 
-export function AddStudentSearch({ groupId }: { groupId: number }) {
+export function AddStudentSearch({ group }: { group: DeansOfficeOption }) {
+  const { id: groupId, name: groupName } = group;
   const t = useTranslations('private.deans-office');
   const queryClient = useQueryClient();
   const combobox = useTranslations('global.combobox');
   const { errorToast } = useServerErrorToast();
+  const { toast } = useToast();
   const [input, setInput] = useState('');
   const [focused, setFocused] = useState(false);
   const [selected, setSelected] = useState<DeansOfficeStudentSearchResult | null>(null);
@@ -44,7 +47,9 @@ export function AddStudentSearch({ groupId }: { groupId: number }) {
         throw new Error('Student assignment failed');
       }
     },
-    onSuccess: () => {
+    onSuccess: (_, student) => {
+      const [fullName] = student.name.split(' — ', 1);
+      toast({ title: t('studentAdded', { student: fullName, group: groupName }) });
       void queryClient.invalidateQueries({ queryKey: ['deans-office', 'student-search'] });
       setInput('');
       setSelected(null);

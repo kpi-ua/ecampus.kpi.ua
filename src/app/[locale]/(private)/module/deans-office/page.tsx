@@ -42,7 +42,7 @@ export default async function RosterPage({ searchParams }: { searchParams: Promi
       {selected && (
         <>
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <AddStudentSearch key={selected.id} groupId={selected.id} />
+            <AddStudentSearch key={selected.id} group={selected} />
             <ExportButton kind="roster" label={t('export')} query={{ groupId: selected.id }} />
           </div>
           <Table>
@@ -58,7 +58,7 @@ export default async function RosterPage({ searchParams }: { searchParams: Promi
                   <TableRow key={student.id}>
                     <TableCell>{student.name}</TableCell>
                     <TableCell>
-                      <RemoveStudentButton student={student} groupId={selected.id} />
+                      <RemoveStudentButton student={student} group={selected} />
                     </TableCell>
                   </TableRow>
                 ))}

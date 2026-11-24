@@ -337,6 +337,8 @@
       "actions": "Дії",
       "empty": "Записів не знайдено.",
       "addStudent": "Додати студента",
+      "studentAdded": "Студента {student} додано до групи {group}",
+      "studentRemoved": "Студента {student} вилучено з групи {group}",
       "searchStudent": "Пошук студентів за ПІБ",
       "search": "Шукати",
       "requestFailed": "Не вдалося виконати запит. Спробуйте ще раз.",
