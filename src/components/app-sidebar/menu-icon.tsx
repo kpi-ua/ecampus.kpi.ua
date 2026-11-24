@@ -42,6 +42,7 @@ export const menuIcon: Map<string, React.ReactNode> = new Map([
   ['vedomost', GraduationCap],
   ['mob', Books],
   ['vote', ChartBarHorizontal],
+  ['votelecturer', ChartBarHorizontal],
   ['contacts', IdentificationBadge],
   ['directory', UsersThree],
   ['notice-board', Scroll],
