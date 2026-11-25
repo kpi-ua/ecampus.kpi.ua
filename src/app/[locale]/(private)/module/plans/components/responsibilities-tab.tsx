@@ -9,13 +9,13 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
-export const ResponsibilitiesTab = ({ yearId }: { yearId: number }) => {
+export const ResponsibilitiesTab = () => {
   const t = useTranslations('private.plans');
   const [semester, setSemester] = useState(0);
   const [search, setSearch] = useState('');
   const client = useQueryClient();
   const query = useQuery({
-    queryKey: ['plans', yearId, 'responsibilities', semester],
+    queryKey: ['plans', 'responsibilities', semester],
     queryFn: () => getPlanResponsibilities(semester),
   });
   const mutation = useMutation({

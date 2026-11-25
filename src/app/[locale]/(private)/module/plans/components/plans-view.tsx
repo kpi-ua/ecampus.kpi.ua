@@ -2,13 +2,12 @@
 import { useTranslations } from 'next-intl';
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { PlanLoad, PlanWorkplace, PlanYear } from '@/types/models/plans';
+import { PlanLoad, PlanWorkplace } from '@/types/models/plans';
 
 import { ResponsibilitiesTab } from './responsibilities-tab';
 import { WorkloadsTab } from './workloads-tab';
 
 interface Props {
-  currentYear: PlanYear;
   workplaces: PlanWorkplace[];
   initialLoads: PlanLoad[];
 }
@@ -24,7 +23,7 @@ export const PlansView = (props: Props) => {
         <WorkloadsTab {...props} />
       </TabsContent>
       <TabsContent value="responsibilities" className="mt-0">
-        <ResponsibilitiesTab yearId={props.currentYear.id} />
+        <ResponsibilitiesTab />
       </TabsContent>
     </Tabs>
   );

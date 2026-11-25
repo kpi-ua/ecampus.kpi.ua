@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getPlanLoads, getPlanWorkplaces, getCurrentPlanYear } from '@/actions/plans.actions';
+import { getPlanLoads, getPlanWorkplaces } from '@/actions/plans.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { LocaleProps } from '@/types/locale-props';
@@ -17,9 +17,7 @@ export async function generateMetadata({ params }: LocaleProps) {
 
 export default async function PlansPage() {
   const t = await getTranslations(INTL_NAMESPACE);
-  const [currentYear, workplaces] = await Promise.all([getCurrentPlanYear(), getPlanWorkplaces()]);
-
-  const loads = await getPlanLoads();
+  const [workplaces, loads] = await Promise.all([getPlanWorkplaces(), getPlanLoads()]);
 
   return (
     <SubLayout pageTitle={t('title')}>
@@ -28,7 +26,7 @@ export default async function PlansPage() {
           <Heading2>{t('title')}</Heading2>
           <Description>{t('subtitle')}</Description>
         </div>
-        <PlansView currentYear={currentYear} workplaces={workplaces} initialLoads={loads} />
+        <PlansView workplaces={workplaces} initialLoads={loads} />
       </div>
     </SubLayout>
   );

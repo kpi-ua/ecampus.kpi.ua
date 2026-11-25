@@ -3,10 +3,6 @@ export interface PlanOption {
   name: string;
 }
 
-export interface PlanYear extends PlanOption {
-  isCurrent: boolean;
-}
-
 export interface PlanWorkplace extends PlanOption {
   duties: string;
 }

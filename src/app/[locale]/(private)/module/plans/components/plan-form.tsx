@@ -19,7 +19,6 @@ import { PlanCatalog, PlanOption, PlanWorkplace } from '@/types/models/plans';
 
 interface Props {
   workplaces: PlanWorkplace[];
-  yearName: string;
   onCancel: () => void;
   onSaved: () => Promise<void>;
 }
@@ -34,7 +33,7 @@ interface DraftLoad {
 
 const uniqueNames = (names: string[]) => unique(names).sort((a, b) => a.localeCompare(b));
 
-export const PlanForm = ({ workplaces, yearName, onCancel, onSaved }: Props) => {
+export const PlanForm = ({ workplaces, onCancel, onSaved }: Props) => {
   const t = useTranslations('private.plans');
   const entrySchema = z.object({
     semester: z.number().int().min(1).max(2),
@@ -251,10 +250,6 @@ export const PlanForm = ({ workplaces, yearName, onCancel, onSaved }: Props) => 
       <fieldset className="rounded-lg border border-neutral-200 p-4">
         <legend className="px-2 text-sm font-semibold">{t('planDetails')}</legend>
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="grid gap-1 text-sm font-medium">
-            {t('year')}
-            <Input value={yearName} readOnly className="bg-neutral-50" />
-          </label>
           <label className="grid gap-1 text-sm font-medium">
             {t('semester')}
             <Select

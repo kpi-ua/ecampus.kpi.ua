@@ -10,18 +10,9 @@ import {
   PlanOption,
   PlanResponsibility,
   PlanWorkplace,
-  PlanYear,
 } from '@/types/models/plans';
 
 const PATH = '/module/plans';
-
-export async function getCurrentPlanYear() {
-  const response = await campusFetch<PlanYear>('plans/current-year');
-  if (!response.ok) {
-    throw new Error(`${response.status} Error`);
-  }
-  return response.json();
-}
 
 export async function getPlanWorkplaces() {
   const response = await campusFetch<PlanWorkplace[]>('plans/workplaces');
