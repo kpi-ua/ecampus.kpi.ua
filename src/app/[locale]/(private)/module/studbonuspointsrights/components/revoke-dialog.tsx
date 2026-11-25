@@ -71,7 +71,7 @@ export function RevokeDialog({ messages, descriptionValues, icon, onConfirm }: P
           <AlertDialogTitle>{t('title')}</AlertDialogTitle>
           <AlertDialogDescription>{t('description', descriptionValues)}</AlertDialogDescription>
         </AlertDialogHeader>
-        <AlertDialogFooter>
+        <AlertDialogFooter className="justify-end gap-2 sm:space-x-0">
           <AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
           <Button
             type="button"

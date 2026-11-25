@@ -60,6 +60,7 @@ export const PeriodsManagement = () => {
       setDeleteTarget(null);
     }
   };
+  const handleDeleteCancel = () => setDeleteTarget(null);
   const handleDeleteConfirm = () => {
     if (deleteTarget && !deletion.isPending) {
       deletion.mutate(deleteTarget.id);
@@ -90,8 +91,8 @@ export const PeriodsManagement = () => {
             </AlertDialogTitle>
             <AlertDialogDescription>{t('actions.deleteDescription')}</AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <Button variant="secondary" disabled={deletion.isPending} onClick={() => setDeleteTarget(null)}>
+          <AlertDialogFooter className="justify-end gap-2 sm:space-x-0">
+            <Button variant="secondary" disabled={deletion.isPending} onClick={handleDeleteCancel}>
               {t('actions.cancel')}
             </Button>
             <Button
