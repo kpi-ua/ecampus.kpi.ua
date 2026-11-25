@@ -1,10 +1,10 @@
 'use client';
 
-import { LoaderCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { useGroupLeaderSelect } from '@/app/[locale]/(private)/module/curatorlecturer/components/group-curator-view/overview/hooks/use-group-leader-select';
 import { CuratorGroup } from '@/app/[locale]/(private)/module/curatorlecturer/types';
+import { SpinnerGap } from '@/app/images';
 import { Paragraph } from '@/components/typography/index';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -39,7 +39,7 @@ export const GroupLeaderSelect = ({ group }: Props) => {
             <Select value={studentId} onValueChange={setStudentId} disabled={isLoading}>
               <SelectTrigger id={inputId} variant="small">
                 <Show when={isLoading} fallback={<SelectValue placeholder={t('leader.placeholder')} />}>
-                  <LoaderCircle className="size-4 animate-spin" />
+                  <SpinnerGap className="size-4" />
                 </Show>
               </SelectTrigger>
               <SelectContent>

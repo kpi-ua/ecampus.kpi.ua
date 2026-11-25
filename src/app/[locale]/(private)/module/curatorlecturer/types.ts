@@ -61,6 +61,7 @@ export interface CuratorAdministrationData {
 }
 
 export interface CuratorAssignment {
+  canEdit: boolean;
   assignmentId: number;
   employeeId: number;
   curatorName: string;
