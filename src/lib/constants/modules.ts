@@ -31,7 +31,7 @@ export const MODULES: Module[] = [
   { name: 'webometrics', isExternal: true },
   { name: 'ekanat', isExternal: true },
   { name: 'editRNP', isExternal: true },
-  { name: 'hignyak', isExternal: true },
+  { name: 'hignyak', isExternal: false },
   { name: 'rnpedit', isExternal: true },
   { name: 'rnpupd', isExternal: true },
   { name: 'rnpupd2', isExternal: true },

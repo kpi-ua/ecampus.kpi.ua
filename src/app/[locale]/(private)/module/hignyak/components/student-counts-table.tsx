@@ -4,6 +4,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Link } from '@/i18n/routing';
 import { type DnvrAttestationReport, type DnvrStudentCount } from '@/types/models/dnvr-reporting';
 
+import { type AttestationPeriod, getAttestationPath } from '../routes';
+
 export async function StudentCountsTable({
   rows,
   report,
@@ -12,7 +14,7 @@ export async function StudentCountsTable({
 }: {
   rows: DnvrStudentCount[];
   report: DnvrAttestationReport | null;
-  period: string;
+  period?: AttestationPeriod;
   detail: boolean;
 }) {
   const t = await getTranslations('private.dnvr-reporting');
@@ -49,13 +51,12 @@ export async function StudentCountsTable({
             <TableCell>
               {detail ? (
                 row.disciplineAndGroup
-              ) : row.facultyId && row.educationLevelId && report ? (
+              ) : row.facultyId && row.educationLevelId && report && period ? (
                 <Link
                   className="underline"
                   href={{
-                    pathname: '/module/hignyak',
+                    pathname: getAttestationPath(report),
                     query: {
-                      report,
                       period,
                       facultyId: row.facultyId,
                       educationLevelId: row.educationLevelId,
