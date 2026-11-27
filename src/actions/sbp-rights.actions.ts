@@ -14,89 +14,77 @@ import {
   GrantSbpRightsResult,
   SbpLoadCatalogItem,
   SbpResponsibilityListItem,
+  SbpRightsHolder,
   SbpRightsListQuery,
-  SbpStudyYearCatalogItem,
   SbpSubdivisionCatalogItem,
 } from '@/types/models/sbp-rights';
 
 export const getSbpLoads = async (): Promise<SbpLoadCatalogItem[]> => {
-  try {
-    const response = await campusFetch<SbpLoadCatalogItem[]>('sbp-rights/loads');
-    if (!response.ok) {
-      return [];
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching SBP loads:', error);
-    return [];
+  const response = await campusFetch<SbpLoadCatalogItem[]>('sbp-rights/loads');
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch SBP loads: ${response.status} ${response.statusText}`);
   }
+
+  return (await response.json()) as SbpLoadCatalogItem[];
 };
 
 export const getSbpSubdivisions = async (): Promise<SbpSubdivisionCatalogItem[]> => {
-  try {
-    const response = await campusFetch<SbpSubdivisionCatalogItem[]>('sbp-rights/subdivisions');
-    if (!response.ok) {
-      return [];
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching SBP subdivisions:', error);
-    return [];
-  }
-};
+  const response = await campusFetch<SbpSubdivisionCatalogItem[]>('sbp-rights/subdivisions');
 
-export const getSbpStudyYears = async (): Promise<SbpStudyYearCatalogItem[]> => {
-  try {
-    const response = await campusFetch<SbpStudyYearCatalogItem[]>('sbp-rights/study-years');
-    if (!response.ok) {
-      return [];
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching SBP study years:', error);
-    return [];
+  if (!response.ok) {
+    throw new Error(`Failed to fetch SBP subdivisions: ${response.status} ${response.statusText}`);
   }
+
+  return (await response.json()) as SbpSubdivisionCatalogItem[];
 };
 
 export const searchSbpUsers = async (query: string): Promise<EntityIdName[]> => {
-  try {
-    const trimmed = query.trim();
-    if (trimmed.length < USER_SEARCH_MIN_CHARS) {
-      return [];
-    }
-    const url = qs.stringifyUrl({ url: 'sbp-rights/users/search', query: { q: trimmed } });
-    const response = await campusFetch<EntityIdName[]>(url);
-    if (!response.ok) {
-      return [];
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error searching SBP users:', error);
+  const trimmed = query.trim();
+  if (trimmed.length < USER_SEARCH_MIN_CHARS) {
     return [];
   }
+
+  const url = qs.stringifyUrl({ url: 'sbp-rights/users/search', query: { q: trimmed } });
+  const response = await campusFetch<EntityIdName[]>(url);
+
+  if (!response.ok) {
+    throw new Error(`Failed to search SBP users: ${response.status} ${response.statusText}`);
+  }
+
+  return (await response.json()) as EntityIdName[];
 };
 
-export interface SbpRightsResult {
-  items: SbpResponsibilityListItem[];
+export interface SbpRightsHoldersResult {
+  items: SbpRightsHolder[];
   total: number;
 }
 
-export const getSbpRights = async (query: SbpRightsListQuery = {}): Promise<SbpRightsResult> => {
-  try {
-    const url = qs.stringifyUrl({ url: 'sbp-rights', query: { ...query } }, { skipNull: true, skipEmptyString: true });
-    const response = await campusFetch<SbpResponsibilityListItem[]>(url);
+export const getSbpRightsHolders = async (query: SbpRightsListQuery = {}): Promise<SbpRightsHoldersResult> => {
+  const url = qs.stringifyUrl(
+    { url: 'sbp-rights/users', query: { ...query } },
+    { skipNull: true, skipEmptyString: true },
+  );
+  const response = await campusFetch<SbpRightsHolder[]>(url);
 
-    if (!response.ok) {
-      return { items: [], total: 0 };
-    }
-
-    const items = (await response.json()) as SbpResponsibilityListItem[];
-    const total = parseInt(response.headers.get('x-total-count') ?? '0', 10) || 0;
-    return { items, total };
-  } catch (error) {
-    console.error('Error fetching SBP rights:', error);
-    return { items: [], total: 0 };
+  if (!response.ok) {
+    throw new Error(`Failed to fetch SBP rights holders: ${response.status} ${response.statusText}`);
   }
+
+  const items = (await response.json()) as SbpRightsHolder[];
+  const total = parseInt(response.headers.get('x-total-count') ?? '0', 10) || 0;
+  return { items, total };
+};
+
+/** Every active right of one person. */
+export const getSbpUserRights = async (userAccountId: number): Promise<SbpResponsibilityListItem[]> => {
+  const response = await campusFetch<SbpResponsibilityListItem[]>(`sbp-rights/users/${userAccountId}`);
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch SBP rights of user: ${response.status} ${response.statusText}`);
+  }
+
+  return (await response.json()) as SbpResponsibilityListItem[];
 };
 
 export const grantSbpRights = async (payload: GrantSbpRightsPayload): Promise<GrantSbpRightsResult> => {
@@ -108,7 +96,6 @@ export const grantSbpRights = async (payload: GrantSbpRightsPayload): Promise<Gr
     userAccountId: payload.userAccountId,
     scope: payload.scope,
     subdivisionId: payload.scope === 'University' ? undefined : payload.subdivisionId,
-    studyingYearId: payload.studyingYearId,
     loadIds: payload.loadIds,
   });
 

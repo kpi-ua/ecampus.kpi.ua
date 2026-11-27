@@ -23,13 +23,16 @@ export interface SbpSubdivisionCatalogItem {
   isUniversityWide: boolean;
 }
 
-export interface SbpStudyYearCatalogItem {
-  id: number;
-  name: string;
-  isCurrent: boolean;
+/** A person with active rights, returned by `GET /sbp-rights/users`. */
+export interface SbpRightsHolder {
+  userAccountId: number;
+  fullName: string;
+  /** Distinct subdivisions of the person's rights; the university-wide row for whole-university rights. */
+  subdivisions: SbpSubdivisionCatalogItem[];
+  rightsCount: number;
 }
 
-/** Denormalized row returned by `GET /sbp-rights`. */
+/** Denormalized row returned by `GET /sbp-rights` and `GET /sbp-rights/users/{id}`. */
 export interface SbpResponsibilityListItem {
   id: number;
   userAccountId: number;
@@ -38,8 +41,6 @@ export interface SbpResponsibilityListItem {
   subdivisionId: number;
   subdivisionName: string;
   subdivisionAbbreviation: string | null;
-  studyingYearId: number;
-  studyingYearName: string;
   loadId: number;
   loadName: string;
   loadSubTreeNumber: number | null;
@@ -49,13 +50,12 @@ export interface SbpResponsibilityListItem {
   comment: string | null;
 }
 
-/** Filters for `GET /sbp-rights`; `null` (an unset URL filter) is dropped like `undefined`. */
+/** Filters for `GET /sbp-rights` and `GET /sbp-rights/users`; `null` (an unset URL filter) is dropped like `undefined`. */
 export interface SbpRightsListQuery {
   search?: string | null;
   userAccountId?: number | null;
   loadId?: number | null;
   subdivisionId?: number | null;
-  studyingYearId?: number | null;
   page?: number | null;
   pageSize?: number | null;
 }
@@ -65,8 +65,6 @@ export interface GrantSbpRightsPayload {
   scope: AccessScope;
   /** Required when `scope === 'Faculty'`; ignored otherwise. */
   subdivisionId?: number;
-  /** When omitted, the backend resolves the current study year. */
-  studyingYearId?: number;
   loadIds: number[];
 }
 

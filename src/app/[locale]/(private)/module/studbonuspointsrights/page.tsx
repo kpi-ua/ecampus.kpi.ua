@@ -1,15 +1,19 @@
 import { getTranslations } from 'next-intl/server';
 import { SearchParams } from 'nuqs/server';
 
-import { getSbpLoads, getSbpRights, getSbpStudyYears, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
+import { getSbpLoads, getSbpRightsHolders, getSbpSubdivisions } from '@/actions/sbp-rights.actions';
 import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
+import { TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Show } from '@/components/utils/show';
 import { redirect } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
 
 import { GrantButton } from './components/grant-button';
+import { ModuleTabs } from './components/module-tabs';
+import { PeriodsManagement } from './components/periods/periods-management';
 import { RightsEmptyState } from './components/rights-empty-state';
 import { RightsFilters } from './components/rights-filters';
 import { RightsTable } from './components/rights-table';
@@ -34,46 +38,53 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
 
   const filters = await loadRightsSearchParams(searchParams);
 
-  const [rights, loads, subdivisions, years] = await Promise.all([
-    getSbpRights({ ...filters, pageSize: PAGE_SIZE_DEFAULT }),
+  const [holders, loads, subdivisions] = await Promise.all([
+    getSbpRightsHolders({ ...filters, pageSize: PAGE_SIZE_DEFAULT }),
     getSbpLoads(),
     getSbpSubdivisions(),
-    getSbpStudyYears(),
   ]);
 
-  // Revoking the last rows of the last page leaves the URL past the end; go to the new last page.
-  const lastPage = Math.max(1, Math.ceil(rights.total / PAGE_SIZE_DEFAULT));
-  if (rights.items.length === 0 && filters.page > lastPage) {
+  // Revoking the last rights of the last page leaves the URL past the end; go to the new last page.
+  const lastPage = Math.max(1, Math.ceil(holders.total / PAGE_SIZE_DEFAULT));
+  if (holders.items.length === 0 && filters.page > lastPage) {
     redirect({ href: serializeRightsSearchParams(SBP_RIGHTS_PATH, { ...filters, page: lastPage }), locale });
   }
 
-  const hasFilters = Boolean(filters.search || filters.studyingYearId || filters.subdivisionId || filters.loadId);
+  const hasFilters = Boolean(filters.search || filters.subdivisionId || filters.loadId);
 
   return (
     <SubLayout pageTitle={t('title')}>
       <div className="col-span-12">
-        <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-          <div className="max-w-2xl">
-            <Heading2>{t('title')}</Heading2>
-            <Description>{t('subtitle')}</Description>
-          </div>
-          <GrantButton />
+        <div className="mb-6 max-w-2xl">
+          <Heading2>{t('title')}</Heading2>
+          <Description>{t('subtitle')}</Description>
         </div>
 
-        <RightsFilters loads={loads} subdivisions={subdivisions} years={years} />
+        <ModuleTabs>
+          <TabsList size="small" className="self-start">
+            <TabsTrigger value="rights">{t('tabs.rights')}</TabsTrigger>
+            <TabsTrigger value="periods">{t('tabs.periods')}</TabsTrigger>
+          </TabsList>
+          <TabsContent value="rights" className="mt-0">
+            <div className="mb-4 flex justify-end">
+              <GrantButton />
+            </div>
 
-        <div className="mt-8">
-          {rights.items.length === 0 ? (
-            <RightsEmptyState hasFilters={hasFilters} />
-          ) : (
-            <>
-              <RightsTable items={rights.items} />
-              <div className="mt-4">
-                <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={rights.total} />
-              </div>
-            </>
-          )}
-        </div>
+            <RightsFilters loads={loads} subdivisions={subdivisions} />
+
+            <div className="mt-8">
+              <Show when={holders.items.length > 0} fallback={<RightsEmptyState hasFilters={hasFilters} />}>
+                <RightsTable holders={holders.items} />
+                <div className="mt-4">
+                  <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={holders.total} />
+                </div>
+              </Show>
+            </div>
+          </TabsContent>
+          <TabsContent value="periods" className="mt-0">
+            <PeriodsManagement />
+          </TabsContent>
+        </ModuleTabs>
       </div>
     </SubLayout>
   );

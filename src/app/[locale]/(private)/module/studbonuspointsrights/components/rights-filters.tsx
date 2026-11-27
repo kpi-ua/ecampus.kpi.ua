@@ -6,18 +6,17 @@ import { debounce, useQueryStates } from 'nuqs';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { SEARCH_DEBOUNCE_MS } from '@/lib/constants/common';
-import { SbpLoadCatalogItem, SbpStudyYearCatalogItem, SbpSubdivisionCatalogItem } from '@/types/models/sbp-rights';
+import { SbpLoadCatalogItem, SbpSubdivisionCatalogItem } from '@/types/models/sbp-rights';
 
 import { rightsSearchParams } from '../search-params';
 
 const ALL_VALUE = 'all';
 
-type SelectFilter = 'studyingYearId' | 'subdivisionId' | 'loadId';
+type SelectFilter = 'subdivisionId' | 'loadId';
 
 interface Props {
   loads: SbpLoadCatalogItem[];
   subdivisions: SbpSubdivisionCatalogItem[];
-  years: SbpStudyYearCatalogItem[];
 }
 
 /**
@@ -25,7 +24,7 @@ interface Props {
  * so the page re-renders on the server and the table refreshes. Every change
  * drops `page`, since the current page may be out of range.
  */
-export function RightsFilters({ loads, subdivisions, years }: Props) {
+export function RightsFilters({ loads, subdivisions }: Props) {
   const t = useTranslations('private.studbonuspointsrights');
   const [filters, setFilters] = useQueryStates(rightsSearchParams, { shallow: false, history: 'replace' });
 
@@ -38,27 +37,12 @@ export function RightsFilters({ loads, subdivisions, years }: Props) {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       <Input
         value={filters.search}
         onChange={(e) => onSearchChange(e.target.value)}
         placeholder={t('filters.searchPlaceholder')}
       />
-
-      <Select value={filters.studyingYearId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('studyingYearId')}>
-        <SelectTrigger>
-          <SelectValue placeholder={t('filters.year')} />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value={ALL_VALUE}>{t('filters.allYears')}</SelectItem>
-          {years.map((y) => (
-            <SelectItem key={y.id} value={String(y.id)}>
-              {y.name}
-              {y.isCurrent ? ` · ${t('filters.currentSuffix')}` : ''}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
 
       <Select value={filters.subdivisionId?.toString() ?? ALL_VALUE} onValueChange={onSelectChange('subdivisionId')}>
         <SelectTrigger>
