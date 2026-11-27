@@ -47,6 +47,7 @@ export const EMPTY_VALUE = '—';
 
 /** Dates as people read them; `formatDate` defaults to the ISO form the inputs need. */
 export const DATE_FORMAT = 'DD.MM.YYYY';
+export const SHORT_DATE_FORMAT = 'DD.MM';
 
 export const PAGE_SIZE_DEFAULT = 20;
 export const PAGE_SIZE_SMALL = 5;

@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Paragraph } from '@/components/typography';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Show } from '@/components/utils/show';
 import { DATE_FORMAT, EMPTY_VALUE } from '@/lib/constants/common';
 import { formatDate } from '@/lib/utils';
 import { SbpPeriod } from '@/types/models/sbp-periods';
@@ -74,11 +75,12 @@ export const PeriodsTable = ({ periods, disabled, onEdit, onDelete }: Props) => 
                 />
               </TableCell>
               <TableCell>
-                {appeal ? (
-                  <DateRange from={appeal.from.format(DATE_FORMAT)} to={appeal.to.format(DATE_FORMAT)} />
-                ) : (
-                  EMPTY_VALUE
-                )}
+                <Show when={!!appeal} fallback={EMPTY_VALUE}>
+                  <DateRange
+                    from={formatDate(appeal?.from.toDate(), DATE_FORMAT)}
+                    to={formatDate(appeal?.to.toDate(), DATE_FORMAT)}
+                  />
+                </Show>
               </TableCell>
               <TableCell className="whitespace-nowrap">
                 {formatDate(period.dateExport, DATE_FORMAT) || EMPTY_VALUE}

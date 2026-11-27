@@ -6,6 +6,7 @@ import { SubLayout } from '@/app/[locale]/(private)/sub-layout';
 import { Description, Heading2 } from '@/components/typography';
 import { PaginationWithLinks } from '@/components/ui/pagination-with-links';
 import { TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Show } from '@/components/utils/show';
 import { redirect } from '@/i18n/routing';
 import { PAGE_SIZE_DEFAULT } from '@/lib/constants/common';
 import { LocaleProps } from '@/types/locale-props';
@@ -72,16 +73,12 @@ export default async function SbpRightsPage({ params, searchParams }: PageProps)
             <RightsFilters loads={loads} subdivisions={subdivisions} />
 
             <div className="mt-8">
-              {holders.items.length === 0 ? (
-                <RightsEmptyState hasFilters={hasFilters} />
-              ) : (
-                <>
-                  <RightsTable holders={holders.items} />
-                  <div className="mt-4">
-                    <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={holders.total} />
-                  </div>
-                </>
-              )}
+              <Show when={holders.items.length > 0} fallback={<RightsEmptyState hasFilters={hasFilters} />}>
+                <RightsTable holders={holders.items} />
+                <div className="mt-4">
+                  <PaginationWithLinks page={filters.page} pageSize={PAGE_SIZE_DEFAULT} totalCount={holders.total} />
+                </div>
+              </Show>
             </div>
           </TabsContent>
           <TabsContent value="periods" className="mt-0">
